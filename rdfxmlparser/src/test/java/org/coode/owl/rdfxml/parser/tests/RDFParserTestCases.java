@@ -56,13 +56,7 @@ public class RDFParserTestCases extends TestCase {
 
     }
 
-    public void testOWLTestSuite() throws Exception {
-        parseFiles("/owltestsuite/");
-    }
 
-    public void testOWL11() throws Exception {
-        parseFiles("/owl11/");
-    }
 
     public void testOWLAPI() throws Exception {
         parseFiles("/owlapi/");
