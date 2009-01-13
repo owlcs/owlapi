@@ -38,8 +38,8 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
     public void testCreation() throws Exception {
-        OWLDataRange rng = getOWLDataFactory().getOWLDataType(createURI());
-        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedConstant("3", getOWLDataFactory().getOWLDataType(
+        OWLDataRange rng = getOWLDataFactory().getOWLDatatype(createURI());
+        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
                 createURI()));
         Set<OWLDataRangeFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLRestrictedDataRangeFacetVocabulary.MAX_EXCLUSIVE, facetValue);
         OWLDataRangeRestriction restRng = getOWLDataFactory().getOWLDataRangeRestriction(rng, restrictions);
@@ -50,8 +50,8 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
     public void testEqualsPositive() throws Exception {
-        OWLDataRange rng = getOWLDataFactory().getOWLDataType(createURI());
-        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedConstant("3", getOWLDataFactory().getOWLDataType(
+        OWLDataRange rng = getOWLDataFactory().getOWLDatatype(createURI());
+        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
                 createURI()));
         Set<OWLDataRangeFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLRestrictedDataRangeFacetVocabulary.MAX_EXCLUSIVE, facetValue);
 
@@ -64,8 +64,8 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
     public void testEqualsNegative() throws Exception {
-        OWLDataRange rng = getOWLDataFactory().getOWLDataType(createURI());
-        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedConstant("3", getOWLDataFactory().getOWLDataType(
+        OWLDataRange rng = getOWLDataFactory().getOWLDatatype(createURI());
+        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
                 createURI()));
         Set<OWLDataRangeFacetRestriction> restrictionsA = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLRestrictedDataRangeFacetVocabulary.MAX_EXCLUSIVE, facetValue);
         Set<OWLDataRangeFacetRestriction> restrictionsB = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLRestrictedDataRangeFacetVocabulary.MIN_INCLUSIVE, facetValue);
@@ -79,8 +79,8 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
     public void testHashCode() throws Exception {
-        OWLDataRange rng = getOWLDataFactory().getOWLDataType(createURI());
-        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedConstant("3", getOWLDataFactory().getOWLDataType(
+        OWLDataRange rng = getOWLDataFactory().getOWLDatatype(createURI());
+        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
                 createURI()));
         Set<OWLDataRangeFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLRestrictedDataRangeFacetVocabulary.MAX_EXCLUSIVE, facetValue);
 

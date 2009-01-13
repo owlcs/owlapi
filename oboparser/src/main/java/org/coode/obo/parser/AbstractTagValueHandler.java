@@ -137,12 +137,12 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
 
     protected OWLLiteral getBooleanConstant(Boolean b) {
         if (b) {
-            return getDataFactory().getOWLTypedConstant("true",
-                                                        getDataFactory().getOWLDataType(XSDVocabulary.BOOLEAN.getURI()));
+            return getDataFactory().getOWLTypedLiteral("true",
+                                                        getDataFactory().getOWLDatatype(XSDVocabulary.BOOLEAN.getURI()));
         }
         else {
-            return getDataFactory().getOWLTypedConstant("false",
-                                                        getDataFactory().getOWLDataType(XSDVocabulary.BOOLEAN.getURI()));
+            return getDataFactory().getOWLTypedLiteral("false",
+                                                        getDataFactory().getOWLDatatype(XSDVocabulary.BOOLEAN.getURI()));
         }
     }
 

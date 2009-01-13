@@ -67,8 +67,8 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
         OWLAnnotation anno;
 
         if (getConsumer().isOntologyProperty(object)) {
-            OWLLiteral con = getDataFactory().getOWLTypedConstant(object.toString(),
-                                                                   getDataFactory().getOWLDataType(XSDVocabulary.ANY_URI.getURI()));
+            OWLLiteral con = getDataFactory().getOWLTypedLiteral(object.toString(),
+                                                                   getDataFactory().getOWLDatatype(XSDVocabulary.ANY_URI.getURI()));
             anno = getDataFactory().getOWLConstantAnnotation(predicate, con);
         }
         else if (getConsumer().isIndividual(object)) {
@@ -77,8 +77,8 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
         }
         else {
             // Plain URI
-            OWLLiteral con = getDataFactory().getOWLTypedConstant(object.toString(),
-                                                                   getDataFactory().getOWLDataType(XSDVocabulary.ANY_URI.getURI()));
+            OWLLiteral con = getDataFactory().getOWLTypedLiteral(object.toString(),
+                                                                   getDataFactory().getOWLDatatype(XSDVocabulary.ANY_URI.getURI()));
             anno = getDataFactory().getOWLConstantAnnotation(predicate, con);
         }
         OWLEntity entity = null;

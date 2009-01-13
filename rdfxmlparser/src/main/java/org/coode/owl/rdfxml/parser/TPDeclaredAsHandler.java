@@ -57,7 +57,7 @@ public class TPDeclaredAsHandler extends TriplePredicateHandler {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDataProperty(subject)));
         }
         else if(object.equals(OWLRDFVocabulary.OWL_DATATYPE.getURI())) {
-            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDataType(subject)));
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDatatype(subject)));
         }
     }
 }

@@ -92,9 +92,9 @@ public abstract class AbstractTypeAxiomHandler extends BuiltInTypeHandler {
 //                    getDataFactory().getOWLAxiomAnnotationAxiom(axiom, anno);
 //                }
 //                else {
-//                    OWLTypedLiteral con = getDataFactory().getOWLTypedConstant(
+//                    OWLTypedLiteral con = getDataFactory().getOWLTypedLiteral(
 //                            object.toString(),
-//                            getDataFactory().getOWLDataType(XSDVocabulary.ANY_URI.getURIFromValue())
+//                            getDataFactory().getOWLDatatype(XSDVocabulary.ANY_URI.getURIFromValue())
 //                    );
 //                    OWLConstantAnnotation anno = getDataFactory().getOWLConstantAnnotation(triple.getPredicate(), con);
 //                    getDataFactory().getOWLAxiomAnnotationAxiom(axiom, anno);

@@ -67,8 +67,8 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         logicalAxioms.add(df.getOWLEquivalentDataPropertiesAxiom(propD, getOWLDataProperty("q")));
         logicalAxioms.add(df.getOWLDisjointDataPropertiesAxiom(propD, getOWLDataProperty("q")));
         logicalAxioms.add(df.getOWLDataPropertyDomainAxiom(propD, getOWLClass("A")));
-        logicalAxioms.add(df.getOWLDataPropertyRangeAxiom(propD, df.getIntegerDataType()));
-        logicalAxioms.add(df.getOWLDataPropertyAssertionAxiom(getOWLIndividual("a"), propD, df.getOWLTypedConstant(3)));
+        logicalAxioms.add(df.getOWLDataPropertyRangeAxiom(propD, df.getIntegerDatatype()));
+        logicalAxioms.add(df.getOWLDataPropertyAssertionAxiom(getOWLIndividual("a"), propD, df.getOWLTypedLiteral(3)));
         logicalAxioms.add(df.getOWLFunctionalDataPropertyAxiom(propD));
 
 

@@ -957,8 +957,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     private OWLTypedLiteral toTypedConstant(int i) {
-        return manager.getOWLDataFactory().getOWLTypedConstant(Integer.toString(i),
-                                                               manager.getOWLDataFactory().getOWLDataType(XSDVocabulary.NON_NEGATIVE_INTEGER.getURI()));
+        return manager.getOWLDataFactory().getOWLTypedLiteral(Integer.toString(i),
+                                                               manager.getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getURI()));
     }
 
 

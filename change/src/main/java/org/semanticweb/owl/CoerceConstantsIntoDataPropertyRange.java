@@ -90,7 +90,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         private OWLLiteral process(OWLDataPropertyExpression prop, OWLLiteral con) {
             OWLDataType dt = map.get(prop);
             if(dt != null) {
-                return getDataFactory().getOWLTypedConstant(con.getString(), dt);
+                return getDataFactory().getOWLTypedLiteral(con.getString(), dt);
             }
             else {
                 return con;

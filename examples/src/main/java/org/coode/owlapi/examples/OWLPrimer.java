@@ -141,8 +141,8 @@ public class OWLPrimer {
             // In the above code, 33 is an integer, so we can just pass 33 into the data factory method.
             // Behind the scenes the OWL API will create a typed constant that it will use as the value
             // of the data property assertion.  We could have manually created the constant as follows:
-            OWLDataType intDataType = factory.getOWLDataType(XSDVocabulary.INT.getURI());
-            OWLTypedLiteral thirtyThree = factory.getOWLTypedConstant("33", intDataType);
+            OWLDataType intDataType = factory.getOWLDatatype(XSDVocabulary.INT.getURI());
+            OWLTypedLiteral thirtyThree = factory.getOWLTypedLiteral("33", intDataType);
             // We would then create the axiom as follows:
             factory.getOWLDataPropertyAssertionAxiom(john, hasAge, thirtyThree);
             // However, the convenice method is much shorter!
@@ -212,7 +212,7 @@ public class OWLPrimer {
             // We need the integer datatype.  The XML Schema Datatype URIs are used for data types.
             // The OWL API provide a built in set via the XSDVocabulary enum.
             domainsAndRanges.add(factory.getOWLDataPropertyDomainAxiom(hasAge, person));
-            OWLDataType integerDataType = factory.getOWLDataType(XSDVocabulary.INTEGER.getURI());
+            OWLDataType integerDataType = factory.getOWLDatatype(XSDVocabulary.INTEGER.getURI());
             domainsAndRanges.add(factory.getOWLDataPropertyRangeAxiom(hasAge, integerDataType));
 
             // Now add all of our domain and range axioms
@@ -381,7 +381,7 @@ public class OWLPrimer {
             // 13 and less than 20.  In Manchester Syntax this is written as Person and hasAge some int[>=13, <20]
             // We create a data range by taking the integer datatype and applying facet restrictions to it.
             // Note that we have statically imported the data range facet vocabulary OWLRestrictedDataRangeFacetVocabulary
-            OWLDataRangeFacetRestriction geq13 = factory.getOWLDataRangeFacetRestriction(MIN_INCLUSIVE, factory.getOWLTypedConstant(13));
+            OWLDataRangeFacetRestriction geq13 = factory.getOWLDataRangeFacetRestriction(MIN_INCLUSIVE, factory.getOWLTypedLiteral(13));
             // We don't have to explicitly create the typed constant, there are convenience methods to do this
             OWLDataRangeFacetRestriction lt20 = factory.getOWLDataRangeFacetRestriction(MAX_EXCLUSIVE, 20);
             // Restrict the base type, integer (which is just an XML Schema Datatype) with the facet

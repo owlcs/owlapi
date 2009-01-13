@@ -538,7 +538,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public boolean containsDataTypeReference(URI datatypeURI) {
-        return getReferencedDatatypes().contains(getOWLDataFactory().getOWLDataType(datatypeURI));
+        return getReferencedDatatypes().contains(getOWLDataFactory().getOWLDatatype(datatypeURI));
     }
 
 

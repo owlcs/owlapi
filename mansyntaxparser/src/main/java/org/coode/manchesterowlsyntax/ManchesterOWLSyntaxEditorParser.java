@@ -372,9 +372,9 @@ public class ManchesterOWLSyntaxEditorParser {
 
     public OWLDataType getDataType(String name) {
         if (name.startsWith("xsd:")) {
-            return dataFactory.getOWLDataType(URI.create(Namespaces.XSD + name.substring(name.indexOf(':') + 1)));
+            return dataFactory.getOWLDatatype(URI.create(Namespaces.XSD + name.substring(name.indexOf(':') + 1)));
         } else {
-            return dataFactory.getOWLDataType(URI.create(Namespaces.XSD + name));
+            return dataFactory.getOWLDatatype(URI.create(Namespaces.XSD + name));
         }
     }
 
@@ -742,7 +742,7 @@ public class ManchesterOWLSyntaxEditorParser {
                     }
                     OWLLiteral con = parseConstant();
                     if (!con.isTyped()) {
-                        con = dataFactory.getOWLTypedConstant(con.getString());
+                        con = dataFactory.getOWLTypedLiteral(con.getString());
                     }
                     facetRestrictions.add(dataFactory.getOWLDataRangeFacetRestriction(fv, con.asOWLTypedLiteral()));
                     sep = consumeToken();
@@ -828,7 +828,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 }
                 consumeToken();
                 String dataType = consumeToken();
-                return dataFactory.getOWLTypedConstant(lit, getDataType(dataType));
+                return dataFactory.getOWLTypedLiteral(lit, getDataType(dataType));
             } else if (peekToken().equals("@")) {
                 consumeToken();
                 String lang = consumeToken();
@@ -839,7 +839,7 @@ public class ManchesterOWLSyntaxEditorParser {
         } else {
             try {
                 int i = Integer.parseInt(tok);
-                return dataFactory.getOWLTypedConstant(i);
+                return dataFactory.getOWLTypedLiteral(i);
             }
             catch (NumberFormatException e) {
                 // Ignore - not interested
@@ -847,7 +847,7 @@ public class ManchesterOWLSyntaxEditorParser {
             if (tok.endsWith("f")) {
                 try {
                     float f = Float.parseFloat(tok);
-                    return dataFactory.getOWLTypedConstant(f);
+                    return dataFactory.getOWLTypedLiteral(f);
                 }
                 catch (NumberFormatException e) {
                     // Ignore - not interested
@@ -855,17 +855,17 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             try {
                 double d = Double.parseDouble(tok);
-                return dataFactory.getOWLTypedConstant(tok, dataFactory.getOWLDataType(XSDVocabulary.DOUBLE.getURI()));
-//                return dataFactory.getOWLTypedConstant(d);
+                return dataFactory.getOWLTypedLiteral(tok, dataFactory.getOWLDatatype(XSDVocabulary.DOUBLE.getURI()));
+//                return dataFactory.getOWLTypedLiteral(d);
             }
             catch (NumberFormatException e) {
                 // Ignore - not interested
             }
 
             if (tok.equals("true")) {
-                return dataFactory.getOWLTypedConstant(true);
+                return dataFactory.getOWLTypedLiteral(true);
             } else if (tok.equals("false")) {
-                return dataFactory.getOWLTypedConstant(false);
+                return dataFactory.getOWLTypedLiteral(false);
             }
         }
         throwException(false,
@@ -2002,8 +2002,8 @@ public class ManchesterOWLSyntaxEditorParser {
         public DefaultEntityChecker() {
             dataTypeNameMap = new HashMap<String, OWLDataType>();
             for (XSDVocabulary v : XSDVocabulary.values()) {
-                dataTypeNameMap.put(v.getURI().getFragment(), dataFactory.getOWLDataType(v.getURI()));
-                dataTypeNameMap.put("xsd:" + v.getURI().getFragment(), dataFactory.getOWLDataType(v.getURI()));
+                dataTypeNameMap.put(v.getURI().getFragment(), dataFactory.getOWLDatatype(v.getURI()));
+                dataTypeNameMap.put("xsd:" + v.getURI().getFragment(), dataFactory.getOWLDatatype(v.getURI()));
             }
         }
 

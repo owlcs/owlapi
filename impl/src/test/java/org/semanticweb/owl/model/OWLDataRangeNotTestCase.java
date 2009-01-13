@@ -34,14 +34,14 @@ public class OWLDataRangeNotTestCase extends AbstractOWLDataFactoryTest {
 
 
     public void testCreation() throws Exception {
-        OWLDataType dt = getOWLDataFactory().getOWLDataType(createURI());
+        OWLDataType dt = getOWLDataFactory().getOWLDatatype(createURI());
         OWLDataComplementOf rng = getOWLDataFactory().getOWLDataComplementOf(dt);
         assertNotNull(rng);
     }
 
 
     public void testEqualsPositive() throws Exception {
-        OWLDataType dt = getOWLDataFactory().getOWLDataType(createURI());
+        OWLDataType dt = getOWLDataFactory().getOWLDatatype(createURI());
         OWLDataComplementOf rngA = getOWLDataFactory().getOWLDataComplementOf(dt);
         OWLDataComplementOf rngB = getOWLDataFactory().getOWLDataComplementOf(dt);
         assertEquals(rngA, rngB);
@@ -49,16 +49,16 @@ public class OWLDataRangeNotTestCase extends AbstractOWLDataFactoryTest {
 
 
     public void testEqualsNegative() throws Exception {
-        OWLDataType dtA = getOWLDataFactory().getOWLDataType(createURI());
+        OWLDataType dtA = getOWLDataFactory().getOWLDatatype(createURI());
         OWLDataComplementOf rngA = getOWLDataFactory().getOWLDataComplementOf(dtA);
-        OWLDataType dtB = getOWLDataFactory().getOWLDataType(createURI());
+        OWLDataType dtB = getOWLDataFactory().getOWLDatatype(createURI());
         OWLDataComplementOf rngB = getOWLDataFactory().getOWLDataComplementOf(dtB);
         assertNotEquals(rngA, rngB);
     }
 
 
     public void testHashCode() throws Exception {
-        OWLDataType dt = getOWLDataFactory().getOWLDataType(createURI());
+        OWLDataType dt = getOWLDataFactory().getOWLDatatype(createURI());
         OWLDataComplementOf rngA = getOWLDataFactory().getOWLDataComplementOf(dt);
         OWLDataComplementOf rngB = getOWLDataFactory().getOWLDataComplementOf(dt);
         assertEquals(rngA.hashCode(), rngB.hashCode());

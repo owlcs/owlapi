@@ -1,7 +1,5 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLException;
-
 import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -51,6 +49,6 @@ public class OWLDataTypeElementHandler extends AbstractOWLDataRangeHandler {
         if(uri == null) {
             throw new OWLXMLParserAttributeNotFoundException(getLineNumber(), "URI");
         }
-        setDataRange(getOWLDataFactory().getOWLDataType(uri));
+        setDataRange(getOWLDataFactory().getOWLDatatype(uri));
     }
 }

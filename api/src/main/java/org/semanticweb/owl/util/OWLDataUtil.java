@@ -56,22 +56,22 @@ public class OWLDataUtil {
 
 
     public static OWLDataType getIntDataType(OWLDataFactory dataFactory) throws OWLException {
-        return dataFactory.getOWLDataType(INT_URI);
+        return dataFactory.getOWLDatatype(INT_URI);
     }
 
 
     public static OWLDataType getLongDataType(OWLDataFactory dataFactory) throws OWLException {
-        return dataFactory.getOWLDataType(XSDVocabulary.LONG.getURI());
+        return dataFactory.getOWLDatatype(XSDVocabulary.LONG.getURI());
     }
 
 
     public static OWLDataType getFloatDataType(OWLDataFactory dataFactory) throws OWLException {
-        return dataFactory.getOWLDataType(XSDVocabulary.FLOAT.getURI());
+        return dataFactory.getOWLDatatype(XSDVocabulary.FLOAT.getURI());
     }
 
 
     public static OWLDataType getDoubleDataType(OWLDataFactory dataFactory) throws OWLException {
-        return dataFactory.getOWLDataType(XSDVocabulary.DOUBLE.getURI());
+        return dataFactory.getOWLDatatype(XSDVocabulary.DOUBLE.getURI());
     }
 
     /**
@@ -85,7 +85,7 @@ public class OWLDataUtil {
         if (v == null) {
             throw new OWLRuntimeException("Don't know how to translate " + n.getClass());
         }
-        return dataFactory.getOWLDataType(v.getURI());
+        return dataFactory.getOWLDatatype(v.getURI());
     }
 
     public static Set<OWLDataRangeFacetRestriction> getFacetRestrictionSet(OWLDataFactory dataFactory, OWLRestrictedDataRangeFacetVocabulary facet, OWLTypedLiteral facetValue) {
@@ -99,7 +99,7 @@ public class OWLDataUtil {
      * corresponds to the translation of the specified number.
      */
     public static  <N extends Number> OWLTypedLiteral getTypedConstant(OWLDataFactory dataFactory, N val) {
-        return dataFactory.getOWLTypedConstant(val.toString(), getDataType(dataFactory, val));
+        return dataFactory.getOWLTypedLiteral(val.toString(), getDataType(dataFactory, val));
     }
 
 

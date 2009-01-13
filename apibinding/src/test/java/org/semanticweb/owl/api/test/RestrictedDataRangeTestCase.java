@@ -38,10 +38,10 @@ public class RestrictedDataRangeTestCase extends AbstractRoundTrippingTest {
     protected OWLOntology createOntology() {
         try {
             OWLOntology ont = getOWLOntology("http://another.com/ont");
-            OWLDataType dt = getFactory().getIntegerDataType();
+            OWLDataType dt = getFactory().getIntegerDatatype();
             OWLDataRangeRestriction restriction = getFactory().getOWLDataRangeRestriction(dt,
                                                                                           MIN_EXCLUSIVE,
-                                                                                          getFactory().getOWLTypedConstant(33));
+                                                                                          getFactory().getOWLTypedLiteral(33));
             OWLDataProperty prop = getOWLDataProperty("p");
             OWLDescription sup = getFactory().getOWLDataSomeRestriction(prop, restriction);
             OWLClass cls = getOWLClass("A");

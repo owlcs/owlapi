@@ -110,7 +110,7 @@ public class OWLEntityRenamer {
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory().getOWLObjectProperty(uri)));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory().getOWLDataProperty(uri)));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory().getOWLIndividual(uri)));
-        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory().getOWLDataType(uri)));
+        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory().getOWLDatatype(uri)));
         return axioms;
     }
 

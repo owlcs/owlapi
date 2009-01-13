@@ -1371,7 +1371,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      */
     private OWLLiteral getOWLConstant(String literal, String datatype, String lang) {
         if (datatype != null) {
-            return dataFactory.getOWLTypedConstant(literal, dataFactory.getOWLDataType(getURI(datatype)));
+            return dataFactory.getOWLTypedLiteral(literal, dataFactory.getOWLDatatype(getURI(datatype)));
         }
         else {
             if (lang != null) {
@@ -1394,8 +1394,8 @@ public class OWLRDFConsumer implements RDFConsumer {
                     typedConstants.add((OWLTypedLiteral) con);
                 }
                 else {
-                    typedConstants.add(getDataFactory().getOWLTypedConstant(con.getString(),
-                                                                            getDataFactory().getOWLDataType(
+                    typedConstants.add(getDataFactory().getOWLTypedLiteral(con.getString(),
+                                                                            getDataFactory().getOWLDatatype(
                                                                                     XSDVocabulary.STRING.getURI())));
                 }
             }
@@ -1425,7 +1425,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                     else {
                         restrictions.add(dataFactory.getOWLDataRangeFacetRestriction(
                                 OWLRestrictedDataRangeFacetVocabulary.getFacet(facetURI),
-                                dataFactory.getOWLTypedConstant(val.getString(),
+                                dataFactory.getOWLTypedLiteral(val.getString(),
                                                                 OWLDataUtil.getIntDataType(dataFactory))));
                     }
                 }
@@ -1433,7 +1433,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
             return dataFactory.getOWLDataRangeRestriction(restrictedDataRange, restrictions);
         }
-        return getDataFactory().getOWLDataType(uri);
+        return getDataFactory().getOWLDatatype(uri);
     }
 
 

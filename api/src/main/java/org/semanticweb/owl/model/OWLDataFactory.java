@@ -172,14 +172,14 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param uri The URI of the datatype to be obtained
      * @return The object representing the datatype that has the specified URI
      */
-    OWLDataType getOWLDataType(URI uri);
+    OWLDataType getOWLDatatype(URI uri);
 
     /**
      * A convenience method that obtains the datatype that represents integers.  This datatype will have the URI of
      * &lt;http://www.w3.org/2001/XMLSchema#integer&gt;
      * @return An object representing an integer datatype.
      */
-    OWLDataType getIntegerDataType();
+    OWLDataType getIntegerDatatype();
 
 
     /**
@@ -187,7 +187,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * &lt;http://www.w3.org/2001/XMLSchema#float&gt;
      * @return An object representing the float datatype.
      */
-    OWLDataType getFloatDataType();
+    OWLDataType getFloatDatatype();
 
 
     /**
@@ -195,7 +195,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * &lt;http://www.w3.org/2001/XMLSchema#double&gt;
      * @return An object representing a double datatype.
      */
-    OWLDataType getDoubleDataType();
+    OWLDataType getDoubleDatatype();
 
 
     /**
@@ -203,54 +203,54 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * &lt;http://www.w3.org/2001/XMLSchema#boolean&gt;
      * @return An object representing the boolean datatype.
      */
-    OWLDataType getBooleanDataType();
+    OWLDataType getBooleanDatatype();
 
     
-    OWLTypedLiteral getOWLTypedConstant(String literal, OWLDataType dataType);
+    OWLTypedLiteral getOWLTypedLiteral(String literal, OWLDataType dataType);
 
 
     /**
-     * Convenience method that obtains a constant typed as an integer.
-     * @param value The value of the constant
+     * Convenience method that obtains a literal typed as an integer.
+     * @param value The value of the literal
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      * value of the integer, and whose data type is xsd:integer.
      */
-    OWLTypedLiteral getOWLTypedConstant(int value);
+    OWLTypedLiteral getOWLTypedLiteral(int value);
 
 
     /**
-     * Convenience method that obtains a constant typed as a double.
-     * @param value The value of the constant
+     * Convenience method that obtains a literal typed as a double.
+     * @param value The value of the literal
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      * value of the double, and whose data type is xsd:double.
      */
-    OWLTypedLiteral getOWLTypedConstant(double value);
+    OWLTypedLiteral getOWLTypedLiteral(double value);
 
 
     /**
-     * Convenience method that obtains a constant typed as a boolean.
-     * @param value The value of the constant
+     * Convenience method that obtains a literal typed as a boolean.
+     * @param value The value of the literal
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      * value of the boolean, and whose data type is xsd:boolean.
      */
-    OWLTypedLiteral getOWLTypedConstant(boolean value);
+    OWLTypedLiteral getOWLTypedLiteral(boolean value);
 
 
     /**
-     * Convenience method that obtains a constant typed as a float.
-     * @param value The value of the constant
+     * Convenience method that obtains a literal typed as a float.
+     * @param value The value of the literal
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      * value of the float, and whose data type is xsd:float.
      */
-    OWLTypedLiteral getOWLTypedConstant(float value);
+    OWLTypedLiteral getOWLTypedLiteral(float value);
 
     /**
-     * Convenience method that obtains a constant typed as a string.
-     * @param value The value of the constant
+     * Convenience method that obtains a literal typed as a string.
+     * @param value The value of the literal
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      * value of the string, and whose data type is xsd:string.
      */
-    OWLTypedLiteral getOWLTypedConstant(String value);
+    OWLTypedLiteral getOWLTypedLiteral(String value);
 
     OWLRDFTextLiteral getOWLUntypedConstant(String literal);
 
@@ -273,7 +273,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLDataRangeRestriction getOWLDataRangeRestriction(OWLDataRange dataRange,
                                                        OWLRestrictedDataRangeFacetVocabulary facet,
-                                                       OWLTypedLiteral typedConstant);
+                                                       OWLTypedLiteral typedliteral);
 
     OWLDataRangeRestriction getOWLDataRangeRestriction(OWLDataRange dataRange,
                                                        OWLDataRangeFacetRestriction ... facetRestrictions);

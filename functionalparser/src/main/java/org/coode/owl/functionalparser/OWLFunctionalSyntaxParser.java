@@ -660,7 +660,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   final public OWLDataType DataTypeURI() throws ParseException {
     URI uri;
     uri = URI();
-        {if (true) return dataFactory.getOWLDataType(uri);}
+        {if (true) return dataFactory.getOWLDatatype(uri);}
     throw new Error("Missing return statement in function");
   }
 
@@ -1557,7 +1557,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     literal = StringLiteral();
     jj_consume_token(100);
     dataType = DataTypeURI();
-            {if (true) return dataFactory.getOWLTypedConstant(literal, dataType);}
+            {if (true) return dataFactory.getOWLTypedLiteral(literal, dataType);}
     throw new Error("Missing return statement in function");
   }
 

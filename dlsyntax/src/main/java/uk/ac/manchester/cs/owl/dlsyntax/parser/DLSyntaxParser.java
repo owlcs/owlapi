@@ -645,10 +645,10 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     Token t;
     if (jj_2_49(5)) {
       t = jj_consume_token(INT);
-            {if (true) return factory.getOWLTypedConstant(Integer.parseInt(t.image));}
+            {if (true) return factory.getOWLTypedLiteral(Integer.parseInt(t.image));}
     } else if (jj_2_50(5)) {
       t = jj_consume_token(DOUBLE);
-               {if (true) return factory.getOWLTypedConstant(Double.parseDouble(t.image));}
+               {if (true) return factory.getOWLTypedLiteral(Double.parseDouble(t.image));}
     } else {
       jj_consume_token(-1);
       throw new ParseException();
