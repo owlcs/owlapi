@@ -303,12 +303,11 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLObjectSomeRestriction desc) {
+        public void visit(OWLObjectSomeValuesFrom desc) {
             if (signature.contains(desc.getProperty().getNamedProperty())) {
                 newClassExpression = df.getOWLObjectSomeRestriction(desc.getProperty(),
-                                                                    replaceBottom(desc.getFiller()));
-            }
-            else
+                        replaceBottom(desc.getFiller()));
+            } else
                 newClassExpression = df.getOWLNothing();
         }
 

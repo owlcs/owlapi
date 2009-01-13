@@ -199,7 +199,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         writeRestriction(desc, SOME);
     }
 

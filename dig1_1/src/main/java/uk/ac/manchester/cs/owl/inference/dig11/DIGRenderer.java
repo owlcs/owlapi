@@ -69,9 +69,6 @@ public class DIGRenderer implements OWLObjectVisitor {
         nodeStack.pop();
     }
 
-
-
-
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Axioms
@@ -88,8 +85,8 @@ public class DIGRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        for(OWLClassExpression descA : axiom.getDescriptions()) {
-            for(OWLClassExpression descB : axiom.getDescriptions()) {
+        for (OWLClassExpression descA : axiom.getDescriptions()) {
+            for (OWLClassExpression descB : axiom.getDescriptions()) {
                 if (!descA.equals(descB)) {
                     createAndPushNode(Vocab.EQUALC);
                     descA.accept(this);
@@ -119,7 +116,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         // Disjoint isets
         createAndPushNode(Vocab.DISJOINT);
-        for(OWLIndividual ind : axiom.getIndividuals()) {
+        for (OWLIndividual ind : axiom.getIndividuals()) {
             createAndPushNode(Vocab.ISET);
             ind.accept(this);
             popCurrentNode();
@@ -129,8 +126,8 @@ public class DIGRenderer implements OWLObjectVisitor {
 
     public void visit(OWLSameIndividualsAxiom axiom) {
         // Render as pairwise equivalent isets
-        for(OWLIndividual indA : axiom.getIndividuals()) {
-            for(OWLIndividual indB : axiom.getIndividuals()) {
+        for (OWLIndividual indA : axiom.getIndividuals()) {
+            for (OWLIndividual indB : axiom.getIndividuals()) {
                 if (!indA.equals(indB)) {
                     createAndPushNode(Vocab.EQUALC);
                     createAndPushNode(Vocab.ISET);
@@ -144,7 +141,6 @@ public class DIGRenderer implements OWLObjectVisitor {
             }
         }
     }
-
 
 
     public void visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
@@ -378,33 +374,33 @@ public class DIGRenderer implements OWLObjectVisitor {
 
     public void visit(OWLObjectMinCardinalityRestriction desc) {
         createAndPushNode(Vocab.ATLEST);
-                getCurrentNode().setAttribute("num", Integer.toString(desc.getCardinality()));
+        getCurrentNode().setAttribute("num", Integer.toString(desc.getCardinality()));
         desc.getProperty().accept(this);
-            desc.getFiller().accept(this);
-            popCurrentNode();
+        desc.getFiller().accept(this);
+        popCurrentNode();
     }
 
 
     public void visit(OWLObjectExactCardinalityRestriction desc) {
         createAndPushNode(Vocab.ATLEST);
-            getCurrentNode().setAttribute("num", Integer.toString(desc.getCardinality()));
-            desc.getProperty().accept(this);
-            desc.getFiller().accept(this);
-            popCurrentNode();
-            createAndPushNode(Vocab.ATMOST);
-            getCurrentNode().setAttribute("num", Integer.toString(desc.getCardinality()));
-            desc.getProperty().accept(this);
-            desc.getFiller().accept(this);
-            popCurrentNode();
+        getCurrentNode().setAttribute("num", Integer.toString(desc.getCardinality()));
+        desc.getProperty().accept(this);
+        desc.getFiller().accept(this);
+        popCurrentNode();
+        createAndPushNode(Vocab.ATMOST);
+        getCurrentNode().setAttribute("num", Integer.toString(desc.getCardinality()));
+        desc.getProperty().accept(this);
+        desc.getFiller().accept(this);
+        popCurrentNode();
     }
 
 
     public void visit(OWLObjectMaxCardinalityRestriction desc) {
         createAndPushNode(Vocab.ATMOST);
-                getCurrentNode().setAttribute("num", Integer.toString(desc.getCardinality()));
+        getCurrentNode().setAttribute("num", Integer.toString(desc.getCardinality()));
         desc.getProperty().accept(this);
-            desc.getFiller().accept(this);
-            popCurrentNode();
+        desc.getFiller().accept(this);
+        popCurrentNode();
     }
 
     public void visit(OWLObjectProperty node) {
@@ -413,7 +409,7 @@ public class DIGRenderer implements OWLObjectVisitor {
         popCurrentNode();
     }
 
-    public void visit(OWLObjectSomeRestriction node) {
+    public void visit(OWLObjectSomeValuesFrom node) {
         createAndPushNode(Vocab.SOME);
         node.getProperty().accept(this);
         node.getFiller().accept(this);
@@ -436,22 +432,22 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
     public void visit(OWLOntology ontology) {
-        for(OWLClass cls : ontology.getReferencedClasses()) {
+        for (OWLClass cls : ontology.getReferencedClasses()) {
             createAndPushNode(Vocab.DEFCONCEPT);
             getCurrentNode().setAttribute(Vocab.NAME, cls.getURI().toString());
             popCurrentNode();
         }
-        for(OWLObjectProperty prop : ontology.getReferencedObjectProperties()) {
+        for (OWLObjectProperty prop : ontology.getReferencedObjectProperties()) {
             createAndPushNode(Vocab.DEFROLE);
             getCurrentNode().setAttribute(Vocab.NAME, prop.getURI().toString());
             popCurrentNode();
         }
-        for(OWLIndividual ind : ontology.getReferencedIndividuals()) {
+        for (OWLIndividual ind : ontology.getReferencedIndividuals()) {
             createAndPushNode(Vocab.DEFINDIVIDUAL);
             getCurrentNode().setAttribute(Vocab.NAME, ind.getURI().toString());
             popCurrentNode();
         }
-        for(OWLAxiom ax : ontology.getAxioms()) {
+        for (OWLAxiom ax : ontology.getAxioms()) {
             ax.accept(this);
         }
     }

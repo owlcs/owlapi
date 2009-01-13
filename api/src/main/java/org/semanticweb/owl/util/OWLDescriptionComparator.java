@@ -35,7 +35,7 @@ import java.util.List;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 15-Jun-2007<br><br>
- *
+ * <p/>
  * It's sometimes useful (for pretty printing etc.) to be able to order
  * class descriptions.  This comparator provides an implementation that
  * can be used to order class descriptions.
@@ -60,7 +60,6 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
     public int compare(OWLClassExpression o1, OWLClassExpression o2) {
         return descriptionComparator.compare(o1, o2);
     }
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -88,20 +87,18 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
             o2.accept(this);
             int i2 = lastValue;
             int delta = i2 - i1;
-            if(delta == 0) {
-                if(o1.isAnonymous()) {
+            if (delta == 0) {
+                if (o1.isAnonymous()) {
                     // Two Object property expressions
                     return compare(((OWLObjectPropertyInverse) o1).getInverse(),
-                                   ((OWLObjectPropertyInverse) o2).getInverse());
-                }
-                else {
+                            ((OWLObjectPropertyInverse) o2).getInverse());
+                } else {
                     // Straight alpha comparison
                     String s1 = getShortForm((OWLProperty) o1);
                     String s2 = getShortForm((OWLProperty) o2);
                     return s1.compareTo(s2);
                 }
-            }
-            else {
+            } else {
                 return delta;
             }
         }
@@ -170,7 +167,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
             OWLPropertyExpression prop1 = o1.getProperty();
             OWLPropertyExpression prop2 = o2.getProperty();
             int delta = propertyComparator.compare(prop1, prop2);
-            if(delta != 0) {
+            if (delta != 0) {
                 return delta;
             }
             // Compare types
@@ -238,7 +235,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         }
 
 
-        public void visit(OWLObjectSomeRestriction desc) {
+        public void visit(OWLObjectSomeValuesFrom desc) {
             typeIndex = OBJECT_SOME;
         }
 
@@ -320,11 +317,11 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
             Collections.sort(descsA, descriptionComparator);
             Collections.sort(descsB, descriptionComparator);
             int maxIndex = descsA.size() > descsB.size() ? descsB.size() : descsA.size();
-            for(int i = 0; i < maxIndex; i++) {
+            for (int i = 0; i < maxIndex; i++) {
                 OWLClassExpression descA = descsA.get(i);
                 OWLClassExpression descB = descsB.get(i);
                 int delta = descriptionComparator.compare(descA, descB);
-                if(delta != 0) {
+                if (delta != 0) {
                     return delta;
                 }
             }
@@ -359,11 +356,11 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
             Collections.sort(indsA, entityComparator);
             Collections.sort(indsB, entityComparator);
             int maxIndex = indsA.size() > indsB.size() ? indsB.size() : indsA.size();
-            for(int i = 0; i < maxIndex; i++) {
+            for (int i = 0; i < maxIndex; i++) {
                 OWLIndividual descA = indsA.get(i);
                 OWLIndividual descB = indsB.get(i);
                 int delta = entityComparator.compare(descA, descB);
-                if(delta != 0) {
+                if (delta != 0) {
                     return delta;
                 }
             }
@@ -383,7 +380,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         protected int compareObjects(OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLClassExpression> o1,
                                      OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLClassExpression> o2) {
             int delta = super.compareObjects(o1, o2);
-            if(delta != 0) {
+            if (delta != 0) {
                 return delta;
             }
             // Properties and types are the same
@@ -392,7 +389,6 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
             return fillerComparator.compare(o1.getFiller(), o2.getFiller());
         }
     }
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -405,7 +401,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
 
         public int compareObjects(OWLObjectCardinalityRestriction o1, OWLObjectCardinalityRestriction o2) {
             int delta = super.compare(o1, o2);
-            if(delta != 0) {
+            if (delta != 0) {
                 return 0;
             }
             return o1.getCardinality() - o2.getCardinality();
@@ -427,7 +423,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         protected int compareObjects(OWLQuantifiedRestriction<OWLDataPropertyExpression, OWLDataRange> o1,
                                      OWLQuantifiedRestriction<OWLDataPropertyExpression, OWLDataRange> o2) {
             int delta = super.compareObjects(o1, o2);
-            if(delta != 0) {
+            if (delta != 0) {
                 return delta;
             }
             // Properties and types are the same
@@ -435,7 +431,6 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
             return fillerComparator.compare(o1.getFiller(), o2.getFiller());
         }
     }
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -448,14 +443,12 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
 
         public int compareObjects(OWLDataCardinalityRestriction o1, OWLDataCardinalityRestriction o2) {
             int delta = super.compare(o1, o2);
-            if(delta != 0) {
+            if (delta != 0) {
                 return 0;
             }
             return o1.getCardinality() - o2.getCardinality();
         }
     }
-
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -498,7 +491,6 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         private OWLObjectOneOfComparator objectOneOfComparator;
 
         private int lastValue;
-
 
 
         public CoarseGrainedDescriptionComparator(ShortFormProvider shortFormProvider) {
@@ -614,7 +606,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         }
 
 
-        public void visit(OWLObjectSomeRestriction desc) {
+        public void visit(OWLObjectSomeValuesFrom desc) {
             lastValue = OWL_OBJECT_RESTRICTION;
             setFineGrainedComparator(objectQuantifiedRestrictionComparator);
         }
@@ -657,10 +649,9 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         public int compare(O o1, O o2) {
             fineGrainedComparator = null;
             int delta = compareObjects(o1, o2);
-            if(delta == 0 && fineGrainedComparator != null) {
+            if (delta == 0 && fineGrainedComparator != null) {
                 return fineGrainedComparator.compare(o1, o2);
-            }
-            else {
+            } else {
                 return delta;
             }
         }
@@ -749,7 +740,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         }
 
 
-        public void visit(OWLObjectSomeRestriction desc) {
+        public void visit(OWLObjectSomeValuesFrom desc) {
         }
 
 

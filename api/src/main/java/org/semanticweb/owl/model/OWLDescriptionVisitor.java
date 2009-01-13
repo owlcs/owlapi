@@ -39,7 +39,7 @@ public interface OWLDescriptionVisitor {
 
     void visit(OWLObjectComplementOf desc);
 
-    void visit(OWLObjectSomeRestriction desc);
+    void visit(OWLObjectSomeValuesFrom desc);
 
     void visit(OWLObjectAllRestriction desc);
 

@@ -433,7 +433,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         sb.append("ObjectSomeValuesFrom(");
         desc.getProperty().accept(this);
         insertSpace();

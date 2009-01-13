@@ -1,14 +1,14 @@
 package uk.ac.manchester.owl.tutorial;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLObjectIntersectionOf;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
-import org.semanticweb.owl.model.OWLObjectSomeRestriction;
+import org.semanticweb.owl.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owl.util.OWLDescriptionVisitorAdapter;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /*
  * Copyright (C) 2007, University of Manchester
@@ -38,11 +38,11 @@ import org.semanticweb.owl.util.OWLDescriptionVisitorAdapter;
  * an intersection, then the visitor will recurse and visit the operands.
  * Otherwise, if it's an existential restriction, the visitor will add the
  * restriction to the collection.</p>
- * 
+ * <p/>
  * <p>The visitor returns a map of properties to collections of fillers using that
  * property.</p>
- * 
- * 
+ * <p/>
+ * <p/>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
@@ -66,7 +66,7 @@ public class ExistentialCollector extends OWLDescriptionVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectSomeRestriction description) {
+    public void visit(OWLObjectSomeValuesFrom description) {
         Set<OWLClassExpression> fillers = restrictions.get(description
                 .getProperty());
         if (fillers == null) {

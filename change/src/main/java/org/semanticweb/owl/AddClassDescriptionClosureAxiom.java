@@ -64,6 +64,7 @@ public class AddClassDescriptionClosureAxiom extends AbstractCompositeOntologyCh
     /**
      * Creates a composite change that will add a closure axiom for a given class along a
      * specified property.
+     *
      * @param dataFactory    The data factory that should be used to create the necessary objects
      * @param cls            The class for which the closure axiom will be generated
      * @param property       The property that the closure axiom will act along
@@ -128,7 +129,7 @@ public class AddClassDescriptionClosureAxiom extends AbstractCompositeOntologyCh
         }
 
 
-        public void visit(OWLObjectSomeRestriction desc) {
+        public void visit(OWLObjectSomeValuesFrom desc) {
             if (desc.getProperty().equals(property)) {
                 fillers.add(desc.getFiller());
             }

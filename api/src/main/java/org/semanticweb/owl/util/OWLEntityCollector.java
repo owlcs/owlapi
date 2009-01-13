@@ -97,6 +97,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     /**
      * Gets the objects that are used by all axioms, descriptions etc. that this
      * collector has visited since it was constructed or reset.
+     *
      * @return An unmodifiable set of objects.
      */
     public Set<OWLEntity> getObjects() {
@@ -351,7 +352,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }

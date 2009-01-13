@@ -28,14 +28,14 @@ import java.util.Set;
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group Date: 24-Oct-2006
  * <p/>
- * Represents a class description in OWL.  This interface covers named and anonymous classes.
+ * Represents a class expression in OWL.  This interface covers named and anonymous classes.
  */
 public interface OWLClassExpression extends OWLObject, OWLPropertyRange {
 
     /**
-     * Determines whether or not this description represents an anonymous class description.
+     * Determines whether or not this expression represents an anonymous class expression.
      *
-     * @return <code>true</code> if this is an anonymous class description, or <code>false</code> if this is a named
+     * @return <code>true</code> if this is an anonymous class expression, or <code>false</code> if this is a named
      *         class (<code>OWLClass</code>)
      */
     public boolean isAnonymous();
@@ -51,77 +51,76 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange {
 
 
     /**
-     * If this class description is in fact a named class then this method may be used to obtain the description as an
+     * If this class expression is in fact a named class then this method may be used to obtain the expression as an
      * <code>OWLClass</code> without the need for casting.  The general pattern of use is to use the
      * <code>isAnonymous</code> to first check
      *
-     * @return This class description as an <code>OWLClass</code>.
-     *
-     * @throws OWLRuntimeException if this class description is not an <code>OWLClass</code>.
+     * @return This class expression as an <code>OWLClass</code>.
+     * @throws OWLRuntimeException if this class expression is not an <code>OWLClass</code>.
      */
     public OWLClass asOWLClass();
 
 
     /**
-     * Determines if this description is the built in class owl:Thing. This method does not determine if the class is
+     * Determines if this expression is the built in class owl:Thing. This method does not determine if the class is
      * equivalent to owl:Thing.
      *
-     * @return <code>true</code> if this description is owl:Thing, or <code>false</code> if this description is not
+     * @return <code>true</code> if this expression is owl:Thing, or <code>false</code> if this expression is not
      *         owl:Thing
      */
     public boolean isOWLThing();
 
 
     /**
-     * Determines if this description is the built in class owl:Nothing. This method does not determine if the class is
+     * Determines if this expression is the built in class owl:Nothing. This method does not determine if the class is
      * equivalent to owl:Nothing.
      *
-     * @return <code>true</code> if this description is owl:Nothing, or <code>false</code> if this description is not
+     * @return <code>true</code> if this expression is owl:Nothing, or <code>false</code> if this expression is not
      *         owl:Nothing.
      */
     public boolean isOWLNothing();
 
 
     /**
-     * Gets this description in negation normal form.
+     * Gets this expression in negation normal form.
      *
-     * @return The description in negation normal form.
+     * @return The expression in negation normal form.
      */
     public OWLClassExpression getNNF();
 
 
     /**
-     * Gets the negation normal form of the complement of this description.
+     * Gets the negation normal form of the complement of this expression.
      *
-     * @return A description that represents the NNF of the complement of this description.
+     * @return A expression that represents the NNF of the complement of this expression.
      */
     public OWLClassExpression getComplementNNF();
 
 
     /**
-     * Interprets this description as a conjunction and returns the conjuncts. This method does not normalise the
-     * description (full CNF is not computed).
+     * Interprets this expression as a conjunction and returns the conjuncts. This method does not normalise the
+     * expression (full CNF is not computed).
      *
-     * @return The conjucts of this description if it is a conjunction (object intersection of), or otherwise a
-     *         singleton set containing this description. Note that nested conjunctions will be flattened, for example,
+     * @return The conjucts of this expression if it is a conjunction (object intersection of), or otherwise a
+     *         singleton set containing this expression. Note that nested conjunctions will be flattened, for example,
      *         calling this method on (A and B) and C will return the set {A, B, C}
      */
     public Set<OWLClassExpression> asConjunctSet();
 
 
-     /**
-     * Interprets this description as a disjunction and returns the disjuncts. This method does not normalise the
-     * description (full DNF is not computed).
+    /**
+     * Interprets this expression as a disjunction and returns the disjuncts. This method does not normalise the
+     * expression (full DNF is not computed).
      *
-     * @return The disjuncts of this description if it is a disjunction (object union of), or otherwise a
-     *         singleton set containing this description. Note that nested disjunctions will be flattened, for example,
+     * @return The disjuncts of this expression if it is a disjunction (object union of), or otherwise a
+     *         singleton set containing this expression. Note that nested disjunctions will be flattened, for example,
      *         calling this method on (A or B) or C will return the set {A, B, C}
      */
     public Set<OWLClassExpression> asDisjunctSet();
 
 
     /**
-     * Accepts a visit from an <code>OWLDescriptionVisitor</code>
+     * Accepts a visit from an <code>OWLExpressionVisitor</code>
      *
      * @param visitor The visitor that wants to visit
      */

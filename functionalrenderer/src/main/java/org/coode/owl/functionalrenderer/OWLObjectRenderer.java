@@ -764,7 +764,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         writeRestriction(OBJECT_SOME_VALUES_FROM, desc);
     }
 

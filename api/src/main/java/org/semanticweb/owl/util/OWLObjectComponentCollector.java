@@ -49,6 +49,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
      * A convenience method that obtains the components of an
      * OWL object. Note that by definition, the components of the
      * object include the object itself.
+     *
      * @param object The object whose components are to be obtained.
      * @return The component of the specified object.
      */
@@ -62,8 +63,8 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
         return Collections.unmodifiableSet(result);
     }
 
-    private void process(Set<? extends  OWLObject> objects) {
-        for(OWLObject obj : objects) {
+    private void process(Set<? extends OWLObject> objects) {
+        for (OWLObject obj : objects) {
             obj.accept(this);
         }
     }
@@ -73,6 +74,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
      * Handles an object.  By default, this method adds the object
      * to the result collection.  This method may be overriden to
      * do something else.
+     *
      * @param obj The object being added.
      */
     protected void handleObject(OWLObject obj) {
@@ -135,7 +137,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
@@ -448,7 +450,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     public void visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
         handleObject(axiom);
-        for(OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
+        for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             prop.accept(this);
         }
         axiom.getSuperProperty().accept(this);
@@ -548,7 +550,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     public void visit(SWRLBuiltInAtom node) {
         handleObject(node);
-        for(SWRLAtomDObject obj : node.getArguments()) {
+        for (SWRLAtomDObject obj : node.getArguments()) {
             obj.accept(this);
         }
     }

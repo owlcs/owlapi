@@ -185,7 +185,7 @@ public class OWLObjectVisitorAdapter implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
     }
 
 

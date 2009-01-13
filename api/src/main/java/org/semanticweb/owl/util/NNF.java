@@ -57,8 +57,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
     public OWLClassExpression visit(OWLClass desc) {
         if (negated) {
             return getNegation(desc);
-        }
-        else {
+        } else {
             return desc;
         }
     }
@@ -71,8 +70,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
         }
         if (negated) {
             return dataFactory.getOWLObjectUnionOf(ops);
-        }
-        else {
+        } else {
             return dataFactory.getOWLObjectIntersectionOf(ops);
         }
     }
@@ -86,8 +84,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
         if (negated) {
             // Flip to an intersection
             return dataFactory.getOWLObjectIntersectionOf(ops);
-        }
-        else {
+        } else {
             return dataFactory.getOWLObjectUnionOf(ops);
         }
     }
@@ -102,8 +99,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
             OWLClassExpression negDesc = desc.getOperand().accept(this);
             negated = neg;
             return negDesc;
-        }
-        else {
+        } else {
             // Save and then restore
             boolean neg = negated;
             negated = true;
@@ -114,12 +110,11 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
     }
 
 
-    public OWLClassExpression visit(OWLObjectSomeRestriction desc) {
+    public OWLClassExpression visit(OWLObjectSomeValuesFrom desc) {
         OWLClassExpression filler = desc.getFiller().accept(this);
         if (negated) {
             return dataFactory.getOWLObjectAllRestriction(desc.getProperty(), filler);
-        }
-        else {
+        } else {
             return dataFactory.getOWLObjectSomeRestriction(desc.getProperty(), filler);
         }
     }
@@ -129,8 +124,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
         OWLClassExpression filler = desc.getFiller().accept(this);
         if (negated) {
             return dataFactory.getOWLObjectSomeRestriction(desc.getProperty(), filler);
-        }
-        else {
+        } else {
             return dataFactory.getOWLObjectAllRestriction(desc.getProperty(), filler);
         }
     }
@@ -155,8 +149,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
         OWLClassExpression nnf = null;
         if (neg) {
             nnf = dataFactory.getOWLObjectMaxCardinalityRestriction(desc.getProperty(), card, filler);
-        }
-        else {
+        } else {
             nnf = dataFactory.getOWLObjectMinCardinalityRestriction(desc.getProperty(), card, filler);
         }
         negated = neg;
@@ -180,8 +173,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
         OWLClassExpression nnf = null;
         if (neg) {
             nnf = dataFactory.getOWLObjectMinCardinalityRestriction(desc.getProperty(), card, filler);
-        }
-        else {
+        } else {
             nnf = dataFactory.getOWLObjectMaxCardinalityRestriction(desc.getProperty(), card, filler);
         }
         negated = neg;
@@ -192,8 +184,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
     public OWLClassExpression visit(OWLObjectSelfRestriction desc) {
         if (negated) {
             return getNegation(desc);
-        }
-        else {
+        } else {
             return desc;
         }
     }
@@ -203,12 +194,10 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
         if (desc.getIndividuals().size() == 1) {
             if (negated) {
                 return getNegation(desc);
-            }
-            else {
+            } else {
                 return desc;
             }
-        }
-        else {
+        } else {
             return desc.asObjectUnionOf().accept(this);
         }
     }
@@ -218,8 +207,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
         OWLDataRange filler = desc.getFiller().accept(this);
         if (negated) {
             return dataFactory.getOWLDataAllRestriction(desc.getProperty(), filler);
-        }
-        else {
+        } else {
             return dataFactory.getOWLDataSomeRestriction(desc.getProperty(), filler);
         }
     }
@@ -229,8 +217,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
         OWLDataRange filler = desc.getFiller().accept(this);
         if (negated) {
             return dataFactory.getOWLDataSomeRestriction(desc.getProperty(), filler);
-        }
-        else {
+        } else {
             return dataFactory.getOWLDataAllRestriction(desc.getProperty(), filler);
         }
     }
@@ -256,8 +243,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
         OWLClassExpression nnf = null;
         if (neg) {
             nnf = dataFactory.getOWLDataMinCardinalityRestriction(desc.getProperty(), card, filler);
-        }
-        else {
+        } else {
             nnf = dataFactory.getOWLDataMaxCardinalityRestriction(desc.getProperty(), card, filler);
         }
         negated = neg;
@@ -279,8 +265,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
         OWLClassExpression nnf = null;
         if (neg) {
             nnf = dataFactory.getOWLDataMaxCardinalityRestriction(desc.getProperty(), card, filler);
-        }
-        else {
+        } else {
             nnf = dataFactory.getOWLDataMinCardinalityRestriction(desc.getProperty(), card, filler);
         }
         negated = neg;
@@ -293,8 +278,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
     public OWLDataRange visit(OWLDatatype node) {
         if (negated) {
             return dataFactory.getOWLDataComplementOf(node);
-        }
-        else {
+        } else {
             return node;
         }
     }
@@ -303,8 +287,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
     public OWLDataRange visit(OWLDataComplementOf node) {
         if (negated) {
             return node.getDataRange();
-        }
-        else {
+        } else {
             return node;
         }
     }
@@ -313,8 +296,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
     public OWLDataRange visit(OWLDataOneOf node) {
         if (negated) {
             return dataFactory.getOWLDataComplementOf(node);
-        }
-        else {
+        } else {
             return node;
         }
     }
@@ -323,8 +305,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
     public OWLDataRange visit(OWLDataRangeRestriction node) {
         if (negated) {
             return dataFactory.getOWLDataComplementOf(node);
-        }
-        else {
+        } else {
             return node;
         }
     }
@@ -344,8 +325,6 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
         return null;
     }
 
-
-
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //
     //  Conversion of non-descriptions to NNF
@@ -355,7 +334,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
 
     public OWLAxiom visit(OWLSubClassAxiom axiom) {
         return dataFactory.getOWLSubClassAxiom(axiom.getSubClass().accept(this),
-                                               axiom.getSuperClass().accept(this));
+                axiom.getSuperClass().accept(this));
     }
 
 
@@ -376,7 +355,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
 
     public OWLAxiom visit(OWLDisjointClassesAxiom axiom) {
         Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
-        for(OWLClassExpression op : axiom.getDescriptions()) {
+        for (OWLClassExpression op : axiom.getDescriptions()) {
             ops.add(op.accept(this));
         }
         return dataFactory.getOWLDisjointClassesAxiom(ops);
@@ -385,7 +364,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
 
     public OWLAxiom visit(OWLDataPropertyDomainAxiom axiom) {
         return dataFactory.getOWLDataPropertyDomainAxiom(axiom.getProperty(),
-                                                         axiom.getDomain().accept(this));
+                axiom.getDomain().accept(this));
     }
 
 
@@ -401,7 +380,8 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
 
     public OWLAxiom visit(OWLObjectPropertyDomainAxiom axiom) {
         return dataFactory.getOWLObjectPropertyDomainAxiom(axiom.getProperty(),
-                                                         axiom.getDomain().accept(this));    }
+                axiom.getDomain().accept(this));
+    }
 
 
     public OWLAxiom visit(OWLEquivalentObjectPropertiesAxiom axiom) {
@@ -431,7 +411,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
 
     public OWLAxiom visit(OWLObjectPropertyRangeAxiom axiom) {
         return dataFactory.getOWLObjectPropertyRangeAxiom(axiom.getProperty(),
-                                                         axiom.getRange().accept(this));
+                axiom.getRange().accept(this));
     }
 
 
@@ -452,7 +432,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
 
     public OWLAxiom visit(OWLDisjointUnionAxiom axiom) {
         Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
-        for(OWLClassExpression op : axiom.getDescriptions()) {
+        for (OWLClassExpression op : axiom.getDescriptions()) {
             descs.add(op.accept(this));
         }
         return dataFactory.getOWLDisjointUnionAxiom(axiom.getOWLClass(), descs);
@@ -481,7 +461,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
 
     public OWLAxiom visit(OWLDataPropertyRangeAxiom axiom) {
         return dataFactory.getOWLDataPropertyRangeAxiom(axiom.getProperty(),
-                                                         axiom.getRange().accept(this));
+                axiom.getRange().accept(this));
     }
 
 
@@ -498,8 +478,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
     public OWLAxiom visit(OWLClassAssertionAxiom axiom) {
         if (axiom.getDescription().isAnonymous()) {
             return dataFactory.getOWLClassAssertionAxiom(axiom.getIndividual(), axiom.getDescription().accept(this));
-        }
-        else {
+        } else {
             return axiom;
         }
     }
@@ -507,7 +486,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
 
     public OWLAxiom visit(OWLEquivalentClassesAxiom axiom) {
         Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
-        for(OWLClassExpression op : axiom.getDescriptions()) {
+        for (OWLClassExpression op : axiom.getDescriptions()) {
             ops.add(op.accept(this));
         }
         return dataFactory.getOWLEquivalentClassesAxiom(ops);

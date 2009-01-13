@@ -432,7 +432,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(desc);
 //        }
 //
-//        public Object visit(OWLObjectSomeRestriction desc) {
+//        public Object visit(OWLObjectSomeValuesFrom desc) {
 //            return super.visit(desc);
 //        }
 //
@@ -958,7 +958,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLObjectSomeRestriction desc) {
+//        public Set<ConstructNotAllowed> visit(OWLObjectSomeValuesFrom desc) {
 //            Set<ConstructNotAllowed> na = desc.getFiller().accept(this);
 //            if (!na.isEmpty()) {
 //                return getSet(new DescriptionNotAllowed(na, desc));

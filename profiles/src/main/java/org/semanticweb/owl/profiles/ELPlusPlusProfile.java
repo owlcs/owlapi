@@ -101,7 +101,7 @@ public class ELPlusPlusProfile implements OWLProfile {
     private void performGlobalCheck() {
         Map<OWLObjectProperty, Set<OWLObjectProperty>> map = new HashMap<OWLObjectProperty, Set<OWLObjectProperty>>();
         Set<OWLObjectProperty> processed = new HashSet<OWLObjectProperty>();
-        for(OWLObjectProperty prop : ont.getReferencedObjectProperties()) {
+        for (OWLObjectProperty prop : ont.getReferencedObjectProperties()) {
             processProp(prop, map, processed);
         }
     }
@@ -135,11 +135,11 @@ public class ELPlusPlusProfile implements OWLProfile {
 
         public ConstructNotAllowed visit(OWLSubClassAxiom axiom) {
             ConstructNotAllowed cause = axiom.getSubClass().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new AxiomNotAllowed(cause, axiom);
             }
             cause = axiom.getSuperClass().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new AxiomNotAllowed(cause, axiom);
             }
             return null;
@@ -164,7 +164,7 @@ public class ELPlusPlusProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLDisjointClassesAxiom axiom) {
             for (OWLClassExpression desc : axiom.getDescriptions()) {
                 ConstructNotAllowed cause = desc.accept(this);
-                if(cause != null) {
+                if (cause != null) {
                     return new AxiomNotAllowed(cause, axiom);
                 }
             }
@@ -189,11 +189,11 @@ public class ELPlusPlusProfile implements OWLProfile {
 
         public ConstructNotAllowed visit(OWLObjectPropertyDomainAxiom axiom) {
             ConstructNotAllowed cause = axiom.getProperty().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new AxiomNotAllowed(cause, axiom);
             }
             cause = axiom.getDomain().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new AxiomNotAllowed(cause, axiom);
             }
             return null;
@@ -203,7 +203,7 @@ public class ELPlusPlusProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLEquivalentObjectPropertiesAxiom axiom) {
             for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                 ConstructNotAllowed cause = prop.accept(this);
-                if(cause != null) {
+                if (cause != null) {
                     return new AxiomNotAllowed(cause, axiom);
                 }
             }
@@ -233,11 +233,11 @@ public class ELPlusPlusProfile implements OWLProfile {
 
         public ConstructNotAllowed visit(OWLObjectPropertyRangeAxiom axiom) {
             ConstructNotAllowed cause = axiom.getProperty().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new AxiomNotAllowed(cause, axiom);
             }
             cause = axiom.getRange().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new AxiomNotAllowed(cause, axiom);
             }
             return null;
@@ -256,11 +256,11 @@ public class ELPlusPlusProfile implements OWLProfile {
 
         public ConstructNotAllowed visit(OWLObjectSubPropertyAxiom axiom) {
             ConstructNotAllowed cause = axiom.getSubProperty().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new AxiomNotAllowed(cause, axiom);
             }
             cause = axiom.getSuperProperty().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new AxiomNotAllowed(cause, axiom);
             }
             return null;
@@ -315,7 +315,7 @@ public class ELPlusPlusProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLEquivalentClassesAxiom axiom) {
             for (OWLClassExpression desc : axiom.getDescriptions()) {
                 ConstructNotAllowed cause = desc.accept(this);
-                if(cause != null) {
+                if (cause != null) {
                     return new AxiomNotAllowed(cause, axiom);
                 }
             }
@@ -385,10 +385,9 @@ public class ELPlusPlusProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLDatatype node) {
-            if(allowedDataTypes.contains(node.getURI())) {
+            if (allowedDataTypes.contains(node.getURI())) {
                 return null;
-            }
-            else {
+            } else {
                 return new DataTypeNotAllowed(node);
             }
         }
@@ -400,11 +399,11 @@ public class ELPlusPlusProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLDataOneOf node) {
-            if(node.getValues().size() != 1) {
+            if (node.getValues().size() != 1) {
                 return new DataRangeNotAllowed(node);
             }
             ConstructNotAllowed cause = node.getValues().iterator().next().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new DataRangeNotAllowed(cause, node);
             }
             return null;
@@ -439,7 +438,7 @@ public class ELPlusPlusProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLObjectIntersectionOf desc) {
             for (OWLClassExpression op : desc.getOperands()) {
                 ConstructNotAllowed obj = op.accept(this);
-                if(obj != null) {
+                if (obj != null) {
                     return new DescriptionNotAllowed(obj, desc);
                 }
             }
@@ -457,13 +456,13 @@ public class ELPlusPlusProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLObjectSomeRestriction desc) {
+        public ConstructNotAllowed visit(OWLObjectSomeValuesFrom desc) {
             ConstructNotAllowed cause = desc.getProperty().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new DescriptionNotAllowed(cause, desc);
             }
             cause = desc.getFiller().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new DescriptionNotAllowed(cause, desc);
             }
             return null;
@@ -477,7 +476,7 @@ public class ELPlusPlusProfile implements OWLProfile {
 
         public ConstructNotAllowed visit(OWLObjectValueRestriction desc) {
             ConstructNotAllowed cause = desc.getProperty().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new DescriptionNotAllowed(cause, desc);
             }
             return null;
@@ -501,7 +500,7 @@ public class ELPlusPlusProfile implements OWLProfile {
 
         public ConstructNotAllowed visit(OWLObjectSelfRestriction desc) {
             ConstructNotAllowed cause = desc.getProperty().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new DescriptionNotAllowed(cause, desc);
             }
             return null;
@@ -509,7 +508,7 @@ public class ELPlusPlusProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLObjectOneOf desc) {
-            if(desc.getIndividuals().size() != 1) {
+            if (desc.getIndividuals().size() != 1) {
                 return new NonSingletonNominalsNotAllowed(desc);
             }
             return null;
@@ -518,11 +517,11 @@ public class ELPlusPlusProfile implements OWLProfile {
 
         public ConstructNotAllowed visit(OWLDataSomeRestriction desc) {
             ConstructNotAllowed cause = desc.getProperty().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new DescriptionNotAllowed(cause, desc);
             }
             cause = desc.getFiller().accept(this);
-            if(cause != null) {
+            if (cause != null) {
                 return new DescriptionNotAllowed(cause, desc);
             }
             return null;

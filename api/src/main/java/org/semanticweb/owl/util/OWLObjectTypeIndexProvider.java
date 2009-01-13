@@ -43,7 +43,6 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     public static final int OBJECT_PROPERTY = ENTITY_TYPE_INDEX_BASE + 2;
 
 
-
     public int type;
 
     public static final int OBJECT_PROPERTY_INVERSE = ENTITY_TYPE_INDEX_BASE + 3;
@@ -51,7 +50,6 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     public static final int DATA_PROPERTY = ENTITY_TYPE_INDEX_BASE + 4;
 
     public static final int INDIVIDUAL = ENTITY_TYPE_INDEX_BASE + 5;
-
 
 
     public static final int AXIOM_TYPE_INDEX_BASE = 2000;
@@ -106,7 +104,6 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     //  Axioms
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 
     public void visit(OWLSubClassAxiom axiom) {
@@ -317,9 +314,9 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     public void visit(OWLObjectOneOf desc) {
         type = DESCRIPTION_TYPE_INDEX_BASE + 4;
     }
-    
 
-    public void visit(OWLObjectSomeRestriction desc) {
+
+    public void visit(OWLObjectSomeValuesFrom desc) {
         type = DESCRIPTION_TYPE_INDEX_BASE + 5;
     }
 
@@ -354,8 +351,6 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     }
 
 
-
-
     public void visit(OWLDataSomeRestriction desc) {
         type = DESCRIPTION_TYPE_INDEX_BASE + 12;
     }
@@ -384,10 +379,6 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     public void visit(OWLDataMaxCardinalityRestriction desc) {
         type = DESCRIPTION_TYPE_INDEX_BASE + 17;
     }
-
-
-
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -429,8 +420,6 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = DATA_TYPE_INDEX_BASE + 7;
     }
 
-
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     //  Annotations
@@ -455,8 +444,6 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static final int RULE_OBJECT_TYPE_INDEX_BASE = 6000;
-
-
 
 
     public void visit(SWRLClassAtom node) {

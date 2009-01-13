@@ -7,7 +7,10 @@ import org.semanticweb.owl.util.ShortFormProvider;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URI;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -650,7 +653,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write("self", desc.getProperty());
     }
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         writeRestriction(operator("some"), desc);
     }
 

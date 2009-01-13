@@ -292,7 +292,7 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLObjectSomeRestriction desc) {
+    public O visit(OWLObjectSomeValuesFrom desc) {
         return null;
     }
 

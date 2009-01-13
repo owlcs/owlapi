@@ -33,7 +33,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Oct-2007<br><br>
- *
+ * <p/>
  * Extracts the parts of a class expression which are negated.
  * For example, A and not (B or C or not D) would extract
  * {(B or C or notD), D}
@@ -102,7 +102,7 @@ public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
 
 
     public void visit(OWLObjectIntersectionOf desc) {
-        for(OWLClassExpression op : desc.getOperands()) {
+        for (OWLClassExpression op : desc.getOperands()) {
             op.accept(this);
         }
     }
@@ -128,19 +128,19 @@ public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
     }
 
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         desc.getFiller().accept(this);
     }
 
 
     public void visit(OWLObjectUnionOf desc) {
-        for(OWLClassExpression op : desc.getOperands()) {
+        for (OWLClassExpression op : desc.getOperands()) {
             op.accept(this);
         }
     }
 
 
     public void visit(OWLObjectValueRestriction desc) {
-        
+
     }
 }

@@ -1,13 +1,13 @@
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.apibinding.OWLManager;
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.OWLDescriptionVisitorAdapter;
 
 import java.net.URI;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -37,7 +37,7 @@ import java.util.Collections;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 26-Jun-2007<br><br>
- *
+ * <p/>
  * This example shows how to examine the restrictions on a class.
  */
 public class Example9 {
@@ -69,7 +69,7 @@ public class Example9 {
             RestrictionVisitor restrictionVisitor = new RestrictionVisitor(Collections.singleton(ont));
             // In this case, restrictions are used as (anonymous) superclasses, so to get the restrictions on
             // margherita pizza we need to obtain the subclass axioms for margherita pizza.
-            for(OWLSubClassAxiom ax : ont.getSubClassAxiomsForLHS(margheritaPizza)) {
+            for (OWLSubClassAxiom ax : ont.getSubClassAxiomsForLHS(margheritaPizza)) {
                 OWLClassExpression superCls = ax.getSuperClass();
                 // Ask our superclass to accept a visit from the RestrictionVisitor - if it is an
                 // existential restiction then our restriction visitor will process it - if not our
@@ -79,7 +79,7 @@ public class Example9 {
             // Our RestrictionVisitor has now collected all of the properties that have been restricted in existential
             // restrictions - print them out.
             System.out.println("Restricted properties for " + margheritaPizza + ": " + restrictionVisitor.getRestrictedProperties().size());
-            for(OWLObjectPropertyExpression prop : restrictionVisitor.getRestrictedProperties()) {
+            for (OWLObjectPropertyExpression prop : restrictionVisitor.getRestrictedProperties()) {
                 System.out.println("    " + prop);
             }
 
@@ -121,14 +121,14 @@ public class Example9 {
 
 
         public void visit(OWLClass desc) {
-            if(processInherited && !processedClasses.contains(desc)) {
+            if (processInherited && !processedClasses.contains(desc)) {
                 // If we are processing inherited restrictions then
                 // we recursively visit named supers.  Note that we
                 // need to keep track of the classes that we have processed
                 // so that we don't get caught out by cycles in the taxonomy
                 processedClasses.add(desc);
-                for(OWLOntology ont : onts) {
-                    for(OWLSubClassAxiom ax : ont.getSubClassAxiomsForLHS(desc)) {
+                for (OWLOntology ont : onts) {
+                    for (OWLSubClassAxiom ax : ont.getSubClassAxiomsForLHS(desc)) {
                         ax.getSuperClass().accept(this);
                     }
                 }
@@ -142,7 +142,7 @@ public class Example9 {
         }
 
 
-        public void visit(OWLObjectSomeRestriction desc) {
+        public void visit(OWLObjectSomeValuesFrom desc) {
             // This method gets called when a description (OWLClassExpression) is an
             // existential (someValuesFrom) restriction and it asks us to visit it
             restrictedProperties.add(desc.getProperty());

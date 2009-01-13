@@ -395,7 +395,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         hashCode = 239;
         hashCode = hashCode * MULT + desc.getProperty().hashCode();
         hashCode = hashCode * MULT + desc.getFiller().hashCode();

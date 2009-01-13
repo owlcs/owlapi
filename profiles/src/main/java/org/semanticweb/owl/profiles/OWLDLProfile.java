@@ -98,13 +98,13 @@ public class OWLDLProfile implements OWLProfile {
             }
             annotationURIs.addAll(ont.getAnnotationURIs());
         }
-        for(URI uri : uri2EntityMap.keySet()) {
+        for (URI uri : uri2EntityMap.keySet()) {
             Set<OWLEntity> entities = uri2EntityMap.get(uri);
-            if(entities.size() > 2) {
+            if (entities.size() > 2) {
                 // We have punning!
                 notAllowed.add(new PunningNotAllowed(new HashSet<OWLEntity>(entities)));
             }
-            if(annotationURIs.contains(uri)) {
+            if (annotationURIs.contains(uri)) {
                 notAllowed.add(new PunningWithAnnotationURI(entities));
             }
         }
@@ -141,8 +141,7 @@ public class OWLDLProfile implements OWLProfile {
             ConstructNotAllowed descNA = axiom.getDescription().accept(this);
             if (descNA != null) {
                 return new AxiomNotAllowed(descNA, axiom);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -166,8 +165,7 @@ public class OWLDLProfile implements OWLProfile {
             ConstructNotAllowed na = axiom.getRange().accept(this);
             if (na != null) {
                 return new AxiomNotAllowed(na, axiom);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -192,9 +190,9 @@ public class OWLDLProfile implements OWLProfile {
             if (axiom.getDescriptions().size() > 2) {
                 return new DisjointClassAxiomNotAllowed(axiom);
             }
-            for(OWLClassExpression desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getDescriptions()) {
                 ConstructNotAllowed na = desc.accept(this);
-                if(na != null) {
+                if (na != null) {
                     return new AxiomNotAllowed(na, axiom);
                 }
             }
@@ -221,17 +219,16 @@ public class OWLDLProfile implements OWLProfile {
             ConstructNotAllowed na = axiom.getAnnotation().accept(this);
             if (na != null) {
                 return new AxiomNotAllowed(na, axiom);
-            }
-            else {
+            } else {
                 return null;
             }
         }
 
 
         public ConstructNotAllowed visit(OWLEquivalentClassesAxiom axiom) {
-            for(OWLClassExpression desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getDescriptions()) {
                 ConstructNotAllowed na = desc.accept(this);
-                if(na != null) {
+                if (na != null) {
                     return new AxiomNotAllowed(na, axiom);
                 }
             }
@@ -257,8 +254,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLFunctionalObjectPropertyAxiom axiom) {
             if (propertyManager.isNonSimple(axiom.getProperty())) {
                 return new NonSimplePropertiesNotAllowedInFunctionalPropertyAxioms(axiom);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -308,8 +304,7 @@ public class OWLDLProfile implements OWLProfile {
             ConstructNotAllowed na = axiom.getDomain().accept(this);
             if (na != null) {
                 return new AxiomNotAllowed(na, axiom);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -319,8 +314,7 @@ public class OWLDLProfile implements OWLProfile {
             ConstructNotAllowed na = axiom.getRange().accept(this);
             if (na != null) {
                 return new AxiomNotAllowed(na, axiom);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -378,8 +372,7 @@ public class OWLDLProfile implements OWLProfile {
             ConstructNotAllowed na = desc.getFiller().accept(this);
             if (na != null) {
                 return new DescriptionNotAllowed(na, desc);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -388,8 +381,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLDataExactCardinalityRestriction desc) {
             if (desc.isQualified()) {
                 return new QCRsNotAllowed(desc);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -398,8 +390,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLDataMaxCardinalityRestriction desc) {
             if (desc.isQualified()) {
                 return new QCRsNotAllowed(desc);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -408,8 +399,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLDataMinCardinalityRestriction desc) {
             if (desc.isQualified()) {
                 return new QCRsNotAllowed(desc);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -419,8 +409,7 @@ public class OWLDLProfile implements OWLProfile {
             ConstructNotAllowed na = desc.getFiller().accept(this);
             if (na != null) {
                 return new DescriptionNotAllowed(na, desc);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -430,8 +419,7 @@ public class OWLDLProfile implements OWLProfile {
             ConstructNotAllowed na = desc.getValue().accept(this);
             if (na != null) {
                 return new DescriptionNotAllowed(na, desc);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -441,8 +429,7 @@ public class OWLDLProfile implements OWLProfile {
             ConstructNotAllowed na = desc.getFiller().accept(this);
             if (na != null) {
                 return new DescriptionNotAllowed(na, desc);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -452,8 +439,7 @@ public class OWLDLProfile implements OWLProfile {
             ConstructNotAllowed na = desc.getOperand().accept(this);
             if (na != null) {
                 return new DescriptionNotAllowed(na, desc);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -462,12 +448,10 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLObjectExactCardinalityRestriction desc) {
             if (desc.isQualified()) {
                 return new QCRsNotAllowed(desc);
-            }
-            else {
+            } else {
                 if (propertyManager.isNonSimple(desc.getProperty())) {
                     return new NonSimplePropertiesNotAllowedInCardinalityRestrictions(desc);
-                }
-                else {
+                } else {
                     return null;
                 }
             }
@@ -488,12 +472,10 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLObjectMaxCardinalityRestriction desc) {
             if (desc.isQualified()) {
                 return new QCRsNotAllowed(desc);
-            }
-            else {
+            } else {
                 if (propertyManager.isNonSimple(desc.getProperty())) {
                     return new NonSimplePropertiesNotAllowedInCardinalityRestrictions(desc);
-                }
-                else {
+                } else {
                     return null;
                 }
             }
@@ -503,12 +485,10 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLObjectMinCardinalityRestriction desc) {
             if (desc.isQualified()) {
                 return new QCRsNotAllowed(desc);
-            }
-            else {
+            } else {
                 if (propertyManager.isNonSimple(desc.getProperty())) {
                     return new NonSimplePropertiesNotAllowedInCardinalityRestrictions(desc);
-                }
-                else {
+                } else {
                     return null;
                 }
             }
@@ -525,12 +505,11 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLObjectSomeRestriction desc) {
+        public ConstructNotAllowed visit(OWLObjectSomeValuesFrom desc) {
             ConstructNotAllowed na = desc.getFiller().accept(this);
             if (na != null) {
                 return new DescriptionNotAllowed(na, desc);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -556,8 +535,7 @@ public class OWLDLProfile implements OWLProfile {
             ConstructNotAllowed na = node.getDataRange().accept(this);
             if (na != null) {
                 return new DataRangeNotAllowed(na, node);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -626,8 +604,7 @@ public class OWLDLProfile implements OWLProfile {
             ConstructNotAllowed na = annotation.getAnnotationValue().accept(this);
             if (na == null) {
                 return null;
-            }
-            else {
+            } else {
                 return new AnnotationValueNotAllowed(na, annotation);
             }
         }
@@ -637,8 +614,7 @@ public class OWLDLProfile implements OWLProfile {
             ConstructNotAllowed na = annotation.getAnnotationValue().accept(this);
             if (na == null) {
                 return null;
-            }
-            else {
+            } else {
                 return new AnnotationValueNotAllowed(na, annotation);
             }
         }
@@ -814,21 +790,18 @@ public class OWLDLProfile implements OWLProfile {
             sb.append("Punning is not allowed: <");
             sb.append(entities.iterator().next().getURI());
             sb.append("> is used as ");
-            for(Iterator<OWLEntity> it = entities.iterator(); it.hasNext(); ) {
+            for (Iterator<OWLEntity> it = entities.iterator(); it.hasNext();) {
                 OWLEntity ent = it.next();
-                if(ent.isOWLClass()) {
+                if (ent.isOWLClass()) {
                     sb.append("a class URI");
-                }
-                else if(ent.isOWLObjectProperty()) {
+                } else if (ent.isOWLObjectProperty()) {
                     sb.append("an object property URI");
-                }
-                else if(ent.isOWLDataProperty()) {
+                } else if (ent.isOWLDataProperty()) {
                     sb.append("a data property URI");
-                }
-                else if(ent.isOWLIndividual()) {
+                } else if (ent.isOWLIndividual()) {
                     sb.append("an individual URI");
                 }
-                if(it.hasNext()) {
+                if (it.hasNext()) {
                     sb.append(", ");
                 }
             }
@@ -850,21 +823,18 @@ public class OWLDLProfile implements OWLProfile {
             sb.append(entities.iterator().next().getURI());
             sb.append(">");
             sb.append(" is used as an annotation property URI, ");
-            for(Iterator<OWLEntity> it = entities.iterator(); it.hasNext(); ) {
+            for (Iterator<OWLEntity> it = entities.iterator(); it.hasNext();) {
                 OWLEntity ent = it.next();
-                if(ent.isOWLClass()) {
+                if (ent.isOWLClass()) {
                     sb.append("a class URI");
-                }
-                else if(ent.isOWLObjectProperty()) {
+                } else if (ent.isOWLObjectProperty()) {
                     sb.append("an object property URI");
-                }
-                else if(ent.isOWLDataProperty()) {
+                } else if (ent.isOWLDataProperty()) {
                     sb.append("a data property URI");
-                }
-                else if(ent.isOWLIndividual()) {
+                } else if (ent.isOWLIndividual()) {
                     sb.append("an individual URI");
                 }
-                if(it.hasNext()) {
+                if (it.hasNext()) {
                     sb.append(", ");
                 }
             }

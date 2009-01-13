@@ -106,8 +106,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
                 constructs.remove(E);
                 // Remove out union (intersection + negation (demorgan))
                 constructs.remove(U);
-            }
-            else if (constructs.contains(E) && constructs.contains(U)) {
+            } else if (constructs.contains(E) && constructs.contains(U)) {
                 // Simplify to ALC
                 constructs.add(AL);
                 constructs.add(C);
@@ -128,7 +127,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
             constructs.remove(TRAN);
             constructs.add(S);
         }
-        if(constructs.contains(R)) {
+        if (constructs.contains(R)) {
             constructs.remove(H);
         }
     }
@@ -287,8 +286,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     private boolean isTop(OWLClassExpression classExpression) {
         if (!classExpression.isAnonymous()) {
             return OWLRDFVocabulary.OWL_THING.getURI().equals(((OWLClass) classExpression).getURI());
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -297,8 +295,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     private boolean isAtomic(OWLClassExpression classExpression) {
         if (classExpression.isAnonymous()) {
             return false;
-        }
-        else {
+        } else {
             for (OWLOntology ont : ontologies) {
                 if (!ont.getAxioms(((OWLClass) classExpression)).isEmpty()) {
                     return false;
@@ -312,19 +309,17 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     public void visit(OWLObjectComplementOf desc) {
         if (isAtomic(desc)) {
             constructs.add(AL);
-        }
-        else {
+        } else {
             constructs.add(C);
         }
         desc.getOperand().accept(this);
     }
 
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         if (isTop(desc.getFiller())) {
             constructs.add(AL);
-        }
-        else {
+        } else {
             constructs.add(E);
         }
         desc.getProperty().accept(this);
@@ -335,8 +330,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     public void visit(OWLObjectAllRestriction desc) {
         if (isTop(desc.getFiller())) {
             constructs.add(AL);
-        }
-        else {
+        } else {
             // TODO: DOUBLE CHECK
             constructs.add(AL);
         }
@@ -355,8 +349,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     private void checkCardinality(OWLCardinalityRestriction restriction) {
         if (restriction.isQualified()) {
             constructs.add(Q);
-        }
-        else {
+        } else {
             constructs.add(N);
         }
         restriction.getFiller().accept(this);

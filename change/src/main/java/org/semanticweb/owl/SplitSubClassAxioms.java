@@ -35,14 +35,13 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 15-Aug-2007<br><br>
- *
+ * <p/>
  * Given a set of ontologies, this composite change will replace
  * all subclass axioms in each ontology, whose super class is an
  * object intersection (conjuction) with multiple subclass axioms -
  * one for each conjunct.  For example, A subClassOf (B and C),
  * would be replaced with two subclass axioms, A subClassOf B, and
  * A subClassOf C.
- *
  */
 public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
 
@@ -52,19 +51,20 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
     /**
      * Creates a composite change to split subclass axioms into multiple more
      * fine grained subclass axioms.
-     * @param ontologies The ontologies whose subclass axioms should be processed.
+     *
+     * @param ontologies  The ontologies whose subclass axioms should be processed.
      * @param dataFactory The data factory which should be used to create new axioms.
      */
     public SplitSubClassAxioms(Set<OWLOntology> ontologies, OWLDataFactory dataFactory) {
         super(dataFactory);
         changes = new ArrayList<OWLOntologyChange>();
-        for(OWLOntology ont : ontologies) {
-            for(OWLSubClassAxiom ax : ont.getAxioms(AxiomType.SUBCLASS)) {
+        for (OWLOntology ont : ontologies) {
+            for (OWLSubClassAxiom ax : ont.getAxioms(AxiomType.SUBCLASS)) {
                 ConjunctSplitter splitter = new ConjunctSplitter();
                 ax.getSuperClass().accept(splitter);
-                if(splitter.result.size() > 1) {
+                if (splitter.result.size() > 1) {
                     changes.add(new RemoveAxiom(ont, ax));
-                    for(OWLClassExpression desc : splitter.result) {
+                    for (OWLClassExpression desc : splitter.result) {
                         OWLAxiom replAx = getDataFactory().getOWLSubClassAxiom(ax.getSubClass(), desc);
                         changes.add(new AddAxiom(ont, replAx));
                     }
@@ -140,7 +140,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
 
 
         public void visit(OWLObjectIntersectionOf desc) {
-            for(OWLClassExpression op : desc.getOperands()) {
+            for (OWLClassExpression op : desc.getOperands()) {
                 op.accept(this);
             }
         }
@@ -166,7 +166,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         }
 
 
-        public void visit(OWLObjectSomeRestriction desc) {
+        public void visit(OWLObjectSomeValuesFrom desc) {
             result.add(desc);
         }
 

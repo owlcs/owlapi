@@ -28,7 +28,7 @@ import org.semanticweb.owl.model.*;
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 29-Jul-2008<br><br>
- *
+ * <p/>
  * A delegating visitor.  This utility class can be used to override visiting
  * a particular type of object.
  */
@@ -41,6 +41,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
      * Constructs a visitor where the specified delegate will be used to
      * visit all objects unless one of the visit methods in this visitor
      * is overriden.
+     *
      * @param delegate The delegate.
      */
     public DelegatingObjectVisitorEx(OWLObjectVisitorEx<O> delegate) {
@@ -308,7 +309,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLObjectSomeRestriction desc) {
+    public O visit(OWLObjectSomeValuesFrom desc) {
         return delegate.visit(desc);
     }
 

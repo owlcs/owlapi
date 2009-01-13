@@ -49,6 +49,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     /**
      * Gets the built in owl:Thing class, which has a URI of &lt;http://www.w3.org/2002/07/owl#Thing&gt;
+     *
      * @return The OWL Class corresponding to owl:Thing
      */
     OWLClass getOWLThing();
@@ -56,15 +57,16 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     /**
      * Gets the built in owl:Nothing class, which has a URI of &lt;http://www.w3.org/2002/07/owl#Nothing&gt;
+     *
      * @return The OWL Class corresponding to owl:Nothing
      */
     OWLClass getOWLNothing();
 
 
-
     /**
      * Gets the built in data range corresponding to the top data type (like owl:Thing but for data ranges),
      * this datatype is rdfs:Literal, and has a URI of $lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+     *
      * @return The OWL Datatype corresponding to the top data type.
      */
     OWLDatatype getTopDataType();
@@ -72,6 +74,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     /**
      * Gets an OWL class that has the specified URI
+     *
      * @param uri The URI of the class
      * @return The object representing the class that has the specified URI
      */
@@ -81,21 +84,23 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /**
      * Gets an OWL class that has a URI that is obtained by expanding a compact URI (CURIE) using a specified
      * prefix namespace mapping.
-     * @param curie The compact URI.
+     *
+     * @param curie            The compact URI.
      * @param namespaceManager The namespace manager that is responsible for mapping namespace prefixes to namespaces,
-     * and is used to expand the specified compact URI (CURIE).
+     *                         and is used to expand the specified compact URI (CURIE).
      * @return An OWL class that has the URI obtained by expanding the specified CURIE using the specified namespace
-     * manager.  For example, suppose "m:Cat" was specified the CURIE, the namespaceManager would be used to obtain
-     * the namespace for the "m" prefix, this namespace would then be concatenated with "Cat" to obtain the full URI
-     * which would be the URI of the OWL class obtained by this method.
+     *         manager.  For example, suppose "m:Cat" was specified the CURIE, the namespaceManager would be used to obtain
+     *         the namespace for the "m" prefix, this namespace would then be concatenated with "Cat" to obtain the full URI
+     *         which would be the URI of the OWL class obtained by this method.
      * @throws OWLRuntimeException if the namespace prefix in the specified CURIE does not have a mapping to a namespace
-     * in the specified namespace manager.
+     *                             in the specified namespace manager.
      */
     OWLClass getOWLClass(String curie, NamespaceManager namespaceManager);
 
 
     /**
      * Gets an OWL object property that has the specified URI
+     *
      * @param uri The URI of the object property to be obtained
      * @return The object representing the object property that has the specified URI
      */
@@ -105,21 +110,23 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /**
      * Gets an OWL object property that has a URI that is obtained by expanding a compact URI (CURIE) using a specified
      * prefix namespace mapping.
-     * @param curie The compact URI.
+     *
+     * @param curie            The compact URI.
      * @param namespaceManager The namespace manager that is responsible for mapping namespace prefixes to namespaces,
-     * and is used to expand the specified compact URI (CURIE).
+     *                         and is used to expand the specified compact URI (CURIE).
      * @return An OWL object property that has the URI obtained by expanding the specified CURIE using the specified namespace
-     * manager.  For example, suppose "m:pet" was specified the CURIE, the namespaceManager would be used to obtain
-     * the namespace for the "m" prefix, this namespace would then be concatenated with "pet" to obtain the full URI
-     * which would be the URI of the OWL object property obtained by this method.
+     *         manager.  For example, suppose "m:pet" was specified the CURIE, the namespaceManager would be used to obtain
+     *         the namespace for the "m" prefix, this namespace would then be concatenated with "pet" to obtain the full URI
+     *         which would be the URI of the OWL object property obtained by this method.
      * @throws OWLRuntimeException if the namespace prefix in the specified CURIE does not have a mapping to a namespace
-     * in the specified namespace manager.
+     *                             in the specified namespace manager.
      */
     OWLObjectProperty getOWLObjectProperty(String curie, NamespaceManager namespaceManager);
 
 
     /**
      * Gets an OWL data property that has the specified URI
+     *
      * @param uri The URI of the data property to be obtained
      * @return The object representing the data property that has the specified URI
      */
@@ -129,21 +136,23 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /**
      * Gets an OWL data property that has a URI that is obtained by expanding a compact URI (CURIE) using a specified
      * prefix namespace mapping.
-     * @param curie The compact URI.
+     *
+     * @param curie            The compact URI.
      * @param namespaceManager The namespace manager that is responsible for mapping namespace prefixes to namespaces,
-     * and is used to expand the specified compact URI (CURIE).
+     *                         and is used to expand the specified compact URI (CURIE).
      * @return An OWL data property that has the URI obtained by expanding the specified CURIE using the specified namespace
-     * manager.  For example, suppose "m:age" was specified the CURIE, the namespaceManager would be used to obtain
-     * the namespace for the "m" prefix, this namespace would then be concatenated with "age" to obtain the full URI
-     * which would be the URI of the OWL object property obtained by this method.
+     *         manager.  For example, suppose "m:age" was specified the CURIE, the namespaceManager would be used to obtain
+     *         the namespace for the "m" prefix, this namespace would then be concatenated with "age" to obtain the full URI
+     *         which would be the URI of the OWL object property obtained by this method.
      * @throws OWLRuntimeException if the namespace prefix in the specified CURIE does not have a mapping to a namespace
-     * in the specified namespace manager.
+     *                             in the specified namespace manager.
      */
     OWLDataProperty getOWLDataProperty(String curie, NamespaceManager namespaceManager);
 
 
     /**
      * Gets an OWL individual that has the specified URI
+     *
      * @param uri The URI of the individual to be obtained
      * @return The object representing the individual that has the specified URI
      */
@@ -153,20 +162,20 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /**
      * Gets an OWL individual that has a URI that is obtained by expanding a compact URI (CURIE) using a specified
      * prefix namespace mapping.
-     * @param curie The compact URI.
+     *
+     * @param curie            The compact URI.
      * @param namespaceManager The namespace manager that is responsible for mapping namespace prefixes to namespaces,
-     * and is used to expand the specified compact URI (CURIE).
+     *                         and is used to expand the specified compact URI (CURIE).
      * @return An OWL individual that has the URI obtained by expanding the specified CURIE using the specified namespace
-     * manager.  For example, suppose "m:person" was specified the CURIE, the namespaceManager would be used to obtain
-     * the namespace for the "m" prefix, this namespace would then be concatenated with "person" to obtain the full URI
-     * which would be the URI of the OWL object property obtained by this method.
+     *         manager.  For example, suppose "m:person" was specified the CURIE, the namespaceManager would be used to obtain
+     *         the namespace for the "m" prefix, this namespace would then be concatenated with "person" to obtain the full URI
+     *         which would be the URI of the OWL object property obtained by this method.
      * @throws OWLRuntimeException if the namespace prefix in the specified CURIE does not have a mapping to a namespace
-     * in the specified namespace manager.
+     *                             in the specified namespace manager.
      */
     OWLIndividual getOWLIndividual(String curie, NamespaceManager namespaceManager);
 
     OWLIndividual getOWLAnonymousIndividual(URI anonId);
-
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -175,58 +184,63 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
     OWLTypedLiteral getOWLTypedLiteral(String literal, OWLDatatype datatype);
 
 
     /**
      * Convenience method that obtains a literal typed as an integer.
+     *
      * @param value The value of the literal
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
-     * value of the integer, and whose data type is xsd:integer.
+     *         value of the integer, and whose data type is xsd:integer.
      */
     OWLTypedLiteral getOWLTypedLiteral(int value);
 
 
     /**
      * Convenience method that obtains a literal typed as a double.
+     *
      * @param value The value of the literal
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
-     * value of the double, and whose data type is xsd:double.
+     *         value of the double, and whose data type is xsd:double.
      */
     OWLTypedLiteral getOWLTypedLiteral(double value);
 
 
     /**
      * Convenience method that obtains a literal typed as a boolean.
+     *
      * @param value The value of the literal
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
-     * value of the boolean, and whose data type is xsd:boolean.
+     *         value of the boolean, and whose data type is xsd:boolean.
      */
     OWLTypedLiteral getOWLTypedLiteral(boolean value);
 
 
     /**
      * Convenience method that obtains a literal typed as a float.
+     *
      * @param value The value of the literal
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
-     * value of the float, and whose data type is xsd:float.
+     *         value of the float, and whose data type is xsd:float.
      */
     OWLTypedLiteral getOWLTypedLiteral(float value);
 
     /**
      * Convenience method that obtains a literal typed as a string.
+     *
      * @param value The value of the literal
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
-     * value of the string, and whose data type is xsd:string.
+     *         value of the string, and whose data type is xsd:string.
      */
     OWLTypedLiteral getOWLTypedLiteral(String value);
 
 
     /**
      * Gets an OWLRDFTextLiteral.  That is, a string with a language tag
+     *
      * @param literal The string literal
-     * @param lang The language.  Must not be <code>null</code>
+     * @param lang    The language.  Must not be <code>null</code>
      * @return The OWLRDFTextLiteral that represent the string with a language tag
      */
     OWLRDFTextLiteral getOWLRDFTextLiteral(String literal, String lang);
@@ -239,6 +253,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     /**
      * Gets an OWL datatype that has the specified URI
+     *
      * @param uri The URI of the datatype to be obtained
      * @return The object representing the datatype that has the specified URI
      */
@@ -247,6 +262,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /**
      * A convenience method that obtains the datatype that represents integers.  This datatype will have the URI of
      * &lt;http://www.w3.org/2001/XMLSchema#integer&gt;
+     *
      * @return An object representing an integer datatype.
      */
     OWLDatatype getIntegerDatatype();
@@ -255,6 +271,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /**
      * A convenience method that obtains the datatype that represents floats.  This datatype will have the URI of
      * &lt;http://www.w3.org/2001/XMLSchema#float&gt;
+     *
      * @return An object representing the float datatype.
      */
     OWLDatatype getFloatDatatype();
@@ -263,6 +280,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /**
      * A convenience method that obtains the datatype that represents doubles.  This datatype will have the URI of
      * &lt;http://www.w3.org/2001/XMLSchema#double&gt;
+     *
      * @return An object representing a double datatype.
      */
     OWLDatatype getDoubleDatatype();
@@ -271,12 +289,10 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /**
      * A convenience method that obtains the datatype that represents booleans.  This datatype will have the URI of
      * &lt;http://www.w3.org/2001/XMLSchema#boolean&gt;
+     *
      * @return An object representing the boolean datatype.
      */
     OWLDatatype getBooleanDatatype();
-
-
-
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -286,6 +302,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     /**
      * Gets an OWLDataOneOf <a href="http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals">(see spec)</a>
+     *
      * @param values The set of values that the data one of should contain
      * @return A data one of that enumerates the specified set of values
      */
@@ -294,6 +311,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     /**
      * Gets an OWLDataOneOf  <a href="http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals">(see spec)</a>
+     *
      * @param values The set of values that the data one of should contain
      * @return A data one of that enumerates the specified set of values
      */
@@ -302,8 +320,9 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     /**
      * Gets an OWLDataComplementOf <a href="http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Complement_of_Data_Range">(see spec)</a>
+     *
      * @param dataRange The datarange to be complemented
-     * @return An OWLDataComplementOf of the specified data range 
+     * @return An OWLDataComplementOf of the specified data range
      */
     OWLDataComplementOf getOWLDataComplementOf(OWLDataRange dataRange);
 
@@ -317,7 +336,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                                        OWLTypedLiteral typedliteral);
 
     OWLDataRangeRestriction getOWLDataRangeRestriction(OWLDataRange dataRange,
-                                                       OWLDataRangeFacetRestriction ... facetRestrictions);
+                                                       OWLDataRangeFacetRestriction... facetRestrictions);
 
 
     OWLDataRangeFacetRestriction getOWLDataRangeFacetRestriction(OWLRestrictedDataRangeFacetVocabulary facet,
@@ -424,8 +443,8 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLObjectSelfRestriction getOWLObjectSelfRestriction(OWLObjectPropertyExpression property);
 
 
-    OWLObjectSomeRestriction getOWLObjectSomeRestriction(OWLObjectPropertyExpression property,
-                                                         OWLClassExpression classExpression);
+    OWLObjectSomeValuesFrom getOWLObjectSomeRestriction(OWLObjectPropertyExpression property,
+                                                        OWLClassExpression classExpression);
 
 
     OWLObjectValueRestriction getOWLObjectValueRestriction(OWLObjectPropertyExpression property,
@@ -463,7 +482,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(Set<OWLIndividual> individuals);
 
-    OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(OWLIndividual ... individuals);
+    OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(OWLIndividual... individuals);
 
 
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(Set<? extends OWLClassExpression> descriptions);
@@ -478,12 +497,12 @@ public interface OWLDataFactory extends SWRLDataFactory {
             Set<? extends OWLDataPropertyExpression> properties);
 
 
-    OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(OWLDataPropertyExpression ... properties);
+    OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(OWLDataPropertyExpression... properties);
 
     OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(
             Set<? extends OWLObjectPropertyExpression> properties);
 
-    OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(OWLObjectPropertyExpression ... properties);
+    OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(OWLObjectPropertyExpression... properties);
 
 
     OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass, Set<? extends OWLClassExpression> descriptions);
@@ -498,13 +517,13 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
             Set<? extends OWLDataPropertyExpression> properties);
 
-    OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(OWLDataPropertyExpression ... properties);
+    OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(OWLDataPropertyExpression... properties);
 
 
     OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(
             Set<? extends OWLObjectPropertyExpression> properties);
 
-    OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(OWLObjectPropertyExpression ... properties);
+    OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(OWLObjectPropertyExpression... properties);
 
 
     OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(OWLDataPropertyExpression property);
@@ -635,6 +654,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /**
      * Gets a label annotation. This is an annotation that has a URI
      * which corresponds to rdfs:label
+     *
      * @param label The label content
      */
     OWLLabelAnnotation getOWLLabelAnnotation(String label);
@@ -642,6 +662,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     /**
      * Gets a label annotation
+     *
      * @param label    The label content
      * @param language The language of the label
      */
@@ -657,6 +678,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     /**
      * Gets a comment annotation with an attached language tag.
+     *
      * @param comment  The comment content
      * @param langauge The langauge that the comment is in
      */

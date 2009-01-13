@@ -138,7 +138,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLIndividual getOWLIndividual(URI uri) {
         OWLIndividual ind = individualsByURI.get(uri);
-        if(ind == null) {
+        if (ind == null) {
             ind = new OWLIndividualImpl(this, uri, false);
             individualsByURI.put(uri, ind);
         }
@@ -237,9 +237,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
                                                               OWLRestrictedDataRangeFacetVocabulary facet,
                                                               OWLTypedLiteral typedConstant) {
         return new OWLDataRangeRestrictionImpl(this,
-                                               dataRange,
-                                               Collections.singleton(getOWLDataRangeFacetRestriction(facet,
-                                                                                                     typedConstant)));
+                dataRange,
+                Collections.singleton(getOWLDataRangeFacetRestriction(facet,
+                        typedConstant)));
     }
 
 
@@ -398,10 +398,10 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLObjectSomeRestriction getOWLObjectSomeRestriction(OWLObjectPropertyExpression property,
-                                                                OWLClassExpression classExpression) {
-        return new OWLObjectSomeRestrictionImpl(this, property, classExpression);
-//        OWLObjectSomeRestriction r = (OWLObjectSomeRestriction) descriptionCache.get(d);
+    public OWLObjectSomeValuesFrom getOWLObjectSomeRestriction(OWLObjectPropertyExpression property,
+                                                               OWLClassExpression classExpression) {
+        return new OWLObjectSomeValuesFromImpl(this, property, classExpression);
+//        OWLObjectSomeValuesFrom r = (OWLObjectSomeValuesFrom) descriptionCache.get(d);
 //        if(r == null) {
 //            r = d;
 //            descriptionCache.put(d, d);
@@ -473,7 +473,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(OWLClassExpression clsA, OWLClassExpression... classExpressions) {
         Set<OWLClassExpression> clses = new HashSet<OWLClassExpression>();
         clses.add(clsA);
-        for(OWLClassExpression desc : classExpressions) {
+        for (OWLClassExpression desc : classExpressions) {
             clses.add(desc);
         }
         return getOWLDisjointClassesAxiom(clses);
@@ -557,8 +557,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLImportsDeclaration getOWLImportsDeclarationAxiom(OWLOntology subject, URI importedOntologyURI) {
         URI cleanedImportedOntologyURI = importedOntologyURI;
-        if(importedOntologyURI.getFragment() != null && importedOntologyURI.getFragment().length() == 0) {
-           cleanedImportedOntologyURI = URI.create(importedOntologyURI.toString().substring(0, importedOntologyURI.toString().length() - 1));
+        if (importedOntologyURI.getFragment() != null && importedOntologyURI.getFragment().length() == 0) {
+            cleanedImportedOntologyURI = URI.create(importedOntologyURI.toString().substring(0, importedOntologyURI.toString().length() - 1));
         }
         return new OWLImportsDeclarationImpl(this, subject, cleanedImportedOntologyURI);
     }
@@ -763,11 +763,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     public OWLConstantAnnotation getOWLConstantAnnotation(URI annotationURI, OWLLiteral literal) {
         if (annotationURI.equals(OWLRDFVocabulary.RDFS_LABEL.getURI())) {
             return new OWLLabelAnnotationImpl(this, literal);
-        }
-        else if (annotationURI.equals(OWLRDFVocabulary.RDFS_COMMENT.getURI())) {
+        } else if (annotationURI.equals(OWLRDFVocabulary.RDFS_COMMENT.getURI())) {
             return new OWLCommentAnnotationImpl(this, literal);
-        }
-        else {
+        } else {
             return new OWLConstantAnnotationImpl(this, annotationURI, literal);
         }
     }
@@ -791,6 +789,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRL rule which is named with a URI
+     *
      * @param uri         The rule URI (the "name" of the rule)
      * @param antecendent The atoms that make up the antecedent
      * @param consequent  The atoms that make up the consequent
@@ -803,6 +802,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRL rule which is not named with a URI - i.e. that is anonymous.
+     *
      * @param uri        The anonymous id
      * @param antededent The atoms that make up the antecedent
      * @param consequent The atoms that make up the consequent
@@ -814,6 +814,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRL rule which is anonymous - i.e. isn't named with a URI
+     *
      * @param antecendent The atoms that make up the antecedent
      * @param consequent  The atoms that make up the consequent
      */
@@ -825,6 +826,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     /**
      * Gets a SWRL class atom, i.e.  C(x) where C is a class description and
      * x is either an individual id or an i-variable
+     *
      * @param desc The class description
      * @param arg  The argument (x)
      */
@@ -836,6 +838,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     /**
      * Gets a SWRL data range atom, i.e.  D(x) where D is an OWL data range and
      * x is either a constant or a d-variable
+     *
      * @param rng The class description
      * @param arg The argument (x)
      */
@@ -848,6 +851,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * Gets a SWRL object property atom, i.e. P(x, y) where P is an OWL object
      * property (expression) and x and y are are either an individual id or
      * an i-variable.
+     *
      * @param property The property (P)
      * @param arg0     The first argument (x)
      * @param arg1     The second argument (y)
@@ -862,6 +866,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * Gets a SWRL data property atom, i.e. R(x, y) where R is an OWL data
      * property (expression) and x and y are are either a constant or
      * a d-variable.
+     *
      * @param property The property (P)
      * @param arg0     The first argument (x)
      * @param arg1     The second argument (y)
@@ -874,6 +879,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Creates a SWRL Built-In atom.
+     *
      * @param builtIn The SWRL builtIn (see SWRL W3 member submission)
      * @param args    A non-empty set of SWRL D-Objects
      */
@@ -885,6 +891,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     /**
      * Gets a SWRL i-variable.  This is used in rule atoms where a SWRL
      * I object can be used.
+     *
      * @param var The id (URI) of the variable
      */
     public SWRLAtomIVariable getSWRLAtomIVariable(URI var) {
@@ -895,6 +902,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     /**
      * Gets a SWRL d-variable.  This is used in rule atoms where a SWRL
      * D object can be used.
+     *
      * @param var The id (URI) of the variable
      */
     public SWRLAtomDVariable getSWRLAtomDVariable(URI var) {
@@ -904,6 +912,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRL individual object.
+     *
      * @param individual The individual that is the object argument
      */
     public SWRLAtomIndividualObject getSWRLAtomIndividualObject(OWLIndividual individual) {
@@ -913,6 +922,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRL constant object.
+     *
      * @param literal The constant that is the object argument
      */
     public SWRLAtomConstantObject getSWRLAtomConstantObject(OWLLiteral literal) {

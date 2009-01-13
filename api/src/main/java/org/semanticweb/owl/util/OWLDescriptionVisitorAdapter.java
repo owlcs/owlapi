@@ -49,7 +49,7 @@ public class OWLDescriptionVisitorAdapter implements OWLDescriptionVisitor {
     }
 
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
     }
 
 

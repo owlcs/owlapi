@@ -443,7 +443,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    public final void visit(OWLObjectSomeRestriction desc) {
+    public final void visit(OWLObjectSomeValuesFrom desc) {
         writeOpenBracket();
         write(SOME);
         write(desc.getProperty());

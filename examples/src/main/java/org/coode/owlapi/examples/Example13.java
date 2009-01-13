@@ -1,7 +1,7 @@
 package org.coode.owlapi.examples;
 
 import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.model.OWLObjectSomeRestriction;
+import org.semanticweb.owl.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyCreationException;
 import org.semanticweb.owl.model.OWLOntologyManager;
@@ -64,11 +64,11 @@ public class Example13 {
             // We need to create out visitor.  This can be any ordinary visitor, but we will
             // extend the OWLOntologyWalkerVisitor because it provides a convenience method to
             // get the current axiom being visited as we go.
-            // Create an instance and override the visit(OWLObjectSomeRestriction) method, because
+            // Create an instance and override the visit(OWLObjectSomeValuesFrom) method, because
             // we are interested in some values from restrictions.
             OWLOntologyWalkerVisitor<Object> visitor = new OWLOntologyWalkerVisitor<Object>(walker) {
 
-                public Object visit(OWLObjectSomeRestriction desc) {
+                public Object visit(OWLObjectSomeValuesFrom desc) {
                     // Print out the restriction
                     System.out.println(desc);
                     // Print out the axiom where the restriction is used
@@ -86,8 +86,6 @@ public class Example13 {
             System.out.println("There was a problem loading the ontology: " + e.getMessage());
         }
     }
-
-
 
 
 }

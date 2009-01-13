@@ -46,6 +46,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     /**
      * Creates an object duplicator that duplicates objects using the specified
      * data factory.
+     *
      * @param dataFactory The data factory to be used for the duplication.
      */
     public OWLObjectDuplicator(OWLDataFactory dataFactory) {
@@ -56,15 +57,16 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     /**
      * Creates an object duplicator that duplicates objects using the specified
      * data factory and uri replacement map.
-     * @param dataFactory The data factory to be used for the duplication.
+     *
+     * @param dataFactory       The data factory to be used for the duplication.
      * @param uriReplacementMap The map to use for the replacement of URIs.  Any uris
-     * the appear in the map will be replaced as objects are duplicated.  This can
-     * be used to "rename" entities.
+     *                          the appear in the map will be replaced as objects are duplicated.  This can
+     *                          be used to "rename" entities.
      */
     public OWLObjectDuplicator(OWLDataFactory dataFactory, Map<URI, URI> uriReplacementMap) {
         this.dataFactory = dataFactory;
         this.replacementMap = new HashMap<OWLEntity, URI>();
-        for(URI uri : uriReplacementMap.keySet()) {
+        for (URI uri : uriReplacementMap.keySet()) {
             URI repURI = uriReplacementMap.get(uri);
             replacementMap.put(dataFactory.getOWLClass(uri), repURI);
             replacementMap.put(dataFactory.getOWLObjectProperty(uri), repURI);
@@ -76,10 +78,11 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     /**
      * Creates an object duplicator that duplicates objects using the specified
      * data factory and uri replacement map.
-     * @param dataFactory The data factory to be used for the duplication.
+     *
+     * @param dataFactory             The data factory to be used for the duplication.
      * @param entityURIReplacementMap The map to use for the replacement of URIs.  Any uris
-     * the appear in the map will be replaced as objects are duplicated.  This can
-     * be used to "rename" entities.
+     *                                the appear in the map will be replaced as objects are duplicated.  This can
+     *                                be used to "rename" entities.
      */
     public OWLObjectDuplicator(Map<OWLEntity, URI> entityURIReplacementMap, OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
@@ -106,10 +109,9 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      */
     private URI getURI(OWLEntity entity) {
         URI replacement = replacementMap.get(entity);
-        if(replacement != null) {
+        if (replacement != null) {
             return replacement;
-        }
-        else {
+        } else {
             return entity.getURI();
         }
     }
@@ -201,8 +203,6 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         Set<OWLIndividual> inds = duplicateSet(axiom.getIndividuals());
         obj = dataFactory.getOWLDifferentIndividualsAxiom(inds);
     }
-
-
 
 
     public void visit(OWLDisjointClassesAxiom axiom) {
@@ -336,7 +336,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getSuperProperty().accept(this);
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
         List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>();
-        for(OWLObjectPropertyExpression p : axiom.getPropertyChain()) {
+        for (OWLObjectPropertyExpression p : axiom.getPropertyChain()) {
             p.accept(this);
             chain.add((OWLObjectPropertyExpression) obj);
         }
@@ -387,7 +387,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getSubClass().accept(this);
         OWLClassExpression subClass = (OWLClassExpression) obj;
         axiom.getSuperClass().accept(this);
-        OWLClassExpression supClass =(OWLClassExpression) obj;
+        OWLClassExpression supClass = (OWLClassExpression) obj;
         obj = dataFactory.getOWLSubClassAxiom(subClass, supClass);
     }
 
@@ -526,7 +526,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         desc.getProperty().accept(this);
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
         desc.getFiller().accept(this);
@@ -573,7 +573,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         node.getDataRange().accept(this);
         OWLDataRange dr = (OWLDataRange) obj;
         Set<OWLDataRangeFacetRestriction> restrictions = new HashSet<OWLDataRangeFacetRestriction>();
-        for(OWLDataRangeFacetRestriction restriction : node.getFacetRestrictions()) {
+        for (OWLDataRangeFacetRestriction restriction : node.getFacetRestrictions()) {
             restriction.accept(this);
             restrictions.add((OWLDataRangeFacetRestriction) obj);
         }
@@ -633,11 +633,11 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public void visit(SWRLRule rule) {
         Set<SWRLAtom> antecedents = new HashSet<SWRLAtom>();
         Set<SWRLAtom> consequents = new HashSet<SWRLAtom>();
-        for(SWRLAtom atom : rule.getBody()) {
+        for (SWRLAtom atom : rule.getBody()) {
             atom.accept(this);
             antecedents.add((SWRLAtom) obj);
         }
-        for(SWRLAtom atom : rule.getHead()) {
+        for (SWRLAtom atom : rule.getHead()) {
             atom.accept(this);
             consequents.add((SWRLAtom) obj);
         }
@@ -687,7 +687,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     public void visit(SWRLBuiltInAtom node) {
         List<SWRLAtomDObject> atomObjects = new ArrayList<SWRLAtomDObject>();
-        for(SWRLAtomDObject atomObject : node.getArguments()) {
+        for (SWRLAtomDObject atomObject : node.getArguments()) {
             atomObject.accept(this);
             atomObjects.add((SWRLAtomDObject) obj);
         }
@@ -740,17 +740,18 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public void visit(OWLOntologyAnnotationAxiom axiom) {
         axiom.getAnnotation().accept(this);
         OWLAnnotation anno = (OWLAnnotation) obj;
-        obj = dataFactory.getOWLOntologyAnnotationAxiom(axiom.getSubject(), anno);        
+        obj = dataFactory.getOWLOntologyAnnotationAxiom(axiom.getSubject(), anno);
     }
 
 
     /**
      * A utility function that duplicates a set of objects.
+     *
      * @param objs The set of object to be duplicated
      */
     private <O extends OWLObject> Set<O> duplicateSet(Set<O> objs) {
         Set<O> dup = new HashSet<O>();
-        for(O o : objs) {
+        for (O o : objs) {
             o.accept(this);
             dup.add((O) obj);
         }
@@ -760,11 +761,12 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     /**
      * A utility function that duplicates a set of objects.
+     *
      * @param objs The set of object to be duplicated
      */
     private <O extends SWRLObject> Set<O> duplicateSWRLObjectSet(Set<O> objs) {
         Set<O> dup = new HashSet<O>();
-        for(O o : objs) {
+        for (O o : objs) {
             o.accept(this);
             dup.add((O) obj);
         }

@@ -38,7 +38,7 @@ import java.util.*;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 10-Feb-2008<br><br>
- *
+ * <p/>
  * Renders objects in unicode DL syntax
  */
 public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisitor {
@@ -63,7 +63,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     public boolean isFocusedObject(OWLObject obj) {
-        if(focusedObject == null) {
+        if (focusedObject == null) {
             return false;
         }
         return focusedObject.equals(obj);
@@ -82,7 +82,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
 
     public void visit(OWLOntology ontology) {
-        for(OWLAxiom ax : new TreeSet<OWLAxiom>(ontology.getLogicalAxioms())) {
+        for (OWLAxiom ax : new TreeSet<OWLAxiom>(ontology.getLogicalAxioms())) {
             ax.accept(this);
             write("\n");
         }
@@ -129,39 +129,36 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     private void writeObject(OWLObject object, boolean nest) {
-        if(nest) {
+        if (nest) {
             writeNested(object);
-        }
-        else {
+        } else {
             object.accept(this);
         }
     }
 
     protected void write(Collection<? extends OWLObject> objects, DLSyntax delim, boolean nest) {
-        if(objects.size() == 2) {
+        if (objects.size() == 2) {
             Iterator<? extends OWLObject> it = objects.iterator();
             OWLObject o1 = it.next();
             OWLObject o2 = it.next();
-            if(isFocusedObject(o1) || !isFocusedObject(o2)) {
+            if (isFocusedObject(o1) || !isFocusedObject(o2)) {
                 writeObject(o1, nest);
                 writeSpace();
                 write(delim);
                 writeSpace();
                 writeObject(o2, nest);
-            }
-            else {
+            } else {
                 writeObject(o2, nest);
                 writeSpace();
                 write(delim);
                 writeSpace();
                 writeObject(o1, nest);
             }
-        }
-        else {
-            for(Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext(); ) {
+        } else {
+            for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
                 OWLObject o = it.next();
                 writeObject(o, nest);
-                if(it.hasNext()) {
+                if (it.hasNext()) {
                     writeSpace();
                     write(delim);
                     writeSpace();
@@ -176,7 +173,6 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 //    }
 
 
-
     public void visit(OWLSubClassAxiom axiom) {
         axiom.getSubClass().accept(this);
         writeSpace();
@@ -186,7 +182,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     private void writePropertyAssertion(OWLPropertyAssertionAxiom ax) {
-        if(ax instanceof OWLNegativeObjectPropertyAssertionAxiom || ax instanceof OWLNegativeDataPropertyAssertionAxiom) {
+        if (ax instanceof OWLNegativeObjectPropertyAssertionAxiom || ax instanceof OWLNegativeDataPropertyAssertionAxiom) {
             write(NOT);
         }
         ax.getProperty().accept(this);
@@ -216,8 +212,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     public void visit(OWLDisjointClassesAxiom axiom) {
         List<OWLClassExpression> descs = new ArrayList<OWLClassExpression>(axiom.getDescriptions());
-        for(int i = 0; i < descs.size(); i++) {
-            for(int j = i + 1 ; j < descs.size(); j++) {
+        for (int i = 0; i < descs.size(); i++) {
+            for (int j = i + 1; j < descs.size(); j++) {
                 descs.get(i).accept(this);
                 writeSpace();
                 write(DISJOINT_WITH);
@@ -366,7 +362,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeSpace();
         axiom.getProperty().accept(this);
         write(INVERSE);
-        
+
     }
 
 
@@ -378,7 +374,6 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     public void visit(OWLDataPropertyRangeAxiom axiom) {
         writeRangeAxiom(axiom);
     }
-
 
 
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
@@ -463,11 +458,10 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         OWLObject o2 = axiom.getSecondProperty();
 
         OWLObject first, second;
-        if(isFocusedObject(o1) || !isFocusedObject(o2)) {
+        if (isFocusedObject(o1) || !isFocusedObject(o2)) {
             first = o1;
             second = o2;
-        }
-        else {
+        } else {
             first = o2;
             second = o1;
         }
@@ -485,20 +479,18 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         write(rule.getHead(), WEDGE, false);
         writeSpace();
         write(IMPLIES);
-        writeSpace();        
+        writeSpace();
         write(rule.getBody(), WEDGE, false);
 
     }
 
 
     public void visit(OWLClass desc) {
-        if(desc.isOWLThing()) {
+        if (desc.isOWLThing()) {
             write(TOP);
-        }
-        else if(desc.isOWLNothing()) {
+        } else if (desc.isOWLNothing()) {
             write(BOTTOM);
-        }
-        else {
+        } else {
             writeEntity(desc);
         }
     }
@@ -526,8 +518,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeSpace();
         restriction.getProperty().accept(this);
 //        if (restriction.isQualified()) {
-            writeRestrictionSeparator();
-            writeNested(restriction.getFiller());
+        writeRestrictionSeparator();
+        writeNested(restriction.getFiller());
 //        }
     }
 
@@ -539,7 +531,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(restriction.getFiller());
     }
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         writeQuantifiedRestriction(desc, EXISTS);
 
     }
@@ -590,11 +582,11 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
 
     public void visit(OWLObjectOneOf desc) {
-        for(Iterator<OWLIndividual> it = desc.getIndividuals().iterator(); it.hasNext(); ) {
+        for (Iterator<OWLIndividual> it = desc.getIndividuals().iterator(); it.hasNext();) {
             write("{");
             it.next().accept(this);
             write("}");
-            if(it.hasNext()) {
+            if (it.hasNext()) {
                 write(" ");
                 write(OR);
                 write(" ");
@@ -647,7 +639,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
 
     public void visit(OWLDataOneOf node) {
-        for(Iterator<OWLLiteral> it = node.getValues().iterator(); it.hasNext(); ) {
+        for (Iterator<OWLLiteral> it = node.getValues().iterator(); it.hasNext();) {
             write("{");
             it.next().accept(this);
             write("}");
@@ -659,7 +651,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
 
     public void visit(OWLDataRangeRestriction node) {
-        
+
     }
 
 

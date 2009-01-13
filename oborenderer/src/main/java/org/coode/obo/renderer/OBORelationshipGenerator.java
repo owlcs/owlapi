@@ -33,7 +33,7 @@ import java.util.Set;
  * Bio Health Informatics Group<br>
  * Date: Dec 18, 2008<br><br>
  */
-public class OBORelationshipGenerator extends org.semanticweb.owl.util.OWLDescriptionVisitorAdapter{
+public class OBORelationshipGenerator extends org.semanticweb.owl.util.OWLDescriptionVisitorAdapter {
 
     private Set<OBORelationship> relationships = new HashSet<OBORelationship>();
 
@@ -46,7 +46,7 @@ public class OBORelationshipGenerator extends org.semanticweb.owl.util.OWLDescri
         this.eHandler = eHandler;
     }
 
-    
+
     public void setClass(OWLClass cls) {
         this.cls = cls;
         clear();
@@ -63,14 +63,14 @@ public class OBORelationshipGenerator extends org.semanticweb.owl.util.OWLDescri
     }
 
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         getRelationship(desc);
     }
 
 
     public void visit(OWLObjectMinCardinalityRestriction desc) {
         OBORelationship rel = getRelationship(desc);
-        if (rel != null){
+        if (rel != null) {
             rel.setMinCardinality(desc.getCardinality());
         }
     }
@@ -78,7 +78,7 @@ public class OBORelationshipGenerator extends org.semanticweb.owl.util.OWLDescri
 
     public void visit(OWLObjectExactCardinalityRestriction desc) {
         OBORelationship rel = getRelationship(desc);
-        if (rel != null){
+        if (rel != null) {
             rel.setCardinality(desc.getCardinality());
         }
     }
@@ -86,22 +86,21 @@ public class OBORelationshipGenerator extends org.semanticweb.owl.util.OWLDescri
 
     public void visit(OWLObjectMaxCardinalityRestriction desc) {
         OBORelationship rel = getRelationship(desc);
-        if (rel != null){
+        if (rel != null) {
             rel.setMaxCardinality(desc.getCardinality());
         }
     }
-
 
     // TODO error handling for un-translatable descriptions
 
 
     private OBORelationship getRelationship(OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLClassExpression> desc) {
-        if (desc.isAnonymous() && !desc.getFiller().isAnonymous()){
+        if (desc.isAnonymous() && !desc.getFiller().isAnonymous()) {
             final OWLObjectProperty p = desc.getProperty().asOWLObjectProperty();
             final OWLClass f = desc.getFiller().asOWLClass();
 
-            for (OBORelationship rel : relationships){
-                if (rel.getProperty().equals(p) && rel.getFiller().equals(f)){
+            for (OBORelationship rel : relationships) {
+                if (rel.getProperty().equals(p) && rel.getFiller().equals(f)) {
                     return rel;
                 }
             }

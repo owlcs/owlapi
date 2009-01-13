@@ -542,7 +542,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectSomeRestriction desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         writer.writeStartElement(OBJECT_SOME_VALUES_FROM.getURI());
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);

@@ -44,7 +44,7 @@ public interface OWLDescriptionVisitorEx<O> {
     O visit(OWLObjectComplementOf desc);
 
 
-    O visit(OWLObjectSomeRestriction desc);
+    O visit(OWLObjectSomeValuesFrom desc);
 
 
     O visit(OWLObjectAllRestriction desc);
