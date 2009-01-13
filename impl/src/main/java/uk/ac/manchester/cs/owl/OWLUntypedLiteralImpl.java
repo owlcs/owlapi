@@ -68,7 +68,7 @@ public class OWLUntypedLiteralImpl extends OWLLiteralImpl implements OWLUntypedL
     }
 
 
-    public OWLTypedLiteral asOWLTypedConstant() {
+    public OWLTypedLiteral asOWLTypedLiteral() {
         throw new OWLRuntimeException("Not a typed constant!");
     }
 

@@ -9,7 +9,7 @@ Bug Fixes:
 - Removing a subclass axiom from an ontology cause the axiom to be added to the ontology as a GCI. Fixed.
 - When parsing an ontology, the accept types has been set to include RDF/XML.  This means that ontologies can be parsed correctly from servers that are configured to return RDF or HTML depending on the request type.
 - OWL/XML writer has been modified to write the datatype URI attribute name correctly.  Previously the name was written as "Datatype", however it should be "datatypeURI".
-- OWL/XML parser. Modified the constant handler to parse constants using the correct datatype URI attribute name (was "Datatype" and should have been "datatypeURI").
+- OWL/XML parser. Modified the literal handler to parse literals using the correct datatype URI attribute name (was "Datatype" and should have been "datatypeURI").
 - The constructor that required a manager in BidirectionalShortFormProviderAdapter did not rebuild the cache. Fixed.
 - Unqualified cardinality restrictions were rendered out as qualified cardinality restrictions. Fixed.
 - Saving an ontology would fail if the necessary directories did not exist. Fixed.
@@ -103,7 +103,7 @@ rethrow the error at the earliest opportunity rather than trying all parsers.
 
 - Made the toString rendering of the default implementation pluggable via the ToStringRenderer singleton class.
 
-- Added some convenience methods to the OWLDataFactory to make creating certain types of objects less tedious.  Specifically: ObjectIntersectionOf, ObjectUnionOf, ObjectOneOf and DataOneOf can now be created using methods that take a variable number of arguments (OWLDescriptions, OWLIndividuals or OWLConstants as appropriate).  Also, added convenience methods that create typed constants directly from Java Strings, ints, doubles, floats and booleans.  For example, createOWLTypedConstant(3) will create a typed constant with a lexical value of "3" and a datatype of xsd:integer.  Added convenice methods for creating entity annotations without manually having to create OWLAnnotation objects.
+- Added some convenience methods to the OWLDataFactory to make creating certain types of objects less tedious.  Specifically: ObjectIntersectionOf, ObjectUnionOf, ObjectOneOf and DataOneOf can now be created using methods that take a variable number of arguments (OWLDescriptions, OWLIndividuals or OWLConstants as appropriate).  Also, added convenience methods that create typed literals directly from Java Strings, ints, doubles, floats and booleans.  For example, createOWLTypedConstant(3) will create a typed literal with a lexical value of "3" and a datatype of xsd:integer.  Added convenice methods for creating entity annotations without manually having to create OWLAnnotation objects.
 
 - Added a getAxiomType method on to the OWLAxiom interface for convenience.
 

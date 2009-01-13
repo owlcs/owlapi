@@ -77,7 +77,7 @@ public class ObjectAnnotationTestCase extends TestCase {
         OWLAnnotation anno = ind.getAnnotations(ont).iterator().next();
         assertFalse(anno instanceof OWLObjectAnnotation);
         assertTrue(((OWLLiteral) anno.getAnnotationValue()).isTyped());
-        assertTrue(((OWLLiteral) anno.getAnnotationValue()).asOWLTypedConstant().getDataType().getURI().equals(
+        assertTrue(((OWLLiteral) anno.getAnnotationValue()).asOWLTypedLiteral().getDataType().getURI().equals(
                 XSDVocabulary.ANY_URI.getURI()));
                     man.removeOntology(ont.getURI());
     }

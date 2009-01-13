@@ -130,7 +130,7 @@ public abstract class RDFRendererBase {
                         OWLLiteral con = anno.getAnnotationValueAsConstant();
                         RDFLiteralNode obj;
                         if (con.isTyped()) {
-                            obj = new RDFLiteralNode(con.getString(), con.asOWLTypedConstant().getDataType().getURI());
+                            obj = new RDFLiteralNode(con.getString(), con.asOWLTypedLiteral().getDataType().getURI());
                         }
                         else {
                             if (con.asOWLUntypedConstant().hasLang()) {

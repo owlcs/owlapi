@@ -28,7 +28,7 @@ package org.semanticweb.owl.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- *
+ * <p/>
  * Represents a literal (typed or untyped).
  */
 public interface OWLLiteral extends OWLObject {
@@ -42,20 +42,20 @@ public interface OWLLiteral extends OWLObject {
     /**
      * Determines if this literal is typed (i.e. an instance
      * of <code>OWLTypedLiteral</code>)
+     *
      * @return <code>true</code> if the literal is typed, otherwise false
-     * <code>false</code>
+     *         <code>false</code>
      */
     boolean isTyped();
 
 
     /**
-     * If this constant is a typed constant (i.e. if the <code>isTyped</code>
-     * method returns <code>true</code> then this method obtains this constant as a typed
-     * constant.  If <code>isTyped</code> returns <code>false</code> because
-     * this constant is not a typed constant then calling this method will
+     * If this literal is a typed (i.e. if the <code>isTyped</code>
+     * method returns <code>true</code> then this method obtains this literal as a typed
+     * literal.  If <code>isTyped</code> returns <code>false</code> then calling this method will
      * cause an <code>OWLRuntimeException</code> to be thrown.
      */
-    OWLTypedLiteral asOWLTypedConstant();
+    OWLTypedLiteral asOWLTypedLiteral();
 
 
     /**

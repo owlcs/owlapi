@@ -597,7 +597,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         sb.append(literal.getString());
         sb.append("\" ");
         if (literal.isTyped()){
-            sb.append(literal.asOWLTypedConstant().getDataType().getURI());
+            sb.append(literal.asOWLTypedLiteral().getDataType().getURI());
         }
         return sb.toString();
     }

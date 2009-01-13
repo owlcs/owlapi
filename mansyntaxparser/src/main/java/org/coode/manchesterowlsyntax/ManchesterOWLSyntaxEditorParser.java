@@ -781,7 +781,7 @@ public class ManchesterOWLSyntaxEditorParser {
                     if (!con.isTyped()) {
                         con = dataFactory.getOWLTypedConstant(con.getString());
                     }
-                    facetRestrictions.add(dataFactory.getOWLDataRangeFacetRestriction(fv, con.asOWLTypedConstant()));
+                    facetRestrictions.add(dataFactory.getOWLDataRangeFacetRestriction(fv, con.asOWLTypedLiteral()));
                     sep = consumeToken();
                 }
                 if (!sep.equals("]")) {

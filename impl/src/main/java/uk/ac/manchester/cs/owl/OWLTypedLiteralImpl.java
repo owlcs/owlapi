@@ -47,7 +47,7 @@ public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiter
     }
 
 
-    public OWLTypedLiteral asOWLTypedConstant() {
+    public OWLTypedLiteral asOWLTypedLiteral() {
         return this;
     }
 
