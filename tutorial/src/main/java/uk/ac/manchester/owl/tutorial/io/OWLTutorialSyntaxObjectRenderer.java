@@ -3,6 +3,7 @@ package uk.ac.manchester.owl.tutorial.io;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.QNameShortFormProvider;
 import org.semanticweb.owl.util.ShortFormProvider;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URI;
@@ -33,7 +34,7 @@ import java.util.*;
 
 /**
  * <p>A renderer that provides an HTML version of the ontology.</p>
- * 
+ * <p/>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
@@ -342,7 +343,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     public void writePropertyCharacteristic(String str, OWLAxiom ax,
-            OWLPropertyExpression prop) throws OWLRuntimeException {
+                                            OWLPropertyExpression prop) throws OWLRuntimeException {
         write(keyword(str));
         writeSpace();
         prop.accept(this);
@@ -448,7 +449,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(OWLImportsDeclaration axiom) {
-                   write(keyword("imports"));
+        write(keyword("imports"));
         write(axiom.getImportedOntologyURI());
     }
 
@@ -470,7 +471,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-                axiom.getSubject().accept(this);
+        axiom.getSubject().accept(this);
         writeSpace();
         write(keyword("notvalue"));
         axiom.getProperty().accept(this);
@@ -507,12 +508,12 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-                axiom.getProperty().accept(this);
+        axiom.getProperty().accept(this);
         writeSpace();
         write(keyword("domain"));
         writeSpace();
         axiom.getDomain().accept(this);
-            }
+    }
 
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         axiom.getProperty().accept(this);
@@ -559,7 +560,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private void writeRestriction(String str,
-            OWLCardinalityRestriction restriction) {
+                                  OWLCardinalityRestriction restriction) {
         write(str);
         writeOpenBracket();
         write(Integer.toString(restriction.getCardinality()));
@@ -573,13 +574,13 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private void writeRestriction(String str,
-            OWLQuantifiedRestriction restriction) {
+                                  OWLQuantifiedRestriction restriction) {
         writeRestriction(str, restriction.getProperty(), restriction
                 .getFiller());
     }
 
     private void writeRestriction(String str, OWLPropertyExpression prop,
-            OWLObject filler) throws OWLRuntimeException {
+                                  OWLObject filler) throws OWLRuntimeException {
         write(str);
         writeOpenBracket();
         prop.accept(this);
@@ -707,14 +708,12 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write(node.getDataType().getURI());
     }
 
-    public void visit(OWLUntypedLiteral node) {
+    public void visit(OWLRDFTextLiteral node) {
         write("\"");
         write(node.getString());
         write("\"");
-        if (node.hasLang()) {
-            write("@");
-            write(node.getLang());
-        }
+        write("@");
+        write(node.getLang());
     }
 
     public void visit(OWLDataProperty property) {

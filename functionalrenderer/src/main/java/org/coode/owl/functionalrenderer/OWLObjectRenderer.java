@@ -137,8 +137,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         String qname = nsm.getQName(uriString);
         if (!qname.equals(uriString)) {
             write(qname);
-        }
-        else {
+        } else {
             write("<");
             write(uri.toString());
             write(">");
@@ -271,17 +270,15 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
                     writeIndent(indent);
                 }
             }
-        }
-        else if(objects.size() == 2) {
+        } else if (objects.size() == 2) {
             Iterator<? extends OWLObject> it = objects.iterator();
             OWLObject objA = it.next();
             OWLObject objB = it.next();
             OWLObject lhs, rhs;
-            if(objA.equals(focusedObject)) {
+            if (objA.equals(focusedObject)) {
                 lhs = objA;
                 rhs = objB;
-            }
-            else {
+            } else {
                 lhs = objB;
                 rhs = objA;
             }
@@ -324,14 +321,12 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
             writeOpenBracket();
             annotation.getAnnotationValue().accept(this);
             writeCloseBracket();
-        }
-        else if (annotation.isComment()) {
+        } else if (annotation.isComment()) {
             write(COMMENT);
             writeOpenBracket();
             annotation.getAnnotationValue().accept(this);
             writeCloseBracket();
-        }
-        else {
+        } else {
             write(ANNOTATION);
             writeOpenBracket();
             write(annotation.getAnnotationURI());
@@ -581,9 +576,9 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         writeAxiomStart(SUB_OBJECT_PROPERTY_OF, axiom);
         write(SUB_OBJECT_PROPERTY_CHAIN);
         writeOpenBracket();
-        for(Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it.hasNext(); ) {
+        for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it.hasNext();) {
             it.next().accept(this);
-            if(it.hasNext()) {
+            if (it.hasNext()) {
                 write(" ");
             }
         }
@@ -836,14 +831,12 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLUntypedLiteral node) {
+    public void visit(OWLRDFTextLiteral node) {
         write("\"");
         write(EscapeUtils.escapeString(node.getString()));
         write("\"");
-        if (node.hasLang()) {
-            write("@");
-            write(node.getLang());
-        }
+        write("@");
+        write(node.getLang());
     }
 
 
@@ -948,7 +941,6 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(SWRLSameAsAtom node) {
         throw new RuntimeException("NOT IMPLEMENTED!");
     }
-
 
 //    private <T extends OWLEntity> Collection<T> sortEntities(Set<T> entites) {
 //        List<T> list = new ArrayList<T>(entites);

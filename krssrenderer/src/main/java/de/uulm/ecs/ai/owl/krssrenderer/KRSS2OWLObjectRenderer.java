@@ -574,7 +574,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
 
     }
 
-    public void visit(OWLUntypedLiteral node) {
+    public void visit(OWLRDFTextLiteral node) {
 
     }
 

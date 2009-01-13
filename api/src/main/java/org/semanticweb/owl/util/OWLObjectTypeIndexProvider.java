@@ -425,7 +425,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLUntypedLiteral node) {
+    public void visit(OWLRDFTextLiteral node) {
         type = DATA_TYPE_INDEX_BASE + 7;
     }
 

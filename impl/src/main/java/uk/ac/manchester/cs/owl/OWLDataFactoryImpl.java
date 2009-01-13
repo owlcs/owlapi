@@ -202,13 +202,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLUntypedLiteral getOWLUntypedConstant(String literal) {
-        return new OWLUntypedLiteralImpl(this, literal, null);
+    public OWLRDFTextLiteral getOWLUntypedConstant(String literal) {
+        return new OWLRDFTextLiteralImpl(this, literal, null);
     }
 
 
-    public OWLUntypedLiteral getOWLUntypedConstant(String literal, String lang) {
-        return new OWLUntypedLiteralImpl(this, literal, lang);
+    public OWLRDFTextLiteral getOWLUntypedConstant(String literal, String lang) {
+        return new OWLRDFTextLiteralImpl(this, literal, lang);
     }
 
 

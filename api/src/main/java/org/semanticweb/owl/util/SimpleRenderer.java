@@ -76,9 +76,9 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     protected void render(Set<? extends OWLObject> objects) {
-        for(Iterator<? extends OWLObject> it = toSortedSet(objects).iterator(); it.hasNext(); ) {
+        for (Iterator<? extends OWLObject> it = toSortedSet(objects).iterator(); it.hasNext();) {
             it.next().accept(this);
-            if(it.hasNext()) {
+            if (it.hasNext()) {
                 sb.append(" ");
             }
         }
@@ -274,19 +274,15 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLDeclarationAxiom axiom) {
         sb.append("Declaration(");
         OWLEntity entity = axiom.getEntity();
-        if(entity.isOWLClass()) {
+        if (entity.isOWLClass()) {
             sb.append("OWLClass(");
-        }
-        else if(entity.isOWLObjectProperty()) {
+        } else if (entity.isOWLObjectProperty()) {
             sb.append("ObjectProperty(");
-        }
-        else if(entity.isOWLDataProperty()) {
+        } else if (entity.isOWLDataProperty()) {
             sb.append("DataProperty(");
-        }
-        else if(entity.isOWLIndividual()) {
+        } else if (entity.isOWLIndividual()) {
             sb.append("Individual(");
-        }
-        else if(entity.isOWLDataType()) {
+        } else if (entity.isOWLDataType()) {
             sb.append("Datatype(");
         }
         axiom.getEntity().accept(this);
@@ -618,14 +614,12 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLUntypedLiteral node) {
+    public void visit(OWLRDFTextLiteral node) {
         sb.append("\"");
         sb.append(node.getString());
         sb.append("\"");
-        if (node.hasLang()) {
-            sb.append("@");
-            sb.append(node.getLang());
-        }
+        sb.append("@");
+        sb.append(node.getLang());
     }
 
 
@@ -663,11 +657,9 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLConstantAnnotation annotation) {
         if (annotation.isLabel()) {
             sb.append("Label(");
-        }
-        else if (annotation.isComment()) {
+        } else if (annotation.isComment()) {
             sb.append("Comment(");
-        }
-        else {
+        } else {
             sb.append("Annotation(");
             sb.append(getShortForm(annotation.getAnnotationURI()));
         }
@@ -779,7 +771,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     private String getShortForm(URI uri) {
-        return uriShortFormProvider.getShortForm(uri); 
+        return uriShortFormProvider.getShortForm(uri);
     }
 
     public void visit(SWRLAtomIndividualObject node) {

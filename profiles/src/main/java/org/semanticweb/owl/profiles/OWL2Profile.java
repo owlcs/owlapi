@@ -472,7 +472,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(node);
 //        }
 //
-//        public Object visit(OWLUntypedLiteral node) {
+//        public Object visit(OWLRDFTextLiteral node) {
 //            return super.visit(node);
 //        }
 //
@@ -1026,7 +1026,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLUntypedLiteral node) {
+//        public Set<ConstructNotAllowed> visit(OWLRDFTextLiteral node) {
 //            return Collections.emptySet();
 //        }
 //

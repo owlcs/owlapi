@@ -99,8 +99,8 @@ public class Example10 {
                         OWLLiteral val = annotation.getAnnotationValueAsConstant();
                         if (!val.isTyped()) {
                             // The value isn't a typed constant, so we can safely obtain it
-                            // as an OWLUntypedLiteral and check the lang is Portuguese (pt)
-                            if (val.asOWLUntypedConstant().hasLang("pt")) {
+                            // as an OWLRDFTextLiteral and check the lang is Portuguese (pt)
+                            if (val.asRDFTextLiteral().hasLang("pt")) {
                                 System.out.println(cls + " -> " + val.getString());
                             }
                         }

@@ -69,9 +69,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     protected void writeCommaSeparatedList(Set<? extends OWLObject> objects) {
-        for(Iterator<OWLObject> it = new TreeSet<OWLObject>(objects).iterator(); it.hasNext(); ) {
+        for (Iterator<OWLObject> it = new TreeSet<OWLObject>(objects).iterator(); it.hasNext();) {
             it.next().accept(this);
-            if(it.hasNext()) {
+            if (it.hasNext()) {
                 write(", ");
             }
         }
@@ -91,16 +91,16 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 //                    write("", THAT, " ");
 //                }
 //                else {
-                    write("", AND, " ");
+                write("", AND, " ");
 //                }
             }
 
             first = false;
-            if(desc instanceof OWLAnonymousDescription) {
+            if (desc instanceof OWLAnonymousDescription) {
                 write("(");
             }
             desc.accept(this);
-            if(desc instanceof OWLAnonymousDescription) {
+            if (desc instanceof OWLAnonymousDescription) {
                 write(")");
             }
 
@@ -135,11 +135,11 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         write(Integer.toString(restriction.getCardinality()));
 //        if(restriction.isQualified()) {
         writeSpace();
-        if(restriction.getFiller() instanceof OWLAnonymousDescription) {
+        if (restriction.getFiller() instanceof OWLAnonymousDescription) {
             write("(");
         }
         restriction.getFiller().accept(this);
-        if(restriction.getFiller() instanceof OWLAnonymousDescription) {
+        if (restriction.getFiller() instanceof OWLAnonymousDescription) {
             write(")");
         }
 //        }
@@ -175,11 +175,11 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
             }
 
             first = false;
-            if(op.isAnonymous()) {
+            if (op.isAnonymous()) {
                 write("(");
             }
             op.accept(this);
-            if(op.isAnonymous()) {
+            if (op.isAnonymous()) {
                 write(")");
             }
 
@@ -329,15 +329,12 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public void visit(OWLTypedLiteral node) {
         if (node.getDataType().getURI().equals(XSDVocabulary.DOUBLE.getURI())) {
             write(node.getString());
-        }
-        else if (node.getDataType().getURI().equals(XSDVocabulary.FLOAT.getURI())) {
+        } else if (node.getDataType().getURI().equals(XSDVocabulary.FLOAT.getURI())) {
             write(node.getString());
             write("f");
-        }
-        else if (node.getDataType().getURI().equals(XSDVocabulary.INTEGER.getURI())) {
+        } else if (node.getDataType().getURI().equals(XSDVocabulary.INTEGER.getURI())) {
             write(node.getString());
-        }
-        else {
+        } else {
             write("\"");
             pushTab(getIndent());
 //            write(node.getString(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
@@ -349,17 +346,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(OWLUntypedLiteral node) {
+    public void visit(OWLRDFTextLiteral node) {
         write("\"");
         pushTab(getIndent());
         write(node.getString());
 //        write(node.getString(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
         popTab();
         write("\"");
-        if (node.hasLang()) {
-            write("@");
-            write(node.getLang());
-        }
+        write("@");
+        write(node.getLang());
     }
 
 
@@ -618,23 +613,19 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     private void writeFrameType(OWLObject object) {
         setAxiomWriting();
-        if(object instanceof OWLOntology) {
+        if (object instanceof OWLOntology) {
             writeFrameKeyword(ONTOLOGY);
             write("<");
             write(((OWLOntology) object).getURI().toString());
             write(">");
-        }
-        else {
-            if(object instanceof OWLDescription) {
+        } else {
+            if (object instanceof OWLDescription) {
                 writeFrameKeyword(CLASS);
-            }
-            else if(object instanceof OWLObjectPropertyExpression) {
+            } else if (object instanceof OWLObjectPropertyExpression) {
                 writeFrameKeyword(OBJECT_PROPERTY);
-            }
-            else if(object instanceof OWLDataPropertyExpression) {
+            } else if (object instanceof OWLDataPropertyExpression) {
                 writeFrameKeyword(DATA_PROPERTY);
-            }
-            else if(object instanceof OWLIndividual) {
+            } else if (object instanceof OWLIndividual) {
                 writeFrameKeyword(INDIVIDUAL);
             }
         }
@@ -855,9 +846,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public void visit(SWRLBuiltInAtom node) {
         write(node.getPredicate().getShortName());
         write("(");
-        for(Iterator<SWRLAtomDObject> it = node.getArguments().iterator(); it.hasNext(); ) {
+        for (Iterator<SWRLAtomDObject> it = node.getArguments().iterator(); it.hasNext();) {
             it.next().accept(this);
-            if(it.hasNext()) {
+            if (it.hasNext()) {
                 write(", ");
             }
         }

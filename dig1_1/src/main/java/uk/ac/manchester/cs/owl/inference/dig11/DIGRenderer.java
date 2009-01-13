@@ -549,7 +549,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLUntypedLiteral node) {
+    public void visit(OWLRDFTextLiteral node) {
     }
 
     public void visit(OWLConstantAnnotation annotation) {

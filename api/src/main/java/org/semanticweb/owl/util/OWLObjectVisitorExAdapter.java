@@ -337,7 +337,7 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLUntypedLiteral node) {
+    public O visit(OWLRDFTextLiteral node) {
         return null;
     }
 

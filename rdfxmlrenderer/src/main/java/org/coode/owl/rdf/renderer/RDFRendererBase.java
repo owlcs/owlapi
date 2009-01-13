@@ -94,8 +94,8 @@ public abstract class RDFRendererBase {
         axioms.addAll(ontology.getOntologyAnnotationAxioms());
         createGraph(axioms);
         graph.addTriple(new RDFTriple(new RDFResourceNode(ontology.getURI()),
-                                      new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-                                      new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getURI())));
+                new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
+                new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getURI())));
         render(new RDFResourceNode(ontology.getURI()));
         for (OWLOntologyAnnotationAxiom ax : ontology.getOntologyAnnotationAxioms()) {
             if (!ax.getSubject().equals(ontology)) {
@@ -120,8 +120,8 @@ public abstract class RDFRendererBase {
             graph = new RDFGraph();
             for (URI uri : annotationURIs) {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(uri),
-                                              new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-                                              new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
+                        new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
+                        new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
                 //////////////////////////////////////////////////////////////////////////////////////////
                 // The following is a HACK which will be left in place until the OWL 1.1 spec is
                 // fixed w.r.t. annotations on annotation URIs
@@ -131,25 +131,18 @@ public abstract class RDFRendererBase {
                         RDFLiteralNode obj;
                         if (con.isTyped()) {
                             obj = new RDFLiteralNode(con.getString(), con.asOWLTypedLiteral().getDataType().getURI());
-                        }
-                        else {
-                            if (con.asOWLUntypedConstant().hasLang()) {
-                                obj = new RDFLiteralNode(con.getString(), con.asOWLUntypedConstant().getLang());
-                            }
-                            else {
-                                obj = new RDFLiteralNode(con.getString());
-                            }
+                        } else {
+                            obj = new RDFLiteralNode(con.getString(), con.asRDFTextLiteral().getLang());
                         }
                         graph.addTriple(new RDFTriple(new RDFResourceNode(uri),
-                                                      new RDFResourceNode(anno.getAnnotationURI()),
-                                                      obj));
-                    }
-                    else {
+                                new RDFResourceNode(anno.getAnnotationURI()),
+                                obj));
+                    } else {
                         if (anno.getAnnotationValue() instanceof OWLNamedObject) {
                             OWLNamedObject obj = (OWLNamedObject) anno.getAnnotationValue();
                             graph.addTriple(new RDFTriple(new RDFResourceNode(uri),
-                                                          new RDFResourceNode(anno.getAnnotationURI()),
-                                                          new RDFResourceNode(obj.getURI())));
+                                    new RDFResourceNode(anno.getAnnotationURI()),
+                                    new RDFResourceNode(obj.getURI())));
                         }
                     }
                 }
@@ -214,8 +207,7 @@ public abstract class RDFRendererBase {
                     if (!ind.isAnonymous()) {
                         render(new RDFResourceNode(ind.getURI()));
                         renderAnonRoots();
-                    }
-                    else {
+                    } else {
                         render(new RDFResourceNode(System.identityHashCode(ind)));
                     }
 
@@ -229,19 +221,19 @@ public abstract class RDFRendererBase {
         generalAxioms.addAll(ontology.getGeneralClassAxioms());
         generalAxioms.addAll(ontology.getPropertyChainSubPropertyAxioms());
         generalAxioms.addAll(ontology.getAxioms(AxiomType.DIFFERENT_INDIVIDUALS));
-        for(OWLDisjointClassesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_CLASSES)) {
-            if(ax.getDescriptions().size() > 2) {
+        for (OWLDisjointClassesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_CLASSES)) {
+            if (ax.getDescriptions().size() > 2) {
                 generalAxioms.add(ax);
             }
         }
-        for(OWLDisjointObjectPropertiesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_OBJECT_PROPERTIES)) {
-            if(ax.getProperties().size() > 2) {
+        for (OWLDisjointObjectPropertiesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_OBJECT_PROPERTIES)) {
+            if (ax.getProperties().size() > 2) {
                 generalAxioms.add(ax);
             }
         }
 
-        for(OWLDisjointDataPropertiesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_DATA_PROPERTIES)) {
-            if(ax.getProperties().size() > 2) {
+        for (OWLDisjointDataPropertiesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_DATA_PROPERTIES)) {
+            if (ax.getProperties().size() > 2) {
                 generalAxioms.add(ax);
             }
         }
@@ -316,8 +308,7 @@ public abstract class RDFRendererBase {
         Set<OWLAnnotation> annos = annoURIAnnotations.get(uri);
         if (annos != null) {
             return annos;
-        }
-        else {
+        } else {
             return Collections.emptySet();
         }
     }
@@ -334,9 +325,9 @@ public abstract class RDFRendererBase {
         entity.accept(new OWLEntityVisitor() {
             public void visit(OWLClass cls) {
                 for (OWLAxiom ax : ontology.getAxioms(cls)) {
-                    if(ax instanceof OWLDisjointClassesAxiom) {
+                    if (ax instanceof OWLDisjointClassesAxiom) {
                         OWLDisjointClassesAxiom disjAx = (OWLDisjointClassesAxiom) ax;
-                        if(disjAx.getDescriptions().size() > 2) {
+                        if (disjAx.getDescriptions().size() > 2) {
                             continue;
                         }
                     }
@@ -363,9 +354,9 @@ public abstract class RDFRendererBase {
 
 
             public void visit(OWLDataProperty property) {
-                for(OWLAxiom ax : ontology.getAxioms(property)) {
-                    if(ax instanceof OWLDisjointDataPropertiesAxiom) {
-                        if(((OWLDisjointDataPropertiesAxiom) ax).getProperties().size() > 2) {
+                for (OWLAxiom ax : ontology.getAxioms(property)) {
+                    if (ax instanceof OWLDisjointDataPropertiesAxiom) {
+                        if (((OWLDisjointDataPropertiesAxiom) ax).getProperties().size() > 2) {
                             continue;
                         }
                     }
@@ -376,9 +367,9 @@ public abstract class RDFRendererBase {
 
 
             public void visit(OWLObjectProperty property) {
-                for(OWLAxiom ax : ontology.getAxioms(property)) {
-                    if(ax instanceof OWLDisjointObjectPropertiesAxiom) {
-                        if(((OWLDisjointObjectPropertiesAxiom) ax).getProperties().size() > 2) {
+                for (OWLAxiom ax : ontology.getAxioms(property)) {
+                    if (ax instanceof OWLDisjointObjectPropertiesAxiom) {
+                        if (((OWLDisjointObjectPropertiesAxiom) ax).getProperties().size() > 2) {
                             continue;
                         }
                     }
@@ -406,15 +397,15 @@ public abstract class RDFRendererBase {
         entity.accept(new OWLEntityVisitor() {
             public void visit(OWLClass cls) {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(cls.getURI()),
-                                              new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-                                              new RDFResourceNode(OWLRDFVocabulary.OWL_CLASS.getURI())));
+                        new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
+                        new RDFResourceNode(OWLRDFVocabulary.OWL_CLASS.getURI())));
             }
 
 
             public void visit(OWLDataType dataType) {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(dataType.getURI()),
-                                              new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-                                              new RDFResourceNode(OWLRDFVocabulary.RDFS_DATATYPE.getURI())));
+                        new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
+                        new RDFResourceNode(OWLRDFVocabulary.RDFS_DATATYPE.getURI())));
             }
 
 
@@ -424,24 +415,24 @@ public abstract class RDFRendererBase {
 
             public void visit(OWLDataProperty property) {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
-                                              new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-                                              new RDFResourceNode(OWLRDFVocabulary.OWL_DATA_PROPERTY.getURI())));
+                        new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
+                        new RDFResourceNode(OWLRDFVocabulary.OWL_DATA_PROPERTY.getURI())));
                 if (annotationURIs.contains(property.getURI())) {
                     graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
-                                                  new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-                                                  new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
+                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
+                            new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
                 }
             }
 
 
             public void visit(OWLObjectProperty property) {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
-                                              new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-                                              new RDFResourceNode(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI())));
+                        new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
+                        new RDFResourceNode(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI())));
                 if (annotationURIs.contains(property.getURI())) {
                     graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
-                                                  new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-                                                  new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
+                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
+                            new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
                 }
             }
         });
@@ -506,8 +497,7 @@ public abstract class RDFRendererBase {
                     if (triple.getObject().getURI().equals(OWLRDFVocabulary.RDF_NIL.getURI())) {
                         // End of list
                     }
-                }
-                else {
+                } else {
                     // Should be another list
                     toJavaList(triple.getObject(), list);
                 }
@@ -556,16 +546,13 @@ public abstract class RDFRendererBase {
                 if (!o1.getSubject().isAnonymous()) {
                     if (!o2.getSubject().isAnonymous()) {
                         diff = o1.getSubject().getURI().compareTo(o2.getSubject().getURI());
-                    }
-                    else {
+                    } else {
                         diff = -1;
                     }
-                }
-                else {
+                } else {
                     if (!o2.getSubject().isAnonymous()) {
                         diff = 1;
-                    }
-                    else {
+                    } else {
                         diff = 0;
                     }
                 }
@@ -580,33 +567,27 @@ public abstract class RDFRendererBase {
                                 if (!o1.getObject().isAnonymous()) {
                                     if (!o2.getObject().isAnonymous()) {
                                         diff = o1.getObject().getURI().compareTo(o2.getObject().getURI());
-                                    }
-                                    else {
+                                    } else {
                                         diff = -1;
                                     }
-                                }
-                                else {
+                                } else {
                                     if (!o2.getObject().isAnonymous()) {
                                         diff = 1;
-                                    }
-                                    else {
+                                    } else {
                                         diff = -1;
                                     }
                                 }
-                            }
-                            else {
+                            } else {
                                 // Literal
                                 // Literals first?
                                 diff = 1;
                             }
-                        }
-                        else {
+                        } else {
                             // Literal
                             if (!o2.getObject().isLiteral()) {
                                 // Resource
                                 diff = -1;
-                            }
-                            else {
+                            } else {
                                 // Literal
                                 RDFLiteralNode lit1 = ((RDFLiteralNode) o1.getObject());
                                 RDFLiteralNode lit2 = ((RDFLiteralNode) o2.getObject());
@@ -616,22 +597,18 @@ public abstract class RDFRendererBase {
                                         if (diff == 0) {
                                             diff = lit1.getDatatype().compareTo(lit2.getDatatype());
                                         }
-                                    }
-                                    else {
+                                    } else {
                                         diff = -1;
                                     }
-                                }
-                                else {
+                                } else {
                                     if (lit2.isTyped()) {
                                         diff = 1;
-                                    }
-                                    else {
+                                    } else {
                                         if (lit1.getLang() != null) {
                                             if (lit2.getLang() != null) {
                                                 diff = lit1.getLang().compareTo(lit2.getLang());
                                             }
-                                        }
-                                        else {
+                                        } else {
                                             diff = -1;
                                         }
                                         if (diff == 0) {

@@ -471,7 +471,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLUntypedLiteral node) {
+    public void visit(OWLRDFTextLiteral node) {
         // No objects here - only a string
     }
 

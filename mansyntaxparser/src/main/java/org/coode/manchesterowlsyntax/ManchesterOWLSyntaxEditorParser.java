@@ -192,14 +192,14 @@ public class ManchesterOWLSyntaxEditorParser {
     private Set<String> potentialKeywords;
 
     private static final Set<String> FRAME_TOKENS = Collections.unmodifiableSet(CollectionFactory.createSet(CLASS,
-                                                                                                            OBJECT_PROPERTY,
-                                                                                                            DATA_PROPERTY,
-                                                                                                            INDIVIDUAL,
-                                                                                                            VALUE_PARTITION,
-                                                                                                            DISJOINT_CLASSES,
-                                                                                                            DISJOINT_DATA_PROPERTIES,
-                                                                                                            DISJOINT_OBJECT_PROPERTIES,
-                                                                                                            DIFFERENT_INDIVIDUALS));
+            OBJECT_PROPERTY,
+            DATA_PROPERTY,
+            INDIVIDUAL,
+            VALUE_PARTITION,
+            DISJOINT_CLASSES,
+            DISJOINT_DATA_PROPERTIES,
+            DISJOINT_OBJECT_PROPERTIES,
+            DIFFERENT_INDIVIDUALS));
 
 
     public ManchesterOWLSyntaxEditorParser(OWLDataFactory dataFactory, String s) {
@@ -234,14 +234,14 @@ public class ManchesterOWLSyntaxEditorParser {
         }
         dataTypeNames.add(OWLRDFVocabulary.RDF_XML_LITERAL.getURI().getFragment());
         dataTypeNames.add("rdf:" + OWLRDFVocabulary.RDF_XML_LITERAL.getURI().getFragment());
-        
+
         dataTypeNames.add(dataFactory.getTopDataType().getURI().getFragment());
 
         for (URI uri : OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTIES) {
             String[] res = u.split(uri.toString(), null);
             annotationURIs.add(u.getPrefix(res[0]) + ":" + res[1]);
         }
-        for(DublinCoreVocabulary v : DublinCoreVocabulary.values()) {
+        for (DublinCoreVocabulary v : DublinCoreVocabulary.values()) {
             annotationURIs.add(v.getQName());
         }
         buffer = s;
@@ -373,8 +373,7 @@ public class ManchesterOWLSyntaxEditorParser {
     public OWLDataType getDataType(String name) {
         if (name.startsWith("xsd:")) {
             return dataFactory.getOWLDataType(URI.create(Namespaces.XSD + name.substring(name.indexOf(':') + 1)));
-        }
-        else {
+        } else {
             return dataFactory.getOWLDataType(URI.create(Namespaces.XSD + name));
         }
     }
@@ -388,8 +387,7 @@ public class ManchesterOWLSyntaxEditorParser {
     private ManchesterOWLSyntaxTokenizer.Token getLastToken() {
         if (tokenIndex - 1 > -1) {
             return tokens.get(tokenIndex - 1);
-        }
-        else {
+        } else {
             return tokens.get(0);
         }
     }
@@ -467,16 +465,14 @@ public class ManchesterOWLSyntaxEditorParser {
             kw = peekToken();
             if (kw.equalsIgnoreCase(AND)) {
                 kw = consumeToken();
-            }
-            else if (kw.equalsIgnoreCase("that")) {
+            } else if (kw.equalsIgnoreCase("that")) {
                 consumeToken();
                 kw = AND;
             }
         }
         if (ops.size() == 1) {
             return ops.iterator().next();
-        }
-        else {
+        } else {
             return dataFactory.getOWLObjectIntersectionOf(ops);
         }
     }
@@ -496,8 +492,7 @@ public class ManchesterOWLSyntaxEditorParser {
         }
         if (ops.size() == 1) {
             return ops.iterator().next();
-        }
-        else {
+        } else {
             return dataFactory.getOWLObjectUnionOf(ops);
         }
     }
@@ -516,8 +511,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 throwException(")");
             }
             return dataFactory.getOWLObjectPropertyInverse(prop);
-        }
-        else {
+        } else {
             if (!allowUndeclared && !isObjectPropertyName(tok)) {
                 throwException(false, true, false, false, false, INV);
             }
@@ -535,11 +529,9 @@ public class ManchesterOWLSyntaxEditorParser {
         String tok = peekToken();
         if (isObjectPropertyName(tok) || tok.equalsIgnoreCase(INV)) {
             return parseObjectRestriction();
-        }
-        else if (isDataPropertyName(tok)) {
+        } else if (isDataPropertyName(tok)) {
             return parseDataRestriction();
-        }
-        else {
+        } else {
             consumeToken();
             throwException(false, true, true, false);
         }
@@ -560,21 +552,16 @@ public class ManchesterOWLSyntaxEditorParser {
             consumeToken();
             OWLDescription complemented = parseNestedClassExpression(false);
             return dataFactory.getOWLObjectComplementOf(complemented);
-        }
-        else if (isObjectPropertyName(tok) || tok.equalsIgnoreCase(INV)) {
+        } else if (isObjectPropertyName(tok) || tok.equalsIgnoreCase(INV)) {
             return parseObjectRestriction();
-        }
-        else if (isDataPropertyName(tok)) {
+        } else if (isDataPropertyName(tok)) {
             // Data restriction
             return parseDataRestriction();
-        }
-        else if (tok.equals("{")) {
+        } else if (tok.equals("{")) {
             return parseObjectOneOf();
-        }
-        else if (tok.equals("(")) {
+        } else if (tok.equals("(")) {
             return parseNestedClassExpression(false);
-        }
-        else if (isClassName(tok)) {
+        } else if (isClassName(tok)) {
             consumeToken();
             return getOWLClass(tok);
         }
@@ -595,8 +582,7 @@ public class ManchesterOWLSyntaxEditorParser {
             if (possSelfToken.equalsIgnoreCase(SELF)) {
                 consumeToken();
                 return dataFactory.getOWLObjectSelfRestriction(prop);
-            }
-            else {
+            } else {
                 OWLDescription filler = null;
                 try {
                     filler = parseNestedClassExpression(false);
@@ -606,63 +592,53 @@ public class ManchesterOWLSyntaxEditorParser {
                     keywords.addAll(e.getExpectedKeywords());
                     keywords.add(SELF);
                     throwException(e.isClassNameExpected(),
-                                   e.isObjectPropertyNameExpected(),
-                                   e.isDataPropertyNameExpected(),
-                                   e.isIndividualNameExpected(),
-                                   e.isDatatypeNameExpected(),
-                                   keywords.toArray(new String[keywords.size()]));
+                            e.isObjectPropertyNameExpected(),
+                            e.isDataPropertyNameExpected(),
+                            e.isIndividualNameExpected(),
+                            e.isDatatypeNameExpected(),
+                            keywords.toArray(new String[keywords.size()]));
                 }
                 return dataFactory.getOWLObjectSomeRestriction(prop, filler);
             }
-        }
-        else if (kw.equalsIgnoreCase(ONLY)) {
+        } else if (kw.equalsIgnoreCase(ONLY)) {
             OWLDescription filler = parseNestedClassExpression(false);
             return dataFactory.getOWLObjectAllRestriction(prop, filler);
-        }
-        else if (kw.equalsIgnoreCase(VALUE)) {
+        } else if (kw.equalsIgnoreCase(VALUE)) {
             String indName = consumeToken();
             if (!isIndividualName(indName)) {
                 throwException(false, false, false, true);
             }
             return dataFactory.getOWLObjectValueRestriction(prop, getOWLIndividual(indName));
-        }
-        else if (kw.equalsIgnoreCase(MIN)) {
+        } else if (kw.equalsIgnoreCase(MIN)) {
             int card = parseInteger();
             OWLDescription filler = parseNestedClassExpression(true);
             if (filler != null) {
                 return dataFactory.getOWLObjectMinCardinalityRestriction(prop, card, filler);
-            }
-            else {
+            } else {
                 return dataFactory.getOWLObjectMinCardinalityRestriction(prop, card);
             }
-        }
-        else if (kw.equalsIgnoreCase(MAX)) {
+        } else if (kw.equalsIgnoreCase(MAX)) {
             int card = parseInteger();
             OWLDescription filler = parseNestedClassExpression(true);
             if (filler != null) {
                 return dataFactory.getOWLObjectMaxCardinalityRestriction(prop, card, filler);
-            }
-            else {
+            } else {
                 return dataFactory.getOWLObjectMaxCardinalityRestriction(prop, card);
             }
-        }
-        else if (kw.equalsIgnoreCase(EXACTLY)) {
+        } else if (kw.equalsIgnoreCase(EXACTLY)) {
             int card = parseInteger();
             OWLDescription filler = parseNestedClassExpression(true);
             if (filler != null) {
                 return dataFactory.getOWLObjectExactCardinalityRestriction(prop, card, filler);
-            }
-            else {
+            } else {
                 return dataFactory.getOWLObjectExactCardinalityRestriction(prop, card);
             }
-        }
-        else if (kw.equalsIgnoreCase(ONLYSOME)) {
+        } else if (kw.equalsIgnoreCase(ONLYSOME)) {
             String tok = peekToken();
             Set<OWLDescription> descs = new HashSet<OWLDescription>();
             if (!tok.equals("[")) {
                 descs.add(parseIntersection());
-            }
-            else {
+            } else {
                 descs.addAll(parseDescriptionList("[", "]"));
             }
             Set<OWLDescription> ops = new HashSet<OWLDescription>();
@@ -672,14 +648,12 @@ public class ManchesterOWLSyntaxEditorParser {
             OWLDescription filler;
             if (descs.size() == 1) {
                 filler = descs.iterator().next();
-            }
-            else {
+            } else {
                 filler = dataFactory.getOWLObjectUnionOf(descs);
             }
             ops.add(dataFactory.getOWLObjectAllRestriction(prop, filler));
             return dataFactory.getOWLObjectIntersectionOf(ops);
-        }
-        else {
+        } else {
             // Error!
             throwException(SOME, ONLY, VALUE, MIN, MAX, EXACTLY);
         }
@@ -693,42 +667,34 @@ public class ManchesterOWLSyntaxEditorParser {
         if (kw.equalsIgnoreCase(SOME)) {
             OWLDataRange rng = parseDataRange(false);
             return dataFactory.getOWLDataSomeRestriction(prop, rng);
-        }
-        else if (kw.equalsIgnoreCase(ONLY)) {
+        } else if (kw.equalsIgnoreCase(ONLY)) {
             OWLDataRange rng = parseDataRange(false);
             return dataFactory.getOWLDataAllRestriction(prop, rng);
-        }
-        else if (kw.equalsIgnoreCase(VALUE)) {
+        } else if (kw.equalsIgnoreCase(VALUE)) {
             OWLLiteral con = parseConstant();
             return dataFactory.getOWLDataValueRestriction(prop, con);
-        }
-        else if (kw.equalsIgnoreCase(MIN)) {
+        } else if (kw.equalsIgnoreCase(MIN)) {
             int card = parseInteger();
             OWLDataRange rng = parseDataRange(true);
             if (rng != null) {
                 return dataFactory.getOWLDataMinCardinalityRestriction(prop, card, rng);
-            }
-            else {
+            } else {
                 return dataFactory.getOWLDataMinCardinalityRestriction(prop, card);
             }
-        }
-        else if (kw.equalsIgnoreCase(EXACTLY)) {
+        } else if (kw.equalsIgnoreCase(EXACTLY)) {
             int card = parseInteger();
             OWLDataRange rng = parseDataRange(true);
             if (rng != null) {
                 return dataFactory.getOWLDataExactCardinalityRestriction(prop, card, rng);
-            }
-            else {
+            } else {
                 return dataFactory.getOWLDataExactCardinalityRestriction(prop, card, rng);
             }
-        }
-        else if (kw.equalsIgnoreCase(MAX)) {
+        } else if (kw.equalsIgnoreCase(MAX)) {
             int card = parseInteger();
             OWLDataRange rng = parseDataRange(true);
             if (rng != null) {
                 return dataFactory.getOWLDataMaxCardinalityRestriction(prop, card, rng);
-            }
-            else {
+            } else {
                 return dataFactory.getOWLDataMaxCardinalityRestriction(prop, card, rng);
             }
         }
@@ -743,17 +709,14 @@ public class ManchesterOWLSyntaxEditorParser {
             if (peekToken().equals("=")) {
                 consumeToken();
                 return OWLRestrictedDataRangeFacetVocabulary.MIN_INCLUSIVE;
-            }
-            else {
+            } else {
                 return OWLRestrictedDataRangeFacetVocabulary.MIN_EXCLUSIVE;
             }
-        }
-        else if (facet.equals("<")) {
+        } else if (facet.equals("<")) {
             if (peekToken().equals("=")) {
                 consumeToken();
                 return OWLRestrictedDataRangeFacetVocabulary.MAX_INCLUSIVE;
-            }
-            else {
+            } else {
                 return OWLRestrictedDataRangeFacetVocabulary.MAX_EXCLUSIVE;
             }
         }
@@ -788,18 +751,14 @@ public class ManchesterOWLSyntaxEditorParser {
                     throwException("]");
                 }
                 return dataFactory.getOWLDataRangeRestriction(dataType, facetRestrictions);
-            }
-            else {
+            } else {
                 return dataType;
             }
-        }
-        else if (tok.equalsIgnoreCase(NOT)) {
+        } else if (tok.equalsIgnoreCase(NOT)) {
             return parseDataComplementOf();
-        }
-        else if (tok.equals("{")) {
+        } else if (tok.equals("{")) {
             return parseDataOneOf();
-        }
-        else if(!allowLookahead) {
+        } else if (!allowLookahead) {
             consumeToken();
             throwException(false, false, false, false, true, NOT, "{");
         }
@@ -870,17 +829,14 @@ public class ManchesterOWLSyntaxEditorParser {
                 consumeToken();
                 String dataType = consumeToken();
                 return dataFactory.getOWLTypedConstant(lit, getDataType(dataType));
-            }
-            else if (peekToken().equals("@")) {
+            } else if (peekToken().equals("@")) {
                 consumeToken();
                 String lang = consumeToken();
                 return dataFactory.getOWLUntypedConstant(lit, lang);
-            }
-            else {
+            } else {
                 return dataFactory.getOWLUntypedConstant(lit);
             }
-        }
-        else {
+        } else {
             try {
                 int i = Integer.parseInt(tok);
                 return dataFactory.getOWLTypedConstant(i);
@@ -908,24 +864,23 @@ public class ManchesterOWLSyntaxEditorParser {
 
             if (tok.equals("true")) {
                 return dataFactory.getOWLTypedConstant(true);
-            }
-            else if (tok.equals("false")) {
+            } else if (tok.equals("false")) {
                 return dataFactory.getOWLTypedConstant(false);
             }
         }
         throwException(false,
-                       false,
-                       false,
-                       false,
-                       false,
-                       "true",
-                       "false",
-                       "<integer>",
-                       "<float>",
-                       "<double>",
-                       "\"<Literal>\"",
-                       "\"<Literal>\"^^<datatype>",
-                       "\"<Literal>\"@<lang>");
+                false,
+                false,
+                false,
+                false,
+                "true",
+                "false",
+                "<integer>",
+                "<float>",
+                "<double>",
+                "\"<Literal>\"",
+                "\"<Literal>\"^^<datatype>",
+                "\"<Literal>\"@<lang>");
         return null;
     }
 
@@ -957,15 +912,12 @@ public class ManchesterOWLSyntaxEditorParser {
                 throwException(")");
             }
             return desc;
-        }
-        else if (tok.equals("{")) {
+        } else if (tok.equals("{")) {
             return parseObjectOneOf();
-        }
-        else if (isClassName(tok)) {
+        } else if (isClassName(tok)) {
             String name = consumeToken();
             return getOWLClass(name);
-        }
-        else if (!tok.equals(EOF) || !lookaheadCheck) {
+        } else if (!tok.equals(EOF) || !lookaheadCheck) {
             consumeToken();
             throwException(true, false, false, false, false, "(", "{");
         }
@@ -1002,24 +954,18 @@ public class ManchesterOWLSyntaxEditorParser {
             String tok = peekToken();
             if (tok.equalsIgnoreCase(CLASS)) {
                 axioms.addAll(parseClassFrame());
-            }
-            else if (tok.equalsIgnoreCase(OBJECT_PROPERTY)) {
+            } else if (tok.equalsIgnoreCase(OBJECT_PROPERTY)) {
                 axioms.addAll(parseObjectPropertyFrame());
-            }
-            else if (tok.equalsIgnoreCase(DATA_PROPERTY)) {
+            } else if (tok.equalsIgnoreCase(DATA_PROPERTY)) {
                 axioms.addAll(parseDataPropertyFrame());
-            }
-            else if (tok.equalsIgnoreCase(INDIVIDUAL)) {
+            } else if (tok.equalsIgnoreCase(INDIVIDUAL)) {
                 axioms.addAll(parseIndividualFrame());
-            }
-            else if (tok.equalsIgnoreCase(VALUE_PARTITION)) {
+            } else if (tok.equalsIgnoreCase(VALUE_PARTITION)) {
                 parseValuePartitionFrame();
-            }
-            else {
+            } else {
                 if (tok.equals(EOF)) {
                     break;
-                }
-                else {
+                } else {
                     throwException(CLASS, OBJECT_PROPERTY, DATA_PROPERTY, INDIVIDUAL, VALUE_PARTITION);
                 }
             }
@@ -1045,26 +991,18 @@ public class ManchesterOWLSyntaxEditorParser {
                 OWLIndividual ind = parseIndividual();
                 OWLAnnotation anno = dataFactory.getOWLObjectAnnotation(getAnnotationURI(prop), ind);
                 annos.add(anno);
-            }
-            else {
+            } else {
                 OWLLiteral con = parseConstant();
                 OWLAnnotation anno = null;
                 URI annoURI = getAnnotationURI(prop);
                 if (annoURI.equals(OWLRDFVocabulary.RDFS_LABEL.getURI())) {
                     if (con.isTyped()) {
                         anno = dataFactory.getOWLLabelAnnotation(con.getString());
+                    } else {
+                        anno = dataFactory.getOWLLabelAnnotation(con.getString(),
+                                con.asRDFTextLiteral().getLang());
                     }
-                    else {
-                        if (con.asOWLUntypedConstant().hasLang()) {
-                            anno = dataFactory.getOWLLabelAnnotation(con.getString(),
-                                                                     con.asOWLUntypedConstant().getLang());
-                        }
-                        else {
-                            anno = dataFactory.getOWLLabelAnnotation(con.getString());
-                        }
-                    }
-                }
-                else {
+                } else {
                     anno = dataFactory.getOWLConstantAnnotation(annoURI, con);
                 }
                 annos.add(anno);
@@ -1117,39 +1055,33 @@ public class ManchesterOWLSyntaxEditorParser {
                 for (OWLDescription desc : descs) {
                     axioms.add(dataFactory.getOWLSubClassAxiom(cls, desc));
                 }
-            }
-            else if (sect.equalsIgnoreCase(EQUIVALENT_TO)) {
+            } else if (sect.equalsIgnoreCase(EQUIVALENT_TO)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLDescription> descs = parseDescriptionList();
                 for (OWLDescription desc : descs) {
                     axioms.add(dataFactory.getOWLEquivalentClassesAxiom(CollectionFactory.createSet(cls, desc)));
                 }
-            }
-            else if (sect.equalsIgnoreCase(DISJOINT_WITH)) {
+            } else if (sect.equalsIgnoreCase(DISJOINT_WITH)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLDescription> descs = parseDescriptionList();
                 for (OWLDescription desc : descs) {
                     axioms.add(dataFactory.getOWLDisjointClassesAxiom(cls, desc));
                 }
-            }
-            else if(sect.equalsIgnoreCase(DISJOINT_UNION_OF)) {
+            } else if (sect.equalsIgnoreCase(DISJOINT_UNION_OF)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLDescription> descs = parseDescriptionList();
                 axioms.add(dataFactory.getOWLDisjointUnionAxiom(cls, descs));
-            }
-            else if (sect.equals(ANNOTATIONS)) {
+            } else if (sect.equals(ANNOTATIONS)) {
                 potentialKeywords.clear();
                 axioms.addAll(parseAnnotations(cls));
-            }
-            else {
+            } else {
                 // If force EOF then we need EOF or else everything is o.k.
                 if (eof && !sect.equals(EOF)) {
                     throwException(SUB_CLASS_OF, EQUIVALENT_TO, DISJOINT_WITH, ANNOTATIONS);
-                }
-                else {
+                } else {
 //                    if(!eof && !sect.equals(EOF) && !FRAME_TOKENS.contains(sect)) {
 //                        // Some garbage
 //                        // We can throw an exception with the expected frame keywords
@@ -1193,77 +1125,67 @@ public class ManchesterOWLSyntaxEditorParser {
                 for (OWLObjectPropertyExpression pe : props) {
                     axioms.add(dataFactory.getOWLSubObjectPropertyAxiom(prop, pe));
                 }
-            }
-            else if (sect.equalsIgnoreCase(EQUIVALENT_TO)) {
+            } else if (sect.equalsIgnoreCase(EQUIVALENT_TO)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLObjectPropertyExpression> props = parseObjectPropertyList();
                 for (OWLObjectPropertyExpression pe : props) {
                     axioms.add(dataFactory.getOWLEquivalentObjectPropertiesAxiom(CollectionFactory.createSet(prop,
-                                                                                                             pe)));
+                            pe)));
                 }
-            }
-            else if (sect.equalsIgnoreCase(DISJOINT_WITH)) {
+            } else if (sect.equalsIgnoreCase(DISJOINT_WITH)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLObjectPropertyExpression> props = parseObjectPropertyList();
                 for (OWLObjectPropertyExpression pe : props) {
                     axioms.add(dataFactory.getOWLDisjointObjectPropertiesAxiom(CollectionFactory.createSet(prop, pe)));
                 }
-            }
-            else if (sect.equalsIgnoreCase(DOMAIN)) {
+            } else if (sect.equalsIgnoreCase(DOMAIN)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLDescription> domains = parseDescriptionList();
                 for (OWLDescription dom : domains) {
                     axioms.add(dataFactory.getOWLObjectPropertyDomainAxiom(prop, dom));
                 }
-            }
-            else if (sect.equalsIgnoreCase(RANGE)) {
+            } else if (sect.equalsIgnoreCase(RANGE)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLDescription> ranges = parseDescriptionList();
                 for (OWLDescription rng : ranges) {
                     axioms.add(dataFactory.getOWLObjectPropertyRangeAxiom(prop, rng));
                 }
-            }
-            else if (sect.equalsIgnoreCase(INVERSES) || sect.equalsIgnoreCase(INVERSE_OF)) {
+            } else if (sect.equalsIgnoreCase(INVERSES) || sect.equalsIgnoreCase(INVERSE_OF)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLObjectPropertyExpression> inverses = parseObjectPropertyList();
                 for (OWLObjectPropertyExpression inv : inverses) {
                     axioms.add(dataFactory.getOWLInverseObjectPropertiesAxiom(prop, inv));
                 }
-            }
-            else if (sect.equalsIgnoreCase(CHARACTERISTICS)) {
+            } else if (sect.equalsIgnoreCase(CHARACTERISTICS)) {
                 potentialKeywords.clear();
                 consumeToken();
                 axioms.addAll(parseObjectPropertyCharacteristicList(prop));
-            }
-            else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
+            } else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
                 potentialKeywords.clear();
                 axioms.addAll(parseAnnotations(prop.asOWLObjectProperty()));
-            }
-            else if (sect.equalsIgnoreCase(SUB_PROPERTY_CHAIN)) {
+            } else if (sect.equalsIgnoreCase(SUB_PROPERTY_CHAIN)) {
                 potentialKeywords.clear();
                 consumeToken();
                 List<OWLObjectPropertyExpression> props = parseObjectPropertyChain();
                 axioms.add(dataFactory.getOWLObjectPropertyChainSubPropertyAxiom(props, prop));
-            }
-            else {
+            } else {
                 // If force EOF then we need EOF or else everything is o.k.
                 if (eof && !sect.equals(EOF)) {
                     throwException(SUB_PROPERTY_OF,
-                                   EQUIVALENT_TO,
-                                   DISJOINT_WITH,
-                                   ANNOTATIONS,
-                                   DOMAIN,
-                                   RANGE,
-                                   INVERSES,
-                                   CHARACTERISTICS,
-                                   SUB_PROPERTY_CHAIN);
-                }
-                else {
+                            EQUIVALENT_TO,
+                            DISJOINT_WITH,
+                            ANNOTATIONS,
+                            DOMAIN,
+                            RANGE,
+                            INVERSES,
+                            CHARACTERISTICS,
+                            SUB_PROPERTY_CHAIN);
+                } else {
                     break;
                 }
             }
@@ -1290,40 +1212,35 @@ public class ManchesterOWLSyntaxEditorParser {
                 for (OWLDataProperty pe : props) {
                     axioms.add(dataFactory.getOWLSubDataPropertyAxiom(prop, pe));
                 }
-            }
-            else if (sect.equalsIgnoreCase(EQUIVALENT_TO)) {
+            } else if (sect.equalsIgnoreCase(EQUIVALENT_TO)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLDataProperty> props = parseDataPropertyList();
                 for (OWLDataProperty pe : props) {
                     axioms.add(dataFactory.getOWLEquivalentDataPropertiesAxiom(CollectionFactory.createSet(prop, pe)));
                 }
-            }
-            else if (sect.equalsIgnoreCase(DISJOINT_WITH)) {
+            } else if (sect.equalsIgnoreCase(DISJOINT_WITH)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLDataProperty> props = parseDataPropertyList();
                 for (OWLDataProperty pe : props) {
                     axioms.add(dataFactory.getOWLDisjointDataPropertiesAxiom(CollectionFactory.createSet(prop, pe)));
                 }
-            }
-            else if (sect.equalsIgnoreCase(DOMAIN)) {
+            } else if (sect.equalsIgnoreCase(DOMAIN)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLDescription> domains = parseDescriptionList();
                 for (OWLDescription dom : domains) {
                     axioms.add(dataFactory.getOWLDataPropertyDomainAxiom(prop, dom));
                 }
-            }
-            else if (sect.equalsIgnoreCase(RANGE)) {
+            } else if (sect.equalsIgnoreCase(RANGE)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLDataRange> ranges = parseDataRangeList();
                 for (OWLDataRange rng : ranges) {
                     axioms.add(dataFactory.getOWLDataPropertyRangeAxiom(prop, rng));
                 }
-            }
-            else if (sect.equalsIgnoreCase(CHARACTERISTICS)) {
+            } else if (sect.equalsIgnoreCase(CHARACTERISTICS)) {
                 potentialKeywords.clear();
                 consumeToken();
                 String characteristic = consumeToken();
@@ -1331,12 +1248,10 @@ public class ManchesterOWLSyntaxEditorParser {
                     throwException(FUNCTIONAL);
                 }
                 axioms.add(dataFactory.getOWLFunctionalDataPropertyAxiom(prop));
-            }
-            else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
+            } else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
                 potentialKeywords.clear();
                 axioms.addAll(parseAnnotations(prop));
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -1361,8 +1276,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 for (OWLDescription desc : descs) {
                     axioms.add(dataFactory.getOWLClassAssertionAxiom(ind, desc));
                 }
-            }
-            else if (sect.equalsIgnoreCase(FACTS)) {
+            } else if (sect.equalsIgnoreCase(FACTS)) {
                 potentialKeywords.clear();
                 consumeToken();
                 String sep = ",";
@@ -1378,30 +1292,25 @@ public class ManchesterOWLSyntaxEditorParser {
                         OWLLiteral con = parseConstant();
                         if (!negative) {
                             axioms.add(dataFactory.getOWLDataPropertyAssertionAxiom(ind, p, con));
-                        }
-                        else {
+                        } else {
                             axioms.add(dataFactory.getOWLNegativeDataPropertyAssertionAxiom(ind, p, con));
                         }
-                    }
-                    else if (isObjectPropertyName(prop)) {
+                    } else if (isObjectPropertyName(prop)) {
                         OWLObjectPropertyExpression p = parseObjectPropertyExpression();
                         OWLIndividual obj = parseIndividual();
                         if (!negative) {
                             axioms.add(dataFactory.getOWLObjectPropertyAssertionAxiom(ind, p, obj));
-                        }
-                        else {
+                        } else {
                             axioms.add(dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(ind, p, obj));
                         }
-                    }
-                    else if (isAnnotationURI(prop)) {
+                    } else if (isAnnotationURI(prop)) {
                         URI annotationURI = getAnnotationURI(prop);
                         // Object could be an individual or literal
                         String object = peekToken();
                         OWLAnnotation annotation;
                         if (individualNames.contains(object)) {
                             annotation = dataFactory.getOWLObjectAnnotation(annotationURI, getOWLIndividual(object));
-                        }
-                        else {
+                        } else {
                             // Assume constant
                             OWLLiteral con = null;
                             try {
@@ -1409,17 +1318,16 @@ public class ManchesterOWLSyntaxEditorParser {
                             }
                             catch (ParserException e) {
                                 throwException(e.isClassNameExpected(),
-                                               e.isObjectPropertyNameExpected(),
-                                               e.isDataPropertyNameExpected(),
-                                               true,
-                                               e.isDatatypeNameExpected(),
-                                               e.getExpectedKeywords().toArray(new String[e.getExpectedKeywords().size()]));
+                                        e.isObjectPropertyNameExpected(),
+                                        e.isDataPropertyNameExpected(),
+                                        true,
+                                        e.isDatatypeNameExpected(),
+                                        e.getExpectedKeywords().toArray(new String[e.getExpectedKeywords().size()]));
                             }
                             annotation = dataFactory.getOWLConstantAnnotation(annotationURI, con);
                         }
                         axioms.add(dataFactory.getOWLEntityAnnotationAxiom(ind, annotation));
-                    }
-                    else {
+                    } else {
                         consumeToken();
                         throwException(false, true, true, false, false, ",");
                     }
@@ -1428,26 +1336,22 @@ public class ManchesterOWLSyntaxEditorParser {
                         consumeToken();
                     }
                 }
-            }
-            else if (sect.equalsIgnoreCase(SAME_AS)) {
+            } else if (sect.equalsIgnoreCase(SAME_AS)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLIndividual> inds = parseIndividualList();
                 inds.add(ind);
                 axioms.add(dataFactory.getOWLSameIndividualsAxiom(inds));
-            }
-            else if (sect.equalsIgnoreCase(DIFFERENT_FROM)) {
+            } else if (sect.equalsIgnoreCase(DIFFERENT_FROM)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLIndividual> inds = parseIndividualList();
                 inds.add(ind);
                 axioms.add(dataFactory.getOWLDifferentIndividualsAxiom(inds));
-            }
-            else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
+            } else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
                 potentialKeywords.clear();
                 axioms.addAll(parseAnnotations(ind));
-            }
-            else {
+            } else {
 //                // If force EOF then we need EOF or else everything is o.k.
 //                if (eof && !sect.equals(EOF)) {
 //                    throwException(SUB_CLASS_OF, EQUIVALENT_TO, DISJOINT_WITH);
@@ -1529,7 +1433,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
     public OWLSameIndividualsAxiom parseSameIndividual() throws ParserException {
         String section = consumeToken();
-        if(!section.equalsIgnoreCase(SAME_INDIVIDUAL)) {
+        if (!section.equalsIgnoreCase(SAME_INDIVIDUAL)) {
             throwException(SAME_INDIVIDUAL);
         }
         Set<OWLIndividual> individuals = parseIndividualList();
@@ -1567,40 +1471,33 @@ public class ManchesterOWLSyntaxEditorParser {
 
 
     public Set<OWLAxiom> parseObjectPropertyCharacteristicList(OWLObjectPropertyExpression prop) throws
-                                                                                                 ParserException {
+            ParserException {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         String sep = ",";
         while (sep.equals(",")) {
             String characteristic = consumeToken();
             if (characteristic.equalsIgnoreCase(FUNCTIONAL)) {
                 axioms.add(dataFactory.getOWLFunctionalObjectPropertyAxiom(prop));
-            }
-            else if (characteristic.equalsIgnoreCase(INVERSE_FUNCTIONAL)) {
+            } else if (characteristic.equalsIgnoreCase(INVERSE_FUNCTIONAL)) {
                 axioms.add(dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(prop));
-            }
-            else if (characteristic.equalsIgnoreCase(SYMMETRIC)) {
+            } else if (characteristic.equalsIgnoreCase(SYMMETRIC)) {
                 axioms.add(dataFactory.getOWLSymmetricObjectPropertyAxiom(prop));
-            }
-            else if (characteristic.equalsIgnoreCase(ANTI_SYMMETRIC) || characteristic.equalsIgnoreCase(ASYMMETRIC)) {
+            } else if (characteristic.equalsIgnoreCase(ANTI_SYMMETRIC) || characteristic.equalsIgnoreCase(ASYMMETRIC)) {
                 axioms.add(dataFactory.getOWLAntiSymmetricObjectPropertyAxiom(prop));
-            }
-            else if (characteristic.equalsIgnoreCase(TRANSITIVE)) {
+            } else if (characteristic.equalsIgnoreCase(TRANSITIVE)) {
                 axioms.add(dataFactory.getOWLTransitiveObjectPropertyAxiom(prop));
-            }
-            else if (characteristic.equalsIgnoreCase(REFLEXIVE)) {
+            } else if (characteristic.equalsIgnoreCase(REFLEXIVE)) {
                 axioms.add(dataFactory.getOWLReflexiveObjectPropertyAxiom(prop));
-            }
-            else if (characteristic.equalsIgnoreCase(IRREFLEXIVE)) {
+            } else if (characteristic.equalsIgnoreCase(IRREFLEXIVE)) {
                 axioms.add(dataFactory.getOWLIrreflexiveObjectPropertyAxiom(prop));
-            }
-            else {
+            } else {
                 throwException(FUNCTIONAL,
-                               INVERSE_FUNCTIONAL,
-                               SYMMETRIC,
-                               ANTI_SYMMETRIC,
-                               TRANSITIVE,
-                               REFLEXIVE,
-                               IRREFLEXIVE);
+                        INVERSE_FUNCTIONAL,
+                        SYMMETRIC,
+                        ANTI_SYMMETRIC,
+                        TRANSITIVE,
+                        REFLEXIVE,
+                        IRREFLEXIVE);
             }
             sep = peekToken();
             if (sep.equals(",")) {
@@ -1730,18 +1627,16 @@ public class ManchesterOWLSyntaxEditorParser {
         if (kw.equalsIgnoreCase(ManchesterOWLSyntax.SUBCLASS_OF.toString())) {
             OWLDescription rhs = parseIntersection();
             return dataFactory.getOWLSubClassAxiom(lhs, rhs);
-        }
-        else if (kw.equalsIgnoreCase(ManchesterOWLSyntax.EQUIVALENT_TO.toString())) {
+        } else if (kw.equalsIgnoreCase(ManchesterOWLSyntax.EQUIVALENT_TO.toString())) {
             OWLDescription rhs = parseIntersection();
             return dataFactory.getOWLEquivalentClassesAxiom(lhs, rhs);
-        }
-        else if (kw.equalsIgnoreCase(ManchesterOWLSyntax.DISJOINT_WITH.toString())) {
+        } else if (kw.equalsIgnoreCase(ManchesterOWLSyntax.DISJOINT_WITH.toString())) {
             OWLDescription rhs = parseIntersection();
             return dataFactory.getOWLDisjointClassesAxiom(lhs, rhs);
         }
         throwException(ManchesterOWLSyntax.SUBCLASS_OF.toString(),
-                       ManchesterOWLSyntax.EQUIVALENT_TO.toString(),
-                       ManchesterOWLSyntax.DISJOINT_WITH.toString());
+                ManchesterOWLSyntax.EQUIVALENT_TO.toString(),
+                ManchesterOWLSyntax.DISJOINT_WITH.toString());
         return null;
     }
 
@@ -1761,8 +1656,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 throwException(")");
             }
             return dataFactory.getOWLFunctionalObjectPropertyAxiom(prop);
-        }
-        else if (tok.equals(ManchesterOWLSyntax.INVERSE_FUNCTIONAL)) {
+        } else if (tok.equals(ManchesterOWLSyntax.INVERSE_FUNCTIONAL)) {
             consumeToken();
             String open = consumeToken();
             if (!open.equals("(")) {
@@ -1774,8 +1668,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 throwException(")");
             }
             return dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(prop);
-        }
-        else if (tok.equals(ManchesterOWLSyntax.TRANSITIVE)) {
+        } else if (tok.equals(ManchesterOWLSyntax.TRANSITIVE)) {
             consumeToken();
             String open = consumeToken();
             if (!open.equals("(")) {
@@ -1787,8 +1680,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 throwException(")");
             }
             return dataFactory.getOWLTransitiveObjectPropertyAxiom(prop);
-        }
-        else if (tok.equals(ManchesterOWLSyntax.SYMMETRIC)) {
+        } else if (tok.equals(ManchesterOWLSyntax.SYMMETRIC)) {
             consumeToken();
             String open = consumeToken();
             if (!open.equals("(")) {
@@ -1800,8 +1692,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 throwException(")");
             }
             return dataFactory.getOWLSymmetricObjectPropertyAxiom(prop);
-        }
-        else if (tok.equals(ManchesterOWLSyntax.REFLEXIVE)) {
+        } else if (tok.equals(ManchesterOWLSyntax.REFLEXIVE)) {
             consumeToken();
             String open = consumeToken();
             if (!open.equals("(")) {
@@ -1813,8 +1704,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 throwException(")");
             }
             return dataFactory.getOWLReflexiveObjectPropertyAxiom(prop);
-        }
-        else if (tok.equals(ManchesterOWLSyntax.IRREFLEXIVE)) {
+        } else if (tok.equals(ManchesterOWLSyntax.IRREFLEXIVE)) {
             consumeToken();
             String open = consumeToken();
             if (!open.equals("(")) {
@@ -1826,8 +1716,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 throwException(")");
             }
             return dataFactory.getOWLIrreflexiveObjectPropertyAxiom(prop);
-        }
-        else if (tok.equals(ManchesterOWLSyntax.ANTI_SYMMETRIC)) {
+        } else if (tok.equals(ManchesterOWLSyntax.ANTI_SYMMETRIC)) {
             consumeToken();
             String open = consumeToken();
             if (!open.equals("(")) {
@@ -1881,12 +1770,11 @@ public class ManchesterOWLSyntaxEditorParser {
         // The prefix might be empty
         String tok = peekToken();
         Map<String, URI> map = new HashMap<String, URI>(2);
-        if(tok.startsWith("<")) {
+        if (tok.startsWith("<")) {
             // Default namespace
             URI uri = parseURI();
             map.put("", uri);
-        }
-        else {
+        } else {
             String prefix = consumeToken();
             // Handle legacy = character if necessart
             String delim = peekToken();
@@ -1931,23 +1819,19 @@ public class ManchesterOWLSyntaxEditorParser {
                 if (i + 1 < tokens.size()) {
                     classNames.add(tokens.get(i + 1).getToken());
                 }
-            }
-            else if (tok.getToken().equalsIgnoreCase(OBJECT_PROPERTY)) {
+            } else if (tok.getToken().equalsIgnoreCase(OBJECT_PROPERTY)) {
                 if (i + 1 < tokens.size()) {
                     objectPropertyNames.add(tokens.get(i + 1).getToken());
                 }
-            }
-            else if (tok.getToken().equalsIgnoreCase(DATA_PROPERTY)) {
+            } else if (tok.getToken().equalsIgnoreCase(DATA_PROPERTY)) {
                 if (i + 1 < tokens.size()) {
                     dataPropertyNames.add(tokens.get(i + 1).getToken());
                 }
-            }
-            else if (tok.getToken().equalsIgnoreCase(INDIVIDUAL)) {
+            } else if (tok.getToken().equalsIgnoreCase(INDIVIDUAL)) {
                 if (i + 1 < tokens.size()) {
                     individualNames.add(tokens.get(i + 1).getToken());
                 }
-            }
-            else if (tok.getToken().equalsIgnoreCase(VALUE_PARTITION)) {
+            } else if (tok.getToken().equalsIgnoreCase(VALUE_PARTITION)) {
                 if (i + 1 < tokens.size()) {
                     objectPropertyNames.add(tokens.get(i + 1).getToken());
                 }
@@ -1969,8 +1853,8 @@ public class ManchesterOWLSyntaxEditorParser {
 
 
     public void parseOntology(OWLOntologyManager manager, OWLOntology ont) throws ParserException,
-                                                                                  OWLOntologyCreationException,
-                                                                                  OWLOntologyChangeException {
+            OWLOntologyCreationException,
+            OWLOntologyChangeException {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         URI ontologyURI = null;
         processDeclaredEntities();
@@ -1988,64 +1872,50 @@ public class ManchesterOWLSyntaxEditorParser {
                         axioms.add(dataFactory.getOWLOntologyAnnotationAxiom(ont, anno));
                     }
                 }
-            }
-            else if (section.equalsIgnoreCase(CLASS)) {
+            } else if (section.equalsIgnoreCase(CLASS)) {
                 axioms.addAll(parseClassFrame());
-            }
-            else if (section.equalsIgnoreCase(OBJECT_PROPERTY)) {
+            } else if (section.equalsIgnoreCase(OBJECT_PROPERTY)) {
                 axioms.addAll(parseObjectPropertyFrame());
-            }
-            else if (section.equalsIgnoreCase(DATA_PROPERTY)) {
+            } else if (section.equalsIgnoreCase(DATA_PROPERTY)) {
                 axioms.addAll(parseDataPropertyFrame());
-            }
-            else if (section.equalsIgnoreCase(INDIVIDUAL)) {
+            } else if (section.equalsIgnoreCase(INDIVIDUAL)) {
                 axioms.addAll(parseIndividualFrame());
-            }
-            else if (section.equalsIgnoreCase(VALUE_PARTITION)) {
+            } else if (section.equalsIgnoreCase(VALUE_PARTITION)) {
                 axioms.addAll(parseValuePartitionFrame());
-            }
-            else if (section.equalsIgnoreCase(IMPORT)) {
+            } else if (section.equalsIgnoreCase(IMPORT)) {
                 OWLImportsDeclaration decl = parseImportsDeclaration(ont);
                 axioms.add(decl);
                 manager.makeLoadImportRequest(decl);
-            }
-            else if (section.equalsIgnoreCase(NAMESPACE)) {
+            } else if (section.equalsIgnoreCase(NAMESPACE)) {
                 Map<String, URI> nsMap = parseNamespace();
                 for (String ns : nsMap.keySet()) {
                     namespaceMap.put(ns, nsMap.get(ns).toString());
                 }
-            }
-            else if (section.equalsIgnoreCase(DISJOINT_CLASSES)) {
+            } else if (section.equalsIgnoreCase(DISJOINT_CLASSES)) {
                 axioms.add(parseDisjointClasses());
-            }
-            else if (section.equalsIgnoreCase(DISJOINT_OBJECT_PROPERTIES)) {
+            } else if (section.equalsIgnoreCase(DISJOINT_OBJECT_PROPERTIES)) {
                 axioms.add(parseDisjointObjectProperties());
-            }
-            else if (section.equalsIgnoreCase(DISJOINT_DATA_PROPERTIES)) {
+            } else if (section.equalsIgnoreCase(DISJOINT_DATA_PROPERTIES)) {
                 axioms.add(parseDisjointDataProperties());
-            }
-            else if (section.equalsIgnoreCase(DIFFERENT_INDIVIDUALS)) {
+            } else if (section.equalsIgnoreCase(DIFFERENT_INDIVIDUALS)) {
                 axioms.add(parseDifferentIndividuals());
-            }
-            else if(section.equalsIgnoreCase(SAME_INDIVIDUAL)) {
+            } else if (section.equalsIgnoreCase(SAME_INDIVIDUAL)) {
                 axioms.add(parseSameIndividual());
-            }
-            else if (section.equals(EOF)) {
+            } else if (section.equals(EOF)) {
                 break;
-            }
-            else {
+            } else {
                 consumeToken();
                 throwException(CLASS,
-                               OBJECT_PROPERTY,
-                               DATA_PROPERTY,
-                               INDIVIDUAL, IMPORT,
-                               VALUE_PARTITION,
-                               NAMESPACE,
-                               DISJOINT_CLASSES,
-                               DISJOINT_OBJECT_PROPERTIES,
-                               DISJOINT_DATA_PROPERTIES,
-                               DIFFERENT_INDIVIDUALS,
-                               SAME_INDIVIDUAL);
+                        OBJECT_PROPERTY,
+                        DATA_PROPERTY,
+                        INDIVIDUAL, IMPORT,
+                        VALUE_PARTITION,
+                        NAMESPACE,
+                        DISJOINT_CLASSES,
+                        DISJOINT_OBJECT_PROPERTIES,
+                        DISJOINT_DATA_PROPERTIES,
+                        DIFFERENT_INDIVIDUALS,
+                        SAME_INDIVIDUAL);
             }
         }
 
@@ -2065,15 +1935,15 @@ public class ManchesterOWLSyntaxEditorParser {
         potentialKeywords.clear();
         ManchesterOWLSyntaxTokenizer.Token lastToken = getLastToken();
         throw new ParserException(lastToken.getToken(),
-                                  lastToken.getPos(),
-                                  lastToken.getRow(),
-                                  lastToken.getCol(),
-                                  false,
-                                  false,
-                                  false,
-                                  false,
-                                  false,
-                                  theKeywords);
+                lastToken.getPos(),
+                lastToken.getRow(),
+                lastToken.getCol(),
+                false,
+                false,
+                false,
+                false,
+                false,
+                theKeywords);
     }
 
 
@@ -2089,21 +1959,21 @@ public class ManchesterOWLSyntaxEditorParser {
         potentialKeywords.clear();
         ManchesterOWLSyntaxTokenizer.Token lastToken = getLastToken();
         throw new ParserException(lastToken.getToken(),
-                                  lastToken.getPos(),
-                                  lastToken.getRow(),
-                                  lastToken.getCol(),
-                                  classNameExpected,
-                                  objectPropertyNameExpected,
-                                  dataPropertyNameExpected,
-                                  individualNameExpected,
-                                  datatypeNameExpected,
-                                  theKeywords);
+                lastToken.getPos(),
+                lastToken.getRow(),
+                lastToken.getCol(),
+                classNameExpected,
+                objectPropertyNameExpected,
+                dataPropertyNameExpected,
+                individualNameExpected,
+                datatypeNameExpected,
+                theKeywords);
     }
 
 
     protected void throwException(boolean classNameExpected, boolean objectPropertyNameExpected,
                                   boolean dataPropertyNameExpected, boolean individualNameExpected) throws
-                                                                                                    ParserException {
+            ParserException {
         Set<String> keywords = new HashSet<String>();
         if (objectPropertyNameExpected) {
             keywords.add(INV);
@@ -2112,15 +1982,15 @@ public class ManchesterOWLSyntaxEditorParser {
         potentialKeywords.clear();
         ManchesterOWLSyntaxTokenizer.Token lastToken = getLastToken();
         throw new ParserException(lastToken.getToken(),
-                                  lastToken.getPos(),
-                                  lastToken.getRow(),
-                                  lastToken.getCol(),
-                                  classNameExpected,
-                                  objectPropertyNameExpected,
-                                  dataPropertyNameExpected,
-                                  individualNameExpected,
-                                  false,
-                                  keywords);
+                lastToken.getPos(),
+                lastToken.getRow(),
+                lastToken.getCol(),
+                classNameExpected,
+                objectPropertyNameExpected,
+                dataPropertyNameExpected,
+                individualNameExpected,
+                false,
+                keywords);
     }
 
 
@@ -2141,14 +2011,11 @@ public class ManchesterOWLSyntaxEditorParser {
         public OWLClass getOWLClass(String name) {
             if (name.equals("Thing") || name.equals("owl:Thing")) {
                 return dataFactory.getOWLThing();
-            }
-            else if (name.equals("Nothing") || name.equals("owl:Nothing")) {
+            } else if (name.equals("Nothing") || name.equals("owl:Nothing")) {
                 return dataFactory.getOWLNothing();
-            }
-            else if (classNames.contains(name)) {
+            } else if (classNames.contains(name)) {
                 return dataFactory.getOWLClass(getURI(name));
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -2157,8 +2024,7 @@ public class ManchesterOWLSyntaxEditorParser {
         public OWLObjectProperty getOWLObjectProperty(String name) {
             if (objectPropertyNames.contains(name)) {
                 return dataFactory.getOWLObjectProperty(getURI(name));
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -2167,8 +2033,7 @@ public class ManchesterOWLSyntaxEditorParser {
         public OWLDataProperty getOWLDataProperty(String name) {
             if (dataPropertyNames.contains(name)) {
                 return dataFactory.getOWLDataProperty(getURI(name));
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -2177,8 +2042,7 @@ public class ManchesterOWLSyntaxEditorParser {
         public OWLIndividual getOWLIndividual(String name) {
             if (individualNames.contains(name)) {
                 return dataFactory.getOWLIndividual(getURI(name));
-            }
-            else {
+            } else {
                 return null;
             }
         }

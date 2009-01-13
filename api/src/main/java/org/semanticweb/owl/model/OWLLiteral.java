@@ -54,18 +54,20 @@ public interface OWLLiteral extends OWLObject {
      * method returns <code>true</code> then this method obtains this literal as a typed
      * literal.  If <code>isTyped</code> returns <code>false</code> then calling this method will
      * cause an <code>OWLRuntimeException</code> to be thrown.
+     * @return This literal as a typed literal
      */
     OWLTypedLiteral asOWLTypedLiteral();
 
 
     /**
-     * If this constant is an untyped constant (i.e. if the <code>isTyped</code>
-     * method returns <code>false</code> then this method obtains this constant as
-     * an untyped constant.  If the <code>isTyped</code> method returns <code>true</code>
-     * because this method is a typed constant, then calling this method will cause
+     * If this literal is an RDFTextLiteral (i.e. if the <code>isTyped</code>
+     * method returns <code>false</code> then this method obtains this literal as
+     * an RDFTextLiteral.  If the <code>isTyped</code> method returns <code>true</code>
+     * because this method is a typed literal, then calling this method will cause
      * an <code>OWLRuntimeException</code> to be thrown.
+     * @return This literal as a more specific RDF Text Literal
      */
-    OWLUntypedLiteral asOWLUntypedConstant();
+    OWLRDFTextLiteral asRDFTextLiteral();
 
 
     void accept(OWLDataVisitor visitor);

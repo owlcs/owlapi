@@ -514,7 +514,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(OWLUntypedLiteral node) {
+        public void visit(OWLRDFTextLiteral node) {
             process(node);
         }
 

@@ -26,24 +26,26 @@ package org.semanticweb.owl.model;
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Nov-2006<br><br>
- *
- * A visitor which can visit various data ranges and constants.
+ * Bio-Health Informatics Group
+ * Date: 24-Oct-2006
  */
-public interface OWLDataVisitor  {
+public interface OWLRDFTextLiteral extends OWLLiteral {
 
-    void visit(OWLDataType node);
+    /**
+     * Gets the language tag (if present)
+     * @return A <code>String</code> which represents the langauge tag,
+     * or <code>null</code> if there is no language tag
+     */
+    public String getLang();
 
-    void visit(OWLDataComplementOf node);
 
-    void visit(OWLDataOneOf node);
-
-    void visit(OWLDataRangeRestriction node);
-
-    void visit(OWLTypedLiteral node);
-
-    void visit(OWLRDFTextLiteral node);
-
-    void visit(OWLDataRangeFacetRestriction node);
+    /**
+     * Determines if this constant has a specific language tag.
+     * @param lang The specific lang to test for.
+     * @return <code>true</code> if this constant has the specified
+     * langauge tag, or <code>false</code> if this constant does not
+     * have a language tag or if this constant has a language tag that
+     * is not equal to the specified language tag.
+     */
+    boolean hasLang(String lang);
 }

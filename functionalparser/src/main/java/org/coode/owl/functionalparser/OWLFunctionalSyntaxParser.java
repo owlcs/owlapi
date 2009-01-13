@@ -1561,7 +1561,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLUntypedLiteral UntypedConstant() throws ParseException {
+  final public OWLRDFTextLiteral UntypedConstant() throws ParseException {
     String literal;
     String lang = null;
     literal = StringLiteral();

@@ -454,12 +454,10 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLUntypedLiteral node) {
+    public void visit(OWLRDFTextLiteral node) {
         hashCode = 281;
         hashCode = hashCode * MULT + node.getString().hashCode();
-        if (node.hasLang()) {
-            hashCode = hashCode * MULT + node.getLang().hashCode();
-        }
+        hashCode = hashCode * MULT + node.getLang().hashCode();
     }
 
 

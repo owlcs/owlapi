@@ -614,7 +614,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLUntypedLiteral node) {
+    public void visit(OWLRDFTextLiteral node) {
         writer.writeStartElement(CONSTANT.getURI());
         // TODO: Add in lang when added to spec
 //        writer.writeDatatypeAttribute(node.getLang());

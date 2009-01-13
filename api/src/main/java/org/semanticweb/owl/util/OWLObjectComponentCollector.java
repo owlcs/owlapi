@@ -493,7 +493,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLUntypedLiteral node) {
+    public void visit(OWLRDFTextLiteral node) {
         handleObject(node);
     }
 

@@ -32,39 +32,39 @@ package org.semanticweb.owl.model;
 public class OWLUntypedConstantTestCase extends AbstractOWLDataFactoryTest {
 
     public void testCreation() throws Exception {
-        OWLUntypedLiteral conA = getOWLDataFactory().getOWLUntypedConstant("TEST");
+        OWLRDFTextLiteral conA = getOWLDataFactory().getOWLUntypedConstant("TEST");
         assertNotNull(conA);
-        OWLUntypedLiteral conB = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
+        OWLRDFTextLiteral conB = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
         assertNotNull(conB);
     }
 
 
     public void testEqualsPositive() throws Exception {
-        OWLUntypedLiteral conA = getOWLDataFactory().getOWLUntypedConstant("TEST");
-        OWLUntypedLiteral conB = getOWLDataFactory().getOWLUntypedConstant("TEST");
+        OWLRDFTextLiteral conA = getOWLDataFactory().getOWLUntypedConstant("TEST");
+        OWLRDFTextLiteral conB = getOWLDataFactory().getOWLUntypedConstant("TEST");
         assertEquals(conA, conB);
-        OWLUntypedLiteral conC = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
-        OWLUntypedLiteral conD = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
+        OWLRDFTextLiteral conC = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
+        OWLRDFTextLiteral conD = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
         assertEquals(conC, conD);
     }
 
 
     public void testEqualsNegative() throws Exception {
-        OWLUntypedLiteral conA = getOWLDataFactory().getOWLUntypedConstant("TEST");
-        OWLUntypedLiteral conB = getOWLDataFactory().getOWLUntypedConstant("OTHER");
+        OWLRDFTextLiteral conA = getOWLDataFactory().getOWLUntypedConstant("TEST");
+        OWLRDFTextLiteral conB = getOWLDataFactory().getOWLUntypedConstant("OTHER");
         assertNotEquals(conA, conB);
-        OWLUntypedLiteral conC = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
-        OWLUntypedLiteral conD = getOWLDataFactory().getOWLUntypedConstant("TEST", "OTHER_LANG");
+        OWLRDFTextLiteral conC = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
+        OWLRDFTextLiteral conD = getOWLDataFactory().getOWLUntypedConstant("TEST", "OTHER_LANG");
         assertNotEquals(conC, conD);
-        OWLUntypedLiteral conE = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
-        OWLUntypedLiteral conF = getOWLDataFactory().getOWLUntypedConstant("OTHER", "LANG");
+        OWLRDFTextLiteral conE = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
+        OWLRDFTextLiteral conF = getOWLDataFactory().getOWLUntypedConstant("OTHER", "LANG");
         assertNotEquals(conE, conF);
     }
 
 
     public void testHashCode() throws Exception {
-        OWLUntypedLiteral conA = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
-        OWLUntypedLiteral conB = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
+        OWLRDFTextLiteral conA = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
+        OWLRDFTextLiteral conB = getOWLDataFactory().getOWLUntypedConstant("TEST", "LANG");
         assertEquals(conA.hashCode(), conB.hashCode());
     }
 }

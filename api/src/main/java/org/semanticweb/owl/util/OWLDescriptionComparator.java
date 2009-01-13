@@ -284,7 +284,7 @@ public class OWLDescriptionComparator implements Comparator<OWLDescription> {
         }
 
 
-        public void visit(OWLUntypedLiteral node) {
+        public void visit(OWLRDFTextLiteral node) {
         }
     }
 

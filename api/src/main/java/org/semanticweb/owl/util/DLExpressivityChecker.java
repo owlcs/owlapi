@@ -248,7 +248,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLUntypedLiteral node) {
+    public void visit(OWLRDFTextLiteral node) {
         constructs.add(D);
     }
 

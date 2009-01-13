@@ -41,7 +41,7 @@ public interface OWLDataVisitorEx<O> {
 
     O visit(OWLTypedLiteral node);
 
-    O visit(OWLUntypedLiteral node);
+    O visit(OWLRDFTextLiteral node);
 
     O visit(OWLDataRangeFacetRestriction node);
 }
