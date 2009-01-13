@@ -73,7 +73,7 @@ public class Example10 {
             // First we'll create a constant for the annotation value.  Version info should probably contain a
             // version number for the ontology, but in this case, we'll add some text to describe why the version
             // has been updated
-            OWLLiteral con = df.getOWLUntypedConstant("Added a comment to the pizza class");
+            OWLLiteral con = df.getOWLTypedLiteral("Added a comment to the pizza class");
             // The above constant is just a plain literal containing the version info text/comment
             // we need to create an annotation, which pairs a URI with the constant
             OWLAnnotation anno = df.getOWLConstantAnnotation(OWLRDFVocabulary.OWL_VERSION_INFO.getURI(), con);

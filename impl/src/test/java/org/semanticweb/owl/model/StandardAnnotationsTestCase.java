@@ -3,7 +3,6 @@ package org.semanticweb.owl.model;
 import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 import junit.framework.TestCase;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
-import org.semanticweb.owl.util.OWLDataUtil;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -46,12 +45,12 @@ public class StandardAnnotationsTestCase extends TestCase {
     public void testLabelAnnotations() {
         OWLConstantAnnotation anno1 = dataFactory.getOWLLabelAnnotation("Test");
         assertTrue(anno1.isLabel());
-        OWLConstantAnnotation anno2 = dataFactory.getOWLConstantAnnotation(OWLRDFVocabulary.RDFS_LABEL.getURI(), dataFactory.getOWLUntypedConstant("Test"));
+        OWLConstantAnnotation anno2 = dataFactory.getOWLConstantAnnotation(OWLRDFVocabulary.RDFS_LABEL.getURI(), dataFactory.getOWLTypedLiteral("Test"));
         assertTrue(anno2.isLabel());
     }
 
     public void testCommentAnnotations() {
-        OWLConstantAnnotation anno2 = dataFactory.getOWLConstantAnnotation(OWLRDFVocabulary.RDFS_COMMENT.getURI(), dataFactory.getOWLUntypedConstant("Test"));
+        OWLConstantAnnotation anno2 = dataFactory.getOWLConstantAnnotation(OWLRDFVocabulary.RDFS_COMMENT.getURI(), dataFactory.getOWLTypedLiteral("Test"));
         assertTrue(anno2.isComment());
     }
 

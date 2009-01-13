@@ -1375,10 +1375,10 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         else {
             if (lang != null) {
-                return dataFactory.getOWLUntypedConstant(literal, lang);
+                return dataFactory.getOWLRDFTextLiteral(literal, lang);
             }
             else {
-                return dataFactory.getOWLUntypedConstant(literal);
+                return dataFactory.getOWLTypedLiteral(literal);
             }
         }
     }

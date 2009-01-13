@@ -56,7 +56,7 @@ public class OWLConstantElementHandler extends AbstractOWLElementHandler<OWLLite
             literal = getOWLDataFactory().getOWLTypedLiteral(getText(), getOWLDataFactory().getOWLDatatype(uri));
         }
         else {
-            literal = getOWLDataFactory().getOWLUntypedConstant(getText());
+            literal = getOWLDataFactory().getOWLTypedLiteral(getText());
         }
         getParentHandler().handleChild(this);
     }

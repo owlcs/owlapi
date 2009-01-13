@@ -130,9 +130,9 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
     }
 
 
-    protected OWLLiteral getUntypedConstant(String literal) throws OWLException {
-        return getDataFactory().getOWLUntypedConstant(literal);
-    }
+//    protected OWLLiteral getUntypedConstant(String literal) throws OWLException {
+//        return getDataFactory().getOWLRDFTextLiteral(literal);
+//    }
 
 
     protected OWLLiteral getBooleanConstant(Boolean b) {

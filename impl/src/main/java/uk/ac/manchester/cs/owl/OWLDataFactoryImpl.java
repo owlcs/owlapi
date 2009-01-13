@@ -207,7 +207,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLRDFTextLiteral getOWLUntypedConstant(String literal, String lang) {
+    public OWLRDFTextLiteral getOWLRDFTextLiteral(String literal, String lang) {
         return new OWLRDFTextLiteralImpl(this, literal, lang);
     }
 
@@ -746,7 +746,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLCommentAnnotation getCommentAnnotation(String comment, String langauge) {
-        return new OWLCommentAnnotationImpl(this, getOWLUntypedConstant(comment, langauge));
+        return new OWLCommentAnnotationImpl(this, getOWLRDFTextLiteral(comment, langauge));
     }
 
 
@@ -756,7 +756,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLLabelAnnotation getOWLLabelAnnotation(String label, String language) {
-        return new OWLLabelAnnotationImpl(this, getOWLUntypedConstant(label, language));
+        return new OWLLabelAnnotationImpl(this, getOWLRDFTextLiteral(label, language));
     }
 
 

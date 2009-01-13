@@ -51,7 +51,7 @@ public class NameTagValueHandler extends AbstractTagValueHandler {
         else {
             ent = getDataFactory().getOWLIndividual(getURIFromValue(id));
         }
-        OWLLiteral con = getDataFactory().getOWLUntypedConstant(value);
+        OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
         OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(OWLRDFVocabulary.RDFS_LABEL.getURI(), con);
         OWLAxiom ax = getDataFactory().getOWLEntityAnnotationAxiom(ent, anno);
         applyChange(new AddAxiom(getOntology(), ax));

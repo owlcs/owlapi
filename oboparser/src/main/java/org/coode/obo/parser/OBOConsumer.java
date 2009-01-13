@@ -281,7 +281,7 @@ public class OBOConsumer implements OBOParserHandler {
                     }
                     else {
                         // Ontology annotations
-                        OWLLiteral con = getDataFactory().getOWLUntypedConstant(value);
+                        OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
                         OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getURI(tag), con);
                         OWLOntologyAnnotationAxiom ax = getDataFactory().getOWLOntologyAnnotationAxiom(ontology, anno);
                         owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
@@ -290,7 +290,7 @@ public class OBOConsumer implements OBOParserHandler {
                 else if (currentId != null) {
                     // Add as annotation
                     OWLEntity entity = getCurrentEntity();
-                    OWLLiteral con = getDataFactory().getOWLUntypedConstant(value);
+                    OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
                     OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getURI(tag), con);
                     OWLEntityAnnotationAxiom ax = getDataFactory().getOWLEntityAnnotationAxiom(entity, anno);
                     owlOntologyManager.applyChange(new AddAxiom(ontology, ax));

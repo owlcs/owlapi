@@ -252,10 +252,8 @@ public interface OWLDataFactory extends SWRLDataFactory {
      */
     OWLTypedLiteral getOWLTypedLiteral(String value);
 
-    OWLRDFTextLiteral getOWLUntypedConstant(String literal);
 
-
-    OWLRDFTextLiteral getOWLUntypedConstant(String literal, String lang);
+    OWLRDFTextLiteral getOWLRDFTextLiteral(String literal, String lang);
 
 
     OWLDataOneOf getOWLDataOneOf(Set<? extends OWLLiteral> values);

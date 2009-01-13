@@ -982,7 +982,7 @@ OWLDescription DataSomeValuesFrom()  :
 OWLDescription DataHasValue()  :
 {
     OWLDataPropertyExpression prop = null;
-    OWLTypedConstant typedConstant = null;
+    OWLTypedLiteral typedConstant = null;
 }
 {
     <DATAHASVALUE><OPENPAR>prop=DataPropertyExpression() typedConstant=TypedConstant()<CLOSEPAR> {
@@ -1136,7 +1136,7 @@ OWLDataType DataTypeURI() :
 }
 {
     uri=URI() {
-        return dataFactory.getOWLDataType(uri);
+        return dataFactory.getOWLDatatype(uri);
     }
 
 
@@ -1185,8 +1185,8 @@ OWLDataRange DataComplementOf()  :
 
 OWLDataRange DataOneOf()  :
 {
-    Set<OWLTypedConstant> values = new HashSet<OWLTypedConstant>();
-    OWLTypedConstant con = null;
+    Set<OWLTypedLiteral> values = new HashSet<OWLTypedLiteral>();
+    OWLTypedLiteral con = null;
     OWLDataRange rng = null;
 }
 {
@@ -1213,7 +1213,7 @@ OWLDataRange DataRangeRestriction() :
 OWLDataRangeFacetRestriction DataRangeFacetRestriction() :
 {
     Token facet;
-    OWLTypedConstant con;
+    OWLTypedLiteral con;
 }
 {
     ((facet=<LENGTH>
@@ -1682,7 +1682,7 @@ OWLIndividualAxiom DataPropertyAssertion() :
 {
     OWLIndividual subj;
     OWLDataPropertyExpression prop;
-    OWLConstant obj;
+    OWLLiteral obj;
 }
 {
     <DATAPROPERTYASSERTION><OPENPAR>AxiomAnnotationSet()prop=DataPropertyExpression() subj=IndividualURI() obj=Constant()<CLOSEPAR> {
@@ -1694,7 +1694,7 @@ OWLIndividualAxiom NegativeDataPropertyAssertion() :
 {
     OWLIndividual subj;
     OWLDataPropertyExpression prop;
-    OWLConstant obj;
+    OWLLiteral obj;
 }
 {
     <NEGATIVEDATAPROPERTYASSERTION><OPENPAR>AxiomAnnotationSet()prop=DataPropertyExpression() subj=IndividualURI() obj=Constant()<CLOSEPAR> {
@@ -1730,7 +1730,7 @@ OWLObjectProperty ObjectPropertyURI() :
 OWLAnnotation Annotation() :
 {
     URI uri;
-    OWLConstant con;
+    OWLLiteral con;
 }
 {
     ((<LABEL> <OPENPAR> con=Constant() <CLOSEPAR>) {
@@ -1790,7 +1790,7 @@ OWLAxiom Declaration() :
 {
     OWLEntity entity = null;
     URI uri = null;
-    OWLConstant con = null;
+    OWLLiteral con = null;
 }
 {
     (<DECLARATION><OPENPAR>(AxiomAnnotationSet() entity = Entity())<CLOSEPAR>) {
@@ -1821,9 +1821,9 @@ OWLEntity Entity() :
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-OWLConstant Constant() :
+OWLLiteral Constant() :
 {
-    OWLConstant con;
+    OWLLiteral con;
 }
 {
     (con=TypedConstant() | con=UntypedConstant()) {
@@ -1831,7 +1831,7 @@ OWLConstant Constant() :
     }
 }
 
-OWLTypedConstant TypedConstant() :
+OWLTypedLiteral TypedConstant() :
 {
     String literal;
     OWLDataType dataType=null;
@@ -1840,25 +1840,20 @@ OWLTypedConstant TypedConstant() :
 {
     (literal=StringLiteral()"^^"dataType=DataTypeURI()) {
 
-            return dataFactory.getOWLTypedConstant(literal, dataType);
+            return dataFactory.getOWLTypedLiteral(literal, dataType);
 
     }
 }
 
 
-OWLUntypedConstant UntypedConstant() :
+OWLRDFTextLiteral UntypedConstant() :
 {
     String literal;
     String lang = null;
 }
 {
-        literal=StringLiteral()(lang = LangTag())? {
-            if(lang == null) {
-                return dataFactory.getOWLUntypedConstant(literal);
-            }
-            else {
-                return dataFactory.getOWLUntypedConstant(literal, lang);
-            }
+        literal=StringLiteral()(lang = LangTag()) {
+            return dataFactory.getOWLRDFTextLiteral(literal, lang);
         }
 }
 

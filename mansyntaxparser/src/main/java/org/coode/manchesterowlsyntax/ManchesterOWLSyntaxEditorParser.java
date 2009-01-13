@@ -832,9 +832,9 @@ public class ManchesterOWLSyntaxEditorParser {
             } else if (peekToken().equals("@")) {
                 consumeToken();
                 String lang = consumeToken();
-                return dataFactory.getOWLUntypedConstant(lit, lang);
+                return dataFactory.getOWLRDFTextLiteral(lit, lang);
             } else {
-                return dataFactory.getOWLUntypedConstant(lit);
+                return dataFactory.getOWLTypedLiteral(lit);
             }
         } else {
             try {
