@@ -1,0 +1,993 @@
+//KRSS2Parser by Olaf Noppens, based on KRSSParser by Matthew Horridge
+options {
+    STATIC=false;
+    LOOKAHEAD=2;
+    //FORCE_LA_CHECK=true;
+}
+
+
+PARSER_BEGIN(KRSS2Parser)
+
+package de.uulm.ecs.ai.owl.krssparser;
+
+import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owl.util.*;
+import java.net.*;
+import java.util.*;
+
+public class KRSS2Parser {
+
+    private OWLOntology ontology;
+
+    private OWLDataFactory dataFactory;
+
+    private Map<String, URI> string2URI;
+
+    private boolean ignoreAnnotationsAndDeclarations = false;
+
+    private boolean ignoreOntologyURI = false;
+
+    private String base;
+
+    private NamespaceUtil utils;
+
+    public void setOntology(OWLOntology ontology, OWLDataFactory dataFactory)  {
+        this.ontology = ontology;
+        this.dataFactory = dataFactory;
+        this.string2URI = new HashMap<String, URI>();
+        this.base = ontology.getURI().toString() + "#";
+        this.utils = new NamespaceUtil();
+    }
+
+     protected void addAxiom(OWLAxiom ax) throws KRSS2OWLParserException {
+        try {
+            ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology, ax));
+        }
+        catch(OWLOntologyChangeException e) {
+            throw new KRSS2OWLParserException(e);
+        }
+    }
+
+      protected static boolean isFileURI(final URI uri) {
+        URL url;
+        if (!uri.isAbsolute()) return false;
+        try {
+            url = uri.toURL();
+        } catch (MalformedURLException e) {
+            return false;
+        }
+        return (url.getProtocol().equals("file"));
+    }
+
+
+     protected static String extractLocalname(final URI uri) {
+        if (uri.getFragment() != null && !uri.getFragment().equals(""))
+            return uri.getFragment();
+        String uriString = uri.toString();
+        int index = -1;
+        if (isFileURI(uri)) {
+            //bug: all other file separators?
+            index = uriString.lastIndexOf("/");
+            if (index < 0)
+                index = uriString.lastIndexOf("\\");
+        } else
+            index = uriString.indexOf("#");
+        index++;
+        if (index > -1) {
+            return uriString.substring(index, uriString.length());
+        } else
+            return null; //""
+    }
+
+
+    public URI getURI(String s) throws URISyntaxException {
+
+      URI uri = string2URI.get(s);
+      if(uri != null) {
+        return uri;
+      }
+
+      if (!this.ignoreOntologyURI) {
+         String[] splitted = utils.split(s, null);
+          if (splitted[0].equals("")) {
+               s = base + s;
+          } else {
+              int i=0 ;
+          }
+      }
+      uri = new URI(s);
+      string2URI.put(s, uri);
+      return uri;
+    }
+
+
+    public void setIgnoreAnnotationsAndDeclarations(boolean b) {
+        ignoreAnnotationsAndDeclarations = b;
+    }
+
+    public void setIgnoreOntologyBaseURI(boolean b) {
+        this.ignoreOntologyURI = b;
+    }
+
+}
+
+PARSER_END(KRSS2Parser)
+
+SKIP: {" " | "\t" | "\r"| "\"" | "|" | "\\"|"\n"}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//
+// URIs
+
+MORE:
+{
+    <URI_START: "<"> : IN_URI
+}
+
+<IN_URI>TOKEN:
+{
+    <URI_END: ">"> : DEFAULT
+}
+
+<IN_URI>MORE:
+{
+    <~[]>
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//
+// COMMENTS
+
+MORE:
+{
+    <COMMENT_START: ";"> : IN_COMMENT
+}
+
+<IN_COMMENT>SKIP:
+{
+    <"\n"> : DEFAULT
+}
+
+<IN_COMMENT>MORE:
+{
+    <~[]>
+}
+
+
+TOKEN[IGNORE_CASE]:
+{
+    <TOP: "TOP" | "*TOP*" >
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <BOTTOM: "BOTTOM" | "*BOTTOM*" | "*bottom*">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <NIL: "NIL">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <TRUE: "t">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <OPENPAR: "(">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <CLOSEPAR: ")">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <ENDTBOX: "end-tbox">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <ENDABOX: "end-abox">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <ROLE_INCLUSION : "role-inclusion">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <COMPOSE: "compose">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <PRIMITIVECONCEPT: "primitive-concept">
+}
+
+
+TOKEN[IGNORE_CASE]:
+{
+    <DEFINEPRIMITIVECONCEPT: "define-primitive-concept">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <DEFINECONCEPT: "define-concept">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <DEFINEPRIMITIVEROLE: "define-primitive-role">
+}
+
+TOKEN:
+{
+    <SUBROLE: "subrole">
+}
+
+
+TOKEN[IGNORE_CASE]:
+{
+    <TRANSITIVE: "TRANSITIVE">
+}
+
+TOKEN:
+{
+    <TRANSITIVE_ATTRIBUTE: ":transitive" | ":TRANSITIVE">
+}
+
+TOKEN:
+{
+    <SYMMETRIC_ATTRIBUTE: ":symmetric">
+}
+
+TOKEN:
+{
+    <RANGE_ATTRIBUTE: ":range">
+}
+
+
+TOKEN:
+{
+    <DOMAIN_ATTRIBUTE: ":domain">
+}
+
+TOKEN:
+{
+    <INVERSE_ATTRIBUTE: ":inverse">
+}
+
+TOKEN:
+{
+    <RIGHT_IDENTITY_ATTRIBUTE: ":right-identity">
+}
+
+TOKEN:
+{
+    <LEFT_IDENTITY_ATTRIBUTE: ":left-identity">
+}
+
+
+
+TOKEN:
+{
+    <REFLEXIVE: ":reflexive">
+    }
+
+TOKEN:
+{
+    <DPOINT: ":">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <PARENTS: ":parents">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <PARENT: ":parent">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <ENUM: "enum">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <RANGE: "range">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <AND: "AND">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <OR: "OR">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <NOT: "NOT">
+}
+
+
+TOKEN[IGNORE_CASE]:
+{
+    <ALL: "ALL">
+}
+
+
+TOKEN[IGNORE_CASE]:
+{
+    <SOME: "SOME" >
+}
+
+
+//TOKEN:
+//{
+//    <NONE: "none" | "NONE" >
+//}
+
+TOKEN:
+{
+    <ATLEAST: "at-least" | "AT-LEAST">
+}
+
+
+TOKEN[IGNORE_CASE]:
+{
+    <ATMOST:  "AT-MOST">
+}
+
+
+TOKEN[IGNORE_CASE]:
+{
+    <EXACTLY: "EXACTLY">
+}
+
+
+TOKEN[IGNORE_CASE]:
+{
+    <INSTANCE: "instance">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <RELATED: "related">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <EQUAL: "equal">
+}
+
+
+TOKEN[IGNORE_CASE]:
+{
+    <DISTINCT: "distinct">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <IMPLIES: "implies">
+}
+
+TOKEN[IGNORE_CASE]:
+{
+    <COMPLEX: "complex">
+}
+
+
+TOKEN:
+ {
+     <INT: ["0"-"9"](["0"-"9"])*>
+ }
+
+
+
+//TOKEN:
+ //{
+//     <NAME: (["a"-"z"]|["A"-"Z"] | <INT>)+>
+ //}
+
+ TOKEN:
+{
+    <NAME: (<NCCHAR_FULL>)+>
+}
+
+
+
+
+TOKEN:
+{
+    <NCCHAR_FULL: <NCCHAR1> | "_" | "." | "-" | ["0"-"9"] | "\u00B7" | "%">
+}
+
+TOKEN:
+{
+    <NCCHAR1: ["A"-"Z"]
+        | ["a"-"z"]
+        | [":"]
+        | ["/"]
+        | ["#"]
+        | ["-"]
+        | ["&"]
+        | ["'"]
+        | ["\u00C0" - "\u00D6"]
+        | ["\u00D8"-"\u00F6"]
+        | ["\u00F8"-"\u02FF"]
+        | ["\u0370"-"\u037D"]
+        | ["\u037F"-"\u1FFF"]
+        | ["\u200C"-"\u200D"]
+        | ["\u2070"-"\u218F"]
+        | ["\u2C00"-"\u2FEF"]
+        | ["\u3001"-"\uD7FF"]
+        | ["\uF900"-"\uFFFF"]>
+}
+
+
+
+public void parse() throws KRSS2OWLParserException :
+{
+}
+{
+    (TBoxStatement())* (<ENDTBOX>)? (ABoxStatement())* (<ENDABOX>)? <EOF>
+}
+
+
+void TBoxStatement() throws KRSS2OWLParserException:
+{
+}
+{
+    (DefinePrimitiveConcept() | DefineConcept() | DefinePrimitiveRole() | Transitive() |  Range() | Implies()|ComplexRoleInclusion()) {
+    }
+}
+
+
+void DefinePrimitiveConcept() throws KRSS2OWLParserException:
+{
+    OWLDescription subClass = null;
+    OWLDescription superClass = null;
+
+}
+{
+      <OPENPAR><DEFINEPRIMITIVECONCEPT>subClass=ConceptName() (superClass=ConceptExpression())?<CLOSEPAR> {
+        if (subClass instanceof OWLClass) {
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) subClass));
+            if (superClass != null) {
+               addAxiom(dataFactory.getOWLSubClassAxiom(subClass, superClass));
+            }
+        }
+      }
+}
+
+void DefineConcept() throws KRSS2OWLParserException:
+{
+    OWLDescription clsA;
+    OWLDescription clsB;
+}
+{
+    <OPENPAR><DEFINECONCEPT>clsA=ConceptName() clsB=ConceptExpression()<CLOSEPAR> {
+        if (clsA instanceof OWLClass)
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) clsA));
+        Set<OWLDescription> ops = new HashSet<OWLDescription>();
+        ops.add(clsA);
+        ops.add(clsB);
+        addAxiom( dataFactory.getOWLEquivalentClassesAxiom(ops));
+    }
+}
+
+
+void DefinePrimitiveRole() throws KRSS2OWLParserException :
+{
+    OWLObjectProperty subProp;
+    OWLObjectProperty superProp;
+    OWLDescription desc;
+    Set<OWLObjectProperty> roles = new HashSet<OWLObjectProperty>();
+    Set<OWLDescription> descs = new HashSet<OWLDescription>();
+}
+
+{
+    (<OPENPAR><DEFINEPRIMITIVEROLE>subProp=RoleName() {
+          if (subProp != null)
+            addAxiom( dataFactory.getOWLDeclarationAxiom(subProp));
+    }
+    ( (Parent(subProp)) ((RightIdentity(subProp))|(LeftIdentity(subProp))) (Parents(subProp))(Domain(subProp))(RangeAttribute(subProp))(TransitiveAttribute(subProp))(SymmetricAttribute(subProp))(InverseProperty(subProp))
+    )
+    <CLOSEPAR>)
+}
+
+
+void RightIdentity(OWLObjectProperty r) throws KRSS2OWLParserException :
+{
+OWLObjectProperty s;
+}
+{
+    (<RIGHT_IDENTITY_ATTRIBUTE>s=RoleName() {
+        List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>(2);
+        chain.add(r); chain.add(s);
+        addAxiom(dataFactory.getOWLObjectPropertyChainSubPropertyAxiom(chain, r));
+    }
+    )?
+}
+
+void LeftIdentity(OWLObjectProperty r) throws KRSS2OWLParserException:
+{
+OWLObjectProperty s;
+}
+{
+    (<LEFT_IDENTITY_ATTRIBUTE>s=RoleName() {
+        List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>(2);
+        chain.add(s); chain.add(r);
+        addAxiom(dataFactory.getOWLObjectPropertyChainSubPropertyAxiom(chain, r));
+    }
+    )?
+}
+
+
+void InverseProperty(OWLObjectProperty subProp) throws KRSS2OWLParserException :
+{
+OWLObjectProperty superProp;
+}
+{
+ (<INVERSE_ATTRIBUTE>superProp=RoleName(){
+            addAxiom(dataFactory.getOWLInverseObjectPropertiesAxiom(subProp, superProp));
+        }
+        )?
+}
+
+void Domain(OWLObjectProperty subProp) throws KRSS2OWLParserException :
+{
+      OWLDescription desc;
+      Set<OWLDescription> descs = new HashSet<OWLDescription>();
+
+}
+{
+  (<DOMAIN_ATTRIBUTE>( <OPENPAR>(desc=ConceptExpression(){if (desc != null) descs.add(desc);})+<CLOSEPAR>| (desc=ConceptExpression(){ descs.add(desc);})  )
+            {
+                for (OWLDescription eachDescription : descs) {
+                    addAxiom(dataFactory.getOWLObjectPropertyDomainAxiom(subProp, eachDescription));
+                    if (eachDescription instanceof OWLClass)
+                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachDescription));
+                }
+            }
+        )?
+}
+
+void RangeAttribute(OWLObjectProperty subProp) throws KRSS2OWLParserException :
+{
+      OWLDescription desc;
+      Set<OWLDescription> descs = new HashSet<OWLDescription>();
+
+}
+{
+  (<RANGE_ATTRIBUTE>( <OPENPAR>(desc=ConceptExpression(){if (desc != null) descs.add(desc);})+<CLOSEPAR>| (desc=ConceptExpression(){ descs.add(desc);})  )
+            {
+                for (OWLDescription eachDescription : descs) {
+                    addAxiom(dataFactory.getOWLObjectPropertyRangeAxiom(subProp, eachDescription));
+                    if (eachDescription instanceof OWLClass)
+                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachDescription));
+                }
+            }
+        )?
+}
+
+void TransitiveAttribute(OWLObjectProperty property) throws KRSS2OWLParserException :
+{
+}
+{
+ (<TRANSITIVE_ATTRIBUTE>(<NIL>|<TRUE>{
+    addAxiom(dataFactory.getOWLTransitiveObjectPropertyAxiom(property));
+ }))?
+}
+
+void SymmetricAttribute(OWLObjectProperty property) throws KRSS2OWLParserException :
+{
+}
+{
+ (<SYMMETRIC_ATTRIBUTE>(<NIL>|<TRUE>{
+    addAxiom(dataFactory.getOWLSymmetricObjectPropertyAxiom(property));
+ }))?
+}
+
+
+
+/*void Range(OWLObjectProperty subProp) throws KRSS2OWLParserException :
+{
+      OWLDescription desc;
+      Set<OWLDescription> descs = new HashSet<OWLDescription>();
+
+}
+{
+ (<RANGE_ATTRIBUTE>( <OPENPAR>(desc=ConceptExpression(){descs.add(desc);})+<CLOSEPAR>| (desc=ConceptExpression(){ descs.add(desc);})  )
+            {
+                for (OWLDescription eachDescription : descs) {
+                    addAxiom(dataFactory.getOWLObjectPropertyRangeAxiom(subProp, eachDescription));
+                    if (eachDescription instanceof OWLClass)
+                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachDescription));
+                }
+            }
+        )+
+}*/
+
+
+
+
+void Parents(OWLObjectProperty subProp) throws KRSS2OWLParserException :
+{
+    Set<OWLObjectProperty> roles;
+    OWLObjectProperty superProp;
+
+}
+{
+(<PARENTS>(<NIL>|<OPENPAR>roles=RoleNameSet()<CLOSEPAR> {
+                if (roles != null)
+                    for (OWLObjectProperty prop: roles) {
+                        addAxiom(dataFactory.getOWLSubObjectPropertyAxiom(subProp, prop));
+                        if (prop instanceof OWLObjectProperty)
+                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLObjectProperty) prop));
+                    }
+            })
+
+            |
+                       (<PARENT>(<NIL>|(superProp=RoleName(){
+                            addAxiom(dataFactory.getOWLSubObjectPropertyAxiom(subProp, superProp));
+                            if (superProp instanceof OWLObjectProperty)
+                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLObjectProperty) superProp));
+                       })))
+                    )?
+}
+
+
+void Parent(OWLObjectProperty subProp) throws KRSS2OWLParserException :
+{
+    OWLObjectProperty superProp;
+}
+{
+    (superProp = RoleName() {
+       addAxiom(dataFactory.getOWLSubObjectPropertyAxiom(subProp, superProp));
+    })?
+}
+
+
+void ComplexRoleInclusion() throws KRSS2OWLParserException :
+{
+    OWLObjectProperty superProp;
+    OWLObjectProperty subProp1, subProp2;
+}
+{    <OPENPAR><ROLE_INCLUSION><COMPLEX>subProp1=RoleName() subProp2=RoleName()<CLOSEPAR>superProp=RoleName()<CLOSEPAR>{
+         List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>(2);
+         chain.add(subProp1); chain.add(subProp2);
+         addAxiom(dataFactory.getOWLObjectPropertyChainSubPropertyAxiom(chain, superProp));
+    }
+
+}
+
+void Implies() throws KRSS2OWLParserException :
+{
+    OWLDescription subDescription;
+    OWLDescription superDescription;
+}
+{
+    <OPENPAR><IMPLIES>subDescription=ConceptExpression() superDescription = ConceptExpression() <CLOSEPAR>{
+        addAxiom( dataFactory.getOWLSubClassAxiom(subDescription, superDescription));
+        if (subDescription instanceof OWLClass)
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) subDescription));
+        if (superDescription instanceof OWLClass)
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) superDescription));
+    }
+}
+
+
+void Transitive()  throws KRSS2OWLParserException:
+{
+    OWLObjectProperty prop;
+}
+{
+    <OPENPAR><TRANSITIVE>prop=RoleName()<CLOSEPAR> {
+        addAxiom( dataFactory.getOWLTransitiveObjectPropertyAxiom(prop));
+    }
+}
+
+void Range() throws KRSS2OWLParserException :
+{
+    OWLObjectProperty prop;
+    OWLDescription rng;
+}
+{
+    <OPENPAR><RANGE>prop=RoleName() rng=ConceptExpression()<CLOSEPAR> {
+        addAxiom( dataFactory.getOWLObjectPropertyRangeAxiom(prop, rng));
+        if (prop instanceof OWLObjectProperty)
+         addAxiom(dataFactory.getOWLDeclarationAxiom((OWLObjectProperty) prop));
+        if (rng instanceof OWLClass)
+         addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) rng));
+
+    }
+}
+
+
+OWLDescription ConceptExpression() throws KRSS2OWLParserException :
+{
+    OWLDescription desc;
+}
+{
+    (desc=ConceptName() | desc=And() | desc=Or() | desc=Not() | desc=All() | desc=Some() | desc=AtLeast() | desc=AtMost() | desc=Exactly()) {
+        return desc;
+    }
+}
+
+OWLDescription ConceptName() throws KRSS2OWLParserException :
+{
+    URI uri;
+}
+{
+    uri = Name() {
+        return dataFactory.getOWLClass(uri);
+    }
+}
+
+
+Set<OWLDescription> ConceptSet() throws KRSS2OWLParserException :
+{
+    Set<OWLDescription> descs = new HashSet<OWLDescription>();
+    OWLDescription desc;
+}
+{
+    ((desc=ConceptExpression() {descs.add(desc);})+) {
+        return descs;
+    }
+}
+
+OWLDescription And()throws KRSS2OWLParserException :
+{
+    Set<OWLDescription> operands;
+}
+{
+    <OPENPAR><AND>(operands=ConceptSet())<CLOSEPAR> {
+        return dataFactory.getOWLObjectIntersectionOf(operands);
+    }
+}
+
+OWLDescription Or() throws KRSS2OWLParserException :
+{
+    Set<OWLDescription> operands;
+}
+{
+    <OPENPAR><OR>(operands=ConceptSet())<CLOSEPAR> {
+        return dataFactory.getOWLObjectUnionOf(operands);
+    }
+}
+
+OWLDescription Not() throws KRSS2OWLParserException :
+{
+    OWLDescription operand;
+}
+{
+    <OPENPAR><NOT>(operand=ConceptExpression())<CLOSEPAR> {
+        return dataFactory.getOWLObjectComplementOf(operand);
+    }
+}
+
+OWLDescription All() throws KRSS2OWLParserException :
+{
+    OWLObjectProperty prop;
+    OWLDescription filler;
+}
+{
+    <OPENPAR><ALL>prop=RoleName() filler=ConceptExpression()<CLOSEPAR> {
+        return dataFactory.getOWLObjectAllRestriction(prop, filler);
+    }
+}
+
+OWLDescription Some()  throws KRSS2OWLParserException:
+{
+    OWLObjectProperty prop;
+    OWLDescription filler;
+}
+{
+    <OPENPAR><SOME>prop=RoleName() filler=ConceptExpression()<CLOSEPAR>{
+        return dataFactory.getOWLObjectSomeRestriction(prop, filler);
+    }
+}
+
+OWLDescription AtLeast()  throws KRSS2OWLParserException:
+{
+    OWLObjectProperty prop;
+    OWLDescription filler;
+    int card;
+}
+{
+    <OPENPAR><ATLEAST>card=Integer() prop=RoleName() filler=ConceptExpression()<CLOSEPAR>{
+        return dataFactory.getOWLObjectMinCardinalityRestriction(prop, card, filler);
+    }
+}
+
+OWLDescription AtMost() throws KRSS2OWLParserException :
+{
+    OWLObjectProperty prop;
+    OWLDescription filler;
+    int card;
+}
+{
+    <OPENPAR><ATMOST>card=Integer() prop=RoleName() filler=ConceptExpression()<CLOSEPAR>{
+        return dataFactory.getOWLObjectMaxCardinalityRestriction(prop, card, filler);
+    }
+}
+
+OWLDescription Exactly() throws KRSS2OWLParserException :
+{
+    OWLObjectProperty prop;
+    OWLDescription filler;
+    int card;
+}
+{
+    <OPENPAR><EXACTLY>card=Integer() prop=RoleName() filler=ConceptExpression()<CLOSEPAR>{
+        return dataFactory.getOWLObjectExactCardinalityRestriction(prop, card, filler);
+    }
+}
+
+
+
+OWLObjectProperty RoleName() throws KRSS2OWLParserException :
+{
+    URI uri;
+}
+{
+    uri=Name() {
+            if (uri == null) return null;
+        return dataFactory.getOWLObjectProperty(uri);
+    }
+}
+
+Set<OWLObjectProperty> RoleNameSet() throws KRSS2OWLParserException :
+{
+    Set<OWLObjectProperty> roles = new HashSet<OWLObjectProperty>();
+    OWLObjectProperty role;
+}
+{
+    ((role=RoleName() {roles.add(role);})+) {
+        return roles;
+    }
+}
+
+
+
+void ABoxStatement()throws KRSS2OWLParserException  :
+{
+}
+{
+    (Instance() | Related() | Equal() | Distinct())
+}
+
+void Instance() throws KRSS2OWLParserException :
+{
+    OWLIndividual ind;
+    OWLDescription type;
+}
+{
+    <OPENPAR><INSTANCE>ind=IndividualName() type=ConceptExpression()<CLOSEPAR> {
+        addAxiom( dataFactory.getOWLClassAssertionAxiom(ind, type));
+    }
+}
+
+void Related()  throws KRSS2OWLParserException:
+{
+    OWLIndividual subj;
+    OWLObjectProperty prop;
+    OWLIndividual obj;
+}
+{
+    <OPENPAR><RELATED>subj=IndividualName() prop=RoleName() obj=IndividualName()<CLOSEPAR> {
+        addAxiom( dataFactory.getOWLObjectPropertyAssertionAxiom(subj, prop, obj));
+    }
+}
+
+void Equal()  throws KRSS2OWLParserException:
+{
+    OWLIndividual indA, indB;
+    Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+}
+{
+    <OPENPAR><EQUAL>indA=IndividualName() indB=IndividualName()<CLOSEPAR> {
+        inds.add(indA);
+        inds.add(indB);
+        addAxiom( dataFactory.getOWLSameIndividualsAxiom(inds));
+    }
+}
+
+void Distinct() throws KRSS2OWLParserException :
+{
+    OWLIndividual indA, indB;
+    Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+}
+{
+    <OPENPAR><DISTINCT>indA=IndividualName() indB=IndividualName()<CLOSEPAR>{
+        inds.add(indA);
+        inds.add(indB);
+        addAxiom( dataFactory.getOWLDifferentIndividualsAxiom(inds));
+    }
+}
+
+
+OWLIndividual IndividualName() throws KRSS2OWLParserException :
+{
+    URI name;
+}
+{
+    name = Name() {
+        return  dataFactory.getOWLIndividual(name);
+    }
+}
+
+
+int Integer()throws KRSS2OWLParserException :
+{
+    Token t;
+}
+{
+    t=<INT> {
+        return Integer.parseInt(t.image);
+    }
+}
+
+
+boolean parseBoolean():
+{
+}
+{
+    (<TRUE>{return true;} | <NIL> {return false;})
+    {
+    }
+}
+
+
+
+URI Name():
+{
+    Token t;
+}
+{
+    ( (t=<NAME>| t=<INT>){
+        try {
+            return getURI(t.image);
+        }
+        catch(URISyntaxException e) {
+            return null;
+        }
+    }
+    |
+    (t=<TOP>
+        { return OWLRDFVocabulary.OWL_THING.getURI();}
+     | t=<BOTTOM>
+        {return OWLRDFVocabulary.OWL_NOTHING.getURI();}
+    ))
+
+}
+
+
+
+//URI Name2()  :
+//{
+//    Token t;
+//}
+//{
+//    (t=<TOP>{ return OWLRDFVocabulary.OWL_THING.getURI();} | t=<BOTTOM> {return OWLRDFVocabulary.OWL_NOTHING.getURI();}
+//    | t=<NCNAME1>) {
+//        return URI.create(t.image);
+//    }
+//
+//}
+
+

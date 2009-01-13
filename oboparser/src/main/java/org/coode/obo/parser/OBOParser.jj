@@ -1,0 +1,180 @@
+options {
+    STATIC=false;
+    //DEBUG_TOKEN_MANAGER=true;
+}
+
+PARSER_BEGIN(OBOParser)
+
+package org.coode.obo.parser;
+
+import org.semanticweb.owl.model.*;
+import java.net.*;
+import java.util.*;
+
+public class OBOParser {
+
+    private OBOParserHandler handler;
+
+    public void setHandler(OBOParserHandler handler) {
+        this.handler = handler;
+    }
+}
+
+PARSER_END(OBOParser)
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+SKIP:
+{
+    <"!"(~["\n"])*"\n">
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+
+SKIP:
+{
+    <"\n">
+}
+
+SKIP:
+{
+    <"\r">
+}
+
+SKIP:
+{
+    <"\t">
+}
+
+SKIP:
+{
+    <" ">
+}
+SKIP:
+{
+    <VALUE_START: ":"> : IN_VALUE
+}
+
+// End of value
+<IN_VALUE> TOKEN:
+{
+    <VALUE_END: ("\n")> :DEFAULT
+}
+
+
+<IN_VALUE> MORE:
+{
+    <~[]>
+}
+
+TOKEN:
+{
+    <OPEN_SQUARE_BRACKET: "[">
+}
+
+
+TOKEN:
+{
+    <CLOSE_SQUARE_BRACKET: "]">
+}
+
+TOKEN:
+{
+    <CHAR: (~[":", "\n", "]", "["])>
+}
+
+
+TOKEN:
+{
+    <STRING: (<CHAR>)(<CHAR>)*>
+}
+
+TOKEN:
+{
+    <ERROR: (~[])>
+}
+
+
+public void parse() :
+{
+}
+{
+    Header()(Stanza())+<EOF>
+}
+
+void Header() :
+{
+}
+{
+    {handler.startHeader();}
+    ((TagValuePair())*)
+    {handler.endHeader();}
+}
+
+void Stanza() :
+{
+    String type;
+}
+{
+
+
+    (<OPEN_SQUARE_BRACKET>type=ObjectType(){handler.startStanza(type);}<CLOSE_SQUARE_BRACKET> (TagValuePair())*)
+    {handler.endStanza();}
+}
+
+String ObjectType() :
+{
+    String s;
+}
+{
+    s=String() {
+        return s;
+    }
+}
+
+void TagValuePair() :
+{
+    String tag;
+    String value;
+}
+{
+    (tag=Tag() value=Value()) {
+        handler.handleTagValue(tag, value);
+    }
+}
+
+String Tag() :
+{
+    String s;
+}
+{
+    s=String() {
+        return s;
+    }
+}
+
+String Value() :
+{
+    Token t;
+}
+{
+    t=<VALUE_END> {
+        String val = t.image;
+        int commentIndex = val.indexOf('!');
+        if(commentIndex == -1) {
+            commentIndex = val.length();
+        }
+        return val.substring(0, commentIndex).trim();
+    }
+}
+
+String String() :
+{
+    Token t;
+}
+{
+    (t=<STRING> | t=<CHAR>) {
+        return t.image;
+    }
+}

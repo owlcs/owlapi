@@ -1,0 +1,47 @@
+<!--
+
+    An example of property inverses.  This test case was contributed by Marcus Stocker
+    from Clark & Parsia.
+
+    The main node in the graph is an object property inverse.
+
+    inv(p1) subPropertyOf inv(p2)
+
+    inv(p1) equivalentTo  inv(p3)
+
+-->
+
+<rdf:RDF xmlns="http://www.semanticweb.org/ontologies/inverses#"
+     xml:base="http://www.semanticweb.org/ontologies/inverses"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:owl2="http://www.w3.org/2006/12/owl2#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#">
+    <owl:Ontology rdf:about=""/>
+
+    <rdf:Description>
+    
+       <owl:inverseOf>
+           <owl:ObjectProperty rdf:about="#p1" />
+       </owl:inverseOf>
+
+       <rdfs:subPropertyOf>
+           <rdf:Description>
+               <owl:inverseOf>
+                   <owl:ObjectProperty rdf:about="#p2" />
+               </owl:inverseOf>
+           </rdf:Description>
+       </rdfs:subPropertyOf>
+
+       <owl:equivalentProperty>
+           <rdf:Description> 
+               <owl:inverseOf>
+                   <owl:ObjectProperty rdf:about="#p3" />
+               </owl:inverseOf>
+           </rdf:Description>
+       </owl:equivalentProperty>
+
+    </rdf:Description>
+
+</rdf:RDF>

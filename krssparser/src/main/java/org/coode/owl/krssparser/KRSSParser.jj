@@ -1,0 +1,605 @@
+options {
+    STATIC=false;
+    LOOKAHEAD=2;
+    //DEBUG_TOKEN_MANAGER=true;
+}
+
+PARSER_BEGIN(KRSSParser)
+
+package org.coode.owl.krssparser;
+
+import org.semanticweb.owl.model.*;
+import java.net.*;
+import java.util.*;
+
+public class KRSSParser {
+
+    private OWLOntology ontology;
+
+    private OWLDataFactory dataFactory;
+
+    private Map<String, URI> string2URI;
+
+    private boolean ignoreAnnotationsAndDeclarations = false;
+
+    private String base;
+
+    public void setOntology(OWLOntology ontology, OWLDataFactory dataFactory) {
+        this.ontology = ontology;
+        this.dataFactory = dataFactory;
+        string2URI = new HashMap<String, URI>();
+        base = ontology.getURI().toString() + "#";
+    }
+
+    protected void addAxiom(OWLAxiom ax) throws KRSSOWLParserException {
+        try {
+            ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology, ax));
+        }
+        catch(OWLOntologyChangeException e) {
+            throw new KRSSOWLParserException(e);
+        }
+    }
+
+    public URI getURI(String s) throws URISyntaxException {
+        s = base + s;
+        URI uri = string2URI.get(s);
+        if(uri == null) {
+            uri = new URI(s);
+            string2URI.put(s, uri);
+        }
+        return uri;
+    }
+
+    public void setIgnoreAnnotationsAndDeclarations(boolean b) {
+        ignoreAnnotationsAndDeclarations = b;
+    }
+
+}
+
+PARSER_END(KRSSParser)
+
+
+SKIP: {" " | "\n" | "\t" | "\r" }
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//
+// COMMENTS
+
+MORE:
+{
+    <COMMENT_START: ";"> : IN_COMMENT
+}
+
+<IN_COMMENT>SKIP:
+{
+    <"\n"> : DEFAULT
+}
+
+<IN_COMMENT>MORE:
+{
+    <~[]>
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//
+// URIs
+
+MORE:
+{
+    <URI_START: "<"> : IN_URI
+}
+
+<IN_URI>TOKEN:
+{
+    <URI_END: ">"> : DEFAULT
+}
+
+<IN_URI>MORE:
+{
+    <~[]>
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+//
+// String Literals
+//
+// When we encounter a double quote, we have found a string literal.  The end of the literal
+// is marked by an unescaped double quote
+//
+
+MORE:
+{
+    <STRING_LITERAL_START: "\""> : IN_STRING_LITERAL
+}
+
+// Escaped double quote - part of the literal
+<IN_STRING_LITERAL> MORE:
+{
+    <"\\\"">
+}
+
+// End of the literal
+<IN_STRING_LITERAL> TOKEN:
+{
+    <STRINGLITERAL: "\""> :DEFAULT
+}
+
+
+<IN_STRING_LITERAL> MORE:
+{
+    <~[]>
+}
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+TOKEN:
+{
+    <OPENPAR: "(">
+}
+
+TOKEN:
+{
+    <CLOSEPAR: ")">
+}
+
+TOKEN:
+{
+    <ENDTBOX: "end-tbox">
+}
+
+TOKEN:
+{
+    <ENDABOX: "end-abox">
+}
+
+TOKEN:
+{
+    <PRIMITIVECONCEPT: "primitive-concept">
+}
+
+
+TOKEN:
+{
+    <DEFINEPRIMITIVECONCEPT: "define-primitive-concept">
+}
+
+TOKEN:
+{
+    <DEFINECONCEPT: "define-concept">
+}
+
+TOKEN:
+{
+    <DEFINEPRIMITIVEROLE: "define-primitive-role">
+}
+
+TOKEN:
+{
+    <SUBROLE: "subrole">
+}
+
+
+TOKEN:
+{
+    <TRANSITIVE: "transitive">
+}
+
+
+TOKEN:
+{
+    <ENUM: "enum">
+}
+
+TOKEN:
+{
+    <RANGE: "range">
+}
+
+TOKEN:
+{
+    <AND: "and">
+}
+
+TOKEN:
+{
+    <OR: "or">
+}
+
+TOKEN:
+{
+    <NOT: "not">
+}
+
+
+TOKEN:
+{
+    <ALL: "all">
+}
+
+
+TOKEN:
+{
+    <SOME: "some">
+}
+
+
+TOKEN:
+{
+    <NONE: "none">
+}
+
+TOKEN:
+{
+    <ATLEAST: "at-least">
+}
+
+
+TOKEN:
+{
+    <ATMOST: "at-most">
+}
+
+
+TOKEN:
+{
+    <EXACTLY: "exactly">
+}
+
+
+TOKEN:
+{
+    <INSTANCE: "instance">
+}
+
+TOKEN:
+{
+    <RELATED: "related">
+}
+
+TOKEN:
+{
+    <EQUAL: "equal">
+}
+
+
+TOKEN:
+{
+    <DISTINCT: "distinct">
+}
+
+
+TOKEN:
+{
+    <NAME: (["a"-"z"]|["A"-"Z"] | ["0"-"9"])+>
+}
+
+
+TOKEN:
+{
+    <INT: ["0"-"9"](["0"-"9"])*>
+}
+
+
+
+public void parse() throws KRSSOWLParserException :
+{
+    OWLAxiom ax;
+}
+{
+    ((ax=TBoxStatement(){
+        if(ax != null) {
+            addAxiom(ax);
+        }
+    })* (<ENDTBOX>)? (ABoxStatement())* (<ENDABOX>)? <EOF>)
+}
+
+
+OWLAxiom TBoxStatement() :
+{
+    OWLAxiom ax;
+}
+{
+    (ax=DefinePrimitiveConcept() | ax=DefineConcept() | ax=DefinePrimitiveRole() | ax=Transitive() |  ax=Range()) {
+        return ax;
+    }
+}
+
+
+OWLAxiom DefinePrimitiveConcept() :
+{
+    OWLDescription subClass;
+    OWLDescription superClass;
+}
+{
+    <OPENPAR><DEFINEPRIMITIVECONCEPT>subClass=ConceptName() superClass=ConceptExpression()<CLOSEPAR> {
+        return dataFactory.getOWLSubClassAxiom(subClass, superClass);
+    }
+}
+
+OWLAxiom DefineConcept() :
+{
+    OWLDescription clsA;
+    OWLDescription clsB;
+}
+{
+    <OPENPAR><DEFINECONCEPT>clsA=ConceptName() clsB=ConceptExpression()<CLOSEPAR> {
+        Set<OWLDescription> ops = new HashSet<OWLDescription>();
+        ops.add(clsA);
+        ops.add(clsB);
+        return dataFactory.getOWLEquivalentClassesAxiom(ops);
+    }
+}
+
+OWLAxiom DefinePrimitiveRole() :
+{
+    OWLObjectProperty subProp;
+    OWLObjectProperty superProp;
+}
+{
+    <OPENPAR><DEFINEPRIMITIVEROLE>subProp=RoleName() superProp=RoleName() (":right-identity" RoleName())?<CLOSEPAR> {
+        if(superProp != null) {
+            return dataFactory.getOWLSubObjectPropertyAxiom(subProp, superProp);
+        }
+    }
+}
+
+
+OWLAxiom Transitive() :
+{
+    OWLObjectProperty prop;
+}
+{
+    <OPENPAR><TRANSITIVE>prop=RoleName()<CLOSEPAR> {
+        return dataFactory.getOWLTransitiveObjectPropertyAxiom(prop);
+    }
+}
+
+OWLAxiom Range() :
+{
+    OWLObjectProperty prop;
+    OWLDescription rng;
+}
+{
+    <OPENPAR><RANGE>prop=RoleName() rng=ConceptExpression()<CLOSEPAR> {
+        return dataFactory.getOWLObjectPropertyRangeAxiom(prop, rng);
+    }
+}
+
+
+OWLDescription ConceptExpression() :
+{
+    OWLDescription desc;
+}
+{
+    (desc=ConceptName() | desc=And() | desc=Or() | desc=Not() | desc=All() | desc=Some() | desc=AtLeast() | desc=AtMost() | desc=Exactly()) {
+        return desc;
+    }
+}
+
+OWLDescription ConceptName() :
+{
+    URI uri;
+}
+{
+    uri = Name() {
+        return dataFactory.getOWLClass(uri);
+    }
+}
+
+
+Set<OWLDescription> ConceptSet() :
+{
+    Set<OWLDescription> descs = new HashSet<OWLDescription>();
+    OWLDescription desc;
+}
+{
+    ((desc=ConceptExpression() {descs.add(desc);})+) {
+        return descs;
+    }
+}
+
+OWLDescription And() :
+{
+    Set<OWLDescription> operands;
+}
+{
+    <OPENPAR><AND>(operands=ConceptSet())<CLOSEPAR> {
+        return dataFactory.getOWLObjectIntersectionOf(operands);
+    }
+}
+
+OWLDescription Or() :
+{
+    Set<OWLDescription> operands;
+}
+{
+    <OPENPAR><OR>(operands=ConceptSet())<CLOSEPAR> {
+        return dataFactory.getOWLObjectUnionOf(operands);
+    }
+}
+
+OWLDescription Not() :
+{
+    OWLDescription operand;
+}
+{
+    <OPENPAR><NOT>(operand=ConceptExpression())<CLOSEPAR> {
+        return dataFactory.getOWLObjectComplementOf(operand);
+    }
+}
+
+OWLDescription All() :
+{
+    OWLObjectProperty prop;
+    OWLDescription filler;
+}
+{
+    <OPENPAR><ALL>prop=RoleName() filler=ConceptExpression()<CLOSEPAR> {
+        return dataFactory.getOWLObjectAllRestriction(prop, filler);
+    }
+}
+
+OWLDescription Some() :
+{
+    OWLObjectProperty prop;
+    OWLDescription filler;
+}
+{
+    <OPENPAR><SOME>prop=RoleName() filler=ConceptExpression()<CLOSEPAR>{
+        return dataFactory.getOWLObjectSomeRestriction(prop, filler);
+    }
+}
+
+OWLDescription AtLeast() :
+{
+    OWLObjectProperty prop;
+    OWLDescription filler;
+    int card;
+}
+{
+    <OPENPAR><ATLEAST>card=Integer() prop=RoleName() filler=ConceptExpression()<CLOSEPAR>{
+        return dataFactory.getOWLObjectMinCardinalityRestriction(prop, card, filler);
+    }
+}
+
+OWLDescription AtMost() :
+{
+    OWLObjectProperty prop;
+    OWLDescription filler;
+    int card;
+}
+{
+    <OPENPAR><ATMOST>card=Integer() prop=RoleName() filler=ConceptExpression()<CLOSEPAR>{
+        return dataFactory.getOWLObjectMaxCardinalityRestriction(prop, card, filler);
+    }
+}
+
+OWLDescription Exactly() :
+{
+    OWLObjectProperty prop;
+    OWLDescription filler;
+    int card;
+}
+{
+    <OPENPAR><EXACTLY>card=Integer() prop=RoleName() filler=ConceptExpression()<CLOSEPAR>{
+        return dataFactory.getOWLObjectExactCardinalityRestriction(prop, card, filler);
+    }
+}
+
+OWLObjectProperty RoleName() :
+{
+    URI uri;
+}
+{
+    uri=Name() {
+        return dataFactory.getOWLObjectProperty(uri);
+    }
+}
+
+OWLAxiom ABoxStatement() :
+{
+    OWLAxiom ax;
+}
+{
+    (ax=Instance() | ax=Related() | ax=Equal() | ax=Distinct()) {
+        return ax;
+    }
+}
+
+OWLAxiom Instance() :
+{
+    OWLIndividual ind;
+    OWLDescription type;
+}
+{
+    <OPENPAR><INSTANCE>ind=IndividualName() type=ConceptExpression()<CLOSEPAR> {
+        return dataFactory.getOWLClassAssertionAxiom(ind, type);
+    }
+}
+
+OWLAxiom Related() :
+{
+    OWLIndividual subj;
+    OWLObjectProperty prop;
+    OWLIndividual obj;
+}
+{
+    <OPENPAR><RELATED>subj=IndividualName() prop=RoleName() obj=IndividualName()<CLOSEPAR> {
+        return dataFactory.getOWLObjectPropertyAssertionAxiom(subj, prop, obj);
+    }
+}
+
+OWLAxiom Equal() :
+{
+    OWLIndividual indA, indB;
+    Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+}
+{
+    <OPENPAR><EQUAL>indA=IndividualName() indB=IndividualName()<CLOSEPAR> {
+        inds.add(indA);
+        inds.add(indB);
+        return dataFactory.getOWLSameIndividualsAxiom(inds);
+    }
+}
+
+OWLAxiom Distinct() :
+{
+    OWLIndividual indA, indB;
+    Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+}
+{
+    <OPENPAR><DISTINCT>indA=IndividualName() indB=IndividualName()<CLOSEPAR>{
+        inds.add(indA);
+        inds.add(indB);
+        return dataFactory.getOWLDifferentIndividualsAxiom(inds);
+    }
+}
+
+
+OWLIndividual IndividualName() :
+{
+    URI name;
+}
+{
+    name = Name() {
+        return dataFactory.getOWLIndividual(name);
+    }
+}
+
+URI Name() :
+{
+    Token t;
+}
+{
+    t=<NAME> {
+        try {
+            return getURI(t.image);
+        }
+        catch(URISyntaxException e) {
+            return null;
+        }
+    }
+}
+
+int Integer() :
+{
+    Token t;
+}
+{
+    t=<INT> {
+        return Integer.parseInt(t.image);
+    }
+}
+
+
+
+
+
+
+

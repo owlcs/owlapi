@@ -1,0 +1,3259 @@
+Namespace: dc = <http://purl.org/dc/elements/1.1/>
+Ontology: <http://www.co-ode.org/roberts/family-tree.owl>
+
+
+Annotations:
+
+dc:creator "Robert Stevens",
+
+rdfs:comment "A simple family relationships ontology and associated instances. the description is of the family of Robert Stevens and the intention is to use the minimal of asserted relationships and the maximum of inference. To do this  I've used role chains, nominals and properties hierarchies. "
+
+
+ObjectProperty: hasSex
+Characteristics: functional
+
+ObjectProperty: hasRelation
+Domain: Person
+range: Person
+Characteristics: symmetric, transitive
+
+
+ObjectProperty: siblingOf
+	SubPropertyOf:  hasRelation
+Domain: Person
+Range: Person
+	Characteristics:  transitive
+Inverses: hasSibling
+
+ObjectProperty: hasSibling
+	SubPropertyOf:  hasRelation
+Domain: Person
+Range: Person
+	Characteristics:  transitive
+
+
+
+ObjectProperty: brotherOf
+	Domain: Man
+	Range: Person
+Inverses: hasBrother
+	SubPropertyOf:  siblingOf
+
+ObjectProperty: hasBrother
+
+ObjectProperty: sisterOf
+	Domain: Woman
+	Range: Person
+Inverses: hasSister
+	SubPropertyOf:  siblingOf
+DisjointWith: brotherOf
+
+ObjectProperty: hasSister
+
+
+
+
+ObjectProperty:  hasAncestor
+	SubPropertyOf:  hasRelation
+Domain: Person
+Range: Person
+	Inverses: ancestorOf
+	Characteristics: transitive
+
+ObjectProperty: ancestorOf
+
+
+ObjectProperty: hasParent
+Domain: Person
+Range: Person
+	Inverses: parentOf
+		SubPropertyOf:  hasAncestor
+
+ObjectProperty: parentOf
+
+ObjectProperty:  hasSon
+	Domain: Person
+	Range: Man
+	Inverses: sonOf
+	SubPropertyOf:  parentOf
+
+ObjectProperty:  sonOf
+
+
+
+ObjectProperty:  hasDaughter
+	Domain: Person
+	Range: Woman
+	Inverses: daughterOf
+	SubPropertyOf:  parentOf
+
+ObjectProperty:  daughterOf
+		SubPropertyOf:   hasParent
+
+
+
+ObjectProperty: hasMother
+	Domain:  Person
+	Range: Woman
+Characteristics: functional
+	Inverses: motherOf
+	SubPropertyOf:  hasParent
+
+ObjectProperty:  motherOf
+
+ObjectProperty: hasFather
+	Domain: Person
+	Range: Man
+Characteristics: functional
+	Inverses: fatherOf
+	SubPropertyOf:  hasParent
+
+
+ObjectProperty:  fatherOf
+
+
+ObjectProperty: hasGrandParent
+Domain: Person
+Range: Person
+SubPropertyOf: hasAncestor
+Inverses: grandParentOf
+
+ObjectProperty: grandParentOf
+
+
+
+ObjectProperty: hasGrandmother
+Domain: Person
+Range: Woman
+Inverses: grandmotherOf
+SubPropertyOf: hasGrandParent
+SubPropertyChain: hasParent o hasMother
+
+ObjectProperty: grandmotherOf
+
+ObjectProperty: hasGreatGrandParent
+SubPropertyOf: hasAncestor
+Inverses: greatGrandParentOf
+
+ObjectProperty: greatGrandParentOf
+
+ObjectProperty: hasGreatGrandmother
+Domain: Person
+Range: Woman
+Inverses: greatGrandmotherOf
+SubPropertyOf: hasGreatGrandParent
+SubPropertyChain: hasParent o hasGrandmother
+
+ObjectProperty: greatGrandmotherOf
+
+ObjectProperty: hasGrandfather
+Domain: Person
+Range: Man
+Inverses: grandfatherOf
+SubPropertyOf: hasGrandParent
+SubPropertyChain: hasParent o hasFather
+
+ObjectProperty: grandfatherOf
+
+
+                      ObjectProperty: hasGreatGrandfather
+Domain: Person
+Range: Man
+Inverses: greatGrandfatherOf
+SubPropertyOf: hasGreatGrandParent
+SubPropertyChain: hasParent o hasGrandfather
+
+
+ObjectProperty: greatGrandfatherOf
+
+ObjectProperty: hasUncle
+	Domain: Person
+	Range: Man
+	Inverses: uncleOf
+
+ObjectProperty: uncleOf
+Domain: Man
+Range: Person
+	SubPropertyChain: brotherOf o parentOf
+
+ObjectProperty: hasGreatUncle
+	Domain: Person
+	Range: Man
+	Inverses: greatUncleOf
+
+ObjectProperty: greatUncleOf
+Domain: Man
+Range: Person
+	SubPropertyChain: brotherOf o grandParentOf
+
+
+
+ObjectProperty: hasAunt
+	Domain:  Person
+	Range: Woman
+	Inverses: auntOf
+
+ObjectProperty: auntOf
+Domain: Woman
+Range:  Person
+	SubPropertyChain: sisterOf o parentOf
+
+
+ObjectProperty: hasGreatAunt
+	Domain:  Person
+	Range: Woman
+	Inverses: greatAuntOf
+
+ObjectProperty: greatAuntOf
+Domain: Woman
+Range:  Person
+	SubPropertyChain: sisterOf o grandParentOf
+
+
+ObjectProperty: nephewOf
+Domain: Man
+Range: Person
+SubPropertyOf: hasRelation
+SubPropertyChain: sonOf o siblingOf
+
+
+
+ObjectProperty: nieceOf
+Domain: Woman
+Range: Person
+SubPropertyOf: hasRelation
+SubPropertyChain: daughterOf o siblingOf
+
+
+ObjectProperty: firstCousinOf
+SubPropertyOf: hasRelation
+Domain: Person
+Range: Person
+Characteristics: symmetric
+SubPropertyChain: hasParent o siblingOf o parentOf
+
+ObjectProperty: firstCousinOnceRemovedOf
+SubPropertyOf: hasRelation
+Domain: Person
+Range: Person
+Characteristics: symmetric
+SubPropertyChain: firstCousinOf o parentOf
+
+
+
+ObjectProperty: secondCousinOf
+Domain: Person
+Range: Person
+Characteristics: symmetric
+SubPropertyOf: hasRelation
+SubPropertyChain:  hasGrandParent o siblingOf o grandParentOf
+SubPropertyChain:  hasGrandParent o siblingOf o parentOf
+
+
+ObjectProperty: thirdCousinOf
+Domain: Person
+Range: Person
+Characteristics: symmetric
+SubPropertyOf: hasRelation
+SubPropertyChain:  hasGreatGrandParent o siblingOf o greatGrandParentOf
+SubPropertyChain:  hasGreatGrandParent o siblingOf o grandParentOf
+SubPropertyChain:  hasGreatGrandParent o siblingOf o parentOf
+
+
+
+ObjectProperty:   hasSpouse
+Domain: Marriage
+Range: Person
+Inverses: spouseOf
+
+
+ObjectProperty: spouseOf
+
+
+ObjectProperty:  hasHusband
+SubPropertyOf: hasSpouse
+	Domain: Marriage
+	Range: Man
+Inverses: husbandOf
+
+ObjectProperty:  husbandOf
+
+ObjectProperty: hasWife
+SubPropertyOf: hasSpouse
+	Domain: Marriage
+	Range: Woman
+Inverses: wifeOf
+
+ObjectProperty:  wifeOf
+
+
+DataProperty:  knownAs
+Domain: Person
+Range: string
+
+DataProperty:  formerlyKnownAs
+Domain: Person
+Range: string
+	SubPropertyOf:   knownAs
+DataProperty:  alsoKnownAs
+Domain: Person
+Range: string
+	SubPropertyOf:   knownAs
+
+
+
+
+DataProperty: birthYear
+Domain: Person
+Range: integer
+
+DataProperty: marriageYear
+Domain: Marriage
+range: integer
+
+DataProperty: deathYear
+Domain: Person
+Range: integer
+
+
+
+Class: DomainEntity
+
+Class: Sex
+SubClassOf: DomainEntity
+DisjointWith: Person, Marriage
+
+
+Class: Female
+SubClassOf: Sex
+
+
+Class: Male
+SubClassOf: Sex
+DisjointWith: Female
+
+
+
+Class: Marriage
+SubClassOf: DomainEntity
+that hasSpouse some Person
+Disjointwith: Sex, Person
+
+
+
+Class: Person
+SubClassOf: DomainEntity
+that hasSex some Sex
+DisjointWith: Sex, Marriage
+
+
+
+
+Class: Woman
+EquivalentTo: Person
+that hasSex some Female
+
+Class: Man
+EquivalentTo: Person
+that hasSex some Male
+
+
+Class: GreatGrandparentOfRobert
+EquivalentTo: Person
+that parentOf SOME  GrandparentOfRobert
+Class: GreatGreatGrandparentOfRobert
+EquivalentTo: Person
+that parentOf SOME  GreatGrandparentOfRobert
+
+
+
+
+Class: GrandparentOfRobert
+EquivalentTo: Person
+that parentOf SOME (Person that parentOf VALUE robert_david_bright_1965)
+
+
+Class: GrandfatherOfRobert
+EquivalentTo: Man
+that parentOf SOME (Person that parentOf VALUE robert_david_bright_1965)
+
+Class: GrandmotherOfRobert
+EquivalentTo: Woman
+that motherOf SOME (Person that parentOf VALUE robert_david_bright_1965)
+
+
+
+
+
+Class: Uncle
+EquivalentTo: Person
+that  uncleOf SOME Person
+
+
+Class: UncleOfRobert
+EquivalentTo: Person
+that uncleOf value robert_david_bright_1965
+
+
+Class: GreatUncleOfRobert
+EquivalentTo: Person
+that uncleOf SOME (Person that parentOf value robert_david_bright_1965)
+
+
+Class: UncleOfRichard
+EquivalentTo: Person
+that uncleOf value richard_john_bright_1962
+
+Class: AuntOfRobert
+EquivalentTo: Person
+that auntOf value robert_david_bright_1965
+
+Class: GreatAuntOfRobert
+EquivalentTo: Person
+that auntOf SOME (Person that parentOf value robert_david_bright_1965)
+
+
+
+Class: CousinOfRobert
+EquivalentTo: Person
+that firstCousinOf value robert_david_bright_1965
+
+Class: FirstCousinOnceRemovedOfRobert
+EquivalentTo: Person
+that firstCousinOf Some (Person
+            that parentOf value robert_david_bright_1965)
+
+
+
+
+
+Class: AncestorOfRobert
+EquivalentTo: Person
+that ancestorOf value robert_david_bright_1965
+
+
+Individual: robert_david_bright_1965
+Facts:
+brotherOf richard_john_bright_1962,
+hasFather david_bright_1934,
+hasMother margaret_grace_rever_1934
+
+
+
+Individual: richard_john_bright_1962
+Facts:
+hasFather david_bright_1934,
+hasMother margaret_grace_rever_1934
+
+
+
+Individual: david_bright_1934
+Facts:
+brotherOf john_bright_1930,
+brotherOf peter_william_bright_1941,
+hasFather william_george_bright_1901,
+hasMother iris_ellen_archer_1906
+
+
+
+
+Individual: john_bright_1930
+Facts:
+hasFather william_george_bright_1901,
+brotherOf david_bright_1934,
+brotherOf john_bright_1930,
+hasMother iris_ellen_archer_1906,
+fatherOf mark_bright_1956,
+fatherOf ian_bright_1959,
+fatherOf janet_bright_1964,
+fatherOf william_bright_1970
+
+Individual: peter_william_bright_1941
+Facts:
+hasFather william_george_bright_1901,
+hasMother iris_ellen_archer_1906,
+brotherOf david_bright_1934,
+brotherOf john_bright_1930,
+fatherOf james_bright_1964,
+fatherOf julie_bright_1966,
+fatherOf clare_bright_1966
+
+
+
+Individual: william_george_bright_1901
+Facts:
+knownAs "Bill",
+birthYear 1901,
+deathYear 1982
+
+
+
+
+Individual: iris_ellen_archer_1906
+Facts:
+birthYear 1906,
+deathYear 1990,
+hasBrother norman_james_archer_1909,
+hasSister ethel_archer_1912,
+hasSister joyce_archer_1921,
+hasBrother alec_john_archer_1927
+
+
+
+Individual: margaret_grace_rever_1934
+Facts:
+birthYear 1934,
+hasMother violet_Sylvia_Marshall_1894,
+hasFather charles_herbert_rever_1895,
+hasSister eileen_mary_rever_1929
+
+Individual: eileen_mary_rever_1929
+Facts:
+birthYear 1929,
+hasMother violet_Sylvia_Marshall_1894,
+hasFather charles_herbert_rever_1895
+
+
+
+
+Individual: violet_Sylvia_Marshall_1894
+Facts:
+birthYear 1894,
+deathYear 1962,
+hasBrother Reginald_Tacey_Marshall_1895  ,
+hasBrother Richard_Henry_Marshall_1897   ,
+hasSister Minnie_Maud_Marshall_1909
+
+
+
+
+
+
+
+Individual: charles_herbert_rever_1895
+Facts:
+birthYear 1895,
+deathYear 1961,
+knownAs "Benny",
+knownAs "Ben"
+
+
+
+
+
+Individual: mark_bright_1956
+Facts:
+brotherOf ian_bright_1959,
+brotherOf janet_bright_1964,
+brotherOf william_bright_1970
+
+Individual: ian_bright_1959
+Facts:
+fatherOf thomas_john_bright_1988
+
+Individual: thomas_john_bright_1988
+
+
+Individual: janet_bright_1964
+
+Individual: william_bright_1970
+
+
+Individual: james_bright_1964
+Facts:
+brotherOf julie_bright_1966,
+brotherOf clare_bright_1966
+
+
+
+Individual: julie_bright_1966
+Facts:
+sisterOf james_bright_1964
+
+Individual: clare_bright_1966
+Facts:
+sisterOf james_bright_1964
+
+Individual: mark_anthony_heath_1960
+Facts:
+birthYear 1960,
+hasMother eileen_mary_rever_1929
+
+
+Individual: nicholas_charles_Robinson_1964
+Facts:
+birthYear 1964,
+hasMother eileen_mary_rever_1929,
+brotherOf mark_anthony_heath_1960
+
+Individual: norman_james_archer_1909
+Facts:
+birthYear 1909,
+brotherOf iris_ellen_archer_1906
+
+Individual: alec_john_archer_1927
+Facts:
+birthYear 1927,
+brotherOf iris_ellen_archer_1906
+
+Individual: joyce_archer_1921
+facts:
+birthYear 1921
+
+Individual: ethel_archer_1912
+facts:
+birthYear 1912
+
+
+
+
+Individual:  Humphrey_Bowmaker
+Facts:
+fatherOf James_archer_1757,
+fatherOf George_Bowmaker_1760,
+fatherOf william_Bowmaker_1764
+
+
+Individual: eleanor_Pringle
+Facts:
+motherOf James_archer_1757,
+motherOf George_Bowmaker_1760,
+motherOf william_Bowmaker_1764
+
+
+Individual: william_Bowmaker_1764
+Facts:
+fatherOf William_archer_1801,
+fatherOf john_archer_1804,
+fatherOf Jane_archer
+
+Individual: Elizabeth_Bell
+Facts:
+motherOf William_archer_1801,
+motherOf john_archer_1804,
+motherOf Jane_archer
+
+Individual: Christopher_archer_1849
+Facts:
+birthYear 1849
+
+Individual: john_archer_1804
+Facts:
+birthYear 1804,
+fatherOf William_archer_1832,
+fatherOf John_archer_1835,
+fatherOf Jane_archer_1837,
+fatherOf john_Bowmaker_1835,
+fatherOf James_archer_1840,
+fatherOf Elizabeth_archer_1843,
+fatherOf Dorothy_archer_1845,
+fatherOf Christopher_archer_1849,
+fatherOf Thomas_archer_1849,
+fatherOf Mary_archer_1850
+
+Individual: elizabeth_Gray
+Facts:
+motherOf William_archer_1832,
+motherOf John_archer_1835,
+motherOf Jane_archer_1837,
+motherOf john_Bowmaker_1835,
+motherOf James_archer_1840,
+motherOf Elizabeth_archer_1843,
+motherOf Dorothy_archer_1845,
+motherOf Christopher_archer_1849 ,
+motherOf Thomas_archer_1849 ,
+motherOf Mary_archer_1850
+
+
+Individual: john_Bowmaker_1835
+Facts:
+fatherOf John_English_archer,
+fatherOf Thomas_Bowmaker_2,
+fatherOf Ellen_Bowmaker_1875,
+fatherOf James_Bowmaker_1887  ,
+fatherOf Lily_Bowmaker_1880,
+fatherOf James_Alexander_Bowmaker_1882,
+fatherOf Mary_Bowmaker_1885
+
+
+Individual: Mary_English_1862
+Facts:
+birthYear 1862,
+motherOf John_English_archer,
+motherOf Thomas_Bowmaker_2
+
+Individual: sarah_lockey_1848
+Facts:
+birthYear  1848,
+motherOf Ellen_Bowmaker_1875  ,
+motherOf James_Bowmaker_1887  ,
+motherOf Lily_Bowmaker_1880  ,
+motherOf James_Alexander_Bowmaker_1882  ,
+motherOf Mary_Bowmaker_1885
+
+Individual: Norman_James_Bowmaker_1909
+Facts:
+birthYear 1909,
+brotherOf  ethel_archer_1912
+
+Individual: James_Alexander_Bowmaker_1882
+Facts:
+birthYear 1882,
+fatherOf iris_ellen_archer_1906,
+fatherOf norman_james_archer_1909,
+fatherOf ethel_archer_1912,
+fatherOf joyce_archer_1921,
+fatherOf alec_john_archer_1927
+
+
+
+Individual: violet_heath_1887
+Facts:
+birthYear 1887,
+deathYear 1965,
+motherOf iris_ellen_archer_1906,
+motherOf norman_james_archer_1909,
+motherOf ethel_archer_1912,
+motherOf joyce_archer_1921,
+motherOf alec_john_archer_1927
+
+
+Individual:  James_archer_1757
+Facts:
+birthYear 1757
+
+Individual:  George_Bowmaker_1760
+Facts:
+birthYear 1760
+
+Individual:  William_archer_1801
+Facts:
+birthYear 1801
+
+
+Individual: Jane_archer
+
+Individual:  William_archer_1832
+Types: Person
+Facts:
+birthYear 1832
+
+Individual:  John_archer_1835
+Facts:
+birthYear 1835
+
+Individual:  Jane_archer_1837
+Facts:
+birthYear 1837
+
+Individual:  James_archer_1840
+facts:
+birthYear 1840
+
+Individual: Elizabeth_archer_1843
+facts:
+birthYear 1843
+
+Individual: Dorothy_archer_1845
+Facts:
+birthYear 1845
+
+Individual:  Christopher_archer_1849
+Facts:
+birthYear 1849
+
+Individual:  Thomas_archer_1849
+Facts:
+birthYear 1849
+
+Individual:  Mary_archer_1850
+Facts:
+birthYear 1850
+
+
+Individual:  John_English_archer
+
+Individual:  Thomas_Bowmaker_2
+
+Individual: Ellen_Bowmaker_1875
+Facts:
+birthYear 1875
+
+Individual:  James_Bowmaker_1887
+Facts:
+birthYear 1887
+
+Individual: Lily_Bowmaker_1880
+facts:
+birthYear 1880
+
+Individual: Mary_Bowmaker_1885
+facts:
+birthYear 1885
+
+
+Individual: Ellen_Marshall_1797
+Facts:
+birthYear 1797,
+hasBrother James_Marshall_1798 ,
+hasBrother William_Marshall_1799  ,
+hasSister Hannah_Marshall_1801  ,
+hasBrother John_Marshall_1802  ,
+hasBrother Mark_Marshall_1811
+
+
+
+Individual: James_Marshall_1798
+facts:
+birthYear 1798,
+hasSister Ellen_Marshall_1797  ,
+hasBrother William_Marshall_1799  ,
+hasSister Hannah_Marshall_1801  ,
+hasBrother John_Marshall_1802  ,
+hasBrother Mark_Marshall_1811
+
+
+Individual: William_Marshall_1799
+facts:
+birthYear 1799
+
+
+Individual: William_Marshall_1766
+Facts:
+fatherOf Ellen_Marshall_1797  ,
+fatherOf James_Marshall_1798 ,
+fatherOf William_Marshall_1799  ,
+fatherOf Hannah_Marshall_1801  ,
+fatherOf John_Marshall_1802  ,
+fatherOf Mark_Marshall_1811
+
+Individual: John_Marshall_1802
+facts:
+birthYear 1802
+
+
+Individual: Mary_Houghton
+Facts:
+motherOf Ellen_Marshall_1797  ,
+motherOf James_Marshall_1798 ,
+motherOf William_Marshall_1799  ,
+motherOf Hannah_Marshall_1801  ,
+motherOf John_Marshall_1802  ,
+motherOf Mark_Marshall_1811
+
+Individual: Mark_Marshall_1811
+facts:
+birthYear 1811
+
+
+Individual: Hannah_Marshall_1801
+facts:
+birthYear 1801
+
+
+Individual: William_Marshall_1827
+facts:
+birthYear 1827
+
+
+Individual: john_steward_1802
+Facts:
+birthYear 1802,
+deathYear 1874  ,
+fatherOf William_Marshall_1827,
+fatherOf james_steward_1830,
+fatherOf John_Marshall_1833  ,
+fatherOf George_Marshall_1835  ,
+fatherOf Joseph_Marshall_1837 ,
+fatherOf Harsley_Marshall_1839  ,
+fatherOf Houghton_Marshall_1841 ,
+fatherOf Ellen_Marshall_1844  ,
+fatherOf Alfred_Marshall_1846  ,
+fatherOf Sarah_Marshall_1849  ,
+fatherOf Elizabeth_Marshall_1850  ,
+fatherOf Caroline_Marshall_1853
+
+Individual: Ellen_Harsley
+Facts:
+motherOf William_Marshall_1827,
+motherOf james_steward_1830  ,
+motherOf John_Marshall_1833  ,
+motherOf George_Marshall_1835  ,
+motherOf Joseph_Marshall_1837 ,
+motherOf Harsley_Marshall_1839  ,
+motherOf Houghton_Marshall_1841 ,
+motherOf Ellen_Marshall_1844  ,
+motherOf Alfred_Marshall_1846  ,
+motherOf Sarah_Marshall_1849  ,
+motherOf Elizabeth_Marshall_1850  ,
+motherOf Caroline_Marshall_1853
+
+Individual: Harsley_Marshall_1839
+Facts:
+birthYear 1839,
+hasBrother  William_Marshall_1827,
+hasBrother  james_steward_1830  ,
+hasBrother  John_Marshall_1833  ,
+hasBrother  George_Marshall_1835  ,
+hasBrother  Joseph_Marshall_1837 ,
+hasBrother  Houghton_Marshall_1841 ,
+hasSister Ellen_Marshall_1844  ,
+hasBrother  Alfred_Marshall_1846  ,
+hasSister Sarah_Marshall_1849  ,
+hasSister Elizabeth_Marshall_1850  ,
+hasSister Caroline_Marshall_1853
+
+
+
+Individual: George_Marshall_1835
+facts:
+birthYear 1835
+
+
+Individual: John_Marshall_1833
+facts:
+birthYear 1833
+
+
+Individual: Joseph_Marshall_1837
+facts:
+birthYear 1837
+
+
+Individual: Houghton_Marshall_1841
+Facts:
+birthYear 1841,
+hasBrother  William_Marshall_1827,
+hasBrother  james_steward_1830  ,
+hasBrother  John_Marshall_1833  ,
+hasBrother  George_Marshall_1835  ,
+hasBrother  Joseph_Marshall_1837 ,
+hasBrother  Harsley_Marshall_1839  ,
+hasSister Ellen_Marshall_1844  ,
+hasBrother  Alfred_Marshall_1846  ,
+hasSister Sarah_Marshall_1849  ,
+hasSister Elizabeth_Marshall_1850  ,
+hasSister Caroline_Marshall_1853
+
+
+
+Individual:  Ellen_Marshall_1844
+facts:
+birthYear 1844
+
+
+Individual: james_steward_1830
+Facts:
+birthYear 1830,
+deathYear 1900 ,
+fatherOf Mary_Ellen_Marshall_1855  ,
+fatherOf George_Marshall_1856  ,
+fatherOf Laura_Marshall_1859 ,
+fatherOf Arthur_Marshall_1861 ,
+fatherOf Catherine_Marshall_1863 ,
+fatherOf Betsy_Ann_Marshall_1865  ,
+fatherOf Fred_Marshall_1869  ,
+fatherOf Ada_Marshall_1871  ,
+fatherOf john_tacey_steward_1873  ,
+fatherOf Thomas_Henry_Marshall_1874
+
+Individual: Alfred_Marshall_1846
+facts:
+birthYear 1846
+
+
+Individual: Sarah_Marshall_1849
+facts:
+birthYear 1849
+
+
+Individual: Mary_Ellen_Marshall_1855
+Facts:
+birthYear 1855,
+hasBrother George_Marshall_1856  ,
+hasSister Laura_Marshall_1859 ,
+hasBrother Arthur_Marshall_1861 ,
+hasSister Catherine_Marshall_1863 ,
+hasSister Betsy_Ann_Marshall_1865  ,
+hasBrother Fred_Marshall_1869  ,
+hasSister Ada_Marshall_1871  ,
+hasBrother john_tacey_steward_1873  ,
+hasBrother Thomas_Henry_Marshall_1874
+
+
+
+Individual: susannah_tacey_1834
+Facts:
+birthYear 1834,
+deathYear 1915,
+hasBrother Matthew_tacey_1837,
+hasBrother JohnWilliam_tacey_1841,
+motherOf Mary_Ellen_Marshall_1855  ,
+motherOf George_Marshall_1856  ,
+motherOf Laura_Marshall_1859 ,
+motherOf Arthur_Marshall_1861 ,
+motherOf Catherine_Marshall_1863 ,
+motherOf Betsy_Ann_Marshall_1865  ,
+motherOf Fred_Marshall_1869  ,
+motherOf Ada_Marshall_1871  ,
+motherOf john_tacey_steward_1873  ,
+motherOf Thomas_Henry_Marshall_1874
+
+Individual: john_tacey_steward_1873
+Facts:
+birthYear 1873,
+deathYear 1938  ,
+hasSister Mary_Ellen_Marshall_1855  ,
+hasBrother George_Marshall_1856  ,
+hasSister Laura_Marshall_1859 ,
+hasBrother Arthur_Marshall_1861 ,
+hasSister Catherine_Marshall_1863 ,
+hasSister Betsy_Ann_Marshall_1865  ,
+hasBrother Fred_Marshall_1869  ,
+hasSister Ada_Marshall_1871  ,
+hasBrother Thomas_Henry_Marshall_1874  ,
+fatherOf violet_Sylvia_Marshall_1894 ,
+fatherOf Reginald_Tacey_Marshall_1895  ,
+fatherOf Richard_Henry_Marshall_1897   ,
+fatherOf Minnie_Maud_Marshall_1909
+
+
+Individual: Elizabeth_Marshall_1850
+facts:
+birthYear 1850
+
+
+Individual: Caroline_Marshall_1853
+facts:
+birthYear 1853
+
+
+Individual: George_Marshall_1856
+facts:
+birthYear 1856
+
+
+Individual: Laura_Marshall_1859
+facts:
+birthYear 1859
+
+
+Individual: Arthur_Marshall_1861
+facts:
+birthYear 1861
+
+
+Individual: Catherine_Marshall_1863
+facts:
+birthYear 1863
+
+
+Individual: Betsy_Ann_Marshall_1865
+facts:
+birthYear 1865
+
+
+Individual: Fred_Marshall_1869
+facts:
+birthYear 1869
+
+
+Individual: Ada_Marshall_1871
+facts:
+birthYear 1871
+
+
+Individual: Thomas_Henry_Marshall_1874
+facts:
+birthYear 1874
+
+
+Individual: Reginald_Tacey_Marshall_1895
+facts:
+birthYear 1895
+
+
+Individual: Richard_Henry_Marshall_1897
+Facts:
+birthYear 1897,
+deathYear 1917,
+hasSister violet_Sylvia_Marshall_1894 ,
+hasBrother Reginald_Tacey_Marshall_1895  ,
+hasSister Minnie_Maud_Marshall_1909
+
+
+
+Individual: Minnie_Maud_Marshall_1909
+Facts:
+birthYear 1909,
+hasSister violet_Sylvia_Marshall_1894,
+hasBrother Reginald_Tacey_Marshall_1895,
+hasBrother Richard_Henry_Marshall_1897
+
+
+
+Individual: sarah_rever_1850
+Facts:
+birthYear 1850,
+deathYear 1806,
+motherOf william_rever_1870
+
+
+Individual: william_rever_1870
+Facts:
+birthYear 1870,
+deathYear 1941,
+fatherOf charles_herbert_rever_1895,
+fatherOf mabel_rever,
+fatherOf william_stanley_rever,
+fatherOf beatrice_rever,
+fatherOf vera_gertrude_rever,
+fatherOf rose_evlyn_rever
+
+Individual: elizabeth_frances_jessop
+Facts:
+motherOf charles_herbert_rever_1895,
+motherOf mabel_rever,
+motherOf william_stanley_rever,
+motherOf beatrice_rever,
+motherOf vera_gertrude_rever,
+motherOf rose_evlyn_rever
+
+
+
+Individual: mabel_rever
+Facts:
+birthYear  1897,
+hasBrother charles_herbert_rever_1895,
+hasBrother william_stanley_rever,
+hasSister beatrice_rever,
+hasSister vera_gertrude_rever,
+hasSister rose_evlyn_rever
+
+
+
+Individual: william_stanley_rever
+Facts:
+birthYear 1899,
+hasBrother charles_herbert_rever_1895,
+hasSister mabel_rever,
+hasSister beatrice_rever,
+hasSister vera_gertrude_rever,
+hasSister rose_evlyn_rever,
+knownAs "Stan"
+
+Individual: beatrice_rever
+Facts:
+birthYear 1901,
+hasBrother charles_herbert_rever_1895,
+knownAs "Beatty",
+hasSister mabel_rever,
+hasBrother william_stanley_rever,
+hasSister vera_gertrude_rever,
+hasSister rose_evlyn_rever
+
+
+
+Individual: vera_gertrude_rever
+Facts:
+birthYear 1904,
+hasBrother charles_herbert_rever_1895,
+deathYear 1922
+
+Individual: rose_evlyn_rever
+Facts:
+birthYear 1906,
+hasBrother charles_herbert_rever_1895,
+knownAs "Rosie"
+
+
+Individual: vera_rever
+Facts:
+hasMother mabel_rever
+
+Individual: peter_spittlehouse
+Facts:
+hasMother vera_rever
+
+Individual: stephen_spittlehouse
+Facts:
+hasMother vera_rever,
+brotherOf peter_spittlehouse
+
+
+
+Individual: helen_archer_1955
+Facts:
+birthYear 1955,
+hasFather alec_john_archer_1927,
+hasSister anne_archer_1964
+
+
+
+Individual: anne_archer_1964
+Facts:
+birthYear 1964,
+hasFather alec_john_archer_1927
+
+
+Individual: james_bright_1761
+Facts:
+birthYear 1761,
+deathYear 1836,
+fatherOf james_bright_1787
+
+Individual: mary_gulliver
+Facts:
+motherOf james_bright_1787
+
+Individual: james_bright_1787
+Facts:
+birthYear 1787,
+fatherOf james_bright_1809,
+fatherOf harriet_bright_1811,
+fatherOf edmund_bright_1813 ,
+fatherOf mary_ann_bright_1815 ,
+fatherOf sarah_bright_1817 ,
+fatherOf jane_bright_1820 ,
+fatherOf caroline_bright_1822,
+fatherOf eliza_bright_1825,
+fatherOf william_bright_1827
+
+Individual: sarah_webb
+Facts:
+motherOf james_bright_1809,
+motherOf harriet_bright_1811,
+motherOf edmund_bright_1813 ,
+motherOf mary_ann_bright_1815 ,
+motherOf sarah_bright_1817 ,
+motherOf jane_bright_1820 ,
+motherOf caroline_bright_1822,
+motherOf eliza_bright_1825,
+motherOf william_bright_1827
+
+
+Individual: james_bright_1809
+Facts:
+birthYear 1809,
+deathYear 1894 ,
+fatherOf martha_ann_bright_1835,
+fatherOf james_bright_1839,
+fatherOf eliza_bright_1842,
+fatherOf caroline_bright_1845,
+fatherOf sarah_rebecca_bright_1849,
+fatherOf edmund_charles_bright_1852
+
+Individual: harriet_bright_1811
+Types: Person
+Facts:
+birthYear 1811,
+hasBrother james_bright_1809,
+hasBrother edmund_bright_1813 ,
+hasSister mary_ann_bright_1815 ,
+hasSister sarah_bright_1817 ,
+hasSister jane_bright_1820 ,
+hasSister caroline_bright_1822,
+hasSister eliza_bright_1825,
+hasBrother william_bright_1827
+
+
+
+Individual: edmund_bright_1813
+Facts:
+birthYear 1813,
+hasBrother james_bright_1809,
+hasSister harriet_bright_1811,
+hasSister mary_ann_bright_1815 ,
+hasSister sarah_bright_1817 ,
+hasSister jane_bright_1820 ,
+hasSister caroline_bright_1822,
+hasSister eliza_bright_1825,
+hasBrother william_bright_1827
+
+
+
+Individual: mary_ann_bright_1815
+Facts:
+birthYear 1815,
+hasBrother james_bright_1809,
+hasSister harriet_bright_1811,
+hasBrother edmund_bright_1813 ,
+hasSister sarah_bright_1817 ,
+hasSister jane_bright_1820 ,
+hasSister caroline_bright_1822,
+hasSister eliza_bright_1825,
+hasBrother william_bright_1827
+
+
+
+Individual: sarah_bright_1817
+Facts:
+birthYear 1817
+
+Individual: jane_bright_1820
+Facts:
+birthYear 1820
+
+Individual: caroline_bright_1822
+Facts:
+birthYear 1822
+
+Individual: eliza_bright_1825
+Facts:
+birthYear 1825
+
+Individual: william_bright_1827
+Facts:
+birthYear 1827
+
+Individual: martha_stafford_1814
+Facts:
+birthYear 1814,
+deathYear 1874,
+motherOf martha_ann_bright_1835,
+motherOf james_bright_1839 ,
+motherOf eliza_bright_1842 ,
+motherOf caroline_bright_1845,
+motherOf sarah_rebecca_bright_1849,
+motherOf edmund_charles_bright_1852
+
+Individual: martha_ann_bright_1835
+Facts:
+birthYear 1835
+
+Individual: james_bright_1839
+Facts:
+birthYear 1839
+
+Individual: eliza_bright_1842
+Facts:
+birthYear 1842
+
+Individual: caroline_bright_1845
+Facts:
+birthYear 1845
+
+Individual: sarah_rebecca_bright_1849
+Facts:
+birthYear 1849
+
+Individual: edmund_charles_bright_1852
+Facts:
+birthYear 1852
+
+Individual: james_bright_1839
+Facts:
+birthYear 1839,
+deathYear 1865,
+fatherOf james_samuel_bright_1860,
+fatherOf henry_edmund_bright_1862,
+fatherOf caroline_martha_bright_1864
+
+
+
+Individual: caroline_lavinia_tubb_1840
+Facts:
+birthYear 1840,
+deathYear 1911,
+alsoKnownAs "Maria",
+hasBrother samuel_tubb_1832,
+hasSister emma_jane_tubb_1836,
+hasBrother thomas_andrew_tubb_1838,
+motherOf james_samuel_bright_1860,
+motherOf henry_edmund_bright_1862,
+motherOf caroline_martha_bright_1864
+
+Individual: james_samuel_bright_1860
+Facts:
+birthYear  1860,
+hasBrother henry_edmund_bright_1862,
+hasSister caroline_martha_bright_1864
+
+
+
+
+Individual: caroline_martha_bright_1864
+Facts:
+birthYear 1864,
+hasBrother james_samuel_bright_1860,
+hasBrother henry_edmund_bright_1862
+
+
+
+
+
+
+Individual: henry_edmund_bright_1862
+Facts:
+birthYear 1862,
+deathYear 1936,
+fatherOf henry_edmund_bright_1887,
+fatherOf frederick_herbert_bright_1889,
+fatherOf leonard_john_bright_1890,
+fatherOf james_frank_hayden_bright_1891,
+fatherOf charlotte_caroline_jane_bright_1894,
+fatherOf nora_ada_bright_1899,
+fatherOf kathleen_minnie_bright_1904,
+fatherOf william_george_bright_1901
+
+
+Individual: charlotte_hewett_1863
+Facts:
+birthYear 1863,
+deathYear 1940,
+motherOf henry_edmund_bright_1887,
+motherOf frederick_herbert_bright_1889,
+motherOf leonard_john_bright_1890,
+motherOf james_frank_hayden_bright_1891,
+motherOf charlotte_caroline_jane_bright_1894,
+motherOf nora_ada_bright_1899,
+motherOf kathleen_minnie_bright_1904,
+motherOf william_george_bright_1901
+
+Individual: henry_edmund_bright_1887
+Facts:
+birthYear 1887,
+hasBrother frederick_herbert_bright_1889,
+hasBrother leonard_john_bright_1890,
+hasBrother james_frank_hayden_bright_1891,
+hasSister charlotte_caroline_jane_bright_1894,
+hasSister nora_ada_bright_1899,
+hasSister kathleen_minnie_bright_1904,
+hasBrother william_george_bright_1901
+
+
+
+
+Individual: frederick_herbert_bright_1889
+Facts:
+birthYear 1889,
+hasBrother henry_edmund_bright_1887,
+hasBrother leonard_john_bright_1890,
+hasBrother james_frank_hayden_bright_1891,
+hasSister charlotte_caroline_jane_bright_1894,
+hasSister nora_ada_bright_1899,
+hasSister kathleen_minnie_bright_1904,
+hasBrother william_george_bright_1901
+
+
+
+
+Individual: leonard_john_bright_1890
+Facts:
+birthYear 1890,
+hasBrother henry_edmund_bright_1887,
+hasBrother frederick_herbert_bright_1889,
+hasBrother james_frank_hayden_bright_1891,
+hasSister charlotte_caroline_jane_bright_1894,
+hasSister nora_ada_bright_1899,
+hasSister kathleen_minnie_bright_1904,
+hasBrother william_george_bright_1901
+
+
+
+
+Individual: james_frank_hayden_bright_1891
+Facts:
+birthYear 1891
+
+Individual: charlotte_caroline_jane_bright_1894
+Facts:
+birthYear 1894
+
+Individual: nora_ada_bright_1899
+Facts:
+birthYear 1899
+
+Individual: kathleen_minnie_bright_1904
+Facts:
+birthYear 1904
+
+
+Individual: alfred_hostler
+
+
+Individual: edna_hostler
+Facts:
+hasMother charlotte_caroline_jane_bright_1894,
+hasFather alfred_hostler,
+hasSister ruth_hostler,
+hasBrother robert_jerome_hostler
+
+
+Individual: ruth_hostler
+Facts:
+hasMother charlotte_caroline_jane_bright_1894,
+hasFather alfred_hostler,
+hasSister edna_hostler,
+hasBrother robert_jerome_hostler,
+hasBrother  harry_bright_hostler
+
+
+Individual: robert_jerome_hostler
+Facts:
+hasMother charlotte_caroline_jane_bright_1894,
+hasFather alfred_hostler,
+hasSister ruth_hostler,
+hasSister edna_hostler,
+hasBrother  harry_bright_hostler
+
+Individual: harry_bright_hostler
+Facts:
+hasMother charlotte_caroline_jane_bright_1894,
+hasFather alfred_hostler,
+knownAs "Steven",
+hasBrother robert_jerome_hostler,
+hasSister edna_hostler,
+hasSister ruth_hostler
+
+
+
+Individual: james_alexander_bright_1921
+Facts:
+hasFather james_frank_hayden_bright_1891,
+birthYear 1921,
+deathYear 1940
+
+Individual: marion_jean_bright_1922
+Facts:
+hasFather james_frank_hayden_bright_1891,
+birthYear 1922,
+deathYear 1931
+
+Individual: charlotte_bright_1928
+Facts:
+hasFather james_frank_hayden_bright_1891,
+birthYear  1928,
+deathYear 1932
+
+Individual: patricia_bright_1938
+Facts:
+hasFather james_frank_hayden_bright_1891,
+birthYear 1938,
+deathYear 1938
+
+Individual: frank_hewett_bright_1920
+Facts:
+hasFather james_frank_hayden_bright_1891,
+birthYear 1920,
+deathYear 1967
+
+Individual: kathleen_constance_susan_bright_1924
+Facts:
+hasFather james_frank_hayden_bright_1891,
+birthYear  1924
+
+Individual: henry_edmond_peter_bright_1926
+Facts:
+hasFather james_frank_hayden_bright_1891,
+birthYear 1926
+
+Individual: paul_archer_1950
+Facts:
+hasSister helen_archer_1955,
+hasSister anne_archer_1964,
+hasFather alec_john_archer_1927,
+birthYear 1950
+
+Individual: clare_archer_1957
+Facts:
+hasSister helen_archer_1955,
+hasSister anne_archer_1964,
+hasBrother paul_archer_1950,
+hasFather alec_john_archer_1927
+
+
+
+
+Individual: jeremiah_jacobs
+Facts:
+fatherOf james_jacobs_1806
+
+
+Individual: jane_blake
+Facts:
+motherOf james_jacobs_1806
+
+
+Individual: james_jacobs_1806
+Facts:
+birthYear 1806,
+deathYear  1876,
+fatherOf sarah_jacobs_1834,
+fatherOf jane_jacobs_1836,
+fatherOf fanny_jacobs_1840,
+fatherOf charles_jacobs_1842,
+fatherOf lucy_jacobs_1844,
+fatherOf frank_jacobs_1846,
+fatherOf henry_jacobs_1849,
+fatherOf george_jacobs_1852
+
+
+Individual: priscilla_saunders
+Facts:
+motherOf sarah_jacobs_1834,
+motherOf jane_jacobs_1836,
+motherOf fanny_jacobs_1840,
+motherOf charles_jacobs_1842,
+motherOf lucy_jacobs_1844,
+motherOf frank_jacobs_1846,
+motherOf henry_jacobs_1849,
+motherOf george_jacobs_1852
+
+
+Individual: ann_jacobs_1832
+Facts:
+birthYear 1832
+
+Individual: sarah_jacobs_1834
+Facts:
+birthYear 1834,
+deathYear 1936,
+motherOf william_lock_jacobs_1861,
+motherOf ada_rachel_heath_1868,
+motherOf lemuel_frederick_heath_1871,
+motherOf gwendoline_heath_1878
+
+Individual: jane_jacobs_1836
+Facts:
+birthYear 1836
+
+Individual: fanny_jacobs_1840
+Facts:
+birthYear 1840
+
+Individual: charles_jacobs_1842
+Facts:
+birthYear 1842
+
+Individual: lucy_jacobs_1844
+Facts:
+birthYear 1844
+
+Individual: frank_jacobs_1846
+Facts:
+birthYear 1846
+
+Individual: henry_jacobs_1849
+Facts:
+birthYear 1849
+
+Individual: george_jacobs_1852
+Facts:
+birthYear 1852
+
+Individual: john_heath
+Facts:
+fatherOf ada_rachel_heath_1868,
+fatherOf lemuel_frederick_heath_1871,
+fatherOf gwendoline_heath_1878
+
+
+
+
+Individual: william_lock_jacobs_1861
+Facts:
+birthYear  1861,
+knownAs "william heath",
+fatherOf florelle_nenuphar_heath_1880,
+fatherOf william_alfred_heath_1885,
+fatherOf violet_heath_1887,
+fatherOf daisy_harriet_heath_1889,
+fatherOf lemuel_frederic_heath_1891,
+fatherOf ivy_grace_heath_1894,
+fatherOf clarence_john_heath_1896,
+fatherOf sydney_victor_heath_1899,
+fatherOf iris_maud_gertrude_heath_1901
+
+
+Individual: william_lock
+Facts:
+fatherOf william_lock_jacobs_1861
+
+
+Individual: ada_rachel_heath_1868
+Facts:
+birthYear 1868
+
+Individual: john_william_folland
+Types: Person
+
+Individual: lemuel_frederick_heath_1871
+Facts:
+birthYear 1871
+
+Individual: gwendoline_heath_1878
+Facts:
+birthYear 1878,
+deathYear 1967
+
+Individual: harriet_whitefield_1861
+Facts:
+birthYear 1861,
+deathYear 1930,
+hasBrother james_whitfield_1848,
+hasBrother walter_whitfield_1863,
+hasBrother george_whitfield_1865,
+hasBrother harry_whitfield_1854,
+hasSister harriet_ann_whitfield_1850,
+hasBrother william_whitfield_1852,
+hasSister louisa_whitfield_1857,
+hasSister alice_whitfield_1859,
+hasSister annie_whitfield,
+motherOf florelle_nenuphar_heath_1880,
+motherOf william_alfred_heath_1885,
+motherOf violet_heath_1887,
+motherOf daisy_harriet_heath_1889,
+motherOf lemuel_frederic_heath_1891,
+motherOf ivy_grace_heath_1894,
+motherOf clarence_john_heath_1896,
+motherOf sydney_victor_heath_1899,
+motherOf iris_maud_gertrude_heath_1901
+
+
+Individual: florelle_nenuphar_heath_1880
+Facts:
+birthYear 1880,
+hasBrother william_alfred_heath_1885,
+hasSister violet_heath_1887,
+hasSister daisy_harriet_heath_1889,
+hasBrother lemuel_frederic_heath_1891,
+hasSister ivy_grace_heath_1894,
+hasBrother clarence_john_heath_1896,
+hasBrother sydney_victor_heath_1899,
+hasSister iris_maud_gertrude_heath_1901
+
+
+Individual: william_alfred_heath_1885
+Facts:
+birthYear 1885
+
+
+Individual: daisy_harriet_heath_1889
+Types: Person
+Facts:
+birthYear 1889
+
+Individual: lemuel_frederic_heath_1891
+Facts:
+birthYear 1891
+
+Individual: ivy_grace_heath_1894
+Facts:
+birthYear 1894
+
+Individual: clarence_john_heath_1896
+Facts:
+birthYear 1896
+
+Individual: sydney_victor_heath_1899
+Facts:
+birthYear 1899
+
+Individual: iris_maud_gertrude_heath_1901
+Facts:
+birthYear 1901
+
+Individual: john_jessop
+Facts:
+fatherOf edward_jessop_1802
+
+Individual: edward_jessop_1802
+Facts:
+birthYear 1802,
+fatherOf charles_jessop_1831,
+fatherOf ann_jessop_1833,
+fatherOf john_jessop_1834,
+fatherOf james_jessop_1836,
+fatherOf amelia_jessop_1837,
+fatherOf emma_jessop_1839,
+fatherOf mary_jessop_1840,
+fatherOf ellen_jessop_1844
+
+
+Individual: charles_jessop_1831
+Facts:
+birthYear 1831,
+hasSister ann_jessop_1833,
+brotherOf john_jessop_1834,
+brotherOf james_jessop_1836,
+hasSister amelia_jessop_1837,
+hasSister emma_jessop_1839,
+hasSister mary_jessop_1840,
+hasSister ellen_jessop_1844
+
+
+Individual: ann_jessop_1833
+Facts:
+birthYear 1833,
+hasBrother john_jessop_1834,
+hasBrother james_jessop_1836,
+hasSister amelia_jessop_1837,
+hasSister emma_jessop_1839,
+hasSister mary_jessop_1840,
+hasSister ellen_jessop_1844
+
+
+
+Individual: john_jessop_1834
+Facts:
+birthYear 1834,
+hasSister ann_jessop_1833,
+brotherOf james_jessop_1836,
+hasSister amelia_jessop_1837,
+hasSister emma_jessop_1839,
+hasSister mary_jessop_1840,
+hasSister ellen_jessop_1844
+
+
+Individual: james_jessop_1836
+Facts:
+birthYear 1836,
+deathYear  1922,
+hasSister ann_jessop_1833,
+brotherOf john_jessop_1834,
+hasSister amelia_jessop_1837,
+hasSister emma_jessop_1839,
+hasSister mary_jessop_1840,
+hasSister ellen_jessop_1844,
+fatherOf elizabeth_frances_jessop,
+fatherOf mary_eliza_jessop_1863,
+fatherOf charlotte_ann_jessop_1865,
+fatherOf edward_jessop_1867,
+fatherOf herbert_vincent_jessop_1871
+
+
+Individual: amelia_jessop_1837
+Facts:
+birthYear 1837
+
+Individual: emma_jessop_1839
+Facts:
+birthYear 1839
+
+Individual: mary_jessop_1840
+Facts:
+birthYear 1840
+
+Individual: ellen_jessop_1844
+Facts:
+birthYear 1844
+
+Individual: martha_cotton_1832
+Facts:
+birthYear 1832,
+deathYear 1916,
+motherOf elizabeth_frances_jessop,
+motherOf mary_eliza_jessop_1863,
+motherOf charlotte_ann_jessop_1865,
+motherOf edward_jessop_1867,
+motherOf herbert_vincent_jessop_1871
+
+
+Individual: mary_eliza_jessop_1863
+Facts:
+birthYear 1863
+
+Individual: charlotte_ann_jessop_1865
+Facts:
+birthYear 1865,
+hasSister elizabeth_frances_jessop,
+knownAs "Aunt Miserable"
+
+
+
+Individual: edward_jessop_1867
+Facts:
+birthYear 1867
+
+Individual: herbert_vincent_jessop_1871
+Facts:
+birthYear 1871
+
+Individual: john_lockey_1789
+Facts:
+birthYear 1789,
+fatherOf sarah_lockey_1810,
+fatherOf george_baker_lockey_1812,
+fatherOf william_rivers_lockey_1815,
+fatherOf mary_lockey_1818,
+fatherOf henry_waterloo_lockey_1820,
+fatherOf redman_lockey_1822,
+fatherOf john_lockey_1824,
+fatherOf nicholas_lockey_1826,
+fatherOf anne_lockey_1829,
+fatherOf joseph_lockey_1833
+
+
+Individual: elizabeth_rivers
+Facts:
+motherOf sarah_lockey_1810,
+motherOf george_baker_lockey_1812,
+motherOf william_rivers_lockey_1815,
+motherOf mary_lockey_1818,
+motherOf henry_waterloo_lockey_1820,
+motherOf redman_lockey_1822,
+motherOf john_lockey_1824,
+motherOf nicholas_lockey_1826,
+motherOf anne_lockey_1829,
+motherOf joseph_lockey_1833
+
+Individual: sarah_lockey_1810
+Facts:
+birthYear 1810,
+hasBrother george_baker_lockey_1812,
+hasBrother william_rivers_lockey_1815,
+hasSister mary_lockey_1818,
+hasBrother henry_waterloo_lockey_1820,
+hasBrother redman_lockey_1822,
+hasBrother john_lockey_1824,
+hasBrother nicholas_lockey_1826,
+hasSister anne_lockey_1829,
+hasBrother joseph_lockey_1833
+
+
+
+Individual: george_baker_lockey_1812
+Facts:
+birthYear 1812
+
+Individual: william_rivers_lockey_1815
+Facts:
+birthYear 1815,
+deathYear 1854,
+fatherOf john_lockey_1840,
+fatherOf ridman_lockey_1842,
+fatherOf elizabeth_ann_lockey_1846,
+fatherOf sarah_lockey_1848
+
+
+Individual: mary_lockey_1818
+Facts:
+birthYear 1818,
+hasSister sarah_lockey_1810,
+hasBrother george_baker_lockey_1812,
+hasBrother william_rivers_lockey_1815,
+hasBrother henry_waterloo_lockey_1820,
+hasBrother redman_lockey_1822,
+hasBrother john_lockey_1824,
+hasBrother nicholas_lockey_1826,
+hasSister anne_lockey_1829,
+hasBrother joseph_lockey_1833
+
+
+
+Individual: henry_waterloo_lockey_1820
+Facts:
+birthYear 1820
+
+Individual: redman_lockey_1822
+Facts:
+birthYear 1822
+
+Individual: john_lockey_1824
+Facts:
+birthYear 1824
+
+Individual: nicholas_lockey_1826
+Facts:
+birthYear 1826
+
+Individual: anne_lockey_1829
+Facts:
+birthYear 1829
+
+Individual: joseph_lockey_1833
+Facts:
+birthYear 1833
+
+Individual: catherine_thompson
+Facts:
+motherOf eden_georgina_gardner_thompson
+
+
+Individual: eden_georgina_gardner_thompson
+Facts:
+motherOf john_lockey_1840,
+motherOf ridman_lockey_1842,
+motherOf elizabeth_ann_lockey_1846,
+motherOf sarah_lockey_1848
+
+
+Individual: john_lockey_1840
+Facts:
+birthYear 1840,
+hasBrother ridman_lockey_1842,
+hasSister elizabeth_ann_lockey_1846,
+hasSister sarah_lockey_1848
+
+
+Individual: ridman_lockey_1842
+Facts:
+birthYear 1842,
+hasSister sarah_lockey_1848
+
+Individual: elizabeth_ann_lockey_1846
+Facts:
+birthYear 1846,
+hasSister sarah_lockey_1848
+
+
+Individual: mary_wife_of_Thomas_TAISY
+Facts:
+motherOf william_tacey_1783
+
+Individual: thomas_taisy
+Facts:
+fatherOf william_tacey_1783
+
+Individual: william_tacey_1783
+Facts:
+birthYear 1783,
+deathYear 1863,
+fatherOf Mary_tacey_1808,
+fatherOf Mary_tacey_1809,
+fatherOf Mary_tacey_1811,
+fatherOf thomas_tacey_1806,
+fatherOf William_tacey_1818
+
+
+Individual: mary_bainton
+Facts:
+motherOf Mary_tacey_1808,
+motherOf Mary_tacey_1809,
+motherOf Mary_tacey_1811,
+motherOf thomas_tacey_1806,
+motherOf William_tacey_1818
+
+Individual: Mary_tacey_1808
+Facts:
+birthYear 1808,
+hasSister Mary_tacey_1809,
+hasSister Mary_tacey_1811,
+hasBrother thomas_tacey_1806,
+hasBrother William_tacey_1818
+
+
+Individual: Mary_tacey_1809
+Facts:
+birthYear 1809,
+hasSister Mary_tacey_1808,
+hasSister Mary_tacey_1811,
+hasBrother thomas_tacey_1806,
+hasBrother William_tacey_1818
+
+
+Individual: Mary_tacey_1811
+Facts:
+birthYear 1811
+
+Individual: thomas_tacey_1806
+Facts:
+birthYear 1806,
+deathYear 1885,
+fatherOf George_tacey_1831,
+fatherOf Matthew_tacey_1837,
+fatherOf JohnWilliam_tacey_1841,
+fatherOf susannah_tacey_1834
+
+
+Individual: William_tacey_1818
+Facts:
+birthYear 1818
+
+Individual: mary_hollingsworth_1801
+Facts:
+birthYear  1801,
+deathYear 1895,
+hasBrother james_hollinsworth_1804,
+hasSister ann_hollinsworth_1808,
+motherOf George_tacey_1831,
+motherOf Matthew_tacey_1837,
+motherOf JohnWilliam_tacey_1841,
+motherOf susannah_tacey_1834
+
+Individual: George_tacey_1831
+Facts:
+birthYear 1831,
+hasBrother Matthew_tacey_1837,
+hasBrother JohnWilliam_tacey_1841,
+hasSister susannah_tacey_1834
+
+
+Individual: Matthew_tacey_1837
+Facts:
+birthYear 1837
+
+Individual: JohnWilliam_tacey_1841
+Facts:
+birthYear 1841
+
+
+Individual: william_cotton
+Facts:
+fatherOf john_cotton_1778
+
+Individual: susanna_wife_of_william_cotton
+Facts:
+motherOf john_cotton_1778
+
+Individual: john_cotton_1778
+Facts:
+birthYear 1778,
+deathYear  1862,
+fatherOf william_john_cotton_1804,
+fatherOf martha_cotton_1806,
+fatherOf vincent_cotton_1808,
+fatherOf susannah_cotton_1813,
+fatherOf rebecca_cotton_1818
+
+
+Individual: martha_wife_of_john_cotton
+Facts:
+motherOf william_john_cotton_1804,
+motherOf martha_cotton_1806,
+motherOf vincent_cotton_1808,
+motherOf susannah_cotton_1813,
+motherOf rebecca_cotton_1818
+
+
+Individual: william_john_cotton_1804
+Facts:
+birthYear 1804,
+hasSister martha_cotton_1806,
+hasBrother vincent_cotton_1808,
+hasSister susannah_cotton_1813,
+hasSister rebecca_cotton_1818
+
+
+Individual: martha_cotton_1806
+Facts:
+birthYear 1806,
+hasBrother william_john_cotton_1804,
+hasSister martha_cotton_1806,
+hasBrother vincent_cotton_1808,
+hasSister susannah_cotton_1813,
+hasSister rebecca_cotton_1818
+
+
+
+Individual: vincent_cotton_1808
+Facts:
+birthYear 1808,
+deathYear 1879,
+fatherOf martha_cotton_1832,
+fatherOf frances_cotton_1834,
+fatherOf susanna_cotton_1836,
+fatherOf elizabeth_cotton_1838,
+fatherOf charlotte_cotton_1840,
+fatherOf john_cotton_1842,
+fatherOf rebecca_cotton_1845,
+fatherOf mary_ann_cotton_1847,
+fatherOf edward_cotton_1850
+
+
+
+Individual: susannah_cotton_1813
+Facts:
+birthYear 1813
+
+Individual: rebecca_cotton_1818
+Facts:
+birthYear 1818
+
+
+
+
+Individual: frances_cotton_1834
+Facts:
+birthYear 1834
+
+Individual: susanna_cotton_1836
+Facts:
+birthYear 1836
+
+Individual: elizabeth_cotton_1838
+Facts:
+birthYear 1838
+
+Individual: charlotte_cotton_1840
+Facts:
+birthYear 1840
+
+Individual: john_cotton_1842
+Facts:
+birthYear 1842
+
+Individual: rebecca_cotton_1845
+Facts:
+birthYear 1845,
+hasSister martha_cotton_1832,
+hasSister frances_cotton_1834,
+hasSister susanna_cotton_1836,
+hasSister elizabeth_cotton_1838,
+hasSister charlotte_cotton_1840,
+hasBrother john_cotton_1842,
+hasSister mary_ann_cotton_1847,
+hasBrother edward_cotton_1850
+
+
+
+
+Individual: mary_ann_cotton_1847
+Facts:
+birthYear 1847,
+hasSister martha_cotton_1832,
+hasSister frances_cotton_1834,
+hasSister susanna_cotton_1836,
+hasSister elizabeth_cotton_1838,
+hasSister charlotte_cotton_1840,
+hasBrother john_cotton_1842,
+hasSister rebecca_cotton_1845,
+hasBrother edward_cotton_1850
+
+
+
+
+Individual: edward_cotton_1850
+Facts:
+birthYear 1850,
+hasSister martha_cotton_1832,
+hasSister frances_cotton_1834,
+hasSister susanna_cotton_1836,
+hasSister elizabeth_cotton_1838,
+hasSister charlotte_cotton_1840,
+hasBrother john_cotton_1842,
+hasSister rebecca_cotton_1845,
+hasSister mary_ann_cotton_1847
+
+
+
+
+
+Individual: elizabeth_blanchard_1807
+Facts:
+birthYear 1807,
+deathYear 1888,
+formerlyKnownAs "elizabeth hutchinson",
+motherOf martha_cotton_1832,
+motherOf frances_cotton_1834,
+motherOf susanna_cotton_1836,
+motherOf elizabeth_cotton_1838,
+motherOf charlotte_cotton_1840,
+motherOf john_cotton_1842,
+motherOf rebecca_cotton_1845,
+motherOf mary_ann_cotton_1847,
+motherOf edward_cotton_1850
+
+Individual: james_stafford_1779
+Facts:
+birthYear 1779,
+deathYear  1852,
+fatherOf james_stafford_1803,
+fatherOf george_stafford_1807,
+fatherOf mary_ann_stafford_1810,
+fatherOf john_hewson_stafford_1811,
+fatherOf martha_stafford_1814 ,
+fatherOf rebecca_stafford_1816
+
+
+Individual: rebecca_wife_of_james_stafford
+Facts:
+birthYear 1773,
+deathYear 1850,
+             motherOf james_stafford_1803,
+motherOf george_stafford_1807,
+motherOf mary_ann_stafford_1810,
+motherOf john_hewson_stafford_1811,
+motherOf martha_stafford_1814 ,
+motherOf rebecca_stafford_1816
+
+
+Individual: james_stafford_1803
+Facts:
+birthYear 1803,
+fatherOf george_stafford_1807,
+hasSister mary_ann_stafford_1810,
+hasBrother john_hewson_stafford_1811,
+hasSister martha_stafford_1814 ,
+hasSister rebecca_stafford_1816
+
+
+Individual: george_stafford_1807
+Facts:
+birthYear 1807
+
+Individual: mary_ann_stafford_1810
+Facts:
+birthYear  1810,
+motherOf james_stafford_1803,
+motherOf george_stafford_1807,
+hasBrother john_hewson_stafford_1811,
+hasSister martha_stafford_1814 ,
+hasSister rebecca_stafford_1816
+
+Individual: john_hewson_stafford_1811
+Facts:
+birthYear 1811
+
+
+Individual: rebecca_stafford_1816
+Facts:
+birthYear  1816
+
+
+Individual: william_tubb_1786
+Facts:
+birthYear 1786,
+fatherOf william_tubb_1808,
+fatherOf james_tubb_1809,
+fatherOf samuel_tubb_1811,
+fatherOf sarah_jane_tubb_1812,
+fatherOf mary_tubb_1814,
+fatherOf john_tubb_1816,
+fatherOf thomas_tubb_1820,
+fatherOf henry_tubb_1825,
+fatherOf edward_tubb_1827
+
+
+Individual: sarah_chard
+Facts:
+motherOf william_tubb_1808,
+motherOf james_tubb_1809,
+motherOf samuel_tubb_1811,
+motherOf sarah_jane_tubb_1812,
+motherOf mary_tubb_1814,
+motherOf john_tubb_1816,
+motherOf thomas_tubb_1820,
+motherOf henry_tubb_1825,
+motherOf edward_tubb_1827
+
+
+Individual: william_tubb_1808
+Facts:
+birthYear 1808,
+hasBrother james_tubb_1809,
+hasBrother samuel_tubb_1811,
+hasSister sarah_jane_tubb_1812,
+hasSister mary_tubb_1814,
+hasBrother john_tubb_1816,
+hasBrother thomas_tubb_1820,
+hasBrother henry_tubb_1825,
+hasBrother edward_tubb_1827
+
+
+
+Individual: james_tubb_1809
+Facts:
+birthYear 1809,
+hasBrother william_tubb_1808,
+hasBrother samuel_tubb_1811,
+hasSister sarah_jane_tubb_1812,
+hasSister mary_tubb_1814,
+hasBrother john_tubb_1816,
+hasBrother thomas_tubb_1820,
+hasBrother henry_tubb_1825,
+hasBrother edward_tubb_1827
+
+
+
+Individual: samuel_tubb_1811
+Facts:
+birthYear 1811,
+deathYear 1869,
+fatherOf samuel_tubb_1832,
+fatherOf emma_jane_tubb_1836,
+fatherOf thomas_andrew_tubb_1838,
+fatherOf caroline_lavinia_tubb_1840
+
+
+
+Individual: sarah_jane_tubb_1812
+Facts:
+birthYear 1812,
+hasBrother william_tubb_1808,
+hasBrother james_tubb_1809,
+hasBrother samuel_tubb_1811,
+hasSister mary_tubb_1814,
+hasBrother john_tubb_1816,
+hasBrother thomas_tubb_1820,
+hasBrother henry_tubb_1825,
+hasBrother edward_tubb_1827
+
+
+
+Individual: mary_tubb_1814
+Facts:
+birthYear 1814
+
+Individual: john_tubb_1816
+Facts:
+birthYear 1816
+
+Individual: thomas_tubb_1820
+Facts:
+birthYear 1820
+
+Individual: henry_tubb_1825
+Facts:
+birthYear 1825
+
+Individual: edward_tubb_1827
+Facts:
+birthYear 1827
+
+Individual: caroline_cox
+Facts:
+alsoKnownAs "Catherine",
+motherOf samuel_tubb_1832,
+motherOf emma_jane_tubb_1836,
+motherOf thomas_andrew_tubb_1838,
+motherOf caroline_lavinia_tubb_1840
+
+
+Individual: samuel_tubb_1832
+Facts:
+birthYear 1832,
+hasSister emma_jane_tubb_1836,
+hasBrother thomas_andrew_tubb_1838,
+hasSister caroline_lavinia_tubb_1840
+
+
+
+Individual: emma_jane_tubb_1836
+Facts:
+birthYear 1836,
+hasBrother samuel_tubb_1832,
+hasBrother thomas_andrew_tubb_1838,
+hasSister caroline_lavinia_tubb_1840
+
+
+
+Individual: thomas_andrew_tubb_1838
+Facts:
+birthYear 1838
+
+
+
+Individual: jean_margaret_archer_1934
+Facts:
+birthYear 1934,
+hasFather norman_james_archer_1909
+
+Individual: ian_alexander_archer_1944
+Facts:
+hasFather norman_james_archer_1909,
+birthYear 1944
+
+Individual: yvonne_archer_1940
+Facts:
+hasFather norman_james_archer_1909,
+birthYear 1940,
+hasSister jean_margaret_archer_1934,
+hasBrother ian_alexander_archer_1944,
+hasBrother james_keith_archer_1946
+
+
+Individual: james_keith_archer_1946
+Facts:
+hasFather norman_james_archer_1909,
+birthYear 1946,
+hasSister jean_margaret_archer_1934,
+hasBrother ian_alexander_archer_1944,
+hasSister yvonne_archer_1940
+
+
+Individual: alan_john_dowse_1936
+Facts:
+birthYear 1936,
+hasMother ethel_archer_1912
+
+Individual: maureen_dowse_1939
+Facts:
+birthYear 1939,
+hasMother ethel_archer_1912,
+hasBrother alan_john_dowse_1936,
+hasSister june_dowse_1941,
+hasBrother martin_dowse_1944
+
+
+
+Individual: june_dowse_1941
+Facts:
+birthYear 1941,
+hasMother ethel_archer_1912
+
+
+Individual: martin_dowse_1944
+Facts:
+birthYear 1944,
+hasMother ethel_archer_1912,
+hasBrother alan_john_dowse_1936,
+hasSister maureen_dowse_1939,
+hasSister june_dowse_1941
+
+
+
+Individual: roy_cleife_1944
+Facts:
+birthYear 1944,
+hasMother joyce_archer_1921
+
+Individual: sheila_cleife_1949
+Facts:
+birthYear 1949,
+hasMother joyce_archer_1921
+
+
+Individual: brenda_cleife_1947
+Facts:
+birthYear 1947,
+hasMother joyce_archer_1921,
+hasBrother roy_cleife_1944,
+hasSister sheila_cleife_1949,
+hasBrother eric_cleife_1951
+
+
+Individual: eric_cleife_1951
+Facts:
+birthYear 1951,
+hasMother joyce_archer_1921,
+hasBrother roy_cleife_1944,
+hasSister sheila_cleife_1949,
+hasSister brenda_cleife_1947
+
+
+
+Individual: james_whitfield_1792
+Facts:
+birthYear 1792,
+fatherOf robert_whitfield_1813,
+fatherOf louisa_whitfield_1817,
+fatherOf sarah_jane_whitfield_1818,
+fatherOf james_whitfield_1821,
+fatherOf mary_ann_whitfield_1824,
+fatherOf thomas_william_whitfield_1826,
+fatherOf sarah_jane_whitfield_1829
+
+
+Individual: sarah_jewell
+Facts:
+motherOf robert_whitfield_1813,
+motherOf louisa_whitfield_1817,
+motherOf sarah_jane_whitfield_1818,
+motherOf james_whitfield_1821,
+motherOf mary_ann_whitfield_1824,
+motherOf thomas_william_whitfield_1826,
+motherOf sarah_jane_whitfield_1829
+
+
+Individual: robert_whitfield_1813
+Facts:
+birthYear 1813,
+hasSister louisa_whitfield_1817,
+hasSister sarah_jane_whitfield_1818,
+hasBrother james_whitfield_1821,
+hasSister mary_ann_whitfield_1824,
+hasBrother thomas_william_whitfield_1826,
+hasSister sarah_jane_whitfield_1829
+
+
+
+Individual: louisa_whitfield_1817
+Facts:
+birthYear 1817
+
+Individual: sarah_jane_whitfield_1818
+Facts:
+birthYear 1818
+
+Individual: james_whitfield_1821
+Facts:
+birthYear 1821,
+deathYear 1886,
+fatherOf james_whitfield_1848,
+fatherOf walter_whitfield_1863,
+fatherOf george_whitfield_1865,
+fatherOf harry_whitfield_1854,
+fatherOf harriet_whitefield_1861,
+fatherOf harriet_ann_whitfield_1850,
+fatherOf william_whitfield_1852,
+fatherOf louisa_whitfield_1857,
+fatherOf alice_whitfield_1859,
+fatherOf annie_whitfield
+
+
+
+Individual: mary_ann_whitfield_1824
+Facts:
+birthYear 1824
+
+Individual: thomas_william_whitfield_1826
+Facts:
+birthYear 1826
+
+Individual: sarah_jane_whitfield_1829
+Facts:
+birthYear 1829
+
+Individual: harriet_ann_young_1825
+Facts:
+birthYear 1825,
+deathYear 1854,
+hasBrother edward_young_1821,
+hasBrother william_young_1823,
+hasBrother john_young_1827,
+hasBrother samuel_young_1829,
+hasBrother henry_young_1831,
+hasBrother james_young_1836,
+                          motherOf james_whitfield_1848,
+motherOf walter_whitfield_1863,
+motherOf george_whitfield_1865,
+motherOf harry_whitfield_1854,
+motherOf harriet_whitefield_1861,
+motherOf harriet_ann_whitfield_1850,
+motherOf william_whitfield_1852,
+motherOf louisa_whitfield_1857,
+motherOf alice_whitfield_1859,
+motherOf annie_whitfield
+
+
+Individual: james_whitfield_1848
+Facts:
+birthYear 1848,
+hasBrother walter_whitfield_1863,
+hasBrother george_whitfield_1865,
+hasBrother harry_whitfield_1854,
+hasSister harriet_whitefield_1861,
+hasSister harriet_ann_whitfield_1850,
+hasBrother william_whitfield_1852,
+hasSister louisa_whitfield_1857,
+hasSister alice_whitfield_1859,
+hasSister annie_whitfield
+
+
+
+Individual: walter_whitfield_1863
+Facts:
+birthYear 1863
+
+Individual: george_whitfield_1865
+Facts:
+birthYear 1865
+
+Individual: harry_whitfield_1854
+Facts:
+birthYear 1854
+
+
+Individual: harriet_ann_whitfield_1850
+Facts:
+birthYear 1850,
+deathYear 1852
+
+Individual: william_whitfield_1852
+Facts:
+birthYear 1852
+
+Individual: louisa_whitfield_1857
+Facts:
+birthYear 1857
+
+Individual: alice_whitfield_1859
+Facts:
+birthYear 1859
+
+Individual: annie_whitfield
+
+Individual: frances_spikin_1779
+Facts:
+birthYear 1779,
+deathYear 1830,
+motherOf elizabeth_blanchard_1807
+
+
+Individual: edward_blanchard_1771
+Facts:
+birthYear 1771 ,
+deathYear 1844,
+fatherOf elizabeth_blanchard_1807
+
+Individual: crispin_hutchinson
+
+Individual: ann_norton_1799
+Facts:
+birthYear 1799,
+deathYear 1880,
+motherOf edward_young_1821,
+motherOf william_young_1823,
+motherOf harriet_ann_young_1825,
+motherOf john_young_1827,
+motherOf samuel_young_1829,
+motherOf henry_young_1831,
+motherOf james_young_1836
+
+
+
+Individual: edward_young_1795
+Facts:
+birthYear 1795,
+deathYear 1874,
+fatherOf edward_young_1821,
+fatherOf william_young_1823,
+fatherOf harriet_ann_young_1825,
+fatherOf john_young_1827,
+fatherOf samuel_young_1829,
+fatherOf henry_young_1831,
+fatherOf james_young_1836
+
+
+
+Individual: edward_young_1821
+Facts:
+birthYear 1821,
+hasBrother william_young_1823,
+hasSister harriet_ann_young_1825,
+hasBrother john_young_1827,
+hasBrother samuel_young_1829,
+hasBrother henry_young_1831,
+hasBrother james_young_1836
+
+
+
+Individual: william_young_1823
+Facts:
+birthYear 1823,
+hasBrother edward_young_1821,
+hasSister harriet_ann_young_1825,
+hasBrother john_young_1827,
+hasBrother samuel_young_1829,
+hasBrother henry_young_1831,
+hasBrother james_young_1836
+
+
+
+
+Individual: john_young_1827
+Facts:
+birthYear 1827
+
+Individual: samuel_young_1829
+Facts:
+birthYear 1829
+
+Individual: henry_young_1831
+Facts:
+birthYear 1831
+
+Individual: james_young_1836
+Facts:
+birthYear 1836
+
+Individual: william_ingelby_1789
+Facts:
+birthYear 1789,
+deathYear 1866,
+fatherOf james_ingelby_1811,
+fatherOf george_ingelby_1814,
+fatherOf frances_elizabeth_ingelby_1816,
+fatherOf sarah_ingelby_1821
+
+
+Individual: ann_james
+Facts:
+motherOf james_ingelby_1811,
+motherOf george_ingelby_1814,
+motherOf frances_elizabeth_ingelby_1816,
+motherOf sarah_ingelby_1821
+
+
+Individual: james_ingelby_1811
+Facts:
+birthYear 1811
+
+Individual: george_ingelby_1814
+Facts:
+birthYear 1814,
+hasBrother james_ingelby_1811,
+hasSister frances_elizabeth_ingelby_1816,
+hasSister sarah_ingelby_1821
+
+
+
+Individual: frances_elizabeth_ingelby_1816
+Facts:
+birthYear 1816,
+deathYear 1895,
+hasBrother james_ingelby_1811,
+hasBrother george_ingelby_1814,
+hasSister sarah_ingelby_1821,
+motherOf sarah_pickard_1839,
+motherOf susanna_pickard_1841,
+motherOf hannah_pickard_1844,
+motherOf george_pickard_1847,
+motherOf charles_pickard_1854,
+motherOf ralph_pickard_1857,
+motherOf harriet_ingelby_pickard_1858
+
+
+
+
+
+Individual: sarah_ingelby_1821
+Facts:
+birthYear 1821
+
+
+Individual: mary_glover
+Facts:
+motherOf james_hollinsworth_1804,
+motherOf mary_hollingsworth_1801,
+motherOf ann_hollinsworth_1808
+
+
+Individual: john_hollinsworth_1768
+Facts:
+birthYear 1768,
+deathYear  1838,
+fatherOf james_hollinsworth_1804,
+fatherOf mary_hollingsworth_1801,
+fatherOf ann_hollinsworth_1808
+
+Individual: james_hollinsworth_1804
+Facts:
+birthYear 1804,
+hasSister mary_hollingsworth_1801,
+hasSister ann_hollinsworth_1808
+
+
+Individual: ann_hollinsworth_1808
+Facts:
+birthYear 1808
+
+
+Individual: ann_lodge_1763
+Facts:
+birthYear 1763,
+deathYear  1831,
+motherOf sarah_dickens_1801,
+motherOf mary_dickens_1802
+
+
+
+Individual: james_dickens_1774
+Facts:
+birthYear 1774,
+deathYear 1836,
+fatherOf sarah_dickens_1801,
+fatherOf mary_dickens_1802
+
+
+
+Individual: mary_dickens_1802
+Facts:
+birthYear 1802
+
+
+Individual: susanna_walkerly_1777
+Facts:
+birthYear 1777,
+deathYear 1853,
+motherOf susanna_pickard_1803,
+motherOf elizabeth_pickard_1805,
+motherOf william_pickard_1805,
+motherOf richard_pickard_1807,
+motherOf ann_pickard_1809
+
+
+Individual: ralph_pickard_1775
+Facts:
+birthYear 1775,
+deathYear 1811,
+fatherOf susanna_pickard_1803,
+fatherOf elizabeth_pickard_1805,
+fatherOf william_pickard_1805,
+fatherOf richard_pickard_1807,
+fatherOf ann_pickard_1809
+
+
+Individual: susanna_pickard_1803
+Facts:
+birthYear 1803,
+hasSister elizabeth_pickard_1805,
+hasBrother william_pickard_1805,
+hasBrother richard_pickard_1807,
+hasSister ann_pickard_1809
+
+
+Individual: elizabeth_pickard_1805
+Facts:
+birthYear 1805
+
+Individual: william_pickard_1805
+Facts:
+birthYear 1805
+
+Individual: richard_pickard_1807
+Facts:
+birthYear 1807,
+deathYear 1877,
+hasSister susanna_pickard_1803,
+hasSister elizabeth_pickard_1805,
+hasBrother william_pickard_1805,
+hasSister ann_pickard_1809,
+fatherOf sarah_pickard_1839,
+fatherOf susanna_pickard_1841,
+fatherOf hannah_pickard_1844,
+fatherOf george_pickard_1847,
+fatherOf charles_pickard_1854,
+fatherOf ralph_pickard_1857,
+fatherOf harriet_ingelby_pickard_1858
+
+
+
+
+Individual: ann_pickard_1809
+Facts:
+birthYear 1809
+
+
+Individual: sarah_pickard_1839
+Facts:
+birthYear 1839,
+hasSister susanna_pickard_1841,
+hasSister hannah_pickard_1844,
+hasBrother george_pickard_1847,
+hasBrother charles_pickard_1854,
+hasBrother ralph_pickard_1857,
+hasSister harriet_ingelby_pickard_1858,
+                                       motherOf eleanor_frances_green_1863,
+motherOf mary_kate_green_1865,
+motherOf minnie_green_1871,
+motherOf lois_green_1871,
+motherOf henrietta_sarah_green_1873,
+motherOf william_henry_hutchinson_green_1875,
+motherOf frank_reginald_green_1883,
+motherOf elizabeth_quincey_green_1886
+
+
+
+
+Individual: susanna_pickard_1841
+Facts:
+birthYear 1841,
+deathYear 1919,
+hasSister sarah_pickard_1839,
+hasSister hannah_pickard_1844,
+hasBrother george_pickard_1847,
+hasBrother charles_pickard_1854,
+hasBrother ralph_pickard_1857,
+hasSister harriet_ingelby_pickard_1858
+
+
+
+Individual: hannah_pickard_1844
+Facts:
+birthYear 1844
+
+Individual: george_pickard_1847
+Facts:
+birthYear 1847
+
+Individual: charles_pickard_1854
+Facts:
+birthYear 1854
+
+Individual: ralph_pickard_1857
+Facts:
+birthYear 1857
+
+Individual: harriet_ingelby_pickard_1858
+Facts:
+birthYear 1858
+
+
+Individual: sarah_stocks_1768
+Facts:
+birthYear 1768,
+deathYear 1829,
+motherOf john_harsley_1791,
+motherOf rebecca_harsley_1793,
+motherOf randall_harsley_1801,
+motherOf elizabeth_harsley_1803,
+motherOf eleanor_harsley_1808,
+motherOf mary_harsley_1810
+
+
+Individual: robert_harsley_1762
+Facts:
+birthYear 1762,
+deathYear 1813,
+fatherOf john_harsley_1791,
+fatherOf rebecca_harsley_1793,
+fatherOf randall_harsley_1801,
+fatherOf elizabeth_harsley_1803,
+fatherOf eleanor_harsley_1808,
+fatherOf mary_harsley_1810
+
+
+
+Individual: john_harsley_1791
+Facts:
+birthYear 1791
+
+Individual: rebecca_harsley_1793
+Facts:
+birthYear 1793
+
+Individual: randall_harsley_1801
+Facts:
+birthYear 1801
+
+Individual: elizabeth_harsley_1803
+Facts:
+birthYear 1803
+
+Individual: eleanor_harsley_1808
+Facts:
+knownAs "Ellen",
+birthYear 1808,
+deathYear  1869,
+hasBrother john_harsley_1791,
+hasSister rebecca_harsley_1793,
+hasBrother randall_harsley_1801,
+hasSister elizabeth_harsley_1803,
+hasSister mary_harsley_1810
+
+
+
+Individual: mary_harsley_1810
+Facts:
+birthYear 1810,
+hasBrother john_harsley_1791,
+hasSister rebecca_harsley_1793,
+hasBrother randall_harsley_1801,
+hasSister elizabeth_harsley_1803,
+hasSister eleanor_harsley_1808
+
+
+
+Individual: william_hutchinson
+Facts:
+fatherOf hannah_hutchinson_1804
+
+Individual: mary_paddinson
+Facts:
+motherOf hannah_hutchinson_1804
+
+Individual: hannah_hutchinson_1804
+Facts:
+birthYear 1804,
+deathYear 1865,
+knownAs "fanny",
+motherOf george_green_1834,
+motherOf henry_green_1836,
+motherOf hannah_green_1839,
+motherOf mary_ann_green_1841,
+motherOf john_green_1843,
+motherOf mary_ann_green_1846
+
+Individual: william_green
+Facts:
+fatherOf rebecca_green_1800,
+fatherOf john_green_1802,
+fatherOf mary_green_1803,
+fatherOf ann_green_1806,
+fatherOf tamar_green_1810,
+fatherOf zilpah_green_1810,
+fatherOf william_green_1813
+
+
+Individual: mary_frankish
+Facts:
+motherOf rebecca_green_1800,
+motherOf john_green_1802,
+motherOf mary_green_1803,
+motherOf ann_green_1806,
+motherOf tamar_green_1810,
+motherOf zilpah_green_1810,
+motherOf william_green_1813
+
+
+
+Individual: rebecca_green_1800
+Facts:
+birthYear 1800
+
+Individual: john_green_1802
+Facts:
+birthYear 1802
+
+Individual: mary_green_1803
+Facts:
+birthYear 1803
+
+Individual: ann_green_1806
+Facts:
+birthYear 1806
+
+Individual: tamar_green_1810
+Facts:
+birthYear 1810,
+motherOf rebecca_green_1800,
+hasBrother john_green_1802,
+hasSister mary_green_1803,
+hasSister ann_green_1806,
+hasSister zilpah_green_1810,
+hasBrother william_green_1813
+
+
+
+Individual: zilpah_green_1810
+Facts:
+birthYear 1810,
+deathYear 1810
+
+Individual: william_green_1813
+Facts:
+birthYear 1813,
+deathYear 1833,
+hasSister rebecca_green_1800,
+hasBrother john_green_1802,
+hasSister mary_green_1803,
+hasSister ann_green_1806,
+hasSister tamar_green_1810,
+hasSister zilpah_green_1810,
+fatherOf george_green_1834,
+fatherOf henry_green_1836,
+fatherOf hannah_green_1839,
+fatherOf mary_ann_green_1841,
+fatherOf john_green_1843,
+fatherOf mary_ann_green_1846
+
+
+
+Individual: george_green_1834
+Facts:
+birthYear 1834,
+hasBrother henry_green_1836,
+hasSister hannah_green_1839,
+hasSister mary_ann_green_1841,
+hasBrother john_green_1843,
+hasSister mary_ann_green_1846,
+fatherOf eleanor_frances_green_1863,
+fatherOf mary_kate_green_1865,
+fatherOf minnie_green_1871,
+fatherOf lois_green_1871,
+fatherOf henrietta_sarah_green_1873,
+fatherOf william_henry_hutchinson_green_1875,
+fatherOf frank_reginald_green_1883,
+fatherOf elizabeth_quincey_green_1886
+
+
+
+
+Individual: hannah_green_1839
+Facts:
+birthYear 1839
+
+Individual: mary_ann_green_1841
+Facts:
+birthYear 1841
+
+Individual: john_green_1843
+Facts:
+birthYear 1843
+
+Individual: mary_ann_green_1846
+Facts:
+birthYear 1846
+
+Individual: eleanor_frances_green_1863
+Facts:
+birthYear 1863
+
+Individual: mary_kate_green_1865
+Facts:
+birthYear 1865
+
+Individual: minnie_green_1871
+Facts:
+birthYear 1871
+
+Individual: lois_green_1871
+Facts:
+birthYear 1871,
+deathYear 1941,
+hasSister eleanor_frances_green_1863,
+hasSister mary_kate_green_1865,
+hasSister minnie_green_1871,
+hasSister henrietta_sarah_green_1873,
+hasBrother william_henry_hutchinson_green_1875,
+hasBrother frank_reginald_green_1883,
+hasSister elizabeth_quincey_green_1886
+
+
+
+Individual: henrietta_sarah_green_1873
+Facts:
+birthYear 1873,
+hasSister eleanor_frances_green_1863,
+hasSister mary_kate_green_1865,
+hasSister minnie_green_1871,
+hasSister lois_green_1871,
+hasBrother william_henry_hutchinson_green_1875,
+hasBrother frank_reginald_green_1883,
+hasSister elizabeth_quincey_green_1886,
+motherOf violet_Sylvia_Marshall_1894 ,
+motherOf Reginald_Tacey_Marshall_1895  ,
+motherOf Richard_Henry_Marshall_1897   ,
+motherOf Minnie_Maud_Marshall_1909
+
+
+
+
+Individual: william_henry_hutchinson_green_1875
+Facts:
+birthYear 1875
+
+Individual: frank_reginald_green_1883
+Facts:
+birthYear 1883
+
+Individual: elizabeth_quincey_green_1886
+Facts:
+birthYear 1886
+
+
+Individual: henry_green_1836
+Facts:
+birthYear 1836,
+deathYear 1921,
+hasBrother george_green_1834,
+hasSister hannah_green_1839,
+hasSister mary_ann_green_1841,
+hasBrother john_green_1843,
+hasSister mary_ann_green_1846,
+hasSister eleanor_frances_green_1863,
+hasSister mary_kate_green_1865,
+hasSister minnie_green_1871,
+hasSister lois_green_1871,
+hasSister henrietta_sarah_green_1873,
+hasBrother william_henry_hutchinson_green_1875,
+hasBrother frank_reginald_green_1883,
+hasSister elizabeth_quincey_green_1886
+
+
+Individual: sarah_dickens_1801
+Facts:
+birthYear 1801,
+deathYear 1886,
+motherOf mary_dickens_1802,
+motherOf charles_jessop_1831,
+motherOf ann_jessop_1833,
+motherOf john_jessop_1834,
+motherOf james_jessop_1836,
+motherOf amelia_jessop_1837,
+motherOf emma_jessop_1839,
+motherOf mary_jessop_1840,
+motherOf ellen_jessop_1844

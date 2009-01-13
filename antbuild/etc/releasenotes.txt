@@ -1,0 +1,135 @@
+----------------------------------------------------------------------
+Release 2.2.0  (17th April 2008)
+----------------------------------------------------------------------
+
+Bug Fixes:
+
+- The getOntologyURIs method on AutoURIMapper would return physical rather than logic URIs. Fixed.
+- Namespaces for annotation URIs weren't generated. Fixed.
+- Removing a subclass axiom from an ontology cause the axiom to be added to the ontology as a GCI. Fixed.
+- When parsing an ontology, the accept types has been set to include RDF/XML.  This means that ontologies can be parsed correctly from servers that are configured to return RDF or HTML depending on the request type.
+- OWL/XML writer has been modified to write the datatype URI attribute name correctly.  Previously the name was written as "Datatype", however it should be "datatypeURI".
+- OWL/XML parser. Modified the constant handler to parse constants using the correct datatype URI attribute name (was "Datatype" and should have been "datatypeURI").
+- The constructor that required a manager in BidirectionalShortFormProviderAdapter did not rebuild the cache. Fixed.
+- Unqualified cardinality restrictions were rendered out as qualified cardinality restrictions. Fixed.
+- Saving an ontology would fail if the necessary directories did not exist. Fixed.
+- Rendering anonymous property inverses in OWL/XML was incorrect. Fixed.
+- Label and Comment annotations in the functional syntax weren't parsed properly, they were parsed as regular annotations. Fixed.
+- In the OWLXMLParserHandler, no handler for negative data property assertions was registered. Fixed.
+- Annotations that have anonymous individuals as values weren't rendered correctly. Fixed.
+- RDFXMLOntologyStorer and RDFXMLRenderer always used the ontology format that is obtainable from the manager, regardless of whether or not a custom ontology format was specified - fixed.
+- Rules that contained individual or data value objects couldn't be rendered. Fixed.
+- Declaration axioms were automatically added for data properties whether an ontology contained declaredAs triples or not. Fixed.
+- Anonymous properties weren't rendered correcty. Fixed.
+- RDF rendering for sub property axioms whose sub property is a property chain used an old rendering.  The rendering now complies with the latest OWL 2 specification.  Ontologies that use the old rendering can still be parsed.
+- RDF lists were reordered on rendering. Fixed.
+
+Enhancements:
+
+- Added support for building using ANT
+
+- OWL 1.1 namespaces changed to OWL 2.  Old ontologies that are written using the owl11 namespace will still load, but will be converted to use the owl2 namespace.
+
+- Updated the RDF parser and RDF renderer to support AllDisjointClasses and AllDisjointProperties
+
+- Added the ability to save ontologies in Turtle.
+
+- Added the ability to load ontologies that are written in Turtle
+
+- Added explanation code contributed by Clark & Parsia
+
+- Added a KRSS renderer (contributed by Olaf Noppens)
+
+- Added a new, more comprehensive KRSS parser (contributed by Olaf Noppens).  This parser can parser the version of the KRSS syntax that is used by Racer.
+
+- Added the ability to specify a connection timeout for URL connections via a system property (owlapi.connectionTimeOut) - the default value for the timeout is 20 seconds.
+
+- Added a method to OWLOntologyManager to clear all registered URI mappers
+
+- Added a method to OWLOntologyManager so that imports can be obtained by an imports declaration.
+
+- Added a convenience method to OWLOntologyManager to add a set of axioms to an ontology without having to create the AddAxiom changes
+
+- Added a makeLoadImportsRequest method on OWLOntologyManager which should be used by parsers and other loaders in order to load imports
+
+- Added the ability to set an option for silent missing imports handling on OWLOntologyManager.  When this option is set,  exceptions are not thrown when imports cannot be found or cannot be loaded.  It is possible to set a listeners that gets informed when an import cannot be found, so that the exception doesn't get lost entirely.
+
+- Added the ability to add a ontology loader listener to OWLOntologyManager.  The listener gets informed when the loading process for an ontology starts and finishes (which ontology is being loaded, from where and whether it was successfully loaded etc.).
+
+- Added a method to OWLReasonerFactory to obtain the human readable name of the reasoner that a factory creates.
+
+- Added a convenience method to OWLOntology to obtain all referenced entities
+
+- Added convenience methods to OWLEntity that check whether the entity is an OWLClass, OWLObjectProperty, OWLDataProperty, OWLIndividual or OWLDataType.  Also added asXXX to obtain an entity in its more specific form.
+
+- Added convenience methods to OWLDataFactory for creating disjoint class axioms and equivalent classes axioms.
+
+- Added a general purpose renderer interface for OWLObjects
+
+- Added an OWLInconsistentOntologyException to the inference module.
+
+- Added SKOS core to the list of well known namespaces
+
+- Added a SKOS vocabulary enum
+
+- Added methods to the OWLOntologyManager interface, so that ontologies can be saved to an output target as well as a URI.  Added implementations of OWLOntologyOutputTarget to enable writing directly to OutputStreams and Writers.
+
+- Added a StringOutputTarget for writing ontologies into a buffer that can be obtained as a string.
+
+- Added some new input sources:  StreamInputSource, ReaderInputSource, FileInputSource
+
+- RDF Parser. Made the description translator selector more intelligent so that when properties aren't typed as either object or data properties, other triples are examined to make the appropriate choice.
+
+- OWLRestrictedDataRangeFacetVocabulary.  Added methods to obtain facets by their symbolic name (e.g. >=)
+
+- BidirectionalShortFormProvider.  Added a method to obtain all short forms cached by the provider.
+
+- Added an option to turn tabbing on/off when rendering Manchester Syntax
+
+- Added more documentation for the method which adds ontology URI mappers
+
+- Improved error handling when loading ontologies: For errors that have nothing to do with parse errors e.g. unknown host exceptions, the factory will 
+rethrow the error at the earliest opportunity rather than trying all parsers.
+
+- Updated parser to throw ManchesterOWLSyntaxOntologyParserException which is a more specific type of OWLParserException
+
+- Updated the BidirectionalShortFormProviderAdapter with functionality to track ontology changes and update the rendering cache depending on whether entities are referenced or not.
+
+- Added a latex renderer for rendering ontology axioms in a latex format
+
+- Added the ability to parse ontologies written in ManchesterOWLSyntax
+
+- Added URIShortFormProvider as a general purpose interface for providing short forms for URIs. Changed SimpleShortFormProvider to use the SimpleURIShortFormProvider as a base
+
+- Made the toString rendering of the default implementation pluggable via the ToStringRenderer singleton class.
+
+- Added some convenience methods to the OWLDataFactory to make creating certain types of objects less tedious.  Specifically: ObjectIntersectionOf, ObjectUnionOf, ObjectOneOf and DataOneOf can now be created using methods that take a variable number of arguments (OWLDescriptions, OWLIndividuals or OWLConstants as appropriate).  Also, added convenience methods that create typed constants directly from Java Strings, ints, doubles, floats and booleans.  For example, createOWLTypedConstant(3) will create a typed constant with a lexical value of "3" and a datatype of xsd:integer.  Added convenice methods for creating entity annotations without manually having to create OWLAnnotation objects.
+
+- Added a getAxiomType method on to the OWLAxiom interface for convenience.
+
+- Added functionality to the debugging module for ordering explanations
+
+- Added generics to the inferred axiom generator API
+
+- Added a new constructor to OWLOntologyNamespaceManager so that it is possible to override the ontology format that is used as a hint when generating namespaces.
+
+- Added a dlsyntax renderer module that can renderer axioms etc. in the traditional dlsyntax using unicode for the dlsyntax symbols.
+
+- Modified the RDFXMLNamespaceManager to select the minimal amount of entities for which namespaces need to be generated.  Namespaces are only generated for classes in OWLClassAssertionAxioms, and properties in OWLObjectPropertyAssertionAxioms and OWLDataPropertyAssertionAxioms.  This basically corresponds to the places where valid QNames are needed for entities.
+
+- Added code to add declarations for "dangling entities".  If an RDF graph contains  <ClsA> <rdfs:type> <owl:Class> and ClsA has not been referenced by any other axioms then this would have been dropped by the parser - this has been changed so that declaration axioms are added to the ontology in such cases.  (Hopefully, the OWL 1.1 spec will be updated to do something like this in the mapping to RDF graphs).
+
+- Added a utility class, AxiomSubjectProvider, which given an axiom returns an object which is regarded to be the "subject" of the axioms.  For example given SubClassOf(ClsA ClsB), ClsA is regarded as being the subject.
+
+- Modified the ontology URI short form provider to provide nicer looking short forms.
+
+- Added a convenience method to get the individuals that have been asserted to be an instance of an OWLClass.
+
+- Commons lang is no longer used in the API because it had been replaced with a lightweight utility class in order to escape strings.
+
+- Removed the fragments module and replaced it with the profiles module.  The EL++ profile is currently implemented.
+
+- Added support for extended visitors that can return objects in the visit method.
+
+- Turned off logging in the RDF parser classes by default.
+
