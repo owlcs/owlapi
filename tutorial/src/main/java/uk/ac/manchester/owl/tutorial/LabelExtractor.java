@@ -52,7 +52,7 @@ public class LabelExtractor implements OWLAnnotationVisitor {
          */
         if (annotation.isLabel()) {
             OWLLiteral c = annotation.getAnnotationValue();
-            result = c.getLiteral();
+            result = c.getString();
         }
     }
 

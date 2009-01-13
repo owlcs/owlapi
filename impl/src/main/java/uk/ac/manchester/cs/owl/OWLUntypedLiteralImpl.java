@@ -128,6 +128,6 @@ public class OWLUntypedLiteralImpl extends OWLLiteralImpl implements OWLUntypedL
             }
         }
 
-        return getLiteral().compareTo(other.getLiteral());
+        return getString().compareTo(other.getString());
     }
 }

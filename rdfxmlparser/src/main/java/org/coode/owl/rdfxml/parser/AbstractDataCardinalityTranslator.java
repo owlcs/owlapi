@@ -61,7 +61,7 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
         if (cardiObject == null) {
             throw new MalformedDescriptionException(getCardinalityTriplePredicate() + " not present");
         }
-        return Integer.parseInt(cardiObject.getLiteral());
+        return Integer.parseInt(cardiObject.getString());
     }
 
 

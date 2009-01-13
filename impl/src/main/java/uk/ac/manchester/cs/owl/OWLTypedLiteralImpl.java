@@ -97,6 +97,6 @@ public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiter
         if(diff != 0) {
             return diff;
         }
-        return getLiteral().compareTo(other.getLiteral());
+        return getString().compareTo(other.getString());
     }
 }

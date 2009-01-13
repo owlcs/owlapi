@@ -779,7 +779,7 @@ public class ManchesterOWLSyntaxEditorParser {
                     }
                     OWLLiteral con = parseConstant();
                     if (!con.isTyped()) {
-                        con = dataFactory.getOWLTypedConstant(con.getLiteral());
+                        con = dataFactory.getOWLTypedConstant(con.getString());
                     }
                     facetRestrictions.add(dataFactory.getOWLDataRangeFacetRestriction(fv, con.asOWLTypedConstant()));
                     sep = consumeToken();
@@ -1052,15 +1052,15 @@ public class ManchesterOWLSyntaxEditorParser {
                 URI annoURI = getAnnotationURI(prop);
                 if (annoURI.equals(OWLRDFVocabulary.RDFS_LABEL.getURI())) {
                     if (con.isTyped()) {
-                        anno = dataFactory.getOWLLabelAnnotation(con.getLiteral());
+                        anno = dataFactory.getOWLLabelAnnotation(con.getString());
                     }
                     else {
                         if (con.asOWLUntypedConstant().hasLang()) {
-                            anno = dataFactory.getOWLLabelAnnotation(con.getLiteral(),
+                            anno = dataFactory.getOWLLabelAnnotation(con.getString(),
                                                                      con.asOWLUntypedConstant().getLang());
                         }
                         else {
-                            anno = dataFactory.getOWLLabelAnnotation(con.getLiteral());
+                            anno = dataFactory.getOWLLabelAnnotation(con.getString());
                         }
                     }
                 }

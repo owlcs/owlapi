@@ -612,7 +612,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLTypedLiteral node) {
         sb.append("\"");
-        sb.append(node.getLiteral());
+        sb.append(node.getString());
         sb.append("\"^^");
         node.getDataType().accept(this);
     }
@@ -620,7 +620,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLUntypedLiteral node) {
         sb.append("\"");
-        sb.append(node.getLiteral());
+        sb.append(node.getString());
         sb.append("\"");
         if (node.hasLang()) {
             sb.append("@");

@@ -130,14 +130,14 @@ public abstract class RDFRendererBase {
                         OWLLiteral con = anno.getAnnotationValueAsConstant();
                         RDFLiteralNode obj;
                         if (con.isTyped()) {
-                            obj = new RDFLiteralNode(con.getLiteral(), con.asOWLTypedConstant().getDataType().getURI());
+                            obj = new RDFLiteralNode(con.getString(), con.asOWLTypedConstant().getDataType().getURI());
                         }
                         else {
                             if (con.asOWLUntypedConstant().hasLang()) {
-                                obj = new RDFLiteralNode(con.getLiteral(), con.asOWLUntypedConstant().getLang());
+                                obj = new RDFLiteralNode(con.getString(), con.asOWLUntypedConstant().getLang());
                             }
                             else {
-                                obj = new RDFLiteralNode(con.getLiteral());
+                                obj = new RDFLiteralNode(con.getString());
                             }
                         }
                         graph.addTriple(new RDFTriple(new RDFResourceNode(uri),

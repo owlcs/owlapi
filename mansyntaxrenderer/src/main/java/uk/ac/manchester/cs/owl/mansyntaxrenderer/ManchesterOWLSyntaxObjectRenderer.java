@@ -328,20 +328,20 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLTypedLiteral node) {
         if (node.getDataType().getURI().equals(XSDVocabulary.DOUBLE.getURI())) {
-            write(node.getLiteral());
+            write(node.getString());
         }
         else if (node.getDataType().getURI().equals(XSDVocabulary.FLOAT.getURI())) {
-            write(node.getLiteral());
+            write(node.getString());
             write("f");
         }
         else if (node.getDataType().getURI().equals(XSDVocabulary.INTEGER.getURI())) {
-            write(node.getLiteral());
+            write(node.getString());
         }
         else {
             write("\"");
             pushTab(getIndent());
-//            write(node.getLiteral(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
-            write(node.getLiteral());
+//            write(node.getString(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
+            write(node.getString());
             popTab();
             write("\"^^");
             write(node.getDataType().getURI());
@@ -352,8 +352,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public void visit(OWLUntypedLiteral node) {
         write("\"");
         pushTab(getIndent());
-        write(node.getLiteral());
-//        write(node.getLiteral(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
+        write(node.getString());
+//        write(node.getString(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
         popTab();
         write("\"");
         if (node.hasLang()) {

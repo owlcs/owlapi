@@ -135,7 +135,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
         for (OWLAnnotationAxiom ax : ontology.getAnnotations(ontology)){
             if (ax.getAnnotation().getAnnotationURI().equals(OWLRDFVocabulary.RDFS_COMMENT.getURI())){
-                tvpList.addPair(OBOVocabulary.REMARK, ax.getAnnotation().getAnnotationValueAsConstant().getLiteral());
+                tvpList.addPair(OBOVocabulary.REMARK, ax.getAnnotation().getAnnotationValueAsConstant().getString());
             }
             else{
                 tvpList.visit(ax);
@@ -557,7 +557,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
                 potentialNames.add(annotation);
             }
             else if (annotation.getAnnotationURI().equals(OWLRDFVocabulary.RDFS_COMMENT.getURI())){
-                tvpList.addPair(OBOVocabulary.COMMENT, annotation.getAnnotationValueAsConstant().getLiteral());
+                tvpList.addPair(OBOVocabulary.COMMENT, annotation.getAnnotationValueAsConstant().getString());
             }
             else{
                 tvpList.visit(annotation);
@@ -567,7 +567,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         if (tvpList.getValues(OBOVocabulary.NAME).isEmpty()){ // one name required!!
             if (!potentialNames.isEmpty()){
                 OWLAnnotation firstLabel = potentialNames.iterator().next();
-                tvpList.addPair(OBOVocabulary.NAME, firstLabel.getAnnotationValueAsConstant().getLiteral());
+                tvpList.addPair(OBOVocabulary.NAME, firstLabel.getAnnotationValueAsConstant().getString());
                 potentialNames.remove(firstLabel);
             }
             else{
@@ -594,7 +594,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
     private String renderPropertyAssertion(OWLDataProperty property, OWLLiteral literal) {
         StringBuilder sb = new StringBuilder(getID(property));
         sb.append(" \"");
-        sb.append(literal.getLiteral());
+        sb.append(literal.getString());
         sb.append("\" ");
         if (literal.isTyped()){
             sb.append(literal.asOWLTypedConstant().getDataType().getURI());

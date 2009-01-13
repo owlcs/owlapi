@@ -75,7 +75,7 @@ public class OBOTagValuePairList {
 
 
     public void visit(OWLAnnotation annot){
-        addPair(annot.getAnnotationURI(), annot.getAnnotationValueAsConstant().getLiteral());
+        addPair(annot.getAnnotationURI(), annot.getAnnotationValueAsConstant().getString());
     }
 
 

@@ -829,7 +829,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLTypedLiteral node) {
         write("\"");
-        write(EscapeUtils.escapeString(node.getLiteral()));
+        write(EscapeUtils.escapeString(node.getString()));
         write("\"");
         write("^^");
         write(node.getDataType().getURI());
@@ -838,7 +838,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLUntypedLiteral node) {
         write("\"");
-        write(EscapeUtils.escapeString(node.getLiteral()));
+        write(EscapeUtils.escapeString(node.getString()));
         write("\"");
         if (node.hasLang()) {
             write("@");

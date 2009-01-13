@@ -34,16 +34,16 @@ package org.semanticweb.owl.model;
 public interface OWLLiteral extends OWLObject {
 
     /**
-     * Gets the string literal that this constant represents.
+     * Gets the string that this literal represents.
      */
-    String getLiteral();
+    String getString();
 
 
     /**
-     * Determines if this constant is typed (i.e. an instance
-     * of <code>OWLTypedConstant</code>)
-     * @return <code>true</code> if the constant is typed, or
-     * <code>false</code> if the constant is untyped.
+     * Determines if this literal is typed (i.e. an instance
+     * of <code>OWLTypedLiteral</code>)
+     * @return <code>true</code> if the literal is typed, otherwise false
+     * <code>false</code>
      */
     boolean isTyped();
 

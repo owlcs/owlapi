@@ -65,7 +65,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
         if(con == null) {
             throw new MalformedDescriptionException(getCardinalityTriplePredicate() + " not present");
         }
-        return Integer.parseInt(con.getLiteral());
+        return Integer.parseInt(con.getString());
     }
 
 

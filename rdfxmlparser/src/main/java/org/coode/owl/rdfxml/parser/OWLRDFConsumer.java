@@ -1394,7 +1394,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                     typedConstants.add((OWLTypedLiteral) con);
                 }
                 else {
-                    typedConstants.add(getDataFactory().getOWLTypedConstant(con.getLiteral(),
+                    typedConstants.add(getDataFactory().getOWLTypedConstant(con.getString(),
                                                                             getDataFactory().getOWLDataType(
                                                                                     XSDVocabulary.STRING.getURI())));
                 }
@@ -1425,7 +1425,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                     else {
                         restrictions.add(dataFactory.getOWLDataRangeFacetRestriction(
                                 OWLRestrictedDataRangeFacetVocabulary.getFacet(facetURI),
-                                dataFactory.getOWLTypedConstant(val.getLiteral(),
+                                dataFactory.getOWLTypedConstant(val.getString(),
                                                                 OWLDataUtil.getIntDataType(dataFactory))));
                     }
                 }
