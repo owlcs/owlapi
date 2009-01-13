@@ -31,7 +31,7 @@ import java.util.Set;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLObjectOneOf extends OWLAnonymousDescription {
+public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
 
     /**
      * Gets the individuals that are in the oneOf.  These
@@ -47,5 +47,5 @@ public interface OWLObjectOneOf extends OWLAnonymousDescription {
      * simp({a}) = {a}
      * simp({a0, ... , {an}) = unionOf({a0}, ... , {an})
      */
-    OWLDescription asObjectUnionOf();
+    OWLClassExpression asObjectUnionOf();
 }

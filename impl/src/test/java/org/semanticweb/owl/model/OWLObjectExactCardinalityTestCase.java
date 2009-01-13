@@ -37,7 +37,7 @@ public class OWLObjectExactCardinalityTestCase extends AbstractOWLObjectCardinal
 
 
     protected OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop, int cardinality,
-                                                                OWLDescription description) throws Exception {
-        return getOWLDataFactory().getOWLObjectExactCardinalityRestriction(prop, cardinality, description);
+                                                                OWLClassExpression classExpression) throws Exception {
+        return getOWLDataFactory().getOWLObjectExactCardinalityRestriction(prop, cardinality, classExpression);
     }
 }

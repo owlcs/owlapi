@@ -29,19 +29,19 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public class OWLObjectPropertyDomainAxiomTestCase extends AbstractOWLBinaryOperandAxiomTestCase<OWLObjectProperty, OWLDescription> {
+public class OWLObjectPropertyDomainAxiomTestCase extends AbstractOWLBinaryOperandAxiomTestCase<OWLObjectProperty, OWLClassExpression> {
 
     protected OWLObjectProperty createLeftOperand() throws Exception {
         return createOWLObjectProperty();
     }
 
 
-    protected OWLDescription createRightOperand() throws Exception {
+    protected OWLClassExpression createRightOperand() throws Exception {
         return createOWLClass();
     }
 
 
-    protected OWLAxiom createAxiom(OWLObjectProperty leftOperand, OWLDescription rightOperand) throws Exception {
+    protected OWLAxiom createAxiom(OWLObjectProperty leftOperand, OWLClassExpression rightOperand) throws Exception {
         return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(leftOperand, rightOperand);
     }
 }

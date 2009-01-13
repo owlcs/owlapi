@@ -1,19 +1,8 @@
 package org.coode.owl.rdf;
 
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.io.OWLParserFactoryRegistry;
-import org.semanticweb.owl.util.CollectionFactory;
-import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
-import org.coode.owl.rdf.rdfxml.RDFXMLOntologyStorer;
-import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
 
 import java.util.*;
-import java.io.File;
-
-import junit.framework.TestCase;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -54,12 +43,12 @@ public class TestEquivalentClasses extends AbstractRendererAndParserTestCase {
     protected Set<OWLAxiom> getAxioms() {
         OWLClass clsA = getManager().getOWLDataFactory().getOWLClass(TestUtils.createURI());
         OWLObjectProperty prop = getManager().getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
-        OWLDescription descA = getManager().getOWLDataFactory().getOWLObjectSomeRestriction(prop,
+        OWLClassExpression descA = getManager().getOWLDataFactory().getOWLObjectSomeRestriction(prop,
                                                                                             getManager().getOWLDataFactory().getOWLThing());
-        Set<OWLDescription> descriptions = new HashSet<OWLDescription>();
-        descriptions.add(clsA);
-        descriptions.add(descA);
-        OWLAxiom ax = getManager().getOWLDataFactory().getOWLEquivalentClassesAxiom(descriptions);
+        Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
+        classExpressions.add(clsA);
+        classExpressions.add(descA);
+        OWLAxiom ax = getManager().getOWLDataFactory().getOWLEquivalentClassesAxiom(classExpressions);
         return Collections.singleton(ax);
     }
 }

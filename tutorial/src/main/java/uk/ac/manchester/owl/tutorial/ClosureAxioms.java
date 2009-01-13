@@ -5,7 +5,7 @@ import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLClass;
 import org.semanticweb.owl.model.OWLClassAxiom;
 import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 import org.semanticweb.owl.model.OWLOntology;
@@ -78,12 +78,12 @@ public class ClosureAxioms {
             axiom.accept(collector);
         }
 
-        Map<OWLObjectPropertyExpression, Set<OWLDescription>> restrictions = new HashMap<OWLObjectPropertyExpression, Set<OWLDescription>>();
+        Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions = new HashMap<OWLObjectPropertyExpression, Set<OWLClassExpression>>();
 
         /* For each axiom.... */
         for (OWLSubClassAxiom axiom : collector.getAxioms()) {
             /* Get the superclass */
-            OWLDescription superClass = axiom.getSuperClass();
+            OWLClassExpression superClass = axiom.getSuperClass();
 
             /* Collect any existentials */
             ExistentialCollector ec = new ExistentialCollector(restrictions);
@@ -93,16 +93,16 @@ public class ClosureAxioms {
         /* For any existentials.... */
         for (OWLObjectPropertyExpression prop : restrictions.keySet()) {
             System.out.println("prop: " + prop);
-            Set<OWLDescription> fillers = restrictions.get(prop);
-            for (OWLDescription filler : fillers) {
+            Set<OWLClassExpression> fillers = restrictions.get(prop);
+            for (OWLClassExpression filler : fillers) {
                 System.out.println("------> " + filler);
             }
 
             /* Create a union of the fillers */
-            OWLDescription union = factory.getOWLObjectUnionOf(fillers);
+            OWLClassExpression union = factory.getOWLObjectUnionOf(fillers);
 
             /* Create a universal restriction */
-            OWLDescription universal = factory.getOWLObjectAllRestriction(prop,
+            OWLClassExpression universal = factory.getOWLObjectAllRestriction(prop,
                     union);
 
             /* Create a new axiom */

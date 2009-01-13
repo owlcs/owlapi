@@ -70,7 +70,7 @@ public class Example9 {
             // In this case, restrictions are used as (anonymous) superclasses, so to get the restrictions on
             // margherita pizza we need to obtain the subclass axioms for margherita pizza.
             for(OWLSubClassAxiom ax : ont.getSubClassAxiomsForLHS(margheritaPizza)) {
-                OWLDescription superCls = ax.getSuperClass();
+                OWLClassExpression superCls = ax.getSuperClass();
                 // Ask our superclass to accept a visit from the RestrictionVisitor - if it is an
                 // existential restiction then our restriction visitor will process it - if not our
                 // visitor will ignore it
@@ -143,7 +143,7 @@ public class Example9 {
 
 
         public void visit(OWLObjectSomeRestriction desc) {
-            // This method gets called when a description (OWLDescription) is an
+            // This method gets called when a description (OWLClassExpression) is an
             // existential (someValuesFrom) restriction and it asks us to visit it
             restrictedProperties.add(desc.getProperty());
         }

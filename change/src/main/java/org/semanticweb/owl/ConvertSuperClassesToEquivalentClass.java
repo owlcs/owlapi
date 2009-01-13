@@ -78,15 +78,15 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
         // We remove the existing superclasses and then combine these
         // into an intersection which is made equivalent.
         changes = new ArrayList<OWLOntologyChange>();
-        Set<OWLDescription> descs = new HashSet<OWLDescription>();
+        Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
             for (OWLSubClassAxiom ax : ont.getSubClassAxiomsForLHS(cls)) {
                 changes.add(new RemoveAxiom(ont, ax));
                 descs.add(ax.getSuperClass());
             }
         }
-        OWLDescription equivalentClass = getDataFactory().getOWLObjectIntersectionOf(descs);
-        Set<OWLDescription> equivalentClasses = new HashSet<OWLDescription>();
+        OWLClassExpression equivalentClass = getDataFactory().getOWLObjectIntersectionOf(descs);
+        Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>();
         equivalentClasses.add(cls);
         equivalentClasses.add(equivalentClass);
         changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLEquivalentClassesAxiom(equivalentClasses)));

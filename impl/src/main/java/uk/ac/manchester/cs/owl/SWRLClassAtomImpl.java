@@ -31,9 +31,9 @@ import org.semanticweb.owl.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<OWLDescription, SWRLAtomIObject> implements SWRLClassAtom {
+public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<OWLClassExpression, SWRLAtomIObject> implements SWRLClassAtom {
 
-    public SWRLClassAtomImpl(OWLDataFactory dataFactory, OWLDescription predicate, SWRLAtomIObject arg) {
+    public SWRLClassAtomImpl(OWLDataFactory dataFactory, OWLClassExpression predicate, SWRLAtomIObject arg) {
         super(dataFactory, predicate, arg);
     }
 

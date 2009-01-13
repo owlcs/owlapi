@@ -142,7 +142,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     // A translator for lists of descriptions (such lists are used
     // in intersections, unions etc.)
-    private OptimisedListTranslator<OWLDescription> descriptionListTranslator;
+    private OptimisedListTranslator<OWLClassExpression> descriptionListTranslator;
 
     // A translator for individual lists (such lists are used in
     // object oneOf constructs)
@@ -245,7 +245,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         listFirstResourceTripleMap = CollectionFactory.createMap();
         listRestTripleMap = CollectionFactory.createMap();
         reifiedAxiomsMap = CollectionFactory.createMap();
-        descriptionListTranslator = new OptimisedListTranslator<OWLDescription>(this,
+        descriptionListTranslator = new OptimisedListTranslator<OWLClassExpression>(this,
                                                                                 new DescriptionListItemTranslator(this));
         individualListTranslator = new OptimisedListTranslator<OWLIndividual>(this,
                                                                               new IndividualListItemTranslator(this));
@@ -1487,14 +1487,14 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    private Map<URI, OWLDescription> translatedDescriptions = new HashMap<URI, OWLDescription>();
+    private Map<URI, OWLClassExpression> translatedDescriptions = new HashMap<URI, OWLClassExpression>();
 
 
-    public OWLDescription translateDescription(URI mainNode) throws OWLException {
+    public OWLClassExpression translateDescription(URI mainNode) throws OWLException {
         if (!isAnonymousNode(mainNode)) {
             return getDataFactory().getOWLClass(mainNode);
         }
-        OWLDescription desc = translatedDescriptions.get(mainNode);
+        OWLClassExpression desc = translatedDescriptions.get(mainNode);
         if (desc == null) {
             DescriptionTranslator translator = descriptionTranslatorSelector.getDescriptionTranslator(mainNode);
             if (translator != null) {
@@ -1513,7 +1513,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    public OWLDescription getDescriptionIfTranslated(URI mainNode) {
+    public OWLClassExpression getDescriptionIfTranslated(URI mainNode) {
         return translatedDescriptions.get(mainNode);
     }
 
@@ -1526,7 +1526,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         return dataPropertyListTranslator.translateList(mainNode);
     }
 
-    public Set<OWLDescription> translateToDescriptionSet(URI mainNode) throws OWLException {
+    public Set<OWLClassExpression> translateToDescriptionSet(URI mainNode) throws OWLException {
         return descriptionListTranslator.translateToSet(mainNode);
     }
 

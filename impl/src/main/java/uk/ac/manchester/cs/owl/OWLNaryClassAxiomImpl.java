@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLNaryClassAxiom;
 import org.semanticweb.owl.model.OWLObject;
 
@@ -41,23 +41,23 @@ import java.util.TreeSet;
  */
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements OWLNaryClassAxiom {
 
-    private Set<OWLDescription> descriptions;
+    private Set<OWLClassExpression> classExpressions;
 
 
-    public OWLNaryClassAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLDescription> descriptions) {
+    public OWLNaryClassAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> descriptions) {
         super(dataFactory);
-        this.descriptions = Collections.unmodifiableSortedSet(new TreeSet<OWLDescription>(descriptions));
+        this.classExpressions = Collections.unmodifiableSortedSet(new TreeSet<OWLClassExpression>(descriptions));
     }
 
 
-    public Set<OWLDescription> getDescriptions() {
-        return descriptions;
+    public Set<OWLClassExpression> getDescriptions() {
+        return classExpressions;
     }
 
 
-    public Set<OWLDescription> getDescriptionsMinus(OWLDescription ... descs) {
-        Set<OWLDescription> result = new HashSet<OWLDescription>(descriptions);
-        for(OWLDescription desc : descs) {
+    public Set<OWLClassExpression> getDescriptionsMinus(OWLClassExpression... descs) {
+        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>(classExpressions);
+        for(OWLClassExpression desc : descs) {
             result.remove(desc);
         }
         return result;
@@ -69,13 +69,13 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
             if (!(obj instanceof OWLNaryClassAxiom)) {
                 return false;
             }
-            return ((OWLNaryClassAxiom) obj).getDescriptions().equals(descriptions);
+            return ((OWLNaryClassAxiom) obj).getDescriptions().equals(classExpressions);
         }
         return false;
     }
 
 
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareSets(descriptions, ((OWLNaryClassAxiom) object).getDescriptions());
+        return compareSets(classExpressions, ((OWLNaryClassAxiom) object).getDescriptions());
     }
 }

@@ -87,22 +87,22 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public OWLDescription getNNF() {
+    public OWLClassExpression getNNF() {
         return this;
     }
 
 
-    public Set<OWLDescription> asConjunctSet() {
-        return Collections.singleton((OWLDescription) this);
+    public Set<OWLClassExpression> asConjunctSet() {
+        return Collections.singleton((OWLClassExpression) this);
     }
 
 
-    public Set<OWLDescription> asDisjunctSet() {
-        return Collections.singleton((OWLDescription) this);
+    public Set<OWLClassExpression> asDisjunctSet() {
+        return Collections.singleton((OWLClassExpression) this);
     }
 
 
-    public OWLDescription getComplementNNF() {
+    public OWLClassExpression getComplementNNF() {
         return getOWLDataFactory().getOWLObjectComplementOf(this);
     }
 
@@ -127,8 +127,8 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public Set<OWLDescription> getSuperClasses(OWLOntology ontology) {
-        Set<OWLDescription> result = new TreeSet<OWLDescription>();
+    public Set<OWLClassExpression> getSuperClasses(OWLOntology ontology) {
+        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLSubClassAxiom axiom : getSubClassAxioms(ontology)) {
             result.add(axiom.getSuperClass());
         }
@@ -136,8 +136,8 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public Set<OWLDescription> getSuperClasses(Set<OWLOntology> ontologies) {
-        Set<OWLDescription> result = new TreeSet<OWLDescription>();
+    public Set<OWLClassExpression> getSuperClasses(Set<OWLOntology> ontologies) {
+        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
             result.addAll(getSuperClasses(ont));
         }
@@ -145,8 +145,8 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public Set<OWLDescription> getSubClasses(OWLOntology ontology) {
-        Set<OWLDescription> result = new TreeSet<OWLDescription>();
+    public Set<OWLClassExpression> getSubClasses(OWLOntology ontology) {
+        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLSubClassAxiom axiom : ontology.getSubClassAxiomsForRHS(this)) {
             result.add(axiom.getSubClass());
         }
@@ -154,8 +154,8 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public Set<OWLDescription> getSubClasses(Set<OWLOntology> ontologies) {
-        Set<OWLDescription> result = new TreeSet<OWLDescription>();
+    public Set<OWLClassExpression> getSubClasses(Set<OWLOntology> ontologies) {
+        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
             result.addAll(getSubClasses(ont));
         }
@@ -163,8 +163,8 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public Set<OWLDescription> getEquivalentClasses(OWLOntology ontology) {
-        Set<OWLDescription> result = new TreeSet<OWLDescription>();
+    public Set<OWLClassExpression> getEquivalentClasses(OWLOntology ontology) {
+        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLEquivalentClassesAxiom axiom : getEquivalentClassesAxioms(ontology)) {
             result.addAll(axiom.getDescriptions());
         }
@@ -174,8 +174,8 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public Set<OWLDescription> getEquivalentClasses(Set<OWLOntology> ontologies) {
-        Set<OWLDescription> result = new TreeSet<OWLDescription>();
+    public Set<OWLClassExpression> getEquivalentClasses(Set<OWLOntology> ontologies) {
+        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
             result.addAll(getEquivalentClasses(ont));
         }
@@ -183,8 +183,8 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public Set<OWLDescription> getDisjointClasses(OWLOntology ontology) {
-        Set<OWLDescription> result = new TreeSet<OWLDescription>();
+    public Set<OWLClassExpression> getDisjointClasses(OWLOntology ontology) {
+        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLDisjointClassesAxiom axiom : getDisjointClassesAxioms(ontology)) {
             result.addAll(axiom.getDescriptions());
         }
@@ -194,8 +194,8 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public Set<OWLDescription> getDisjointClasses(Set<OWLOntology> ontologies) {
-        Set<OWLDescription> result = new TreeSet<OWLDescription>();
+    public Set<OWLClassExpression> getDisjointClasses(Set<OWLOntology> ontologies) {
+        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
             result.addAll(getDisjointClasses(ont));
         }

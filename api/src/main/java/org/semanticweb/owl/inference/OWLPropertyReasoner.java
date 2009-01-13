@@ -67,10 +67,10 @@ public interface OWLPropertyReasoner extends OWLReasonerBase {
      * @return The domains of the property.  A set of sets of (named) equivalence classes.
      * @throws OWLReasonerException If there is a problem with the reasoner.
      */
-    public Set<Set<OWLDescription>> getDomains(OWLObjectProperty property) throws OWLReasonerException;
+    public Set<Set<OWLClassExpression>> getDomains(OWLObjectProperty property) throws OWLReasonerException;
 
 
-    public Set<OWLDescription> getRanges(OWLObjectProperty property) throws OWLReasonerException;
+    public Set<OWLClassExpression> getRanges(OWLObjectProperty property) throws OWLReasonerException;
 
 
     public boolean isFunctional(OWLObjectProperty property) throws OWLReasonerException;
@@ -116,7 +116,7 @@ public interface OWLPropertyReasoner extends OWLReasonerBase {
     public Set<OWLDataProperty> getEquivalentProperties(OWLDataProperty property) throws OWLReasonerException;
 
 
-    public Set<Set<OWLDescription>> getDomains(OWLDataProperty property) throws OWLReasonerException;
+    public Set<Set<OWLClassExpression>> getDomains(OWLDataProperty property) throws OWLReasonerException;
 
 
     public Set<OWLDataRange> getRanges(OWLDataProperty property) throws OWLReasonerException;

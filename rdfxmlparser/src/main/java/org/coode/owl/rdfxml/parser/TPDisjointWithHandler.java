@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
@@ -53,7 +53,7 @@ public class TPDisjointWithHandler extends TriplePredicateHandler {
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        Set<OWLDescription> operands = new HashSet<OWLDescription>();
+        Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateDescription(subject));
         operands.add(translateDescription(object));
         addAxiom(getDataFactory().getOWLDisjointClassesAxiom(operands));

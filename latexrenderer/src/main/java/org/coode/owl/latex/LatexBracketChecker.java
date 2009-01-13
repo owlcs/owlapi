@@ -128,12 +128,12 @@ public class LatexBracketChecker implements OWLDescriptionVisitor {
     }
 
 
-    public static boolean requiresBracket(OWLDescription description) {
+    public static boolean requiresBracket(OWLClassExpression classExpression) {
         if(instance == null) {
             instance = new LatexBracketChecker();
         }
         instance.requiresBracket = true;
-            description.accept(instance);
+            classExpression.accept(instance);
         return instance.requiresBracket;
 
     }

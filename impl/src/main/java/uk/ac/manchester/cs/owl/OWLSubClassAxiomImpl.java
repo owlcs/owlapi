@@ -36,25 +36,25 @@ import java.util.HashSet;
  */
 public class OWLSubClassAxiomImpl extends OWLNaryClassAxiomImpl implements OWLSubClassAxiom {
 
-    private OWLDescription subClass;
+    private OWLClassExpression subClass;
 
-    private OWLDescription superClass;
+    private OWLClassExpression superClass;
 
 
-    public OWLSubClassAxiomImpl(OWLDataFactory dataFactory, OWLDescription subClass,
-                                OWLDescription superClass) {
-        super(dataFactory, new HashSet<OWLDescription>(Arrays.asList(subClass, superClass)));
+    public OWLSubClassAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression subClass,
+                                OWLClassExpression superClass) {
+        super(dataFactory, new HashSet<OWLClassExpression>(Arrays.asList(subClass, superClass)));
         this.subClass = subClass;
         this.superClass = superClass;
     }
 
 
-    public OWLDescription getSubClass() {
+    public OWLClassExpression getSubClass() {
         return subClass;
     }
 
 
-    public OWLDescription getSuperClass() {
+    public OWLClassExpression getSuperClass() {
         return superClass;
     }
 

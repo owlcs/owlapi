@@ -40,7 +40,7 @@ import java.util.List;
  * class descriptions.  This comparator provides an implementation that
  * can be used to order class descriptions.
  */
-public class OWLDescriptionComparator implements Comparator<OWLDescription> {
+public class OWLDescriptionComparator implements Comparator<OWLClassExpression> {
 
     /*
         The basic idea behind the comparator is to first compare descriptions at
@@ -57,7 +57,7 @@ public class OWLDescriptionComparator implements Comparator<OWLDescription> {
     }
 
 
-    public int compare(OWLDescription o1, OWLDescription o2) {
+    public int compare(OWLClassExpression o1, OWLClassExpression o2) {
         return descriptionComparator.compare(o1, o2);
     }
 
@@ -303,7 +303,7 @@ public class OWLDescriptionComparator implements Comparator<OWLDescription> {
         }
     }
 
-    private static class NaryBooleanDescriptionComparator extends AbstractOWLDescriptionComparator<OWLNaryBooleanDescription> {
+    private static class NaryBooleanDescriptionComparator extends AbstractOWLDescriptionComparator<OWLNaryBooleanClassExpression> {
 
         private CoarseGrainedDescriptionComparator descriptionComparator;
 
@@ -313,16 +313,16 @@ public class OWLDescriptionComparator implements Comparator<OWLDescription> {
         }
 
 
-        protected int compareObjects(OWLNaryBooleanDescription o1, OWLNaryBooleanDescription o2) {
+        protected int compareObjects(OWLNaryBooleanClassExpression o1, OWLNaryBooleanClassExpression o2) {
             CoarseGrainedDescriptionComparator descriptionComparator = new CoarseGrainedDescriptionComparator(getShortFormProvider());
-            List<OWLDescription> descsA = new ArrayList<OWLDescription>(o1.getOperands());
-            List<OWLDescription> descsB = new ArrayList<OWLDescription>(o2.getOperands());
+            List<OWLClassExpression> descsA = new ArrayList<OWLClassExpression>(o1.getOperands());
+            List<OWLClassExpression> descsB = new ArrayList<OWLClassExpression>(o2.getOperands());
             Collections.sort(descsA, descriptionComparator);
             Collections.sort(descsB, descriptionComparator);
             int maxIndex = descsA.size() > descsB.size() ? descsB.size() : descsA.size();
             for(int i = 0; i < maxIndex; i++) {
-                OWLDescription descA = descsA.get(i);
-                OWLDescription descB = descsB.get(i);
+                OWLClassExpression descA = descsA.get(i);
+                OWLClassExpression descB = descsB.get(i);
                 int delta = descriptionComparator.compare(descA, descB);
                 if(delta != 0) {
                     return delta;
@@ -373,15 +373,15 @@ public class OWLDescriptionComparator implements Comparator<OWLDescription> {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private static class OWLObjectQuantifiedRestrictionComparator extends OWLRestrictionComparator<OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLDescription>> {
+    private static class OWLObjectQuantifiedRestrictionComparator extends OWLRestrictionComparator<OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLClassExpression>> {
 
         public OWLObjectQuantifiedRestrictionComparator(ShortFormProvider shortFormProvider) {
             super(shortFormProvider);
         }
 
 
-        protected int compareObjects(OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLDescription> o1,
-                                     OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLDescription> o2) {
+        protected int compareObjects(OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLClassExpression> o1,
+                                     OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLClassExpression> o2) {
             int delta = super.compareObjects(o1, o2);
             if(delta != 0) {
                 return delta;
@@ -463,7 +463,7 @@ public class OWLDescriptionComparator implements Comparator<OWLDescription> {
      * Compares two descriptions using the coarse grained categories of
      * OWLClass, OWLObjectRestriction, OWLDataRestriction, OWLBooleanDescription, OWLObjectOneOf
      */
-    public static class CoarseGrainedDescriptionComparator extends AbstractOWLDescriptionComparator<OWLDescription> {
+    public static class CoarseGrainedDescriptionComparator extends AbstractOWLDescriptionComparator<OWLClassExpression> {
 
         public static int OWL_CLASS = 0;
 
@@ -515,7 +515,7 @@ public class OWLDescriptionComparator implements Comparator<OWLDescription> {
         }
 
 
-        protected int compareObjects(OWLDescription o1, OWLDescription o2) {
+        protected int compareObjects(OWLClassExpression o1, OWLClassExpression o2) {
             o1.accept(this);
             int i1 = lastValue;
             o2.accept(this);
@@ -682,7 +682,7 @@ public class OWLDescriptionComparator implements Comparator<OWLDescription> {
     }
 
 
-    private static abstract class AbstractOWLDescriptionComparator<O extends OWLDescription> extends AbstractOWLObjectComparator<O> implements OWLDescriptionVisitor {
+    private static abstract class AbstractOWLDescriptionComparator<O extends OWLClassExpression> extends AbstractOWLObjectComparator<O> implements OWLDescriptionVisitor {
 
         protected AbstractOWLDescriptionComparator(ShortFormProvider shortFormProvider) {
             super(shortFormProvider);

@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 
 import java.net.URI;
@@ -43,12 +43,12 @@ public abstract class AbstractRestrictionTranslator extends AbstractDescriptionT
 
 
 
-    final public OWLDescription translate(URI mainNode) throws OWLException {
+    final public OWLClassExpression translate(URI mainNode) throws OWLException {
         consumeTypeTriples(mainNode);
         return translateRestriction(mainNode);
     }
 
-    protected abstract OWLDescription translateRestriction(URI mainNode) throws OWLException;
+    protected abstract OWLClassExpression translateRestriction(URI mainNode) throws OWLException;
 
 
     /**

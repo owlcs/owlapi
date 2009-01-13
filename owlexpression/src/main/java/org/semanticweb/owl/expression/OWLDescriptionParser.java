@@ -1,6 +1,6 @@
 package org.semanticweb.owl.expression;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -33,6 +33,6 @@ import org.semanticweb.owl.model.OWLDescription;
  *
  * An expression parser that parses expressions that correspond to class descriptions.
  */
-public interface OWLDescriptionParser extends OWLExpressionParser<OWLDescription> {
+public interface OWLDescriptionParser extends OWLExpressionParser<OWLClassExpression> {
 
 }

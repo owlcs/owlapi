@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -55,11 +54,11 @@ public abstract class AbstractOWLObjectCardinalityElementHandler extends Abstrac
     }
 
 
-    protected OWLDescription createRestriction() {
+    protected OWLClassExpression createRestriction() {
         return createCardinalityRestriction();
     }
 
-    protected abstract OWLDescription createCardinalityRestriction();
+    protected abstract OWLClassExpression createCardinalityRestriction();
 
     protected int getCardinality() {
         return cardinality;

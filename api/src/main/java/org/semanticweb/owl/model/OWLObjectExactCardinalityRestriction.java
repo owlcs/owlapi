@@ -37,5 +37,5 @@ public interface OWLObjectExactCardinalityRestriction extends OWLObjectCardinali
      * @return The semantically equivalent but structurally simpler form
      * simp(= 1 R C) = >= 1 R C and <= 1 R C
      */
-    OWLDescription asIntersectionOfMinMax();
+    OWLClassExpression asIntersectionOfMinMax();
 }

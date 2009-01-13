@@ -33,7 +33,7 @@ import org.semanticweb.owl.model.OWLRestriction;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLRestrictionImpl<P extends OWLPropertyExpression> extends OWLAnonymousDescriptionImpl implements OWLRestriction<P> {
+public abstract class OWLRestrictionImpl<P extends OWLPropertyExpression> extends OWLAnonymousClassExpressionImpl implements OWLRestriction<P> {
 
     private P property;
 

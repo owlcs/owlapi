@@ -37,7 +37,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
 
     private Set<OWLClass> namedClasses;
 
-    public OWLEquivalentClassesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLDescription> descriptions) {
+    public OWLEquivalentClassesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> descriptions) {
         super(dataFactory, descriptions);
         namedClasses = null;
     }
@@ -49,7 +49,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
 
 
     public boolean containsOWLNothing() {
-        for (OWLDescription desc : getDescriptions()) {
+        for (OWLClassExpression desc : getDescriptions()) {
             if (desc.isOWLNothing()) {
                 return true;
             }
@@ -59,7 +59,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
 
 
     public boolean containsOWLThing() {
-        for (OWLDescription desc : getDescriptions()) {
+        for (OWLClassExpression desc : getDescriptions()) {
             if (desc.isOWLThing()) {
                 return true;
             }
@@ -70,7 +70,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
     public Set<OWLClass> getNamedClasses() {
         if(namedClasses == null) {
             Set<OWLClass> clses = new HashSet<OWLClass>(1);
-            for (OWLDescription desc : getDescriptions()) {
+            for (OWLClassExpression desc : getDescriptions()) {
                 if (!desc.isAnonymous() && !desc.isOWLNothing() && !desc.isOWLThing()) {
                     clses.add(desc.asOWLClass());
                 }
@@ -82,8 +82,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
 
     public Set<OWLSubClassAxiom> asSubClassAxioms() {
         Set<OWLSubClassAxiom> result = new HashSet<OWLSubClassAxiom>();
-        for(OWLDescription descA : getDescriptions()) {
-            for(OWLDescription descB : getDescriptions()) {
+        for(OWLClassExpression descA : getDescriptions()) {
+            for(OWLClassExpression descB : getDescriptions()) {
                 if(!descA.equals(descB)) {
                     result.add(getOWLDataFactory().getOWLSubClassAxiom(descA, descB));
                 }

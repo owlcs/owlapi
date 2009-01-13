@@ -268,7 +268,7 @@ public class DIGReasoner extends OWLReasonerAdapter {
         return isSatisfiable(getOWLOntologyManager().getOWLDataFactory().getOWLThing());
     }
 
-    public boolean isSatisfiable(OWLDescription cls)throws OWLReasonerException {
+    public boolean isSatisfiable(OWLClassExpression cls)throws OWLReasonerException {
         synchroniseReasoner();
         Document doc = createAsksDocument();
         translator.createSatisfiableQuery(doc, "q0", cls);
@@ -276,7 +276,7 @@ public class DIGReasoner extends OWLReasonerAdapter {
     }
 
 
-    public boolean isSubClassOf(OWLDescription clsC, OWLDescription clsD)throws OWLReasonerException {
+    public boolean isSubClassOf(OWLClassExpression clsC, OWLClassExpression clsD)throws OWLReasonerException {
         synchroniseReasoner();
         Document doc = createAsksDocument();
         translator.createSubsumesQuery(doc, "q0", clsD, clsC);
@@ -284,7 +284,7 @@ public class DIGReasoner extends OWLReasonerAdapter {
     }
 
 
-    public boolean isEquivalentClass(OWLDescription clsC, OWLDescription clsD)throws OWLReasonerException {
+    public boolean isEquivalentClass(OWLClassExpression clsC, OWLClassExpression clsD)throws OWLReasonerException {
         synchroniseReasoner();
         Document doc = createAsksDocument();
         translator.createSubsumesQuery(doc, "q0", clsC, clsD);
@@ -294,42 +294,42 @@ public class DIGReasoner extends OWLReasonerAdapter {
     }
 
 
-    public Set<Set<OWLClass>> getSuperClasses(OWLDescription description)throws OWLReasonerException {
+    public Set<Set<OWLClass>> getSuperClasses(OWLClassExpression classExpression)throws OWLReasonerException {
         synchroniseReasoner();
         Document doc = createAsksDocument();
-        translator.createDirectSuperConceptsQuery(doc, "q0", description);
+        translator.createDirectSuperConceptsQuery(doc, "q0", classExpression);
         return toClassSet(getIterator(performRequest(doc)));
     }
 
 
-    public Set<Set<OWLClass>> getAncestorClasses(OWLDescription description)throws OWLReasonerException {
+    public Set<Set<OWLClass>> getAncestorClasses(OWLClassExpression classExpression)throws OWLReasonerException {
         synchroniseReasoner();
         Document doc = createAsksDocument();
-        translator.createAncestorConceptsQuery(doc, "q0", description);
+        translator.createAncestorConceptsQuery(doc, "q0", classExpression);
         return toClassSet(getIterator(performRequest(doc)));
     }
 
 
-    public Set<Set<OWLClass>> getSubClasses(OWLDescription description)throws OWLReasonerException {
+    public Set<Set<OWLClass>> getSubClasses(OWLClassExpression classExpression)throws OWLReasonerException {
         synchroniseReasoner();
         Document doc = createAsksDocument();
-        translator.createDirectSubConceptsQuery(doc, "q0", description);
+        translator.createDirectSubConceptsQuery(doc, "q0", classExpression);
         return toClassSet(getIterator(performRequest(doc)));
     }
 
 
-    public Set<Set<OWLClass>> getDescendantClasses(OWLDescription description)throws OWLReasonerException {
+    public Set<Set<OWLClass>> getDescendantClasses(OWLClassExpression classExpression)throws OWLReasonerException {
         synchroniseReasoner();
         Document doc = createAsksDocument();
-        translator.createDescendantConceptsQuery(doc, "q0", description);
+        translator.createDescendantConceptsQuery(doc, "q0", classExpression);
         return toClassSet(getIterator(performRequest(doc)));
     }
 
 
-    public Set<OWLClass> getEquivalentClasses(OWLDescription description)throws OWLReasonerException {
+    public Set<OWLClass> getEquivalentClasses(OWLClassExpression classExpression)throws OWLReasonerException {
         synchroniseReasoner();
         Document doc = createAsksDocument();
-        translator.createEquivalentConceptsQuery(doc, "q0", description);
+        translator.createEquivalentConceptsQuery(doc, "q0", classExpression);
         Iterator<DIGQueryResponse> it = getIterator(performRequest(doc));
         Set<OWLClass> results = new HashSet<OWLClass>();
         while(it.hasNext()) {
@@ -364,7 +364,7 @@ public class DIGReasoner extends OWLReasonerAdapter {
     }
 
 
-    public Set<OWLIndividual> getIndividuals(OWLDescription clsC, boolean direct)throws OWLReasonerException {
+    public Set<OWLIndividual> getIndividuals(OWLClassExpression clsC, boolean direct)throws OWLReasonerException {
         synchroniseReasoner();
         Document doc = createAsksDocument();
         translator.createInstancesOfConceptQuery(doc, "q0", clsC);
@@ -404,7 +404,7 @@ public class DIGReasoner extends OWLReasonerAdapter {
     }
 
 
-    public boolean hasType(OWLIndividual individual, OWLDescription type, boolean direct)throws OWLReasonerException {
+    public boolean hasType(OWLIndividual individual, OWLClassExpression type, boolean direct)throws OWLReasonerException {
         return flattenSetOfSets(getTypes(individual, direct)).contains(type);
     }
 
@@ -460,12 +460,12 @@ public class DIGReasoner extends OWLReasonerAdapter {
     }
 
 
-    public Set<Set<OWLDescription>> getDomains(OWLObjectProperty property)throws OWLReasonerException {
+    public Set<Set<OWLClassExpression>> getDomains(OWLObjectProperty property)throws OWLReasonerException {
         throw new UnsupportedReasonerOperationException();
     }
 
 
-    public Set<OWLDescription> getRanges(OWLObjectProperty property)throws OWLReasonerException {
+    public Set<OWLClassExpression> getRanges(OWLObjectProperty property)throws OWLReasonerException {
         throw new UnsupportedReasonerOperationException();
     }
 
@@ -530,7 +530,7 @@ public class DIGReasoner extends OWLReasonerAdapter {
     }
 
 
-    public Set<Set<OWLDescription>> getDomains(OWLDataProperty property)throws OWLReasonerException {
+    public Set<Set<OWLClassExpression>> getDomains(OWLDataProperty property)throws OWLReasonerException {
         throw new UnsupportedReasonerOperationException();
     }
 

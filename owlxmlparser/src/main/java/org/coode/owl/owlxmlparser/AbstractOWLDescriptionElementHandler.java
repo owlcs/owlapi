@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -32,9 +31,9 @@ import org.semanticweb.owl.model.OWLException;
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br><br>
  */
-public abstract class AbstractOWLDescriptionElementHandler extends AbstractOWLElementHandler<OWLDescription> {
+public abstract class AbstractOWLDescriptionElementHandler extends AbstractOWLElementHandler<OWLClassExpression> {
 
-    private OWLDescription desc;
+    private OWLClassExpression desc;
 
     public AbstractOWLDescriptionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
@@ -48,11 +47,11 @@ public abstract class AbstractOWLDescriptionElementHandler extends AbstractOWLEl
 
     protected abstract void endDescriptionElement() throws OWLXMLParserException;
 
-    protected void setDescription(OWLDescription desc) {
+    protected void setDescription(OWLClassExpression desc) {
         this.desc = desc;
     }
 
-    final public OWLDescription getOWLObject() {
+    final public OWLClassExpression getOWLObject() {
         return desc;
     }
 }

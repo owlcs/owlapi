@@ -57,7 +57,7 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
                 if(!processedClasses.contains(cls)) {
                     processedClasses.add(cls);
                     int curCount = 0;
-                    for(OWLDescription desc : cls.getSuperClasses(ont)) {
+                    for(OWLClassExpression desc : cls.getSuperClasses(ont)) {
                         if(!desc.isAnonymous()) {
                             curCount++;
                         }

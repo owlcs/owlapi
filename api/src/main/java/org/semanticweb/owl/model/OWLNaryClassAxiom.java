@@ -39,7 +39,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom {
      * @return A <code>Set</code> of descriptions that appear in the
      * axiom.
      */
-    public Set<OWLDescription> getDescriptions();
+    public Set<OWLClassExpression> getDescriptions();
 
 
     /**
@@ -49,5 +49,5 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom {
      * @return A set containing all of the description in this axiom (the descriptions
      * returned by getDescriptions()) minus the specified list of descriptions
      */
-    public Set<OWLDescription> getDescriptionsMinus(OWLDescription ... desc);
+    public Set<OWLClassExpression> getDescriptionsMinus(OWLClassExpression... desc);
 }

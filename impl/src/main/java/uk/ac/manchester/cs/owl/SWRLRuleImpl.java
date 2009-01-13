@@ -56,7 +56,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
 
     private Boolean containsAnonymousDescriptions = null;
 
-    private Set<OWLDescription> classAtomsPredicates;
+    private Set<OWLClassExpression> classAtomsPredicates;
 
 
     public SWRLRuleImpl(OWLDataFactory dataFactory, URI uri, Set<? extends SWRLAtom> antecedent, Set<? extends SWRLAtom> consequent) {
@@ -148,9 +148,9 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
     }
 
 
-    public Set<OWLDescription> getClassAtomPredicates() {
+    public Set<OWLClassExpression> getClassAtomPredicates() {
         if(classAtomsPredicates == null) {
-            Set<OWLDescription> predicates = new HashSet<OWLDescription>();
+            Set<OWLClassExpression> predicates = new HashSet<OWLClassExpression>();
             for(SWRLAtom atom : consequent){
                 if(atom instanceof SWRLClassAtom) {
                     predicates.add(((SWRLClassAtom) atom).getPredicate());
@@ -161,7 +161,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
                     predicates.add(((SWRLClassAtom) atom).getPredicate());
                 }
             }
-            classAtomsPredicates = new HashSet<OWLDescription>(predicates);
+            classAtomsPredicates = new HashSet<OWLClassExpression>(predicates);
         }
         return classAtomsPredicates;
     }

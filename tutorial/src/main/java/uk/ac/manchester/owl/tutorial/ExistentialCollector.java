@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLObjectIntersectionOf;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 import org.semanticweb.owl.model.OWLObjectSomeRestriction;
@@ -51,26 +51,26 @@ import org.semanticweb.owl.util.OWLDescriptionVisitorAdapter;
  */
 public class ExistentialCollector extends OWLDescriptionVisitorAdapter {
     /* Collected axioms */
-    private Map<OWLObjectPropertyExpression, Set<OWLDescription>> restrictions;
+    private Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions;
 
     public ExistentialCollector(
-            Map<OWLObjectPropertyExpression, Set<OWLDescription>> restrictions) {
+            Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions) {
         this.restrictions = restrictions;
     }
 
     @Override
     public void visit(OWLObjectIntersectionOf description) {
-        for (OWLDescription operand : description.getOperands()) {
+        for (OWLClassExpression operand : description.getOperands()) {
             operand.accept(this);
         }
     }
 
     @Override
     public void visit(OWLObjectSomeRestriction description) {
-        Set<OWLDescription> fillers = restrictions.get(description
+        Set<OWLClassExpression> fillers = restrictions.get(description
                 .getProperty());
         if (fillers == null) {
-            fillers = new HashSet<OWLDescription>();
+            fillers = new HashSet<OWLClassExpression>();
             restrictions.put(description.getProperty(), fillers);
         }
         fillers.add(description.getFiller());

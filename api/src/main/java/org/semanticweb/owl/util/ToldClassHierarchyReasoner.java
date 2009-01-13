@@ -305,7 +305,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
     private Set<OWLClass> getEquivalents(OWLClass object) {
             Set<OWLClass> result = new HashSet<OWLClass>();
             for (OWLOntology ont : ontologies) {
-                for (OWLDescription equiv : object.getEquivalentClasses(ont)) {
+                for (OWLClassExpression equiv : object.getEquivalentClasses(ont)) {
                     if (!equiv.isAnonymous()) {
                         result.add((OWLClass) equiv);
                     }
@@ -363,7 +363,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
      * Checks whether the first class is a subclass of the second class
      * @return <code>true</code> if the first class is a subclass of the second class
      */
-    public boolean isSubClassOf(OWLDescription clsC, OWLDescription clsD) {
+    public boolean isSubClassOf(OWLClassExpression clsC, OWLClassExpression clsD) {
         if (clsC.isAnonymous() || clsD.isAnonymous()) {
             return false;
         }
@@ -376,7 +376,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
      * @return <code>true</code> if the first class is equivalent to the second class, or
      *         <code>false</code> if the first class is not equivalent to the second class
      */
-    public boolean isEquivalentClass(OWLDescription clsC, OWLDescription clsD) {
+    public boolean isEquivalentClass(OWLClassExpression clsC, OWLClassExpression clsD) {
         if (clsC.isAnonymous() || clsD.isAnonymous()) {
             return false;
         }
@@ -390,7 +390,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
      * @return <code>true</code> if the class is consistent, or <code>false</code>
      *         if the class is not consistent
      */
-    public boolean isSatisfiable(OWLDescription clsC) {
+    public boolean isSatisfiable(OWLClassExpression clsC) {
         return true;
     }
 
@@ -411,7 +411,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
      * equivalence class.
      */
 
-    public Set<Set<OWLClass>> getSuperClasses(OWLDescription clsC) {
+    public Set<Set<OWLClass>> getSuperClasses(OWLClassExpression clsC) {
         if (clsC.isAnonymous()) {
             return Collections.emptySet();
         }
@@ -425,7 +425,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
      * each set in the collection represents an equivalence class.
      */
 
-    public Set<Set<OWLClass>> getAncestorClasses(OWLDescription clsC) {
+    public Set<Set<OWLClass>> getAncestorClasses(OWLClassExpression clsC) {
         if (clsC.isAnonymous()) {
             return Collections.emptySet();
         }
@@ -440,7 +440,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
      * equivalence class.
      */
 
-    public Set<Set<OWLClass>> getSubClasses(OWLDescription clsC) {
+    public Set<Set<OWLClass>> getSubClasses(OWLClassExpression clsC) {
         if (clsC.isAnonymous()) {
             return Collections.emptySet();
         }
@@ -454,7 +454,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
      * each set in the collection represents an equivalence class.
      */
 
-    public Set<Set<OWLClass>> getDescendantClasses(OWLDescription clsC) {
+    public Set<Set<OWLClass>> getDescendantClasses(OWLClassExpression clsC) {
         if (clsC.isAnonymous()) {
             return Collections.emptySet();
         }
@@ -466,7 +466,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
      * Returns the collection of (named) classes which are equivalent
      * to the given description.
      */
-    public Set<OWLClass> getEquivalentClasses(OWLDescription clsC) {
+    public Set<OWLClass> getEquivalentClasses(OWLClassExpression clsC) {
         if (clsC.isAnonymous()) {
             return Collections.emptySet();
         }
@@ -516,7 +516,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            for (OWLDescription desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getDescriptions()) {
                 if (desc.equals(current)) {
                     continue;
                 }
@@ -547,7 +547,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
 
         public void visit(OWLObjectIntersectionOf desc) {
-            for (OWLDescription op : desc.getOperands()) {
+            for (OWLClassExpression op : desc.getOperands()) {
                 op.accept(this);
             }
         }
@@ -585,7 +585,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
 
         public void visit(OWLObjectIntersectionOf desc) {
-            for (OWLDescription op : desc.getOperands()) {
+            for (OWLClassExpression op : desc.getOperands()) {
                 op.accept(this);
                 if (found) {
                     break;
@@ -639,14 +639,14 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
         public void visit(OWLEquivalentClassesAxiom axiom) {
             // We want operands that don't contain the search class when
             // flattened
-            Set<OWLDescription> equivalentClasses = axiom.getDescriptions();
-            Set<OWLDescription> candidateDescriptions = new HashSet<OWLDescription>();
+            Set<OWLClassExpression> equivalentClasses = axiom.getDescriptions();
+            Set<OWLClassExpression> candidateClassExpressions = new HashSet<OWLClassExpression>();
             checker.reset();
             boolean found = false;
-            for (OWLDescription equivalentClass : equivalentClasses) {
+            for (OWLClassExpression equivalentClass : equivalentClasses) {
                 equivalentClass.accept(checker);
                 if (!checker.containsSearchClass()) {
-                    candidateDescriptions.add(equivalentClass);
+                    candidateClassExpressions.add(equivalentClass);
                 }
                 else {
                     found = true;
@@ -656,7 +656,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
                 return;
             }
             namedClassExtractor.reset();
-            for (OWLDescription desc : candidateDescriptions) {
+            for (OWLClassExpression desc : candidateClassExpressions) {
                 desc.accept(namedClassExtractor);
             }
             results.addAll(namedClassExtractor.getResult());

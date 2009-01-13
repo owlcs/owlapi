@@ -117,7 +117,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     public void visit(OWLObjectIntersectionOf desc) {
         handleObject(desc);
-        for (OWLDescription op : desc.getOperands()) {
+        for (OWLClassExpression op : desc.getOperands()) {
             op.accept(this);
         }
     }

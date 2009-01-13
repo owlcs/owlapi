@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLRuntimeException;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -33,7 +32,7 @@ import org.semanticweb.owl.model.OWLRuntimeException;
  * Bio-Health Informatics Group<br>
  * Date: 10-Apr-2007<br><br>
  */
-public class OWLUnionOfElementHandler extends AbstractOWLElementHandler<OWLDescription> {
+public class OWLUnionOfElementHandler extends AbstractOWLElementHandler<OWLClassExpression> {
 
     public OWLUnionOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
@@ -51,7 +50,7 @@ public class OWLUnionOfElementHandler extends AbstractOWLElementHandler<OWLDescr
 
 
 
-    public OWLDescription getOWLObject() {
+    public OWLClassExpression getOWLObject() {
         throw new OWLRuntimeException("getOWLObject should not be called on OWLUnionOfElementHandler");
     }
 

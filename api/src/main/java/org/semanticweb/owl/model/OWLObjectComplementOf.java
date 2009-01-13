@@ -29,7 +29,7 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLObjectComplementOf extends OWLBooleanDescription {
+public interface OWLObjectComplementOf extends OWLBooleanClassExpression {
 
-    OWLDescription getOperand();
+    OWLClassExpression getOperand();
 }

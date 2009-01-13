@@ -129,19 +129,19 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
 
-    protected OWLDescription getCurrentClass() throws OWLException {
+    protected OWLClassExpression getCurrentClass() throws OWLException {
         return currentClass;
     }
 
 
-    private OWLClass setupDebuggingClass(OWLDescription cls) throws OWLException {
+    private OWLClass setupDebuggingClass(OWLClassExpression cls) throws OWLException {
         if (!cls.isAnonymous()) {
             return (OWLClass) cls;
         }
         else {
             // The class is anonymous, so we need to assign it a name
             OWLClass curCls = owlOntologyManager.getOWLDataFactory().getOWLClass(createURI());
-            Set<OWLDescription> operands = new HashSet<OWLDescription>();
+            Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
             operands.add(curCls);
             operands.add(cls);
             temporaryAxioms.add(owlOntologyManager.getOWLDataFactory().getOWLEquivalentClassesAxiom(operands));
@@ -153,7 +153,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
 
-    public Set<OWLAxiom> getSOSForIncosistentClass(OWLDescription cls) throws OWLException {
+    public Set<OWLAxiom> getSOSForIncosistentClass(OWLClassExpression cls) throws OWLException {
         reset();
         currentClass = setupDebuggingClass(cls);
         generateSOSAxioms();

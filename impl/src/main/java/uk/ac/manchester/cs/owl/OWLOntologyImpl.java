@@ -817,7 +817,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if (equivalentClassesAxiomsByClass == null) {
             equivalentClassesAxiomsByClass = createMap();
             for (OWLEquivalentClassesAxiom axiom : getAxiomsInternal(EQUIVALENT_CLASSES)) {
-                for (OWLDescription desc : axiom.getDescriptions()) {
+                for (OWLClassExpression desc : axiom.getDescriptions()) {
                     if (!desc.isAnonymous()) {
                         addToIndexedSet(desc.asOWLClass(), equivalentClassesAxiomsByClass, axiom);
                     }
@@ -832,7 +832,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if (disjointClassesAxiomsByClass == null) {
             disjointClassesAxiomsByClass = createMap();
             for (OWLDisjointClassesAxiom axiom : getAxiomsInternal(DISJOINT_CLASSES)) {
-                for (OWLDescription desc : axiom.getDescriptions()) {
+                for (OWLClassExpression desc : axiom.getDescriptions()) {
                     if (!desc.isAnonymous()) {
                         addToIndexedSet(desc.asOWLClass(), disjointClassesAxiomsByClass, axiom);
                     }
@@ -847,7 +847,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if (disjointUnionAxiomsByClass == null) {
             disjointUnionAxiomsByClass = createMap();
             for (OWLDisjointUnionAxiom axiom : getAxiomsInternal(DISJOINT_UNION)) {
-                for (OWLDescription desc : axiom.getDescriptions()) {
+                for (OWLClassExpression desc : axiom.getDescriptions()) {
                     if (!desc.isAnonymous()) {
                         addToIndexedSet(desc.asOWLClass(), disjointUnionAxiomsByClass, axiom);
                     }
@@ -1536,7 +1536,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 addToIndexedSet(DISJOINT_CLASSES, axiomsByType, axiom);
                 boolean allAnon = true;
                 // Index against each named class in the axiom
-                for (OWLDescription desc : axiom.getDescriptions()) {
+                for (OWLClassExpression desc : axiom.getDescriptions()) {
                     if (!desc.isAnonymous()) {
                         OWLClass cls = (OWLClass) desc;
                         addToIndexedSet(cls, disjointClassesAxiomsByClass, axiom);
@@ -1552,7 +1552,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 removeAxiomFromSet(DISJOINT_CLASSES, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom, owlClassAxioms);
                 boolean allAnon = true;
-                for (OWLDescription desc : axiom.getDescriptions()) {
+                for (OWLClassExpression desc : axiom.getDescriptions()) {
                     if (!desc.isAnonymous()) {
                         OWLClass cls = (OWLClass) desc;
                         removeAxiomFromSet(cls, disjointClassesAxiomsByClass, axiom, true);
@@ -1919,7 +1919,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 addAxiomToSet(axiom, owlClassAxioms);
                 addToIndexedSet(EQUIVALENT_CLASSES, axiomsByType, axiom);
                 boolean allAnon = true;
-                for (OWLDescription desc : axiom.getDescriptions()) {
+                for (OWLClassExpression desc : axiom.getDescriptions()) {
                     if (!desc.isAnonymous()) {
                         addToIndexedSet((OWLClass) desc, equivalentClassesAxiomsByClass, axiom);
                         addToIndexedSet((OWLClass) desc, classAxiomsByClass, axiom);
@@ -1934,7 +1934,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 removeAxiomFromSet(EQUIVALENT_CLASSES, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom, owlClassAxioms);
                 boolean allAnon = true;
-                for (OWLDescription desc : axiom.getDescriptions()) {
+                for (OWLClassExpression desc : axiom.getDescriptions()) {
                     if (!desc.isAnonymous()) {
                         removeAxiomFromSet((OWLClass) desc, equivalentClassesAxiomsByClass, axiom, true);
                         removeAxiomFromSet((OWLClass) desc, classAxiomsByClass, axiom, true);
@@ -2283,7 +2283,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     private void buildClassAxiomsByClassIndex() {
         classAxiomsByClass = new HashMap<OWLClass, Set<OWLClassAxiom>>();
         for (OWLEquivalentClassesAxiom axiom : getAxiomsInternal(EQUIVALENT_CLASSES)) {
-            for (OWLDescription desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getDescriptions()) {
                 if (!desc.isAnonymous()) {
                     addToIndexedSet((OWLClass) desc, classAxiomsByClass, axiom);
                 }
@@ -2297,7 +2297,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
 
         for (OWLDisjointClassesAxiom axiom : getAxiomsInternal(DISJOINT_CLASSES)) {
-            for (OWLDescription desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getDescriptions()) {
                 if (!desc.isAnonymous()) {
                     addToIndexedSet((OWLClass) desc, classAxiomsByClass, axiom);
                 }

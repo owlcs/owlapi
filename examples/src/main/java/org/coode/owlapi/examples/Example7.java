@@ -74,7 +74,7 @@ public class Example7 {
                                                                                facet,
                                                                                eighteenConstant);
             // Now we can use this in our datatype restriction on hasAge
-            OWLDescription thingsWithAgeGreaterOrEqualTo18 = factory.getOWLDataSomeRestriction(hasAge, intGreaterThan18);
+            OWLClassExpression thingsWithAgeGreaterOrEqualTo18 = factory.getOWLDataSomeRestriction(hasAge, intGreaterThan18);
             // Now we want to say all adults have an age that is greater or equal to 18 - i.e. Adult is a subclass of
             // hasAge some int[>= 18]
             // Obtain a reference to the Adult class

@@ -31,14 +31,14 @@ import java.util.Set;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public class OWLAndTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLDescription> {
+public class OWLAndTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLClassExpression> {
 
-    protected OWLObject createObject(Set<OWLDescription> objects) throws Exception {
+    protected OWLObject createObject(Set<OWLClassExpression> objects) throws Exception {
         return getOWLDataFactory().getOWLObjectIntersectionOf(objects);
     }
 
 
-    protected OWLDescription createOperand() throws Exception {
+    protected OWLClassExpression createOperand() throws Exception {
         return createOWLClass();
     }
 }

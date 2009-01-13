@@ -72,8 +72,8 @@ public class TestDisjoints extends TestCase {
 //        OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
 //        OWLClass clsC = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
 //        OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
-//        OWLDescription clsD = man.getOWLDataFactory().getOWLObjectSomeRestriction(prop, man.getOWLDataFactory().getOWLThing());
-//        Set<OWLDescription> descriptions = new HashSet<OWLDescription>();
+//        OWLClassExpression clsD = man.getOWLDataFactory().getOWLObjectSomeRestriction(prop, man.getOWLDataFactory().getOWLThing());
+//        Set<OWLClassExpression> descriptions = new HashSet<OWLClassExpression>();
 //        descriptions.add(clsA);
 //        descriptions.add(clsB);
 //        descriptions.add(clsC);
@@ -84,7 +84,7 @@ public class TestDisjoints extends TestCase {
 //        man.saveOntology(ontA, tempFile.toURI());
 //        OWLOntology ontB = man.loadOntologyFromPhysicalURI(tempFile.toURI());
 //        Set<OWLAxiom> pairwiseAxioms = new HashSet<OWLAxiom>();
-//        List<OWLDescription> descriptionsList = new ArrayList<OWLDescription>(descriptions);
+//        List<OWLClassExpression> descriptionsList = new ArrayList<OWLClassExpression>(descriptions);
 //        for(int i = 0; i < descriptions.size(); i++) {
 //            for(int j = i; j < descriptions.size(); j++) {
 //                if(i != j) {
@@ -101,12 +101,12 @@ public class TestDisjoints extends TestCase {
         OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
         OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
         OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
-        OWLDescription descA = man.getOWLDataFactory().getOWLObjectSomeRestriction(prop, clsA);
-        OWLDescription descB = man.getOWLDataFactory().getOWLObjectSomeRestriction(prop, clsB);
-        Set<OWLDescription> descriptions = new HashSet<OWLDescription>();
-        descriptions.add(descA);
-        descriptions.add(descB);
-        OWLAxiom ax = man.getOWLDataFactory().getOWLDisjointClassesAxiom(descriptions);
+        OWLClassExpression descA = man.getOWLDataFactory().getOWLObjectSomeRestriction(prop, clsA);
+        OWLClassExpression descB = man.getOWLDataFactory().getOWLObjectSomeRestriction(prop, clsB);
+        Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
+        classExpressions.add(descA);
+        classExpressions.add(descB);
+        OWLAxiom ax = man.getOWLDataFactory().getOWLDisjointClassesAxiom(classExpressions);
         man.applyChange(new AddAxiom(ontA, ax));
         File tempFile = File.createTempFile("Ontology", ".owl");
         man.saveOntology(ontA, tempFile.toURI());

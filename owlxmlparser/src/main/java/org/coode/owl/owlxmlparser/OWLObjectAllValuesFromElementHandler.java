@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -42,7 +41,7 @@ public class OWLObjectAllValuesFromElementHandler extends AbstractDescriptionFil
     }
 
 
-    protected OWLDescription createRestriction() {
+    protected OWLClassExpression createRestriction() {
         return getOWLDataFactory().getOWLObjectAllRestriction(getProperty(), getFiller());
     }
 }

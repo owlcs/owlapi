@@ -31,9 +31,9 @@ import org.semanticweb.owl.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLObjectAllRestrictionImpl extends OWLQuantifiedRestrictionImpl<OWLObjectPropertyExpression, OWLDescription> implements OWLObjectAllRestriction {
+public class OWLObjectAllRestrictionImpl extends OWLQuantifiedRestrictionImpl<OWLObjectPropertyExpression, OWLClassExpression> implements OWLObjectAllRestriction {
 
-    public OWLObjectAllRestrictionImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLDescription filler) {
+    public OWLObjectAllRestrictionImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLClassExpression filler) {
         super(dataFactory, property, filler);
     }
 

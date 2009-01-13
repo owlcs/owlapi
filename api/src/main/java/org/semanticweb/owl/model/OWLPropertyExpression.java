@@ -43,7 +43,7 @@ public interface OWLPropertyExpression<P extends OWLPropertyExpression, R extend
      *         domains of this property (the domain of the property is essentially the
      *         intersection of these descriptions).
      */
-    Set<OWLDescription> getDomains(OWLOntology ontology);
+    Set<OWLClassExpression> getDomains(OWLOntology ontology);
 
 
     /**
@@ -53,7 +53,7 @@ public interface OWLPropertyExpression<P extends OWLPropertyExpression, R extend
      * @return A set of <code>OWLDescription</code>s that represent the asserted
      *         domains of this property.
      */
-    Set<OWLDescription> getDomains(Set<OWLOntology> ontologies);
+    Set<OWLClassExpression> getDomains(Set<OWLOntology> ontologies);
 
 
     /**

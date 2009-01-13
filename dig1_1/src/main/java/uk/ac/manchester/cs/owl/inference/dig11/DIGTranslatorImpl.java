@@ -156,7 +156,7 @@ public class DIGTranslatorImpl implements DIGTranslator {
 
 
     // Satisfiability
-    public void createSatisfiableQuery(Document doc, String queryID, OWLDescription aClass) throws
+    public void createSatisfiableQuery(Document doc, String queryID, OWLClassExpression aClass) throws
                                                                                             DIGReasonerException {
         Element element = createQueryElement(doc, Vocab.SATISFIABLE, queryID);
 
@@ -166,7 +166,7 @@ public class DIGTranslatorImpl implements DIGTranslator {
     }
 
 
-    public void createSatisfiableQuery(Document doc, String queryID, Set<OWLDescription> clses) throws
+    public void createSatisfiableQuery(Document doc, String queryID, Set<OWLClassExpression> clses) throws
                                                                                                 DIGReasonerException {
         Element element = createQueryElement(doc, Vocab.SATISFIABLE, queryID);
 
@@ -174,7 +174,7 @@ public class DIGTranslatorImpl implements DIGTranslator {
 
         element.appendChild(intersectionElement);
 
-        for (OWLDescription desc : clses) {
+        for (OWLClassExpression desc : clses) {
             translateToDIG(desc, doc, intersectionElement);
         }
 
@@ -182,7 +182,7 @@ public class DIGTranslatorImpl implements DIGTranslator {
     }
 
 
-    public void createSubsumesQuery(Document doc, String queryID, OWLDescription cls1, OWLDescription cls2) throws
+    public void createSubsumesQuery(Document doc, String queryID, OWLClassExpression cls1, OWLClassExpression cls2) throws
                                                                                                             DIGReasonerException {
         Element element = createQueryElement(doc, Vocab.SUBSUMES, queryID);
 
@@ -194,7 +194,7 @@ public class DIGTranslatorImpl implements DIGTranslator {
     }
 
 
-    public void createDisjointQuery(Document doc, String queryID, OWLDescription cls1, OWLDescription cls2) throws
+    public void createDisjointQuery(Document doc, String queryID, OWLClassExpression cls1, OWLClassExpression cls2) throws
                                                                                                             DIGReasonerException {
         Element element = createQueryElement(doc, Vocab.DISJOINT, queryID);
 
@@ -207,7 +207,7 @@ public class DIGTranslatorImpl implements DIGTranslator {
 
 
     // Concept hierarchy
-    public void createDirectSuperConceptsQuery(Document doc, String queryID, OWLDescription aClass) throws
+    public void createDirectSuperConceptsQuery(Document doc, String queryID, OWLClassExpression aClass) throws
                                                                                                     DIGReasonerException {
         Element element = createQueryElement(doc, Vocab.PARENTS, queryID);
 
@@ -217,19 +217,19 @@ public class DIGTranslatorImpl implements DIGTranslator {
     }
 
 
-    public void createDirectSuperConceptsQuery(Document doc, String queryID, Set<OWLDescription> clses) throws
+    public void createDirectSuperConceptsQuery(Document doc, String queryID, Set<OWLClassExpression> clses) throws
                                                                                                         DIGReasonerException {
         Element element = createQueryElement(doc, Vocab.PARENTS, queryID);
         Element andElement = doc.createElement(Vocab.AND);
         element.appendChild(andElement);
-        for (OWLDescription desc : clses) {
+        for (OWLClassExpression desc : clses) {
             translateToDIG(desc, doc, andElement);
         }
         doc.getDocumentElement().appendChild(element);
     }
 
 
-    public void createDirectSubConceptsQuery(Document doc, String queryID, OWLDescription aClass) throws
+    public void createDirectSubConceptsQuery(Document doc, String queryID, OWLClassExpression aClass) throws
                                                                                                   DIGReasonerException {
         Element element = createQueryElement(doc, Vocab.CHILDREN, queryID);
 
@@ -239,7 +239,7 @@ public class DIGTranslatorImpl implements DIGTranslator {
     }
 
 
-    public void createAncestorConceptsQuery(Document doc, String queryID, OWLDescription aClass) throws
+    public void createAncestorConceptsQuery(Document doc, String queryID, OWLClassExpression aClass) throws
                                                                                                  DIGReasonerException {
         Element element = createQueryElement(doc, Vocab.ANCESTORS, queryID);
 
@@ -249,7 +249,7 @@ public class DIGTranslatorImpl implements DIGTranslator {
     }
 
 
-    public void createDescendantConceptsQuery(Document doc, String queryID, OWLDescription aClass) throws
+    public void createDescendantConceptsQuery(Document doc, String queryID, OWLClassExpression aClass) throws
                                                                                                    DIGReasonerException {
         Element element = createQueryElement(doc, Vocab.DESCENDANTS, queryID);
 
@@ -259,7 +259,7 @@ public class DIGTranslatorImpl implements DIGTranslator {
     }
 
 
-    public void createEquivalentConceptsQuery(Document doc, String queryID, OWLDescription aClass) throws
+    public void createEquivalentConceptsQuery(Document doc, String queryID, OWLClassExpression aClass) throws
                                                                                                    DIGReasonerException {
         Element element = createQueryElement(doc, Vocab.EQUIVALENT, queryID);
 
@@ -311,7 +311,7 @@ public class DIGTranslatorImpl implements DIGTranslator {
 
 
     // Individuals
-    public void createInstancesOfConceptQuery(Document doc, String queryID, OWLDescription aClass) throws
+    public void createInstancesOfConceptQuery(Document doc, String queryID, OWLClassExpression aClass) throws
                                                                                                    DIGReasonerException {
         Element element = createQueryElement(doc, Vocab.INSTANCES, queryID);
 
@@ -332,7 +332,7 @@ public class DIGTranslatorImpl implements DIGTranslator {
 
 
     public void createIndividualInstanceOfConceptQuery(Document doc, String queryID, OWLIndividual ins,
-                                                       OWLDescription aClass) throws DIGReasonerException {
+                                                       OWLClassExpression aClass) throws DIGReasonerException {
         Element element = createQueryElement(doc, Vocab.INSTANCE, queryID);
 
         translateToDIG(ins, doc, element);

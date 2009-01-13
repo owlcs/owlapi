@@ -60,7 +60,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
                 }
                 processed.add(cls);
                 int count = 0;
-                for(OWLDescription sup : cls.getSubClasses(getOntologies())) {
+                for(OWLClassExpression sup : cls.getSubClasses(getOntologies())) {
                     if(checker.hasNamedConjunct(sup)) {
                         count++;
                     }

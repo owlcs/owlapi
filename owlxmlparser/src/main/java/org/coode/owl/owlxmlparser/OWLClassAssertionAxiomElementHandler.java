@@ -1,8 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLIndividual;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -38,7 +37,7 @@ public class OWLClassAssertionAxiomElementHandler extends AbstractOWLAxiomElemen
 
     private OWLIndividual individual;
 
-    private OWLDescription description;
+    private OWLClassExpression classExpression;
 
     public OWLClassAssertionAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
@@ -46,7 +45,7 @@ public class OWLClassAssertionAxiomElementHandler extends AbstractOWLAxiomElemen
 
 
     public void handleChild(AbstractOWLDescriptionElementHandler handler) {
-        description = handler.getOWLObject();
+        classExpression = handler.getOWLObject();
     }
 
 
@@ -59,9 +58,9 @@ public class OWLClassAssertionAxiomElementHandler extends AbstractOWLAxiomElemen
         if(individual == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "individual element");
         }
-        if(description == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "description kind element");
+        if(classExpression == null) {
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "classExpression kind element");
         }
-        return getOWLDataFactory().getOWLClassAssertionAxiom(individual, description);
+        return getOWLDataFactory().getOWLClassAssertionAxiom(individual, classExpression);
     }
 }

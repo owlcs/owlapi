@@ -89,7 +89,7 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
         // a value partition class, a property we...
 
         // 1) Make the classes which represent the values, subclasses of the value partition class
-        for (OWLDescription valuePartitionValue : valuePartionClasses) {
+        for (OWLClassExpression valuePartitionValue : valuePartionClasses) {
             changes.add(new AddAxiom(targetOntology,
                                      getDataFactory().getOWLSubClassAxiom(valuePartitionValue, valuePartitionClass)));
         }
@@ -98,7 +98,7 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
         changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLDisjointClassesAxiom(valuePartionClasses)));
 
         // 3) Add a covering axiom to the value partition
-        OWLDescription union = getDataFactory().getOWLObjectUnionOf(valuePartionClasses);
+        OWLClassExpression union = getDataFactory().getOWLObjectUnionOf(valuePartionClasses);
         changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassAxiom(valuePartitionClass, union)));
 
         // 4) Make the property functional

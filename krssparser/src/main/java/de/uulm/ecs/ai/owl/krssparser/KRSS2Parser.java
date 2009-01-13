@@ -160,8 +160,8 @@ public class KRSS2Parser implements KRSS2ParserConstants {
   }
 
   final public void DefinePrimitiveConcept() throws ParseException, KRSS2OWLParserException {
-    OWLDescription subClass = null;
-    OWLDescription superClass = null;
+    OWLClassExpression subClass = null;
+    OWLClassExpression superClass = null;
     jj_consume_token(OPENPAR);
     jj_consume_token(DEFINEPRIMITIVECONCEPT);
     subClass = ConceptName();
@@ -180,8 +180,8 @@ public class KRSS2Parser implements KRSS2ParserConstants {
   }
 
   final public void DefineConcept() throws ParseException, KRSS2OWLParserException {
-    OWLDescription clsA;
-    OWLDescription clsB;
+    OWLClassExpression clsA;
+    OWLClassExpression clsB;
     jj_consume_token(OPENPAR);
     jj_consume_token(DEFINECONCEPT);
     clsA = ConceptName();
@@ -189,7 +189,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     jj_consume_token(CLOSEPAR);
         if (clsA instanceof OWLClass)
             addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) clsA));
-        Set<OWLDescription> ops = new HashSet<OWLDescription>();
+        Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
         ops.add(clsA);
         ops.add(clsB);
         addAxiom( dataFactory.getOWLEquivalentClassesAxiom(ops));
@@ -198,9 +198,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
   final public void DefinePrimitiveRole() throws ParseException, KRSS2OWLParserException {
     OWLObjectProperty subProp;
     OWLObjectProperty superProp;
-    OWLDescription desc;
+    OWLClassExpression desc;
     Set<OWLObjectProperty> roles = new HashSet<OWLObjectProperty>();
-    Set<OWLDescription> descs = new HashSet<OWLDescription>();
+    Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
     jj_consume_token(OPENPAR);
     jj_consume_token(DEFINEPRIMITIVEROLE);
     subProp = RoleName();
@@ -255,8 +255,8 @@ OWLObjectProperty superProp;
   }
 
   final public void Domain(OWLObjectProperty subProp) throws ParseException, KRSS2OWLParserException {
-      OWLDescription desc;
-      Set<OWLDescription> descs = new HashSet<OWLDescription>();
+      OWLClassExpression desc;
+      Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
     if (jj_2_19(2)) {
       jj_consume_token(DOMAIN_ATTRIBUTE);
       if (jj_2_17(2)) {
@@ -279,10 +279,10 @@ OWLObjectProperty superProp;
         jj_consume_token(-1);
         throw new ParseException();
       }
-                for (OWLDescription eachDescription : descs) {
-                    addAxiom(dataFactory.getOWLObjectPropertyDomainAxiom(subProp, eachDescription));
-                    if (eachDescription instanceof OWLClass)
-                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachDescription));
+                for (OWLClassExpression eachClassExpression : descs) {
+                    addAxiom(dataFactory.getOWLObjectPropertyDomainAxiom(subProp, eachClassExpression));
+                    if (eachClassExpression instanceof OWLClass)
+                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachClassExpression));
                 }
     } else {
       ;
@@ -290,8 +290,8 @@ OWLObjectProperty superProp;
   }
 
   final public void RangeAttribute(OWLObjectProperty subProp) throws ParseException, KRSS2OWLParserException {
-      OWLDescription desc;
-      Set<OWLDescription> descs = new HashSet<OWLDescription>();
+      OWLClassExpression desc;
+      Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
     if (jj_2_23(2)) {
       jj_consume_token(RANGE_ATTRIBUTE);
       if (jj_2_21(2)) {
@@ -314,10 +314,10 @@ OWLObjectProperty superProp;
         jj_consume_token(-1);
         throw new ParseException();
       }
-                for (OWLDescription eachDescription : descs) {
-                    addAxiom(dataFactory.getOWLObjectPropertyRangeAxiom(subProp, eachDescription));
-                    if (eachDescription instanceof OWLClass)
-                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachDescription));
+                for (OWLClassExpression eachClassExpression : descs) {
+                    addAxiom(dataFactory.getOWLObjectPropertyRangeAxiom(subProp, eachClassExpression));
+                    if (eachClassExpression instanceof OWLClass)
+                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachClassExpression));
                 }
     } else {
       ;
@@ -360,14 +360,14 @@ OWLObjectProperty superProp;
 
 /*void Range(OWLObjectProperty subProp) throws KRSS2OWLParserException :
 {
-      OWLDescription desc;
-      Set<OWLDescription> descs = new HashSet<OWLDescription>();
+      OWLClassExpression desc;
+      Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
 
 }
 {
  (<RANGE_ATTRIBUTE>( <OPENPAR>(desc=ConceptExpression(){descs.add(desc);})+<CLOSEPAR>| (desc=ConceptExpression(){ descs.add(desc);})  )
             {
-                for (OWLDescription eachDescription : descs) {
+                for (OWLClassExpression eachDescription : descs) {
                     addAxiom(dataFactory.getOWLObjectPropertyRangeAxiom(subProp, eachDescription));
                     if (eachDescription instanceof OWLClass)
                           addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachDescription));
@@ -446,18 +446,18 @@ OWLObjectProperty superProp;
   }
 
   final public void Implies() throws ParseException, KRSS2OWLParserException {
-    OWLDescription subDescription;
-    OWLDescription superDescription;
+    OWLClassExpression subClassExpression;
+    OWLClassExpression superClassExpression;
     jj_consume_token(OPENPAR);
     jj_consume_token(IMPLIES);
-    subDescription = ConceptExpression();
-    superDescription = ConceptExpression();
+    subClassExpression = ConceptExpression();
+    superClassExpression = ConceptExpression();
     jj_consume_token(CLOSEPAR);
-        addAxiom( dataFactory.getOWLSubClassAxiom(subDescription, superDescription));
-        if (subDescription instanceof OWLClass)
-            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) subDescription));
-        if (superDescription instanceof OWLClass)
-            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) superDescription));
+        addAxiom( dataFactory.getOWLSubClassAxiom(subClassExpression, superClassExpression));
+        if (subClassExpression instanceof OWLClass)
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) subClassExpression));
+        if (superClassExpression instanceof OWLClass)
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) superClassExpression));
   }
 
   final public void Transitive() throws ParseException, KRSS2OWLParserException {
@@ -471,7 +471,7 @@ OWLObjectProperty superProp;
 
   final public void Range() throws ParseException, KRSS2OWLParserException {
     OWLObjectProperty prop;
-    OWLDescription rng;
+    OWLClassExpression rng;
     jj_consume_token(OPENPAR);
     jj_consume_token(RANGE);
     prop = RoleName();
@@ -484,8 +484,8 @@ OWLObjectProperty superProp;
          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) rng));
   }
 
-  final public OWLDescription ConceptExpression() throws ParseException, KRSS2OWLParserException {
-    OWLDescription desc;
+  final public OWLClassExpression ConceptExpression() throws ParseException, KRSS2OWLParserException {
+    OWLClassExpression desc;
     if (jj_2_38(2)) {
       desc = ConceptName();
     } else if (jj_2_39(2)) {
@@ -512,16 +512,16 @@ OWLObjectProperty superProp;
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription ConceptName() throws ParseException, KRSS2OWLParserException {
+  final public OWLClassExpression ConceptName() throws ParseException, KRSS2OWLParserException {
     URI uri;
     uri = Name();
         {if (true) return dataFactory.getOWLClass(uri);}
     throw new Error("Missing return statement in function");
   }
 
-  final public Set<OWLDescription> ConceptSet() throws ParseException, KRSS2OWLParserException {
-    Set<OWLDescription> descs = new HashSet<OWLDescription>();
-    OWLDescription desc;
+  final public Set<OWLClassExpression> ConceptSet() throws ParseException, KRSS2OWLParserException {
+    Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
+    OWLClassExpression desc;
     label_5:
     while (true) {
       desc = ConceptExpression();
@@ -536,8 +536,8 @@ OWLObjectProperty superProp;
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription And() throws ParseException, KRSS2OWLParserException {
-    Set<OWLDescription> operands;
+  final public OWLClassExpression And() throws ParseException, KRSS2OWLParserException {
+    Set<OWLClassExpression> operands;
     jj_consume_token(OPENPAR);
     jj_consume_token(AND);
     operands = ConceptSet();
@@ -546,8 +546,8 @@ OWLObjectProperty superProp;
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription Or() throws ParseException, KRSS2OWLParserException {
-    Set<OWLDescription> operands;
+  final public OWLClassExpression Or() throws ParseException, KRSS2OWLParserException {
+    Set<OWLClassExpression> operands;
     jj_consume_token(OPENPAR);
     jj_consume_token(OR);
     operands = ConceptSet();
@@ -556,8 +556,8 @@ OWLObjectProperty superProp;
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription Not() throws ParseException, KRSS2OWLParserException {
-    OWLDescription operand;
+  final public OWLClassExpression Not() throws ParseException, KRSS2OWLParserException {
+    OWLClassExpression operand;
     jj_consume_token(OPENPAR);
     jj_consume_token(NOT);
     operand = ConceptExpression();
@@ -566,9 +566,9 @@ OWLObjectProperty superProp;
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription All() throws ParseException, KRSS2OWLParserException {
+  final public OWLClassExpression All() throws ParseException, KRSS2OWLParserException {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     jj_consume_token(OPENPAR);
     jj_consume_token(ALL);
     prop = RoleName();
@@ -578,9 +578,9 @@ OWLObjectProperty superProp;
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription Some() throws ParseException, KRSS2OWLParserException {
+  final public OWLClassExpression Some() throws ParseException, KRSS2OWLParserException {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     jj_consume_token(OPENPAR);
     jj_consume_token(SOME);
     prop = RoleName();
@@ -590,9 +590,9 @@ OWLObjectProperty superProp;
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription AtLeast() throws ParseException, KRSS2OWLParserException {
+  final public OWLClassExpression AtLeast() throws ParseException, KRSS2OWLParserException {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     int card;
     jj_consume_token(OPENPAR);
     jj_consume_token(ATLEAST);
@@ -604,9 +604,9 @@ OWLObjectProperty superProp;
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription AtMost() throws ParseException, KRSS2OWLParserException {
+  final public OWLClassExpression AtMost() throws ParseException, KRSS2OWLParserException {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     int card;
     jj_consume_token(OPENPAR);
     jj_consume_token(ATMOST);
@@ -618,9 +618,9 @@ OWLObjectProperty superProp;
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription Exactly() throws ParseException, KRSS2OWLParserException {
+  final public OWLClassExpression Exactly() throws ParseException, KRSS2OWLParserException {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     int card;
     jj_consume_token(OPENPAR);
     jj_consume_token(EXACTLY);
@@ -674,7 +674,7 @@ OWLObjectProperty superProp;
 
   final public void Instance() throws ParseException, KRSS2OWLParserException {
     OWLIndividual ind;
-    OWLDescription type;
+    OWLClassExpression type;
     jj_consume_token(OPENPAR);
     jj_consume_token(INSTANCE);
     ind = IndividualName();

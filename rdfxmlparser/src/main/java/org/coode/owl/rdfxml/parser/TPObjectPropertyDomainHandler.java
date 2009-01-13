@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
@@ -52,7 +52,7 @@ public class TPObjectPropertyDomainHandler extends TriplePredicateHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         OWLObjectPropertyExpression prop = translateObjectProperty(subject);
-        OWLDescription domain = translateDescription(subject);
+        OWLClassExpression domain = translateDescription(subject);
         addAxiom(getDataFactory().getOWLObjectPropertyDomainAxiom(prop, domain));
     }
 }

@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -39,7 +38,7 @@ public class OWLDataExactCardinalityElementHandler extends AbstractDataCardinali
     }
 
 
-    protected OWLDescription createRestriction() {
+    protected OWLClassExpression createRestriction() {
         return getOWLDataFactory().getOWLDataExactCardinalityRestriction(
                 getProperty(),
                 getCardinality(),

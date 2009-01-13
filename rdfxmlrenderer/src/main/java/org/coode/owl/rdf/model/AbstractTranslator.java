@@ -161,13 +161,13 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
      * symmetric.  The method delegates to the <code>addPairwise</code> method after sorting
      * the descriptions so that named classes appear first.
      * @param axiom The axiom which will dictate which axiom annotation get rendered
-     * @param descriptions The set of descriptions to be rendered.
+     * @param classExpressions The set of descriptions to be rendered.
      * @param uri The URI which describes the relationship between pairs of descriptions.
      */
-    private void addPairwiseDescriptions(OWLAxiom axiom, Set<OWLDescription> descriptions, URI uri) {
-        List<OWLDescription> descriptionList = new ArrayList<OWLDescription>(descriptions);
-        Collections.sort(descriptionList, descriptionComparator);
-        addPairwise(axiom, descriptionList, uri);
+    private void addPairwiseDescriptions(OWLAxiom axiom, Set<OWLClassExpression> classExpressions, URI uri) {
+        List<OWLClassExpression> classExpressionList = new ArrayList<OWLClassExpression>(classExpressions);
+        Collections.sort(classExpressionList, descriptionComparator);
+        addPairwise(axiom, classExpressionList, uri);
 
     }
 
@@ -1046,9 +1046,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    private class DescriptionComparator implements Comparator<OWLDescription> {
+    private class DescriptionComparator implements Comparator<OWLClassExpression> {
 
-        public int compare(OWLDescription o1, OWLDescription o2) {
+        public int compare(OWLClassExpression o1, OWLClassExpression o2) {
             if(!o1.isAnonymous()) {
                 return -1;
             }

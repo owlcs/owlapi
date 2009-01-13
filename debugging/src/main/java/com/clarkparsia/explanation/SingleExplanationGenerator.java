@@ -5,7 +5,7 @@ import java.util.Set;
 import org.semanticweb.owl.inference.OWLClassReasoner;
 import org.semanticweb.owl.inference.OWLReasonerFactory;
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
 
@@ -99,5 +99,5 @@ public interface SingleExplanationGenerator {
      * @return set of axioms explaining the unsatisfiability of given class
      *         expression, or empty set if the given expression is satisfiable.
      */
-    public Set<OWLAxiom> getExplanation(OWLDescription unsatClass);
+    public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass);
 }

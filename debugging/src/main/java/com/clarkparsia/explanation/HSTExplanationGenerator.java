@@ -13,14 +13,8 @@ import java.util.logging.Logger;
 
 import org.semanticweb.owl.inference.OWLClassReasoner;
 import org.semanticweb.owl.inference.OWLReasonerFactory;
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDeclarationAxiom;
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLEntity;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.model.OWLRuntimeException;
+import org.semanticweb.owl.model.OWLClassExpression;
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.OWLEntityCollector;
 
 import com.clarkparsia.explanation.util.ExplanationProgressMonitor;
@@ -138,17 +132,17 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     }
 
 
-    public Set<OWLAxiom> getExplanation(OWLDescription unsatClass) {
+    public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
         return singleExplanationGenerator.getExplanation(unsatClass);
     }
 
 
-    public Set<Set<OWLAxiom>> getExplanations(OWLDescription unsatClass) {
+    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass) {
         return getExplanations(unsatClass, 0);
     }
 
 
-    public Set<Set<OWLAxiom>> getExplanations(OWLDescription unsatClass, int maxExplanations) {
+    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass, int maxExplanations) {
         if (maxExplanations < 0)
             throw new IllegalArgumentException();
 
@@ -249,7 +243,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @param currentPathContents The contents of the current path. Initially this should be an
      *                            empty set.
      */
-    private void constructHittingSetTree(OWLDescription unsatClass, Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups,
+    private void constructHittingSetTree(OWLClassExpression unsatClass, Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups,
                                          Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents,
                                          int maxExplanations) throws OWLException {
 

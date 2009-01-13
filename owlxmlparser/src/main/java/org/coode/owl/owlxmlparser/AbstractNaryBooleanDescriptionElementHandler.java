@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,11 +36,11 @@ import java.util.Set;
  */
 public abstract class AbstractNaryBooleanDescriptionElementHandler extends AbstractOWLDescriptionElementHandler {
 
-    private Set<OWLDescription> operands;
+    private Set<OWLClassExpression> operands;
 
     public AbstractNaryBooleanDescriptionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
-        operands = new HashSet<OWLDescription>();
+        operands = new HashSet<OWLClassExpression>();
     }
 
 
@@ -57,6 +56,6 @@ public abstract class AbstractNaryBooleanDescriptionElementHandler extends Abstr
         setDescription(createOWLDescription(operands));
     }
 
-    protected abstract OWLDescription createOWLDescription(Set<OWLDescription> operands);
+    protected abstract OWLClassExpression createOWLDescription(Set<OWLClassExpression> operands);
 
 }

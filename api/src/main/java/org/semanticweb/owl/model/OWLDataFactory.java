@@ -342,10 +342,10 @@ public interface OWLDataFactory extends SWRLDataFactory {
     ////////////////////////////////////////////////////////////////////////////////////
 
 
-    OWLObjectIntersectionOf getOWLObjectIntersectionOf(Set<? extends OWLDescription> operands);
+    OWLObjectIntersectionOf getOWLObjectIntersectionOf(Set<? extends OWLClassExpression> operands);
 
 
-    OWLObjectIntersectionOf getOWLObjectIntersectionOf(OWLDescription... operands);
+    OWLObjectIntersectionOf getOWLObjectIntersectionOf(OWLClassExpression... operands);
 
 
     OWLDataAllRestriction getOWLDataAllRestriction(OWLDataPropertyExpression property, OWLDataRange dataRange);
@@ -381,11 +381,11 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLDataValueRestriction getOWLDataValueRestriction(OWLDataPropertyExpression property, OWLLiteral value);
 
 
-    OWLObjectComplementOf getOWLObjectComplementOf(OWLDescription operand);
+    OWLObjectComplementOf getOWLObjectComplementOf(OWLClassExpression operand);
 
 
     OWLObjectAllRestriction getOWLObjectAllRestriction(OWLObjectPropertyExpression property,
-                                                       OWLDescription description);
+                                                       OWLClassExpression classExpression);
 
 
     OWLObjectOneOf getOWLObjectOneOf(Set<OWLIndividual> values);
@@ -400,7 +400,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLObjectExactCardinalityRestriction getOWLObjectExactCardinalityRestriction(OWLObjectPropertyExpression property,
                                                                                  int cardinality,
-                                                                                 OWLDescription description);
+                                                                                 OWLClassExpression classExpression);
 
 
     OWLObjectMinCardinalityRestriction getOWLObjectMinCardinalityRestriction(OWLObjectPropertyExpression property,
@@ -409,7 +409,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLObjectMinCardinalityRestriction getOWLObjectMinCardinalityRestriction(OWLObjectPropertyExpression property,
                                                                              int cardinality,
-                                                                             OWLDescription description);
+                                                                             OWLClassExpression classExpression);
 
 
     OWLObjectMaxCardinalityRestriction getOWLObjectMaxCardinalityRestriction(OWLObjectPropertyExpression property,
@@ -418,24 +418,24 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLObjectMaxCardinalityRestriction getOWLObjectMaxCardinalityRestriction(OWLObjectPropertyExpression property,
                                                                              int cardinality,
-                                                                             OWLDescription description);
+                                                                             OWLClassExpression classExpression);
 
 
     OWLObjectSelfRestriction getOWLObjectSelfRestriction(OWLObjectPropertyExpression property);
 
 
     OWLObjectSomeRestriction getOWLObjectSomeRestriction(OWLObjectPropertyExpression property,
-                                                         OWLDescription description);
+                                                         OWLClassExpression classExpression);
 
 
     OWLObjectValueRestriction getOWLObjectValueRestriction(OWLObjectPropertyExpression property,
                                                            OWLIndividual individual);
 
 
-    OWLObjectUnionOf getOWLObjectUnionOf(Set<? extends OWLDescription> operands);
+    OWLObjectUnionOf getOWLObjectUnionOf(Set<? extends OWLClassExpression> operands);
 
 
-    OWLObjectUnionOf getOWLObjectUnionOf(OWLDescription... operands);
+    OWLObjectUnionOf getOWLObjectUnionOf(OWLClassExpression... operands);
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -447,7 +447,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLAntiSymmetricObjectPropertyAxiom getOWLAntiSymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property);
 
 
-    OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(OWLDataPropertyExpression property, OWLDescription domain);
+    OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(OWLDataPropertyExpression property, OWLClassExpression domain);
 
 
     OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(OWLDataPropertyExpression propery,
@@ -466,12 +466,12 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(OWLIndividual ... individuals);
 
 
-    OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(Set<? extends OWLDescription> descriptions);
+    OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(Set<? extends OWLClassExpression> descriptions);
 
 
-    OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(OWLDescription clsA, OWLDescription clsB);
+    OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(OWLClassExpression clsA, OWLClassExpression clsB);
 
-    OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(OWLDescription clsA, OWLDescription ... descriptions);
+    OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(OWLClassExpression clsA, OWLClassExpression... classExpressions);
 
 
     OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
@@ -486,13 +486,13 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(OWLObjectPropertyExpression ... properties);
 
 
-    OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass, Set<? extends OWLDescription> descriptions);
+    OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass, Set<? extends OWLClassExpression> descriptions);
 
 
-    OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(Set<? extends OWLDescription> descriptions);
+    OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(Set<? extends OWLClassExpression> descriptions);
 
 
-    OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLDescription clsA, OWLDescription clsB);
+    OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLClassExpression clsA, OWLClassExpression clsB);
 
 
     OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
@@ -558,7 +558,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                                                        OWLIndividual object);
 
 
-    OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLIndividual individual, OWLDescription description);
+    OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLIndividual individual, OWLClassExpression classExpression);
 
     OWLInverseFunctionalObjectPropertyAxiom getOWLInverseFunctionalObjectPropertyAxiom(
             OWLObjectPropertyExpression property);
@@ -568,11 +568,11 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
 
     OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(OWLObjectPropertyExpression property,
-                                                                 OWLDescription description);
+                                                                 OWLClassExpression classExpression);
 
 
     OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(OWLObjectPropertyExpression property,
-                                                               OWLDescription range);
+                                                               OWLClassExpression range);
 
 
     OWLObjectSubPropertyAxiom getOWLSubObjectPropertyAxiom(OWLObjectPropertyExpression subProperty,
@@ -585,7 +585,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLSameIndividualsAxiom getOWLSameIndividualsAxiom(Set<OWLIndividual> individuals);
 
 
-    OWLSubClassAxiom getOWLSubClassAxiom(OWLDescription subClass, OWLDescription superClass);
+    OWLSubClassAxiom getOWLSubClassAxiom(OWLClassExpression subClass, OWLClassExpression superClass);
 
     OWLSubClassAxiom getOWLSubClassAxiom(String subClass, String superClass, NamespaceManager namespaceManager);
 

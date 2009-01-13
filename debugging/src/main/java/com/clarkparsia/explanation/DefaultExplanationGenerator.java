@@ -77,7 +77,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
     }
 
 
-    public Set<OWLAxiom> getExplanation(OWLDescription unsatClass) {
+    public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
         return gen.getExplanation(unsatClass);
     }
 
@@ -88,7 +88,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
     }
 
 
-    public Set<Set<OWLAxiom>> getExplanations(OWLDescription unsatClass) {
+    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass) {
         return gen.getExplanations(unsatClass);
     }
 
@@ -99,7 +99,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
     }
 
 
-    public Set<Set<OWLAxiom>> getExplanations(OWLDescription unsatClass, int maxExplanations) {
+    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass, int maxExplanations) {
         return gen.getExplanations(unsatClass, maxExplanations);
     }
 

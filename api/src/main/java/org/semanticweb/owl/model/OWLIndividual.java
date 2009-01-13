@@ -53,7 +53,7 @@ public interface OWLIndividual extends OWLEntity, OWLNamedObject {
      * @return A set of descriptions that correspond the asserted types of this
      * individual in the specified ontology.
      */
-    public Set<OWLDescription> getTypes(OWLOntology ontology);
+    public Set<OWLClassExpression> getTypes(OWLOntology ontology);
 
 
     /**
@@ -63,7 +63,7 @@ public interface OWLIndividual extends OWLEntity, OWLNamedObject {
      * @return A set of descriptions that represent the types of this
      * individual as asserted in the specified ontologies.
      */
-    public Set<OWLDescription> getTypes(Set<OWLOntology> ontologies);
+    public Set<OWLClassExpression> getTypes(Set<OWLOntology> ontologies);
 
 
     /**

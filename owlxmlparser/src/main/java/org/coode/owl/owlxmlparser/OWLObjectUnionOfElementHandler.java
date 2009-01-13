@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 
 import java.util.Set;
 /*
@@ -41,7 +40,7 @@ public class OWLObjectUnionOfElementHandler extends AbstractNaryBooleanDescripti
     }
 
 
-    protected OWLDescription createOWLDescription(Set<OWLDescription> operands) {
+    protected OWLClassExpression createOWLDescription(Set<OWLClassExpression> operands) {
         return getOWLDataFactory().getOWLObjectUnionOf(operands);
     }
 }

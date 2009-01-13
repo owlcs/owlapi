@@ -40,17 +40,17 @@ import java.util.Set;
  */
 public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
 
-    private Set<OWLDescription> result;
+    private Set<OWLClassExpression> result;
 
 
     public OWLObjectComplementOfExtractor() {
-        result = new HashSet<OWLDescription>();
+        result = new HashSet<OWLClassExpression>();
     }
 
-    public Set<OWLDescription> getComplementedDescriptions(OWLDescription desc) {
+    public Set<OWLClassExpression> getComplementedDescriptions(OWLClassExpression desc) {
         reset();
         desc.accept(this);
-        return new HashSet<OWLDescription>(result);
+        return new HashSet<OWLClassExpression>(result);
     }
 
     public void reset() {
@@ -102,7 +102,7 @@ public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
 
 
     public void visit(OWLObjectIntersectionOf desc) {
-        for(OWLDescription op : desc.getOperands()) {
+        for(OWLClassExpression op : desc.getOperands()) {
             op.accept(this);
         }
     }
@@ -134,7 +134,7 @@ public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
 
 
     public void visit(OWLObjectUnionOf desc) {
-        for(OWLDescription op : desc.getOperands()) {
+        for(OWLClassExpression op : desc.getOperands()) {
             op.accept(this);
         }
     }

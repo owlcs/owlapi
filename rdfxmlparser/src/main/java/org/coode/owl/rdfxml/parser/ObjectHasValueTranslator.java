@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLIndividual;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
@@ -45,7 +45,7 @@ public class ObjectHasValueTranslator extends AbstractObjectRestrictionTranslato
     }
 
 
-    protected OWLDescription translateRestriction(URI mainNode) throws OWLException {
+    protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
         URI hasValueObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getURI(), true);
         if (hasValueObject == null) {
             throw new MalformedDescriptionException(OWLRDFVocabulary.OWL_HAS_VALUE + " triple not present");

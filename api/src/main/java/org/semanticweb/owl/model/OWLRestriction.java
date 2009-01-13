@@ -31,7 +31,7 @@ package org.semanticweb.owl.model;
  *
  * Represents a restriction.  All restrictions act along a particular property.
  */
-public interface OWLRestriction<P extends OWLPropertyExpression> extends OWLAnonymousDescription {
+public interface OWLRestriction<P extends OWLPropertyExpression> extends OWLAnonymousClassExpression {
 
     /**
      * Gets the property that the restriction acts along.

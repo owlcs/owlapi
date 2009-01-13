@@ -35,7 +35,7 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLObjectOneOfImpl extends OWLAnonymousDescriptionImpl implements OWLObjectOneOf {
+public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectOneOf {
 
     private Set<OWLIndividual> values;
 
@@ -56,12 +56,12 @@ public class OWLObjectOneOfImpl extends OWLAnonymousDescriptionImpl implements O
     }
 
 
-    public OWLDescription asObjectUnionOf() {
+    public OWLClassExpression asObjectUnionOf() {
         if(values.size() == 1) {
             return this;
         }
         else {
-            Set<OWLDescription> ops = new HashSet<OWLDescription>();
+            Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
             for(OWLIndividual ind : values) {
                 ops.add(getOWLDataFactory().getOWLObjectOneOf(ind));
             }

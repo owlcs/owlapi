@@ -31,9 +31,9 @@ package org.semanticweb.owl.model;
  */
 public interface OWLSubClassAxiom extends OWLNaryClassAxiom {
 
-    OWLDescription getSubClass();
+    OWLClassExpression getSubClass();
 
-    OWLDescription getSuperClass();
+    OWLClassExpression getSuperClass();
 
 
     /**

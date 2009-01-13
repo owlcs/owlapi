@@ -1,7 +1,7 @@
 package org.coode.owl.rdfxml.parser;
 
 import org.semanticweb.owl.model.OWLLiteral;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 
 import java.net.URI;
@@ -35,7 +35,7 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public class DescriptionListItemTranslator implements ListItemTranslator<OWLDescription> {
+public class DescriptionListItemTranslator implements ListItemTranslator<OWLClassExpression> {
 
     private OWLRDFConsumer consumer;
 
@@ -45,12 +45,12 @@ public class DescriptionListItemTranslator implements ListItemTranslator<OWLDesc
     }
 
 
-    public OWLDescription translate(URI uri) throws OWLException {
+    public OWLClassExpression translate(URI uri) throws OWLException {
         return consumer.translateDescription(uri);
     }
 
 
-    public OWLDescription translate(OWLLiteral firstObject) throws OWLException {
+    public OWLClassExpression translate(OWLLiteral firstObject) throws OWLException {
         throw new OWLRDFParserException(
                 "Cannot translate list item to description, because rdf:first triple is a literal triple.");
     }

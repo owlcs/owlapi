@@ -72,8 +72,8 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
     }
 
 
-    public Set<OWLDescription> getTypes(OWLOntology ontology) {
-        Set<OWLDescription> result = new TreeSet<OWLDescription>();
+    public Set<OWLClassExpression> getTypes(OWLOntology ontology) {
+        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLClassAssertionAxiom axiom : ontology.getClassAssertionAxioms(this)) {
             result.add(axiom.getDescription());
         }
@@ -81,8 +81,8 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
     }
 
 
-    public Set<OWLDescription> getTypes(Set<OWLOntology> ontologies) {
-        Set<OWLDescription> result = new TreeSet<OWLDescription>();
+    public Set<OWLClassExpression> getTypes(Set<OWLOntology> ontologies) {
+        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for(OWLOntology ont : ontologies) {
             result.addAll(getTypes(ont));
         }

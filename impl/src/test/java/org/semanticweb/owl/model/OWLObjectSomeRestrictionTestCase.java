@@ -29,10 +29,10 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public class OWLObjectSomeRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLObjectProperty, OWLDescription> {
+public class OWLObjectSomeRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLObjectProperty, OWLClassExpression> {
 
 
-    protected OWLRestriction createRestriction(OWLObjectProperty prop, OWLDescription filler) throws Exception {
+    protected OWLRestriction createRestriction(OWLObjectProperty prop, OWLClassExpression filler) throws Exception {
         return getOWLDataFactory().getOWLObjectSomeRestriction(prop, filler);
     }
 
@@ -42,7 +42,7 @@ public class OWLObjectSomeRestrictionTestCase extends AbstractOWLRestrictionWith
     }
 
 
-    protected OWLDescription createFiller() throws Exception {
+    protected OWLClassExpression createFiller() throws Exception {
         return createOWLClass();
     }
 }

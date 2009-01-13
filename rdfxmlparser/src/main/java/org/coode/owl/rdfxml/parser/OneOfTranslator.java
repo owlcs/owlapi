@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLIndividual;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
@@ -48,7 +48,7 @@ public class OneOfTranslator extends AbstractDescriptionTranslator {
     }
 
 
-    public OWLDescription translate(URI mainNode) throws OWLException {
+    public OWLClassExpression translate(URI mainNode) throws OWLException {
         URI oneOfObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getURI(), true);
         if(oneOfObject == null) {
             throw new MalformedDescriptionException(OWLRDFVocabulary.OWL_ONE_OF + " triple not present when translating oneOf");

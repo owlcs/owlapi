@@ -110,7 +110,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public final void write(OWLDescription obj) {
+    public final void write(OWLClassExpression obj) {
         writeSpace();
         obj.accept(this);
     }
@@ -131,18 +131,18 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    private final void flatten(Set<OWLDescription> descriptions) {
-        if (descriptions.isEmpty()) return;
-        final OWLDescription desc = descriptions.iterator().next();
-        if (descriptions.size() == 1) {
+    private final void flatten(Set<OWLClassExpression> classExpressions) {
+        if (classExpressions.isEmpty()) return;
+        final OWLClassExpression desc = classExpressions.iterator().next();
+        if (classExpressions.size() == 1) {
             write(desc);
             return;
         }
-        descriptions.remove(desc);
+        classExpressions.remove(desc);
         writeOpenBracket();
         write(AND);
         write(desc);
-        flatten(descriptions);
+        flatten(classExpressions);
         writeCloseBracket();
     }
 
@@ -154,7 +154,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                Set<OWLDescription> superClasses = eachClass.getSuperClasses(ontology);
+                Set<OWLClassExpression> superClasses = eachClass.getSuperClasses(ontology);
                 if (superClasses.size() == 1) {
                     write(superClasses.iterator().next());
                 } else {
@@ -162,12 +162,12 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 }
                 writeCloseBracket(); //==> end definition of primitive-concept
                 writeln();
-                for (OWLDescription description : eachClass.getEquivalentClasses(ontology)) {
+                for (OWLClassExpression classExpression : eachClass.getEquivalentClasses(ontology)) {
                     writeOpenBracket();
                     write(eachClass);
                     write(EQUIVALENT);
                     writeSpace();
-                    description.accept(this);
+                    classExpression.accept(this);
                     writeCloseBracket();
                     writeln();
                 }
@@ -175,7 +175,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Set<OWLDescription> equivalentClasses = eachClass.getEquivalentClasses(ontology);
+                Set<OWLClassExpression> equivalentClasses = eachClass.getEquivalentClasses(ontology);
                 if (equivalentClasses.isEmpty()) {
                     //?
                     writeCloseBracket();
@@ -185,7 +185,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                     writeCloseBracket();
                     writeln();
                 } else {
-                    Iterator<OWLDescription> iter = equivalentClasses.iterator();
+                    Iterator<OWLClassExpression> iter = equivalentClasses.iterator();
                     write(iter.next());
                     writeCloseBracket();
                     writeln();
@@ -221,12 +221,12 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 writeSpace();
                 write(TRUE);
             }
-            final Set<OWLDescription> domains = property.getDomains(ontology);
+            final Set<OWLClassExpression> domains = property.getDomains(ontology);
             if (!domains.isEmpty()) {
                 writeAttribute(DOMAIN);
                 flatten(domains);
             }
-            final Set<OWLDescription> ranges = property.getDomains(ontology);
+            final Set<OWLClassExpression> ranges = property.getDomains(ontology);
             if (!ranges.isEmpty()) {
                 writeAttribute(RANGE);
                 flatten(ranges);
@@ -270,7 +270,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
 
     public final void visit(OWLDisjointClassesAxiom axiom) {
         writeOpenBracket();
-        for (final OWLDescription desc : axiom.getDescriptions()) {
+        for (final OWLClassExpression desc : axiom.getDescriptions()) {
             write(desc);
         }
         writeCloseBracket();
@@ -421,7 +421,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public final void visit(OWLObjectIntersectionOf desc) {
         writeOpenBracket();
         write(AND);
-        for (final OWLDescription des : desc.getOperands()) {
+        for (final OWLClassExpression des : desc.getOperands()) {
             write(des);
         }
         writeCloseBracket();
@@ -430,7 +430,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public final void visit(OWLObjectUnionOf desc) {
         writeOpenBracket();
         write(OR);
-        for (OWLDescription des : desc.getOperands()) {
+        for (OWLClassExpression des : desc.getOperands()) {
             write(des);
         }
         writeCloseBracket();

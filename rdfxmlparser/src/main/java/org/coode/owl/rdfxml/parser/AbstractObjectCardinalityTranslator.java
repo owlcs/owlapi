@@ -1,7 +1,7 @@
 package org.coode.owl.rdfxml.parser;
 
 import org.semanticweb.owl.model.OWLLiteral;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
@@ -77,7 +77,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
      * @return The description corresponding to the filler (not <code>null</code>)
      * @throws OWLException
      */
-    private OWLDescription translateFiller(URI mainNode) throws OWLException {
+    private OWLClassExpression translateFiller(URI mainNode) throws OWLException {
         URI onClassObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_CLASS.getURI(), true);
         if(onClassObject == null) {
             return getDataFactory().getOWLThing();
@@ -86,7 +86,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
     }
 
 
-    protected OWLDescription translateRestriction(URI mainNode) throws OWLException {
+    protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
             return createRestriction(translateOnProperty(mainNode),
                                      translateCardinality(mainNode),
                                      translateFiller(mainNode));
@@ -97,5 +97,5 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
      * Given a property expression, cardinality and filler, this method creates the appropriate
      * OWLAPI object
      */
-    protected abstract OWLDescription createRestriction(OWLObjectPropertyExpression prop, int cardi, OWLDescription filler) throws OWLException;
+    protected abstract OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi, OWLClassExpression filler) throws OWLException;
 }

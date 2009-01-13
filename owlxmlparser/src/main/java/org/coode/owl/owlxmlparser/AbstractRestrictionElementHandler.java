@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLObject;
 import org.semanticweb.owl.model.OWLPropertyExpression;
 /*
@@ -68,5 +67,5 @@ public abstract class AbstractRestrictionElementHandler<P extends OWLPropertyExp
     }
 
 
-    protected abstract OWLDescription createRestriction();
+    protected abstract OWLClassExpression createRestriction();
 }

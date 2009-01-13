@@ -134,7 +134,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
 
     public void visit(OWLDisjointClassesAxiom axiom) {
-        for (OWLDescription desc : axiom.getDescriptions()) {
+        for (OWLClassExpression desc : axiom.getDescriptions()) {
             desc.accept(this);
         }
     }
@@ -223,7 +223,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
     public void visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept((OWLEntityVisitor) this);
-        for (OWLDescription desc : axiom.getDescriptions()) {
+        for (OWLClassExpression desc : axiom.getDescriptions()) {
             desc.accept(this);
         }
     }
@@ -264,7 +264,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        for (OWLDescription desc : axiom.getDescriptions()) {
+        for (OWLClassExpression desc : axiom.getDescriptions()) {
             desc.accept(this);
         }
     }
@@ -333,14 +333,14 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
 
     public void visit(OWLObjectIntersectionOf desc) {
-        for (OWLDescription operand : desc.getOperands()) {
+        for (OWLClassExpression operand : desc.getOperands()) {
             operand.accept(this);
         }
     }
 
 
     public void visit(OWLObjectUnionOf desc) {
-        for (OWLDescription operand : desc.getOperands()) {
+        for (OWLClassExpression operand : desc.getOperands()) {
             operand.accept(this);
         }
     }

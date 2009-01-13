@@ -35,7 +35,7 @@ import java.util.Set;
  */
 public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implements OWLDisjointClassesAxiom {
 
-    public OWLDisjointClassesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLDescription> descriptions) {
+    public OWLDisjointClassesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> descriptions) {
         super(dataFactory, descriptions);
     }
 

@@ -29,7 +29,7 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public class OWLIndividualTypeAxiomTestCase extends AbstractOWLBinaryOperandAxiomTestCase<OWLIndividual, OWLDescription> {
+public class OWLIndividualTypeAxiomTestCase extends AbstractOWLBinaryOperandAxiomTestCase<OWLIndividual, OWLClassExpression> {
 
 
     protected OWLIndividual createLeftOperand() throws Exception {
@@ -37,12 +37,12 @@ public class OWLIndividualTypeAxiomTestCase extends AbstractOWLBinaryOperandAxio
     }
 
 
-    protected OWLDescription createRightOperand() throws Exception {
+    protected OWLClassExpression createRightOperand() throws Exception {
         return createOWLClass();
     }
 
 
-    protected OWLAxiom createAxiom(OWLIndividual leftOperand, OWLDescription rightOperand) throws Exception {
+    protected OWLAxiom createAxiom(OWLIndividual leftOperand, OWLClassExpression rightOperand) throws Exception {
         return getOWLDataFactory().getOWLClassAssertionAxiom(leftOperand, rightOperand);
     }
 }

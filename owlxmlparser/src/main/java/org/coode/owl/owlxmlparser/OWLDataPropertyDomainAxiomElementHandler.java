@@ -2,8 +2,7 @@ package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLDataPropertyExpression;
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -37,7 +36,7 @@ import org.semanticweb.owl.model.OWLException;
 public class OWLDataPropertyDomainAxiomElementHandler extends AbstractOWLAxiomElementHandler {
 
 
-    private OWLDescription domain;
+    private OWLClassExpression domain;
 
     private OWLDataPropertyExpression property;
 

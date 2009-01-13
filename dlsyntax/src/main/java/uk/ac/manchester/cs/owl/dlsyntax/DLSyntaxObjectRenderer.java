@@ -125,7 +125,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 //                return false;
 //            }
 //        }
-        return object instanceof OWLDescription && !((OWLDescription) object).isLiteral();
+        return object instanceof OWLClassExpression && !((OWLClassExpression) object).isLiteral();
     }
 
     private void writeObject(OWLObject object, boolean nest) {
@@ -215,7 +215,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
 
     public void visit(OWLDisjointClassesAxiom axiom) {
-        List<OWLDescription> descs = new ArrayList<OWLDescription>(axiom.getDescriptions());
+        List<OWLClassExpression> descs = new ArrayList<OWLClassExpression>(axiom.getDescriptions());
         for(int i = 0; i < descs.size(); i++) {
             for(int j = i + 1 ; j < descs.size(); j++) {
                 descs.get(i).accept(this);

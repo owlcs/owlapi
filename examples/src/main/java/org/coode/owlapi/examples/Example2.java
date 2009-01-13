@@ -92,9 +92,9 @@ public class Example2 {
                 System.out.println("Referenced class: " + cls);
             }
             // We should also find that B is a superclass of A
-            Set<OWLDescription> superClasses = clsA.getSuperClasses(ontology);
+            Set<OWLClassExpression> superClasses = clsA.getSuperClasses(ontology);
             System.out.println("Superclasses of " + clsA + ":");
-            for(OWLDescription desc : superClasses) {
+            for(OWLClassExpression desc : superClasses) {
                 System.out.println(desc);
             }
 

@@ -8,18 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.semanticweb.owl.model.AddAxiom;
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLEntity;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLObject;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyChange;
-import org.semanticweb.owl.model.OWLOntologyChangeListener;
-import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.model.RemoveAxiom;
+import org.semanticweb.owl.model.OWLClassExpression;
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.OWLEntityCollector;
 
 /*
@@ -179,13 +169,13 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      * Checks if all the entities referred in the given concept are also
      * referred by a logical axiom in the imports closure of the designated
      * ontology.
-     * @param description description that contains the entities we are searching for
+     * @param classExpression description that contains the entities we are searching for
      * @return <code>true</code> if all the entities in the given description
      *         are referred by at least one logical axiom in the imports closure
      *         of the given ontology
      */
-    public boolean isDefined(OWLDescription description) {
-        for (OWLEntity entity : getEntities(description)) {
+    public boolean isDefined(OWLClassExpression classExpression) {
+        for (OWLEntity entity : getEntities(classExpression)) {
             if (!isDefined(entity))
                 return false;
         }

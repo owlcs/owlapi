@@ -270,7 +270,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     public void visit(OWLObjectIntersectionOf desc) {
         constructs.add(AL);
-        for (OWLDescription operands : desc.getOperands()) {
+        for (OWLClassExpression operands : desc.getOperands()) {
             operands.accept(this);
         }
     }
@@ -278,15 +278,15 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     public void visit(OWLObjectUnionOf desc) {
         constructs.add(U);
-        for (OWLDescription operands : desc.getOperands()) {
+        for (OWLClassExpression operands : desc.getOperands()) {
             operands.accept(this);
         }
     }
 
 
-    private boolean isTop(OWLDescription description) {
-        if (!description.isAnonymous()) {
-            return OWLRDFVocabulary.OWL_THING.getURI().equals(((OWLClass) description).getURI());
+    private boolean isTop(OWLClassExpression classExpression) {
+        if (!classExpression.isAnonymous()) {
+            return OWLRDFVocabulary.OWL_THING.getURI().equals(((OWLClass) classExpression).getURI());
         }
         else {
             return false;
@@ -294,13 +294,13 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    private boolean isAtomic(OWLDescription description) {
-        if (description.isAnonymous()) {
+    private boolean isAtomic(OWLClassExpression classExpression) {
+        if (classExpression.isAnonymous()) {
             return false;
         }
         else {
             for (OWLOntology ont : ontologies) {
-                if (!ont.getAxioms(((OWLClass) description)).isEmpty()) {
+                if (!ont.getAxioms(((OWLClass) classExpression)).isEmpty()) {
                     return false;
                 }
             }
@@ -456,7 +456,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     public void visit(OWLDisjointClassesAxiom axiom) {
         constructs.add(C);
-        for (OWLDescription desc : axiom.getDescriptions()) {
+        for (OWLClassExpression desc : axiom.getDescriptions()) {
             desc.accept(this);
         }
     }
@@ -551,7 +551,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     public void visit(OWLDisjointUnionAxiom axiom) {
         constructs.add(U);
         constructs.add(C);
-        for (OWLDescription desc : axiom.getDescriptions()) {
+        for (OWLClassExpression desc : axiom.getDescriptions()) {
             desc.accept(this);
         }
     }
@@ -605,7 +605,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        for (OWLDescription desc : axiom.getDescriptions()) {
+        for (OWLClassExpression desc : axiom.getDescriptions()) {
             desc.accept(this);
         }
     }

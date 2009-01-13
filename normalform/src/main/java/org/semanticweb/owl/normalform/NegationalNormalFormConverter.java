@@ -1,7 +1,7 @@
 package org.semanticweb.owl.normalform;
 
 import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.util.NNF;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -46,11 +46,11 @@ public class NegationalNormalFormConverter implements NormalFormRewriter {
     }
 
 
-    public boolean isInNormalForm(OWLDescription description) {
-        // The description is in negational normal form if negations
+    public boolean isInNormalForm(OWLClassExpression classExpression) {
+        // The classExpression is in negational normal form if negations
         // only appear in front of named concepts
-        extractor.getComplementedDescriptions(description);
-        for (OWLDescription desc : extractor.getComplementedDescriptions(description)) {
+        extractor.getComplementedDescriptions(classExpression);
+        for (OWLClassExpression desc : extractor.getComplementedDescriptions(classExpression)) {
             if (desc.isAnonymous()) {
                 return false;
             }
@@ -59,9 +59,9 @@ public class NegationalNormalFormConverter implements NormalFormRewriter {
     }
 
 
-    public OWLDescription convertToNormalForm(OWLDescription description) {
+    public OWLClassExpression convertToNormalForm(OWLClassExpression classExpression) {
         nnf.reset();
-        return description.accept(nnf);
+        return classExpression.accept(nnf);
     }
 
 

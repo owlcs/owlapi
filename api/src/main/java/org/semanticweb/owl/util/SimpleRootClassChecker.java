@@ -115,7 +115,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
 
         public void visit(OWLObjectIntersectionOf desc) {
-            for(OWLDescription op : desc.getOperands()) {
+            for(OWLClassExpression op : desc.getOperands()) {
                 op.accept(this);
                 if(namedSuper) {
                     break;
@@ -161,11 +161,11 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            Set<OWLDescription> descs = axiom.getDescriptions();
+            Set<OWLClassExpression> descs = axiom.getDescriptions();
             if(!descs.contains(cls)) {
                 return;
             }
-            for(OWLDescription desc : descs) {
+            for(OWLClassExpression desc : descs) {
                 if(desc.equals(cls)) {
                     continue;
                 }

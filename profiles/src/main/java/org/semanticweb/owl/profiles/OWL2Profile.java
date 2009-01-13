@@ -628,7 +628,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //        public Set<ConstructNotAllowed> visit(OWLDisjointClassesAxiom axiom) {
 //            Set<ConstructNotAllowed> na = getSet();
-//            for (OWLDescription desc : axiom.getDescriptions()) {
+//            for (OWLClassExpression desc : axiom.getDescriptions()) {
 //                Set<ConstructNotAllowed> descNa = desc.accept(this);
 //                na.addAll(descNa);
 //            }
@@ -660,7 +660,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //        public Set<ConstructNotAllowed> visit(OWLDisjointUnionAxiom axiom) {
 //            Set<ConstructNotAllowed> na = getSet();
-//            for (OWLDescription desc : axiom.getDescriptions()) {
+//            for (OWLClassExpression desc : axiom.getDescriptions()) {
 //                na.addAll(desc.accept(this));
 //            }
 //            if (!na.isEmpty()) {
@@ -682,7 +682,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //        public Set<ConstructNotAllowed> visit(OWLEquivalentClassesAxiom axiom) {
 //            Set<ConstructNotAllowed> na = getSet();
-//            for (OWLDescription desc : axiom.getDescriptions()) {
+//            for (OWLClassExpression desc : axiom.getDescriptions()) {
 //                na.addAll(desc.accept(this));
 //            }
 //            if (!na.isEmpty()) {
@@ -917,7 +917,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //
 //        public Set<ConstructNotAllowed> visit(OWLObjectIntersectionOf desc) {
-//            for (OWLDescription op : desc.getOperands()) {
+//            for (OWLClassExpression op : desc.getOperands()) {
 //                Set<ConstructNotAllowed> na = op.accept(this);
 //                if (!na.isEmpty()) {
 //                    return getSet(new DescriptionNotAllowed(na, desc));
@@ -969,7 +969,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //
 //        public Set<ConstructNotAllowed> visit(OWLObjectUnionOf desc) {
-//            for (OWLDescription op : desc.getOperands()) {
+//            for (OWLClassExpression op : desc.getOperands()) {
 //                Set<ConstructNotAllowed> na = op.accept(this);
 //                if (!na.isEmpty()) {
 //                    return getSet(new DescriptionNotAllowed(na, desc));
@@ -1216,17 +1216,17 @@ public class OWL2Profile implements OWLProfile {
 //
 //    public class NonSimplePropertyInExistsSelfRestriction extends DescriptionNotAllowed {
 //
-//        public NonSimplePropertyInExistsSelfRestriction(ConstructNotAllowed cause, OWLDescription construct) {
+//        public NonSimplePropertyInExistsSelfRestriction(ConstructNotAllowed cause, OWLClassExpression construct) {
 //            super(cause, construct);
 //        }
 //
 //
-//        public NonSimplePropertyInExistsSelfRestriction(Set<ConstructNotAllowed> cause, OWLDescription construct) {
+//        public NonSimplePropertyInExistsSelfRestriction(Set<ConstructNotAllowed> cause, OWLClassExpression construct) {
 //            super(cause, construct);
 //        }
 //
 //
-//        public NonSimplePropertyInExistsSelfRestriction(OWLDescription construct) {
+//        public NonSimplePropertyInExistsSelfRestriction(OWLClassExpression construct) {
 //            super(construct);
 //        }
 //    }

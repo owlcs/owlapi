@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
@@ -41,7 +41,7 @@ public class TPComplementOfHandler extends AbstractNamedEquivalentClassAxiomHand
         super(consumer, OWLRDFVocabulary.OWL_COMPLEMENT_OF.getURI());
     }
 
-    protected OWLDescription translateEquivalentClass(URI mainNode) throws OWLException {
+    protected OWLClassExpression translateEquivalentClass(URI mainNode) throws OWLException {
         return getDataFactory().getOWLObjectComplementOf(getConsumer().translateDescription(mainNode));
     }
 }

@@ -162,7 +162,7 @@ public class ELPlusPlusProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLDisjointClassesAxiom axiom) {
-            for (OWLDescription desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getDescriptions()) {
                 ConstructNotAllowed cause = desc.accept(this);
                 if(cause != null) {
                     return new AxiomNotAllowed(cause, axiom);
@@ -313,7 +313,7 @@ public class ELPlusPlusProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLEquivalentClassesAxiom axiom) {
-            for (OWLDescription desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getDescriptions()) {
                 ConstructNotAllowed cause = desc.accept(this);
                 if(cause != null) {
                     return new AxiomNotAllowed(cause, axiom);
@@ -437,7 +437,7 @@ public class ELPlusPlusProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLObjectIntersectionOf desc) {
-            for (OWLDescription op : desc.getOperands()) {
+            for (OWLClassExpression op : desc.getOperands()) {
                 ConstructNotAllowed obj = op.accept(this);
                 if(obj != null) {
                     return new DescriptionNotAllowed(obj, desc);

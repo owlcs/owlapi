@@ -35,7 +35,7 @@ import java.util.TreeSet;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpressionImpl<OWLObjectPropertyExpression, OWLDescription> implements OWLObjectPropertyExpression {
+public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpressionImpl<OWLObjectPropertyExpression, OWLClassExpression> implements OWLObjectPropertyExpression {
 
     private OWLObjectPropertyExpression simplestForm;
 
@@ -169,7 +169,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     }
 
 
-    protected Set<? extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLDescription>> getRangeAxioms(
+    protected Set<? extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>> getRangeAxioms(
             OWLOntology ontology) {
         return ontology.getObjectPropertyRangeAxioms(this);
     }

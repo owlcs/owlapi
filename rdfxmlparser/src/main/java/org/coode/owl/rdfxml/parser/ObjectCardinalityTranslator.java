@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
@@ -44,13 +44,13 @@ public class ObjectCardinalityTranslator extends AbstractObjectCardinalityTransl
     }
 
 
-    protected OWLDescription createRestriction(OWLObjectPropertyExpression prop, int cardi) throws OWLException {
+    protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi) throws OWLException {
         return getDataFactory().getOWLObjectExactCardinalityRestriction(prop, cardi);
     }
 
 
-    protected OWLDescription createRestriction(OWLObjectPropertyExpression prop, int cardi,
-                                               OWLDescription filler) throws OWLException {
+    protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi,
+                                               OWLClassExpression filler) throws OWLException {
         return getDataFactory().getOWLObjectExactCardinalityRestriction(prop, cardi, filler);
     }
 

@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
@@ -48,7 +48,7 @@ public class TypeAllDisjointClassesHandler extends BuiltInTypeHandler {
         consumeTriple(subject, predicate, object);
         URI listNode = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS.getURI(), true);
         if (listNode != null) {
-            Set<OWLDescription> desc = getConsumer().translateToDescriptionSet(listNode);
+            Set<OWLClassExpression> desc = getConsumer().translateToDescriptionSet(listNode);
             addAxiom(getDataFactory().getOWLDisjointClassesAxiom(desc));
         }
         else {

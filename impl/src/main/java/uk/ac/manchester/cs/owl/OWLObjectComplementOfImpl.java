@@ -32,12 +32,12 @@ import org.semanticweb.owl.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLObjectComplementOfImpl extends OWLAnonymousDescriptionImpl implements OWLObjectComplementOf {
+public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectComplementOf {
 
-    private OWLDescription operand;
+    private OWLClassExpression operand;
 
 
-    public OWLObjectComplementOfImpl(OWLDataFactory dataFactory, OWLDescription operand) {
+    public OWLObjectComplementOfImpl(OWLDataFactory dataFactory, OWLClassExpression operand) {
         super(dataFactory);
         this.operand = operand;
     }
@@ -48,7 +48,7 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousDescriptionImpl imple
     }
 
 
-    public OWLDescription getOperand() {
+    public OWLClassExpression getOperand() {
         return operand;
     }
 

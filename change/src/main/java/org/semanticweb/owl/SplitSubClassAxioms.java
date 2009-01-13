@@ -64,7 +64,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
                 ax.getSuperClass().accept(splitter);
                 if(splitter.result.size() > 1) {
                     changes.add(new RemoveAxiom(ont, ax));
-                    for(OWLDescription desc : splitter.result) {
+                    for(OWLClassExpression desc : splitter.result) {
                         OWLAxiom replAx = getDataFactory().getOWLSubClassAxiom(ax.getSubClass(), desc);
                         changes.add(new AddAxiom(ont, replAx));
                     }
@@ -81,11 +81,11 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
 
     private class ConjunctSplitter implements OWLDescriptionVisitor {
 
-        private Set<OWLDescription> result;
+        private Set<OWLClassExpression> result;
 
 
         public ConjunctSplitter() {
-            result = new HashSet<OWLDescription>();
+            result = new HashSet<OWLClassExpression>();
         }
 
 
@@ -140,7 +140,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
 
 
         public void visit(OWLObjectIntersectionOf desc) {
-            for(OWLDescription op : desc.getOperands()) {
+            for(OWLClassExpression op : desc.getOperands()) {
                 op.accept(this);
             }
         }

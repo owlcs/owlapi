@@ -140,10 +140,10 @@ public class OWLReasonerMediator implements OWLReasoner {
 
     private OWLEntityCollector collector = new OWLEntityCollector();
 
-    public boolean checkDefined(OWLDescription description) throws OWLReasonerException {
-        if (description.isAnonymous()) {
+    public boolean checkDefined(OWLClassExpression classExpression) throws OWLReasonerException {
+        if (classExpression.isAnonymous()) {
             collector.reset();
-            description.accept(collector);
+            classExpression.accept(collector);
             for(OWLEntity entity : collector.getObjects()) {
                 if(entity instanceof OWLClass) {
                     if(!isDefined((OWLClass) entity)) {
@@ -176,11 +176,11 @@ public class OWLReasonerMediator implements OWLReasoner {
             return true;
         }
         else {
-            if (isDefined(description.asOWLClass())) {
+            if (isDefined(classExpression.asOWLClass())) {
                 return true;
             }
             else {
-                processUndefinedEntity(description.asOWLClass());
+                processUndefinedEntity(classExpression.asOWLClass());
                 return false;
             }
         }
@@ -305,7 +305,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public boolean isSubClassOf(OWLDescription clsC, OWLDescription clsD) throws OWLReasonerException {
+    public boolean isSubClassOf(OWLClassExpression clsC, OWLClassExpression clsD) throws OWLReasonerException {
         if (!checkDefined(clsC)) {
             return false;
         }
@@ -316,7 +316,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public boolean isEquivalentClass(OWLDescription clsC, OWLDescription clsD) throws OWLReasonerException {
+    public boolean isEquivalentClass(OWLClassExpression clsC, OWLClassExpression clsD) throws OWLReasonerException {
         if (!checkDefined(clsC)) {
             return false;
         }
@@ -327,7 +327,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<Set<OWLClass>> getSuperClasses(OWLDescription clsC) throws OWLReasonerException {
+    public Set<Set<OWLClass>> getSuperClasses(OWLClassExpression clsC) throws OWLReasonerException {
         if (!checkDefined(clsC)) {
             return Collections.emptySet();
         }
@@ -335,7 +335,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<Set<OWLClass>> getAncestorClasses(OWLDescription clsC) throws OWLReasonerException {
+    public Set<Set<OWLClass>> getAncestorClasses(OWLClassExpression clsC) throws OWLReasonerException {
         if (!checkDefined(clsC)) {
             return Collections.emptySet();
         }
@@ -343,7 +343,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<Set<OWLClass>> getSubClasses(OWLDescription clsC) throws OWLReasonerException {
+    public Set<Set<OWLClass>> getSubClasses(OWLClassExpression clsC) throws OWLReasonerException {
         if (!checkDefined(clsC)) {
             return Collections.emptySet();
         }
@@ -351,7 +351,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<Set<OWLClass>> getDescendantClasses(OWLDescription clsC) throws OWLReasonerException {
+    public Set<Set<OWLClass>> getDescendantClasses(OWLClassExpression clsC) throws OWLReasonerException {
         if (!checkDefined(clsC)) {
             return Collections.emptySet();
         }
@@ -359,7 +359,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<OWLClass> getEquivalentClasses(OWLDescription clsC) throws OWLReasonerException {
+    public Set<OWLClass> getEquivalentClasses(OWLClassExpression clsC) throws OWLReasonerException {
         if (!checkDefined(clsC)) {
             return Collections.emptySet();
         }
@@ -372,11 +372,11 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public boolean isSatisfiable(OWLDescription description) throws OWLReasonerException {
-        if (!checkDefined(description)) {
+    public boolean isSatisfiable(OWLClassExpression classExpression) throws OWLReasonerException {
+        if (!checkDefined(classExpression)) {
             return undefinedClassesSatisfiable;
         }
-        return kernel.isSatisfiable(description);
+        return kernel.isSatisfiable(classExpression);
     }
 
 
@@ -388,7 +388,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<OWLIndividual> getIndividuals(OWLDescription clsC, boolean direct) throws OWLReasonerException {
+    public Set<OWLIndividual> getIndividuals(OWLClassExpression clsC, boolean direct) throws OWLReasonerException {
         if (!checkDefined(clsC)) {
             return Collections.emptySet();
         }
@@ -414,7 +414,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public boolean hasType(OWLIndividual individual, OWLDescription type, boolean direct) throws OWLReasonerException {
+    public boolean hasType(OWLIndividual individual, OWLClassExpression type, boolean direct) throws OWLReasonerException {
         if (!checkDefined(individual)) {
             return false;
         }
@@ -524,7 +524,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<Set<OWLDescription>> getDomains(OWLObjectProperty property) throws OWLReasonerException {
+    public Set<Set<OWLClassExpression>> getDomains(OWLObjectProperty property) throws OWLReasonerException {
         if (!checkDefined(property)) {
             return Collections.emptySet();
         }
@@ -532,7 +532,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<OWLDescription> getRanges(OWLObjectProperty property) throws OWLReasonerException {
+    public Set<OWLClassExpression> getRanges(OWLObjectProperty property) throws OWLReasonerException {
         if (!checkDefined(property)) {
             return Collections.emptySet();
         }
@@ -638,7 +638,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<Set<OWLDescription>> getDomains(OWLDataProperty property) throws OWLReasonerException {
+    public Set<Set<OWLClassExpression>> getDomains(OWLDataProperty property) throws OWLReasonerException {
         if (!checkDefined(property)) {
             return Collections.emptySet();
         }

@@ -81,7 +81,7 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
     }
 
 
-    protected OWLDescription translateRestriction(URI mainNode) throws OWLException {
+    protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
         return createRestriction(translateOnProperty(mainNode),
                                  translateCardinality(mainNode),
                                  translateFiller(mainNode));
@@ -92,6 +92,6 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
      * Given a property expression, cardinality and filler, this method creates the appropriate
      * OWLAPI object
      */
-    protected abstract OWLDescription createRestriction(OWLDataPropertyExpression prop, int cardi,
+    protected abstract OWLClassExpression createRestriction(OWLDataPropertyExpression prop, int cardi,
                                                         OWLDataRange filler) throws OWLException;
 }

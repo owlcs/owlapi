@@ -1,7 +1,7 @@
 package org.semanticweb.owl.debugging;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLOntology;
 
@@ -53,7 +53,7 @@ public interface OWLDebugger {
      * @return
      * @throws OWLException
      */
-    public Set<OWLAxiom> getSOSForIncosistentClass(OWLDescription cls) throws OWLException;
+    public Set<OWLAxiom> getSOSForIncosistentClass(OWLClassExpression cls) throws OWLException;
 
 
     /**
@@ -62,7 +62,7 @@ public interface OWLDebugger {
      * @return
      * @throws OWLException
      */
-    public Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(OWLDescription cls) throws OWLException;
+    public Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(OWLClassExpression cls) throws OWLException;
 
     void dispose();
 }

@@ -74,29 +74,29 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
 
     private void generateChanges() {
         changes = new ArrayList<OWLOntologyChange>();
-        Set<OWLDescription> supers = new HashSet<OWLDescription>();
+        Set<OWLClassExpression> supers = new HashSet<OWLClassExpression>();
         for (OWLOntology o : ontologies) {
             for (OWLEquivalentClassesAxiom ax : o.getEquivalentClassesAxioms(cls)) {
                 changes.add(new RemoveAxiom(o, ax));
-                for (OWLDescription equivCls : ax.getDescriptions()) {
+                for (OWLClassExpression equivCls : ax.getDescriptions()) {
                     supers.addAll(getDescriptions(equivCls));
                 }
             }
         }
         supers.remove(cls);
-        for (OWLDescription sup : supers) {
+        for (OWLClassExpression sup : supers) {
             changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassAxiom(cls, sup)));
         }
     }
 
 
-    private Set<OWLDescription> getDescriptions(OWLDescription desc) {
-        final Set<OWLDescription> result = new HashSet<OWLDescription>();
+    private Set<OWLClassExpression> getDescriptions(OWLClassExpression desc) {
+        final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         if (splitIntersections) {
             desc.accept(new OWLDescriptionVisitorAdapter() {
 
                 public void visit(OWLObjectIntersectionOf desc) {
-                    for (OWLDescription op : desc.getOperands()) {
+                    for (OWLClassExpression op : desc.getOperands()) {
                         result.add(op);
                     }
                 }

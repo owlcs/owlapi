@@ -63,8 +63,8 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return uri;
     }
 
-  final public OWLDescription parseDescription() throws ParseException {
-    OWLDescription desc;
+  final public OWLClassExpression parseDescription() throws ParseException {
+    OWLClassExpression desc;
     desc = parseClassDescription();
     jj_consume_token(0);
         {if (true) return desc;}
@@ -203,7 +203,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
 
   final public OWLAxiom parseClassAssertion() throws ParseException {
     OWLIndividual ind;
-    OWLDescription desc;
+    OWLClassExpression desc;
     if (jj_2_15(5)) {
       jj_consume_token(OPENPAR);
       desc = parseDescription();
@@ -231,8 +231,8 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
   }
 
   final public OWLAxiom parseClassAxiom() throws ParseException {
-    OWLDescription lhs;
-    OWLDescription rhs;
+    OWLClassExpression lhs;
+    OWLClassExpression rhs;
     boolean subClassAxiom = false;
     lhs = parseClassDescription();
     if (jj_2_17(5)) {
@@ -334,16 +334,16 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription parseClassDescription() throws ParseException {
-    OWLDescription desc;
+  final public OWLClassExpression parseClassDescription() throws ParseException {
+    OWLClassExpression desc;
     desc = Or();
         {if (true) return desc;}
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription Or() throws ParseException {
-    OWLDescription desc;
-    Set<OWLDescription> operands = new HashSet<OWLDescription>();
+  final public OWLClassExpression Or() throws ParseException {
+    OWLClassExpression desc;
+    Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
     desc = And();
                 operands.add(desc);
     label_4:
@@ -366,9 +366,9 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription And() throws ParseException {
-    OWLDescription desc;
-    Set<OWLDescription> operands = new HashSet<OWLDescription>();
+  final public OWLClassExpression And() throws ParseException {
+    OWLClassExpression desc;
+    Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
     desc = NonNaryBooleanDescription();
                                       operands.add(desc);
     label_5:
@@ -391,8 +391,8 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription NonNaryBooleanDescription() throws ParseException {
-    OWLDescription desc;
+  final public OWLClassExpression NonNaryBooleanDescription() throws ParseException {
+    OWLClassExpression desc;
     if (jj_2_27(5)) {
       desc = parseRestriction();
     } else if (jj_2_28(5)) {
@@ -435,8 +435,8 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription parseRestriction() throws ParseException {
-    OWLDescription desc;
+  final public OWLClassExpression parseRestriction() throws ParseException {
+    OWLClassExpression desc;
     if (jj_2_31(5)) {
       desc = parseSomeRestriction();
     } else if (jj_2_32(5)) {
@@ -453,9 +453,9 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription parseSomeRestriction() throws ParseException {
+  final public OWLClassExpression parseSomeRestriction() throws ParseException {
     OWLObjectPropertyExpression prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     jj_consume_token(SOME);
     prop = parseObjectPropertyId();
     if (jj_2_35(5)) {
@@ -468,7 +468,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription parseDataSomeRestriction() throws ParseException {
+  final public OWLClassExpression parseDataSomeRestriction() throws ParseException {
     OWLDataPropertyExpression prop;
     OWLDataRange filler;
     jj_consume_token(SOME);
@@ -483,9 +483,9 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription parseAllRestriction() throws ParseException {
+  final public OWLClassExpression parseAllRestriction() throws ParseException {
     OWLObjectPropertyExpression prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     jj_consume_token(ALL);
     prop = parseObjectPropertyId();
     if (jj_2_37(5)) {
@@ -498,9 +498,9 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription parseCardinalityRestriction() throws ParseException {
+  final public OWLClassExpression parseCardinalityRestriction() throws ParseException {
     OWLObjectPropertyExpression prop;
-    OWLDescription filler = null;
+    OWLClassExpression filler = null;
     boolean min = false;
     boolean exactly = false;
     boolean max = false;
@@ -553,15 +553,15 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription parseObjectComplementOf() throws ParseException {
-    OWLDescription op;
+  final public OWLClassExpression parseObjectComplementOf() throws ParseException {
+    OWLClassExpression op;
     jj_consume_token(NOT);
     op = NamedClassOrNestedDescription();
         {if (true) return factory.getOWLObjectComplementOf(op);}
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription parseObjectOneOf() throws ParseException {
+  final public OWLClassExpression parseObjectOneOf() throws ParseException {
     OWLIndividual ind;
     Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
     jj_consume_token(OPENBRACE);
@@ -603,8 +603,8 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription NamedClassOrNestedDescription() throws ParseException {
-    OWLDescription desc;
+  final public OWLClassExpression NamedClassOrNestedDescription() throws ParseException {
+    OWLClassExpression desc;
     if (jj_2_45(5)) {
       desc = parseClassId();
     } else if (jj_2_46(5)) {
@@ -624,8 +624,8 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription NestedClassDescription() throws ParseException {
-    OWLDescription desc;
+  final public OWLClassExpression NestedClassDescription() throws ParseException {
+    OWLClassExpression desc;
     if (jj_2_47(5)) {
       jj_consume_token(OPENPAR);
       desc = Or();

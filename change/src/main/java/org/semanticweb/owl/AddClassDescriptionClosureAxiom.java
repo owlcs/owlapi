@@ -93,12 +93,12 @@ public class AddClassDescriptionClosureAxiom extends AbstractCompositeOntologyCh
                 ax.getSuperClass().accept(collector);
             }
         }
-        Set<OWLDescription> fillers = collector.getFillers();
+        Set<OWLClassExpression> fillers = collector.getFillers();
         if (fillers.isEmpty()) {
             return;
         }
-        OWLDescription closureAxiomFiller = getDataFactory().getOWLObjectUnionOf(fillers);
-        OWLDescription closureAxiomDesc = getDataFactory().getOWLObjectAllRestriction(property, closureAxiomFiller);
+        OWLClassExpression closureAxiomFiller = getDataFactory().getOWLObjectUnionOf(fillers);
+        OWLClassExpression closureAxiomDesc = getDataFactory().getOWLObjectAllRestriction(property, closureAxiomFiller);
         changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassAxiom(cls, closureAxiomDesc)));
     }
 
@@ -110,15 +110,15 @@ public class AddClassDescriptionClosureAxiom extends AbstractCompositeOntologyCh
 
     private class FillerCollector extends OWLDescriptionVisitorAdapter {
 
-        private Set<OWLDescription> fillers;
+        private Set<OWLClassExpression> fillers;
 
 
         public FillerCollector() {
-            fillers = new HashSet<OWLDescription>();
+            fillers = new HashSet<OWLClassExpression>();
         }
 
 
-        public Set<OWLDescription> getFillers() {
+        public Set<OWLClassExpression> getFillers() {
             return fillers;
         }
 

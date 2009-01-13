@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 
 import java.net.URI;
@@ -48,12 +48,12 @@ public abstract class AbstractNaryBooleanDescriptionTranslator extends AbstractD
     }
 
 
-    public OWLDescription translate(URI mainNode) throws OWLException {
+    public OWLClassExpression translate(URI mainNode) throws OWLException {
         URI object = getResourceObject(mainNode, getPredicateURI(), true);
         if(object == null) {
             throw new MalformedDescriptionException("Triple with " + getPredicateURI() + " not present");
         }
-        Set<OWLDescription> operands = translateToDescriptionSet(object);
+        Set<OWLClassExpression> operands = translateToDescriptionSet(object);
         if(operands.size() < 2) {
             logger.fine("Number of operands is less than 2");
             if(operands.size() == 1) {
@@ -68,7 +68,7 @@ public abstract class AbstractNaryBooleanDescriptionTranslator extends AbstractD
         return createDescription(operands);
     }
 
-    protected abstract OWLDescription createDescription(Set<OWLDescription> operands) throws OWLException;
+    protected abstract OWLClassExpression createDescription(Set<OWLClassExpression> operands) throws OWLException;
 
     protected abstract URI getPredicateURI() throws OWLException;
 }

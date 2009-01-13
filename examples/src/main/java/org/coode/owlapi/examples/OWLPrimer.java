@@ -321,7 +321,7 @@ public class OWLPrimer {
             // Now we want to say that Person has exactly 1 Age, exactly 1 Gender and,  only has gender
             // that is male or female.  We will deal with these restrictions one by one and then combine
             // them as a superclass (Necessary conditions) of Person.  All anonymous class descriptions
-            // extend OWLDescription.
+            // extend OWLClassExpression.
 
             // First, hasAge exactly 1
             OWLDataExactCardinalityRestriction hasAgeRestriction = factory.getOWLDataExactCardinalityRestriction(hasAge, 1);
@@ -351,7 +351,7 @@ public class OWLPrimer {
             OWLObjectValueRestriction hasGenderValueMaleRestriction = factory.getOWLObjectValueRestriction(hasGender,
                                                                                                            male);
             // Now combine this with Person in an intersection
-            OWLDescription personAndHasGenderValueMale = factory.getOWLObjectIntersectionOf(person,
+            OWLClassExpression personAndHasGenderValueMale = factory.getOWLObjectIntersectionOf(person,
                                                                                        hasGenderValueMaleRestriction);
             // Now specify this anonymous class as the range of hasSon using an object property range axioms
             manager.addAxiom(ont, factory.getOWLObjectPropertyRangeAxiom(hasSon, personAndHasGenderValueMale));
@@ -361,7 +361,7 @@ public class OWLPrimer {
             // of Person and hasGender value female.  This time, we will make things a little more compact by
             // not using so many variables
 
-            OWLDescription rangeOfHasDaughter = factory.getOWLObjectIntersectionOf(person,
+            OWLClassExpression rangeOfHasDaughter = factory.getOWLObjectIntersectionOf(person,
                                                                                 factory.getOWLObjectValueRestriction(hasGender,
                                                                                                                      female));
             manager.addAxiom(ont, factory.getOWLObjectPropertyRangeAxiom(hasDaughter, rangeOfHasDaughter));
@@ -393,7 +393,7 @@ public class OWLPrimer {
 
             // Now make Teenager equivalent to Person and hasAge some int[>=13, <20]
             // First create the class Person and hasAge some int[>=13, <20]
-            OWLDescription teenagePerson = factory.getOWLObjectIntersectionOf(person, teenagerAgeRestriction);
+            OWLClassExpression teenagePerson = factory.getOWLObjectIntersectionOf(person, teenagerAgeRestriction);
 
             OWLClass teenager = factory.getOWLClass(URI.create(ontologyURI + "#Teenager"));
             OWLEquivalentClassesAxiom teenagerDefinition = factory.getOWLEquivalentClassesAxiom(teenager, teenagePerson);
@@ -404,16 +404,16 @@ public class OWLPrimer {
             OWLDataRange geq21 = factory.getOWLDataRangeRestriction(integerDatatype,
                                                                     factory.getOWLDataRangeFacetRestriction(MIN_INCLUSIVE, 21));
             OWLClass adult = factory.getOWLClass(URI.create(ontologyURI + "#Adult"));
-            OWLDescription adultAgeRestriction = factory.getOWLDataSomeRestriction(hasAge, geq21);
-            OWLDescription adultPerson = factory.getOWLObjectIntersectionOf(person, adultAgeRestriction);
+            OWLClassExpression adultAgeRestriction = factory.getOWLDataSomeRestriction(hasAge, geq21);
+            OWLClassExpression adultPerson = factory.getOWLObjectIntersectionOf(person, adultAgeRestriction);
             OWLAxiom adultDefinition = factory.getOWLEquivalentClassesAxiom(adult, adultPerson);
             manager.addAxiom(ont, adultDefinition);
 
             // And finally Child
             OWLDataRange notGeq21 = factory.getOWLDataComplementOf(geq21);
             OWLClass child = factory.getOWLClass(URI.create(ontologyURI + "#Child"));
-            OWLDescription childAgeRestriction = factory.getOWLDataSomeRestriction(hasAge, notGeq21);
-            OWLDescription childPerson = factory.getOWLObjectIntersectionOf(person, childAgeRestriction);
+            OWLClassExpression childAgeRestriction = factory.getOWLDataSomeRestriction(hasAge, notGeq21);
+            OWLClassExpression childPerson = factory.getOWLObjectIntersectionOf(person, childAgeRestriction);
             OWLAxiom childDefinition = factory.getOWLEquivalentClassesAxiom(child, childPerson);
             manager.addAxiom(ont, childDefinition);
 

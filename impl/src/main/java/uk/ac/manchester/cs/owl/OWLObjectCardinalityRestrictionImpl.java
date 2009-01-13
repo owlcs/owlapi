@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLObjectCardinalityRestriction;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 /*
@@ -34,10 +34,10 @@ import org.semanticweb.owl.model.OWLObjectPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLObjectCardinalityRestrictionImpl extends OWLCardinalityRestrictionImpl<OWLObjectPropertyExpression, OWLDescription> implements OWLObjectCardinalityRestriction {
+public abstract class OWLObjectCardinalityRestrictionImpl extends OWLCardinalityRestrictionImpl<OWLObjectPropertyExpression, OWLClassExpression> implements OWLObjectCardinalityRestriction {
 
     protected OWLObjectCardinalityRestrictionImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, int cardinality,
-                                                  OWLDescription filler) {
+                                                  OWLClassExpression filler) {
         super(dataFactory, property, cardinality, filler);
     }
 

@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 
@@ -42,12 +42,12 @@ public abstract class AbstractObjectQuantifiedRestrictionTranslator extends Abst
     }
 
 
-    final protected OWLDescription translateRestriction(URI mainNode) throws OWLException {
+    final protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
         URI fillerObject = getResourceObject(mainNode, getFillerTriplePredicate(), true);
         if (fillerObject == null) {
             throw new MalformedDescriptionException(getFillerTriplePredicate() + " triple not present");
         }
-        OWLDescription desc = translateToDescription(fillerObject);
+        OWLClassExpression desc = translateToDescription(fillerObject);
         return createRestriction(translateOnProperty(mainNode), desc);
     }
 
@@ -55,6 +55,6 @@ public abstract class AbstractObjectQuantifiedRestrictionTranslator extends Abst
     protected abstract URI getFillerTriplePredicate() throws OWLException;
 
 
-    protected abstract OWLDescription createRestriction(OWLObjectPropertyExpression property,
-                                                        OWLDescription filler) throws OWLException;
+    protected abstract OWLClassExpression createRestriction(OWLObjectPropertyExpression property,
+                                                        OWLClassExpression filler) throws OWLException;
 }

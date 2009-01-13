@@ -1,6 +1,6 @@
 package org.semanticweb.owl.normalform;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -33,7 +33,7 @@ import org.semanticweb.owl.model.OWLDescription;
  */
 public interface NormalFormRewriter {
 
-    boolean isInNormalForm(OWLDescription description);
+    boolean isInNormalForm(OWLClassExpression classExpression);
 
-    OWLDescription convertToNormalForm(OWLDescription description);
+    OWLClassExpression convertToNormalForm(OWLClassExpression classExpression);
 }

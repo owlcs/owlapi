@@ -88,8 +88,8 @@ public class DIGRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        for(OWLDescription descA : axiom.getDescriptions()) {
-            for(OWLDescription descB : axiom.getDescriptions()) {
+        for(OWLClassExpression descA : axiom.getDescriptions()) {
+            for(OWLClassExpression descB : axiom.getDescriptions()) {
                 if (!descA.equals(descB)) {
                     createAndPushNode(Vocab.EQUALC);
                     descA.accept(this);
@@ -109,7 +109,7 @@ public class DIGRenderer implements OWLObjectVisitor {
 
     public void visit(OWLDisjointClassesAxiom axiom) {
         createAndPushNode(Vocab.DISJOINT);
-        for (OWLDescription desc : axiom.getDescriptions()) {
+        for (OWLClassExpression desc : axiom.getDescriptions()) {
             desc.accept(this);
         }
         popCurrentNode();
@@ -356,7 +356,7 @@ public class DIGRenderer implements OWLObjectVisitor {
 
     public void visit(OWLObjectIntersectionOf node) {
         createAndPushNode(Vocab.AND);
-        for (OWLDescription desc : node.getOperands()) {
+        for (OWLClassExpression desc : node.getOperands()) {
             desc.accept(this);
         }
         popCurrentNode();
@@ -458,7 +458,7 @@ public class DIGRenderer implements OWLObjectVisitor {
 
     public void visit(OWLObjectUnionOf node) {
         createAndPushNode(Vocab.OR);
-        for (OWLDescription desc : node.getOperands()) {
+        for (OWLClassExpression desc : node.getOperands()) {
             desc.accept(this);
         }
         popCurrentNode();

@@ -54,12 +54,12 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
             for(OWLClass cls : ont.getReferencedClasses()) {
                 Set<OWLSubClassAxiom> axioms = ont.getSubClassAxiomsForLHS(cls);
                 if (axioms.size() > 1) {
-                    Set<OWLDescription> superClasses = new HashSet<OWLDescription>();
+                    Set<OWLClassExpression> superClasses = new HashSet<OWLClassExpression>();
                     for(OWLSubClassAxiom ax : axioms) {
                         changes.add(new RemoveAxiom(ont, ax));
                         superClasses.add(ax.getSuperClass());
                     }
-                    OWLDescription combinedSuperClass = getDataFactory().getOWLObjectIntersectionOf(superClasses);
+                    OWLClassExpression combinedSuperClass = getDataFactory().getOWLObjectIntersectionOf(superClasses);
                     changes.add(new AddAxiom(ont, getDataFactory().getOWLSubClassAxiom(cls, combinedSuperClass)));
                 }
             }

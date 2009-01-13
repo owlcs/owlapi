@@ -29,7 +29,7 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group<br>
  * Date: 25-Oct-2006<br><br>
  */
-public interface OWLObjectIntersectionOf extends OWLNaryBooleanDescription {
+public interface OWLObjectIntersectionOf extends OWLNaryBooleanClassExpression {
 
 
 }

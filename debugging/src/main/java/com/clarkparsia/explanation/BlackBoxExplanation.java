@@ -124,7 +124,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     }
 
 
-    public Set<OWLAxiom> getExplanation(OWLDescription unsatClass) {
+    public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
 		
 		if( !definitionTracker.isDefined( unsatClass ) )
 			return Collections.emptySet();
@@ -325,7 +325,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     // /////////////////////////////////////////////////////////////////////////////////////////
 
 
-    private void performFastPruning(OWLDescription unsatClass) throws OWLException {
+    private void performFastPruning(OWLClassExpression unsatClass) throws OWLException {
         Set<OWLAxiom> axiomWindow = new HashSet<OWLAxiom>();
         Object[] axioms = debuggingAxioms.toArray();
         if (log.isLoggable(Level.FINE)) {
@@ -385,7 +385,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     }
 
 
-    private void performSlowPruning(OWLDescription unsatClass) throws OWLException {
+    private void performSlowPruning(OWLClassExpression unsatClass) throws OWLException {
         // Simply remove axioms one at a time. If the class
         // being debugged turns satisfiable then we know we have
         // an SOS axiom.
@@ -412,7 +412,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
      * Tests the satisfiability of the test class. The ontology is recreated
      * before the test is performed.
      */
-    private boolean isSatisfiable(OWLDescription unsatClass) throws OWLException {
+    private boolean isSatisfiable(OWLClassExpression unsatClass) throws OWLException {
         createDebuggingOntology();
         ontologyCounter++;
 
@@ -457,7 +457,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     }
 
 
-    private void expandUntilUnsatisfiable(OWLDescription unsatClass) throws OWLException {
+    private void expandUntilUnsatisfiable(OWLClassExpression unsatClass) throws OWLException {
         // Perform the initial expansion - this will cause
         // the debugging axioms set to be expanded to the
         // defining axioms for the class being debugged
@@ -511,7 +511,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     }
 
 
-    protected void pruneUntilMinimal(OWLDescription unsatClass) throws OWLException {
+    protected void pruneUntilMinimal(OWLClassExpression unsatClass) throws OWLException {
         if (log.isLoggable(Level.FINE)) {
             log.fine("FOUND CLASH! Pruning " + debuggingAxioms.size() + " axioms...");
         }

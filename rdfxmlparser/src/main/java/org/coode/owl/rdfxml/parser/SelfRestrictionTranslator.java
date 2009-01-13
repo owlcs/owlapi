@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
@@ -43,7 +43,7 @@ public class SelfRestrictionTranslator extends AbstractObjectRestrictionTranslat
     }
 
 
-    protected OWLDescription translateRestriction(URI mainNode) throws OWLException {
+    protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
         if(!getConsumer().isSelfRestriction(mainNode)) {
             throw new MalformedDescriptionException("Not typed as " + OWLRDFVocabulary.OWL_SELF_RESTRICTION);
         }

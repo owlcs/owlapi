@@ -77,7 +77,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         }
     }
 
-    protected void write(Set<? extends OWLDescription> objects, boolean newline) {
+    protected void write(Set<? extends OWLClassExpression> objects, boolean newline) {
         boolean lastWasNamed = false;
         boolean first = true;
 
@@ -96,11 +96,11 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
             }
 
             first = false;
-            if (desc instanceof OWLAnonymousDescription) {
+            if (desc instanceof OWLAnonymousClassExpression) {
                 write("(");
             }
             desc.accept(this);
-            if (desc instanceof OWLAnonymousDescription) {
+            if (desc instanceof OWLAnonymousClassExpression) {
                 write(")");
             }
 
@@ -112,11 +112,11 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     private void writeRestriction(OWLQuantifiedRestriction restriction, ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
-        if (restriction.getFiller() instanceof OWLAnonymousDescription) {
+        if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
             write("(");
         }
         restriction.getFiller().accept(this);
-        if (restriction.getFiller() instanceof OWLAnonymousDescription) {
+        if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
             write(")");
         }
     }
@@ -135,11 +135,11 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         write(Integer.toString(restriction.getCardinality()));
 //        if(restriction.isQualified()) {
         writeSpace();
-        if (restriction.getFiller() instanceof OWLAnonymousDescription) {
+        if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
             write("(");
         }
         restriction.getFiller().accept(this);
-        if (restriction.getFiller() instanceof OWLAnonymousDescription) {
+        if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
             write(")");
         }
 //        }
@@ -165,8 +165,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLObjectUnionOf desc) {
         boolean first = true;
-        for (Iterator<? extends OWLDescription> it = desc.getOperands().iterator(); it.hasNext();) {
-            OWLDescription op = it.next();
+        for (Iterator<? extends OWLClassExpression> it = desc.getOperands().iterator(); it.hasNext();) {
+            OWLClassExpression op = it.next();
             if (!first) {
                 if (isUseWrapping()) {
                     writeNewLine();
@@ -619,7 +619,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
             write(((OWLOntology) object).getURI().toString());
             write(">");
         } else {
-            if (object instanceof OWLDescription) {
+            if (object instanceof OWLClassExpression) {
                 writeFrameKeyword(CLASS);
             } else if (object instanceof OWLObjectPropertyExpression) {
                 writeFrameKeyword(OBJECT_PROPERTY);

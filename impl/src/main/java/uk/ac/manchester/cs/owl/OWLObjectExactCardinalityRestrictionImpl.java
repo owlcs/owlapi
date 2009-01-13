@@ -34,7 +34,7 @@ import org.semanticweb.owl.model.*;
 public class OWLObjectExactCardinalityRestrictionImpl extends OWLObjectCardinalityRestrictionImpl implements OWLObjectExactCardinalityRestriction {
 
     public OWLObjectExactCardinalityRestrictionImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, int cardinality,
-                                                    OWLDescription filler) {
+                                                    OWLClassExpression filler) {
         super(dataFactory, property, cardinality, filler);
     }
 
@@ -47,7 +47,7 @@ public class OWLObjectExactCardinalityRestrictionImpl extends OWLObjectCardinali
     }
 
 
-    public OWLDescription asIntersectionOfMinMax() {
+    public OWLClassExpression asIntersectionOfMinMax() {
         OWLDataFactory df = getOWLDataFactory();
         return df.getOWLObjectIntersectionOf(df.getOWLObjectMinCardinalityRestriction(getProperty(), getCardinality(), getFiller()),
                                       df.getOWLObjectMaxCardinalityRestriction(getProperty(), getCardinality(), getFiller()));

@@ -172,14 +172,14 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // BUGFIX: (TS) An n-ary disj classes axiom is local
         //              iff at most one of the involved class descriptions is not bot-equivalent.
         public void visit(OWLDisjointClassesAxiom axiom) {
-            Collection<OWLDescription> disjs = axiom.getDescriptions();
+            Collection<OWLClassExpression> disjs = axiom.getDescriptions();
             int size = disjs.size();
             if (size == 1) {
                 throw new RuntimeException("Unary disjoint axiom.");
             }
             else {
                 boolean nonBottomEquivDescFound = false;
-                for (OWLDescription desc : disjs) {
+                for (OWLClassExpression desc : disjs) {
                     if (!bottomEvaluator.isBottomEquivalent(desc, signature, localityCls)) {
                         if (nonBottomEquivDescFound) {
                             isLocal = false;
@@ -265,11 +265,11 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // - if RHS is top-equiv, one descr on LHS is top-equiv and the others are bot-equiv
         public void visit(OWLDisjointUnionAxiom axiom) {
             OWLClass lhs = axiom.getOWLClass();
-            Collection<OWLDescription> rhs = axiom.getDescriptions();
+            Collection<OWLClassExpression> rhs = axiom.getDescriptions();
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                     if (!signature.contains(lhs)) {
-                        for (OWLDescription desc : rhs) {
+                        for (OWLClassExpression desc : rhs) {
                             if (!bottomEvaluator.isBottomEquivalent(desc, signature, localityCls)) {
                                 isLocal = false;
                                 return;
@@ -285,7 +285,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP:
                     if (!signature.contains(rhs)) {
                         boolean bottomEquivDescFound = false;
-                        for (OWLDescription desc : rhs) {
+                        for (OWLClassExpression desc : rhs) {
                             if (!bottomEvaluator.isBottomEquivalent(desc, signature, localityCls)) {
                                 if (topEvaluator.isTopEquivalent(desc, signature, localityCls)) {
                                     if (bottomEquivDescFound) {
@@ -320,8 +320,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         public void visit(OWLEquivalentClassesAxiom axiom) {
             isLocal = true;
 
-            Iterator<OWLDescription> eqs = axiom.getDescriptions().iterator();
-            OWLDescription first = eqs.next();
+            Iterator<OWLClassExpression> eqs = axiom.getDescriptions().iterator();
+            OWLClassExpression first = eqs.next();
 
             // axiom is local if it contains a single class description
             if (!eqs.hasNext())
@@ -339,7 +339,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 //            // unless we find a non-locality, process all the class descriptions
 //            while (isLocal && eqs.hasNext()) {
-//                OWLDescription next = eqs.next();
+//                OWLClassExpression next = eqs.next();
 //
 //                if (isBottom) {
 //                    // other concepts were BOTTOM so this one should be BOTTOM
@@ -359,7 +359,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             if (isBottom) {
                 // unless we find a non-locality, process all the class descriptions
                 while (isLocal && eqs.hasNext()) {
-                    OWLDescription next = eqs.next();
+                    OWLClassExpression next = eqs.next();
                     // first class descr. was BOTTOM, so this one should be BOTTOM too
                     if (!bottomEvaluator.isBottomEquivalent(next, signature, localityCls)) {
                         isLocal = false;
@@ -369,7 +369,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             else {
                 // unless we find a non-locality, process all the class descriptions
                 while (isLocal && eqs.hasNext()) {
-                    OWLDescription next = eqs.next();
+                    OWLClassExpression next = eqs.next();
                     // first class descr. was TOP, so this one should be TOP too
                     if (!topEvaluator.isTopEquivalent(next, signature, localityCls)) {
                         isLocal = false;
@@ -655,13 +655,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        private boolean isBottomEquivalent(OWLDescription desc) {
+        private boolean isBottomEquivalent(OWLClassExpression desc) {
             desc.accept(this);
             return isBottomEquivalent;
         }
 
 
-        public boolean isBottomEquivalent(OWLDescription desc, Collection<? extends OWLEntity> signature,
+        public boolean isBottomEquivalent(OWLClassExpression desc, Collection<? extends OWLEntity> signature,
                                           LocalityClass localityCls) {
             this.localityCls = localityCls;
             this.signature = signature;
@@ -812,7 +812,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLObjectIntersectionOf desc) {
-            for (OWLDescription conj : desc.getOperands()) {
+            for (OWLClassExpression conj : desc.getOperands()) {
                 if (isBottomEquivalent(conj)) {
                     isBottomEquivalent = true;
                     return;
@@ -890,7 +890,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLObjectUnionOf desc) {
-            for (OWLDescription disj : desc.getOperands()) {
+            for (OWLClassExpression disj : desc.getOperands()) {
                 if (!isBottomEquivalent(disj)) {
                     isBottomEquivalent = false;
                     return;
@@ -933,13 +933,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        private boolean isTopEquivalent(OWLDescription desc) {
+        private boolean isTopEquivalent(OWLClassExpression desc) {
             desc.accept(this);
             return isTopEquivalent;
         }
 
 
-        public boolean isTopEquivalent(OWLDescription desc, Collection<? extends OWLEntity> signature,
+        public boolean isTopEquivalent(OWLClassExpression desc, Collection<? extends OWLEntity> signature,
                                        LocalityClass localityCls) {
             this.localityCls = localityCls;
             this.signature = signature;
@@ -1065,7 +1065,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLObjectIntersectionOf desc) {
-            for (OWLDescription conj : desc.getOperands()) {
+            for (OWLClassExpression conj : desc.getOperands()) {
                 if (!isTopEquivalent(conj)) {
                     isTopEquivalent = false;
                     return;
@@ -1143,7 +1143,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLObjectUnionOf desc) {
-            for (OWLDescription conj : desc.getOperands()) {
+            for (OWLClassExpression conj : desc.getOperands()) {
                 if (isTopEquivalent(conj)) {
                     isTopEquivalent = true;
                     return;

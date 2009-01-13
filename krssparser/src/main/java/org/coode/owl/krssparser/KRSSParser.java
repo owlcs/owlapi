@@ -109,8 +109,8 @@ public class KRSSParser implements KRSSParserConstants {
   }
 
   final public OWLAxiom DefinePrimitiveConcept() throws ParseException {
-    OWLDescription subClass;
-    OWLDescription superClass;
+    OWLClassExpression subClass;
+    OWLClassExpression superClass;
     jj_consume_token(OPENPAR);
     jj_consume_token(DEFINEPRIMITIVECONCEPT);
     subClass = ConceptName();
@@ -121,14 +121,14 @@ public class KRSSParser implements KRSSParserConstants {
   }
 
   final public OWLAxiom DefineConcept() throws ParseException {
-    OWLDescription clsA;
-    OWLDescription clsB;
+    OWLClassExpression clsA;
+    OWLClassExpression clsB;
     jj_consume_token(OPENPAR);
     jj_consume_token(DEFINECONCEPT);
     clsA = ConceptName();
     clsB = ConceptExpression();
     jj_consume_token(CLOSEPAR);
-        Set<OWLDescription> ops = new HashSet<OWLDescription>();
+        Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
         ops.add(clsA);
         ops.add(clsB);
         {if (true) return dataFactory.getOWLEquivalentClassesAxiom(ops);}
@@ -167,7 +167,7 @@ public class KRSSParser implements KRSSParserConstants {
 
   final public OWLAxiom Range() throws ParseException {
     OWLObjectProperty prop;
-    OWLDescription rng;
+    OWLClassExpression rng;
     jj_consume_token(OPENPAR);
     jj_consume_token(RANGE);
     prop = RoleName();
@@ -177,8 +177,8 @@ public class KRSSParser implements KRSSParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription ConceptExpression() throws ParseException {
-    OWLDescription desc;
+  final public OWLClassExpression ConceptExpression() throws ParseException {
+    OWLClassExpression desc;
     if (jj_2_11(2)) {
       desc = ConceptName();
     } else if (jj_2_12(2)) {
@@ -205,16 +205,16 @@ public class KRSSParser implements KRSSParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription ConceptName() throws ParseException {
+  final public OWLClassExpression ConceptName() throws ParseException {
     URI uri;
     uri = Name();
         {if (true) return dataFactory.getOWLClass(uri);}
     throw new Error("Missing return statement in function");
   }
 
-  final public Set<OWLDescription> ConceptSet() throws ParseException {
-    Set<OWLDescription> descs = new HashSet<OWLDescription>();
-    OWLDescription desc;
+  final public Set<OWLClassExpression> ConceptSet() throws ParseException {
+    Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
+    OWLClassExpression desc;
     label_3:
     while (true) {
       desc = ConceptExpression();
@@ -229,8 +229,8 @@ public class KRSSParser implements KRSSParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription And() throws ParseException {
-    Set<OWLDescription> operands;
+  final public OWLClassExpression And() throws ParseException {
+    Set<OWLClassExpression> operands;
     jj_consume_token(OPENPAR);
     jj_consume_token(AND);
     operands = ConceptSet();
@@ -239,8 +239,8 @@ public class KRSSParser implements KRSSParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription Or() throws ParseException {
-    Set<OWLDescription> operands;
+  final public OWLClassExpression Or() throws ParseException {
+    Set<OWLClassExpression> operands;
     jj_consume_token(OPENPAR);
     jj_consume_token(OR);
     operands = ConceptSet();
@@ -249,8 +249,8 @@ public class KRSSParser implements KRSSParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription Not() throws ParseException {
-    OWLDescription operand;
+  final public OWLClassExpression Not() throws ParseException {
+    OWLClassExpression operand;
     jj_consume_token(OPENPAR);
     jj_consume_token(NOT);
     operand = ConceptExpression();
@@ -259,9 +259,9 @@ public class KRSSParser implements KRSSParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription All() throws ParseException {
+  final public OWLClassExpression All() throws ParseException {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     jj_consume_token(OPENPAR);
     jj_consume_token(ALL);
     prop = RoleName();
@@ -271,9 +271,9 @@ public class KRSSParser implements KRSSParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription Some() throws ParseException {
+  final public OWLClassExpression Some() throws ParseException {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     jj_consume_token(OPENPAR);
     jj_consume_token(SOME);
     prop = RoleName();
@@ -283,9 +283,9 @@ public class KRSSParser implements KRSSParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription AtLeast() throws ParseException {
+  final public OWLClassExpression AtLeast() throws ParseException {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     int card;
     jj_consume_token(OPENPAR);
     jj_consume_token(ATLEAST);
@@ -297,9 +297,9 @@ public class KRSSParser implements KRSSParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription AtMost() throws ParseException {
+  final public OWLClassExpression AtMost() throws ParseException {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     int card;
     jj_consume_token(OPENPAR);
     jj_consume_token(ATMOST);
@@ -311,9 +311,9 @@ public class KRSSParser implements KRSSParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDescription Exactly() throws ParseException {
+  final public OWLClassExpression Exactly() throws ParseException {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     int card;
     jj_consume_token(OPENPAR);
     jj_consume_token(EXACTLY);
@@ -352,7 +352,7 @@ public class KRSSParser implements KRSSParserConstants {
 
   final public OWLAxiom Instance() throws ParseException {
     OWLIndividual ind;
-    OWLDescription type;
+    OWLClassExpression type;
     jj_consume_token(OPENPAR);
     jj_consume_token(INSTANCE);
     ind = IndividualName();

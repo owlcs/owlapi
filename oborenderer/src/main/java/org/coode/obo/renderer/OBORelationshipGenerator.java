@@ -95,7 +95,7 @@ public class OBORelationshipGenerator extends org.semanticweb.owl.util.OWLDescri
     // TODO error handling for un-translatable descriptions
 
 
-    private OBORelationship getRelationship(OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLDescription> desc) {
+    private OBORelationship getRelationship(OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLClassExpression> desc) {
         if (desc.isAnonymous() && !desc.getFiller().isAnonymous()){
             final OWLObjectProperty p = desc.getProperty().asOWLObjectProperty();
             final OWLClass f = desc.getFiller().asOWLClass();

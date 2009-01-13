@@ -31,15 +31,15 @@ import java.util.Set;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public class OWLEquivalentClassesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLDescription> {
+public class OWLEquivalentClassesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLClassExpression> {
 
 
-    protected OWLObject createObject(Set<OWLDescription> operands) throws Exception {
+    protected OWLObject createObject(Set<OWLClassExpression> operands) throws Exception {
         return getOWLDataFactory().getOWLEquivalentClassesAxiom(operands);
     }
 
 
-    protected OWLDescription createOperand() throws Exception {
+    protected OWLClassExpression createOperand() throws Exception {
         return createOWLClass();
     }
 }

@@ -46,7 +46,7 @@ public class OntologyUtils {
      *         the ontology that contains entailments which are being explained,
      *         otherwise <code>false</code>
      */
-    public static boolean containsUnreferencedEntity(OWLOntology ontology, OWLDescription desc) {
+    public static boolean containsUnreferencedEntity(OWLOntology ontology, OWLClassExpression desc) {
         OWLEntityCollector entityCollector = new OWLEntityCollector();
         desc.accept(entityCollector);
         for (OWLEntity entity : entityCollector.getObjects()) {

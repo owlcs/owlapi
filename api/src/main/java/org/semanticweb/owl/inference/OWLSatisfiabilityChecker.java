@@ -1,7 +1,6 @@
 package org.semanticweb.owl.inference;
 
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -41,5 +40,5 @@ public interface OWLSatisfiabilityChecker extends OWLReasonerBase {
     /**
      * Determines if the specified class is satisfiable.
      */
-    boolean isSatisfiable(OWLDescription description) throws OWLReasonerException;
+    boolean isSatisfiable(OWLClassExpression classExpression) throws OWLReasonerException;
 }

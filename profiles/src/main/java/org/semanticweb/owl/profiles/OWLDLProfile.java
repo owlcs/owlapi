@@ -192,7 +192,7 @@ public class OWLDLProfile implements OWLProfile {
             if (axiom.getDescriptions().size() > 2) {
                 return new DisjointClassAxiomNotAllowed(axiom);
             }
-            for(OWLDescription desc : axiom.getDescriptions()) {
+            for(OWLClassExpression desc : axiom.getDescriptions()) {
                 ConstructNotAllowed na = desc.accept(this);
                 if(na != null) {
                     return new AxiomNotAllowed(na, axiom);
@@ -229,7 +229,7 @@ public class OWLDLProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLEquivalentClassesAxiom axiom) {
-            for(OWLDescription desc : axiom.getDescriptions()) {
+            for(OWLClassExpression desc : axiom.getDescriptions()) {
                 ConstructNotAllowed na = desc.accept(this);
                 if(na != null) {
                     return new AxiomNotAllowed(na, axiom);
@@ -475,7 +475,7 @@ public class OWLDLProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLObjectIntersectionOf desc) {
-            for (OWLDescription op : desc.getOperands()) {
+            for (OWLClassExpression op : desc.getOperands()) {
                 ConstructNotAllowed na = op.accept(this);
                 if (na != null) {
                     return new DescriptionNotAllowed(na, desc);
@@ -537,7 +537,7 @@ public class OWLDLProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLObjectUnionOf desc) {
-            for (OWLDescription op : desc.getOperands()) {
+            for (OWLClassExpression op : desc.getOperands()) {
                 ConstructNotAllowed na = op.accept(this);
                 if (na != null) {
                     return new DescriptionNotAllowed(na, desc);
@@ -746,7 +746,7 @@ public class OWLDLProfile implements OWLProfile {
 
     private class QCRsNotAllowed extends DescriptionNotAllowed {
 
-        public QCRsNotAllowed(OWLDescription construct) {
+        public QCRsNotAllowed(OWLClassExpression construct) {
             super(construct);
         }
     }
@@ -754,7 +754,7 @@ public class OWLDLProfile implements OWLProfile {
 
     private class SelfRestrictionsNotAllowed extends DescriptionNotAllowed {
 
-        public SelfRestrictionsNotAllowed(OWLDescription construct) {
+        public SelfRestrictionsNotAllowed(OWLClassExpression construct) {
             super(construct);
         }
     }

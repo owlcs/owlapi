@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -32,7 +31,7 @@ import org.semanticweb.owl.model.OWLException;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
-public abstract class AbstractDescriptionFillerRestriction extends AbstractObjectRestrictionElementHandler<OWLDescription> {
+public abstract class AbstractDescriptionFillerRestriction extends AbstractObjectRestrictionElementHandler<OWLClassExpression> {
 
     public AbstractDescriptionFillerRestriction(OWLXMLParserHandler handler) {
         super(handler);

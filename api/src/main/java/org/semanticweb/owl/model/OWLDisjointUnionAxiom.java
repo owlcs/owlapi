@@ -45,5 +45,5 @@ public interface OWLDisjointUnionAxiom extends OWLNaryClassAxiom {
      * that this <b>does not</b> include the <code>OWLClass</code> that is equivalent
      * to the disjoint union.
      */
-    Set<OWLDescription> getDescriptions();
+    Set<OWLClassExpression> getDescriptions();
 }

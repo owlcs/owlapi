@@ -1,8 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 /*
@@ -37,7 +36,7 @@ import org.semanticweb.owl.vocab.OWLXMLVocabulary;
  */
 public class OWLObjectPropertyRangeAxiomElementHandler extends AbstractOWLAxiomElementHandler {
 
-    private OWLDescription range;
+    private OWLClassExpression range;
 
     private OWLObjectPropertyExpression property;
 

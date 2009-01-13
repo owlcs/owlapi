@@ -1,12 +1,9 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLClass;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 /*
@@ -43,29 +40,29 @@ public class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandl
 
     private OWLClass cls;
 
-    private Set<OWLDescription> descriptions;
+    private Set<OWLClassExpression> classExpressions;
 
     public OWLDisjointUnionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
-        descriptions = new HashSet<OWLDescription>();
+        classExpressions = new HashSet<OWLClassExpression>();
     }
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLDisjointUnionAxiom(cls, descriptions);
+        return getOWLDataFactory().getOWLDisjointUnionAxiom(cls, classExpressions);
     }
 
 
     public void handleChild(AbstractOWLDescriptionElementHandler handler) throws OWLXMLParserException {
         if(cls == null) {
-            OWLDescription desc = handler.getOWLObject();
+            OWLClassExpression desc = handler.getOWLObject();
             if(desc.isAnonymous()) {
                 throw new OWLXMLParserUnexpectedElementException(getLineNumber(), "Found anonymous class as first child of disjoint union, expected a named class.");
             }
             cls = (OWLClass) desc;
         }
         else {
-            descriptions.add(handler.getOWLObject());
+            classExpressions.add(handler.getOWLObject());
         }
     }
 

@@ -5,7 +5,7 @@ import org.semanticweb.owl.expression.OWLEntityChecker;
 import org.semanticweb.owl.expression.OWLExpressionParser;
 import org.semanticweb.owl.expression.ParserException;
 import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 
 /*
  * Copyright (C) 2007, University of Manchester
@@ -39,7 +39,7 @@ import org.semanticweb.owl.model.OWLDescription;
  *
  * An expression parser that parses descriptions written in the Manchester OWL Syntax
  */
-public class ManchesterOWLSyntaxDescriptionParser implements OWLExpressionParser<OWLDescription> {
+public class ManchesterOWLSyntaxDescriptionParser implements OWLExpressionParser<OWLClassExpression> {
 
     private OWLDataFactory dataFactory;
 
@@ -51,7 +51,7 @@ public class ManchesterOWLSyntaxDescriptionParser implements OWLExpressionParser
     }
 
 
-    public OWLDescription parse(String expression) throws ParserException {
+    public OWLClassExpression parse(String expression) throws ParserException {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
         parser.setOWLEntityChecker(checker);
         return parser.parseDescription();

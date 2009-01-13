@@ -45,5 +45,5 @@ public interface OWLValueRestriction<P extends OWLPropertyExpression, V extends 
      * @return The existential equivalent of this value restriction.
      * simp(HasValue(p a)) = some(p {a})
      */
-    OWLDescription asSomeValuesFrom();
+    OWLClassExpression asSomeValuesFrom();
 }

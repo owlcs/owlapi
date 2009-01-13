@@ -64,7 +64,7 @@ public abstract class AbstractDescriptionTranslator implements DescriptionTransl
         return consumer.isTriplePresent(mainNode, predicate, value, true);
     }
 
-    protected Set<OWLDescription> translateToDescriptionSet(URI mainNode) throws OWLException {
+    protected Set<OWLClassExpression> translateToDescriptionSet(URI mainNode) throws OWLException {
         return consumer.translateToDescriptionSet(mainNode);
     }
 
@@ -76,7 +76,7 @@ public abstract class AbstractDescriptionTranslator implements DescriptionTransl
         return consumer.getDataFactory();
     }
 
-    protected OWLDescription translateToDescription(URI mainNode) throws OWLException {
+    protected OWLClassExpression translateToDescription(URI mainNode) throws OWLException {
         return consumer.translateDescription(mainNode);
     }
 

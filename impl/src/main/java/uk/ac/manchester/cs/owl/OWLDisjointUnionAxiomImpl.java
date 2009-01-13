@@ -39,7 +39,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLNaryClassAxiomImpl implements 
 
 
     public OWLDisjointUnionAxiomImpl(OWLDataFactory dataFactory, OWLClass owlClass,
-                                     Set<? extends OWLDescription> descriptions) {
+                                     Set<? extends OWLClassExpression> descriptions) {
         super(dataFactory, descriptions);
         this.owlClass = owlClass;
     }

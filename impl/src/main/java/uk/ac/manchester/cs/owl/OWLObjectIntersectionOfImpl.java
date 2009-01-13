@@ -34,9 +34,9 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanDescriptionImpl implements OWLObjectIntersectionOf {
+public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionImpl implements OWLObjectIntersectionOf {
 
-    public OWLObjectIntersectionOfImpl(OWLDataFactory dataFactory, Set<? extends OWLDescription> operands) {
+    public OWLObjectIntersectionOfImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> operands) {
         super(dataFactory, operands);
     }
 
@@ -67,9 +67,9 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanDescriptionImpl i
     }
 
 
-    public Set<OWLDescription> asConjunctSet() {
-        Set<OWLDescription> conjuncts = new HashSet<OWLDescription>();
-        for(OWLDescription op : getOperands()) {
+    public Set<OWLClassExpression> asConjunctSet() {
+        Set<OWLClassExpression> conjuncts = new HashSet<OWLClassExpression>();
+        for(OWLClassExpression op : getOperands()) {
             conjuncts.addAll(op.asConjunctSet());
         }
         return conjuncts;

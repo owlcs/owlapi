@@ -67,7 +67,7 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
             // C(?x) or C(ind)
             SWRLAtomIObject iObject = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getURI());
             URI classURI = consumer.getResourceObject(firstObject, CLASS_PREDICATE.getURI(), true);
-            OWLDescription desc = consumer.translateDescription(classURI);
+            OWLClassExpression desc = consumer.translateDescription(classURI);
             return dataFactory.getSWRLClassAtom(desc, iObject);
         }
         else if (consumer.isSWRLDataRangeAtom(firstObject)) {

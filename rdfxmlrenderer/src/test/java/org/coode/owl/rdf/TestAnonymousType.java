@@ -1,7 +1,7 @@
 package org.coode.owl.rdf;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLIndividual;
 
 import java.util.Set;
@@ -41,7 +41,7 @@ public class TestAnonymousType extends AbstractRendererAndParserTestCase {
 
     protected Set<OWLAxiom> getAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLDescription desc = getDataFactory().getOWLObjectComplementOf(getDataFactory().getOWLClass(TestUtils.createURI()));
+        OWLClassExpression desc = getDataFactory().getOWLObjectComplementOf(getDataFactory().getOWLClass(TestUtils.createURI()));
         OWLIndividual ind = getDataFactory().getOWLIndividual(TestUtils.createURI());
         axioms.add(getDataFactory().getOWLClassAssertionAxiom(ind, desc));
         return axioms;

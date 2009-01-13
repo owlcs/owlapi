@@ -33,16 +33,16 @@ import org.semanticweb.owl.model.*;
  */
 public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression> extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyDomainAxiom<P> {
 
-    private OWLDescription domain;
+    private OWLClassExpression domain;
 
 
-    public OWLPropertyDomainAxiomImpl(OWLDataFactory dataFactory, P property, OWLDescription domain) {
+    public OWLPropertyDomainAxiomImpl(OWLDataFactory dataFactory, P property, OWLClassExpression domain) {
         super(dataFactory, property);
         this.domain = domain;
     }
 
 
-    public OWLDescription getDomain() {
+    public OWLClassExpression getDomain() {
         return domain;
     }
 

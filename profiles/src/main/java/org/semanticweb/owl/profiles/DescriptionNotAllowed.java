@@ -1,6 +1,6 @@
 package org.semanticweb.owl.profiles;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 
 import java.util.Set;
 /*
@@ -33,20 +33,20 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 16-Apr-2008<br><br>
  */
-public class DescriptionNotAllowed extends ConstructNotAllowed<OWLDescription> {
+public class DescriptionNotAllowed extends ConstructNotAllowed<OWLClassExpression> {
 
 
-    public DescriptionNotAllowed(OWLDescription construct) {
+    public DescriptionNotAllowed(OWLClassExpression construct) {
         super(construct);
     }
 
 
-    public DescriptionNotAllowed(ConstructNotAllowed cause, OWLDescription construct) {
+    public DescriptionNotAllowed(ConstructNotAllowed cause, OWLClassExpression construct) {
         super(cause, construct);
     }
 
 
-    public DescriptionNotAllowed(Set<ConstructNotAllowed> cause, OWLDescription construct) {
+    public DescriptionNotAllowed(Set<ConstructNotAllowed> cause, OWLClassExpression construct) {
         super(cause, construct);
     }
 

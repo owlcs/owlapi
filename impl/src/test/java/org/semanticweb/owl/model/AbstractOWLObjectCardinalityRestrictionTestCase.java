@@ -34,14 +34,14 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends Ab
 
     protected abstract OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop, int cardinality) throws Exception;
 
-    protected abstract OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop, int cardinality, OWLDescription description) throws Exception;
+    protected abstract OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop, int cardinality, OWLClassExpression classExpression) throws Exception;
 
     public void testCreation() throws Exception {
         OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(createURI());
         int cardinality = 3;
         OWLObjectCardinalityRestriction restA = createRestriction(prop, cardinality);
         assertNotNull(restA);
-        OWLDescription cls = getOWLDataFactory().getOWLClass(createURI());
+        OWLClassExpression cls = getOWLDataFactory().getOWLClass(createURI());
         OWLObjectCardinalityRestriction restB = createRestriction(prop, cardinality, cls);
         assertNotNull(restB);
     }
@@ -53,7 +53,7 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends Ab
         OWLObjectCardinalityRestriction restA = createRestriction(prop, cardinality);
         OWLObjectCardinalityRestriction restB = createRestriction(prop, cardinality);
         assertEquals(restA, restB);
-        OWLDescription cls = getOWLDataFactory().getOWLClass(createURI());
+        OWLClassExpression cls = getOWLDataFactory().getOWLClass(createURI());
         OWLObjectCardinalityRestriction restC = createRestriction(prop, cardinality, cls);
         OWLObjectCardinalityRestriction restD = createRestriction(prop, cardinality, cls);
         assertEquals(restC, restD);
@@ -80,7 +80,7 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends Ab
     public void testHashCode() throws Exception {
          OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(createURI());
         int cardinality = 3;
-        OWLDescription cls = getOWLDataFactory().getOWLClass(createURI());
+        OWLClassExpression cls = getOWLDataFactory().getOWLClass(createURI());
         OWLObjectCardinalityRestriction restA = createRestriction(prop, cardinality, cls);
         OWLObjectCardinalityRestriction restB = createRestriction(prop, cardinality, cls);
         assertEquals(restA.hashCode(), restB.hashCode());

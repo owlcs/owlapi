@@ -799,14 +799,14 @@ OWLClass ClassURI() :
 
 Set<OWLDescription> DescriptionSet() :
 {
-    Set<OWLDescription> descriptions = new HashSet<OWLDescription>();
+    Set<OWLDescription> classExpressions = new HashSet<OWLDescription>();
     OWLDescription desc;
 }
 {
-    (desc=Description(){descriptions.add(desc);}
-    desc=Description(){descriptions.add(desc);}
-    (desc=Description(){descriptions.add(desc);})*) {
-        return descriptions;
+    (desc=Description(){classExpressions.add(desc);}
+    desc=Description(){classExpressions.add(desc);}
+    (desc=Description(){classExpressions.add(desc);})*) {
+        return classExpressions;
     }
 }
 
@@ -825,21 +825,21 @@ Set<OWLIndividual> IndividualMinOneSet() :
 
 OWLDescription ObjectUnionOf()  :
 {
-    Set<OWLDescription> descriptions;
+    Set<OWLDescription> classExpressions;
 }
 {
-    <OBJECTUNIONOF><OPENPAR>descriptions=DescriptionSet()<CLOSEPAR>{
-        return dataFactory.getOWLObjectUnionOf(descriptions);
+    <OBJECTUNIONOF><OPENPAR>classExpressions=DescriptionSet()<CLOSEPAR>{
+        return dataFactory.getOWLObjectUnionOf(classExpressions);
     }
 }
 
 OWLDescription ObjectIntersectionOf()  :
 {
-    Set<OWLDescription> descriptions;
+    Set<OWLDescription> classExpressions;
 }
 {
-    <OBJECTINTERSECTIONOF><OPENPAR>descriptions=DescriptionSet()<CLOSEPAR>{
-        return dataFactory.getOWLObjectIntersectionOf(descriptions);
+    <OBJECTINTERSECTIONOF><OPENPAR>classExpressions=DescriptionSet()<CLOSEPAR>{
+        return dataFactory.getOWLObjectIntersectionOf(classExpressions);
     }
 }
 
@@ -1287,32 +1287,32 @@ OWLClassAxiom SubClassOf() :
 
 OWLClassAxiom EquivalentClasses() :
 {
-    Set<OWLDescription> descriptions;
+    Set<OWLDescription> classExpressions;
 }
 {
-    <EQUIVALENTCLASSES><OPENPAR>AxiomAnnotationSet()descriptions=DescriptionSet()<CLOSEPAR> {
-        return dataFactory.getOWLEquivalentClassesAxiom(descriptions);
+    <EQUIVALENTCLASSES><OPENPAR>AxiomAnnotationSet()classExpressions=DescriptionSet()<CLOSEPAR> {
+        return dataFactory.getOWLEquivalentClassesAxiom(classExpressions);
     }
 }
 
 OWLClassAxiom DisjointClasses() :
 {
-    Set<OWLDescription> descriptions;
+    Set<OWLDescription> classExpressions;
 }
 {
-    <DISJOINTCLASSES><OPENPAR>AxiomAnnotationSet()descriptions=DescriptionSet()<CLOSEPAR> {
-        return dataFactory.getOWLDisjointClassesAxiom(descriptions);
+    <DISJOINTCLASSES><OPENPAR>AxiomAnnotationSet()classExpressions=DescriptionSet()<CLOSEPAR> {
+        return dataFactory.getOWLDisjointClassesAxiom(classExpressions);
     }
 }
 
 OWLClassAxiom DisjointUnion() :
 {
     OWLClass cls;
-    Set<OWLDescription> descriptions;
+    Set<OWLDescription> classExpressions;
 }
 {
-    <DISJOINTUNION><OPENPAR>AxiomAnnotationSet()cls=ClassURI() descriptions=DescriptionSet()<CLOSEPAR> {
-        return dataFactory.getOWLDisjointUnionAxiom(cls, descriptions);
+    <DISJOINTUNION><OPENPAR>AxiomAnnotationSet()cls=ClassURI() classExpressions=DescriptionSet()<CLOSEPAR> {
+        return dataFactory.getOWLDisjointUnionAxiom(cls, classExpressions);
     }
 }
 

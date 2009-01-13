@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
@@ -52,7 +52,7 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         // Can handle because the uris can easily be translated to classes
-        Set<OWLDescription> operands = new HashSet<OWLDescription>();
+        Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateDescription(subject));
         operands.add(translateDescription(object));
         addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands));

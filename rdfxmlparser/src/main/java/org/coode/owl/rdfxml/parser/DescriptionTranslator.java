@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 
 import java.net.URI;
@@ -51,6 +51,6 @@ public interface DescriptionTranslator {
      * @throws OWLException If the translation could not take place, possibly because the
      * description (set of triples) was malformed.
      */
-    OWLDescription translate(URI mainNode) throws OWLException;
+    OWLClassExpression translate(URI mainNode) throws OWLException;
     
 }

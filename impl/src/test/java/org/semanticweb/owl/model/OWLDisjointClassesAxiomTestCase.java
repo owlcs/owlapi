@@ -31,16 +31,16 @@ import java.util.Set;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public class OWLDisjointClassesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLDescription> {
+public class OWLDisjointClassesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLClassExpression> {
 
 
 
-    protected OWLObject createObject(Set<OWLDescription> objects) throws Exception {
+    protected OWLObject createObject(Set<OWLClassExpression> objects) throws Exception {
         return getOWLDataFactory().getOWLDisjointClassesAxiom(objects);
     }
 
 
-    protected OWLDescription createOperand() throws Exception {
+    protected OWLClassExpression createOperand() throws Exception {
         return createOWLClass();
     }
 }

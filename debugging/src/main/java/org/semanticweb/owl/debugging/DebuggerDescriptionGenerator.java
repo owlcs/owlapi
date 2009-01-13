@@ -41,7 +41,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
     private OWLDataFactory dataFactory;
 
-    private OWLDescription desc;
+    private OWLClassExpression desc;
 
 
     public DebuggerDescriptionGenerator(OWLDataFactory dataFactory) {
@@ -49,14 +49,14 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
     }
 
 
-    public OWLDescription getDebuggerDescription() {
+    public OWLClassExpression getDebuggerDescription() {
         return desc;
     }
 
 
     public void visit(OWLSubClassAxiom axiom) {
         // A and not (B)
-        OWLDescription complement = dataFactory.getOWLObjectComplementOf(axiom.getSuperClass());
+        OWLClassExpression complement = dataFactory.getOWLObjectComplementOf(axiom.getSuperClass());
         desc = dataFactory.getOWLObjectIntersectionOf(CollectionFactory.createSet(axiom.getSubClass(), complement));
     }
 
@@ -79,7 +79,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
 
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-        OWLDescription sub = dataFactory.getOWLDataSomeRestriction(axiom.getProperty(), dataFactory.getTopDataType());
+        OWLClassExpression sub = dataFactory.getOWLDataSomeRestriction(axiom.getProperty(), dataFactory.getTopDataType());
         OWLAxiom ax = dataFactory.getOWLSubClassAxiom(sub, axiom.getDomain());
         ax.accept(this);
     }
@@ -96,7 +96,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         // prop some Thing subclassOf domain
-        OWLDescription sub = dataFactory.getOWLObjectSomeRestriction(axiom.getProperty(), dataFactory.getOWLThing());
+        OWLClassExpression sub = dataFactory.getOWLObjectSomeRestriction(axiom.getProperty(), dataFactory.getOWLThing());
         OWLSubClassAxiom ax = dataFactory.getOWLSubClassAxiom(sub, axiom.getDomain());
         ax.accept(this);
     }
@@ -125,7 +125,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         // Thing subclassOf prop only Range
-        OWLDescription sup = dataFactory.getOWLObjectAllRestriction(axiom.getProperty(), axiom.getRange());
+        OWLClassExpression sup = dataFactory.getOWLObjectAllRestriction(axiom.getProperty(), axiom.getRange());
         OWLSubClassAxiom ax = dataFactory.getOWLSubClassAxiom(dataFactory.getOWLThing(), sup);
         ax.accept(this);
     }
@@ -142,8 +142,8 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
     public void visit(OWLObjectSubPropertyAxiom axiom) {
         //  subProp some {a} subClassOf supProp some {a}
         OWLIndividual ind = dataFactory.getOWLIndividual(URI.create("http://debugger.com#" + System.nanoTime()));
-        OWLDescription sub = dataFactory.getOWLObjectValueRestriction(axiom.getSubProperty(), ind);
-        OWLDescription sup = dataFactory.getOWLObjectValueRestriction(axiom.getSuperProperty(), ind);
+        OWLClassExpression sub = dataFactory.getOWLObjectValueRestriction(axiom.getSubProperty(), ind);
+        OWLClassExpression sup = dataFactory.getOWLObjectValueRestriction(axiom.getSuperProperty(), ind);
         OWLAxiom ax = dataFactory.getOWLSubClassAxiom(sub, sup);
         ax.accept(this);
     }
@@ -182,7 +182,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
 
     public void visit(OWLClassAssertionAxiom axiom) {
-        OWLDescription sub = dataFactory.getOWLObjectOneOf(Collections.singleton(axiom.getIndividual()));
+        OWLClassExpression sub = dataFactory.getOWLObjectOneOf(Collections.singleton(axiom.getIndividual()));
         OWLAxiom ax = dataFactory.getOWLSubClassAxiom(sub, axiom.getDescription());
         ax.accept(this);
     }
@@ -190,7 +190,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
         if (axiom.getDescriptions().size() == 2 && axiom.getDescriptions().contains(dataFactory.getOWLNothing())) {
-            for (OWLDescription desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getDescriptions()) {
                 if (!desc.isOWLNothing()) {
                     this.desc = desc;
                     return;
@@ -198,12 +198,12 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
             }
         }
         // (C and not D) or (not C and D)
-        Set<OWLDescription> clses = axiom.getDescriptions();
-        Iterator<OWLDescription> it = clses.iterator();
-        OWLDescription descC = it.next();
-        OWLDescription notC = dataFactory.getOWLObjectComplementOf(descC);
-        OWLDescription descD = it.next();
-        OWLDescription notD = dataFactory.getOWLObjectComplementOf(descD);
+        Set<OWLClassExpression> clses = axiom.getDescriptions();
+        Iterator<OWLClassExpression> it = clses.iterator();
+        OWLClassExpression descC = it.next();
+        OWLClassExpression notC = dataFactory.getOWLObjectComplementOf(descC);
+        OWLClassExpression descD = it.next();
+        OWLClassExpression notD = dataFactory.getOWLObjectComplementOf(descD);
 
         OWLObjectIntersectionOf left = dataFactory.getOWLObjectIntersectionOf(CollectionFactory.createSet(descC, notD));
         OWLObjectIntersectionOf right = dataFactory.getOWLObjectIntersectionOf(CollectionFactory.createSet(notC,

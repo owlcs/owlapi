@@ -80,5 +80,5 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * @return A set of descriptions that represent the
      * class descriptions that are predicates of class atoms.
      */
-    Set<OWLDescription> getClassAtomPredicates();
+    Set<OWLClassExpression> getClassAtomPredicates();
 }

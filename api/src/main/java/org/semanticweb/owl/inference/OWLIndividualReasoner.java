@@ -40,7 +40,7 @@ public interface OWLIndividualReasoner extends OWLReasonerBase {
     Set<Set<OWLClass>> getTypes(OWLIndividual individual, boolean direct) throws OWLReasonerException;
 
 
-    Set<OWLIndividual> getIndividuals(OWLDescription clsC, boolean direct) throws OWLReasonerException;
+    Set<OWLIndividual> getIndividuals(OWLClassExpression clsC, boolean direct) throws OWLReasonerException;
 
 
     Map<OWLObjectProperty, Set<OWLIndividual>> getObjectPropertyRelationships(OWLIndividual individual) throws OWLReasonerException;
@@ -49,7 +49,7 @@ public interface OWLIndividualReasoner extends OWLReasonerBase {
     Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLIndividual individual) throws OWLReasonerException;
 
     
-    boolean hasType(OWLIndividual individual, OWLDescription type, boolean direct) throws OWLReasonerException;
+    boolean hasType(OWLIndividual individual, OWLClassExpression type, boolean direct) throws OWLReasonerException;
 
 
     boolean hasObjectPropertyRelationship(OWLIndividual subject, OWLObjectPropertyExpression property, OWLIndividual object) throws OWLReasonerException;

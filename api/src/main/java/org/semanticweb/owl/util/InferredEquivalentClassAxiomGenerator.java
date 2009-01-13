@@ -4,7 +4,7 @@ import org.semanticweb.owl.inference.OWLReasoner;
 import org.semanticweb.owl.inference.OWLReasonerException;
 import org.semanticweb.owl.model.OWLClass;
 import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLEquivalentClassesAxiom;
 
 import java.util.HashSet;
@@ -46,7 +46,7 @@ public class InferredEquivalentClassAxiomGenerator extends InferredClassAxiomGen
 
     protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
                              Set<OWLEquivalentClassesAxiom> result) throws OWLReasonerException {
-        Set<OWLDescription> equivalentClasses = new HashSet<OWLDescription>(reasoner.getEquivalentClasses(entity));
+        Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>(reasoner.getEquivalentClasses(entity));
         equivalentClasses.add(entity);
         if (equivalentClasses.size() > 1) {
             result.add(dataFactory.getOWLEquivalentClassesAxiom(equivalentClasses));

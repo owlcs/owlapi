@@ -34,7 +34,7 @@ import org.semanticweb.owl.model.*;
 public class OWLObjectMinCardinalityRestrictionImpl extends OWLObjectCardinalityRestrictionImpl implements OWLObjectMinCardinalityRestriction {
 
     public OWLObjectMinCardinalityRestrictionImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, int cardinality,
-                                                  OWLDescription filler) {
+                                                  OWLClassExpression filler) {
         super(dataFactory, property, cardinality, filler);
     }
 

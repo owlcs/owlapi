@@ -271,12 +271,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLObjectIntersectionOf getOWLObjectIntersectionOf(Set<? extends OWLDescription> operands) {
+    public OWLObjectIntersectionOf getOWLObjectIntersectionOf(Set<? extends OWLClassExpression> operands) {
         return new OWLObjectIntersectionOfImpl(this, operands);
     }
 
 
-    public OWLObjectIntersectionOf getOWLObjectIntersectionOf(OWLDescription... operands) {
+    public OWLObjectIntersectionOf getOWLObjectIntersectionOf(OWLClassExpression... operands) {
         return getOWLObjectIntersectionOf(CollectionFactory.createSet(operands));
     }
 
@@ -336,14 +336,14 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLObjectComplementOf getOWLObjectComplementOf(OWLDescription operand) {
+    public OWLObjectComplementOf getOWLObjectComplementOf(OWLClassExpression operand) {
         return new OWLObjectComplementOfImpl(this, operand);
     }
 
 
     public OWLObjectAllRestriction getOWLObjectAllRestriction(OWLObjectPropertyExpression property,
-                                                              OWLDescription description) {
-        return new OWLObjectAllRestrictionImpl(this, property, description);
+                                                              OWLClassExpression classExpression) {
+        return new OWLObjectAllRestrictionImpl(this, property, classExpression);
     }
 
 
@@ -364,8 +364,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectExactCardinalityRestriction getOWLObjectExactCardinalityRestriction(
-            OWLObjectPropertyExpression property, int cardinality, OWLDescription description) {
-        return new OWLObjectExactCardinalityRestrictionImpl(this, property, cardinality, description);
+            OWLObjectPropertyExpression property, int cardinality, OWLClassExpression classExpression) {
+        return new OWLObjectExactCardinalityRestrictionImpl(this, property, cardinality, classExpression);
     }
 
 
@@ -376,8 +376,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectMinCardinalityRestriction getOWLObjectMinCardinalityRestriction(
-            OWLObjectPropertyExpression property, int cardinality, OWLDescription description) {
-        return new OWLObjectMinCardinalityRestrictionImpl(this, property, cardinality, description);
+            OWLObjectPropertyExpression property, int cardinality, OWLClassExpression classExpression) {
+        return new OWLObjectMinCardinalityRestrictionImpl(this, property, cardinality, classExpression);
     }
 
 
@@ -388,8 +388,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectMaxCardinalityRestriction getOWLObjectMaxCardinalityRestriction(
-            OWLObjectPropertyExpression property, int cardinality, OWLDescription description) {
-        return new OWLObjectMaxCardinalityRestrictionImpl(this, property, cardinality, description);
+            OWLObjectPropertyExpression property, int cardinality, OWLClassExpression classExpression) {
+        return new OWLObjectMaxCardinalityRestrictionImpl(this, property, cardinality, classExpression);
     }
 
 
@@ -399,8 +399,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectSomeRestriction getOWLObjectSomeRestriction(OWLObjectPropertyExpression property,
-                                                                OWLDescription description) {
-        return new OWLObjectSomeRestrictionImpl(this, property, description);
+                                                                OWLClassExpression classExpression) {
+        return new OWLObjectSomeRestrictionImpl(this, property, classExpression);
 //        OWLObjectSomeRestriction r = (OWLObjectSomeRestriction) descriptionCache.get(d);
 //        if(r == null) {
 //            r = d;
@@ -416,12 +416,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLObjectUnionOf getOWLObjectUnionOf(Set<? extends OWLDescription> operands) {
+    public OWLObjectUnionOf getOWLObjectUnionOf(Set<? extends OWLClassExpression> operands) {
         return new OWLObjectUnionOfImpl(this, operands);
     }
 
 
-    public OWLObjectUnionOf getOWLObjectUnionOf(OWLDescription... operands) {
+    public OWLObjectUnionOf getOWLObjectUnionOf(OWLClassExpression... operands) {
         return getOWLObjectUnionOf(CollectionFactory.createSet(operands));
     }
 
@@ -433,7 +433,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(OWLDataPropertyExpression property,
-                                                                    OWLDescription domain) {
+                                                                    OWLClassExpression domain) {
         return new OWLDataPropertyDomainAxiomImpl(this, property, domain);
     }
 
@@ -465,15 +465,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(Set<? extends OWLDescription> descriptions) {
+    public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(Set<? extends OWLClassExpression> descriptions) {
         return new OWLDisjointClassesAxiomImpl(this, descriptions);
     }
 
 
-    public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(OWLDescription clsA, OWLDescription... descriptions) {
-        Set<OWLDescription> clses = new HashSet<OWLDescription>();
+    public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(OWLClassExpression clsA, OWLClassExpression... classExpressions) {
+        Set<OWLClassExpression> clses = new HashSet<OWLClassExpression>();
         clses.add(clsA);
-        for(OWLDescription desc : descriptions) {
+        for(OWLClassExpression desc : classExpressions) {
             clses.add(desc);
         }
         return getOWLDisjointClassesAxiom(clses);
@@ -503,22 +503,22 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
-                                                          Set<? extends OWLDescription> descriptions) {
+                                                          Set<? extends OWLClassExpression> descriptions) {
         return new OWLDisjointUnionAxiomImpl(this, owlClass, descriptions);
     }
 
 
-    public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(Set<? extends OWLDescription> descriptions) {
+    public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(Set<? extends OWLClassExpression> descriptions) {
         return new OWLEquivalentClassesAxiomImpl(this, descriptions);
     }
 
 
-    public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLDescription clsA, OWLDescription clsB) {
+    public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLClassExpression clsA, OWLClassExpression clsB) {
         return getOWLEquivalentClassesAxiom(CollectionFactory.createSet(clsA, clsB));
     }
 
 
-    public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(OWLDescription clsA, OWLDescription clsB) {
+    public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(OWLClassExpression clsA, OWLClassExpression clsB) {
         return getOWLDisjointClassesAxiom(CollectionFactory.createSet(clsA, clsB));
     }
 
@@ -622,8 +622,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLIndividual individual, OWLDescription description) {
-        return new OWLClassAssertionAxiomImpl(this, individual, description);
+    public OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLIndividual individual, OWLClassExpression classExpression) {
+        return new OWLClassAssertionAxiomImpl(this, individual, classExpression);
     }
 
     public OWLInverseFunctionalObjectPropertyAxiom getOWLInverseFunctionalObjectPropertyAxiom(
@@ -639,13 +639,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(OWLObjectPropertyExpression property,
-                                                                        OWLDescription description) {
-        return new OWLObjectPropertyDomainAxiomImpl(this, property, description);
+                                                                        OWLClassExpression classExpression) {
+        return new OWLObjectPropertyDomainAxiomImpl(this, property, classExpression);
     }
 
 
     public OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(OWLObjectPropertyExpression property,
-                                                                      OWLDescription range) {
+                                                                      OWLClassExpression range) {
         return new OWLObjectPropertyRangeAxiomImpl(this, property, range);
     }
 
@@ -666,7 +666,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLSubClassAxiom getOWLSubClassAxiom(OWLDescription subClass, OWLDescription superClass) {
+    public OWLSubClassAxiom getOWLSubClassAxiom(OWLClassExpression subClass, OWLClassExpression superClass) {
         return new OWLSubClassAxiomImpl(this, subClass, superClass);
     }
 
@@ -828,7 +828,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @param desc The class description
      * @param arg  The argument (x)
      */
-    public SWRLClassAtom getSWRLClassAtom(OWLDescription desc, SWRLAtomIObject arg) {
+    public SWRLClassAtom getSWRLClassAtom(OWLClassExpression desc, SWRLAtomIObject arg) {
         return new SWRLClassAtomImpl(this, desc, arg);
     }
 

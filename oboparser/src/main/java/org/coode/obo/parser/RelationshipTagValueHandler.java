@@ -2,7 +2,7 @@ package org.coode.obo.parser;
 
 import org.semanticweb.owl.model.AddAxiom;
 import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLObjectProperty;
 
 import java.net.URI;
@@ -48,7 +48,7 @@ public class RelationshipTagValueHandler extends AbstractTagValueHandler {
         URI fillerURI = getURIFromValue(value.substring(value.indexOf(' '), value.length()).trim());
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propURI);
         OWLClass filler = getDataFactory().getOWLClass(fillerURI);
-        OWLDescription restriction = getDataFactory().getOWLObjectSomeRestriction(prop, filler);
+        OWLClassExpression restriction = getDataFactory().getOWLObjectSomeRestriction(prop, filler);
         OWLClass subCls = getDataFactory().getOWLClass(getURIFromValue(id));
         applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassAxiom(subCls, restriction)));
     }

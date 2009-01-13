@@ -170,13 +170,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         axioms.addAll(writeEntityStart(CLASS, cls));
         writeSection(EQUIVALENT_TO, cls.getEquivalentClasses(getOntology()), ",", true);
         axioms.addAll(getOntology().getEquivalentClassesAxioms(cls));
-        Set<OWLDescription> superclasses = cls.getSuperClasses(getOntology());
+        Set<OWLClassExpression> superclasses = cls.getSuperClasses(getOntology());
         if (!superclasses.isEmpty()) {
             writeSection(SUBCLASS_OF, superclasses, ",", true);
             axioms.addAll(getOntology().getSubClassAxiomsForLHS(cls));
         }
         Set<OWLAxiom> pairwiseDisjointClassesAxioms = new HashSet<OWLAxiom>();
-        Set<OWLDescription> disjointClasses = new HashSet<OWLDescription>();
+        Set<OWLClassExpression> disjointClasses = new HashSet<OWLClassExpression>();
         for(OWLDisjointClassesAxiom ax : getOntology().getDisjointClassesAxioms(cls)) {
             if (ax.getDescriptions().size() <= 2) {
                 pairwiseDisjointClassesAxioms.add(ax);

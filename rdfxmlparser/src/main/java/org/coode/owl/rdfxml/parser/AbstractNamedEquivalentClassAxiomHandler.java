@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 
 import java.net.URI;
@@ -59,12 +59,12 @@ public abstract class AbstractNamedEquivalentClassAxiomHandler extends TriplePre
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         consumeTriple(subject, predicate, object);
-        Set<OWLDescription> operands = new HashSet<OWLDescription>();
+        Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateDescription(subject));
         operands.add(translateEquivalentClass(object));
         addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands));
     }
 
-    protected abstract OWLDescription translateEquivalentClass(URI mainNode) throws OWLException;
+    protected abstract OWLClassExpression translateEquivalentClass(URI mainNode) throws OWLException;
 
 }

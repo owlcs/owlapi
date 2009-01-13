@@ -46,7 +46,7 @@ public class OWLObjectValueRestrictionImpl extends OWLValueRestrictionImpl<OWLOb
     }
 
 
-    public OWLDescription asSomeValuesFrom() {
+    public OWLClassExpression asSomeValuesFrom() {
         return getOWLDataFactory().getOWLObjectSomeRestriction(getProperty(), getOWLDataFactory().getOWLObjectOneOf(getValue()));
     }
 

@@ -2,7 +2,7 @@ package org.coode.obo.parser;
 
 import org.semanticweb.owl.model.AddAxiom;
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLObjectProperty;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -46,7 +46,7 @@ public class PartOfTagValueHandler extends AbstractTagValueHandler {
         String propLocalName = value.substring(0, index);
         String val = value.substring(index + 1, value.length());
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getURIFromValue(propLocalName));
-        OWLDescription desc = getDataFactory().getOWLObjectSomeRestriction(prop, getClassFromId(val));
+        OWLClassExpression desc = getDataFactory().getOWLObjectSomeRestriction(prop, getClassFromId(val));
         OWLAxiom ax = getDataFactory().getOWLSubClassAxiom(
                 getCurrentClass(),
                 desc

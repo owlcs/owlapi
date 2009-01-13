@@ -30,6 +30,6 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLObjectProperty extends OWLObjectPropertyExpression, OWLProperty<OWLObjectPropertyExpression, OWLDescription> {
+public interface OWLObjectProperty extends OWLObjectPropertyExpression, OWLProperty<OWLObjectPropertyExpression, OWLClassExpression> {
 
 }

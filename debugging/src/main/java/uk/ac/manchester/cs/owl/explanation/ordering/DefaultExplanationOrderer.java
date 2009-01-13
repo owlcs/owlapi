@@ -354,9 +354,9 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
                 source = axiom.getSubClass().asOWLClass();
             }
             if (!axiom.getSuperClass().isOWLNothing()) {
-                OWLDescription description = axiom.getSuperClass();
-                if (!description.isAnonymous()) {
-                    target = description.asOWLClass();
+                OWLClassExpression classExpression = axiom.getSuperClass();
+                if (!classExpression.isAnonymous()) {
+                    target = classExpression.asOWLClass();
                 }
             }
         }
@@ -475,7 +475,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            Iterator<OWLDescription> it = axiom.getDescriptions().iterator();
+            Iterator<OWLClassExpression> it = axiom.getDescriptions().iterator();
             source = it.next().asOWLClass();
             target = it.next().asOWLClass();
         }
@@ -554,7 +554,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
 
         public void visit(OWLDisjointClassesAxiom axiom) {
-            for (OWLDescription desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getDescriptions()) {
                 if (!desc.isAnonymous()) {
                     getAxiomsForLHS(desc.asOWLClass()).add(axiom);
                 }
@@ -707,7 +707,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            for (OWLDescription desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getDescriptions()) {
                 if (!desc.isAnonymous()) {
                     getAxiomsForLHS(desc.asOWLClass()).add(axiom);
                 }

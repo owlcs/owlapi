@@ -66,9 +66,9 @@ public class OBOConsumer implements OBOParserHandler {
 
     private boolean instanceType;
 
-    private Set<OWLDescription> intersectionOfOperands;
+    private Set<OWLClassExpression> intersectionOfOperands;
 
-    private Set<OWLDescription> unionOfOperands;
+    private Set<OWLClassExpression> unionOfOperands;
 
     private Map<String, URI> uriCache;
 
@@ -77,8 +77,8 @@ public class OBOConsumer implements OBOParserHandler {
         this.owlOntologyManager = owlOntologyManager;
         this.ontology = ontology;
         defaultNamespace = OBOVocabulary.ONTOLOGY_URI_BASE;
-        intersectionOfOperands = new HashSet<OWLDescription>();
-        unionOfOperands = new HashSet<OWLDescription>();
+        intersectionOfOperands = new HashSet<OWLClassExpression>();
+        unionOfOperands = new HashSet<OWLClassExpression>();
         uriCache = new HashMap<String, URI>();
         loadBuiltinURIs();
         setupTagHandlers();
@@ -125,13 +125,13 @@ public class OBOConsumer implements OBOParserHandler {
     }
 
 
-    public void addUnionOfOperand(OWLDescription description) {
-        unionOfOperands.add(description);
+    public void addUnionOfOperand(OWLClassExpression classExpression) {
+        unionOfOperands.add(classExpression);
     }
 
 
-    public void addIntersectionOfOperand(OWLDescription description) {
-        intersectionOfOperands.add(description);
+    public void addIntersectionOfOperand(OWLClassExpression classExpression) {
+        intersectionOfOperands.add(classExpression);
     }
 
 
@@ -226,7 +226,7 @@ public class OBOConsumer implements OBOParserHandler {
 
 
     private void createUnionEquivalentClass() {
-        OWLDescription equivalentClass;
+        OWLClassExpression equivalentClass;
         if (unionOfOperands.size() == 1) {
             equivalentClass = unionOfOperands.iterator().next();
         }
@@ -238,7 +238,7 @@ public class OBOConsumer implements OBOParserHandler {
 
 
     private void createIntersectionEquivalentClass() {
-        OWLDescription equivalentClass;
+        OWLClassExpression equivalentClass;
         if (intersectionOfOperands.size() == 1) {
             equivalentClass = intersectionOfOperands.iterator().next();
         }
@@ -249,9 +249,9 @@ public class OBOConsumer implements OBOParserHandler {
     }
 
 
-    private void createEquivalentClass(OWLDescription description) {
+    private void createEquivalentClass(OWLClassExpression classExpression) {
         OWLAxiom ax = getDataFactory().getOWLEquivalentClassesAxiom(CollectionFactory.createSet(getCurrentClass(),
-                                                                                                description));
+                classExpression));
         try {
             getOWLOntologyManager().applyChange(new AddAxiom(ontology, ax));
         }

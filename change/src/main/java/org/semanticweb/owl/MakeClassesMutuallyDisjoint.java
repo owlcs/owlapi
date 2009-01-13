@@ -43,7 +43,7 @@ import java.util.Set;
  */
 public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange {
 
-    private Set<? extends OWLDescription> descriptions;
+    private Set<? extends OWLClassExpression> descriptions;
 
     private boolean usePairwiseDisjointAxioms;
 
@@ -62,7 +62,7 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
      *                                  should be used (preferred OWL 1.1 method).
      * @param targetOntology            The target ontology which the changes will be applied to.
      */
-    public MakeClassesMutuallyDisjoint(OWLDataFactory dataFactory, Set<? extends OWLDescription> descriptions,
+    public MakeClassesMutuallyDisjoint(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> descriptions,
                                        boolean usePairwiseDisjointAxioms, OWLOntology targetOntology) {
         super(dataFactory);
         this.descriptions = descriptions;
@@ -75,7 +75,7 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
     private void generateChanges() {
         changes = new ArrayList<OWLOntologyChange>();
         if (usePairwiseDisjointAxioms) {
-            List<OWLDescription> descList = new ArrayList<OWLDescription>(descriptions);
+            List<OWLClassExpression> descList = new ArrayList<OWLClassExpression>(descriptions);
             for (int i = 0; i < descList.size(); i++) {
                 for (int j = i + 1; j < descList.size(); j++) {
                     changes.add(new AddAxiom(targetOntology,

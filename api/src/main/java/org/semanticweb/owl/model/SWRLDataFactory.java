@@ -53,7 +53,7 @@ public interface SWRLDataFactory {
      * @param desc The class description
      * @param arg  The argument (x)
      */
-    SWRLClassAtom getSWRLClassAtom(OWLDescription desc, SWRLAtomIObject arg);
+    SWRLClassAtom getSWRLClassAtom(OWLClassExpression desc, SWRLAtomIObject arg);
 
 
     /**

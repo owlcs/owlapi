@@ -33,7 +33,7 @@ import java.util.Set;
  *
  * Represents a named class in OWL.
  */
-public interface OWLClass extends OWLDescription, OWLEntity, OWLNamedObject {
+public interface OWLClass extends OWLClassExpression, OWLEntity, OWLNamedObject {
 
     /**
      * A convenience method that examines the axioms in the specified ontology
@@ -43,7 +43,7 @@ public interface OWLClass extends OWLDescription, OWLEntity, OWLNamedObject {
      * the superclasses of this class, which have been asserted in the specified
      * ontology.
      */
-    Set<OWLDescription> getSuperClasses(OWLOntology ontology);
+    Set<OWLClassExpression> getSuperClasses(OWLOntology ontology);
 
 
     /**
@@ -54,7 +54,7 @@ public interface OWLClass extends OWLDescription, OWLEntity, OWLNamedObject {
      * @return A set of <code>OWLDescription</code>s that represent the super classes
      * of this class
      */
-    Set<OWLDescription> getSuperClasses(Set<OWLOntology> ontologies);
+    Set<OWLClassExpression> getSuperClasses(Set<OWLOntology> ontologies);
 
 
     /**
@@ -64,7 +64,7 @@ public interface OWLClass extends OWLDescription, OWLEntity, OWLNamedObject {
      * @return A <code>Set</code> of <code>OWLDescription</code>s that represet the
      * asserted subclasses of this class.
      */
-    Set<OWLDescription> getSubClasses(OWLOntology ontology);
+    Set<OWLClassExpression> getSubClasses(OWLOntology ontology);
 
     /**
      * Gets the classes which have been <i>asserted</i> to be subclasses of this class
@@ -73,7 +73,7 @@ public interface OWLClass extends OWLDescription, OWLEntity, OWLNamedObject {
      * @return A <code>Set</code> of <code>OWLDescription</code>s that represet the
      * asserted subclasses of this class.
      */
-    Set<OWLDescription> getSubClasses(Set<OWLOntology> ontologies);
+    Set<OWLClassExpression> getSubClasses(Set<OWLOntology> ontologies);
 
     /**
      * A convenience method that examines the axioms in the specified ontology
@@ -84,7 +84,7 @@ public interface OWLClass extends OWLDescription, OWLEntity, OWLNamedObject {
      * the equivalent classes of this class, that have been asserted in the specified
      * ontology.
      */
-    Set<OWLDescription> getEquivalentClasses(OWLOntology ontology);
+    Set<OWLClassExpression> getEquivalentClasses(OWLOntology ontology);
 
     /**
      * A convenience method that examines the axioms in the specified ontologies
@@ -95,7 +95,7 @@ public interface OWLClass extends OWLDescription, OWLEntity, OWLNamedObject {
      * the equivalent classes of this class, that have been asserted in the specified
      * ontologies.
      */
-    Set<OWLDescription> getEquivalentClasses(Set<OWLOntology> ontologies);
+    Set<OWLClassExpression> getEquivalentClasses(Set<OWLOntology> ontologies);
 
     /**
      * Gets the classes which have been asserted to be disjoint with this class by
@@ -104,7 +104,7 @@ public interface OWLClass extends OWLDescription, OWLEntity, OWLNamedObject {
      * @return A <code>Set</code> of <code>OWLDescription</code>s that represent
      * the disjoint classes of this class.
      */
-    Set<OWLDescription> getDisjointClasses(OWLOntology ontology);
+    Set<OWLClassExpression> getDisjointClasses(OWLOntology ontology);
 
     /**
      * Gets the classes which have been asserted to be disjoint with this class by
@@ -113,7 +113,7 @@ public interface OWLClass extends OWLDescription, OWLEntity, OWLNamedObject {
      * @return A <code>Set</code> of <code>OWLDescription</code>s that represent
      * the disjoint classes of this class.
      */
-    Set<OWLDescription> getDisjointClasses(Set<OWLOntology> ontologies);
+    Set<OWLClassExpression> getDisjointClasses(Set<OWLOntology> ontologies);
 
 
     /**

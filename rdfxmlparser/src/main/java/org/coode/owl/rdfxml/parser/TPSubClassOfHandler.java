@@ -1,7 +1,7 @@
 package org.coode.owl.rdfxml.parser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
@@ -48,7 +48,7 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
     public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
         if(!getConsumer().isAnonymousNode(subject)) {
             if(getConsumer().isAnonymousNode(object)) {
-                OWLDescription superClass = getConsumer().getDescriptionIfTranslated(object);
+                OWLClassExpression superClass = getConsumer().getDescriptionIfTranslated(object);
                 if(superClass != null) {
                     potentiallyConsumedTiples++;
                     return true;
@@ -60,8 +60,8 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        OWLDescription subClass = translateDescription(subject);
-        OWLDescription supClass = translateDescription(object);
+        OWLClassExpression subClass = translateDescription(subject);
+        OWLClassExpression supClass = translateDescription(object);
         OWLAxiom ax = getDataFactory().getOWLSubClassAxiom(subClass, supClass);
         addAxiom(ax);
         consumeTriple(subject, predicate, object);

@@ -174,7 +174,7 @@ public interface DIGTranslator {
      */
     public void createSatisfiableQuery(Document doc,
                                        String queryID,
-                                       OWLDescription aClass) throws DIGReasonerException;
+                                       OWLClassExpression aClass) throws DIGReasonerException;
 
 
     /**
@@ -186,13 +186,13 @@ public interface DIGTranslator {
      *                     element will determine the knowledge base that this query relates to.
      * @param queryID      A <code>String</code> that represents an identifier
      *                     for the query, which can be used to match the query to its result.
-     * @param descriptions A set of classes, whose intersection will be tested
+     * @param classExpressions A set of classes, whose intersection will be tested
      *                     for satisfiability.
      * @throws DIGReasonerException
      */
     public void createSatisfiableQuery(Document doc,
                                        String queryID,
-                                       Set<OWLDescription> descriptions) throws DIGReasonerException;
+                                       Set<OWLClassExpression> classExpressions) throws DIGReasonerException;
 
 
     /**
@@ -209,8 +209,8 @@ public interface DIGTranslator {
      */
     public void createSubsumesQuery(Document doc,
                                     String queryID,
-                                    OWLDescription cls1,
-                                    OWLDescription cls2) throws DIGReasonerException;
+                                    OWLClassExpression cls1,
+                                    OWLClassExpression cls2) throws DIGReasonerException;
 
 
     /**
@@ -227,8 +227,8 @@ public interface DIGTranslator {
      */
     public void createDisjointQuery(Document doc,
                                     String queryID,
-                                    OWLDescription cls1,
-                                    OWLDescription cls2) throws DIGReasonerException;
+                                    OWLClassExpression cls1,
+                                    OWLClassExpression cls2) throws DIGReasonerException;
 
     //////////////////////////////////////////////////////////////////////////////////
     //
@@ -250,7 +250,7 @@ public interface DIGTranslator {
      */
     public void createDirectSuperConceptsQuery(Document doc,
                                                String queryID,
-                                               OWLDescription aClass) throws DIGReasonerException;
+                                               OWLClassExpression aClass) throws DIGReasonerException;
 
 
     /**
@@ -262,12 +262,12 @@ public interface DIGTranslator {
      *                     element will determine the knowledge base that this query relates to.
      * @param queryID      A <code>String</code> that represents an identifier
      *                     for the query, which can be used to match the query to its result.
-     * @param descriptions A set of classes whose intersection super concepts are to be asked for.
+     * @param classExpressions A set of classes whose intersection super concepts are to be asked for.
      * @throws DIGReasonerException
      */
     public void createDirectSuperConceptsQuery(Document doc,
                                                String queryID,
-                                               Set<OWLDescription> descriptions) throws DIGReasonerException;
+                                               Set<OWLClassExpression> classExpressions) throws DIGReasonerException;
 
 
     /**
@@ -283,7 +283,7 @@ public interface DIGTranslator {
      */
     public void createDirectSubConceptsQuery(Document doc,
                                              String queryID,
-                                             OWLDescription aClass) throws DIGReasonerException;
+                                             OWLClassExpression aClass) throws DIGReasonerException;
 
 
     /**
@@ -300,7 +300,7 @@ public interface DIGTranslator {
      */
     public void createAncestorConceptsQuery(Document doc,
                                             String queryID,
-                                            OWLDescription aClass) throws DIGReasonerException;
+                                            OWLClassExpression aClass) throws DIGReasonerException;
 
 
     /**
@@ -317,7 +317,7 @@ public interface DIGTranslator {
      */
     public void createDescendantConceptsQuery(Document doc,
                                               String queryID,
-                                              OWLDescription aClass) throws DIGReasonerException;
+                                              OWLClassExpression aClass) throws DIGReasonerException;
 
 
     /**
@@ -334,7 +334,7 @@ public interface DIGTranslator {
      */
     public void createEquivalentConceptsQuery(Document doc,
                                               String queryID,
-                                              OWLDescription aClass) throws DIGReasonerException;
+                                              OWLClassExpression aClass) throws DIGReasonerException;
 
     ///////////////////////////////////////////////////////////////////////////////
     //
@@ -432,7 +432,7 @@ public interface DIGTranslator {
      */
     public void createInstancesOfConceptQuery(Document doc,
                                               String queryID,
-                                              OWLDescription aClass) throws DIGReasonerException;
+                                              OWLClassExpression aClass) throws DIGReasonerException;
 
 
     /**
@@ -469,7 +469,7 @@ public interface DIGTranslator {
     public void createIndividualInstanceOfConceptQuery(Document doc,
                                                        String queryID,
                                                        OWLIndividual ins,
-                                                       OWLDescription aClass) throws DIGReasonerException;
+                                                       OWLClassExpression aClass) throws DIGReasonerException;
 
 
     /**

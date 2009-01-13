@@ -1,8 +1,7 @@
 package org.semanticweb.owl.inference;
 
 import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLDescription;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
 
 import java.util.Set;
 /*
@@ -43,7 +42,7 @@ public interface OWLClassReasoner extends OWLSatisfiabilityChecker {
      *
      * @return <code>true</code> if the first class is a subclass of the second class
      */
-    public boolean isSubClassOf(OWLDescription clsC, OWLDescription clsD) throws OWLReasonerException;
+    public boolean isSubClassOf(OWLClassExpression clsC, OWLClassExpression clsD) throws OWLReasonerException;
 
 
     /**
@@ -52,7 +51,7 @@ public interface OWLClassReasoner extends OWLSatisfiabilityChecker {
      * @return <code>true</code> if the first class is equivalent to the second class, or
      *         <code>false</code> if the first class is not equivalent to the second class
      */
-    public boolean isEquivalentClass(OWLDescription clsC, OWLDescription clsD) throws OWLReasonerException;
+    public boolean isEquivalentClass(OWLClassExpression clsC, OWLClassExpression clsD) throws OWLReasonerException;
 
     /**
      * Returns the collection of (named) most specific superclasses
@@ -61,7 +60,7 @@ public interface OWLClassReasoner extends OWLSatisfiabilityChecker {
      * equivalence class.
      */
 
-    public Set<Set<OWLClass>> getSuperClasses(OWLDescription clsC) throws OWLReasonerException;
+    public Set<Set<OWLClass>> getSuperClasses(OWLClassExpression clsC) throws OWLReasonerException;
 
 
     /**
@@ -70,7 +69,7 @@ public interface OWLClassReasoner extends OWLSatisfiabilityChecker {
      * each set in the collection represents an equivalence class.
      */
 
-    public Set<Set<OWLClass>> getAncestorClasses(OWLDescription clsC) throws OWLReasonerException;
+    public Set<Set<OWLClass>> getAncestorClasses(OWLClassExpression clsC) throws OWLReasonerException;
 
 
     /**
@@ -80,7 +79,7 @@ public interface OWLClassReasoner extends OWLSatisfiabilityChecker {
      * equivalence class.
      */
 
-    public Set<Set<OWLClass>> getSubClasses(OWLDescription clsC) throws OWLReasonerException;
+    public Set<Set<OWLClass>> getSubClasses(OWLClassExpression clsC) throws OWLReasonerException;
 
 
     /**
@@ -89,14 +88,14 @@ public interface OWLClassReasoner extends OWLSatisfiabilityChecker {
      * each set in the collection represents an equivalence class.
      */
 
-    public Set<Set<OWLClass>> getDescendantClasses(OWLDescription clsC) throws OWLReasonerException;
+    public Set<Set<OWLClass>> getDescendantClasses(OWLClassExpression clsC) throws OWLReasonerException;
 
 
     /**
      * Returns the collection of (named) classes which are equivalent
      * to the given description.
      */
-    public Set<OWLClass> getEquivalentClasses(OWLDescription clsC) throws OWLReasonerException;
+    public Set<OWLClass> getEquivalentClasses(OWLClassExpression clsC) throws OWLReasonerException;
 
 
     /**

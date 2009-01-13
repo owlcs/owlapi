@@ -139,7 +139,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
 
     public void visit(OWLObjectIntersectionOf node) {
-        for (Iterator<OWLDescription> it = node.getOperands().iterator(); it.hasNext();) {
+        for (Iterator<OWLClassExpression> it = node.getOperands().iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -260,7 +260,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
 
     public void visit(OWLObjectUnionOf node) {
-        for (Iterator<OWLDescription> it = node.getOperands().iterator(); it.hasNext();) {
+        for (Iterator<OWLClassExpression> it = node.getOperands().iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -316,8 +316,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     public void visit(OWLDisjointClassesAxiom axiom) {
         if (axiom.getDescriptions().size() != 2) {
-            for (OWLDescription left : axiom.getDescriptions()) {
-                for (OWLDescription right : axiom.getDescriptions()) {
+            for (OWLClassExpression left : axiom.getDescriptions()) {
+                for (OWLClassExpression right : axiom.getDescriptions()) {
                     if (left != right) {
                         if (left.equals(subject)) {
                             left.accept(this);
@@ -343,11 +343,11 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
             }
         }
         else {
-            Iterator<OWLDescription> it = axiom.getDescriptions().iterator();
-            OWLDescription descA = it.next();
-            OWLDescription descB = it.next();
-            OWLDescription lhs;
-            OWLDescription rhs;
+            Iterator<OWLClassExpression> it = axiom.getDescriptions().iterator();
+            OWLClassExpression descA = it.next();
+            OWLClassExpression descB = it.next();
+            OWLClassExpression lhs;
+            OWLClassExpression rhs;
             if(descA.equals(subject)) {
                 lhs = descA;
                 rhs = descB;
@@ -369,11 +369,11 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
         if (axiom.getDescriptions().size() > 2) {
-            Set<Set<OWLDescription>> rendered = new HashSet<Set<OWLDescription>>();
-            for (OWLDescription left : axiom.getDescriptions()) {
-                for (OWLDescription right : axiom.getDescriptions()) {
+            Set<Set<OWLClassExpression>> rendered = new HashSet<Set<OWLClassExpression>>();
+            for (OWLClassExpression left : axiom.getDescriptions()) {
+                for (OWLClassExpression right : axiom.getDescriptions()) {
                     if (left != right) {
-                        Set<OWLDescription> cur = CollectionFactory.createSet(left, right);
+                        Set<OWLClassExpression> cur = CollectionFactory.createSet(left, right);
                         if(!rendered.contains(cur)) {
                             rendered.add(cur);
                             left.accept(this);
@@ -388,11 +388,11 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
             }
         }
         else if(axiom.getDescriptions().size() == 2) {
-            Iterator<OWLDescription> it = axiom.getDescriptions().iterator();
-            OWLDescription descA = it.next();
-            OWLDescription descB = it.next();
-            OWLDescription lhs;
-            OWLDescription rhs;
+            Iterator<OWLClassExpression> it = axiom.getDescriptions().iterator();
+            OWLClassExpression descA = it.next();
+            OWLClassExpression descB = it.next();
+            OWLClassExpression lhs;
+            OWLClassExpression rhs;
             if(subject.equals(descA)) {
                 lhs = descA;
                 rhs = descB;
@@ -682,22 +682,22 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    private void writeNested(OWLDescription description) {
-        openBracket(description);
-        description.accept(this);
-        closeBracket(description);
+    private void writeNested(OWLClassExpression classExpression) {
+        openBracket(classExpression);
+        classExpression.accept(this);
+        closeBracket(classExpression);
     }
 
 
-    private void openBracket(OWLDescription description) {
-        if (LatexBracketChecker.requiresBracket(description)) {
+    private void openBracket(OWLClassExpression classExpression) {
+        if (LatexBracketChecker.requiresBracket(classExpression)) {
             write("(");
         }
     }
 
 
-    private void closeBracket(OWLDescription description) {
-        if (LatexBracketChecker.requiresBracket(description)) {
+    private void closeBracket(OWLClassExpression classExpression) {
+        if (LatexBracketChecker.requiresBracket(classExpression)) {
             write(")");
         }
     }

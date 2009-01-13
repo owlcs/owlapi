@@ -6,7 +6,7 @@ Annotations:
 
 dc:creator "Robert Stevens",
 
-rdfs:comment "A simple family relationships ontology and associated instances. the description is of the family of Robert Stevens and the intention is to use the minimal of asserted relationships and the maximum of inference. To do this  I've used role chains, nominals and properties hierarchies. "
+rdfs:comment "A simple family relationships ontology and associated instances. the classExpression is of the family of Robert Stevens and the intention is to use the minimal of asserted relationships and the maximum of inference. To do this  I've used role chains, nominals and properties hierarchies. "
 
 
 ObjectProperty: hasSex

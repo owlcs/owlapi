@@ -35,18 +35,18 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implement
 
     private OWLIndividual individual;
 
-    private OWLDescription description;
+    private OWLClassExpression classExpression;
 
 
-    public OWLClassAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual individual, OWLDescription description) {
+    public OWLClassAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual individual, OWLClassExpression classExpression) {
         super(dataFactory);
         this.individual = individual;
-        this.description = description;
+        this.classExpression = classExpression;
     }
 
 
-    public OWLDescription getDescription() {
-        return description;
+    public OWLClassExpression getDescription() {
+        return classExpression;
     }
 
 
@@ -62,7 +62,7 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implement
                 }
                 OWLClassAssertionAxiom other = (OWLClassAssertionAxiom) obj;
                 return other.getIndividual().equals(individual) &&
-                        other.getDescription().equals(description);
+                        other.getDescription().equals(classExpression);
             }
         return false;
     }

@@ -59,7 +59,7 @@ public class Example6 {
             OWLClass nose = factory.getOWLClass(URI.create(base + "#Nose"));
             // Now create a restriction to describe the class of individuals that have at least one
             // part that is a kind of nose
-            OWLDescription hasPartSomeNose = factory.getOWLObjectSomeRestriction(hasPart, nose);
+            OWLClassExpression hasPartSomeNose = factory.getOWLObjectSomeRestriction(hasPart, nose);
 
             // Obtain a reference to the Head class so that we can specify that Heads have noses
             OWLClass head = factory.getOWLClass(URI.create(base + "#Head"));

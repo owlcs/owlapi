@@ -217,7 +217,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
                 exceptions.add(new OBOStorageException(ax, null, "Equivalent class GCI found in ontology cannot be translated to OBO"));
             }
             else if (ax instanceof OWLDisjointClassesAxiom){
-                for (OWLDescription op : ((OWLDisjointClassesAxiom)ax).getDescriptions()){
+                for (OWLClassExpression op : ((OWLDisjointClassesAxiom)ax).getDescriptions()){
                     if (op.isAnonymous()){
                         exceptions.add(new OBOStorageException(ax, null, "Disjoint axiom contains anonymous classes - cannot be translated to OBO"));
                         break;
@@ -251,7 +251,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
         relationshipHandler.setClass(cls);
 
-        for (OWLDescription superCls : cls.getSuperClasses(ontology)){
+        for (OWLClassExpression superCls : cls.getSuperClasses(ontology)){
             if (!superCls.isAnonymous()){
                 String superclassID = getID(superCls.asOWLClass());
                 tvpList.addPair(OBOVocabulary.IS_A, superclassID);
@@ -273,7 +273,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
             tvpList.addPair(OBOVocabulary.IS_A, getID(owlThing));
         }
 
-        for (OWLDescription equiv : cls.getEquivalentClasses(ontology)){
+        for (OWLClassExpression equiv : cls.getEquivalentClasses(ontology)){
             if (equiv instanceof OWLObjectIntersectionOf){
                 handleIntersection(cls, (OWLObjectIntersectionOf)equiv, tvpList);
             }
@@ -293,7 +293,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
             }
         }
 
-        for (OWLDescription disjoint : cls.getDisjointClasses(ontology)){
+        for (OWLClassExpression disjoint : cls.getDisjointClasses(ontology)){
             if (!disjoint.isAnonymous()){
                 tvpList.addPair(OBOVocabulary.DISJOINT_FROM, getID(disjoint.asOWLClass()));
                 // TODO handle namespace and derived
@@ -313,7 +313,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
 
     private void handleIntersection(OWLClass cls, OWLObjectIntersectionOf intersectionOf, OBOTagValuePairList tvpList) {
-        for (OWLDescription op : intersectionOf.getOperands()){
+        for (OWLClassExpression op : intersectionOf.getOperands()){
             if (!op.isAnonymous()){
                 tvpList.addPair(OBOVocabulary.INTERSECTION_OF, getID(op.asOWLClass()));
             }
@@ -343,7 +343,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
 
     private void handleUnion(OWLClass cls, OWLObjectUnionOf union, OBOTagValuePairList tvpList) {
-        for (OWLDescription op : union.getOperands()){
+        for (OWLClassExpression op : union.getOperands()){
             if (!op.isAnonymous()){
                 tvpList.addPair(OBOVocabulary.UNION_OF, getID(op.asOWLClass()));
             }
@@ -398,8 +398,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         OBOTagValuePairList tvpList = new OBOTagValuePairList(OBOVocabulary.getTypeDefStanzaTags());
         handleEntityBase(property, ontology, tvpList);
 
-        Set<OWLDescription> domains = property.getDomains(ontology);
-        for (OWLDescription domain : domains){
+        Set<OWLClassExpression> domains = property.getDomains(ontology);
+        for (OWLClassExpression domain : domains){
             if (!domain.isAnonymous()){
                 tvpList.addPair(OBOVocabulary.DOMAIN, getID(domain.asOWLClass()));
             }
@@ -428,7 +428,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
         OBOTagValuePairList tvpList = handleCommonTypeDefStanza(property, ontology, writer);
 
-        for (OWLDescription range : property.getRanges(ontology)){
+        for (OWLClassExpression range : property.getRanges(ontology)){
             if (!range.isAnonymous()){
                 tvpList.addPair(OBOVocabulary.RANGE, getID(range.asOWLClass()));
             }
@@ -509,7 +509,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         }
         handleEntityBase(individual, ontology, tvpList);
 
-        for (OWLDescription type : individual.getTypes(ontology)){
+        for (OWLClassExpression type : individual.getTypes(ontology)){
             if (!type.isAnonymous()){
                 tvpList.addPair(OBOVocabulary.INSTANCE_OF, getID(type.asOWLClass()));
             }

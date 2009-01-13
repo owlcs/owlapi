@@ -64,7 +64,7 @@ public class OWLDataExactCardinalityRestrictionImpl extends OWLDataCardinalityRe
     }
 
 
-    public OWLDescription asIntersectionOfMinMax() {
+    public OWLClassExpression asIntersectionOfMinMax() {
         return getOWLDataFactory().getOWLObjectIntersectionOf(getOWLDataFactory().getOWLDataMinCardinalityRestriction(getProperty(), getCardinality(), getFiller()),
                                                               getOWLDataFactory().getOWLDataMaxCardinalityRestriction(getProperty(), getCardinality(), getFiller()));
     }

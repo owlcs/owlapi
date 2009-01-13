@@ -111,7 +111,7 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
     }
 
 
-    protected OWLDescription getOWLClassOrRestriction(String termList) {
+    protected OWLClassExpression getOWLClassOrRestriction(String termList) {
         StringTokenizer tok = new StringTokenizer(termList, " ", false);
         String id0 = null;
         String id1 = null;

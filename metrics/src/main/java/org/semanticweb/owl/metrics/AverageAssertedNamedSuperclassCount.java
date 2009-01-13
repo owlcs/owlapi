@@ -58,7 +58,7 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
                     count++;
                     int prevTotal = total;
                     processedClasses.add(cls);
-                    for(OWLDescription desc : cls.getSuperClasses(ont)) {
+                    for(OWLClassExpression desc : cls.getSuperClasses(ont)) {
                         if(!desc.isAnonymous()) {
                             total++;
                         }

@@ -557,10 +557,10 @@ void Domain(OWLObjectProperty subProp) throws KRSS2OWLParserException :
 {
   (<DOMAIN_ATTRIBUTE>( <OPENPAR>(desc=ConceptExpression(){if (desc != null) descs.add(desc);})+<CLOSEPAR>| (desc=ConceptExpression(){ descs.add(desc);})  )
             {
-                for (OWLDescription eachDescription : descs) {
-                    addAxiom(dataFactory.getOWLObjectPropertyDomainAxiom(subProp, eachDescription));
-                    if (eachDescription instanceof OWLClass)
-                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachDescription));
+                for (OWLDescription eachClassExpression : descs) {
+                    addAxiom(dataFactory.getOWLObjectPropertyDomainAxiom(subProp, eachClassExpression));
+                    if (eachClassExpression instanceof OWLClass)
+                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachClassExpression));
                 }
             }
         )?
@@ -575,10 +575,10 @@ void RangeAttribute(OWLObjectProperty subProp) throws KRSS2OWLParserException :
 {
   (<RANGE_ATTRIBUTE>( <OPENPAR>(desc=ConceptExpression(){if (desc != null) descs.add(desc);})+<CLOSEPAR>| (desc=ConceptExpression(){ descs.add(desc);})  )
             {
-                for (OWLDescription eachDescription : descs) {
-                    addAxiom(dataFactory.getOWLObjectPropertyRangeAxiom(subProp, eachDescription));
-                    if (eachDescription instanceof OWLClass)
-                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachDescription));
+                for (OWLDescription eachClassExpression : descs) {
+                    addAxiom(dataFactory.getOWLObjectPropertyRangeAxiom(subProp, eachClassExpression));
+                    if (eachClassExpression instanceof OWLClass)
+                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachClassExpression));
                 }
             }
         )?
@@ -613,10 +613,10 @@ void SymmetricAttribute(OWLObjectProperty property) throws KRSS2OWLParserExcepti
 {
  (<RANGE_ATTRIBUTE>( <OPENPAR>(desc=ConceptExpression(){descs.add(desc);})+<CLOSEPAR>| (desc=ConceptExpression(){ descs.add(desc);})  )
             {
-                for (OWLDescription eachDescription : descs) {
-                    addAxiom(dataFactory.getOWLObjectPropertyRangeAxiom(subProp, eachDescription));
-                    if (eachDescription instanceof OWLClass)
-                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachDescription));
+                for (OWLDescription eachClassExpression : descs) {
+                    addAxiom(dataFactory.getOWLObjectPropertyRangeAxiom(subProp, eachClassExpression));
+                    if (eachClassExpression instanceof OWLClass)
+                          addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachClassExpression));
                 }
             }
         )+
@@ -677,16 +677,16 @@ void ComplexRoleInclusion() throws KRSS2OWLParserException :
 
 void Implies() throws KRSS2OWLParserException :
 {
-    OWLDescription subDescription;
-    OWLDescription superDescription;
+    OWLDescription subClassExpression;
+    OWLDescription superClassExpression;
 }
 {
-    <OPENPAR><IMPLIES>subDescription=ConceptExpression() superDescription = ConceptExpression() <CLOSEPAR>{
-        addAxiom( dataFactory.getOWLSubClassAxiom(subDescription, superDescription));
-        if (subDescription instanceof OWLClass)
-            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) subDescription));
-        if (superDescription instanceof OWLClass)
-            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) superDescription));
+    <OPENPAR><IMPLIES>subClassExpression=ConceptExpression() superClassExpression = ConceptExpression() <CLOSEPAR>{
+        addAxiom( dataFactory.getOWLSubClassAxiom(subClassExpression, superClassExpression));
+        if (subClassExpression instanceof OWLClass)
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) subClassExpression));
+        if (superClassExpression instanceof OWLClass)
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) superClassExpression));
     }
 }
 

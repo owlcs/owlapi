@@ -34,9 +34,9 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLObjectUnionOfImpl extends OWLNaryBooleanDescriptionImpl implements OWLObjectUnionOf {
+public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl implements OWLObjectUnionOf {
 
-    public OWLObjectUnionOfImpl(OWLDataFactory dataFactory, Set<? extends OWLDescription> operands) {
+    public OWLObjectUnionOfImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> operands) {
         super(dataFactory, operands);
     }
 
@@ -49,9 +49,9 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanDescriptionImpl implemen
     }
 
 
-    public Set<OWLDescription> asDisjunctSet() {
-        Set<OWLDescription> disjuncts = new HashSet<OWLDescription>();
-        for(OWLDescription op : getOperands()) {
+    public Set<OWLClassExpression> asDisjunctSet() {
+        Set<OWLClassExpression> disjuncts = new HashSet<OWLClassExpression>();
+        for(OWLClassExpression op : getOperands()) {
             disjuncts.addAll(op.asDisjunctSet());
         }
         return disjuncts;

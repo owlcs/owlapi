@@ -59,8 +59,8 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
     }
 
 
-    public Set<OWLDescription> getDomains(OWLOntology ontology) {
-        Set<OWLDescription> result = new TreeSet<OWLDescription>();
+    public Set<OWLClassExpression> getDomains(OWLOntology ontology) {
+        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for(OWLPropertyDomainAxiom axiom : getDomainAxioms(ontology)) {
             result.add(axiom.getDomain());
         }
@@ -68,8 +68,8 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
     }
 
 
-    public Set<OWLDescription> getDomains(Set<OWLOntology> ontologies) {
-        Set<OWLDescription> result = new TreeSet<OWLDescription>();
+    public Set<OWLClassExpression> getDomains(Set<OWLOntology> ontologies) {
+        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for(OWLOntology ont : ontologies) {
             result.addAll(getDomains(ont));
         }

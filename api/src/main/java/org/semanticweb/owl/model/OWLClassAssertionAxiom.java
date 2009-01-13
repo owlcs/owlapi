@@ -33,5 +33,5 @@ public interface OWLClassAssertionAxiom extends OWLIndividualAxiom {
 
     OWLIndividual getIndividual();
 
-    OWLDescription getDescription();
+    OWLClassExpression getDescription();
 }

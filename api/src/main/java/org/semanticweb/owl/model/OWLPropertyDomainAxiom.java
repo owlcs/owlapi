@@ -31,5 +31,5 @@ package org.semanticweb.owl.model;
  */
 public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression> extends OWLUnaryPropertyAxiom<P> {
 
-    public OWLDescription getDomain();
+    public OWLClassExpression getDomain();
 }

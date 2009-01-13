@@ -49,10 +49,10 @@ public class JustificationMap {
 
     private Map<OWLEntity, Set<OWLAxiom>> axiomsByLHS;
 
-    private OWLDescription desc;
+    private OWLClassExpression desc;
 
 
-    public JustificationMap(OWLDescription desc, Set<OWLAxiom> axioms) {
+    public JustificationMap(OWLClassExpression desc, Set<OWLAxiom> axioms) {
         this.axioms = axioms;
         this.desc = desc;
         this.rootAxioms = new HashSet<OWLAxiom>();
@@ -109,7 +109,7 @@ public class JustificationMap {
         }
     }
 
-    private void buildChildren(OWLDescription seed) {
+    private void buildChildren(OWLClassExpression seed) {
         // Return the axioms that have the entity on the LHS
         OWLEntityCollector collector = new OWLEntityCollector();
         seed.accept(collector);
