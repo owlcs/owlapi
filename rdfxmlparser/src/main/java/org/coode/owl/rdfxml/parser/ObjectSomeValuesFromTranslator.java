@@ -45,8 +45,8 @@ public class ObjectSomeValuesFromTranslator extends AbstractObjectQuantifiedRest
 
 
     protected OWLClassExpression createRestriction(OWLObjectPropertyExpression property, OWLClassExpression filler) throws
-                                                                                                            OWLException {
-        return getDataFactory().getOWLObjectSomeRestriction(property, filler);
+            OWLException {
+        return getDataFactory().getOWLObjectSomeValuesFrom(property, filler);
     }
 
 

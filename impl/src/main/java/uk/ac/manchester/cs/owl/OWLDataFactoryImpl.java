@@ -398,8 +398,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLObjectSomeValuesFrom getOWLObjectSomeRestriction(OWLObjectPropertyExpression property,
-                                                               OWLClassExpression classExpression) {
+    public OWLObjectSomeValuesFrom getOWLObjectSomeValuesFrom(OWLObjectPropertyExpression property,
+                                                              OWLClassExpression classExpression) {
         return new OWLObjectSomeValuesFromImpl(this, property, classExpression);
 //        OWLObjectSomeValuesFrom r = (OWLObjectSomeValuesFrom) descriptionCache.get(d);
 //        if(r == null) {

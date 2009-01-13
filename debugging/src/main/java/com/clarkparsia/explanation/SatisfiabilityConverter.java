@@ -40,6 +40,7 @@ import java.util.logging.Logger;
  * <p>Copyright: Copyright (c) 2007</p>
  * <p/>
  * <p>Company: Clark & Parsia, LLC. <http://www.clarkparsia.com></p>
+ *
  * @author Evren Sirin
  */
 public class SatisfiabilityConverter {
@@ -127,7 +128,7 @@ public class SatisfiabilityConverter {
 
         public void visit(OWLDataPropertyRangeAxiom axiom) {
             result = factory.getOWLDataSomeRestriction(axiom.getProperty(),
-                                                       factory.getOWLDataComplementOf(axiom.getRange()));
+                    factory.getOWLDataComplementOf(axiom.getRange()));
         }
 
 
@@ -143,7 +144,7 @@ public class SatisfiabilityConverter {
 
         public void visit(OWLDifferentIndividualsAxiom axiom) {
             Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
-            for(OWLIndividual ind : axiom.getIndividuals()) {
+            for (OWLIndividual ind : axiom.getIndividuals()) {
                 nominals.add(oneOf(ind));
             }
             result = factory.getOWLObjectIntersectionOf(nominals);
@@ -184,16 +185,16 @@ public class SatisfiabilityConverter {
                 logger.warning("EquivalentClassesAxiom with more than two elements not supported!");
 
             // apply simplification for the cases where either concept is owl:Thing or owl:Nothin
-			if( c1.isOWLNothing() )
-				result = c2;
-			else if( c2.isOWLNothing() )
-				result = c1;
-			else if( c1.isOWLThing() )
-				result = not( c2 );
-			else if( c2.isOWLThing() )
-				result = not( c1 );
-			else
-				result = or(and(c1, not(c2)), and(not(c1), c2));
+            if (c1.isOWLNothing())
+                result = c2;
+            else if (c2.isOWLNothing())
+                result = c1;
+            else if (c1.isOWLThing())
+                result = not(c2);
+            else if (c2.isOWLThing())
+                result = not(c1);
+            else
+                result = or(and(c1, not(c2)), and(not(c1), c2));
         }
 
 
@@ -265,13 +266,13 @@ public class SatisfiabilityConverter {
 
 
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
-            result = and(factory.getOWLObjectSomeRestriction(axiom.getProperty(), factory.getOWLThing()),
-                         not(axiom.getDomain()));
+            result = and(factory.getOWLObjectSomeValuesFrom(axiom.getProperty(), factory.getOWLThing()),
+                    not(axiom.getDomain()));
         }
 
 
         public void visit(OWLObjectPropertyRangeAxiom axiom) {
-            result = factory.getOWLObjectSomeRestriction(axiom.getProperty(), not(axiom.getRange()));
+            result = factory.getOWLObjectSomeValuesFrom(axiom.getProperty(), not(axiom.getRange()));
         }
 
 
@@ -303,12 +304,12 @@ public class SatisfiabilityConverter {
             OWLClassExpression sub = axiom.getSubClass();
             OWLClassExpression sup = axiom.getSuperClass();
 
-            if( sup.isOWLNothing() )
-				result = sub;
-			else if( sub.isOWLThing() )
-				result = not( sup );
-			else
-				result = and(sub, not(sup));
+            if (sup.isOWLNothing())
+                result = sub;
+            else if (sub.isOWLThing())
+                result = not(sup);
+            else
+                result = and(sub, not(sup));
         }
 
 

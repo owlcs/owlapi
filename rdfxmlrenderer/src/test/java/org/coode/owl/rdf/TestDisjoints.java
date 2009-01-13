@@ -42,7 +42,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 09-May-2007<br><br>
- *
+ * <p/>
  * Test cases for rendering of disjoint axioms.  The OWL 1.1 specification makes it
  * possible to specify that a set of classes are mutually disjoint.  Unfortunately,
  * this must be represented in RDF as a set of pairwise disjoint statements. In otherwords,
@@ -72,7 +72,7 @@ public class TestDisjoints extends TestCase {
 //        OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
 //        OWLClass clsC = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
 //        OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
-//        OWLClassExpression clsD = man.getOWLDataFactory().getOWLObjectSomeRestriction(prop, man.getOWLDataFactory().getOWLThing());
+//        OWLClassExpression clsD = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(prop, man.getOWLDataFactory().getOWLThing());
 //        Set<OWLClassExpression> descriptions = new HashSet<OWLClassExpression>();
 //        descriptions.add(clsA);
 //        descriptions.add(clsB);
@@ -101,8 +101,8 @@ public class TestDisjoints extends TestCase {
         OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
         OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
         OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
-        OWLClassExpression descA = man.getOWLDataFactory().getOWLObjectSomeRestriction(prop, clsA);
-        OWLClassExpression descB = man.getOWLDataFactory().getOWLObjectSomeRestriction(prop, clsB);
+        OWLClassExpression descA = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(prop, clsA);
+        OWLClassExpression descB = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(prop, clsB);
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         classExpressions.add(descA);
         classExpressions.add(descB);

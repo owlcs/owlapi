@@ -96,7 +96,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         // prop some Thing subclassOf domain
-        OWLClassExpression sub = dataFactory.getOWLObjectSomeRestriction(axiom.getProperty(), dataFactory.getOWLThing());
+        OWLClassExpression sub = dataFactory.getOWLObjectSomeValuesFrom(axiom.getProperty(), dataFactory.getOWLThing());
         OWLSubClassAxiom ax = dataFactory.getOWLSubClassAxiom(sub, axiom.getDomain());
         ax.accept(this);
     }
@@ -207,7 +207,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
         OWLObjectIntersectionOf left = dataFactory.getOWLObjectIntersectionOf(CollectionFactory.createSet(descC, notD));
         OWLObjectIntersectionOf right = dataFactory.getOWLObjectIntersectionOf(CollectionFactory.createSet(notC,
-                                                                                                           descD));
+                descD));
         desc = dataFactory.getOWLObjectUnionOf(CollectionFactory.createSet(left, right));
     }
 

@@ -598,7 +598,7 @@ public class ManchesterOWLSyntaxEditorParser {
                             e.isDatatypeNameExpected(),
                             keywords.toArray(new String[keywords.size()]));
                 }
-                return dataFactory.getOWLObjectSomeRestriction(prop, filler);
+                return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
             }
         } else if (kw.equalsIgnoreCase(ONLY)) {
             OWLClassExpression filler = parseNestedClassExpression(false);
@@ -643,7 +643,7 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
             for (OWLClassExpression desc : descs) {
-                ops.add(dataFactory.getOWLObjectSomeRestriction(prop, desc));
+                ops.add(dataFactory.getOWLObjectSomeValuesFrom(prop, desc));
             }
             OWLClassExpression filler;
             if (descs.size() == 1) {

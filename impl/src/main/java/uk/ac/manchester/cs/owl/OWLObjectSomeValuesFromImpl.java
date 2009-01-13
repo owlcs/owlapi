@@ -31,16 +31,16 @@ import org.semanticweb.owl.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLObjectSomeRestrictionImpl extends OWLQuantifiedRestrictionImpl<OWLObjectPropertyExpression, OWLClassExpression> implements OWLObjectSomeRestriction {
+public class OWLObjectSomeValuesFromImpl extends OWLQuantifiedRestrictionImpl<OWLObjectPropertyExpression, OWLClassExpression> implements OWLObjectSomeValuesFrom {
 
-    public OWLObjectSomeRestrictionImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLClassExpression filler) {
+    public OWLObjectSomeValuesFromImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLClassExpression filler) {
         super(dataFactory, property, filler);
     }
 
 
     public boolean equals(Object obj) {
-        if(super.equals(obj)) {
-            return obj instanceof OWLObjectSomeRestriction;
+        if (super.equals(obj)) {
+            return obj instanceof OWLObjectSomeValuesFrom;
         }
         return false;
     }
@@ -52,7 +52,7 @@ public class OWLObjectSomeRestrictionImpl extends OWLQuantifiedRestrictionImpl<O
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
-    
+
     public <O> O accept(OWLDescriptionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

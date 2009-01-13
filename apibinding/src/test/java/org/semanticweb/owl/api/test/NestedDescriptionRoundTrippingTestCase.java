@@ -39,7 +39,7 @@ public class NestedDescriptionRoundTrippingTestCase extends AbstractRoundTrippin
         OWLObjectProperty prop = getOWLObjectProperty("propP");
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");
-        OWLClassExpression desc = getFactory().getOWLObjectSomeRestriction(prop, getFactory().getOWLObjectSomeRestriction(prop, clsB));
+        OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(prop, getFactory().getOWLObjectSomeValuesFrom(prop, clsB));
         OWLAxiom ax = getFactory().getOWLSubClassAxiom(clsA, desc);
         addAxiom(ont, ax);
         return ont;

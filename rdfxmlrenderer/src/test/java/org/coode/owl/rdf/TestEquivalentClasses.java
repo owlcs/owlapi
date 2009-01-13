@@ -1,8 +1,13 @@
 package org.coode.owl.rdf;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owl.model.OWLClass;
+import org.semanticweb.owl.model.OWLClassExpression;
+import org.semanticweb.owl.model.OWLObjectProperty;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -43,8 +48,8 @@ public class TestEquivalentClasses extends AbstractRendererAndParserTestCase {
     protected Set<OWLAxiom> getAxioms() {
         OWLClass clsA = getManager().getOWLDataFactory().getOWLClass(TestUtils.createURI());
         OWLObjectProperty prop = getManager().getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
-        OWLClassExpression descA = getManager().getOWLDataFactory().getOWLObjectSomeRestriction(prop,
-                                                                                            getManager().getOWLDataFactory().getOWLThing());
+        OWLClassExpression descA = getManager().getOWLDataFactory().getOWLObjectSomeValuesFrom(prop,
+                getManager().getOWLDataFactory().getOWLThing());
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         classExpressions.add(clsA);
         classExpressions.add(descA);

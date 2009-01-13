@@ -531,7 +531,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
         desc.getFiller().accept(this);
         OWLClassExpression filler = (OWLClassExpression) obj;
-        obj = dataFactory.getOWLObjectSomeRestriction(prop, filler);
+        obj = dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
     }
 
 

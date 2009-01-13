@@ -99,7 +99,7 @@ public class NNFTestCase extends TestCase {
     }
 
     public void testObjectSome() {
-        OWLClassExpression desc = df.getOWLObjectSomeRestriction(propP, clsA);
+        OWLClassExpression desc = df.getOWLObjectSomeValuesFrom(propP, clsA);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
         OWLClassExpression nnf = df.getOWLObjectAllRestriction(propP, df.getOWLObjectComplementOf(clsA));
         OWLClassExpression comp = getNNF(neg);
@@ -109,7 +109,7 @@ public class NNFTestCase extends TestCase {
     public void testObjectAll() {
         OWLClassExpression desc = df.getOWLObjectAllRestriction(propP, clsA);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = df.getOWLObjectSomeRestriction(propP, df.getOWLObjectComplementOf(clsA));
+        OWLClassExpression nnf = df.getOWLObjectSomeValuesFrom(propP, df.getOWLObjectComplementOf(clsA));
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }
@@ -140,13 +140,13 @@ public class NNFTestCase extends TestCase {
 
     public void testNestedA() {
         OWLClassExpression fillerA = df.getOWLObjectUnionOf(clsA, clsB);
-        OWLClassExpression opA = df.getOWLObjectSomeRestriction(propP, fillerA);
+        OWLClassExpression opA = df.getOWLObjectSomeValuesFrom(propP, fillerA);
         OWLClassExpression opB = clsB;
         OWLClassExpression desc = df.getOWLObjectUnionOf(opA, opB);
         OWLClassExpression nnf = df.getOWLObjectIntersectionOf(df.getOWLObjectComplementOf(clsB),
-                                                           df.getOWLObjectAllRestriction(propP,
-                                                                                         df.getOWLObjectIntersectionOf(df.getOWLObjectComplementOf(clsA),
-                                                                                                                       df.getOWLObjectComplementOf(clsB))));
+                df.getOWLObjectAllRestriction(propP,
+                        df.getOWLObjectIntersectionOf(df.getOWLObjectComplementOf(clsA),
+                                df.getOWLObjectComplementOf(clsB))));
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
         OWLClassExpression comp = getNNF(neg);
         assertEquals(comp, nnf);
@@ -154,11 +154,11 @@ public class NNFTestCase extends TestCase {
 
     public void testNestedB() {
         OWLClassExpression desc = df.getOWLObjectIntersectionOf(df.getOWLObjectIntersectionOf(clsA, clsB),
-                                                            df.getOWLObjectComplementOf(df.getOWLObjectUnionOf(clsC, clsD)));
+                df.getOWLObjectComplementOf(df.getOWLObjectUnionOf(clsC, clsD)));
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
         OWLClassExpression nnf = df.getOWLObjectUnionOf(df.getOWLObjectUnionOf(df.getOWLObjectComplementOf(clsA),
-                                                                                  df.getOWLObjectComplementOf(clsB)),
-                                                    df.getOWLObjectUnionOf(clsC, clsD));
+                df.getOWLObjectComplementOf(clsB)),
+                df.getOWLObjectUnionOf(clsC, clsD));
         OWLClassExpression comp = getNNF(neg);
         assertEquals(comp, nnf);
     }

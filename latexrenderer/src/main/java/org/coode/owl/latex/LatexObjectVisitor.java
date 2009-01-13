@@ -611,7 +611,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        df.getOWLObjectSomeRestriction(axiom.getProperty(), df.getOWLThing()).accept(this);
+        df.getOWLObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing()).accept(this);
         writeSpace();
         write(SUBCLASS);
         writeSpace();

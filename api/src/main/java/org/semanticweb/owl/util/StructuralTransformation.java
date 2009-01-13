@@ -229,7 +229,7 @@ public class StructuralTransformation {
                 OWLClass name = createNewName();
                 OWLClassExpression rhs = desc.getFiller().accept(this);
                 axioms.add(getSCA(name, rhs));
-                return df.getOWLObjectSomeRestriction(desc.getProperty(), name);
+                return df.getOWLObjectSomeValuesFrom(desc.getProperty(), name);
             } else {
                 return desc;
             }
@@ -496,7 +496,7 @@ public class StructuralTransformation {
 
 
         public Set<OWLAxiom> visit(OWLObjectPropertyDomainAxiom axiom) {
-            return subClassOf(df.getOWLObjectSomeRestriction(axiom.getProperty(), df.getOWLThing()), axiom.getDomain());
+            return subClassOf(df.getOWLObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing()), axiom.getDomain());
         }
 
 

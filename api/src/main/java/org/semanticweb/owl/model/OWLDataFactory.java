@@ -443,8 +443,15 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLObjectSelfRestriction getOWLObjectSelfRestriction(OWLObjectPropertyExpression property);
 
 
-    OWLObjectSomeValuesFrom getOWLObjectSomeRestriction(OWLObjectPropertyExpression property,
-                                                        OWLClassExpression classExpression);
+    /**
+     * Gets an OWLObjectSomeValuesFrom restriction
+     *
+     * @param property        The object property that the restriction acts along
+     * @param classExpression The class expression that is the filler
+     * @return An OWLObjectSomeValuesFrom restriction along the specified property with the specified filler
+     */
+    OWLObjectSomeValuesFrom getOWLObjectSomeValuesFrom(OWLObjectPropertyExpression property,
+                                                       OWLClassExpression classExpression);
 
 
     OWLObjectValueRestriction getOWLObjectValueRestriction(OWLObjectPropertyExpression property,

@@ -536,7 +536,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
         filler = NamedClassOrNestedDescription();
         {
-            if (true) return factory.getOWLObjectSomeRestriction(prop, filler);
+            if (true) return factory.getOWLObjectSomeValuesFrom(prop, filler);
         }
         throw new Error("Missing return statement in function");
     }

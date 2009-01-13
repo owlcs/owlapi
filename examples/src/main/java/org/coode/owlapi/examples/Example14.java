@@ -64,12 +64,12 @@ public class Example14 {
 
             // Let's do the same for JalapenoPepperTopping
             OWLClass vegTopping = man.getOWLDataFactory().getOWLClass(URI.create(namespace + "JalapenoPepperTopping"));
-            printProperties(man, ont, reasoner,  vegTopping);
+            printProperties(man, ont, reasoner, vegTopping);
 
             // We can also ask if the instances of a class must have a property
             OWLClass mozzarellaTopping = man.getOWLDataFactory().getOWLClass(URI.create(namespace + "MozzarellaTopping"));
             OWLObjectProperty hasOrigin = man.getOWLDataFactory().getOWLObjectProperty(URI.create(namespace + "hasCountryOfOrigin"));
-            if(hasProperty(man, reasoner, mozzarellaTopping, hasOrigin)) {
+            if (hasProperty(man, reasoner, mozzarellaTopping, hasOrigin)) {
                 System.out.println("Instances of " + mozzarellaTopping + " have a country of origin");
             }
         }
@@ -82,14 +82,15 @@ public class Example14 {
 
     /**
      * Prints out the properties that instances of a class description must have
-     * @param man The manager
-     * @param ont The ontology
+     *
+     * @param man      The manager
+     * @param ont      The ontology
      * @param reasoner The reasoner
-     * @param cls The class description
+     * @param cls      The class description
      * @throws OWLReasonerException If there was a problem during reasoning
      */
     private static void printProperties(OWLOntologyManager man, OWLOntology ont, OWLReasoner reasoner, OWLClass cls) throws OWLReasonerException {
-        if(!ont.containsClassReference(cls.getURI())) {
+        if (!ont.containsClassReference(cls.getURI())) {
             throw new RuntimeException("Class not in signature of the ontology");
         }
         // Note that the following code could be optimised... if we find that instances of the specified class
@@ -97,9 +98,9 @@ public class Example14 {
         System.out.println("----------------------------------------------------------");
         System.out.println("Properties of " + cls);
         System.out.println("----------------------------------------------------------");
-        for(OWLObjectPropertyExpression prop : ont.getReferencedObjectProperties()) {
+        for (OWLObjectPropertyExpression prop : ont.getReferencedObjectProperties()) {
             boolean sat = hasProperty(man, reasoner, cls, prop);
-            if(sat) {
+            if (sat) {
                 System.out.println("Instances of " + cls + " necessarily have the property " + prop);
             }
         }
@@ -111,7 +112,7 @@ public class Example14 {
         // of this some values from restriction.  If the intersection is satisfiable then the instances of
         // the class don't have to have the property, otherwise, they do.
         OWLDataFactory dataFactory = man.getOWLDataFactory();
-        OWLClassExpression restriction = dataFactory.getOWLObjectSomeRestriction(prop, dataFactory.getOWLThing());
+        OWLClassExpression restriction = dataFactory.getOWLObjectSomeValuesFrom(prop, dataFactory.getOWLThing());
         // Now we see if the intersection of the class and the complement of this restriction is satisfiable
         OWLClassExpression complement = dataFactory.getOWLObjectComplementOf(restriction);
         OWLClassExpression intersection = dataFactory.getOWLObjectIntersectionOf(cls, complement);

@@ -39,7 +39,7 @@ public class OWLObjectValueRestrictionImpl extends OWLValueRestrictionImpl<OWLOb
 
 
     public boolean equals(Object obj) {
-        if(super.equals(obj)) {
+        if (super.equals(obj)) {
             return obj instanceof OWLObjectValueRestriction;
         }
         return false;
@@ -47,7 +47,7 @@ public class OWLObjectValueRestrictionImpl extends OWLValueRestrictionImpl<OWLOb
 
 
     public OWLClassExpression asSomeValuesFrom() {
-        return getOWLDataFactory().getOWLObjectSomeRestriction(getProperty(), getOWLDataFactory().getOWLObjectOneOf(getValue()));
+        return getOWLDataFactory().getOWLObjectSomeValuesFrom(getProperty(), getOWLDataFactory().getOWLObjectOneOf(getValue()));
     }
 
 

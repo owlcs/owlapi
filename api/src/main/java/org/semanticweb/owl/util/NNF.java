@@ -115,7 +115,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
         if (negated) {
             return dataFactory.getOWLObjectAllRestriction(desc.getProperty(), filler);
         } else {
-            return dataFactory.getOWLObjectSomeRestriction(desc.getProperty(), filler);
+            return dataFactory.getOWLObjectSomeValuesFrom(desc.getProperty(), filler);
         }
     }
 
@@ -123,7 +123,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
     public OWLClassExpression visit(OWLObjectAllRestriction desc) {
         OWLClassExpression filler = desc.getFiller().accept(this);
         if (negated) {
-            return dataFactory.getOWLObjectSomeRestriction(desc.getProperty(), filler);
+            return dataFactory.getOWLObjectSomeValuesFrom(desc.getProperty(), filler);
         } else {
             return dataFactory.getOWLObjectAllRestriction(desc.getProperty(), filler);
         }

@@ -78,7 +78,7 @@ Enhancements:
 
 - Added some new input sources:  StreamInputSource, ReaderInputSource, FileInputSource
 
-- RDF Parser. Made the description translator selector more intelligent so that when properties aren't typed as either object or data properties, other triples are examined to make the appropriate choice.
+- RDF Parser. Made the classExpression translator selector more intelligent so that when properties aren't typed as either object or data properties, other triples are examined to make the appropriate choice.
 
 - OWLRestrictedDataRangeFacetVocabulary.  Added methods to obtain facets by their symbolic name (e.g. >=)
 
