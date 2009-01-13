@@ -63,14 +63,14 @@ public class Example7 {
 
             // Now create the data range which correponds to int greater than 18.  To do this, we
             // get hold of the int datatype and then restrict it with a minInclusive facet restriction.
-            OWLDataType intDataType = factory.getOWLDatatype(XSDVocabulary.INT.getURI());
+            OWLDatatype intDatatype = factory.getOWLDatatype(XSDVocabulary.INT.getURI());
             // Create the value "18", which is an int.
             OWLTypedLiteral eighteenConstant = factory.getOWLTypedLiteral(18);
             // Now create our custom datarange, which is int greater than or equal to 18.  To do this,
             // we need the minInclusive facet
             OWLRestrictedDataRangeFacetVocabulary facet = OWLRestrictedDataRangeFacetVocabulary.MIN_INCLUSIVE;
             // Create the restricted data range by applying the facet restriction with a value of 18 to int
-            OWLDataRange intGreaterThan18 = factory.getOWLDataRangeRestriction(intDataType,
+            OWLDataRange intGreaterThan18 = factory.getOWLDataRangeRestriction(intDatatype,
                                                                                facet,
                                                                                eighteenConstant);
             // Now we can use this in our datatype restriction on hasAge

@@ -327,7 +327,7 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLDataType node) {
+    public O visit(OWLDatatype node) {
         return null;
     }
 

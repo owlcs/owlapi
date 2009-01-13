@@ -634,7 +634,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
-    public void visit(OWLDataType node) {
+    public void visit(OWLDatatype node) {
         write(shortFormProvider.getShortForm(node));
     }
 

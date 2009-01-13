@@ -224,7 +224,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public void visit(OWLDataType node) {
+    public void visit(OWLDatatype node) {
     }
 
 

@@ -244,7 +244,7 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
     }
 
 
-    public OWLDataType asOWLDataType() {
+    public OWLDatatype asOWLDataType() {
         throw new OWLRuntimeException("Not a data type!");
     }
 

@@ -60,7 +60,7 @@ public class OWLDataRangeRestrictionImpl extends OWLObjectImpl implements OWLDat
     }
 
 
-    public OWLDataType asOWLDataType() {
+    public OWLDatatype asOWLDataType() {
         throw new OWLRuntimeException("Not a data type!");
     }
 

@@ -675,7 +675,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write(")");
     }
 
-    public void visit(OWLDataType node) {
+    public void visit(OWLDatatype node) {
         write("Datatype");
         writeOpenBracket();
         write(node.getURI());

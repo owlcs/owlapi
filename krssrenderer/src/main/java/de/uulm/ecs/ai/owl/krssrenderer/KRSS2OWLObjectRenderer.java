@@ -554,7 +554,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    public void visit(OWLDataType node) {
+    public void visit(OWLDatatype node) {
 
     }
 

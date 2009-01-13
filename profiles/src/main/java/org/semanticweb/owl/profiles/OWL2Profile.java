@@ -464,7 +464,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(node);
 //        }
 //
-//        public Object visit(OWLDataType node) {
+//        public Object visit(OWLDatatype node) {
 //            return super.visit(node);
 //        }
 //
@@ -1015,7 +1015,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLDataType node) {
+//        public Set<ConstructNotAllowed> visit(OWLDatatype node) {
 //            return Collections.emptySet();
 //        }
 //

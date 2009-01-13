@@ -34,14 +34,14 @@ public class OWLTypedConstantTestCase extends AbstractOWLDataFactoryTest {
   
 
     public void testCreation() throws Exception {
-        OWLDataType dt = getOWLDataFactory().getOWLDatatype(createURI());
+        OWLDatatype dt = getOWLDataFactory().getOWLDatatype(createURI());
         OWLTypedLiteral conA = getOWLDataFactory().getOWLTypedLiteral("3", dt);
         assertNotNull(conA);
     }
 
 
     public void testEqualsPositive() throws Exception {
-        OWLDataType dt = getOWLDataFactory().getOWLDatatype(createURI());
+        OWLDatatype dt = getOWLDataFactory().getOWLDatatype(createURI());
         OWLTypedLiteral conA = getOWLDataFactory().getOWLTypedLiteral("3", dt);
         OWLTypedLiteral conB = getOWLDataFactory().getOWLTypedLiteral("3", dt);
         assertEquals(conA, conB);
@@ -50,13 +50,13 @@ public class OWLTypedConstantTestCase extends AbstractOWLDataFactoryTest {
 
     public void testEqualsNegative() throws Exception {
         // Different datatypes - same literal
-        OWLDataType dtA = getOWLDataFactory().getOWLDatatype(createURI());
+        OWLDatatype dtA = getOWLDataFactory().getOWLDatatype(createURI());
         OWLTypedLiteral conA = getOWLDataFactory().getOWLTypedLiteral("3", dtA);
-        OWLDataType dtB = getOWLDataFactory().getOWLDatatype(createURI());
+        OWLDatatype dtB = getOWLDataFactory().getOWLDatatype(createURI());
         OWLTypedLiteral conB = getOWLDataFactory().getOWLTypedLiteral("3", dtB);
         assertNotEquals(conA, conB);
         // Different literals - same datatype
-        OWLDataType dtC = getOWLDataFactory().getOWLDatatype(createURI());
+        OWLDatatype dtC = getOWLDataFactory().getOWLDatatype(createURI());
         OWLTypedLiteral conC = getOWLDataFactory().getOWLTypedLiteral("3", dtC);
         OWLTypedLiteral conD = getOWLDataFactory().getOWLTypedLiteral("4", dtC);
         assertNotEquals(conC, conD);
@@ -64,7 +64,7 @@ public class OWLTypedConstantTestCase extends AbstractOWLDataFactoryTest {
 
 
     public void testHashCode() throws Exception {
-        OWLDataType dt = getOWLDataFactory().getOWLDatatype(createURI());
+        OWLDatatype dt = getOWLDataFactory().getOWLDatatype(createURI());
         OWLTypedLiteral conA = getOWLDataFactory().getOWLTypedLiteral("3", dt);
         OWLTypedLiteral conB = getOWLDataFactory().getOWLTypedLiteral("3", dt);
         assertEquals(conA.hashCode(), conB.hashCode());

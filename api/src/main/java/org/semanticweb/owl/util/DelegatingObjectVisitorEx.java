@@ -343,7 +343,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLDataType node) {
+    public O visit(OWLDatatype node) {
         return delegate.visit(node);
     }
 

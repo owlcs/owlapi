@@ -57,7 +57,7 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
     }
 
 
-    public OWLDataType asOWLDataType() {
+    public OWLDatatype asOWLDataType() {
         throw new OWLRuntimeException("Not a data type!");
     }
 

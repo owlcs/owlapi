@@ -1834,13 +1834,13 @@ OWLLiteral Constant() :
 OWLTypedLiteral TypedConstant() :
 {
     String literal;
-    OWLDataType dataType=null;
+    OWLDataType datatype=null;
 
 }
 {
-    (literal=StringLiteral()"^^"dataType=DataTypeURI()) {
+    (literal=StringLiteral()"^^"datatype=DataTypeURI()) {
 
-            return dataFactory.getOWLTypedLiteral(literal, dataType);
+            return dataFactory.getOWLTypedLiteral(literal, datatype);
 
     }
 }

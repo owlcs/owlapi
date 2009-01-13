@@ -745,7 +745,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataType node) {
+    public void visit(OWLDatatype node) {
     }
 
 

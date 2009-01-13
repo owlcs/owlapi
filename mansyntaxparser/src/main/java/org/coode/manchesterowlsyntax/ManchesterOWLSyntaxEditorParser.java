@@ -370,7 +370,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public OWLDataType getDataType(String name) {
+    public OWLDatatype getDataType(String name) {
         if (name.startsWith("xsd:")) {
             return dataFactory.getOWLDatatype(URI.create(Namespaces.XSD + name.substring(name.indexOf(':') + 1)));
         } else {
@@ -728,7 +728,7 @@ public class ManchesterOWLSyntaxEditorParser {
         String tok = peekToken();
         if (isDatatypeName(tok)) {
             consumeToken();
-            OWLDataType dataType = getDataType(tok);
+            OWLDatatype datatype = getDataType(tok);
             String next = peekToken();
             if (next.equals("[")) {
                 // Restricted data range
@@ -750,9 +750,9 @@ public class ManchesterOWLSyntaxEditorParser {
                 if (!sep.equals("]")) {
                     throwException("]");
                 }
-                return dataFactory.getOWLDataRangeRestriction(dataType, facetRestrictions);
+                return dataFactory.getOWLDataRangeRestriction(datatype, facetRestrictions);
             } else {
-                return dataType;
+                return datatype;
             }
         } else if (tok.equalsIgnoreCase(NOT)) {
             return parseDataComplementOf();
@@ -1996,11 +1996,11 @@ public class ManchesterOWLSyntaxEditorParser {
 
     private class DefaultEntityChecker implements OWLEntityChecker {
 
-        private Map<String, OWLDataType> dataTypeNameMap;
+        private Map<String, OWLDatatype> dataTypeNameMap;
 
 
         public DefaultEntityChecker() {
-            dataTypeNameMap = new HashMap<String, OWLDataType>();
+            dataTypeNameMap = new HashMap<String, OWLDatatype>();
             for (XSDVocabulary v : XSDVocabulary.values()) {
                 dataTypeNameMap.put(v.getURI().getFragment(), dataFactory.getOWLDatatype(v.getURI()));
                 dataTypeNameMap.put("xsd:" + v.getURI().getFragment(), dataFactory.getOWLDatatype(v.getURI()));
@@ -2048,7 +2048,7 @@ public class ManchesterOWLSyntaxEditorParser {
         }
 
 
-        public OWLDataType getOWLDataType(String name) {
+        public OWLDatatype getOWLDataType(String name) {
             return dataTypeNameMap.get(name);
         }
     }

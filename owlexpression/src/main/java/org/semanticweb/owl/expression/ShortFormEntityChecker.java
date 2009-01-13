@@ -71,7 +71,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
 
-    public OWLDataType getOWLDataType(String name) {
+    public OWLDatatype getOWLDataType(String name) {
         for(OWLEntity ent : shortFormProvider.getEntities(name)) {
             if(ent.isOWLDataType()) {
                 return ent.asOWLDataType();

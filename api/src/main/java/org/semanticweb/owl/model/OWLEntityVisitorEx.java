@@ -44,5 +44,5 @@ public interface OWLEntityVisitorEx<O> {
     O visit(OWLIndividual individual);
 
 
-    O visit(OWLDataType dataType);
+    O visit(OWLDatatype datatype);
 }

@@ -61,7 +61,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     }
 
 
-    public OWLDataType asOWLDataType() {
+    public OWLDatatype asOWLDataType() {
         throw new OWLRuntimeException("Not a data type!");
     }
 

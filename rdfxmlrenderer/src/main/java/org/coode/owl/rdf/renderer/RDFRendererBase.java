@@ -337,7 +337,7 @@ public abstract class RDFRendererBase {
             }
 
 
-            public void visit(OWLDataType dataType) {
+            public void visit(OWLDatatype datatype) {
             }
 
 
@@ -402,8 +402,8 @@ public abstract class RDFRendererBase {
             }
 
 
-            public void visit(OWLDataType dataType) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(dataType.getURI()),
+            public void visit(OWLDatatype datatype) {
+                graph.addTriple(new RDFTriple(new RDFResourceNode(datatype.getURI()),
                         new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
                         new RDFResourceNode(OWLRDFVocabulary.RDFS_DATATYPE.getURI())));
             }

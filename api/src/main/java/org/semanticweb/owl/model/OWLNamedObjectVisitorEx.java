@@ -41,5 +41,5 @@ public interface OWLNamedObjectVisitorEx<O> {
 
     O visit(OWLOntology ontology);
 
-    O visit(OWLDataType dataType);
+    O visit(OWLDatatype datatype);
 }

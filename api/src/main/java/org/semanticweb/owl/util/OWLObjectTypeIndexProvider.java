@@ -397,7 +397,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
     public static final int DATA_TYPE_INDEX_BASE = 4000;
 
-    public void visit(OWLDataType node) {
+    public void visit(OWLDatatype node) {
         type = DATA_TYPE_INDEX_BASE + ONTOLOGY;
     }
 

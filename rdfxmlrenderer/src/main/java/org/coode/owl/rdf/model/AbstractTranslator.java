@@ -125,7 +125,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
                      OWLRDFVocabulary.RDF_TYPE.getURI(),
                      OWLRDFVocabulary.OWL_INDIVIDUAL.getURI());
         }
-        else if (axiom.getEntity() instanceof OWLDataType) {
+        else if (axiom.getEntity() instanceof OWLDatatype) {
             addAxiom(axiom,
                      axiom.getEntity(),
                      OWLRDFVocabulary.RDF_TYPE.getURI(),
@@ -553,7 +553,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLDataType node) {
+    public void visit(OWLDatatype node) {
         if (!nodeMap.containsKey(node)) {
             nodeMap.put(node, getResourceNode(node.getURI()));
         }
@@ -1029,7 +1029,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         }
 
 
-        public void visit(OWLDataType node) {
+        public void visit(OWLDatatype node) {
             punned = ontology.isPunned(node.getURI());
         }
 

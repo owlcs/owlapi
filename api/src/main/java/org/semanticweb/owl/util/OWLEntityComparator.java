@@ -103,7 +103,7 @@ public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisi
     }
 
 
-    public void visit(OWLDataType dataType) {
+    public void visit(OWLDatatype datatype) {
         lastValue = 4;
     }
 }

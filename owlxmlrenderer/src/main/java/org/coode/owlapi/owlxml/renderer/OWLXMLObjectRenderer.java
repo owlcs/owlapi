@@ -579,7 +579,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataType node) {
+    public void visit(OWLDatatype node) {
         writer.writeStartElement(DATATYPE.getURI());
         writer.writeNameAttribute(node.getURI());
         writer.writeEndElement();

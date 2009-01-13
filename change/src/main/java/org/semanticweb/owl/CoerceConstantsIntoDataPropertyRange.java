@@ -41,17 +41,17 @@ import java.util.*;
  */
 public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntologyChange {
 
-    private Map<OWLDataPropertyExpression, OWLDataType> map;
+    private Map<OWLDataPropertyExpression, OWLDatatype> map;
 
     private List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
 
     public CoerceConstantsIntoDataPropertyRange(OWLDataFactory dataFactory, Set<OWLOntology> ontologies) {
         super(dataFactory);
-        map = new HashMap<OWLDataPropertyExpression, OWLDataType>();
+        map = new HashMap<OWLDataPropertyExpression, OWLDatatype>();
         for(OWLOntology ont : ontologies) {
             for(OWLDataPropertyRangeAxiom ax : ont.getAxioms(AxiomType.DATA_PROPERTY_RANGE)) {
                 if (ax.getRange().isDataType()) {
-                    map.put(ax.getProperty(), (OWLDataType) ax.getRange());
+                    map.put(ax.getProperty(), (OWLDatatype) ax.getRange());
                 }
             }
         }
@@ -88,7 +88,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         }
 
         private OWLLiteral process(OWLDataPropertyExpression prop, OWLLiteral con) {
-            OWLDataType dt = map.get(prop);
+            OWLDatatype dt = map.get(prop);
             if(dt != null) {
                 return getDataFactory().getOWLTypedLiteral(con.getString(), dt);
             }

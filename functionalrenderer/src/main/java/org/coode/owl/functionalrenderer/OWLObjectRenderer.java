@@ -795,7 +795,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataType node) {
+    public void visit(OWLDatatype node) {
 //        write(DATATYPE);
 //        writeOpenBracket();
         write(node.getURI());

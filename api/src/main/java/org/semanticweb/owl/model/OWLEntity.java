@@ -148,7 +148,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * @throws OWLRuntimeException if this entity is not an OWLDataType (check with the
      * isOWLDataType method first).
      */
-    OWLDataType asOWLDataType();
+    OWLDatatype asOWLDataType();
 
     void accept(OWLEntityVisitor visitor);
 

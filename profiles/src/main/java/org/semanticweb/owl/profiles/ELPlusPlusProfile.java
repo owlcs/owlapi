@@ -384,7 +384,7 @@ public class ELPlusPlusProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDataType node) {
+        public ConstructNotAllowed visit(OWLDatatype node) {
             if(allowedDataTypes.contains(node.getURI())) {
                 return null;
             }

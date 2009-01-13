@@ -55,22 +55,22 @@ public class OWLDataUtil {
     }
 
 
-    public static OWLDataType getIntDataType(OWLDataFactory dataFactory) throws OWLException {
+    public static OWLDatatype getIntDataType(OWLDataFactory dataFactory) throws OWLException {
         return dataFactory.getOWLDatatype(INT_URI);
     }
 
 
-    public static OWLDataType getLongDataType(OWLDataFactory dataFactory) throws OWLException {
+    public static OWLDatatype getLongDataType(OWLDataFactory dataFactory) throws OWLException {
         return dataFactory.getOWLDatatype(XSDVocabulary.LONG.getURI());
     }
 
 
-    public static OWLDataType getFloatDataType(OWLDataFactory dataFactory) throws OWLException {
+    public static OWLDatatype getFloatDataType(OWLDataFactory dataFactory) throws OWLException {
         return dataFactory.getOWLDatatype(XSDVocabulary.FLOAT.getURI());
     }
 
 
-    public static OWLDataType getDoubleDataType(OWLDataFactory dataFactory) throws OWLException {
+    public static OWLDatatype getDoubleDataType(OWLDataFactory dataFactory) throws OWLException {
         return dataFactory.getOWLDatatype(XSDVocabulary.DOUBLE.getURI());
     }
 
@@ -80,7 +80,7 @@ public class OWLDataUtil {
      * @param n The <code>Number</code> whose datatype is to be obtained.
      * @return The datatype that corresponds to the type of number.
      */
-    public static <N extends Number> OWLDataType getDataType(OWLDataFactory dataFactory, N n) {
+    public static <N extends Number> OWLDatatype getDataType(OWLDataFactory dataFactory, N n) {
         XSDVocabulary v = numberTypeMap.get(n.getClass());
         if (v == null) {
             throw new OWLRuntimeException("Don't know how to translate " + n.getClass());

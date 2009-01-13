@@ -47,7 +47,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     private Map<URI, OWLDataProperty> dataPropertiesByURI;
 
-    private Map<URI, OWLDataType> datatypesByURI;
+    private Map<URI, OWLDatatype> datatypesByURI;
 
     private Map<URI, OWLIndividual> individualsByURI;
 
@@ -55,7 +55,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         classesByURI = new HashMap<URI, OWLClass>();
         objectPropertiesByURI = new HashMap<URI, OWLObjectProperty>();
         dataPropertiesByURI = new HashMap<URI, OWLDataProperty>();
-        datatypesByURI = new HashMap<URI, OWLDataType>();
+        datatypesByURI = new HashMap<URI, OWLDatatype>();
         individualsByURI = new HashMap<URI, OWLIndividual>();
     }
 
@@ -91,27 +91,27 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDataType getTopDataType() {
+    public OWLDatatype getTopDataType() {
         return getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL.getURI());
     }
 
 
-    public OWLDataType getIntegerDatatype() {
+    public OWLDatatype getIntegerDatatype() {
         return getOWLDatatype(XSDVocabulary.INTEGER.getURI());
     }
 
 
-    public OWLDataType getFloatDatatype() {
+    public OWLDatatype getFloatDatatype() {
         return getOWLDatatype(XSDVocabulary.FLOAT.getURI());
     }
 
 
-    public OWLDataType getDoubleDatatype() {
+    public OWLDatatype getDoubleDatatype() {
         return getOWLDatatype(XSDVocabulary.DOUBLE.getURI());
     }
 
 
-    public OWLDataType getBooleanDatatype() {
+    public OWLDatatype getBooleanDatatype() {
         return getOWLDatatype(XSDVocabulary.BOOLEAN.getURI());
     }
 
@@ -162,18 +162,18 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDataType getOWLDatatype(URI uri) {
-        OWLDataType dt = datatypesByURI.get(uri);
+    public OWLDatatype getOWLDatatype(URI uri) {
+        OWLDatatype dt = datatypesByURI.get(uri);
         if (dt == null) {
-            dt = new OWLDataTypeImpl(this, uri);
+            dt = new OWLDatatypeImpl(this, uri);
             datatypesByURI.put(uri, dt);
         }
         return dt;
     }
 
 
-    public OWLTypedLiteral getOWLTypedLiteral(String literal, OWLDataType dataType) {
-        return new OWLTypedLiteralImpl(this, literal, dataType);
+    public OWLTypedLiteral getOWLTypedLiteral(String literal, OWLDatatype datatype) {
+        return new OWLTypedLiteralImpl(this, literal, datatype);
     }
 
 

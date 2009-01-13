@@ -84,7 +84,7 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
         if(uri != null) {
             return uri;
         }
-        if(entity instanceof OWLDataType) {
+        if(entity instanceof OWLDatatype) {
             return entity.getURI();
         }
         String name = fragmentProvider.getName(entity);
@@ -119,7 +119,7 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
         }
 
 
-        public void visit(OWLDataType dataType) {
+        public void visit(OWLDatatype datatype) {
 
         }
 

@@ -1,5 +1,6 @@
 package org.semanticweb.owl.model;
 
+
 import org.semanticweb.owl.vocab.OWLRestrictedDataRangeFacetVocabulary;
 
 import java.net.URI;
@@ -66,7 +67,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * this datatype is rdfs:Literal, and has a URI of $lt;http://www.w3.org/2000/01/rdf-schema#&gt;
      * @return The OWL Datatype corresponding to the top data type.
      */
-    OWLDataType getTopDataType();
+    OWLDatatype getTopDataType();
 
 
     /**
@@ -167,46 +168,15 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLIndividual getOWLAnonymousIndividual(URI anonId);
 
 
-    /**
-     * Gets an OWL datatype that has the specified URI
-     * @param uri The URI of the datatype to be obtained
-     * @return The object representing the datatype that has the specified URI
-     */
-    OWLDataType getOWLDatatype(URI uri);
-
-    /**
-     * A convenience method that obtains the datatype that represents integers.  This datatype will have the URI of
-     * &lt;http://www.w3.org/2001/XMLSchema#integer&gt;
-     * @return An object representing an integer datatype.
-     */
-    OWLDataType getIntegerDatatype();
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    //  Literals
+    //
+    /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    /**
-     * A convenience method that obtains the datatype that represents floats.  This datatype will have the URI of
-     * &lt;http://www.w3.org/2001/XMLSchema#float&gt;
-     * @return An object representing the float datatype.
-     */
-    OWLDataType getFloatDatatype();
 
-
-    /**
-     * A convenience method that obtains the datatype that represents doubles.  This datatype will have the URI of
-     * &lt;http://www.w3.org/2001/XMLSchema#double&gt;
-     * @return An object representing a double datatype.
-     */
-    OWLDataType getDoubleDatatype();
-
-
-    /**
-     * A convenience method that obtains the datatype that represents booleans.  This datatype will have the URI of
-     * &lt;http://www.w3.org/2001/XMLSchema#boolean&gt;
-     * @return An object representing the boolean datatype.
-     */
-    OWLDataType getBooleanDatatype();
-
-    
-    OWLTypedLiteral getOWLTypedLiteral(String literal, OWLDataType dataType);
+    OWLTypedLiteral getOWLTypedLiteral(String literal, OWLDatatype datatype);
 
 
     /**
@@ -253,15 +223,88 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLTypedLiteral getOWLTypedLiteral(String value);
 
 
+    /**
+     * Gets an OWLRDFTextLiteral.  That is, a string with a language tag
+     * @param literal The string literal
+     * @param lang The language.  Must not be <code>null</code>
+     * @return The OWLRDFTextLiteral that represent the string with a language tag
+     */
     OWLRDFTextLiteral getOWLRDFTextLiteral(String literal, String lang);
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    //  Datatypes (Named data ranges)
+    //
+    /////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Gets an OWL datatype that has the specified URI
+     * @param uri The URI of the datatype to be obtained
+     * @return The object representing the datatype that has the specified URI
+     */
+    OWLDatatype getOWLDatatype(URI uri);
+
+    /**
+     * A convenience method that obtains the datatype that represents integers.  This datatype will have the URI of
+     * &lt;http://www.w3.org/2001/XMLSchema#integer&gt;
+     * @return An object representing an integer datatype.
+     */
+    OWLDatatype getIntegerDatatype();
+
+
+    /**
+     * A convenience method that obtains the datatype that represents floats.  This datatype will have the URI of
+     * &lt;http://www.w3.org/2001/XMLSchema#float&gt;
+     * @return An object representing the float datatype.
+     */
+    OWLDatatype getFloatDatatype();
+
+
+    /**
+     * A convenience method that obtains the datatype that represents doubles.  This datatype will have the URI of
+     * &lt;http://www.w3.org/2001/XMLSchema#double&gt;
+     * @return An object representing a double datatype.
+     */
+    OWLDatatype getDoubleDatatype();
+
+
+    /**
+     * A convenience method that obtains the datatype that represents booleans.  This datatype will have the URI of
+     * &lt;http://www.w3.org/2001/XMLSchema#boolean&gt;
+     * @return An object representing the boolean datatype.
+     */
+    OWLDatatype getBooleanDatatype();
+
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    //  Data ranges
+    //
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Gets an OWLDataOneOf <a href="http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals">(see spec)</a>
+     * @param values The set of values that the data one of should contain
+     * @return A data one of that enumerates the specified set of values
+     */
     OWLDataOneOf getOWLDataOneOf(Set<? extends OWLLiteral> values);
 
 
+    /**
+     * Gets an OWLDataOneOf  <a href="http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals">(see spec)</a>
+     * @param values The set of values that the data one of should contain
+     * @return A data one of that enumerates the specified set of values
+     */
     OWLDataOneOf getOWLDataOneOf(OWLLiteral... values);
 
 
+    /**
+     * Gets an OWLDataComplementOf <a href="http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Complement_of_Data_Range">(see spec)</a>
+     * @param dataRange The datarange to be complemented
+     * @return An OWLDataComplementOf of the specified data range 
+     */
     OWLDataComplementOf getOWLDataComplementOf(OWLDataRange dataRange);
 
 
@@ -294,7 +337,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     ////////////////////////////////////////////////////////////////////////////////////
     //
-    // Descriptions
+    // Class Expressions
     //
     ////////////////////////////////////////////////////////////////////////////////////
 

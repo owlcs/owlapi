@@ -31,7 +31,7 @@ package org.semanticweb.owl.model;
  */
 public interface OWLDataVisitorEx<O> {
 
-    O visit(OWLDataType node);
+    O visit(OWLDatatype node);
 
     O visit(OWLDataComplementOf node);
 

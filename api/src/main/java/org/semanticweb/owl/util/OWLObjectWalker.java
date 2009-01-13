@@ -503,7 +503,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(OWLDataType node) {
+        public void visit(OWLDatatype node) {
             process(node);
         }
 

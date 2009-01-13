@@ -53,7 +53,7 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange {
      */
     boolean isTopDataType();
 
-    OWLDataType asOWLDataType();
+    OWLDatatype asOWLDataType();
 
     void accept(OWLDataVisitor visitor);
 

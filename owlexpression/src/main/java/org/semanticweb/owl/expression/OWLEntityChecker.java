@@ -41,5 +41,5 @@ public interface OWLEntityChecker {
 
     OWLIndividual getOWLIndividual(String name);
 
-    OWLDataType getOWLDataType(String name);
+    OWLDatatype getOWLDataType(String name);
 }

@@ -93,8 +93,8 @@ public class OWLEntityRemover implements OWLEntityVisitor {
     }
 
 
-    public void visit(OWLDataType dataType) {
-        generateChanges(dataType);
+    public void visit(OWLDatatype datatype) {
+        generateChanges(datatype);
     }
 
 

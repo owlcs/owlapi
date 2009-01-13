@@ -85,7 +85,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private Map<OWLIndividual, Set<OWLAxiom>> owlIndividualReferences = createMap();
 
-    private Map<OWLDataType, Set<OWLAxiom>> owlDataTypeReferences = createMap();
+    private Map<OWLDatatype, Set<OWLAxiom>> owlDataTypeReferences = createMap();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -507,7 +507,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    private Map<OWLDataType, Set<OWLAxiom>> getOWLDataTypeReferences() {
+    private Map<OWLDatatype, Set<OWLAxiom>> getOWLDataTypeReferences() {
         return getReturnMap(owlDataTypeReferences);
     }
 
@@ -595,7 +595,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public boolean containsReference(OWLDataType dt) {
+    public boolean containsReference(OWLDatatype dt) {
         return getOWLDataTypeReferences().keySet().contains(dt);
     }
 
@@ -624,8 +624,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if (owlEntity instanceof OWLIndividual) {
             return getAxioms(((OWLIndividual) owlEntity), getOWLIndividualReferences(), false);
         }
-        if (owlEntity instanceof OWLDataType) {
-            return getAxioms(((OWLDataType) owlEntity), getOWLDataTypeReferences(), false);
+        if (owlEntity instanceof OWLDatatype) {
+            return getAxioms(((OWLDatatype) owlEntity), getOWLDataTypeReferences(), false);
         }
         return Collections.emptySet();
     }
@@ -772,7 +772,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLDataType> getReferencedDatatypes() {
+    public Set<OWLDatatype> getReferencedDatatypes() {
         return getReturnSet(getOWLDataTypeReferences().keySet());
     }
 
@@ -1385,8 +1385,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
 
 
-        public void visit(OWLDataType dataType) {
-            addToIndexedSet(dataType, owlDataTypeReferences, axiom);
+        public void visit(OWLDatatype datatype) {
+            addToIndexedSet(datatype, owlDataTypeReferences, axiom);
         }
     }
 
@@ -1431,8 +1431,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
 
 
-        public void visit(OWLDataType dataType) {
-            removeAxiomFromSet(dataType, owlDataTypeReferences, axiom, true);
+        public void visit(OWLDatatype datatype) {
+            removeAxiomFromSet(datatype, owlDataTypeReferences, axiom, true);
         }
     }
 
@@ -2336,8 +2336,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
 
 
-        public void visit(OWLDataType dataType) {
-            ref = OWLOntologyImpl.this.containsReference(dataType);
+        public void visit(OWLDatatype datatype) {
+            ref = OWLOntologyImpl.this.containsReference(datatype);
         }
 
 

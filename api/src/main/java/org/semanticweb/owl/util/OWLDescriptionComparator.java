@@ -276,7 +276,7 @@ public class OWLDescriptionComparator implements Comparator<OWLDescription> {
         }
 
 
-        public void visit(OWLDataType node) {
+        public void visit(OWLDatatype node) {
         }
 
 

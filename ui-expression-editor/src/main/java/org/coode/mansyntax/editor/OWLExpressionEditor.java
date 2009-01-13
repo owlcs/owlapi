@@ -399,7 +399,7 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
     }
 
 
-    public OWLDataType getOWLDataType(String name) {
+    public OWLDatatype getOWLDataType(String name) {
         return null;
     }
 

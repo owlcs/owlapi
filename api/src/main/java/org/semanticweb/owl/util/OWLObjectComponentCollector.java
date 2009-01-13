@@ -110,8 +110,8 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataType dataType) {
-        handleObject(dataType);
+    public void visit(OWLDatatype datatype) {
+        handleObject(datatype);
     }
 
 

@@ -584,7 +584,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDataType node) {
+        public ConstructNotAllowed visit(OWLDatatype node) {
             return null;
         }
 

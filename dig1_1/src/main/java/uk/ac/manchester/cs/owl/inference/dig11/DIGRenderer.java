@@ -525,7 +525,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public void visit(OWLDataType node) {
+    public void visit(OWLDatatype node) {
     }
 
 

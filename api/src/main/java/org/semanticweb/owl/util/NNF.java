@@ -290,7 +290,7 @@ public class NNF implements OWLDescriptionVisitorEx<OWLDescription>, OWLDataVisi
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public OWLDataRange visit(OWLDataType node) {
+    public OWLDataRange visit(OWLDatatype node) {
         if (negated) {
             return dataFactory.getOWLDataComplementOf(node);
         }

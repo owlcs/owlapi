@@ -39,5 +39,5 @@ public interface OWLEntityVisitor  {
 
     void visit(OWLIndividual individual);
 
-    void visit(OWLDataType dataType);
+    void visit(OWLDatatype datatype);
 }

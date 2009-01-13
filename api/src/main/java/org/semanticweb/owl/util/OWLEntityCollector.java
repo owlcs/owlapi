@@ -514,9 +514,9 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLDataType dataType) {
+    public void visit(OWLDatatype datatype) {
         if (collectDataTypes) {
-            objects.add(dataType);
+            objects.add(datatype);
         }
     }
 

@@ -33,17 +33,17 @@ import org.semanticweb.owl.model.*;
  */
 public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiteral {
 
-    private OWLDataType dataType;
+    private OWLDatatype datatype;
 
 
-    public OWLTypedLiteralImpl(OWLDataFactory dataFactory, String literal, OWLDataType dataType) {
+    public OWLTypedLiteralImpl(OWLDataFactory dataFactory, String literal, OWLDatatype datatype) {
         super(dataFactory, literal);
-        this.dataType = dataType;
+        this.datatype = datatype;
     }
 
 
-    public OWLDataType getDataType() {
-        return dataType;
+    public OWLDatatype getDataType() {
+        return datatype;
     }
 
 
@@ -62,7 +62,7 @@ public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiter
             if (!(obj instanceof OWLTypedLiteral)) {
                 return false;
             }
-            return ((OWLTypedLiteral) obj).getDataType().equals(dataType);
+            return ((OWLTypedLiteral) obj).getDataType().equals(datatype);
         }
         return false;
     }
@@ -93,7 +93,7 @@ public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiter
 
     protected int compareObjectOfSameType(OWLObject object) {
         OWLTypedLiteral other = (OWLTypedLiteral) object;
-        int diff = dataType.compareTo(other.getDataType());
+        int diff = datatype.compareTo(other.getDataType());
         if(diff != 0) {
             return diff;
         }
