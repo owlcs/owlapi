@@ -73,7 +73,7 @@ public class Example10 {
             // First we'll create a constant for the annotation value.  Version info should probably contain a
             // version number for the ontology, but in this case, we'll add some text to describe why the version
             // has been updated
-            OWLConstant con = df.getOWLUntypedConstant("Added a comment to the pizza class");
+            OWLLiteral con = df.getOWLUntypedConstant("Added a comment to the pizza class");
             // The above constant is just a plain literal containing the version info text/comment
             // we need to create an annotation, which pairs a URI with the constant
             OWLAnnotation anno = df.getOWLConstantAnnotation(OWLRDFVocabulary.OWL_VERSION_INFO.getURI(), con);
@@ -96,10 +96,10 @@ public class Example10 {
                 // Get the annotations on the class that have a URI corresponding to rdfs:label
                 for (OWLAnnotation annotation : cls.getAnnotations(ont, OWLRDFVocabulary.RDFS_LABEL.getURI())) {
                     if (annotation.isAnnotationByConstant()) {
-                        OWLConstant val = annotation.getAnnotationValueAsConstant();
+                        OWLLiteral val = annotation.getAnnotationValueAsConstant();
                         if (!val.isTyped()) {
                             // The value isn't a typed constant, so we can safely obtain it
-                            // as an OWLUntypedConstant and check the lang is Portuguese (pt)
+                            // as an OWLUntypedLiteral and check the lang is Portuguese (pt)
                             if (val.asOWLUntypedConstant().hasLang("pt")) {
                                 System.out.println(cls + " -> " + val.getLiteral());
                             }

@@ -330,12 +330,12 @@ public class NNF implements OWLDescriptionVisitorEx<OWLDescription>, OWLDataVisi
     }
 
 
-    public OWLDataRange visit(OWLTypedConstant node) {
+    public OWLDataRange visit(OWLTypedLiteral node) {
         return null;
     }
 
 
-    public OWLDataRange visit(OWLUntypedConstant node) {
+    public OWLDataRange visit(OWLUntypedLiteral node) {
         return null;
     }
 

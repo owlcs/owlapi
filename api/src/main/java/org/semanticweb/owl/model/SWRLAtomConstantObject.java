@@ -11,5 +11,5 @@ package org.semanticweb.owl.model;
  */
 public interface SWRLAtomConstantObject extends SWRLAtomDObject {
 
-    OWLConstant getConstant();
+    OWLLiteral getConstant();
 }

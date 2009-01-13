@@ -42,6 +42,6 @@ public interface OWLDataOneOf extends OWLDataRange {
      * Gets the values (constants) that this data range consists
      * of.  These may be typed or untyped constants.
      */
-    public Set<OWLConstant> getValues();
+    public Set<OWLLiteral> getValues();
 
 }

@@ -36,11 +36,11 @@ public class OWLDataRangeFacetRestrictionImpl extends OWLObjectImpl implements O
 
     private OWLRestrictedDataRangeFacetVocabulary facet;
 
-    private OWLTypedConstant facetValue;
+    private OWLTypedLiteral facetValue;
 
 
     public OWLDataRangeFacetRestrictionImpl(OWLDataFactory dataFactory, OWLRestrictedDataRangeFacetVocabulary facet,
-                                            OWLTypedConstant facetValue) {
+                                            OWLTypedLiteral facetValue) {
         super(dataFactory);
         this.facet = facet;
         this.facetValue = facetValue;
@@ -58,7 +58,7 @@ public class OWLDataRangeFacetRestrictionImpl extends OWLObjectImpl implements O
     /**
      * Gets the corresponding facet value for this facet restriction
      */
-    public OWLTypedConstant getFacetValue() {
+    public OWLTypedLiteral getFacetValue() {
         return facetValue;
     }
 

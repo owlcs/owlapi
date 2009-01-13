@@ -46,7 +46,7 @@ public interface OWLIndividualReasoner extends OWLReasonerBase {
     Map<OWLObjectProperty, Set<OWLIndividual>> getObjectPropertyRelationships(OWLIndividual individual) throws OWLReasonerException;
 
 
-    Map<OWLDataProperty, Set<OWLConstant>> getDataPropertyRelationships(OWLIndividual individual) throws OWLReasonerException;
+    Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLIndividual individual) throws OWLReasonerException;
 
     
     boolean hasType(OWLIndividual individual, OWLDescription type, boolean direct) throws OWLReasonerException;
@@ -55,13 +55,13 @@ public interface OWLIndividualReasoner extends OWLReasonerBase {
     boolean hasObjectPropertyRelationship(OWLIndividual subject, OWLObjectPropertyExpression property, OWLIndividual object) throws OWLReasonerException;
 
 
-    boolean hasDataPropertyRelationship(OWLIndividual subject, OWLDataPropertyExpression property, OWLConstant object) throws OWLReasonerException;
+    boolean hasDataPropertyRelationship(OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral object) throws OWLReasonerException;
 
 
     Set<OWLIndividual> getRelatedIndividuals(OWLIndividual subject, OWLObjectPropertyExpression property) throws OWLReasonerException;
 
 
-    Set<OWLConstant> getRelatedValues(OWLIndividual subject, OWLDataPropertyExpression property) throws OWLReasonerException;
+    Set<OWLLiteral> getRelatedValues(OWLIndividual subject, OWLDataPropertyExpression property) throws OWLReasonerException;
 
 
 }

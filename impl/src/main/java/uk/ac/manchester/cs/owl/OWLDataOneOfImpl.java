@@ -37,16 +37,16 @@ import java.util.TreeSet;
  */
 public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
-    private Set<OWLConstant> values;
+    private Set<OWLLiteral> values;
 
 
-    public OWLDataOneOfImpl(OWLDataFactory dataFactory, Set<? extends OWLConstant> values) {
+    public OWLDataOneOfImpl(OWLDataFactory dataFactory, Set<? extends OWLLiteral> values) {
         super(dataFactory);
-        this.values = new TreeSet<OWLConstant>(values);
+        this.values = new TreeSet<OWLLiteral>(values);
     }
 
 
-    public Set<OWLConstant> getValues() {
+    public Set<OWLLiteral> getValues() {
         return Collections.unmodifiableSet(values);
     }
 

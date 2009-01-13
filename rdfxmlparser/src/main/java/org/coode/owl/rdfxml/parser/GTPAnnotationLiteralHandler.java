@@ -45,7 +45,7 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         // If the property is an annotation prop AND
         // we know the type of the subject, we can create
         // the appropriate declaration and entity annotation axiom in streaming mode
@@ -57,12 +57,12 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         return getConsumer().isAnnotationProperty(predicate);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         consumeTriple(subject, predicate, object);
         if (getConsumer().isOntology(subject)) {
             // Annotation on an ontology!

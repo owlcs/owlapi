@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLDescription;
 import org.semanticweb.owl.model.OWLException;
 
@@ -50,7 +50,7 @@ public class DescriptionListItemTranslator implements ListItemTranslator<OWLDesc
     }
 
 
-    public OWLDescription translate(OWLConstant firstObject) throws OWLException {
+    public OWLDescription translate(OWLLiteral firstObject) throws OWLException {
         throw new OWLRDFParserException(
                 "Cannot translate list item to description, because rdf:first triple is a literal triple.");
     }

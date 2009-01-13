@@ -1,8 +1,5 @@
-package uk.ac.manchester.cs.owl;
+package org.semanticweb.owl.model;
 
-import org.semanticweb.owl.model.OWLConstant;
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -30,32 +27,18 @@ import org.semanticweb.owl.model.OWLException;
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
+ * Bio-Health Informatics Group
+ * Date: 24-Oct-2006
  */
-public abstract class OWLConstantImpl extends OWLObjectImpl implements OWLConstant {
+public interface OWLTypedLiteral extends OWLLiteral {
 
-    private String literal;
+    /**
+     * Gets the datatype which types the literal which is represented
+     * by this constant.
+     * @return the data type which types this constant.
+     */
+    public OWLDataType getDataType();
 
+    public void accept(OWLDataVisitor visitor);
 
-    public OWLConstantImpl(OWLDataFactory dataFactory, String literal) {
-        super(dataFactory);
-        this.literal = literal;
-    }
-
-
-    public String getLiteral() {
-        return literal;
-    }
-
-
-    public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLConstant)) {
-                return false;
-            }
-            return ((OWLConstant) obj).getLiteral().equals(getLiteral());
-        }
-        return false;
-    }
 }

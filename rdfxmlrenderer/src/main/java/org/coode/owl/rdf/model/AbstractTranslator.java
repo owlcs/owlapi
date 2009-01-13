@@ -577,12 +577,12 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLTypedConstant node) {
+    public void visit(OWLTypedLiteral node) {
         nodeMap.put(node, getLiteralNode(node.getLiteral(), node.getDataType().getURI()));
     }
 
 
-    public void visit(OWLUntypedConstant node) {
+    public void visit(OWLUntypedLiteral node) {
         nodeMap.put(node, getLiteralNode(node.getLiteral(), node.getLang()));
     }
 
@@ -956,7 +956,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         addTriple(getResourceNode(subject), getPredicateNode(pred), translateList(new ArrayList<OWLObject>(objects), listType));
     }
 
-    private OWLTypedConstant toTypedConstant(int i) {
+    private OWLTypedLiteral toTypedConstant(int i) {
         return manager.getOWLDataFactory().getOWLTypedConstant(Integer.toString(i),
                                                                manager.getOWLDataFactory().getOWLDataType(XSDVocabulary.NON_NEGATIVE_INTEGER.getURI()));
     }

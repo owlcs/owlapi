@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
 
 import java.net.URI;
@@ -40,9 +40,9 @@ public abstract class AbstractLiteralTripleHandler extends AbstractTripleHandler
         super(consumer);
     }
 
-    public abstract void handleTriple(URI subject, URI predicate, OWLConstant object) throws OWLException;
+    public abstract void handleTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException;
 
-    public abstract boolean canHandle(URI subject, URI predicate, OWLConstant object) throws OWLException;
+    public abstract boolean canHandle(URI subject, URI predicate, OWLLiteral object) throws OWLException;
 
-    public abstract boolean canHandleStreaming(URI subject, URI predicate, OWLConstant object) throws OWLException;
+    public abstract boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) throws OWLException;
 }

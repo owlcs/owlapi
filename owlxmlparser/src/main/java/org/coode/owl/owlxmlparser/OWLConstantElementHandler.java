@@ -1,6 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 
 import java.net.URI;
@@ -35,9 +35,9 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br><br>
  */
-public class OWLConstantElementHandler extends AbstractOWLElementHandler<OWLConstant> {
+public class OWLConstantElementHandler extends AbstractOWLElementHandler<OWLLiteral> {
 
-    private OWLConstant constant;
+    private OWLLiteral literal;
 
     private URI uri;
 
@@ -53,18 +53,18 @@ public class OWLConstantElementHandler extends AbstractOWLElementHandler<OWLCons
 
     public void endElement() throws OWLXMLParserException {
         if (uri != null) {
-            constant = getOWLDataFactory().getOWLTypedConstant(getText(), getOWLDataFactory().getOWLDataType(uri));
+            literal = getOWLDataFactory().getOWLTypedConstant(getText(), getOWLDataFactory().getOWLDataType(uri));
         }
         else {
-            constant = getOWLDataFactory().getOWLUntypedConstant(getText());
+            literal = getOWLDataFactory().getOWLUntypedConstant(getText());
         }
         getParentHandler().handleChild(this);
     }
 
 
 
-    public OWLConstant getOWLObject() {
-        return constant;
+    public OWLLiteral getOWLObject() {
+        return literal;
     }
 
 

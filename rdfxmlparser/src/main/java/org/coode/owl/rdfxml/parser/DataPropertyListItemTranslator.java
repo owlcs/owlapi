@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLDataPropertyExpression;
 import org.semanticweb.owl.model.OWLException;
 
@@ -51,7 +51,7 @@ public class DataPropertyListItemTranslator implements ListItemTranslator<OWLDat
     }
 
 
-    public OWLDataPropertyExpression translate(OWLConstant firstObject) throws OWLException {
+    public OWLDataPropertyExpression translate(OWLLiteral firstObject) throws OWLException {
         return null;
     }
 }

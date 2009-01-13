@@ -130,12 +130,12 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
     }
 
 
-    protected OWLConstant getUntypedConstant(String literal) throws OWLException {
+    protected OWLLiteral getUntypedConstant(String literal) throws OWLException {
         return getDataFactory().getOWLUntypedConstant(literal);
     }
 
 
-    protected OWLConstant getBooleanConstant(Boolean b) {
+    protected OWLLiteral getBooleanConstant(Boolean b) {
         if (b) {
             return getDataFactory().getOWLTypedConstant("true",
                                                         getDataFactory().getOWLDataType(XSDVocabulary.BOOLEAN.getURI()));
@@ -147,7 +147,7 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
     }
 
 
-    protected void addAnnotation(String id, String uriID, OWLConstant value) {
+    protected void addAnnotation(String id, String uriID, OWLLiteral value) {
         OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getURIFromValue(uriID), value);
         OWLEntity ent = null;
         if (getConsumer().isTerm()) {

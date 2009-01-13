@@ -1,4 +1,7 @@
-package org.semanticweb.owl.model;
+package uk.ac.manchester.cs.owl;
+
+import org.semanticweb.owl.model.OWLLiteral;
+import org.semanticweb.owl.model.OWLDataFactory;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -26,35 +29,32 @@ package org.semanticweb.owl.model;
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
+ * Bio-Health Informatics Group<br>
+ * Date: 26-Oct-2006<br><br>
  */
-public interface OWLUntypedConstant extends OWLConstant {
+public abstract class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
-    /**
-     * Gets the language tag (if present)
-     * @return A <code>String</code> which represents the langauge tag,
-     * or <code>null</code> if there is no language tag
-     */
-    public String getLang();
+    private String literal;
 
 
-    /**
-     * Language tags on untyped constants are optional.  This
-     * method determines if the language tag is present.
-     * @return <code>true</code> if there is a language tag, or
-     * <code>false</code> if there is not a langauge tag.
-     */
-    boolean hasLang();
+    public OWLLiteralImpl(OWLDataFactory dataFactory, String literal) {
+        super(dataFactory);
+        this.literal = literal;
+    }
 
 
-    /**
-     * Determines if this constant has a specific language tag.
-     * @param lang The specific lang to test for.
-     * @return <code>true</code> if this constant has the specified
-     * langauge tag, or <code>false</code> if this constant does not
-     * have a language tag or if this constant has a language tag that
-     * is not equal to the specified language tag.
-     */
-    boolean hasLang(String lang);
+    public String getLiteral() {
+        return literal;
+    }
+
+
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            if (!(obj instanceof OWLLiteral)) {
+                return false;
+            }
+            return ((OWLLiteral) obj).getLiteral().equals(getLiteral());
+        }
+        return false;
+    }
 }

@@ -31,7 +31,7 @@ package org.semanticweb.owl.model;
  *
  * Represents a literal (typed or untyped).
  */
-public interface OWLConstant extends OWLObject {
+public interface OWLLiteral extends OWLObject {
 
     /**
      * Gets the string literal that this constant represents.
@@ -55,7 +55,7 @@ public interface OWLConstant extends OWLObject {
      * this constant is not a typed constant then calling this method will
      * cause an <code>OWLRuntimeException</code> to be thrown.
      */
-    OWLTypedConstant asOWLTypedConstant();
+    OWLTypedLiteral asOWLTypedConstant();
 
 
     /**
@@ -65,7 +65,7 @@ public interface OWLConstant extends OWLObject {
      * because this method is a typed constant, then calling this method will cause
      * an <code>OWLRuntimeException</code> to be thrown.
      */
-    OWLUntypedConstant asOWLUntypedConstant();
+    OWLUntypedLiteral asOWLUntypedConstant();
 
 
     void accept(OWLDataVisitor visitor);

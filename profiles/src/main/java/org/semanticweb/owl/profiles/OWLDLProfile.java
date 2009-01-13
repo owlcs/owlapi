@@ -564,7 +564,7 @@ public class OWLDLProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLDataOneOf node) {
-            for (OWLConstant op : node.getValues()) {
+            for (OWLLiteral op : node.getValues()) {
                 ConstructNotAllowed na = op.accept(this);
                 if (na != null) {
                     return new DataRangeNotAllowed(na, node);
@@ -589,13 +589,13 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLTypedConstant node) {
+        public ConstructNotAllowed visit(OWLTypedLiteral node) {
             ConstructNotAllowed na = node.getDataType().accept(this);
             return null;
         }
 
 
-        public ConstructNotAllowed visit(OWLUntypedConstant node) {
+        public ConstructNotAllowed visit(OWLUntypedLiteral node) {
             return null;
         }
 

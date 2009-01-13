@@ -482,7 +482,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLDataOneOf node) {
             process(node);
-            for(OWLConstant con : node.getValues()) {
+            for(OWLLiteral con : node.getValues()) {
                 con.accept(this);
             }
         }
@@ -508,13 +508,13 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(OWLTypedConstant node) {
+        public void visit(OWLTypedLiteral node) {
             process(node);
             node.getDataType().accept(this);
         }
 
 
-        public void visit(OWLUntypedConstant node) {
+        public void visit(OWLUntypedLiteral node) {
             process(node);
         }
 

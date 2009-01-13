@@ -827,7 +827,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLTypedConstant node) {
+    public void visit(OWLTypedLiteral node) {
         write("\"");
         write(EscapeUtils.escapeString(node.getLiteral()));
         write("\"");
@@ -836,7 +836,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLUntypedConstant node) {
+    public void visit(OWLUntypedLiteral node) {
         write("\"");
         write(EscapeUtils.escapeString(node.getLiteral()));
         write("\"");

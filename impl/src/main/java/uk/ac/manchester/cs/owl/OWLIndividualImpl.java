@@ -96,7 +96,7 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
         for(OWLObjectPropertyExpression prop : opMap.keySet()) {
             results.put((OWLProperty) prop, new HashSet<OWLObject>(opMap.get(prop)));
         }
-        Map<OWLDataPropertyExpression, Set<OWLConstant>> dpMap = getDataPropertyValues(ontology);
+        Map<OWLDataPropertyExpression, Set<OWLLiteral>> dpMap = getDataPropertyValues(ontology);
         for(OWLDataPropertyExpression prop : dpMap.keySet()) {
             results.put((OWLProperty) prop, new HashSet<OWLObject>(dpMap.get(prop)));
         }
@@ -109,7 +109,7 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
         for(OWLObjectPropertyExpression prop : opMap.keySet()) {
             results.put((OWLProperty) prop, new HashSet<OWLObject>(opMap.get(prop)));
         }
-        Map<OWLDataPropertyExpression, Set<OWLConstant>> dpMap = getDataPropertyValues(ontology);
+        Map<OWLDataPropertyExpression, Set<OWLLiteral>> dpMap = getDataPropertyValues(ontology);
         for(OWLDataPropertyExpression prop : dpMap.keySet()) {
             results.put((OWLProperty) prop, new HashSet<OWLObject>(dpMap.get(prop)));
         }
@@ -144,12 +144,12 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
     }
 
 
-    public Map<OWLDataPropertyExpression, Set<OWLConstant>> getDataPropertyValues(OWLOntology ontology) {
-        Map<OWLDataPropertyExpression, Set<OWLConstant>> result = new HashMap<OWLDataPropertyExpression, Set<OWLConstant>>();
+    public Map<OWLDataPropertyExpression, Set<OWLLiteral>> getDataPropertyValues(OWLOntology ontology) {
+        Map<OWLDataPropertyExpression, Set<OWLLiteral>> result = new HashMap<OWLDataPropertyExpression, Set<OWLLiteral>>();
         for (OWLDataPropertyAssertionAxiom ax : ontology.getDataPropertyAssertionAxioms(this)) {
-            Set<OWLConstant> vals = result.get(ax.getProperty());
+            Set<OWLLiteral> vals = result.get(ax.getProperty());
             if (vals == null) {
-                vals = new TreeSet<OWLConstant>();
+                vals = new TreeSet<OWLLiteral>();
                 result.put(ax.getProperty(), vals);
             }
             vals.add(ax.getObject());
@@ -158,12 +158,12 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
     }
 
 
-    public Map<OWLDataPropertyExpression, Set<OWLConstant>> getNegativeDataPropertyValues(OWLOntology ontology) {
-        Map<OWLDataPropertyExpression, Set<OWLConstant>> result = new HashMap<OWLDataPropertyExpression, Set<OWLConstant>>();
+    public Map<OWLDataPropertyExpression, Set<OWLLiteral>> getNegativeDataPropertyValues(OWLOntology ontology) {
+        Map<OWLDataPropertyExpression, Set<OWLLiteral>> result = new HashMap<OWLDataPropertyExpression, Set<OWLLiteral>>();
         for(OWLNegativeDataPropertyAssertionAxiom ax : ontology.getNegativeDataPropertyAssertionAxioms(this)) {
-            Set<OWLConstant> inds = result.get(ax.getProperty());
+            Set<OWLLiteral> inds = result.get(ax.getProperty());
             if(inds == null) {
-                inds = new TreeSet<OWLConstant>();
+                inds = new TreeSet<OWLLiteral>();
                 result.put(ax.getProperty(), inds);
             }
             inds.add(ax.getObject());

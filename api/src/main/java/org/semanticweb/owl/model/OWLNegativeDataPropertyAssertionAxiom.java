@@ -29,6 +29,6 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLNegativeDataPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLConstant> {
+public interface OWLNegativeDataPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral> {
 
 }

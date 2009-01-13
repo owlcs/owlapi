@@ -326,7 +326,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(OWLTypedConstant node) {
+    public void visit(OWLTypedLiteral node) {
         if (node.getDataType().getURI().equals(XSDVocabulary.DOUBLE.getURI())) {
             write(node.getLiteral());
         }
@@ -349,7 +349,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(OWLUntypedConstant node) {
+    public void visit(OWLUntypedLiteral node) {
         write("\"");
         pushTab(getIndent());
         write(node.getLiteral());

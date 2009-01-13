@@ -489,7 +489,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final public OWLDescription DataHasValue() throws ParseException {
     OWLDataPropertyExpression prop = null;
-    OWLTypedConstant typedConstant = null;
+    OWLTypedLiteral typedConstant = null;
     jj_consume_token(DATAHASVALUE);
     jj_consume_token(OPENPAR);
     prop = DataPropertyExpression();
@@ -708,8 +708,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   final public OWLDataRange DataOneOf() throws ParseException {
-    Set<OWLTypedConstant> values = new HashSet<OWLTypedConstant>();
-    OWLTypedConstant con = null;
+    Set<OWLTypedLiteral> values = new HashSet<OWLTypedLiteral>();
+    OWLTypedLiteral con = null;
     OWLDataRange rng = null;
     jj_consume_token(DATAONEOF);
     jj_consume_token(OPENPAR);
@@ -755,7 +755,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final public OWLDataRangeFacetRestriction DataRangeFacetRestriction() throws ParseException {
     Token facet;
-    OWLTypedConstant con;
+    OWLTypedLiteral con;
     if (jj_2_42(2)) {
       facet = jj_consume_token(LENGTH);
     } else if (jj_2_43(2)) {
@@ -1376,7 +1376,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   final public OWLIndividualAxiom DataPropertyAssertion() throws ParseException {
     OWLIndividual subj;
     OWLDataPropertyExpression prop;
-    OWLConstant obj;
+    OWLLiteral obj;
     jj_consume_token(DATAPROPERTYASSERTION);
     jj_consume_token(OPENPAR);
     AxiomAnnotationSet();
@@ -1391,7 +1391,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   final public OWLIndividualAxiom NegativeDataPropertyAssertion() throws ParseException {
     OWLIndividual subj;
     OWLDataPropertyExpression prop;
-    OWLConstant obj;
+    OWLLiteral obj;
     jj_consume_token(NEGATIVEDATAPROPERTYASSERTION);
     jj_consume_token(OPENPAR);
     AxiomAnnotationSet();
@@ -1424,7 +1424,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   final public OWLAnnotation Annotation() throws ParseException {
     URI uri;
-    OWLConstant con;
+    OWLLiteral con;
     if (jj_2_95(2)) {
       jj_consume_token(LABEL);
       jj_consume_token(OPENPAR);
@@ -1499,7 +1499,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   final public OWLAxiom Declaration() throws ParseException {
     OWLEntity entity = null;
     URI uri = null;
-    OWLConstant con = null;
+    OWLLiteral con = null;
     jj_consume_token(DECLARATION);
     jj_consume_token(OPENPAR);
     AxiomAnnotationSet();
@@ -1537,8 +1537,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 // Data Stuff
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  final public OWLConstant Constant() throws ParseException {
-    OWLConstant con;
+  final public OWLLiteral Constant() throws ParseException {
+    OWLLiteral con;
     if (jj_2_103(2)) {
       con = TypedConstant();
     } else if (jj_2_104(2)) {
@@ -1551,7 +1551,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLTypedConstant TypedConstant() throws ParseException {
+  final public OWLTypedLiteral TypedConstant() throws ParseException {
     String literal;
     OWLDataType dataType=null;
     literal = StringLiteral();
@@ -1561,7 +1561,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLUntypedConstant UntypedConstant() throws ParseException {
+  final public OWLUntypedLiteral UntypedConstant() throws ParseException {
     String literal;
     String lang = null;
     literal = StringLiteral();

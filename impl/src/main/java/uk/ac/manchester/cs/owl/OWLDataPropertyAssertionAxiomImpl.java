@@ -31,10 +31,10 @@ import org.semanticweb.owl.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLConstant> implements OWLDataPropertyAssertionAxiom {
+public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLDataPropertyAssertionAxiom {
 
     public OWLDataPropertyAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, OWLDataPropertyExpression property,
-                                             OWLConstant value) {
+                                             OWLLiteral value) {
         super(dataFactory, subject, property, value);
     }
 

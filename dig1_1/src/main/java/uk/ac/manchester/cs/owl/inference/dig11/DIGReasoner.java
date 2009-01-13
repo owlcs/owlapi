@@ -377,7 +377,7 @@ public class DIGReasoner extends OWLReasonerAdapter {
     }
 
 
-    public Map<OWLDataProperty, Set<OWLConstant>> getDataPropertyRelationships(OWLIndividual individual)throws OWLReasonerException {
+    public Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLIndividual individual)throws OWLReasonerException {
         throw new UnsupportedReasonerOperationException();
     }
 
@@ -387,13 +387,13 @@ public class DIGReasoner extends OWLReasonerAdapter {
     }
 
 
-    public Set<OWLConstant> getRelatedValues(OWLIndividual subject, OWLDataPropertyExpression property) throws OWLReasonerException {
+    public Set<OWLLiteral> getRelatedValues(OWLIndividual subject, OWLDataPropertyExpression property) throws OWLReasonerException {
         throw new UnsupportedReasonerOperationException();
     }
 
 
     public boolean hasDataPropertyRelationship(OWLIndividual subject, OWLDataPropertyExpression property,
-                                               OWLConstant object)throws OWLReasonerException {
+                                               OWLLiteral object)throws OWLReasonerException {
         throw new UnsupportedReasonerOperationException();
     }
 

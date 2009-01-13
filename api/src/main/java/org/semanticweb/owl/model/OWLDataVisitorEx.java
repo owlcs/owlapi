@@ -39,9 +39,9 @@ public interface OWLDataVisitorEx<O> {
 
     O visit(OWLDataRangeRestriction node);
 
-    O visit(OWLTypedConstant node);
+    O visit(OWLTypedLiteral node);
 
-    O visit(OWLUntypedConstant node);
+    O visit(OWLUntypedLiteral node);
 
     O visit(OWLDataRangeFacetRestriction node);
 }

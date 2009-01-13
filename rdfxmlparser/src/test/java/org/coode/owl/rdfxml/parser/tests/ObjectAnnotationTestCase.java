@@ -76,8 +76,8 @@ public class ObjectAnnotationTestCase extends TestCase {
         OWLIndividual ind = man.getOWLDataFactory().getOWLIndividual(URI.create("http://www.semanticweb.org/ontologies/2007/6/ObjectAnnotationTest.owl#a"));
         OWLAnnotation anno = ind.getAnnotations(ont).iterator().next();
         assertFalse(anno instanceof OWLObjectAnnotation);
-        assertTrue(((OWLConstant) anno.getAnnotationValue()).isTyped());
-        assertTrue(((OWLConstant) anno.getAnnotationValue()).asOWLTypedConstant().getDataType().getURI().equals(
+        assertTrue(((OWLLiteral) anno.getAnnotationValue()).isTyped());
+        assertTrue(((OWLLiteral) anno.getAnnotationValue()).asOWLTypedConstant().getDataType().getURI().equals(
                 XSDVocabulary.ANY_URI.getURI()));
                     man.removeOntology(ont.getURI());
     }

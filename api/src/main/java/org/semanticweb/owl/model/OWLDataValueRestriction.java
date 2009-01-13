@@ -29,6 +29,6 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLDataValueRestriction extends OWLValueRestriction<OWLDataPropertyExpression, OWLConstant> {
+public interface OWLDataValueRestriction extends OWLValueRestriction<OWLDataPropertyExpression, OWLLiteral> {
 
 }

@@ -206,7 +206,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLDataType getBooleanDataType();
 
     
-    OWLTypedConstant getOWLTypedConstant(String literal, OWLDataType dataType);
+    OWLTypedLiteral getOWLTypedConstant(String literal, OWLDataType dataType);
 
 
     /**
@@ -215,7 +215,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      * value of the integer, and whose data type is xsd:integer.
      */
-    OWLTypedConstant getOWLTypedConstant(int value);
+    OWLTypedLiteral getOWLTypedConstant(int value);
 
 
     /**
@@ -224,7 +224,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      * value of the double, and whose data type is xsd:double.
      */
-    OWLTypedConstant getOWLTypedConstant(double value);
+    OWLTypedLiteral getOWLTypedConstant(double value);
 
 
     /**
@@ -233,7 +233,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      * value of the boolean, and whose data type is xsd:boolean.
      */
-    OWLTypedConstant getOWLTypedConstant(boolean value);
+    OWLTypedLiteral getOWLTypedConstant(boolean value);
 
 
     /**
@@ -242,7 +242,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      * value of the float, and whose data type is xsd:float.
      */
-    OWLTypedConstant getOWLTypedConstant(float value);
+    OWLTypedLiteral getOWLTypedConstant(float value);
 
     /**
      * Convenience method that obtains a constant typed as a string.
@@ -250,18 +250,18 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      * value of the string, and whose data type is xsd:string.
      */
-    OWLTypedConstant getOWLTypedConstant(String value);
+    OWLTypedLiteral getOWLTypedConstant(String value);
 
-    OWLUntypedConstant getOWLUntypedConstant(String literal);
-
-
-    OWLUntypedConstant getOWLUntypedConstant(String literal, String lang);
+    OWLUntypedLiteral getOWLUntypedConstant(String literal);
 
 
-    OWLDataOneOf getOWLDataOneOf(Set<? extends OWLConstant> values);
+    OWLUntypedLiteral getOWLUntypedConstant(String literal, String lang);
 
 
-    OWLDataOneOf getOWLDataOneOf(OWLConstant... values);
+    OWLDataOneOf getOWLDataOneOf(Set<? extends OWLLiteral> values);
+
+
+    OWLDataOneOf getOWLDataOneOf(OWLLiteral... values);
 
 
     OWLDataComplementOf getOWLDataComplementOf(OWLDataRange dataRange);
@@ -273,14 +273,14 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLDataRangeRestriction getOWLDataRangeRestriction(OWLDataRange dataRange,
                                                        OWLRestrictedDataRangeFacetVocabulary facet,
-                                                       OWLTypedConstant typedConstant);
+                                                       OWLTypedLiteral typedConstant);
 
     OWLDataRangeRestriction getOWLDataRangeRestriction(OWLDataRange dataRange,
                                                        OWLDataRangeFacetRestriction ... facetRestrictions);
 
 
     OWLDataRangeFacetRestriction getOWLDataRangeFacetRestriction(OWLRestrictedDataRangeFacetVocabulary facet,
-                                                                 OWLTypedConstant facetValue);
+                                                                 OWLTypedLiteral facetValue);
 
     OWLDataRangeFacetRestriction getOWLDataRangeFacetRestriction(OWLRestrictedDataRangeFacetVocabulary facet,
                                                                  int facetValue);
@@ -337,7 +337,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLDataSomeRestriction getOWLDataSomeRestriction(OWLDataPropertyExpression property, OWLDataRange dataRange);
 
 
-    OWLDataValueRestriction getOWLDataValueRestriction(OWLDataPropertyExpression property, OWLConstant value);
+    OWLDataValueRestriction getOWLDataValueRestriction(OWLDataPropertyExpression property, OWLLiteral value);
 
 
     OWLObjectComplementOf getOWLObjectComplementOf(OWLDescription operand);
@@ -477,7 +477,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                    OWLDataPropertyExpression property,
-                                                                   OWLConstant object);
+                                                                   OWLLiteral object);
 
     OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                    OWLDataPropertyExpression property,
@@ -504,7 +504,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                                    OWLDataPropertyExpression property,
-                                                                                   OWLConstant object);
+                                                                                   OWLLiteral object);
 
 
     OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(OWLIndividual subject,
@@ -577,7 +577,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLEntityAnnotationAxiom getOWLEntityAnnotationAxiom(OWLEntity entity, OWLAnnotation annotation);
 
-    OWLEntityAnnotationAxiom getOWLEntityAnnotationAxiom(OWLEntity entity, URI annotationURI, OWLConstant value);
+    OWLEntityAnnotationAxiom getOWLEntityAnnotationAxiom(OWLEntity entity, URI annotationURI, OWLLiteral value);
 
     OWLEntityAnnotationAxiom getOWLEntityAnnotationAxiom(OWLEntity entity, URI annotationURI, OWLIndividual value);
 
@@ -585,7 +585,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLAxiomAnnotationAxiom getOWLAxiomAnnotationAxiom(OWLAxiom axiom, OWLAnnotation annotation);
 
 
-    OWLConstantAnnotation getOWLConstantAnnotation(URI annotationURI, OWLConstant constant);
+    OWLConstantAnnotation getOWLConstantAnnotation(URI annotationURI, OWLLiteral literal);
 
 
     OWLObjectAnnotation getOWLObjectAnnotation(URI annotationURI, OWLIndividual individual);

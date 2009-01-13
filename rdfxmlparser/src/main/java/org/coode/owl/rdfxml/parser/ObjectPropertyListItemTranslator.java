@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 
@@ -60,7 +60,7 @@ public class ObjectPropertyListItemTranslator implements ListItemTranslator<OWLO
     }
 
 
-    public OWLObjectPropertyExpression translate(OWLConstant firstObject) throws OWLException {
+    public OWLObjectPropertyExpression translate(OWLLiteral firstObject) throws OWLException {
         logger.info("Cannot translate list item as an object property, because rdf:first triple is a literal triple");
         return null;
     }

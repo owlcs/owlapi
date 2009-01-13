@@ -56,7 +56,7 @@ public abstract class AbstractDescriptionTranslator implements DescriptionTransl
         return consumer.getResourceObject(subject, predicate, consume);
     }
 
-    protected OWLConstant getLiteralObject(URI subject, URI predicate, boolean consume) throws OWLException {
+    protected OWLLiteral getLiteralObject(URI subject, URI predicate, boolean consume) throws OWLException {
         return consumer.getLiteralObject(subject, predicate, consume);
     }
 

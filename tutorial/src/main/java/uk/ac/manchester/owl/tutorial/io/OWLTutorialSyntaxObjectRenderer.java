@@ -699,7 +699,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         node.getFacetValue().accept(this);
     }
 
-    public void visit(OWLTypedConstant node) {
+    public void visit(OWLTypedLiteral node) {
         write("\"");
         write(node.getLiteral());
         write("\"");
@@ -707,7 +707,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write(node.getDataType().getURI());
     }
 
-    public void visit(OWLUntypedConstant node) {
+    public void visit(OWLUntypedLiteral node) {
         write("\"");
         write(node.getLiteral());
         write("\"");

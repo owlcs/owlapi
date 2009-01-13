@@ -46,7 +46,7 @@ public interface OWLDataRangeFacetRestriction extends OWLObject {
         /**
          * Gets the corresponding facet value for this facet restriction
          */
-        OWLTypedConstant getFacetValue();
+        OWLTypedLiteral getFacetValue();
 
     <O> O accept(OWLDataVisitorEx<O> visitor);
 }

@@ -34,7 +34,7 @@ import org.semanticweb.owl.vocab.OWLRDFVocabulary;
  */
 public class OWLCommentAnnotationImpl extends OWLConstantAnnotationImpl implements OWLCommentAnnotation {
 
-    public OWLCommentAnnotationImpl(OWLDataFactory dataFactory, OWLConstant object) {
+    public OWLCommentAnnotationImpl(OWLDataFactory dataFactory, OWLLiteral object) {
         super(dataFactory, OWLRDFVocabulary.RDFS_COMMENT.getURI(), object);
     }
 

@@ -45,7 +45,7 @@ public class OWLObjectAnnotationImpl extends OWLAnnotationImpl<OWLIndividual> im
     }
 
 
-    public OWLConstant getAnnotationValueAsConstant() {
+    public OWLLiteral getAnnotationValueAsConstant() {
         throw new OWLRuntimeException("Not an annotation by constant!  Check using the isAnnotationByConstant method first!");
     }
 

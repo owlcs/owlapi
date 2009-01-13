@@ -118,8 +118,8 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     private String getRendering(OWLObject object) {
         // We return the literal value of constants or use the alternate
         // short form provider to render individuals.
-        if (object instanceof OWLConstant) {
-            return ((OWLConstant) object).getLiteral();
+        if (object instanceof OWLLiteral) {
+            return ((OWLLiteral) object).getLiteral();
         }
         else {
             return alternateShortFormProvider.getShortForm((OWLEntity) object);
@@ -175,7 +175,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         }
 
 
-        public void visit(OWLUntypedConstant untypedConstantVal) {
+        public void visit(OWLUntypedLiteral untypedConstantVal) {
             if (preferredLanguages == null || preferredLanguages.isEmpty()){ // if there are no languages just match the first thing
                 lastLangMatchIndex = 0;
                 candidateValue = untypedConstantVal;
@@ -190,7 +190,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         }
 
 
-        public void visit(OWLTypedConstant node) {
+        public void visit(OWLTypedLiteral node) {
             if (preferredLanguages == null || preferredLanguages.isEmpty()){
                 lastLangMatchIndex = 0;
                 candidateValue = node;

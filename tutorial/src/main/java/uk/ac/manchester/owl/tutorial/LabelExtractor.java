@@ -1,7 +1,7 @@
 package uk.ac.manchester.owl.tutorial;
 
 import org.semanticweb.owl.model.OWLAnnotationVisitor;
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLConstantAnnotation;
 import org.semanticweb.owl.model.OWLObjectAnnotation;
 
@@ -51,7 +51,7 @@ public class LabelExtractor implements OWLAnnotationVisitor {
          * multiple labels, the last one will be used.
          */
         if (annotation.isLabel()) {
-            OWLConstant c = annotation.getAnnotationValue();
+            OWLLiteral c = annotation.getAnnotationValue();
             result = c.getLiteral();
         }
     }

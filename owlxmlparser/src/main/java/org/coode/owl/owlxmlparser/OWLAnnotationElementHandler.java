@@ -1,8 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAnnotation;
-import org.semanticweb.owl.model.OWLConstant;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLIndividual;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 
@@ -46,7 +45,7 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
 
     private String datatype;
 
-    private OWLConstant constant;
+    private OWLLiteral literal;
 
     private OWLIndividual individual;
 
@@ -59,7 +58,7 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
 
     public void startElement(String name) throws OWLXMLParserException {
         super.startElement(name);
-        constant = null;
+        literal = null;
         individual = null;
     }
 
@@ -75,9 +74,9 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
 
 
     public void endElement() throws OWLXMLParserException {
-        if(constant == null) {
+        if(literal == null) {
             if(individual == null) {
-                OWLXMLParserException ex = new OWLXMLParserException(getLineNumber(), "Expected constant or individual as annotation content");
+                OWLXMLParserException ex = new OWLXMLParserException(getLineNumber(), "Expected literal or individual as annotation content");
                 ex.setLineNumber(getLineNumber());
                 throw ex;
             }
@@ -86,7 +85,7 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
             }
         }
         else {
-            annotation = getOWLDataFactory().getOWLConstantAnnotation(uri, constant);
+            annotation = getOWLDataFactory().getOWLConstantAnnotation(uri, literal);
         }
         getParentHandler().handleChild(this);
     }
@@ -98,11 +97,11 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
 
 
     public void handleChild(OWLConstantElementHandler handler) throws OWLXMLParserException {
-        constant = handler.getOWLObject();
+        literal = handler.getOWLObject();
     }
 
 //    public void handleChars(OWLConstantElementHandler handler) {
-//        constant = handler.getOWLObject();
+//        literal = handler.getOWLObject();
 //    }
 //
 //

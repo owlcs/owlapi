@@ -180,7 +180,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
   final public OWLAxiom parseDataPropertyAssertion() throws ParseException {
     OWLIndividual subj;
     OWLDataPropertyExpression prop;
-    OWLConstant obj;
+    OWLLiteral obj;
     prop = parseDataPropertyId();
     jj_consume_token(OPENPAR);
     subj = parseIndividualId();
@@ -583,8 +583,8 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
   }
 
   final public OWLDataRange parseDataOneOf() throws ParseException {
-    OWLConstant val;
-    Set<OWLConstant> values = new HashSet<OWLConstant>();
+    OWLLiteral val;
+    Set<OWLLiteral> values = new HashSet<OWLLiteral>();
     jj_consume_token(OPENBRACE);
     val = parseConstant();
                                     values.add(val);
@@ -641,7 +641,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLConstant parseConstant() throws ParseException {
+  final public OWLLiteral parseConstant() throws ParseException {
     Token t;
     if (jj_2_49(5)) {
       t = jj_consume_token(INT);

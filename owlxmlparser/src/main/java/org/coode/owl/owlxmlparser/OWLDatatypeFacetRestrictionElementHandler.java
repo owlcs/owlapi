@@ -1,9 +1,8 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDataRangeFacetRestriction;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLConstant;
-import org.semanticweb.owl.model.OWLTypedConstant;
+import org.semanticweb.owl.model.OWLTypedLiteral;
+import org.semanticweb.owl.model.OWLLiteral;
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.vocab.OWLRestrictedDataRangeFacetVocabulary;
 
 import java.net.URI;
@@ -41,7 +40,7 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
 
     private OWLRestrictedDataRangeFacetVocabulary facet;
 
-    private OWLTypedConstant constant;
+    private OWLTypedLiteral constant;
 
     public OWLDatatypeFacetRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
@@ -49,9 +48,9 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
 
 
     public void handleChild(OWLConstantElementHandler handler) throws OWLXMLParserException {
-        OWLConstant con = handler.getOWLObject();
+        OWLLiteral con = handler.getOWLObject();
         if(con.isTyped()) {
-            constant = (OWLTypedConstant) handler.getOWLObject();
+            constant = (OWLTypedLiteral) handler.getOWLObject();
         }
         else {
             throw new OWLXMLParserException(getLineNumber(), "Found untyped constant, expected typed constant");

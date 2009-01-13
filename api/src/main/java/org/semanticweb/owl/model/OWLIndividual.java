@@ -84,7 +84,7 @@ public interface OWLIndividual extends OWLEntity, OWLNamedObject {
     /**
      * Gets the data property values for this individual
      */
-    public Map<OWLDataPropertyExpression, Set<OWLConstant>> getDataPropertyValues(OWLOntology ontology);
+    public Map<OWLDataPropertyExpression, Set<OWLLiteral>> getDataPropertyValues(OWLOntology ontology);
 
     /**
      * Gets the data property values that are explicitly asserted NOT to hold
@@ -92,7 +92,7 @@ public interface OWLIndividual extends OWLEntity, OWLNamedObject {
      * @param ontology The ontology that should be examined for axioms
      * @return A map containing the negative data property values
      */
-    public Map<OWLDataPropertyExpression, Set<OWLConstant>> getNegativeDataPropertyValues(OWLOntology ontology);
+    public Map<OWLDataPropertyExpression, Set<OWLLiteral>> getNegativeDataPropertyValues(OWLOntology ontology);
 
 
 

@@ -405,7 +405,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Map<OWLDataProperty, Set<OWLConstant>> getDataPropertyRelationships(OWLIndividual individual) throws
+    public Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLIndividual individual) throws
                                                                                                               OWLReasonerException {
         if (!checkDefined(individual)) {
             return Collections.emptyMap();
@@ -441,7 +441,7 @@ public class OWLReasonerMediator implements OWLReasoner {
 
 
     public boolean hasDataPropertyRelationship(OWLIndividual subject, OWLDataPropertyExpression property,
-                                               OWLConstant object) throws OWLReasonerException {
+                                               OWLLiteral object) throws OWLReasonerException {
         if (!checkDefined(subject)) {
             return false;
         }
@@ -464,7 +464,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<OWLConstant> getRelatedValues(OWLIndividual subject, OWLDataPropertyExpression property) throws
+    public Set<OWLLiteral> getRelatedValues(OWLIndividual subject, OWLDataPropertyExpression property) throws
                                                                                                         OWLReasonerException {
         if (!checkDefined(subject)) {
             return Collections.emptySet();

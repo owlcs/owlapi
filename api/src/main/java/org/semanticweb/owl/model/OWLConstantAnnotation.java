@@ -32,7 +32,7 @@ package org.semanticweb.owl.model;
  * Represents an annotation which has a constant (i.e. typed or untyped
  * literal) as its value.
  */
-public interface OWLConstantAnnotation extends OWLAnnotation<OWLConstant> {
+public interface OWLConstantAnnotation extends OWLAnnotation<OWLLiteral> {
 
     /**
      * Determines if the specified annotation is a label annotation.

@@ -531,11 +531,11 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
             }
         }
 
-        Map<OWLDataPropertyExpression, Set<OWLConstant>> dataPropAssertions = individual.getDataPropertyValues(ontology);
+        Map<OWLDataPropertyExpression, Set<OWLLiteral>> dataPropAssertions = individual.getDataPropertyValues(ontology);
         for (OWLDataPropertyExpression p : dataPropAssertions.keySet()){
             if (!p.isAnonymous()){
-                for (OWLConstant constant : dataPropAssertions.get(p)){
-                    final String rel = renderPropertyAssertion(p.asOWLDataProperty(), constant);
+                for (OWLLiteral literal : dataPropAssertions.get(p)){
+                    final String rel = renderPropertyAssertion(p.asOWLDataProperty(), literal);
                     tvpList.addPair(OBOVocabulary.PROPERTY_VALUE, rel);
                 }
             }
@@ -591,13 +591,13 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
     }
 
 
-    private String renderPropertyAssertion(OWLDataProperty property, OWLConstant constant) {
+    private String renderPropertyAssertion(OWLDataProperty property, OWLLiteral literal) {
         StringBuilder sb = new StringBuilder(getID(property));
         sb.append(" \"");
-        sb.append(constant.getLiteral());
+        sb.append(literal.getLiteral());
         sb.append("\" ");
-        if (constant.isTyped()){
-            sb.append(constant.asOWLTypedConstant().getDataType().getURI());
+        if (literal.isTyped()){
+            sb.append(literal.asOWLTypedConstant().getDataType().getURI());
         }
         return sb.toString();
     }

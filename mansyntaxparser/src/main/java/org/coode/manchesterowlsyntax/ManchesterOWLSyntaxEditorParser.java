@@ -699,7 +699,7 @@ public class ManchesterOWLSyntaxEditorParser {
             return dataFactory.getOWLDataAllRestriction(prop, rng);
         }
         else if (kw.equalsIgnoreCase(VALUE)) {
-            OWLConstant con = parseConstant();
+            OWLLiteral con = parseConstant();
             return dataFactory.getOWLDataValueRestriction(prop, con);
         }
         else if (kw.equalsIgnoreCase(MIN)) {
@@ -777,7 +777,7 @@ public class ManchesterOWLSyntaxEditorParser {
                     if (fv == null) {
                         throwException(OWLRestrictedDataRangeFacetVocabulary.getFacets().toArray(new String[OWLRestrictedDataRangeFacetVocabulary.getFacetURIs().size()]));
                     }
-                    OWLConstant con = parseConstant();
+                    OWLLiteral con = parseConstant();
                     if (!con.isTyped()) {
                         con = dataFactory.getOWLTypedConstant(con.getLiteral());
                     }
@@ -826,10 +826,10 @@ public class ManchesterOWLSyntaxEditorParser {
 
     private OWLDataRange parseDataOneOf() throws ParserException {
         consumeToken();
-        Set<OWLConstant> cons = new HashSet<OWLConstant>();
+        Set<OWLLiteral> cons = new HashSet<OWLLiteral>();
         String sep = ",";
         while (sep.equals(",")) {
-            OWLConstant con = parseConstant();
+            OWLLiteral con = parseConstant();
             cons.add(con);
             sep = consumeToken();
         }
@@ -858,7 +858,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public OWLConstant parseConstant() throws ParserException {
+    public OWLLiteral parseConstant() throws ParserException {
         String tok = consumeToken();
         if (tok.startsWith("\"")) {
             String lit = tok.substring(1, tok.length() - 1).trim();
@@ -1047,7 +1047,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 annos.add(anno);
             }
             else {
-                OWLConstant con = parseConstant();
+                OWLLiteral con = parseConstant();
                 OWLAnnotation anno = null;
                 URI annoURI = getAnnotationURI(prop);
                 if (annoURI.equals(OWLRDFVocabulary.RDFS_LABEL.getURI())) {
@@ -1375,7 +1375,7 @@ public class ManchesterOWLSyntaxEditorParser {
                     String prop = peekToken();
                     if (isDataPropertyName(prop)) {
                         OWLDataProperty p = parseDataProperty();
-                        OWLConstant con = parseConstant();
+                        OWLLiteral con = parseConstant();
                         if (!negative) {
                             axioms.add(dataFactory.getOWLDataPropertyAssertionAxiom(ind, p, con));
                         }
@@ -1403,7 +1403,7 @@ public class ManchesterOWLSyntaxEditorParser {
                         }
                         else {
                             // Assume constant
-                            OWLConstant con = null;
+                            OWLLiteral con = null;
                             try {
                                 con = parseConstant();
                             }

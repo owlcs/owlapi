@@ -332,12 +332,12 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLTypedConstant node) {
+    public O visit(OWLTypedLiteral node) {
         return null;
     }
 
 
-    public O visit(OWLUntypedConstant node) {
+    public O visit(OWLUntypedLiteral node) {
         return null;
     }
 

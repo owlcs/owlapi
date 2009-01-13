@@ -468,11 +468,11 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(node);
 //        }
 //
-//        public Object visit(OWLTypedConstant node) {
+//        public Object visit(OWLTypedLiteral node) {
 //            return super.visit(node);
 //        }
 //
-//        public Object visit(OWLUntypedConstant node) {
+//        public Object visit(OWLUntypedLiteral node) {
 //            return super.visit(node);
 //        }
 //
@@ -995,7 +995,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //
 //        public Set<ConstructNotAllowed> visit(OWLDataOneOf node) {
-//            for (OWLConstant op : node.getValues()) {
+//            for (OWLLiteral op : node.getValues()) {
 //                Set<ConstructNotAllowed> na = op.accept(this);
 //                if (!na.isEmpty()) {
 //                    return getSet(new DataRangeNotAllowed(na, node));
@@ -1020,13 +1020,13 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLTypedConstant node) {
+//        public Set<ConstructNotAllowed> visit(OWLTypedLiteral node) {
 //            Set<ConstructNotAllowed> na = node.getDataType().accept(this);
 //            return Collections.emptySet();
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLUntypedConstant node) {
+//        public Set<ConstructNotAllowed> visit(OWLUntypedLiteral node) {
 //            return Collections.emptySet();
 //        }
 //

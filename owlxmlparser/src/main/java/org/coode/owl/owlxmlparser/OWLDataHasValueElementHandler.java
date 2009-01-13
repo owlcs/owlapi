@@ -1,6 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLDescription;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -32,7 +32,7 @@ import org.semanticweb.owl.model.OWLDescription;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
-public class OWLDataHasValueElementHandler extends AbstractDataRestrictionElementHandler<OWLConstant> {
+public class OWLDataHasValueElementHandler extends AbstractDataRestrictionElementHandler<OWLLiteral> {
 
 
     public OWLDataHasValueElementHandler(OWLXMLParserHandler handler) {

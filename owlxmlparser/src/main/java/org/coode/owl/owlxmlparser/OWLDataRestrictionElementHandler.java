@@ -1,8 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLDataRange;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLTypedConstant;
+import org.semanticweb.owl.model.OWLTypedLiteral;
 import org.semanticweb.owl.vocab.OWLRestrictedDataRangeFacetVocabulary;
 
 import java.net.URI;
@@ -40,7 +39,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
 
     private OWLDataRange dataRange;
 
-    private OWLTypedConstant constant;
+    private OWLTypedLiteral constant;
 
     private URI facetURI;
 
@@ -58,7 +57,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
         if(!handler.getOWLObject().isTyped()) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "typed constant in data range restriction");
         }
-        constant = (OWLTypedConstant) handler.getOWLObject();
+        constant = (OWLTypedLiteral) handler.getOWLObject();
     }
 
 

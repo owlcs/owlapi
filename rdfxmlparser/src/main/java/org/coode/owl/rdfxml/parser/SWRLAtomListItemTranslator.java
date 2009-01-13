@@ -105,7 +105,7 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
     }
 
 
-    public SWRLAtom translate(OWLConstant firstObject) throws OWLException {
+    public SWRLAtom translate(OWLLiteral firstObject) throws OWLException {
         throw new OWLRDFXMLParserMalformedNodeException("Unexprected literal in atom list: " + firstObject);
     }
 
@@ -137,7 +137,7 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
         }
         else {
             // Must be a literal
-            OWLConstant con = consumer.getLiteralObject(mainURI, argPredicateURI, true);
+            OWLLiteral con = consumer.getLiteralObject(mainURI, argPredicateURI, true);
             if (con != null) {
                 return dataFactory.getSWRLAtomConstantObject(con);
             }
@@ -153,7 +153,7 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
         }
 
 
-        public SWRLAtomDObject translate(OWLConstant firstObject) throws OWLException {
+        public SWRLAtomDObject translate(OWLLiteral firstObject) throws OWLException {
             return dataFactory.getSWRLAtomConstantObject(firstObject);
         }
     }

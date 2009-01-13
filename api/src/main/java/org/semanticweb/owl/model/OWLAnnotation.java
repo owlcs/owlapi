@@ -67,7 +67,7 @@ public interface OWLAnnotation<O extends OWLObject> extends OWLObject {
      * Calling this method if the <code>isAnnotationByConstant</code> method
      * returns <code>false</code> will throws an <code>OWLRuntimeException</code>
      */
-    OWLConstant getAnnotationValueAsConstant();
+    OWLLiteral getAnnotationValueAsConstant();
 
     void accept(OWLAnnotationVisitor visitor);
 

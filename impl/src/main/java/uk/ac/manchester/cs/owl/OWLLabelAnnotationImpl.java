@@ -34,7 +34,7 @@ import org.semanticweb.owl.vocab.OWLRDFVocabulary;
  */
 public class OWLLabelAnnotationImpl extends OWLConstantAnnotationImpl implements OWLLabelAnnotation {
 
-    public OWLLabelAnnotationImpl(OWLDataFactory dataFactory, OWLConstant object) {
+    public OWLLabelAnnotationImpl(OWLDataFactory dataFactory, OWLLiteral object) {
         super(dataFactory, OWLRDFVocabulary.RDFS_LABEL.getURI(), object);
     }
 

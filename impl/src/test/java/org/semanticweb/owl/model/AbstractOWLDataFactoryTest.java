@@ -1,10 +1,6 @@
 package org.semanticweb.owl.model;
 
-import junit.framework.TestCase;
-
 import java.net.URI;
-
-import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -79,7 +75,7 @@ public abstract class AbstractOWLDataFactoryTest extends AbstractOWLTestCase {
         return getOWLDataFactory().getOWLDataType(createURI());
     }
 
-    protected OWLTypedConstant createOWLTypedConstant() throws OWLException {
+    protected OWLTypedLiteral createOWLTypedConstant() throws OWLException {
         return getOWLDataFactory().getOWLTypedConstant("Test" + System.currentTimeMillis(), createOWLDataType());
     }
 

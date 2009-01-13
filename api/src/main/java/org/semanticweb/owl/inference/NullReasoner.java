@@ -255,7 +255,7 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns an empty map in this implementation.
      * @throws OWLReasonerException
      */
-    public Map<OWLDataProperty, Set<OWLConstant>> getDataPropertyRelationships(OWLIndividual individual) throws
+    public Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLIndividual individual) throws
                                                                                                          OWLReasonerException {
         return Collections.emptyMap();
     }
@@ -282,7 +282,7 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns <code>false</code> in this implementation.
      * @throws OWLReasonerException
      */
-    public boolean hasDataPropertyRelationship(OWLIndividual subject, OWLDataPropertyExpression property, OWLConstant object) throws
+    public boolean hasDataPropertyRelationship(OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral object) throws
                                                                                                                               OWLReasonerException {
         return false;
     }
@@ -300,7 +300,7 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns an empty set in this implementation.
      * @throws OWLReasonerException
      */
-    public Set<OWLConstant> getRelatedValues(OWLIndividual subject, OWLDataPropertyExpression property) throws
+    public Set<OWLLiteral> getRelatedValues(OWLIndividual subject, OWLDataPropertyExpression property) throws
                                                                                                         OWLReasonerException {
         return Collections.emptySet();
     }

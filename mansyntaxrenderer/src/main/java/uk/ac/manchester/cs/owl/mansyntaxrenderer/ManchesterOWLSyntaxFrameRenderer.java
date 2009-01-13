@@ -285,11 +285,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         axioms.addAll(getOntology().getClassAssertionAxioms(individual));
         // Facts - messy!
         Map<OWLObjectPropertyExpression, Set<OWLIndividual>> objectMap = individual.getObjectPropertyValues(getOntology());
-        Map<OWLDataPropertyExpression, Set<OWLConstant>> dataMap = individual.getDataPropertyValues(getOntology());
+        Map<OWLDataPropertyExpression, Set<OWLLiteral>> dataMap = individual.getDataPropertyValues(getOntology());
         // Negative facts
         Map<OWLObjectPropertyExpression, Set<OWLIndividual>> negObjectMap = individual.getNegativeObjectPropertyValues(
                 getOntology());
-        Map<OWLDataPropertyExpression, Set<OWLConstant>> negDataMap = individual.getNegativeDataPropertyValues(
+        Map<OWLDataPropertyExpression, Set<OWLLiteral>> negDataMap = individual.getNegativeDataPropertyValues(
                 getOntology());
 
         if (!objectMap.isEmpty() || !dataMap.isEmpty() || !negObjectMap.isEmpty() || !negDataMap.isEmpty()) {

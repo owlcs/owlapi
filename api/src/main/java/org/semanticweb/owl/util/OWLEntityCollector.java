@@ -447,7 +447,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
 
     public void visit(OWLDataOneOf node) {
-        for (OWLConstant val : node.getValues()) {
+        for (OWLLiteral val : node.getValues()) {
             val.accept(this);
         }
     }
@@ -466,12 +466,12 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLTypedConstant node) {
+    public void visit(OWLTypedLiteral node) {
         node.getDataType().accept((OWLEntityVisitor) this);
     }
 
 
-    public void visit(OWLUntypedConstant node) {
+    public void visit(OWLUntypedLiteral node) {
         // No objects here - only a string
     }
 

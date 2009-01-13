@@ -172,52 +172,52 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLTypedConstant getOWLTypedConstant(String literal, OWLDataType dataType) {
-        return new OWLTypedConstantImpl(this, literal, dataType);
+    public OWLTypedLiteral getOWLTypedConstant(String literal, OWLDataType dataType) {
+        return new OWLTypedLiteralImpl(this, literal, dataType);
     }
 
 
-    public OWLTypedConstant getOWLTypedConstant(int value) {
-        return new OWLTypedConstantImpl(this, Integer.toString(value), getOWLDataType(XSDVocabulary.INTEGER.getURI()));
+    public OWLTypedLiteral getOWLTypedConstant(int value) {
+        return new OWLTypedLiteralImpl(this, Integer.toString(value), getOWLDataType(XSDVocabulary.INTEGER.getURI()));
     }
 
 
-    public OWLTypedConstant getOWLTypedConstant(double value) {
-        return new OWLTypedConstantImpl(this, Double.toString(value), getOWLDataType(XSDVocabulary.DOUBLE.getURI()));
+    public OWLTypedLiteral getOWLTypedConstant(double value) {
+        return new OWLTypedLiteralImpl(this, Double.toString(value), getOWLDataType(XSDVocabulary.DOUBLE.getURI()));
     }
 
 
-    public OWLTypedConstant getOWLTypedConstant(boolean value) {
-        return new OWLTypedConstantImpl(this, Boolean.toString(value), getOWLDataType(XSDVocabulary.BOOLEAN.getURI()));
+    public OWLTypedLiteral getOWLTypedConstant(boolean value) {
+        return new OWLTypedLiteralImpl(this, Boolean.toString(value), getOWLDataType(XSDVocabulary.BOOLEAN.getURI()));
     }
 
 
-    public OWLTypedConstant getOWLTypedConstant(float value) {
-        return new OWLTypedConstantImpl(this, Float.toString(value), getOWLDataType(XSDVocabulary.FLOAT.getURI()));
+    public OWLTypedLiteral getOWLTypedConstant(float value) {
+        return new OWLTypedLiteralImpl(this, Float.toString(value), getOWLDataType(XSDVocabulary.FLOAT.getURI()));
     }
 
 
-    public OWLTypedConstant getOWLTypedConstant(String value) {
-        return new OWLTypedConstantImpl(this, value, getOWLDataType(XSDVocabulary.STRING.getURI()));
+    public OWLTypedLiteral getOWLTypedConstant(String value) {
+        return new OWLTypedLiteralImpl(this, value, getOWLDataType(XSDVocabulary.STRING.getURI()));
     }
 
 
-    public OWLUntypedConstant getOWLUntypedConstant(String literal) {
-        return new OWLUntypedConstantImpl(this, literal, null);
+    public OWLUntypedLiteral getOWLUntypedConstant(String literal) {
+        return new OWLUntypedLiteralImpl(this, literal, null);
     }
 
 
-    public OWLUntypedConstant getOWLUntypedConstant(String literal, String lang) {
-        return new OWLUntypedConstantImpl(this, literal, lang);
+    public OWLUntypedLiteral getOWLUntypedConstant(String literal, String lang) {
+        return new OWLUntypedLiteralImpl(this, literal, lang);
     }
 
 
-    public OWLDataOneOf getOWLDataOneOf(Set<? extends OWLConstant> values) {
+    public OWLDataOneOf getOWLDataOneOf(Set<? extends OWLLiteral> values) {
         return new OWLDataOneOfImpl(this, values);
     }
 
 
-    public OWLDataOneOf getOWLDataOneOf(OWLConstant... values) {
+    public OWLDataOneOf getOWLDataOneOf(OWLLiteral... values) {
         return getOWLDataOneOf(CollectionFactory.createSet(values));
     }
 
@@ -235,7 +235,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLDataRangeRestriction getOWLDataRangeRestriction(OWLDataRange dataRange,
                                                               OWLRestrictedDataRangeFacetVocabulary facet,
-                                                              OWLTypedConstant typedConstant) {
+                                                              OWLTypedLiteral typedConstant) {
         return new OWLDataRangeRestrictionImpl(this,
                                                dataRange,
                                                Collections.singleton(getOWLDataRangeFacetRestriction(facet,
@@ -266,7 +266,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLDataRangeFacetRestriction getOWLDataRangeFacetRestriction(OWLRestrictedDataRangeFacetVocabulary facet,
-                                                                        OWLTypedConstant facetValue) {
+                                                                        OWLTypedLiteral facetValue) {
         return new OWLDataRangeFacetRestrictionImpl(this, facet, facetValue);
     }
 
@@ -331,7 +331,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDataValueRestriction getOWLDataValueRestriction(OWLDataPropertyExpression property, OWLConstant value) {
+    public OWLDataValueRestriction getOWLDataValueRestriction(OWLDataPropertyExpression property, OWLLiteral value) {
         return new OWLDataValueRestrictionImpl(this, property, value);
     }
 
@@ -566,7 +566,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                           OWLDataPropertyExpression property,
-                                                                          OWLConstant object) {
+                                                                          OWLLiteral object) {
         return new OWLDataPropertyAssertionAxiomImpl(this, subject, property, object);
     }
 
@@ -603,7 +603,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                                           OWLDataPropertyExpression property,
-                                                                                          OWLConstant object) {
+                                                                                          OWLLiteral object) {
         return new OWLNegativeDataPropertyAssertionAxiomImpl(this, subject, property, object);
     }
 
@@ -725,7 +725,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLEntityAnnotationAxiom getOWLEntityAnnotationAxiom(OWLEntity entity, URI annotationURI, OWLConstant value) {
+    public OWLEntityAnnotationAxiom getOWLEntityAnnotationAxiom(OWLEntity entity, URI annotationURI, OWLLiteral value) {
         return getOWLEntityAnnotationAxiom(entity, getOWLConstantAnnotation(annotationURI, value));
     }
 
@@ -760,15 +760,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLConstantAnnotation getOWLConstantAnnotation(URI annotationURI, OWLConstant constant) {
+    public OWLConstantAnnotation getOWLConstantAnnotation(URI annotationURI, OWLLiteral literal) {
         if (annotationURI.equals(OWLRDFVocabulary.RDFS_LABEL.getURI())) {
-            return new OWLLabelAnnotationImpl(this, constant);
+            return new OWLLabelAnnotationImpl(this, literal);
         }
         else if (annotationURI.equals(OWLRDFVocabulary.RDFS_COMMENT.getURI())) {
-            return new OWLCommentAnnotationImpl(this, constant);
+            return new OWLCommentAnnotationImpl(this, literal);
         }
         else {
-            return new OWLConstantAnnotationImpl(this, annotationURI, constant);
+            return new OWLConstantAnnotationImpl(this, annotationURI, literal);
         }
     }
 
@@ -913,10 +913,10 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRL constant object.
-     * @param constant The constant that is the object argument
+     * @param literal The constant that is the object argument
      */
-    public SWRLAtomConstantObject getSWRLAtomConstantObject(OWLConstant constant) {
-        return new SWRLAtomConstantObjectImpl(this, constant);
+    public SWRLAtomConstantObject getSWRLAtomConstantObject(OWLLiteral literal) {
+        return new SWRLAtomConstantObjectImpl(this, literal);
     }
 
 

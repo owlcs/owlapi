@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLDescription;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
@@ -61,7 +61,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
      * @throws OWLException
      */
     private int translateCardinality(URI mainNode) throws OWLException {
-        OWLConstant con = getLiteralObject(mainNode, getCardinalityTriplePredicate(), true);
+        OWLLiteral con = getLiteralObject(mainNode, getCardinalityTriplePredicate(), true);
         if(con == null) {
             throw new MalformedDescriptionException(getCardinalityTriplePredicate() + " not present");
         }

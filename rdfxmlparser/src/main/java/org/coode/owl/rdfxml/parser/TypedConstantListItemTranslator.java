@@ -1,8 +1,8 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLTypedConstant;
+import org.semanticweb.owl.model.OWLTypedLiteral;
 
 import java.net.URI;
 import java.util.logging.Logger;
@@ -37,7 +37,7 @@ import java.util.logging.Logger;
  * Date: 10-Dec-2006<br><br>
  *
  */
-public class TypedConstantListItemTranslator implements ListItemTranslator<OWLConstant> {
+public class TypedConstantListItemTranslator implements ListItemTranslator<OWLLiteral> {
 
     private static final Logger logger = Logger.getLogger(TypedConstantListItemTranslator.class.getName());
 
@@ -45,13 +45,13 @@ public class TypedConstantListItemTranslator implements ListItemTranslator<OWLCo
     }
 
 
-    public OWLTypedConstant translate(URI firstObject) throws OWLException {
+    public OWLTypedLiteral translate(URI firstObject) throws OWLException {
         logger.info("Cannot translate list item to a constant because rdf:first triple is a resource triple");
         return null;
     }
 
 
-    public OWLConstant translate(OWLConstant firstObject) throws OWLException {
+    public OWLLiteral translate(OWLLiteral firstObject) throws OWLException {
         return firstObject;
     }
 }

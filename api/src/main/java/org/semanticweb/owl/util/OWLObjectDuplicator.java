@@ -131,7 +131,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     public void visit(OWLConstantAnnotation annotation) {
         annotation.getAnnotationValue().accept(this);
-        OWLConstant con = (OWLConstant) obj;
+        OWLLiteral con = (OWLLiteral) obj;
         obj = dataFactory.getOWLConstantAnnotation(annotation.getAnnotationURI(), con);
     }
 
@@ -158,7 +158,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getProperty().accept(this);
         OWLDataPropertyExpression prop = (OWLDataPropertyExpression) obj;
         axiom.getObject().accept(this);
-        OWLConstant con = (OWLConstant) obj;
+        OWLLiteral con = (OWLLiteral) obj;
         obj = dataFactory.getOWLDataPropertyAssertionAxiom(subj, prop, con);
     }
 
@@ -305,7 +305,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getProperty().accept(this);
         OWLDataPropertyExpression prop = (OWLDataPropertyExpression) obj;
         axiom.getObject().accept(this);
-        OWLConstant con = (OWLConstant) obj;
+        OWLLiteral con = (OWLLiteral) obj;
         obj = dataFactory.getOWLNegativeDataPropertyAssertionAxiom(ind, prop, con);
     }
 
@@ -459,7 +459,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         desc.getProperty().accept(this);
         OWLDataPropertyExpression prop = (OWLDataPropertyExpression) obj;
         desc.getValue().accept(this);
-        OWLConstant val = (OWLConstant) obj;
+        OWLLiteral val = (OWLLiteral) obj;
         obj = dataFactory.getOWLDataValueRestriction(prop, val);
     }
 
@@ -558,7 +558,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
 
     public void visit(OWLDataOneOf node) {
-        Set<OWLConstant> vals = duplicateSet(node.getValues());
+        Set<OWLLiteral> vals = duplicateSet(node.getValues());
         obj = dataFactory.getOWLDataOneOf(vals);
     }
 
@@ -583,19 +583,19 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     public void visit(OWLDataRangeFacetRestriction node) {
         node.getFacetValue().accept(this);
-        OWLTypedConstant val = (OWLTypedConstant) obj;
+        OWLTypedLiteral val = (OWLTypedLiteral) obj;
         obj = dataFactory.getOWLDataRangeFacetRestriction(node.getFacet(), val);
     }
 
 
-    public void visit(OWLTypedConstant node) {
+    public void visit(OWLTypedLiteral node) {
         node.getDataType().accept(this);
         OWLDataType dt = (OWLDataType) obj;
         obj = dataFactory.getOWLTypedConstant(node.getLiteral(), dt);
     }
 
 
-    public void visit(OWLUntypedConstant node) {
+    public void visit(OWLUntypedLiteral node) {
         obj = dataFactory.getOWLUntypedConstant(node.getLiteral(), node.getLang());
     }
 
@@ -732,7 +732,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     public void visit(SWRLAtomConstantObject node) {
         node.getConstant().accept(this);
-        OWLConstant con = (OWLConstant) obj;
+        OWLLiteral con = (OWLLiteral) obj;
         obj = dataFactory.getSWRLAtomConstantObject(con);
     }
 

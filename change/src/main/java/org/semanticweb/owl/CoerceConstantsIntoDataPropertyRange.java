@@ -80,14 +80,14 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         }
 
         private OWLDataOneOf process(OWLDataPropertyExpression prop, OWLDataOneOf oneOf) {
-            Set<OWLConstant> vals = new HashSet<OWLConstant>();
-            for(OWLConstant con : oneOf.getValues()) {
+            Set<OWLLiteral> vals = new HashSet<OWLLiteral>();
+            for(OWLLiteral con : oneOf.getValues()) {
                 vals.add(process(prop, con));
             }
             return getDataFactory().getOWLDataOneOf(vals);
         }
 
-        private OWLConstant process(OWLDataPropertyExpression prop, OWLConstant con) {
+        private OWLLiteral process(OWLDataPropertyExpression prop, OWLLiteral con) {
             OWLDataType dt = map.get(prop);
             if(dt != null) {
                 return getDataFactory().getOWLTypedConstant(con.getLiteral(), dt);

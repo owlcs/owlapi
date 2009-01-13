@@ -1,8 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLDataPropertyExpression;
-import org.semanticweb.owl.model.OWLException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -33,7 +32,7 @@ import org.semanticweb.owl.model.OWLException;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
-public abstract class AbstractOWLDataPropertyAssertionAxiomElementHandler extends AbstractOWLAssertionAxiomElementHandler<OWLDataPropertyExpression, OWLConstant> {
+public abstract class AbstractOWLDataPropertyAssertionAxiomElementHandler extends AbstractOWLAssertionAxiomElementHandler<OWLDataPropertyExpression, OWLLiteral> {
 
     public AbstractOWLDataPropertyAssertionAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);

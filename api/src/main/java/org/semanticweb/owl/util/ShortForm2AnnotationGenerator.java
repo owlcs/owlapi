@@ -76,7 +76,7 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
         for(OWLOntology ont : ontology2EntityMap.keySet()) {
             for(OWLEntity ent : ontology2EntityMap.get(ont)) {
                 String shortForm = shortFormProvider.getShortForm(ent);
-                OWLConstant con;
+                OWLLiteral con;
                 if (languageTag != null) {
                     con = ontologyManager.getOWLDataFactory().getOWLUntypedConstant(shortForm, languageTag);
                 }

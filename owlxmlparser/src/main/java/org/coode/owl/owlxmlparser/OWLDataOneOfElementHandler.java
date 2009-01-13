@@ -1,8 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLConstant;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLTypedConstant;
+import org.semanticweb.owl.model.OWLLiteral;
+import org.semanticweb.owl.model.OWLTypedLiteral;
 import org.semanticweb.owl.vocab.XSDVocabulary;
 
 import java.util.HashSet;
@@ -39,22 +38,22 @@ import java.util.Set;
  */
 public class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
 
-    Set<OWLTypedConstant> constants;
+    Set<OWLTypedLiteral> constants;
 
     public OWLDataOneOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
-        constants = new HashSet<OWLTypedConstant>();
+        constants = new HashSet<OWLTypedLiteral>();
     }
 
 
     public void handleChild(OWLConstantElementHandler handler) {
         if(handler.getOWLObject().isTyped()) {
-            constants.add((OWLTypedConstant) handler.getOWLObject());
+            constants.add((OWLTypedLiteral) handler.getOWLObject());
         }
         else {
             // Type as string?
-            OWLConstant currentConstant = handler.getOWLObject();
-            constants.add(getOWLDataFactory().getOWLTypedConstant(currentConstant.getLiteral(), getOWLDataFactory().getOWLDataType(XSDVocabulary.STRING.getURI())));
+            OWLLiteral currentLiteral = handler.getOWLObject();
+            constants.add(getOWLDataFactory().getOWLTypedConstant(currentLiteral.getLiteral(), getOWLDataFactory().getOWLDataType(XSDVocabulary.STRING.getURI())));
         }
     }
 

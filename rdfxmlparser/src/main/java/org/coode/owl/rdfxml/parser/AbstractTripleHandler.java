@@ -51,7 +51,7 @@ public class AbstractTripleHandler {
         consumer.consumeTriple(subject, predicate, object);
     }
 
-    protected void consumeTriple(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    protected void consumeTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         consumer.consumeTriple(subject, predicate, object);
     }
 

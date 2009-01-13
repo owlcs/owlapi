@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
@@ -42,17 +42,17 @@ public class TPFirstLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         return predicate.equals(OWLRDFVocabulary.RDF_FIRST.getURI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         return predicate.equals(OWLRDFVocabulary.RDF_FIRST.getURI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         getConsumer().addFirst(subject, object);
         consumeTriple(subject, predicate, object);
     }

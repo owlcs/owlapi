@@ -31,9 +31,9 @@ import org.semanticweb.owl.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLDataValueRestrictionImpl extends OWLValueRestrictionImpl<OWLDataPropertyExpression, OWLConstant> implements OWLDataValueRestriction {
+public class OWLDataValueRestrictionImpl extends OWLValueRestrictionImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLDataValueRestriction {
 
-    public OWLDataValueRestrictionImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLConstant value) {
+    public OWLDataValueRestrictionImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLLiteral value) {
         super(dataFactory, property, value);
     }
 

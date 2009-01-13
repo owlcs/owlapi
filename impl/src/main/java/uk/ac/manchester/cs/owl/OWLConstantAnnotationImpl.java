@@ -33,14 +33,14 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 19-Dec-2006<br><br>
  */
-public class OWLConstantAnnotationImpl extends OWLAnnotationImpl<OWLConstant> implements OWLConstantAnnotation {
+public class OWLConstantAnnotationImpl extends OWLAnnotationImpl<OWLLiteral> implements OWLConstantAnnotation {
 
-    public OWLConstantAnnotationImpl(OWLDataFactory dataFactory, URI uri, OWLConstant object) {
+    public OWLConstantAnnotationImpl(OWLDataFactory dataFactory, URI uri, OWLLiteral object) {
         super(dataFactory, uri, object);
     }
 
 
-    public OWLConstant getAnnotationValueAsConstant() {
+    public OWLLiteral getAnnotationValueAsConstant() {
         return getAnnotationValue();
     }
 

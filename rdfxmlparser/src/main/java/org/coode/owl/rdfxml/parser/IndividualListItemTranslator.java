@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLIndividual;
 
@@ -54,7 +54,7 @@ public class IndividualListItemTranslator implements ListItemTranslator<OWLIndiv
     }
 
 
-    public OWLIndividual translate(OWLConstant firstObject) throws OWLException {
+    public OWLIndividual translate(OWLLiteral firstObject) throws OWLException {
         logger.info("Cannot translate list item to individual, because rdf:first triple is a literal triple");
         return null;
     }

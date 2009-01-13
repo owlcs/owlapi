@@ -1,7 +1,7 @@
 package org.coode.owl.rdfxml.parser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
@@ -69,7 +69,7 @@ public abstract class AbstractTypeAxiomHandler extends BuiltInTypeHandler {
             ax = handleAxiomTriples(subjectTripleObject, predicateTripleObject, objectTripleObject);
         }
         else {
-            OWLConstant con = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
+            OWLLiteral con = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
             if (con == null) {
                 throw new OWLRDFXMLParserMalformedNodeException("missing rdf:object triple.");
             }
@@ -92,7 +92,7 @@ public abstract class AbstractTypeAxiomHandler extends BuiltInTypeHandler {
 //                    getDataFactory().getOWLAxiomAnnotationAxiom(axiom, anno);
 //                }
 //                else {
-//                    OWLTypedConstant con = getDataFactory().getOWLTypedConstant(
+//                    OWLTypedLiteral con = getDataFactory().getOWLTypedConstant(
 //                            object.toString(),
 //                            getDataFactory().getOWLDataType(XSDVocabulary.ANY_URI.getURIFromValue())
 //                    );
@@ -116,5 +116,5 @@ public abstract class AbstractTypeAxiomHandler extends BuiltInTypeHandler {
 
 
     protected abstract OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject,
-                                                   OWLConstant con) throws OWLException;
+                                                   OWLLiteral con) throws OWLException;
 }

@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObject;
 
@@ -81,9 +81,9 @@ public class OptimisedListTranslator<O extends OWLObject> {
             list.add(translator.translate(firstResource));
         }
         else {
-            OWLConstant constant = getConsumer().getFirstLiteral(mainNode);
-            if (constant != null) {
-                list.add(translator.translate(constant));
+            OWLLiteral literal = getConsumer().getFirstLiteral(mainNode);
+            if (literal != null) {
+                list.add(translator.translate(literal));
             }
             else {
                 // Empty list?

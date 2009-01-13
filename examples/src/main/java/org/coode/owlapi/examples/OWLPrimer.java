@@ -3,7 +3,6 @@ package org.coode.owlapi.examples;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.vocab.XSDVocabulary;
-import org.semanticweb.owl.vocab.OWLRestrictedDataRangeFacetVocabulary;
 import static org.semanticweb.owl.vocab.OWLRestrictedDataRangeFacetVocabulary.*;
 import org.semanticweb.owl.io.StreamOutputTarget;
 import org.semanticweb.owl.io.OWLXMLOntologyFormat;
@@ -11,8 +10,6 @@ import org.coode.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.coode.owl.rdf.turtle.TurtleOntologyFormat;
 
 import java.net.URI;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 /*
@@ -145,7 +142,7 @@ public class OWLPrimer {
             // Behind the scenes the OWL API will create a typed constant that it will use as the value
             // of the data property assertion.  We could have manually created the constant as follows:
             OWLDataType intDataType = factory.getOWLDataType(XSDVocabulary.INT.getURI());
-            OWLTypedConstant thirtyThree = factory.getOWLTypedConstant("33", intDataType);
+            OWLTypedLiteral thirtyThree = factory.getOWLTypedConstant("33", intDataType);
             // We would then create the axiom as follows:
             factory.getOWLDataPropertyAssertionAxiom(john, hasAge, thirtyThree);
             // However, the convenice method is much shorter!

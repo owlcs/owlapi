@@ -487,13 +487,13 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLTypedConstant node) {
+    public void visit(OWLTypedLiteral node) {
         handleObject(node);
         node.getDataType().accept(this);
     }
 
 
-    public void visit(OWLUntypedConstant node) {
+    public void visit(OWLUntypedLiteral node) {
         handleObject(node);
     }
 

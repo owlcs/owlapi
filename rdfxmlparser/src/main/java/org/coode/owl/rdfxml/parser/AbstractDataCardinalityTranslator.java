@@ -57,7 +57,7 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
      * @return The cardinality of the restriction.
      */
     private int translateCardinality(URI mainNode) throws OWLException {
-        OWLConstant cardiObject = getLiteralObject(mainNode, getCardinalityTriplePredicate(), true);
+        OWLLiteral cardiObject = getLiteralObject(mainNode, getCardinalityTriplePredicate(), true);
         if (cardiObject == null) {
             throw new MalformedDescriptionException(getCardinalityTriplePredicate() + " not present");
         }

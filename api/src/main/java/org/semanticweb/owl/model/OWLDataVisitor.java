@@ -41,9 +41,9 @@ public interface OWLDataVisitor  {
 
     void visit(OWLDataRangeRestriction node);
 
-    void visit(OWLTypedConstant node);
+    void visit(OWLTypedLiteral node);
 
-    void visit(OWLUntypedConstant node);
+    void visit(OWLUntypedLiteral node);
 
     void visit(OWLDataRangeFacetRestriction node);
 }

@@ -33,16 +33,16 @@ import org.semanticweb.owl.model.*;
  */
 public class SWRLAtomConstantObjectImpl extends OWLObjectImpl implements SWRLAtomConstantObject {
 
-    private OWLConstant constant;
+    private OWLLiteral literal;
 
-    public SWRLAtomConstantObjectImpl(OWLDataFactory dataFactory, OWLConstant constant) {
+    public SWRLAtomConstantObjectImpl(OWLDataFactory dataFactory, OWLLiteral literal) {
         super(dataFactory);
-        this.constant = constant;
+        this.literal = literal;
     }
 
 
-    public OWLConstant getConstant() {
-        return constant;
+    public OWLLiteral getConstant() {
+        return literal;
     }
 
 
@@ -74,6 +74,6 @@ public class SWRLAtomConstantObjectImpl extends OWLObjectImpl implements SWRLAto
 
 
     protected int compareObjectOfSameType(OWLObject object) {
-        return constant.compareTo(((SWRLAtomConstantObject) object).getConstant());
+        return literal.compareTo(((SWRLAtomConstantObject) object).getConstant());
     }
 }

@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObject;
 
@@ -49,5 +49,5 @@ public interface ListItemTranslator<O extends OWLObject> {
     O translate(URI firstObject) throws OWLException;
 
 
-    O translate(OWLConstant firstObject) throws OWLException;
+    O translate(OWLLiteral firstObject) throws OWLException;
 }

@@ -1,7 +1,7 @@
 package org.coode.owl.rdfxml.parser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
@@ -51,7 +51,7 @@ public class TypeAxiomHandler extends AbstractTypeAxiomHandler {
     }
 
 
-    protected OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject, OWLConstant con) throws
+    protected OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject, OWLLiteral con) throws
                                                                                                                OWLException {
         getConsumer().handle(subjectTripleObject, predicateTripleObject, con);
         return getConsumer().getLastAddedAxiom();

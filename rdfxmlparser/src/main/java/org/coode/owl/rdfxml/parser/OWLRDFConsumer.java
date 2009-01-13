@@ -136,7 +136,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private Map<URI, URI> listFirstResourceTripleMap;
 
-    private Map<URI, OWLConstant> listFirstLiteralTripleMap;
+    private Map<URI, OWLLiteral> listFirstLiteralTripleMap;
 
     private Map<URI, OWLAxiom> reifiedAxiomsMap;
 
@@ -150,7 +150,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private OptimisedListTranslator<OWLObjectPropertyExpression> objectPropertyListTranslator;
 
-    private OptimisedListTranslator<OWLConstant> constantListTranslator;
+    private OptimisedListTranslator<OWLLiteral> constantListTranslator;
 
     private OptimisedListTranslator<OWLDataPropertyExpression> dataPropertyListTranslator;
 
@@ -249,7 +249,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                                                                                 new DescriptionListItemTranslator(this));
         individualListTranslator = new OptimisedListTranslator<OWLIndividual>(this,
                                                                               new IndividualListItemTranslator(this));
-        constantListTranslator = new OptimisedListTranslator<OWLConstant>(this,
+        constantListTranslator = new OptimisedListTranslator<OWLLiteral>(this,
                                                                           new TypedConstantListItemTranslator(this));
         objectPropertyListTranslator = new OptimisedListTranslator<OWLObjectPropertyExpression>(this,
                                                                                                 new ObjectPropertyListItemTranslator(
@@ -835,7 +835,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    protected void consumeTriple(URI subject, URI predicate, OWLConstant con) {
+    protected void consumeTriple(URI subject, URI predicate, OWLLiteral con) {
         isTriplePresent(subject, predicate, con, true);
     }
 
@@ -971,7 +971,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    public void handle(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    public void handle(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         for (AbstractLiteralTripleHandler handler : literalTripleHandlers) {
             if (handler.canHandle(subject, predicate, object)) {
                 handler.handleTriple(subject, predicate, object);
@@ -1013,9 +1013,9 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
 
             for (URI predicate : singleValuedLitTriplesByPredicate.keySet()) {
-                Map<URI, OWLConstant> map = singleValuedLitTriplesByPredicate.get(predicate);
+                Map<URI, OWLLiteral> map = singleValuedLitTriplesByPredicate.get(predicate);
                 for (URI subject : map.keySet()) {
-                    OWLConstant object = map.get(subject);
+                    OWLLiteral object = map.get(subject);
                     printTriple(subject, predicate, object, w);
                 }
             }
@@ -1030,10 +1030,10 @@ public class OWLRDFConsumer implements RDFConsumer {
                 }
             }
             for (URI subject : new ArrayList<URI>(litTriplesBySubject.keySet())) {
-                Map<URI, Set<OWLConstant>> map = litTriplesBySubject.get(subject);
+                Map<URI, Set<OWLLiteral>> map = litTriplesBySubject.get(subject);
                 for (URI predicate : new ArrayList<URI>(map.keySet())) {
-                    Set<OWLConstant> objects = map.get(predicate);
-                    for (OWLConstant object : objects) {
+                    Set<OWLLiteral> objects = map.get(predicate);
+                    for (OWLLiteral object : objects) {
                         printTriple(subject, predicate, object, w);
                     }
                 }
@@ -1165,13 +1165,13 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
             for (URI subject : new ArrayList<URI>(litTriplesBySubject.keySet())) {
-                Map<URI, Set<OWLConstant>> map = litTriplesBySubject.get(subject);
+                Map<URI, Set<OWLLiteral>> map = litTriplesBySubject.get(subject);
                 if (map == null) {
                     continue;
                 }
                 for (URI predicate : new ArrayList<URI>(map.keySet())) {
-                    Set<OWLConstant> objects = map.get(predicate);
-                    for (OWLConstant object : new ArrayList<OWLConstant>(objects)) {
+                    Set<OWLLiteral> objects = map.get(predicate);
+                    for (OWLLiteral object : new ArrayList<OWLLiteral>(objects)) {
                         handle(subject, predicate, object);
                     }
                 }
@@ -1346,7 +1346,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     private void handleStreaming(URI subject, URI predicate, String literal, String datatype, String lang) throws
                                                                                                            OWLException {
         // Convert all literals to OWLConstants
-        OWLConstant con = getOWLConstant(literal, datatype, lang);
+        OWLLiteral con = getOWLConstant(literal, datatype, lang);
         AbstractLiteralTripleHandler skosHandler = skosTripleHandlers.get(predicate);
         if(skosHandler != null) {
             skosHandler.handleTriple(subject, predicate, con);
@@ -1369,7 +1369,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      * @param lang     The lang - may be <code>null</code>
      * @return The <code>OWLConstant</code> (either typed or untyped depending on the params)
      */
-    private OWLConstant getOWLConstant(String literal, String datatype, String lang) {
+    private OWLLiteral getOWLConstant(String literal, String datatype, String lang) {
         if (datatype != null) {
             return dataFactory.getOWLTypedConstant(literal, dataFactory.getOWLDataType(getURI(datatype)));
         }
@@ -1387,11 +1387,11 @@ public class OWLRDFConsumer implements RDFConsumer {
     public OWLDataRange translateDataRange(URI uri) throws OWLException {
         URI oneOfObject = getResourceObject(uri, OWL_ONE_OF.getURI(), true);
         if (oneOfObject != null) {
-            Set<OWLConstant> constants = translateToConstantSet(oneOfObject);
-            Set<OWLTypedConstant> typedConstants = new HashSet<OWLTypedConstant>(constants.size());
-            for (OWLConstant con : constants) {
+            Set<OWLLiteral> literals = translateToConstantSet(oneOfObject);
+            Set<OWLTypedLiteral> typedConstants = new HashSet<OWLTypedLiteral>(literals.size());
+            for (OWLLiteral con : literals) {
                 if (con.isTyped()) {
-                    typedConstants.add((OWLTypedConstant) con);
+                    typedConstants.add((OWLTypedLiteral) con);
                 }
                 else {
                     typedConstants.add(getDataFactory().getOWLTypedConstant(con.getLiteral(),
@@ -1415,12 +1415,12 @@ public class OWLRDFConsumer implements RDFConsumer {
             Set<OWLDataRangeFacetRestriction> restrictions = new HashSet<OWLDataRangeFacetRestriction>();
 
             for (URI facetURI : OWLRestrictedDataRangeFacetVocabulary.FACET_URIS) {
-                OWLConstant val;
+                OWLLiteral val;
                 while ((val = getLiteralObject(uri, facetURI, true)) != null) {
                     if (val.isTyped()) {
                         restrictions.add(dataFactory.getOWLDataRangeFacetRestriction(
                                 OWLRestrictedDataRangeFacetVocabulary.getFacet(facetURI),
-                                (OWLTypedConstant) val));
+                                (OWLTypedLiteral) val));
                     }
                     else {
                         restrictions.add(dataFactory.getOWLDataRangeFacetRestriction(
@@ -1531,7 +1531,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    public Set<OWLConstant> translateToConstantSet(URI mainNode) throws OWLException {
+    public Set<OWLLiteral> translateToConstantSet(URI mainNode) throws OWLException {
         return constantListTranslator.translateToSet(mainNode);
     }
 
@@ -1575,21 +1575,21 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    public OWLConstant getLiteralObject(URI subject, URI predicate, boolean consume) {
-        Map<URI, OWLConstant> subjPredMap = singleValuedLitTriplesByPredicate.get(predicate);
+    public OWLLiteral getLiteralObject(URI subject, URI predicate, boolean consume) {
+        Map<URI, OWLLiteral> subjPredMap = singleValuedLitTriplesByPredicate.get(predicate);
         if (subjPredMap != null) {
-            OWLConstant obj = subjPredMap.get(subject);
+            OWLLiteral obj = subjPredMap.get(subject);
             if (consume) {
                 subjPredMap.remove(subject);
             }
             return obj;
         }
-        Map<URI, Set<OWLConstant>> predObjMap = litTriplesBySubject.get(subject);
+        Map<URI, Set<OWLLiteral>> predObjMap = litTriplesBySubject.get(subject);
         if (predObjMap != null) {
-            Set<OWLConstant> objects = predObjMap.get(predicate);
+            Set<OWLLiteral> objects = predObjMap.get(predicate);
             if (objects != null) {
                 if (!objects.isEmpty()) {
-                    OWLConstant object = objects.iterator().next();
+                    OWLLiteral object = objects.iterator().next();
                     if (consume) {
                         objects.remove(object);
                     }
@@ -1636,18 +1636,18 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    public boolean isTriplePresent(URI subject, URI predicate, OWLConstant object, boolean consume) {
-        Map<URI, OWLConstant> subjPredMap = singleValuedLitTriplesByPredicate.get(predicate);
+    public boolean isTriplePresent(URI subject, URI predicate, OWLLiteral object, boolean consume) {
+        Map<URI, OWLLiteral> subjPredMap = singleValuedLitTriplesByPredicate.get(predicate);
         if (subjPredMap != null) {
-            OWLConstant obj = subjPredMap.get(subject);
+            OWLLiteral obj = subjPredMap.get(subject);
             if (consume) {
                 subjPredMap.remove(subject);
             }
             return obj != null;
         }
-        Map<URI, Set<OWLConstant>> predObjMap = litTriplesBySubject.get(subject);
+        Map<URI, Set<OWLLiteral>> predObjMap = litTriplesBySubject.get(subject);
         if (predObjMap != null) {
-            Set<OWLConstant> objects = predObjMap.get(predicate);
+            Set<OWLLiteral> objects = predObjMap.get(predicate);
             if (objects != null) {
                 if (objects.contains(object)) {
                     if (consume) {
@@ -1673,7 +1673,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         if (resPredMap != null) {
             return resPredMap.containsKey(subject);
         }
-        Map<URI, OWLConstant> litPredMap = singleValuedLitTriplesByPredicate.get(predicate);
+        Map<URI, OWLLiteral> litPredMap = singleValuedLitTriplesByPredicate.get(predicate);
         if (litPredMap != null) {
             return litPredMap.containsKey(subject);
         }
@@ -1684,7 +1684,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                 return true;
             }
         }
-        Map<URI, Set<OWLConstant>> litPredObjMap = litTriplesBySubject.get(subject);
+        Map<URI, Set<OWLLiteral>> litPredObjMap = litTriplesBySubject.get(subject);
         if (litPredObjMap != null) {
             return litPredObjMap.containsKey(predicate);
         }
@@ -1749,7 +1749,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    public OWLConstant getFirstLiteral(URI subject) {
+    public OWLLiteral getFirstLiteral(URI subject) {
         return listFirstLiteralTripleMap.get(subject);
     }
 
@@ -1764,7 +1764,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    public void addFirst(URI subject, OWLConstant object) {
+    public void addFirst(URI subject, OWLLiteral object) {
         listFirstLiteralTripleMap.put(subject, object);
     }
 
@@ -1827,10 +1827,10 @@ public class OWLRDFConsumer implements RDFConsumer {
     private Map<URI, Map<URI, URI>> singleValuedResTriplesByPredicate = CollectionFactory.createMap();
 
     // Literal triples
-    private Map<URI, Map<URI, Set<OWLConstant>>> litTriplesBySubject = CollectionFactory.createMap();
+    private Map<URI, Map<URI, Set<OWLLiteral>>> litTriplesBySubject = CollectionFactory.createMap();
 
     // Predicate, subject, object
-    private Map<URI, Map<URI, OWLConstant>> singleValuedLitTriplesByPredicate = CollectionFactory.createMap();
+    private Map<URI, Map<URI, OWLLiteral>> singleValuedLitTriplesByPredicate = CollectionFactory.createMap();
 
 
     public void addTriple(URI subject, URI predicate, URI object) {
@@ -1854,18 +1854,18 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    public void addTriple(URI subject, URI predicate, OWLConstant con) {
-        Map<URI, OWLConstant> subjObjMap = singleValuedLitTriplesByPredicate.get(predicate);
+    public void addTriple(URI subject, URI predicate, OWLLiteral con) {
+        Map<URI, OWLLiteral> subjObjMap = singleValuedLitTriplesByPredicate.get(predicate);
         if (subjObjMap != null) {
             subjObjMap.put(subject, con);
         }
         else {
-            Map<URI, Set<OWLConstant>> map = litTriplesBySubject.get(subject);
+            Map<URI, Set<OWLLiteral>> map = litTriplesBySubject.get(subject);
             if (map == null) {
                 map = CollectionFactory.createMap();
                 litTriplesBySubject.put(subject, map);
             }
-            Set<OWLConstant> objects = map.get(predicate);
+            Set<OWLLiteral> objects = map.get(predicate);
             if (objects == null) {
                 objects = new FakeSet();
                 map.put(predicate, objects);

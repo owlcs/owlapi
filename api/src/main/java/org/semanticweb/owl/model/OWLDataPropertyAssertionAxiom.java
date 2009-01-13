@@ -33,6 +33,6 @@ package org.semanticweb.owl.model;
  * example  hasAge(matthew, 28) would represent a data relationship along the hasAge property
  * from the individual matthew to the value 28.
  */
-public interface OWLDataPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLConstant> {
+public interface OWLDataPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral> {
 
 }

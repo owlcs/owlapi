@@ -2,10 +2,8 @@ package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.*;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -122,8 +120,8 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
                     // Different property value but same prop, as previous candidate - look at lang tag for that URI
                     // and see if we take priority over the previous one
                     OWLObject obj = ax.getObject();
-                    if (obj instanceof OWLUntypedConstant) {
-                        OWLUntypedConstant untypedConstantVal = (OWLUntypedConstant) obj;
+                    if (obj instanceof OWLUntypedLiteral) {
+                        OWLUntypedLiteral untypedConstantVal = (OWLUntypedLiteral) obj;
                         if (untypedConstantVal.hasLang()) {
                             List<String> langList = preferredLanguageMap.get(ax.getProperty());
                             if (langList != null) {
@@ -169,8 +167,8 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     private String getRendering(OWLObject object) {
         // We return the literal value of constants or use the alternate
         // short form provider to render individuals.
-        if (object instanceof OWLConstant) {
-            return ((OWLConstant) object).getLiteral();
+        if (object instanceof OWLLiteral) {
+            return ((OWLLiteral) object).getLiteral();
         }
         else {
             return alternateShortFormProvider.getShortForm((OWLEntity) object);

@@ -1,5 +1,4 @@
 package org.semanticweb.owl.model;
-
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -30,15 +29,32 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLTypedConstant extends OWLConstant {
+public interface OWLUntypedLiteral extends OWLLiteral {
 
     /**
-     * Gets the datatype which types the literal which is represented
-     * by this constant.
-     * @return the data type which types this constant.
+     * Gets the language tag (if present)
+     * @return A <code>String</code> which represents the langauge tag,
+     * or <code>null</code> if there is no language tag
      */
-    public OWLDataType getDataType();
+    public String getLang();
 
-    public void accept(OWLDataVisitor visitor);
 
+    /**
+     * Language tags on untyped constants are optional.  This
+     * method determines if the language tag is present.
+     * @return <code>true</code> if there is a language tag, or
+     * <code>false</code> if there is not a langauge tag.
+     */
+    boolean hasLang();
+
+
+    /**
+     * Determines if this constant has a specific language tag.
+     * @param lang The specific lang to test for.
+     * @return <code>true</code> if this constant has the specified
+     * langauge tag, or <code>false</code> if this constant does not
+     * have a language tag or if this constant has a language tag that
+     * is not equal to the specified language tag.
+     */
+    boolean hasLang(String lang);
 }

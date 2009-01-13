@@ -83,7 +83,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeAnnotationURIAttribute(annotation.getAnnotationURI());
         writer.writeStartElement(CONSTANT.getURI());
         if (annotation.getAnnotationValue().isTyped()) {
-            writer.writeDatatypeAttribute(((OWLTypedConstant) annotation.getAnnotationValue()).getDataType().getURI());
+            writer.writeDatatypeAttribute(((OWLTypedLiteral) annotation.getAnnotationValue()).getDataType().getURI());
         }
         writer.writeTextContent(annotation.getAnnotationValue().getLiteral());
         writer.writeEndElement();
@@ -606,7 +606,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLTypedConstant node) {
+    public void visit(OWLTypedLiteral node) {
         writer.writeStartElement(CONSTANT.getURI());
         writer.writeDatatypeAttribute(node.getDataType().getURI());
         writer.writeTextContent(node.getLiteral());
@@ -614,7 +614,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLUntypedConstant node) {
+    public void visit(OWLUntypedLiteral node) {
         writer.writeStartElement(CONSTANT.getURI());
         // TODO: Add in lang when added to spec
 //        writer.writeDatatypeAttribute(node.getLang());

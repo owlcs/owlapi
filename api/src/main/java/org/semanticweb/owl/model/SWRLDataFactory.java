@@ -125,9 +125,9 @@ public interface SWRLDataFactory {
 
     /**
      * Gets a SWRL constant object.
-     * @param constant The constant that is the object argument
+     * @param literal The constant that is the object argument
      */
-    SWRLAtomConstantObject getSWRLAtomConstantObject(OWLConstant constant);
+    SWRLAtomConstantObject getSWRLAtomConstantObject(OWLLiteral literal);
 
     SWRLSameAsAtom getSWRLSameAsAtom(SWRLAtomIObject arg0, SWRLAtomIObject arg1);
 

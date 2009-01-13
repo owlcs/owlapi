@@ -31,45 +31,66 @@ import org.semanticweb.owl.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLTypedConstantImpl extends OWLConstantImpl implements OWLTypedConstant {
+public class OWLUntypedLiteralImpl extends OWLLiteralImpl implements OWLUntypedLiteral {
 
-    private OWLDataType dataType;
+    private String lang;
 
 
-    public OWLTypedConstantImpl(OWLDataFactory dataFactory, String literal, OWLDataType dataType) {
+    public OWLUntypedLiteralImpl(OWLDataFactory dataFactory, String literal, String lang) {
         super(dataFactory, literal);
-        this.dataType = dataType;
+        this.lang = lang;
     }
 
 
-    public OWLDataType getDataType() {
-        return dataType;
+    public String getLang() {
+        return lang;
     }
 
 
-    public OWLTypedConstant asOWLTypedConstant() {
-        return this;
+    public boolean hasLang() {
+        return lang != null;
     }
 
 
-    public OWLUntypedConstant asOWLUntypedConstant() {
-        throw new OWLRuntimeException("Not an untyped constant!");
-    }
-
-
-    public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLTypedConstant)) {
-                return false;
-            }
-            return ((OWLTypedConstant) obj).getDataType().equals(dataType);
+    public boolean hasLang(String lang) {
+        if(lang == null) {
+            return false;
         }
-        return false;
+        if(this.lang == null) {
+            return false;
+        }
+        return this.lang.equals(lang);
     }
 
 
     public boolean isTyped() {
-        return true;
+        return false;
+    }
+
+
+    public OWLTypedLiteral asOWLTypedConstant() {
+        throw new OWLRuntimeException("Not a typed constant!");
+    }
+
+
+    public OWLUntypedLiteral asOWLUntypedConstant() {
+        return this;
+    }
+
+
+    public boolean equals(Object obj) {
+        if(super.equals(obj)) {
+            if (obj instanceof OWLUntypedLiteral) {
+                String otherLang = ((OWLUntypedLiteral) obj).getLang();
+                if (otherLang != null) {
+                    return otherLang.equals(lang);
+                }
+                else {
+                    return lang == null;
+                }
+            }
+        }
+        return false;
     }
 
 
@@ -92,11 +113,21 @@ public class OWLTypedConstantImpl extends OWLConstantImpl implements OWLTypedCon
     }
 
     protected int compareObjectOfSameType(OWLObject object) {
-        OWLTypedConstant other = (OWLTypedConstant) object;
-        int diff = dataType.compareTo(other.getDataType());
-        if(diff != 0) {
-            return diff;
+        OWLUntypedLiteral other = (OWLUntypedLiteral) object;
+        int diff;
+        if(hasLang()) {
+            if (other.hasLang()) {
+                diff = getLang().compareTo(other.getLang());
+                if(diff != 0) {
+                    return diff;
+                }
+            }
+            else {
+                // Other lang takes precedence
+                return 1;
+            }
         }
+
         return getLiteral().compareTo(other.getLiteral());
     }
 }

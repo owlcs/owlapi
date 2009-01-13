@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
@@ -42,7 +42,7 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         if(getConsumer().isAnnotationProperty(predicate)) {
             return false;
         }
@@ -50,12 +50,12 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         return false;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(
                 translateIndividual(subject),
                 translateDataProperty(predicate),

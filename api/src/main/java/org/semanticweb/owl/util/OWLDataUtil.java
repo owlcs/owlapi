@@ -88,7 +88,7 @@ public class OWLDataUtil {
         return dataFactory.getOWLDataType(v.getURI());
     }
 
-    public static Set<OWLDataRangeFacetRestriction> getFacetRestrictionSet(OWLDataFactory dataFactory, OWLRestrictedDataRangeFacetVocabulary facet, OWLTypedConstant facetValue) {
+    public static Set<OWLDataRangeFacetRestriction> getFacetRestrictionSet(OWLDataFactory dataFactory, OWLRestrictedDataRangeFacetVocabulary facet, OWLTypedLiteral facetValue) {
         return Collections.singleton(dataFactory.getOWLDataRangeFacetRestriction(facet, facetValue));
     }
 
@@ -98,7 +98,7 @@ public class OWLDataUtil {
      * @return The typed constant, consisting of a string literal and datatype that
      * corresponds to the translation of the specified number.
      */
-    public static  <N extends Number> OWLTypedConstant getTypedConstant(OWLDataFactory dataFactory, N val) {
+    public static  <N extends Number> OWLTypedLiteral getTypedConstant(OWLDataFactory dataFactory, N val) {
         return dataFactory.getOWLTypedConstant(val.toString(), getDataType(dataFactory, val));
     }
 

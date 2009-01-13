@@ -127,7 +127,7 @@ public abstract class RDFRendererBase {
                 // fixed w.r.t. annotations on annotation URIs
                 for (OWLAnnotation anno : getAnnotationsForURIViaHack(annoURIAnnotations, uri)) {
                     if (anno.isAnnotationByConstant()) {
-                        OWLConstant con = anno.getAnnotationValueAsConstant();
+                        OWLLiteral con = anno.getAnnotationValueAsConstant();
                         RDFLiteralNode obj;
                         if (con.isTyped()) {
                             obj = new RDFLiteralNode(con.getLiteral(), con.asOWLTypedConstant().getDataType().getURI());

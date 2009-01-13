@@ -416,12 +416,12 @@ public class ELPlusPlusProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLTypedConstant node) {
+        public ConstructNotAllowed visit(OWLTypedLiteral node) {
             return node.getDataType().accept(this);
         }
 
 
-        public ConstructNotAllowed visit(OWLUntypedConstant node) {
+        public ConstructNotAllowed visit(OWLUntypedLiteral node) {
             return null;
         }
 

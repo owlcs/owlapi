@@ -420,12 +420,12 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = DATA_TYPE_INDEX_BASE + 5;
     }
 
-    public void visit(OWLTypedConstant node) {
+    public void visit(OWLTypedLiteral node) {
         type = DATA_TYPE_INDEX_BASE + 6;
     }
 
 
-    public void visit(OWLUntypedConstant node) {
+    public void visit(OWLUntypedLiteral node) {
         type = DATA_TYPE_INDEX_BASE + 7;
     }
 

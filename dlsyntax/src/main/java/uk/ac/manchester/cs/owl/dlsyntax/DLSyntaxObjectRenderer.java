@@ -647,7 +647,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
 
     public void visit(OWLDataOneOf node) {
-        for(Iterator<OWLConstant> it = node.getValues().iterator(); it.hasNext(); ) {
+        for(Iterator<OWLLiteral> it = node.getValues().iterator(); it.hasNext(); ) {
             write("{");
             it.next().accept(this);
             write("}");
@@ -663,12 +663,12 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
-    public void visit(OWLTypedConstant node) {
+    public void visit(OWLTypedLiteral node) {
         write(node.getLiteral());
     }
 
 
-    public void visit(OWLUntypedConstant node) {
+    public void visit(OWLUntypedLiteral node) {
         write(node.getLiteral());
     }
 

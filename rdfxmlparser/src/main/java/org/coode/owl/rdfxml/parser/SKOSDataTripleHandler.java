@@ -1,6 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLDataProperty;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLIndividual;
@@ -44,19 +44,19 @@ public class SKOSDataTripleHandler extends AbstractLiteralTripleHandler {
         this.predicate = predicate;
     }
 
-    public void handleTriple(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         OWLIndividual subj = getDataFactory().getOWLIndividual(subject);
         OWLDataProperty prop = getDataFactory().getOWLDataProperty(predicate);
         addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(subj, prop, object));
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         return predicate.equals(this.predicate);
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, OWLConstant object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         return predicate.equals(this.predicate);
     }
 }

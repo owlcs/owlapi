@@ -65,7 +65,7 @@ public class Example7 {
             // get hold of the int datatype and then restrict it with a minInclusive facet restriction.
             OWLDataType intDataType = factory.getOWLDataType(XSDVocabulary.INT.getURI());
             // Create the value "18", which is an int.
-            OWLTypedConstant eighteenConstant = factory.getOWLTypedConstant(18);
+            OWLTypedLiteral eighteenConstant = factory.getOWLTypedConstant(18);
             // Now create our custom datarange, which is int greater than or equal to 18.  To do this,
             // we need the minInclusive facet
             OWLRestrictedDataRangeFacetVocabulary facet = OWLRestrictedDataRangeFacetVocabulary.MIN_INCLUSIVE;
