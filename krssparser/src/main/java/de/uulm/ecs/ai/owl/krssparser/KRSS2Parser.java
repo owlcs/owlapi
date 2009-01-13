@@ -590,7 +590,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectAllRestriction(prop, filler);
+            if (true) return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
         }
         throw new Error("Missing return statement in function");
     }

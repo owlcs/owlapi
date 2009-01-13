@@ -688,7 +688,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataAllRestriction desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
         writeRestriction(DATA_ALL_VALUES_FROM, desc);
     }
 
@@ -708,7 +708,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataSomeRestriction desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
         writeRestriction(DATA_SOME_VALUES_FROM, desc);
     }
 
@@ -718,7 +718,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectAllRestriction desc) {
+    public void visit(OWLObjectAllValuesFrom desc) {
         writeRestriction(OBJECT_ALL_VALUES_FROM, desc);
     }
 

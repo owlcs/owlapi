@@ -451,7 +451,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    public final void visit(OWLObjectAllRestriction desc) {
+    public final void visit(OWLObjectAllValuesFrom desc) {
         writeOpenBracket();
         write(ALL);
         write(desc.getProperty());
@@ -502,7 +502,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLObjectOneOf desc) {
     }
 
-    public final void visit(OWLDataSomeRestriction desc) {
+    public final void visit(OWLDataSomeValuesFrom desc) {
         writeOpenBracket();
         write(SOME);
         write(desc.getProperty());
@@ -510,7 +510,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    public final void visit(OWLDataAllRestriction desc) {
+    public final void visit(OWLDataAllValuesFrom desc) {
         writeOpenBracket();
         write(ALL);
         write(desc.getProperty());

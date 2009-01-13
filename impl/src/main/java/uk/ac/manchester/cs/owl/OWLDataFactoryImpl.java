@@ -281,8 +281,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDataAllRestriction getOWLDataAllRestriction(OWLDataPropertyExpression property, OWLDataRange dataRange) {
-        return new OWLDataAllRestrictionImpl(this, property, dataRange);
+    public OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange) {
+        return new OWLDataAllValuesFromImpl(this, property, dataRange);
     }
 
 
@@ -325,9 +325,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDataSomeRestriction getOWLDataSomeRestriction(OWLDataPropertyExpression property,
-                                                            OWLDataRange dataRange) {
-        return new OWLDataSomeRestrictionImpl(this, property, dataRange);
+    public OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property,
+                                                          OWLDataRange dataRange) {
+        return new OWLDataSomeValuesFromImpl(this, property, dataRange);
     }
 
 
@@ -341,9 +341,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLObjectAllRestriction getOWLObjectAllRestriction(OWLObjectPropertyExpression property,
-                                                              OWLClassExpression classExpression) {
-        return new OWLObjectAllRestrictionImpl(this, property, classExpression);
+    public OWLObjectAllValuesFrom getOWLObjectAllValuesFrom(OWLObjectPropertyExpression property,
+                                                            OWLClassExpression classExpression) {
+        return new OWLObjectAllValuesFromImpl(this, property, classExpression);
     }
 
 

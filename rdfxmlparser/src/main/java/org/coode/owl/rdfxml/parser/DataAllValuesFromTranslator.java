@@ -1,8 +1,8 @@
 package org.coode.owl.rdfxml.parser;
 
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLDataPropertyExpression;
 import org.semanticweb.owl.model.OWLDataRange;
-import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
@@ -45,9 +45,9 @@ public class DataAllValuesFromTranslator extends AbstractDataQuantifiedRestricti
 
 
     protected OWLClassExpression createRestriction(OWLDataPropertyExpression prop, OWLDataRange filler) throws
-                                                                                                    OWLException {
+            OWLException {
 
-        return getDataFactory().getOWLDataAllRestriction(prop, filler);
+        return getDataFactory().getOWLDataAllValuesFrom(prop, filler);
     }
 
 

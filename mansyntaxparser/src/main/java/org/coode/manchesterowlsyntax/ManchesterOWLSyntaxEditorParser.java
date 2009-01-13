@@ -602,7 +602,7 @@ public class ManchesterOWLSyntaxEditorParser {
             }
         } else if (kw.equalsIgnoreCase(ONLY)) {
             OWLClassExpression filler = parseNestedClassExpression(false);
-            return dataFactory.getOWLObjectAllRestriction(prop, filler);
+            return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
         } else if (kw.equalsIgnoreCase(VALUE)) {
             String indName = consumeToken();
             if (!isIndividualName(indName)) {
@@ -651,7 +651,7 @@ public class ManchesterOWLSyntaxEditorParser {
             } else {
                 filler = dataFactory.getOWLObjectUnionOf(descs);
             }
-            ops.add(dataFactory.getOWLObjectAllRestriction(prop, filler));
+            ops.add(dataFactory.getOWLObjectAllValuesFrom(prop, filler));
             return dataFactory.getOWLObjectIntersectionOf(ops);
         } else {
             // Error!
@@ -666,10 +666,10 @@ public class ManchesterOWLSyntaxEditorParser {
         String kw = consumeToken();
         if (kw.equalsIgnoreCase(SOME)) {
             OWLDataRange rng = parseDataRange(false);
-            return dataFactory.getOWLDataSomeRestriction(prop, rng);
+            return dataFactory.getOWLDataSomeValuesFrom(prop, rng);
         } else if (kw.equalsIgnoreCase(ONLY)) {
             OWLDataRange rng = parseDataRange(false);
-            return dataFactory.getOWLDataAllRestriction(prop, rng);
+            return dataFactory.getOWLDataAllValuesFrom(prop, rng);
         } else if (kw.equalsIgnoreCase(VALUE)) {
             OWLLiteral con = parseConstant();
             return dataFactory.getOWLDataValueRestriction(prop, con);

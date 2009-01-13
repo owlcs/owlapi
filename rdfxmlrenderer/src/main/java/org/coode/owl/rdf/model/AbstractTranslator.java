@@ -410,7 +410,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLDataAllRestriction desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
         translateDataRestrictionStart(desc);
         addTriple(desc, OWL_ALL_VALUES_FROM.getURI(), desc.getFiller());
     }
@@ -431,7 +431,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLDataSomeRestriction desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
         translateDataRestrictionStart(desc);
         addTriple(desc, OWL_SOME_VALUES_FROM.getURI(), desc.getFiller());
     }
@@ -479,7 +479,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLObjectAllRestriction desc) {
+    public void visit(OWLObjectAllValuesFrom desc) {
         translateObjectRestrictionStart(desc);
         addTriple(desc, OWL_ALL_VALUES_FROM.getURI(), desc.getFiller());
     }

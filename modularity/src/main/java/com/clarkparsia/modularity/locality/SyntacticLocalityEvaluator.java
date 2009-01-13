@@ -676,7 +676,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         // BUGFIX: (TS) Even in the TOP_TOP case, this is not bottom-equiv:
         //              "forall top.D" is not necessarily empty   
-        public void visit(OWLDataAllRestriction desc) {
+        public void visit(OWLDataAllValuesFrom desc) {
 //            switch (localityCls) {
 //                case BOTTOM_BOTTOM:
 //                case TOP_BOTTOM:
@@ -728,7 +728,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLDataSomeRestriction desc) {
+        public void visit(OWLDataSomeValuesFrom desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -755,7 +755,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX (TS): TOP_TOP case was missing the first conjunct
-        public void visit(OWLObjectAllRestriction desc) {
+        public void visit(OWLObjectAllValuesFrom desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -952,7 +952,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLDataAllRestriction desc) {
+        public void visit(OWLDataAllValuesFrom desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -1004,7 +1004,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX: (TS) A data some restriction is never top-equivalent
-        public void visit(OWLDataSomeRestriction desc) {
+        public void visit(OWLDataSomeValuesFrom desc) {
             isTopEquivalent = false;
         }
 
@@ -1015,7 +1015,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLObjectAllRestriction desc) {
+        public void visit(OWLObjectAllValuesFrom desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:

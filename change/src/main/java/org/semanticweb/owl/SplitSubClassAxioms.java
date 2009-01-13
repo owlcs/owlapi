@@ -94,7 +94,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         }
 
 
-        public void visit(OWLDataAllRestriction desc) {
+        public void visit(OWLDataAllValuesFrom desc) {
             result.add(desc);
         }
 
@@ -114,7 +114,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         }
 
 
-        public void visit(OWLDataSomeRestriction desc) {
+        public void visit(OWLDataSomeValuesFrom desc) {
             result.add(desc);
         }
 
@@ -124,7 +124,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         }
 
 
-        public void visit(OWLObjectAllRestriction desc) {
+        public void visit(OWLObjectAllValuesFrom desc) {
             result.add(desc);
         }
 

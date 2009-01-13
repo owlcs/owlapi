@@ -35,7 +35,7 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 24-May-2007<br><br>
- *
+ * <p/>
  * This example shows how to work with dataranges.  OWL 1.1 allows
  * data ranges to be created by taking a base datatype e.g. int, string etc.
  * and then by applying facets to restrict the datarange. For example,
@@ -71,10 +71,10 @@ public class Example7 {
             OWLRestrictedDataRangeFacetVocabulary facet = OWLRestrictedDataRangeFacetVocabulary.MIN_INCLUSIVE;
             // Create the restricted data range by applying the facet restriction with a value of 18 to int
             OWLDataRange intGreaterThan18 = factory.getOWLDataRangeRestriction(intDatatype,
-                                                                               facet,
-                                                                               eighteenConstant);
+                    facet,
+                    eighteenConstant);
             // Now we can use this in our datatype restriction on hasAge
-            OWLClassExpression thingsWithAgeGreaterOrEqualTo18 = factory.getOWLDataSomeRestriction(hasAge, intGreaterThan18);
+            OWLClassExpression thingsWithAgeGreaterOrEqualTo18 = factory.getOWLDataSomeValuesFrom(hasAge, intGreaterThan18);
             // Now we want to say all adults have an age that is greater or equal to 18 - i.e. Adult is a subclass of
             // hasAge some int[>= 18]
             // Obtain a reference to the Adult class

@@ -321,7 +321,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectAllRestriction desc) {
+    public void visit(OWLObjectAllValuesFrom desc) {
         type = DESCRIPTION_TYPE_INDEX_BASE + 6;
     }
 
@@ -351,12 +351,12 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataSomeRestriction desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
         type = DESCRIPTION_TYPE_INDEX_BASE + 12;
     }
 
 
-    public void visit(OWLDataAllRestriction desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
         type = DESCRIPTION_TYPE_INDEX_BASE + 13;
     }
 

@@ -1,7 +1,4 @@
-package org.coode.owl.owlxmlparser;
-
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.vocab.OWLXMLVocabulary;
+package org.semanticweb.owl.model;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -29,19 +26,9 @@ import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br><br>
+ * Bio-Health Informatics Group
+ * Date: 24-Oct-2006
  */
-public class OWLObjectAllValuesFromElementHandler extends AbstractDescriptionFillerRestriction {
+public interface OWLDataSomeValuesFrom extends OWLQuantifiedRestriction<OWLDataPropertyExpression, OWLDataRange> {
 
-    public static final String ELEMENT_NAME = OWLXMLVocabulary.OBJECT_SOME_VALUES_FROM.toString();
-
-    public OWLObjectAllValuesFromElementHandler(OWLXMLParserHandler handler) {
-        super(handler);
-    }
-
-
-    protected OWLClassExpression createRestriction() {
-        return getOWLDataFactory().getOWLObjectAllValuesFrom(getProperty(), getFiller());
-    }
 }

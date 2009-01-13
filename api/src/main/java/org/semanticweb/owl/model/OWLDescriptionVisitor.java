@@ -41,7 +41,7 @@ public interface OWLDescriptionVisitor {
 
     void visit(OWLObjectSomeValuesFrom desc);
 
-    void visit(OWLObjectAllRestriction desc);
+    void visit(OWLObjectAllValuesFrom desc);
 
     void visit(OWLObjectValueRestriction desc);
 
@@ -55,9 +55,9 @@ public interface OWLDescriptionVisitor {
 
     void visit(OWLObjectOneOf desc);
 
-    void visit(OWLDataSomeRestriction desc);
+    void visit(OWLDataSomeValuesFrom desc);
 
-    void visit(OWLDataAllRestriction desc);
+    void visit(OWLDataAllValuesFrom desc);
 
     void visit(OWLDataValueRestriction desc);
 

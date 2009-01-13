@@ -364,7 +364,7 @@ public class DIGRenderer implements OWLObjectVisitor {
         popCurrentNode();
     }
 
-    public void visit(OWLObjectAllRestriction node) {
+    public void visit(OWLObjectAllValuesFrom node) {
         createAndPushNode(Vocab.ALL);
         node.getProperty().accept(this);
         node.getFiller().accept(this);
@@ -491,11 +491,11 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataSomeRestriction desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
     }
 
 
-    public void visit(OWLDataAllRestriction desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
     }
 
 

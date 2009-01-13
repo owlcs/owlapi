@@ -1,4 +1,6 @@
-package org.semanticweb.owl.model;
+package uk.ac.manchester.cs.owl;
+
+import org.semanticweb.owl.model.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -26,9 +28,37 @@ package org.semanticweb.owl.model;
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
+ * Bio-Health Informatics Group<br>
+ * Date: 26-Oct-2006<br><br>
  */
-public interface OWLObjectAllRestriction extends OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLClassExpression> {
+public class OWLDataAllValuesFromImpl extends OWLQuantifiedRestrictionImpl<OWLDataPropertyExpression, OWLDataRange> implements OWLDataAllValuesFrom {
 
+    public OWLDataAllValuesFromImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLDataRange filler) {
+        super(dataFactory, property, filler);
+    }
+
+
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            return obj instanceof OWLDataAllValuesFrom;
+        }
+        return false;
+    }
+
+    public void accept(OWLDescriptionVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLDescriptionVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

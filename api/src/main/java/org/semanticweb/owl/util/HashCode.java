@@ -295,7 +295,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLDataAllRestriction desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
         hashCode = 163;
         hashCode = hashCode * MULT + desc.getProperty().hashCode();
         hashCode = hashCode * MULT + desc.getFiller().hashCode();
@@ -326,7 +326,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLDataSomeRestriction desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
         hashCode = 181;
         hashCode = hashCode * MULT + desc.getProperty().hashCode();
         hashCode = hashCode * MULT + desc.getFiller().hashCode();
@@ -340,7 +340,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectAllRestriction desc) {
+    public void visit(OWLObjectAllValuesFrom desc) {
         hashCode = 193;
         hashCode = hashCode * MULT + desc.getProperty().hashCode();
         hashCode = hashCode * MULT + desc.getFiller().hashCode();

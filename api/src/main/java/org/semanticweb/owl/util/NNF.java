@@ -113,19 +113,19 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
     public OWLClassExpression visit(OWLObjectSomeValuesFrom desc) {
         OWLClassExpression filler = desc.getFiller().accept(this);
         if (negated) {
-            return dataFactory.getOWLObjectAllRestriction(desc.getProperty(), filler);
+            return dataFactory.getOWLObjectAllValuesFrom(desc.getProperty(), filler);
         } else {
             return dataFactory.getOWLObjectSomeValuesFrom(desc.getProperty(), filler);
         }
     }
 
 
-    public OWLClassExpression visit(OWLObjectAllRestriction desc) {
+    public OWLClassExpression visit(OWLObjectAllValuesFrom desc) {
         OWLClassExpression filler = desc.getFiller().accept(this);
         if (negated) {
             return dataFactory.getOWLObjectSomeValuesFrom(desc.getProperty(), filler);
         } else {
-            return dataFactory.getOWLObjectAllRestriction(desc.getProperty(), filler);
+            return dataFactory.getOWLObjectAllValuesFrom(desc.getProperty(), filler);
         }
     }
 
@@ -203,22 +203,22 @@ public class NNF implements OWLDescriptionVisitorEx<OWLClassExpression>, OWLData
     }
 
 
-    public OWLClassExpression visit(OWLDataSomeRestriction desc) {
+    public OWLClassExpression visit(OWLDataSomeValuesFrom desc) {
         OWLDataRange filler = desc.getFiller().accept(this);
         if (negated) {
-            return dataFactory.getOWLDataAllRestriction(desc.getProperty(), filler);
+            return dataFactory.getOWLDataAllValuesFrom(desc.getProperty(), filler);
         } else {
-            return dataFactory.getOWLDataSomeRestriction(desc.getProperty(), filler);
+            return dataFactory.getOWLDataSomeValuesFrom(desc.getProperty(), filler);
         }
     }
 
 
-    public OWLClassExpression visit(OWLDataAllRestriction desc) {
+    public OWLClassExpression visit(OWLDataAllValuesFrom desc) {
         OWLDataRange filler = desc.getFiller().accept(this);
         if (negated) {
-            return dataFactory.getOWLDataSomeRestriction(desc.getProperty(), filler);
+            return dataFactory.getOWLDataSomeValuesFrom(desc.getProperty(), filler);
         } else {
-            return dataFactory.getOWLDataAllRestriction(desc.getProperty(), filler);
+            return dataFactory.getOWLDataAllValuesFrom(desc.getProperty(), filler);
         }
     }
 

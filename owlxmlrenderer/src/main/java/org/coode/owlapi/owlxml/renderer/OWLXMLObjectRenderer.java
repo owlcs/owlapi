@@ -416,7 +416,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataAllRestriction desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
         writer.writeStartElement(DATA_ALL_VALUES_FROM.getURI());
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
@@ -457,7 +457,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataSomeRestriction desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
         writer.writeStartElement(DATA_SOME_VALUES_FROM.getURI());
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
@@ -473,7 +473,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectAllRestriction desc) {
+    public void visit(OWLObjectAllValuesFrom desc) {
         writer.writeStartElement(OBJECT_ALL_VALUES_FROM.getURI());
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);

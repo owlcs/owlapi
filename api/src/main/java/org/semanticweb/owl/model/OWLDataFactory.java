@@ -367,7 +367,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLObjectIntersectionOf getOWLObjectIntersectionOf(OWLClassExpression... operands);
 
 
-    OWLDataAllRestriction getOWLDataAllRestriction(OWLDataPropertyExpression property, OWLDataRange dataRange);
+    OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange);
 
 
     OWLDataExactCardinalityRestriction getOWLDataExactCardinalityRestriction(OWLDataPropertyExpression property,
@@ -394,7 +394,14 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                                                          int cardinality, OWLDataRange dataRange);
 
 
-    OWLDataSomeRestriction getOWLDataSomeRestriction(OWLDataPropertyExpression property, OWLDataRange dataRange);
+    /**
+     * Gets an OWLDataSomeValuesFrom restriction
+     *
+     * @param property  The property that the restriction acts along
+     * @param dataRange The data range that is the filler
+     * @return An OWLDataSomeValuesFrom restriction that acts along the specified property and has the specified filler
+     */
+    OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange);
 
 
     OWLDataValueRestriction getOWLDataValueRestriction(OWLDataPropertyExpression property, OWLLiteral value);
@@ -403,8 +410,8 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLObjectComplementOf getOWLObjectComplementOf(OWLClassExpression operand);
 
 
-    OWLObjectAllRestriction getOWLObjectAllRestriction(OWLObjectPropertyExpression property,
-                                                       OWLClassExpression classExpression);
+    OWLObjectAllValuesFrom getOWLObjectAllValuesFrom(OWLObjectPropertyExpression property,
+                                                     OWLClassExpression classExpression);
 
 
     OWLObjectOneOf getOWLObjectOneOf(Set<OWLIndividual> values);

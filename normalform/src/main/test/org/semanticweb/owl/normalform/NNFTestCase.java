@@ -101,13 +101,13 @@ public class NNFTestCase extends TestCase {
     public void testObjectSome() {
         OWLClassExpression desc = df.getOWLObjectSomeValuesFrom(propP, clsA);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = df.getOWLObjectAllRestriction(propP, df.getOWLObjectComplementOf(clsA));
+        OWLClassExpression nnf = df.getOWLObjectAllValuesFrom(propP, df.getOWLObjectComplementOf(clsA));
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }
 
     public void testObjectAll() {
-        OWLClassExpression desc = df.getOWLObjectAllRestriction(propP, clsA);
+        OWLClassExpression desc = df.getOWLObjectAllValuesFrom(propP, clsA);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
         OWLClassExpression nnf = df.getOWLObjectSomeValuesFrom(propP, df.getOWLObjectComplementOf(clsA));
         OWLClassExpression comp = getNNF(neg);
@@ -117,7 +117,7 @@ public class NNFTestCase extends TestCase {
     public void testObjectHasValue() {
         OWLClassExpression desc = df.getOWLObjectValueRestriction(propP, indA);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = df.getOWLObjectAllRestriction(propP, df.getOWLObjectComplementOf(df.getOWLObjectOneOf(indA)));
+        OWLClassExpression nnf = df.getOWLObjectAllValuesFrom(propP, df.getOWLObjectComplementOf(df.getOWLObjectOneOf(indA)));
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }
@@ -144,7 +144,7 @@ public class NNFTestCase extends TestCase {
         OWLClassExpression opB = clsB;
         OWLClassExpression desc = df.getOWLObjectUnionOf(opA, opB);
         OWLClassExpression nnf = df.getOWLObjectIntersectionOf(df.getOWLObjectComplementOf(clsB),
-                df.getOWLObjectAllRestriction(propP,
+                df.getOWLObjectAllValuesFrom(propP,
                         df.getOWLObjectIntersectionOf(df.getOWLObjectComplementOf(clsA),
                                 df.getOWLObjectComplementOf(clsB))));
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);

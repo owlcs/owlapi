@@ -144,7 +144,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectAllRestriction desc) {
+    public void visit(OWLObjectAllValuesFrom desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
@@ -191,13 +191,13 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataSomeRestriction desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
     }
 
 
-    public void visit(OWLDataAllRestriction desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
     }

@@ -592,7 +592,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    public void visit(OWLDataAllRestriction desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
         writeRestriction(operator("only"), desc);
     }
 
@@ -608,7 +608,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         writeRestriction("atleast", desc);
     }
 
-    public void visit(OWLDataSomeRestriction desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
         writeRestriction(operator("some"), desc);
     }
 
@@ -616,7 +616,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         writeRestriction("has-value", desc.getProperty(), desc.getValue());
     }
 
-    public void visit(OWLObjectAllRestriction desc) {
+    public void visit(OWLObjectAllValuesFrom desc) {
         writeRestriction(operator("only"), desc);
     }
 

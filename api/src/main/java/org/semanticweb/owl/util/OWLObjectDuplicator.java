@@ -410,12 +410,12 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
 
-    public void visit(OWLDataAllRestriction desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
         desc.getProperty().accept(this);
         OWLDataPropertyExpression prop = (OWLDataPropertyExpression) obj;
         desc.getFiller().accept(this);
         OWLDataRange filler = (OWLDataRange) obj;
-        obj = dataFactory.getOWLDataAllRestriction(prop, filler);
+        obj = dataFactory.getOWLDataAllValuesFrom(prop, filler);
     }
 
 
@@ -446,12 +446,12 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
 
-    public void visit(OWLDataSomeRestriction desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
         desc.getProperty().accept(this);
         OWLDataPropertyExpression prop = (OWLDataPropertyExpression) obj;
         desc.getFiller().accept(this);
         OWLDataRange filler = (OWLDataRange) obj;
-        obj = dataFactory.getOWLDataSomeRestriction(prop, filler);
+        obj = dataFactory.getOWLDataSomeValuesFrom(prop, filler);
     }
 
 
@@ -464,12 +464,12 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
 
-    public void visit(OWLObjectAllRestriction desc) {
+    public void visit(OWLObjectAllValuesFrom desc) {
         desc.getProperty().accept(this);
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
         desc.getFiller().accept(this);
         OWLClassExpression filler = (OWLClassExpression) obj;
-        obj = dataFactory.getOWLObjectAllRestriction(prop, filler);
+        obj = dataFactory.getOWLObjectAllValuesFrom(prop, filler);
     }
 
 

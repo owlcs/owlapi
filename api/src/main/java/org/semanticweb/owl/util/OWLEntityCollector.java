@@ -358,7 +358,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectAllRestriction desc) {
+    public void visit(OWLObjectAllValuesFrom desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }
@@ -400,13 +400,13 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLDataSomeRestriction desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }
 
 
-    public void visit(OWLDataAllRestriction desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }

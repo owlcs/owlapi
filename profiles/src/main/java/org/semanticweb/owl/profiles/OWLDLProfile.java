@@ -368,7 +368,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDataAllRestriction desc) {
+        public ConstructNotAllowed visit(OWLDataAllValuesFrom desc) {
             ConstructNotAllowed na = desc.getFiller().accept(this);
             if (na != null) {
                 return new DescriptionNotAllowed(na, desc);
@@ -405,7 +405,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDataSomeRestriction desc) {
+        public ConstructNotAllowed visit(OWLDataSomeValuesFrom desc) {
             ConstructNotAllowed na = desc.getFiller().accept(this);
             if (na != null) {
                 return new DescriptionNotAllowed(na, desc);
@@ -425,7 +425,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLObjectAllRestriction desc) {
+        public ConstructNotAllowed visit(OWLObjectAllValuesFrom desc) {
             ConstructNotAllowed na = desc.getFiller().accept(this);
             if (na != null) {
                 return new DescriptionNotAllowed(na, desc);

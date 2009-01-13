@@ -373,7 +373,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(desc);
 //        }
 //
-//        public Object visit(OWLDataAllRestriction desc) {
+//        public Object visit(OWLDataAllValuesFrom desc) {
 //            return super.visit(desc);
 //        }
 //
@@ -389,7 +389,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(desc);
 //        }
 //
-//        public Object visit(OWLDataSomeRestriction desc) {
+//        public Object visit(OWLDataSomeValuesFrom desc) {
 //            return super.visit(desc);
 //        }
 //
@@ -397,7 +397,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(desc);
 //        }
 //
-//        public Object visit(OWLObjectAllRestriction desc) {
+//        public Object visit(OWLObjectAllValuesFrom desc) {
 //            return super.visit(desc);
 //        }
 //
@@ -841,7 +841,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLDataAllRestriction desc) {
+//        public Set<ConstructNotAllowed> visit(OWLDataAllValuesFrom desc) {
 //            Set<ConstructNotAllowed> na = desc.getFiller().accept(this);
 //            if (!na.isEmpty()) {
 //                return getSet(new DescriptionNotAllowed(na, desc));
@@ -866,7 +866,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLDataSomeRestriction desc) {
+//        public Set<ConstructNotAllowed> visit(OWLDataSomeValuesFrom desc) {
 //            Set<ConstructNotAllowed> na = desc.getFiller().accept(this);
 //            if (!na.isEmpty()) {
 //                return getSet(new DescriptionNotAllowed(na, desc));
@@ -886,7 +886,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLObjectAllRestriction desc) {
+//        public Set<ConstructNotAllowed> visit(OWLObjectAllValuesFrom desc) {
 //            Set<ConstructNotAllowed> na = desc.getFiller().accept(this);
 //            if (!na.isEmpty()) {
 //                return getSet(new DescriptionNotAllowed(na, desc));

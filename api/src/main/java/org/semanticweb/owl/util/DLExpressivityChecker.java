@@ -327,7 +327,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectAllRestriction desc) {
+    public void visit(OWLObjectAllValuesFrom desc) {
         if (isTop(desc.getFiller())) {
             constructs.add(AL);
         } else {
@@ -384,14 +384,14 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataSomeRestriction desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
         constructs.add(E);
         desc.getFiller().accept(this);
         desc.getProperty().accept(this);
     }
 
 
-    public void visit(OWLDataAllRestriction desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
         desc.getFiller().accept(this);
         desc.getProperty().accept(this);
     }

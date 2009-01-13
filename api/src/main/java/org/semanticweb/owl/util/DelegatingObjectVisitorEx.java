@@ -239,7 +239,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLDataAllRestriction desc) {
+    public O visit(OWLDataAllValuesFrom desc) {
         return delegate.visit(desc);
     }
 
@@ -259,7 +259,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLDataSomeRestriction desc) {
+    public O visit(OWLDataSomeValuesFrom desc) {
         return delegate.visit(desc);
     }
 
@@ -269,7 +269,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLObjectAllRestriction desc) {
+    public O visit(OWLObjectAllValuesFrom desc) {
         return delegate.visit(desc);
     }
 

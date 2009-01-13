@@ -267,9 +267,9 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             jj_consume_token(SUBCLASSOF);
             rhs = parseClassDescription();
             if (lhs.isOWLThing()) {
-                if (rhs instanceof OWLObjectAllRestriction) {
+                if (rhs instanceof OWLObjectAllValuesFrom) {
                     // Interpret as Range
-                    OWLObjectAllRestriction restriction = (OWLObjectAllRestriction) rhs;
+                    OWLObjectAllValuesFrom restriction = (OWLObjectAllValuesFrom) rhs;
                     {
                         if (true)
                             return factory.getOWLObjectPropertyRangeAxiom(restriction.getProperty(), restriction.getFiller());
@@ -553,7 +553,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
         filler = parseDataOneOf();
         {
-            if (true) return factory.getOWLDataSomeRestriction(prop, filler);
+            if (true) return factory.getOWLDataSomeValuesFrom(prop, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -570,7 +570,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
         filler = NamedClassOrNestedDescription();
         {
-            if (true) return factory.getOWLObjectAllRestriction(prop, filler);
+            if (true) return factory.getOWLObjectAllValuesFrom(prop, filler);
         }
         throw new Error("Missing return statement in function");
     }

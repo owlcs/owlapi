@@ -121,13 +121,13 @@ public class SatisfiabilityConverter {
 
 
         public void visit(OWLDataPropertyDomainAxiom axiom) {
-            OWLClassExpression sub = factory.getOWLDataSomeRestriction(axiom.getProperty(), factory.getTopDataType());
+            OWLClassExpression sub = factory.getOWLDataSomeValuesFrom(axiom.getProperty(), factory.getTopDataType());
             result = and(sub, not(axiom.getDomain()));
         }
 
 
         public void visit(OWLDataPropertyRangeAxiom axiom) {
-            result = factory.getOWLDataSomeRestriction(axiom.getProperty(),
+            result = factory.getOWLDataSomeValuesFrom(axiom.getProperty(),
                     factory.getOWLDataComplementOf(axiom.getRange()));
         }
 

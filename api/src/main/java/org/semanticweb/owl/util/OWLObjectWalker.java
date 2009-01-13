@@ -353,7 +353,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(OWLDataAllRestriction desc) {
+        public void visit(OWLDataAllValuesFrom desc) {
             process(desc);
             desc.getProperty().accept(this);
             desc.getFiller().accept(this);
@@ -381,7 +381,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(OWLDataSomeRestriction desc) {
+        public void visit(OWLDataSomeValuesFrom desc) {
             process(desc);
             desc.getProperty().accept(this);
             desc.getFiller().accept(this);
@@ -395,7 +395,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(OWLObjectAllRestriction desc) {
+        public void visit(OWLObjectAllValuesFrom desc) {
             process(desc);
             desc.getProperty().accept(this);
             desc.getFiller().accept(this);

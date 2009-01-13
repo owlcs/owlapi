@@ -29,6 +29,6 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLDataSomeRestriction extends OWLQuantifiedRestriction<OWLDataPropertyExpression, OWLDataRange> {
+public interface OWLObjectAllValuesFrom extends OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLClassExpression> {
 
 }

@@ -469,7 +469,7 @@ public class ELPlusPlusProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLObjectAllRestriction desc) {
+        public ConstructNotAllowed visit(OWLObjectAllValuesFrom desc) {
             return new DescriptionNotAllowed(desc);
         }
 
@@ -515,7 +515,7 @@ public class ELPlusPlusProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDataSomeRestriction desc) {
+        public ConstructNotAllowed visit(OWLDataSomeValuesFrom desc) {
             ConstructNotAllowed cause = desc.getProperty().accept(this);
             if (cause != null) {
                 return new DescriptionNotAllowed(cause, desc);
@@ -528,7 +528,7 @@ public class ELPlusPlusProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDataAllRestriction desc) {
+        public ConstructNotAllowed visit(OWLDataAllValuesFrom desc) {
             return new DescriptionNotAllowed(desc);
         }
 

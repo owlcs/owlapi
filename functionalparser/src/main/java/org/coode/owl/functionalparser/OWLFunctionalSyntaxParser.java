@@ -225,6 +225,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
+
     final public OWLClassExpression Description() throws ParseException {
         OWLClassExpression desc;
         if (jj_2_8(2)) {
@@ -383,7 +384,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         filler = Description();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectAllRestriction(prop, filler);
+            if (true) return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -515,7 +516,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         dataRange = DataRange();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLDataAllRestriction(prop, dataRange);
+            if (true) return dataFactory.getOWLDataAllValuesFrom(prop, dataRange);
         }
         throw new Error("Missing return statement in function");
     }
@@ -529,7 +530,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         dataRange = DataRange();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLDataSomeRestriction(prop, dataRange);
+            if (true) return dataFactory.getOWLDataSomeValuesFrom(prop, dataRange);
         }
         throw new Error("Missing return statement in function");
     }
@@ -886,6 +887,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     final public OWLAxiom Axiom() throws ParseException {
         OWLAxiom ax = null;
         if (jj_2_52(2)) {
@@ -918,6 +920,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     final public OWLClassAxiom ClassAxiom() throws ParseException {
         OWLClassAxiom ax;
         if (jj_2_59(2)) {
@@ -1000,6 +1003,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     final public OWLPropertyAxiom ObjectPropertyAxiom() throws ParseException {
         OWLPropertyAxiom ax;
         if (jj_2_63(2)) {
@@ -1287,6 +1291,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     final public OWLPropertyAxiom DataPropertyAxiom() throws ParseException {
         OWLPropertyAxiom ax;
         if (jj_2_80(2)) {
@@ -1424,6 +1429,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     final public OWLIndividualAxiom IndividualAxiom() throws ParseException {
         OWLIndividualAxiom ax;
         if (jj_2_87(2)) {
@@ -1606,6 +1612,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     final public OWLAnnotation Annotation() throws ParseException {
         URI uri;
         OWLLiteral con;
@@ -1737,6 +1744,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     final public OWLLiteral Constant() throws ParseException {
         OWLLiteral con;
         if (jj_2_103(2)) {

@@ -180,7 +180,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         }
 
 
-        public void visit(OWLDataAllRestriction desc) {
+        public void visit(OWLDataAllValuesFrom desc) {
             typeIndex = DATA_ALL;
         }
 
@@ -200,7 +200,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         }
 
 
-        public void visit(OWLDataSomeRestriction desc) {
+        public void visit(OWLDataSomeValuesFrom desc) {
             typeIndex = DATA_SOME;
         }
 
@@ -210,7 +210,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         }
 
 
-        public void visit(OWLObjectAllRestriction desc) {
+        public void visit(OWLObjectAllValuesFrom desc) {
             typeIndex = OBJECT_ALL;
         }
 
@@ -521,7 +521,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         }
 
 
-        public void visit(OWLDataAllRestriction desc) {
+        public void visit(OWLDataAllValuesFrom desc) {
             lastValue = OWL_DATA_RESTRICTION;
             setFineGrainedComparator(dataQuantifiedRestrictionComparator);
         }
@@ -545,7 +545,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         }
 
 
-        public void visit(OWLDataSomeRestriction desc) {
+        public void visit(OWLDataSomeValuesFrom desc) {
             lastValue = OWL_DATA_RESTRICTION;
             setFineGrainedComparator(dataQuantifiedRestrictionComparator);
         }
@@ -557,7 +557,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         }
 
 
-        public void visit(OWLObjectAllRestriction desc) {
+        public void visit(OWLObjectAllValuesFrom desc) {
             lastValue = OWL_OBJECT_RESTRICTION;
             setFineGrainedComparator(objectQuantifiedRestrictionComparator);
         }
@@ -684,7 +684,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         }
 
 
-        public void visit(OWLDataAllRestriction desc) {
+        public void visit(OWLDataAllValuesFrom desc) {
         }
 
 
@@ -700,7 +700,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         }
 
 
-        public void visit(OWLDataSomeRestriction desc) {
+        public void visit(OWLDataSomeValuesFrom desc) {
         }
 
 
@@ -708,7 +708,7 @@ public class OWLDescriptionComparator implements Comparator<OWLClassExpression> 
         }
 
 
-        public void visit(OWLObjectAllRestriction desc) {
+        public void visit(OWLObjectAllValuesFrom desc) {
         }
 
 

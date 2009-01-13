@@ -150,7 +150,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataAllRestriction node) {
+    public void visit(OWLDataAllValuesFrom node) {
 
     }
 
@@ -180,7 +180,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataSomeRestriction node) {
+    public void visit(OWLDataSomeValuesFrom node) {
         write(SOME);
         writeSpace();
         node.getProperty().accept(this);
@@ -193,7 +193,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectAllRestriction node) {
+    public void visit(OWLObjectAllValuesFrom node) {
         write(ALL);
         writeSpace();
         node.getProperty().accept(this);
@@ -624,7 +624,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        df.getOWLObjectAllRestriction(axiom.getProperty(), axiom.getRange()).accept(this);
+        df.getOWLObjectAllValuesFrom(axiom.getProperty(), axiom.getRange()).accept(this);
     }
 
 

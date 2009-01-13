@@ -44,7 +44,7 @@ public class LatexBracketChecker implements OWLDescriptionVisitor {
         requiresBracket = true;
     }
 
-    public void visit(OWLDataAllRestriction node) {
+    public void visit(OWLDataAllValuesFrom node) {
         requiresBracket = true;
     }
 
@@ -52,7 +52,7 @@ public class LatexBracketChecker implements OWLDescriptionVisitor {
         requiresBracket = true;
     }
 
-    public void visit(OWLDataSomeRestriction node) {
+    public void visit(OWLDataSomeValuesFrom node) {
         requiresBracket = true;
     }
 
@@ -60,7 +60,7 @@ public class LatexBracketChecker implements OWLDescriptionVisitor {
         requiresBracket = true;
     }
 
-    public void visit(OWLObjectAllRestriction node) {
+    public void visit(OWLObjectAllValuesFrom node) {
         requiresBracket = true;
     }
 

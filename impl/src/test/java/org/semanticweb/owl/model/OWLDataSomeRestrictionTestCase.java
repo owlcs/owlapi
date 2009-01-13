@@ -33,7 +33,7 @@ public class OWLDataSomeRestrictionTestCase extends AbstractOWLRestrictionWithFi
 
 
     protected OWLRestriction createRestriction(OWLDataProperty prop, OWLDataRange filler) throws Exception {
-        return getOWLDataFactory().getOWLDataSomeRestriction(prop, filler);
+        return getOWLDataFactory().getOWLDataSomeValuesFrom(prop, filler);
     }
 
 

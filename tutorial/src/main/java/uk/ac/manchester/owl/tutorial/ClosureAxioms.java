@@ -1,16 +1,7 @@
 package uk.ac.manchester.owl.tutorial;
 
-import org.semanticweb.owl.model.AddAxiom;
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLClassAxiom;
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLObjectPropertyExpression;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.model.OWLSubClassAxiom;
+import org.semanticweb.owl.model.*;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -44,7 +35,7 @@ import java.util.Set;
  * each of these, if the superclass is a conjunction of existential
  * restrictions, then an additional subclass axiom will be added to the
  * ontology, "closing" the restrictions.</p>
- * 
+ * <p/>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
@@ -102,7 +93,7 @@ public class ClosureAxioms {
             OWLClassExpression union = factory.getOWLObjectUnionOf(fillers);
 
             /* Create a universal restriction */
-            OWLClassExpression universal = factory.getOWLObjectAllRestriction(prop,
+            OWLClassExpression universal = factory.getOWLObjectAllValuesFrom(prop,
                     union);
 
             /* Create a new axiom */

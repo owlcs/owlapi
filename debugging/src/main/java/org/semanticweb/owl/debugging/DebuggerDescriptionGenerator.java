@@ -79,7 +79,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
 
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-        OWLClassExpression sub = dataFactory.getOWLDataSomeRestriction(axiom.getProperty(), dataFactory.getTopDataType());
+        OWLClassExpression sub = dataFactory.getOWLDataSomeValuesFrom(axiom.getProperty(), dataFactory.getTopDataType());
         OWLAxiom ax = dataFactory.getOWLSubClassAxiom(sub, axiom.getDomain());
         ax.accept(this);
     }
@@ -125,7 +125,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         // Thing subclassOf prop only Range
-        OWLClassExpression sup = dataFactory.getOWLObjectAllRestriction(axiom.getProperty(), axiom.getRange());
+        OWLClassExpression sup = dataFactory.getOWLObjectAllValuesFrom(axiom.getProperty(), axiom.getRange());
         OWLSubClassAxiom ax = dataFactory.getOWLSubClassAxiom(dataFactory.getOWLThing(), sup);
         ax.accept(this);
     }

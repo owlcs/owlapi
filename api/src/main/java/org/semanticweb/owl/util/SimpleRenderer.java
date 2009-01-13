@@ -442,7 +442,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLObjectAllRestriction desc) {
+    public void visit(OWLObjectAllValuesFrom desc) {
         sb.append("ObjectAllValuesFrom(");
         desc.getProperty().accept(this);
         insertSpace();
@@ -507,7 +507,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLDataSomeRestriction desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
         sb.append("DataSomeValuesFrom(");
         desc.getProperty().accept(this);
         insertSpace();
@@ -516,7 +516,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLDataAllRestriction desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
         sb.append("DataAllValuesFrom(");
         desc.getProperty().accept(this);
         insertSpace();

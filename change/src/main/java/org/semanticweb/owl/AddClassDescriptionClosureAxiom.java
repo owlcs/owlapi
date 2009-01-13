@@ -99,7 +99,7 @@ public class AddClassDescriptionClosureAxiom extends AbstractCompositeOntologyCh
             return;
         }
         OWLClassExpression closureAxiomFiller = getDataFactory().getOWLObjectUnionOf(fillers);
-        OWLClassExpression closureAxiomDesc = getDataFactory().getOWLObjectAllRestriction(property, closureAxiomFiller);
+        OWLClassExpression closureAxiomDesc = getDataFactory().getOWLObjectAllValuesFrom(property, closureAxiomFiller);
         changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassAxiom(cls, closureAxiomDesc)));
     }
 

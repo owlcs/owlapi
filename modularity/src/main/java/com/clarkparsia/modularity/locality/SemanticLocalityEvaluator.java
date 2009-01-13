@@ -193,7 +193,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLDataAllRestriction desc) {
+        public void visit(OWLDataAllValuesFrom desc) {
             if (signature.contains(desc.getProperty().asOWLDataProperty()))
                 newClassExpression = desc;
             else
@@ -225,7 +225,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLDataSomeRestriction desc) {
+        public void visit(OWLDataSomeValuesFrom desc) {
             if (signature.contains(desc.getProperty().asOWLDataProperty()))
                 newClassExpression = desc;
             else
@@ -250,9 +250,9 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLObjectAllRestriction desc) {
+        public void visit(OWLObjectAllValuesFrom desc) {
             if (signature.contains(desc.getProperty().getNamedProperty()))
-                newClassExpression = df.getOWLObjectAllRestriction(desc.getProperty(), replaceBottom(desc.getFiller()));
+                newClassExpression = df.getOWLObjectAllValuesFrom(desc.getProperty(), replaceBottom(desc.getFiller()));
             else
                 newClassExpression = df.getOWLThing();
         }

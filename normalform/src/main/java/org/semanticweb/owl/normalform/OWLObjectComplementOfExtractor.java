@@ -61,7 +61,7 @@ public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
     }
 
 
-    public void visit(OWLDataAllRestriction desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
     }
 
 
@@ -77,7 +77,7 @@ public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
     }
 
 
-    public void visit(OWLDataSomeRestriction desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
     }
 
 
@@ -85,7 +85,7 @@ public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
     }
 
 
-    public void visit(OWLObjectAllRestriction desc) {
+    public void visit(OWLObjectAllValuesFrom desc) {
         desc.getFiller().accept(this);
     }
 
