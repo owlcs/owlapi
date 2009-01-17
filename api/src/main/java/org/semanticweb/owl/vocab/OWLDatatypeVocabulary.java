@@ -96,15 +96,14 @@ public enum OWLDatatypeVocabulary {
 
     OWL_DATE_TIME(Namespaces.OWL, "dateTime", Category.TIME, false),
 
-    RDF_TEXT(Namespaces.RDF, "text", Category.STRING_WITH_LANGUAGE_TAG, false)
-    ;
+    RDF_TEXT(Namespaces.RDF, "text", Category.STRING_WITH_LANGUAGE_TAG, false);
 
     private static final Set<URI> ALL_URIS;
 
 
     static {
         Set<URI> uris = new HashSet<URI>();
-        for(OWLDatatypeVocabulary v : OWLDatatypeVocabulary.values()) {
+        for (OWLDatatypeVocabulary v : OWLDatatypeVocabulary.values()) {
             uris.add(v.getURI());
         }
         ALL_URIS = Collections.unmodifiableSet(new TreeSet<URI>(uris));
@@ -113,6 +112,7 @@ public enum OWLDatatypeVocabulary {
 
     /**
      * Gets all of the built in datatype URIs
+     *
      * @return A set of URIs corresponding to the built in datatype URIs
      */
     public static Set<URI> getDatatypeURIs() {
@@ -122,9 +122,10 @@ public enum OWLDatatypeVocabulary {
 
     /**
      * Determines if the specified URI identifies a built in datatype.
+     *
      * @param datatypeURI The datatype URI
      * @return <code>true</code> if the URI identifies a built in datatype, or
-     * <code>false</code> if the URI does not identify a built in datatype.
+     *         <code>false</code> if the URI does not identify a built in datatype.
      */
     public static boolean isBuiltIn(URI datatypeURI) {
         return ALL_URIS.contains(datatypeURI);
@@ -134,16 +135,17 @@ public enum OWLDatatypeVocabulary {
     /**
      * Given a URI that identifies an OWLDatatype, this method obtains the
      * corresponding OWLDatatypeVocabulary
+     *
      * @param datatype The datatype URI
      * @return The OWLDatatypeVocabulary
      * @throws OWLRuntimeException if the specified URI is not a built in datatype URI
      */
     public static OWLDatatypeVocabulary getDatatype(URI datatype) {
-        if(!isBuiltIn(datatype)) {
+        if (!isBuiltIn(datatype)) {
             throw new OWLRuntimeException(datatype + " is not a built in datatype!");
         }
-        for(OWLDatatypeVocabulary v : values()) {
-            if(v.getURI().equals(datatype)) {
+        for (OWLDatatypeVocabulary v : values()) {
+            if (v.getURI().equals(datatype)) {
                 return v;
             }
         }
@@ -175,6 +177,7 @@ public enum OWLDatatypeVocabulary {
 
     /**
      * Gets the short human readable name for this datatype
+     *
      * @return The short human readable name
      */
     public String getShortName() {
@@ -184,6 +187,7 @@ public enum OWLDatatypeVocabulary {
 
     /**
      * Gets the URI of this datatype
+     *
      * @return The URI that identifies the datatype
      */
     public URI getURI() {
@@ -193,6 +197,7 @@ public enum OWLDatatypeVocabulary {
 
     /**
      * Gets the category for this datatype
+     *
      * @return The category
      */
     public Category getCategory() {
@@ -202,8 +207,9 @@ public enum OWLDatatypeVocabulary {
 
     /**
      * Determines whether or not this datatype is finite.
+     *
      * @return <code>true</code> if this datatype is finite, or
-     * <code>false</code> if this datatype is infinite.
+     *         <code>false</code> if this datatype is infinite.
      */
     public boolean isFinite() {
         return finite;
@@ -213,9 +219,10 @@ public enum OWLDatatypeVocabulary {
     /**
      * Gets the facets that are allowed for facet restrictions of this
      * datatype
+     *
      * @return The allowed facets
      */
-    public Collection<OWLRestrictedDataRangeFacetVocabulary> getFacets() {
+    public Collection<OWLFacet> getFacets() {
         return category.getFacets();
     }
 
@@ -223,54 +230,54 @@ public enum OWLDatatypeVocabulary {
     public enum Category {
 
         NUMBER("Number",
-               OWLRestrictedDataRangeFacetVocabulary.MAX_INCLUSIVE,
-               OWLRestrictedDataRangeFacetVocabulary.MAX_INCLUSIVE,
-               OWLRestrictedDataRangeFacetVocabulary.MIN_EXCLUSIVE,
-               OWLRestrictedDataRangeFacetVocabulary.MAX_EXCLUSIVE),
+                OWLFacet.MAX_INCLUSIVE,
+                OWLFacet.MAX_INCLUSIVE,
+                OWLFacet.MIN_EXCLUSIVE,
+                OWLFacet.MAX_EXCLUSIVE),
 
         STRING_WITH_LANGUAGE_TAG("String with a language tag",
-                                 OWLRestrictedDataRangeFacetVocabulary.MIN_LENGTH,
-                                 OWLRestrictedDataRangeFacetVocabulary.MAX_LENGTH,
-                                 OWLRestrictedDataRangeFacetVocabulary.LENGTH,
-                                 OWLRestrictedDataRangeFacetVocabulary.PATTERN,
-                                 OWLRestrictedDataRangeFacetVocabulary.LANG_PATTERN),
+                OWLFacet.MIN_LENGTH,
+                OWLFacet.MAX_LENGTH,
+                OWLFacet.LENGTH,
+                OWLFacet.PATTERN,
+                OWLFacet.LANG_PATTERN),
 
         STRING_WITHOUT_LANGUAGE_TAG("String without a language tag",
-                                    OWLRestrictedDataRangeFacetVocabulary.MIN_LENGTH,
-                                    OWLRestrictedDataRangeFacetVocabulary.MAX_LENGTH,
-                                    OWLRestrictedDataRangeFacetVocabulary.LENGTH,
-                                    OWLRestrictedDataRangeFacetVocabulary.PATTERN),
+                OWLFacet.MIN_LENGTH,
+                OWLFacet.MAX_LENGTH,
+                OWLFacet.LENGTH,
+                OWLFacet.PATTERN),
 
         BOOLEAN("Boolean value"),
 
         BINARY("Binary data",
-               OWLRestrictedDataRangeFacetVocabulary.MIN_LENGTH,
-               OWLRestrictedDataRangeFacetVocabulary.MAX_LENGTH,
-               OWLRestrictedDataRangeFacetVocabulary.LENGTH),
+                OWLFacet.MIN_LENGTH,
+                OWLFacet.MAX_LENGTH,
+                OWLFacet.LENGTH),
 
         URI("URI",
-            OWLRestrictedDataRangeFacetVocabulary.MIN_LENGTH,
-            OWLRestrictedDataRangeFacetVocabulary.MAX_LENGTH,
-            OWLRestrictedDataRangeFacetVocabulary.PATTERN),
+                OWLFacet.MIN_LENGTH,
+                OWLFacet.MAX_LENGTH,
+                OWLFacet.PATTERN),
 
         TIME("Time instant",
-             OWLRestrictedDataRangeFacetVocabulary.MIN_INCLUSIVE,
-             OWLRestrictedDataRangeFacetVocabulary.MAX_INCLUSIVE,
-             OWLRestrictedDataRangeFacetVocabulary.MIN_EXCLUSIVE,
-             OWLRestrictedDataRangeFacetVocabulary.MAX_EXCLUSIVE);
+                OWLFacet.MIN_INCLUSIVE,
+                OWLFacet.MAX_INCLUSIVE,
+                OWLFacet.MIN_EXCLUSIVE,
+                OWLFacet.MAX_EXCLUSIVE);
 
         private String name;
 
-        private List<OWLRestrictedDataRangeFacetVocabulary> facets;
+        private List<OWLFacet> facets;
 
 
-        Category(String name, OWLRestrictedDataRangeFacetVocabulary ... facets) {
+        Category(String name, OWLFacet... facets) {
             this.name = name;
-            List<OWLRestrictedDataRangeFacetVocabulary> f = new ArrayList<OWLRestrictedDataRangeFacetVocabulary>(facets.length);
-            for(OWLRestrictedDataRangeFacetVocabulary facet : facets) {
+            List<OWLFacet> f = new ArrayList<OWLFacet>(facets.length);
+            for (OWLFacet facet : facets) {
                 f.add(facet);
             }
-            this.facets = Collections.unmodifiableList(new ArrayList<OWLRestrictedDataRangeFacetVocabulary>(f));
+            this.facets = Collections.unmodifiableList(new ArrayList<OWLFacet>(f));
         }
 
 
@@ -279,7 +286,7 @@ public enum OWLDatatypeVocabulary {
         }
 
 
-        public List<OWLRestrictedDataRangeFacetVocabulary> getFacets() {
+        public List<OWLFacet> getFacets() {
             return facets;
         }
     }

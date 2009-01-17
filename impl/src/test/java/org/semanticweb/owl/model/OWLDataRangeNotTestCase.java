@@ -32,35 +32,34 @@ package org.semanticweb.owl.model;
 public class OWLDataRangeNotTestCase extends AbstractOWLDataFactoryTest {
 
 
-
     public void testCreation() throws Exception {
-        OWLDatatype dt = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLDataComplementOf rng = getOWLDataFactory().getOWLDataComplementOf(dt);
+        OWLDatatype dt = getOWLDataFactory().getDatatype(createURI());
+        OWLDataComplementOf rng = getOWLDataFactory().getDataComplementOf(dt);
         assertNotNull(rng);
     }
 
 
     public void testEqualsPositive() throws Exception {
-        OWLDatatype dt = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLDataComplementOf rngA = getOWLDataFactory().getOWLDataComplementOf(dt);
-        OWLDataComplementOf rngB = getOWLDataFactory().getOWLDataComplementOf(dt);
+        OWLDatatype dt = getOWLDataFactory().getDatatype(createURI());
+        OWLDataComplementOf rngA = getOWLDataFactory().getDataComplementOf(dt);
+        OWLDataComplementOf rngB = getOWLDataFactory().getDataComplementOf(dt);
         assertEquals(rngA, rngB);
     }
 
 
     public void testEqualsNegative() throws Exception {
-        OWLDatatype dtA = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLDataComplementOf rngA = getOWLDataFactory().getOWLDataComplementOf(dtA);
-        OWLDatatype dtB = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLDataComplementOf rngB = getOWLDataFactory().getOWLDataComplementOf(dtB);
+        OWLDatatype dtA = getOWLDataFactory().getDatatype(createURI());
+        OWLDataComplementOf rngA = getOWLDataFactory().getDataComplementOf(dtA);
+        OWLDatatype dtB = getOWLDataFactory().getDatatype(createURI());
+        OWLDataComplementOf rngB = getOWLDataFactory().getDataComplementOf(dtB);
         assertNotEquals(rngA, rngB);
     }
 
 
     public void testHashCode() throws Exception {
-        OWLDatatype dt = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLDataComplementOf rngA = getOWLDataFactory().getOWLDataComplementOf(dt);
-        OWLDataComplementOf rngB = getOWLDataFactory().getOWLDataComplementOf(dt);
+        OWLDatatype dt = getOWLDataFactory().getDatatype(createURI());
+        OWLDataComplementOf rngA = getOWLDataFactory().getDataComplementOf(dt);
+        OWLDataComplementOf rngB = getOWLDataFactory().getDataComplementOf(dt);
         assertEquals(rngA.hashCode(), rngB.hashCode());
     }
 }

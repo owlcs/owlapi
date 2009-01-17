@@ -57,11 +57,12 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
      * Creates an empty ontology that a concrete representation can be
      * parsed into.  Subclasses can override this method to change the implementation
      * of the ontology.
+     *
      * @param ontologyURI
      */
     public OWLOntology createOWLOntology(URI ontologyURI, URI physicalURI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
-        OWLOntology ont = new OWLOntologyImpl(dataFactory, ontologyURI);
+        OWLOntology ont = new OWLOntologyImpl(dataFactory, dataFactory.getIRI(ontologyURI));
         handler.ontologyCreated(ont);
         return ont;
-    }   
+    }
 }

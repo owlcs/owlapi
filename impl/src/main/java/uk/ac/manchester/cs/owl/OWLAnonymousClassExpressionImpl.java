@@ -64,7 +64,7 @@ public abstract class OWLAnonymousClassExpressionImpl extends OWLObjectImpl impl
 
     public OWLClassExpression getComplementNNF() {
         NNF nnf = new NNF(getOWLDataFactory());
-        return getOWLDataFactory().getOWLObjectComplementOf(this).accept(nnf);
+        return getOWLDataFactory().getObjectComplementOf(this).accept(nnf);
     }
 
 

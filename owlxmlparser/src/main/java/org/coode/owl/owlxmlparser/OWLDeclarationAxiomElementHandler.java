@@ -49,7 +49,7 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
     public void startElement(String name) throws OWLXMLParserException {
         super.startElement(name);
         entity = null;
-        if(entityAnnotations != null) {
+        if (entityAnnotations != null) {
             entityAnnotations.clear();
         }
     }
@@ -79,16 +79,15 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLDeclarationAxiom(entity);
+        return getOWLDataFactory().getDeclaration(entity);
     }
 
 
     public void handleChild(OWLAnnotationElementHandler handler) {
         if (entity == null) {
             super.handleChild(handler);
-        }
-        else {
-            if(entityAnnotations == null) {
+        } else {
+            if (entityAnnotations == null) {
                 entityAnnotations = new HashSet<OWLAnnotation>();
             }
             entityAnnotations.add(handler.getOWLObject());
@@ -96,10 +95,9 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
     }
 
     public Set<OWLAnnotation> getEntityAnnotations() {
-        if(entityAnnotations == null) {
+        if (entityAnnotations == null) {
             return Collections.emptySet();
-        }
-        else {
+        } else {
             return entityAnnotations;
         }
     }

@@ -30,18 +30,27 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- *
+ * <p/>
  * Represents a named object for example, class, property,
- * ontology etc. - i.e. anything that has a URI as its name.
+ * ontology etc. - i.e. anything that has an IRI as its name.
  */
 public interface OWLNamedObject extends OWLObject {
 
     /**
-     * Gets the name of this object.
+     * Gets the IRI of this object
+     *
+     * @return The IRI of this object
+     */
+    public IRI getIRI();
+
+    /**
+     * A convenience method that gets the URI of this object directly
+     *
      * @return A <code>URI</code> that represents the name
-     * of the object
+     *         of the object
      */
     public URI getURI();
+
 
     void accept(OWLNamedObjectVisitor visitor);
 }

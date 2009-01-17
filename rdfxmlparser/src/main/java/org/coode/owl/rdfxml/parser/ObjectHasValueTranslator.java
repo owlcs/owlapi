@@ -1,9 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLIndividual;
-import org.semanticweb.owl.model.OWLObjectPropertyExpression;
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -52,7 +49,9 @@ public class ObjectHasValueTranslator extends AbstractObjectRestrictionTranslato
         }
         OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
         OWLIndividual ind = getConsumer().getOWLIndividual(hasValueObject);
-        getConsumer().addIndividual(ind.getURI());
-        return getDataFactory().getOWLObjectValueRestriction(prop, ind);
+        if (!ind.isAnonymous()) {
+            getConsumer().addIndividual(((OWLNamedIndividual) ind).getURI());
+        }
+        return getDataFactory().getObjectHasValue(prop, ind);
     }
 }

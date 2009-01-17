@@ -2,7 +2,6 @@ package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLDataPropertyExpression;
-import org.semanticweb.owl.model.OWLException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -46,9 +45,9 @@ public class OWLFunctionalDataPropertyAxiomElementHandler extends AbstractOWLPro
 
 
     protected OWLAxiom createPropertyCharacteristicAxiom() throws OWLXMLParserException {
-        if(getProperty() == null) {
+        if (getProperty() == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected data property element");
         }
-        return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(getProperty());
+        return getOWLDataFactory().getFunctionalDataProperty(getProperty());
     }
 }

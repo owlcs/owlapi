@@ -1,11 +1,8 @@
 package org.coode.owl.rdf;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owl.model.OWLRuntimeException;
 
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -41,27 +38,28 @@ public class TestURIsWithNumericFragments extends AbstractRendererAndParserTestC
 
 
     protected Set<OWLAxiom> getAxioms() {
-        OWLOntology ont = null;
-        try {
-            URL url = TestURIsWithNumericFragments.class.getResource("/numericfragments.rdf");
-            ont = getManager().loadOntologyFromPhysicalURI(url.toURI());
-            List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
-            for(OWLOntologyAnnotationAxiom ax : ont.getOntologyAnnotationAxioms()) {
-                changes.add(new RemoveAxiom(ont, ax));
-            }
-            getManager().applyChanges(changes);
-            getManager().removeOntology(ont.getURI());
-        }
-        catch(OWLOntologyChangeException e) {
-            throw new RuntimeException(e);
-        }
-        catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        catch (OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
-        }
-        return ont.getAxioms();
+        throw new OWLRuntimeException("TODO:");
+//        OWLOntology ont = null;
+//        try {
+//            URL url = TestURIsWithNumericFragments.class.getResource("/numericfragments.rdf");
+//            ont = getManager().loadOntologyFromPhysicalURI(url.toURI());
+//            List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+//            for(OWLOntologyAnnotationAxiom ax : ont.getOntologyAnnotationAxioms()) {
+//                changes.add(new RemoveAxiom(ont, ax));
+//            }
+//            getManager().applyChanges(changes);
+//            getManager().removeOntology(ont.getURI());
+//        }
+//        catch(OWLOntologyChangeException e) {
+//            throw new RuntimeException(e);
+//        }
+//        catch (URISyntaxException e) {
+//            throw new RuntimeException(e);
+//        }
+//        catch (OWLOntologyCreationException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return ont.getAxioms();
     }
 
 

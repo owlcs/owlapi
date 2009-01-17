@@ -44,7 +44,7 @@ public abstract class OWLRestrictionImpl<P extends OWLPropertyExpression> extend
     }
 
 
-    public boolean isLiteral() {
+    public boolean isClassExpressionLiteral() {
         return false;
     }
 

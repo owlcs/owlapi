@@ -35,8 +35,6 @@ import java.util.Set;
  */
 public enum OWLRDFVocabulary {
 
-
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // OWL Vocab
@@ -248,8 +246,9 @@ public enum OWLRDFVocabulary {
 
     OWL_TOP_DATA_PROPERTY(Namespaces.OWL, "topDataProperty"),
 
-    OWL_BOTTOM_DATA_PROPERTY(Namespaces.OWL, "bottomDataProperty");
+    OWL_BOTTOM_DATA_PROPERTY(Namespaces.OWL, "bottomDataProperty"),
 
+    OWL_HAS_KEY(Namespaces.OWL, "hasKey");
 
 
     URI uri;
@@ -284,7 +283,7 @@ public enum OWLRDFVocabulary {
 
     static {
         BUILT_IN_VOCABULARY = new HashSet<URI>();
-        for(OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
+        for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
             BUILT_IN_VOCABULARY.add(v.getURI());
         }
     }

@@ -52,7 +52,7 @@ public class TPInverseOfHandler extends TriplePredicateHandler {
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        addAxiom(getDataFactory().getOWLInverseObjectPropertiesAxiom(
+        addAxiom(getDataFactory().getInverseObjectProperties(
                 translateObjectProperty(subject),
                 translateObjectProperty(object)
         ));

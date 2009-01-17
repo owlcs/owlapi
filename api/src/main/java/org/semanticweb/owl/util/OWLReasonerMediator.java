@@ -101,6 +101,7 @@ public class OWLReasonerMediator implements OWLReasoner {
      * individual is undefined, or the class description which is the type references
      * an undefined entity.  The exception to this is the <code>isSatisfiable</code>
      * asks request which will return the value set by <code>setUndefinedClassesSatisfiable</code>.
+     *
      * @return <code>true</code> if silent undefined entity handling is enabled, otherwise
      *         <code>false</code>.  If undefined entity handling is not enabled then asks
      *         requests that reference undefined entities will most likely throw
@@ -113,6 +114,7 @@ public class OWLReasonerMediator implements OWLReasoner {
 
     /**
      * Sets the undefined entity handling behaviour.
+     *
      * @param silentUndefinedEntityHandling <code>true</code> if undefined entities
      *                                      should be handled silently, otherwise <code>false</code>.
      */
@@ -125,6 +127,7 @@ public class OWLReasonerMediator implements OWLReasoner {
      * If an <code>isSatisfiable</code> ask is performed on an undefined class
      * then the return value of this method will be equal to the return value
      * of the asks request.
+     *
      * @return <code>true</code> if undefined classes should be regarded as being
      *         satisfiable, <code>false</code> if undefined classes should be regarded as
      *         being unsatisfiable.
@@ -144,29 +147,26 @@ public class OWLReasonerMediator implements OWLReasoner {
         if (classExpression.isAnonymous()) {
             collector.reset();
             classExpression.accept(collector);
-            for(OWLEntity entity : collector.getObjects()) {
-                if(entity instanceof OWLClass) {
-                    if(!isDefined((OWLClass) entity)) {
+            for (OWLEntity entity : collector.getObjects()) {
+                if (entity instanceof OWLClass) {
+                    if (!isDefined((OWLClass) entity)) {
                         processUndefinedEntity(entity);
                         return false;
                     }
-                }
-                else if(entity instanceof OWLObjectProperty) {
-                    if(!isDefined((OWLObjectProperty) entity)) {
-                        processUndefinedEntity(entity);
-                        return false;
-                    }
-
-                }
-                else if(entity instanceof OWLDataProperty) {
-                    if(!isDefined((OWLDataProperty) entity)) {
+                } else if (entity instanceof OWLObjectProperty) {
+                    if (!isDefined((OWLObjectProperty) entity)) {
                         processUndefinedEntity(entity);
                         return false;
                     }
 
-                }
-                else if(entity instanceof OWLIndividual) {
-                    if(!isDefined((OWLIndividual) entity)) {
+                } else if (entity instanceof OWLDataProperty) {
+                    if (!isDefined((OWLDataProperty) entity)) {
+                        processUndefinedEntity(entity);
+                        return false;
+                    }
+
+                } else if (entity instanceof OWLIndividual) {
+                    if (!isDefined((OWLIndividual) entity)) {
                         processUndefinedEntity(entity);
                         return false;
                     }
@@ -174,12 +174,10 @@ public class OWLReasonerMediator implements OWLReasoner {
                 }
             }
             return true;
-        }
-        else {
+        } else {
             if (isDefined(classExpression.asOWLClass())) {
                 return true;
-            }
-            else {
+            } else {
                 processUndefinedEntity(classExpression.asOWLClass());
                 return false;
             }
@@ -190,12 +188,10 @@ public class OWLReasonerMediator implements OWLReasoner {
     public boolean checkDefined(OWLObjectPropertyExpression prop) throws OWLReasonerException {
         if (prop.isAnonymous()) {
             return true;
-        }
-        else {
+        } else {
             if (isDefined(prop.asOWLObjectProperty())) {
                 return true;
-            }
-            else {
+            } else {
                 processUndefinedEntity(prop.asOWLObjectProperty());
                 return false;
             }
@@ -206,8 +202,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     public boolean checkDefined(OWLDataPropertyExpression prop) throws OWLReasonerException {
         if (isDefined((OWLDataProperty) prop)) {
             return true;
-        }
-        else {
+        } else {
             processUndefinedEntity((OWLDataProperty) prop);
             return false;
         }
@@ -215,11 +210,13 @@ public class OWLReasonerMediator implements OWLReasoner {
 
 
     public boolean checkDefined(OWLIndividual individual) throws OWLReasonerException {
-        if (isDefined(individual)) {
+        if (individual.isAnonymous()) {
             return true;
         }
-        else {
-            processUndefinedEntity(individual);
+        if (isDefined(individual)) {
+            return true;
+        } else {
+            processUndefinedEntity((OWLNamedIndividual) individual);
             return false;
         }
     }
@@ -397,7 +394,7 @@ public class OWLReasonerMediator implements OWLReasoner {
 
 
     public Map<OWLObjectProperty, Set<OWLIndividual>> getObjectPropertyRelationships(OWLIndividual individual) throws
-                                                                                                               OWLReasonerException {
+            OWLReasonerException {
         if (!checkDefined(individual)) {
             return Collections.emptyMap();
         }
@@ -406,7 +403,7 @@ public class OWLReasonerMediator implements OWLReasoner {
 
 
     public Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLIndividual individual) throws
-                                                                                                              OWLReasonerException {
+            OWLReasonerException {
         if (!checkDefined(individual)) {
             return Collections.emptyMap();
         }
@@ -453,7 +450,7 @@ public class OWLReasonerMediator implements OWLReasoner {
 
 
     public Set<OWLIndividual> getRelatedIndividuals(OWLIndividual subject, OWLObjectPropertyExpression property) throws
-                                                                                                                 OWLReasonerException {
+            OWLReasonerException {
         if (!checkDefined(subject)) {
             return Collections.emptySet();
         }
@@ -465,7 +462,7 @@ public class OWLReasonerMediator implements OWLReasoner {
 
 
     public Set<OWLLiteral> getRelatedValues(OWLIndividual subject, OWLDataPropertyExpression property) throws
-                                                                                                        OWLReasonerException {
+            OWLReasonerException {
         if (!checkDefined(subject)) {
             return Collections.emptySet();
         }

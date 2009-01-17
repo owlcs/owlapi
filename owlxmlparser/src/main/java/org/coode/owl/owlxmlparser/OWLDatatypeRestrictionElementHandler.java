@@ -1,13 +1,11 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLDataRange;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLDataRangeFacetRestriction;
+import org.semanticweb.owl.model.OWLDatatype;
+import org.semanticweb.owl.model.OWLFacetRestriction;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -40,23 +38,26 @@ import java.util.HashSet;
  */
 public class OWLDatatypeRestrictionElementHandler extends AbstractOWLDataRangeHandler {
 
-    private OWLDataRange restrictedDataRange;
+    private OWLDatatype restrictedDataRange;
 
-    private Set<OWLDataRangeFacetRestriction> facetRestrictions;
+    private Set<OWLFacetRestriction> facetRestrictions;
 
     public OWLDatatypeRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
-        facetRestrictions = new HashSet<OWLDataRangeFacetRestriction>();
+        facetRestrictions = new HashSet<OWLFacetRestriction>();
     }
 
 
     protected void endDataRangeElement() {
-        setDataRange(getOWLDataFactory().getOWLDataRangeRestriction(restrictedDataRange, facetRestrictions));
+        setDataRange(getOWLDataFactory().getDatatypeRestriction(restrictedDataRange, facetRestrictions));
     }
 
 
     public void handleChild(AbstractOWLDataRangeHandler handler) {
-        restrictedDataRange = handler.getOWLObject();
+        OWLDataRange dr = handler.getOWLObject();
+        if (dr.isDataType()) {
+            restrictedDataRange = dr.asOWLDataType();
+        }
     }
 
 

@@ -61,7 +61,7 @@ public abstract class OWLObjectImpl implements OWLObject {
 
 
     public Set<OWLEntity> getSignature() {
-        if(signature == null) {
+        if (signature == null) {
             Set<OWLEntity> sig = new HashSet<OWLEntity>();
             OWLEntityCollector collector = new OWLEntityCollector();
             accept(collector);
@@ -74,8 +74,8 @@ public abstract class OWLObjectImpl implements OWLObject {
 
     public Set<OWLClass> getClassesInSignature() {
         Set<OWLClass> result = new HashSet<OWLClass>();
-        for(OWLEntity ent : getSignature()) {
-            if(ent.isOWLClass()) {
+        for (OWLEntity ent : getSignature()) {
+            if (ent.isOWLClass()) {
                 result.add(ent.asOWLClass());
             }
         }
@@ -85,8 +85,8 @@ public abstract class OWLObjectImpl implements OWLObject {
 
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         Set<OWLDataProperty> result = new HashSet<OWLDataProperty>();
-        for(OWLEntity ent : getSignature()) {
-            if(ent.isOWLDataProperty()) {
+        for (OWLEntity ent : getSignature()) {
+            if (ent.isOWLDataProperty()) {
                 result.add(ent.asOWLDataProperty());
             }
         }
@@ -96,8 +96,8 @@ public abstract class OWLObjectImpl implements OWLObject {
 
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         Set<OWLObjectProperty> result = new HashSet<OWLObjectProperty>();
-        for(OWLEntity ent : getSignature()) {
-            if(ent.isOWLObjectProperty()) {
+        for (OWLEntity ent : getSignature()) {
+            if (ent.isOWLObjectProperty()) {
                 result.add(ent.asOWLObjectProperty());
             }
         }
@@ -105,10 +105,10 @@ public abstract class OWLObjectImpl implements OWLObject {
     }
 
 
-    public Set<OWLIndividual> getIndividualsInSignature() {
-        Set<OWLIndividual> result = new HashSet<OWLIndividual>();
-        for(OWLEntity ent : getSignature()) {
-            if(ent.isOWLIndividual()) {
+    public Set<OWLNamedIndividual> getIndividualsInSignature() {
+        Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
+        for (OWLEntity ent : getSignature()) {
+            if (ent.isOWLIndividual()) {
                 result.add(ent.asOWLIndividual());
             }
         }
@@ -136,22 +136,21 @@ public abstract class OWLObjectImpl implements OWLObject {
 
 
     final public int compareTo(OWLObject o) {
-        if(o instanceof OWLAxiom && this instanceof OWLAxiom) {
+        if (o instanceof OWLAxiom && this instanceof OWLAxiom) {
             OWLObject thisSubj = subjectProvider.getSubject((OWLAxiom) this);
             OWLObject otherSubj = subjectProvider.getSubject((OWLAxiom) o);
             int axDiff = thisSubj.compareTo(otherSubj);
-            if(axDiff != 0) {
+            if (axDiff != 0) {
                 return axDiff;
             }
         }
         int thisTypeIndex = typeIndexProvider.getTypeIndex(this);
         int otherTypeIndex = typeIndexProvider.getTypeIndex(o);
         int diff = thisTypeIndex - otherTypeIndex;
-        if(diff == 0) {
+        if (diff == 0) {
             // Objects are the same type
             return compareObjectOfSameType(o);
-        }
-        else {
+        } else {
             return diff;
         }
     }
@@ -165,27 +164,25 @@ public abstract class OWLObjectImpl implements OWLObject {
 
     protected static int compareSets(Set<? extends OWLObject> set1, Set<? extends OWLObject> set2) {
         SortedSet<? extends OWLObject> ss1;
-        if(set1 instanceof SortedSet) {
+        if (set1 instanceof SortedSet) {
             ss1 = (SortedSet) set1;
-        }
-        else {
+        } else {
             ss1 = new TreeSet(set1);
         }
         SortedSet<? extends OWLObject> ss2;
-        if(set2 instanceof SortedSet) {
+        if (set2 instanceof SortedSet) {
             ss2 = (SortedSet) set2;
-        }
-        else {
+        } else {
             ss2 = new TreeSet(set2);
         }
         int i = 0;
         Iterator<? extends OWLObject> thisIt = ss1.iterator();
         Iterator<? extends OWLObject> otherIt = ss2.iterator();
-        while(i < ss1.size() && i < ss2.size()) {
+        while (i < ss1.size() && i < ss2.size()) {
             OWLObject o1 = thisIt.next();
             OWLObject o2 = otherIt.next();
             int diff = o1.compareTo(o2);
-            if(diff != 0) {
+            if (diff != 0) {
                 return diff;
             }
             i++;

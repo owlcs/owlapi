@@ -38,6 +38,6 @@ public class OWLFunctionalDataPropertyTestCase extends AbstractOWLPropertyCharac
 
 
     protected OWLPropertyAxiom createOWLPropertyAxiom(OWLDataProperty property) throws OWLException {
-        return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(property);
+        return getOWLDataFactory().getFunctionalDataProperty(property);
     }
 }

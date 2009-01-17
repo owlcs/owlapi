@@ -112,10 +112,10 @@ public class Example14 {
         // of this some values from restriction.  If the intersection is satisfiable then the instances of
         // the class don't have to have the property, otherwise, they do.
         OWLDataFactory dataFactory = man.getOWLDataFactory();
-        OWLClassExpression restriction = dataFactory.getOWLObjectSomeValuesFrom(prop, dataFactory.getOWLThing());
+        OWLClassExpression restriction = dataFactory.getObjectSomeValuesFrom(prop, dataFactory.getOWLThing());
         // Now we see if the intersection of the class and the complement of this restriction is satisfiable
-        OWLClassExpression complement = dataFactory.getOWLObjectComplementOf(restriction);
-        OWLClassExpression intersection = dataFactory.getOWLObjectIntersectionOf(cls, complement);
+        OWLClassExpression complement = dataFactory.getObjectComplementOf(restriction);
+        OWLClassExpression intersection = dataFactory.getObjectIntersectionOf(cls, complement);
         return !reasoner.isSatisfiable(intersection);
     }
 }

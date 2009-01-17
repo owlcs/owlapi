@@ -38,6 +38,6 @@ public class OWLObjectSomeValuesFromElementHandler extends AbstractDescriptionFi
     }
 
     protected OWLClassExpression createRestriction() {
-        return getOWLDataFactory().getOWLObjectSomeValuesFrom(getProperty(), getFiller());
+        return getOWLDataFactory().getObjectSomeValuesFrom(getProperty(), getFiller());
     }
 }

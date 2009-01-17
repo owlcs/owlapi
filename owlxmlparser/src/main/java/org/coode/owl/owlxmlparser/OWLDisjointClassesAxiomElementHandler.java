@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -40,6 +39,6 @@ public class OWLDisjointClassesAxiomElementHandler extends AbstractOWLDescriptio
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLDisjointClassesAxiom(getOperands());
+        return getOWLDataFactory().getDisjointClasses(getOperands());
     }
 }

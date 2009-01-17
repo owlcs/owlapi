@@ -35,7 +35,7 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br><br>
- *
+ * <p/>
  * A handler for top level intersection classes.
  */
 public class TPIntersectionOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
@@ -46,6 +46,6 @@ public class TPIntersectionOfHandler extends AbstractNamedEquivalentClassAxiomHa
 
 
     protected OWLClassExpression translateEquivalentClass(URI mainNode) throws OWLException {
-        return getDataFactory().getOWLObjectIntersectionOf(getConsumer().translateToDescriptionSet(mainNode));
+        return getDataFactory().getObjectIntersectionOf(getConsumer().translateToDescriptionSet(mainNode));
     }
 }

@@ -38,7 +38,7 @@ import java.util.Set;
  * For example, A and not (B or C or not D) would extract
  * {(B or C or notD), D}
  */
-public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
+public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor {
 
     private Set<OWLClassExpression> result;
 
@@ -65,15 +65,15 @@ public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
     }
 
 
-    public void visit(OWLDataExactCardinalityRestriction desc) {
+    public void visit(OWLDataExactCardinality desc) {
     }
 
 
-    public void visit(OWLDataMaxCardinalityRestriction desc) {
+    public void visit(OWLDataMaxCardinality desc) {
     }
 
 
-    public void visit(OWLDataMinCardinalityRestriction desc) {
+    public void visit(OWLDataMinCardinality desc) {
     }
 
 
@@ -96,7 +96,7 @@ public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
     }
 
 
-    public void visit(OWLObjectExactCardinalityRestriction desc) {
+    public void visit(OWLObjectExactCardinality desc) {
         desc.getFiller().accept(this);
     }
 
@@ -108,12 +108,12 @@ public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
     }
 
 
-    public void visit(OWLObjectMaxCardinalityRestriction desc) {
+    public void visit(OWLObjectMaxCardinality desc) {
         desc.getFiller().accept(this);
     }
 
 
-    public void visit(OWLObjectMinCardinalityRestriction desc) {
+    public void visit(OWLObjectMinCardinality desc) {
         desc.getFiller().accept(this);
     }
 
@@ -123,7 +123,7 @@ public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
     }
 
 
-    public void visit(OWLObjectSelfRestriction desc) {
+    public void visit(OWLObjectHasSelf desc) {
 
     }
 
@@ -140,7 +140,7 @@ public class OWLObjectComplementOfExtractor implements OWLDescriptionVisitor {
     }
 
 
-    public void visit(OWLObjectValueRestriction desc) {
+    public void visit(OWLObjectHasValue desc) {
 
     }
 }

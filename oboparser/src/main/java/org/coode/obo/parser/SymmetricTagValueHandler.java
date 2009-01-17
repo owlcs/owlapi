@@ -43,10 +43,9 @@ public class SymmetricTagValueHandler extends AbstractTagValueHandler {
     public void handle(String id, String value) {
         if (Boolean.parseBoolean(value)) {
             OWLObjectProperty prop = getOWLObjectProperty(id);
-            OWLAxiom ax = getDataFactory().getOWLSymmetricObjectPropertyAxiom(prop);
+            OWLAxiom ax = getDataFactory().getSymmetricObjectProperty(prop);
             applyChange(new AddAxiom(getOntology(), ax));
-        }
-        else {
+        } else {
             addAnnotation(id, OBOVocabulary.IS_SYMMETRIC.getName(), getBooleanConstant(false));
         }
     }

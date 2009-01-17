@@ -1,7 +1,8 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.io.RDFXMLOntologyFormat;
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLLiteral;
 
 import java.net.URI;
 import java.util.logging.Logger;
@@ -64,60 +65,7 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
 
     public void handleTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         consumeTriple(subject, predicate, object);
-        if (getConsumer().isOntology(subject)) {
-            // Annotation on an ontology!
-            consumeTriple(subject, predicate, object);
-            OWLOntology ontology = getConsumer().getOWLOntologyManager().getOntology(subject);
-            if (ontology != null) {
-                OWLAnnotationAxiom ax = getDataFactory().getOWLOntologyAnnotationAxiom(ontology,
-                                                                                       getDataFactory().getOWLConstantAnnotation(
-                                                                                               predicate,
-                                                                                               object));
-                addAxiom(ax);
-            }
-            else {
-                logger.warning("Annotation on ontology " + subject + " but could not obtain ontology!");
-            }
-            return;
-        }
-
-        OWLAnnotation annotation = getDataFactory().getOWLConstantAnnotation(predicate, object);
-        OWLEntity entity = null;
-        if (getConsumer().isClass(subject)) {
-            entity = getDataFactory().getOWLClass(subject);
-        }
-        else if (getConsumer().isObjectPropertyOnly(subject)) {
-            entity = getDataFactory().getOWLObjectProperty(subject);
-        }
-        else if (getConsumer().isDataPropertyOnly(subject)) {
-            entity = getDataFactory().getOWLDataProperty(subject);
-        }
-        else if (getConsumer().isAnnotationProperty(subject)) {
-            // An annotation on an annotation property - what the hell do we do here?
-            // 18th Dec 2006: I can't find anyway of dealing with this!
-            RDFXMLOntologyFormat format = getConsumer().getOntologyFormat();
-            format.addAnnotationURIAnnotation(subject, annotation);
-            consumeTriple(subject, predicate, object);
-        }
-        else {
-            // The annotation will either be on an individual or on an
-            // axiom
-            OWLAxiom ax = getConsumer().getAxiom(subject);
-            if (ax != null) {
-                consumeTriple(subject, predicate, object);
-                OWLAxiomAnnotationAxiom annoAx = getDataFactory().getOWLAxiomAnnotationAxiom(ax, annotation);
-                addAxiom(annoAx);
-                return;
-            }
-            else {
-                // Individual?
-                entity = getConsumer().getOWLIndividual(subject);
-            }
-        }
-        if (entity != null) {
-            consumeTriple(subject, predicate, object);
-            OWLAxiom decAx = getDataFactory().getOWLEntityAnnotationAxiom(entity, annotation);
-            addAxiom(decAx);
-        }
+        OWLAnnotationAssertionAxiom ax = getDataFactory().getAnnotationAssertion(subject, predicate, object);
+        addAxiom(ax);
     }
 }

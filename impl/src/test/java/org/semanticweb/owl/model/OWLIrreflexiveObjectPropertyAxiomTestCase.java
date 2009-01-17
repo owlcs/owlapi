@@ -33,6 +33,6 @@ public class OWLIrreflexiveObjectPropertyAxiomTestCase extends AbstractOWLObject
 
 
     protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) throws OWLException {
-        return getOWLDataFactory().getOWLIrreflexiveObjectPropertyAxiom(property);
+        return getOWLDataFactory().getIrreflexiveObjectProperty(property);
     }
 }

@@ -1,7 +1,7 @@
 package org.semanticweb.owl.model;
 
 
-import org.semanticweb.owl.vocab.OWLRestrictedDataRangeFacetVocabulary;
+import org.semanticweb.owl.vocab.OWLFacet;
 
 import java.net.URI;
 import java.util.List;
@@ -40,6 +40,9 @@ import java.util.Set;
  */
 public interface OWLDataFactory extends SWRLDataFactory {
 
+
+    IRI getIRI(URI uri);
+
     ////////////////////////////////////////////////////////////////////////////////////
     //
     // Entities and data stuff
@@ -61,6 +64,14 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return The OWL Class corresponding to owl:Nothing
      */
     OWLClass getOWLNothing();
+
+    OWLObjectProperty getOWLTopObjectProperty();
+
+    OWLDataProperty getOWLTopDataProperty();
+
+    OWLObjectProperty getOWLBottomObjectProperty();
+
+    OWLDataProperty getOWLBottomDataProperty();
 
 
     /**
@@ -156,7 +167,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param uri The URI of the individual to be obtained
      * @return The object representing the individual that has the specified URI
      */
-    OWLIndividual getOWLIndividual(URI uri);
+    OWLNamedIndividual getOWLIndividual(URI uri);
 
 
     /**
@@ -175,7 +186,10 @@ public interface OWLDataFactory extends SWRLDataFactory {
      */
     OWLIndividual getOWLIndividual(String curie, NamespaceManager namespaceManager);
 
-    OWLIndividual getOWLAnonymousIndividual(URI anonId);
+
+    OWLAnonymousIndividual getOWLAnonymousIndividual(String id);
+
+    OWLObjectPropertyInverse getOWLObjectPropertyInverse(OWLObjectPropertyExpression property);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -184,7 +198,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    OWLTypedLiteral getOWLTypedLiteral(String literal, OWLDatatype datatype);
+    OWLTypedLiteral getTypedLiteral(String literal, OWLDatatype datatype);
 
 
     /**
@@ -194,7 +208,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      *         value of the integer, and whose data type is xsd:integer.
      */
-    OWLTypedLiteral getOWLTypedLiteral(int value);
+    OWLTypedLiteral getTypedLiteral(int value);
 
 
     /**
@@ -204,7 +218,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      *         value of the double, and whose data type is xsd:double.
      */
-    OWLTypedLiteral getOWLTypedLiteral(double value);
+    OWLTypedLiteral getTypedLiteral(double value);
 
 
     /**
@@ -214,7 +228,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      *         value of the boolean, and whose data type is xsd:boolean.
      */
-    OWLTypedLiteral getOWLTypedLiteral(boolean value);
+    OWLTypedLiteral getTypedLiteral(boolean value);
 
 
     /**
@@ -224,7 +238,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      *         value of the float, and whose data type is xsd:float.
      */
-    OWLTypedLiteral getOWLTypedLiteral(float value);
+    OWLTypedLiteral getTypedLiteral(float value);
 
     /**
      * Convenience method that obtains a literal typed as a string.
@@ -233,7 +247,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      *         value of the string, and whose data type is xsd:string.
      */
-    OWLTypedLiteral getOWLTypedLiteral(String value);
+    OWLTypedLiteral getTypedLiteral(String value);
 
 
     /**
@@ -243,7 +257,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param lang    The language.  Must not be <code>null</code>
      * @return The OWLRDFTextLiteral that represent the string with a language tag
      */
-    OWLRDFTextLiteral getOWLRDFTextLiteral(String literal, String lang);
+    OWLRDFTextLiteral getRDFTextLiteral(String literal, String lang);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -257,7 +271,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param uri The URI of the datatype to be obtained
      * @return The object representing the datatype that has the specified URI
      */
-    OWLDatatype getOWLDatatype(URI uri);
+    OWLDatatype getDatatype(URI uri);
 
     /**
      * A convenience method that obtains the datatype that represents integers.  This datatype will have the URI of
@@ -306,7 +320,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param values The set of values that the data one of should contain
      * @return A data one of that enumerates the specified set of values
      */
-    OWLDataOneOf getOWLDataOneOf(Set<? extends OWLLiteral> values);
+    OWLDataOneOf getDataOneOf(Set<? extends OWLLiteral> values);
 
 
     /**
@@ -315,7 +329,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param values The set of values that the data one of should contain
      * @return A data one of that enumerates the specified set of values
      */
-    OWLDataOneOf getOWLDataOneOf(OWLLiteral... values);
+    OWLDataOneOf getDataOneOf(OWLLiteral... values);
 
 
     /**
@@ -324,35 +338,32 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param dataRange The datarange to be complemented
      * @return An OWLDataComplementOf of the specified data range
      */
-    OWLDataComplementOf getOWLDataComplementOf(OWLDataRange dataRange);
+    OWLDataComplementOf getDataComplementOf(OWLDataRange dataRange);
 
 
-    OWLDataRangeRestriction getOWLDataRangeRestriction(OWLDataRange dataRange,
-                                                       Set<OWLDataRangeFacetRestriction> facetRestrictions);
+    OWLDatatypeRestriction getDatatypeRestriction(OWLDatatype dataRange,
+                                                  Set<OWLFacetRestriction> facetRestrictions);
 
 
-    OWLDataRangeRestriction getOWLDataRangeRestriction(OWLDataRange dataRange,
-                                                       OWLRestrictedDataRangeFacetVocabulary facet,
-                                                       OWLTypedLiteral typedliteral);
+    OWLDatatypeRestriction getDatatypeRestriction(OWLDatatype dataRange,
+                                                  OWLFacet facet,
+                                                  OWLLiteral typedliteral);
 
-    OWLDataRangeRestriction getOWLDataRangeRestriction(OWLDataRange dataRange,
-                                                       OWLDataRangeFacetRestriction... facetRestrictions);
-
-
-    OWLDataRangeFacetRestriction getOWLDataRangeFacetRestriction(OWLRestrictedDataRangeFacetVocabulary facet,
-                                                                 OWLTypedLiteral facetValue);
-
-    OWLDataRangeFacetRestriction getOWLDataRangeFacetRestriction(OWLRestrictedDataRangeFacetVocabulary facet,
-                                                                 int facetValue);
-
-    OWLDataRangeFacetRestriction getOWLDataRangeFacetRestriction(OWLRestrictedDataRangeFacetVocabulary facet,
-                                                                 double facetValue);
-
-    OWLDataRangeFacetRestriction getOWLDataRangeFacetRestriction(OWLRestrictedDataRangeFacetVocabulary facet,
-                                                                 float facetValue);
+    OWLDatatypeRestriction getDatatypeRestriction(OWLDatatype dataRange,
+                                                  OWLFacetRestriction... facetRestrictions);
 
 
-    OWLObjectPropertyInverse getOWLObjectPropertyInverse(OWLObjectPropertyExpression property);
+    OWLFacetRestriction getFacetRestriction(OWLFacet facet,
+                                            OWLLiteral facetValue);
+
+    OWLFacetRestriction getFacetRestriction(OWLFacet facet,
+                                            int facetValue);
+
+    OWLFacetRestriction getFacetRestriction(OWLFacet facet,
+                                            double facetValue);
+
+    OWLFacetRestriction getFacetRestriction(OWLFacet facet,
+                                            float facetValue);
 
     ////////////////////////////////////////////////////////////////////////////////////
     //
@@ -361,37 +372,16 @@ public interface OWLDataFactory extends SWRLDataFactory {
     ////////////////////////////////////////////////////////////////////////////////////
 
 
-    OWLObjectIntersectionOf getOWLObjectIntersectionOf(Set<? extends OWLClassExpression> operands);
+    OWLObjectIntersectionOf getObjectIntersectionOf(Set<? extends OWLClassExpression> operands);
 
 
-    OWLObjectIntersectionOf getOWLObjectIntersectionOf(OWLClassExpression... operands);
+    OWLObjectIntersectionOf getObjectIntersectionOf(OWLClassExpression... operands);
 
-
-    OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange);
-
-
-    OWLDataExactCardinalityRestriction getOWLDataExactCardinalityRestriction(OWLDataPropertyExpression property,
-                                                                             int cardinality);
-
-
-    OWLDataExactCardinalityRestriction getOWLDataExactCardinalityRestriction(OWLDataPropertyExpression property,
-                                                                             int cardinality, OWLDataRange dataRange);
-
-
-    OWLDataMaxCardinalityRestriction getOWLDataMaxCardinalityRestriction(OWLDataPropertyExpression property,
-                                                                         int cardinality);
-
-
-    OWLDataMaxCardinalityRestriction getOWLDataMaxCardinalityRestriction(OWLDataPropertyExpression property,
-                                                                         int cardinality, OWLDataRange dataRange);
-
-
-    OWLDataMinCardinalityRestriction getOWLDataMinCardinalityRestriction(OWLDataPropertyExpression property,
-                                                                         int cardinality);
-
-
-    OWLDataMinCardinalityRestriction getOWLDataMinCardinalityRestriction(OWLDataPropertyExpression property,
-                                                                         int cardinality, OWLDataRange dataRange);
+    ////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data restrictions
+    //
+    ////////////////////////////////////////////////////////////////////////////////////
 
 
     /**
@@ -401,53 +391,55 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param dataRange The data range that is the filler
      * @return An OWLDataSomeValuesFrom restriction that acts along the specified property and has the specified filler
      */
-    OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange);
+    OWLDataSomeValuesFrom getDataSomeValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange);
 
 
-    OWLDataValueRestriction getOWLDataValueRestriction(OWLDataPropertyExpression property, OWLLiteral value);
+    OWLDataAllValuesFrom getDataAllValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange);
 
 
-    OWLObjectComplementOf getOWLObjectComplementOf(OWLClassExpression operand);
+    OWLDataExactCardinality getDataExactCardinality(OWLDataPropertyExpression property,
+                                                    int cardinality);
 
 
-    OWLObjectAllValuesFrom getOWLObjectAllValuesFrom(OWLObjectPropertyExpression property,
-                                                     OWLClassExpression classExpression);
+    OWLDataExactCardinality getDataExactCardinality(OWLDataPropertyExpression property,
+                                                    int cardinality, OWLDataRange dataRange);
 
 
-    OWLObjectOneOf getOWLObjectOneOf(Set<OWLIndividual> values);
+    OWLDataMaxCardinality getDataMaxCardinality(OWLDataPropertyExpression property,
+                                                int cardinality);
 
 
-    OWLObjectOneOf getOWLObjectOneOf(OWLIndividual... individuals);
+    OWLDataMaxCardinality getDataMaxCardinality(OWLDataPropertyExpression property,
+                                                int cardinality, OWLDataRange dataRange);
 
 
-    OWLObjectExactCardinalityRestriction getOWLObjectExactCardinalityRestriction(OWLObjectPropertyExpression property,
-                                                                                 int cardinality);
+    OWLDataMinCardinality getDataMinCardinality(OWLDataPropertyExpression property,
+                                                int cardinality);
 
 
-    OWLObjectExactCardinalityRestriction getOWLObjectExactCardinalityRestriction(OWLObjectPropertyExpression property,
-                                                                                 int cardinality,
-                                                                                 OWLClassExpression classExpression);
+    OWLDataMinCardinality getDataMinCardinality(OWLDataPropertyExpression property,
+                                                int cardinality, OWLDataRange dataRange);
 
 
-    OWLObjectMinCardinalityRestriction getOWLObjectMinCardinalityRestriction(OWLObjectPropertyExpression property,
-                                                                             int cardinality);
+    OWLDataValueRestriction getDataHasValue(OWLDataPropertyExpression property, OWLLiteral value);
 
 
-    OWLObjectMinCardinalityRestriction getOWLObjectMinCardinalityRestriction(OWLObjectPropertyExpression property,
-                                                                             int cardinality,
-                                                                             OWLClassExpression classExpression);
+    OWLObjectComplementOf getObjectComplementOf(OWLClassExpression operand);
 
 
-    OWLObjectMaxCardinalityRestriction getOWLObjectMaxCardinalityRestriction(OWLObjectPropertyExpression property,
-                                                                             int cardinality);
+    OWLObjectOneOf getObjectOneOf(Set<OWLIndividual> values);
 
 
-    OWLObjectMaxCardinalityRestriction getOWLObjectMaxCardinalityRestriction(OWLObjectPropertyExpression property,
-                                                                             int cardinality,
-                                                                             OWLClassExpression classExpression);
+    OWLObjectOneOf getObjectOneOf(OWLIndividual... individuals);
 
+    ////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object restrictions
+    //
+    ////////////////////////////////////////////////////////////////////////////////////
 
-    OWLObjectSelfRestriction getOWLObjectSelfRestriction(OWLObjectPropertyExpression property);
+    OWLObjectAllValuesFrom getObjectAllValuesFrom(OWLObjectPropertyExpression property,
+                                                  OWLClassExpression classExpression);
 
 
     /**
@@ -457,18 +449,48 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param classExpression The class expression that is the filler
      * @return An OWLObjectSomeValuesFrom restriction along the specified property with the specified filler
      */
-    OWLObjectSomeValuesFrom getOWLObjectSomeValuesFrom(OWLObjectPropertyExpression property,
-                                                       OWLClassExpression classExpression);
+    OWLObjectSomeValuesFrom getObjectSomeValuesFrom(OWLObjectPropertyExpression property,
+                                                    OWLClassExpression classExpression);
 
 
-    OWLObjectValueRestriction getOWLObjectValueRestriction(OWLObjectPropertyExpression property,
-                                                           OWLIndividual individual);
+    OWLObjectExactCardinality getObjectExactCardinality(OWLObjectPropertyExpression property,
+                                                        int cardinality);
 
 
-    OWLObjectUnionOf getOWLObjectUnionOf(Set<? extends OWLClassExpression> operands);
+    OWLObjectExactCardinality getObjectExactCardinality(OWLObjectPropertyExpression property,
+                                                        int cardinality,
+                                                        OWLClassExpression classExpression);
 
 
-    OWLObjectUnionOf getOWLObjectUnionOf(OWLClassExpression... operands);
+    OWLObjectMinCardinality getObjectMinCardinality(OWLObjectPropertyExpression property,
+                                                    int cardinality);
+
+
+    OWLObjectMinCardinality getObjectMinCardinality(OWLObjectPropertyExpression property,
+                                                    int cardinality,
+                                                    OWLClassExpression classExpression);
+
+
+    OWLObjectMaxCardinality getObjectMaxCardinality(OWLObjectPropertyExpression property,
+                                                    int cardinality);
+
+
+    OWLObjectMaxCardinality getObjectMaxCardinality(OWLObjectPropertyExpression property,
+                                                    int cardinality,
+                                                    OWLClassExpression classExpression);
+
+
+    OWLObjectHasSelf getObjectHasSelf(OWLObjectPropertyExpression property);
+
+
+    OWLObjectHasValue getObjectHasValue(OWLObjectPropertyExpression property,
+                                        OWLIndividual individual);
+
+
+    OWLObjectUnionOf getObjectUnionOf(Set<? extends OWLClassExpression> operands);
+
+
+    OWLObjectUnionOf getObjectUnionOf(OWLClassExpression... operands);
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -476,229 +498,212 @@ public interface OWLDataFactory extends SWRLDataFactory {
     //
     /////////////////////////////////////////////////////////////////////////////////////////////
 
-
-    OWLAntiSymmetricObjectPropertyAxiom getOWLAntiSymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property);
-
-
-    OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(OWLDataPropertyExpression property, OWLClassExpression domain);
+    OWLDeclaration getDeclaration(OWLEntity owlEntity);
 
 
-    OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(OWLDataPropertyExpression propery,
-                                                           OWLDataRange owlDataRange);
+    OWLAsymmetricObjectPropertyAxiom getAsymmetricObjectProperty(OWLObjectPropertyExpression property);
 
 
-    OWLDataSubPropertyAxiom getOWLSubDataPropertyAxiom(OWLDataPropertyExpression subProperty,
-                                                       OWLDataPropertyExpression superProperty);
+    OWLDataPropertyDomainAxiom getDataPropertyDomain(OWLDataPropertyExpression property, OWLClassExpression domain);
 
 
-    OWLDeclarationAxiom getOWLDeclarationAxiom(OWLEntity owlEntity);
+    OWLDataPropertyRangeAxiom getDataPropertyRange(OWLDataPropertyExpression propery,
+                                                   OWLDataRange owlDataRange);
 
 
-    OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(Set<OWLIndividual> individuals);
-
-    OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(OWLIndividual... individuals);
-
-
-    OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(Set<? extends OWLClassExpression> descriptions);
+    OWLSubDataPropertyOfAxiom getSubDataPropertyOf(OWLDataPropertyExpression subProperty,
+                                                   OWLDataPropertyExpression superProperty);
 
 
-    OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(OWLClassExpression clsA, OWLClassExpression clsB);
+    OWLDifferentIndividualsAxiom getDifferentIndividuals(Set<OWLIndividual> individuals);
 
-    OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(OWLClassExpression clsA, OWLClassExpression... classExpressions);
+    OWLDifferentIndividualsAxiom getDifferentIndividuals(OWLIndividual... individuals);
 
 
-    OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
+    OWLDisjointClassesAxiom getDisjointClasses(Set<? extends OWLClassExpression> descriptions);
+
+
+    OWLDisjointClassesAxiom getDisjointClasses(OWLClassExpression clsA, OWLClassExpression clsB);
+
+    OWLDisjointClassesAxiom getDisjointClasses(OWLClassExpression clsA, OWLClassExpression... classExpressions);
+
+
+    OWLDisjointDataPropertiesAxiom getDisjointDataProperties(
             Set<? extends OWLDataPropertyExpression> properties);
 
 
-    OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(OWLDataPropertyExpression... properties);
+    OWLDisjointDataPropertiesAxiom getDisjointDataProperties(OWLDataPropertyExpression... properties);
 
-    OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(
+    OWLDisjointObjectPropertiesAxiom getDisjointObjectProperties(
             Set<? extends OWLObjectPropertyExpression> properties);
 
-    OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(OWLObjectPropertyExpression... properties);
+    OWLDisjointObjectPropertiesAxiom getDisjointObjectProperties(OWLObjectPropertyExpression... properties);
 
 
-    OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass, Set<? extends OWLClassExpression> descriptions);
+    OWLDisjointUnionAxiom getDisjointUnion(OWLClass owlClass, Set<? extends OWLClassExpression> descriptions);
 
 
-    OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(Set<? extends OWLClassExpression> descriptions);
+    OWLEquivalentClassesAxiom getEquivalentClasses(Set<? extends OWLClassExpression> descriptions);
 
 
     OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLClassExpression clsA, OWLClassExpression clsB);
 
 
-    OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
+    OWLEquivalentDataPropertiesAxiom getEquivalentDataProperties(
             Set<? extends OWLDataPropertyExpression> properties);
 
-    OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(OWLDataPropertyExpression... properties);
+    OWLEquivalentDataPropertiesAxiom getEquivalentDataProperties(OWLDataPropertyExpression... properties);
 
 
-    OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(
+    OWLEquivalentObjectPropertiesAxiom getEquivalentObjectProperties(
             Set<? extends OWLObjectPropertyExpression> properties);
 
-    OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(OWLObjectPropertyExpression... properties);
+    OWLEquivalentObjectPropertiesAxiom getEquivalentObjectProperties(OWLObjectPropertyExpression... properties);
 
 
-    OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(OWLDataPropertyExpression property);
+    OWLFunctionalDataPropertyAxiom getFunctionalDataProperty(OWLDataPropertyExpression property);
 
 
-    OWLFunctionalObjectPropertyAxiom getOWLFunctionalObjectPropertyAxiom(OWLObjectPropertyExpression property);
+    OWLFunctionalObjectPropertyAxiom getFunctionalObjectProperty(OWLObjectPropertyExpression property);
 
 
-    OWLImportsDeclaration getOWLImportsDeclarationAxiom(OWLOntology subject, URI importedOntologyURI);
+    OWLDataPropertyAssertionAxiom getDataPropertyAssertion(OWLIndividual subject,
+                                                           OWLDataPropertyExpression property,
+                                                           OWLLiteral object);
+
+    OWLDataPropertyAssertionAxiom getDataPropertyAssertion(OWLIndividual subject,
+                                                           OWLDataPropertyExpression property,
+                                                           int value);
+
+    OWLDataPropertyAssertionAxiom getDataPropertyAssertion(OWLIndividual subject,
+                                                           OWLDataPropertyExpression property,
+                                                           double value);
 
 
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                   OWLDataPropertyExpression property,
-                                                                   OWLLiteral object);
-
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                   OWLDataPropertyExpression property,
-                                                                   int value);
-
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                   OWLDataPropertyExpression property,
-                                                                   double value);
+    OWLDataPropertyAssertionAxiom getDataPropertyAssertion(OWLIndividual subject,
+                                                           OWLDataPropertyExpression property,
+                                                           float value);
 
 
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                   OWLDataPropertyExpression property,
-                                                                   float value);
+    OWLDataPropertyAssertionAxiom getDataPropertyAssertion(OWLIndividual subject,
+                                                           OWLDataPropertyExpression property,
+                                                           boolean value);
 
 
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                   OWLDataPropertyExpression property,
-                                                                   boolean value);
+    OWLDataPropertyAssertionAxiom getDataPropertyAssertion(OWLIndividual subject,
+                                                           OWLDataPropertyExpression property,
+                                                           String value);
+
+    OWLNegativeDataPropertyAssertionAxiom getNegativeDataPropertyAssertion(OWLIndividual subject,
+                                                                           OWLDataPropertyExpression property,
+                                                                           OWLLiteral object);
 
 
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                   OWLDataPropertyExpression property,
-                                                                   String value);
-
-    OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                                   OWLDataPropertyExpression property,
-                                                                                   OWLLiteral object);
+    OWLNegativeObjectPropertyAssertionAxiom getNegativeObjectPropertyAssertion(OWLIndividual subject,
+                                                                               OWLObjectPropertyExpression property,
+                                                                               OWLIndividual object);
 
 
-    OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(OWLIndividual subject,
-                                                                                       OWLObjectPropertyExpression property,
-                                                                                       OWLIndividual object);
+    OWLObjectPropertyAssertionAxiom getObjectPropertyAssertion(OWLIndividual individual,
+                                                               OWLObjectPropertyExpression property,
+                                                               OWLIndividual object);
 
 
-    OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLIndividual individual,
-                                                                       OWLObjectPropertyExpression property,
-                                                                       OWLIndividual object);
+    OWLClassAssertionAxiom getClassAssertion(OWLIndividual individual, OWLClassExpression classExpression);
 
-
-    OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLIndividual individual, OWLClassExpression classExpression);
-
-    OWLInverseFunctionalObjectPropertyAxiom getOWLInverseFunctionalObjectPropertyAxiom(
+    OWLInverseFunctionalObjectPropertyAxiom getInverseFunctionalObjectProperty(
             OWLObjectPropertyExpression property);
 
 
-    OWLIrreflexiveObjectPropertyAxiom getOWLIrreflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property);
+    OWLIrreflexiveObjectPropertyAxiom getIrreflexiveObjectProperty(OWLObjectPropertyExpression property);
 
 
-    OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(OWLObjectPropertyExpression property,
-                                                                 OWLClassExpression classExpression);
+    OWLObjectPropertyDomainAxiom getObjectPropertyDomain(OWLObjectPropertyExpression property,
+                                                         OWLClassExpression classExpression);
 
 
-    OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(OWLObjectPropertyExpression property,
-                                                               OWLClassExpression range);
+    OWLObjectPropertyRangeAxiom getObjectPropertyRange(OWLObjectPropertyExpression property,
+                                                       OWLClassExpression range);
 
 
-    OWLObjectSubPropertyAxiom getOWLSubObjectPropertyAxiom(OWLObjectPropertyExpression subProperty,
-                                                           OWLObjectPropertyExpression superProperty);
+    OWLSubObjectPropertyOfAxiom getSubObjectPropertyOf(OWLObjectPropertyExpression subProperty,
+                                                       OWLObjectPropertyExpression superProperty);
 
 
-    OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property);
+    OWLReflexiveObjectPropertyAxiom getReflexiveObjectProperty(OWLObjectPropertyExpression property);
 
 
-    OWLSameIndividualsAxiom getOWLSameIndividualsAxiom(Set<OWLIndividual> individuals);
+    OWLSameIndividualsAxiom getSameIndividuals(Set<OWLIndividual> individuals);
 
 
-    OWLSubClassAxiom getOWLSubClassAxiom(OWLClassExpression subClass, OWLClassExpression superClass);
+    OWLSubClassOfAxiom getSubClassOf(OWLClassExpression subClass, OWLClassExpression superClass);
 
-    OWLSubClassAxiom getOWLSubClassAxiom(String subClass, String superClass, NamespaceManager namespaceManager);
+    OWLSubClassOfAxiom getSubClassOf(String subClass, String superClass, NamespaceManager namespaceManager);
 
-    OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property);
-
-
-    OWLTransitiveObjectPropertyAxiom getOWLTransitiveObjectPropertyAxiom(OWLObjectPropertyExpression property);
+    OWLSymmetricObjectPropertyAxiom getSymmetricObjectProperty(OWLObjectPropertyExpression property);
 
 
-    OWLDeprecatedClassAxiom getOWLDeprecatedClassAxiom(OWLClass owlClass);
+    OWLTransitiveObjectPropertyAxiom getTransitiveObjectProperty(OWLObjectPropertyExpression property);
 
 
-    OWLDeprecatedObjectPropertyAxiom getOWLDeprecatedObjectPropertyAxiom(OWLObjectProperty property);
-
-
-    OWLDeprecatedDataPropertyAxiom getOWLDeprecatedDataPropertyAxiom(OWLDataProperty property);
-
-
-    OWLObjectPropertyChainSubPropertyAxiom getOWLObjectPropertyChainSubPropertyAxiom(
+    OWLComplextSubPropertyAxiom getObjectPropertyChainSubProperty(
             List<? extends OWLObjectPropertyExpression> chain, OWLObjectPropertyExpression superProperty);
 
 
-    OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(OWLObjectPropertyExpression forwardProperty,
-                                                                       OWLObjectPropertyExpression inverseProperty);
+    OWLInverseObjectPropertiesAxiom getInverseObjectProperties(OWLObjectPropertyExpression forwardProperty,
+                                                               OWLObjectPropertyExpression inverseProperty);
+
+    OWLHasKeyAxiom getHasKey(OWLClassExpression ce, Set<? extends OWLObjectPropertyExpression> objectProperties, Set<? extends OWLDataPropertyExpression> dataProperties);
+
+    OWLHasKeyAxiom getHasKey(OWLClassExpression ce, OWLObjectPropertyExpression... properties);
+
+    OWLHasKeyAxiom getHasKey(OWLClassExpression ce, OWLDataPropertyExpression... properties);
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Annotations
 
+    OWLAnnotationProperty getAnnotationProperty(URI uri);
 
-    OWLEntityAnnotationAxiom getOWLEntityAnnotationAxiom(OWLEntity entity, OWLAnnotation annotation);
+    OWLAnnotation getAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value);
 
-    OWLEntityAnnotationAxiom getOWLEntityAnnotationAxiom(OWLEntity entity, URI annotationURI, OWLLiteral value);
+    OWLAnnotation getAnnotation(URI property, OWLAnnotationValue value);
 
-    OWLEntityAnnotationAxiom getOWLEntityAnnotationAxiom(OWLEntity entity, URI annotationURI, OWLIndividual value);
+    OWLAnnotation getAnnotation(OWLAnnotationProperty property, String literal, String lang);
 
+    OWLAnnotation getAnnotation(URI property, String literal, String lang);
 
-    OWLAxiomAnnotationAxiom getOWLAxiomAnnotationAxiom(OWLAxiom axiom, OWLAnnotation annotation);
+    OWLAnnotation getAnnotation(OWLAnnotationProperty property, URI uri);
 
-
-    OWLConstantAnnotation getOWLConstantAnnotation(URI annotationURI, OWLLiteral literal);
-
-
-    OWLObjectAnnotation getOWLObjectAnnotation(URI annotationURI, OWLIndividual individual);
+    OWLAnnotation getAnnotation(URI property, URI uri);
 
 
-    /**
-     * Gets a label annotation. This is an annotation that has a URI
-     * which corresponds to rdfs:label
-     *
-     * @param label The label content
-     */
-    OWLLabelAnnotation getOWLLabelAnnotation(String label);
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotation annotation);
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotationProperty property, String literal, String lang);
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, URI propertyURI, String literal, String lang);
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotationProperty property, OWLLiteral literal);
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, URI propertyURI, OWLLiteral literal);
 
 
-    /**
-     * Gets a label annotation
-     *
-     * @param label    The label content
-     * @param language The language of the label
-     */
-    OWLLabelAnnotation getOWLLabelAnnotation(String label, String language);
+    OWLImportsDeclaration getImportsDeclaration(OWLOntology subject, URI importedOntologyURI);
 
 
-    /**
-     * Gets a comment annotation.  This is an annotation with a URI
-     * that corresponds to rdfs:comment
-     */
-    OWLCommentAnnotation getCommentAnnotation(String comment);
+    OWLDataUnionOf getDataUnionOf(Set<? extends OWLDataRange> dataRanges);
 
+    OWLDataUnionOf getDataUnionOf(OWLDataRange... dataRanges);
 
-    /**
-     * Gets a comment annotation with an attached language tag.
-     *
-     * @param comment  The comment content
-     * @param langauge The langauge that the comment is in
-     */
-    OWLCommentAnnotation getCommentAnnotation(String comment, String langauge);
+    OWLDataIntersectionOf getDataIntersectionOf(Set<? extends OWLDataRange> dataRanges);
 
+    OWLDataIntersectionOf getDataIntersectionOf(OWLDataRange... dataRanges);
 
-    OWLOntologyAnnotationAxiom getOWLOntologyAnnotationAxiom(OWLOntology subject, OWLAnnotation annotation);
+    OWLAnnotationPropertyDomain getAnnotationPropertyDomain(OWLAnnotationProperty prop, IRI domain);
+
+    OWLAnnotationPropertyRange getAnnotationPropertyRange(OWLAnnotationProperty prop, IRI range);
+
+    OWLSubAnnotationPropertyOf getSubAnnotationPropertyOf(OWLAnnotationProperty sub, OWLAnnotationProperty sup);
 }
 

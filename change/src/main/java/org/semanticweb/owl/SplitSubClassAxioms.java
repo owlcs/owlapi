@@ -59,13 +59,13 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         super(dataFactory);
         changes = new ArrayList<OWLOntologyChange>();
         for (OWLOntology ont : ontologies) {
-            for (OWLSubClassAxiom ax : ont.getAxioms(AxiomType.SUBCLASS)) {
+            for (OWLSubClassOfAxiom ax : ont.getAxioms(AxiomType.SUBCLASS)) {
                 ConjunctSplitter splitter = new ConjunctSplitter();
                 ax.getSuperClass().accept(splitter);
                 if (splitter.result.size() > 1) {
                     changes.add(new RemoveAxiom(ont, ax));
                     for (OWLClassExpression desc : splitter.result) {
-                        OWLAxiom replAx = getDataFactory().getOWLSubClassAxiom(ax.getSubClass(), desc);
+                        OWLAxiom replAx = getDataFactory().getSubClassOf(ax.getSubClass(), desc);
                         changes.add(new AddAxiom(ont, replAx));
                     }
                 }
@@ -79,7 +79,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
     }
 
 
-    private class ConjunctSplitter implements OWLDescriptionVisitor {
+    private class ConjunctSplitter implements OWLClassExpressionVisitor {
 
         private Set<OWLClassExpression> result;
 
@@ -99,17 +99,17 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         }
 
 
-        public void visit(OWLDataExactCardinalityRestriction desc) {
+        public void visit(OWLDataExactCardinality desc) {
             result.add(desc);
         }
 
 
-        public void visit(OWLDataMaxCardinalityRestriction desc) {
+        public void visit(OWLDataMaxCardinality desc) {
             result.add(desc);
         }
 
 
-        public void visit(OWLDataMinCardinalityRestriction desc) {
+        public void visit(OWLDataMinCardinality desc) {
             result.add(desc);
         }
 
@@ -134,7 +134,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         }
 
 
-        public void visit(OWLObjectExactCardinalityRestriction desc) {
+        public void visit(OWLObjectExactCardinality desc) {
             result.add(desc);
         }
 
@@ -146,12 +146,12 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         }
 
 
-        public void visit(OWLObjectMaxCardinalityRestriction desc) {
+        public void visit(OWLObjectMaxCardinality desc) {
             result.add(desc);
         }
 
 
-        public void visit(OWLObjectMinCardinalityRestriction desc) {
+        public void visit(OWLObjectMinCardinality desc) {
             result.add(desc);
         }
 
@@ -161,7 +161,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         }
 
 
-        public void visit(OWLObjectSelfRestriction desc) {
+        public void visit(OWLObjectHasSelf desc) {
             result.add(desc);
         }
 
@@ -176,7 +176,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         }
 
 
-        public void visit(OWLObjectValueRestriction desc) {
+        public void visit(OWLObjectHasValue desc) {
             result.add(desc);
         }
     }

@@ -101,12 +101,12 @@ public class AxiomType<C extends OWLAxiom> {
             false,
             true);
 
-    public static final AxiomType<OWLSubClassAxiom> SUBCLASS = new AxiomType<OWLSubClassAxiom>("SubClass",
-                                                                                                   false,
-                                                                                                   false,
+    public static final AxiomType<OWLSubClassOfAxiom> SUBCLASS = new AxiomType<OWLSubClassOfAxiom>("SubClass",
+            false,
+            false,
             true);
 
-    
+
     public static final AxiomType<OWLDisjointClassesAxiom> DISJOINT_CLASSES = new AxiomType<OWLDisjointClassesAxiom>(
             "Disjoint classes",
             false,
@@ -120,7 +120,6 @@ public class AxiomType<C extends OWLAxiom> {
             false,
             true
     );
-
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -183,7 +182,7 @@ public class AxiomType<C extends OWLAxiom> {
             false,
             true);
 
-    public static final AxiomType<OWLObjectSubPropertyAxiom> SUB_OBJECT_PROPERTY = new AxiomType<OWLObjectSubPropertyAxiom>(
+    public static final AxiomType<OWLSubObjectPropertyOfAxiom> SUB_OBJECT_PROPERTY = new AxiomType<OWLSubObjectPropertyOfAxiom>(
             "Sub object property",
             false,
             false,
@@ -213,7 +212,7 @@ public class AxiomType<C extends OWLAxiom> {
             false,
             true);
 
-    public static final AxiomType<OWLAntiSymmetricObjectPropertyAxiom> ANTI_SYMMETRIC_OBJECT_PROPERTY = new AxiomType<OWLAntiSymmetricObjectPropertyAxiom>(
+    public static final AxiomType<OWLAsymmetricObjectPropertyAxiom> ANTI_SYMMETRIC_OBJECT_PROPERTY = new AxiomType<OWLAsymmetricObjectPropertyAxiom>(
             "Anti-symmetric object property",
             true,
             true,
@@ -255,12 +254,11 @@ public class AxiomType<C extends OWLAxiom> {
             true,
             true);
 
-    public static final AxiomType<OWLObjectPropertyChainSubPropertyAxiom> PROPERTY_CHAIN_SUB_PROPERTY = new AxiomType<OWLObjectPropertyChainSubPropertyAxiom>(
+    public static final AxiomType<OWLComplextSubPropertyAxiom> PROPERTY_CHAIN_SUB_PROPERTY = new AxiomType<OWLComplextSubPropertyAxiom>(
             "Object property chain subproperty",
             true,
             true,
             true);
-
 
 
     public static final AxiomType<OWLEquivalentDataPropertiesAxiom> EQUIVALENT_DATA_PROPERTIES = new AxiomType<OWLEquivalentDataPropertiesAxiom>(
@@ -269,7 +267,7 @@ public class AxiomType<C extends OWLAxiom> {
             false,
             true);
 
-    public static final AxiomType<OWLDataSubPropertyAxiom> SUB_DATA_PROPERTY = new AxiomType<OWLDataSubPropertyAxiom>(
+    public static final AxiomType<OWLSubDataPropertyOfAxiom> SUB_DATA_PROPERTY = new AxiomType<OWLSubDataPropertyOfAxiom>(
             "Sub data property",
             false,
             false,
@@ -300,18 +298,13 @@ public class AxiomType<C extends OWLAxiom> {
             true);
 
 
-
-    public static final AxiomType<OWLEntityAnnotationAxiom> ENTITY_ANNOTATION = new AxiomType<OWLEntityAnnotationAxiom>(
-            "Entity annotation",
-            false,
-            false,
-            false);
-
-    public static final AxiomType<OWLAxiomAnnotationAxiom> AXIOM_ANNOTATION = new AxiomType<OWLAxiomAnnotationAxiom>(
-            "Axiom annotation",
+    public static final AxiomType<OWLHasKeyAxiom> HAS_KEY = new AxiomType<OWLHasKeyAxiom>(
+            "Has key",
             true,
             true,
-            false);
+            true
+    );
+
 
     public static final AxiomType<OWLImportsDeclaration> IMPORTS_DECLARATION = new AxiomType<OWLImportsDeclaration>(
             "Imports declaration",
@@ -321,7 +314,7 @@ public class AxiomType<C extends OWLAxiom> {
     );
 
 
-    public static final AxiomType<OWLDeclarationAxiom> DECLARATION = new AxiomType<OWLDeclarationAxiom>(
+    public static final AxiomType<OWLDeclaration> DECLARATION = new AxiomType<OWLDeclaration>(
             "Declaration",
             true,
             true,
@@ -335,10 +328,33 @@ public class AxiomType<C extends OWLAxiom> {
             true
     );
 
-    public static final AxiomType<OWLOntologyAnnotationAxiom> ONTOLOGY_ANNOTATION = new AxiomType<OWLOntologyAnnotationAxiom>(
-            "Ontology annotation",
+
+    public static final AxiomType<OWLAnnotationAssertionAxiom> ANNOTATION_ASSERTION = new AxiomType<OWLAnnotationAssertionAxiom>(
+            "Annotation assertion",
             false,
             false,
+            false
+    );
+
+    public static final AxiomType<OWLSubAnnotationPropertyOf> SUB_ANNOTATION_PROPERTY_OF = new AxiomType<OWLSubAnnotationPropertyOf>(
+            "Sub annotation property",
+            true,
+            true,
+            false
+    );
+
+    public static final AxiomType<OWLAnnotationPropertyRange> ANNOTATION_PROPERTY_RANGE = new AxiomType<OWLAnnotationPropertyRange>(
+            "Annotation property range",
+            true,
+            true,
+            false
+    );
+
+
+    public static final AxiomType<OWLAnnotationPropertyDomain> ANNOTATION_PROPERTY_DOMAIN = new AxiomType<OWLAnnotationPropertyDomain>(
+            "Annotation property domain",
+            true,
+            true,
             false
     );
 
@@ -375,13 +391,15 @@ public class AxiomType<C extends OWLAxiom> {
         AXIOM_TYPES.add(SUB_DATA_PROPERTY);
         AXIOM_TYPES.add(EQUIVALENT_DATA_PROPERTIES);
         AXIOM_TYPES.add(FUNCTIONAL_DATA_PROPERTY);
-        AXIOM_TYPES.add(ENTITY_ANNOTATION);
-        AXIOM_TYPES.add(AXIOM_ANNOTATION);
-        AXIOM_TYPES.add(IMPORTS_DECLARATION);
+//        AXIOM_TYPES.add(IMPORTS_DECLARATION);
         AXIOM_TYPES.add(DISJOINT_UNION);
         AXIOM_TYPES.add(DECLARATION);
         AXIOM_TYPES.add(SWRL_RULE);
-        AXIOM_TYPES.add(ONTOLOGY_ANNOTATION);
+        AXIOM_TYPES.add(ANNOTATION_ASSERTION);
+        AXIOM_TYPES.add(SUB_ANNOTATION_PROPERTY_OF);
+        AXIOM_TYPES.add(ANNOTATION_PROPERTY_DOMAIN);
+        AXIOM_TYPES.add(ANNOTATION_PROPERTY_RANGE);
+        AXIOM_TYPES.add(HAS_KEY);
 
     }
 

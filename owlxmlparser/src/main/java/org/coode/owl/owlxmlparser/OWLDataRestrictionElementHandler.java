@@ -1,8 +1,9 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLDataRange;
+import org.semanticweb.owl.model.OWLDatatype;
 import org.semanticweb.owl.model.OWLTypedLiteral;
-import org.semanticweb.owl.vocab.OWLRestrictedDataRangeFacetVocabulary;
+import org.semanticweb.owl.vocab.OWLFacet;
 
 import java.net.URI;
 /*
@@ -54,7 +55,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
 
 
     public void handleChild(OWLConstantElementHandler handler) throws OWLXMLParserException {
-        if(!handler.getOWLObject().isTyped()) {
+        if (!handler.getOWLObject().isTyped()) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "typed constant in data range restriction");
         }
         constant = (OWLTypedLiteral) handler.getOWLObject();
@@ -63,20 +64,20 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
         super.attribute(localName, value);
-        if(localName.equals("facet")) {
+        if (localName.equals("facet")) {
             facetURI = getURI(value);
         }
     }
 
 
     protected void endDataRangeElement() throws OWLXMLParserException {
-        if(dataRange == null) {
+        if (dataRange == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "data range element");
         }
-        if(constant == null) {
+        if (constant == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "typed constant element");
         }
-        setDataRange(getOWLDataFactory().getOWLDataRangeRestriction(dataRange, OWLRestrictedDataRangeFacetVocabulary.getFacet(facetURI), constant));
+        setDataRange(getOWLDataFactory().getDatatypeRestriction((OWLDatatype) dataRange, OWLFacet.getFacet(facetURI), constant));
 
 
     }

@@ -1,9 +1,9 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLTypedLiteral;
+import org.semanticweb.owl.model.OWLFacetRestriction;
 import org.semanticweb.owl.model.OWLLiteral;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.OWLRestrictedDataRangeFacetVocabulary;
+import org.semanticweb.owl.model.OWLTypedLiteral;
+import org.semanticweb.owl.vocab.OWLFacet;
 
 import java.net.URI;
 /*
@@ -36,9 +36,9 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 10-Apr-2007<br><br>
  */
-public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElementHandler<OWLDataRangeFacetRestriction> {
+public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElementHandler<OWLFacetRestriction> {
 
-    private OWLRestrictedDataRangeFacetVocabulary facet;
+    private OWLFacet facet;
 
     private OWLTypedLiteral constant;
 
@@ -49,17 +49,16 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
 
     public void handleChild(OWLConstantElementHandler handler) throws OWLXMLParserException {
         OWLLiteral con = handler.getOWLObject();
-        if(con.isTyped()) {
+        if (con.isTyped()) {
             constant = (OWLTypedLiteral) handler.getOWLObject();
-        }
-        else {
+        } else {
             throw new OWLXMLParserException(getLineNumber(), "Found untyped constant, expected typed constant");
         }
     }
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
-        if(localName.equals("facet")) {
-            facet = OWLRestrictedDataRangeFacetVocabulary.getFacet(URI.create(value));
+        if (localName.equals("facet")) {
+            facet = OWLFacet.getFacet(URI.create(value));
         }
     }
 
@@ -68,7 +67,7 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
     }
 
 
-    public OWLDataRangeFacetRestriction getOWLObject() {
-        return getOWLDataFactory().getOWLDataRangeFacetRestriction(facet, constant);
+    public OWLFacetRestriction getOWLObject() {
+        return getOWLDataFactory().getFacetRestriction(facet, constant);
     }
 }

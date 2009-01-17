@@ -36,7 +36,6 @@ public class OWLObjectComplementOfElementHandler extends AbstractOWLDescriptionE
     private OWLClassExpression operand;
 
 
-
     public OWLObjectComplementOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -48,9 +47,9 @@ public class OWLObjectComplementOfElementHandler extends AbstractOWLDescriptionE
 
 
     protected void endDescriptionElement() throws OWLXMLParserException {
-        if(operand == null) {
+        if (operand == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "description element");
         }
-        setDescription(getOWLDataFactory().getOWLObjectComplementOf(operand));
+        setDescription(getOWLDataFactory().getObjectComplementOf(operand));
     }
 }

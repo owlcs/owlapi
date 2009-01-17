@@ -59,7 +59,7 @@ public class Example6 {
             OWLClass nose = factory.getOWLClass(URI.create(base + "#Nose"));
             // Now create a restriction to describe the class of individuals that have at least one
             // part that is a kind of nose
-            OWLClassExpression hasPartSomeNose = factory.getOWLObjectSomeValuesFrom(hasPart, nose);
+            OWLClassExpression hasPartSomeNose = factory.getObjectSomeValuesFrom(hasPart, nose);
 
             // Obtain a reference to the Head class so that we can specify that Heads have noses
             OWLClass head = factory.getOWLClass(URI.create(base + "#Head"));
@@ -67,7 +67,7 @@ public class Example6 {
             // create a subclass axiom, with head as the subclass and "hasPart some Nose" as the
             // superclass (remember, restrictions are also classes - they describe classes of individuals
             // -- they are anonymous classes).
-            OWLSubClassAxiom ax = factory.getOWLSubClassAxiom(head, hasPartSomeNose);
+            OWLSubClassOfAxiom ax = factory.getSubClassOf(head, hasPartSomeNose);
 
             // Add the axiom to our ontology
             AddAxiom addAx = new AddAxiom(ont, ax);

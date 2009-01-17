@@ -28,7 +28,7 @@ package org.semanticweb.owl.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 29-Nov-2006<br><br>
- *
+ * <p/>
  * Represents a statement that two properties are the inverse of each other.  This
  * property axiom contains a set of two properties.  inverseOf(P, Q) is considered
  * to be equal to inverseOf(Q, P) - i.e. the order in which the properties are specified

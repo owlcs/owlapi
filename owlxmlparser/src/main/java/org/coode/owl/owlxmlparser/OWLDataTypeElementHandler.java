@@ -40,15 +40,15 @@ public class OWLDataTypeElementHandler extends AbstractOWLDataRangeHandler {
     }
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
-        if(localName.equals("URI")) {
+        if (localName.equals("URI")) {
             uri = getURI(value);
         }
     }
 
     protected void endDataRangeElement() throws OWLXMLParserException {
-        if(uri == null) {
+        if (uri == null) {
             throw new OWLXMLParserAttributeNotFoundException(getLineNumber(), "URI");
         }
-        setDataRange(getOWLDataFactory().getOWLDatatype(uri));
+        setDataRange(getOWLDataFactory().getDatatype(uri));
     }
 }

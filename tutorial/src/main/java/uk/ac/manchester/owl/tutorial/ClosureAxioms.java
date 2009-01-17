@@ -72,7 +72,7 @@ public class ClosureAxioms {
         Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions = new HashMap<OWLObjectPropertyExpression, Set<OWLClassExpression>>();
 
         /* For each axiom.... */
-        for (OWLSubClassAxiom axiom : collector.getAxioms()) {
+        for (OWLSubClassOfAxiom axiom : collector.getAxioms()) {
             /* Get the superclass */
             OWLClassExpression superClass = axiom.getSuperClass();
 
@@ -90,14 +90,14 @@ public class ClosureAxioms {
             }
 
             /* Create a union of the fillers */
-            OWLClassExpression union = factory.getOWLObjectUnionOf(fillers);
+            OWLClassExpression union = factory.getObjectUnionOf(fillers);
 
             /* Create a universal restriction */
-            OWLClassExpression universal = factory.getOWLObjectAllValuesFrom(prop,
+            OWLClassExpression universal = factory.getObjectAllValuesFrom(prop,
                     union);
 
             /* Create a new axiom */
-            OWLAxiom newAxiom = factory.getOWLSubClassAxiom(clazz, universal);
+            OWLAxiom newAxiom = factory.getSubClassOf(clazz, universal);
 
             /* Now add the axiom to the ontology */
             AddAxiom addAxiom = new AddAxiom(ontology, newAxiom);

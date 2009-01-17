@@ -1,11 +1,11 @@
 package uk.ac.manchester.owl.tutorial;
 
+import org.semanticweb.owl.model.OWLClass;
+import org.semanticweb.owl.model.OWLSubClassOfAxiom;
+import org.semanticweb.owl.util.OWLAxiomVisitorAdapter;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLSubClassAxiom;
-import org.semanticweb.owl.util.OWLAxiomVisitorAdapter;
 
 /*
  * Copyright (C) 2007, University of Manchester
@@ -32,8 +32,8 @@ import org.semanticweb.owl.util.OWLAxiomVisitorAdapter;
 
 /**
  * <p>A visitor that simply collects any subclass axioms that have the given class
- * as the subclass.</p> 
- * 
+ * as the subclass.</p>
+ * <p/>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
@@ -42,24 +42,24 @@ import org.semanticweb.owl.util.OWLAxiomVisitorAdapter;
  */
 public class SubClassCollector extends OWLAxiomVisitorAdapter {
     /* Collected axioms */
-    private Set<OWLSubClassAxiom> axioms;
+    private Set<OWLSubClassOfAxiom> axioms;
 
     /* Class to look for */
     private OWLClass clazz;
 
     public SubClassCollector(OWLClass clazz) {
-        axioms = new HashSet<OWLSubClassAxiom>();
+        axioms = new HashSet<OWLSubClassOfAxiom>();
         this.clazz = clazz;
     }
 
     @Override
-    public void visit(OWLSubClassAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
         if (axiom.getSubClass().equals(clazz)) {
             axioms.add(axiom);
         }
     }
 
-    public Set<OWLSubClassAxiom> getAxioms() {
+    public Set<OWLSubClassOfAxiom> getAxioms() {
         return axioms;
     }
 }

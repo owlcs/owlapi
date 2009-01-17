@@ -35,7 +35,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br><br>
- *
+ * <p/>
  * A base handler for equivalent class axioms where the axiom is stated in
  * a direct way without an equivalent class triple.  For example
  * A intersectionOf (C or C)
@@ -62,7 +62,7 @@ public abstract class AbstractNamedEquivalentClassAxiomHandler extends TriplePre
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateDescription(subject));
         operands.add(translateEquivalentClass(object));
-        addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands));
+        addAxiom(getDataFactory().getEquivalentClasses(operands));
     }
 
     protected abstract OWLClassExpression translateEquivalentClass(URI mainNode) throws OWLException;

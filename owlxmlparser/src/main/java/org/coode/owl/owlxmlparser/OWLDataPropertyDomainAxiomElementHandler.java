@@ -1,8 +1,8 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDataPropertyExpression;
 import org.semanticweb.owl.model.OWLClassExpression;
+import org.semanticweb.owl.model.OWLDataPropertyExpression;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -57,12 +57,12 @@ public class OWLDataPropertyDomainAxiomElementHandler extends AbstractOWLAxiomEl
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if(property == null) {
+        if (property == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "data property element");
         }
-        if(domain == null) {
+        if (domain == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "class description element");
         }
-        return getOWLDataFactory().getOWLDataPropertyDomainAxiom(property, domain);
+        return getOWLDataFactory().getDataPropertyDomain(property, domain);
     }
 }

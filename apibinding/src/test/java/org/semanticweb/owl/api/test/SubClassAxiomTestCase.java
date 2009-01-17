@@ -2,7 +2,7 @@ package org.semanticweb.owl.api.test;
 
 import org.semanticweb.owl.model.OWLClass;
 import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.OWLSubClassAxiom;
+import org.semanticweb.owl.model.OWLSubClassOfAxiom;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -40,10 +40,10 @@ public class SubClassAxiomTestCase extends AbstractOWLAPITestCase {
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");
         OWLClass clsC = getOWLClass("C");
-        OWLClassExpression desc = getFactory().getOWLObjectIntersectionOf(clsA, clsC);
-        OWLSubClassAxiom ax1 = getFactory().getOWLSubClassAxiom(clsA, clsB);
+        OWLClassExpression desc = getFactory().getObjectIntersectionOf(clsA, clsC);
+        OWLSubClassOfAxiom ax1 = getFactory().getSubClassOf(clsA, clsB);
         assertFalse(ax1.isGCI());
-        OWLSubClassAxiom ax2 = getFactory().getOWLSubClassAxiom(desc, clsB);
+        OWLSubClassOfAxiom ax2 = getFactory().getSubClassOf(desc, clsB);
         assertTrue(ax2.isGCI());
 
     }

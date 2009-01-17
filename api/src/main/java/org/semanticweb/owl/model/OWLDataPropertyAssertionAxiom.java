@@ -28,7 +28,7 @@ package org.semanticweb.owl.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- *
+ * <p/>
  * Represents an assertion about a relationship between and individual and a data value. For
  * example  hasAge(matthew, 28) would represent a data relationship along the hasAge property
  * from the individual matthew to the value 28.

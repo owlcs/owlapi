@@ -76,7 +76,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         // BUGFIX: (TS) Antisymm OP axioms are local in the *_BOTTOM case:
         //              The empty object property is antisymmetric!
-        public void visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+        public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -86,10 +86,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isLocal = false;
                     break;
             }
-        }
-
-        public void visit(OWLAxiomAnnotationAxiom axiom) {
-            isLocal = true;
         }
 
 
@@ -140,7 +136,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLDataSubPropertyAxiom axiom) {
+        public void visit(OWLSubDataPropertyOfAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -155,7 +151,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         // BUGFIX: (TS) Individual declaration axioms are local, too.
         //              They need to be added to the module after the locality checks have been performed. 
-        public void visit(OWLDeclarationAxiom axiom) {
+        public void visit(OWLDeclaration axiom) {
             isLocal = true;
 //            isLocal = !(axiom.getEntity().isOWLIndividual());
         }
@@ -302,7 +298,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLEntityAnnotationAxiom axiom) {
+        public void visit(OWLAnnotationAssertionAxiom axiom) {
             isLocal = true;
         }
 
@@ -509,7 +505,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX: (TS) Added the cases where this is local
-        public void visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+        public void visit(OWLComplextSubPropertyAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -566,7 +562,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLObjectSubPropertyAxiom axiom) {
+        public void visit(OWLSubObjectPropertyOfAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -584,11 +580,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLOntologyAnnotationAxiom axiom) {
-            isLocal = true;
-        }
-
-
         // BUGFIX: (TS) Same individuals axioms are local, too.
         //              They need to be added to the module after the locality checks have been performed.
         public void visit(OWLSameIndividualsAxiom axiom) {
@@ -597,7 +588,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLSubClassAxiom axiom) {
+        public void visit(OWLSubClassOfAxiom axiom) {
             isLocal = bottomEvaluator.isBottomEquivalent(axiom.getSubClass(),
                     signature,
                     localityCls) || topEvaluator.isTopEquivalent(axiom.getSuperClass(),
@@ -620,13 +611,29 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         public void visit(SWRLRule axiom) {
             isLocal = false;
         }
+
+        public void visit(OWLHasKeyAxiom axiom) {
+            throw new OWLRuntimeException("NOT IMPLEMENTED");
+        }
+
+        public void visit(OWLAnnotationPropertyDomain axiom) {
+            throw new OWLRuntimeException("NOT IMPLEMENTED");
+        }
+
+        public void visit(OWLAnnotationPropertyRange axiom) {
+            throw new OWLRuntimeException("NOT IMPLEMENTED");
+        }
+
+        public void visit(OWLSubAnnotationPropertyOf axiom) {
+            throw new OWLRuntimeException("NOT IMPLEMENTED");
+        }
     }
 
 
     /**
      * Used to determine if descriptions are equivalent to \bottom using the provided locality class
      */
-    private static class BottomEquivalenceEvaluator implements OWLDescriptionVisitor {
+    private static class BottomEquivalenceEvaluator implements OWLClassExpressionVisitor {
 
         private boolean isBottomEquivalent;
 
@@ -692,7 +699,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX: (TS) Corrected both conditions; included case n==0
-        public void visit(OWLDataExactCardinalityRestriction desc) {
+        public void visit(OWLDataExactCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -708,13 +715,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         // BUGFIX: (TS) A data max card restriction is never bottom-equiv.
         // TODO: (TS) If the filler can never be empty, then the TOP_TOP case can be bottom-equiv.
-        public void visit(OWLDataMaxCardinalityRestriction desc) {
+        public void visit(OWLDataMaxCardinality desc) {
             isBottomEquivalent = false;
         }
 
 
         // BUGFIX: (TS) The *_BOTTOM case only works if n > 0.
-        public void visit(OWLDataMinCardinalityRestriction desc) {
+        public void visit(OWLDataMinCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -775,7 +782,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         // BUGFIX: (TS) Since an exact card restriction is a conjunction of a min and a max card restriction,
         //              there are cases where it is bottom-local
-        public void visit(OWLObjectExactCardinalityRestriction desc) {
+        public void visit(OWLObjectExactCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -811,7 +818,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // BUGFIX (TS): Corrected all conditions.
         //              The n==0 case doesn't affect bottom-equivalence of this type of restriction,
         //              but n>0 does!
-        public void visit(OWLObjectMaxCardinalityRestriction desc) {
+        public void visit(OWLObjectMaxCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -827,7 +834,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX (TS): Corrected all conditions, considering the case n==0
-        public void visit(OWLObjectMinCardinalityRestriction desc) {
+        public void visit(OWLObjectMinCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -848,7 +855,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLObjectSelfRestriction desc) {
+        public void visit(OWLObjectHasSelf desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -886,7 +893,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLObjectValueRestriction desc) {
+        public void visit(OWLObjectHasValue desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -904,7 +911,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     /**
      * Used to determine if descriptions are equivalent to \top using the provided locality class
      */
-    private static class TopEquivalenceEvaluator implements OWLDescriptionVisitor {
+    private static class TopEquivalenceEvaluator implements OWLClassExpressionVisitor {
 
         private BottomEquivalenceEvaluator bottomEvaluator;
 
@@ -968,7 +975,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX: (TS) Added the case where this is top-equiv (including n==0).
-        public void visit(OWLDataExactCardinalityRestriction desc) {
+        public void visit(OWLDataExactCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -983,7 +990,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // (TS) No special handling for n==0 required.
-        public void visit(OWLDataMaxCardinalityRestriction desc) {
+        public void visit(OWLDataMaxCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -998,7 +1005,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         // BUGFIX: (TS) A data min card restriction is top-equiv iff the cardinality is 0.
         // TODO: (TS) If the filler can never be empty, then the TOP_TOP case can be bottom-equiv for n>0.
-        public void visit(OWLDataMinCardinalityRestriction desc) {
+        public void visit(OWLDataMinCardinality desc) {
             isTopEquivalent = (desc.getCardinality() == 0);
         }
 
@@ -1034,7 +1041,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX: (TS) added the cases where this is top-equiv, including n==0
-        public void visit(OWLObjectExactCardinalityRestriction desc) {
+        public void visit(OWLObjectExactCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -1063,7 +1070,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         // BUGFIX: (TS) Added the case of a bottom-equivalent filler to both conditions.
         //              The n==0 case doesn't affect top-equivalence of this type of restriction.
-        public void visit(OWLObjectMaxCardinalityRestriction desc) {
+        public void visit(OWLObjectMaxCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -1079,7 +1086,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX: (TS) Added the case n==0; repaired TOP_TOP condition 
-        public void visit(OWLObjectMinCardinalityRestriction desc) {
+        public void visit(OWLObjectMinCardinality desc) {
             int card = desc.getCardinality();
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
@@ -1101,7 +1108,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLObjectSelfRestriction desc) {
+        public void visit(OWLObjectHasSelf desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -1139,7 +1146,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLObjectValueRestriction desc) {
+        public void visit(OWLObjectHasValue desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:

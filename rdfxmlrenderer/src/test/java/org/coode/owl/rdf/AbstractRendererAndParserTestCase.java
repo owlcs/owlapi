@@ -1,18 +1,18 @@
 package org.coode.owl.rdf;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.io.OWLParserFactoryRegistry;
-import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
-import org.coode.owl.rdf.rdfxml.RDFXMLOntologyStorer;
 import junit.framework.TestCase;
-import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
+import org.coode.owl.rdf.rdfxml.RDFXMLOntologyStorer;
+import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
+import org.semanticweb.owl.io.OWLParserFactoryRegistry;
+import org.semanticweb.owl.model.*;
 import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
 
-import java.util.Set;
 import java.io.File;
 import java.net.URI;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -86,11 +86,11 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
 
     public void testSaveAndReload() throws Exception {
         OWLOntology ontA = man.createOntology(URI.create("http://rdfxmltests/ontology"));
-        for(OWLAxiom ax : getAxioms()) {
+        for (OWLAxiom ax : getAxioms()) {
             man.applyChange(new AddAxiom(ontA, ax));
         }
-        OWLOntologyAnnotationAxiom anno = getDataFactory().getOWLOntologyAnnotationAxiom(ontA, getDataFactory().getCommentAnnotation(getDescription()));
-        man.applyChange(new AddAxiom(ontA, anno));
+//        OWLOntologyAnnotationAxiom anno = getDataFactory().getOWLOntologyAnnotationAxiom(ontA, getDataFactory().getCommentAnnotation(getDescription()));
+//        man.applyChange(new AddAxiom(ontA, anno));
         File tempFile = File.createTempFile("Ontology", ".owl");
         man.saveOntology(ontA, tempFile.toURI());
         man.removeOntology(ontA.getURI());

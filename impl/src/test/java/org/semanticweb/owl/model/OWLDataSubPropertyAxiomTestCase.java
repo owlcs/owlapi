@@ -32,7 +32,6 @@ package org.semanticweb.owl.model;
 public class OWLDataSubPropertyAxiomTestCase extends AbstractOWLBinaryOperandAxiomTestCase<OWLDataProperty, OWLDataProperty> {
 
 
-
     protected OWLDataProperty createLeftOperand() throws Exception {
         return createOWLDataProperty();
     }
@@ -44,6 +43,6 @@ public class OWLDataSubPropertyAxiomTestCase extends AbstractOWLBinaryOperandAxi
 
 
     protected OWLAxiom createAxiom(OWLDataProperty leftOperand, OWLDataProperty rightOperand) throws Exception {
-        return getOWLDataFactory().getOWLSubDataPropertyAxiom(leftOperand, rightOperand);
+        return getOWLDataFactory().getSubDataPropertyOf(leftOperand, rightOperand);
     }
 }

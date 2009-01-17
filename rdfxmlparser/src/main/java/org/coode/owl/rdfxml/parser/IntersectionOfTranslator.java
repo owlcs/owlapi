@@ -36,7 +36,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
- *
+ * <p/>
  * A description translator which produces an <code>OWLIntersectionOf</code>
  * description.  This relies on the main node having an intersectionOf
  * triple.
@@ -48,7 +48,7 @@ public class IntersectionOfTranslator extends AbstractNaryBooleanDescriptionTran
     }
 
     protected OWLClassExpression createDescription(Set<OWLClassExpression> operands) throws OWLException {
-        return getDataFactory().getOWLObjectIntersectionOf(operands);
+        return getDataFactory().getObjectIntersectionOf(operands);
     }
 
 

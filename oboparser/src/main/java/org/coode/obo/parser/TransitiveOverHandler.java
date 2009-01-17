@@ -49,7 +49,7 @@ public class TransitiveOverHandler extends AbstractTagValueHandler {
         List<OWLObjectProperty> chain = new ArrayList<OWLObjectProperty>();
         chain.add(first);
         chain.add(second);
-        OWLAxiom ax = getDataFactory().getOWLObjectPropertyChainSubPropertyAxiom(chain, first);
+        OWLAxiom ax = getDataFactory().getObjectPropertyChainSubProperty(chain, first);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }

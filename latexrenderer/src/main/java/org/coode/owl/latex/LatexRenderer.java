@@ -65,18 +65,18 @@ public class LatexRenderer extends AbstractOWLRenderer {
             w.write("\\parindent 0pt\n");
             w.write("\\oddsidemargin 0cm\n");
             w.write("\\textwidth 19cm\n");
-            
+
             w.write("\\begin{document}\n\n");
 
             LatexObjectVisitor renderer = new LatexObjectVisitor(w, getOWLOntologyManager().getOWLDataFactory());
 
             Collection<OWLClass> clses = sortEntities(ontology.getReferencedClasses());
-            if(!clses.isEmpty()) {
+            if (!clses.isEmpty()) {
                 w.write("\\subsection*{Classes}\n\n");
             }
-            for(OWLClass cls : clses) {
+            for (OWLClass cls : clses) {
                 writeEntitySection(cls, w);
-                for(OWLAxiom ax : sortAxioms(ontology.getAxioms(cls))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(cls))) {
                     renderer.setSubject(cls);
                     ax.accept(renderer);
                     w.write("\n\n");
@@ -85,9 +85,9 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
             w.write("\\section*{Object properties}");
 
-            for(OWLObjectProperty prop : sortEntities(ontology.getReferencedObjectProperties())) {
+            for (OWLObjectProperty prop : sortEntities(ontology.getReferencedObjectProperties())) {
                 writeEntitySection(prop, w);
-                for(OWLAxiom ax : sortAxioms(ontology.getAxioms(prop))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
@@ -95,9 +95,9 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
             w.write("\\section*{Data properties}");
 
-            for(OWLDataProperty prop : sortEntities(ontology.getReferencedDataProperties())) {
+            for (OWLDataProperty prop : sortEntities(ontology.getReferencedDataProperties())) {
                 writeEntitySection(prop, w);
-                for(OWLAxiom ax : sortAxioms(ontology.getAxioms(prop))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
@@ -105,9 +105,9 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
             w.write("\\section*{Individuals}");
 
-            for(OWLIndividual ind : sortEntities(ontology.getReferencedIndividuals())) {
+            for (OWLNamedIndividual ind : sortEntities(ontology.getReferencedIndividuals())) {
                 writeEntitySection(ind, w);
-                for(OWLAxiom ax : sortAxioms(ontology.getAxioms(ind))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(ind))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }

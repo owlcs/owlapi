@@ -131,8 +131,7 @@ public class TurtleRenderer extends RDFRendererBase {
         write("<");
         if (s.startsWith(base)) {
             write(s.substring(base.length()));
-        }
-        else {
+        } else {
             write(s);
         }
         write(">");
@@ -142,19 +141,16 @@ public class TurtleRenderer extends RDFRendererBase {
     private void write(URI uri) {
         if (uri.equals(getOntology().getURI())) {
             writeAsURI(uri.toString());
-        }
-        else {
+        } else {
             String uriString = uri.toString();
             String name = nsm.getQName(uriString);
             if (name == null || name.equals(uriString)) {
                 // No QName!
                 writeAsURI(uri.toString());
-            }
-            else {
+            } else {
                 if (name.indexOf(':') != -1) {
                     write(name);
-                }
-                else {
+                } else {
                     write(":");
                     write(name);
                 }
@@ -178,8 +174,7 @@ public class TurtleRenderer extends RDFRendererBase {
     private void write(RDFNode node) {
         if (node.isLiteral()) {
             write((RDFLiteralNode) node);
-        }
-        else {
+        } else {
             write((RDFResourceNode) node);
         }
     }
@@ -189,17 +184,14 @@ public class TurtleRenderer extends RDFRendererBase {
         if (node.isTyped()) {
             if (node.getDatatype().equals(XSDVocabulary.INTEGER.getURI())) {
                 write(node.getLiteral());
-            }
-            else if (node.getDatatype().equals(XSDVocabulary.DECIMAL.getURI())) {
+            } else if (node.getDatatype().equals(XSDVocabulary.DECIMAL.getURI())) {
                 write(node.getLiteral());
-            }
-            else {
+            } else {
                 writeStringLiteral(node.getLiteral());
                 write("^^");
                 write(node.getDatatype());
             }
-        }
-        else {
+        } else {
             writeStringLiteral(node.getLiteral());
             if (node.getLang() != null) {
                 write("@");
@@ -214,8 +206,7 @@ public class TurtleRenderer extends RDFRendererBase {
             write("\"\"\"");
             write(literal);
             write("\"\"\"");
-        }
-        else {
+        } else {
             write("\"");
             write(literal);
             write("\"");
@@ -226,13 +217,11 @@ public class TurtleRenderer extends RDFRendererBase {
     private void write(RDFResourceNode node) {
         if (!node.isAnonymous()) {
             write(node.getURI());
-        }
-        else {
+        } else {
             pushTab();
             if (!isObjectList(node)) {
                 render(node);
-            }
-            else {
+            } else {
                 // List - special syntax
                 List<RDFNode> list = new ArrayList<RDFNode>();
                 toJavaList(node, list);
@@ -299,7 +288,7 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
 
-    protected void writeIndividualComments(OWLIndividual ind) {
+    protected void writeIndividualComments(OWLNamedIndividual ind) {
         writeComment(ind.getURI().toString());
     }
 
@@ -334,8 +323,10 @@ public class TurtleRenderer extends RDFRendererBase {
 
 
     int level = 0;
+
     /**
      * Renders the triples whose subject is the specified node
+     *
      * @param node The node
      */
     public void render(RDFResourceNode node) {
@@ -361,8 +352,7 @@ public class TurtleRenderer extends RDFRendererBase {
                     write(" ,");
                     writeNewLine();
                     write(triple.getObject());
-                }
-                else {
+                } else {
                     // The predicate, object differ from previous triple
                     // Just write the predicate and object
                     write(" ;");
@@ -376,8 +366,7 @@ public class TurtleRenderer extends RDFRendererBase {
                     pushTab();
                     write(triple.getObject());
                 }
-            }
-            else {
+            } else {
                 if (!first) {
                     popTab();
                     popTab();
@@ -387,8 +376,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 if (!node.isAnonymous()) {
                     write(triple.getSubject());
                     write(" ");
-                }
-                else {
+                } else {
                     pushTab();
                     write("[");
                     write(" ");
@@ -410,8 +398,7 @@ public class TurtleRenderer extends RDFRendererBase {
             writeNewLine();
             write("]");
             popTab();
-        }
-        else {
+        } else {
             popTab();
             popTab();
         }

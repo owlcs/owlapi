@@ -2,7 +2,7 @@ package org.semanticweb.owl;
 
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.CollectionFactory;
-import org.semanticweb.owl.util.OWLDescriptionVisitorAdapter;
+import org.semanticweb.owl.util.OWLClassExpressionVisitorAdapter;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -90,7 +90,7 @@ public class AddClassDescriptionClosureAxiom extends AbstractCompositeOntologyCh
         // as nominals
         FillerCollector collector = new FillerCollector();
         for (OWLOntology ont : ontologies) {
-            for (OWLSubClassAxiom ax : ont.getSubClassAxiomsForLHS(cls)) {
+            for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForLHS(cls)) {
                 ax.getSuperClass().accept(collector);
             }
         }
@@ -98,9 +98,9 @@ public class AddClassDescriptionClosureAxiom extends AbstractCompositeOntologyCh
         if (fillers.isEmpty()) {
             return;
         }
-        OWLClassExpression closureAxiomFiller = getDataFactory().getOWLObjectUnionOf(fillers);
-        OWLClassExpression closureAxiomDesc = getDataFactory().getOWLObjectAllValuesFrom(property, closureAxiomFiller);
-        changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassAxiom(cls, closureAxiomDesc)));
+        OWLClassExpression closureAxiomFiller = getDataFactory().getObjectUnionOf(fillers);
+        OWLClassExpression closureAxiomDesc = getDataFactory().getObjectAllValuesFrom(property, closureAxiomFiller);
+        changes.add(new AddAxiom(targetOntology, getDataFactory().getSubClassOf(cls, closureAxiomDesc)));
     }
 
 
@@ -109,7 +109,7 @@ public class AddClassDescriptionClosureAxiom extends AbstractCompositeOntologyCh
     }
 
 
-    private class FillerCollector extends OWLDescriptionVisitorAdapter {
+    private class FillerCollector extends OWLClassExpressionVisitorAdapter {
 
         private Set<OWLClassExpression> fillers;
 
@@ -136,9 +136,9 @@ public class AddClassDescriptionClosureAxiom extends AbstractCompositeOntologyCh
         }
 
 
-        public void visit(OWLObjectValueRestriction desc) {
+        public void visit(OWLObjectHasValue desc) {
             if (desc.getProperty().equals(property)) {
-                fillers.add(getDataFactory().getOWLObjectOneOf(CollectionFactory.createSet(desc.getValue())));
+                fillers.add(getDataFactory().getObjectOneOf(CollectionFactory.createSet(desc.getValue())));
             }
         }
     }

@@ -1,6 +1,9 @@
 package org.coode.obo.parser;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.AddAxiom;
+import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owl.model.OWLEntity;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -44,16 +47,13 @@ public class NameTagValueHandler extends AbstractTagValueHandler {
         OWLEntity ent;
         if (getConsumer().isTerm()) {
             ent = getDataFactory().getOWLClass(getURIFromValue(id));
-        }
-        else if (getConsumer().isTypedef()) {
+        } else if (getConsumer().isTypedef()) {
             ent = getDataFactory().getOWLObjectProperty(getURIFromValue(id));
-        }
-        else {
+        } else {
             ent = getDataFactory().getOWLIndividual(getURIFromValue(id));
         }
-        OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
-        OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(OWLRDFVocabulary.RDFS_LABEL.getURI(), con);
-        OWLAxiom ax = getDataFactory().getOWLEntityAnnotationAxiom(ent, anno);
+        OWLLiteral con = getDataFactory().getTypedLiteral(value);
+        OWLAxiom ax = getDataFactory().getAnnotationAssertion(ent.getURI(), OWLRDFVocabulary.RDFS_LABEL.getURI(), con);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }

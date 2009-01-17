@@ -55,7 +55,7 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateDescription(subject));
         operands.add(translateDescription(object));
-        addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands));
+        addAxiom(getDataFactory().getEquivalentClasses(operands));
         consumeTriple(subject, predicate, object);
     }
 }

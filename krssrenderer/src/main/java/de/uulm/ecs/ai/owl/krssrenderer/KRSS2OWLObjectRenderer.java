@@ -251,7 +251,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
 
     }
 
-    public final void visit(OWLSubClassAxiom axiom) {
+    public final void visit(OWLSubClassOfAxiom axiom) {
         writeOpenBracket();
         write(IMPLIES);
         write(axiom.getSubClass());
@@ -262,7 +262,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
     }
 
-    public void visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
     }
 
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
@@ -282,8 +282,6 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLImportsDeclaration axiom) {
     }
 
-    public void visit(OWLAxiomAnnotationAxiom axiom) {
-    }
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
     }
@@ -317,19 +315,16 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
     }
 
-    public void visit(OWLObjectSubPropertyAxiom axiom) {
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
     }
 
     public void visit(OWLDisjointUnionAxiom axiom) {
     }
 
-    public void visit(OWLDeclarationAxiom axiom) {
+    public void visit(OWLDeclaration axiom) {
     }
 
-    public void visit(OWLEntityAnnotationAxiom axiom) {
-    }
-
-    public void visit(OWLOntologyAnnotationAxiom axiom) {
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
     }
 
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
@@ -363,7 +358,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
     }
 
-    public void visit(OWLDataSubPropertyAxiom axiom) {
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
     }
 
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
@@ -372,7 +367,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLSameIndividualsAxiom axiom) {
     }
 
-    public void visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+    public void visit(OWLComplextSubPropertyAxiom axiom) {
     }
 
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
@@ -459,11 +454,11 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    public void visit(OWLObjectValueRestriction desc) {
+    public void visit(OWLObjectHasValue desc) {
 
     }
 
-    public final void visit(OWLObjectMinCardinalityRestriction desc) {
+    public final void visit(OWLObjectMinCardinality desc) {
         writeOpenBracket();
         write(AT_LEAST);
         write(desc.getCardinality());
@@ -474,7 +469,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    public final void visit(OWLObjectExactCardinalityRestriction desc) {
+    public final void visit(OWLObjectExactCardinality desc) {
         writeOpenBracket();
         write(EXACTLY);
         write(desc.getCardinality());
@@ -485,7 +480,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    public final void visit(OWLObjectMaxCardinalityRestriction desc) {
+    public final void visit(OWLObjectMaxCardinality desc) {
         writeOpenBracket();
         write(AT_MOST);
         write(desc.getCardinality());
@@ -496,7 +491,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    public void visit(OWLObjectSelfRestriction desc) {
+    public void visit(OWLObjectHasSelf desc) {
     }
 
     public void visit(OWLObjectOneOf desc) {
@@ -521,7 +516,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLDataValueRestriction desc) {
     }
 
-    public final void visit(OWLDataMinCardinalityRestriction desc) {
+    public final void visit(OWLDataMinCardinality desc) {
         writeOpenBracket();
         write(AT_LEAST);
         write(desc.getCardinality());
@@ -532,7 +527,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    public final void visit(OWLDataExactCardinalityRestriction desc) {
+    public final void visit(OWLDataExactCardinality desc) {
         writeOpenBracket();
         write(EXACTLY);
         write(desc.getCardinality());
@@ -543,7 +538,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    public final void visit(OWLDataMaxCardinalityRestriction desc) {
+    public final void visit(OWLDataMaxCardinality desc) {
         writeOpenBracket();
         write(AT_MOST);
         write(desc.getCardinality());
@@ -566,7 +561,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
 
     }
 
-    public void visit(OWLDataRangeRestriction node) {
+    public void visit(OWLDatatypeRestriction node) {
 
     }
 
@@ -578,7 +573,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
 
     }
 
-    public void visit(OWLDataRangeFacetRestriction node) {
+    public void visit(OWLFacetRestriction node) {
 
     }
 
@@ -598,13 +593,37 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         write(property.getURI());
     }
 
-    public final void visit(OWLIndividual individual) {
+    public final void visit(OWLNamedIndividual individual) {
         write(individual.getURI());
     }
 
-    public void visit(OWLObjectAnnotation annotation) {
+    public void visit(OWLHasKeyAxiom axiom) {
     }
 
-    public void visit(OWLConstantAnnotation annotation) {
+    public void visit(OWLDataIntersectionOf node) {
+    }
+
+    public void visit(OWLDataUnionOf node) {
+    }
+
+    public void visit(OWLAnnotationProperty property) {
+    }
+
+    public void visit(OWLAnnotationPropertyDomain axiom) {
+    }
+
+    public void visit(OWLAnnotationPropertyRange axiom) {
+    }
+
+    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    }
+
+    public void visit(OWLAnonymousIndividual individual) {
+    }
+
+    public void visit(IRI iri) {
+    }
+
+    public void visit(OWLAnnotation node) {
     }
 }

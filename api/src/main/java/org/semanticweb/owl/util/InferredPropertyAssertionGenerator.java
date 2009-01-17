@@ -39,19 +39,19 @@ import java.util.Set;
 public class InferredPropertyAssertionGenerator extends InferredIndividualAxiomGenerator<OWLPropertyAssertionAxiom> {
 
 
-    protected void addAxioms(OWLIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLPropertyAssertionAxiom> result) throws
-                                                                                                                           OWLReasonerException {
+    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLPropertyAssertionAxiom> result) throws
+            OWLReasonerException {
         Map<OWLObjectProperty, Set<OWLIndividual>> objectPropertyRels = reasoner.getObjectPropertyRelationships(entity);
-        for(OWLObjectProperty prop : objectPropertyRels.keySet()) {
-            for(OWLIndividual obj : objectPropertyRels.get(prop)) {
-                result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(entity, prop, obj));
+        for (OWLObjectProperty prop : objectPropertyRels.keySet()) {
+            for (OWLIndividual obj : objectPropertyRels.get(prop)) {
+                result.add(dataFactory.getObjectPropertyAssertion(entity, prop, obj));
             }
         }
 
         Map<OWLDataProperty, Set<OWLLiteral>> dataPropertyRels = reasoner.getDataPropertyRelationships(entity);
-        for(OWLDataProperty prop : dataPropertyRels.keySet()) {
-            for(OWLLiteral con : dataPropertyRels.get(prop)) {
-                result.add(dataFactory.getOWLDataPropertyAssertionAxiom(entity, prop, con));
+        for (OWLDataProperty prop : dataPropertyRels.keySet()) {
+            for (OWLLiteral con : dataPropertyRels.get(prop)) {
+                result.add(dataFactory.getDataPropertyAssertion(entity, prop, con));
             }
         }
     }

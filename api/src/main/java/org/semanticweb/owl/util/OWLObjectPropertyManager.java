@@ -129,7 +129,7 @@ public class OWLObjectPropertyManager {
                         markComposite(namedInv);
                     }
                 }
-                for (OWLObjectPropertyChainSubPropertyAxiom ax : ont.getPropertyChainSubPropertyAxioms()) {
+                for (OWLComplextSubPropertyAxiom ax : ont.getPropertyChainSubPropertyAxioms()) {
                     markComposite(ax.getSuperProperty());
                     for (OWLObjectPropertyExpression namedInv : ax.getSuperProperty().getInverses(ontology)) {
                         markComposite(namedInv);
@@ -168,7 +168,7 @@ public class OWLObjectPropertyManager {
             //          SymmetricObjectProperty
 
             for (OWLOntology ont : getOntologies()) {
-                for (OWLObjectSubPropertyAxiom ax : ont.getAxioms(AxiomType.SUB_OBJECT_PROPERTY)) {
+                for (OWLSubObjectPropertyOfAxiom ax : ont.getAxioms(AxiomType.SUB_OBJECT_PROPERTY)) {
                     getKeyValue(ax.getSubProperty().getSimplified(), map).add(ax.getSuperProperty().getSimplified());
                     getKeyValue(ax.getSubProperty().getInverseProperty().getSimplified(),
                             map).add(ax.getSuperProperty().getInverseProperty().getSimplified());
@@ -287,7 +287,7 @@ public class OWLObjectPropertyManager {
             partialOrdering.clear();
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>(getPropertyHierarchy());
             for (OWLOntology ont : getOntologies()) {
-                for (OWLObjectPropertyChainSubPropertyAxiom ax : ont.getPropertyChainSubPropertyAxioms()) {
+                for (OWLComplextSubPropertyAxiom ax : ont.getPropertyChainSubPropertyAxioms()) {
                     for (OWLObjectPropertyExpression prop : ax.getPropertyChain()) {
                         Set<OWLObjectPropertyExpression> sups = map.get(prop.getSimplified());
                         if (sups == null) {
@@ -296,7 +296,7 @@ public class OWLObjectPropertyManager {
                         }
                         sups.add(ax.getSuperProperty().getSimplified());
                         Set<OWLObjectPropertyExpression> supsInv = map.get(prop.getInverseProperty().getSimplified());
-                        if(supsInv == null) {
+                        if (supsInv == null) {
                             supsInv = new HashSet<OWLObjectPropertyExpression>();
                             map.put(prop.getInverseProperty().getSimplified(), supsInv);
                         }
@@ -319,10 +319,9 @@ public class OWLObjectPropertyManager {
 
     public boolean isLessThan(OWLObjectPropertyExpression propA, OWLObjectPropertyExpression propB) {
         Set<OWLObjectPropertyExpression> props = getPropertyPartialOrdering().get(propA.getSimplified());
-        if(props == null) {
+        if (props == null) {
             return false;
-        }
-        else {
+        } else {
             return props.contains(propB.getSimplified());
         }
     }
@@ -409,7 +408,7 @@ public class OWLObjectPropertyManager {
         stack.push(prop);
         stackProps.add(prop);
         for (OWLOntology ont : ontologies) {
-            for (OWLObjectSubPropertyAxiom ax : ont.getObjectSubPropertyAxiomsForLHS(prop)) {
+            for (OWLSubObjectPropertyOfAxiom ax : ont.getObjectSubPropertyAxiomsForLHS(prop)) {
                 if (ax.getSubProperty().equals(prop)) {
                     OWLObjectPropertyExpression supProp = ax.getSuperProperty();
                     if (!indexMap.containsKey(supProp)) {

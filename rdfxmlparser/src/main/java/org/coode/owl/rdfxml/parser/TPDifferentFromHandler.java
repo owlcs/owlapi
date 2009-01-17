@@ -53,7 +53,7 @@ public class TPDifferentFromHandler extends TriplePredicateHandler {
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         inds.add(translateIndividual(subject));
         inds.add(translateIndividual(object));
-        addAxiom(getDataFactory().getOWLDifferentIndividualsAxiom(inds));
+        addAxiom(getDataFactory().getDifferentIndividuals(inds));
         consumeTriple(subject, predicate, object);
     }
 }

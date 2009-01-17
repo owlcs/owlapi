@@ -55,12 +55,12 @@ public class OWLObjectPropertyDomainElementHandler extends AbstractOWLAxiomEleme
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if(property == null) {
+        if (property == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected object property element");
         }
-        if(domain == null) {
+        if (domain == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected description element");
         }
-        return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(property, domain);
+        return getOWLDataFactory().getObjectPropertyDomain(property, domain);
     }
 }

@@ -36,16 +36,16 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
- *
+ * <p/>
  * Generates inferred data property characteristics.
  */
 public class InferredDataPropertyCharacteristicAxiomGenerator extends InferredDataPropertyAxiomGenerator<OWLDataPropertyCharacteristicAxiom> {
 
 
     protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLDataPropertyCharacteristicAxiom> result) throws
-                                                                                                                             OWLReasonerException {
-        if(reasoner.isFunctional(entity)) {
-            result.add(dataFactory.getOWLFunctionalDataPropertyAxiom(entity));
+            OWLReasonerException {
+        if (reasoner.isFunctional(entity)) {
+            result.add(dataFactory.getFunctionalDataProperty(entity));
         }
     }
 

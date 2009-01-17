@@ -35,7 +35,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br><br>
- *
+ * <p/>
  * A convenience object that generates the changes which are necessary to
  * remove an entity from a set of ontologies.  This is accomplished by removing
  * all axioms that refer to the entity.  The entity remover follows the visitor
@@ -53,12 +53,13 @@ public class OWLEntityRemover implements OWLEntityVisitor {
     /**
      * Creates an entity remover, which will remove entities (axioms referring to the entities
      * from the specified ontologies).
+     *
      * @param owlOntologyManager The <code>OWLOntologyManager</code> which contains the ontologies
-     * that contain entities to be removed.
-     * @param ontologies The set of ontologies that contain references to axioms to be removed.
+     *                           that contain entities to be removed.
+     * @param ontologies         The set of ontologies that contain references to axioms to be removed.
      */
     public OWLEntityRemover(OWLOntologyManager owlOntologyManager, Set<OWLOntology> ontologies) {
-        changes = new  ArrayList<OWLOntologyChange>();
+        changes = new ArrayList<OWLOntologyChange>();
         this.ontologies = new HashSet<OWLOntology>(ontologies);
     }
 
@@ -81,8 +82,8 @@ public class OWLEntityRemover implements OWLEntityVisitor {
     }
 
     private void generateChanges(OWLEntity entity) {
-        for(OWLOntology ont : ontologies) {
-            for(OWLAxiom ax : ont.getReferencingAxioms(entity)) {
+        for (OWLOntology ont : ontologies) {
+            for (OWLAxiom ax : ont.getReferencingAxioms(entity)) {
                 changes.add(new RemoveAxiom(ont, ax));
             }
         }
@@ -98,7 +99,7 @@ public class OWLEntityRemover implements OWLEntityVisitor {
     }
 
 
-    public void visit(OWLIndividual individual) {
+    public void visit(OWLNamedIndividual individual) {
         generateChanges(individual);
     }
 
@@ -112,5 +113,7 @@ public class OWLEntityRemover implements OWLEntityVisitor {
         generateChanges(property);
     }
 
-
+    public void visit(OWLAnnotationProperty property) {
+        generateChanges(property);
+    }
 }

@@ -34,24 +34,34 @@ import java.util.Set;
  * <p/>
  * Represents a named or anonymous individual.
  */
-public interface OWLIndividual extends OWLEntity, OWLNamedObject {
+public interface OWLIndividual extends OWLObject {
 
     /**
      * Determines if this object represents an anonymous individual.
+     *
      * @return <code>true</code> if this object represents an anonymous
      *         individual (<code>OWLAnonymousIndividual)</code> or <code>false</code>
      *         if this object represents a named individual (<code>OWLIndividual</code>)
      */
     boolean isAnonymous();
 
+    /**
+     * Obtains this individual as a named individual if it is indeed named.
+     *
+     * @return The individual as a named individual
+     * @throws OWLRuntimeException if this individual is anonymous
+     */
+    OWLNamedIndividual asNamedIndividual();
+
 
     /**
      * A convenience method, which gets the types of this individual, that
      * correspond to the types asserted with axioms in the specified ontology.
+     *
      * @param ontology The ontology that should be examined for class assertion
-     * axioms in order to get the types for this individual.
+     *                 axioms in order to get the types for this individual.
      * @return A set of descriptions that correspond the asserted types of this
-     * individual in the specified ontology.
+     *         individual in the specified ontology.
      */
     public Set<OWLClassExpression> getTypes(OWLOntology ontology);
 
@@ -59,15 +69,17 @@ public interface OWLIndividual extends OWLEntity, OWLNamedObject {
     /**
      * A convenience method that gets the types of this individual by
      * examining the specified ontologies.
+     *
      * @param ontologies The ontologies to be examined for class assertions
      * @return A set of descriptions that represent the types of this
-     * individual as asserted in the specified ontologies.
+     *         individual as asserted in the specified ontologies.
      */
     public Set<OWLClassExpression> getTypes(Set<OWLOntology> ontologies);
 
 
     /**
      * Gets the object property values for this individual.
+     *
      * @return A map, which maps object properties to sets of individuals.
      */
     public Map<OWLObjectPropertyExpression, Set<OWLIndividual>> getObjectPropertyValues(OWLOntology ontology);
@@ -76,6 +88,7 @@ public interface OWLIndividual extends OWLEntity, OWLNamedObject {
     /**
      * Gets the object property values that are explicitly asserted NOT to hold
      * for this individual
+     *
      * @param ontology The ontology that should be examined for axioms
      * @return A map containing the negative object property values
      */
@@ -89,17 +102,18 @@ public interface OWLIndividual extends OWLEntity, OWLNamedObject {
     /**
      * Gets the data property values that are explicitly asserted NOT to hold
      * for this individual
+     *
      * @param ontology The ontology that should be examined for axioms
      * @return A map containing the negative data property values
      */
     public Map<OWLDataPropertyExpression, Set<OWLLiteral>> getNegativeDataPropertyValues(OWLOntology ontology);
 
 
-
     /**
      * A convenience method that examines axioms in the specified ontology
      * to determine the individuals that are asserted to be the same as
      * this individual.
+     *
      * @return Individuals that have been asserted to be the same as this individual.
      */
     Set<OWLIndividual> getSameIndividuals(OWLOntology ontology);
@@ -109,6 +123,7 @@ public interface OWLIndividual extends OWLEntity, OWLNamedObject {
      * A convenience method that examines axioms in the specified ontology
      * to determine the individuals that are asserted to be different
      * to this individual.
+     *
      * @param ontology
      * @return
      */

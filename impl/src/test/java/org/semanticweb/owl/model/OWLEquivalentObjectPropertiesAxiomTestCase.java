@@ -35,7 +35,7 @@ public class OWLEquivalentObjectPropertiesAxiomTestCase extends AbstractOWLNaryO
 
 
     protected OWLObject createObject(Set<OWLObjectProperty> operands) throws Exception {
-        return getOWLDataFactory().getOWLEquivalentObjectPropertiesAxiom(operands);
+        return getOWLDataFactory().getEquivalentObjectProperties(operands);
     }
 
 

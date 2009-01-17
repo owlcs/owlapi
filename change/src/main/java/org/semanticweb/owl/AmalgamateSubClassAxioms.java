@@ -35,7 +35,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 15-Aug-2007<br><br>
- *
+ * <p/>
  * Given a set of ontologies S, for each ontology, O, in S, this change
  * combines multiple subclass axioms with a common left hand side into
  * one subclass axiom.  For example, given A subClassOf B, A subClassOf C,
@@ -50,17 +50,17 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
     public AmalgamateSubClassAxioms(Set<OWLOntology> ontologies, OWLDataFactory dataFactory) {
         super(dataFactory);
         changes = new ArrayList<OWLOntologyChange>();
-        for(OWLOntology ont : ontologies) {
-            for(OWLClass cls : ont.getReferencedClasses()) {
-                Set<OWLSubClassAxiom> axioms = ont.getSubClassAxiomsForLHS(cls);
+        for (OWLOntology ont : ontologies) {
+            for (OWLClass cls : ont.getReferencedClasses()) {
+                Set<OWLSubClassOfAxiom> axioms = ont.getSubClassAxiomsForLHS(cls);
                 if (axioms.size() > 1) {
                     Set<OWLClassExpression> superClasses = new HashSet<OWLClassExpression>();
-                    for(OWLSubClassAxiom ax : axioms) {
+                    for (OWLSubClassOfAxiom ax : axioms) {
                         changes.add(new RemoveAxiom(ont, ax));
                         superClasses.add(ax.getSuperClass());
                     }
-                    OWLClassExpression combinedSuperClass = getDataFactory().getOWLObjectIntersectionOf(superClasses);
-                    changes.add(new AddAxiom(ont, getDataFactory().getOWLSubClassAxiom(cls, combinedSuperClass)));
+                    OWLClassExpression combinedSuperClass = getDataFactory().getObjectIntersectionOf(superClasses);
+                    changes.add(new AddAxiom(ont, getDataFactory().getSubClassOf(cls, combinedSuperClass)));
                 }
             }
         }

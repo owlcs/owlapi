@@ -2,9 +2,9 @@ package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.*;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -34,7 +34,7 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 25-May-2007<br><br>
- *
+ * <p/>
  * Changes the URI of an ontology and ensures that ontologies which import
  * the ontology have their imports statements updated
  */
@@ -50,20 +50,21 @@ public class OWLOntologyURIChanger {
 
     /**
      * Changes the URI of the specified ontology to the new URI.
+     *
      * @param ontology The ontology whose URI is to be changed.
-     * @param newURI The new URI for the ontology
+     * @param newURI   The new URI for the ontology
      * @return A list of changes, which when applied will change the URI of the
-     * specified ontology, and also update the imports declarations in any ontologies
-     * which import the specified ontology.
+     *         specified ontology, and also update the imports declarations in any ontologies
+     *         which import the specified ontology.
      */
     public List<OWLOntologyChange> getChanges(OWLOntology ontology, URI newURI) {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         changes.add(new SetOntologyURI(ontology, newURI));
-        for(OWLOntology ont : owlOntologyManager.getOntologies()) {
-            for(OWLImportsDeclaration decl : ont.getImportsDeclarations()) {
-                if(decl.getImportedOntologyURI().equals(ontology.getURI())) {
+        for (OWLOntology ont : owlOntologyManager.getOntologies()) {
+            for (OWLImportsDeclaration decl : ont.getImportsDeclarations()) {
+                if (decl.getImportedOntologyURI().equals(ontology.getURI())) {
                     changes.add(new RemoveAxiom(ont, decl));
-                    changes.add(new AddAxiom(ont, owlOntologyManager.getOWLDataFactory().getOWLImportsDeclarationAxiom(ontology, newURI)));
+                    changes.add(new AddAxiom(ont, owlOntologyManager.getOWLDataFactory().getImportsDeclaration(ontology, newURI)));
                 }
             }
         }

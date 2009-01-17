@@ -47,7 +47,7 @@ public class TPDataPropertyRangeHandler extends TriplePredicateHandler {
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        addAxiom(getDataFactory().getOWLDataPropertyRangeAxiom(
+        addAxiom(getDataFactory().getDataPropertyRange(
                 translateDataProperty(subject),
                 translateDataRange(object)
         ));

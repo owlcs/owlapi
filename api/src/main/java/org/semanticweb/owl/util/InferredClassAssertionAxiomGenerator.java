@@ -6,7 +6,7 @@ import org.semanticweb.owl.inference.OWLReasonerException;
 import org.semanticweb.owl.model.OWLClass;
 import org.semanticweb.owl.model.OWLClassAssertionAxiom;
 import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLIndividual;
+import org.semanticweb.owl.model.OWLNamedIndividual;
 
 import java.util.Set;
 /*
@@ -38,16 +38,16 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
- *
+ * <p/>
  * Generates <code>OWLClassAssertionsAxiom</code>s for inferred individual types.
  */
 public class InferredClassAssertionAxiomGenerator extends InferredIndividualAxiomGenerator<OWLClassAssertionAxiom> {
 
 
-    protected void addAxioms(OWLIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLClassAssertionAxiom> result) throws
-                                                                                                                           OWLReasonerException {
-        for(OWLClass type : OWLReasonerAdapter.flattenSetOfSets(reasoner.getTypes(entity, false))) {
-            result.add(dataFactory.getOWLClassAssertionAxiom(entity, type));
+    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLClassAssertionAxiom> result) throws
+            OWLReasonerException {
+        for (OWLClass type : OWLReasonerAdapter.flattenSetOfSets(reasoner.getTypes(entity, false))) {
+            result.add(dataFactory.getClassAssertion(entity, type));
         }
     }
 

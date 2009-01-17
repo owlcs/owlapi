@@ -137,14 +137,13 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private OWLClass setupDebuggingClass(OWLClassExpression cls) throws OWLException {
         if (!cls.isAnonymous()) {
             return (OWLClass) cls;
-        }
-        else {
+        } else {
             // The class is anonymous, so we need to assign it a name
             OWLClass curCls = owlOntologyManager.getOWLDataFactory().getOWLClass(createURI());
             Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
             operands.add(curCls);
             operands.add(cls);
-            temporaryAxioms.add(owlOntologyManager.getOWLDataFactory().getOWLEquivalentClassesAxiom(operands));
+            temporaryAxioms.add(owlOntologyManager.getOWLDataFactory().getEquivalentClasses(operands));
             for (OWLAxiom ax : temporaryAxioms) {
                 owlOntologyManager.applyChanges(Arrays.asList(new AddAxiom(getOWLOntology(), ax)));
             }
@@ -256,14 +255,11 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         for (OWLOntology ont : owlOntologyManager.getImportsClosure(getOWLOntology())) {
             if (obj instanceof OWLClass) {
                 expansionAxioms.addAll(ont.getAxioms((OWLClass) obj));
-            }
-            else if (obj instanceof OWLObjectProperty) {
+            } else if (obj instanceof OWLObjectProperty) {
                 expansionAxioms.addAll(ont.getAxioms((OWLObjectProperty) obj));
-            }
-            else if (obj instanceof OWLDataProperty) {
+            } else if (obj instanceof OWLDataProperty) {
                 expansionAxioms.addAll(ont.getAxioms((OWLDataProperty) obj));
-            }
-            else if (obj instanceof OWLIndividual) {
+            } else if (obj instanceof OWLIndividual) {
                 expansionAxioms.addAll(ont.getAxioms((OWLIndividual) obj));
             }
         }
@@ -291,6 +287,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     /**
      * A utility method.  Adds axioms from one set to another set upto a specified limit.
      * Annotation axioms are stripped out
+     *
      * @param source The source set.  Objects from this set will be added to the
      *               destination set
      * @param dest   The destination set.  Objects will be added to this set
@@ -322,7 +319,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private void performFastPruning() throws OWLException {
         logger.setLevel(Level.INFO);
         Set<OWLAxiom> axiomWindow = new HashSet<OWLAxiom>();
-        Object [] axioms = debuggingAxioms.toArray();
+        Object[] axioms = debuggingAxioms.toArray();
         if (logger.isLoggable(Level.INFO)) {
             logger.info("Fast pruning: ");
         }
@@ -445,7 +442,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
         // Ensure the ontology contains the signature of the class which is being debugged
         OWLDataFactory factory = owlOntologyManager.getOWLDataFactory();
-        OWLAxiom ax = factory.getOWLSubClassAxiom(currentClass, factory.getOWLThing());
+        OWLAxiom ax = factory.getSubClassOf(currentClass, factory.getOWLThing());
         changes.add(new AddAxiom(debuggingOntology, ax));
         owlOntologyManager.applyChanges(changes);
     }
@@ -533,8 +530,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                 logger.info("... end of fast pruning. Axioms remaining: " + debuggingAxioms.size());
                 logger.info("Performed " + satTestCount + " satisfiability tests during fast pruning");
             }
-        }
-        else {
+        } else {
             fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
             performFastPruning();
             if (logger.isLoggable(Level.INFO)) {

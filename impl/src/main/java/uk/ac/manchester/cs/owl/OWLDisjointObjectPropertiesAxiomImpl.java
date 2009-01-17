@@ -46,7 +46,7 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         }
         return false;
     }
-    
+
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }

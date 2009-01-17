@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 
 import java.util.List;
@@ -52,11 +51,9 @@ public class OWLSubObjectPropertyOfAxiomElementHandler extends AbstractOWLAxiomE
     public void handleChild(AbstractOWLObjectPropertyElementHandler handler) throws OWLXMLParserException {
         if (subProperty == null && propertyList == null) {
             subProperty = handler.getOWLObject();
-        }
-        else if (superProperty == null) {
+        } else if (superProperty == null) {
             superProperty = handler.getOWLObject();
-        }
-        else {
+        } else {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected two object property expression elements");
         }
     }
@@ -69,10 +66,9 @@ public class OWLSubObjectPropertyOfAxiomElementHandler extends AbstractOWLAxiomE
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
         if (subProperty != null) {
-            return getOWLDataFactory().getOWLSubObjectPropertyAxiom(subProperty, superProperty);
-        }
-        else {
-            return getOWLDataFactory().getOWLObjectPropertyChainSubPropertyAxiom(propertyList, superProperty);
+            return getOWLDataFactory().getSubObjectPropertyOf(subProperty, superProperty);
+        } else {
+            return getOWLDataFactory().getObjectPropertyChainSubProperty(propertyList, superProperty);
         }
     }
 }

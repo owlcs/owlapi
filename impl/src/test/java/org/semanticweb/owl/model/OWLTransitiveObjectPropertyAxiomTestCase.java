@@ -31,8 +31,8 @@ package org.semanticweb.owl.model;
  */
 public class OWLTransitiveObjectPropertyAxiomTestCase extends AbstractOWLObjectPropertyCharacteristicAxiomTestCase {
 
-   
+
     protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) throws OWLException {
-        return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(property);
+        return getOWLDataFactory().getTransitiveObjectProperty(property);
     }
 }

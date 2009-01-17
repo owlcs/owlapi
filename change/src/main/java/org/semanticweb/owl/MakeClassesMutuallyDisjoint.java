@@ -54,6 +54,7 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
 
     /**
      * Creates a composite change which makes a set of classes mutually disjoint
+     *
      * @param dataFactory               The data factory which should be used for creating the axioms
      * @param descriptions              The descriptions which should be made mutually disjoint.
      * @param usePairwiseDisjointAxioms <code>true</code> if multiple disjoint classes
@@ -79,14 +80,13 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
             for (int i = 0; i < descList.size(); i++) {
                 for (int j = i + 1; j < descList.size(); j++) {
                     changes.add(new AddAxiom(targetOntology,
-                                             getDataFactory().getOWLDisjointClassesAxiom(CollectionFactory.createSet(
-                                                     descList.get(i),
-                                                     descList.get(j)))));
+                            getDataFactory().getDisjointClasses(CollectionFactory.createSet(
+                                    descList.get(i),
+                                    descList.get(j)))));
                 }
             }
-        }
-        else {
-            changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLDisjointClassesAxiom(descriptions)));
+        } else {
+            changes.add(new AddAxiom(targetOntology, getDataFactory().getDisjointClasses(descriptions)));
         }
     }
 

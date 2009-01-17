@@ -28,9 +28,9 @@ package org.semanticweb.owl.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- *
+ * <p/>
  * The base interface for all descriptions which are not named
- * descriptions (i.e. all descriptions which are not <code>OWLClass</code>).
+ * class expressions (i.e. all class expressions which are not <code>OWLClass</code>).
  */
 public interface OWLAnonymousClassExpression extends OWLClassExpression {
 

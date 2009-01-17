@@ -155,7 +155,7 @@ public class OBOConsumer implements OBOParserHandler {
     }
 
     private void loadBuiltinURIs() {
-        for(OBOVocabulary v : OBOVocabulary.values()) {
+        for (OBOVocabulary v : OBOVocabulary.values()) {
             uriCache.put(v.getName(), v.getURI());
         }
     }
@@ -229,9 +229,8 @@ public class OBOConsumer implements OBOParserHandler {
         OWLClassExpression equivalentClass;
         if (unionOfOperands.size() == 1) {
             equivalentClass = unionOfOperands.iterator().next();
-        }
-        else {
-            equivalentClass = getDataFactory().getOWLObjectUnionOf(unionOfOperands);
+        } else {
+            equivalentClass = getDataFactory().getObjectUnionOf(unionOfOperands);
         }
         createEquivalentClass(equivalentClass);
     }
@@ -241,16 +240,15 @@ public class OBOConsumer implements OBOParserHandler {
         OWLClassExpression equivalentClass;
         if (intersectionOfOperands.size() == 1) {
             equivalentClass = intersectionOfOperands.iterator().next();
-        }
-        else {
-            equivalentClass = getDataFactory().getOWLObjectIntersectionOf(intersectionOfOperands);
+        } else {
+            equivalentClass = getDataFactory().getObjectIntersectionOf(intersectionOfOperands);
         }
         createEquivalentClass(equivalentClass);
     }
 
 
     private void createEquivalentClass(OWLClassExpression classExpression) {
-        OWLAxiom ax = getDataFactory().getOWLEquivalentClassesAxiom(CollectionFactory.createSet(getCurrentClass(),
+        OWLAxiom ax = getDataFactory().getEquivalentClasses(CollectionFactory.createSet(getCurrentClass(),
                 classExpression));
         try {
             getOWLOntologyManager().applyChange(new AddAxiom(ontology, ax));
@@ -263,38 +261,37 @@ public class OBOConsumer implements OBOParserHandler {
 
     public void handleTagValue(String tag, String value) {
         try {
-                TagValueHandler handler = handlerMap.get(tag);
-                if (handler != null) {
-                    handler.handle(currentId, value);
-                }
-                else if(inHeader) {
-                    if(tag.equals("import")) {
-                        try {
-                            URI uri = URI.create(value.trim());
-                            OWLImportsDeclaration decl = owlOntologyManager.getOWLDataFactory().getOWLImportsDeclarationAxiom(ontology, uri);
-                            owlOntologyManager.makeLoadImportRequest(decl);
-                            owlOntologyManager.applyChange(new AddAxiom(ontology, decl));
-                        }
-                        catch (OWLOntologyCreationException e) {
-                            e.printStackTrace();
-                        }
+            TagValueHandler handler = handlerMap.get(tag);
+            if (handler != null) {
+                handler.handle(currentId, value);
+            } else if (inHeader) {
+                if (tag.equals("import")) {
+                    try {
+                        URI uri = URI.create(value.trim());
+                        OWLImportsDeclaration decl = owlOntologyManager.getOWLDataFactory().getImportsDeclaration(ontology, uri);
+                        owlOntologyManager.makeLoadImportRequest(decl);
+                        owlOntologyManager.applyChange(new AddAxiom(ontology, decl));
                     }
-                    else {
-                        // Ontology annotations
-                        OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
-                        OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getURI(tag), con);
-                        OWLOntologyAnnotationAxiom ax = getDataFactory().getOWLOntologyAnnotationAxiom(ontology, anno);
-                        owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
+                    catch (OWLOntologyCreationException e) {
+                        e.printStackTrace();
                     }
+                } else {
+                    // Ontology annotations
+                    throw new OWLRuntimeException("TODO");
+//                        OWLLiteral con = getDataFactory().getTypedLiteral(value);
+//                        OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getURI(tag), con);
+//                        OWLOntologyAnnotationAxiom ax = getDataFactory().getOWLOntologyAnnotationAxiom(ontology, anno);
+//                        owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
                 }
-                else if (currentId != null) {
-                    // Add as annotation
-                    OWLEntity entity = getCurrentEntity();
-                    OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
-                    OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getURI(tag), con);
-                    OWLEntityAnnotationAxiom ax = getDataFactory().getOWLEntityAnnotationAxiom(entity, anno);
-                    owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
-                }
+            } else if (currentId != null) {
+                // Add as annotation
+                throw new OWLRuntimeException("TODO");
+//                    OWLEntity entity = getCurrentEntity();
+//                    OWLLiteral con = getDataFactory().getTypedLiteral(value);
+//                    OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getURI(tag), con);
+//                    OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLEntityAnnotationAxiom(entity, anno);
+//                    owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
+            }
 
         }
         catch (OWLOntologyChangeException e) {
@@ -313,13 +310,11 @@ public class OBOConsumer implements OBOParserHandler {
     }
 
     public OWLEntity getCurrentEntity() {
-        if(isTerm()) {
+        if (isTerm()) {
             return getCurrentClass();
-        }
-        else if(isTypedef()) {
+        } else if (isTypedef()) {
             return getDataFactory().getOWLObjectProperty(getURI(currentId));
-        }
-        else {
+        } else {
             return getDataFactory().getOWLIndividual(getURI(currentId));
         }
     }

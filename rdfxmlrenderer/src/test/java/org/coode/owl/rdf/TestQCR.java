@@ -43,10 +43,10 @@ public class TestQCR extends AbstractRendererAndParserTestCase {
         OWLClass clsB = getDataFactory().getOWLClass(TestUtils.createURI());
         OWLClass clsC = getDataFactory().getOWLClass(TestUtils.createURI());
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(TestUtils.createURI());
-        OWLClassExpression filler = getDataFactory().getOWLObjectIntersectionOf(CollectionFactory.createSet(clsB, clsC));
-        OWLCardinalityRestriction restriction = getDataFactory().getOWLObjectMinCardinalityRestriction(prop, 3, filler);
+        OWLClassExpression filler = getDataFactory().getObjectIntersectionOf(CollectionFactory.createSet(clsB, clsC));
+        OWLCardinalityRestriction restriction = getDataFactory().getObjectMinCardinality(prop, 3, filler);
         assertTrue(restriction.isQualified());
-        OWLAxiom ax = getDataFactory().getOWLSubClassAxiom(clsA, restriction);
+        OWLAxiom ax = getDataFactory().getSubClassOf(clsA, restriction);
         return Collections.singleton(ax);
     }
 

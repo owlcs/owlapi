@@ -4,8 +4,8 @@ import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLIndividual;
 
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -41,9 +41,9 @@ public class TestAnonymousType extends AbstractRendererAndParserTestCase {
 
     protected Set<OWLAxiom> getAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClassExpression desc = getDataFactory().getOWLObjectComplementOf(getDataFactory().getOWLClass(TestUtils.createURI()));
+        OWLClassExpression desc = getDataFactory().getObjectComplementOf(getDataFactory().getOWLClass(TestUtils.createURI()));
         OWLIndividual ind = getDataFactory().getOWLIndividual(TestUtils.createURI());
-        axioms.add(getDataFactory().getOWLClassAssertionAxiom(ind, desc));
+        axioms.add(getDataFactory().getClassAssertion(ind, desc));
         return axioms;
     }
 

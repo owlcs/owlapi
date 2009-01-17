@@ -77,7 +77,6 @@ public class OWLRDFTextLiteralImpl extends OWLLiteralImpl implements OWLRDFTextL
         return this;
     }
 
-
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (obj instanceof OWLRDFTextLiteral) {

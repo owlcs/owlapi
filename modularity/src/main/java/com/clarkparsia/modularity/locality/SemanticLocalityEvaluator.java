@@ -75,7 +75,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         public void visit(OWLDisjointClassesAxiom axiom) {
             Set<OWLClassExpression> disjClasses = axiom.getDescriptions();
-            OWLClassExpression conjunction = df.getOWLObjectIntersectionOf(disjClasses);
+            OWLClassExpression conjunction = df.getObjectIntersectionOf(disjClasses);
 
             if (log.isLoggable(Level.FINE))
                 log.fine("Calling the Reasoner");
@@ -116,7 +116,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLSubClassAxiom axiom) {
+        public void visit(OWLSubClassOfAxiom axiom) {
             OWLClassExpression sup = axiom.getSuperClass();
             OWLClassExpression sub = axiom.getSubClass();
 
@@ -136,7 +136,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     }
 
 
-    private class BottomReplacer extends OWLAxiomVisitorAdapter implements OWLAxiomVisitor, OWLDescriptionVisitor {
+    private class BottomReplacer extends OWLAxiomVisitorAdapter implements OWLAxiomVisitor, OWLClassExpressionVisitor {
 
         private OWLAxiom newAxiom;
 
@@ -201,7 +201,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLDataExactCardinalityRestriction desc) {
+        public void visit(OWLDataExactCardinality desc) {
             if (signature.contains(desc.getProperty().asOWLDataProperty()))
                 newClassExpression = desc;
             else
@@ -209,7 +209,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLDataMaxCardinalityRestriction desc) {
+        public void visit(OWLDataMaxCardinality desc) {
             if (signature.contains(desc.getProperty().asOWLDataProperty()))
                 newClassExpression = desc;
             else
@@ -217,7 +217,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLDataMinCardinalityRestriction desc) {
+        public void visit(OWLDataMinCardinality desc) {
             if (signature.contains(desc.getProperty().asOWLDataProperty()))
                 newClassExpression = desc;
             else
@@ -240,30 +240,30 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         public void visit(OWLDisjointClassesAxiom ax) {
             Set<OWLClassExpression> disjointclasses = replaceBottom(ax.getDescriptions());
-            newAxiom = df.getOWLDisjointClassesAxiom(disjointclasses);
+            newAxiom = df.getDisjointClasses(disjointclasses);
         }
 
 
         public void visit(OWLEquivalentClassesAxiom ax) {
             Set<OWLClassExpression> eqclasses = replaceBottom(ax.getDescriptions());
-            newAxiom = df.getOWLEquivalentClassesAxiom(eqclasses);
+            newAxiom = df.getEquivalentClasses(eqclasses);
         }
 
 
         public void visit(OWLObjectAllValuesFrom desc) {
             if (signature.contains(desc.getProperty().getNamedProperty()))
-                newClassExpression = df.getOWLObjectAllValuesFrom(desc.getProperty(), replaceBottom(desc.getFiller()));
+                newClassExpression = df.getObjectAllValuesFrom(desc.getProperty(), replaceBottom(desc.getFiller()));
             else
                 newClassExpression = df.getOWLThing();
         }
 
 
         public void visit(OWLObjectComplementOf desc) {
-            newClassExpression = df.getOWLObjectComplementOf(replaceBottom(desc.getOperand()));
+            newClassExpression = df.getObjectComplementOf(replaceBottom(desc.getOperand()));
         }
 
 
-        public void visit(OWLObjectExactCardinalityRestriction desc) {
+        public void visit(OWLObjectExactCardinality desc) {
             if (signature.contains(desc.getProperty().getNamedProperty()))
                 newClassExpression = desc;
             else
@@ -273,11 +273,11 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         public void visit(OWLObjectIntersectionOf desc) {
             Set<OWLClassExpression> operands = desc.getOperands();
-            newClassExpression = df.getOWLObjectIntersectionOf(replaceBottom(operands));
+            newClassExpression = df.getObjectIntersectionOf(replaceBottom(operands));
         }
 
 
-        public void visit(OWLObjectMaxCardinalityRestriction desc) {
+        public void visit(OWLObjectMaxCardinality desc) {
             if (signature.contains(desc.getProperty().getNamedProperty()))
                 newClassExpression = desc;
             else
@@ -285,7 +285,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLObjectMinCardinalityRestriction desc) {
+        public void visit(OWLObjectMinCardinality desc) {
             if (signature.contains(desc.getProperty().getNamedProperty()))
                 newClassExpression = desc;
             else
@@ -298,14 +298,14 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLObjectSelfRestriction desc) {
+        public void visit(OWLObjectHasSelf desc) {
             throw new RuntimeException();
         }
 
 
         public void visit(OWLObjectSomeValuesFrom desc) {
             if (signature.contains(desc.getProperty().getNamedProperty())) {
-                newClassExpression = df.getOWLObjectSomeValuesFrom(desc.getProperty(),
+                newClassExpression = df.getObjectSomeValuesFrom(desc.getProperty(),
                         replaceBottom(desc.getFiller()));
             } else
                 newClassExpression = df.getOWLNothing();
@@ -314,19 +314,19 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         public void visit(OWLObjectUnionOf desc) {
             Set<OWLClassExpression> operands = desc.getOperands();
-            newClassExpression = df.getOWLObjectUnionOf(replaceBottom(operands));
+            newClassExpression = df.getObjectUnionOf(replaceBottom(operands));
         }
 
 
-        public void visit(OWLObjectValueRestriction desc) {
+        public void visit(OWLObjectHasValue desc) {
             throw new RuntimeException();
         }
 
 
-        public void visit(OWLSubClassAxiom ax) {
+        public void visit(OWLSubClassOfAxiom ax) {
             OWLClassExpression sup = replaceBottom(ax.getSuperClass());
             OWLClassExpression sub = replaceBottom(ax.getSubClass());
-            newAxiom = df.getOWLSubClassAxiom(sub, sup);
+            newAxiom = df.getSubClassOf(sub, sup);
         }
     }
 

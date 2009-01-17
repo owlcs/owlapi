@@ -1,9 +1,12 @@
 package org.coode.owl.rdf;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owl.model.OWLDataProperty;
+import org.semanticweb.owl.model.OWLIndividual;
+import org.semanticweb.owl.model.OWLLiteral;
 
-import java.util.Set;
 import java.util.Collections;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -44,8 +47,8 @@ public class TestNegativeDataPropertyAssertionAxiom extends AbstractRendererAndP
     protected Set<OWLAxiom> getAxioms() {
         OWLIndividual subj = createIndividual();
         OWLDataProperty prop = createDataProperty();
-        OWLLiteral obj = getDataFactory().getOWLTypedLiteral("TestConstant");
-        OWLAxiom ax = getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(subj, prop, obj);
+        OWLLiteral obj = getDataFactory().getTypedLiteral("TestConstant");
+        OWLAxiom ax = getDataFactory().getNegativeDataPropertyAssertion(subj, prop, obj);
         return Collections.singleton(ax);
     }
 }

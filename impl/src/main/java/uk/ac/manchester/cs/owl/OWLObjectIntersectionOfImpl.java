@@ -42,13 +42,13 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
 
 
     public boolean equals(Object obj) {
-        if(super.equals(obj)) {
+        if (super.equals(obj)) {
             return obj instanceof OWLObjectIntersectionOf;
         }
         return false;
     }
 
-    public void accept(OWLDescriptionVisitor visitor) {
+    public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -57,19 +57,18 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
     }
 
 
-
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
-    public <O> O accept(OWLDescriptionVisitorEx<O> visitor) {
+    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
     public Set<OWLClassExpression> asConjunctSet() {
         Set<OWLClassExpression> conjuncts = new HashSet<OWLClassExpression>();
-        for(OWLClassExpression op : getOperands()) {
+        for (OWLClassExpression op : getOperands()) {
             conjuncts.addAll(op.asConjunctSet());
         }
         return conjuncts;

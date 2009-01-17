@@ -43,6 +43,6 @@ public class OWLObjectPropertyRangeAxiomTestCase extends AbstractOWLBinaryOperan
 
 
     protected OWLAxiom createAxiom(OWLObjectProperty leftOperand, OWLClassExpression rightOperand) throws Exception {
-        return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(leftOperand, rightOperand);
+        return getOWLDataFactory().getObjectPropertyRange(leftOperand, rightOperand);
     }
 }

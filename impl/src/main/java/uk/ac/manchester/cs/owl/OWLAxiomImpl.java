@@ -1,6 +1,8 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owl.model.OWLDataFactory;
+import org.semanticweb.owl.model.OWLEntity;
 import org.semanticweb.owl.util.NNF;
 import org.semanticweb.owl.util.OWLEntityCollector;
 
@@ -52,11 +54,6 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
     }
 
 
-    public Set<OWLAxiomAnnotationAxiom> getAnnotationAxioms(OWLOntology ontology) {
-        return ontology.getAnnotations(this);
-    }
-
-
     public Set<OWLEntity> getReferencedEntities() {
         OWLEntityCollector collector = new OWLEntityCollector();
         this.accept(collector);
@@ -65,7 +62,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
 
     public OWLAxiom getNNF() {
-        if(nnf == null) {
+        if (nnf == null) {
             NNF con = new NNF(getOWLDataFactory());
             nnf = accept(con);
         }

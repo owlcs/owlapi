@@ -42,7 +42,7 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl impl
 
 
     public boolean equals(Object obj) {
-        if(super.equals(obj)) {
+        if (super.equals(obj)) {
             return obj instanceof OWLObjectUnionOf;
         }
         return false;
@@ -51,14 +51,14 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl impl
 
     public Set<OWLClassExpression> asDisjunctSet() {
         Set<OWLClassExpression> disjuncts = new HashSet<OWLClassExpression>();
-        for(OWLClassExpression op : getOperands()) {
+        for (OWLClassExpression op : getOperands()) {
             disjuncts.addAll(op.asDisjunctSet());
         }
         return disjuncts;
     }
 
 
-    public void accept(OWLDescriptionVisitor visitor) {
+    public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -66,7 +66,7 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl impl
         visitor.visit(this);
     }
 
-    public <O> O accept(OWLDescriptionVisitorEx<O> visitor) {
+    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

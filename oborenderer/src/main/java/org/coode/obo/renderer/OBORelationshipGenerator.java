@@ -1,6 +1,7 @@
 package org.coode.obo.renderer;
 
 import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.util.OWLClassExpressionVisitorAdapter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +34,7 @@ import java.util.Set;
  * Bio Health Informatics Group<br>
  * Date: Dec 18, 2008<br><br>
  */
-public class OBORelationshipGenerator extends org.semanticweb.owl.util.OWLDescriptionVisitorAdapter {
+public class OBORelationshipGenerator extends OWLClassExpressionVisitorAdapter {
 
     private Set<OBORelationship> relationships = new HashSet<OBORelationship>();
 
@@ -68,7 +69,7 @@ public class OBORelationshipGenerator extends org.semanticweb.owl.util.OWLDescri
     }
 
 
-    public void visit(OWLObjectMinCardinalityRestriction desc) {
+    public void visit(OWLObjectMinCardinality desc) {
         OBORelationship rel = getRelationship(desc);
         if (rel != null) {
             rel.setMinCardinality(desc.getCardinality());
@@ -76,7 +77,7 @@ public class OBORelationshipGenerator extends org.semanticweb.owl.util.OWLDescri
     }
 
 
-    public void visit(OWLObjectExactCardinalityRestriction desc) {
+    public void visit(OWLObjectExactCardinality desc) {
         OBORelationship rel = getRelationship(desc);
         if (rel != null) {
             rel.setCardinality(desc.getCardinality());
@@ -84,7 +85,7 @@ public class OBORelationshipGenerator extends org.semanticweb.owl.util.OWLDescri
     }
 
 
-    public void visit(OWLObjectMaxCardinalityRestriction desc) {
+    public void visit(OWLObjectMaxCardinality desc) {
         OBORelationship rel = getRelationship(desc);
         if (rel != null) {
             rel.setMaxCardinality(desc.getCardinality());

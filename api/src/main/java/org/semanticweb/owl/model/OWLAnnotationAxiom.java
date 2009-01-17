@@ -29,21 +29,9 @@ package org.semanticweb.owl.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 25-Oct-2006<br><br>
- *
- * Annotation axioms do not affect the logical meaning of an ontology.  They
- * can be used to associate arbitrary bits of information with an axiom, for
- * example, who asserted it etc.
+ * <p/>
+ * Annotation axioms do not affect the logical meaning of an ontology.
  */
-public interface OWLAnnotationAxiom<S extends OWLObject> extends OWLAxiom {
+public interface OWLAnnotationAxiom extends OWLAxiom, OWLAnnotationObject {
 
-    /**
-     * Gets the subject of the annotation.
-     */
-    public S getSubject();
-
-    /**
-     * Gets the actual annotation
-     * @return The annotation (annotation URI and value).
-     */
-    public OWLAnnotation<? extends OWLObject> getAnnotation();
 }

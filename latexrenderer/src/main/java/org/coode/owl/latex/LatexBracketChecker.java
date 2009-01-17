@@ -30,7 +30,7 @@ import org.semanticweb.owl.model.*;
  * Medical Informatics Group<br>
  * Date: 15-Jun-2007<br><br>
  */
-public class LatexBracketChecker implements OWLDescriptionVisitor {
+public class LatexBracketChecker implements OWLClassExpressionVisitor {
 
     private boolean requiresBracket;
 
@@ -72,7 +72,7 @@ public class LatexBracketChecker implements OWLDescriptionVisitor {
         requiresBracket = true;
     }
 
-    public void visit(OWLObjectValueRestriction node) {
+    public void visit(OWLObjectHasValue node) {
         requiresBracket = true;
     }
 
@@ -93,37 +93,37 @@ public class LatexBracketChecker implements OWLDescriptionVisitor {
     }
 
 
-    public void visit(OWLDataExactCardinalityRestriction desc) {
+    public void visit(OWLDataExactCardinality desc) {
         requiresBracket = true;
     }
 
 
-    public void visit(OWLDataMaxCardinalityRestriction desc) {
+    public void visit(OWLDataMaxCardinality desc) {
         requiresBracket = true;
     }
 
 
-    public void visit(OWLDataMinCardinalityRestriction desc) {
+    public void visit(OWLDataMinCardinality desc) {
         requiresBracket = true;
     }
 
 
-    public void visit(OWLObjectExactCardinalityRestriction desc) {
+    public void visit(OWLObjectExactCardinality desc) {
         requiresBracket = true;
     }
 
 
-    public void visit(OWLObjectMaxCardinalityRestriction desc) {
+    public void visit(OWLObjectMaxCardinality desc) {
         requiresBracket = true;
     }
 
 
-    public void visit(OWLObjectMinCardinalityRestriction desc) {
+    public void visit(OWLObjectMinCardinality desc) {
         requiresBracket = true;
     }
 
 
-    public void visit(OWLObjectSelfRestriction owlSelfRestriction) {
+    public void visit(OWLObjectHasSelf owlHasSelf) {
         requiresBracket = true;
     }
 

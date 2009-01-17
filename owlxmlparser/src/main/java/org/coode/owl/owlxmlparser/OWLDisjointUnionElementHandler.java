@@ -1,11 +1,11 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLClass;
+import org.semanticweb.owl.model.OWLClassExpression;
 
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -49,19 +49,18 @@ public class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandl
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLDisjointUnionAxiom(cls, classExpressions);
+        return getOWLDataFactory().getDisjointUnion(cls, classExpressions);
     }
 
 
     public void handleChild(AbstractOWLDescriptionElementHandler handler) throws OWLXMLParserException {
-        if(cls == null) {
+        if (cls == null) {
             OWLClassExpression desc = handler.getOWLObject();
-            if(desc.isAnonymous()) {
+            if (desc.isAnonymous()) {
                 throw new OWLXMLParserUnexpectedElementException(getLineNumber(), "Found anonymous class as first child of disjoint union, expected a named class.");
             }
             cls = (OWLClass) desc;
-        }
-        else {
+        } else {
             classExpressions.add(handler.getOWLObject());
         }
     }

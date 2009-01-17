@@ -3,7 +3,8 @@ package org.semanticweb.owl.util;
 import org.semanticweb.owl.model.*;
 
 import java.net.URI;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -63,6 +64,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
 
     /**
      * Constructs an annotation short form provider.
+     *
      * @param annotationURIs             A <code>List</code> of preferred annotation URIs.  The list is searched from
      *                                   start to end, so that annotations that have an annotation URI at the start of the list have a higher
      *                                   priority and are selected over annotation URIs that appear towards or at the end of the list.
@@ -89,7 +91,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
 
     public String getShortForm(OWLEntity entity) {
 
-        for (URI annotationURI : annotationURIs){ // visit the URIs in order of preference
+        for (URI annotationURI : annotationURIs) { // visit the URIs in order of preference
             AnnotationLanguageFilter checker = new AnnotationLanguageFilter(annotationURI, preferredLanguageMap.get(annotationURI));
 
             for (OWLOntology ontology : ontologySetProvider.getOntologies()) {
@@ -112,6 +114,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      * if the object is an individual then the rendering is equal to
      * the rendering of the individual as provided by the alternate
      * short form provider
+     *
      * @param object The object to the rendered
      * @return The rendering of the object.
      */
@@ -120,8 +123,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         // short form provider to render individuals.
         if (object instanceof OWLLiteral) {
             return ((OWLLiteral) object).getString();
-        }
-        else {
+        } else {
             return alternateShortFormProvider.getShortForm((OWLEntity) object);
         }
     }
@@ -144,7 +146,6 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     }
 
 
-
     private class AnnotationLanguageFilter extends OWLObjectVisitorAdapter {
 
         private URI uri;
@@ -162,27 +163,25 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         }
 
 
-        public OWLObject getMatch(){
+        public OWLObject getMatch() {
             return candidateValue;
         }
 
-
-        public void visit(OWLConstantAnnotation anno) {
-            if (lastLangMatchIndex > 0 && // a perfect match - no need to carry on search
-                anno.getAnnotationURI().equals(uri)){
-                anno.getAnnotationValue().accept(this);
-            }
-        }
+//        public void visit(OWLConstantAnnotation anno) {
+//            if (lastLangMatchIndex > 0 && // a perfect match - no need to carry on search
+//                anno.getProperty().equals(uri)){
+//                anno.getValue().accept(this);
+//            }
+//        }
 
 
         public void visit(OWLRDFTextLiteral untypedConstantVal) {
-            if (preferredLanguages == null || preferredLanguages.isEmpty()){ // if there are no languages just match the first thing
+            if (preferredLanguages == null || preferredLanguages.isEmpty()) { // if there are no languages just match the first thing
                 lastLangMatchIndex = 0;
                 candidateValue = untypedConstantVal;
-            }
-            else{
+            } else {
                 final int index = preferredLanguages.indexOf(untypedConstantVal.getLang());
-                if (index >= 0 && index < lastLangMatchIndex){
+                if (index >= 0 && index < lastLangMatchIndex) {
                     lastLangMatchIndex = index;
                     candidateValue = untypedConstantVal;
                 }
@@ -191,13 +190,12 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
 
 
         public void visit(OWLTypedLiteral node) {
-            if (preferredLanguages == null || preferredLanguages.isEmpty()){
+            if (preferredLanguages == null || preferredLanguages.isEmpty()) {
                 lastLangMatchIndex = 0;
                 candidateValue = node;
-            }
-            else {
+            } else {
                 final int index = preferredLanguages.indexOf(null);
-                if (index >= 0 && index < lastLangMatchIndex){
+                if (index >= 0 && index < lastLangMatchIndex) {
                     lastLangMatchIndex = index;
                     candidateValue = node;
                 }

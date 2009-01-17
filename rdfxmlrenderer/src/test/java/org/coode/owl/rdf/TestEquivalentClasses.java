@@ -48,12 +48,12 @@ public class TestEquivalentClasses extends AbstractRendererAndParserTestCase {
     protected Set<OWLAxiom> getAxioms() {
         OWLClass clsA = getManager().getOWLDataFactory().getOWLClass(TestUtils.createURI());
         OWLObjectProperty prop = getManager().getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
-        OWLClassExpression descA = getManager().getOWLDataFactory().getOWLObjectSomeValuesFrom(prop,
+        OWLClassExpression descA = getManager().getOWLDataFactory().getObjectSomeValuesFrom(prop,
                 getManager().getOWLDataFactory().getOWLThing());
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         classExpressions.add(clsA);
         classExpressions.add(descA);
-        OWLAxiom ax = getManager().getOWLDataFactory().getOWLEquivalentClassesAxiom(classExpressions);
+        OWLAxiom ax = getManager().getOWLDataFactory().getEquivalentClasses(classExpressions);
         return Collections.singleton(ax);
     }
 }

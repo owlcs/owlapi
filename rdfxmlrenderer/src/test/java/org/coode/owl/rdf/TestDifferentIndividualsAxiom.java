@@ -3,9 +3,9 @@ package org.coode.owl.rdf;
 import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLIndividual;
 
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -45,10 +45,10 @@ public class TestDifferentIndividualsAxiom extends AbstractRendererAndParserTest
 
     protected Set<OWLAxiom> getAxioms() {
         Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             individuals.add(createIndividual());
         }
-        OWLAxiom ax = getDataFactory().getOWLDifferentIndividualsAxiom(individuals);
+        OWLAxiom ax = getDataFactory().getDifferentIndividuals(individuals);
         return Collections.singleton(ax);
     }
 }

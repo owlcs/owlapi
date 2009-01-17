@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLIndividual;
+import org.semanticweb.owl.model.OWLNamedIndividual;
 
 import java.net.URI;
 /*
@@ -34,9 +33,9 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br><br>
  */
-public class OWLIndividualElementHandler extends AbstractOWLElementHandler<OWLIndividual> {
+public class OWLIndividualElementHandler extends AbstractOWLElementHandler<OWLNamedIndividual> {
 
-    private OWLIndividual individual;
+    private OWLNamedIndividual individual;
 
     private URI name;
 
@@ -45,13 +44,13 @@ public class OWLIndividualElementHandler extends AbstractOWLElementHandler<OWLIn
     }
 
 
-    public OWLIndividual getOWLObject() {
+    public OWLNamedIndividual getOWLObject() {
         return individual;
     }
 
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
-        if(localName.equals("URI")) {
+        if (localName.equals("URI")) {
             name = getURI(value);
         }
     }

@@ -55,12 +55,12 @@ public class OWLClassAssertionAxiomElementHandler extends AbstractOWLAxiomElemen
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if(individual == null) {
+        if (individual == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "individual element");
         }
-        if(classExpression == null) {
+        if (classExpression == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "classExpression kind element");
         }
-        return getOWLDataFactory().getOWLClassAssertionAxiom(individual, classExpression);
+        return getOWLDataFactory().getClassAssertion(individual, classExpression);
     }
 }

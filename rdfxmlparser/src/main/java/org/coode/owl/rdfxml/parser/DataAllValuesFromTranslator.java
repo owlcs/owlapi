@@ -47,7 +47,7 @@ public class DataAllValuesFromTranslator extends AbstractDataQuantifiedRestricti
     protected OWLClassExpression createRestriction(OWLDataPropertyExpression prop, OWLDataRange filler) throws
             OWLException {
 
-        return getDataFactory().getOWLDataAllValuesFrom(prop, filler);
+        return getDataFactory().getDataAllValuesFrom(prop, filler);
     }
 
 

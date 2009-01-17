@@ -30,7 +30,7 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
- *
+ * <p/>
  * The base for test cases that need a data factory.
  */
 public abstract class AbstractOWLDataFactoryTest extends AbstractOWLTestCase {
@@ -72,11 +72,11 @@ public abstract class AbstractOWLDataFactoryTest extends AbstractOWLTestCase {
     }
 
     protected OWLDatatype createOWLDataType() throws OWLException {
-        return getOWLDataFactory().getOWLDatatype(createURI());
+        return getOWLDataFactory().getDatatype(createURI());
     }
 
     protected OWLTypedLiteral createOWLTypedConstant() throws OWLException {
-        return getOWLDataFactory().getOWLTypedLiteral("Test" + System.currentTimeMillis(), createOWLDataType());
+        return getOWLDataFactory().getTypedLiteral("Test" + System.currentTimeMillis(), createOWLDataType());
     }
 
 

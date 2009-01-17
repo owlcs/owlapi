@@ -35,7 +35,7 @@ public class OWLDisjointObjectPropertiesAxiomTestCase extends AbstractOWLNaryOpe
 
 
     protected OWLObject createObject(Set<OWLObjectProperty> operands) throws Exception {
-        return getOWLDataFactory().getOWLDisjointObjectPropertiesAxiom(operands);
+        return getOWLDataFactory().getDisjointObjectProperties(operands);
     }
 
 

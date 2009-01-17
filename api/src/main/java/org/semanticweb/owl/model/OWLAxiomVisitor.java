@@ -30,15 +30,21 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public interface OWLAxiomVisitor {
+public interface OWLAxiomVisitor extends OWLAnnotationAxiomVisitor {
 
-    public void visit(OWLSubClassAxiom axiom);
+    void visit(OWLImportsDeclaration axiom);
+
+
+    void visit(OWLDeclaration axiom);
+
+
+    void visit(OWLSubClassOfAxiom axiom);
 
 
     void visit(OWLNegativeObjectPropertyAssertionAxiom axiom);
 
 
-    void visit(OWLAntiSymmetricObjectPropertyAxiom axiom);
+    void visit(OWLAsymmetricObjectPropertyAxiom axiom);
 
 
     void visit(OWLReflexiveObjectPropertyAxiom axiom);
@@ -48,12 +54,6 @@ public interface OWLAxiomVisitor {
 
 
     void visit(OWLDataPropertyDomainAxiom axiom);
-
-
-    void visit(OWLImportsDeclaration axiom);
-
-
-    void visit(OWLAxiomAnnotationAxiom axiom);
 
 
     void visit(OWLObjectPropertyDomainAxiom axiom);
@@ -83,19 +83,10 @@ public interface OWLAxiomVisitor {
     void visit(OWLFunctionalObjectPropertyAxiom axiom);
 
 
-    void visit(OWLObjectSubPropertyAxiom axiom);
+    void visit(OWLSubObjectPropertyOfAxiom axiom);
 
 
     void visit(OWLDisjointUnionAxiom axiom);
-
-
-    void visit(OWLDeclarationAxiom axiom);
-
-
-    void visit(OWLEntityAnnotationAxiom axiom);
-
-    
-    void visit(OWLOntologyAnnotationAxiom axiom);
 
 
     void visit(OWLSymmetricObjectPropertyAxiom axiom);
@@ -125,7 +116,7 @@ public interface OWLAxiomVisitor {
     void visit(OWLIrreflexiveObjectPropertyAxiom axiom);
 
 
-    void visit(OWLDataSubPropertyAxiom axiom);
+    void visit(OWLSubDataPropertyOfAxiom axiom);
 
 
     void visit(OWLInverseFunctionalObjectPropertyAxiom axiom);
@@ -134,11 +125,16 @@ public interface OWLAxiomVisitor {
     void visit(OWLSameIndividualsAxiom axiom);
 
 
-    void visit(OWLObjectPropertyChainSubPropertyAxiom axiom);
+    void visit(OWLComplextSubPropertyAxiom axiom);
 
-    
+
     void visit(OWLInverseObjectPropertiesAxiom axiom);
 
-    
+
+    void visit(OWLHasKeyAxiom axiom);
+
+
     void visit(SWRLRule rule);
+
+
 }

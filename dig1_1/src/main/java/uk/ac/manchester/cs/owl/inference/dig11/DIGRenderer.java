@@ -76,7 +76,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public void visit(OWLSubClassAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
         createAndPushNode(Vocab.IMPLIESC);
         axiom.getSubClass().accept(this);
         axiom.getSuperClass().accept(this);
@@ -143,7 +143,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         throw new RuntimeException("Anti-symmetric properties are not supported in DIG 1.1");
     }
 
@@ -162,12 +162,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLAxiomAnnotationAxiom axiom) {
-        // Ignore - no semantic import
-    }
-
-
-    public void visit(OWLEntityAnnotationAxiom axiom) {
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
         // Ignore - no semantic import
     }
 
@@ -236,7 +231,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectSubPropertyAxiom axiom) {
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         createAndPushNode(Vocab.IMPLIESR);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
@@ -249,7 +244,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDeclarationAxiom axiom) {
+    public void visit(OWLDeclaration axiom) {
         // Ignore
     }
 
@@ -300,7 +295,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataSubPropertyAxiom axiom) {
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
         // I think this is allowed in DIG 1.1
         createAndPushNode(Vocab.IMPLIESR);
         axiom.getSubProperty().accept(this);
@@ -331,7 +326,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+    public void visit(OWLComplextSubPropertyAxiom axiom) {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -358,7 +353,7 @@ public class DIGRenderer implements OWLObjectVisitor {
         popCurrentNode();
     }
 
-    public void visit(OWLIndividual node) {
+    public void visit(OWLNamedIndividual node) {
         createAndPushNode(Vocab.INDIVIDUAL);
         getCurrentNode().setAttribute(Vocab.NAME, node.getURI().toString());
         popCurrentNode();
@@ -372,7 +367,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectMinCardinalityRestriction desc) {
+    public void visit(OWLObjectMinCardinality desc) {
         createAndPushNode(Vocab.ATLEST);
         getCurrentNode().setAttribute("num", Integer.toString(desc.getCardinality()));
         desc.getProperty().accept(this);
@@ -381,7 +376,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectExactCardinalityRestriction desc) {
+    public void visit(OWLObjectExactCardinality desc) {
         createAndPushNode(Vocab.ATLEST);
         getCurrentNode().setAttribute("num", Integer.toString(desc.getCardinality()));
         desc.getProperty().accept(this);
@@ -395,7 +390,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectMaxCardinalityRestriction desc) {
+    public void visit(OWLObjectMaxCardinality desc) {
         createAndPushNode(Vocab.ATMOST);
         getCurrentNode().setAttribute("num", Integer.toString(desc.getCardinality()));
         desc.getProperty().accept(this);
@@ -416,7 +411,7 @@ public class DIGRenderer implements OWLObjectVisitor {
         popCurrentNode();
     }
 
-    public void visit(OWLObjectValueRestriction node) {
+    public void visit(OWLObjectHasValue node) {
         createAndPushNode(Vocab.SOME);
         node.getProperty().accept(this);
         createAndPushNode(Vocab.ISET);
@@ -442,7 +437,7 @@ public class DIGRenderer implements OWLObjectVisitor {
             getCurrentNode().setAttribute(Vocab.NAME, prop.getURI().toString());
             popCurrentNode();
         }
-        for (OWLIndividual ind : ontology.getReferencedIndividuals()) {
+        for (OWLNamedIndividual ind : ontology.getReferencedIndividuals()) {
             createAndPushNode(Vocab.DEFINDIVIDUAL);
             getCurrentNode().setAttribute(Vocab.NAME, ind.getURI().toString());
             popCurrentNode();
@@ -486,8 +481,10 @@ public class DIGRenderer implements OWLObjectVisitor {
         popCurrentNode();
     }
 
+    public void visit(OWLAnnotationProperty property) {
+    }
 
-    public void visit(OWLObjectSelfRestriction desc) {
+    public void visit(OWLObjectHasSelf desc) {
     }
 
 
@@ -503,19 +500,15 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataMinCardinalityRestriction desc) {
+    public void visit(OWLDataMinCardinality desc) {
     }
 
 
-    public void visit(OWLDataExactCardinalityRestriction desc) {
+    public void visit(OWLDataExactCardinality desc) {
     }
 
 
-    public void visit(OWLDataMaxCardinalityRestriction desc) {
-    }
-
-
-    public void visit(OWLOntologyAnnotationAxiom axiom) {
+    public void visit(OWLDataMaxCardinality desc) {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -533,11 +526,11 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataRangeRestriction node) {
+    public void visit(OWLDatatypeRestriction node) {
     }
 
 
-    public void visit(OWLDataRangeFacetRestriction node) {
+    public void visit(OWLFacetRestriction node) {
     }
 
 
@@ -547,14 +540,6 @@ public class DIGRenderer implements OWLObjectVisitor {
 
     public void visit(OWLRDFTextLiteral node) {
     }
-
-    public void visit(OWLConstantAnnotation annotation) {
-    }
-
-
-    public void visit(OWLObjectAnnotation annotation) {
-    }
-
 
     public void visit(SWRLRule rule) {
     }
@@ -601,5 +586,32 @@ public class DIGRenderer implements OWLObjectVisitor {
 
 
     public void visit(SWRLSameAsAtom node) {
+    }
+
+    public void visit(OWLHasKeyAxiom axiom) {
+    }
+
+    public void visit(OWLDataIntersectionOf node) {
+    }
+
+    public void visit(OWLAnnotationPropertyDomain axiom) {
+    }
+
+    public void visit(OWLAnnotationPropertyRange axiom) {
+    }
+
+    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    }
+
+    public void visit(OWLAnonymousIndividual individual) {
+    }
+
+    public void visit(IRI iri) {
+    }
+
+    public void visit(OWLAnnotation node) {
+    }
+
+    public void visit(OWLDataUnionOf node) {
     }
 }

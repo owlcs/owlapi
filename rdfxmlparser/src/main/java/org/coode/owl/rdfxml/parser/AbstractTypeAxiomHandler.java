@@ -1,8 +1,8 @@
 package org.coode.owl.rdfxml.parser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -58,8 +58,8 @@ public abstract class AbstractTypeAxiomHandler extends BuiltInTypeHandler {
             throw new OWLRDFXMLParserMalformedNodeException("missing rdf:subject triple.");
         }
         URI predicateTripleObject = getConsumer().getResourceObject(subject,
-                                                                    OWLRDFVocabulary.RDF_PREDICATE.getURI(),
-                                                                    true);
+                OWLRDFVocabulary.RDF_PREDICATE.getURI(),
+                true);
         if (predicateTripleObject == null) {
             throw new OWLRDFXMLParserMalformedNodeException("missing rdf:predicate triple.");
         }
@@ -67,8 +67,7 @@ public abstract class AbstractTypeAxiomHandler extends BuiltInTypeHandler {
         OWLAxiom ax = null;
         if (objectTripleObject != null) {
             ax = handleAxiomTriples(subjectTripleObject, predicateTripleObject, objectTripleObject);
-        }
-        else {
+        } else {
             OWLLiteral con = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
             if (con == null) {
                 throw new OWLRDFXMLParserMalformedNodeException("missing rdf:object triple.");
@@ -92,9 +91,9 @@ public abstract class AbstractTypeAxiomHandler extends BuiltInTypeHandler {
 //                    getDataFactory().getOWLAxiomAnnotationAxiom(axiom, anno);
 //                }
 //                else {
-//                    OWLTypedLiteral con = getDataFactory().getOWLTypedLiteral(
+//                    OWLTypedLiteral con = getDataFactory().getTypedLiteral(
 //                            object.toString(),
-//                            getDataFactory().getOWLDatatype(XSDVocabulary.ANY_URI.getURIFromValue())
+//                            getDataFactory().getDatatype(XSDVocabulary.ANY_URI.getURIFromValue())
 //                    );
 //                    OWLConstantAnnotation anno = getDataFactory().getOWLConstantAnnotation(triple.getPredicate(), con);
 //                    getDataFactory().getOWLAxiomAnnotationAxiom(axiom, anno);
@@ -107,6 +106,7 @@ public abstract class AbstractTypeAxiomHandler extends BuiltInTypeHandler {
     /**
      * Called in order to handle the reified triples that form the axiom.  Note that
      * these triples are consumed prior to this method being called.
+     *
      * @param subjectTripleObject   The subject triple object, pointing to the axiom subject
      * @param predicateTripleObject The predicate triple object, pointing to the axiom predicate
      * @param objectTripleObject    The object triple object, pointing to the axiom object

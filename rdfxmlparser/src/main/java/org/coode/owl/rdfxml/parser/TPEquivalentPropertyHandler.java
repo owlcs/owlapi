@@ -52,25 +52,23 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
         return (getConsumer().isObjectPropertyOnly(subject) &&
                 getConsumer().isObjectPropertyOnly(object)) ||
                 (getConsumer().isDataPropertyOnly(subject) &&
-                getConsumer().isDataPropertyOnly(object));
+                        getConsumer().isDataPropertyOnly(object));
     }
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         // If either is an object property then translate as object properties
-        if(getConsumer().isObjectPropertyOnly(subject) ||
+        if (getConsumer().isObjectPropertyOnly(subject) ||
                 getConsumer().isObjectPropertyOnly(object)) {
             translateEquivalentObjectProperties(subject, predicate, object);
-        }
-        else if(getConsumer().isDataPropertyOnly(subject) ||
+        } else if (getConsumer().isDataPropertyOnly(subject) ||
                 getConsumer().isDataPropertyOnly(object)) {
             Set<OWLDataPropertyExpression> props = new HashSet<OWLDataPropertyExpression>();
             props.add(translateDataProperty(subject));
             props.add(translateDataProperty(object));
-            addAxiom(getDataFactory().getOWLEquivalentDataPropertiesAxiom(props));
+            addAxiom(getDataFactory().getEquivalentDataProperties(props));
             consumeTriple(subject, predicate, object);
-        }
-        else {
+        } else {
             // Assume object!?
             translateEquivalentObjectProperties(subject, predicate, object);
             logger.fine("Assuming equivalent object properties because property types " +
@@ -83,7 +81,7 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
         props.add(translateObjectProperty(subject));
         props.add(translateObjectProperty(object));
-        addAxiom(getDataFactory().getOWLEquivalentObjectPropertiesAxiom(props));
+        addAxiom(getDataFactory().getEquivalentObjectProperties(props));
         consumeTriple(subject, predicate, object);
     }
 }

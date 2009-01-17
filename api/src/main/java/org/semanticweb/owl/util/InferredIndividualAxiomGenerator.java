@@ -1,7 +1,7 @@
 package org.semanticweb.owl.util;
 
-import org.semanticweb.owl.model.OWLIndividual;
 import org.semanticweb.owl.model.OWLIndividualAxiom;
+import org.semanticweb.owl.model.OWLNamedIndividual;
 import org.semanticweb.owl.model.OWLOntology;
 
 import java.util.Set;
@@ -35,12 +35,12 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
  */
-public abstract class InferredIndividualAxiomGenerator<A extends OWLIndividualAxiom> extends InferredEntityAxiomGenerator<OWLIndividual, A> {
+public abstract class InferredIndividualAxiomGenerator<A extends OWLIndividualAxiom> extends InferredEntityAxiomGenerator<OWLNamedIndividual, A> {
 
 
-    protected Set<OWLIndividual> getEntities(OWLOntology ont) {
+    protected Set<OWLNamedIndividual> getEntities(OWLOntology ont) {
         return ont.getReferencedIndividuals();
     }
 
-    
+
 }

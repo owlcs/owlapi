@@ -185,7 +185,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     protected OntologyAxiomSet ontologyAxiomSet;
 
 //    protected OWLOntology ontology;
-    
+
     /**
      * Represents the manager for the associated ontology.
      */
@@ -196,7 +196,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * Creates a new module extractor for a subset of a given ontology, its manager, and a specified type of locality.
      *
      * @param man        the manager for the associated ontology
-//     * @param ont        the associated ontology
+     *                   //     * @param ont        the associated ontology
      * @param axs        the subset of the ontology as a set of axioms
      * @param moduleType the type of module this extractor will construct
      */
@@ -248,7 +248,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * This method is (if necessary, iteratively) called by the public method extract.
      *
      * @param subOnt        an array of Booleans representing the sub-ontology
-     * @param signature     the seed signature (set of entities) for the module; on return of the method, this will contain the signature of the module 
+     * @param signature     the seed signature (set of entities) for the module; on return of the method, this will contain the signature of the module
      * @param localityClass the type of locality
      * @return an array of Booleans representing the module
      */
@@ -322,9 +322,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * entity declaration axioms, entity annotation axioms, and axiom annotation axioms.
      * The module and enriched module are represented as sets of axioms.
      *
-     * @param module  a set of axioms representing the original module
-     * @param sig     a set of entities representing the signature of the original module
-     * @return        a set of axioms representing the enriched module
+     * @param module a set of axioms representing the original module
+     * @param sig    a set of entities representing the signature of the original module
+     * @return a set of axioms representing the enriched module
      */
 
     protected Set<OWLAxiom> enrich(Set<OWLAxiom> module, Set<OWLEntity> sig) {
@@ -333,8 +333,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         // Adding all entity declaration axioms
         for (int i = 0; i < ontologyAxiomSet.size(); i++) {
             OWLAxiom axiom = ontologyAxiomSet.getAxiom(i);
-            if (OWLDeclarationAxiom.class.isAssignableFrom(axiom.getClass())) {
-                if (sig.contains(((OWLDeclarationAxiom) axiom).getEntity())) {
+            if (OWLDeclaration.class.isAssignableFrom(axiom.getClass())) {
+                if (sig.contains(((OWLDeclaration) axiom).getEntity())) {
                     enrichedModule.add(axiom);
                 }
             }
@@ -342,7 +342,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
 
 //        // Adding all entity annotation axioms
 //        for (OWLEntity entity : sig) {
-//             enrichedModule.addAll(entity.getAnnotationAxioms(ontology));
+//             enrichedModule.addAll(entity.getAnnotationAssertionAxioms(ontology));
 //        }
 //
 //        // Add all axiom annotation axioms recursively
@@ -350,10 +350,10 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
 //        Iterator<OWLAxiom> iterator = enrichedModule.iterator();
 //        while (iterator.hasNext()) {
 //            OWLAxiom axiom = iterator.next();
-//            annotations.addAll(axiom.getAnnotationAxioms(ontology));
+//            annotations.addAll(axiom.getAnnotationAssertionAxioms(ontology));
 //            while (!annotations.isEmpty()) {
 //                OWLAxiom first = annotations.remove();
-//                annotations.addAll(first.getAnnotationAxioms(ontology));
+//                annotations.addAll(first.getAnnotationAssertionAxioms(ontology));
 //                enrichedModule.add(first);
 //            }
 //        }
@@ -364,7 +364,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
 //            Iterator<OWLAxiom> iterator = enrichedModule.iterator();
 //            while (iterator.hasNext()) {
 //                OWLAxiom axiom = iterator.next();
-//                enrichedModule.addAll(axiom.getAnnotationAxioms(ontology));
+//                enrichedModule.addAll(axiom.getAnnotationAssertionAxioms(ontology));
 //            }
 //            change = (enrichedModule.size() > oldModuleSize);
 //        }
@@ -425,8 +425,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 if (ontologyAxiomSet.subsetCardinality(module1) < ontologyAxiomSet.subsetCardinality(module2)) {
                     Set<OWLAxiom> moduleAsSet = ontologyAxiomSet.toSet(module1);
                     return enrich(moduleAsSet, signature1);
-                }
-                else {
+                } else {
                     Set<OWLAxiom> moduleAsSet = ontologyAxiomSet.toSet(module2);
                     return enrich(moduleAsSet, signature2);
                 }
@@ -455,7 +454,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             addaxs.add(new AddAxiom(newOnt, ax));
         }
         manager.applyChanges(addaxs);
-		return newOnt;
-	}
+        return newOnt;
+    }
 
 }

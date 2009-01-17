@@ -42,25 +42,25 @@ public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStor
     private OWLOntology ont;
 
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer w, OWLOntologyFormat format) throws
-                                                                                                                            OWLOntologyStorageException {
+            OWLOntologyStorageException {
 
         ont = ontology;
         PrintWriter writer = new PrintWriter(w);
         beginWritingOntology(ontology, writer);
-        for(OWLObjectProperty prop : new TreeSet<OWLObjectProperty>(ontology.getReferencedObjectProperties())) {
+        for (OWLObjectProperty prop : new TreeSet<OWLObjectProperty>(ontology.getReferencedObjectProperties())) {
             write(prop, ontology.getAxioms(prop), writer);
         }
-        for(OWLDataProperty prop : new TreeSet<OWLDataProperty>(ontology.getReferencedDataProperties())) {
+        for (OWLDataProperty prop : new TreeSet<OWLDataProperty>(ontology.getReferencedDataProperties())) {
             write(prop, ontology.getAxioms(prop), writer);
         }
-        for(OWLClass cls : new TreeSet<OWLClass>(ontology.getReferencedClasses())) {
+        for (OWLClass cls : new TreeSet<OWLClass>(ontology.getReferencedClasses())) {
             write(cls, ontology.getAxioms(cls), writer);
         }
-        for(OWLIndividual ind : new TreeSet<OWLIndividual>(ontology.getReferencedIndividuals())) {
+        for (OWLNamedIndividual ind : new TreeSet<OWLNamedIndividual>(ontology.getReferencedIndividuals())) {
             write(ind, ontology.getAxioms(ind), writer);
         }
         beginWritingGeneralAxioms(ontology.getGeneralClassAxioms(), writer);
-        for(OWLAxiom ax : ontology.getGeneralClassAxioms()) {
+        for (OWLAxiom ax : ontology.getGeneralClassAxioms()) {
             beginWritingAxiom(ax, writer);
             writeAxiom(null, ax, writer);
             endWritingAxiom(ax, writer);
@@ -72,7 +72,7 @@ public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStor
 
     private void write(OWLEntity entity, Set<? extends OWLAxiom> axioms, PrintWriter writer) {
         beginWritingAxioms(entity, axioms, writer);
-        for(OWLAxiom ax : new TreeSet<OWLAxiom>(axioms)) {
+        for (OWLAxiom ax : new TreeSet<OWLAxiom>(axioms)) {
             beginWritingAxiom(ax, writer);
             writeAxiom(entity, ax, writer);
             endWritingAxiom(ax, writer);
@@ -80,8 +80,8 @@ public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStor
         Set<OWLAxiom> usages = new TreeSet<OWLAxiom>(ont.getReferencingAxioms(entity));
         usages.removeAll(axioms);
         beginWritingUsage(entity, usages, writer);
-        for(OWLAxiom usage : usages) {
-            if(!axioms.contains(usage)) {
+        for (OWLAxiom usage : usages) {
+            if (!axioms.contains(usage)) {
                 beginWritingAxiom(usage, writer);
                 writeAxiom(entity, usage, writer);
                 endWritingAxiom(usage, writer);
@@ -91,7 +91,7 @@ public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStor
         endWritingAxioms(entity, axioms, writer);
     }
 
-    protected void writeAxiom(OWLEntity subject, OWLAxiom axiom, PrintWriter writer){
+    protected void writeAxiom(OWLEntity subject, OWLAxiom axiom, PrintWriter writer) {
         writer.write(getRendering(subject, axiom));
     }
 
@@ -138,6 +138,6 @@ public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStor
     }
 
     protected void endWritingGeneralAxioms(Set<? extends OWLAxiom> axioms, PrintWriter writer) {
-        
+
     }
 }

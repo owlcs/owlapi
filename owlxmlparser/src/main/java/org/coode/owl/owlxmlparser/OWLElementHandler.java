@@ -1,7 +1,5 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLDataRangeFacetRestriction;
 /*
  * Copyright (C) 2006, University of Manchester
  *

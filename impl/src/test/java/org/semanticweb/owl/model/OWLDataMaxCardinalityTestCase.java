@@ -32,14 +32,13 @@ package org.semanticweb.owl.model;
 public class OWLDataMaxCardinalityTestCase extends AbstractOWLDataCardinalityRestrictionTestCase {
 
 
-
     protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality) throws Exception {
-        return getOWLDataFactory().getOWLDataMaxCardinalityRestriction(prop, cardinality);
+        return getOWLDataFactory().getDataMaxCardinality(prop, cardinality);
     }
 
 
     protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality,
                                                               OWLDataRange dataRange) throws Exception {
-        return getOWLDataFactory().getOWLDataMaxCardinalityRestriction(prop, cardinality, dataRange);
+        return getOWLDataFactory().getDataMaxCardinality(prop, cardinality, dataRange);
     }
 }

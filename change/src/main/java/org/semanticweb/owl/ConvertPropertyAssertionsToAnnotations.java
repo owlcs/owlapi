@@ -41,7 +41,7 @@ import java.util.Set;
  * that shares the same name as the individual.  For example for a class A and an individual
  * A, the data property assertion hasX(A, "Val") would be converted to an entity annotation on
  * the class A with an annotation URI of "hasX" and a value of "Val".
- *
+ * <p/>
  * This composite change supports refactoring an ontology where punning was used to simulate
  * annotations on a class rather than using actual annotations on a class.
  */
@@ -61,14 +61,14 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
 
     private void generateChanges() {
         changes = new ArrayList<OWLOntologyChange>();
-        Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
+        Set<OWLNamedIndividual> individuals = new HashSet<OWLNamedIndividual>();
 
         for (OWLOntology ont : ontologies) {
             individuals.addAll(ont.getReferencedIndividuals());
         }
 
         Set<OWLDataProperty> convertedDataProperties = new HashSet<OWLDataProperty>();
-        for (OWLIndividual ind : individuals) {
+        for (OWLNamedIndividual ind : individuals) {
             boolean punned = false;
             for (OWLOntology ont : ontologies) {
                 if (ont.containsClassReference(ind.getURI())) {
@@ -86,10 +86,9 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
                     if (!ax.getProperty().isAnonymous()) {
                         changes.add(new RemoveAxiom(ont, ax));
                         OWLDataFactory df = getDataFactory();
-                        OWLAnnotation anno = df.getOWLConstantAnnotation(((OWLDataProperty) ax.getProperty()).getURI(),
-                                                                         ax.getObject());
-                        OWLEntityAnnotationAxiom annoAx = df.getOWLEntityAnnotationAxiom(df.getOWLClass(ind.getURI()),
-                                                                                         anno);
+                        OWLAnnotation anno = df.getAnnotation(df.getAnnotationProperty(ax.getProperty().asOWLDataProperty().getURI()),
+                                ax.getObject());
+                        OWLAnnotationAssertionAxiom annoAx = df.getAnnotationAssertion(ind.getURI(), anno);
                         changes.add(new AddAxiom(ont, annoAx));
                         convertedDataProperties.add((OWLDataProperty) ax.getProperty());
                     }

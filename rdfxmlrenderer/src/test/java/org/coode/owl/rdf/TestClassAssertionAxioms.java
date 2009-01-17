@@ -1,11 +1,11 @@
 package org.coode.owl.rdf;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLIndividual;
 import org.semanticweb.owl.model.OWLClass;
+import org.semanticweb.owl.model.OWLIndividual;
 
-import java.util.Set;
 import java.util.Collections;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -46,7 +46,7 @@ public class TestClassAssertionAxioms extends AbstractRendererAndParserTestCase 
     protected Set<OWLAxiom> getAxioms() {
         OWLIndividual ind = createIndividual();
         OWLClass cls = createClass();
-        OWLAxiom ax = getDataFactory().getOWLClassAssertionAxiom(ind, cls);
+        OWLAxiom ax = getDataFactory().getClassAssertion(ind, cls);
         return Collections.singleton(ax);
     }
 }

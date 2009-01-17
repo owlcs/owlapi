@@ -93,7 +93,7 @@ public class OWLDLProfile implements OWLProfile {
             for (OWLDataProperty prop : ont.getReferencedDataProperties()) {
                 mapEntity(prop, uri2EntityMap);
             }
-            for (OWLIndividual ind : ont.getReferencedIndividuals()) {
+            for (OWLNamedIndividual ind : ont.getReferencedIndividuals()) {
                 mapEntity(ind, uri2EntityMap);
             }
             annotationURIs.addAll(ont.getAnnotationURIs());
@@ -127,12 +127,7 @@ public class OWLDLProfile implements OWLProfile {
     private class AxiomChecker implements OWLObjectVisitorEx<ConstructNotAllowed> {
 
 
-        public ConstructNotAllowed visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
-            return new OWL2AxiomNotAllowed(axiom, false);
-        }
-
-
-        public ConstructNotAllowed visit(OWLAxiomAnnotationAxiom axiom) {
+        public ConstructNotAllowed visit(OWLAsymmetricObjectPropertyAxiom axiom) {
             return new OWL2AxiomNotAllowed(axiom, false);
         }
 
@@ -171,12 +166,12 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDataSubPropertyAxiom axiom) {
+        public ConstructNotAllowed visit(OWLSubDataPropertyOfAxiom axiom) {
             return null;
         }
 
 
-        public ConstructNotAllowed visit(OWLDeclarationAxiom axiom) {
+        public ConstructNotAllowed visit(OWLDeclaration axiom) {
             return null;
         }
 
@@ -215,7 +210,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLEntityAnnotationAxiom axiom) {
+        public ConstructNotAllowed visit(OWLAnnotationAssertionAxiom axiom) {
             ConstructNotAllowed na = axiom.getAnnotation().accept(this);
             if (na != null) {
                 return new AxiomNotAllowed(na, axiom);
@@ -295,7 +290,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+        public ConstructNotAllowed visit(OWLComplextSubPropertyAxiom axiom) {
             return new OWL2AxiomNotAllowed(axiom, false);
         }
 
@@ -320,15 +315,9 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLObjectSubPropertyAxiom axiom) {
+        public ConstructNotAllowed visit(OWLSubObjectPropertyOfAxiom axiom) {
             return null;
         }
-
-
-        public ConstructNotAllowed visit(OWLOntologyAnnotationAxiom axiom) {
-            return null;
-        }
-
 
         public ConstructNotAllowed visit(OWLReflexiveObjectPropertyAxiom axiom) {
             return new OWL2AxiomNotAllowed(axiom, false);
@@ -340,7 +329,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLSubClassAxiom axiom) {
+        public ConstructNotAllowed visit(OWLSubClassOfAxiom axiom) {
             return null;
         }
 
@@ -378,7 +367,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDataExactCardinalityRestriction desc) {
+        public ConstructNotAllowed visit(OWLDataExactCardinality desc) {
             if (desc.isQualified()) {
                 return new QCRsNotAllowed(desc);
             } else {
@@ -387,7 +376,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDataMaxCardinalityRestriction desc) {
+        public ConstructNotAllowed visit(OWLDataMaxCardinality desc) {
             if (desc.isQualified()) {
                 return new QCRsNotAllowed(desc);
             } else {
@@ -396,7 +385,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDataMinCardinalityRestriction desc) {
+        public ConstructNotAllowed visit(OWLDataMinCardinality desc) {
             if (desc.isQualified()) {
                 return new QCRsNotAllowed(desc);
             } else {
@@ -445,7 +434,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLObjectExactCardinalityRestriction desc) {
+        public ConstructNotAllowed visit(OWLObjectExactCardinality desc) {
             if (desc.isQualified()) {
                 return new QCRsNotAllowed(desc);
             } else {
@@ -469,7 +458,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLObjectMaxCardinalityRestriction desc) {
+        public ConstructNotAllowed visit(OWLObjectMaxCardinality desc) {
             if (desc.isQualified()) {
                 return new QCRsNotAllowed(desc);
             } else {
@@ -482,7 +471,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLObjectMinCardinalityRestriction desc) {
+        public ConstructNotAllowed visit(OWLObjectMinCardinality desc) {
             if (desc.isQualified()) {
                 return new QCRsNotAllowed(desc);
             } else {
@@ -500,7 +489,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLObjectSelfRestriction desc) {
+        public ConstructNotAllowed visit(OWLObjectHasSelf desc) {
             return new SelfRestrictionsNotAllowed(desc);
         }
 
@@ -526,7 +515,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLObjectValueRestriction desc) {
+        public ConstructNotAllowed visit(OWLObjectHasValue desc) {
             return null;
         }
 
@@ -552,12 +541,12 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDataRangeFacetRestriction node) {
+        public ConstructNotAllowed visit(OWLFacetRestriction node) {
             return null;
         }
 
 
-        public ConstructNotAllowed visit(OWLDataRangeRestriction node) {
+        public ConstructNotAllowed visit(OWLDatatypeRestriction node) {
             return new OWL2DataRangeNotAllowed(node);
         }
 
@@ -598,27 +587,6 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLIndividual individual) {
             return null;
         }
-
-
-        public ConstructNotAllowed visit(OWLConstantAnnotation annotation) {
-            ConstructNotAllowed na = annotation.getAnnotationValue().accept(this);
-            if (na == null) {
-                return null;
-            } else {
-                return new AnnotationValueNotAllowed(na, annotation);
-            }
-        }
-
-
-        public ConstructNotAllowed visit(OWLObjectAnnotation annotation) {
-            ConstructNotAllowed na = annotation.getAnnotationValue().accept(this);
-            if (na == null) {
-                return null;
-            } else {
-                return new AnnotationValueNotAllowed(na, annotation);
-            }
-        }
-
 
         public ConstructNotAllowed visit(SWRLAtomConstantObject node) {
             return null;
@@ -676,6 +644,50 @@ public class OWLDLProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLOntology ontology) {
+            return null;
+        }
+
+        public ConstructNotAllowed visit(OWLHasKeyAxiom axiom) {
+            return null;
+        }
+
+        public ConstructNotAllowed visit(OWLAnnotationPropertyDomain axiom) {
+            return null;
+        }
+
+        public ConstructNotAllowed visit(OWLAnnotationPropertyRange axiom) {
+            return null;
+        }
+
+        public ConstructNotAllowed visit(OWLSubAnnotationPropertyOf axiom) {
+            return null;
+        }
+
+        public ConstructNotAllowed visit(OWLDataIntersectionOf node) {
+            return null;
+        }
+
+        public ConstructNotAllowed visit(OWLDataUnionOf node) {
+            return null;
+        }
+
+        public ConstructNotAllowed visit(OWLNamedIndividual individual) {
+            return null;
+        }
+
+        public ConstructNotAllowed visit(OWLAnnotationProperty property) {
+            return null;
+        }
+
+        public ConstructNotAllowed visit(OWLAnnotation node) {
+            return null;
+        }
+
+        public ConstructNotAllowed visit(OWLAnonymousIndividual individual) {
+            return null;
+        }
+
+        public ConstructNotAllowed visit(IRI iri) {
             return null;
         }
     }

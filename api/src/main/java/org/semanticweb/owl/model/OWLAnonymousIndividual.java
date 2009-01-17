@@ -32,4 +32,10 @@ package org.semanticweb.owl.model;
  */
 public interface OWLAnonymousIndividual extends OWLIndividual {
 
+    /**
+     * Gets the ID of this individual
+     *
+     * @return The node ID of this individual.
+     */
+    NodeID getID();
 }

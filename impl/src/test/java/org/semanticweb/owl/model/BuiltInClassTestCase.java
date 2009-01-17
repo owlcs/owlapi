@@ -1,8 +1,8 @@
 package org.semanticweb.owl.model;
 
 import junit.framework.TestCase;
-import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -32,7 +32,7 @@ import org.semanticweb.owl.vocab.OWLRDFVocabulary;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 29-Apr-2007<br><br>
- *
+ * <p/>
  * Tests that the isOWLThing and isOWLNothing methods
  * return correct values.
  */
@@ -78,11 +78,10 @@ public class BuiltInClassTestCase extends TestCase {
     }
 
     public void testAnonymousClass() {
-        OWLClassExpression desc = dataFactory.getOWLObjectSelfRestriction(dataFactory.getOWLObjectProperty(TestUtils.createURI()));
+        OWLClassExpression desc = dataFactory.getObjectHasSelf(dataFactory.getOWLObjectProperty(TestUtils.createURI()));
         assertFalse(desc.isOWLThing());
         assertFalse(desc.isOWLNothing());
     }
-
 
 
 }

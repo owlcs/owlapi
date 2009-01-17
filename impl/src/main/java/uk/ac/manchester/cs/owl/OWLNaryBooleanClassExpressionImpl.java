@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLDataFactory;
 import org.semanticweb.owl.model.OWLClassExpression;
+import org.semanticweb.owl.model.OWLDataFactory;
 import org.semanticweb.owl.model.OWLNaryBooleanClassExpression;
 import org.semanticweb.owl.model.OWLObject;
 
@@ -54,7 +54,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
     }
 
 
-    public boolean isLiteral() {
+    public boolean isClassExpressionLiteral() {
         return false;
     }
 

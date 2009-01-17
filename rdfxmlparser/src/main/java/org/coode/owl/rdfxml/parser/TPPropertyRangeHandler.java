@@ -40,7 +40,6 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
     private static final Logger logger = Logger.getLogger(TPPropertyRangeHandler.class.getName());
 
 
-
     public TPPropertyRangeHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDFS_RANGE.getURI());
     }
@@ -50,8 +49,7 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
         if (!isAnonymous(object)) {
             if (getConsumer().isObjectPropertyOnly(subject)) {
                 return true;
-            }
-            else if (getConsumer().isDataPropertyOnly(subject)) {
+            } else if (getConsumer().isDataPropertyOnly(subject)) {
                 return true;
             }
         }
@@ -62,26 +60,22 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         if (getConsumer().isObjectPropertyOnly(subject)) {
             translateObjectPropertyRange(subject, object, predicate);
-        }
-        else if (getConsumer().isDataPropertyOnly(subject)) {
-            addAxiom(getDataFactory().getOWLDataPropertyRangeAxiom(translateDataProperty(subject),
-                                                                   translateDataRange(object)));
+        } else if (getConsumer().isDataPropertyOnly(subject)) {
+            addAxiom(getDataFactory().getDataPropertyRange(translateDataProperty(subject),
+                    translateDataRange(object)));
             consumeTriple(subject, predicate, object);
-        }
-        else {
-            if(getConsumer().isDataRange(object)) {
+        } else {
+            if (getConsumer().isDataRange(object)) {
                 // Assume data property
                 logger.fine("Assuming data property because range appears to be datatype: " + subject + " -> " + predicate + " -> " + object);
-                addAxiom(getDataFactory().getOWLDataPropertyRangeAxiom(translateDataProperty(subject),
-                                                                   translateDataRange(object)));
+                addAxiom(getDataFactory().getDataPropertyRange(translateDataProperty(subject),
+                        translateDataRange(object)));
                 consumeTriple(subject, predicate, object);
-            }
-            else if(getConsumer().isClass(object)) {
+            } else if (getConsumer().isClass(object)) {
                 // Assume object property
                 logger.fine("Assuming object property because range appears to be a class: " + subject + " -> " + predicate + " -> " + object);
                 translateObjectPropertyRange(subject, object, predicate);
-            }
-            else {
+            } else {
                 // Right - just assume an object property!
                 logger.fine("Unable to determine range type.  Assuming object property: " + subject + " -> " + predicate + " -> " + object);
                 translateObjectPropertyRange(subject, object, predicate);
@@ -91,8 +85,8 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
 
 
     private void translateObjectPropertyRange(URI subject, URI object, URI predicate) throws OWLException {
-        addAxiom(getDataFactory().getOWLObjectPropertyRangeAxiom(translateObjectProperty(subject),
-                                                                 translateDescription(object)));
+        addAxiom(getDataFactory().getObjectPropertyRange(translateObjectProperty(subject),
+                translateDescription(object)));
         consumeTriple(subject, predicate, object);
     }
 }

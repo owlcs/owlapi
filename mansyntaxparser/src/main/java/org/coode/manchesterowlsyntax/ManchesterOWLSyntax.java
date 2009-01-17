@@ -28,7 +28,7 @@ package org.coode.manchesterowlsyntax;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 25-Apr-2007<br><br>
- *
+ * <p/>
  * The vocabulary that the Manchester OWL Syntax uses
  */
 public enum ManchesterOWLSyntax {
@@ -46,6 +46,8 @@ public enum ManchesterOWLSyntax {
     DATA_PROPERTY("DataProperty", true, false, false, false),
 
     INDIVIDUAL("Individual", true, false, false, false),
+
+    ANNOTATION_PROPERTY("AnnotationProperty", true, false, false, false),
 
     SOME("some", false, false, true, false),
 
@@ -149,7 +151,9 @@ public enum ManchesterOWLSyntax {
 
     SUB_PROPERTY_OF("SubPropertyOf", false, true, false, false),
 
-    SUB_PROPERTY_CHAIN("SubPropertyChain", true, true, false, false);
+    SUB_PROPERTY_CHAIN("SubPropertyChain", true, true, false, false),
+
+    HAS_KEY("HasKey", true, false, false, false);
 
     private boolean sectionKeyword;
 

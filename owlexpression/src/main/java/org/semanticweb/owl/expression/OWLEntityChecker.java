@@ -39,7 +39,7 @@ public interface OWLEntityChecker {
 
     OWLDataProperty getOWLDataProperty(String name);
 
-    OWLIndividual getOWLIndividual(String name);
+    OWLNamedIndividual getOWLIndividual(String name);
 
     OWLDatatype getOWLDataType(String name);
 }

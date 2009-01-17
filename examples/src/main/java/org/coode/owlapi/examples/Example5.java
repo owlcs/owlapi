@@ -1,7 +1,7 @@
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.apibinding.OWLManager;
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.OWLEntityRemover;
 
 import java.net.URI;
@@ -35,7 +35,7 @@ import java.util.Collections;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 23-May-2007<br><br>
- *
+ * <p/>
  * An example which shows how to "delete" entities, in this case individuals,
  * from and ontology.
  */
@@ -67,7 +67,7 @@ public class Example5 {
             // to accept a visit from the entity remover.  The remover will automatically accumulate
             // the changes which are necessary to remove the individual from the ontologies (the pizza
             // ontology) which it knows about
-            for(OWLIndividual ind : ont.getReferencedIndividuals()) {
+            for (OWLNamedIndividual ind : ont.getReferencedIndividuals()) {
                 ind.accept(remover);
             }
             // Now we get all of the changes from the entity remover, which should be applied to

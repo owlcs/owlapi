@@ -223,32 +223,30 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
         }
         if (isImplicitSubClassOfThing(cls)) {
             implicitRoots.add(cls);
-        }
-        else {
+        } else {
             implicitRoots.remove(cls);
         }
     }
 
 
     private Set<OWLClass> getChildren(OWLClass object) {
-            Set<OWLClass> result;
-            if (object.equals(root)) {
-                result = new HashSet<OWLClass>();
-                result.addAll(implicitRoots);
-                result.addAll(extractChildren(object));
-                result.remove(object);
-            }
-            else {
-                result = extractChildren(object);
-                for (Iterator<OWLClass> it = result.iterator(); it.hasNext();) {
-                    OWLClass curChild = it.next();
-                    if (getAncestors(curChild).contains(curChild)) {
-                        it.remove();
-                    }
+        Set<OWLClass> result;
+        if (object.equals(root)) {
+            result = new HashSet<OWLClass>();
+            result.addAll(implicitRoots);
+            result.addAll(extractChildren(object));
+            result.remove(object);
+        } else {
+            result = extractChildren(object);
+            for (Iterator<OWLClass> it = result.iterator(); it.hasNext();) {
+                OWLClass curChild = it.next();
+                if (getAncestors(curChild).contains(curChild)) {
+                    it.remove();
                 }
             }
+        }
 
-            return result;
+        return result;
     }
 
 
@@ -279,49 +277,49 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
 
     private Set<OWLClass> getParents(OWLClass object) {
-            // If the object is thing then there are no
-            // parents
-            if (object.equals(root)) {
-                return Collections.emptySet();
+        // If the object is thing then there are no
+        // parents
+        if (object.equals(root)) {
+            return Collections.emptySet();
+        }
+        Set<OWLClass> result = new HashSet<OWLClass>();
+        // Thing if the object is a root class
+        if (implicitRoots.contains(object)) {
+            result.add(root);
+        }
+        // Not a root, so must have another parent
+        parentClassExtractor.reset();
+        parentClassExtractor.setCurrentClass(object);
+        for (OWLOntology ont : ontologies) {
+            for (OWLAxiom ax : ont.getAxioms(object)) {
+                ax.accept(parentClassExtractor);
             }
-            Set<OWLClass> result = new HashSet<OWLClass>();
-            // Thing if the object is a root class
-            if (implicitRoots.contains(object)) {
-                result.add(root);
-            }
-            // Not a root, so must have another parent
-            parentClassExtractor.reset();
-            parentClassExtractor.setCurrentClass(object);
-            for (OWLOntology ont : ontologies) {
-                for (OWLAxiom ax : ont.getAxioms(object)) {
-                    ax.accept(parentClassExtractor);
-                }
-            }
-            result.addAll(parentClassExtractor.getResult());
-            return result;
+        }
+        result.addAll(parentClassExtractor.getResult());
+        return result;
     }
 
 
     private Set<OWLClass> getEquivalents(OWLClass object) {
-            Set<OWLClass> result = new HashSet<OWLClass>();
-            for (OWLOntology ont : ontologies) {
-                for (OWLClassExpression equiv : object.getEquivalentClasses(ont)) {
-                    if (!equiv.isAnonymous()) {
-                        result.add((OWLClass) equiv);
-                    }
+        Set<OWLClass> result = new HashSet<OWLClass>();
+        for (OWLOntology ont : ontologies) {
+            for (OWLClassExpression equiv : object.getEquivalentClasses(ont)) {
+                if (!equiv.isAnonymous()) {
+                    result.add((OWLClass) equiv);
                 }
             }
-            Set<OWLClass> ancestors = getAncestors(object);
-            if (ancestors.contains(object)) {
-                for (OWLClass cls : ancestors) {
-                    if (getAncestors(cls).contains(object)) {
-                        result.add(cls);
-                    }
+        }
+        Set<OWLClass> ancestors = getAncestors(object);
+        if (ancestors.contains(object)) {
+            for (OWLClass cls : ancestors) {
+                if (getAncestors(cls).contains(object)) {
+                    result.add(cls);
                 }
-                result.remove(object);
-                result.remove(root);
             }
-            return result;
+            result.remove(object);
+            result.remove(root);
+        }
+        return result;
     }
 
 
@@ -361,6 +359,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
     /**
      * Checks whether the first class is a subclass of the second class
+     *
      * @return <code>true</code> if the first class is a subclass of the second class
      */
     public boolean isSubClassOf(OWLClassExpression clsC, OWLClassExpression clsD) {
@@ -373,6 +372,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
     /**
      * Checks whether the first class is equivalent to the second class
+     *
      * @return <code>true</code> if the first class is equivalent to the second class, or
      *         <code>false</code> if the first class is not equivalent to the second class
      */
@@ -386,6 +386,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
     /**
      * Checks whether the specified class is consistent
+     *
      * @param clsC the class to check
      * @return <code>true</code> if the class is consistent, or <code>false</code>
      *         if the class is not consistent
@@ -397,6 +398,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
     /**
      * A convenience methods for obtaining all classes which are inconsistent.
+     *
      * @return A set of classes which are inconsistent.
      */
     public Set<OWLClass> getInconsistentClasses() {
@@ -510,7 +512,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
         }
 
 
-        public void visit(OWLSubClassAxiom axiom) {
+        public void visit(OWLSubClassOfAxiom axiom) {
             axiom.getSuperClass().accept(extractor);
         }
 
@@ -526,7 +528,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
     }
 
 
-    private class NamedClassExtractor extends OWLDescriptionVisitorAdapter {
+    private class NamedClassExtractor extends OWLClassExpressionVisitorAdapter {
 
         Set<OWLClass> result = new HashSet<OWLClass>();
 
@@ -554,7 +556,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
     }
 
 
-    private class NamedClassChecker extends OWLDescriptionVisitorAdapter {
+    private class NamedClassChecker extends OWLClassExpressionVisitorAdapter {
 
         private boolean found;
 
@@ -625,7 +627,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
         }
 
 
-        public void visit(OWLSubClassAxiom axiom) {
+        public void visit(OWLSubClassOfAxiom axiom) {
             checker.reset();
             axiom.getSuperClass().accept(checker);
             if (checker.containsSearchClass()) {
@@ -647,8 +649,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
                 equivalentClass.accept(checker);
                 if (!checker.containsSearchClass()) {
                     candidateClassExpressions.add(equivalentClass);
-                }
-                else {
+                } else {
                     found = true;
                 }
             }
@@ -662,7 +663,6 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
             results.addAll(namedClassExtractor.getResult());
         }
     }
-
 
 
 }

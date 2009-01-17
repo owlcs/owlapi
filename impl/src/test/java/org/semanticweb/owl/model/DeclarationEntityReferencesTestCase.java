@@ -28,7 +28,7 @@ package org.semanticweb.owl.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 01-May-2007<br><br>
- *
+ * <p/>
  * A test case which ensures that an ontology contains
  * entity references when that ontology only contains
  * entity declaration axioms.  In other words, entity
@@ -38,7 +38,7 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLTestCase {
 
     public void testOWLClassDeclarationAxiom() throws Exception {
         OWLClass cls = getOWLDataFactory().getOWLClass(TestUtils.createURI());
-        OWLAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(cls);
+        OWLAxiom ax = getOWLDataFactory().getDeclaration(cls);
         OWLOntologyManager man = getOWLOntologyManager();
         OWLOntology ont = man.createOntology(TestUtils.createURI());
         man.applyChange(new AddAxiom(ont, ax));
@@ -47,7 +47,7 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLTestCase {
 
     public void testOWLObjectPropertyDeclarationAxiom() throws Exception {
         OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
-        OWLAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(prop);
+        OWLAxiom ax = getOWLDataFactory().getDeclaration(prop);
         OWLOntologyManager man = getOWLOntologyManager();
         OWLOntology ont = man.createOntology(TestUtils.createURI());
         man.applyChange(new AddAxiom(ont, ax));
@@ -56,7 +56,7 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLTestCase {
 
     public void testOWLDataPropertyDeclarationAxiom() throws Exception {
         OWLDataProperty prop = getOWLDataFactory().getOWLDataProperty(TestUtils.createURI());
-        OWLAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(prop);
+        OWLAxiom ax = getOWLDataFactory().getDeclaration(prop);
         OWLOntologyManager man = getOWLOntologyManager();
         OWLOntology ont = man.createOntology(TestUtils.createURI());
         man.applyChange(new AddAxiom(ont, ax));
@@ -64,8 +64,8 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLTestCase {
     }
 
     public void testOWLIndividualDeclarationAxiom() throws Exception {
-        OWLIndividual ind = getOWLDataFactory().getOWLIndividual(TestUtils.createURI());
-        OWLAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(ind);
+        OWLNamedIndividual ind = getOWLDataFactory().getOWLIndividual(TestUtils.createURI());
+        OWLAxiom ax = getOWLDataFactory().getDeclaration(ind);
         OWLOntologyManager man = getOWLOntologyManager();
         OWLOntology ont = man.createOntology(TestUtils.createURI());
         man.applyChange(new AddAxiom(ont, ax));

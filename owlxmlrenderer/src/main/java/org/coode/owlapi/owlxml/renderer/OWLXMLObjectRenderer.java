@@ -53,13 +53,16 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         this.ontology = null;
     }
 
+    public void visit(IRI iri) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED");
+    }
+
+    public void visit(OWLAnonymousIndividual individual) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED");
+    }
 
     private void writeAnnotations(OWLAxiom axiom) {
-        if (ontology != null) {
-            for (OWLAnnotationAxiom ax : axiom.getAnnotationAxioms(ontology)) {
-                ax.accept(this);
-            }
-        }
+        throw new OWLRuntimeException("TODO: Implement");
     }
 
 
@@ -67,54 +70,17 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
             decl.accept(this);
         }
-        for (OWLOntologyAnnotationAxiom ax : ontology.getAnnotations(ontology)) {
+        for (OWLAxiom ax : new TreeSet<OWLAxiom>(ontology.getAxioms())) {
             ax.accept(this);
         }
-        for (OWLAxiom ax : new TreeSet<OWLAxiom>(ontology.getAxioms())) {
-            if (!(ax instanceof OWLAxiomAnnotationAxiom) && !(ax instanceof OWLOntologyAnnotationAxiom)) {
-                ax.accept(this);
-            }
-        }
     }
 
-
-    public void visit(OWLConstantAnnotation annotation) {
-        writer.writeStartElement(ANNOTATION.getURI());
-        writer.writeAnnotationURIAttribute(annotation.getAnnotationURI());
-        writer.writeStartElement(CONSTANT.getURI());
-        if (annotation.getAnnotationValue().isTyped()) {
-            writer.writeDatatypeAttribute(((OWLTypedLiteral) annotation.getAnnotationValue()).getDataType().getURI());
-        }
-        writer.writeTextContent(annotation.getAnnotationValue().getString());
-        writer.writeEndElement();
-        writer.writeEndElement();
-    }
-
-
-    public void visit(OWLObjectAnnotation annotation) {
-        writer.writeStartElement(ANNOTATION.getURI());
-        writer.writeAnnotationURIAttribute(annotation.getAnnotationURI());
-        annotation.getAnnotationValue().accept(this);
-        writer.writeEndElement();
-    }
-
-
-    public void visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         writer.writeStartElement(ASYMMETRIC_OBJECT_PROPERTY.getURI());
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         writer.writeEndElement();
     }
-
-
-    public void visit(OWLAxiomAnnotationAxiom axiom) {
-//        writer.writeStartElement(ANNOTATION.getURI());
-//        writer.writeAnnotationURIAttribute(axiom.getAnnotation().getAnnotationURI());
-//        writeAnnotations(axiom);
-        axiom.getAnnotation().accept(this);
-//        writer.writeEndElement();
-    }
-
 
     public void visit(OWLClassAssertionAxiom axiom) {
         writer.writeStartElement(CLASS_ASSERTION.getURI());
@@ -153,7 +119,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataSubPropertyAxiom axiom) {
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
         writeAnnotations(axiom);
         writer.writeStartElement(SUB_DATA_PROPERTY_OF.getURI());
         axiom.getSubProperty().accept(this);
@@ -162,7 +128,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDeclarationAxiom axiom) {
+    public void visit(OWLDeclaration axiom) {
         writeAnnotations(axiom);
         writer.writeStartElement(DECLARATION.getURI());
         writeAnnotations(axiom);
@@ -214,7 +180,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLEntityAnnotationAxiom axiom) {
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
         // Get written out with declarations
         // Not anymore!
         // This is not in the spec
@@ -329,7 +295,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+    public void visit(OWLComplextSubPropertyAxiom axiom) {
         writer.writeStartElement(SUB_OBJECT_PROPERTY_OF.getURI());
         writeAnnotations(axiom);
         writer.writeStartElement(SUB_OBJECT_PROPERTY_CHAIN.getURI());
@@ -359,7 +325,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectSubPropertyAxiom axiom) {
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         writer.writeStartElement(SUB_OBJECT_PROPERTY_OF.getURI());
         writeAnnotations(axiom);
         axiom.getSubProperty().accept(this);
@@ -384,7 +350,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLSubClassAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
         writer.writeStartElement(SUB_CLASS_OF.getURI());
         writeAnnotations(axiom);
         axiom.getSubClass().accept(this);
@@ -424,7 +390,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataExactCardinalityRestriction desc) {
+    public void visit(OWLDataExactCardinality desc) {
         writer.writeStartElement(DATA_EXACT_CARDINALITY.getURI());
         writer.writeCardinalityAttribute(desc.getCardinality());
         desc.getProperty().accept(this);
@@ -435,7 +401,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataMaxCardinalityRestriction desc) {
+    public void visit(OWLDataMaxCardinality desc) {
         writer.writeStartElement(DATA_MAX_CARDINALITY.getURI());
         writer.writeCardinalityAttribute(desc.getCardinality());
         desc.getProperty().accept(this);
@@ -446,7 +412,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataMinCardinalityRestriction desc) {
+    public void visit(OWLDataMinCardinality desc) {
         writer.writeStartElement(DATA_MIN_CARDINALITY.getURI());
         writer.writeCardinalityAttribute(desc.getCardinality());
         desc.getProperty().accept(this);
@@ -488,7 +454,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectExactCardinalityRestriction desc) {
+    public void visit(OWLObjectExactCardinality desc) {
         writer.writeStartElement(OBJECT_EXACT_CARDINALITY.getURI());
         writer.writeCardinalityAttribute(desc.getCardinality());
         desc.getProperty().accept(this);
@@ -506,7 +472,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectMaxCardinalityRestriction desc) {
+    public void visit(OWLObjectMaxCardinality desc) {
         writer.writeStartElement(OBJECT_MAX_CARDINALITY.getURI());
         writer.writeCardinalityAttribute(desc.getCardinality());
         desc.getProperty().accept(this);
@@ -517,7 +483,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectMinCardinalityRestriction desc) {
+    public void visit(OWLObjectMinCardinality desc) {
         writer.writeStartElement(OBJECT_MIN_CARDINALITY.getURI());
         writer.writeCardinalityAttribute(desc.getCardinality());
         desc.getProperty().accept(this);
@@ -535,7 +501,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectSelfRestriction desc) {
+    public void visit(OWLObjectHasSelf desc) {
         writer.writeStartElement(OBJECT_EXISTS_SELF.getURI());
         desc.getProperty().accept(this);
         writer.writeEndElement();
@@ -557,7 +523,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectValueRestriction desc) {
+    public void visit(OWLObjectHasValue desc) {
         writer.writeStartElement(OBJECT_HAS_VALUE.getURI());
         desc.getProperty().accept(this);
         desc.getValue().accept(this);
@@ -586,18 +552,18 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataRangeRestriction node) {
+    public void visit(OWLDatatypeRestriction node) {
         // TODO: Fix this when added to spec
         writer.writeStartElement(DATATYPE_RESTRICTION.getURI());
-        node.getDataRange().accept(this);
-        for (OWLDataRangeFacetRestriction restriction : node.getFacetRestrictions()) {
+        node.getDatatype().accept(this);
+        for (OWLFacetRestriction restriction : node.getFacetRestrictions()) {
             restriction.accept(this);
         }
         writer.writeEndElement();
     }
 
 
-    public void visit(OWLDataRangeFacetRestriction node) {
+    public void visit(OWLFacetRestriction node) {
         // TODO: Fix this when added to spec
         writer.writeStartElement(DATATYPE_FACET_RESTRICTION.getURI());
         writer.writeFacetAttribute(node.getFacet().getURI());
@@ -644,20 +610,47 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLIndividual individual) {
+    public void visit(OWLNamedIndividual individual) {
         writer.writeStartElement(INDIVIDUAL.getURI());
         writer.writeNameAttribute(individual.getURI());
         writer.writeEndElement();
     }
 
-
-    public void visit(OWLOntologyAnnotationAxiom axiom) {
-//        writer.writeStartElement(ANNOTATION.getURI());
-//        writer.writeAnnotationURIAttribute(axiom.getAnnotation().getAnnotationURI());
-        axiom.getAnnotation().accept(this);
-//        writer.writeEndElement();
+    public void visit(OWLHasKeyAxiom axiom) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED");
     }
 
+    public void visit(OWLDataIntersectionOf node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED");
+    }
+
+    public void visit(OWLDataUnionOf node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED");
+    }
+
+    public void visit(OWLAnnotationProperty property) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED");
+    }
+
+    public void visit(OWLAnnotation annotation) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED");
+    }
+
+    public void visit(OWLAnnotationPropertyDomain axiom) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED");
+    }
+
+    public void visit(OWLAnnotationPropertyRange axiom) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED");
+    }
+
+    public void visit(OWLSubAnnotationPropertyOf axiom) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED");
+    }
+
+    public void visit(OWLAnnotationValue value) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED");
+    }
 
     public void visit(SWRLRule rule) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");

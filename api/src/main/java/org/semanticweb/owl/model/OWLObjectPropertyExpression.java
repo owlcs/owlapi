@@ -49,18 +49,6 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression<OWLOb
     boolean isSymmetric(Set<OWLOntology> ontologies);
 
 
-    /**
-     * @deprecated use isAsymmetric instead.
-     */
-    boolean isAntiSymmetric(OWLOntology ontology);
-
-
-    /**
-     * @deprecated use isAsymmetric instead.
-     */
-    boolean isAntiSymmetric(Set<OWLOntology> ontologies);
-
-
     boolean isAsymmetric(OWLOntology ontology);
 
 

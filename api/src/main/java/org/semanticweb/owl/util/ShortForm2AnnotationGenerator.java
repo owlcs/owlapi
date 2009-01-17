@@ -36,7 +36,6 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 15-Feb-2008<br><br>
- *
  */
 public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange {
 
@@ -73,21 +72,20 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
         ImportsStructureEntitySorter sorter = new ImportsStructureEntitySorter(ontology, ontologyManager);
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         Map<OWLOntology, Set<OWLEntity>> ontology2EntityMap = sorter.getObjects();
-        for(OWLOntology ont : ontology2EntityMap.keySet()) {
-            for(OWLEntity ent : ontology2EntityMap.get(ont)) {
+        for (OWLOntology ont : ontology2EntityMap.keySet()) {
+            for (OWLEntity ent : ontology2EntityMap.get(ont)) {
                 String shortForm = shortFormProvider.getShortForm(ent);
                 OWLLiteral con;
                 if (languageTag != null) {
-                    con = ontologyManager.getOWLDataFactory().getOWLRDFTextLiteral(shortForm, languageTag);
-                }
-                else {
-                    con = ontologyManager.getOWLDataFactory().getOWLTypedLiteral(shortForm);
+                    con = ontologyManager.getOWLDataFactory().getRDFTextLiteral(shortForm, languageTag);
+                } else {
+                    con = ontologyManager.getOWLDataFactory().getTypedLiteral(shortForm);
                 }
                 if (ontology.containsEntityReference(ent)) {
                     OWLOntologyChange chg = new AddAxiom(ont,
-                                                         ontologyManager.getOWLDataFactory().getOWLEntityAnnotationAxiom(ent,
-                                                                                                                         annotationURI,
-                                                                                                                         con));
+                            ontologyManager.getOWLDataFactory().getAnnotationAssertion(ent.getURI(),
+                                    ontologyManager.getOWLDataFactory().getAnnotationProperty(annotationURI),
+                                    con));
                     changes.add(chg);
                 }
             }

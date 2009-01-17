@@ -32,7 +32,6 @@ package org.semanticweb.owl.model;
 public class OWLIndividualObjectRelationshipAxiomTestCase extends AbstractOWLIndividualRelationshipAxiomTestCase<OWLObjectProperty, OWLIndividual> {
 
 
-
     protected OWLObjectProperty createProperty() throws Exception {
         return createOWLObjectProperty();
     }
@@ -45,6 +44,6 @@ public class OWLIndividualObjectRelationshipAxiomTestCase extends AbstractOWLInd
 
     protected OWLIndividualAxiom createAxiom(OWLIndividual subject, OWLObjectProperty property,
                                              OWLIndividual object) throws OWLException {
-        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(subject, property, object);
+        return getOWLDataFactory().getObjectPropertyAssertion(subject, property, object);
     }
 }

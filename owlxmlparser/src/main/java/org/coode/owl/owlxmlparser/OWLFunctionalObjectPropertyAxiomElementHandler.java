@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -40,7 +39,7 @@ public class OWLFunctionalObjectPropertyAxiomElementHandler extends AbstractOWLO
 
 
     protected OWLAxiom createPropertyCharacteristicAxiom() {
-        return getOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(getProperty());
+        return getOWLDataFactory().getFunctionalObjectProperty(getProperty());
     }
 
 

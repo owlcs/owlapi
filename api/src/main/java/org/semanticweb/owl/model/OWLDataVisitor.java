@@ -28,22 +28,14 @@ package org.semanticweb.owl.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Nov-2006<br><br>
- *
+ * <p/>
  * A visitor which can visit various data ranges and constants.
  */
-public interface OWLDataVisitor  {
-
-    void visit(OWLDatatype node);
-
-    void visit(OWLDataComplementOf node);
-
-    void visit(OWLDataOneOf node);
-
-    void visit(OWLDataRangeRestriction node);
+public interface OWLDataVisitor extends OWLDataRangeVisitor {
 
     void visit(OWLTypedLiteral node);
 
     void visit(OWLRDFTextLiteral node);
 
-    void visit(OWLDataRangeFacetRestriction node);
+    void visit(OWLFacetRestriction node);
 }

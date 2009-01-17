@@ -44,10 +44,10 @@ public class SelfRestrictionTranslator extends AbstractObjectRestrictionTranslat
 
 
     protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
-        if(!getConsumer().isSelfRestriction(mainNode)) {
+        if (!getConsumer().isSelfRestriction(mainNode)) {
             throw new MalformedDescriptionException("Not typed as " + OWLRDFVocabulary.OWL_SELF_RESTRICTION);
         }
         OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
-        return getDataFactory().getOWLObjectSelfRestriction(prop);
+        return getDataFactory().getObjectHasSelf(prop);
     }
 }

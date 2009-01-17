@@ -30,7 +30,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- *
+ * <p/>
  * An OWL ontology contains a set of axioms.  These axioms can be annotation axioms,
  * declaration axioms, imports axioms or logical axioms
  */
@@ -44,21 +44,17 @@ public interface OWLAxiom extends OWLObject {
      * Determines if this axiom is a logical axiom. Logical axioms are defined to be
      * axioms other than both declaration axioms (including imports declarations) and annotation
      * axioms.
+     *
      * @return <code>true</code> if the axiom is a logical axiom, <code>false</code>
-     * if the axiom is not a logical axiom.
+     *         if the axiom is not a logical axiom.
      */
     boolean isLogicalAxiom();
-
-    /**
-     * Gets the annotation axioms that annotate this axiom and belong to the specified ontology
-     * @param ontology The ontology that will be examined for annotation axioms.
-     */
-    Set<OWLAxiomAnnotationAxiom> getAnnotationAxioms(OWLOntology ontology);
 
 
     /**
      * A convenience method that obtains the entities that this axiom
      * references.
+     *
      * @return A set of <code>OWLEntity</code> objects.
      */
     Set<OWLEntity> getReferencedEntities();
@@ -66,6 +62,7 @@ public interface OWLAxiom extends OWLObject {
 
     /**
      * Gets the axiom type for this axiom.
+     *
      * @return The axiom type that corresponds to the type of this axiom.
      */
     AxiomType getAxiomType();
@@ -74,6 +71,7 @@ public interface OWLAxiom extends OWLObject {
     /**
      * Gets this axioms in negation normal form.  i.e. any class descriptions involved in this
      * axiom are converted into negation normal form.
+     *
      * @return The axiom in negation normal form.
      */
     OWLAxiom getNNF();

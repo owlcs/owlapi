@@ -41,9 +41,10 @@ public interface OWLDisjointUnionAxiom extends OWLNaryClassAxiom {
 
     /**
      * Gets the descriptions which are operands of the disjoint union.
+     *
      * @return A <code>Set</code> containing the operands of the disjoint union, note
-     * that this <b>does not</b> include the <code>OWLClass</code> that is equivalent
-     * to the disjoint union.
+     *         that this <b>does not</b> include the <code>OWLClass</code> that is equivalent
+     *         to the disjoint union.
      */
     Set<OWLClassExpression> getDescriptions();
 }

@@ -1,6 +1,7 @@
 package org.semanticweb.owl.api.test;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.OWLOntology;
+import org.semanticweb.owl.model.OWLRuntimeException;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -34,15 +35,16 @@ import org.semanticweb.owl.model.*;
 public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTrippingTest {
 
     protected OWLOntology createOntology() {
-        OWLOntology ont = getOWLOntology("OntA");
-        OWLDataFactory factory = getFactory();
-        OWLClassAssertionAxiom ax = factory
-                .getOWLClassAssertionAxiom(getOWLIndividual("iA"), getOWLClass("clsA"));
-        addAxiom(ont, ax);
-        OWLAnnotation commentAnno = factory.getCommentAnnotation("leq 0.8");
-        OWLAxiomAnnotationAxiom annAx = factory.getOWLAxiomAnnotationAxiom(ax, commentAnno);
-        addAxiom(ont, annAx);
-        return ont;
+        throw new OWLRuntimeException("TODO");
+//        OWLOntology ont = getOWLOntology("OntA");
+//        OWLDataFactory factory = getFactory();
+//        OWLClassAssertionAxiom ax = factory
+//                .getClassAssertion(getOWLIndividual("iA"), getOWLClass("clsA"));
+//        addAxiom(ont, ax);
+//        OWLAnnotation commentAnno = factory.getCommentAnnotation("leq 0.8");
+//        OWLAxiomAnnotationAxiom annAx = factory.getOWLAxiomAnnotationAxiom(ax, commentAnno);
+//        addAxiom(ont, annAx);
+//        return ont;
     }
 
 

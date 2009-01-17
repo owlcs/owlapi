@@ -47,11 +47,11 @@ public class OWLDataValueRestrictionImpl extends OWLValueRestrictionImpl<OWLData
 
 
     public OWLClassExpression asSomeValuesFrom() {
-        return getOWLDataFactory().getOWLDataSomeValuesFrom(getProperty(), getOWLDataFactory().getOWLDataOneOf(getValue()));
+        return getOWLDataFactory().getDataSomeValuesFrom(getProperty(), getOWLDataFactory().getDataOneOf(getValue()));
     }
 
 
-    public void accept(OWLDescriptionVisitor visitor) {
+    public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -60,7 +60,7 @@ public class OWLDataValueRestrictionImpl extends OWLValueRestrictionImpl<OWLData
     }
 
 
-    public <O> O accept(OWLDescriptionVisitorEx<O> visitor) {
+    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

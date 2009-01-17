@@ -1,9 +1,9 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLDataProperty;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLIndividual;
+import org.semanticweb.owl.model.OWLLiteral;
 
 import java.net.URI;
 /*
@@ -47,7 +47,7 @@ public class SKOSDataTripleHandler extends AbstractLiteralTripleHandler {
     public void handleTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         OWLIndividual subj = getDataFactory().getOWLIndividual(subject);
         OWLDataProperty prop = getDataFactory().getOWLDataProperty(predicate);
-        addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(subj, prop, object));
+        addAxiom(getDataFactory().getDataPropertyAssertion(subj, prop, object));
     }
 
 

@@ -50,6 +50,7 @@ import java.util.logging.Logger;
  * <p/>
  * Company: Clark & Parsia, LLC. <http://www.clarkparsia.com>
  * </p>
+ *
  * @author Evren Sirin
  */
 public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implements SingleExplanationGenerator {
@@ -125,11 +126,11 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
 
     public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
-		
-		if( !definitionTracker.isDefined( unsatClass ) )
-			return Collections.emptySet();
 
-    	try {
+        if (!definitionTracker.isDefined(unsatClass))
+            return Collections.emptySet();
+
+        try {
             boolean firstExplanation = isFirstExplanation();
 
             // save the reasoner so we won't have to reload anything
@@ -156,8 +157,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
             expandUntilUnsatisfiable(unsatClass);
 
             pruneUntilMinimal(unsatClass);
-            
-			removeDeclarations( );
+
+            removeDeclarations();
 
             ontologyCounter = 0;
 
@@ -255,22 +256,19 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     private int expandWithDefiningAxioms(OWLEntity obj, int limit) {
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
         for (OWLOntology ont : getOntologies()) {
-        	boolean referenceFound = false;
-        	if (obj instanceof OWLClass) {
-        		referenceFound = expansionAxioms.addAll(ont.getAxioms((OWLClass) obj));
+            boolean referenceFound = false;
+            if (obj instanceof OWLClass) {
+                referenceFound = expansionAxioms.addAll(ont.getAxioms((OWLClass) obj));
+            } else if (obj instanceof OWLObjectProperty) {
+                referenceFound = expansionAxioms.addAll(ont.getAxioms((OWLObjectProperty) obj));
+            } else if (obj instanceof OWLDataProperty) {
+                referenceFound = expansionAxioms.addAll(ont.getAxioms((OWLDataProperty) obj));
+            } else if (obj instanceof OWLIndividual) {
+                referenceFound = expansionAxioms.addAll(ont.getAxioms((OWLIndividual) obj));
             }
-            else if (obj instanceof OWLObjectProperty) {
-            	referenceFound = expansionAxioms.addAll(ont.getAxioms((OWLObjectProperty) obj));
-            }
-            else if (obj instanceof OWLDataProperty) {
-            	referenceFound = expansionAxioms.addAll(ont.getAxioms((OWLDataProperty) obj));
-            }
-            else if (obj instanceof OWLIndividual) {
-            	referenceFound = expansionAxioms.addAll(ont.getAxioms((OWLIndividual) obj));
-            }
-        	if( !referenceFound )
-				expansionAxioms.add( owlOntologyManager.getOWLDataFactory().getOWLDeclarationAxiom(
-						obj ) );
+            if (!referenceFound)
+                expansionAxioms.add(owlOntologyManager.getOWLDataFactory().getDeclaration(
+                        obj));
         }
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
@@ -296,6 +294,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     /**
      * A utility method. Adds axioms from one set to another set upto a
      * specified limit. Annotation axioms are stripped out
+     *
      * @param source The source set. Objects from this set will be added to the
      *               destination set
      * @param dest   The destination set. Objects will be added to this set
@@ -465,10 +464,9 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
         if (!unsatClass.isAnonymous()) {
             expandWithDefiningAxioms((OWLClass) unsatClass, expansionLimit);
-        }
-        else {
+        } else {
             OWLClass owlThing = owlOntologyManager.getOWLDataFactory().getOWLThing();
-            OWLSubClassAxiom axiom = owlOntologyManager.getOWLDataFactory().getOWLSubClassAxiom(unsatClass, owlThing);
+            OWLSubClassOfAxiom axiom = owlOntologyManager.getOWLDataFactory().getSubClassOf(unsatClass, owlThing);
             debuggingAxioms.add(axiom);
             expandAxioms();
             debuggingAxioms.remove(axiom);
@@ -547,8 +545,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
                 log.fine("... end of fast pruning. Axioms remaining: " + debuggingAxioms.size());
                 log.fine("Performed " + satTestCount + " satisfiability tests during fast pruning");
             }
-        }
-        else {
+        } else {
             fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
             performFastPruning(unsatClass);
             if (log.isLoggable(Level.FINE)) {
@@ -576,17 +573,17 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
             log.fine("Total number of satisfiability tests performed: " + totalSatTests);
         }
     }
-    
-	private void removeDeclarations() {
-		OWLAxiomVisitor declarationRemover = new OWLAxiomVisitorAdapter() {
-			public void visit(OWLDeclarationAxiom axiom) {
-				debuggingAxioms.remove( axiom );
-			}
-		};
-		for (OWLAxiom axiom : debuggingAxioms.toArray(new OWLAxiom[0])) {
-			axiom.accept(declarationRemover);
-		}
-	}
+
+    private void removeDeclarations() {
+        OWLAxiomVisitor declarationRemover = new OWLAxiomVisitorAdapter() {
+            public void visit(OWLDeclaration axiom) {
+                debuggingAxioms.remove(axiom);
+            }
+        };
+        for (OWLAxiom axiom : debuggingAxioms.toArray(new OWLAxiom[0])) {
+            axiom.accept(declarationRemover);
+        }
+    }
 
     private static URI createURI() {
         return URI.create("http://debugging.blackbox#" + System.nanoTime());

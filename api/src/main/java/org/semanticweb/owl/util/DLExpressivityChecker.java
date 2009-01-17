@@ -188,14 +188,6 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     public void visit(OWLIndividual individual) {
     }
 
-
-    public void visit(OWLObjectAnnotation annotation) {
-    }
-
-
-    public void visit(OWLConstantAnnotation annotation) {
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Property expression
@@ -237,7 +229,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataRangeRestriction node) {
+    public void visit(OWLDatatypeRestriction node) {
         constructs.add(D);
     }
 
@@ -252,7 +244,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataRangeFacetRestriction node) {
+    public void visit(OWLFacetRestriction node) {
         constructs.add(D);
     }
 
@@ -339,7 +331,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectValueRestriction desc) {
+    public void visit(OWLObjectHasValue desc) {
         constructs.add(O);
         constructs.add(E);
         desc.getProperty().accept(this);
@@ -357,22 +349,22 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectMinCardinalityRestriction desc) {
+    public void visit(OWLObjectMinCardinality desc) {
         checkCardinality(desc);
     }
 
 
-    public void visit(OWLObjectExactCardinalityRestriction desc) {
+    public void visit(OWLObjectExactCardinality desc) {
         checkCardinality(desc);
     }
 
 
-    public void visit(OWLObjectMaxCardinalityRestriction desc) {
+    public void visit(OWLObjectMaxCardinality desc) {
         checkCardinality(desc);
     }
 
 
-    public void visit(OWLObjectSelfRestriction desc) {
+    public void visit(OWLObjectHasSelf desc) {
         desc.getProperty().accept(this);
         constructs.add(R);
     }
@@ -403,17 +395,17 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataMinCardinalityRestriction desc) {
+    public void visit(OWLDataMinCardinality desc) {
         checkCardinality(desc);
     }
 
 
-    public void visit(OWLDataExactCardinalityRestriction desc) {
+    public void visit(OWLDataExactCardinality desc) {
         checkCardinality(desc);
     }
 
 
-    public void visit(OWLDataMaxCardinalityRestriction desc) {
+    public void visit(OWLDataMaxCardinality desc) {
         checkCardinality(desc);
     }
 
@@ -424,7 +416,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public void visit(OWLSubClassAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
         axiom.getSubClass().accept(this);
         axiom.getSuperClass().accept(this);
     }
@@ -435,7 +427,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         constructs.add(R);
         axiom.getProperty().accept(this);
     }
@@ -464,11 +456,6 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
 
     public void visit(OWLImportsDeclaration axiom) {
-
-    }
-
-
-    public void visit(OWLAxiomAnnotationAxiom axiom) {
 
     }
 
@@ -534,7 +521,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectSubPropertyAxiom axiom) {
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         constructs.add(H);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
@@ -550,16 +537,12 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDeclarationAxiom axiom) {
+    public void visit(OWLDeclaration axiom) {
 
     }
 
 
-    public void visit(OWLEntityAnnotationAxiom axiom) {
-    }
-
-
-    public void visit(OWLOntologyAnnotationAxiom axiom) {
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
     }
 
 
@@ -622,7 +605,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataSubPropertyAxiom axiom) {
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
         constructs.add(H);
         constructs.add(D);
     }
@@ -640,7 +623,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+    public void visit(OWLComplextSubPropertyAxiom axiom) {
         constructs.add(R);
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             prop.accept(this);
@@ -651,6 +634,50 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         constructs.add(I);
+    }
+
+    public void visit(OWLHasKeyAxiom axiom) {
+        // TODO:
+    }
+
+    public void visit(OWLDataIntersectionOf node) {
+        // TODO:
+    }
+
+    public void visit(OWLDataUnionOf node) {
+        // TODO:
+    }
+
+    public void visit(OWLNamedIndividual individual) {
+        // TODO:
+    }
+
+    public void visit(OWLAnnotationProperty property) {
+        // TODO:
+    }
+
+    public void visit(OWLAnnotation annotation) {
+        // TODO:
+    }
+
+    public void visit(OWLAnnotationPropertyDomain axiom) {
+        // TODO:
+    }
+
+    public void visit(OWLAnnotationPropertyRange axiom) {
+        // TODO:
+    }
+
+    public void visit(OWLSubAnnotationPropertyOf axiom) {
+        // TODO:
+    }
+
+    public void visit(OWLAnonymousIndividual individual) {
+        // TODO:
+    }
+
+    public void visit(IRI iri) {
+        // TODO:
     }
 
 

@@ -55,12 +55,12 @@ public class OWLObjectPropertyRangeAxiomElementHandler extends AbstractOWLAxiomE
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if(property == null) {
+        if (property == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), OWLXMLVocabulary.OBJECT_PROPERTY.getShortName());
         }
-        if(range == null) {
+        if (range == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "OWL description element");
         }
-        return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range);
+        return getOWLDataFactory().getObjectPropertyRange(property, range);
     }
 }

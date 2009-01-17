@@ -4,7 +4,7 @@ import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLObjectIntersectionOf;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 import org.semanticweb.owl.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owl.util.OWLDescriptionVisitorAdapter;
+import org.semanticweb.owl.util.OWLClassExpressionVisitorAdapter;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -49,7 +49,7 @@ import java.util.Set;
  * Date: 24-April-2007<br>
  * <br>
  */
-public class ExistentialCollector extends OWLDescriptionVisitorAdapter {
+public class ExistentialCollector extends OWLClassExpressionVisitorAdapter {
     /* Collected axioms */
     private Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions;
 

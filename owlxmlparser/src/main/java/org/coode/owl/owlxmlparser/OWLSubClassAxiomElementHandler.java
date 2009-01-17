@@ -51,19 +51,17 @@ public class OWLSubClassAxiomElementHandler extends AbstractOWLAxiomElementHandl
 
 
     public void handleChild(AbstractOWLDescriptionElementHandler handler) throws OWLXMLParserException {
-        if(subClass == null) {
+        if (subClass == null) {
             subClass = handler.getOWLObject();
-        }
-        else if(supClass == null) {
+        } else if (supClass == null) {
             supClass = handler.getOWLObject();
-        }
-        else {
+        } else {
             throw new OWLXMLParserUnexpectedElementException(getLineNumber(), "Expected exactly two class description elements");
         }
     }
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLSubClassAxiom(subClass, supClass);
+        return getOWLDataFactory().getSubClassOf(subClass, supClass);
     }
 }

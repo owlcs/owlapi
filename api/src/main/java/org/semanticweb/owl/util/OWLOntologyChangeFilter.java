@@ -40,7 +40,7 @@ import java.util.List;
  * and override the appropriate visit methods corresponding to the types of axioms that are of interest.
  * Each visit corresponds to a single change and the <code>isAdd</code> or <code>isRemove</code> methods can
  * be used to determine if the axiom corresponding to the change is being added or removed from an ontology
- *  - the ontology can be obtained via the <code>getOntology</code> method.
+ * - the ontology can be obtained via the <code>getOntology</code> method.
  * <p/>
  * Example:  Suppose we are interested in changes that alter the domain of an object property.  We receive
  * a list of changes, <code>ontChanges</code>, from an ontology change listener.  We can use the
@@ -49,7 +49,7 @@ import java.util.List;
  * <p/>
  * <pre>
  * OWLOntologyChangeFilter filter = new OWLOntologyChangeFilter() {
- *
+ * <p/>
  *      // Override the object property domain visit method
  *      public void visit(OWLObjectPropertyDomainAxiom axiom) {
  *          // Determine if the axiom is being added or removed
@@ -121,6 +121,7 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor {
 
     /**
      * Gets the ontology which the current change being visited was applied to.
+     *
      * @return The ontology or <code>null</code> if the filter is not in a change
      *         visit cycle.  When called from within a <code>visit</code> method, the
      *         return value is guarenteed not to be <code>null</code>.
@@ -130,150 +131,120 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
     }
-
-
-    public void visit(OWLAxiomAnnotationAxiom axiom) {
-    }
-
 
     public void visit(OWLClassAssertionAxiom axiom) {
     }
 
+    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    }
 
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
     }
 
-
     public void visit(OWLDataPropertyDomainAxiom axiom) {
     }
-
 
     public void visit(OWLDataPropertyRangeAxiom axiom) {
     }
 
-
-    public void visit(OWLDataSubPropertyAxiom axiom) {
+    public void visit(OWLDeclaration axiom) {
     }
-
-
-    public void visit(OWLDeclarationAxiom axiom) {
-    }
-
 
     public void visit(OWLDifferentIndividualsAxiom axiom) {
     }
 
-
     public void visit(OWLDisjointClassesAxiom axiom) {
     }
-
 
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
     }
 
-
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
     }
-
 
     public void visit(OWLDisjointUnionAxiom axiom) {
     }
 
-
-    public void visit(OWLEntityAnnotationAxiom axiom) {
-    }
-
-
     public void visit(OWLEquivalentClassesAxiom axiom) {
     }
-
 
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
     }
 
-
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
     }
-
 
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
     }
 
-
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
     }
 
+    public void visit(OWLHasKeyAxiom axiom) {
+    }
 
     public void visit(OWLImportsDeclaration axiom) {
     }
 
-
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
     }
-
 
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
     }
 
-
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
     }
-
 
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
     }
 
-
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
     }
-
 
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
     }
 
-
-    public void visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
-    }
-
-
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
     }
-
 
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
     }
 
-
-    public void visit(OWLObjectSubPropertyAxiom axiom) {
-    }
-
-
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
     }
-
 
     public void visit(OWLSameIndividualsAxiom axiom) {
     }
 
-
-    public void visit(OWLSubClassAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
     }
 
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
+    }
+
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+    }
 
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
     }
 
-
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
     }
-
 
     public void visit(SWRLRule rule) {
     }
 
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
+    }
 
-    public void visit(OWLOntologyAnnotationAxiom axiom) {
+    public void visit(OWLAnnotationPropertyDomain axiom) {
+    }
+
+    public void visit(OWLAnnotationPropertyRange axiom) {
+    }
+
+    public void visit(OWLSubAnnotationPropertyOf axiom) {
     }
 }

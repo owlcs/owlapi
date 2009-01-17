@@ -3,7 +3,6 @@ package org.coode.owl.owlxmlparser;
 import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLDataPropertyExpression;
 import org.semanticweb.owl.model.OWLDataRange;
-import org.semanticweb.owl.model.OWLException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -34,7 +33,7 @@ import org.semanticweb.owl.model.OWLException;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
-public class OWLDataPropertyRangeAxiomElementHandler extends AbstractOWLAxiomElementHandler  {
+public class OWLDataPropertyRangeAxiomElementHandler extends AbstractOWLAxiomElementHandler {
 
     private OWLDataPropertyExpression property;
 
@@ -56,12 +55,12 @@ public class OWLDataPropertyRangeAxiomElementHandler extends AbstractOWLAxiomEle
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if(property == null) {
+        if (property == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "data property element");
         }
-        if(range == null) {
+        if (range == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "data range element");
         }
-        return getOWLDataFactory().getOWLDataPropertyRangeAxiom(property, range);
+        return getOWLDataFactory().getDataPropertyRange(property, range);
     }
 }

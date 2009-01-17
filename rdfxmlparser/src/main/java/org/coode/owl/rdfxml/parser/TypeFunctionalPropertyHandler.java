@@ -50,18 +50,16 @@ public class TypeFunctionalPropertyHandler extends BuiltInTypeHandler {
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         if (getConsumer().isObjectPropertyOnly(subject)) {
             getConsumer().addOWLObjectProperty(subject);
-            addAxiom(getDataFactory().getOWLFunctionalObjectPropertyAxiom(translateObjectProperty(subject)));
+            addAxiom(getDataFactory().getFunctionalObjectProperty(translateObjectProperty(subject)));
             consumeTriple(subject, predicate, object);
-        }
-        else if(getConsumer().isDataPropertyOnly(subject)) {
+        } else if (getConsumer().isDataPropertyOnly(subject)) {
             getConsumer().addOWLDataProperty(subject);
-            addAxiom(getDataFactory().getOWLFunctionalDataPropertyAxiom(translateDataProperty(subject)));
+            addAxiom(getDataFactory().getFunctionalDataProperty(translateDataProperty(subject)));
             consumeTriple(subject, predicate, object);
-        }
-        else {
+        } else {
             // Assume object property! :(
             // I suppose that we could check where the predicate is used, but I'm losing the will to live!
-            addAxiom(getDataFactory().getOWLFunctionalObjectPropertyAxiom(translateObjectProperty(subject)));
+            addAxiom(getDataFactory().getFunctionalObjectProperty(translateObjectProperty(subject)));
             consumeTriple(subject, predicate, object);
         }
 

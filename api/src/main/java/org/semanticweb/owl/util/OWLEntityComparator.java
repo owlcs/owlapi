@@ -32,7 +32,7 @@ import java.util.Comparator;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 15-Jun-2007<br><br>
- *
+ * <p/>
  * A <code>Comparator</code> which compares entities.  Entities are compared first
  * by their type (in the following order: Class, Object property, Data property, Individual,
  * Datatype) then by their short form (using the specified short form provider).
@@ -98,12 +98,15 @@ public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisi
     }
 
 
-    public void visit(OWLIndividual individual) {
+    public void visit(OWLNamedIndividual individual) {
         lastValue = 3;
     }
 
+    public void visit(OWLAnnotationProperty property) {
+        lastValue = 4;
+    }
 
     public void visit(OWLDatatype datatype) {
-        lastValue = 4;
+        lastValue = 5;
     }
 }

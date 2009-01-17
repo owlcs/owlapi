@@ -34,9 +34,8 @@ import java.util.Set;
 public class OWLEquivalentDataPropertiesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLDataProperty> {
 
 
-
     protected OWLObject createObject(Set<OWLDataProperty> operands) throws Exception {
-        return getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(operands);
+        return getOWLDataFactory().getEquivalentDataProperties(operands);
     }
 
 

@@ -37,9 +37,11 @@ public interface OWLNamedObjectVisitor {
 
     void visit(OWLDataProperty property);
 
-    void visit(OWLIndividual owlIndividual);
+    void visit(OWLNamedIndividual owlIndividual);
 
     void visit(OWLOntology ontology);
 
     void visit(OWLDatatype datatype);
+
+    void visit(OWLAnnotationProperty property);
 }

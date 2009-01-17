@@ -46,21 +46,19 @@ public class OWLConstantElementHandler extends AbstractOWLElementHandler<OWLLite
     }
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
-        if(localName.equals(OWLXMLVocabulary.DATATYPE_URI.getShortName())) {
+        if (localName.equals(OWLXMLVocabulary.DATATYPE_URI.getShortName())) {
             uri = getURI(value);
         }
     }
 
     public void endElement() throws OWLXMLParserException {
         if (uri != null) {
-            literal = getOWLDataFactory().getOWLTypedLiteral(getText(), getOWLDataFactory().getOWLDatatype(uri));
-        }
-        else {
-            literal = getOWLDataFactory().getOWLTypedLiteral(getText());
+            literal = getOWLDataFactory().getTypedLiteral(getText(), getOWLDataFactory().getDatatype(uri));
+        } else {
+            literal = getOWLDataFactory().getTypedLiteral(getText());
         }
         getParentHandler().handleChild(this);
     }
-
 
 
     public OWLLiteral getOWLObject() {

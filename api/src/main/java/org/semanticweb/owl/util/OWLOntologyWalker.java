@@ -41,17 +41,10 @@ public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
 
     public <E> void walkStructure(OWLObjectVisitorEx<E> visitor) {
         super.walkStructure(new DelegatingObjectVisitorEx<E>(visitor) {
-            public E visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+            public E visit(OWLAsymmetricObjectPropertyAxiom axiom) {
                 currentAxiom = axiom;
                 return super.visit(axiom);
             }
-
-
-            public E visit(OWLAxiomAnnotationAxiom axiom) {
-                currentAxiom = axiom;
-                return super.visit(axiom);
-            }
-
 
             public E visit(OWLClassAssertionAxiom axiom) {
                 currentAxiom = axiom;
@@ -77,13 +70,13 @@ public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
             }
 
 
-            public E visit(OWLDataSubPropertyAxiom axiom) {
+            public E visit(OWLSubDataPropertyOfAxiom axiom) {
                 currentAxiom = axiom;
                 return super.visit(axiom);
             }
 
 
-            public E visit(OWLDeclarationAxiom axiom) {
+            public E visit(OWLDeclaration axiom) {
                 currentAxiom = axiom;
                 return super.visit(axiom);
             }
@@ -119,7 +112,7 @@ public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
             }
 
 
-            public E visit(OWLEntityAnnotationAxiom axiom) {
+            public E visit(OWLAnnotationAssertionAxiom axiom) {
                 currentAxiom = axiom;
                 return super.visit(axiom);
             }
@@ -197,7 +190,7 @@ public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
             }
 
 
-            public E visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+            public E visit(OWLComplextSubPropertyAxiom axiom) {
                 currentAxiom = axiom;
                 return super.visit(axiom);
             }
@@ -215,13 +208,7 @@ public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
             }
 
 
-            public E visit(OWLObjectSubPropertyAxiom axiom) {
-                currentAxiom = axiom;
-                return super.visit(axiom);
-            }
-
-
-            public E visit(OWLOntologyAnnotationAxiom axiom) {
+            public E visit(OWLSubObjectPropertyOfAxiom axiom) {
                 currentAxiom = axiom;
                 return super.visit(axiom);
             }
@@ -239,7 +226,7 @@ public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
             }
 
 
-            public E visit(OWLSubClassAxiom axiom) {
+            public E visit(OWLSubClassOfAxiom axiom) {
                 currentAxiom = axiom;
                 return super.visit(axiom);
             }

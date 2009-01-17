@@ -41,6 +41,6 @@ public class OWLObjectUnionOfElementHandler extends AbstractNaryBooleanDescripti
 
 
     protected OWLClassExpression createOWLDescription(Set<OWLClassExpression> operands) {
-        return getOWLDataFactory().getOWLObjectUnionOf(operands);
+        return getOWLDataFactory().getObjectUnionOf(operands);
     }
 }

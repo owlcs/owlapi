@@ -124,37 +124,38 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         } else {
             OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getURIFromValue(id0));
             OWLClass filler = getDataFactory().getOWLClass(getURIFromValue(id1));
-            return getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
+            return getDataFactory().getObjectSomeValuesFrom(prop, filler);
         }
     }
 
 //    protected OWLLiteral getUntypedConstant(String literal) throws OWLException {
-//        return getDataFactory().getOWLRDFTextLiteral(literal);
+//        return getDataFactory().getRDFTextLiteral(literal);
 //    }
 
 
     protected OWLLiteral getBooleanConstant(Boolean b) {
         if (b) {
-            return getDataFactory().getOWLTypedLiteral("true",
-                    getDataFactory().getOWLDatatype(XSDVocabulary.BOOLEAN.getURI()));
+            return getDataFactory().getTypedLiteral("true",
+                    getDataFactory().getDatatype(XSDVocabulary.BOOLEAN.getURI()));
         } else {
-            return getDataFactory().getOWLTypedLiteral("false",
-                    getDataFactory().getOWLDatatype(XSDVocabulary.BOOLEAN.getURI()));
+            return getDataFactory().getTypedLiteral("false",
+                    getDataFactory().getDatatype(XSDVocabulary.BOOLEAN.getURI()));
         }
     }
 
 
     protected void addAnnotation(String id, String uriID, OWLLiteral value) {
-        OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getURIFromValue(uriID), value);
-        OWLEntity ent = null;
-        if (getConsumer().isTerm()) {
-            ent = getDataFactory().getOWLClass(getURIFromValue(id));
-        } else if (getConsumer().isTypedef()) {
-            ent = getDataFactory().getOWLObjectProperty(getURIFromValue(id));
-        } else {
-            ent = getDataFactory().getOWLIndividual(getURIFromValue(id));
-        }
-        OWLAxiom ax = getDataFactory().getOWLEntityAnnotationAxiom(ent, anno);
-        applyChange(new AddAxiom(getOntology(), ax));
+        throw new OWLRuntimeException("TODO");
+//        OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getURIFromValue(uriID), value);
+//        OWLEntity ent = null;
+//        if (getConsumer().isTerm()) {
+//            ent = getDataFactory().getOWLClass(getURIFromValue(id));
+//        } else if (getConsumer().isTypedef()) {
+//            ent = getDataFactory().getOWLObjectProperty(getURIFromValue(id));
+//        } else {
+//            ent = getDataFactory().getOWLIndividual(getURIFromValue(id));
+//        }
+//        OWLAxiom ax = getDataFactory().getOWLEntityAnnotationAxiom(ent, anno);
+//        applyChange(new AddAxiom(getOntology(), ax));
     }
 }

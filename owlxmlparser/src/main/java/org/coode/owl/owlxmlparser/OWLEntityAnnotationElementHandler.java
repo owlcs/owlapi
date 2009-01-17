@@ -49,7 +49,7 @@ public class OWLEntityAnnotationElementHandler extends AbstractOWLAxiomElementHa
 
 
     public void handleChild(OWLIndividualElementHandler handler) {
-        entity = handler.getOWLObject();
+        entity = (OWLNamedIndividual) handler.getOWLObject();
     }
 
 
@@ -75,6 +75,6 @@ public class OWLEntityAnnotationElementHandler extends AbstractOWLAxiomElementHa
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLEntityAnnotationAxiom(entity, annotation);
+        return getOWLDataFactory().getAnnotationAssertion(entity.getURI(), annotation);
     }
 }

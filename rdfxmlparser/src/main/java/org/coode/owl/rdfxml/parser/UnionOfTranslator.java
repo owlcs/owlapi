@@ -36,7 +36,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
- *
+ * <p/>
  * Translates a set of triples to an <code>OWLUnionOf</code> description.
  */
 public class UnionOfTranslator extends AbstractNaryBooleanDescriptionTranslator {
@@ -47,7 +47,7 @@ public class UnionOfTranslator extends AbstractNaryBooleanDescriptionTranslator 
 
 
     protected OWLClassExpression createDescription(Set<OWLClassExpression> operands) throws OWLException {
-        return getDataFactory().getOWLObjectUnionOf(operands);
+        return getDataFactory().getObjectUnionOf(operands);
     }
 
 

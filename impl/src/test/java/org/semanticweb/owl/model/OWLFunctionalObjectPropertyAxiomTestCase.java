@@ -32,14 +32,12 @@ package org.semanticweb.owl.model;
 public class OWLFunctionalObjectPropertyAxiomTestCase extends AbstractOWLPropertyCharacteristicTestCase<OWLObjectProperty> {
 
 
-
-
     protected OWLObjectProperty createProperty() throws Exception {
         return createOWLObjectProperty();
     }
 
 
     protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) throws OWLException {
-        return getOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(property);
+        return getOWLDataFactory().getFunctionalObjectProperty(property);
     }
 }

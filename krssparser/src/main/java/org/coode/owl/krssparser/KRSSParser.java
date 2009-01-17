@@ -119,7 +119,7 @@ public class KRSSParser implements KRSSParserConstants {
         superClass = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLSubClassAxiom(subClass, superClass);
+            if (true) return dataFactory.getSubClassOf(subClass, superClass);
         }
         throw new Error("Missing return statement in function");
     }
@@ -136,7 +136,7 @@ public class KRSSParser implements KRSSParserConstants {
         ops.add(clsA);
         ops.add(clsB);
         {
-            if (true) return dataFactory.getOWLEquivalentClassesAxiom(ops);
+            if (true) return dataFactory.getEquivalentClasses(ops);
         }
         throw new Error("Missing return statement in function");
     }
@@ -157,7 +157,7 @@ public class KRSSParser implements KRSSParserConstants {
         jj_consume_token(CLOSEPAR);
         if (superProp != null) {
             {
-                if (true) return dataFactory.getOWLSubObjectPropertyAxiom(subProp, superProp);
+                if (true) return dataFactory.getSubObjectPropertyOf(subProp, superProp);
             }
         }
         throw new Error("Missing return statement in function");
@@ -170,7 +170,7 @@ public class KRSSParser implements KRSSParserConstants {
         prop = RoleName();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLTransitiveObjectPropertyAxiom(prop);
+            if (true) return dataFactory.getTransitiveObjectProperty(prop);
         }
         throw new Error("Missing return statement in function");
     }
@@ -184,7 +184,7 @@ public class KRSSParser implements KRSSParserConstants {
         rng = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectPropertyRangeAxiom(prop, rng);
+            if (true) return dataFactory.getObjectPropertyRange(prop, rng);
         }
         throw new Error("Missing return statement in function");
     }
@@ -254,7 +254,7 @@ public class KRSSParser implements KRSSParserConstants {
         operands = ConceptSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectIntersectionOf(operands);
+            if (true) return dataFactory.getObjectIntersectionOf(operands);
         }
         throw new Error("Missing return statement in function");
     }
@@ -266,7 +266,7 @@ public class KRSSParser implements KRSSParserConstants {
         operands = ConceptSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectUnionOf(operands);
+            if (true) return dataFactory.getObjectUnionOf(operands);
         }
         throw new Error("Missing return statement in function");
     }
@@ -278,7 +278,7 @@ public class KRSSParser implements KRSSParserConstants {
         operand = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectComplementOf(operand);
+            if (true) return dataFactory.getObjectComplementOf(operand);
         }
         throw new Error("Missing return statement in function");
     }
@@ -292,7 +292,7 @@ public class KRSSParser implements KRSSParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
+            if (true) return dataFactory.getObjectAllValuesFrom(prop, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -306,7 +306,7 @@ public class KRSSParser implements KRSSParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
+            if (true) return dataFactory.getObjectSomeValuesFrom(prop, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -322,7 +322,7 @@ public class KRSSParser implements KRSSParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectMinCardinalityRestriction(prop, card, filler);
+            if (true) return dataFactory.getObjectMinCardinality(prop, card, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -338,7 +338,7 @@ public class KRSSParser implements KRSSParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectMaxCardinalityRestriction(prop, card, filler);
+            if (true) return dataFactory.getObjectMaxCardinality(prop, card, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -354,7 +354,7 @@ public class KRSSParser implements KRSSParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectExactCardinalityRestriction(prop, card, filler);
+            if (true) return dataFactory.getObjectExactCardinality(prop, card, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -397,7 +397,7 @@ public class KRSSParser implements KRSSParserConstants {
         type = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLClassAssertionAxiom(ind, type);
+            if (true) return dataFactory.getClassAssertion(ind, type);
         }
         throw new Error("Missing return statement in function");
     }
@@ -413,7 +413,7 @@ public class KRSSParser implements KRSSParserConstants {
         obj = IndividualName();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectPropertyAssertionAxiom(subj, prop, obj);
+            if (true) return dataFactory.getObjectPropertyAssertion(subj, prop, obj);
         }
         throw new Error("Missing return statement in function");
     }
@@ -429,7 +429,7 @@ public class KRSSParser implements KRSSParserConstants {
         inds.add(indA);
         inds.add(indB);
         {
-            if (true) return dataFactory.getOWLSameIndividualsAxiom(inds);
+            if (true) return dataFactory.getSameIndividuals(inds);
         }
         throw new Error("Missing return statement in function");
     }
@@ -445,7 +445,7 @@ public class KRSSParser implements KRSSParserConstants {
         inds.add(indA);
         inds.add(indB);
         {
-            if (true) return dataFactory.getOWLDifferentIndividualsAxiom(inds);
+            if (true) return dataFactory.getDifferentIndividuals(inds);
         }
         throw new Error("Missing return statement in function");
     }

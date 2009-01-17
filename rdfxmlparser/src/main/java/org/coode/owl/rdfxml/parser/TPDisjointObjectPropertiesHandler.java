@@ -49,12 +49,11 @@ public class TPDisjointObjectPropertiesHandler extends TriplePredicateHandler {
     }
 
 
-
-    public void  handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
         properties.add(translateObjectProperty(subject));
         properties.add(translateObjectProperty(object));
-        addAxiom(getDataFactory().getOWLDisjointObjectPropertiesAxiom(properties));
+        addAxiom(getDataFactory().getDisjointObjectProperties(properties));
         consumeTriple(subject, predicate, object);
     }
 }

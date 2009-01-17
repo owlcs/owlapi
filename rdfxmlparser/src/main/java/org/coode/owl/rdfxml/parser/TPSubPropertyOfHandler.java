@@ -51,19 +51,18 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
 
         // First check for object property chain
-        if(getConsumer().hasPredicate(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getURI())) {
+        if (getConsumer().hasPredicate(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getURI())) {
             // Property chain
             URI chainList = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getURI(), true);
             List<OWLObjectPropertyExpression> properties = getConsumer().translateToObjectPropertyList(chainList);
-            addAxiom(getDataFactory().getOWLObjectPropertyChainSubPropertyAxiom(properties,
-                                                                                translateObjectProperty(object)));
+            addAxiom(getDataFactory().getObjectPropertyChainSubProperty(properties,
+                    translateObjectProperty(object)));
             consumeTriple(subject, predicate, object);
-        }
-        else if(getConsumer().isList(subject, false)) {
+        } else if (getConsumer().isList(subject, false)) {
             // Legacy object property chain representation
             List<OWLObjectPropertyExpression> properties = getConsumer().translateToObjectPropertyList(subject);
-            addAxiom(getDataFactory().getOWLObjectPropertyChainSubPropertyAxiom(properties,
-                                                                                translateObjectProperty(object)));
+            addAxiom(getDataFactory().getObjectPropertyChainSubProperty(properties,
+                    translateObjectProperty(object)));
             consumeTriple(subject, predicate, object);
         }
         // If any one of the properties is an object property then assume both are
@@ -73,16 +72,14 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
         // If any one of the properties is a data property then assume both are
         else if (getConsumer().isDataPropertyOnly(subject) && getConsumer().isDataPropertyOnly(object)) {
             translateSubDataProperty(subject, predicate, object);
-        }
-        else {
+        } else {
             // Check for range statements
             URI subPropRange = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDFS_RANGE.getURI(), false);
             if (subPropRange != null) {
                 if (getConsumer().isDataRange(subPropRange)) {
                     // Data - Data
                     translateSubDataProperty(subject, predicate, object);
-                }
-                else {
+                } else {
                     translateSubObjectProperty(subject, predicate, object);
                 }
                 return;
@@ -93,8 +90,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
                 if (getConsumer().isDataRange(supPropRange)) {
                     // Data - Data
                     translateSubDataProperty(subject, predicate, object);
-                }
-                else {
+                } else {
                     translateSubObjectProperty(subject, predicate, object);
                 }
                 return;
@@ -108,16 +104,16 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
 
     private void translateSubObjectProperty(URI subject, URI predicate, URI object) throws OWLException {
         // Object - object
-        addAxiom(getDataFactory().getOWLSubObjectPropertyAxiom(translateObjectProperty(subject),
-                                                               translateObjectProperty(object)));
+        addAxiom(getDataFactory().getSubObjectPropertyOf(translateObjectProperty(subject),
+                translateObjectProperty(object)));
         consumeTriple(subject, predicate, object);
     }
 
 
     private void translateSubDataProperty(URI subject, URI predicate, URI object) throws OWLException {
         // Data - Data
-        addAxiom(getDataFactory().getOWLSubDataPropertyAxiom(translateDataProperty(subject),
-                                                             translateDataProperty(object)));
+        addAxiom(getDataFactory().getSubDataPropertyOf(translateDataProperty(subject),
+                translateDataProperty(object)));
         consumeTriple(subject, predicate, object);
     }
 }

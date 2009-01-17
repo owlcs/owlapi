@@ -52,19 +52,18 @@ public class TPSubObjectPropertyOfHandler extends TriplePredicateHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         if (isAnonymous(subject) && getConsumer().hasPredicateObject(subject,
-                                                                     OWLRDFVocabulary.RDF_TYPE.getURI(),
-                                                                     OWLRDFVocabulary.RDF_LIST.getURI())) {
+                OWLRDFVocabulary.RDF_TYPE.getURI(),
+                OWLRDFVocabulary.RDF_LIST.getURI())) {
             // Property chain!
             OptimisedListTranslator<OWLObjectPropertyExpression> translator = new OptimisedListTranslator<OWLObjectPropertyExpression>(
                     getConsumer(),
                     new OWLObjectPropertyExpressionListItemTranslator(getConsumer()));
             List<OWLObjectPropertyExpression> props = translator.translateList(subject);
-            addAxiom(getDataFactory().getOWLObjectPropertyChainSubPropertyAxiom(props,
-                                                                                translateObjectProperty(object)));
-        }
-        else {
-            addAxiom(getDataFactory().getOWLSubObjectPropertyAxiom(translateObjectProperty(subject),
-                                                                   translateObjectProperty(object)));
+            addAxiom(getDataFactory().getObjectPropertyChainSubProperty(props,
+                    translateObjectProperty(object)));
+        } else {
+            addAxiom(getDataFactory().getSubObjectPropertyOf(translateObjectProperty(subject),
+                    translateObjectProperty(object)));
         }
         consumeTriple(subject, predicate, object);
     }

@@ -1,8 +1,8 @@
 package org.coode.owl.rdfxml.parser;
 
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLDataPropertyExpression;
 import org.semanticweb.owl.model.OWLDataRange;
-import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
@@ -45,8 +45,8 @@ public class DataCardinalityTranslator extends AbstractDataCardinalityTranslator
 
 
     protected OWLClassExpression createRestriction(OWLDataPropertyExpression prop, int cardi, OWLDataRange filler) throws
-                                                                                                               OWLException {
-        return getDataFactory().getOWLDataExactCardinalityRestriction(prop, cardi, filler);
+            OWLException {
+        return getDataFactory().getDataExactCardinality(prop, cardi, filler);
     }
 
 

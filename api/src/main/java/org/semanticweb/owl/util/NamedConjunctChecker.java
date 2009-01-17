@@ -62,7 +62,8 @@ public class NamedConjunctChecker {
      * Checks whether a named class is a conjunct in a given class description.
      * For class expressions which aren't named classes or object intersections this
      * method will always return false.
-     * @param conjunct    The conjunct to check for
+     *
+     * @param conjunct        The conjunct to check for
      * @param classExpression The description to be checked
      */
     public boolean isNamedConjunct(OWLClass conjunct, OWLClassExpression classExpression) {
@@ -77,6 +78,7 @@ public class NamedConjunctChecker {
      * Checks whether the specified description has a named conjunct.  For
      * For class expressions which aren't named classes or object intersections this
      * method will always return false.
+     *
      * @param classExpression The description to be checked.
      * @return <code>true</code> if the description is in fact a named class (<code>OWLClass</code>)
      *         or if the description is an intersection that has a named operand (included nested intersections),
@@ -98,6 +100,7 @@ public class NamedConjunctChecker {
 
     /**
      * Gets the named conjuncts for the specified description.
+     *
      * @param classExpression The description whose conjuncts are to be retrieved.
      * @return A set containing the named conjuncts of the specified description.  If
      *         the description is not a named class or an intersection then the set will
@@ -112,7 +115,7 @@ public class NamedConjunctChecker {
     }
 
 
-    private class NamedConjunctCheckerVisitor extends OWLDescriptionVisitorAdapter {
+    private class NamedConjunctCheckerVisitor extends OWLClassExpressionVisitorAdapter {
 
         public void visit(OWLClass desc) {
             if (conjunct == null) {
@@ -120,8 +123,7 @@ public class NamedConjunctChecker {
                 if (collect) {
                     conjuncts.add(desc);
                 }
-            }
-            else if (desc.equals(conjunct)) {
+            } else if (desc.equals(conjunct)) {
                 found = true;
                 if (collect) {
                     conjuncts.add(desc);

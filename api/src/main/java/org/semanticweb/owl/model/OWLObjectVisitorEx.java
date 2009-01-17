@@ -29,6 +29,13 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group<br>
  * Date: 16-Apr-2008<br><br>
  */
-public interface OWLObjectVisitorEx<O> extends OWLAxiomVisitorEx<O>, OWLDescriptionVisitorEx<O>, OWLDataVisitorEx<O>, OWLPropertyExpressionVisitorEx<O>, OWLEntityVisitorEx<O>, OWLAnnotationVisitorEx<O>, SWRLObjectVisitorEx<O>, OWLNamedObjectVisitorEx<O>  {
+public interface OWLObjectVisitorEx<O> extends OWLAxiomVisitorEx<O>,
+        OWLClassExpressionVisitorEx<O>,
+        OWLDataVisitorEx<O>,
+        OWLPropertyExpressionVisitorEx<O>,
+        OWLEntityVisitorEx<O>,
+        OWLAnnotationObjectVisitorEx<O>,
+        SWRLObjectVisitorEx<O>,
+        OWLNamedObjectVisitorEx<O> {
 
 }

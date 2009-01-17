@@ -30,20 +30,23 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
- *
+ * <p/>
  * A special kind of axiom that annotates an ontology to
  * describe the ontologies that it imports.
  */
 public interface OWLImportsDeclaration extends OWLAxiom {
 
     /**
-     * Gets the ontology that is the subject of this imports axiom.
+     * Gets the ontology that is the subject of this imports declaration.
+     *
+     * @return The subject of this imports statement
      */
     OWLOntology getSubject();
-    
+
     /**
      * A convenience method that gets the value of the annotation
      * as a URI.
+     *
      * @return The URI of the ontology that is imported
      */
     URI getImportedOntologyURI();

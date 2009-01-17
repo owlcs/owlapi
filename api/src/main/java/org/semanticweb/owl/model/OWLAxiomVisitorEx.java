@@ -29,16 +29,16 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group<br>
  * Date: 16-Apr-2008<br><br>
  */
-public interface OWLAxiomVisitorEx<O> {
+public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O> {
 
 
-    O visit(OWLSubClassAxiom axiom);
+    O visit(OWLSubClassOfAxiom axiom);
 
 
     O visit(OWLNegativeObjectPropertyAssertionAxiom axiom);
 
 
-    O visit(OWLAntiSymmetricObjectPropertyAxiom axiom);
+    O visit(OWLAsymmetricObjectPropertyAxiom axiom);
 
 
     O visit(OWLReflexiveObjectPropertyAxiom axiom);
@@ -51,9 +51,6 @@ public interface OWLAxiomVisitorEx<O> {
 
 
     O visit(OWLImportsDeclaration axiom);
-
-
-    O visit(OWLAxiomAnnotationAxiom axiom);
 
 
     O visit(OWLObjectPropertyDomainAxiom axiom);
@@ -83,19 +80,16 @@ public interface OWLAxiomVisitorEx<O> {
     O visit(OWLFunctionalObjectPropertyAxiom axiom);
 
 
-    O visit(OWLObjectSubPropertyAxiom axiom);
+    O visit(OWLSubObjectPropertyOfAxiom axiom);
 
 
     O visit(OWLDisjointUnionAxiom axiom);
 
 
-    O visit(OWLDeclarationAxiom axiom);
+    O visit(OWLDeclaration axiom);
 
 
-    O visit(OWLEntityAnnotationAxiom axiom);
-
-
-    O visit(OWLOntologyAnnotationAxiom axiom);
+    O visit(OWLAnnotationAssertionAxiom axiom);
 
 
     O visit(OWLSymmetricObjectPropertyAxiom axiom);
@@ -125,7 +119,7 @@ public interface OWLAxiomVisitorEx<O> {
     O visit(OWLIrreflexiveObjectPropertyAxiom axiom);
 
 
-    O visit(OWLDataSubPropertyAxiom axiom);
+    O visit(OWLSubDataPropertyOfAxiom axiom);
 
 
     O visit(OWLInverseFunctionalObjectPropertyAxiom axiom);
@@ -134,10 +128,13 @@ public interface OWLAxiomVisitorEx<O> {
     O visit(OWLSameIndividualsAxiom axiom);
 
 
-    O visit(OWLObjectPropertyChainSubPropertyAxiom axiom);
+    O visit(OWLComplextSubPropertyAxiom axiom);
 
 
     O visit(OWLInverseObjectPropertiesAxiom axiom);
+
+
+    O visit(OWLHasKeyAxiom axiom);
 
 
     O visit(SWRLRule rule);

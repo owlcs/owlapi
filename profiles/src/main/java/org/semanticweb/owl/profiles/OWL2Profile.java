@@ -120,7 +120,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //        // Property chain restrictions
-//        for (OWLObjectPropertyChainSubPropertyAxiom ax : ontology.getAxioms(AxiomType.PROPERTY_CHAIN_SUB_PROPERTY)) {
+//        for (OWLComplextSubPropertyAxiom ax : ontology.getAxioms(AxiomType.PROPERTY_CHAIN_SUB_PROPERTY)) {
 //            if(ax.getSuperProperty().equals(manager.getOWLDataFactory().getOWLObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI()))) {
 //                // 1st condition is
 //                continue;
@@ -225,7 +225,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(annotation);
 //        }
 //
-//        public Object visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+//        public Object visit(OWLAsymmetricObjectPropertyAxiom axiom) {
 //            return super.visit(axiom);
 //        }
 //
@@ -249,11 +249,11 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(axiom);
 //        }
 //
-//        public Object visit(OWLDataSubPropertyAxiom axiom) {
+//        public Object visit(OWLSubDataPropertyOfAxiom axiom) {
 //            return super.visit(axiom);
 //        }
 //
-//        public Object visit(OWLDeclarationAxiom axiom) {
+//        public Object visit(OWLDeclaration axiom) {
 //            return super.visit(axiom);
 //        }
 //
@@ -277,7 +277,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(axiom);
 //        }
 //
-//        public Object visit(OWLEntityAnnotationAxiom axiom) {
+//        public Object visit(OWLAnnotationAssertionAxiom axiom) {
 //            return super.visit(axiom);
 //        }
 //
@@ -329,7 +329,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(axiom);
 //        }
 //
-//        public Object visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+//        public Object visit(OWLComplextSubPropertyAxiom axiom) {
 //            return super.visit(axiom);
 //        }
 //
@@ -341,7 +341,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(axiom);
 //        }
 //
-//        public Object visit(OWLObjectSubPropertyAxiom axiom) {
+//        public Object visit(OWLSubObjectPropertyOfAxiom axiom) {
 //            return super.visit(axiom);
 //        }
 //
@@ -357,7 +357,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(axiom);
 //        }
 //
-//        public Object visit(OWLSubClassAxiom axiom) {
+//        public Object visit(OWLSubClassOfAxiom axiom) {
 //            return super.visit(axiom);
 //        }
 //
@@ -377,15 +377,15 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(desc);
 //        }
 //
-//        public Object visit(OWLDataExactCardinalityRestriction desc) {
+//        public Object visit(OWLDataExactCardinality desc) {
 //            return super.visit(desc);
 //        }
 //
-//        public Object visit(OWLDataMaxCardinalityRestriction desc) {
+//        public Object visit(OWLDataMaxCardinality desc) {
 //            return super.visit(desc);
 //        }
 //
-//        public Object visit(OWLDataMinCardinalityRestriction desc) {
+//        public Object visit(OWLDataMinCardinality desc) {
 //            return super.visit(desc);
 //        }
 //
@@ -405,7 +405,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(desc);
 //        }
 //
-//        public Object visit(OWLObjectExactCardinalityRestriction desc) {
+//        public Object visit(OWLObjectExactCardinality desc) {
 //            return super.visit(desc);
 //        }
 //
@@ -413,11 +413,11 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(desc);
 //        }
 //
-//        public Object visit(OWLObjectMaxCardinalityRestriction desc) {
+//        public Object visit(OWLObjectMaxCardinality desc) {
 //            return super.visit(desc);
 //        }
 //
-//        public Object visit(OWLObjectMinCardinalityRestriction desc) {
+//        public Object visit(OWLObjectMinCardinality desc) {
 //            if(!isSimple(desc.getProperty())) {
 //                add(new NonSimplePropertyInCardinalityRestriction(desc));
 //            }
@@ -428,7 +428,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(desc);
 //        }
 //
-//        public Object visit(OWLObjectSelfRestriction desc) {
+//        public Object visit(OWLObjectHasSelf desc) {
 //            return super.visit(desc);
 //        }
 //
@@ -440,7 +440,7 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(desc);
 //        }
 //
-//        public Object visit(OWLObjectValueRestriction desc) {
+//        public Object visit(OWLObjectHasValue desc) {
 //            return super.visit(desc);
 //        }
 //
@@ -456,11 +456,11 @@ public class OWL2Profile implements OWLProfile {
 //            return super.visit(node);
 //        }
 //
-//        public Object visit(OWLDataRangeFacetRestriction node) {
+//        public Object visit(OWLFacetRestriction node) {
 //            return super.visit(node);
 //        }
 //
-//        public Object visit(OWLDataRangeRestriction node) {
+//        public Object visit(OWLDatatypeRestriction node) {
 //            return super.visit(node);
 //        }
 //
@@ -564,7 +564,7 @@ public class OWL2Profile implements OWLProfile {
 //    private class AxiomChecker implements OWLObjectVisitorEx<Set<ConstructNotAllowed>> {
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+//        public Set<ConstructNotAllowed> visit(OWLAsymmetricObjectPropertyAxiom axiom) {
 //            if (propertyManager.isNonSimple(axiom.getProperty())) {
 //                return getSet(new NonSimplePropertyInAntiSymmetricPropertyAxiom(axiom));
 //            }
@@ -611,12 +611,12 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLDataSubPropertyAxiom axiom) {
+//        public Set<ConstructNotAllowed> visit(OWLSubDataPropertyOfAxiom axiom) {
 //            return Collections.emptySet();
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLDeclarationAxiom axiom) {
+//        public Set<ConstructNotAllowed> visit(OWLDeclaration axiom) {
 //            return Collections.emptySet();
 //        }
 //
@@ -670,7 +670,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLEntityAnnotationAxiom axiom) {
+//        public Set<ConstructNotAllowed> visit(OWLAnnotationAssertionAxiom axiom) {
 //            Set<ConstructNotAllowed> na = axiom.getAnnotation().accept(this);
 //            if (!na.isEmpty()) {
 //                return getSet(new AxiomNotAllowed(na, axiom));
@@ -759,7 +759,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+//        public Set<ConstructNotAllowed> visit(OWLComplextSubPropertyAxiom axiom) {
 //            // Handled separately
 //            return Collections.emptySet();
 //        }
@@ -785,7 +785,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLObjectSubPropertyAxiom axiom) {
+//        public Set<ConstructNotAllowed> visit(OWLSubObjectPropertyOfAxiom axiom) {
 //            return Collections.emptySet();
 //        }
 //
@@ -805,7 +805,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLSubClassAxiom axiom) {
+//        public Set<ConstructNotAllowed> visit(OWLSubClassOfAxiom axiom) {
 //            Set<ConstructNotAllowed> na = new HashSet<ConstructNotAllowed>();
 //            na.addAll(axiom.getSubClass().accept(this));
 //            na.addAll(axiom.getSuperClass().accept(this));
@@ -851,17 +851,17 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLDataExactCardinalityRestriction desc) {
+//        public Set<ConstructNotAllowed> visit(OWLDataExactCardinality desc) {
 //            return Collections.emptySet();
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLDataMaxCardinalityRestriction desc) {
+//        public Set<ConstructNotAllowed> visit(OWLDataMaxCardinality desc) {
 //            return Collections.emptySet();
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLDataMinCardinalityRestriction desc) {
+//        public Set<ConstructNotAllowed> visit(OWLDataMinCardinality desc) {
 //            return Collections.emptySet();
 //        }
 //
@@ -906,7 +906,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLObjectExactCardinalityRestriction desc) {
+//        public Set<ConstructNotAllowed> visit(OWLObjectExactCardinality desc) {
 //            if (propertyManager.isNonSimple(desc.getProperty())) {
 //                return getSet(new NonSimplePropertyInCardinalityRestriction(desc));
 //            } else {
@@ -927,7 +927,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLObjectMaxCardinalityRestriction desc) {
+//        public Set<ConstructNotAllowed> visit(OWLObjectMaxCardinality desc) {
 //            if (propertyManager.isNonSimple(desc.getProperty())) {
 //                return getSet(new NonSimplePropertyInCardinalityRestriction(desc));
 //            } else {
@@ -936,7 +936,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLObjectMinCardinalityRestriction desc) {
+//        public Set<ConstructNotAllowed> visit(OWLObjectMinCardinality desc) {
 //            if (propertyManager.isNonSimple(desc.getProperty())) {
 //                return getSet(new NonSimplePropertyInCardinalityRestriction(desc));
 //            } else {
@@ -950,7 +950,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLObjectSelfRestriction desc) {
+//        public Set<ConstructNotAllowed> visit(OWLObjectHasSelf desc) {
 //            if (propertyManager.isNonSimple(desc.getProperty())) {
 //                return getSet(new NonSimplePropertyInExistsSelfRestriction(desc));
 //            }
@@ -979,7 +979,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLObjectValueRestriction desc) {
+//        public Set<ConstructNotAllowed> visit(OWLObjectHasValue desc) {
 //            return Collections.emptySet();
 //        }
 //
@@ -1005,12 +1005,12 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLDataRangeFacetRestriction node) {
+//        public Set<ConstructNotAllowed> visit(OWLFacetRestriction node) {
 //            return Collections.emptySet();
 //        }
 //
 //
-//        public Set<ConstructNotAllowed> visit(OWLDataRangeRestriction node) {
+//        public Set<ConstructNotAllowed> visit(OWLDatatypeRestriction node) {
 //            return Collections.emptySet();
 //        }
 //

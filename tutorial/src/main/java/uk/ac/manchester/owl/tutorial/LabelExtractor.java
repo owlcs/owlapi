@@ -1,9 +1,6 @@
 package uk.ac.manchester.owl.tutorial;
 
-import org.semanticweb.owl.model.OWLAnnotationVisitor;
-import org.semanticweb.owl.model.OWLLiteral;
-import org.semanticweb.owl.model.OWLConstantAnnotation;
-import org.semanticweb.owl.model.OWLObjectAnnotation;
+import org.semanticweb.owl.model.*;
 
 /* 
  * Copyright (C) 2007, University of Manchester
@@ -30,14 +27,14 @@ import org.semanticweb.owl.model.OWLObjectAnnotation;
 
 /**
  * <p>Simple visitor that grabs any labels on an entity.</p>
- * 
+ * <p/>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
  * Date: 17-03-2007<br>
  * <br>
  */
-public class LabelExtractor implements OWLAnnotationVisitor {
+public class LabelExtractor implements OWLAnnotationObjectVisitor {
 
     String result;
 
@@ -45,19 +42,48 @@ public class LabelExtractor implements OWLAnnotationVisitor {
         result = null;
     }
 
-    public void visit(OWLConstantAnnotation annotation) {
-        /*
-         * If it's a label, grab it as the result. Note that if there are
-         * multiple labels, the last one will be used.
-         */
-        if (annotation.isLabel()) {
-            OWLLiteral c = annotation.getAnnotationValue();
-            result = c.getString();
-        }
+    public void visit(OWLAnonymousIndividual individual) {
     }
 
-    public void visit(OWLObjectAnnotation annotation) {
+    public void visit(IRI iri) {
     }
+
+    public void visit(OWLRDFTextLiteral literal) {
+    }
+
+    public void visit(OWLTypedLiteral literal) {
+    }
+
+    public void visit(OWLAnnotation annotation) {
+        /*
+        * If it's a label, grab it as the result. Note that if there are
+        * multiple labels, the last one will be used.
+        */
+        if (annotation.getProperty().isLabel()) {
+            OWLLiteral c = (OWLLiteral) annotation.getValue();
+            result = c.getString();
+        }
+
+    }
+
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
+    }
+
+    public void visit(OWLAnnotationPropertyDomain axiom) {
+    }
+
+    public void visit(OWLAnnotationPropertyRange axiom) {
+    }
+
+    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    }
+
+    public void visit(OWLAnnotationProperty property) {
+    }
+
+    public void visit(OWLAnnotationValue value) {
+    }
+
 
     public String getResult() {
         return result;

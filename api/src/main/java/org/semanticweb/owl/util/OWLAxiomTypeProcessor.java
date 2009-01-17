@@ -36,7 +36,7 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
 
     protected abstract void process(OWLAxiom axiom, AxiomType type);
 
-    public void visit(OWLSubClassAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
         process(axiom, SUBCLASS);
     }
 
@@ -46,7 +46,7 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         process(axiom, ANTI_SYMMETRIC_OBJECT_PROPERTY);
     }
 
@@ -62,17 +62,12 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
 
 
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-        process(axiom,  DATA_PROPERTY_DOMAIN);
+        process(axiom, DATA_PROPERTY_DOMAIN);
     }
 
 
     public void visit(OWLImportsDeclaration axiom) {
         process(axiom, IMPORTS_DECLARATION);
-    }
-
-
-    public void visit(OWLAxiomAnnotationAxiom axiom) {
-        process(axiom, AXIOM_ANNOTATION);
     }
 
 
@@ -121,7 +116,7 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLObjectSubPropertyAxiom axiom) {
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         process(axiom, SUB_OBJECT_PROPERTY);
     }
 
@@ -131,20 +126,30 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLDeclarationAxiom axiom) {
+    public void visit(OWLDeclaration axiom) {
         process(axiom, DECLARATION);
     }
 
 
-    public void visit(OWLEntityAnnotationAxiom axiom) {
-        process(axiom, ENTITY_ANNOTATION);
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
+        process(axiom, ANNOTATION_ASSERTION);
     }
 
-
-    public void visit(OWLOntologyAnnotationAxiom axiom) {
-        process(axiom, ONTOLOGY_ANNOTATION);
+    public void visit(OWLHasKeyAxiom axiom) {
+        process(axiom, HAS_KEY);
     }
 
+    public void visit(OWLAnnotationPropertyDomain axiom) {
+        process(axiom, ANNOTATION_PROPERTY_DOMAIN);
+    }
+
+    public void visit(OWLAnnotationPropertyRange axiom) {
+        process(axiom, ANNOTATION_PROPERTY_RANGE);
+    }
+
+    public void visit(OWLSubAnnotationPropertyOf axiom) {
+        process(axiom, SUB_ANNOTATION_PROPERTY_OF);
+    }
 
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         process(axiom, SYMMETRIC_OBJECT_PROPERTY);
@@ -162,7 +167,7 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
 
 
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        process(axiom,  EQUIVALENT_DATA_PROPERTIES);
+        process(axiom, EQUIVALENT_DATA_PROPERTIES);
     }
 
 
@@ -192,7 +197,7 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLDataSubPropertyAxiom axiom) {
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
         process(axiom, SUB_DATA_PROPERTY);
     }
 
@@ -207,7 +212,7 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+    public void visit(OWLComplextSubPropertyAxiom axiom) {
         process(axiom, PROPERTY_CHAIN_SUB_PROPERTY);
     }
 

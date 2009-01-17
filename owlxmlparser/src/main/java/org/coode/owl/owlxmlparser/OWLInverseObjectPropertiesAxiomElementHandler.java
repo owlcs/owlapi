@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 
 import java.util.Iterator;
@@ -45,19 +44,18 @@ public class OWLInverseObjectPropertiesAxiomElementHandler extends AbstractOWLOb
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
         Set<OWLObjectPropertyExpression> props = getOperands();
-        if(props.size() > 2 || props.size() < 1) {
+        if (props.size() > 2 || props.size() < 1) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected 2 object property expression elements");
         }
         Iterator<OWLObjectPropertyExpression> it = props.iterator();
         OWLObjectPropertyExpression propA = it.next();
         OWLObjectPropertyExpression propB;
-        if(it.hasNext()) {
+        if (it.hasNext()) {
             propB = it.next();
-        }
-        else {
+        } else {
             // Syntactic variant of symmetric property
             propB = propA;
         }
-        return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(propA, propB);
+        return getOWLDataFactory().getInverseObjectProperties(propA, propB);
     }
 }

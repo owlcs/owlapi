@@ -2,7 +2,6 @@ package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
 
-import java.net.URI;
 import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -34,17 +33,11 @@ import java.util.*;
  * Bio-Health Informatics Group<br>
  * Date: 25-Oct-2006<br><br>
  */
-public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
-
-    private boolean anon;
-
-    protected URI uri;
+public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
 
 
-    protected OWLIndividualImpl(OWLDataFactory dataFactory, URI uri, boolean anon) {
+    protected OWLIndividualImpl(OWLDataFactory dataFactory) {
         super(dataFactory);
-        this.uri = uri;
-        this.anon = anon;
     }
 
 
@@ -52,25 +45,9 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
         return false;
     }
 
-
-    /**
-     * Gets the URI
-     */
-    public URI getURI() {
-        return uri;
+    public boolean equals(Object obj) {
+        return obj instanceof OWLIndividual;
     }
-
-
-    /**
-     * Determines if this object represents an anonymous individual.
-     * @return <code>true</code> if this object represents an anonymous
-     *         individual (<code>OWLAnonymousIndividual)</code> or <code>false</code>
-     *         if this object represents a named individual (<code>OWLIndividual</code>)
-     */
-    public boolean isAnonymous() {
-        return anon;
-    }
-
 
     public Set<OWLClassExpression> getTypes(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
@@ -83,7 +60,7 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
 
     public Set<OWLClassExpression> getTypes(Set<OWLOntology> ontologies) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for(OWLOntology ont : ontologies) {
+        for (OWLOntology ont : ontologies) {
             result.addAll(getTypes(ont));
         }
         return result;
@@ -93,11 +70,11 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
     public Map<OWLProperty, Set<OWLObject>> getPropertyValues(OWLOntology ontology) {
         Map<OWLProperty, Set<OWLObject>> results = new HashMap<OWLProperty, Set<OWLObject>>();
         Map<OWLObjectPropertyExpression, Set<OWLIndividual>> opMap = getObjectPropertyValues(ontology);
-        for(OWLObjectPropertyExpression prop : opMap.keySet()) {
+        for (OWLObjectPropertyExpression prop : opMap.keySet()) {
             results.put((OWLProperty) prop, new HashSet<OWLObject>(opMap.get(prop)));
         }
         Map<OWLDataPropertyExpression, Set<OWLLiteral>> dpMap = getDataPropertyValues(ontology);
-        for(OWLDataPropertyExpression prop : dpMap.keySet()) {
+        for (OWLDataPropertyExpression prop : dpMap.keySet()) {
             results.put((OWLProperty) prop, new HashSet<OWLObject>(dpMap.get(prop)));
         }
         return results;
@@ -106,11 +83,11 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
     public Map<OWLProperty, Set<OWLObject>> getNPropertyValues(OWLOntology ontology) {
         Map<OWLProperty, Set<OWLObject>> results = new HashMap<OWLProperty, Set<OWLObject>>();
         Map<OWLObjectPropertyExpression, Set<OWLIndividual>> opMap = getObjectPropertyValues(ontology);
-        for(OWLObjectPropertyExpression prop : opMap.keySet()) {
+        for (OWLObjectPropertyExpression prop : opMap.keySet()) {
             results.put((OWLProperty) prop, new HashSet<OWLObject>(opMap.get(prop)));
         }
         Map<OWLDataPropertyExpression, Set<OWLLiteral>> dpMap = getDataPropertyValues(ontology);
-        for(OWLDataPropertyExpression prop : dpMap.keySet()) {
+        for (OWLDataPropertyExpression prop : dpMap.keySet()) {
             results.put((OWLProperty) prop, new HashSet<OWLObject>(dpMap.get(prop)));
         }
         return results;
@@ -132,9 +109,9 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
 
     public Map<OWLObjectPropertyExpression, Set<OWLIndividual>> getNegativeObjectPropertyValues(OWLOntology ontology) {
         Map<OWLObjectPropertyExpression, Set<OWLIndividual>> result = new HashMap<OWLObjectPropertyExpression, Set<OWLIndividual>>();
-        for(OWLNegativeObjectPropertyAssertionAxiom ax : ontology.getNegativeObjectPropertyAssertionAxioms(this)) {
+        for (OWLNegativeObjectPropertyAssertionAxiom ax : ontology.getNegativeObjectPropertyAssertionAxioms(this)) {
             Set<OWLIndividual> inds = result.get(ax.getProperty());
-            if(inds == null) {
+            if (inds == null) {
                 inds = new TreeSet<OWLIndividual>();
                 result.put(ax.getProperty(), inds);
             }
@@ -160,30 +137,15 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
 
     public Map<OWLDataPropertyExpression, Set<OWLLiteral>> getNegativeDataPropertyValues(OWLOntology ontology) {
         Map<OWLDataPropertyExpression, Set<OWLLiteral>> result = new HashMap<OWLDataPropertyExpression, Set<OWLLiteral>>();
-        for(OWLNegativeDataPropertyAssertionAxiom ax : ontology.getNegativeDataPropertyAssertionAxioms(this)) {
+        for (OWLNegativeDataPropertyAssertionAxiom ax : ontology.getNegativeDataPropertyAssertionAxioms(this)) {
             Set<OWLLiteral> inds = result.get(ax.getProperty());
-            if(inds == null) {
+            if (inds == null) {
                 inds = new TreeSet<OWLLiteral>();
                 result.put(ax.getProperty(), inds);
             }
             inds.add(ax.getObject());
         }
         return result;
-    }
-
-
-    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology) {
-        return ImplUtils.getAnnotations(this, Collections.singleton(ontology));
-    }
-
-
-    public Set<OWLAnnotationAxiom> getAnnotationAxioms(OWLOntology ontology) {
-        return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
-    }
-
-
-    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology, URI annotationURI) {
-        return ImplUtils.getAnnotations(this, annotationURI, Collections.singleton(ontology));
     }
 
 
@@ -214,7 +176,7 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
 
     public Set<OWLIndividual> getDifferentIndividuals(OWLOntology ontology) {
         Set<OWLIndividual> result = new TreeSet<OWLIndividual>();
-        for(OWLDifferentIndividualsAxiom ax : ontology.getDifferentIndividualAxioms(this)) {
+        for (OWLDifferentIndividualsAxiom ax : ontology.getDifferentIndividualAxioms(this)) {
             result.addAll(ax.getIndividuals());
         }
         result.remove(this);
@@ -249,11 +211,6 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
     }
 
 
-    public OWLIndividual asOWLIndividual() {
-        return this;
-    }
-
-
     public OWLObjectProperty asOWLObjectProperty() {
         throw new OWLRuntimeException("Not an object property");
     }
@@ -281,52 +238,5 @@ public class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
 
     public boolean isOWLObjectProperty() {
         return false;
-    }
-
-
-    public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLIndividual)) {
-                return false;
-            }
-            URI otherURI = ((OWLIndividual) obj).getURI();
-            String otherFragment = otherURI.getFragment();
-            String thisFragment = uri.getFragment();
-            if (otherFragment != null && thisFragment != null && !otherFragment.equals(thisFragment)) {
-                return false;
-            }
-            return ((OWLIndividual) obj).getURI().equals(uri);
-        }
-        return false;
-    }
-
-
-    public void accept(OWLEntityVisitor visitor) {
-        visitor.visit(this);
-    }
-
-
-    public void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-
-    public void accept(OWLNamedObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-
-    public <O> O accept(OWLEntityVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-
-    protected int compareObjectOfSameType(OWLObject object) {
-        return uri.compareTo(((OWLIndividual) object).getURI());
     }
 }

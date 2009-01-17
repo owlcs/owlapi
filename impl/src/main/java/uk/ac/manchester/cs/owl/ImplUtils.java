@@ -1,10 +1,13 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.OWLAnnotation;
+import org.semanticweb.owl.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owl.model.OWLEntity;
+import org.semanticweb.owl.model.OWLOntology;
 
-import java.util.Set;
-import java.util.HashSet;
 import java.net.URI;
+import java.util.HashSet;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -37,9 +40,9 @@ import java.net.URI;
  */
 public class ImplUtils {
 
-    public static Set<OWLAnnotationAxiom> getAnnotationAxioms(OWLEntity entity, Set<OWLOntology> ontologies) {
-        Set<OWLAnnotationAxiom> result = new HashSet<OWLAnnotationAxiom>();
-        for(OWLOntology ont : ontologies) {
+    public static Set<OWLAnnotationAssertionAxiom> getAnnotationAxioms(OWLEntity entity, Set<OWLOntology> ontologies) {
+        Set<OWLAnnotationAssertionAxiom> result = new HashSet<OWLAnnotationAssertionAxiom>();
+        for (OWLOntology ont : ontologies) {
             result.addAll(ont.getEntityAnnotationAxioms(entity));
         }
         return result;
@@ -47,7 +50,7 @@ public class ImplUtils {
 
     public static Set<OWLAnnotation> getAnnotations(OWLEntity entity, Set<OWLOntology> ontologies) {
         Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
-        for(OWLAnnotationAxiom ax : getAnnotationAxioms(entity, ontologies)) {
+        for (OWLAnnotationAssertionAxiom ax : getAnnotationAxioms(entity, ontologies)) {
             result.add(ax.getAnnotation());
         }
         return result;
@@ -55,14 +58,13 @@ public class ImplUtils {
 
     public static Set<OWLAnnotation> getAnnotations(OWLEntity entity, URI annotationURI, Set<OWLOntology> ontologies) {
         Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
-        for(OWLAnnotationAxiom ax : getAnnotationAxioms(entity, ontologies)) {
-            if (ax.getAnnotation().getAnnotationURI().equals(annotationURI)) {
+        for (OWLAnnotationAssertionAxiom ax : getAnnotationAxioms(entity, ontologies)) {
+            if (ax.getAnnotation().getProperty().getURI().equals(annotationURI)) {
                 result.add(ax.getAnnotation());
             }
         }
         return result;
     }
-
 
 
 }

@@ -1,7 +1,8 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.XSDVocabulary;
+import org.semanticweb.owl.model.OWLAnnotation;
+import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owl.model.OWLException;
 
 import java.net.URI;
 /*
@@ -42,7 +43,7 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
 
 
     public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
-        return false;
+        return getConsumer().isAnnotationProperty(predicate);
     }
 
 
@@ -52,58 +53,8 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        if (getConsumer().isOntology(subject)) {
-            // Annotation on an ontology!
-            consumeTriple(subject, predicate, object);
-            OWLOntology ontology = getConsumer().getOWLOntologyManager().getOntology(subject);
-            OWLAnnotationAxiom ax = getDataFactory().getOWLOntologyAnnotationAxiom(ontology,
-                                                                                   getDataFactory().getOWLObjectAnnotation(
-                                                                                           predicate,
-                                                                                           getConsumer().getOWLIndividual(
-                                                                                                   object)));
-            addAxiom(ax);
-            return;
-        }
-        OWLAnnotation anno;
-
-        if (getConsumer().isOntologyProperty(object)) {
-            OWLLiteral con = getDataFactory().getOWLTypedLiteral(object.toString(),
-                                                                   getDataFactory().getOWLDatatype(XSDVocabulary.ANY_URI.getURI()));
-            anno = getDataFactory().getOWLConstantAnnotation(predicate, con);
-        }
-        else if (getConsumer().isIndividual(object)) {
-            OWLIndividual ind = getConsumer().getOWLIndividual(object);
-            anno = getDataFactory().getOWLObjectAnnotation(predicate, ind);
-        }
-        else {
-            // Plain URI
-            OWLLiteral con = getDataFactory().getOWLTypedLiteral(object.toString(),
-                                                                   getDataFactory().getOWLDatatype(XSDVocabulary.ANY_URI.getURI()));
-            anno = getDataFactory().getOWLConstantAnnotation(predicate, con);
-        }
-        OWLEntity entity = null;
-        if (getConsumer().isClass(subject)) {
-            entity = getDataFactory().getOWLClass(subject);
-        }
-        else if (getConsumer().isObjectPropertyOnly(subject)) {
-            entity = getDataFactory().getOWLObjectProperty(subject);
-        }
-        else if (getConsumer().isDataPropertyOnly(subject)) {
-            entity = getDataFactory().getOWLDataProperty(subject);
-        }
-        else if (getConsumer().isAnnotationProperty(subject)) {
-            // Temp fix until spec is fixed
-            getConsumer().getOntologyFormat().addAnnotationURIAnnotation(subject, anno);
-            consumeTriple(subject, predicate, object);
-        }
-        else {
-            entity = getConsumer().getOWLIndividual(subject);
-        }
-        if (entity != null) {
-            consumeTriple(subject, predicate, object);
-
-            OWLAxiom decAx = getDataFactory().getOWLEntityAnnotationAxiom(entity, anno);
-            addAxiom(decAx);
-        }
+        OWLAnnotation anno = getDataFactory().getAnnotation(getDataFactory().getAnnotationProperty(predicate), object);
+        OWLAxiom decAx = getDataFactory().getAnnotationAssertion(subject, anno);
+        addAxiom(decAx);
     }
 }

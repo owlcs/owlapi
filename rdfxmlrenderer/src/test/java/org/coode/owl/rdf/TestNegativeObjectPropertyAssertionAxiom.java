@@ -4,8 +4,8 @@ import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLIndividual;
 import org.semanticweb.owl.model.OWLObjectProperty;
 
-import java.util.Set;
 import java.util.Collections;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -47,7 +47,7 @@ public class TestNegativeObjectPropertyAssertionAxiom extends AbstractRendererAn
         OWLIndividual subj = createIndividual();
         OWLObjectProperty prop = createObjectProperty();
         OWLIndividual obj = createIndividual();
-        OWLAxiom ax = getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(subj, prop, obj);
+        OWLAxiom ax = getDataFactory().getNegativeObjectPropertyAssertion(subj, prop, obj);
         return Collections.singleton(ax);
     }
 }

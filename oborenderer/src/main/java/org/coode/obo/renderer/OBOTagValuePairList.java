@@ -2,7 +2,7 @@ package org.coode.obo.renderer;
 
 import org.coode.obo.parser.OBOVocabulary;
 import org.semanticweb.owl.model.OWLAnnotation;
-import org.semanticweb.owl.model.OWLAnnotationAxiom;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.util.SimpleURIShortFormProvider;
 import org.semanticweb.owl.util.URIShortFormProvider;
 
@@ -38,7 +38,7 @@ import java.util.*;
  * The University Of Manchester<br>
  * Bio Health Informatics Group<br>
  * Date: Dec 19, 2008<br><br>
- *
+ * <p/>
  * An ordered rendering of the Tag Value Pairs that also supports:
  * - default values
  * - unknown tags (which are rendered at the end of the known tags)
@@ -60,46 +60,40 @@ public class OBOTagValuePairList {
 
 
     /**
-     *
      * @param knownVocab the set of tags that are known by this generator
      */
-    public OBOTagValuePairList(List<OBOVocabulary> knownVocab){
+    public OBOTagValuePairList(List<OBOVocabulary> knownVocab) {
         this.vocab = knownVocab;
         uriSFP = new SimpleURIShortFormProvider();
     }
 
 
-    public void visit(OWLAnnotationAxiom annotAx){
-        visit(annotAx.getAnnotation());
+    public void visit(OWLAnnotation annot) {
+        addPair(annot.getProperty().getURI(), ((OWLLiteral) annot.getValue()).getString());
     }
 
 
-    public void visit(OWLAnnotation annot){
-        addPair(annot.getAnnotationURI(), annot.getAnnotationValueAsConstant().getString());
-    }
-
-
-    public void addPair(OBOVocabulary tag, String value){
+    public void addPair(OBOVocabulary tag, String value) {
         addPair(tag.getURI(), value);
     }
 
 
-    public void addPair(URI tag, String value){
+    public void addPair(URI tag, String value) {
         boolean found = false;
-        for (OBOVocabulary obo : vocab){
-            if (tag.equals(obo.getURI())){
+        for (OBOVocabulary obo : vocab) {
+            if (tag.equals(obo.getURI())) {
                 addPair(obo.getName(), value, knownTVPs);
                 found = true;
                 break;
             }
         }
-        if (!found){
+        if (!found) {
             final String name = uriSFP.getShortForm(tag);
             addPair(name, value, unknownTVPs);
         }
     }
 
-    
+
     public void setPair(OBOVocabulary key, String value) {
         knownTVPs.remove(key.getName());
         addPair(key.getURI(), value);
@@ -115,19 +109,19 @@ public class OBOTagValuePairList {
         defaults.put(tag, value);
     }
 
-    
+
     public Set<String> getValues(OBOVocabulary key) {
         Set<String> values = knownTVPs.get(key.getName());
-        if (values == null){
+        if (values == null) {
             values = Collections.EMPTY_SET;
         }
         return values;
     }
 
 
-    private void addPair(String tag, String value, Map<String, Set<String>> map){
+    private void addPair(String tag, String value, Map<String, Set<String>> map) {
         Set<String> set = map.get(tag);
-        if (set == null){
+        if (set == null) {
             set = new HashSet<String>(1);
             map.put(tag, set);
         }
@@ -139,24 +133,24 @@ public class OBOTagValuePairList {
         this.writer = writer;
 
         // write tags out in order
-        for (OBOVocabulary tag : vocab){
+        for (OBOVocabulary tag : vocab) {
             Set<String> values = knownTVPs.get(tag.getName());
-            if (values == null){
+            if (values == null) {
                 String def = defaults.get(tag.getURI());
-                if (def != null){
+                if (def != null) {
                     values = Collections.singleton(def);
                 }
             }
-            if (values != null){
-                for (String value : values){
+            if (values != null) {
+                for (String value : values) {
                     writeTagValuePair(tag, value);
                 }
             }
         }
 
         // write additional tags in no specified order
-        for (String unknownTag : unknownTVPs.keySet()){
-            for (String value : unknownTVPs.get(unknownTag)){
+        for (String unknownTag : unknownTVPs.keySet()) {
+            for (String value : unknownTVPs.get(unknownTag)) {
                 writeTagValuePair(unknownTag, value);
             }
         }
@@ -169,7 +163,7 @@ public class OBOTagValuePairList {
 
 
     private void writeTagValuePair(String key, String value) {
-        if (key != null && value != null){
+        if (key != null && value != null) {
             write(key);
             write(": ");
             write(value);

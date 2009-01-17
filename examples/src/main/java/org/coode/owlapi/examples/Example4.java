@@ -1,7 +1,7 @@
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.apibinding.OWLManager;
+import org.semanticweb.owl.model.*;
 
 import java.net.URI;
 /*
@@ -33,7 +33,7 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 23-May-2007<br><br>
- *
+ * <p/>
  * This example shows how add an object property assertion
  * (triple) of the form prop(subject, object) for example
  * hasPart(a, b)
@@ -61,7 +61,7 @@ public class Example4 {
             OWLObjectProperty hasFather = dataFactory.getOWLObjectProperty(URI.create(base + "#hasFather"));
             // Now create the actual assertion (triple), as an object property assertion axiom
             // matthew --> hasFather --> peter
-            OWLObjectPropertyAssertionAxiom assertion = dataFactory.getOWLObjectPropertyAssertionAxiom(matthew, hasFather, peter);
+            OWLObjectPropertyAssertionAxiom assertion = dataFactory.getObjectPropertyAssertion(matthew, hasFather, peter);
             // Finally, add the axiom to our ontology and save
             AddAxiom addAxiomChange = new AddAxiom(ont, assertion);
             man.applyChange(addAxiomChange);
@@ -71,10 +71,10 @@ public class Example4 {
         catch (OWLOntologyCreationException e) {
             System.out.println("Could not create ontology: " + e.getMessage());
         }
-        catch(OWLOntologyChangeException e) {
+        catch (OWLOntologyChangeException e) {
             System.out.println("Problem editing ontology: " + e.getMessage());
         }
-        catch(OWLOntologyStorageException e) {
+        catch (OWLOntologyStorageException e) {
             System.out.println("Could not save ontology: " + e.getMessage());
         }
     }

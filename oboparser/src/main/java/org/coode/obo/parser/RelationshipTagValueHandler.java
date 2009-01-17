@@ -48,8 +48,8 @@ public class RelationshipTagValueHandler extends AbstractTagValueHandler {
         URI fillerURI = getURIFromValue(value.substring(value.indexOf(' '), value.length()).trim());
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propURI);
         OWLClass filler = getDataFactory().getOWLClass(fillerURI);
-        OWLClassExpression restriction = getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
+        OWLClassExpression restriction = getDataFactory().getObjectSomeValuesFrom(prop, filler);
         OWLClass subCls = getDataFactory().getOWLClass(getURIFromValue(id));
-        applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassAxiom(subCls, restriction)));
+        applyChange(new AddAxiom(getOntology(), getDataFactory().getSubClassOf(subCls, restriction)));
     }
 }

@@ -1,7 +1,7 @@
 package org.semanticweb.owl.model;
 
 import org.semanticweb.owl.util.OWLDataUtil;
-import org.semanticweb.owl.vocab.OWLRestrictedDataRangeFacetVocabulary;
+import org.semanticweb.owl.vocab.OWLFacet;
 
 import java.util.Set;
 /*
@@ -38,54 +38,53 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
     public void testCreation() throws Exception {
-        OWLDataRange rng = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
+        OWLDatatype rng = getOWLDataFactory().getDatatype(createURI());
+        OWLTypedLiteral facetValue = getOWLDataFactory().getTypedLiteral("3", getOWLDataFactory().getDatatype(
                 createURI()));
-        Set<OWLDataRangeFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLRestrictedDataRangeFacetVocabulary.MAX_EXCLUSIVE, facetValue);
-        OWLDataRangeRestriction restRng = getOWLDataFactory().getOWLDataRangeRestriction(rng, restrictions);
+        Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
+        OWLDatatypeRestriction restRng = getOWLDataFactory().getDatatypeRestriction(rng, restrictions);
 
         assertNotNull(restRng);
     }
 
 
-
     public void testEqualsPositive() throws Exception {
-        OWLDataRange rng = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
+        OWLDatatype rng = getOWLDataFactory().getDatatype(createURI());
+        OWLTypedLiteral facetValue = getOWLDataFactory().getTypedLiteral("3", getOWLDataFactory().getDatatype(
                 createURI()));
-        Set<OWLDataRangeFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLRestrictedDataRangeFacetVocabulary.MAX_EXCLUSIVE, facetValue);
+        Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
 
-        OWLDataRangeRestriction restRngA = getOWLDataFactory().getOWLDataRangeRestriction(rng,
-                                                                                        restrictions);
-        OWLDataRangeRestriction restRngB = getOWLDataFactory().getOWLDataRangeRestriction(rng,
-                                                                                        restrictions);
+        OWLDatatypeRestriction restRngA = getOWLDataFactory().getDatatypeRestriction(rng,
+                restrictions);
+        OWLDatatypeRestriction restRngB = getOWLDataFactory().getDatatypeRestriction(rng,
+                restrictions);
         assertEquals(restRngA, restRngB);
     }
 
 
     public void testEqualsNegative() throws Exception {
-        OWLDataRange rng = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
+        OWLDatatype rng = getOWLDataFactory().getDatatype(createURI());
+        OWLTypedLiteral facetValue = getOWLDataFactory().getTypedLiteral("3", getOWLDataFactory().getDatatype(
                 createURI()));
-        Set<OWLDataRangeFacetRestriction> restrictionsA = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLRestrictedDataRangeFacetVocabulary.MAX_EXCLUSIVE, facetValue);
-        Set<OWLDataRangeFacetRestriction> restrictionsB = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLRestrictedDataRangeFacetVocabulary.MIN_INCLUSIVE, facetValue);
+        Set<OWLFacetRestriction> restrictionsA = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
+        Set<OWLFacetRestriction> restrictionsB = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLFacet.MIN_INCLUSIVE, facetValue);
 
-        OWLDataRangeRestriction restRngA = getOWLDataFactory().getOWLDataRangeRestriction(rng,
-                                                                                        restrictionsA);
-        OWLDataRangeRestriction restRngB = getOWLDataFactory().getOWLDataRangeRestriction(rng,
-                                                                                        restrictionsB);
+        OWLDatatypeRestriction restRngA = getOWLDataFactory().getDatatypeRestriction(rng,
+                restrictionsA);
+        OWLDatatypeRestriction restRngB = getOWLDataFactory().getDatatypeRestriction(rng,
+                restrictionsB);
         assertNotEquals(restRngA, restRngB);
     }
 
 
     public void testHashCode() throws Exception {
-        OWLDataRange rng = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
+        OWLDatatype rng = getOWLDataFactory().getDatatype(createURI());
+        OWLTypedLiteral facetValue = getOWLDataFactory().getTypedLiteral("3", getOWLDataFactory().getDatatype(
                 createURI()));
-        Set<OWLDataRangeFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLRestrictedDataRangeFacetVocabulary.MAX_EXCLUSIVE, facetValue);
+        Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
 
-        OWLDataRangeRestriction restRngA = getOWLDataFactory().getOWLDataRangeRestriction(rng, restrictions);
-        OWLDataRangeRestriction restRngB = getOWLDataFactory().getOWLDataRangeRestriction(rng, restrictions);
+        OWLDatatypeRestriction restRngA = getOWLDataFactory().getDatatypeRestriction(rng, restrictions);
+        OWLDatatypeRestriction restRngB = getOWLDataFactory().getDatatypeRestriction(rng, restrictions);
         assertEquals(restRngA.hashCode(), restRngB.hashCode());
     }
 }

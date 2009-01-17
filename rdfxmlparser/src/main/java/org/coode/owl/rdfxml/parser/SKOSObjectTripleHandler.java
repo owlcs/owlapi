@@ -46,7 +46,7 @@ public class SKOSObjectTripleHandler extends TriplePredicateHandler {
         OWLIndividual subj = getDataFactory().getOWLIndividual(subject);
         OWLIndividual obj = getDataFactory().getOWLIndividual(object);
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(predicate);
-        addAxiom(getDataFactory().getOWLObjectPropertyAssertionAxiom(subj, prop, obj));
+        addAxiom(getDataFactory().getObjectPropertyAssertion(subj, prop, obj));
     }
 
 

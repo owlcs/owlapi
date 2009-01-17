@@ -36,30 +36,34 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     /**
      * Determines if this equivalent classes axiom contains at least one
      * named class (excluding owl:Thing or owl:Nothing).
+     *
      * @return <code>true</code> if the axiom contains at least one named class
-     * otherwise <code>false</code>. Note that this method will return <code>false</code>
-     * if the only named classes are owl:Thing or owl:Nothing.
+     *         otherwise <code>false</code>. Note that this method will return <code>false</code>
+     *         if the only named classes are owl:Thing or owl:Nothing.
      */
     boolean containsNamedEquivalentClass();
 
     /**
      * Gets the named classes (excluding owl:Thing and owl:Nothing) that are in this equivalent classes axiom.
+     *
      * @return A set of classes that represents the named classes that are specified to be
-     * equivalent to some other class (description), excluding the built in classes owl:Thing
-     * and owl:Nothing
+     *         equivalent to some other class (description), excluding the built in classes owl:Thing
+     *         and owl:Nothing
      */
     Set<OWLClass> getNamedClasses();
 
     /**
      * Determines if this class axiom makes a class description equivalent to nothing.
+     *
      * @return <code>true</code> if this axiom contains owl:Nothing as an equivalent
-     * class.
+     *         class.
      */
     boolean containsOWLNothing();
 
 
     /**
      * Determines if this class axiom makes a class description equivalent to thing.
+     *
      * @return <code>true</code> if this axioms contains owl:Thing as an equivalent class.
      */
     boolean containsOWLThing();
@@ -67,9 +71,10 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     /**
      * Gets an equivalent representation of this axiom as subclass axioms.  EquivalentClasses(A B) is equivalent to
      * SubClassOf(A B) and SubClassOf(B A).
+     *
      * @return A set of subclass axioms that when taken together are equivalent to this
-     * equivalent classes axiom.
+     *         equivalent classes axiom.
      */
-    Set<OWLSubClassAxiom> asSubClassAxioms();
+    Set<OWLSubClassOfAxiom> asSubClassAxioms();
 
 }

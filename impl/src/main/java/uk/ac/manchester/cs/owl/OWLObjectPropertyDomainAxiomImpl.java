@@ -44,7 +44,7 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
         }
         return false;
     }
-    
+
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }

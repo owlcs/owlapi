@@ -41,27 +41,27 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator extends Inferred
 
 
     protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLObjectPropertyCharacteristicAxiom> result) throws
-                                                                                                                               OWLReasonerException {
-        if(reasoner.isFunctional(entity)) {
-            result.add(dataFactory.getOWLFunctionalObjectPropertyAxiom(entity));
+            OWLReasonerException {
+        if (reasoner.isFunctional(entity)) {
+            result.add(dataFactory.getFunctionalObjectProperty(entity));
         }
-        if(reasoner.isInverseFunctional(entity)) {
-            result.add(dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(entity));
+        if (reasoner.isInverseFunctional(entity)) {
+            result.add(dataFactory.getInverseFunctionalObjectProperty(entity));
         }
-        if(reasoner.isSymmetric(entity)) {
-            result.add(dataFactory.getOWLSymmetricObjectPropertyAxiom(entity));
+        if (reasoner.isSymmetric(entity)) {
+            result.add(dataFactory.getSymmetricObjectProperty(entity));
         }
-        if(reasoner.isTransitive(entity)) {
-            result.add(dataFactory.getOWLTransitiveObjectPropertyAxiom(entity));
+        if (reasoner.isTransitive(entity)) {
+            result.add(dataFactory.getTransitiveObjectProperty(entity));
         }
-        if(reasoner.isReflexive(entity)) {
-            result.add(dataFactory.getOWLReflexiveObjectPropertyAxiom(entity));
+        if (reasoner.isReflexive(entity)) {
+            result.add(dataFactory.getReflexiveObjectProperty(entity));
         }
-        if(reasoner.isIrreflexive(entity)) {
-            result.add(dataFactory.getOWLIrreflexiveObjectPropertyAxiom(entity));
+        if (reasoner.isIrreflexive(entity)) {
+            result.add(dataFactory.getIrreflexiveObjectProperty(entity));
         }
-        if(reasoner.isAntiSymmetric(entity)) {
-            result.add(dataFactory.getOWLAntiSymmetricObjectPropertyAxiom(entity));
+        if (reasoner.isAntiSymmetric(entity)) {
+            result.add(dataFactory.getAsymmetricObjectProperty(entity));
         }
     }
 

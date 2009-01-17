@@ -44,10 +44,9 @@ public class AntiSymmetricHandler extends AbstractTagValueHandler {
     public void handle(String id, String value) {
         if (Boolean.parseBoolean(value)) {
             OWLObjectProperty prop = getOWLObjectProperty(id);
-            OWLAxiom ax = getDataFactory().getOWLAntiSymmetricObjectPropertyAxiom(prop);
+            OWLAxiom ax = getDataFactory().getAsymmetricObjectProperty(prop);
             applyChange(new AddAxiom(getOntology(), ax));
-        }
-        else {
+        } else {
             addAnnotation(id, OBOVocabulary.IS_ANTI_SYMMETRIC.getName(), getBooleanConstant(false));
         }
     }

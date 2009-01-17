@@ -5,7 +5,7 @@ import org.semanticweb.owl.inference.OWLReasonerAdapter;
 import org.semanticweb.owl.inference.OWLReasonerException;
 import org.semanticweb.owl.model.OWLClass;
 import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLSubClassAxiom;
+import org.semanticweb.owl.model.OWLSubClassOfAxiom;
 
 import java.util.Set;
 /*
@@ -38,13 +38,13 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
  */
-public class InferredSubClassAxiomGenerator extends InferredClassAxiomGenerator<OWLSubClassAxiom> {
+public class InferredSubClassAxiomGenerator extends InferredClassAxiomGenerator<OWLSubClassOfAxiom> {
 
     protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
-                             Set<OWLSubClassAxiom> result) throws OWLReasonerException {
+                             Set<OWLSubClassOfAxiom> result) throws OWLReasonerException {
         if (reasoner.isSatisfiable(entity)) {
             for (OWLClass sup : OWLReasonerAdapter.flattenSetOfSets(reasoner.getSuperClasses(entity))) {
-                result.add(dataFactory.getOWLSubClassAxiom(entity, sup));
+                result.add(dataFactory.getSubClassOf(entity, sup));
             }
         }
     }

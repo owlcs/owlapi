@@ -1,8 +1,8 @@
 package org.coode.owl.rdfxml.parser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -46,8 +46,8 @@ public class TypeNegativeDataPropertyAssertionHandler extends AbstractTypeAxiomH
     protected OWLAxiom handleAxiomTriples(URI subjectTripleObject,
                                           URI predicateTripleObject,
                                           OWLLiteral objectTripleObject) throws
-                                                                                                         OWLException {
-        return getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(
+            OWLException {
+        return getDataFactory().getNegativeDataPropertyAssertion(
                 translateIndividual(subjectTripleObject),
                 translateDataProperty(predicateTripleObject),
                 objectTripleObject

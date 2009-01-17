@@ -51,21 +51,20 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     }
 
 
-    public boolean isLiteral() {
+    public boolean isClassExpressionLiteral() {
         return false;
     }
 
 
     public OWLClassExpression asObjectUnionOf() {
-        if(values.size() == 1) {
+        if (values.size() == 1) {
             return this;
-        }
-        else {
+        } else {
             Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
-            for(OWLIndividual ind : values) {
-                ops.add(getOWLDataFactory().getOWLObjectOneOf(ind));
+            for (OWLIndividual ind : values) {
+                ops.add(getOWLDataFactory().getObjectOneOf(ind));
             }
-            return getOWLDataFactory().getOWLObjectUnionOf(ops);
+            return getOWLDataFactory().getObjectUnionOf(ops);
         }
     }
 
@@ -81,7 +80,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     }
 
 
-    public void accept(OWLDescriptionVisitor visitor) {
+    public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -90,7 +89,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
         visitor.visit(this);
     }
 
-    public <O> O accept(OWLDescriptionVisitorEx<O> visitor) {
+    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

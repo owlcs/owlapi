@@ -246,17 +246,17 @@ public class OWLRDFConsumer implements RDFConsumer {
         listRestTripleMap = CollectionFactory.createMap();
         reifiedAxiomsMap = CollectionFactory.createMap();
         descriptionListTranslator = new OptimisedListTranslator<OWLClassExpression>(this,
-                                                                                new DescriptionListItemTranslator(this));
+                new DescriptionListItemTranslator(this));
         individualListTranslator = new OptimisedListTranslator<OWLIndividual>(this,
-                                                                              new IndividualListItemTranslator(this));
+                new IndividualListItemTranslator(this));
         constantListTranslator = new OptimisedListTranslator<OWLLiteral>(this,
-                                                                          new TypedConstantListItemTranslator(this));
+                new TypedConstantListItemTranslator(this));
         objectPropertyListTranslator = new OptimisedListTranslator<OWLObjectPropertyExpression>(this,
-                                                                                                new ObjectPropertyListItemTranslator(
-                                                                                                        this));
+                new ObjectPropertyListItemTranslator(
+                        this));
 
         dataPropertyListTranslator = new OptimisedListTranslator<OWLDataPropertyExpression>(this,
-                                                                                            new DataPropertyListItemTranslator(this));
+                new DataPropertyListItemTranslator(this));
         builtInTypeTripleHandlers = CollectionFactory.createMap();
         setupTypeTripleHandlers();
         setupPredicateHandlers();
@@ -363,13 +363,13 @@ public class OWLRDFConsumer implements RDFConsumer {
         synonymMap.put(URI.create("http://www.daml.org/2001/03/daml+oil#maxCardinality"), OWL_MAX_CARDINALITY.getURI());
         synonymMap.put(URI.create("http://www.daml.org/2001/03/daml+oil#inverseOf"), OWL_INVERSE_OF.getURI());
         synonymMap.put(URI.create("http://www.daml.org/2001/03/daml+oil#samePropertyAs"),
-                       OWL_EQUIVALENT_PROPERTY.getURI());
+                OWL_EQUIVALENT_PROPERTY.getURI());
         synonymMap.put(URI.create("http://www.daml.org/2001/03/daml+oil#hasClassQ"), OWL_ON_CLASS.getURI());
         synonymMap.put(URI.create("http://www.daml.org/2001/03/daml+oil#cardinalityQ"), OWL_CARDINALITY.getURI());
         synonymMap.put(URI.create("http://www.daml.org/2001/03/daml+oil#maxCardinalityQ"),
-                       OWL_MAX_CARDINALITY.getURI());
+                OWL_MAX_CARDINALITY.getURI());
         synonymMap.put(URI.create("http://www.daml.org/2001/03/daml+oil#minCardinalityQ"),
-                       OWL_MIN_CARDINALITY.getURI());
+                OWL_MIN_CARDINALITY.getURI());
         synonymMap.put(URI.create("http://www.daml.org/2001/03/daml+oil#complementOf"), OWL_COMPLEMENT_OF.getURI());
         synonymMap.put(URI.create("http://www.daml.org/2001/03/daml+oil#unionOf"), OWL_UNION_OF.getURI());
         synonymMap.put(URI.create("http://www.daml.org/2001/03/daml+oil#intersectionOf"), OWL_INTERSECTION_OF.getURI());
@@ -389,12 +389,12 @@ public class OWLRDFConsumer implements RDFConsumer {
         for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
             addLegacyMapping(v);
         }
-        for (OWLRestrictedDataRangeFacetVocabulary v : OWLRestrictedDataRangeFacetVocabulary.values()) {
+        for (OWLFacet v : OWLFacet.values()) {
             synonymMap.put(URI.create(Namespaces.OWL.toString() + v.getShortName()), v.getURI());
             synonymMap.put(URI.create(Namespaces.OWL11.toString() + v.getShortName()), v.getURI());
             synonymMap.put(URI.create(Namespaces.OWL2.toString() + v.getShortName()), v.getURI());
         }
-        for(OWLRestrictedDataRangeFacetVocabulary v : OWLRestrictedDataRangeFacetVocabulary.values()) {
+        for (OWLFacet v : OWLFacet.values()) {
             synonymMap.put(URI.create(Namespaces.OWL2.toString() + v.getShortName()), v.getURI());
         }
     }
@@ -417,7 +417,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addSKOSTripleHandler(SKOSVocabulary.EDITORIALNOTE);
         addSKOSTripleHandler(SKOSVocabulary.HIDDENLABEL);
         addSKOSTripleHandler(SKOSVocabulary.PREFLABEL);
-        addSKOSTripleHandler(SKOSVocabulary.SCOPENOTE);   
+        addSKOSTripleHandler(SKOSVocabulary.SCOPENOTE);
     }
 
     private void addSKOSTripleHandler(SKOSVocabulary dataPredicate) {
@@ -542,7 +542,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.HASTOPCONCEPT));
         addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.SEMANTICRELATION));
 
-        
+
     }
 
 
@@ -576,6 +576,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     /**
      * Checks whether a node is anonymous.
+     *
      * @param uri The URI of the node to be checked.
      * @return <code>true</code> if the node is anonymous, or
      *         <code>false</code> if the node is not anonymous.
@@ -695,8 +696,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     protected boolean isClass(URI uri) {
         if (owlClassURIs.contains(uri)) {
             return true;
-        }
-        else {
+        } else {
             for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
                 if (ont.containsClassReference(uri)) {
                     return true;
@@ -713,15 +713,13 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         if (objectPropertyURIs.contains(uri)) {
             return true;
-        }
-        else {
+        } else {
             boolean containsObjectPropertyReference = false;
             for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
                 if (ont.containsDataPropertyReference(uri)) {
                     dataPropertyURIs.add(uri);
                     return false;
-                }
-                else if (ont.containsObjectPropertyReference(uri)) {
+                } else if (ont.containsObjectPropertyReference(uri)) {
                     containsObjectPropertyReference = true;
                     objectPropertyURIs.add(uri);
                 }
@@ -741,14 +739,12 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         if (dataPropertyURIs.contains(uri)) {
             return true;
-        }
-        else {
+        } else {
             boolean containsDataPropertyReference = false;
             for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
                 if (ont.containsObjectPropertyReference(uri)) {
                     return false;
-                }
-                else if (ont.containsDataPropertyReference(uri)) {
+                } else if (ont.containsDataPropertyReference(uri)) {
                     containsDataPropertyReference = true;
                 }
             }
@@ -772,8 +768,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                     // Cache URI
                     annotationPropertyURIs.addAll(ont.getAnnotationURIs());
                     return annotationPropertyURIs.contains(uri);
-                }
-                else {
+                } else {
                     OWLOntologyFormat format = owlOntologyManager.getOntologyFormat(ont);
                     if (format instanceof RDFXMLOntologyFormat) {
                         RDFXMLOntologyFormat rdfFormat = (RDFXMLOntologyFormat) format;
@@ -822,9 +817,8 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     protected OWLIndividual getOWLIndividual(URI uri) {
         if (isAnonymousNode(uri)) {
-            return getDataFactory().getOWLAnonymousIndividual(uri);
-        }
-        else {
+            return getDataFactory().getOWLAnonymousIndividual(uri.toString());
+        } else {
             return getDataFactory().getOWLIndividual(uri);
         }
     }
@@ -955,8 +949,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                 typeHandler.handleTriple(subject, predicate, object);
                 // Consumed the triple - no further processing
                 return;
-            }
-            else {
+            } else {
                 addIndividual(subject);
             }
         }
@@ -1086,20 +1079,17 @@ public class OWLRDFConsumer implements RDFConsumer {
             if (!ontologyURIs.contains(ontology.getURI())) {
                 if (ontologyURIs.size() == 1) {
                     owlOntologyManager.applyChange(new SetOntologyURI(ontology, firstOntologyURI));
-                }
-                else {
+                } else {
                     if (ontologyURIs.isEmpty()) {
                         if (xmlBase == null) {
                             logger.fine(
                                     "There are no resources which are typed as ontologies.  Cannot determine the URI of the ontology being parsed - using physical URI.");
-                        }
-                        else {
+                        } else {
                             logger.fine(
                                     "There are no resources which are typed as ontologies.  Cannot determine the URI of the ontology being parsed - using xml:base.");
                             owlOntologyManager.applyChange(new SetOntologyURI(ontology, xmlBase));
                         }
-                    }
-                    else {
+                    } else {
                         logger.fine(
                                 "There are multiple resources which are typed as ontologies.  Using the first encountered ontology URI.");
                         owlOntologyManager.applyChange(new SetOntologyURI(ontology, firstOntologyURI));
@@ -1197,13 +1187,13 @@ public class OWLRDFConsumer implements RDFConsumer {
                 addDeclarationIfNecessary(cls);
             }
         }
-        for(URI propURI : objectPropertyURIs) {
+        for (URI propURI : objectPropertyURIs) {
             if (!isAnonymousNode(propURI)) {
                 OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propURI);
                 addDeclarationIfNecessary(prop);
             }
         }
-        for(URI propURI : dataPropertyURIs) {
+        for (URI propURI : dataPropertyURIs) {
             OWLDataProperty prop = getDataFactory().getOWLDataProperty(propURI);
             addDeclarationIfNecessary(prop);
         }
@@ -1224,7 +1214,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                 }
             }
             if (!ref) {
-                addAxiom(getDataFactory().getOWLDeclarationAxiom(entity));
+                addAxiom(getDataFactory().getDeclaration(entity));
             }
         }
     }
@@ -1307,6 +1297,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     /**
      * Called when a resource triple has been parsed.
+     *
      * @param subject   The subject of the triple that has been parsed
      * @param predicate The predicate of the triple that has been parsed
      * @param object    The object of the triple that has been parsed
@@ -1320,8 +1311,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                     // Consumed the triple - no further processing
                     return;
                 }
-            }
-            else {
+            } else {
                 // Individual?
                 addIndividual(subject);
             }
@@ -1344,11 +1334,11 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
     private void handleStreaming(URI subject, URI predicate, String literal, String datatype, String lang) throws
-                                                                                                           OWLException {
+            OWLException {
         // Convert all literals to OWLConstants
         OWLLiteral con = getOWLConstant(literal, datatype, lang);
         AbstractLiteralTripleHandler skosHandler = skosTripleHandlers.get(predicate);
-        if(skosHandler != null) {
+        if (skosHandler != null) {
             skosHandler.handleTriple(subject, predicate, con);
             return;
         }
@@ -1364,6 +1354,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     /**
      * A convenience method to obtain an <code>OWLConstant</code>
+     *
      * @param literal  The literal - must NOT be <code>null</code>
      * @param datatype The data type - may be <code>null</code>
      * @param lang     The lang - may be <code>null</code>
@@ -1371,14 +1362,12 @@ public class OWLRDFConsumer implements RDFConsumer {
      */
     private OWLLiteral getOWLConstant(String literal, String datatype, String lang) {
         if (datatype != null) {
-            return dataFactory.getOWLTypedLiteral(literal, dataFactory.getOWLDatatype(getURI(datatype)));
-        }
-        else {
+            return dataFactory.getTypedLiteral(literal, dataFactory.getDatatype(getURI(datatype)));
+        } else {
             if (lang != null) {
-                return dataFactory.getOWLRDFTextLiteral(literal, lang);
-            }
-            else {
-                return dataFactory.getOWLTypedLiteral(literal);
+                return dataFactory.getRDFTextLiteral(literal, lang);
+            } else {
+                return dataFactory.getTypedLiteral(literal);
             }
         }
     }
@@ -1392,48 +1381,46 @@ public class OWLRDFConsumer implements RDFConsumer {
             for (OWLLiteral con : literals) {
                 if (con.isTyped()) {
                     typedConstants.add((OWLTypedLiteral) con);
-                }
-                else {
-                    typedConstants.add(getDataFactory().getOWLTypedLiteral(con.getString(),
-                                                                            getDataFactory().getOWLDatatype(
-                                                                                    XSDVocabulary.STRING.getURI())));
+                } else {
+                    typedConstants.add(getDataFactory().getTypedLiteral(con.getString(),
+                            getDataFactory().getDatatype(
+                                    XSDVocabulary.STRING.getURI())));
                 }
             }
-            return getDataFactory().getOWLDataOneOf(typedConstants);
+            return getDataFactory().getDataOneOf(typedConstants);
         }
         URI complementOfObject = getResourceObject(uri, OWL_COMPLEMENT_OF.getURI(), true);
         if (complementOfObject != null) {
             OWLDataRange operand = translateDataRange(complementOfObject);
-            return getDataFactory().getOWLDataComplementOf(operand);
+            return getDataFactory().getDataComplementOf(operand);
         }
         URI onDataRangeObject = getResourceObject(uri, OWL_ON_DATA_RANGE.getURI(), true);
-        if (onDataRangeObject != null) {
-            OWLDataRange restrictedDataRange = translateDataRange(onDataRangeObject);
+        if (onDataRangeObject != null && !isAnonymousNode(onDataRangeObject)) {
+            OWLDatatype restrictedDataRange = (OWLDatatype) translateDataRange(onDataRangeObject);
             // Get facet(s!)
             // Get facet value
 
-            Set<OWLDataRangeFacetRestriction> restrictions = new HashSet<OWLDataRangeFacetRestriction>();
+            Set<OWLFacetRestriction> restrictions = new HashSet<OWLFacetRestriction>();
 
-            for (URI facetURI : OWLRestrictedDataRangeFacetVocabulary.FACET_URIS) {
+            for (URI facetURI : OWLFacet.FACET_URIS) {
                 OWLLiteral val;
                 while ((val = getLiteralObject(uri, facetURI, true)) != null) {
                     if (val.isTyped()) {
-                        restrictions.add(dataFactory.getOWLDataRangeFacetRestriction(
-                                OWLRestrictedDataRangeFacetVocabulary.getFacet(facetURI),
+                        restrictions.add(dataFactory.getFacetRestriction(
+                                OWLFacet.getFacet(facetURI),
                                 (OWLTypedLiteral) val));
-                    }
-                    else {
-                        restrictions.add(dataFactory.getOWLDataRangeFacetRestriction(
-                                OWLRestrictedDataRangeFacetVocabulary.getFacet(facetURI),
-                                dataFactory.getOWLTypedLiteral(val.getString(),
-                                                                OWLDataUtil.getIntDataType(dataFactory))));
+                    } else {
+                        restrictions.add(dataFactory.getFacetRestriction(
+                                OWLFacet.getFacet(facetURI),
+                                dataFactory.getTypedLiteral(val.getString(),
+                                        OWLDataUtil.getIntDataType(dataFactory))));
                     }
                 }
             }
 
-            return dataFactory.getOWLDataRangeRestriction(restrictedDataRange, restrictions);
+            return dataFactory.getDatatypeRestriction(restrictedDataRange, restrictions);
         }
-        return getDataFactory().getOWLDatatype(uri);
+        return getDataFactory().getDatatype(uri);
     }
 
 
@@ -1453,7 +1440,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     public OWLObjectPropertyExpression translateObjectPropertyExpression(URI mainNode) throws OWLException {
         OWLObjectPropertyExpression prop = translatedProperties.get(mainNode);
-        if(prop != null) {
+        if (prop != null) {
             return prop;
         }
         if (isList(mainNode, false)) {
@@ -1465,10 +1452,9 @@ public class OWLRDFConsumer implements RDFConsumer {
             prop = getDataFactory().getOWLObjectProperty(mainNode);
             translatedProperties.put(mainNode, prop);
             return prop;
-        }
-        else {
+        } else {
             // Inverse of a property expression
-            
+
             URI inverseOfObject = getResourceObject(mainNode, OWL_INVERSE_OF.getURI(), true);
             if (inverseOfObject == null) {
                 throw new IllegalStateException(
@@ -1502,8 +1488,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                 translatedDescriptions.put(mainNode, desc);
                 restrictionURIs.remove(mainNode);
                 objectRestrictionURIs.remove(mainNode);
-            }
-            else {
+            } else {
                 logger.fine(
                         "Unable to determine the type of description from the available triples - assuming owl:Class");
                 return getDataFactory().getOWLClass(mainNode);
@@ -1722,8 +1707,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     public boolean isList(URI uri, boolean consume) {
         if (consume) {
             return listURIs.remove(uri);
-        }
-        else {
+        } else {
             return listURIs.contains(uri);
         }
     }
@@ -1742,8 +1726,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     public URI getFirstResource(URI subject, boolean consume) {
         if (consume) {
             return listFirstResourceTripleMap.remove(subject);
-        }
-        else {
+        } else {
             return listFirstResourceTripleMap.get(subject);
         }
     }
@@ -1757,8 +1740,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     public URI getRest(URI subject, boolean consume) {
         if (consume) {
             return listRestTripleMap.remove(subject);
-        }
-        else {
+        } else {
             return listRestTripleMap.get(subject);
         }
     }
@@ -1837,8 +1819,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         Map<URI, URI> subjObjMap = singleValuedResTriplesByPredicate.get(predicate);
         if (subjObjMap != null) {
             subjObjMap.put(subject, object);
-        }
-        else {
+        } else {
             Map<URI, Set<URI>> map = resTriplesBySubject.get(subject);
             if (map == null) {
                 map = CollectionFactory.createMap();
@@ -1858,8 +1839,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         Map<URI, OWLLiteral> subjObjMap = singleValuedLitTriplesByPredicate.get(predicate);
         if (subjObjMap != null) {
             subjObjMap.put(subject, con);
-        }
-        else {
+        } else {
             Map<URI, Set<OWLLiteral>> map = litTriplesBySubject.get(subject);
             if (map == null) {
                 map = CollectionFactory.createMap();
@@ -1878,8 +1858,6 @@ public class OWLRDFConsumer implements RDFConsumer {
     public void setXMLBase(String base) {
         this.xmlBase = URI.create(base);
     }
-
-
 
 
     private static class FakeSet<O> extends ArrayList<O> implements Set<O> {

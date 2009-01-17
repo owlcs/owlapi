@@ -41,13 +41,13 @@ public class TypeIrreflexivePropertyHandler extends BuiltInTypeHandler {
     }
 
     public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
-            return !isAnonymous(subject);
-        }
-    
+        return !isAnonymous(subject);
+    }
+
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         getConsumer().addOWLObjectProperty(subject);
-        addAxiom(getDataFactory().getOWLIrreflexiveObjectPropertyAxiom(translateObjectProperty(subject)));
+        addAxiom(getDataFactory().getIrreflexiveObjectProperty(translateObjectProperty(subject)));
         consumeTriple(subject, predicate, object);
     }
 }

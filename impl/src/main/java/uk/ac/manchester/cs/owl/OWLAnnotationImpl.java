@@ -1,10 +1,10 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLAnnotation;
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLObject;
+import org.semanticweb.owl.model.*;
 
-import java.net.URI;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -35,43 +35,52 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 19-Dec-2006<br><br>
  */
-public abstract class OWLAnnotationImpl<O extends OWLObject> extends OWLObjectImpl implements OWLAnnotation<O> {
+public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
-    private URI uri;
+    private OWLAnnotationProperty property;
 
-    private O object;
+    private OWLAnnotationValue value;
 
+    private Set<OWLAnnotation> annotations;
 
-    public OWLAnnotationImpl(OWLDataFactory dataFactory, URI uri, O object) {
+    public OWLAnnotationImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, OWLAnnotationValue value) {
+        this(dataFactory, property, value, new HashSet<OWLAnnotation>());
+    }
+
+    public OWLAnnotationImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, OWLAnnotationValue value, Set<OWLAnnotation> annotations) {
         super(dataFactory);
-        this.uri = uri;
-        this.object = object;
+        this.property = property;
+        this.value = value;
+        this.annotations = Collections.unmodifiableSet(new HashSet<OWLAnnotation>(annotations));
+    }
+
+    public Set<OWLAnnotation> getAnnotations() {
+        return annotations;
+    }
+
+    public OWLAnnotationProperty getProperty() {
+        return property;
     }
 
 
-    public URI getAnnotationURI() {
-        return uri;
-    }
-
-
-    public O getAnnotationValue() {
-        return object;
+    public OWLAnnotationValue getValue() {
+        return value;
     }
 
     public boolean isComment() {
-        return false;
+        return property.isComment();
     }
 
 
     public boolean isLabel() {
-        return false;
+        return property.isLabel();
     }
 
     public boolean equals(Object obj) {
-        if(super.equals(obj)) {
-            if(obj instanceof OWLAnnotation) {
-               OWLAnnotation other = (OWLAnnotation) obj;
-               return other.getAnnotationURI().equals(uri) && other.getAnnotationValue().equals(object);
+        if (super.equals(obj)) {
+            if (obj instanceof OWLAnnotation) {
+                OWLAnnotation other = (OWLAnnotation) obj;
+                return other.getProperty().equals(property) && other.getValue().equals(value) && other.getAnnotations().equals(annotations);
             }
         }
         return false;
@@ -79,12 +88,27 @@ public abstract class OWLAnnotationImpl<O extends OWLObject> extends OWLObjectIm
 
     protected int compareObjectOfSameType(OWLObject object) {
         OWLAnnotation other = (OWLAnnotation) object;
-        int diff = getAnnotationURI().compareTo(other.getAnnotationURI());
-        if(diff != 0) {
+        int diff = getProperty().compareTo(other.getProperty());
+        if (diff != 0) {
             return diff;
+        } else {
+            return getValue().compareTo(other.getValue());
         }
-        else {
-            return getAnnotationValue().compareTo(other.getAnnotationValue());
-        }
+    }
+
+    public void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    public void accept(OWLAnnotationObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
     }
 }

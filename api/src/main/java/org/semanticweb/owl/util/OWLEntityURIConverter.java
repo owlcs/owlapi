@@ -33,7 +33,7 @@ import java.util.*;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 25-Nov-2007<br><br>
- *
+ * <p/>
  * Performs a bulk conversion/translation of entity URIs.  This utility class
  * can be used to replace entity names with IDs for example.  The
  * entity converter is supplied with a set of ontologies and a conversion
@@ -61,9 +61,10 @@ public class OWLEntityURIConverter {
     /**
      * Creates a converter that will convert the URIs of entities in the specified ontologies
      * using the specified conversion strategy.
-     * @param manager The manager which managers the specified ontologies.
+     *
+     * @param manager    The manager which managers the specified ontologies.
      * @param ontologies The ontologies whose entity URIs will be converted
-     * @param strategy The conversion strategy to be used.
+     * @param strategy   The conversion strategy to be used.
      */
     public OWLEntityURIConverter(OWLOntologyManager manager, Set<OWLOntology> ontologies, OWLEntityURIConverterStrategy strategy) {
         this.manager = manager;
@@ -74,34 +75,35 @@ public class OWLEntityURIConverter {
 
     /**
      * Gets the changes required to perform the conversion.
+     *
      * @return A list of ontology changes that should be applied in order
-     * to convert the URI of entities in the specified ontologies.
+     *         to convert the URI of entities in the specified ontologies.
      */
     public List<OWLOntologyChange> getChanges() {
         replacementMap = new HashMap<OWLEntity, URI>();
         processedEntities = new HashSet<OWLEntity>();
         changes = new ArrayList<OWLOntologyChange>();
-        for(OWLOntology ont : ontologies) {
-            for(OWLClass cls : ont.getReferencedClasses()) {
+        for (OWLOntology ont : ontologies) {
+            for (OWLClass cls : ont.getReferencedClasses()) {
                 if (!cls.isOWLThing() && !cls.isOWLNothing()) {
                     processEntity(cls);
                 }
             }
-            for(OWLObjectProperty prop : ont.getReferencedObjectProperties()) {
+            for (OWLObjectProperty prop : ont.getReferencedObjectProperties()) {
                 processEntity(prop);
             }
-            for(OWLDataProperty prop : ont.getReferencedDataProperties()) {
+            for (OWLDataProperty prop : ont.getReferencedDataProperties()) {
                 processEntity(prop);
             }
-            for(OWLIndividual ind : ont.getReferencedIndividuals()) {
+            for (OWLNamedIndividual ind : ont.getReferencedIndividuals()) {
                 processEntity(ind);
             }
         }
         OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap, manager.getOWLDataFactory());
-        for(OWLOntology ont : ontologies) {
-            for(OWLAxiom ax : ont.getAxioms()) {
+        for (OWLOntology ont : ontologies) {
+            for (OWLAxiom ax : ont.getAxioms()) {
                 OWLAxiom dupAx = dup.duplicateObject(ax);
-                if (!dupAx.equals(ax)){
+                if (!dupAx.equals(ax)) {
                     changes.add(new RemoveAxiom(ont, ax));
                     changes.add(new AddAxiom(ont, dupAx));
                 }
@@ -109,9 +111,9 @@ public class OWLEntityURIConverter {
         }
         return changes;
     }
-    
+
     private void processEntity(OWLEntity ent) {
-        if(processedEntities.contains(ent)) {
+        if (processedEntities.contains(ent)) {
             return;
         }
         // Add label?

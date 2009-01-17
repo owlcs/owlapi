@@ -34,9 +34,8 @@ import java.util.Set;
 public class OWLDifferentIndividualsAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLIndividual> {
 
 
-
     protected OWLObject createObject(Set<OWLIndividual> operands) throws Exception {
-        return getOWLDataFactory().getOWLDifferentIndividualsAxiom(operands);
+        return getOWLDataFactory().getDifferentIndividuals(operands);
     }
 
 

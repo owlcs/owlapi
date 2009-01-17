@@ -1,6 +1,5 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -47,10 +46,10 @@ public class OWLObjectExistsSelfElementHandler extends AbstractOWLDescriptionEle
 
 
     protected void endDescriptionElement() throws OWLXMLParserException {
-        if(property == null) {
+        if (property == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Was expecting object property expression element");
         }
-        setDescription(getOWLDataFactory().getOWLObjectSelfRestriction(property));
+        setDescription(getOWLDataFactory().getObjectHasSelf(property));
     }
 
 

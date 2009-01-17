@@ -79,7 +79,7 @@ public class Example2 {
             OWLClass clsA = factory.getOWLClass(URI.create(ontologyURI + "#A"));
             OWLClass clsB = factory.getOWLClass(URI.create(ontologyURI + "#B"));
             // Now create the axiom
-            OWLAxiom axiom = factory.getOWLSubClassAxiom(clsA, clsB);
+            OWLAxiom axiom = factory.getSubClassOf(clsA, clsB);
             // We now add the axiom to the ontology, so that the ontology states that
             // A is a subclass of B.  To do this we create an AddAxiom change object.
             AddAxiom addAxiom = new AddAxiom(ontology, axiom);
@@ -88,13 +88,13 @@ public class Example2 {
 
             // The ontology will now contain references to class A and class B - let's
             // print them out
-            for(OWLClass cls : ontology.getReferencedClasses()) {
+            for (OWLClass cls : ontology.getReferencedClasses()) {
                 System.out.println("Referenced class: " + cls);
             }
             // We should also find that B is a superclass of A
             Set<OWLClassExpression> superClasses = clsA.getSuperClasses(ontology);
             System.out.println("Superclasses of " + clsA + ":");
-            for(OWLClassExpression desc : superClasses) {
+            for (OWLClassExpression desc : superClasses) {
                 System.out.println(desc);
             }
 

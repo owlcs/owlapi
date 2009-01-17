@@ -1,25 +1,16 @@
 package com.clarkparsia.explanation;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.semanticweb.owl.inference.OWLClassReasoner;
-import org.semanticweb.owl.inference.OWLReasonerFactory;
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.OWLEntityCollector;
-
 import com.clarkparsia.explanation.util.ExplanationProgressMonitor;
 import com.clarkparsia.explanation.util.OntologyUtils;
 import com.clarkparsia.explanation.util.SilentExplanationProgressMonitor;
+import org.semanticweb.owl.inference.OWLClassReasoner;
+import org.semanticweb.owl.inference.OWLReasonerFactory;
+import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.util.OWLEntityCollector;
+
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
 * Copyright (C) 2007, Clark & Parsia
@@ -57,6 +48,7 @@ import com.clarkparsia.explanation.util.SilentExplanationProgressMonitor;
  * <p/>
  * Company: Clark & Parsia, LLC. <http://www.clarkparsia.com>
  * </p>
+ *
  * @author Evren Sirin
  */
 public class HSTExplanationGenerator implements MultipleExplanationGenerator {
@@ -67,14 +59,14 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     private TransactionAwareSingleExpGen singleExplanationGenerator;
 
     private ExplanationProgressMonitor progressMonitor = new SilentExplanationProgressMonitor();
-    
-	private static OWLEntityCollector collector;	
-	
+
+    private static OWLEntityCollector collector;
+
     public HSTExplanationGenerator(TransactionAwareSingleExpGen singleExplanationGenerator) {
         this.singleExplanationGenerator = singleExplanationGenerator;
-        
-        collector	= new OWLEntityCollector();
-        collector.setCollectDataTypes( false );
+
+        collector = new OWLEntityCollector();
+        collector.setCollectDataTypes(false);
     }
 
 
@@ -159,12 +151,12 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             allMups.add(firstMups);
             Set<Set<OWLAxiom>> satPaths = new HashSet<Set<OWLAxiom>>();
             Set<OWLAxiom> currentPathContents = new HashSet<OWLAxiom>();
-    		singleExplanationGenerator.beginTransaction();
-    		try {
-    			constructHittingSetTree(unsatClass, firstMups, allMups, satPaths, currentPathContents, maxExplanations);
-    		} finally {
-    			singleExplanationGenerator.endTransaction();
-    		}            
+            singleExplanationGenerator.beginTransaction();
+            try {
+                constructHittingSetTree(unsatClass, firstMups, allMups, satPaths, currentPathContents, maxExplanations);
+            } finally {
+                singleExplanationGenerator.endTransaction();
+            }
             progressMonitor.foundAllExplanations();
             return allMups;
         }
@@ -183,6 +175,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /**
      * Orders the axioms in a single MUPS by the frequency of which they appear
      * in all MUPS.
+     *
      * @param mups    The MUPS containing the axioms to be ordered
      * @param allMups The set of all MUPS which is used to calculate the ordering
      */
@@ -204,6 +197,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /**
      * Given an axiom and a set of axioms this method determines how many sets
      * contain the axiom.
+     *
      * @param ax        The axiom that will be counted.
      * @param axiomSets The sets to count from
      */
@@ -217,23 +211,25 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return count;
     }
 
-	/**
-	 * Returns the entities referenced in an axiom.
-	 * @param axiom axiom whose signature is being computed
-	 * @return the entities referenced in the axiom
-	 */
-	private Set<OWLEntity> getSignature(OWLAxiom axiom) {
-		collector.reset();
+    /**
+     * Returns the entities referenced in an axiom.
+     *
+     * @param axiom axiom whose signature is being computed
+     * @return the entities referenced in the axiom
+     */
+    private Set<OWLEntity> getSignature(OWLAxiom axiom) {
+        collector.reset();
 
-		axiom.accept( collector );
+        axiom.accept(collector);
 
-		return new HashSet<OWLEntity>( collector.getObjects() );
-	}
+        return new HashSet<OWLEntity>(collector.getObjects());
+    }
 
 
     /**
      * This is a recursive method that builds a hitting set tree to obtain all
      * justifications for an unsatisfiable class.
+     *
      * @param mups                The current justification for the current class. This
      *                            corresponds to a node in the hitting set tree.
      * @param allMups             All of the MUPS that have been found - this set gets populated
@@ -278,30 +274,30 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
             Set<OWLOntology> ontologies = OntologyUtils.removeAxiom(axiom, getReasoner()
                     .getLoadedOntologies(), getOntologyManager());
-            
+
             // Removal may have dereferenced some entities, if so declarations are added
-			Set<OWLEntity> sig = getSignature( axiom );
-			List<OWLDeclarationAxiom> temporaryDeclarations = new ArrayList<OWLDeclarationAxiom>(
-					sig.size() );
-			for( OWLEntity e : sig ) {
-				boolean referenced = false;
-				for( Iterator<OWLOntology> i = ontologies.iterator(); !referenced && i.hasNext(); ) {
-					for( Iterator<OWLAxiom> j = i.next().getReferencingAxioms( e ).iterator(); !referenced
-							&& j.hasNext(); ) {
-						OWLAxiom a = j.next();
-						referenced = a.isLogicalAxiom() || (a instanceof OWLDeclarationAxiom);
-					}
-				}
-				if( !referenced ) {
-					OWLDeclarationAxiom declaration = getOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom( e );
-					temporaryDeclarations.add( declaration );
-				}
-			}
-			for( OWLDeclarationAxiom decl : temporaryDeclarations ) {
-				OntologyUtils.addAxiom( decl, getReasoner().getLoadedOntologies(),
-						getOntologyManager() );
-			}
-			
+            Set<OWLEntity> sig = getSignature(axiom);
+            List<OWLDeclaration> temporaryDeclarations = new ArrayList<OWLDeclaration>(
+                    sig.size());
+            for (OWLEntity e : sig) {
+                boolean referenced = false;
+                for (Iterator<OWLOntology> i = ontologies.iterator(); !referenced && i.hasNext();) {
+                    for (Iterator<OWLAxiom> j = i.next().getReferencingAxioms(e).iterator(); !referenced
+                            && j.hasNext();) {
+                        OWLAxiom a = j.next();
+                        referenced = a.isLogicalAxiom() || (a instanceof OWLDeclaration);
+                    }
+                }
+                if (!referenced) {
+                    OWLDeclaration declaration = getOntologyManager().getOWLDataFactory().getDeclaration(e);
+                    temporaryDeclarations.add(declaration);
+                }
+            }
+            for (OWLDeclaration decl : temporaryDeclarations) {
+                OntologyUtils.addAxiom(decl, getReasoner().getLoadedOntologies(),
+                        getOntologyManager());
+            }
+
             currentPathContents.add(axiom);
 
             boolean earlyTermination = false;
@@ -344,16 +340,15 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                     progressMonitor.foundExplanation(newMUPS);
                     // Recompute priority here?
                     constructHittingSetTree(unsatClass,
-                                            newMUPS,
-                                            allMups,
-                                            satPaths,
-                                            currentPathContents,
-                                            maxExplanations);
+                            newMUPS,
+                            allMups,
+                            satPaths,
+                            currentPathContents,
+                            maxExplanations);
                     // We have found a new MUPS, so recalculate the ordering
                     // axioms in the MUPS at the current level
                     orderedMups = getOrderedMUPS(orderedMups, allMups);
-                }
-                else {
+                } else {
                     if (log.isLoggable(Level.FINE))
                         log.fine("Stop - satisfiable");
 
@@ -368,14 +363,14 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             if (log.isLoggable(Level.FINE))
                 log.fine("Restoring axiom: " + axiom);
 
-			// Remove any temporary declarations
-			for( OWLDeclarationAxiom decl : temporaryDeclarations ) {
-				OntologyUtils.removeAxiom( decl, getReasoner().getLoadedOntologies(),
-						getOntologyManager() );
-			}
-			
+            // Remove any temporary declarations
+            for (OWLDeclaration decl : temporaryDeclarations) {
+                OntologyUtils.removeAxiom(decl, getReasoner().getLoadedOntologies(),
+                        getOntologyManager());
+            }
+
             // Done with the axiom that was removed. Add it back in
             OntologyUtils.addAxiom(axiom, ontologies, getOntologyManager());
-		}	
+        }
     }
 }

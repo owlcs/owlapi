@@ -41,8 +41,8 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, URI object) throws OWLException{
-        if(getConsumer().isAnnotationProperty(predicate)) {
+    public boolean canHandle(URI subject, URI predicate, URI object) throws OWLException {
+        if (getConsumer().isAnnotationProperty(predicate)) {
             return false;
         }
         return !OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(predicate);
@@ -56,7 +56,7 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         consumeTriple(subject, predicate, object);
-        addAxiom(getDataFactory().getOWLObjectPropertyAssertionAxiom(
+        addAxiom(getDataFactory().getObjectPropertyAssertion(
                 translateIndividual(subject),
                 translateObjectProperty(predicate),
                 translateIndividual(object)

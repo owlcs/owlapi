@@ -32,7 +32,7 @@ import org.semanticweb.owl.util.BidirectionalShortFormProvider;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 28-Nov-2007<br><br>
- *
+ * <p/>
  * An entity checker that maps from string to entities using a bidirectional
  * short form provider.
  */
@@ -44,16 +44,17 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     /**
      * Creates a short form entity checker, which uses the specified bidirectional
      * short form provider to map entity name strings to entities.
+     *
      * @param shortFormProvider The BidirectionalShortFormProvider that should be
-     * used to perform the required mapping.
+     *                          used to perform the required mapping.
      */
     public ShortFormEntityChecker(BidirectionalShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
     }
 
     public OWLClass getOWLClass(String name) {
-        for(OWLEntity ent : shortFormProvider.getEntities(name)) {
-            if(ent.isOWLClass()) {
+        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
+            if (ent.isOWLClass()) {
                 return ent.asOWLClass();
             }
         }
@@ -62,8 +63,8 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
 
 
     public OWLDataProperty getOWLDataProperty(String name) {
-        for(OWLEntity ent : shortFormProvider.getEntities(name)) {
-            if(ent.isOWLDataProperty()) {
+        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
+            if (ent.isOWLDataProperty()) {
                 return ent.asOWLDataProperty();
             }
         }
@@ -72,8 +73,8 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
 
 
     public OWLDatatype getOWLDataType(String name) {
-        for(OWLEntity ent : shortFormProvider.getEntities(name)) {
-            if(ent.isOWLDataType()) {
+        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
+            if (ent.isOWLDataType()) {
                 return ent.asOWLDataType();
             }
         }
@@ -81,9 +82,9 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
 
-    public OWLIndividual getOWLIndividual(String name) {
-        for(OWLEntity ent : shortFormProvider.getEntities(name)) {
-            if(ent.isOWLIndividual()) {
+    public OWLNamedIndividual getOWLIndividual(String name) {
+        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
+            if (ent.isOWLIndividual()) {
                 return ent.asOWLIndividual();
             }
         }
@@ -92,8 +93,8 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
 
 
     public OWLObjectProperty getOWLObjectProperty(String name) {
-        for(OWLEntity ent : shortFormProvider.getEntities(name)) {
-            if(ent.isOWLObjectProperty()) {
+        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
+            if (ent.isOWLObjectProperty()) {
                 return ent.asOWLObjectProperty();
             }
         }

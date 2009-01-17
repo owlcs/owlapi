@@ -31,403 +31,360 @@ import org.semanticweb.owl.model.*;
  */
 public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
 
+    private O defaultReturnValue = null;
 
-    public O visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
-        return null;
+    public OWLObjectVisitorExAdapter() {
     }
 
-
-    public O visit(OWLAxiomAnnotationAxiom axiom) {
-        return null;
+    public OWLObjectVisitorExAdapter(O defaultReturnValue) {
+        this.defaultReturnValue = defaultReturnValue;
     }
 
+    public O visit(OWLAnnotationAssertionAxiom axiom) {
+        return defaultReturnValue;
+    }
+
+    public O visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        return defaultReturnValue;
+    }
 
     public O visit(OWLClassAssertionAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLDataPropertyAssertionAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLDataPropertyDomainAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLDataPropertyRangeAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
 
-
-    public O visit(OWLDataSubPropertyAxiom axiom) {
-        return null;
+    public O visit(OWLDeclaration axiom) {
+        return defaultReturnValue;
     }
-
-
-    public O visit(OWLDeclarationAxiom axiom) {
-        return null;
-    }
-
 
     public O visit(OWLDifferentIndividualsAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLDisjointClassesAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLDisjointDataPropertiesAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLDisjointUnionAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
-
-    public O visit(OWLEntityAnnotationAxiom axiom) {
-        return null;
-    }
-
 
     public O visit(OWLEquivalentClassesAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLFunctionalDataPropertyAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
 
+    public O visit(OWLHasKeyAxiom axiom) {
+        return defaultReturnValue;
+    }
 
     public O visit(OWLImportsDeclaration axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLInverseObjectPropertiesAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLObjectPropertyAssertionAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
 
-
-    public O visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
-        return null;
+    public O visit(OWLComplextSubPropertyAxiom axiom) {
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLObjectPropertyDomainAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLObjectPropertyRangeAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
-
-    public O visit(OWLObjectSubPropertyAxiom axiom) {
-        return null;
-    }
-
-
-    public O visit(OWLOntologyAnnotationAxiom axiom) {
-        return null;
-    }
-
 
     public O visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLSameIndividualsAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
 
-
-    public O visit(OWLSubClassAxiom axiom) {
-        return null;
+    public O visit(OWLSubClassOfAxiom axiom) {
+        return defaultReturnValue;
     }
 
+    public O visit(OWLSubDataPropertyOfAxiom axiom) {
+        return defaultReturnValue;
+    }
+
+    public O visit(OWLSubObjectPropertyOfAxiom axiom) {
+        return defaultReturnValue;
+    }
 
     public O visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(SWRLRule rule) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLClass desc) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLDataAllValuesFrom desc) {
-        return null;
+        return defaultReturnValue;
     }
 
-
-    public O visit(OWLDataExactCardinalityRestriction desc) {
-        return null;
+    public O visit(OWLDataExactCardinality desc) {
+        return defaultReturnValue;
     }
 
-
-    public O visit(OWLDataMaxCardinalityRestriction desc) {
-        return null;
+    public O visit(OWLDataMaxCardinality desc) {
+        return defaultReturnValue;
     }
 
-
-    public O visit(OWLDataMinCardinalityRestriction desc) {
-        return null;
+    public O visit(OWLDataMinCardinality desc) {
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLDataSomeValuesFrom desc) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLDataValueRestriction desc) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLObjectAllValuesFrom desc) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLObjectComplementOf desc) {
-        return null;
+        return defaultReturnValue;
     }
 
-
-    public O visit(OWLObjectExactCardinalityRestriction desc) {
-        return null;
+    public O visit(OWLObjectExactCardinality desc) {
+        return defaultReturnValue;
     }
 
+    public O visit(OWLObjectHasSelf desc) {
+        return defaultReturnValue;
+    }
+
+    public O visit(OWLObjectHasValue desc) {
+        return defaultReturnValue;
+    }
 
     public O visit(OWLObjectIntersectionOf desc) {
-        return null;
+        return defaultReturnValue;
     }
 
-
-    public O visit(OWLObjectMaxCardinalityRestriction desc) {
-        return null;
+    public O visit(OWLObjectMaxCardinality desc) {
+        return defaultReturnValue;
     }
 
-
-    public O visit(OWLObjectMinCardinalityRestriction desc) {
-        return null;
+    public O visit(OWLObjectMinCardinality desc) {
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLObjectOneOf desc) {
-        return null;
+        return defaultReturnValue;
     }
-
-
-    public O visit(OWLObjectSelfRestriction desc) {
-        return null;
-    }
-
 
     public O visit(OWLObjectSomeValuesFrom desc) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLObjectUnionOf desc) {
-        return null;
+        return defaultReturnValue;
     }
-
-
-    public O visit(OWLObjectValueRestriction desc) {
-        return null;
-    }
-
 
     public O visit(OWLDataComplementOf node) {
-        return null;
+        return defaultReturnValue;
     }
 
+    public O visit(OWLDataIntersectionOf node) {
+        return defaultReturnValue;
+    }
 
     public O visit(OWLDataOneOf node) {
-        return null;
+        return defaultReturnValue;
     }
-
-
-    public O visit(OWLDataRangeFacetRestriction node) {
-        return null;
-    }
-
-
-    public O visit(OWLDataRangeRestriction node) {
-        return null;
-    }
-
 
     public O visit(OWLDatatype node) {
-        return null;
+        return defaultReturnValue;
     }
 
-
-    public O visit(OWLTypedLiteral node) {
-        return null;
+    public O visit(OWLDatatypeRestriction node) {
+        return defaultReturnValue;
     }
 
+    public O visit(OWLDataUnionOf node) {
+        return defaultReturnValue;
+    }
+
+    public O visit(OWLFacetRestriction node) {
+        return defaultReturnValue;
+    }
 
     public O visit(OWLRDFTextLiteral node) {
-        return null;
+        return defaultReturnValue;
     }
 
+    public O visit(OWLTypedLiteral node) {
+        return defaultReturnValue;
+    }
 
     public O visit(OWLDataProperty property) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLObjectProperty property) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(OWLObjectPropertyInverse property) {
-        return null;
+        return defaultReturnValue;
     }
 
-
-    public O visit(OWLIndividual individual) {
-        return null;
+    public O visit(OWLNamedIndividual individual) {
+        return defaultReturnValue;
     }
 
-
-    public O visit(OWLConstantAnnotation annotation) {
-        return null;
+    public O visit(OWLAnnotationProperty property) {
+        return defaultReturnValue;
     }
 
-
-    public O visit(OWLObjectAnnotation annotation) {
-        return null;
+    public O visit(OWLAnnotation annotation) {
+        return defaultReturnValue;
     }
 
+    public O visit(OWLAnnotationPropertyDomain axiom) {
+        return defaultReturnValue;
+    }
+
+    public O visit(OWLAnnotationPropertyRange axiom) {
+        return defaultReturnValue;
+    }
+
+    public O visit(OWLSubAnnotationPropertyOf axiom) {
+        return defaultReturnValue;
+    }
+
+    public O visit(OWLAnonymousIndividual individual) {
+        return defaultReturnValue;
+    }
+
+    public O visit(IRI iri) {
+        return defaultReturnValue;
+    }
+
+    public O visit(OWLLiteral literal) {
+        return defaultReturnValue;
+    }
 
     public O visit(SWRLAtomConstantObject node) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(SWRLAtomDVariable node) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(SWRLAtomIndividualObject node) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(SWRLAtomIVariable node) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(SWRLBuiltInAtom node) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(SWRLClassAtom node) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(SWRLDataRangeAtom node) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(SWRLDataValuedPropertyAtom node) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(SWRLDifferentFromAtom node) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(SWRLObjectPropertyAtom node) {
-        return null;
+        return defaultReturnValue;
     }
-
 
     public O visit(SWRLSameAsAtom node) {
-        return null;
+        return defaultReturnValue;
     }
 
-
     public O visit(OWLOntology ontology) {
-        return null;
+        return defaultReturnValue;
     }
 }

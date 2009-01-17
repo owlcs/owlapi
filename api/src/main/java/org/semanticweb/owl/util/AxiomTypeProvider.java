@@ -36,7 +36,7 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
 
     private AxiomType axiomType;
 
-    public void visit(OWLSubClassAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
         axiomType = SUBCLASS;
     }
 
@@ -52,7 +52,7 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         axiomType = ANTI_SYMMETRIC_OBJECT_PROPERTY;
     }
 
@@ -74,11 +74,6 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
 
     public void visit(OWLImportsDeclaration axiom) {
         axiomType = IMPORTS_DECLARATION;
-    }
-
-
-    public void visit(OWLAxiomAnnotationAxiom axiom) {
-        axiomType = AXIOM_ANNOTATION;
     }
 
 
@@ -127,7 +122,7 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLObjectSubPropertyAxiom axiom) {
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         axiomType = SUB_OBJECT_PROPERTY;
     }
 
@@ -137,20 +132,14 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLDeclarationAxiom axiom) {
+    public void visit(OWLDeclaration axiom) {
         axiomType = DECLARATION;
     }
 
 
-    public void visit(OWLEntityAnnotationAxiom axiom) {
-        axiomType = ENTITY_ANNOTATION;
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
+        axiomType = ANNOTATION_ASSERTION;
     }
-
-
-    public void visit(OWLOntologyAnnotationAxiom axiom) {
-        axiomType = ONTOLOGY_ANNOTATION;
-    }
-
 
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         axiomType = SYMMETRIC_OBJECT_PROPERTY;
@@ -197,7 +186,7 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLDataSubPropertyAxiom axiom) {
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
         axiomType = SUB_DATA_PROPERTY;
     }
 
@@ -212,7 +201,7 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+    public void visit(OWLComplextSubPropertyAxiom axiom) {
         axiomType = PROPERTY_CHAIN_SUB_PROPERTY;
     }
 
@@ -224,5 +213,21 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
 
     public void visit(SWRLRule rule) {
         axiomType = SWRL_RULE;
+    }
+
+    public void visit(OWLHasKeyAxiom axiom) {
+        axiomType = HAS_KEY;
+    }
+
+    public void visit(OWLAnnotationPropertyDomain axiom) {
+        axiomType = ANNOTATION_PROPERTY_DOMAIN;
+    }
+
+    public void visit(OWLAnnotationPropertyRange axiom) {
+        axiomType = ANNOTATION_PROPERTY_RANGE;
+    }
+
+    public void visit(OWLSubAnnotationPropertyOf axiom) {
+        axiomType = SUB_ANNOTATION_PROPERTY_OF;
     }
 }

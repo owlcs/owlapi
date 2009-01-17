@@ -1,8 +1,8 @@
 package org.coode.owl.rdfxml.parser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -44,9 +44,9 @@ public class TypeNegativeObjectPropertyAssertionHandler extends AbstractTypeAxio
 
 
     protected OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject, URI objectTripleObject) throws
-                                                                                                         OWLException {
+            OWLException {
 
-        return getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(
+        return getDataFactory().getNegativeObjectPropertyAssertion(
                 translateIndividual(subjectTripleObject),
                 translateObjectProperty(predicateTripleObject),
                 translateIndividual(objectTripleObject)
@@ -55,7 +55,7 @@ public class TypeNegativeObjectPropertyAssertionHandler extends AbstractTypeAxio
 
 
     protected OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject, OWLLiteral con) throws
-                                                                                                               OWLException {
+            OWLException {
         throw new OWLRDFXMLParserMalformedNodeException("Encounted a literal as the object in a negative object property assertion.  Expected an individual URI");
     }
 }

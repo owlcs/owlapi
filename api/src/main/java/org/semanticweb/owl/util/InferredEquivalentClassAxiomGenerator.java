@@ -3,8 +3,8 @@ package org.semanticweb.owl.util;
 import org.semanticweb.owl.inference.OWLReasoner;
 import org.semanticweb.owl.inference.OWLReasonerException;
 import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLDataFactory;
 import org.semanticweb.owl.model.OWLClassExpression;
+import org.semanticweb.owl.model.OWLDataFactory;
 import org.semanticweb.owl.model.OWLEquivalentClassesAxiom;
 
 import java.util.HashSet;
@@ -38,7 +38,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
- *
+ * <p/>
  * Generates inferred equivalent classes axioms.
  */
 public class InferredEquivalentClassAxiomGenerator extends InferredClassAxiomGenerator<OWLEquivalentClassesAxiom> {
@@ -49,7 +49,7 @@ public class InferredEquivalentClassAxiomGenerator extends InferredClassAxiomGen
         Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>(reasoner.getEquivalentClasses(entity));
         equivalentClasses.add(entity);
         if (equivalentClasses.size() > 1) {
-            result.add(dataFactory.getOWLEquivalentClassesAxiom(equivalentClasses));
+            result.add(dataFactory.getEquivalentClasses(equivalentClasses));
         }
     }
 

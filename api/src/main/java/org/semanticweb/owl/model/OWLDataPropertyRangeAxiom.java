@@ -28,7 +28,7 @@ package org.semanticweb.owl.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- *
+ * <p/>
  * Represents an axiom which specifies the range of a data property.  A set of data property range
  * axioms which have a common data property are interpreted to produce a range which is the intersection
  * of the ranges specified by each individual data property range axiom.

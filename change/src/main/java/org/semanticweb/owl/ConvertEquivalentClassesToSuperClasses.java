@@ -23,7 +23,7 @@ package org.semanticweb.owl;/*
 
 
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.OWLDescriptionVisitorAdapter;
+import org.semanticweb.owl.util.OWLClassExpressionVisitorAdapter;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -85,7 +85,7 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
         }
         supers.remove(cls);
         for (OWLClassExpression sup : supers) {
-            changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassAxiom(cls, sup)));
+            changes.add(new AddAxiom(targetOntology, getDataFactory().getSubClassOf(cls, sup)));
         }
     }
 
@@ -93,7 +93,7 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
     private Set<OWLClassExpression> getDescriptions(OWLClassExpression desc) {
         final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         if (splitIntersections) {
-            desc.accept(new OWLDescriptionVisitorAdapter() {
+            desc.accept(new OWLClassExpressionVisitorAdapter() {
 
                 public void visit(OWLObjectIntersectionOf desc) {
                     for (OWLClassExpression op : desc.getOperands()) {

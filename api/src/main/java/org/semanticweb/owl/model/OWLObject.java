@@ -34,15 +34,12 @@ import java.util.Set;
  */
 public interface OWLObject extends Comparable<OWLObject> {
 
-    public void accept(OWLObjectVisitor visitor);
-
-    <O> O accept(OWLObjectVisitorEx<O> visitor);
-
 
     /**
      * Gets the signature of this object
+     *
      * @return A set of entities that correspond to the
-     * signature of this object.
+     *         signature of this object.
      */
     Set<OWLEntity> getSignature();
 
@@ -50,24 +47,27 @@ public interface OWLObject extends Comparable<OWLObject> {
     /**
      * A convenience method that obtains the classes
      * that are in the signature of this object
+     *
      * @return A set containing the classes that are in the signature
-     * of this object.
+     *         of this object.
      */
     Set<OWLClass> getClassesInSignature();
 
     /**
      * A convenience method that obtains the data properties
      * that are in the signature of this object
+     *
      * @return A set containing the data properties that are in the signature
-     * of this object.
+     *         of this object.
      */
     Set<OWLDataProperty> getDataPropertiesInSignature();
 
     /**
      * A convenience method that obtains the object properties
      * that are in the signature of this object
+     *
      * @return A set containing the object properties that are in the signature
-     * of this object.
+     *         of this object.
      */
     Set<OWLObjectProperty> getObjectPropertiesInSignature();
 
@@ -75,8 +75,13 @@ public interface OWLObject extends Comparable<OWLObject> {
     /**
      * A convenience method that obtains the individuals
      * that are in the signature of this object
+     *
      * @return A set containing the individuals that are in the signature
-     * of this object.
+     *         of this object.
      */
-    Set<OWLIndividual> getIndividualsInSignature();
+    Set<OWLNamedIndividual> getIndividualsInSignature();
+
+    public void accept(OWLObjectVisitor visitor);
+
+    <O> O accept(OWLObjectVisitorEx<O> visitor);
 }

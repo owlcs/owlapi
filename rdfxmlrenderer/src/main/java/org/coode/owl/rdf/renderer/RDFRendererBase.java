@@ -90,18 +90,14 @@ public abstract class RDFRendererBase {
 
         // Put imports at the top of the rendering
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.addAll(ontology.getImportsDeclarations());
-        axioms.addAll(ontology.getOntologyAnnotationAxioms());
+        // TODO: Sort out annotations an imports
+//        axioms.addAll(ontology.getImportsDeclarations());
+//        axioms.addAll(ontology.getAnnotations());
         createGraph(axioms);
         graph.addTriple(new RDFTriple(new RDFResourceNode(ontology.getURI()),
                 new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
                 new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getURI())));
         render(new RDFResourceNode(ontology.getURI()));
-        for (OWLOntologyAnnotationAxiom ax : ontology.getOntologyAnnotationAxioms()) {
-            if (!ax.getSubject().equals(ontology)) {
-                render(new RDFResourceNode(ax.getSubject().getURI()));
-            }
-        }
 
         // Annotation properties
 
@@ -122,30 +118,31 @@ public abstract class RDFRendererBase {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(uri),
                         new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
                         new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
-                //////////////////////////////////////////////////////////////////////////////////////////
-                // The following is a HACK which will be left in place until the OWL 1.1 spec is
-                // fixed w.r.t. annotations on annotation URIs
-                for (OWLAnnotation anno : getAnnotationsForURIViaHack(annoURIAnnotations, uri)) {
-                    if (anno.isAnnotationByConstant()) {
-                        OWLLiteral con = anno.getAnnotationValueAsConstant();
-                        RDFLiteralNode obj;
-                        if (con.isTyped()) {
-                            obj = new RDFLiteralNode(con.getString(), con.asOWLTypedLiteral().getDataType().getURI());
-                        } else {
-                            obj = new RDFLiteralNode(con.getString(), con.asRDFTextLiteral().getLang());
-                        }
-                        graph.addTriple(new RDFTriple(new RDFResourceNode(uri),
-                                new RDFResourceNode(anno.getAnnotationURI()),
-                                obj));
-                    } else {
-                        if (anno.getAnnotationValue() instanceof OWLNamedObject) {
-                            OWLNamedObject obj = (OWLNamedObject) anno.getAnnotationValue();
-                            graph.addTriple(new RDFTriple(new RDFResourceNode(uri),
-                                    new RDFResourceNode(anno.getAnnotationURI()),
-                                    new RDFResourceNode(obj.getURI())));
-                        }
-                    }
-                }
+
+//                //////////////////////////////////////////////////////////////////////////////////////////
+//                // The following is a HACK which will be left in place until the OWL 1.1 spec is
+//                // fixed w.r.t. annotations on annotation URIs
+//                for (OWLAnnotation anno : getAnnotationsForURIViaHack(annoURIAnnotations, uri)) {
+//                    if (anno.isAnnotationByConstant()) {
+//                        OWLLiteral con = anno.getAnnotationValueAsConstant();
+//                        RDFLiteralNode obj;
+//                        if (con.isTyped()) {
+//                            obj = new RDFLiteralNode(con.getString(), con.asOWLTypedLiteral().getDataType().getURI());
+//                        } else {
+//                            obj = new RDFLiteralNode(con.getString(), con.asRDFTextLiteral().getLang());
+//                        }
+//                        graph.addTriple(new RDFTriple(new RDFResourceNode(uri),
+//                                new RDFResourceNode(anno.getProperty()),
+//                                obj));
+//                    } else {
+//                        if (anno.getValue() instanceof OWLNamedObject) {
+//                            OWLNamedObject obj = (OWLNamedObject) anno.getValue();
+//                            graph.addTriple(new RDFTriple(new RDFResourceNode(uri),
+//                                    new RDFResourceNode(anno.getProperty()),
+//                                    new RDFResourceNode(obj.getURI())));
+//                        }
+//                    }
+//                }
                 // End of HACK
                 /////////////////////////////////////////////////////////////////////////////////////////
                 render(new RDFResourceNode(uri));
@@ -200,7 +197,7 @@ public abstract class RDFRendererBase {
         Set<? extends OWLIndividual> individuals = ontology.getReferencedIndividuals();
         if (!individuals.isEmpty()) {
             writeBanner("Individuals");
-            for (OWLIndividual ind : toSortedSet(ontology.getReferencedIndividuals())) {
+            for (OWLNamedIndividual ind : toSortedSet(ontology.getReferencedIndividuals())) {
                 if (createGraph(ind)) {
                     beginObject();
                     writeIndividualComments(ind);
@@ -282,7 +279,7 @@ public abstract class RDFRendererBase {
     protected abstract void endDocument();
 
 
-    protected abstract void writeIndividualComments(OWLIndividual ind);
+    protected abstract void writeIndividualComments(OWLNamedIndividual ind);
 
 
     protected abstract void writeClassComment(OWLClass cls);
@@ -316,7 +313,7 @@ public abstract class RDFRendererBase {
 
     private boolean createGraph(OWLEntity entity) {
         final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.addAll(entity.getAnnotationAxioms(ontology));
+        axioms.addAll(entity.getAnnotationAssertionAxioms(ontology));
 
         if (renderDeclarationAxioms) {
             axioms.addAll(ontology.getDeclarationAxioms());
@@ -341,7 +338,7 @@ public abstract class RDFRendererBase {
             }
 
 
-            public void visit(OWLIndividual individual) {
+            public void visit(OWLNamedIndividual individual) {
                 for (OWLAxiom ax : ontology.getAxioms(individual)) {
                     if (ax instanceof OWLDifferentIndividualsAxiom) {
                         continue;
@@ -378,6 +375,10 @@ public abstract class RDFRendererBase {
                 axioms.addAll(ontology.getAxioms(manager.getOWLDataFactory().getOWLObjectPropertyInverse(property)));
                 createGraph(axioms);
             }
+
+            public void visit(OWLAnnotationProperty property) {
+                // TODO: Add annotations
+            }
         });
         addTypeTriple(entity);
         return true;
@@ -409,7 +410,7 @@ public abstract class RDFRendererBase {
             }
 
 
-            public void visit(OWLIndividual individual) {
+            public void visit(OWLNamedIndividual individual) {
             }
 
 
@@ -417,11 +418,11 @@ public abstract class RDFRendererBase {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
                         new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
                         new RDFResourceNode(OWLRDFVocabulary.OWL_DATA_PROPERTY.getURI())));
-                if (annotationURIs.contains(property.getURI())) {
-                    graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
-                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-                            new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
-                }
+//                if (annotationURIs.contains(property.getURI())) {
+//                    graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
+//                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
+//                            new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
+//                }
             }
 
 
@@ -429,11 +430,17 @@ public abstract class RDFRendererBase {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
                         new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
                         new RDFResourceNode(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI())));
-                if (annotationURIs.contains(property.getURI())) {
-                    graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
-                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-                            new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
-                }
+//                if (annotationURIs.contains(property.getURI())) {
+//                    graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
+//                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
+//                            new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
+//                }
+            }
+
+            public void visit(OWLAnnotationProperty property) {
+                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
+                        new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
+                        new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
             }
         });
     }

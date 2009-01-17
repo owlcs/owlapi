@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLDataRange;
-import org.semanticweb.owl.model.OWLException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -47,9 +46,9 @@ public class OWLDataComplementOfElementHandler extends AbstractOWLDataRangeHandl
 
 
     protected void endDataRangeElement() throws OWLXMLParserException {
-        if(operand == null) {
+        if (operand == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "data range element");
         }
-        setDataRange(getOWLDataFactory().getOWLDataComplementOf(operand));
+        setDataRange(getOWLDataFactory().getDataComplementOf(operand));
     }
 }

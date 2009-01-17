@@ -47,21 +47,20 @@ public class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
 
 
     public void handleChild(OWLConstantElementHandler handler) {
-        if(handler.getOWLObject().isTyped()) {
+        if (handler.getOWLObject().isTyped()) {
             constants.add((OWLTypedLiteral) handler.getOWLObject());
-        }
-        else {
+        } else {
             // Type as string?
             OWLLiteral currentLiteral = handler.getOWLObject();
-            constants.add(getOWLDataFactory().getOWLTypedLiteral(currentLiteral.getString(), getOWLDataFactory().getOWLDatatype(XSDVocabulary.STRING.getURI())));
+            constants.add(getOWLDataFactory().getTypedLiteral(currentLiteral.getString(), getOWLDataFactory().getDatatype(XSDVocabulary.STRING.getURI())));
         }
     }
 
 
     protected void endDataRangeElement() throws OWLXMLParserException {
-        if(constants.isEmpty()) {
+        if (constants.isEmpty()) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "data oneOf element");
         }
-        setDataRange(getOWLDataFactory().getOWLDataOneOf(constants));
+        setDataRange(getOWLDataFactory().getDataOneOf(constants));
     }
 }

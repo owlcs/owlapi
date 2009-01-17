@@ -1,7 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLClassExpression;
+import org.semanticweb.owl.model.OWLLiteral;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -46,6 +46,6 @@ public class OWLDataHasValueElementHandler extends AbstractDataRestrictionElemen
 
 
     protected OWLClassExpression createRestriction() {
-        return getOWLDataFactory().getOWLDataValueRestriction(getProperty(), getFiller());
+        return getOWLDataFactory().getDataHasValue(getProperty(), getFiller());
     }
 }

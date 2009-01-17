@@ -37,20 +37,23 @@ import java.util.TreeSet;
  */
 public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
 
-    private URI uri;
+    private IRI iri;
 
     private boolean isThing;
 
     private boolean isNothing;
 
 
-    public OWLClassImpl(OWLDataFactory dataFactory, URI uri) {
+    public OWLClassImpl(OWLDataFactory dataFactory, IRI iri) {
         super(dataFactory);
-        this.uri = uri;
-        isThing = uri.equals(OWLRDFVocabulary.OWL_THING.getURI());
-        isNothing = uri.equals(OWLRDFVocabulary.OWL_NOTHING.getURI());
+        this.iri = iri;
+        isThing = getURI().equals(OWLRDFVocabulary.OWL_THING.getURI());
+        isNothing = getURI().equals(OWLRDFVocabulary.OWL_NOTHING.getURI());
     }
 
+    public IRI getIRI() {
+        return iri;
+    }
 
     public boolean isBuiltIn() {
         return isOWLThing() || isOWLNothing();
@@ -62,7 +65,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public boolean isLiteral() {
+    public boolean isClassExpressionLiteral() {
         return true;
     }
 
@@ -73,7 +76,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
 
 
     public URI getURI() {
-        return uri;
+        return iri.toURI();
     }
 
 
@@ -103,11 +106,11 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
 
 
     public OWLClassExpression getComplementNNF() {
-        return getOWLDataFactory().getOWLObjectComplementOf(this);
+        return getOWLDataFactory().getObjectComplementOf(this);
     }
 
 
-    public Set<OWLSubClassAxiom> getSubClassAxioms(OWLOntology ontology) {
+    public Set<OWLSubClassOfAxiom> getSubClassAxioms(OWLOntology ontology) {
         return ontology.getSubClassAxiomsForLHS(this);
     }
 
@@ -129,7 +132,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
 
     public Set<OWLClassExpression> getSuperClasses(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLSubClassAxiom axiom : getSubClassAxioms(ontology)) {
+        for (OWLSubClassOfAxiom axiom : getSubClassAxioms(ontology)) {
             result.add(axiom.getSuperClass());
         }
         return result;
@@ -147,7 +150,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
 
     public Set<OWLClassExpression> getSubClasses(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLSubClassAxiom axiom : ontology.getSubClassAxiomsForRHS(this)) {
+        for (OWLSubClassOfAxiom axiom : ontology.getSubClassAxiomsForRHS(this)) {
             result.add(axiom.getSubClass());
         }
         return result;
@@ -226,7 +229,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public Set<OWLAnnotationAxiom> getAnnotationAxioms(OWLOntology ontology) {
+    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLOntology ontology) {
         return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
     }
 
@@ -266,7 +269,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public OWLIndividual asOWLIndividual() {
+    public OWLNamedIndividual asOWLIndividual() {
         throw new OWLRuntimeException("Not an individual!");
     }
 
@@ -308,12 +311,11 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
             }
             URI otherURI = ((OWLClass) obj).getURI();
             String otherFragment = otherURI.getFragment();
-            String thisFragment = uri.getFragment();
+            String thisFragment = getURI().getFragment();
             if (otherFragment != null && thisFragment != null && !otherFragment.equals(thisFragment)) {
                 return false;
-            }
-            else {
-                return otherURI.equals(uri);
+            } else {
+                return otherURI.equals(getURI());
             }
 
         }
@@ -321,7 +323,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public void accept(OWLDescriptionVisitor visitor) {
+    public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -346,7 +348,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public <O> O accept(OWLDescriptionVisitorEx<O> visitor) {
+    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

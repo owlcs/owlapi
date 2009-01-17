@@ -39,6 +39,20 @@ import java.util.Set;
  */
 public interface OWLOntology extends OWLNamedObject {
 
+    /**
+     * Gets the version IRI of this ontology
+     *
+     * @return The version IRI, or <code>null</code> if this ontology does not have a version IRI
+     */
+    IRI getVersionIRI();
+
+    /**
+     * Gets the annotations on this ontology
+     *
+     * @return A set of annotations on this ontology
+     */
+    Set<OWLAnnotation> getAnnotations();
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Methods to retrive class, property and individual axioms
@@ -48,6 +62,7 @@ public interface OWLOntology extends OWLNamedObject {
     /**
      * Determines if this ontology is empty - an ontology is empty if it does not contain
      * any axioms.
+     *
      * @return <code>true</code> if the ontology is empty, otherwise <code>false</code>.
      */
     boolean isEmpty();
@@ -55,7 +70,7 @@ public interface OWLOntology extends OWLNamedObject {
     /**
      * Retrieves all of the axioms in this ontology.  Note that to test whether or not this ontology is empty (i.e. contains
      * no axioms, the isEmpty method is preferred over getAxioms().isEmpty(). )
-     * 
+     *
      * @return The set of all axioms in this ontology, including logical axioms and annotation axioms. The set that is
      *         returned is a copy of the axioms in the ontology - it will not be updated if the ontology changes.  It is
      *         recommended that the <code>containsAxiom</code> method is used to determine whether or not this ontology
@@ -66,6 +81,7 @@ public interface OWLOntology extends OWLNamedObject {
 
     /**
      * Gets the number of axioms in this ontology.
+     *
      * @return The number of axioms in this ontology.
      */
     int getAxiomCount();
@@ -83,6 +99,7 @@ public interface OWLOntology extends OWLNamedObject {
 
     /**
      * Gets the number of logical axioms in this ontology.
+     *
      * @return The number of axioms in this ontology.
      */
     int getLogicalAxiomCount();
@@ -108,6 +125,7 @@ public interface OWLOntology extends OWLNamedObject {
 
     /**
      * Gets the axiom count of a specific type of axiom
+     *
      * @param axiomType The type of axiom to count
      * @return The number of the specified types of axioms in this ontology
      */
@@ -167,7 +185,7 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set that is returned is a copy of the axioms in the ontology - it will not be updated if the ontology
      *         changes.  It is therefore safe to apply changes to this ontology while iterating over this set.
      */
-    Set<OWLObjectPropertyChainSubPropertyAxiom> getPropertyChainSubPropertyAxioms();
+    Set<OWLComplextSubPropertyAxiom> getPropertyChainSubPropertyAxioms();
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -223,7 +241,7 @@ public interface OWLOntology extends OWLNamedObject {
      *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
      *         ontology while iterating over this set.
      */
-    Set<OWLIndividual> getReferencedIndividuals();
+    Set<OWLNamedIndividual> getReferencedIndividuals();
 
 
     /**
@@ -417,7 +435,7 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set that is returned is a copy - it will not be updated if the ontology changes.  It is therefore
      *         safe to apply changes to this ontology while iterating over this set.
      */
-    Set<OWLDeclarationAxiom> getDeclarationAxioms();
+    Set<OWLDeclaration> getDeclarationAxioms();
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -478,18 +496,7 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set of declaration axioms. Note that this set will be a copy and will not be updated if the ontology
      *         changes.  It is therefore safe to iterate over this set while making changes to the ontology.
      */
-    Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity subject);
-
-
-    /**
-     * Gets the annotation axioms that annotate the specified axiom in this ontology.
-     *
-     * @param axiom The axiom that the returned set of axiom annotation axioms annotate.
-     * @return The set of annotation axioms. Note that this set will be a copy and will not be updated if the ontology
-     *         changes.  It is therefore safe to iterate over this set while making changes to the ontology.
-     */
-    Set<OWLAxiomAnnotationAxiom> getAnnotations(OWLAxiom axiom);
-
+    Set<OWLDeclaration> getDeclarationAxioms(OWLEntity subject);
 
     /**
      * Gets the axioms that annotate the specified entity.
@@ -498,27 +505,28 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set of entity annotation axioms. Note that this set will be a copy and will not be updated if the
      *         ontology changes.  It is therefore safe to iterate over this set while making changes to the ontology.
      */
-    Set<OWLEntityAnnotationAxiom> getEntityAnnotationAxioms(OWLEntity entity);
+    Set<OWLAnnotationAssertionAxiom> getEntityAnnotationAxioms(OWLEntity entity);
 
+//    Set<OWLAnnotationAssertionAxiom> getAnnotations();
 
-    /**
-     * Gets the ontology annotations whose subject is the specified ontology.
-     *
-     * @param subject The ontology that is the subject of the annotations.
-     * @return The set of annotation axioms which have been asserted in this ontology, which have the specified ontology
-     *         as their subject. Note that this set will be a copy and will not be updated if the ontology changes.  It
-     *         is therefore safe to iterate over this set while making changes to the ontology.
-     */
-    Set<OWLOntologyAnnotationAxiom> getAnnotations(OWLOntology subject);
-
-
-    /**
-     * Gets all of the ontology annotation axioms which have been asserted in this ontology.
-     *
-     * @return The set of ontology annotation axioms. Note that this set will be a copy and will not be updated if the
-     *         ontology changes.  It is therefore safe to iterate over this set while making changes to the ontology.
-     */
-    Set<OWLOntologyAnnotationAxiom> getOntologyAnnotationAxioms();
+//    /**
+//     * Gets the ontology annotations whose subject is the specified ontology.
+//     *
+//     * @param subject The ontology that is the subject of the annotations.
+//     * @return The set of annotation axioms which have been asserted in this ontology, which have the specified ontology
+//     *         as their subject. Note that this set will be a copy and will not be updated if the ontology changes.  It
+//     *         is therefore safe to iterate over this set while making changes to the ontology.
+//     */
+//    Set<OWLOntologyAnnotationAxiom> getAnnotations(OWLOntology subject);
+//
+//
+//    /**
+//     * Gets all of the ontology annotation axioms which have been asserted in this ontology.
+//     *
+//     * @return The set of ontology annotation axioms. Note that this set will be a copy and will not be updated if the
+//     *         ontology changes.  It is therefore safe to iterate over this set while making changes to the ontology.
+//     */
+//    Set<OWLOntologyAnnotationAxiom> getOntologyAnnotationAxioms();
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -534,7 +542,7 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set that is returned is a copy - it will not be updated if the ontology changes.  It is therefore
      *         safe to apply changes to this ontology while iterating over this set.
      */
-    Set<OWLSubClassAxiom> getSubClassAxiomsForLHS(OWLClass cls);
+    Set<OWLSubClassOfAxiom> getSubClassAxiomsForLHS(OWLClass cls);
 
 
     /**
@@ -544,7 +552,7 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set that is returned is a copy - it will not be updated if the ontology changes.  It is therefore
      *         safe to apply changes to this ontology while iterating over this set.
      */
-    Set<OWLSubClassAxiom> getSubClassAxiomsForRHS(OWLClass cls);
+    Set<OWLSubClassOfAxiom> getSubClassAxiomsForRHS(OWLClass cls);
 
 
     /**
@@ -594,10 +602,10 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set that is returned is a copy - it will not be updated if the ontology changes.  It is therefore
      *         safe to apply changes to this ontology while iterating over this set.
      */
-    Set<OWLObjectSubPropertyAxiom> getObjectSubPropertyAxiomsForLHS(OWLObjectPropertyExpression property);
+    Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForLHS(OWLObjectPropertyExpression property);
 
 
-    Set<OWLObjectSubPropertyAxiom> getObjectSubPropertyAxiomsForRHS(OWLObjectPropertyExpression property);
+    Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForRHS(OWLObjectPropertyExpression property);
 
 
     Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(OWLObjectPropertyExpression property);
@@ -628,17 +636,18 @@ public interface OWLOntology extends OWLNamedObject {
     /**
      * @deprecated use getAsymmetricObjectPropertyAxiom instead.
      */
-    OWLAntiSymmetricObjectPropertyAxiom getAntiSymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property);
+    OWLAsymmetricObjectPropertyAxiom getAntiSymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property);
 
 
     /**
      * Gets the axiom that states that this property is asymmetric.  Note that this will return an
      * antisymmetric property axiom.  The name of this interfaces is due to legacy reasons.
+     *
      * @param property The property
      * @return The axiom that states that this property is asymmetric, or <code>null</code> if there is
-     * no axiom that states this.
+     *         no axiom that states this.
      */
-    OWLAntiSymmetricObjectPropertyAxiom getAsymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property);
+    OWLAsymmetricObjectPropertyAxiom getAsymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property);
 
     OWLReflexiveObjectPropertyAxiom getReflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property);
 
@@ -655,10 +664,10 @@ public interface OWLOntology extends OWLNamedObject {
     //////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    Set<OWLDataSubPropertyAxiom> getDataSubPropertyAxiomsForLHS(OWLDataProperty lhsProperty);
+    Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForLHS(OWLDataProperty lhsProperty);
 
 
-    Set<OWLDataSubPropertyAxiom> getDataSubPropertyAxiomsForRHS(OWLDataPropertyExpression property);
+    Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForRHS(OWLDataPropertyExpression property);
 
 
     Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(OWLDataProperty property);

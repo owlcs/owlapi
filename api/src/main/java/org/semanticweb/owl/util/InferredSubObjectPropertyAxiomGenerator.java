@@ -5,7 +5,7 @@ import org.semanticweb.owl.inference.OWLReasonerAdapter;
 import org.semanticweb.owl.inference.OWLReasonerException;
 import org.semanticweb.owl.model.OWLDataFactory;
 import org.semanticweb.owl.model.OWLObjectProperty;
-import org.semanticweb.owl.model.OWLObjectSubPropertyAxiom;
+import org.semanticweb.owl.model.OWLSubObjectPropertyOfAxiom;
 
 import java.util.Set;
 /*
@@ -38,13 +38,13 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
  */
-public class InferredSubObjectPropertyAxiomGenerator extends InferredObjectPropertyAxiomGenerator<OWLObjectSubPropertyAxiom> {
+public class InferredSubObjectPropertyAxiomGenerator extends InferredObjectPropertyAxiomGenerator<OWLSubObjectPropertyOfAxiom> {
 
 
-    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLObjectSubPropertyAxiom> result) throws
-                                                                                                                               OWLReasonerException {
-        for(OWLObjectProperty prop : OWLReasonerAdapter.flattenSetOfSets(reasoner.getSuperProperties(entity))) {
-            result.add(dataFactory.getOWLSubObjectPropertyAxiom(entity, prop));
+    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLSubObjectPropertyOfAxiom> result) throws
+            OWLReasonerException {
+        for (OWLObjectProperty prop : OWLReasonerAdapter.flattenSetOfSets(reasoner.getSuperProperties(entity))) {
+            result.add(dataFactory.getSubObjectPropertyOf(entity, prop));
         }
     }
 

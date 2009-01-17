@@ -36,7 +36,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
- *
+ * <p/>
  * Generates inferred disjoint axioms - note that this currently uses a very simple
  * inefficient algorithm.
  */
@@ -44,11 +44,11 @@ public class InferredDisjointClassesAxiomGenerator extends InferredClassAxiomGen
 
 
     protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLDisjointClassesAxiom> result) throws
-                                                                                                                      OWLReasonerException {
-        for(OWLClass cls : getAllEntities(reasoner)) {
+            OWLReasonerException {
+        for (OWLClass cls : getAllEntities(reasoner)) {
             if (!cls.equals(entity)) {
-                if(!reasoner.isSatisfiable(dataFactory.getOWLObjectIntersectionOf(CollectionFactory.createSet(entity, cls)))) {
-                    result.add(dataFactory.getOWLDisjointClassesAxiom(entity, cls));
+                if (!reasoner.isSatisfiable(dataFactory.getObjectIntersectionOf(CollectionFactory.createSet(entity, cls)))) {
+                    result.add(dataFactory.getDisjointClasses(entity, cls));
                 }
             }
         }

@@ -41,6 +41,6 @@ public class OWLObjectIntersectionOfElementHandler extends AbstractNaryBooleanDe
 
 
     protected OWLClassExpression createOWLDescription(Set<OWLClassExpression> operands) {
-        return getOWLDataFactory().getOWLObjectIntersectionOf(operands);
+        return getOWLDataFactory().getObjectIntersectionOf(operands);
     }
 }

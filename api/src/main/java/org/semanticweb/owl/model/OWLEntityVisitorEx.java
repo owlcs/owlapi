@@ -41,8 +41,11 @@ public interface OWLEntityVisitorEx<O> {
     O visit(OWLDataProperty property);
 
 
-    O visit(OWLIndividual individual);
+    O visit(OWLNamedIndividual individual);
 
 
     O visit(OWLDatatype datatype);
+
+
+    O visit(OWLAnnotationProperty property);
 }

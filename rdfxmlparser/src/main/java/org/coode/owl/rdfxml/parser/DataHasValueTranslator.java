@@ -1,8 +1,8 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -49,6 +49,6 @@ public class DataHasValueTranslator extends AbstractDataRestrictionTranslator {
         if (con == null) {
             throw new MalformedDescriptionException(OWLRDFVocabulary.OWL_HAS_VALUE.getURI() + " triple is not present");
         }
-        return getDataFactory().getOWLDataValueRestriction(translateOnProperty(mainNode), con);
+        return getDataFactory().getDataHasValue(translateOnProperty(mainNode), con);
     }
 }

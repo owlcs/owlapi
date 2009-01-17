@@ -1,8 +1,9 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAnnotation;
-import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLIndividual;
+import org.semanticweb.owl.model.OWLLiteral;
+import org.semanticweb.owl.model.OWLRuntimeException;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 
 import java.net.URI;
@@ -64,30 +65,29 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
 
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
-        if(localName.equals(annoURIAttName)) {
+        if (localName.equals(annoURIAttName)) {
             uri = getURI(value);
-        }
-        else if(localName.equals("Datatype")) {
+        } else if (localName.equals("Datatype")) {
             datatype = value;
         }
     }
 
 
     public void endElement() throws OWLXMLParserException {
-        if(literal == null) {
-            if(individual == null) {
+        if (literal == null) {
+            if (individual == null) {
                 OWLXMLParserException ex = new OWLXMLParserException(getLineNumber(), "Expected literal or individual as annotation content");
                 ex.setLineNumber(getLineNumber());
                 throw ex;
+            } else {
+                throw new OWLRuntimeException("TODO");
+//                annotation = getOWLDataFactory().getOWLObjectAnnotation(uri, individual);
             }
-            else {
-                annotation = getOWLDataFactory().getOWLObjectAnnotation(uri, individual);
-            }
+        } else {
+            throw new OWLRuntimeException("TODO");
+//            annotation = getOWLDataFactory().getOWLConstantAnnotation(uri, literal);
         }
-        else {
-            annotation = getOWLDataFactory().getOWLConstantAnnotation(uri, literal);
-        }
-        getParentHandler().handleChild(this);
+//        getParentHandler().handleChild(this);
     }
 
 

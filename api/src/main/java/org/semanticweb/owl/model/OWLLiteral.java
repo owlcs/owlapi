@@ -29,12 +29,14 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  * <p/>
- * Represents a literal (typed or untyped).
+ * Represents a literal (typed or rdf:TEXT).
  */
-public interface OWLLiteral extends OWLObject {
+public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotationValue {
 
     /**
-     * Gets the string that this literal represents.
+     * Gets the lexical value of this literal
+     *
+     * @return gets the lexical value of this literal
      */
     String getString();
 
@@ -54,6 +56,7 @@ public interface OWLLiteral extends OWLObject {
      * method returns <code>true</code> then this method obtains this literal as a typed
      * literal.  If <code>isTyped</code> returns <code>false</code> then calling this method will
      * cause an <code>OWLRuntimeException</code> to be thrown.
+     *
      * @return This literal as a typed literal
      */
     OWLTypedLiteral asOWLTypedLiteral();
@@ -65,6 +68,7 @@ public interface OWLLiteral extends OWLObject {
      * an RDFTextLiteral.  If the <code>isTyped</code> method returns <code>true</code>
      * because this method is a typed literal, then calling this method will cause
      * an <code>OWLRuntimeException</code> to be thrown.
+     *
      * @return This literal as a more specific RDF Text Literal
      */
     OWLRDFTextLiteral asRDFTextLiteral();

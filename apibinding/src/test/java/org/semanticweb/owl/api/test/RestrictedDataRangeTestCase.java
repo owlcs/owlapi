@@ -1,7 +1,7 @@
 package org.semanticweb.owl.api.test;
 
 import org.semanticweb.owl.model.*;
-import static org.semanticweb.owl.vocab.OWLRestrictedDataRangeFacetVocabulary.MIN_EXCLUSIVE;
+import static org.semanticweb.owl.vocab.OWLFacet.MIN_EXCLUSIVE;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -39,13 +39,13 @@ public class RestrictedDataRangeTestCase extends AbstractRoundTrippingTest {
         try {
             OWLOntology ont = getOWLOntology("http://another.com/ont");
             OWLDatatype dt = getFactory().getIntegerDatatype();
-            OWLDataRangeRestriction restriction = getFactory().getOWLDataRangeRestriction(dt,
+            OWLDatatypeRestriction restriction = getFactory().getDatatypeRestriction(dt,
                     MIN_EXCLUSIVE,
-                    getFactory().getOWLTypedLiteral(33));
+                    getFactory().getTypedLiteral(33));
             OWLDataProperty prop = getOWLDataProperty("p");
-            OWLClassExpression sup = getFactory().getOWLDataSomeValuesFrom(prop, restriction);
+            OWLClassExpression sup = getFactory().getDataSomeValuesFrom(prop, restriction);
             OWLClass cls = getOWLClass("A");
-            getManager().applyChange(new AddAxiom(ont, getFactory().getOWLSubClassAxiom(cls, sup)));
+            getManager().applyChange(new AddAxiom(ont, getFactory().getSubClassOf(cls, sup)));
             return ont;
         }
         catch (OWLOntologyChangeException e) {

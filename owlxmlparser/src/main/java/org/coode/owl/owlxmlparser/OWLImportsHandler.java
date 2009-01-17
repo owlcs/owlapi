@@ -42,7 +42,7 @@ public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
 
     public void endElement() throws OWLXMLParserException {
         URI ontURI = getURI(getText().trim());
-        OWLImportsDeclaration decl = getOWLDataFactory().getOWLImportsDeclarationAxiom(getOntology(), ontURI);
+        OWLImportsDeclaration decl = getOWLDataFactory().getImportsDeclaration(getOntology(), ontURI);
         try {
             getOWLOntologyManager().applyChange(new AddAxiom(getOntology(), decl));
             getOWLOntologyManager().makeLoadImportRequest(decl);
@@ -50,7 +50,7 @@ public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
         catch (OWLOntologyChangeException e) {
             throw new OWLXMLParserException(getLineNumber(), e);
         }
-        catch(OWLOntologyCreationException e) {
+        catch (OWLOntologyCreationException e) {
             throw new OWLXMLParserException(getLineNumber(), e);
         }
     }

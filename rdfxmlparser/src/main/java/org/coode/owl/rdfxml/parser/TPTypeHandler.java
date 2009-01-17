@@ -48,20 +48,20 @@ public class TPTypeHandler extends TriplePredicateHandler {
         // Can handle if object isn;t anonymous and either the object
         // URI is owl:Thing, or it is not part of the build in vocabulary
         return !isAnonymous(object) &&
-               (object.equals(OWLRDFVocabulary.OWL_THING.getURI()) ||
-               !OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(object));
+                (object.equals(OWLRDFVocabulary.OWL_THING.getURI()) ||
+                        !OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(object));
     }
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        if(OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(object)) {
-            if(!object.equals(OWLRDFVocabulary.OWL_THING.getURI())) {
+        if (OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(object)) {
+            if (!object.equals(OWLRDFVocabulary.OWL_THING.getURI())) {
                 // Can't have instance of built in vocabulary!
                 // Shall we throw an exception here?
                 logger.fine("Individual of builtin type " + object);
             }
         }
-        addAxiom(getDataFactory().getOWLClassAssertionAxiom(
+        addAxiom(getDataFactory().getClassAssertion(
                 translateIndividual(subject),
                 translateDescription(object)));
         consumeTriple(subject, predicate, object);

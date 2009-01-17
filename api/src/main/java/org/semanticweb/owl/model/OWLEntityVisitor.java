@@ -29,7 +29,7 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group<br>
  * Date: 13-Nov-2006<br><br>
  */
-public interface OWLEntityVisitor  {
+public interface OWLEntityVisitor {
 
     void visit(OWLClass cls);
 
@@ -37,7 +37,9 @@ public interface OWLEntityVisitor  {
 
     void visit(OWLDataProperty property);
 
-    void visit(OWLIndividual individual);
+    void visit(OWLNamedIndividual individual);
 
     void visit(OWLDatatype datatype);
+
+    void visit(OWLAnnotationProperty property);
 }

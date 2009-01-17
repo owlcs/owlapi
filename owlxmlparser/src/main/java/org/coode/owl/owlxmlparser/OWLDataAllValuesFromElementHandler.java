@@ -40,7 +40,7 @@ public class OWLDataAllValuesFromElementHandler extends AbstractDataRangeFillerR
 
 
     protected OWLClassExpression createRestriction() {
-        return getOWLDataFactory().getOWLDataAllValuesFrom(
+        return getOWLDataFactory().getDataAllValuesFrom(
                 getProperty(),
                 getFiller()
         );

@@ -61,6 +61,7 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
 
     /**
      * Creates a composite change that will create a value partition.
+     *
      * @param dataFactory            A data factory which can be used to create the necessary axioms
      * @param valuePartitionClass    The class which represents the value partition.
      * @param valuePartionClasses    The classes that represent the various values of the value
@@ -91,24 +92,24 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
         // 1) Make the classes which represent the values, subclasses of the value partition class
         for (OWLClassExpression valuePartitionValue : valuePartionClasses) {
             changes.add(new AddAxiom(targetOntology,
-                                     getDataFactory().getOWLSubClassAxiom(valuePartitionValue, valuePartitionClass)));
+                    getDataFactory().getSubClassOf(valuePartitionValue, valuePartitionClass)));
         }
 
         // 2) Make the values disjoint
-        changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLDisjointClassesAxiom(valuePartionClasses)));
+        changes.add(new AddAxiom(targetOntology, getDataFactory().getDisjointClasses(valuePartionClasses)));
 
         // 3) Add a covering axiom to the value partition
-        OWLClassExpression union = getDataFactory().getOWLObjectUnionOf(valuePartionClasses);
-        changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassAxiom(valuePartitionClass, union)));
+        OWLClassExpression union = getDataFactory().getObjectUnionOf(valuePartionClasses);
+        changes.add(new AddAxiom(targetOntology, getDataFactory().getSubClassOf(valuePartitionClass, union)));
 
         // 4) Make the property functional
         changes.add(new AddAxiom(targetOntology,
-                                 getDataFactory().getOWLFunctionalObjectPropertyAxiom(valuePartitionProperty)));
+                getDataFactory().getFunctionalObjectProperty(valuePartitionProperty)));
 
         // 5) Set the range of the property to be the value partition
         changes.add(new AddAxiom(targetOntology,
-                                 getDataFactory().getOWLObjectPropertyRangeAxiom(valuePartitionProperty,
-                                                                                 valuePartitionClass)));
+                getDataFactory().getObjectPropertyRange(valuePartitionProperty,
+                        valuePartitionClass)));
     }
 
 

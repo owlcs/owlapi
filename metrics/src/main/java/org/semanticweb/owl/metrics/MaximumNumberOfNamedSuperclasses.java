@@ -38,7 +38,6 @@ import java.util.Set;
 public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
 
 
-
     public MaximumNumberOfNamedSuperclasses(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }
@@ -52,17 +51,17 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     public Integer recomputeMetric() {
         int count = 0;
         Set<OWLClass> processedClasses = new HashSet<OWLClass>();
-        for(OWLOntology ont : getOntologies()) {
-            for(OWLClass cls : ont.getReferencedClasses()) {
-                if(!processedClasses.contains(cls)) {
+        for (OWLOntology ont : getOntologies()) {
+            for (OWLClass cls : ont.getReferencedClasses()) {
+                if (!processedClasses.contains(cls)) {
                     processedClasses.add(cls);
                     int curCount = 0;
-                    for(OWLClassExpression desc : cls.getSuperClasses(ont)) {
-                        if(!desc.isAnonymous()) {
+                    for (OWLClassExpression desc : cls.getSuperClasses(ont)) {
+                        if (!desc.isAnonymous()) {
                             curCount++;
                         }
                     }
-                    if(curCount > count) {
+                    if (curCount > count) {
                         count = curCount;
                     }
 
@@ -74,8 +73,8 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
 
 
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        for(OWLOntologyChange chg : changes) {
-            if(chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassAxiom) {
+        for (OWLOntologyChange chg : changes) {
+            if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;
             }
         }

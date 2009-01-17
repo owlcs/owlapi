@@ -48,8 +48,8 @@ public class TPSubDataPropertyOfHandler extends TriplePredicateHandler {
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        addAxiom(getDataFactory().getOWLSubDataPropertyAxiom(translateDataProperty(subject),
-                                                             translateDataProperty(object)));
+        addAxiom(getDataFactory().getSubDataPropertyOf(translateDataProperty(subject),
+                translateDataProperty(object)));
         consumeTriple(subject, predicate, object);
     }
 }

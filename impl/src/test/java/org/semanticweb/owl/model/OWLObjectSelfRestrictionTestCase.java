@@ -33,30 +33,30 @@ public class OWLObjectSelfRestrictionTestCase extends AbstractOWLDataFactoryTest
 
     public void testCreation() throws Exception {
         OWLObjectProperty prop = createOWLObjectProperty();
-        OWLObjectSelfRestriction restA = getOWLDataFactory().getOWLObjectSelfRestriction(prop);
+        OWLObjectHasSelf restA = getOWLDataFactory().getObjectHasSelf(prop);
         assertNotNull(restA);
     }
 
 
     public void testEqualsPositive() throws Exception {
         OWLObjectProperty prop = createOWLObjectProperty();
-        OWLObjectSelfRestriction restA = getOWLDataFactory().getOWLObjectSelfRestriction(prop);
-        OWLObjectSelfRestriction restB = getOWLDataFactory().getOWLObjectSelfRestriction(prop);
+        OWLObjectHasSelf restA = getOWLDataFactory().getObjectHasSelf(prop);
+        OWLObjectHasSelf restB = getOWLDataFactory().getObjectHasSelf(prop);
         assertEquals(restA, restB);
     }
 
 
     public void testEqualsNegative() throws Exception {
-        OWLObjectSelfRestriction restA = getOWLDataFactory().getOWLObjectSelfRestriction(createOWLObjectProperty());
-        OWLObjectSelfRestriction restB = getOWLDataFactory().getOWLObjectSelfRestriction(createOWLObjectProperty());
+        OWLObjectHasSelf restA = getOWLDataFactory().getObjectHasSelf(createOWLObjectProperty());
+        OWLObjectHasSelf restB = getOWLDataFactory().getObjectHasSelf(createOWLObjectProperty());
         assertNotEquals(restA, restB);
     }
 
 
     public void testHashCode() throws Exception {
         OWLObjectProperty prop = createOWLObjectProperty();
-        OWLObjectSelfRestriction restA = getOWLDataFactory().getOWLObjectSelfRestriction(prop);
-        OWLObjectSelfRestriction restB = getOWLDataFactory().getOWLObjectSelfRestriction(prop);
+        OWLObjectHasSelf restA = getOWLDataFactory().getObjectHasSelf(prop);
+        OWLObjectHasSelf restB = getOWLDataFactory().getObjectHasSelf(prop);
         assertEquals(restA.hashCode(), restB.hashCode());
     }
 }

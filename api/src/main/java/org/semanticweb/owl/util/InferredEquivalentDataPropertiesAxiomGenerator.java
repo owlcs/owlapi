@@ -42,10 +42,10 @@ public class InferredEquivalentDataPropertiesAxiomGenerator extends InferredData
 
 
     protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLEquivalentDataPropertiesAxiom> result) throws
-                                                                                                                             OWLReasonerException {
+            OWLReasonerException {
         Set<OWLDataProperty> props = new HashSet<OWLDataProperty>(reasoner.getEquivalentProperties(entity));
         props.add(entity);
-        result.add(dataFactory.getOWLEquivalentDataPropertiesAxiom(props));
+        result.add(dataFactory.getEquivalentDataProperties(props));
     }
 
 

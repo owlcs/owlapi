@@ -40,7 +40,7 @@ public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationship
 
 
     public boolean equals(Object obj) {
-        if(super.equals(obj)) {
+        if (super.equals(obj)) {
             return obj instanceof OWLDataPropertyAssertionAxiom;
         }
         return false;

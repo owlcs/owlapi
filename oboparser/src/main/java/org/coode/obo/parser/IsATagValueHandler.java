@@ -41,14 +41,13 @@ public class IsATagValueHandler extends AbstractTagValueHandler {
     public void handle(String id, String value) {
         if (getConsumer().isTerm()) {
             // We simply add a subclass axiom
-            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassAxiom(
+            applyChange(new AddAxiom(getOntology(), getDataFactory().getSubClassOf(
                     getClassFromId(id),
                     getClassFromId(value))
             ));
-        }
-        else if(getConsumer().isTypedef()) {
+        } else if (getConsumer().isTypedef()) {
             // We simply add a sub property axiom
-            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubObjectPropertyAxiom(
+            applyChange(new AddAxiom(getOntology(), getDataFactory().getSubObjectPropertyOf(
                     getOWLObjectProperty(id),
                     getOWLObjectProperty(value))
             ));

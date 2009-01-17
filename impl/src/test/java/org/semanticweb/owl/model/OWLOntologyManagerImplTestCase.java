@@ -1,11 +1,10 @@
 package org.semanticweb.owl.model;
 
 import junit.framework.TestCase;
-import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
-import org.semanticweb.owl.util.SimpleURIMapper;
 import org.semanticweb.owl.util.NonMappingOntologyURIMapper;
+import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -61,7 +60,7 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
     public void testImports() throws Exception {
         OWLOntology ontA = manager.createOntology(TestUtils.createURI());
         OWLOntology ontB = manager.createOntology(TestUtils.createURI());
-        OWLImportsDeclaration decl = manager.getOWLDataFactory().getOWLImportsDeclarationAxiom(ontA, ontB.getURI());
+        OWLImportsDeclaration decl = manager.getOWLDataFactory().getImportsDeclaration(ontA, ontB.getURI());
         manager.applyChange(new AddAxiom(ontA, decl));
         assertTrue(manager.getImports(ontA).contains(ontB));
         manager.removeOntology(ontB.getURI());
@@ -69,19 +68,19 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
     }
 
     public void testImportsClosure() throws OWLException {
-       // OntA -> OntB -> OntC (-> means imports)
-       OWLOntology ontA = manager.createOntology(TestUtils.createURI());
-       OWLOntology ontB = manager.createOntology(TestUtils.createURI());
-       OWLOntology ontC = manager.createOntology(TestUtils.createURI());
-       OWLImportsDeclaration declA = manager.getOWLDataFactory().getOWLImportsDeclarationAxiom(ontA, ontB.getURI());
-       OWLImportsDeclaration declB = manager.getOWLDataFactory().getOWLImportsDeclarationAxiom(ontB, ontC.getURI());
-       manager.applyChange(new AddAxiom(ontA, declA));
-       manager.applyChange(new AddAxiom(ontB, declB));
-       assertTrue(manager.getImportsClosure(ontA).contains(ontA));
-       assertTrue(manager.getImportsClosure(ontA).contains(ontB));
-       assertTrue(manager.getImportsClosure(ontA).contains(ontC));
-       assertTrue(manager.getImportsClosure(ontB).contains(ontB));
-       assertTrue(manager.getImportsClosure(ontB).contains(ontC));
+        // OntA -> OntB -> OntC (-> means imports)
+        OWLOntology ontA = manager.createOntology(TestUtils.createURI());
+        OWLOntology ontB = manager.createOntology(TestUtils.createURI());
+        OWLOntology ontC = manager.createOntology(TestUtils.createURI());
+        OWLImportsDeclaration declA = manager.getOWLDataFactory().getImportsDeclaration(ontA, ontB.getURI());
+        OWLImportsDeclaration declB = manager.getOWLDataFactory().getImportsDeclaration(ontB, ontC.getURI());
+        manager.applyChange(new AddAxiom(ontA, declA));
+        manager.applyChange(new AddAxiom(ontB, declB));
+        assertTrue(manager.getImportsClosure(ontA).contains(ontA));
+        assertTrue(manager.getImportsClosure(ontA).contains(ontB));
+        assertTrue(manager.getImportsClosure(ontA).contains(ontC));
+        assertTrue(manager.getImportsClosure(ontB).contains(ontB));
+        assertTrue(manager.getImportsClosure(ontB).contains(ontC));
     }
 
 }

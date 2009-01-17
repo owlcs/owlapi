@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -40,6 +39,6 @@ public class OWLNegativeObjectPropertyAssertionAxiomElementHandler extends Abstr
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(getSubject(), getProperty(), getObject());
+        return getOWLDataFactory().getNegativeObjectPropertyAssertion(getSubject(), getProperty(), getObject());
     }
 }

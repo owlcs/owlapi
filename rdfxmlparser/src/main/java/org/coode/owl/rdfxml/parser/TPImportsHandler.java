@@ -66,8 +66,8 @@ public class TPImportsHandler extends TriplePredicateHandler {
         getConsumer().addOntology(subject);
         getConsumer().addOntology(object);
         if (!schemaImportsURIs.contains(object)) {
-            OWLImportsDeclaration importsDeclaration = getDataFactory().getOWLImportsDeclarationAxiom(getConsumer().getOntology(),
-                                                                                                      object);
+            OWLImportsDeclaration importsDeclaration = getDataFactory().getImportsDeclaration(getConsumer().getOntology(),
+                    object);
             addAxiom(importsDeclaration);
             OWLOntologyManager man = getConsumer().getOWLOntologyManager();
             man.makeLoadImportRequest(importsDeclaration);

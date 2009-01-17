@@ -32,7 +32,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 10-Feb-2008<br><br>
- *
+ * <p/>
  * Provides the object that is the subject of an axiom.
  */
 public class AxiomSubjectProvider implements OWLAxiomVisitor {
@@ -45,7 +45,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLSubClassAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
         subject = axiom.getSubClass();
     }
 
@@ -55,7 +55,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         subject = axiom.getProperty();
     }
 
@@ -65,9 +65,9 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     }
 
     private OWLClassExpression selectDescription(Set<OWLClassExpression> descs) {
-        for(OWLClassExpression desc : descs) {
-            if(!desc.isAnonymous()) {
-               return desc;
+        for (OWLClassExpression desc : descs) {
+            if (!desc.isAnonymous()) {
+                return desc;
             }
         }
         return descs.iterator().next();
@@ -87,12 +87,6 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     public void visit(OWLImportsDeclaration axiom) {
         subject = axiom.getSubject();
     }
-
-
-    public void visit(OWLAxiomAnnotationAxiom axiom) {
-        subject = axiom.getSubject();
-    }
-
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         subject = axiom.getProperty();
@@ -139,7 +133,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLObjectSubPropertyAxiom axiom) {
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         subject = axiom.getSubProperty();
     }
 
@@ -149,20 +143,14 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLDeclarationAxiom axiom) {
+    public void visit(OWLDeclaration axiom) {
         subject = axiom.getEntity();
     }
 
 
-    public void visit(OWLEntityAnnotationAxiom axiom) {
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
         subject = axiom.getSubject();
     }
-
-
-    public void visit(OWLOntologyAnnotationAxiom axiom) {
-        subject = axiom.getSubject();
-    }
-
 
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         subject = axiom.getProperty();
@@ -209,7 +197,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLDataSubPropertyAxiom axiom) {
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
         subject = axiom.getSubProperty();
     }
 
@@ -224,7 +212,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+    public void visit(OWLComplextSubPropertyAxiom axiom) {
         subject = axiom.getSuperProperty();
     }
 
@@ -236,5 +224,21 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
 
     public void visit(SWRLRule rule) {
         subject = rule.getHead().iterator().next();
+    }
+
+    public void visit(OWLHasKeyAxiom axiom) {
+        subject = axiom.getClassExpression();
+    }
+
+    public void visit(OWLAnnotationPropertyDomain axiom) {
+        subject = axiom.getProperty();
+    }
+
+    public void visit(OWLAnnotationPropertyRange axiom) {
+        subject = axiom.getProperty();
+    }
+
+    public void visit(OWLSubAnnotationPropertyOf axiom) {
+        subject = axiom.getSubProperty();
     }
 }

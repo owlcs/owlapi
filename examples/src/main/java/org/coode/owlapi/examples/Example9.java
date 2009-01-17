@@ -2,7 +2,7 @@ package org.coode.owlapi.examples;
 
 import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.OWLDescriptionVisitorAdapter;
+import org.semanticweb.owl.util.OWLClassExpressionVisitorAdapter;
 
 import java.net.URI;
 import java.util.Collections;
@@ -69,7 +69,7 @@ public class Example9 {
             RestrictionVisitor restrictionVisitor = new RestrictionVisitor(Collections.singleton(ont));
             // In this case, restrictions are used as (anonymous) superclasses, so to get the restrictions on
             // margherita pizza we need to obtain the subclass axioms for margherita pizza.
-            for (OWLSubClassAxiom ax : ont.getSubClassAxiomsForLHS(margheritaPizza)) {
+            for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForLHS(margheritaPizza)) {
                 OWLClassExpression superCls = ax.getSuperClass();
                 // Ask our superclass to accept a visit from the RestrictionVisitor - if it is an
                 // existential restiction then our restriction visitor will process it - if not our
@@ -93,7 +93,7 @@ public class Example9 {
     /**
      * Visits existential restrictions and collects the properties which are restricted
      */
-    private static class RestrictionVisitor extends OWLDescriptionVisitorAdapter {
+    private static class RestrictionVisitor extends OWLClassExpressionVisitorAdapter {
 
         private boolean processInherited = true;
 
@@ -128,7 +128,7 @@ public class Example9 {
                 // so that we don't get caught out by cycles in the taxonomy
                 processedClasses.add(desc);
                 for (OWLOntology ont : onts) {
-                    for (OWLSubClassAxiom ax : ont.getSubClassAxiomsForLHS(desc)) {
+                    for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForLHS(desc)) {
                         ax.getSuperClass().accept(this);
                     }
                 }

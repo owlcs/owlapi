@@ -45,7 +45,7 @@ public class OWLObjectSomeValuesFromImpl extends OWLQuantifiedRestrictionImpl<OW
         return false;
     }
 
-    public void accept(OWLDescriptionVisitor visitor) {
+    public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -53,7 +53,7 @@ public class OWLObjectSomeValuesFromImpl extends OWLQuantifiedRestrictionImpl<OW
         visitor.visit(this);
     }
 
-    public <O> O accept(OWLDescriptionVisitorEx<O> visitor) {
+    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

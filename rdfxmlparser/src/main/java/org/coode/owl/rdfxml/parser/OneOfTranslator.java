@@ -3,6 +3,7 @@ package org.coode.owl.rdfxml.parser;
 import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLIndividual;
+import org.semanticweb.owl.model.OWLNamedIndividual;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -50,17 +51,19 @@ public class OneOfTranslator extends AbstractDescriptionTranslator {
 
     public OWLClassExpression translate(URI mainNode) throws OWLException {
         URI oneOfObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getURI(), true);
-        if(oneOfObject == null) {
+        if (oneOfObject == null) {
             throw new MalformedDescriptionException(OWLRDFVocabulary.OWL_ONE_OF + " triple not present when translating oneOf");
         }
         Set<OWLIndividual> individuals = translateToIndividualSet(oneOfObject);
-        for(OWLIndividual ind : individuals) {
-            getConsumer().addIndividual(ind.getURI());
+        for (OWLIndividual ind : individuals) {
+            if (!ind.isAnonymous()) {
+                getConsumer().addIndividual(((OWLNamedIndividual) ind).getURI());
+            }
         }
-        if(individuals.isEmpty()) {
+        if (individuals.isEmpty()) {
             logger.info("Empty set in owl:oneOf class description - converting to owl:Nothing");
             return getDataFactory().getOWLNothing();
         }
-        return getDataFactory().getOWLObjectOneOf(individuals);
+        return getDataFactory().getObjectOneOf(individuals);
     }
 }

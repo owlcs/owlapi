@@ -34,7 +34,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Aug-2007<br><br>
- *
+ * <p/>
  * Counts the number of "hidden" GCIs in an ontology imports
  * closure.  A GCI is regarded to be a "hidden" GCI if it is
  * essentially introduce via an equivalent class axiom and a
@@ -55,10 +55,10 @@ public class HiddenGCICount extends IntegerValuedMetric {
 
 
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        for(OWLOntologyChange chg : changes) {
-            if(chg.isAxiomChange()) {
-                if(chg.getAxiom() instanceof OWLEquivalentClassesAxiom ||
-                        chg.getAxiom() instanceof OWLSubClassAxiom) {
+        for (OWLOntologyChange chg : changes) {
+            if (chg.isAxiomChange()) {
+                if (chg.getAxiom() instanceof OWLEquivalentClassesAxiom ||
+                        chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                     return true;
                 }
             }
@@ -70,24 +70,23 @@ public class HiddenGCICount extends IntegerValuedMetric {
     protected Integer recomputeMetric() {
         Set<OWLClass> processed = new HashSet<OWLClass>();
         Set<OWLClass> result = new HashSet<OWLClass>();
-        for(OWLOntology ont : getOntologies()) {
-            for(OWLClass cls : ont.getReferencedClasses()) {
-                if(!processed.contains(cls)) {
+        for (OWLOntology ont : getOntologies()) {
+            for (OWLClass cls : ont.getReferencedClasses()) {
+                if (!processed.contains(cls)) {
                     processed.add(cls);
-                }
-                else {
+                } else {
                     continue;
                 }
                 boolean foundEquivalentClassesAxiom = false;
                 boolean foundSubClassAxiom = false;
-                for(OWLOntology o : getOntologies()) {
-                    if(!foundEquivalentClassesAxiom) {
+                for (OWLOntology o : getOntologies()) {
+                    if (!foundEquivalentClassesAxiom) {
                         foundEquivalentClassesAxiom = !o.getEquivalentClassesAxioms(cls).isEmpty();
                     }
-                    if(!foundSubClassAxiom) {
+                    if (!foundSubClassAxiom) {
                         foundSubClassAxiom = !o.getSubClassAxiomsForLHS(cls).isEmpty();
                     }
-                    if(foundSubClassAxiom && foundEquivalentClassesAxiom) {
+                    if (foundSubClassAxiom && foundEquivalentClassesAxiom) {
                         result.add(cls);
                         break;
                     }

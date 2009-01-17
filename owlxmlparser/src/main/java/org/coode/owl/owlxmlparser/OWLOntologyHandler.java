@@ -46,7 +46,7 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
 
 
     public void attribute(String name, String value) throws OWLXMLParserException {
-        if(name.equals("URI")) {
+        if (name.equals("URI")) {
             try {
                 getOWLOntologyManager().applyChange(new SetOntologyURI(getOntology(), URI.create(value)));
             }
@@ -61,10 +61,11 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
         try {
             getOWLOntologyManager().applyChange(new AddAxiom(getOntology(), handler.getOWLObject()));
             Set<OWLAnnotation> annotations = handler.getAnnotations();
-            for(OWLAnnotation anno : annotations) {
-                OWLAxiom ax = handler.getOWLObject();
-                OWLAxiom annoAx = getOWLDataFactory().getOWLAxiomAnnotationAxiom(ax, anno);
-                getOWLOntologyManager().addAxiom(getOntology(), annoAx);
+            for (OWLAnnotation anno : annotations) {
+                throw new OWLRuntimeException("TODO");
+//                OWLAxiom ax = handler.getOWLObject();
+//                OWLAxiom annoAx = getOWLDataFactory().getOWLAxiomAnnotationAxiom(ax, anno);
+//                getOWLOntologyManager().addAxiom(getOntology(), annoAx);
             }
         }
         catch (OWLOntologyChangeException e) {
@@ -84,7 +85,7 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
 
 
     public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
-        OWLOntologyAnnotationAxiom ax = getOWLDataFactory().getOWLOntologyAnnotationAxiom(getOntology(), handler.getOWLObject());
+        OWLAnnotationAssertionAxiom ax = getOWLDataFactory().getAnnotationAssertion(getOntology().getURI(), handler.getOWLObject());
         try {
             getOWLOntologyManager().applyChange(new AddAxiom(getOntology(), ax));
         }

@@ -47,7 +47,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange {
      *
      * @return <code>true</code> if this is a literal, or false if this is not a literal.
      */
-    public boolean isLiteral();
+    public boolean isClassExpressionLiteral();
 
 
     /**
@@ -124,8 +124,8 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange {
      *
      * @param visitor The visitor that wants to visit
      */
-    public void accept(OWLDescriptionVisitor visitor);
+    public void accept(OWLClassExpressionVisitor visitor);
 
 
-    <O> O accept(OWLDescriptionVisitorEx<O> visitor);
+    <O> O accept(OWLClassExpressionVisitorEx<O> visitor);
 }

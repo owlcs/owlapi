@@ -43,7 +43,7 @@ public class DomainHandler extends AbstractTagValueHandler {
     public void handle(String id, String value) {
         OWLObjectProperty prop = getOWLObjectProperty(getConsumer().getCurrentId());
         OWLClass cls = getOWLClass(value);
-        applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLObjectPropertyDomainAxiom(prop, cls)));
+        applyChange(new AddAxiom(getOntology(), getDataFactory().getObjectPropertyDomain(prop, cls)));
     }
 
 

@@ -1,8 +1,8 @@
 package org.semanticweb.owl.debugging;
 
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.OWLEntityCollector;
 import org.semanticweb.owl.util.OWLAxiomVisitorAdapter;
+import org.semanticweb.owl.util.OWLEntityCollector;
 
 import java.util.*;
 /*
@@ -88,12 +88,11 @@ public class JustificationMap {
 
     private Set<OWLAxiom> getAxiomsByLHS(OWLEntity lhs) {
         Set<OWLAxiom> axioms = axiomsByLHS.get(lhs);
-        if(axioms != null) {
+        if (axioms != null) {
             Set<OWLAxiom> ts = new TreeSet<OWLAxiom>(new OWLAxiomComparator());
             ts.addAll(axioms);
             return ts;
-        }
-        else {
+        } else {
             return Collections.emptySet();
         }
     }
@@ -101,10 +100,9 @@ public class JustificationMap {
 
     private Set<OWLAxiom> getAxiomsByRHS(OWLEntity rhs) {
         Set<OWLAxiom> axioms = axiomsByRHS.get(rhs);
-        if(axioms != null) {
+        if (axioms != null) {
             return axioms;
-        }
-        else {
+        } else {
             return Collections.emptySet();
         }
     }
@@ -116,10 +114,10 @@ public class JustificationMap {
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
         for (OWLEntity ent : collector.getObjects()) {
             Set<OWLAxiom> axs = getAxiomsByLHS(ent);
-                for (OWLAxiom ax : axs) {
-                    result.add(ax);
-                    usedAxioms.add(ax);
-                }
+            for (OWLAxiom ax : axs) {
+                result.add(ax);
+                usedAxioms.add(ax);
+            }
         }
         rootAxioms.addAll(result);
         buildChildren(result);
@@ -130,12 +128,12 @@ public class JustificationMap {
         List<Set<OWLAxiom>> axiomChildren = new ArrayList<Set<OWLAxiom>>();
         for (OWLAxiom ax : axioms) {
             Set<OWLAxiom> children = build(ax);
-            for(OWLAxiom childAx : children) {
+            for (OWLAxiom childAx : children) {
                 index(ax, map, childAx);
             }
             axiomChildren.add(children);
         }
-        for(Set<OWLAxiom> children : axiomChildren) {
+        for (Set<OWLAxiom> children : axiomChildren) {
             buildChildren(children);
         }
     }
@@ -151,12 +149,12 @@ public class JustificationMap {
             obj.accept(collector);
             for (OWLEntity ent : collector.getObjects()) {
                 Set<OWLAxiom> axs = getAxiomsByLHS(ent);
-                    for (OWLAxiom ax : axs) {
-                        if (!usedAxioms.contains(ax)) {
-                            result.add(ax);
-                            usedAxioms.add(ax);
-                        }
+                for (OWLAxiom ax : axs) {
+                    if (!usedAxioms.contains(ax)) {
+                        result.add(ax);
+                        usedAxioms.add(ax);
                     }
+                }
             }
         }
         return result;
@@ -184,7 +182,7 @@ public class JustificationMap {
 //    }
 
 
-    private static <K, V>  void index(K key, Map<K, Set<V>> map, V value) {
+    private static <K, V> void index(K key, Map<K, Set<V>> map, V value) {
         Set<V> values = map.get(key);
         if (values == null) {
             values = new HashSet<V>();
@@ -203,8 +201,7 @@ public class JustificationMap {
         Set<OWLAxiom> result = map.get(ax);
         if (result != null) {
             return result;
-        }
-        else {
+        } else {
             return Collections.emptySet();
         }
     }
@@ -233,7 +230,7 @@ public class JustificationMap {
         }
 
 
-        public void visit(OWLSubClassAxiom axiom) {
+        public void visit(OWLSubClassOfAxiom axiom) {
             rhs.add(axiom.getSuperClass());
             lhs.add(axiom.getSubClass());
         }
@@ -246,7 +243,7 @@ public class JustificationMap {
         }
 
 
-        public void visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+        public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
             rhs.add(axiom.getProperty());
         }
 
@@ -323,7 +320,7 @@ public class JustificationMap {
         }
 
 
-        public void visit(OWLObjectSubPropertyAxiom axiom) {
+        public void visit(OWLSubObjectPropertyOfAxiom axiom) {
             rhs.add(axiom.getSuperProperty());
             lhs.add(axiom.getSubProperty());
         }
@@ -387,7 +384,7 @@ public class JustificationMap {
         }
 
 
-        public void visit(OWLDataSubPropertyAxiom axiom) {
+        public void visit(OWLSubDataPropertyOfAxiom axiom) {
             rhs.add(axiom.getSuperProperty());
         }
 
@@ -403,7 +400,7 @@ public class JustificationMap {
         }
 
 
-        public void visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+        public void visit(OWLComplextSubPropertyAxiom axiom) {
             rhs.add(axiom.getSuperProperty());
             lhs.addAll(axiom.getPropertyChain());
         }
@@ -422,8 +419,7 @@ public class JustificationMap {
     private class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements Comparator<OWLAxiom> {
 
 
-
-        public void visit(OWLSubClassAxiom axiom) {
+        public void visit(OWLSubClassOfAxiom axiom) {
             result = 0;
         }
 
@@ -436,8 +432,6 @@ public class JustificationMap {
         }
 
 
-
-
         private int result;
 
         public int compare(OWLAxiom o1, OWLAxiom o2) {
@@ -447,10 +441,9 @@ public class JustificationMap {
             o2.accept(this);
             int result2 = result;
             int diff = result2 - result1;
-            if(diff != 0) {
+            if (diff != 0) {
                 return diff;
-            }
-            else {
+            } else {
                 return -1;
             }
         }

@@ -49,12 +49,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
-        return delegate.visit(axiom);
-    }
-
-
-    public O visit(OWLAxiomAnnotationAxiom axiom) {
+    public O visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         return delegate.visit(axiom);
     }
 
@@ -79,12 +74,12 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLDataSubPropertyAxiom axiom) {
+    public O visit(OWLSubDataPropertyOfAxiom axiom) {
         return delegate.visit(axiom);
     }
 
 
-    public O visit(OWLDeclarationAxiom axiom) {
+    public O visit(OWLDeclaration axiom) {
         return delegate.visit(axiom);
     }
 
@@ -114,7 +109,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLEntityAnnotationAxiom axiom) {
+    public O visit(OWLAnnotationAssertionAxiom axiom) {
         return delegate.visit(axiom);
     }
 
@@ -179,7 +174,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+    public O visit(OWLComplextSubPropertyAxiom axiom) {
         return delegate.visit(axiom);
     }
 
@@ -194,15 +189,9 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLObjectSubPropertyAxiom axiom) {
+    public O visit(OWLSubObjectPropertyOfAxiom axiom) {
         return delegate.visit(axiom);
     }
-
-
-    public O visit(OWLOntologyAnnotationAxiom axiom) {
-        return delegate.visit(axiom);
-    }
-
 
     public O visit(OWLReflexiveObjectPropertyAxiom axiom) {
         return delegate.visit(axiom);
@@ -214,7 +203,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLSubClassAxiom axiom) {
+    public O visit(OWLSubClassOfAxiom axiom) {
         return delegate.visit(axiom);
     }
 
@@ -244,17 +233,17 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLDataExactCardinalityRestriction desc) {
+    public O visit(OWLDataExactCardinality desc) {
         return delegate.visit(desc);
     }
 
 
-    public O visit(OWLDataMaxCardinalityRestriction desc) {
+    public O visit(OWLDataMaxCardinality desc) {
         return delegate.visit(desc);
     }
 
 
-    public O visit(OWLDataMinCardinalityRestriction desc) {
+    public O visit(OWLDataMinCardinality desc) {
         return delegate.visit(desc);
     }
 
@@ -279,7 +268,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLObjectExactCardinalityRestriction desc) {
+    public O visit(OWLObjectExactCardinality desc) {
         return delegate.visit(desc);
     }
 
@@ -289,12 +278,12 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLObjectMaxCardinalityRestriction desc) {
+    public O visit(OWLObjectMaxCardinality desc) {
         return delegate.visit(desc);
     }
 
 
-    public O visit(OWLObjectMinCardinalityRestriction desc) {
+    public O visit(OWLObjectMinCardinality desc) {
         return delegate.visit(desc);
     }
 
@@ -304,7 +293,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLObjectSelfRestriction desc) {
+    public O visit(OWLObjectHasSelf desc) {
         return delegate.visit(desc);
     }
 
@@ -319,7 +308,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLObjectValueRestriction desc) {
+    public O visit(OWLObjectHasValue desc) {
         return delegate.visit(desc);
     }
 
@@ -334,12 +323,12 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLDataRangeFacetRestriction node) {
+    public O visit(OWLFacetRestriction node) {
         return delegate.visit(node);
     }
 
 
-    public O visit(OWLDataRangeRestriction node) {
+    public O visit(OWLDatatypeRestriction node) {
         return delegate.visit(node);
     }
 
@@ -371,21 +360,6 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
 
     public O visit(OWLObjectPropertyInverse property) {
         return delegate.visit(property);
-    }
-
-
-    public O visit(OWLIndividual individual) {
-        return delegate.visit(individual);
-    }
-
-
-    public O visit(OWLConstantAnnotation annotation) {
-        return delegate.visit(annotation);
-    }
-
-
-    public O visit(OWLObjectAnnotation annotation) {
-        return delegate.visit(annotation);
     }
 
 
@@ -447,4 +421,50 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     public O visit(OWLOntology ontology) {
         return delegate.visit(ontology);
     }
+
+    public O visit(OWLAnnotation annotation) {
+        return delegate.visit(annotation);
+    }
+
+    public O visit(OWLAnnotationPropertyDomain axiom) {
+        return delegate.visit(axiom);
+    }
+
+    public O visit(OWLAnnotationPropertyRange axiom) {
+        return delegate.visit(axiom);
+    }
+
+    public O visit(OWLSubAnnotationPropertyOf axiom) {
+        return delegate.visit(axiom);
+    }
+
+    public O visit(OWLAnnotationProperty property) {
+        return delegate.visit(property);
+    }
+
+    public O visit(OWLHasKeyAxiom axiom) {
+        return delegate.visit(axiom);
+    }
+
+    public O visit(OWLDataIntersectionOf node) {
+        return delegate.visit(node);
+    }
+
+    public O visit(OWLDataUnionOf node) {
+        return delegate.visit(node);
+    }
+
+    public O visit(OWLNamedIndividual individual) {
+        return delegate.visit(individual);
+    }
+
+    public O visit(OWLAnonymousIndividual individual) {
+        return delegate.visit(individual);
+    }
+
+    public O visit(IRI iri) {
+        return delegate.visit(iri);
+    }
+
+
 }

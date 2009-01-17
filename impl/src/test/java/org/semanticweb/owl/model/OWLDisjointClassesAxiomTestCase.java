@@ -34,9 +34,8 @@ import java.util.Set;
 public class OWLDisjointClassesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLClassExpression> {
 
 
-
     protected OWLObject createObject(Set<OWLClassExpression> objects) throws Exception {
-        return getOWLDataFactory().getOWLDisjointClassesAxiom(objects);
+        return getOWLDataFactory().getDisjointClasses(objects);
     }
 
 

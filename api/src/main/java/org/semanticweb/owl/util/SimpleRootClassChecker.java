@@ -59,8 +59,9 @@ public class SimpleRootClassChecker implements RootClassChecker {
      * Creates a root class checker, which examines axioms contained in ontologies from
      * the specified set in order to determine if a class is a syntactic subclass of
      * owl:Thing
+     *
      * @param ontologies The ontologies whose axioms are to be taken into consideration
-     * when determining if a class is a syntactic direct subclass of owl:Thing
+     *                   when determining if a class is a syntactic direct subclass of owl:Thing
      */
     public SimpleRootClassChecker(Set<OWLOntology> ontologies) {
         this.ontologies = ontologies;
@@ -83,9 +84,10 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
     /**
      * Determines if the specified class is a direct syntactic subclass of owl:Thing
+     *
      * @param cls The class to be checked.
      * @return <code>true</code> if the class is a direct syntactic root class of
-     * owl:Thing, otherwise <code>false</code>.
+     *         owl:Thing, otherwise <code>false</code>.
      */
     public boolean isRootClass(OWLClass cls) {
 
@@ -101,7 +103,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
         return true;
     }
 
-    private class NamedSuperChecker extends OWLDescriptionVisitorAdapter {
+    private class NamedSuperChecker extends OWLClassExpressionVisitorAdapter {
 
         private boolean namedSuper;
 
@@ -115,9 +117,9 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
 
         public void visit(OWLObjectIntersectionOf desc) {
-            for(OWLClassExpression op : desc.getOperands()) {
+            for (OWLClassExpression op : desc.getOperands()) {
                 op.accept(this);
-                if(namedSuper) {
+                if (namedSuper) {
                     break;
                 }
             }
@@ -151,7 +153,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
         }
 
 
-        public void visit(OWLSubClassAxiom axiom) {
+        public void visit(OWLSubClassOfAxiom axiom) {
             if (axiom.getSubClass().equals(cls)) {
                 superChecker.reset();
                 axiom.getSuperClass().accept(superChecker);
@@ -162,16 +164,16 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
             Set<OWLClassExpression> descs = axiom.getDescriptions();
-            if(!descs.contains(cls)) {
+            if (!descs.contains(cls)) {
                 return;
             }
-            for(OWLClassExpression desc : descs) {
-                if(desc.equals(cls)) {
+            for (OWLClassExpression desc : descs) {
+                if (desc.equals(cls)) {
                     continue;
                 }
                 superChecker.reset();
                 desc.accept(superChecker);
-                if(superChecker.namedSuper) {
+                if (superChecker.namedSuper) {
                     isRoot = false;
                     return;
                 }

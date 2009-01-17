@@ -155,14 +155,14 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataExactCardinalityRestriction desc) {
+    public void visit(OWLDataExactCardinality desc) {
         write(EQUAL);
         writeSpace();
         desc.getProperty().accept(this);
     }
 
 
-    public void visit(OWLDataMaxCardinalityRestriction desc) {
+    public void visit(OWLDataMaxCardinality desc) {
         write(MAX);
         writeSpace();
         write(desc.getCardinality());
@@ -171,7 +171,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataMinCardinalityRestriction desc) {
+    public void visit(OWLDataMinCardinality desc) {
         write(MIN);
         writeSpace();
         write(desc.getCardinality());
@@ -202,7 +202,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectExactCardinalityRestriction desc) {
+    public void visit(OWLObjectExactCardinality desc) {
         write(EQUAL);
         writeSpace();
         desc.getProperty().accept(this);
@@ -211,7 +211,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectMaxCardinalityRestriction desc) {
+    public void visit(OWLObjectMaxCardinality desc) {
         write(MAX);
         writeSpace();
         write(desc.getCardinality());
@@ -222,7 +222,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectMinCardinalityRestriction desc) {
+    public void visit(OWLObjectMinCardinality desc) {
         write(MIN);
         writeSpace();
         write(desc.getCardinality());
@@ -242,7 +242,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectValueRestriction node) {
+    public void visit(OWLObjectHasValue node) {
         write(SOME);
         writeSpace();
         node.getProperty().accept(this);
@@ -300,12 +300,12 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLIndividual entity) {
+    public void visit(OWLNamedIndividual entity) {
         write(escapeName(shortFormProvider.getShortForm(entity)));
     }
 
 
-    public void visit(OWLObjectSelfRestriction desc) {
+    public void visit(OWLObjectHasSelf desc) {
         write(SOME);
         writeSpace();
         desc.getProperty().accept(this);
@@ -405,7 +405,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLSubClassAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
         this.setPrettyPrint(false);
         axiom.getSubClass().accept(this);
         writeSpace();
@@ -426,11 +426,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
-    }
-
-
-    public void visit(OWLAxiomAnnotationAxiom axiom) {
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
     }
 
 
@@ -446,11 +442,11 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataSubPropertyAxiom axiom) {
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
     }
 
 
-    public void visit(OWLDeclarationAxiom axiom) {
+    public void visit(OWLDeclaration axiom) {
     }
 
 
@@ -488,7 +484,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLEntityAnnotationAxiom axiom) {
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
     }
 
 
@@ -521,7 +517,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        df.getOWLDataMaxCardinalityRestriction(axiom.getProperty(), 1).accept(this);
+        df.getDataMaxCardinality(axiom.getProperty(), 1).accept(this);
     }
 
 
@@ -530,7 +526,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        df.getOWLObjectMaxCardinalityRestriction(axiom.getProperty(), 1).accept(this);
+        df.getObjectMaxCardinality(axiom.getProperty(), 1).accept(this);
     }
 
 
@@ -544,7 +540,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         write(SUBCLASS);
         writeSpace();
         OWLObjectPropertyExpression prop = df.getOWLObjectPropertyInverse(axiom.getProperty());
-        df.getOWLObjectMaxCardinalityRestriction(prop, 1).accept(this);
+        df.getObjectMaxCardinality(prop, 1).accept(this);
     }
 
 
@@ -594,7 +590,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+    public void visit(OWLComplextSubPropertyAxiom axiom) {
         for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
@@ -611,7 +607,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        df.getOWLObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing()).accept(this);
+        df.getObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing()).accept(this);
         writeSpace();
         write(SUBCLASS);
         writeSpace();
@@ -624,20 +620,16 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        df.getOWLObjectAllValuesFrom(axiom.getProperty(), axiom.getRange()).accept(this);
+        df.getObjectAllValuesFrom(axiom.getProperty(), axiom.getRange()).accept(this);
     }
 
 
-    public void visit(OWLObjectSubPropertyAxiom axiom) {
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         axiom.getSubProperty();
         writeSpace();
         write(SUBCLASS);
         writeSpace();
         axiom.getSuperProperty().accept(this);
-    }
-
-
-    public void visit(OWLOntologyAnnotationAxiom axiom) {
     }
 
 
@@ -712,15 +704,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         write("\\ensuremath{^-}");
     }
 
-
-    public void visit(OWLConstantAnnotation annotation) {
-
-    }
-
-
-    public void visit(OWLObjectAnnotation annotation) {
-    }
-
     //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -732,11 +715,11 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataRangeFacetRestriction node) {
+    public void visit(OWLFacetRestriction node) {
     }
 
 
-    public void visit(OWLDataRangeRestriction node) {
+    public void visit(OWLDatatypeRestriction node) {
     }
 
 
@@ -795,5 +778,38 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
 
     public void visit(SWRLSameAsAtom node) {
+    }
+
+    public void visit(OWLAnnotationProperty property) {
+    }
+
+    public void visit(OWLAnnotation annotation) {
+    }
+
+    public void visit(OWLAnnotationPropertyDomain axiom) {
+    }
+
+    public void visit(OWLAnnotationPropertyRange axiom) {
+    }
+
+    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    }
+
+    public void visit(OWLAnnotationValue value) {
+    }
+
+    public void visit(OWLHasKeyAxiom axiom) {
+    }
+
+    public void visit(OWLDataIntersectionOf node) {
+    }
+
+    public void visit(OWLDataUnionOf node) {
+    }
+
+    public void visit(OWLAnonymousIndividual individual) {
+    }
+
+    public void visit(IRI iri) {
     }
 }

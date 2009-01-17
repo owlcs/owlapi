@@ -45,8 +45,7 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
         if (!isAnonymous(object)) {
             if (getConsumer().isObjectPropertyOnly(subject)) {
                 return true;
-            }
-            else if (getConsumer().isDataPropertyOnly(subject)) {
+            } else if (getConsumer().isDataPropertyOnly(subject)) {
                 return true;
             }
         }
@@ -57,17 +56,14 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         if (getConsumer().isObjectPropertyOnly(subject)) {
             translateObjectPropertyDomain(subject, predicate, object);
-        }
-        else if (getConsumer().isDataPropertyOnly(subject)) {
+        } else if (getConsumer().isDataPropertyOnly(subject)) {
             translateDataPropertyDomain(subject, predicate, object);
-        }
-        else {
+        } else {
             // See if there are any range triples that we can peek at
             URI rangeURI = getConsumer().getResourceObject(subject, predicate, false);
-            if(getConsumer().isDataRange(rangeURI)) {
+            if (getConsumer().isDataRange(rangeURI)) {
                 translateDataPropertyDomain(subject, predicate, object);
-            }
-            else {
+            } else {
                 // Oh well, let's just assume object property
                 translateObjectPropertyDomain(subject, predicate, object);
             }
@@ -76,15 +72,15 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
 
 
     private void translateDataPropertyDomain(URI subject, URI predicate, URI object) throws OWLException {
-        addAxiom(getDataFactory().getOWLDataPropertyDomainAxiom(translateDataProperty(subject),
-                                                                translateDescription(object)));
+        addAxiom(getDataFactory().getDataPropertyDomain(translateDataProperty(subject),
+                translateDescription(object)));
         consumeTriple(subject, predicate, object);
     }
 
 
     private void translateObjectPropertyDomain(URI subject, URI predicate, URI object) throws OWLException {
-        addAxiom(getDataFactory().getOWLObjectPropertyDomainAxiom(translateObjectProperty(subject),
-                                                                  translateDescription(object)));
+        addAxiom(getDataFactory().getObjectPropertyDomain(translateObjectProperty(subject),
+                translateDescription(object)));
         consumeTriple(subject, predicate, object);
     }
 }

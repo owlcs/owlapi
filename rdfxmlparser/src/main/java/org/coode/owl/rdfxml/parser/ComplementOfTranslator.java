@@ -35,7 +35,7 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
- *
+ * <p/>
  * Translates a set of triples that represent an <code>OWLComplementOf</code>
  * description.
  */
@@ -48,13 +48,13 @@ public class ComplementOfTranslator extends AbstractDescriptionTranslator {
 
     public OWLClassExpression translate(URI mainNode) throws OWLException {
         URI complementOfObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF.getURI(), true);
-        if(complementOfObject == null) {
+        if (complementOfObject == null) {
             throw new MalformedDescriptionException(OWLRDFVocabulary.OWL_COMPLEMENT_OF + " triple not present");
         }
         OWLClassExpression operand = translateToDescription(complementOfObject);
-        if(operand == null) {
+        if (operand == null) {
             throw new MalformedDescriptionException("Could not translate complement of operand");
         }
-        return getDataFactory().getOWLObjectComplementOf(operand);
+        return getDataFactory().getObjectComplementOf(operand);
     }
 }

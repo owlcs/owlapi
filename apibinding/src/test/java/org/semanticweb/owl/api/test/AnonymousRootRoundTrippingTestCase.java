@@ -41,10 +41,10 @@ public class AnonymousRootRoundTrippingTestCase extends AbstractRoundTrippingTes
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("OntA");
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             inds.add(getOWLIndividual("Ind" + i));
         }
-        addAxiom(ont, getFactory().getOWLDifferentIndividualsAxiom(inds));
+        addAxiom(ont, getFactory().getDifferentIndividuals(inds));
         return ont;
     }
 }

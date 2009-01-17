@@ -1,6 +1,6 @@
 package org.semanticweb.owl.model;
 
-import java.net.URI;
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -30,46 +30,42 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 18-Dec-2006<br><br>
- *
+ * <p/>
  * Annotations are used in the various types of annotation axioms, which
  * bind annotations to their subjects (i.e. axioms or declarations).
- *
+ * <p/>
  * An annotation is equal to another annotation if both objects have equal
  * annotation URIs and have equal annotation values
  */
-public interface OWLAnnotation<O extends OWLObject> extends OWLObject {
+public interface OWLAnnotation extends OWLObject {
 
     /**
-     * Gets the annotation URI
+     * Gets the property that this annotation acts along
+     *
+     * @return The annotation property
      */
-    URI getAnnotationURI();
-
-
-    /**
-     * Determines if the annotation value is a constant.
-     * @return <code>true</code> if the annotation value is
-     * a constant, or <code>false</code> if the annotation value
-     * is an entity (class, property, individual or datatype)
-     */
-    boolean isAnnotationByConstant();
+    OWLAnnotationProperty getProperty();
 
     /**
      * Gets the annotation value.  The type of value will depend upon
      * the type of the annotation e.g. whether the annotation is a constant
      * annotation, individual annotation etc.
+     *
+     * @return the annotation value. Annotations can either have a value of an IRI (URI),
+     *         literal or anonymous individual
      */
-    O getAnnotationValue();
-
+    OWLAnnotationValue getValue();
 
     /**
-     * If this is a constant annotation (rather than an entity annotation)
-     * then this convenience method obtains the annoation value as a constant.
-     * Calling this method if the <code>isAnnotationByConstant</code> method
-     * returns <code>false</code> will throws an <code>OWLRuntimeException</code>
+     * Gets the annotations on this annotation
+     *
+     * @return A (possibly empty) set of annotations that annotate this annotation
      */
-    OWLLiteral getAnnotationValueAsConstant();
+    Set<OWLAnnotation> getAnnotations();
 
-    void accept(OWLAnnotationVisitor visitor);
+    void accept(OWLAnnotationObjectVisitor visitor);
 
-    <O> O accept(OWLAnnotationVisitorEx<O> visitor);
+    <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor);
+
+
 }

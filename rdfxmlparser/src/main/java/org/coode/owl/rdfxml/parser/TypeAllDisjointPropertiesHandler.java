@@ -43,20 +43,19 @@ public class TypeAllDisjointPropertiesHandler extends BuiltInTypeHandler {
 
     public TypeAllDisjointPropertiesHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ALL_DISJOINT_PROPERTIES.getURI());
-        
+
     }
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         consumeTriple(subject, predicate, object);
         URI listNode = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS.getURI(), true);
-        if(getConsumer().isObjectPropertyOnly(getConsumer().getFirstResource(listNode, false))) {
+        if (getConsumer().isObjectPropertyOnly(getConsumer().getFirstResource(listNode, false))) {
             List<OWLObjectPropertyExpression> props = getConsumer().translateToObjectPropertyList(listNode);
-            getConsumer().addAxiom(getDataFactory().getOWLDisjointObjectPropertiesAxiom(new HashSet<OWLObjectPropertyExpression>(props)));
-        }
-        else {
+            getConsumer().addAxiom(getDataFactory().getDisjointObjectProperties(new HashSet<OWLObjectPropertyExpression>(props)));
+        } else {
             List<OWLDataPropertyExpression> props = getConsumer().translateToDataPropertyList(listNode);
-            getConsumer().addAxiom(getDataFactory().getOWLDisjointDataPropertiesAxiom(new HashSet<OWLDataPropertyExpression>(props)));
+            getConsumer().addAxiom(getDataFactory().getDisjointDataProperties(new HashSet<OWLDataPropertyExpression>(props)));
         }
 
     }

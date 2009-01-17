@@ -1,6 +1,5 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLIndividual;
 
 import java.util.HashSet;
@@ -51,9 +50,9 @@ public class OWLObjectOneOfElementHandler extends AbstractOWLDescriptionElementH
 
 
     protected void endDescriptionElement() throws OWLXMLParserException {
-        if(individuals.size() < 1) {
+        if (individuals.size() < 1) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected at least one individual in object oneOf");
         }
-        setDescription(getOWLDataFactory().getOWLObjectOneOf(individuals));
+        setDescription(getOWLDataFactory().getObjectOneOf(individuals));
     }
 }

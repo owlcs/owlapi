@@ -89,15 +89,6 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLOntologyAnnotationAxiom axiom) {
-        sb.append("OntologyAnnotation(");
-        axiom.getSubject().accept(this);
-        sb.append(" ");
-        axiom.getAnnotation().accept(this);
-        sb.append(")");
-    }
-
-
     private void insertSpace() {
         sb.append(" ");
     }
@@ -115,7 +106,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLSubClassAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
         sb.append("SubClassOf(");
         axiom.getSubClass().accept(this);
         insertSpace();
@@ -135,7 +126,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLAntiSymmetricObjectPropertyAxiom axiom) {
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         sb.append("AntiSymmetricObjectProperty(");
         axiom.getProperty().accept(this);
         sb.append(")");
@@ -171,10 +162,6 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(" -> ");
         sb.append(axiom.getImportedOntologyURI());
         sb.append(")");
-    }
-
-
-    public void visit(OWLAxiomAnnotationAxiom axiom) {
     }
 
 
@@ -253,7 +240,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLObjectSubPropertyAxiom axiom) {
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         sb.append("SubObjectPropertyOf(");
         axiom.getSubProperty().accept(this);
         insertSpace();
@@ -271,7 +258,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLDeclarationAxiom axiom) {
+    public void visit(OWLDeclaration axiom) {
         sb.append("Declaration(");
         OWLEntity entity = axiom.getEntity();
         if (entity.isOWLClass()) {
@@ -290,7 +277,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLEntityAnnotationAxiom axiom) {
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
         sb.append("EntityAnnotationAxiom(");
         axiom.getSubject().accept(this);
         insertSpace();
@@ -370,7 +357,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLDataSubPropertyAxiom axiom) {
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
         sb.append("SubDataProperty(");
         axiom.getSubProperty().accept(this);
         insertSpace();
@@ -393,7 +380,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLObjectPropertyChainSubPropertyAxiom axiom) {
+    public void visit(OWLComplextSubPropertyAxiom axiom) {
         sb.append("ObjectPropertyChainSubProperty(");
         sb.append("(");
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
@@ -451,7 +438,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLObjectValueRestriction desc) {
+    public void visit(OWLObjectHasValue desc) {
         sb.append("ObjectHasValue(");
         desc.getProperty().accept(this);
         insertSpace();
@@ -460,7 +447,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLObjectMinCardinalityRestriction desc) {
+    public void visit(OWLObjectMinCardinality desc) {
         sb.append("ObjectMinCardinality(");
         sb.append(desc.getCardinality());
         insertSpace();
@@ -471,7 +458,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLObjectExactCardinalityRestriction desc) {
+    public void visit(OWLObjectExactCardinality desc) {
         sb.append("ObjectExactCardinality(");
         sb.append(desc.getCardinality());
         insertSpace();
@@ -482,7 +469,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLObjectMaxCardinalityRestriction desc) {
+    public void visit(OWLObjectMaxCardinality desc) {
         sb.append("ObjectMaxCardinality(");
         sb.append(desc.getCardinality());
         insertSpace();
@@ -493,7 +480,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLObjectSelfRestriction desc) {
+    public void visit(OWLObjectHasSelf desc) {
         sb.append("ObjectExistsSelf(");
         desc.getProperty().accept(this);
         sb.append(")");
@@ -534,7 +521,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLDataMinCardinalityRestriction desc) {
+    public void visit(OWLDataMinCardinality desc) {
         sb.append("DataMinCardinality(");
         sb.append(desc.getCardinality());
         insertSpace();
@@ -545,7 +532,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLDataExactCardinalityRestriction desc) {
+    public void visit(OWLDataExactCardinality desc) {
         sb.append("DataExactCardinality(");
         sb.append(desc.getCardinality());
         insertSpace();
@@ -556,7 +543,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLDataMaxCardinalityRestriction desc) {
+    public void visit(OWLDataMaxCardinality desc) {
         sb.append("DataMaxCardinality(");
         sb.append(desc.getCardinality());
         insertSpace();
@@ -586,10 +573,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLDataRangeRestriction node) {
+    public void visit(OWLDatatypeRestriction node) {
         sb.append("DataRangeRestriction(");
-        node.getDataRange().accept(this);
-        for (OWLDataRangeFacetRestriction restriction : node.getFacetRestrictions()) {
+        node.getDatatype().accept(this);
+        for (OWLFacetRestriction restriction : node.getFacetRestrictions()) {
             insertSpace();
             restriction.accept(this);
         }
@@ -597,7 +584,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLDataRangeFacetRestriction node) {
+    public void visit(OWLFacetRestriction node) {
         sb.append("facetRestriction(");
         sb.append(node.getFacet());
         insertSpace();
@@ -640,7 +627,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLIndividual individual) {
+    public void visit(OWLNamedIndividual individual) {
         sb.append(shortFormProvider.getShortForm(individual));
     }
 
@@ -653,30 +640,82 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(")");
     }
 
-
-    public void visit(OWLConstantAnnotation annotation) {
-        if (annotation.isLabel()) {
-            sb.append("Label(");
-        } else if (annotation.isComment()) {
-            sb.append("Comment(");
-        } else {
-            sb.append("Annotation(");
-            sb.append(getShortForm(annotation.getAnnotationURI()));
+    public void visit(OWLHasKeyAxiom axiom) {
+        sb.append("HasKey(");
+        axiom.getClassExpression().accept(this);
+        sb.append(" ");
+        for (OWLObjectPropertyExpression prop : axiom.getObjectPropertyExpressions()) {
+            prop.accept(this);
+            sb.append(" ");
         }
-        sb.append(" ");
-        annotation.getAnnotationValue().accept(this);
+        for (OWLDataPropertyExpression prop : axiom.getDataPropertyExpressions()) {
+            prop.accept(this);
+            sb.append(" ");
+        }
         sb.append(")");
     }
 
+    public void visit(OWLDataIntersectionOf node) {
+        sb.append("DataIntersectionOf(");
+        for (OWLDataRange rng : node.getOperands()) {
+            rng.accept(this);
+            sb.append(" ");
+        }
+        sb.append(")");
+    }
 
-    public void visit(OWLObjectAnnotation annotation) {
+    public void visit(OWLDataUnionOf node) {
+        sb.append("DataUnionOf(");
+        for (OWLDataRange rng : node.getOperands()) {
+            rng.accept(this);
+            sb.append(" ");
+        }
+        sb.append(")");
+    }
+
+    public void visit(OWLAnnotationProperty property) {
+        sb.append(shortFormProvider.getShortForm(property));
+    }
+
+    public void visit(OWLAnnotationPropertyDomain axiom) {
+        sb.append("AnnotationPropertyDomain(");
+        axiom.getProperty().accept(this);
+        sb.append(" ");
+        axiom.getDomain().accept(this);
+        sb.append(")");
+    }
+
+    public void visit(OWLAnnotationPropertyRange axiom) {
+        sb.append("AnnotationPropertyRange(");
+        axiom.getProperty().accept(this);
+        sb.append(" ");
+        axiom.getRange().accept(this);
+        sb.append(")");
+    }
+
+    public void visit(OWLSubAnnotationPropertyOf axiom) {
+        sb.append("SubAnnotationPropertyOf(");
+        axiom.getSubProperty().accept(this);
+        sb.append(" ");
+        axiom.getSuperProperty().accept(this);
+        sb.append(")");
+    }
+
+    public void visit(OWLAnonymousIndividual individual) {
+        sb.append(individual.getID().toString());
+    }
+
+    public void visit(IRI iri) {
+        sb.append(iri);
+    }
+
+    public void visit(OWLAnnotation node) {
         sb.append("Annotation(");
-        sb.append(getShortForm(annotation.getAnnotationURI()));
+        node.getProperty().accept(this);
         sb.append(" ");
-        annotation.getAnnotationValue().accept(this);
+        node.getValue().accept(this);
         sb.append(")");
     }
-
 
     public void visit(SWRLRule rule) {
         sb.append("Rule(");

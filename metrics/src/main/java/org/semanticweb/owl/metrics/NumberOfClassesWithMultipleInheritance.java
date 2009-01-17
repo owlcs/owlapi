@@ -53,18 +53,18 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
         Set<OWLClass> processed = new HashSet<OWLClass>();
         Set<OWLClass> clses = new HashSet<OWLClass>();
         NamedConjunctChecker checker = new NamedConjunctChecker();
-        for(OWLOntology ont : getOntologies()) {
-            for(OWLClass cls : ont.getReferencedClasses()) {
-                if(processed.contains(cls)) {
+        for (OWLOntology ont : getOntologies()) {
+            for (OWLClass cls : ont.getReferencedClasses()) {
+                if (processed.contains(cls)) {
                     continue;
                 }
                 processed.add(cls);
                 int count = 0;
-                for(OWLClassExpression sup : cls.getSubClasses(getOntologies())) {
-                    if(checker.hasNamedConjunct(sup)) {
+                for (OWLClassExpression sup : cls.getSubClasses(getOntologies())) {
+                    if (checker.hasNamedConjunct(sup)) {
                         count++;
                     }
-                    if(count > 1) {
+                    if (count > 1) {
                         clses.add(cls);
                         break;
                     }
@@ -76,9 +76,9 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
 
 
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        for(OWLOntologyChange change : changes) {
-            if(change.isAxiomChange()) {
-                if(change.getAxiom() instanceof OWLSubClassAxiom) {
+        for (OWLOntologyChange change : changes) {
+            if (change.isAxiomChange()) {
+                if (change.getAxiom() instanceof OWLSubClassOfAxiom) {
                     return true;
                 }
             }

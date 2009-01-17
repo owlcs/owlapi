@@ -36,21 +36,25 @@ import java.util.Set;
  */
 public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataPropertyExpression, OWLDataRange> implements OWLDataProperty {
 
-    private URI uri;
+    private IRI iri;
 
 
     private boolean builtin;
 
 
-    public OWLDataPropertyImpl(OWLDataFactory dataFactory, URI uri) {
+    public OWLDataPropertyImpl(OWLDataFactory dataFactory, IRI iri) {
         super(dataFactory);
-        this.uri = uri;
-        this.builtin = uri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getURI()) ||
-                uri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getURI());
+        this.iri = iri;
+        this.builtin = getURI().equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getURI()) ||
+                getURI().equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getURI());
+    }
+
+    public IRI getIRI() {
+        return iri;
     }
 
     public URI getURI() {
-        return uri;
+        return iri.toURI();
     }
 
 
@@ -116,6 +120,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
 
             URI otherURI = ((OWLDataProperty) obj).getURI();
             String otherFragment = otherURI.getFragment();
+            URI uri = getURI();
             String thisFragment = uri.getFragment();
             if (otherFragment != null && thisFragment != null && !otherFragment.equals(thisFragment)) {
                 return false;
@@ -131,7 +136,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     }
 
 
-    public Set<OWLAnnotationAxiom> getAnnotationAxioms(OWLOntology ontology) {
+    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLOntology ontology) {
         return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
     }
 
@@ -196,7 +201,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     }
 
 
-    public OWLIndividual asOWLIndividual() {
+    public OWLNamedIndividual asOWLIndividual() {
         throw new OWLRuntimeException("Not an OWLIndividual!");
     }
 
@@ -232,6 +237,6 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
 
 
     protected int compareObjectOfSameType(OWLObject object) {
-        return uri.compareTo(((OWLDataProperty) object).getURI());
+        return getURI().compareTo(((OWLDataProperty) object).getURI());
     }
 }

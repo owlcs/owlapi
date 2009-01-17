@@ -56,8 +56,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isFunctional(Set<OWLOntology> ontologies) {
-        for(OWLOntology ont : ontologies) {
-            if(isFunctional(ont)) {
+        for (OWLOntology ont : ontologies) {
+            if (isFunctional(ont)) {
                 return true;
             }
         }
@@ -71,8 +71,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isInverseFunctional(Set<OWLOntology> ontologies) {
-        for(OWLOntology ont : ontologies) {
-            if(isInverseFunctional(ont)) {
+        for (OWLOntology ont : ontologies) {
+            if (isInverseFunctional(ont)) {
                 return true;
             }
         }
@@ -86,23 +86,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isSymmetric(Set<OWLOntology> ontologies) {
-        for(OWLOntology ont : ontologies) {
-            if(isSymmetric(ont)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    public boolean isAntiSymmetric(OWLOntology ontology) {
-        return ontology.getAntiSymmetricObjectPropertyAxiom(this) != null;
-    }
-
-
-    public boolean isAntiSymmetric(Set<OWLOntology> ontologies) {
-        for(OWLOntology ont : ontologies) {
-            if(isAntiSymmetric(ont)) {
+        for (OWLOntology ont : ontologies) {
+            if (isSymmetric(ont)) {
                 return true;
             }
         }
@@ -110,13 +95,13 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     }
 
     public boolean isAsymmetric(OWLOntology ontology) {
-        return ontology.getAntiSymmetricObjectPropertyAxiom(this) != null;
+        return ontology.getAsymmetricObjectPropertyAxiom(this) != null;
     }
 
 
     public boolean isAsymmetric(Set<OWLOntology> ontologies) {
-        for(OWLOntology ont : ontologies) {
-            if(isAntiSymmetric(ont)) {
+        for (OWLOntology ont : ontologies) {
+            if (isAsymmetric(ont)) {
                 return true;
             }
         }
@@ -130,8 +115,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isReflexive(Set<OWLOntology> ontologies) {
-        for(OWLOntology ont : ontologies) {
-            if(isReflexive(ont)) {
+        for (OWLOntology ont : ontologies) {
+            if (isReflexive(ont)) {
                 return true;
             }
         }
@@ -145,8 +130,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isIrreflexive(Set<OWLOntology> ontologies) {
-        for(OWLOntology ont : ontologies) {
-            if(isIrreflexive(ont)) {
+        for (OWLOntology ont : ontologies) {
+            if (isIrreflexive(ont)) {
                 return true;
             }
         }
@@ -160,8 +145,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isTransitive(Set<OWLOntology> ontologies) {
-        for(OWLOntology ont : ontologies) {
-            if(isTransitive(ont)) {
+        for (OWLOntology ont : ontologies) {
+            if (isTransitive(ont)) {
                 return true;
             }
         }
@@ -195,7 +180,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
     public Set<OWLObjectPropertyExpression> getInverses(OWLOntology ontology) {
         Set<OWLObjectPropertyExpression> result = new TreeSet<OWLObjectPropertyExpression>();
-        for(OWLInverseObjectPropertiesAxiom ax : ontology.getInverseObjectPropertyAxioms(this)) {
+        for (OWLInverseObjectPropertiesAxiom ax : ontology.getInverseObjectPropertyAxioms(this)) {
             result.addAll(ax.getProperties());
         }
         result.remove(this);
@@ -205,7 +190,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
     public Set<OWLObjectPropertyExpression> getInverses(Set<OWLOntology> ontologies) {
         Set<OWLObjectPropertyExpression> result = new TreeSet<OWLObjectPropertyExpression>();
-        for(OWLOntology ont : ontologies) {
+        for (OWLOntology ont : ontologies) {
             result.addAll(getInverses(ont));
         }
         return result;
@@ -218,7 +203,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public OWLObjectPropertyExpression getSimplified() {
-        if(simplestForm == null) {
+        if (simplestForm == null) {
             ObjectPropertySimplifier simplifier = new ObjectPropertySimplifier(getOWLDataFactory());
             simplestForm = simplifier.getSimplified(this);
         }
@@ -227,7 +212,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public OWLObjectPropertyExpression getInverseProperty() {
-        if(inverse == null) {
+        if (inverse == null) {
             inverse = getOWLDataFactory().getOWLObjectPropertyInverse(this);
         }
         return inverse;
@@ -236,10 +221,9 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
     public OWLObjectProperty getNamedProperty() {
         OWLObjectPropertyExpression simp = getSimplified();
-        if(simp.isAnonymous()) {
+        if (simp.isAnonymous()) {
             return ((OWLObjectPropertyInverse) simp).getInverse().asOWLObjectProperty();
-        }
-        else {
+        } else {
             return simp.asOWLObjectProperty();
         }
     }
