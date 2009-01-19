@@ -39,6 +39,8 @@ import java.util.Set;
  */
 public interface OWLOntology extends OWLNamedObject {
 
+    OWLOntologyID getOntologyID();
+
     /**
      * Gets the version IRI of this ontology
      *
@@ -542,7 +544,7 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set that is returned is a copy - it will not be updated if the ontology changes.  It is therefore
      *         safe to apply changes to this ontology while iterating over this set.
      */
-    Set<OWLSubClassOfAxiom> getSubClassAxiomsForLHS(OWLClass cls);
+    Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(OWLClass cls);
 
 
     /**
@@ -552,7 +554,7 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set that is returned is a copy - it will not be updated if the ontology changes.  It is therefore
      *         safe to apply changes to this ontology while iterating over this set.
      */
-    Set<OWLSubClassOfAxiom> getSubClassAxiomsForRHS(OWLClass cls);
+    Set<OWLSubClassOfAxiom> getSubClassAxiomsForSuperClass(OWLClass cls);
 
 
     /**
@@ -602,10 +604,10 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set that is returned is a copy - it will not be updated if the ontology changes.  It is therefore
      *         safe to apply changes to this ontology while iterating over this set.
      */
-    Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForLHS(OWLObjectPropertyExpression property);
+    Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSubProperty(OWLObjectPropertyExpression property);
 
 
-    Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForRHS(OWLObjectPropertyExpression property);
+    Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSuperProperty(OWLObjectPropertyExpression property);
 
 
     Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(OWLObjectPropertyExpression property);
@@ -664,10 +666,10 @@ public interface OWLOntology extends OWLNamedObject {
     //////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForLHS(OWLDataProperty lhsProperty);
+    Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSubProperty(OWLDataProperty lhsProperty);
 
 
-    Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForRHS(OWLDataPropertyExpression property);
+    Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSuperProperty(OWLDataPropertyExpression property);
 
 
     Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(OWLDataProperty property);

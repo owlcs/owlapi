@@ -162,7 +162,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
     protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>> getSubPropertyAxioms(
             OWLOntology ontology) {
-        return ontology.getObjectSubPropertyAxiomsForLHS(this);
+        return ontology.getObjectSubPropertyAxiomsForSubProperty(this);
     }
 
 

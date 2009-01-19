@@ -32,7 +32,7 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
- *
+ * <p/>
  * An ontology factory is responsible from creating new ontologies and creating ontologies
  * from physical URIs.
  */
@@ -42,23 +42,26 @@ public interface OWLOntologyFactory {
 
     /**
      * Creates an (empty) ontology.
-     * @param ontologyURI The URI of the ontology to create. This MUST NOT BE NULL.
+     *
+     * @param ontologyID  The ID of the ontology to create. This MUST NOT BE <code>null</code>.
      * @param physicalURI The physical URI of the ontology.  This MAY be
-     * <code>null</code>.
-     * @param handler The ontology creation handler that will be notified when the
-     * ontology has been created.
+     *                    <code>null</code>.
+     * @param handler     The ontology creation handler that will be notified when the
+     *                    ontology has been created.
      * @return The newly created ontology
      * @throws OWLOntologyCreationException if the ontology could not be created.
      */
-    public OWLOntology createOWLOntology(URI ontologyURI, URI physicalURI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException;
+    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, URI physicalURI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException;
 
 
     /**
      * Creates and loads an <code>OWLOntology</code>.
      * be loaded into the ontology.
-     * @param handler A pointer to an <code>OWLOntologyCreationHandler</code> which will be notified immediately
-     * after an emtpty ontology has been created, but before the source data is read and the ontology is loaded
-     * with axioms.
+     *
+     * @param inputSource The input source
+     * @param handler     A pointer to an <code>OWLOntologyCreationHandler</code> which will be notified immediately
+     *                    after an emtpty ontology has been created, but before the source data is read and the ontology is loaded
+     *                    with axioms.
      * @return The newly created and loaded ontology
      * @throws OWLOntologyCreationException if the ontology could not be created.
      */
@@ -67,10 +70,11 @@ public interface OWLOntologyFactory {
     /**
      * Determines if the factory can create an ontology for the specified physical
      * URI.
+     *
      * @param physicalURI The physical URI of the ontology to be created.  This may
-     * be <code>null</code>.
+     *                    be <code>null</code>.
      * @return <code>true</code> if the factory can create an ontology given a physical URI,
-     * or <code>false</code> if the factory cannot create an ontology.
+     *         or <code>false</code> if the factory cannot create an ontology.
      */
     public boolean canCreateFromPhysicalURI(URI physicalURI);
 
@@ -78,6 +82,8 @@ public interface OWLOntologyFactory {
     /**
      * Determines if the factory can load an ontology for the specified physical
      * URI.
+     *
+     * @param inputSource The input source from which to load the ontology
      * @return <code>true</code> if the factory can load from the specified input source.
      */
     public boolean canLoad(OWLOntologyInputSource inputSource);
@@ -97,7 +103,8 @@ public interface OWLOntologyFactory {
          * The factory calls this method as soon as it has created an ontology.  If the
          * factory is loading an ontology then the ontology will not have been populated with
          * axioms at this stage.
-         * @param ontology  The newly created ontology.
+         *
+         * @param ontology The newly created ontology.
          */
         void ontologyCreated(OWLOntology ontology);
 

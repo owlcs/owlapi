@@ -111,7 +111,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
 
 
     public Set<OWLSubClassOfAxiom> getSubClassAxioms(OWLOntology ontology) {
-        return ontology.getSubClassAxiomsForLHS(this);
+        return ontology.getSubClassAxiomsForSubClass(this);
     }
 
 
@@ -150,7 +150,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
 
     public Set<OWLClassExpression> getSubClasses(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLSubClassOfAxiom axiom : ontology.getSubClassAxiomsForRHS(this)) {
+        for (OWLSubClassOfAxiom axiom : ontology.getSubClassAxiomsForSuperClass(this)) {
             result.add(axiom.getSubClass());
         }
         return result;

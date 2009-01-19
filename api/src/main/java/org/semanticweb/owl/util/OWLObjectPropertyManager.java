@@ -408,7 +408,7 @@ public class OWLObjectPropertyManager {
         stack.push(prop);
         stackProps.add(prop);
         for (OWLOntology ont : ontologies) {
-            for (OWLSubObjectPropertyOfAxiom ax : ont.getObjectSubPropertyAxiomsForLHS(prop)) {
+            for (OWLSubObjectPropertyOfAxiom ax : ont.getObjectSubPropertyAxiomsForSubProperty(prop)) {
                 if (ax.getSubProperty().equals(prop)) {
                     OWLObjectPropertyExpression supProp = ax.getSuperProperty();
                     if (!indexMap.containsKey(supProp)) {

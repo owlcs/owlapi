@@ -120,7 +120,7 @@ public class ELPlusPlusProfile implements OWLProfile {
             return props;
         }
         processed.add(prop);
-        for (OWLSubObjectPropertyOfAxiom ax : ont.getObjectSubPropertyAxiomsForLHS(prop)) {
+        for (OWLSubObjectPropertyOfAxiom ax : ont.getObjectSubPropertyAxiomsForSubProperty(prop)) {
             if (!ax.getSuperProperty().isAnonymous()) {
                 props.add(ax.getSuperProperty().asOWLObjectProperty());
                 props.addAll(processProp(ax.getSuperProperty().asOWLObjectProperty(), map, processed));

@@ -53,8 +53,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
 
 
     public void visit(OWLOntology ontology) {
-        hashCode = 557;
-        hashCode = hashCode * MULT + ontology.getURI().hashCode();
+        hashCode = ontology.getOntologyID().hashCode();
     }
 
 

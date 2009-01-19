@@ -69,7 +69,7 @@ public class Example9 {
             RestrictionVisitor restrictionVisitor = new RestrictionVisitor(Collections.singleton(ont));
             // In this case, restrictions are used as (anonymous) superclasses, so to get the restrictions on
             // margherita pizza we need to obtain the subclass axioms for margherita pizza.
-            for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForLHS(margheritaPizza)) {
+            for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(margheritaPizza)) {
                 OWLClassExpression superCls = ax.getSuperClass();
                 // Ask our superclass to accept a visit from the RestrictionVisitor - if it is an
                 // existential restiction then our restriction visitor will process it - if not our
@@ -128,7 +128,7 @@ public class Example9 {
                 // so that we don't get caught out by cycles in the taxonomy
                 processedClasses.add(desc);
                 for (OWLOntology ont : onts) {
-                    for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForLHS(desc)) {
+                    for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(desc)) {
                         ax.getSuperClass().accept(this);
                     }
                 }

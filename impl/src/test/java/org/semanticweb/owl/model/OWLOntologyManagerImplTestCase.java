@@ -53,7 +53,7 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
         assertNotNull(manager.getOntology(ont.getURI()));
         assertTrue(manager.getOntologies().contains(ont));
         assertNotNull(manager.getPhysicalURIForOntology(ont));
-        manager.removeOntology(ont.getURI());
+        manager.removeOntology(ont);
         assertFalse(manager.contains(ont.getURI()));
     }
 
@@ -63,7 +63,7 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
         OWLImportsDeclaration decl = manager.getOWLDataFactory().getImportsDeclaration(ontA, ontB.getURI());
         manager.applyChange(new AddAxiom(ontA, decl));
         assertTrue(manager.getImports(ontA).contains(ontB));
-        manager.removeOntology(ontB.getURI());
+        manager.removeOntology(ontB);
         assertFalse(manager.getImports(ontA).contains(ontB));
     }
 

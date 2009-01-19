@@ -1,15 +1,14 @@
 package uk.ac.manchester.owl.tutorial.examples;
 
+import gnu.getopt.Getopt;
+import gnu.getopt.LongOpt;
 import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.inference.OWLSatisfiabilityChecker;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
-
 import uk.ac.manchester.cs.owl.inference.dig11.DIGReasoner;
 import uk.ac.manchester.owl.tutorial.Debugger;
-import gnu.getopt.Getopt;
-import gnu.getopt.LongOpt;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -41,20 +40,19 @@ import java.net.URL;
  */
 
 /**
- * 
  * <p>This class demonstrates some aspects of the OWL API. It expects three
  * arguments:</p>
  * <ol>
  * <li>The URI of an ontology</li>
- * 
+ * <p/>
  * <li>The URI of a reasoner</li>
- * 
+ * <p/>
  * <li>A location to place the results.</li>
  * </ol>
  * <p>When executed, the class will find all inconsistent classes. For each
  * inconsistent class, the set of support for the inconsistency will be
  * determined. A report will then be produced in the output file.</p>
- * 
+ * <p/>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
@@ -91,22 +89,22 @@ public class DebuggingExample {
 
             while ((c = g.getopt()) != -1) {
                 switch (c) {
-                case '?':
-                    usage();
-                    System.out.println("Usage Message!");
-                    System.exit(0);
-                case 'i':
-                    /* input */
-                    inputOntology = g.getOptarg();
-                    break;
-                case 'o':
-                    /* output */
-                    output = g.getOptarg();
-                    break;
-                case 'r':
-                    /* reasoner */
-                    reasoner = g.getOptarg();
-                    break;
+                    case '?':
+                        usage();
+                        System.out.println("Usage Message!");
+                        System.exit(0);
+                    case 'i':
+                        /* input */
+                        inputOntology = g.getOptarg();
+                        break;
+                    case 'o':
+                        /* output */
+                        output = g.getOptarg();
+                        break;
+                    case 'r':
+                        /* reasoner */
+                        reasoner = g.getOptarg();
+                        break;
                 }
             }
 
@@ -136,18 +134,18 @@ public class DebuggingExample {
             ((DIGReasoner) checker).getReasoner().setReasonerURL(rURL);
 
             System.out.println("Debugging...");
-            
+
             /* Create a debugger */
             Debugger debugger = new Debugger(manager, ontology, checker);
 
             PrintWriter pw = new PrintWriter(new FileWriter(output));
-            
+
             /* Report about debugging */
             debugger.report(pw);
             pw.close();
 
             /* Remove the ontology from the manager */
-            manager.removeOntology(ontology.getURI());
+            manager.removeOntology(ontology);
             System.out.println("Done");
         } catch (OWLException e) {
             e.printStackTrace();

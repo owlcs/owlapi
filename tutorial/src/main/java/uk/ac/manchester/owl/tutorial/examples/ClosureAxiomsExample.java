@@ -1,14 +1,13 @@
 package uk.ac.manchester.owl.tutorial.examples;
 
+import gnu.getopt.Getopt;
+import gnu.getopt.LongOpt;
 import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.model.OWLClass;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
-
 import uk.ac.manchester.owl.tutorial.ClosureAxioms;
-import gnu.getopt.Getopt;
-import gnu.getopt.LongOpt;
 
 import java.net.URI;
 
@@ -39,17 +38,17 @@ import java.net.URI;
  * <p>This class demonstrates some aspects of the OWL API. It expects three
  * arguments:</p>
  * <ol>
- * <li>The URI of an ontology</li> 
- * 
- * <li>The URI of destination</li> 
- * 
+ * <li>The URI of an ontology</li>
+ * <p/>
+ * <li>The URI of destination</li>
+ * <p/>
  * <li>The URI of a class</li>
  * </ol>
  * <p>When executed, the class will find all subclass axioms that form part of the
  * definition of the given class. For each of these, if the superclass is a
  * conjunction of existential restrictions, then an additional subclass axiom
  * will be added to the ontology, "closing" the restrictions.</p>
- * 
+ * <p/>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
@@ -86,27 +85,27 @@ public class ClosureAxiomsExample {
 
             while ((c = g.getopt()) != -1) {
                 switch (c) {
-                case '?':
-                    usage();
-                    System.exit(0);
-                case 'i':
-                    /* input */
-                    inputOntology = g.getOptarg();
-                    break;
-                case 'o':
-                    /* output */
-                    outputOntology = g.getOptarg();
-                    break;
-                case 'c':
-                    /* class */
-                    classToClose = g.getOptarg();
-                    break;
+                    case '?':
+                        usage();
+                        System.exit(0);
+                    case 'i':
+                        /* input */
+                        inputOntology = g.getOptarg();
+                        break;
+                    case 'o':
+                        /* output */
+                        outputOntology = g.getOptarg();
+                        break;
+                    case 'c':
+                        /* class */
+                        classToClose = g.getOptarg();
+                        break;
                 }
             }
 
             /* Create and Ontology Manager */
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-            
+
             if (inputOntology == null || outputOntology == null
                     || classToClose == null) {
                 usage();
@@ -116,7 +115,7 @@ public class ClosureAxiomsExample {
             URI physicalURI = URI.create(inputOntology);
             URI classURI = URI.create(classToClose);
             URI outputURI = URI.create(outputOntology);
-            
+
             /* Load an ontology */
             System.out.println("Loading: " + physicalURI);
             OWLOntology ontology = manager
@@ -132,10 +131,10 @@ public class ClosureAxiomsExample {
             OWLClass clazz = manager.getOWLDataFactory().getOWLClass(classURI);
             System.out.println("Class URI   : " + classURI);
             System.out.println(clazz);
-            
+
             /* Add the closure axioms */
             closureAxioms.addClosureAxioms(clazz);
-            
+
             /* Now save a copy to another location */
             System.out.println("Saving: " + outputURI);
 
@@ -144,7 +143,7 @@ public class ClosureAxiomsExample {
             System.out.println("Physical URI : " + outputURI);
 
             /* Remove the ontology from the manager */
-            manager.removeOntology(ontology.getURI());
+            manager.removeOntology(ontology);
             System.out.println("Done");
         } catch (OWLException e) {
             e.printStackTrace();

@@ -1,15 +1,13 @@
 package uk.ac.manchester.owl.tutorial.examples;
 
+import gnu.getopt.Getopt;
+import gnu.getopt.LongOpt;
 import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
-
 import uk.ac.manchester.owl.tutorial.io.OWLTutorialSyntaxOntologyFormat;
 import uk.ac.manchester.owl.tutorial.io.OWLTutorialSyntaxOntologyStorer;
-
-import gnu.getopt.Getopt;
-import gnu.getopt.LongOpt;
 
 import java.net.URI;
 
@@ -38,7 +36,7 @@ import java.net.URI;
 
 /**
  * <p>Simple Rendering Example. Reads an ontology and then renders it.</p>
- * 
+ * <p/>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
@@ -67,17 +65,17 @@ public class RenderingExample {
 
             while ((c = g.getopt()) != -1) {
                 switch (c) {
-                case '?':
-                    System.out.println("RenderingExample --input=URL --output=URL");
-                    System.exit(0);
-                case 'i':
-                    /* input */
-                    inputOntology = g.getOptarg();
-                    break;
-                case 'o':
-                    /* input */
-                    outputOntology = g.getOptarg();
-                    break;
+                    case '?':
+                        System.out.println("RenderingExample --input=URL --output=URL");
+                        System.exit(0);
+                    case 'i':
+                        /* input */
+                        inputOntology = g.getOptarg();
+                        break;
+                    case 'o':
+                        /* input */
+                        outputOntology = g.getOptarg();
+                        break;
                 }
             }
 
@@ -112,9 +110,9 @@ public class RenderingExample {
             manager.saveOntology(ontology,
                     new OWLTutorialSyntaxOntologyFormat(), outputURI);
             /* Remove the ontology from the manager */
-            manager.removeOntology(ontology.getURI());
+            manager.removeOntology(ontology);
             System.out.println("Done");
-            
+
         } catch (OWLException e) {
             e.printStackTrace();
         }

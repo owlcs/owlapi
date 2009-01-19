@@ -80,7 +80,7 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
         changes = new ArrayList<OWLOntologyChange>();
         Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
-            for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForLHS(cls)) {
+            for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(cls)) {
                 changes.add(new RemoveAxiom(ont, ax));
                 descs.add(ax.getSuperClass());
             }

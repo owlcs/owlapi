@@ -84,7 +84,7 @@ public class HiddenGCICount extends IntegerValuedMetric {
                         foundEquivalentClassesAxiom = !o.getEquivalentClassesAxioms(cls).isEmpty();
                     }
                     if (!foundSubClassAxiom) {
-                        foundSubClassAxiom = !o.getSubClassAxiomsForLHS(cls).isEmpty();
+                        foundSubClassAxiom = !o.getSubClassAxiomsForSubClass(cls).isEmpty();
                     }
                     if (foundSubClassAxiom && foundEquivalentClassesAxiom) {
                         result.add(cls);

@@ -425,7 +425,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private void createDebuggingOntology() throws OWLException {
         //System.out.println("Debugging ontology: " + ontologyCounter);
         if (debuggingOntology != null) {
-            owlOntologyManager.removeOntology(debuggingOntology.getURI());
+            owlOntologyManager.removeOntology(debuggingOntology);
         }
         URI uri = createURI();
         OWLOntologyURIMapper mapper = new SimpleURIMapper(uri, uri);

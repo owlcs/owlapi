@@ -59,9 +59,17 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     Set<OWLOntology> getOntologies(OWLAxiom axiom);
 
+    /**
+     * Gets the versions of the ontology that have the specified URI
+     *
+     * @param ontology The ontology URI
+     * @return The set of ontologies that have the specified ontology URI.
+     */
+    Set<OWLOntology> getVersions(URI ontology);
 
     /**
-     * Determines if there is an ontology with the specified URI that is managed by this manager.
+     * Determines if there is an ontology with the specified URI that is managed by this manager (the ontology version
+     * IRI will be matched against any version IRI including <code>null</code>)
      *
      * @param ontologyURI The URI of the ontology to test for
      * @return <code>true</code> if there is an ontology with the specified URI that is managed by this manager,
@@ -69,6 +77,15 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     boolean contains(URI ontologyURI);
 
+
+    /**
+     * Determines if there is an ontology with the specified id
+     *
+     * @param id The id of the ontology to test for
+     * @return <code>true</code> if there is an ontology with the specified id that is managed by this manager,
+     *         otherwise <code>false</code>.
+     */
+    boolean contains(OWLOntologyID id);
 
     /**
      * Gets a previously loaded/created ontology that corresponds to the specified ontology URI.
@@ -148,7 +165,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @return A list of ontology changes that represent the changes which took place in order to add the axioms.
      */
     List<OWLOntologyChange> addAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms) throws
-                                                                                       OWLOntologyChangeException;
+            OWLOntologyChangeException;
 
 
     /**
@@ -172,9 +189,50 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     List<OWLOntologyChange> applyChange(OWLOntologyChange change) throws OWLOntologyChangeException;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////
+    //// Ontology creation
+    ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Creates a new (empty) ontology that has the specified ontology URI.
+     * Creates a new (empty) ontology that does not have an ontology URI (and therefore does not have a version URI)
+     *
+     * @return The newly created ontology
+     * @throws OWLOntologyCreationException if there was a problem creating the ontology
+     */
+    OWLOntology createOntology() throws OWLOntologyCreationException;
+
+    /**
+     * Creates a new ontology that is initialised to contain specific axioms. The ontology will not have a URI.
+     *
+     * @param axioms The axioms that should be copied into the new ontology
+     * @return An ontology without a URI that contains all of the specified axioms
+     * @throws OWLOntologyCreationException if there was a problem creating the new ontology, if the new ontology
+     *                                      already exists in this manager.
+     * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
+     */
+    OWLOntology createOntology(Set<OWLAxiom> axioms) throws OWLOntologyCreationException, OWLOntologyChangeException;
+
+
+    /**
+     * Creates a new ontology that has the specified ontology URI and is initialised to contain specific axioms.
+     *
+     * @param ontologyURI The URI of the new ontology.
+     * @param axioms      The axioms that should be copied into the new ontology
+     * @return An ontology that has the specified URI and contains all of the specified axioms
+     * @throws OWLOntologyCreationException if there was a problem creating the new ontology, if the new ontology
+     *                                      already exists in this manager.
+     * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
+     */
+    OWLOntology createOntology(Set<OWLAxiom> axioms, URI ontologyURI) throws OWLOntologyCreationException,
+            OWLOntologyChangeException;
+
+
+    /**
+     * Creates a new (empty) ontology that has the specified ontology URI (and no version URI)
      *
      * @param ontologyURI The URI of the ontology to be created.  The ontology URI will be mapped to a physical URI in
      *                    order to determine the type of ontology factory that will be used to create the ontology.  If
@@ -185,6 +243,21 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws OWLOntologyCreationException If the ontology could not be created.
      */
     OWLOntology createOntology(URI ontologyURI) throws OWLOntologyCreationException;
+
+
+    /**
+     * Creates a new (empty) ontology that has the specified ontology URI.
+     *
+     * @param ontologyURI The URI of the ontology to be created.  The ontology URI will be mapped to a physical URI in
+     *                    order to determine the type of ontology factory that will be used to create the ontology.  If
+     *                    this mapping is <code>null</code> then a default (in memory) implementation of the ontology
+     *                    will most likely be created.
+     * @param versionURI  The version URI of the ontology
+     * @return The newly created ontology, or if an ontology with the specified URI already exists then this existing
+     *         ontology will be returned.
+     * @throws OWLOntologyCreationException If the ontology could not be created.
+     */
+    OWLOntology createOntology(URI ontologyURI, URI versionURI) throws OWLOntologyCreationException;
 
 
     /**
@@ -203,36 +276,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
      */
     OWLOntology createOntology(URI ontologyURI, Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly) throws
-                                                                                                            OWLOntologyCreationException,
-                                                                                                            OWLOntologyChangeException;
-
-
-    /**
-     * Creates a new ontology that has the specified ontology URI and is initialised to contain specific axioms.
-     *
-     * @param ontologyURI The URI of the new ontology.
-     * @param axioms      The axioms that should be copied into the new ontology
-     * @return An ontology that has the specified URI and contains all of the specified axioms
-     * @throws OWLOntologyCreationException if there was a problem creating the new ontology, if the new ontology
-     *                                      already exists in this manager.
-     * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
-     */
-    OWLOntology createOntology(Set<OWLAxiom> axioms, URI ontologyURI) throws OWLOntologyCreationException,
-                                                                             OWLOntologyChangeException;
-
-
-    /**
-     * Creates a new ontology that is initialised to contain specific axioms. A URI will be automatically generated.
-     * The URI is such that the manager does not contain an ontology with the URI.
-     * This method can be used is situation
-     *
-     * @param axioms      The axioms that should be copied into the new ontology
-     * @return An ontology that has the specified URI and contains all of the specified axioms
-     * @throws OWLOntologyCreationException if there was a problem creating the new ontology, if the new ontology
-     *                                      already exists in this manager.
-     * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
-     */
-    OWLOntology createOntology(Set<OWLAxiom> axioms) throws OWLOntologyCreationException, OWLOntologyChangeException;
+            OWLOntologyCreationException,
+            OWLOntologyChangeException;
 
 
     /**
@@ -248,8 +293,15 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
      */
     OWLOntology createOntology(URI ontologyURI, Set<OWLOntology> ontologies) throws OWLOntologyCreationException,
-                                                                                    OWLOntologyChangeException;
+            OWLOntologyChangeException;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////
+    //// Loading
+    ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Loads the ontology specified by the <code>ontologyURI</code> parameter.  Note that this is <b>NOT</b> the
@@ -281,26 +333,13 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     OWLOntology loadOntology(OWLOntologyInputSource inputSource) throws OWLOntologyCreationException;
 
-
-    /**
-     * Reloads an ontology that is already managed by this manager. If the manager does not already manage an ontology
-     * that has the specified URI, it will attempt to load the ontology.
-     *
-     * @param ontologyURI The URI of the ontology to be reloaded.
-     * @return The ontology which was reloaded
-     * @throws OWLOntologyCreationException If the ontology could not be reloaded.
-     */
-    OWLOntology reloadOntology(URI ontologyURI) throws OWLOntologyCreationException;
-
-
     /**
      * Attempts to remove an ontology.  The ontology which is identified by the specified URI is removed regardless of
      * whether it is referenced by other ontologies via imports statements.
      *
-     * @param ontologyURI The URI of the ontology to be removed.  If this manager does not contain an ontology
-     *                    identified by the specified URI then nothing happens.
+     * @param ontology The ontology to be removed.  If this manager does not manage the ontology then nothing happens.
      */
-    void removeOntology(URI ontologyURI);
+    void removeOntology(OWLOntology ontology);
 
 
     /**
@@ -368,25 +407,25 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws OWLOntologyStorageException If the ontology cannot be saved.
      */
     void saveOntology(OWLOntology ontology, URI physicalURI) throws OWLOntologyStorageException,
-                                                                    UnknownOWLOntologyException;
+            UnknownOWLOntologyException;
 
 
     void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat) throws OWLOntologyStorageException,
-                                                                                     UnknownOWLOntologyException;
+            UnknownOWLOntologyException;
 
 
     void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, URI physcialURI) throws
-                                                                                               OWLOntologyStorageException,
-                                                                                               UnknownOWLOntologyException;
+            OWLOntologyStorageException,
+            UnknownOWLOntologyException;
 
 
     void saveOntology(OWLOntology ontology, OWLOntologyOutputTarget outputTarget) throws OWLOntologyStorageException,
-                                                                                         UnknownOWLOntologyException;
+            UnknownOWLOntologyException;
 
 
     void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat,
                       OWLOntologyOutputTarget outputTarget) throws OWLOntologyStorageException,
-                                                                   UnknownOWLOntologyException;
+            UnknownOWLOntologyException;
 
 
     /**

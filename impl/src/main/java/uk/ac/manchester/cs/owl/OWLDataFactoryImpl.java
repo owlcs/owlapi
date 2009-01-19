@@ -72,6 +72,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
     public IRI getIRI(URI uri) {
+        if (uri == null) {
+            return null;
+        }
         return new IRIImpl(this, uri);
     }
 

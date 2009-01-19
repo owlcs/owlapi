@@ -51,7 +51,7 @@ public class Example1 {
             // Now ask the manager to load the ontology
             OWLOntology ontology = manager.loadOntologyFromPhysicalURI(physicalURI);
             // Print out all of the classes which are referenced in the ontology
-            for(OWLClass cls : ontology.getReferencedClasses()) {
+            for (OWLClass cls : ontology.getReferencedClasses()) {
                 System.out.println(cls);
             }
             // Now save a copy to another location in OWL/XML format (i.e. disregard the
@@ -60,7 +60,7 @@ public class Example1 {
             URI physicalURI2 = URI.create("file:/tmp/MyOnt2.owl");
             manager.saveOntology(ontology, new OWLXMLOntologyFormat(), physicalURI2);
             // Remove the ontology from the manager
-            manager.removeOntology(ontology.getURI());
+            manager.removeOntology(ontology);
         }
         catch (OWLOntologyCreationException e) {
             System.out.println("The ontology could not be created: " + e.getMessage());

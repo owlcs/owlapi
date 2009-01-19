@@ -256,7 +256,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         try {
 
             if (ont != null) {
-                man.removeOntology(ont.getURI());
+                man.removeOntology(ont);
             }
             ont = man.createOntology(URI.create("http://www.semanticweb.org/ontology" + System.currentTimeMillis()));
 

@@ -33,7 +33,7 @@ import java.net.URI;
 
 /**
  * <p>Simple example that reads an ontology then writes it out in OWL/XML</p>
- * 
+ * <p/>
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -67,7 +67,7 @@ public class RDF2XML {
             manager.saveOntology(ontology, new OWLXMLOntologyFormat(),
                     physicalURI2);
             /* Remove the ontology from the manager */
-            manager.removeOntology(ontology.getURI());
+            manager.removeOntology(ontology);
 
         } catch (OWLException e) {
             e.printStackTrace();

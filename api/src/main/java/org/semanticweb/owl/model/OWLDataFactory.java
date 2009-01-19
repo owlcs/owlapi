@@ -41,6 +41,14 @@ import java.util.Set;
 public interface OWLDataFactory extends SWRLDataFactory {
 
 
+    /**
+     * Gets an IRI for a given URI.  Note that this method is pass through - if the specified URI is <code>null</code>
+     * then the value returned will be <code>null</code>
+     *
+     * @param uri The URI (may be <code>null</code>)
+     * @return An IRI representing the specified URI, or <code>null</code> if the specified URI
+     *         was <code>null</code>
+     */
     IRI getIRI(URI uri);
 
     ////////////////////////////////////////////////////////////////////////////////////

@@ -3,8 +3,9 @@ package uk.ac.manchester.cs.owl;
 import org.semanticweb.owl.io.DefaultOntologyFormat;
 import org.semanticweb.owl.io.OWLOntologyInputSource;
 import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLRuntimeException;
 import org.semanticweb.owl.model.OWLOntologyCreationException;
+import org.semanticweb.owl.model.OWLOntologyID;
+import org.semanticweb.owl.model.OWLRuntimeException;
 
 import java.net.URI;
 /*
@@ -44,9 +45,9 @@ public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactor
     }
 
 
-    public OWLOntology createOWLOntology(URI ontologyURI, URI physicalURI,
+    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, URI physicalURI,
                                          OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
-        OWLOntology ont = super.createOWLOntology(ontologyURI, physicalURI, handler);
+        OWLOntology ont = super.createOWLOntology(ontologyID, physicalURI, handler);
         handler.setOntologyFormat(ont, new DefaultOntologyFormat());
         return ont;
     }

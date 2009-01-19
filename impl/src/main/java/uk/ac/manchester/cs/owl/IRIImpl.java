@@ -39,6 +39,9 @@ public class IRIImpl implements IRI {
     private URI uri;
 
     public IRIImpl(OWLDataFactory dataFactory, URI uri) {
+        if (uri == null) {
+            throw new IllegalArgumentException("URI must not be null");
+        }
         this.dataFactory = dataFactory;
         this.uri = uri;
     }
@@ -128,10 +131,33 @@ public class IRIImpl implements IRI {
     }
 
     public String toString() {
+        return uri.toString();
+    }
+
+    public String toQuotedString() {
         StringBuilder sb = new StringBuilder();
         sb.append("<");
         sb.append(uri);
         sb.append(">");
+
         return sb.toString();
+    }
+
+    public int hashCode() {
+        return uri.hashCode();
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof IRI)) {
+            return false;
+        }
+        IRI other = (IRI) obj;
+        return uri.equals(other.toURI());
     }
 }

@@ -39,13 +39,7 @@ import java.util.*;
  */
 public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology {
 
-    private static int count = 0;
-
-    private String id = "Ontology" + (++count);
-
-    private IRI ontologyIRI;
-
-    private IRI versionIRI;
+    private OWLOntologyID ontologyID;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -201,33 +195,36 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
 
-    public OWLOntologyImpl(OWLDataFactory dataFactory) {
-        this(dataFactory, null, null);
-    }
-
-    public OWLOntologyImpl(OWLDataFactory dataFactory, IRI ontologyIRI) {
-        this(dataFactory, ontologyIRI, null);
-    }
-
-    public OWLOntologyImpl(OWLDataFactory dataFactory, IRI ontologyIRI, IRI versionIRI) {
+    public OWLOntologyImpl(OWLDataFactory dataFactory, OWLOntologyID ontologyID) {
         super(dataFactory);
-        this.ontologyIRI = ontologyIRI;
+        this.ontologyID = ontologyID;
     }
 
+    public OWLOntologyID getOntologyID() {
+        return ontologyID;
+    }
 
     public IRI getIRI() {
-        return ontologyIRI;
+        return getOntologyID().getOntologyIRI();
     }
 
     public IRI getVersionIRI() {
-        return versionIRI;
+        return getOntologyID().getVersionIRI();
+    }
+
+    public String toString() {
+        return super.toString();
     }
 
     /**
      * Gets the URI of the ontology.
      */
     public URI getURI() {
-        return ontologyIRI.toURI();
+        if (getIRI() != null) {
+            return getIRI().toURI();
+        } else {
+            return null;
+        }
     }
 
 
@@ -235,29 +232,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if (object == this) {
             return 0;
         }
-        String ont1 = "";
-        if (ontologyIRI != null) {
-            ont1 = ontologyIRI.toString();
-        }
-        String ver1 = "";
-        if (versionIRI != null) {
-            ver1 = versionIRI.toString();
-        }
-        String com1 = ont1 + ver1;
-        String ont2 = "";
-        if (ontologyIRI != null) {
-            ont2 = ontologyIRI.toString();
-        }
-        String ver2 = "";
-        if (versionIRI != null) {
-            ver2 = versionIRI.toString();
-        }
-        String com2 = ont2 + ver2;
-        int diff = com1.compareTo(com2);
-        if (diff != 0) {
-            return diff;
-        }
-        return -1;
+        OWLOntology other = (OWLOntology) object;
+        return getOntologyID().compareTo(other.getOntologyID());
     }
 
 
@@ -631,7 +607,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         result.addAll(getEquivalentObjectPropertiesAxioms(prop));
         result.addAll(getDisjointObjectPropertiesAxiom(prop));
         result.addAll(getObjectPropertyRangeAxioms(prop));
-        result.addAll(getObjectSubPropertyAxiomsForLHS(prop));
+        result.addAll(getObjectSubPropertyAxiomsForSubProperty(prop));
         return result;
     }
 
@@ -764,7 +740,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLSubClassOfAxiom> getSubClassAxiomsForLHS(OWLClass cls) {
+    public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(OWLClass cls) {
         if (subClassAxiomsByLHS == null) {
             subClassAxiomsByLHS = createMap();
             for (OWLSubClassOfAxiom axiom : getAxiomsInternal(SUBCLASS)) {
@@ -777,7 +753,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLSubClassOfAxiom> getSubClassAxiomsForRHS(OWLClass cls) {
+    public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSuperClass(OWLClass cls) {
         if (subClassAxiomsByRHS == null) {
             subClassAxiomsByRHS = createMap();
             for (OWLSubClassOfAxiom axiom : getAxiomsInternal(SUBCLASS)) {
@@ -836,7 +812,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     // Object properties
-    public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForLHS(OWLObjectPropertyExpression property) {
+    public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSubProperty(OWLObjectPropertyExpression property) {
         if (objectSubPropertyAxiomsByLHS == null) {
             objectSubPropertyAxiomsByLHS = createMap();
             for (OWLSubObjectPropertyOfAxiom axiom : getAxiomsInternal(SUB_OBJECT_PROPERTY)) {
@@ -847,7 +823,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForRHS(OWLObjectPropertyExpression property) {
+    public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSuperProperty(OWLObjectPropertyExpression property) {
         if (objectSubPropertyAxiomsByRHS == null) {
             objectSubPropertyAxiomsByRHS = createMap();
             for (OWLSubObjectPropertyOfAxiom axiom : getAxiomsInternal(SUB_OBJECT_PROPERTY)) {
@@ -1016,7 +992,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForLHS(OWLDataProperty lhsProperty) {
+    public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSubProperty(OWLDataProperty lhsProperty) {
         if (dataSubPropertyAxiomsByLHS == null) {
             dataSubPropertyAxiomsByLHS = createMap();
             for (OWLSubDataPropertyOfAxiom axiom : getAxiomsInternal(SUB_DATA_PROPERTY)) {
@@ -1027,7 +1003,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForRHS(OWLDataPropertyExpression property) {
+    public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSuperProperty(OWLDataPropertyExpression property) {
         if (dataSubPropertyAxiomsByRHS == null) {
             dataSubPropertyAxiomsByRHS = createMap();
             for (OWLSubDataPropertyOfAxiom axiom : getAxiomsInternal(SUB_DATA_PROPERTY)) {
@@ -1257,13 +1233,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
         public void visit(SetOntologyURI change) {
-            if (!change.getNewURI().equals(ontologyIRI)) {
+            URI newOntURI = change.getNewURI();
+            OWLOntologyID id = new OWLOntologyID(getOWLDataFactory().getIRI(newOntURI), ontologyID.getVersionIRI());
+            if (!id.equals(ontologyID)) {
                 appliedChanges.add(change);
-                ontologyIRI = getOWLDataFactory().getIRI(change.getNewURI());
+                ontologyID = id;
             }
         }
-
-        private int nlac = 0;
 
         public void visit(AddAxiom change) {
             OWLAxiom axiom = change.getAxiom();
@@ -2251,11 +2227,14 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
         if (!(obj instanceof OWLOntology)) {
             return false;
         }
-        OWLOntology other = ((OWLOntology) obj);
-        return other.getURI().equals(ontologyIRI);
+        OWLOntology other = (OWLOntology) obj;
+        return getOntologyID().equals(other.getOntologyID());
     }
 
 

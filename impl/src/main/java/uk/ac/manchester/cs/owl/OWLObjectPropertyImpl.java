@@ -127,7 +127,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
 
     protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>> getSubPropertyAxiomsForRHS(
             OWLOntology ont) {
-        return ont.getObjectSubPropertyAxiomsForRHS(this);
+        return ont.getObjectSubPropertyAxiomsForSuperProperty(this);
     }
 
 

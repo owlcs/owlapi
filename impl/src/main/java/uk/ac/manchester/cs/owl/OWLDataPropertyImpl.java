@@ -96,7 +96,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
 
 
     protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>> getSubPropertyAxioms(OWLOntology ontology) {
-        return ontology.getDataSubPropertyAxiomsForLHS(this);
+        return ontology.getDataSubPropertyAxiomsForSubProperty(this);
     }
 
 
@@ -108,7 +108,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
 
     protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>> getSubPropertyAxiomsForRHS(
             OWLOntology ont) {
-        return ont.getDataSubPropertyAxiomsForRHS(this);
+        return ont.getDataSubPropertyAxiomsForSuperProperty(this);
     }
 
 

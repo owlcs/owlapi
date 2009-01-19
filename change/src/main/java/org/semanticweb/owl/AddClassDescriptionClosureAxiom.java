@@ -90,7 +90,7 @@ public class AddClassDescriptionClosureAxiom extends AbstractCompositeOntologyCh
         // as nominals
         FillerCollector collector = new FillerCollector();
         for (OWLOntology ont : ontologies) {
-            for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForLHS(cls)) {
+            for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(cls)) {
                 ax.getSuperClass().accept(collector);
             }
         }

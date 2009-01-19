@@ -85,4 +85,10 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue {
 
     OWLNamedIndividual toOWLIndividual();
 
+    /**
+     * Obtained this IRI surrounded by angled brackets
+     *
+     * @return This IRI surrounded by &lt; and &gt;
+     */
+    String toQuotedString();
 }

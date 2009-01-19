@@ -93,7 +93,7 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
 //        man.applyChange(new AddAxiom(ontA, anno));
         File tempFile = File.createTempFile("Ontology", ".owl");
         man.saveOntology(ontA, tempFile.toURI());
-        man.removeOntology(ontA.getURI());
+        man.removeOntology(ontA);
         OWLOntology ontB = man.loadOntologyFromPhysicalURI(tempFile.toURI());
         assertTrue(ontB.getAxioms().containsAll(ontA.getAxioms()));
     }

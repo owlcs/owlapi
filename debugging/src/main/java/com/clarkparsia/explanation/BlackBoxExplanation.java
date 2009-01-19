@@ -112,7 +112,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
     private void reset() {
         if (debuggingOntology != null) {
-            owlOntologyManager.removeOntology(debuggingOntology.getURI());
+            owlOntologyManager.removeOntology(debuggingOntology);
             debuggingOntology = null;
         }
         debuggingAxioms.clear();
@@ -435,7 +435,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
     private void createDebuggingOntology() throws OWLException {
         if (debuggingOntology != null) {
-            owlOntologyManager.removeOntology(debuggingOntology.getURI());
+            owlOntologyManager.removeOntology(debuggingOntology);
         }
         URI uri = createURI();
         OWLOntologyURIMapper mapper = new SimpleURIMapper(uri, uri);

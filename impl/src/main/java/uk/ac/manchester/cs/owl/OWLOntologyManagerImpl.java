@@ -45,9 +45,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     private boolean allowPhysicalURIsInImportsDeclarations = true;
 
-    private Map<URI, OWLOntology> ontologiesByURI;
+    private Map<OWLOntologyID, OWLOntology> ontologiesByID;
 
-    private Map<URI, URI> physicalURIsByOntologyURI;
+    private Map<OWLOntologyID, URI> physicalURIsByID;
 
     private Map<OWLOntology, OWLOntologyFormat> ontologyFormatsByOntology;
 
@@ -81,8 +81,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     public OWLOntologyManagerImpl(OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
         properties = new OWLOntologyManagerProperties();
-        ontologiesByURI = new HashMap<URI, OWLOntology>();
-        physicalURIsByOntologyURI = new HashMap<URI, URI>();
+        ontologiesByID = new HashMap<OWLOntologyID, OWLOntology>();
+        physicalURIsByID = new HashMap<OWLOntologyID, URI>();
         ontologyFormatsByOntology = new HashMap<OWLOntology, OWLOntologyFormat>();
         uriMappers = new ArrayList<OWLOntologyURIMapper>();
         ontologyFactories = new ArrayList<OWLOntologyFactory>();
@@ -108,38 +108,45 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
 
     public Set<OWLOntology> getOntologies() {
-        return new HashSet<OWLOntology>(ontologiesByURI.values());
+        return new HashSet<OWLOntology>(ontologiesByID.values());
     }
 
 
     public Set<OWLOntology> getOntologies(OWLAxiom axiom) {
-        Set<OWLOntology> result = new HashSet<OWLOntology>(ontologiesByURI.size());
-        for(OWLOntology ont : getOntologies()) {
-            if(ont.containsAxiom(axiom)) {
+        Set<OWLOntology> result = new HashSet<OWLOntology>(ontologiesByID.size());
+        for (OWLOntology ont : getOntologies()) {
+            if (ont.containsAxiom(axiom)) {
                 result.add(ont);
             }
         }
         return result;
     }
 
+    public Set<OWLOntology> getVersions(URI ontology) {
+        throw new RuntimeException("TODO");
+    }
 
     public boolean contains(OWLOntology ontology) {
-        return ontologiesByURI.containsValue(ontology);
+        return ontologiesByID.containsValue(ontology);
     }
 
 
     public boolean contains(URI ontologyURI) {
-        return ontologiesByURI.containsKey(ontologyURI);
+        return contains(new OWLOntologyID(dataFactory.getIRI(ontologyURI)));
     }
 
+    public boolean contains(OWLOntologyID id) {
+        return ontologiesByID.containsKey(id);
+    }
 
     public OWLOntology getOntology(URI ontologyURI) {
-        return ontologiesByURI.get(ontologyURI);
+        OntologyIRIVersionIRIPair pair = new OntologyIRIVersionIRIPair(ontologyURI, null);
+        return ontologiesByID.get(ontologyURI);
     }
 
 
     public OWLOntology getImportedOntology(OWLImportsDeclaration declaration) {
-        OWLOntology importedOntology = ontologiesByURI.get(declaration.getImportedOntologyURI());
+        OWLOntology importedOntology = ontologiesByID.get(declaration.getImportedOntologyURI());
         if (importedOntology != null) {
             return importedOntology;
         }
@@ -147,11 +154,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             // The imports statement may have used a physical URI which
             // may not match with the ontology URI of the imported ontology
             // -- attempt to resolve this situation
-            for (URI ontURI : physicalURIsByOntologyURI.keySet()) {
-                URI physicalURI = physicalURIsByOntologyURI.get(ontURI);
+            for (OWLOntologyID ontID : physicalURIsByID.keySet()) {
+                URI physicalURI = physicalURIsByID.get(ontID);
                 if (declaration.getImportedOntologyURI().equals(physicalURI)) {
                     // Declaration appears to use a physical URI! What a mess!
-                    return ontologiesByURI.get(ontURI);
+                    return ontologiesByID.get(ontID);
                 }
             }
         }
@@ -193,17 +200,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
 
     public List<OWLOntology> getSortedImportsClosure(OWLOntology ontology) throws
-                                                                                        UnknownOWLOntologyException {
+            UnknownOWLOntologyException {
         List<OWLOntology> importsClosure = new ArrayList<OWLOntology>();
         getSortedImportsClosure(ontology, importsClosure, new HashSet<OWLOntology>());
         return importsClosure;
     }
 
     private void getSortedImportsClosure(OWLOntology ontology, List<OWLOntology> imports, Set<OWLOntology> marker) {
-        if(!marker.contains(ontology)) {
+        if (!marker.contains(ontology)) {
             imports.add(ontology);
             marker.add(ontology);
-            for(OWLOntology imported : getImports(ontology)) {
+            for (OWLOntology imported : getImports(ontology)) {
                 getSortedImportsClosure(imported, imports, marker);
             }
         }
@@ -213,10 +220,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Determines if a change is applicable.  A change may not be applicable
      * for a number of reasons.
+     *
      * @param change The change to be tested.
      * @return <code>true</code> if the change is applicable,
-     * otherwise, <code>false</code>.
-     *
+     *         otherwise, <code>false</code>.
      */
     private boolean isChangeApplicable(OWLOntologyChange change) {
         if (!getProperties().isLoadAnnotationAxioms() && change instanceof AddAxiom) {
@@ -231,16 +238,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Applies a change to an ontology and performs the necessary housekeeping
      * tasks.
+     *
      * @param change The change to be applied.
      * @return A list of changes that were actually applied.
      * @throws OWLOntologyChangeException
      */
     private List<OWLOntologyChange> enactChangeApplication(OWLOntologyChange change) throws OWLOntologyChangeException {
-        if(!isChangeApplicable(change)) {
+        if (!isChangeApplicable(change)) {
             return Collections.emptyList();
         }
         OWLOntology ont = change.getOntology();
-        if(!(ont instanceof OWLMutableOntology)) {
+        if (!(ont instanceof OWLMutableOntology)) {
             throw new ImmutableOWLOntologyChangeException(change);
         }
         List<OWLOntologyChange> appliedChanges = ((OWLMutableOntology) ont).applyChange(change);
@@ -251,7 +259,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
 
     public List<OWLOntologyChange> applyChanges(List<? extends OWLOntologyChange> changes) throws
-                                                                                           OWLOntologyChangeException {
+            OWLOntologyChangeException {
         List<OWLOntologyChange> appliedChanges = new ArrayList<OWLOntologyChange>();
         for (OWLOntologyChange change : changes) {
             appliedChanges.addAll(enactChangeApplication(change));
@@ -272,10 +280,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     public List<OWLOntologyChange> addAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms) throws OWLOntologyChangeException {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>(axioms.size());
         // Optimisation - Precheck that the ontology is an immutable ontology.
-        if(ont instanceof OWLMutableOntology) {
-            for(OWLAxiom ax : axioms) {
+        if (ont instanceof OWLMutableOntology) {
+            for (OWLAxiom ax : axioms) {
                 // Further optimisation - precheck that the axiom isn't in the ontology.
-                if(!ont.containsAxiom(ax)) {
+                if (!ont.containsAxiom(ax)) {
                     AddAxiom addAx = new AddAxiom(ont, ax);
                     changes.addAll(enactChangeApplication(addAx));
                 }
@@ -302,11 +310,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     private void checkForOntologyURIChange(OWLOntologyChange change) {
         if (change instanceof SetOntologyURI) {
             SetOntologyURI setURI = (SetOntologyURI) change;
-            renameOntology(setURI.getOriginalURI(), setURI.getNewURI());
+            renameOntology(setURI.getOriginalOntologyID());
             resetImportsClosureCache();
         }
     }
-
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -332,43 +339,57 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         return ontologyFormatsByOntology.get(ontology);
     }
 
+    private IRI toIRI(URI uri) {
+        return dataFactory.getIRI(uri);
+    }
+
+    public OWLOntology createOntology() throws OWLOntologyCreationException {
+        // Brand new ontology without a URI
+        return createOntology(new OWLOntologyID());
+    }
 
     public OWLOntology createOntology(URI ontologyURI) throws OWLOntologyCreationException {
-        OWLOntology ontology = ontologiesByURI.get(ontologyURI);
+        return createOntology(new OWLOntologyID(toIRI(ontologyURI)));
+    }
+
+    public OWLOntology createOntology(URI ontologyURI, URI versionURI) throws OWLOntologyCreationException {
+        return createOntology(new OWLOntologyID(toIRI(ontologyURI), toIRI(versionURI)));
+    }
+
+    private OWLOntology createOntology(OWLOntologyID ontologyID) throws OWLOntologyCreationException {
+        OWLOntology ontology = ontologiesByID.get(ontologyID);
         if (ontology != null) {
             return ontology;
         }
-        URI physicalURI = getPhysicalURIFromOntologyURI(ontologyURI, false);
+        URI physicalURI = getPhysicalURIFromOntologyURI(ontologyID.getOntologyIRI().toURI(), false);
         for (OWLOntologyFactory factory : ontologyFactories) {
             if (factory.canCreateFromPhysicalURI(physicalURI)) {
-                physicalURIsByOntologyURI.put(ontologyURI, physicalURI);
-                return factory.createOWLOntology(ontologyURI, physicalURI, this);
+                physicalURIsByID.put(ontologyID, physicalURI);
+                return factory.createOWLOntology(ontologyID, physicalURI, this);
             }
         }
         throw new OWLOntologyFactoryNotFoundException(physicalURI);
     }
 
-
     public OWLOntology createOntology(URI ontologyURI, Set<OWLOntology> ontologies) throws
-                                                                                          OWLOntologyCreationException,
-                                                                                          OWLOntologyChangeException {
+            OWLOntologyCreationException,
+            OWLOntologyChangeException {
         return createOntology(ontologyURI, ontologies, false);
     }
 
 
     public OWLOntology createOntology(URI ontologyURI, Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly) throws
-                                                                                                                         OWLOntologyCreationException,
-                                                                                                                         OWLOntologyChangeException {
-        if(contains(ontologyURI)) {
-            throw new OWLOntologyCreationException("Ontology already exists: " + ontologyURI);
+            OWLOntologyCreationException,
+            OWLOntologyChangeException {
+        if (contains(ontologyURI)) {
+            throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(dataFactory.getIRI(ontologyURI)));
         }
         OWLOntology ont = createOntology(ontologyURI);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        for(OWLOntology ontology : ontologies) {
+        for (OWLOntology ontology : ontologies) {
             if (copyLogicalAxiomsOnly) {
                 axioms.addAll(ontology.getLogicalAxioms());
-            }
-            else {
+            } else {
                 axioms.addAll(ontology.getAxioms());
             }
         }
@@ -377,19 +398,19 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
 
-    public OWLOntology createOntology(Set<OWLAxiom> axioms, URI ontologyURI) throws OWLOntologyCreationException,
-                                                                                    OWLOntologyChangeException {
-        if(contains(ontologyURI)) {
-            throw new OWLOntologyCreationException("Ontology already exists: " + ontologyURI);
+    public OWLOntology createOntology(Set<OWLAxiom> axioms, URI uri) throws OWLOntologyCreationException,
+            OWLOntologyChangeException {
+        if (contains(uri)) {
+            throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(toIRI(uri)));
         }
-        OWLOntology ont = createOntology(ontologyURI);
+        OWLOntology ont = createOntology(uri);
         addAxioms(ont, axioms);
         return ont;
     }
 
 
     public OWLOntology createOntology(Set<OWLAxiom> axioms) throws OWLOntologyCreationException,
-                                                                   OWLOntologyChangeException {
+            OWLOntologyChangeException {
         return createOntology(axioms, getNextAutoGeneratedURI());
     }
 
@@ -400,10 +421,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     public OWLOntology loadOntology(URI ontologyURI) throws OWLOntologyCreationException {
         String frag = ontologyURI.getFragment();
-        if(frag != null && frag.length() == 0) {
+        if (frag != null && frag.length() == 0) {
             // Empty fragment - should we strip this out???
         }
-        OWLOntology ontology = ontologiesByURI.get(ontologyURI);
+        OWLOntology ontology = ontologiesByID.get(ontologyURI);
         if (ontology != null) {
             return ontology;
         }
@@ -415,8 +436,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             if (ontology != null) {
                 return ontology;
             }
-        }
-        else {
+        } else {
             // Nothing we can do here.  We can't get a physical URI to load
             // the ontology from.
             throw new PhysicalURIMappingNotFoundException(ontologyURI);
@@ -438,14 +458,15 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     /**
      * This is the method that all the other load method delegate to.
+     *
      * @param ontologyURI The URI of the ontology to be loaded.  This is only used to
-     * report to listeners and may be <code>null</code>
+     *                    report to listeners and may be <code>null</code>
      * @param inputSource The input source that specifies where the ontology should be loaded from.
      * @return The ontology that was loaded.
      * @throws OWLOntologyCreationException If the ontology could not be loaded.
      */
     protected OWLOntology loadOntology(URI ontologyURI, OWLOntologyInputSource inputSource) throws OWLOntologyCreationException {
-        if(loadCount != importsLoadCount) {
+        if (loadCount != importsLoadCount) {
             System.err.println("Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
         }
         fireStartedLoadingEvent(ontologyURI, inputSource.getPhysicalURI(), loadCount > 0);
@@ -461,12 +482,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
                     OWLOntology ontology = factory.loadOWLOntology(inputSource, this);
                     uriOfLoadedOntology = ontology.getURI();
                     // Store the ontology to physical URI mapping
-                    physicalURIsByOntologyURI.put(ontology.getURI(), inputSource.getPhysicalURI());
+                    physicalURIsByID.put(ontology.getOntologyID(), inputSource.getPhysicalURI());
                     return ontology;
                 }
             }
         }
-        catch(OWLOntologyCreationException e) {
+        catch (OWLOntologyCreationException e) {
             ex = e;
             throw e;
         }
@@ -482,31 +503,20 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
 
-
-
-    public OWLOntology reloadOntology(URI ontologyURI) throws OWLOntologyCreationException {
-        removeOntology(ontologyURI);
-        return loadOntology(ontologyURI);
-    }
-
-
-    public void removeOntology(URI ontologyURI) {
-        OWLOntology ontology = ontologiesByURI.get(ontologyURI);
-        ontologiesByURI.remove(ontologyURI);
+    public void removeOntology(OWLOntology ontology) {
+        ontologiesByID.remove(ontology.getOntologyID());
         ontologyFormatsByOntology.remove(ontology);
-//        ontologies.remove(ontology);
-        physicalURIsByOntologyURI.remove(ontologyURI);
+        physicalURIsByID.remove(ontology.getOntologyID());
         resetImportsClosureCache();
     }
 
     private void addOntology(OWLOntology ont) {
-//        ontologies.add(ont);
-        ontologiesByURI.put(ont.getURI(), ont);
+        ontologiesByID.put(ont.getOntologyID(), ont);
     }
 
 
     public URI getPhysicalURIForOntology(OWLOntology ontology) throws UnknownOWLOntologyException {
-        URI physicalURI = physicalURIsByOntologyURI.get(ontology.getURI());
+        URI physicalURI = physicalURIsByID.get(ontology.getOntologyID());
         if (physicalURI == null) {
             throw new UnknownOWLOntologyException(ontology.getURI());
         }
@@ -515,23 +525,28 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
 
     public void setPhysicalURIForOntology(OWLOntology ontology, URI physicalURI) throws UnknownOWLOntologyException {
-        if (!ontologiesByURI.containsValue(ontology)) {
+        if (!ontologiesByID.containsValue(ontology)) {
             throw new UnknownOWLOntologyException(ontology.getURI());
         }
-        physicalURIsByOntologyURI.put(ontology.getURI(), physicalURI);
+        physicalURIsByID.put(ontology.getOntologyID(), physicalURI);
     }
 
 
-    private void renameOntology(URI oldURI, URI newURI) {
-        OWLOntology ont = ontologiesByURI.get(oldURI);
+    /**
+     * Handles a rename of an ontology.  This method should only be called *after* the change has been applied
+     *
+     * @param oldID The original ID of the ontology
+     */
+    private void renameOntology(OWLOntologyID oldID) {
+        OWLOntology ont = ontologiesByID.get(oldID);
         if (ont == null) {
             // Nothing to rename!
             return;
         }
-        ontologiesByURI.remove(oldURI);
-        ontologiesByURI.put(newURI, ont);
-        URI physicalURI = physicalURIsByOntologyURI.remove(oldURI);
-        physicalURIsByOntologyURI.put(newURI, physicalURI);
+        ontologiesByID.remove(oldID);
+        ontologiesByID.put(ont.getOntologyID(), ont);
+        URI physicalURI = physicalURIsByID.remove(oldID);
+        physicalURIsByID.put(ont.getOntologyID(), physicalURI);
         resetImportsClosureCache();
     }
 
@@ -554,22 +569,22 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
 
     public void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat) throws OWLOntologyStorageException,
-                                                                                            UnknownOWLOntologyException {
+            UnknownOWLOntologyException {
         URI physicalURI = getPhysicalURIForOntology(ontology);
         saveOntology(ontology, ontologyFormat, physicalURI);
     }
 
 
     public void saveOntology(OWLOntology ontology, URI physicalURI) throws OWLOntologyStorageException,
-                                                                           UnknownOWLOntologyException {
+            UnknownOWLOntologyException {
         OWLOntologyFormat format = getOntologyFormat(ontology);
         saveOntology(ontology, format, physicalURI);
     }
 
 
     public void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, URI physcialURI) throws
-                                                                                                      OWLOntologyStorageException,
-                                                                                                      UnknownOWLOntologyException {
+            OWLOntologyStorageException,
+            UnknownOWLOntologyException {
         for (OWLOntologyStorer storer : ontologyStorers) {
             if (storer.canStoreOntology(ontologyFormat)) {
                 storer.storeOntology(this, ontology, physcialURI, ontologyFormat);
@@ -581,17 +596,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
 
     public void saveOntology(OWLOntology ontology, OWLOntologyOutputTarget outputTarget) throws
-                                                                                         OWLOntologyStorageException,
-                                                                                         UnknownOWLOntologyException {
+            OWLOntologyStorageException,
+            UnknownOWLOntologyException {
         saveOntology(ontology, getOntologyFormat(ontology), outputTarget);
     }
 
 
     public void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, OWLOntologyOutputTarget outputTarget) throws
-                                                                                                                           OWLOntologyStorageException,
-                                                                                                                           UnknownOWLOntologyException {
-        for(OWLOntologyStorer storer : ontologyStorers) {
-            if(storer.canStoreOntology(ontologyFormat)) {
+            OWLOntologyStorageException,
+            UnknownOWLOntologyException {
+        for (OWLOntologyStorer storer : ontologyStorers) {
+            if (storer.canStoreOntology(ontologyFormat)) {
                 storer.storeOntology(this, ontology, outputTarget, ontologyFormat);
             }
         }
@@ -649,8 +664,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Uses the mapper mechanism to obtain a physical URI for an ontology
      * URI.
-     * @param ontologyURI The ontology for which a physical URI mapping is to
-     *                    be retrieved.
+     *
+     * @param ontologyURI The ontology URI for which the physical mapping is to be retrieved
+     * @param quiet       If set to <code>true</code> and a mapping can't be found then a value of <code>null</code>
+     *                    is returned.  If set to <code>false</code> and a mapping can't be found then an exception OWLOntologyURIMappingNotFoundException
+     *                    is thrown.
      * @return The physical URI that corresponds to the ontology URI, or
      *         <code>null</code> if no physical URI can be found.
      */
@@ -663,8 +681,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         }
         if (!quiet) {
             throw new OWLOntologyURIMappingNotFoundException(ontologyURI);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -748,16 +765,15 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             loadOntology(declaration.getImportedOntologyURI());
         }
         catch (OWLOntologyCreationException e) {
-            if(!silentMissingImportsHandling) {
+            if (!silentMissingImportsHandling) {
                 throw e;
-            }
-            else {
+            } else {
                 // Silent
                 MissingImportEvent evt = new MissingImportEvent(declaration.getImportedOntologyURI(), e);
                 fireMissingImportEvent(evt);
             }
         }
-        finally{
+        finally {
             importsLoadCount--;
         }
     }
@@ -787,7 +803,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     protected void fireMissingImportEvent(MissingImportEvent evt) {
-        for(MissingImportListener listener : new ArrayList<MissingImportListener>(missingImportsListeners)) {
+        for (MissingImportListener listener : new ArrayList<MissingImportListener>(missingImportsListeners)) {
             listener.importMissing(evt);
         }
     }
@@ -809,14 +825,56 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     protected void fireStartedLoadingEvent(URI ontologyURI, URI physicalURI, boolean imported) {
-        for(OWLOntologyLoaderListener listener : new ArrayList<OWLOntologyLoaderListener>(loaderListeners)) {
+        for (OWLOntologyLoaderListener listener : new ArrayList<OWLOntologyLoaderListener>(loaderListeners)) {
             listener.startedLoadingOntology(new OWLOntologyLoaderListener.LoadingStartedEvent(ontologyURI, physicalURI, imported));
         }
     }
 
     protected void fireFinishedLoadingEvent(URI ontologyURI, URI physicalURI, boolean imported, OWLOntologyCreationException ex) {
-        for(OWLOntologyLoaderListener listener : new ArrayList<OWLOntologyLoaderListener>(loaderListeners)) {
+        for (OWLOntologyLoaderListener listener : new ArrayList<OWLOntologyLoaderListener>(loaderListeners)) {
             listener.finishedLoadingOntology(new OWLOntologyLoaderListener.LoadingFinishedEvent(ontologyURI, physicalURI, imported, ex));
+        }
+    }
+
+
+    private class OntologyIRIVersionIRIPair {
+
+        private URI ontologyIRI;
+
+        private URI versionIRI;
+
+        public OntologyIRIVersionIRIPair(URI ontologyIRI, URI versionIRI) {
+            this.ontologyIRI = ontologyIRI;
+            this.versionIRI = versionIRI;
+        }
+
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof OntologyIRIVersionIRIPair)) {
+                return false;
+            }
+            OntologyIRIVersionIRIPair other = (OntologyIRIVersionIRIPair) obj;
+            if (!ontologyIRI.equals(other.ontologyIRI)) {
+                return false;
+            }
+            if (versionIRI != null) {
+                if (other.versionIRI != null) {
+                    return versionIRI.equals(other.versionIRI);
+                } else {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        public int hashCode() {
+            int hashCode = ontologyIRI.hashCode();
+            if (versionIRI != null) {
+                hashCode = hashCode + 37 * versionIRI.hashCode();
+            }
+            return hashCode;
         }
     }
 }

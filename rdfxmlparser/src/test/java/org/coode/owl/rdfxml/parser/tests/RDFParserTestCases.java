@@ -57,7 +57,6 @@ public class RDFParserTestCases extends TestCase {
     }
 
 
-
     public void testOWLAPI() throws Exception {
         parseFiles("/owlapi/");
     }
@@ -68,11 +67,11 @@ public class RDFParserTestCases extends TestCase {
 
         for (File testSuiteFolder : file.listFiles()) {
             if (testSuiteFolder.isDirectory()) {
-                for(File ontologyFile : testSuiteFolder.listFiles()) {
-                    if(ontologyFile.getName().endsWith(".rdf") || ontologyFile.getName().endsWith(".owl")) {
+                for (File ontologyFile : testSuiteFolder.listFiles()) {
+                    if (ontologyFile.getName().endsWith(".rdf") || ontologyFile.getName().endsWith(".owl")) {
                         OWLOntology ont = man.loadOntologyFromPhysicalURI(ontologyFile.toURI());
                         System.out.println("Loaded: " + ont);
-                        man.removeOntology(ont.getURI());
+                        man.removeOntology(ont);
                     }
                 }
             }

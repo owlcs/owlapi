@@ -104,13 +104,13 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
 
 
     public boolean canLoad(OWLOntologyInputSource inputSource) {
-        if(inputSource.isReaderAvailable()) {
+        if (inputSource.isReaderAvailable()) {
             return true;
         }
-        if(inputSource.isInputStreamAvailable()) {
+        if (inputSource.isInputStreamAvailable()) {
             return true;
         }
-        if(parsableSchemes.contains(inputSource.getPhysicalURI().getScheme())) {
+        if (parsableSchemes.contains(inputSource.getPhysicalURI().getScheme())) {
             return true;
         }
         // If we can open an input stream then we can attempt to parse the ontology
@@ -147,43 +147,44 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // Call the super method to create the ontology - this is needed, because
         // we throw an exception if someone tries to create an ontology directly
         OWLOntology existingOntology = getOWLOntologyManager().getOntology(inputSource.getPhysicalURI());
-        OWLOntology ont = super.createOWLOntology(inputSource.getPhysicalURI(), inputSource.getPhysicalURI(), mediator);
+        OWLOntologyID ontologyID = new OWLOntologyID(getOWLOntologyManager().getOWLDataFactory().getIRI(inputSource.getPhysicalURI()));
+        OWLOntology ont = super.createOWLOntology(ontologyID, inputSource.getPhysicalURI(), mediator);
         // Now parse the input into the empty ontology that we created
         for (final OWLParser parser : getParsers()) {
             try {
-                if(existingOntology == null && !ont.isEmpty()) {
+                if (existingOntology == null && !ont.isEmpty()) {
                     // Junk from a previous parse.  We should clear the ont
-                    getOWLOntologyManager().removeOntology(ont.getURI());
-                    ont = super.createOWLOntology(inputSource.getPhysicalURI(), inputSource.getPhysicalURI(), mediator);
+                    getOWLOntologyManager().removeOntology(ont);
+                    ont = super.createOWLOntology(ontologyID, inputSource.getPhysicalURI(), mediator);
                 }
                 OWLOntologyFormat format = parser.parse(inputSource, ont);
                 mediator.setOntologyFormat(ont, format);
                 return ont;
             }
-            catch(UnparsableOntologyException e) {
+            catch (UnparsableOntologyException e) {
                 throw e;
             }
             catch (Exception e) {
                 Throwable t = e;
-                while(t != null) {
+                while (t != null) {
                     // For certain IO errors, no matter which parser we try, it
                     // will fail because it can't read anything.
-                    if(t instanceof IOException) {
+                    if (t instanceof IOException) {
                         // Need to remove ontology that we tried to parse into
-                        getOWLOntologyManager().removeOntology(ont.getURI());
+                        getOWLOntologyManager().removeOntology(ont);
                         throw new OWLOntologyCreationIOException((IOException) t);
                     }
                     Throwable tt = e.getCause();
-                    if(tt == t) {
+                    if (tt == t) {
                         break;
                     }
                     t = tt;
                 }
-               exceptions.put(parser, e);
+                exceptions.put(parser, e);
             }
         }
-        if(existingOntology == null) {
-            getOWLOntologyManager().removeOntology(ont.getURI());
+        if (existingOntology == null) {
+            getOWLOntologyManager().removeOntology(ont);
         }
         // We haven't found a parser that could parse the ontology properly.  Throw an
         // exception whose message contains the stack traces from all of the parsers

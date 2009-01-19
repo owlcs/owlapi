@@ -168,7 +168,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         Set<OWLClassExpression> superclasses = cls.getSuperClasses(getOntology());
         if (!superclasses.isEmpty()) {
             writeSection(SUBCLASS_OF, superclasses, ",", true);
-            axioms.addAll(getOntology().getSubClassAxiomsForLHS(cls));
+            axioms.addAll(getOntology().getSubClassAxiomsForSubClass(cls));
         }
         Set<OWLAxiom> pairwiseDisjointClassesAxioms = new HashSet<OWLAxiom>();
         Set<OWLClassExpression> disjointClasses = new HashSet<OWLClassExpression>();
@@ -233,7 +233,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         writeSection(INVERSE_OF, property.getInverses(getOntology()), ",", true);
         axioms.addAll(getOntology().getInverseObjectPropertyAxioms(property));
         writeSection(SUB_PROPERTY_OF, property.getSuperProperties(getOntology()), ",", true);
-        axioms.addAll(getOntology().getObjectSubPropertyAxiomsForLHS(property));
+        axioms.addAll(getOntology().getObjectSubPropertyAxiomsForSubProperty(property));
         writeSection(EQUIVALENT_TO, property.getEquivalentProperties(getOntology()), ",", true);
         axioms.addAll(getOntology().getEquivalentObjectPropertiesAxioms(property));
         writeSection(DISJOINT_WITH, property.getDisjointProperties(getOntology()), ",", true);
@@ -263,7 +263,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         writeSection(RANGE, property.getRanges(getOntology()), ",", true);
         axioms.addAll(getOntology().getDataPropertyRangeAxiom(property));
         writeSection(SUB_PROPERTY_OF, property.getSuperProperties(getOntology()), ",", true);
-        axioms.addAll(getOntology().getDataSubPropertyAxiomsForLHS(property));
+        axioms.addAll(getOntology().getDataSubPropertyAxiomsForSubProperty(property));
         writeSection(EQUIVALENT_TO, property.getEquivalentProperties(getOntology()), ",", true);
         axioms.addAll(getOntology().getEquivalentDataPropertiesAxiom(property));
         writeSection(DISJOINT_WITH, property.getDisjointProperties(getOntology()), ",", true);

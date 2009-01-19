@@ -45,7 +45,7 @@ public class OWLImportsClosureTestCase extends AbstractOWLTestCase {
         assertFalse(getOWLOntologyManager().getImportsClosure(ontA).contains(ontB));
         getOWLOntologyManager().applyChange(new AddAxiom(ontA, importsDeclaration));
         assertTrue(getOWLOntologyManager().getImportsClosure(ontA).contains(ontB));
-        getOWLOntologyManager().removeOntology(ontB.getURI());
+        getOWLOntologyManager().removeOntology(ontB);
         assertFalse(getOWLOntologyManager().getImportsClosure(ontA).contains(ontB));
 
     }
