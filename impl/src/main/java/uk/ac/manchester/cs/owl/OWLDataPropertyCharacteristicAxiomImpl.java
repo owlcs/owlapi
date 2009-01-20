@@ -1,9 +1,9 @@
 package uk.ac.manchester.cs.owl;
 
+import org.semanticweb.owl.model.OWLAnnotation;
 import org.semanticweb.owl.model.OWLDataFactory;
 import org.semanticweb.owl.model.OWLDataPropertyCharacteristicAxiom;
 import org.semanticweb.owl.model.OWLDataPropertyExpression;
-import org.semanticweb.owl.model.OWLException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -39,8 +39,8 @@ public abstract class OWLDataPropertyCharacteristicAxiomImpl extends OWLProperty
     private OWLDataPropertyExpression property;
 
 
-    public OWLDataPropertyCharacteristicAxiomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property) {
-        super(dataFactory);
+    public OWLDataPropertyCharacteristicAxiomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLAnnotation... annotations) {
+        super(dataFactory, annotations);
         this.property = property;
     }
 

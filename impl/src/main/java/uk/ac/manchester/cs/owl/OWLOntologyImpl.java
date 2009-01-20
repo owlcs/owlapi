@@ -595,7 +595,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     public Set<OWLObjectPropertyAxiom> getAxioms(final OWLObjectPropertyExpression prop) {
         final Set<OWLObjectPropertyAxiom> result = new HashSet<OWLObjectPropertyAxiom>(50);
 
-        addAxiomToSet(getAntiSymmetricObjectPropertyAxiom(prop), result);
+        addAxiomToSet(getAsymmetricObjectPropertyAxiom(prop), result);
         addAxiomToSet(getReflexiveObjectPropertyAxiom(prop), result);
         addAxiomToSet(getSymmetricObjectPropertyAxiom(prop), result);
         addAxiomToSet(getIrreflexiveObjectPropertyAxiom(prop), result);
@@ -928,12 +928,6 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             }
         }
         return symmetricPropertyAxiomsByProperty.get(property);
-    }
-
-
-    public OWLAsymmetricObjectPropertyAxiom getAntiSymmetricObjectPropertyAxiom(
-            OWLObjectPropertyExpression property) {
-        return getAsymmetricObjectPropertyAxiom(property);
     }
 
 

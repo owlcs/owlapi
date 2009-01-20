@@ -38,8 +38,8 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
     private OWLClassExpression classExpression;
 
 
-    public OWLClassAssertionImpl(OWLDataFactory dataFactory, OWLIndividual individual, OWLClassExpression classExpression) {
-        super(dataFactory);
+    public OWLClassAssertionImpl(OWLDataFactory dataFactory, OWLIndividual individual, OWLClassExpression classExpression, OWLAnnotation... annotations) {
+        super(dataFactory, annotations);
         this.individual = individual;
         this.classExpression = classExpression;
     }

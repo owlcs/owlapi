@@ -35,8 +35,8 @@ import java.util.Set;
  */
 public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements OWLEquivalentDataPropertiesAxiom {
 
-    public OWLEquivalentDataPropertiesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLDataPropertyExpression> properties) {
-        super(dataFactory, properties);
+    public OWLEquivalentDataPropertiesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLDataPropertyExpression> properties, OWLAnnotation... annotations) {
+        super(dataFactory, properties, annotations);
     }
 
 

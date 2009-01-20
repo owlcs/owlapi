@@ -40,6 +40,8 @@ public interface OWLAxiom extends OWLObject {
 
     <O> O accept(OWLAxiomVisitorEx<O> visitor);
 
+    Set<OWLAnnotation> getAnnotations();
+
     /**
      * Determines if this axiom is a logical axiom. Logical axioms are defined to be
      * axioms other than both declaration axioms (including imports declarations) and annotation
@@ -75,4 +77,5 @@ public interface OWLAxiom extends OWLObject {
      * @return The axiom in negation normal form.
      */
     OWLAxiom getNNF();
+
 }

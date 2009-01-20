@@ -1,9 +1,6 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLNaryPropertyAxiom;
-import org.semanticweb.owl.model.OWLObject;
-import org.semanticweb.owl.model.OWLPropertyExpression;
+import org.semanticweb.owl.model.*;
 
 import java.util.Collections;
 import java.util.Set;
@@ -43,8 +40,8 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
     private Set<P> properties;
 
 
-    public OWLNaryPropertyAxiomImpl(OWLDataFactory dataFactory, Set<? extends P> properties) {
-        super(dataFactory);
+    public OWLNaryPropertyAxiomImpl(OWLDataFactory dataFactory, Set<? extends P> properties, OWLAnnotation... annotations) {
+        super(dataFactory, annotations);
         this.properties = new TreeSet<P>(properties);
     }
 

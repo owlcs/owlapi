@@ -1,12 +1,16 @@
 package uk.ac.manchester.cs.owl;
 
+import org.semanticweb.owl.model.OWLAnnotation;
 import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLDataFactory;
 import org.semanticweb.owl.model.OWLEntity;
 import org.semanticweb.owl.util.NNF;
 import org.semanticweb.owl.util.OWLEntityCollector;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Set;
+import java.util.TreeSet;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -41,16 +45,29 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
     private OWLAxiom nnf;
 
-    public OWLAxiomImpl(OWLDataFactory dataFactory) {
+    private Set<OWLAnnotation> annotations;
+
+    public OWLAxiomImpl(OWLDataFactory dataFactory, OWLAnnotation... annotations) {
         super(dataFactory);
+        if (annotations.length > 0) {
+            this.annotations = Collections.unmodifiableSortedSet(new TreeSet<OWLAnnotation>(Arrays.asList(annotations)));
+        } else {
+            this.annotations = Collections.emptySet();
+        }
     }
 
+    public Set<OWLAnnotation> getAnnotations() {
+        return annotations;
+    }
 
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLAxiom;
+        if (!super.equals(obj)) {
+            return false;
         }
-        return false;
+        if (!(obj instanceof OWLAxiom)) {
+            return false;
+        }
+        return annotations.equals(((OWLAxiom) obj).getAnnotations());
     }
 
 

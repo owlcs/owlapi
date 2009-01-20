@@ -33,8 +33,8 @@ import org.semanticweb.owl.model.*;
  */
 public class OWLInverseFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLInverseFunctionalObjectPropertyAxiom {
 
-    public OWLInverseFunctionalObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property) {
-        super(dataFactory, property);
+    public OWLInverseFunctionalObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLAnnotation... annotations) {
+        super(dataFactory, property, annotations);
     }
 
 

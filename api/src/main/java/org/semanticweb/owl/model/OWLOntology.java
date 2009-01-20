@@ -636,12 +636,6 @@ public interface OWLOntology extends OWLNamedObject {
 
 
     /**
-     * @deprecated use getAsymmetricObjectPropertyAxiom instead.
-     */
-    OWLAsymmetricObjectPropertyAxiom getAntiSymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property);
-
-
-    /**
      * Gets the axiom that states that this property is asymmetric.  Note that this will return an
      * antisymmetric property axiom.  The name of this interfaces is due to legacy reasons.
      *

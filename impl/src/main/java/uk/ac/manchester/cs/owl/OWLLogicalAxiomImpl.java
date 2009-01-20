@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl;
 
+import org.semanticweb.owl.model.OWLAnnotation;
 import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLLogicalAxiom;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -35,8 +35,8 @@ import org.semanticweb.owl.model.OWLLogicalAxiom;
  */
 public abstract class OWLLogicalAxiomImpl extends OWLAxiomImpl implements OWLLogicalAxiom {
 
-    protected OWLLogicalAxiomImpl(OWLDataFactory dataFactory) {
-        super(dataFactory);
+    protected OWLLogicalAxiomImpl(OWLDataFactory dataFactory, OWLAnnotation... annotations) {
+        super(dataFactory, annotations);
     }
 
 

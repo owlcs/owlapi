@@ -34,8 +34,8 @@ import org.semanticweb.owl.model.*;
 public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLNegativeDataPropertyAssertionAxiom {
 
     public OWLNegativeDataPropertyAssertionImplAxiom(OWLDataFactory dataFactory, OWLIndividual subject, OWLDataPropertyExpression property,
-                                                     OWLLiteral object) {
-        super(dataFactory, subject, property, object);
+                                                     OWLLiteral object, OWLAnnotation... annotations) {
+        super(dataFactory, subject, property, object, annotations);
     }
 
 

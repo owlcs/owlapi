@@ -4,6 +4,7 @@ import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.CollectionFactory;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -42,6 +43,8 @@ public class TestQCR extends AbstractRendererAndParserTestCase {
         OWLClass clsA = getDataFactory().getOWLClass(TestUtils.createURI());
         OWLClass clsB = getDataFactory().getOWLClass(TestUtils.createURI());
         OWLClass clsC = getDataFactory().getOWLClass(TestUtils.createURI());
+        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
+        getDataFactory().getFunctionalDataProperty(null, annos.toArray(new OWLAnnotation[annos.size()]));
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(TestUtils.createURI());
         OWLClassExpression filler = getDataFactory().getObjectIntersectionOf(CollectionFactory.createSet(clsB, clsC));
         OWLCardinalityRestriction restriction = getDataFactory().getObjectMinCardinality(prop, 3, filler);

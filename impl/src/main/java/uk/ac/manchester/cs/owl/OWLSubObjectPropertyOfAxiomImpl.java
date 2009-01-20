@@ -34,8 +34,8 @@ import org.semanticweb.owl.model.*;
 public class OWLSubObjectPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLObjectPropertyExpression> implements OWLSubObjectPropertyOfAxiom {
 
     public OWLSubObjectPropertyOfAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression subProperty,
-                                           OWLObjectPropertyExpression superProperty) {
-        super(dataFactory, subProperty, superProperty);
+                                           OWLObjectPropertyExpression superProperty, OWLAnnotation... annotations) {
+        super(dataFactory, subProperty, superProperty, annotations);
     }
 
 

@@ -1,9 +1,6 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLObject;
-import org.semanticweb.owl.model.OWLPropertyExpression;
-import org.semanticweb.owl.model.OWLSubPropertyAxiom;
+import org.semanticweb.owl.model.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -41,8 +38,8 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> e
     private P superProperty;
 
 
-    public OWLSubPropertyAxiomImpl(OWLDataFactory dataFactory, P subProperty, P superProperty) {
-        super(dataFactory);
+    public OWLSubPropertyAxiomImpl(OWLDataFactory dataFactory, P subProperty, P superProperty, OWLAnnotation... annotations) {
+        super(dataFactory, annotations);
         this.subProperty = subProperty;
         this.superProperty = superProperty;
     }
@@ -73,7 +70,7 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> e
     protected int compareObjectOfSameType(OWLObject object) {
         OWLSubPropertyAxiom other = (OWLSubPropertyAxiom) object;
         int diff = subProperty.compareTo(other.getSubProperty());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return superProperty.compareTo(other.getSuperProperty());

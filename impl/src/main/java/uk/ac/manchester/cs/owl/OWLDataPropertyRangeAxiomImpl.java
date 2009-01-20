@@ -33,8 +33,8 @@ import org.semanticweb.owl.model.*;
  */
 public class OWLDataPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWLDataPropertyExpression, OWLDataRange> implements OWLDataPropertyRangeAxiom {
 
-    public OWLDataPropertyRangeAxiomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLDataRange range) {
-        super(dataFactory, property, range);
+    public OWLDataPropertyRangeAxiomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLDataRange range, OWLAnnotation... annotations) {
+        super(dataFactory, property, range, annotations);
     }
 
 

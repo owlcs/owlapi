@@ -36,8 +36,8 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
     private OWLClassExpression domain;
 
 
-    public OWLPropertyDomainAxiomImpl(OWLDataFactory dataFactory, P property, OWLClassExpression domain) {
-        super(dataFactory, property);
+    public OWLPropertyDomainAxiomImpl(OWLDataFactory dataFactory, P property, OWLClassExpression domain, OWLAnnotation... annotations) {
+        super(dataFactory, property, annotations);
         this.domain = domain;
     }
 
@@ -61,7 +61,7 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
     protected int compareObjectOfSameType(OWLObject object) {
         OWLPropertyDomainAxiom other = (OWLPropertyDomainAxiom) object;
         int diff = getProperty().compareTo(other.getProperty());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return diff = domain.compareTo(other.getDomain());

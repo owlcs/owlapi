@@ -39,8 +39,8 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
 
     private Set<OWLDataPropertyExpression> dataPropertyExpressions;
 
-    public OWLHasKeyAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression expression, Set<? extends OWLObjectPropertyExpression> objectPropertyExpressions, Set<? extends OWLDataPropertyExpression> dataPropertyExpressions) {
-        super(dataFactory);
+    public OWLHasKeyAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression expression, Set<? extends OWLObjectPropertyExpression> objectPropertyExpressions, Set<? extends OWLDataPropertyExpression> dataPropertyExpressions, OWLAnnotation... annotations) {
+        super(dataFactory, annotations);
         this.expression = expression;
         this.objectPropertyExpressions = Collections.unmodifiableSet(new TreeSet<OWLObjectPropertyExpression>(objectPropertyExpressions));
         this.dataPropertyExpressions = Collections.unmodifiableSet(new TreeSet<OWLDataPropertyExpression>(dataPropertyExpressions));

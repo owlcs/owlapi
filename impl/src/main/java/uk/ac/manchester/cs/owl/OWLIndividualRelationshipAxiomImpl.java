@@ -40,8 +40,8 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
     private O object;
 
 
-    public OWLIndividualRelationshipAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, P property, O object) {
-        super(dataFactory);
+    public OWLIndividualRelationshipAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, P property, O object, OWLAnnotation... annotations) {
+        super(dataFactory, annotations);
         this.subject = subject;
         this.property = property;
         this.object = object;
@@ -79,11 +79,11 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
     final protected int compareObjectOfSameType(OWLObject object) {
         OWLPropertyAssertionAxiom other = (OWLPropertyAssertionAxiom) object;
         int diff = subject.compareTo(other.getSubject());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         diff = property.compareTo(other.getProperty());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return object.compareTo(other.getObject());

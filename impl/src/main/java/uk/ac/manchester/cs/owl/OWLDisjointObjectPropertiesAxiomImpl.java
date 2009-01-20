@@ -35,8 +35,8 @@ import java.util.Set;
  */
 public class OWLDisjointObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements OWLDisjointObjectPropertiesAxiom {
 
-    public OWLDisjointObjectPropertiesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLObjectPropertyExpression> properties) {
-        super(dataFactory, properties);
+    public OWLDisjointObjectPropertiesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLObjectPropertyExpression> properties, OWLAnnotation... annotations) {
+        super(dataFactory, properties, annotations);
     }
 
 

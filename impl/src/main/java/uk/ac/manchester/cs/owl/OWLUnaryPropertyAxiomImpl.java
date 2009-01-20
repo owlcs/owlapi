@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl;
 
+import org.semanticweb.owl.model.OWLAnnotation;
 import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLPropertyExpression;
 import org.semanticweb.owl.model.OWLUnaryPropertyAxiom;
 /*
@@ -39,8 +39,8 @@ public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     private P property;
 
 
-    public OWLUnaryPropertyAxiomImpl(OWLDataFactory dataFactory, P property) {
-        super(dataFactory);
+    public OWLUnaryPropertyAxiomImpl(OWLDataFactory dataFactory, P property, OWLAnnotation... annotations) {
+        super(dataFactory, annotations);
         this.property = property;
     }
 

@@ -1,13 +1,10 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLIndividual;
-import org.semanticweb.owl.model.OWLNaryIndividualAxiom;
-import org.semanticweb.owl.model.OWLObject;
+import org.semanticweb.owl.model.*;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -43,14 +40,14 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
     private Set<OWLIndividual> individuals;
 
 
-    public OWLNaryIndividualAxiomImpl(OWLDataFactory dataFactory, Set<OWLIndividual> individuals) {
-        super(dataFactory);
-        this.individuals = new HashSet<OWLIndividual>(individuals);
+    public OWLNaryIndividualAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> individuals, OWLAnnotation... annotations) {
+        super(dataFactory, annotations);
+        this.individuals = Collections.unmodifiableSortedSet(new TreeSet<OWLIndividual>(individuals));
     }
 
 
     public Set<OWLIndividual> getIndividuals() {
-        return Collections.unmodifiableSet(individuals);
+        return individuals;
     }
 
 

@@ -36,8 +36,8 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
     private R range;
 
 
-    public OWLPropertyRangeAxiomImpl(OWLDataFactory dataFactory, P property, R range) {
-        super(dataFactory, property);
+    public OWLPropertyRangeAxiomImpl(OWLDataFactory dataFactory, P property, R range, OWLAnnotation... annotations) {
+        super(dataFactory, property, annotations);
         this.range = range;
     }
 
@@ -59,7 +59,7 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
 
     final protected int compareObjectOfSameType(OWLObject object) {
         int diff = getProperty().compareTo(((OWLPropertyRangeAxiom) object).getProperty());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return getRange().compareTo(((OWLPropertyRangeAxiom) object).getRange());

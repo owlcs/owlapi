@@ -1,9 +1,6 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.OWLNaryClassAxiom;
-import org.semanticweb.owl.model.OWLObject;
+import org.semanticweb.owl.model.*;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -44,8 +41,8 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     private Set<OWLClassExpression> classExpressions;
 
 
-    public OWLNaryClassAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> descriptions) {
-        super(dataFactory);
+    public OWLNaryClassAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> descriptions, OWLAnnotation... annotations) {
+        super(dataFactory, annotations);
         this.classExpressions = Collections.unmodifiableSortedSet(new TreeSet<OWLClassExpression>(descriptions));
     }
 
@@ -57,7 +54,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
 
     public Set<OWLClassExpression> getDescriptionsMinus(OWLClassExpression... descs) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>(classExpressions);
-        for(OWLClassExpression desc : descs) {
+        for (OWLClassExpression desc : descs) {
             result.remove(desc);
         }
         return result;

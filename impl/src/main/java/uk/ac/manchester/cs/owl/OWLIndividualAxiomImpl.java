@@ -1,5 +1,6 @@
 package uk.ac.manchester.cs.owl;
 
+import org.semanticweb.owl.model.OWLAnnotation;
 import org.semanticweb.owl.model.OWLDataFactory;
 import org.semanticweb.owl.model.OWLIndividualAxiom;
 /*
@@ -34,7 +35,7 @@ import org.semanticweb.owl.model.OWLIndividualAxiom;
  */
 public abstract class OWLIndividualAxiomImpl extends OWLLogicalAxiomImpl implements OWLIndividualAxiom {
 
-    public OWLIndividualAxiomImpl(OWLDataFactory dataFactory) {
-        super(dataFactory);
+    public OWLIndividualAxiomImpl(OWLDataFactory dataFactory, OWLAnnotation... annotations) {
+        super(dataFactory, annotations);
     }
 }

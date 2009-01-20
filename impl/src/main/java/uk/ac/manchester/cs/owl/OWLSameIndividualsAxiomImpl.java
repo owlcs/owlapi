@@ -35,18 +35,18 @@ import java.util.Set;
  */
 public class OWLSameIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl implements OWLSameIndividualsAxiom {
 
-    public OWLSameIndividualsAxiomImpl(OWLDataFactory dataFactory, Set<OWLIndividual> individuals) {
-        super(dataFactory, individuals);
+    public OWLSameIndividualsAxiomImpl(OWLDataFactory dataFactory, Set<OWLIndividual> individuals, OWLAnnotation... annotations) {
+        super(dataFactory, individuals, annotations);
     }
 
 
     public boolean equals(Object obj) {
-        if(super.equals(obj)) {
+        if (super.equals(obj)) {
             return obj instanceof OWLSameIndividualsAxiom;
         }
         return false;
     }
-    
+
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }

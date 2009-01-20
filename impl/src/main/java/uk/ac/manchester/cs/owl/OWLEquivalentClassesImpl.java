@@ -37,8 +37,8 @@ public class OWLEquivalentClassesImpl extends OWLNaryClassAxiomImpl implements O
 
     private Set<OWLClass> namedClasses;
 
-    public OWLEquivalentClassesImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> descriptions) {
-        super(dataFactory, descriptions);
+    public OWLEquivalentClassesImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> descriptions, OWLAnnotation... annotations) {
+        super(dataFactory, descriptions, annotations);
         namedClasses = null;
     }
 

@@ -38,8 +38,8 @@ public class OWLDeclarationImpl extends OWLAxiomImpl implements OWLDeclaration {
     private OWLEntity entity;
 
 
-    public OWLDeclarationImpl(OWLDataFactory dataFactory, OWLEntity entity) {
-        super(dataFactory);
+    public OWLDeclarationImpl(OWLDataFactory dataFactory, OWLEntity entity, OWLAnnotation... annotations) {
+        super(dataFactory, annotations);
         this.entity = entity;
     }
 

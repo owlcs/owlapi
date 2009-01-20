@@ -42,8 +42,8 @@ public class OWLSubClassOfAxiomImpl extends OWLNaryClassAxiomImpl implements OWL
 
 
     public OWLSubClassOfAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression subClass,
-                                  OWLClassExpression superClass) {
-        super(dataFactory, new HashSet<OWLClassExpression>(Arrays.asList(subClass, superClass)));
+                                  OWLClassExpression superClass, OWLAnnotation... annotations) {
+        super(dataFactory, new HashSet<OWLClassExpression>(Arrays.asList(subClass, superClass)), annotations);
         this.subClass = subClass;
         this.superClass = superClass;
     }
