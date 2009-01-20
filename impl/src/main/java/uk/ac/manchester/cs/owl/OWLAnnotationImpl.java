@@ -2,9 +2,7 @@ package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -43,15 +41,15 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
     private Set<OWLAnnotation> annotations;
 
-    public OWLAnnotationImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, OWLAnnotationValue value) {
-        this(dataFactory, property, value, new HashSet<OWLAnnotation>());
+    public OWLAnnotationImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, OWLAnnotationValue value, OWLAnnotation... annotations) {
+        this(dataFactory, property, value, new HashSet<OWLAnnotation>(Arrays.asList(annotations)));
     }
 
     public OWLAnnotationImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, OWLAnnotationValue value, Set<OWLAnnotation> annotations) {
         super(dataFactory);
         this.property = property;
         this.value = value;
-        this.annotations = Collections.unmodifiableSet(new HashSet<OWLAnnotation>(annotations));
+        this.annotations = Collections.unmodifiableSortedSet(new TreeSet<OWLAnnotation>(annotations));
     }
 
     public Set<OWLAnnotation> getAnnotations() {

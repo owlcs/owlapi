@@ -752,39 +752,39 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     // Annotations
 
 
-    public OWLAnnotation getAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value) {
-        return new OWLAnnotationImpl(this, property, value);
+    public OWLAnnotation getAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value, OWLAnnotation... annotations) {
+        return new OWLAnnotationImpl(this, property, value, annotations);
     }
 
-    public OWLAnnotation getAnnotation(URI property, OWLAnnotationValue value) {
-        return new OWLAnnotationImpl(this, getAnnotationProperty(property), value);
+    public OWLAnnotation getAnnotation(URI property, OWLAnnotationValue value, OWLAnnotation... annotations) {
+        return new OWLAnnotationImpl(this, getAnnotationProperty(property), value, annotations);
     }
 
-    public OWLAnnotation getAnnotation(OWLAnnotationProperty property, String literal, String lang) {
+    public OWLAnnotation getAnnotation(OWLAnnotationProperty property, String literal, String lang, OWLAnnotation... annotations) {
         if (lang == null) {
             throw new OWLRuntimeException("Lang must not be null");
         }
-        return getAnnotation(property, getRDFTextLiteral(literal, lang));
+        return getAnnotation(property, getRDFTextLiteral(literal, lang), annotations);
     }
 
-    public OWLAnnotation getAnnotation(OWLAnnotationProperty property, URI uri) {
-        return new OWLAnnotationImpl(this, property, new IRIImpl(this, uri));
+    public OWLAnnotation getAnnotation(OWLAnnotationProperty property, URI uri, OWLAnnotation... annotations) {
+        return new OWLAnnotationImpl(this, property, new IRIImpl(this, uri), annotations);
     }
 
-    public OWLAnnotation getAnnotation(URI property, OWLLiteral literal) {
-        return getAnnotation(getAnnotationProperty(property), literal);
+    public OWLAnnotation getAnnotation(URI property, OWLLiteral literal, OWLAnnotation... annotations) {
+        return getAnnotation(getAnnotationProperty(property), literal, annotations);
     }
 
-    public OWLAnnotation getAnnotation(URI property, OWLRDFTextLiteral literal) {
-        return getAnnotation(getAnnotationProperty(property), literal);
+    public OWLAnnotation getAnnotation(URI property, OWLRDFTextLiteral literal, OWLAnnotation... annotations) {
+        return getAnnotation(getAnnotationProperty(property), literal, annotations);
     }
 
-    public OWLAnnotation getAnnotation(URI property, String literal, String lang) {
-        return getAnnotation(getAnnotationProperty(property), literal, lang);
+    public OWLAnnotation getAnnotation(URI property, String literal, String lang, OWLAnnotation... annotations) {
+        return getAnnotation(getAnnotationProperty(property), literal, lang, annotations);
     }
 
-    public OWLAnnotation getAnnotation(URI property, URI uri) {
-        return getAnnotation(getAnnotationProperty(property), uri);
+    public OWLAnnotation getAnnotation(URI property, URI uri, OWLAnnotation... annotations) {
+        return getAnnotation(getAnnotationProperty(property), uri, annotations);
     }
 
     public OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotation annotation) {

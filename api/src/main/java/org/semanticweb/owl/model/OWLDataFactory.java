@@ -685,17 +685,17 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLAnnotationProperty getAnnotationProperty(URI uri);
 
-    OWLAnnotation getAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value);
+    OWLAnnotation getAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value, OWLAnnotation... annotations);
 
-    OWLAnnotation getAnnotation(URI property, OWLAnnotationValue value);
+    OWLAnnotation getAnnotation(URI property, OWLAnnotationValue value, OWLAnnotation... annotations);
 
-    OWLAnnotation getAnnotation(OWLAnnotationProperty property, String literal, String lang);
+    OWLAnnotation getAnnotation(OWLAnnotationProperty property, String literal, String lang, OWLAnnotation... annotations);
 
-    OWLAnnotation getAnnotation(URI property, String literal, String lang);
+    OWLAnnotation getAnnotation(URI property, String literal, String lang, OWLAnnotation... annotations);
 
-    OWLAnnotation getAnnotation(OWLAnnotationProperty property, URI uri);
+    OWLAnnotation getAnnotation(OWLAnnotationProperty property, URI uri, OWLAnnotation... annotations);
 
-    OWLAnnotation getAnnotation(URI property, URI uri);
+    OWLAnnotation getAnnotation(URI property, URI uri, OWLAnnotation... annotations);
 
 
     OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotation annotation);
