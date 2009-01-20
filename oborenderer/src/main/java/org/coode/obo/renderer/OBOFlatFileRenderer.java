@@ -497,8 +497,10 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         for (OWLObjectPropertyExpression p : objPropAssertions.keySet()) {
             if (!p.isAnonymous()) {
                 for (OWLIndividual ind : objPropAssertions.get(p)) {
-                    final String rel = renderRestriction(new OBORelationship(p.asOWLObjectProperty(), ind));
-                    tvpList.addPair(OBOVocabulary.PROPERTY_VALUE, rel);
+                    if (!ind.isAnonymous()) {
+                        final String rel = renderRestriction(new OBORelationship(p.asOWLObjectProperty(), ind.asNamedIndividual()));
+                        tvpList.addPair(OBOVocabulary.PROPERTY_VALUE, rel);
+                    }
                 }
             } else {
                 exceptions.add(new OBOStorageException(individual, p, "Anonymous property in assertion is not supported in OBO"));

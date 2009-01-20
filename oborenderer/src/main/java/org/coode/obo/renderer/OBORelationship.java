@@ -2,7 +2,7 @@ package org.coode.obo.renderer;
 
 import org.semanticweb.owl.model.OWLClass;
 import org.semanticweb.owl.model.OWLEntity;
-import org.semanticweb.owl.model.OWLIndividual;
+import org.semanticweb.owl.model.OWLNamedIndividual;
 import org.semanticweb.owl.model.OWLObjectProperty;
 /*
 * Copyright (C) 2008, University of Manchester
@@ -43,7 +43,7 @@ public class OBORelationship {
 
     private OWLEntity filler;
 
-    public OBORelationship(OWLObjectProperty property, OWLIndividual filler) {
+    public OBORelationship(OWLObjectProperty property, OWLNamedIndividual filler) {
         this.property = property;
         this.filler = filler;
     }
