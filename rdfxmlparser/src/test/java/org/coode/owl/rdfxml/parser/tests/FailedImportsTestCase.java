@@ -49,16 +49,15 @@ public class FailedImportsTestCase extends TestCase {
         URI a = getClass().getResource("/owlapi/A.owl").toURI();
         final URI b = getClass().getResource("/owlapi/B.owl").toURI();
 
-        manager.addURIMapper(new OWLOntologyURIMapper() {
+        manager.addURIMapper(new OWLOntologyDocumentMapper() {
 
             private URI ontBURI = URI.create("http://www.semanticweb.org/ontologies/2007/7/A.owl");
 
-            public URI getPhysicalURI(URI ontologyURI) {
-                if(ontologyURI.equals(ontBURI)) {
+            public URI getDocumentIRI(OWLOntologyID ontologyURI) {
+                if (ontologyURI.equals(ontBURI)) {
                     return b;
-                }
-                else {
-                    return ontologyURI;
+                } else {
+                    return ontologyURI.getOntologyIRI().toURI();
                 }
             }
         });
@@ -72,7 +71,6 @@ public class FailedImportsTestCase extends TestCase {
         catch (OWLOntologyCreationException e) {
             System.out.println("Failed to load ontology");
         }
-
 
 
         assertEquals(1, manager.getOntologies().size());

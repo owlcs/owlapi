@@ -434,7 +434,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *
      * @param mapper The mapper to be added.
      */
-    void addURIMapper(OWLOntologyURIMapper mapper);
+    void addURIMapper(OWLOntologyDocumentMapper mapper);
 
 
     /**
@@ -442,7 +442,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *
      * @param mapper The mapper to be removed.
      */
-    void removeURIMapper(OWLOntologyURIMapper mapper);
+    void removeURIMapper(OWLOntologyDocumentMapper mapper);
 
 
     /**

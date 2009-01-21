@@ -5,7 +5,7 @@ import org.semanticweb.owl.inference.OWLClassReasoner;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.OWLAxiomVisitorAdapter;
 import org.semanticweb.owl.util.OWLEntityCollector;
-import org.semanticweb.owl.util.SimpleURIMapper;
+import org.semanticweb.owl.util.SimpleDocumentMapper;
 
 import java.net.URI;
 import java.util.*;
@@ -438,7 +438,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
             owlOntologyManager.removeOntology(debuggingOntology);
         }
         URI uri = createURI();
-        OWLOntologyURIMapper mapper = new SimpleURIMapper(uri, uri);
+        OWLOntologyDocumentMapper mapper = new SimpleDocumentMapper(uri, uri);
         owlOntologyManager.addURIMapper(mapper);
         debuggingOntology = owlOntologyManager.createOntology(uri);
         owlOntologyManager.removeURIMapper(mapper);

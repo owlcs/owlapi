@@ -71,9 +71,9 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         entitiesByAxiomRHS = new HashMap<OWLAxiom, Set<OWLEntity>>();
         seedExtractor = new SeedExtractor();
         man = OWLManager.createOWLOntologyManager();
-        man.addURIMapper(new OWLOntologyURIMapper() {
-            public URI getPhysicalURI(URI ontologyURI) {
-                return ontologyURI;
+        man.addURIMapper(new OWLOntologyDocumentMapper() {
+            public URI getDocumentIRI(OWLOntologyID ontologyID) {
+                return ontologyID.getOntologyIRI().toURI();
             }
         });
         mappedAxioms = new HashMap<OWLObject, Set<OWLAxiom>>();

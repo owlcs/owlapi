@@ -75,7 +75,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         if (uri == null) {
             return null;
         }
-        return new IRIImpl(this, uri);
+        return new IRIImpl(uri);
     }
 
     public OWLClass getOWLClass(URI uri) {
@@ -768,7 +768,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
     public OWLAnnotation getAnnotation(OWLAnnotationProperty property, URI uri, OWLAnnotation... annotations) {
-        return new OWLAnnotationImpl(this, property, new IRIImpl(this, uri), annotations);
+        return new OWLAnnotationImpl(this, property, new IRIImpl(uri), annotations);
     }
 
     public OWLAnnotation getAnnotation(URI property, OWLLiteral literal, OWLAnnotation... annotations) {

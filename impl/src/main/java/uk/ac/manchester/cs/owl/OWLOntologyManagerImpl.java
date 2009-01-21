@@ -51,7 +51,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     private Map<OWLOntology, OWLOntologyFormat> ontologyFormatsByOntology;
 
-    private List<OWLOntologyURIMapper> uriMappers;
+    private List<OWLOntologyDocumentMapper> documentMappers;
 
     private List<OWLOntologyFactory> ontologyFactories;
 
@@ -84,7 +84,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         ontologiesByID = new HashMap<OWLOntologyID, OWLOntology>();
         physicalURIsByID = new HashMap<OWLOntologyID, URI>();
         ontologyFormatsByOntology = new HashMap<OWLOntology, OWLOntologyFormat>();
-        uriMappers = new ArrayList<OWLOntologyURIMapper>();
+        documentMappers = new ArrayList<OWLOntologyDocumentMapper>();
         ontologyFactories = new ArrayList<OWLOntologyFactory>();
         installDefaultURIMappers();
         installDefaultOntologyFactories();
@@ -361,7 +361,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         if (ontology != null) {
             return ontology;
         }
-        URI physicalURI = getPhysicalURIFromOntologyURI(ontologyID.getOntologyIRI().toURI(), false);
+        URI physicalURI = getPhysicalURIFromOntologyURI(ontologyID, false);
         for (OWLOntologyFactory factory : ontologyFactories) {
             if (factory.canCreateFromPhysicalURI(physicalURI)) {
                 physicalURIsByID.put(ontologyID, physicalURI);
@@ -424,11 +424,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         if (frag != null && frag.length() == 0) {
             // Empty fragment - should we strip this out???
         }
-        OWLOntology ontology = ontologiesByID.get(ontologyURI);
+        OWLOntologyID id = new OWLOntologyID(dataFactory.getIRI(ontologyURI));
+        OWLOntology ontology = ontologiesByID.get(id);
         if (ontology != null) {
             return ontology;
         }
-        URI physicalURI = getPhysicalURIFromOntologyURI(ontologyURI, true);
+        URI physicalURI = getPhysicalURIFromOntologyURI(id, true);
         // The ontology might be being loaded, but its logical URI might
         // not have been set (as is probably the case with RDF/XML!)
         if (physicalURI != null) {
@@ -635,18 +636,18 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public void addURIMapper(OWLOntologyURIMapper mapper) {
-        uriMappers.add(0, mapper);
+    public void addURIMapper(OWLOntologyDocumentMapper mapper) {
+        documentMappers.add(0, mapper);
     }
 
 
     public void clearURIMappers() {
-        uriMappers.clear();
+        documentMappers.clear();
     }
 
 
-    public void removeURIMapper(OWLOntologyURIMapper mapper) {
-        uriMappers.remove(mapper);
+    public void removeURIMapper(OWLOntologyDocumentMapper mapper) {
+        documentMappers.remove(mapper);
     }
 
 
@@ -665,22 +666,22 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
      * Uses the mapper mechanism to obtain a physical URI for an ontology
      * URI.
      *
-     * @param ontologyURI The ontology URI for which the physical mapping is to be retrieved
-     * @param quiet       If set to <code>true</code> and a mapping can't be found then a value of <code>null</code>
-     *                    is returned.  If set to <code>false</code> and a mapping can't be found then an exception OWLOntologyURIMappingNotFoundException
-     *                    is thrown.
+     * @param ontologyID The ontology ID for which the physical mapping is to be retrieved
+     * @param quiet      If set to <code>true</code> and a mapping can't be found then a value of <code>null</code>
+     *                   is returned.  If set to <code>false</code> and a mapping can't be found then an exception OWLOntologyURIMappingNotFoundException
+     *                   is thrown.
      * @return The physical URI that corresponds to the ontology URI, or
      *         <code>null</code> if no physical URI can be found.
      */
-    private URI getPhysicalURIFromOntologyURI(URI ontologyURI, boolean quiet) {
-        for (OWLOntologyURIMapper mapper : uriMappers) {
-            URI physicalURI = mapper.getPhysicalURI(ontologyURI);
+    private URI getPhysicalURIFromOntologyURI(OWLOntologyID ontologyID, boolean quiet) {
+        for (OWLOntologyDocumentMapper mapper : documentMappers) {
+            URI physicalURI = mapper.getDocumentIRI(ontologyID);
             if (physicalURI != null) {
                 return physicalURI;
             }
         }
         if (!quiet) {
-            throw new OWLOntologyURIMappingNotFoundException(ontologyURI);
+            throw new OWLOntologyURIMappingNotFoundException(ontologyID.getDefaultDocumentIRI().toURI());
         } else {
             return null;
         }
@@ -690,7 +691,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     private void installDefaultURIMappers() {
         // By defaut install the default mapper that simply maps
         // ontology URIs to themselves.
-        addURIMapper(new OWLOntologyURIMapperImpl());
+        addURIMapper(new OWLOntologyDocumentMapperImpl());
     }
 
 

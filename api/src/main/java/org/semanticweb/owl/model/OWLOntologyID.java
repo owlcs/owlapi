@@ -99,6 +99,18 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
         return versionIRI;
     }
 
+    public IRI getDefaultDocumentIRI() {
+        if (ontologyIRI != null) {
+            if (versionIRI != null) {
+                return versionIRI;
+            } else {
+                return ontologyIRI;
+            }
+        } else {
+            return null;
+        }
+    }
+
     private static int getNextCounter() {
         counter++;
         return counter;

@@ -1,7 +1,7 @@
 package org.semanticweb.owl.model;
 
 import junit.framework.TestCase;
-import org.semanticweb.owl.util.NonMappingOntologyURIMapper;
+import org.semanticweb.owl.util.NonMappingOntologyDocumentMapper;
 import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
@@ -44,7 +44,7 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
         super.setUp();
         manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         manager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
-        manager.addURIMapper(new NonMappingOntologyURIMapper());
+        manager.addURIMapper(new NonMappingOntologyDocumentMapper());
     }
 
     public void testContains() throws Exception {

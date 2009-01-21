@@ -38,7 +38,7 @@ import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
 import org.semanticweb.owl.io.OWLParserFactoryRegistry;
 import org.semanticweb.owl.model.OWLDataFactory;
 import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.util.NonMappingOntologyURIMapper;
+import org.semanticweb.owl.util.NonMappingOntologyDocumentMapper;
 import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
@@ -74,6 +74,7 @@ public class OWLManager {
     /**
      * Creates an OWL ontology manager that is configured with standard parsers,
      * storeres etc.
+     *
      * @return The new manager.
      */
     public static OWLOntologyManager createOWLOntologyManager() {
@@ -84,6 +85,7 @@ public class OWLManager {
     /**
      * Creates an OWL ontology manager that is configured with standard parsers,
      * storeres etc.
+     *
      * @param dataFactory The data factory that the manager should have a reference to.
      * @return The manager.
      */
@@ -99,7 +101,7 @@ public class OWLManager {
         ontologyManager.addOntologyStorer(new TurtleOntologyStorer());
         ontologyManager.addOntologyStorer(new LatexOntologyStorer());
 
-        ontologyManager.addURIMapper(new NonMappingOntologyURIMapper());
+        ontologyManager.addURIMapper(new NonMappingOntologyDocumentMapper());
 
         ontologyManager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         ontologyManager.addOntologyFactory(new ParsableOWLOntologyFactory());

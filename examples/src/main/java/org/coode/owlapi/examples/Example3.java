@@ -2,7 +2,7 @@ package org.coode.owlapi.examples;
 
 import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.SimpleURIMapper;
+import org.semanticweb.owl.util.SimpleDocumentMapper;
 
 import java.net.URI;
 import java.util.Collections;
@@ -64,7 +64,7 @@ public class Example3 {
             // Create a physical URI which can be resolved to point to where our ontology will be saved.
             URI physicalURI = URI.create("file:/tmp/SWRLTest.owl");
             // Set up a mapping, which maps the ontology URI to the physical URI
-            SimpleURIMapper mapper = new SimpleURIMapper(ontologyURI, physicalURI);
+            SimpleDocumentMapper mapper = new SimpleDocumentMapper(ontologyURI, physicalURI);
             manager.addURIMapper(mapper);
 
             // Now create the ontology - we use the ontology URI (not the physical URI)
@@ -82,12 +82,12 @@ public class Example3 {
             OWLClass clsB = factory.getOWLClass(URI.create(ontologyURI + "#B"));
             SWRLAtomIVariable var = factory.getSWRLAtomIVariable(URI.create(ontologyURI + "#x"));
             SWRLRule rule = factory.getSWRLRule(
-                                                Collections.singleton(
-                                                        factory.getSWRLClassAtom(clsA, var)
-                                                ),
-                                                Collections.singleton(
-                                                        factory.getSWRLClassAtom(clsB, var)
-                                                ));
+                    Collections.singleton(
+                            factory.getSWRLClassAtom(clsA, var)
+                    ),
+                    Collections.singleton(
+                            factory.getSWRLClassAtom(clsB, var)
+                    ));
             manager.applyChange(new AddAxiom(ontology, rule));
 
             OWLObjectProperty prop = factory.getOWLObjectProperty(URI.create(ontologyURI + "#propA"));
@@ -98,7 +98,7 @@ public class Example3 {
             antecedent.add(propAtom);
             antecedent.add(propAtom2);
             SWRLRule rule2 = factory.getSWRLRule(antecedent,
-                                                            Collections.singleton(propAtom));
+                    Collections.singleton(propAtom));
 
             manager.applyChange(new AddAxiom(ontology, rule2));
 

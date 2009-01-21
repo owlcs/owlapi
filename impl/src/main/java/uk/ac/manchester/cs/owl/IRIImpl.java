@@ -34,36 +34,13 @@ import java.util.Set;/*
  */
 public class IRIImpl implements IRI {
 
-    private OWLDataFactory dataFactory;
-
     private URI uri;
 
-    public IRIImpl(OWLDataFactory dataFactory, URI uri) {
+    public IRIImpl(URI uri) {
         if (uri == null) {
             throw new IllegalArgumentException("URI must not be null");
         }
-        this.dataFactory = dataFactory;
         this.uri = uri;
-    }
-
-    public OWLClass toOWLClass() {
-        return dataFactory.getOWLClass(uri);
-    }
-
-    public OWLDataProperty toOWLDataProperty() {
-        return dataFactory.getOWLDataProperty(uri);
-    }
-
-    public OWLDatatype toOWLDatatype() {
-        return dataFactory.getDatatype(uri);
-    }
-
-    public OWLNamedIndividual toOWLIndividual() {
-        return dataFactory.getOWLIndividual(uri);
-    }
-
-    public OWLObjectProperty toOWLObjectProperty() {
-        return dataFactory.getOWLObjectProperty(uri);
     }
 
     public URI toURI() {
@@ -71,7 +48,7 @@ public class IRIImpl implements IRI {
     }
 
     public boolean isBuiltIn() {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
+        return OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(uri);
     }
 
     public boolean isDisallowedVocabulary() {

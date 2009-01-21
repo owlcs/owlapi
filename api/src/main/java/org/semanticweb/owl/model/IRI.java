@@ -61,30 +61,6 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue {
 
     boolean isNothing();
 
-
-    /**
-     * Gets an OWLClass whose IRI is this IRI
-     *
-     * @return An OWLClass with this IRI
-     */
-    OWLClass toOWLClass();
-
-    /**
-     * Gets an OWLObjectProperty whose IRI is this IRI.
-     *
-     * @return An OWLObjectProperty with this IRI
-     */
-    OWLObjectProperty toOWLObjectProperty();
-
-
-    OWLDataProperty toOWLDataProperty();
-
-
-    OWLDatatype toOWLDatatype();
-
-
-    OWLNamedIndividual toOWLIndividual();
-
     /**
      * Obtained this IRI surrounded by angled brackets
      *
