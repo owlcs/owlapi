@@ -45,6 +45,9 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
         this.values = new TreeSet<OWLLiteral>(values);
     }
 
+    public DataRangeType getDataRangeType() {
+        return DataRangeType.DATA_ONE_OF;
+    }
 
     public Set<OWLLiteral> getValues() {
         return Collections.unmodifiableSet(values);

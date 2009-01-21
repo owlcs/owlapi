@@ -45,4 +45,5 @@ public interface OWLDatatype extends OWLDataRange, OWLEntity, OWLNamedObject {
      * @throws OWLRuntimeException if this datatype is not a built in datatype.
      */
     OWLDatatypeVocabulary getBuiltInDatatype();
+
 }

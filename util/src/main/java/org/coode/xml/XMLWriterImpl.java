@@ -64,7 +64,7 @@ public class XMLWriterImpl implements XMLWriter {
 
 
     public XMLWriterImpl(Writer writer, XMLWriterNamespaceManager xmlWriterNamespaceManager) {
-        this(writer, xmlWriterNamespaceManager, "");
+        this(writer, xmlWriterNamespaceManager, "UTF-8");
     }
 
 
@@ -73,7 +73,7 @@ public class XMLWriterImpl implements XMLWriter {
         this.xmlWriterNamespaceManager = xmlWriterNamespaceManager;
         this.xmlBase = xmlBase;
         this.encoding = "";
-        elementStack = new Stack();
+        elementStack = new Stack<XMLElement>();
         setupEntities();
     }
 
@@ -142,7 +142,7 @@ public class XMLWriterImpl implements XMLWriter {
 
     public void writeStartElement(String name) throws IOException {
         String qName = xmlWriterNamespaceManager.getQName(name);
-        if(qName == null) {
+        if (qName == null) {
             // Could not generate a valid QName, therefore, we cannot
             // write valid XML - just throw an exception!
             throw new RuntimeException("Could not generate legal element name (qname) for " + name);
@@ -190,8 +190,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
         if (preambleWritten) {
             element.writeElementStart(true);
-        }
-        else {
+        } else {
             elementStack.push(element);
         }
     }
@@ -319,20 +318,17 @@ public class XMLWriterImpl implements XMLWriter {
                     if (close) {
                         if (textContent != null) {
                             writeElementEnd();
-                        }
-                        else {
+                        } else {
                             writer.write("/>");
                             writeNewLine();
                         }
-                    }
-                    else {
+                    } else {
                         if (textContent == null) {
                             writer.write('>');
                             writeNewLine();
                         }
                     }
-                }
-                else {
+                } else {
                     // Name is null so by convension this is a comment
                     if (textContent != null) {
                         writer.write("\n\n\n");
@@ -355,8 +351,7 @@ public class XMLWriterImpl implements XMLWriter {
             if (name != null) {
                 if (startWritten == false) {
                     writeElementStart(true);
-                }
-                else {
+                } else {
                     if (textContent == null) {
                         insertIndentation();
                     }
@@ -375,8 +370,7 @@ public class XMLWriterImpl implements XMLWriter {
             writer.write('"');
             if (XMLWriterPreferences.getInstance().isUseNamespaceEntities()) {
                 writer.write(swapForEntity(EscapeUtils.escapeXML(val)));
-            }
-            else {
+            } else {
                 writer.write(EscapeUtils.escapeXML(val));
             }
             writer.write('"');

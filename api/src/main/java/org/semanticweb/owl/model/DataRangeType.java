@@ -27,11 +27,11 @@ package org.semanticweb.owl.model;/*
  */
 public enum DataRangeType {
 
-    DATA_TYPE("Datatype"),
+    DATATYPE("Datatype"),
 
     DATA_ONE_OF("DataOneOf"),
 
-    DATA_TYPE_RESTRICTION("DatatypeRestriction"),
+    DATATYPE_RESTRICTION("DatatypeRestriction"),
 
     DATA_COMPLEMENT_OF("DataComplementOf"),
 

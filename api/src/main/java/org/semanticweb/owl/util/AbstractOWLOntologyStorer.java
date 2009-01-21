@@ -41,26 +41,25 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
 
     public void storeOntology(OWLOntologyManager manager, OWLOntology ontology, URI physicalURI, OWLOntologyFormat ontologyFormat) throws
-                                                                                                                                   OWLOntologyStorageException {
+            OWLOntologyStorageException {
         try {
             OutputStream os;
-            if(!physicalURI.isAbsolute()) {
+            if (!physicalURI.isAbsolute()) {
                 throw new OWLOntologyStorageException("Physical URI must be absolute: " + physicalURI);
             }
-            if(physicalURI.getScheme().equals("file")) {
+            if (physicalURI.getScheme().equals("file")) {
                 File file = new File(physicalURI);
                 // Ensure that the necessary directories exist.
                 file.getParentFile().mkdirs();
                 os = new FileOutputStream(file);
-            }
-            else {
+            } else {
                 URL url = physicalURI.toURL();
                 URLConnection conn = url.openConnection();
                 os = conn.getOutputStream();
             }
 
-            Writer w = new BufferedWriter(new OutputStreamWriter(os));
-            storeOntology(manager, ontology,  w, ontologyFormat);
+            Writer w = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            storeOntology(manager, ontology, w, ontologyFormat);
             w.close();
         }
         catch (IOException e) {
@@ -71,16 +70,13 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
     public void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OWLOntologyOutputTarget target,
                               OWLOntologyFormat format) throws OWLOntologyStorageException {
-        if(target.isWriterAvailable()) {
+        if (target.isWriterAvailable()) {
             storeOntology(manager, ontology, target.getWriter(), format);
-        }
-        else if(target.isOutputStreamAvailable()) {
+        } else if (target.isOutputStreamAvailable()) {
             storeOntology(manager, ontology, new BufferedWriter(new OutputStreamWriter(target.getOutputStream())), format);
-        }
-        else if(target.isPhysicalURIAvailable()) {
+        } else if (target.isPhysicalURIAvailable()) {
             storeOntology(manager, ontology, target.getPhysicalURI(), format);
-        }
-        else {
+        } else {
             throw new OWLOntologyStorageException("Neither a Writer, OutputStream or Physical URI could be obtained to store the ontology");
         }
     }

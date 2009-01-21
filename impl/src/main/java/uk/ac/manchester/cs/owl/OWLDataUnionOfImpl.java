@@ -35,6 +35,10 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
         super(dataFactory, operands);
     }
 
+    public DataRangeType getDataRangeType() {
+        return DataRangeType.DATA_UNION_OF;
+    }
+
     protected int compareObjectOfSameType(OWLObject object) {
         OWLDataUnionOf other = (OWLDataUnionOf) object;
         return compareSets(getOperands(), other.getOperands());

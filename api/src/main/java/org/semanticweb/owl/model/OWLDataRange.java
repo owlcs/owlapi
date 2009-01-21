@@ -57,6 +57,13 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange {
 
     OWLDatatype asOWLDatatype();
 
+    /**
+     * Gets the type of this data range
+     *
+     * @return The data range type
+     */
+    DataRangeType getDataRangeType();
+
     void accept(OWLDataVisitor visitor);
 
     <O> O accept(OWLDataVisitorEx<O> visitor);

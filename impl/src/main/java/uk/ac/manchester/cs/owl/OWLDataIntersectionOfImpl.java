@@ -35,6 +35,10 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements O
         super(dataFactory, operands);
     }
 
+    public DataRangeType getDataRangeType() {
+        return DataRangeType.DATA_INTERSECTION_OF;
+    }
+
     protected int compareObjectOfSameType(OWLObject object) {
         OWLDataIntersectionOf other = (OWLDataIntersectionOf) object;
         return compareSets(getOperands(), other.getOperands());

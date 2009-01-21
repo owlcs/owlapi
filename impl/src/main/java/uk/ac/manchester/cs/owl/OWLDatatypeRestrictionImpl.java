@@ -49,6 +49,9 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
         this.facetRestrictions = new HashSet<OWLFacetRestriction>(facetRestrictions);
     }
 
+    public DataRangeType getDataRangeType() {
+        return DataRangeType.DATATYPE_RESTRICTION;
+    }
 
     public boolean isDatatype() {
         return false;

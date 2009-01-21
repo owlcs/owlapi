@@ -41,6 +41,9 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
         this.dataRange = dataRange;
     }
 
+    public DataRangeType getDataRangeType() {
+        return DataRangeType.DATA_COMPLEMENT_OF;
+    }
 
     public boolean isDatatype() {
         return false;
