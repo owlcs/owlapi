@@ -196,7 +196,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     }
 
 
-    public OWLDatatype asOWLDataType() {
+    public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not an OWLDatatype!");
     }
 
@@ -221,7 +221,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     }
 
 
-    public boolean isOWLDataType() {
+    public boolean isOWLDatatype() {
         return false;
     }
 

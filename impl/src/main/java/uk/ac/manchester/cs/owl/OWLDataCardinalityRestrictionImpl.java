@@ -1,6 +1,9 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.OWLDataCardinalityRestriction;
+import org.semanticweb.owl.model.OWLDataFactory;
+import org.semanticweb.owl.model.OWLDataPropertyExpression;
+import org.semanticweb.owl.model.OWLDataRange;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -40,7 +43,7 @@ public abstract class OWLDataCardinalityRestrictionImpl extends OWLCardinalityRe
 
 
     public boolean isQualified() {
-        return !getFiller().equals(getOWLDataFactory().getTopDataType());
+        return !getFiller().equals(getOWLDataFactory().getTopDatatype());
     }
 
 

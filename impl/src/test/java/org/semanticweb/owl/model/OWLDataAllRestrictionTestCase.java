@@ -42,6 +42,6 @@ public class OWLDataAllRestrictionTestCase extends AbstractOWLRestrictionWithFil
 
 
     protected OWLDataRange createFiller() throws OWLException {
-        return createOWLDataType();
+        return createOWLDatatype();
     }
 }

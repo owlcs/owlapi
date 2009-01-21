@@ -37,7 +37,7 @@ public class OWLDataPropertyRangeAxiomTestCase extends AbstractOWLBinaryOperandA
 
 
     protected OWLDataRange createRightOperand() throws Exception {
-        return createOWLDataType();
+        return createOWLDatatype();
     }
 
 

@@ -462,8 +462,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         OBOTagValuePairList tvpList = handleCommonTypeDefStanza(property, ontology, writer);
 
         for (OWLDataRange range : property.getRanges(ontology)) {
-            if (range.isDataType()) {
-                tvpList.addPair(OBOVocabulary.RANGE, range.asOWLDataType().getURI().toString());
+            if (range.isDatatype()) {
+                tvpList.addPair(OBOVocabulary.RANGE, range.asOWLDatatype().getURI().toString());
             } else {
                 exceptions.add(new OBOStorageException(property, range, "Complex data range cannot be represented in OBO"));
             }
@@ -569,7 +569,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         sb.append(literal.getString());
         sb.append("\" ");
         if (literal.isTyped()) {
-            sb.append(literal.asOWLTypedLiteral().getDataType().getURI());
+            sb.append(literal.asOWLTypedLiteral().getDatatype().getURI());
         }
         return sb.toString();
     }

@@ -31,7 +31,7 @@ public enum DataRangeType {
 
     DATA_ONE_OF("DataOneOf"),
 
-    DATA_TYPE_RESTRICTION("DataTypeRestriction"),
+    DATA_TYPE_RESTRICTION("DatatypeRestriction"),
 
     DATA_COMPLEMENT_OF("DataComplementOf"),
 

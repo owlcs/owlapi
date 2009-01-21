@@ -1121,17 +1121,17 @@ OWLNamedIndividual Individual()  :
    }
 }
 
-OWLDatatype DataType()  :
+OWLDatatype Datatype()  :
 {
     OWLDatatype dt;
 }
 {
-   (<DATATYPE><OPENPAR>dt=DataTypeURI()<CLOSEPAR>) {
+   (<DATATYPE><OPENPAR>dt=DatatypeURI()<CLOSEPAR>) {
         return dt;
    }
 }
 
-OWLDatatype DataTypeURI() :
+OWLDatatype DatatypeURI() :
 {
     URI uri;
 }
@@ -1169,7 +1169,7 @@ OWLDataRange DataRange()  :
     OWLDataRange rng;
 }
 {
-    (rng=DataTypeURI() | rng=DataOneOf() | rng=DataComplementOf() | rng=DataRangeRestriction()) {
+    (rng=DatatypeURI() | rng=DataOneOf() | rng=DataComplementOf() | rng=DataRangeRestriction()) {
         return rng;
     }
 }
@@ -1204,7 +1204,7 @@ OWLDataRange DataRangeRestriction() :
     Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
 }
 {
-    (<DATATYPERESTRICTION><OPENPAR>rng=DataType()((facetRestriction=DataRangeFacetRestriction()){
+    (<DATATYPERESTRICTION><OPENPAR>rng=Datatype()((facetRestriction=DataRangeFacetRestriction()){
         facetRestrictions.add(facetRestriction);
     })+<CLOSEPAR>) {
         return dataFactory.getDatatypeRestriction(rng, facetRestrictions);
@@ -1838,7 +1838,7 @@ OWLTypedLiteral TypedConstant() :
 
 }
 {
-    (literal=StringLiteral()"^^"datatype=DataTypeURI()) {
+    (literal=StringLiteral()"^^"datatype=DatatypeURI()) {
 
             return dataFactory.getTypedLiteral(literal, datatype);
 

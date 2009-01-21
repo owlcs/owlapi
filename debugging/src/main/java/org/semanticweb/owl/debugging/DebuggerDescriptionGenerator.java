@@ -79,7 +79,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
 
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-        OWLClassExpression sub = dataFactory.getDataSomeValuesFrom(axiom.getProperty(), dataFactory.getTopDataType());
+        OWLClassExpression sub = dataFactory.getDataSomeValuesFrom(axiom.getProperty(), dataFactory.getTopDatatype());
         OWLAxiom ax = dataFactory.getSubClassOf(sub, axiom.getDomain());
         ax.accept(this);
     }

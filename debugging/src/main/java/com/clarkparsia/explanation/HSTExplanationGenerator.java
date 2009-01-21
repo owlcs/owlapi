@@ -66,7 +66,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         this.singleExplanationGenerator = singleExplanationGenerator;
 
         collector = new OWLEntityCollector();
-        collector.setCollectDataTypes(false);
+        collector.setCollectDatatypes(false);
     }
 
 

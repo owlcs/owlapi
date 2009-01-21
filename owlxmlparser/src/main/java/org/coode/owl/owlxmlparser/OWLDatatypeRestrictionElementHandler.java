@@ -55,8 +55,8 @@ public class OWLDatatypeRestrictionElementHandler extends AbstractOWLDataRangeHa
 
     public void handleChild(AbstractOWLDataRangeHandler handler) {
         OWLDataRange dr = handler.getOWLObject();
-        if (dr.isDataType()) {
-            restrictedDataRange = dr.asOWLDataType();
+        if (dr.isDatatype()) {
+            restrictedDataRange = dr.asOWLDatatype();
         }
     }
 

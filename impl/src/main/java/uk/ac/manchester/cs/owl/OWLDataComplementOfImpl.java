@@ -42,12 +42,12 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
     }
 
 
-    public boolean isDataType() {
+    public boolean isDatatype() {
         return false;
     }
 
 
-    public boolean isTopDataType() {
+    public boolean isTopDatatype() {
         return false;
     }
 
@@ -57,7 +57,7 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
     }
 
 
-    public OWLDatatype asOWLDataType() {
+    public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a data type!");
     }
 

@@ -301,7 +301,7 @@ public class StructuralTransformation {
 
 
         public Set<OWLAxiom> visit(OWLDataPropertyDomainAxiom axiom) {
-            return subClassOf(df.getDataSomeValuesFrom(axiom.getProperty(), df.getTopDataType()),
+            return subClassOf(df.getDataSomeValuesFrom(axiom.getProperty(), df.getTopDatatype()),
                     axiom.getDomain());
         }
 

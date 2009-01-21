@@ -67,6 +67,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     /**
      * Creates an OWLXML handler.
+     *
      * @param owlOntologyManager The manager that should be used to obtain a data factory,
      *                           imported ontologies etc.
      * @param ontology           The ontology that the XML representation will be parsed into.
@@ -85,7 +86,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
             String systemId = locator.getSystemId();
             if (systemId != null)
                 base = new URI(systemId);
-        } catch(URISyntaxException e) {
+        } catch (URISyntaxException e) {
         }
 
         bases.push(base);
@@ -97,6 +98,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
      * representations of axioms to be embedded in abitrary XML documents e.g. DIG 2.0 documents.
      * (The default handler behaviour expects the top level element to be an Ontology
      * element).
+     *
      * @param owlOntologyManager The manager that should be used to obtain a data factory,
      *                           imported ontologies etc.
      * @param ontology           The ontology object that the XML representation should be parsed into.
@@ -185,7 +187,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
         addFactory(new AbstractElementHandlerFactory(DATATYPE) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
-                return new OWLDataTypeElementHandler(handler);
+                return new OWLDatatypeElementHandler(handler);
             }
         });
 
@@ -532,14 +534,14 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     /**
      * Gets the line number that the parser is at.
+     *
      * @return A positive integer that represents the line number or
-     * -1 if the line number is not known.
+     *         -1 if the line number is not known.
      */
     public int getLineNumber() {
-        if(locator != null) {
+        if (locator != null) {
             return locator.getLineNumber();
-        }
-        else {
+        } else {
             return -1;
         }
     }
@@ -551,10 +553,10 @@ public class OWLXMLParserHandler extends DefaultHandler {
             URI uri = uriMap.get(string);
             if (uri == null) {
                 uri = new URI(string);
-                if(!uri.isAbsolute()) {
+                if (!uri.isAbsolute()) {
                     URI base = getBase();
                     if (base == null)
-                        throw new OWLXMLParserException(getLineNumber(), "Unable to resolve relative URI" );
+                        throw new OWLXMLParserException(getLineNumber(), "Unable to resolve relative URI");
                     uri = getBase().resolve(uri);
                 }
                 uriMap.put(string, uri);
@@ -608,8 +610,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
             catch (OWLException e) {
                 throw new SAXException(e);
             }
-        }
-        else {
+        } else {
             throw new SAXException("Unexpected text content: " + ch);
         }
     }
@@ -640,18 +641,18 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     protected void processXMLBase(Attributes attributes) {
         String base = attributes.getValue(Namespaces.XML.toString(), "base");
-        if(base != null) {
+        if (base != null) {
             bases.push(URI.create(base));
-        }
-        else {
+        } else {
             bases.push(bases.peek());
         }
     }
 
     /**
      * Return the base URI for resolution of relative URIs
+     *
      * @return base URI or null if unavailable (xml:base not present and the
-     * document locator does not provide a URI)
+     *         document locator does not provide a URI)
      */
     public URI getBase() {
         return bases.peek();

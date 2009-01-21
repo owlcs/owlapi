@@ -547,7 +547,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLTypedLiteral node) {
             process(node);
-            node.getDataType().accept(this);
+            node.getDatatype().accept(this);
         }
 
 

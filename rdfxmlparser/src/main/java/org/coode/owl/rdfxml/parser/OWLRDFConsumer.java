@@ -1413,7 +1413,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                         restrictions.add(dataFactory.getFacetRestriction(
                                 OWLFacet.getFacet(facetURI),
                                 dataFactory.getTypedLiteral(val.getString(),
-                                        OWLDataUtil.getIntDataType(dataFactory))));
+                                        OWLDataUtil.getIntDatatype(dataFactory))));
                     }
                 }
             }

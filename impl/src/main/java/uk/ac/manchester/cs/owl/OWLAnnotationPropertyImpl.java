@@ -86,7 +86,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         throw new OWLRuntimeException("Not OWLDataProperty");
     }
 
-    public OWLDatatype asOWLDataType() {
+    public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not OWLDatatype");
     }
 
@@ -122,7 +122,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         return false;
     }
 
-    public boolean isOWLDataType() {
+    public boolean isOWLDatatype() {
         return false;
     }
 

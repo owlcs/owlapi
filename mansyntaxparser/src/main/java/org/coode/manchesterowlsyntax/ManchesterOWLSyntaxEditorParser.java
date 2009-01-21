@@ -235,7 +235,7 @@ public class ManchesterOWLSyntaxEditorParser {
         dataTypeNames.add(OWLRDFVocabulary.RDF_XML_LITERAL.getURI().getFragment());
         dataTypeNames.add("rdf:" + OWLRDFVocabulary.RDF_XML_LITERAL.getURI().getFragment());
 
-        dataTypeNames.add(dataFactory.getTopDataType().getURI().getFragment());
+        dataTypeNames.add(dataFactory.getTopDatatype().getURI().getFragment());
 
         for (URI uri : OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTIES) {
             String[] res = u.split(uri.toString(), null);
@@ -330,7 +330,7 @@ public class ManchesterOWLSyntaxEditorParser {
         if (dataTypeNames.contains(name)) {
             return true;
         }
-        return owlEntityChecker != null && owlEntityChecker.getOWLDataType(name) != null;
+        return owlEntityChecker != null && owlEntityChecker.getOWLDatatype(name) != null;
     }
 
 
@@ -370,7 +370,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public OWLDatatype getDataType(String name) {
+    public OWLDatatype getDatatype(String name) {
         if (name.startsWith("xsd:")) {
             return dataFactory.getDatatype(URI.create(Namespaces.XSD + name.substring(name.indexOf(':') + 1)));
         } else {
@@ -728,7 +728,7 @@ public class ManchesterOWLSyntaxEditorParser {
         String tok = peekToken();
         if (isDatatypeName(tok)) {
             consumeToken();
-            OWLDatatype datatype = getDataType(tok);
+            OWLDatatype datatype = getDatatype(tok);
             String next = peekToken();
             if (next.equals("[")) {
                 // Restricted data range
@@ -828,7 +828,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 }
                 consumeToken();
                 String dataType = consumeToken();
-                return dataFactory.getTypedLiteral(lit, getDataType(dataType));
+                return dataFactory.getTypedLiteral(lit, getDatatype(dataType));
             } else if (peekToken().equals("@")) {
                 consumeToken();
                 String lang = consumeToken();
@@ -2039,7 +2039,7 @@ public class ManchesterOWLSyntaxEditorParser {
         }
 
 
-        public OWLDatatype getOWLDataType(String name) {
+        public OWLDatatype getOWLDatatype(String name) {
             return dataTypeNameMap.get(name);
         }
     }

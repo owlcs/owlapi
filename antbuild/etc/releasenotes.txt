@@ -60,7 +60,7 @@ Enhancements:
 
 - Added a convenience method to OWLOntology to obtain all referenced entities
 
-- Added convenience methods to OWLEntity that check whether the entity is an OWLClass, OWLObjectProperty, OWLDataProperty, OWLIndividual or OWLDataType.  Also added asXXX to obtain an entity in its more specific form.
+- Added convenience methods to OWLEntity that check whether the entity is an OWLClass, OWLObjectProperty, OWLDataProperty, OWLIndividual or OWLDatatype.  Also added asXXX to obtain an entity in its more specific form.
 
 - Added convenience methods to OWLDataFactory for creating disjoint class axioms and equivalent classes axioms.
 

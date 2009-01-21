@@ -42,7 +42,7 @@ public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiter
     }
 
 
-    public OWLDatatype getDataType() {
+    public OWLDatatype getDatatype() {
         return datatype;
     }
 
@@ -62,7 +62,7 @@ public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiter
             if (!(obj instanceof OWLTypedLiteral)) {
                 return false;
             }
-            return ((OWLTypedLiteral) obj).getDataType().equals(datatype);
+            return ((OWLTypedLiteral) obj).getDatatype().equals(datatype);
         }
         return false;
     }
@@ -93,8 +93,8 @@ public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiter
 
     protected int compareObjectOfSameType(OWLObject object) {
         OWLTypedLiteral other = (OWLTypedLiteral) object;
-        int diff = datatype.compareTo(other.getDataType());
-        if(diff != 0) {
+        int diff = datatype.compareTo(other.getDatatype());
+        if (diff != 0) {
             return diff;
         }
         return getString().compareTo(other.getString());

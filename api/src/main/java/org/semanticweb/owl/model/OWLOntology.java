@@ -333,7 +333,7 @@ public interface OWLOntology extends OWLNamedObject {
     boolean containsIndividualReference(URI individualURI);
 
 
-    boolean containsDataTypeReference(URI datatypeURI);
+    boolean containsDatatypeReference(URI datatypeURI);
 
 
     /**

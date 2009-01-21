@@ -116,7 +116,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return getOWLObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI());
     }
 
-    public OWLDatatype getTopDataType() {
+    public OWLDatatype getTopDatatype() {
         return getDatatype(OWLRDFVocabulary.RDFS_LITERAL.getURI());
     }
 
@@ -328,7 +328,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLDataExactCardinality getDataExactCardinality(OWLDataPropertyExpression property,
                                                            int cardinality) {
-        return new OWLDataExactCardinalityImpl(this, property, cardinality, getTopDataType());
+        return new OWLDataExactCardinalityImpl(this, property, cardinality, getTopDatatype());
     }
 
 
@@ -341,7 +341,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLDataMaxCardinality getDataMaxCardinality(OWLDataPropertyExpression property,
                                                        int cardinality) {
-        return new OWLDataMaxCardinalityImpl(this, property, cardinality, getTopDataType());
+        return new OWLDataMaxCardinalityImpl(this, property, cardinality, getTopDatatype());
     }
 
 
@@ -354,7 +354,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLDataMinCardinality getDataMinCardinality(OWLDataPropertyExpression property,
                                                        int cardinality) {
-        return new OWLDataMinCardinalityImpl(this, property, cardinality, getTopDataType());
+        return new OWLDataMinCardinalityImpl(this, property, cardinality, getTopDatatype());
     }
 
 

@@ -600,7 +600,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     public void visit(OWLTypedLiteral node) {
-        nodeMap.put(node, getLiteralNode(node.getString(), node.getDataType().getURI()));
+        nodeMap.put(node, getLiteralNode(node.getString(), node.getDatatype().getURI()));
     }
 
 

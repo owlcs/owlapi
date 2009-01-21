@@ -565,7 +565,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
 
     public void visit(OWLTypedLiteral node) {
-        node.getDataType().accept(this);
+        node.getDatatype().accept(this);
         OWLDatatype dt = (OWLDatatype) obj;
         obj = dataFactory.getTypedLiteral(node.getString(), dt);
     }

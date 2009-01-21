@@ -35,9 +35,10 @@ public interface OWLTypedLiteral extends OWLLiteral {
     /**
      * Gets the datatype which types the literal which is represented
      * by this constant.
+     *
      * @return the data type which types this constant.
      */
-    public OWLDatatype getDataType();
+    public OWLDatatype getDatatype();
 
     public void accept(OWLDataVisitor visitor);
 

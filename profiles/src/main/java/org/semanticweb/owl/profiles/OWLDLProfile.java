@@ -557,7 +557,7 @@ public class OWLDLProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLTypedLiteral node) {
-            ConstructNotAllowed na = node.getDataType().accept(this);
+            ConstructNotAllowed na = node.getDatatype().accept(this);
             return null;
         }
 

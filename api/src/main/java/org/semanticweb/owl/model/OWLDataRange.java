@@ -28,7 +28,7 @@ package org.semanticweb.owl.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- *
+ * <p/>
  * A high level interface which represents a data range.  Example of
  * data ranges are datatypes (e.g. int, float, double, string, ...),
  * complements of data ranges (e.g. not(int)), data enumerations (data oneOfs),
@@ -38,22 +38,24 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange {
 
     /**
      * Determines if this data range is a datatype (int, float, ...)
+     *
      * @return <code>true</code> if this datarange is a datatype, or
-     * <code>false</code> if it is not a datatype and is some other
-     * data range such as a data range restriction, data oneOf or
-     * data complementOf.
+     *         <code>false</code> if it is not a datatype and is some other
+     *         data range such as a data range restriction, data oneOf or
+     *         data complementOf.
      */
-    boolean isDataType();
+    boolean isDatatype();
 
 
     /**
      * Determines if this data range is the top data type.
+     *
      * @return <code>true</code> if this data range is the top datatype otherwise
-     * <code>false</code>
+     *         <code>false</code>
      */
-    boolean isTopDataType();
+    boolean isTopDatatype();
 
-    OWLDatatype asOWLDataType();
+    OWLDatatype asOWLDatatype();
 
     void accept(OWLDataVisitor visitor);
 

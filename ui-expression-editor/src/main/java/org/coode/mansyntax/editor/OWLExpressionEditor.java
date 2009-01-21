@@ -158,8 +158,7 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
             public void mouseReleased(MouseEvent e) {
                 if (hyperlinkStart != -1) {
                     navigateToHyperLink();
-                }
-                else {
+                } else {
 
                 }
             }
@@ -175,8 +174,8 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
         });
 
         getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_G,
-                                                                        Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()),
-                                                 "GO!");
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()),
+                "GO!");
         getActionMap().put("GO!", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 navigate();
@@ -184,7 +183,7 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
         });
 
         getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.ALT_MASK),
-                                                 "NAV_DOWN");
+                "NAV_DOWN");
         getActionMap().put("NAV_DOWN", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 navigateDown();
@@ -253,7 +252,7 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
 
     public void addKeyword(String keyword, Style style) {
         StyledDocument doc = getStyledDocument();
-        if(doc.getStyle(keyword + "_style") == null) {
+        if (doc.getStyle(keyword + "_style") == null) {
             doc.addStyle(keyword + "_style", style);
             keywordMap.put(keyword, style);
         }
@@ -282,8 +281,7 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
         OWLEntity entity = provider.getEntity(word);
         if (entity != null) {
             hyperlinkListener.hyperlinkClicked(entity);
-        }
-        else {
+        } else {
             Toolkit.getDefaultToolkit().beep();
         }
     }
@@ -306,8 +304,7 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
             }
             if (nextKeywordIndex != Integer.MAX_VALUE) {
                 setCaretPosition(caretPos + nextKeywordIndex);
-            }
-            else {
+            } else {
                 Toolkit.getDefaultToolkit().beep();
             }
         }
@@ -331,8 +328,7 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
             }
             if (nextKeywordIndex != -1) {
                 setCaretPosition(nextKeywordIndex);
-            }
-            else {
+            } else {
                 Toolkit.getDefaultToolkit().beep();
             }
         }
@@ -342,7 +338,7 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
     }
 
     public O getParsedObject() throws ParserException {
-        if(!SwingUtilities.isEventDispatchThread()) {
+        if (!SwingUtilities.isEventDispatchThread()) {
             throw new RuntimeException("MUST CALL FROM EDT");
         }
         return expressionParser.parse(getText());
@@ -399,7 +395,7 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
     }
 
 
-    public OWLDatatype getOWLDataType(String name) {
+    public OWLDatatype getOWLDatatype(String name) {
         return null;
     }
 
@@ -456,10 +452,9 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
         boolean inQuotes = false;
         while (tokenizer.hasMoreTokens()) {
             String tok = tokenizer.nextToken();
-            if(tok.equals("\"")) {
+            if (tok.equals("\"")) {
                 inQuotes = !inQuotes;
-            }
-            else if(!inQuotes) {
+            } else if (!inQuotes) {
                 Style style = getWordStyle(tok);
                 getStyledDocument().setCharacterAttributes(pos, tok.length(), style, true);
             }
@@ -473,8 +468,7 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
         Style style = keywordMap.get(word);
         if (style == null) {
             return defaultStyle;
-        }
-        else {
+        } else {
             return style;
         }
     }
@@ -503,14 +497,11 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
                         OWLEntity ent = provider.getEntity(s);
                         if (ent.isOWLClass() && e.isClassNameExpected()) {
                             result.add(ent);
-                        }
-                        else if (ent.isOWLObjectProperty() && e.isObjectPropertyNameExpected()) {
+                        } else if (ent.isOWLObjectProperty() && e.isObjectPropertyNameExpected()) {
                             result.add(ent);
-                        }
-                        else if (ent.isOWLDataProperty() && e.isDataPropertyNameExpected()) {
+                        } else if (ent.isOWLDataProperty() && e.isDataPropertyNameExpected()) {
                             result.add(ent);
-                        }
-                        else if (ent.isOWLIndividual() && e.isIndividualNameExpected()) {
+                        } else if (ent.isOWLIndividual() && e.isIndividualNameExpected()) {
                             result.add(ent);
                         }
                     }
@@ -610,12 +601,11 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
                     hyperlinkStart = start;
                     hyperlinkEnd = end;
                     getStyledDocument().setCharacterAttributes(hyperlinkStart,
-                                                               hyperlinkEnd - hyperlinkStart,
-                                                               hyperlinkStyle,
-                                                               true);
+                            hyperlinkEnd - hyperlinkStart,
+                            hyperlinkStyle,
+                            true);
                     setCursor(hyperlinkCursor);
-                }
-                else {
+                } else {
                     clearHyperlink(true);
                 }
             }
@@ -683,10 +673,10 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
 
 
     private void checkForError() {
-        if(!SwingUtilities.isEventDispatchThread()) {
+        if (!SwingUtilities.isEventDispatchThread()) {
             throw new RuntimeException("MUST CALL FROM EDT");
         }
-        if(expressionParser == null) {
+        if (expressionParser == null) {
             return;
         }
         try {
@@ -720,7 +710,7 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
                     g.setColor(Color.RED);
                     int y = r.y + r.height;
                     int w = g.getFont().getStringBounds(errorToken,
-                                                        ((Graphics2D) g).getFontRenderContext()).getBounds().width;
+                            ((Graphics2D) g).getFontRenderContext()).getBounds().width;
 
 
                     g.fillRect(r.x, y, w, 3);
@@ -741,8 +731,6 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
         return parent != null ? (ui.getPreferredSize(this).width <= parent
                 .getSize().width) : true;
     }
-
-
 
 
     public void setActivateHyperlinksOnMouseOver(boolean b) {
@@ -770,11 +758,11 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
             JFrame f = new JFrame();
 
             BidirectionalShortFormProvider sfp = new BidirectionalShortFormProviderAdapter(Collections.singleton(ont),
-                                                                                           new SimpleShortFormProvider());
+                    new SimpleShortFormProvider());
 
             final OWLExpressionParser<Set<OWLAxiom>> parser = new ManchesterOWLSyntaxClassFrameParser(man.getOWLDataFactory(),
-                                                                                                      new ShortFormEntityChecker(
-                                                                                                              sfp));
+                    new ShortFormEntityChecker(
+                            sfp));
 
             final OWLExpressionEditor<Set<OWLAxiom>> editor = new OWLExpressionEditor<Set<OWLAxiom>>(man, parser, sfp);
 

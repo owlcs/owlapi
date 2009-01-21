@@ -55,22 +55,22 @@ public class OWLDataUtil {
     }
 
 
-    public static OWLDatatype getIntDataType(OWLDataFactory dataFactory) throws OWLException {
+    public static OWLDatatype getIntDatatype(OWLDataFactory dataFactory) throws OWLException {
         return dataFactory.getDatatype(INT_URI);
     }
 
 
-    public static OWLDatatype getLongDataType(OWLDataFactory dataFactory) throws OWLException {
+    public static OWLDatatype getLongDatatype(OWLDataFactory dataFactory) throws OWLException {
         return dataFactory.getDatatype(XSDVocabulary.LONG.getURI());
     }
 
 
-    public static OWLDatatype getFloatDataType(OWLDataFactory dataFactory) throws OWLException {
+    public static OWLDatatype getFloatDatatype(OWLDataFactory dataFactory) throws OWLException {
         return dataFactory.getDatatype(XSDVocabulary.FLOAT.getURI());
     }
 
 
-    public static OWLDatatype getDoubleDataType(OWLDataFactory dataFactory) throws OWLException {
+    public static OWLDatatype getDoubleDatatype(OWLDataFactory dataFactory) throws OWLException {
         return dataFactory.getDatatype(XSDVocabulary.DOUBLE.getURI());
     }
 
@@ -81,7 +81,7 @@ public class OWLDataUtil {
      * @param n The <code>Number</code> whose datatype is to be obtained.
      * @return The datatype that corresponds to the type of number.
      */
-    public static <N extends Number> OWLDatatype getDataType(OWLDataFactory dataFactory, N n) {
+    public static <N extends Number> OWLDatatype getDatatype(OWLDataFactory dataFactory, N n) {
         XSDVocabulary v = numberTypeMap.get(n.getClass());
         if (v == null) {
             throw new OWLRuntimeException("Don't know how to translate " + n.getClass());
@@ -101,37 +101,37 @@ public class OWLDataUtil {
      *         corresponds to the translation of the specified number.
      */
     public static <N extends Number> OWLTypedLiteral getTypedConstant(OWLDataFactory dataFactory, N val) {
-        return dataFactory.getTypedLiteral(val.toString(), getDataType(dataFactory, val));
+        return dataFactory.getTypedLiteral(val.toString(), getDatatype(dataFactory, val));
     }
 
 
     public static <N extends Number> OWLDataRange getMinInclusiveRestrictedInt(OWLDataFactory dataFactory, N minInclusive) {
-        return dataFactory.getDatatypeRestriction(getDataType(dataFactory, minInclusive),
+        return dataFactory.getDatatypeRestriction(getDatatype(dataFactory, minInclusive),
                 getFacetRestrictionSet(dataFactory, OWLFacet.MIN_INCLUSIVE,
                         getTypedConstant(dataFactory, minInclusive)));
     }
 
     public static <N extends Number> OWLDataRange getMinExclusiveRestrictedInt(OWLDataFactory dataFactory, N minExclusive) {
-        return dataFactory.getDatatypeRestriction(getDataType(dataFactory, minExclusive),
+        return dataFactory.getDatatypeRestriction(getDatatype(dataFactory, minExclusive),
                 getFacetRestrictionSet(dataFactory, OWLFacet.MIN_EXCLUSIVE,
                         getTypedConstant(dataFactory, minExclusive)));
     }
 
     public static <N extends Number> OWLDataRange getMaxInclusiveRestrictedInteger(OWLDataFactory dataFactory, N maxInclusive) {
-        return dataFactory.getDatatypeRestriction(getDataType(dataFactory, maxInclusive),
+        return dataFactory.getDatatypeRestriction(getDatatype(dataFactory, maxInclusive),
                 getFacetRestrictionSet(dataFactory, OWLFacet.MAX_INCLUSIVE,
                         getTypedConstant(dataFactory, maxInclusive)));
     }
 
     public static <N extends Number> OWLDataRange getMaxExclusiveRestrictedInteger(OWLDataFactory dataFactory, N maxExclusive) {
-        return dataFactory.getDatatypeRestriction(getDataType(dataFactory, maxExclusive),
+        return dataFactory.getDatatypeRestriction(getDatatype(dataFactory, maxExclusive),
                 getFacetRestrictionSet(dataFactory,
                         OWLFacet.MAX_EXCLUSIVE,
                         getTypedConstant(dataFactory, maxExclusive)));
     }
 
     public static <N extends Number> OWLDataRange getMinMaxInclusiveRestrictedInteger(OWLDataFactory dataFactory, N minInclusive, N maxInclusive) {
-        OWLDatatype dr = getDataType(dataFactory, minInclusive);
+        OWLDatatype dr = getDatatype(dataFactory, minInclusive);
         Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
         facetRestrictions.add(dataFactory.getFacetRestriction(OWLFacet.MIN_INCLUSIVE,
                 getTypedConstant(dataFactory, minInclusive)));
@@ -142,7 +142,7 @@ public class OWLDataUtil {
     }
 
     public static <N extends Number> OWLDataRange getMinMaxExclusiveRestrictedInteger(OWLDataFactory dataFactory, N minExclusive, N maxExclusive) {
-        OWLDatatype dr = getDataType(dataFactory, minExclusive);
+        OWLDatatype dr = getDatatype(dataFactory, minExclusive);
         Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
         facetRestrictions.add(dataFactory.getFacetRestriction(OWLFacet.MIN_EXCLUSIVE,
                 getTypedConstant(dataFactory, minExclusive)));

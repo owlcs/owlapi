@@ -264,7 +264,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public OWLDatatype asOWLDataType() {
+    public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a data type!");
     }
 
@@ -289,7 +289,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public boolean isOWLDataType() {
+    public boolean isOWLDatatype() {
         return false;
     }
 

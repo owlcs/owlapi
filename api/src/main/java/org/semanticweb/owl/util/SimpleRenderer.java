@@ -269,7 +269,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
             sb.append("DataProperty(");
         } else if (entity.isOWLIndividual()) {
             sb.append("Individual(");
-        } else if (entity.isOWLDataType()) {
+        } else if (entity.isOWLDatatype()) {
             sb.append("Datatype(");
         }
         axiom.getEntity().accept(this);
@@ -597,7 +597,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("\"");
         sb.append(node.getString());
         sb.append("\"^^");
-        node.getDataType().accept(this);
+        node.getDatatype().accept(this);
     }
 
 

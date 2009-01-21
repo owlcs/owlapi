@@ -777,7 +777,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         write(EscapeUtils.escapeString(node.getString()));
         write("\"");
         write("^^");
-        write(node.getDataType().getURI());
+        write(node.getDatatype().getURI());
     }
 
 

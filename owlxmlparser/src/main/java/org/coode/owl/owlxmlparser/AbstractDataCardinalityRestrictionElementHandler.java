@@ -1,6 +1,5 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -50,7 +49,7 @@ public abstract class AbstractDataCardinalityRestrictionElementHandler extends A
 
     public void startElement(String name) throws OWLXMLParserException {
         super.startElement(name);
-        setFiller(getOWLDataFactory().getTopDataType());
+        setFiller(getOWLDataFactory().getTopDatatype());
     }
 
 

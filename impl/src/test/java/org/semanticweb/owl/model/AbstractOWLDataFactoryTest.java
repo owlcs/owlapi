@@ -71,12 +71,12 @@ public abstract class AbstractOWLDataFactoryTest extends AbstractOWLTestCase {
         return getOWLDataFactory().getOWLDataProperty(createURI());
     }
 
-    protected OWLDatatype createOWLDataType() throws OWLException {
+    protected OWLDatatype createOWLDatatype() throws OWLException {
         return getOWLDataFactory().getDatatype(createURI());
     }
 
     protected OWLTypedLiteral createOWLTypedConstant() throws OWLException {
-        return getOWLDataFactory().getTypedLiteral("Test" + System.currentTimeMillis(), createOWLDataType());
+        return getOWLDataFactory().getTypedLiteral("Test" + System.currentTimeMillis(), createOWLDatatype());
     }
 
 

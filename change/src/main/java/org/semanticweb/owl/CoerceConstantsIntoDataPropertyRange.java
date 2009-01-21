@@ -49,7 +49,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         map = new HashMap<OWLDataPropertyExpression, OWLDatatype>();
         for (OWLOntology ont : ontologies) {
             for (OWLDataPropertyRangeAxiom ax : ont.getAxioms(AxiomType.DATA_PROPERTY_RANGE)) {
-                if (ax.getRange().isDataType()) {
+                if (ax.getRange().isDatatype()) {
                     map.put(ax.getProperty(), (OWLDatatype) ax.getRange());
                 }
             }

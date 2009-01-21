@@ -206,7 +206,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
 
-    public OWLDatatype asOWLDataType() {
+    public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a data type!");
     }
 
@@ -226,7 +226,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
 
-    public boolean isOWLDataType() {
+    public boolean isOWLDatatype() {
         return false;
     }
 

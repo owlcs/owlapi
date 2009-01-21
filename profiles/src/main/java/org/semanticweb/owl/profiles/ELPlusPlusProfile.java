@@ -44,28 +44,28 @@ import java.util.Set;
  */
 public class ELPlusPlusProfile implements OWLProfile {
 
-    private Set<URI> allowedDataTypes;
+    private Set<URI> allowedDatatypes;
 
     private OWLOntology ont;
 
 
     public ELPlusPlusProfile() {
-        allowedDataTypes = new HashSet<URI>();
-        allowedDataTypes.add(OWLRDFVocabulary.RDFS_LITERAL.getURI());
-        allowedDataTypes.add(XSDVocabulary.DECIMAL.getURI());
-        allowedDataTypes.add(XSDVocabulary.INTEGER.getURI());
-        allowedDataTypes.add(XSDVocabulary.NON_NEGATIVE_INTEGER.getURI());
-        allowedDataTypes.add(XSDVocabulary.POSITIVE_INTEGER.getURI());
-        allowedDataTypes.add(XSDVocabulary.DATE_TIME.getURI());
-        allowedDataTypes.add(XSDVocabulary.DATE.getURI());
-        allowedDataTypes.add(XSDVocabulary.STRING.getURI());
-        allowedDataTypes.add(XSDVocabulary.NORMALIZED_STRING.getURI());
-        allowedDataTypes.add(XSDVocabulary.ANY_URI.getURI());
-        allowedDataTypes.add(XSDVocabulary.TOKEN.getURI());
-        allowedDataTypes.add(XSDVocabulary.NAME.getURI());
-        allowedDataTypes.add(XSDVocabulary.NCNAME.getURI());
-        allowedDataTypes.add(XSDVocabulary.HEX_BINARY.getURI());
-        allowedDataTypes.add(XSDVocabulary.BASE_64_BINARY.getURI());
+        allowedDatatypes = new HashSet<URI>();
+        allowedDatatypes.add(OWLRDFVocabulary.RDFS_LITERAL.getURI());
+        allowedDatatypes.add(XSDVocabulary.DECIMAL.getURI());
+        allowedDatatypes.add(XSDVocabulary.INTEGER.getURI());
+        allowedDatatypes.add(XSDVocabulary.NON_NEGATIVE_INTEGER.getURI());
+        allowedDatatypes.add(XSDVocabulary.POSITIVE_INTEGER.getURI());
+        allowedDatatypes.add(XSDVocabulary.DATE_TIME.getURI());
+        allowedDatatypes.add(XSDVocabulary.DATE.getURI());
+        allowedDatatypes.add(XSDVocabulary.STRING.getURI());
+        allowedDatatypes.add(XSDVocabulary.NORMALIZED_STRING.getURI());
+        allowedDatatypes.add(XSDVocabulary.ANY_URI.getURI());
+        allowedDatatypes.add(XSDVocabulary.TOKEN.getURI());
+        allowedDatatypes.add(XSDVocabulary.NAME.getURI());
+        allowedDatatypes.add(XSDVocabulary.NCNAME.getURI());
+        allowedDatatypes.add(XSDVocabulary.HEX_BINARY.getURI());
+        allowedDatatypes.add(XSDVocabulary.BASE_64_BINARY.getURI());
     }
 
 
@@ -373,10 +373,10 @@ public class ELPlusPlusProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLDatatype node) {
-            if (allowedDataTypes.contains(node.getURI())) {
+            if (allowedDatatypes.contains(node.getURI())) {
                 return null;
             } else {
-                return new DataTypeNotAllowed(node);
+                return new DatatypeNotAllowed(node);
             }
         }
 
@@ -404,7 +404,7 @@ public class ELPlusPlusProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLTypedLiteral node) {
-            return node.getDataType().accept(this);
+            return node.getDatatype().accept(this);
         }
 
 
@@ -584,21 +584,21 @@ public class ELPlusPlusProfile implements OWLProfile {
         }
     }
 
-    private class DataTypeNotAllowed extends DataRangeNotAllowed {
+    private class DatatypeNotAllowed extends DataRangeNotAllowed {
 
 
-        public DataTypeNotAllowed(OWLDataRange construct) {
+        public DatatypeNotAllowed(OWLDataRange construct) {
             super(construct);
         }
 
 
-        public DataTypeNotAllowed(ConstructNotAllowed cause, OWLDataRange construct) {
+        public DatatypeNotAllowed(ConstructNotAllowed cause, OWLDataRange construct) {
             super(cause, construct);
         }
 
 
         public String toString() {
-            return "DataType not allowed: " + getCause();
+            return "Datatype not allowed: " + getCause();
         }
     }
 

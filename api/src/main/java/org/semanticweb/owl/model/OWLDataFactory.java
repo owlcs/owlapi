@@ -88,7 +88,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *
      * @return The OWL Datatype corresponding to the top data type.
      */
-    OWLDatatype getTopDataType();
+    OWLDatatype getTopDatatype();
 
 
     /**

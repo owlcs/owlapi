@@ -151,21 +151,21 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     OWLNamedIndividual asOWLIndividual();
 
     /**
-     * A convenience method that determines if this entity is an OWLDataType
+     * A convenience method that determines if this entity is an OWLDatatype
      *
-     * @return <code>true</code> if this entity is an OWLDataType, otherwise <code>false</code>
+     * @return <code>true</code> if this entity is an OWLDatatype, otherwise <code>false</code>
      */
-    boolean isOWLDataType();
+    boolean isOWLDatatype();
 
     /**
-     * A convenience method that obtains this entity as an OWLDataType (in order to
+     * A convenience method that obtains this entity as an OWLDatatype (in order to
      * avoid explicit casting).
      *
-     * @return The entity as an OWLDataType.
-     * @throws OWLRuntimeException if this entity is not an OWLDataType (check with the
-     *                             isOWLDataType method first).
+     * @return The entity as an OWLDatatype.
+     * @throws OWLRuntimeException if this entity is not an OWLDatatype (check with the
+     *                             isOWLDatatype method first).
      */
-    OWLDatatype asOWLDataType();
+    OWLDatatype asOWLDatatype();
 
     void accept(OWLEntityVisitor visitor);
 

@@ -127,7 +127,7 @@ public abstract class RDFRendererBase {
 //                        OWLLiteral con = anno.getAnnotationValueAsConstant();
 //                        RDFLiteralNode obj;
 //                        if (con.isTyped()) {
-//                            obj = new RDFLiteralNode(con.getString(), con.asOWLTypedLiteral().getDataType().getURI());
+//                            obj = new RDFLiteralNode(con.getString(), con.asOWLTypedLiteral().getDatatype().getURI());
 //                        } else {
 //                            obj = new RDFLiteralNode(con.getString(), con.asRDFTextLiteral().getLang());
 //                        }

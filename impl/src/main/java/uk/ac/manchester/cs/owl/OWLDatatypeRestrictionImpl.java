@@ -50,17 +50,17 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
     }
 
 
-    public boolean isDataType() {
+    public boolean isDatatype() {
         return false;
     }
 
 
-    public boolean isTopDataType() {
+    public boolean isTopDatatype() {
         return false;
     }
 
 
-    public OWLDatatype asOWLDataType() {
+    public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a data type!");
     }
 

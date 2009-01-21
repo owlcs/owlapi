@@ -52,7 +52,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
     private boolean collectIndividuals = true;
 
-    private boolean collectDataTypes = true;
+    private boolean collectDatatypes = true;
 
 
     public OWLEntityCollector() {
@@ -89,8 +89,8 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void setCollectDataTypes(boolean collectDataTypes) {
-        this.collectDataTypes = collectDataTypes;
+    public void setCollectDatatypes(boolean collectDatatypes) {
+        this.collectDatatypes = collectDatatypes;
     }
 
 
@@ -484,7 +484,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
 
     public void visit(OWLTypedLiteral node) {
-        node.getDataType().accept((OWLEntityVisitor) this);
+        node.getDatatype().accept((OWLEntityVisitor) this);
     }
 
 
@@ -532,7 +532,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
 
     public void visit(OWLDatatype datatype) {
-        if (collectDataTypes) {
+        if (collectDatatypes) {
             objects.add(datatype);
         }
     }

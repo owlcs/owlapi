@@ -228,7 +228,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
-
     final public OWLClassExpression ClassExpression() throws ParseException {
         OWLClassExpression desc;
         if (jj_2_8(2)) {
@@ -727,11 +726,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         throw new Error("Missing return statement in function");
     }
 
-    final public OWLDatatype DataType() throws ParseException {
+    final public OWLDatatype Datatype() throws ParseException {
         OWLDatatype dt;
         jj_consume_token(DATATYPE);
         jj_consume_token(OPENPAR);
-        dt = DataTypeURI();
+        dt = DatatypeURI();
         jj_consume_token(CLOSEPAR);
         {
             if (true) return dt;
@@ -739,7 +738,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         throw new Error("Missing return statement in function");
     }
 
-    final public OWLDatatype DataTypeURI() throws ParseException {
+    final public OWLDatatype DatatypeURI() throws ParseException {
         URI uri;
         uri = URI();
         {
@@ -770,7 +769,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     final public OWLDataRange DataRange() throws ParseException {
         OWLDataRange rng;
         if (jj_2_36(2)) {
-            rng = DataTypeURI();
+            rng = DatatypeURI();
         } else if (jj_2_37(2)) {
             rng = DataOneOf();
         } else if (jj_2_38(2)) {
@@ -831,7 +830,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
         jj_consume_token(DATATYPERESTRICTION);
         jj_consume_token(OPENPAR);
-        rng = DataType();
+        rng = Datatype();
         label_7:
         while (true) {
             facetRestriction = DataRangeFacetRestriction();
@@ -890,7 +889,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     final public OWLAxiom Axiom() throws ParseException {
         OWLAxiom ax = null;
         if (jj_2_52(2)) {
@@ -923,7 +921,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     final public OWLClassAxiom ClassAxiom() throws ParseException {
         OWLClassAxiom ax;
         if (jj_2_59(2)) {
@@ -1006,7 +1003,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     final public OWLPropertyAxiom ObjectPropertyAxiom() throws ParseException {
         OWLPropertyAxiom ax;
         if (jj_2_63(2)) {
@@ -1294,7 +1290,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     final public OWLPropertyAxiom DataPropertyAxiom() throws ParseException {
         OWLPropertyAxiom ax;
         if (jj_2_80(2)) {
@@ -1432,7 +1427,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     final public OWLIndividualAxiom IndividualAxiom() throws ParseException {
         OWLIndividualAxiom ax;
         if (jj_2_87(2)) {
@@ -1615,7 +1609,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     final public OWLAnnotation Annotation() throws ParseException {
         URI uri;
         OWLLiteral con;
@@ -1747,7 +1740,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     final public OWLLiteral Constant() throws ParseException {
         OWLLiteral con;
         if (jj_2_103(2)) {
@@ -1769,7 +1761,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         OWLDatatype datatype = null;
         literal = StringLiteral();
         jj_consume_token(100);
-        datatype = DataTypeURI();
+        datatype = DatatypeURI();
         {
             if (true) return dataFactory.getTypedLiteral(literal, datatype);
         }

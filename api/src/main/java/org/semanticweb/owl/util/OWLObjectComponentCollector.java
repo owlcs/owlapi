@@ -477,7 +477,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     public void visit(OWLTypedLiteral node) {
         handleObject(node);
-        node.getDataType().accept(this);
+        node.getDatatype().accept(this);
     }
 
 

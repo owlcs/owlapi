@@ -116,7 +116,7 @@ public class SatisfiabilityConverter {
 
 
         public void visit(OWLDataPropertyDomainAxiom axiom) {
-            OWLClassExpression sub = factory.getDataSomeValuesFrom(axiom.getProperty(), factory.getTopDataType());
+            OWLClassExpression sub = factory.getDataSomeValuesFrom(axiom.getProperty(), factory.getTopDatatype());
             result = and(sub, not(axiom.getDomain()));
         }
 

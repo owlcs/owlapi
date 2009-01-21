@@ -1021,7 +1021,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //
 //        public Set<ConstructNotAllowed> visit(OWLTypedLiteral node) {
-//            Set<ConstructNotAllowed> na = node.getDataType().accept(this);
+//            Set<ConstructNotAllowed> na = node.getDatatype().accept(this);
 //            return Collections.emptySet();
 //        }
 //
