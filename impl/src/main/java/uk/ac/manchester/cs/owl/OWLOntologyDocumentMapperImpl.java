@@ -1,7 +1,6 @@
 package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.OWLOntologyDocumentMapper;
-import org.semanticweb.owl.model.OWLOntologyID;
 
 import java.net.URI;
 import java.util.Map;
@@ -50,14 +49,14 @@ public class OWLOntologyDocumentMapperImpl implements OWLOntologyDocumentMapper 
      * Gets the physical URI of an ontology given an ontology URI.  If no mapping
      * is found, then the ontology URI is returned.
      *
-     * @param ontologyID The ID of the ontology to map
+     * @param ontologyURI The URI of the ontology to map
      */
-    public URI getDocumentIRI(OWLOntologyID ontologyID) {
-        URI uri = uriMap.get(ontologyID.getOntologyIRI().toURI());
+    public URI getDocumentIRI(URI ontologyURI) {
+        URI uri = uriMap.get(ontologyURI);
         if (uri != null) {
             return uri;
         } else {
-            return ontologyID.getOntologyIRI().toURI();
+            return ontologyURI;
         }
     }
 

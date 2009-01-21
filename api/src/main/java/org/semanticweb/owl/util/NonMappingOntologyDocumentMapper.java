@@ -1,7 +1,6 @@
 package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.OWLOntologyDocumentMapper;
-import org.semanticweb.owl.model.OWLOntologyID;
 
 import java.net.URI;
 /*
@@ -39,7 +38,7 @@ import java.net.URI;
  */
 public class NonMappingOntologyDocumentMapper implements OWLOntologyDocumentMapper {
 
-    public URI getDocumentIRI(OWLOntologyID ontologyID) {
-        return ontologyID.getDefaultDocumentIRI().toURI();
+    public URI getDocumentIRI(URI ontologyURI) {
+        return ontologyURI;
     }
 }

@@ -1,7 +1,6 @@
 package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.OWLOntologyDocumentMapper;
-import org.semanticweb.owl.model.OWLOntologyID;
 
 import java.net.URI;
 /*
@@ -46,7 +45,7 @@ public class SimpleDocumentMapper implements OWLOntologyDocumentMapper {
     }
 
 
-    public URI getDocumentIRI(OWLOntologyID ontologyURI) {
+    public URI getDocumentIRI(URI ontologyURI) {
         if (this.ontologyURI.equals(ontologyURI)) {
             return physicalURI;
         } else {

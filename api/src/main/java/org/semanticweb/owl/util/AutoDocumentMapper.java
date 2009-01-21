@@ -1,7 +1,6 @@
 package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.OWLOntologyDocumentMapper;
-import org.semanticweb.owl.model.OWLOntologyID;
 import org.semanticweb.owl.model.OWLRuntimeException;
 import org.semanticweb.owl.vocab.Namespaces;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
@@ -143,11 +142,10 @@ public class AutoDocumentMapper extends DefaultHandler implements OWLOntologyDoc
     }
 
 
-    public URI getDocumentIRI(OWLOntologyID ontologyID) {
+    public URI getDocumentIRI(URI ontologyURI) {
         if (!mapped) {
             mapFiles();
         }
-        URI ontologyURI = ontologyID.getOntologyIRI().toURI();
         if (ontologyURI.toString().endsWith(".obo")) {
             String path = ontologyURI.getPath();
             if (path != null) {

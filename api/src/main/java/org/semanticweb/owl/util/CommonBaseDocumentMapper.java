@@ -1,7 +1,6 @@
 package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.OWLOntologyDocumentMapper;
-import org.semanticweb.owl.model.OWLOntologyID;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -77,7 +76,7 @@ public class CommonBaseDocumentMapper implements OWLOntologyDocumentMapper {
      * @return The physical URI of the ontology, or <code>null</code>
      *         if the mapper doesn't have mapping for the specified ontology URI.
      */
-    public URI getDocumentIRI(OWLOntologyID ontologyURI) {
+    public URI getDocumentIRI(URI ontologyURI) {
         return uriMap.get(ontologyURI);
     }
 }

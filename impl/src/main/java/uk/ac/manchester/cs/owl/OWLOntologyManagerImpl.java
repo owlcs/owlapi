@@ -361,7 +361,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         if (ontology != null) {
             return ontology;
         }
-        URI physicalURI = getPhysicalURIFromOntologyURI(ontologyID, false);
+        URI physicalURI = getDocumentURI(ontologyID, false);
         for (OWLOntologyFactory factory : ontologyFactories) {
             if (factory.canCreateFromPhysicalURI(physicalURI)) {
                 physicalURIsByID.put(ontologyID, physicalURI);
@@ -429,7 +429,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         if (ontology != null) {
             return ontology;
         }
-        URI physicalURI = getPhysicalURIFromOntologyURI(id, true);
+        URI physicalURI = getDocumentURI(id, true);
         // The ontology might be being loaded, but its logical URI might
         // not have been set (as is probably the case with RDF/XML!)
         if (physicalURI != null) {
@@ -673,9 +673,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
      * @return The physical URI that corresponds to the ontology URI, or
      *         <code>null</code> if no physical URI can be found.
      */
-    private URI getPhysicalURIFromOntologyURI(OWLOntologyID ontologyID, boolean quiet) {
+    private URI getDocumentURI(OWLOntologyID ontologyID, boolean quiet) {
         for (OWLOntologyDocumentMapper mapper : documentMappers) {
-            URI physicalURI = mapper.getDocumentIRI(ontologyID);
+            URI physicalURI = mapper.getDocumentIRI(ontologyID.getDefaultDocumentIRI().toURI());
             if (physicalURI != null) {
                 return physicalURI;
             }

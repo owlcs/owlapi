@@ -53,11 +53,11 @@ public class FailedImportsTestCase extends TestCase {
 
             private URI ontBURI = URI.create("http://www.semanticweb.org/ontologies/2007/7/A.owl");
 
-            public URI getDocumentIRI(OWLOntologyID ontologyURI) {
+            public URI getDocumentIRI(URI ontologyURI) {
                 if (ontologyURI.equals(ontBURI)) {
                     return b;
                 } else {
-                    return ontologyURI.getOntologyIRI().toURI();
+                    return ontologyURI;
                 }
             }
         });

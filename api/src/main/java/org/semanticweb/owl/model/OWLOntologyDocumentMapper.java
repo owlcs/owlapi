@@ -42,10 +42,10 @@ public interface OWLOntologyDocumentMapper {
      * to a physical URI that points to some concrete representation
      * of the ontology (an ontology document)
      *
-     * @param ontologyID The ID of the ontology to be mapped.  From this ID, the ontology IRI and optional version IRI
-     *                   may be obtained
+     * @param ontologyURI The URI of the ontology to be mapped.  From this ID, the ontology IRI and optional version IRI
+     *                    may be obtained
      * @return The physical URI of the ontology, or <code>null</code>
      *         if the mapper doesn't have mapping for the specified ontology URI.
      */
-    public URI getDocumentIRI(OWLOntologyID ontologyID);
+    public URI getDocumentIRI(URI ontologyURI);
 }
