@@ -1,0 +1,17 @@
+<rdf:RDF xmlns="http://www.semanticweb.org/owlapi/test#"
+     xml:base="http://www.semanticweb.org/owlapi/test"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#">
+
+
+    <rdf:Description>
+       <owl:propertyChain rdf:parseType="Collection">
+           <rdf:Description rdf:about="#p"/>
+           <rdf:Description rdf:about="#q"/>
+       </owl:propertyChain>
+        <rdfs:subPropertyOf rdf:resource="#r"/>
+    </rdf:Description>
+
+</rdf:RDF>

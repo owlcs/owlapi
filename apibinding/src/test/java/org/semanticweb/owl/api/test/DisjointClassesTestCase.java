@@ -1,11 +1,11 @@
 package org.semanticweb.owl.api.test;
 
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyCreationException;
+import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.vocab.OWLFacet;
+import org.semanticweb.owl.io.StringOutputTarget;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-/*
+import java.util.Set;
+import java.util.HashSet;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -28,26 +28,26 @@ import java.net.URISyntaxException;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 23-Jul-2008<br><br>
+ * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+ * Date: 02-Feb-2009
  */
-public abstract class AbstractFileRoundTrippingTestCase extends AbstractRoundTrippingTest {
+public class DisjointClassesTestCase extends AbstractFileRoundTrippingTestCase {
 
-    protected OWLOntology createOntology() {
-        try {
-            String fileName = getFileName();
-            URI uri = getClass().getResource("/" + fileName).toURI();
-            return getManager().loadOntologyFromPhysicalURI(uri);
-        }
-        catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        catch (OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
-        }
+    public void testContains() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLClass clsA = getOWLClass("A");
+        OWLClass clsB = getOWLClass("B");
+        OWLClass clsC = getOWLClass("C");
+        axioms.add(getFactory().getDisjointClasses(clsA, clsB, clsC));
+        assertEquals(getOnt().getAxioms(), axioms);
     }
 
-    protected abstract String getFileName();
+    protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
+        System.out.println(target);
+    }
+
+    protected String getFileName() {
+        return "DisjointClasses.rdf";
+    }
 }

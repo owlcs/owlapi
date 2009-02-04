@@ -1,11 +1,10 @@
 package org.semanticweb.owl.api.test;
 
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyCreationException;
+import org.semanticweb.owl.io.StringOutputTarget;
+import org.semanticweb.owl.model.*;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-/*
+import java.util.Set;
+import java.util.HashSet;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -28,26 +27,27 @@ import java.net.URISyntaxException;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 23-Jul-2008<br><br>
+ * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+ * Date: 02-Feb-2009
  */
-public abstract class AbstractFileRoundTrippingTestCase extends AbstractRoundTrippingTest {
+public class HasKeyTestCase extends AbstractFileRoundTrippingTestCase {
 
-    protected OWLOntology createOntology() {
-        try {
-            String fileName = getFileName();
-            URI uri = getClass().getResource("/" + fileName).toURI();
-            return getManager().loadOntologyFromPhysicalURI(uri);
-        }
-        catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        catch (OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
-        }
+
+    public void testCorrectAxioms() {
+        OWLClass cls = getOWLClass("A");
+        OWLProperty propP = getOWLDataProperty("p");
+        OWLProperty propQ = getOWLDataProperty("q");
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        axioms.add(getFactory().getHasKey(cls, propP, propQ));
+        assertEquals(axioms, getOnt().getAxioms());
     }
 
-    protected abstract String getFileName();
+    protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
+        System.out.println(target);
+    }
+
+    protected String getFileName() {
+        return "HasKey.rdf";
+    }
 }

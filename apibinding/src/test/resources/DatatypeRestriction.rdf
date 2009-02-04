@@ -1,0 +1,60 @@
+<!--
+
+Tests parsing of data restriction.
+
+-->
+<rdf:RDF xmlns="http://www.semanticweb.org/owlapi/test#"
+     xml:base="http://www.semanticweb.org/owlapi/test"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#">
+
+
+
+    <!--<owl:DatatypeProperty rdf:about="#p">-->
+        <!--<rdfs:range>-->
+            <!--<rdf:Description>-->
+                <!--<rdf:type rdf:resource="&owl;Datatype"/>-->
+                <!--<owl:onDatatype rdf:resource="&xsd;integer"/>-->
+                <!--<owl:withRestrictions rdf:parseType="Collection">-->
+                    <!--<rdf:Description>-->
+                        <!--<xsd:maxInclusive rdf:datatype="&xsd;integer">30</xsd:maxInclusive>-->
+                    <!--</rdf:Description>-->
+                    <!--<rdf:Description>-->
+                        <!--<xsd:minInclusive rdf:datatype="&xsd;integer">18</xsd:minInclusive>-->
+                    <!--</rdf:Description>-->
+                <!--</owl:withRestrictions>-->
+            <!--</rdf:Description>-->
+        <!--</rdfs:range>-->
+    <!--</owl:DatatypeProperty>-->
+
+
+    <owl:DatatypeProperty rdf:about="#p">
+       <rdfs:range>
+           <rdfs:Datatype>
+               <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+               <owl:withRestrictions>
+                   <rdf:List>
+                       <rdf:first>
+                            <rdf:Description>
+                                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">18</xsd:minInclusive>
+                            </rdf:Description>
+                       </rdf:first>
+                       <rdf:rest>
+                           <rdf:List>
+                               <rdf:first>
+                                   <rdf:Description>
+                                       <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</xsd:maxInclusive>
+                                   </rdf:Description>
+                               </rdf:first>
+                               <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nill"/>
+                           </rdf:List>
+                       </rdf:rest>
+                   </rdf:List>
+               </owl:withRestrictions>
+           </rdfs:Datatype>
+       </rdfs:range>
+    </owl:DatatypeProperty>
+
+</rdf:RDF>

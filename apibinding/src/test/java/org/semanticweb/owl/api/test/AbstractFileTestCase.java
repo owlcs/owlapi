@@ -4,8 +4,7 @@ import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyCreationException;
 
 import java.net.URI;
-import java.net.URISyntaxException;
-/*
+import java.net.URISyntaxException;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -28,12 +27,11 @@ import java.net.URISyntaxException;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 23-Jul-2008<br><br>
+ * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+ * Date: 21-Jan-2009
  */
-public abstract class AbstractFileRoundTrippingTestCase extends AbstractRoundTrippingTest {
+public  abstract class AbstractFileTestCase extends AbstractOWLAPITestCase {
 
     protected OWLOntology createOntology() {
         try {

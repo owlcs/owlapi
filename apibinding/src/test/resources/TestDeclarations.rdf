@@ -1,0 +1,28 @@
+<!--
+ Tests parsing of declarations.  This ontology contains declarations for a class, object property, data property
+ named individual, annotation property and datatype.
+-->
+
+<rdf:RDF xmlns="http://www.semanticweb.org/ontologies/declarations#"
+     xml:base="http://www.semanticweb.org/ontologies/declarations"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#">
+
+    <owl:Ontology rdf:about=""/>
+
+    <owl:Class rdf:about="#Cls"/>
+    
+    <owl:ObjectProperty rdf:about="#op"/>
+
+    <owl:DatatypeProperty rdf:about="#dp"/>
+
+    <owl:NamedIndividual rdf:about="#ni"/>
+
+    <owl:AnnotationProperty rdf:about="#ap"/>
+
+    <rdfs:Datatype rdf:about="#dt"/>
+
+</rdf:RDF>
+

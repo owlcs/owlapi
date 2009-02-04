@@ -1,0 +1,20 @@
+<rdf:RDF xmlns="http://www.semanticweb.org/owlapi/test#"
+     xml:base="http://www.semanticweb.org/owlapi/test"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#">
+
+
+    <owl:Class rdf:about="#B"/>
+    <owl:ObjectProperty rdf:about="#p"/>
+    <rdf:Description rdf:about="#A">
+       <rdfs:subClassOf>
+           <owl:Restriction>
+               <owl:someValuesFrom rdf:resource="#B"/>
+               <owl:onProperty rdf:resource="#p"/>
+           </owl:Restriction>
+       </rdfs:subClassOf>
+    </rdf:Description>
+
+</rdf:RDF>

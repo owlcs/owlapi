@@ -1,7 +1,13 @@
 package org.semanticweb.owl.api.test;
 
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLRuntimeException;
+import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owl.vocab.DublinCoreVocabulary;
+import org.semanticweb.owl.io.StringOutputTarget;
+
+import java.util.Set;
+import java.util.HashSet;
+import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -35,18 +41,34 @@ import org.semanticweb.owl.model.OWLRuntimeException;
 public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTrippingTest {
 
     protected OWLOntology createOntology() {
-        throw new OWLRuntimeException("TODO");
-//        OWLOntology ont = getOWLOntology("OntA");
-//        OWLDataFactory factory = getFactory();
-//        OWLClassAssertionAxiom ax = factory
-//                .getClassAssertion(getOWLIndividual("iA"), getOWLClass("clsA"));
-//        addAxiom(ont, ax);
-//        OWLAnnotation commentAnno = factory.getCommentAnnotation("leq 0.8");
-//        OWLAxiomAnnotationAxiom annAx = factory.getOWLAxiomAnnotationAxiom(ax, commentAnno);
-//        addAxiom(ont, annAx);
-//        return ont;
+        OWLOntology ont = getOWLOntology("OntA");
+        OWLDataFactory factory = getFactory();
+
+        OWLAnnotationProperty prop = factory.getAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getURI());
+
+        Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
+        for(int i = 0; i < 2; i++) {
+            Set<OWLAnnotation> innerAnnotations = new HashSet<OWLAnnotation>();
+            for(int j = 0 ; j < 2; j++) {
+                OWLLiteral lit = getFactory().getTypedLiteral("Annotation " + (j + 1) * 10);
+                innerAnnotations.add(getFactory().getAnnotation(OWLRDFVocabulary.RDFS_LABEL.getURI(), lit));
+            }
+            OWLLiteral lit = getFactory().getTypedLiteral("Annotation " + (i + 1));
+            annotations.add(getFactory().getAnnotation(OWLRDFVocabulary.RDFS_LABEL.getURI(), lit, innerAnnotations.toArray(new OWLAnnotation[innerAnnotations.size()])));
+        }
+
+        OWLEntity entity = factory.getIndividual(URI.create("http://www.another.com/ont#peter"));
+//        addAxiom(ont, factory.getDeclaration(entity));
+        OWLAnnotationAssertionAxiom ax = factory.getAnnotationAssertion(entity.getURI(),
+                factory.getAnnotation(prop.getURI(), "X", "en", annotations.toArray(new OWLAnnotation[annotations.size()])));
+        addAxiom(ont, ax);
+
+        return ont;
     }
 
+    protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
+        System.out.println(target);
+    }
 
     public void testManchesterOWLSyntax() throws Exception {
         // We can't represent axiom annotations yet
