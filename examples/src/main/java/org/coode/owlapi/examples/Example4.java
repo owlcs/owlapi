@@ -54,11 +54,11 @@ public class Example4 {
             // who is peter.
             // We need a subject and object - matthew is the subject and peter is the
             // object.  We use the data factory to obtain references to these individuals
-            OWLIndividual matthew = dataFactory.getOWLIndividual(URI.create(base + "#matthew"));
-            OWLIndividual peter = dataFactory.getOWLIndividual(URI.create(base + "#peter"));
+            OWLIndividual matthew = dataFactory.getIndividual(URI.create(base + "#matthew"));
+            OWLIndividual peter = dataFactory.getIndividual(URI.create(base + "#peter"));
             // We want to link the subject and object with the hasFather property, so use the data factory
             // to obtain a reference to this object property.
-            OWLObjectProperty hasFather = dataFactory.getOWLObjectProperty(URI.create(base + "#hasFather"));
+            OWLObjectProperty hasFather = dataFactory.getObjectProperty(URI.create(base + "#hasFather"));
             // Now create the actual assertion (triple), as an object property assertion axiom
             // matthew --> hasFather --> peter
             OWLObjectPropertyAssertionAxiom assertion = dataFactory.getObjectPropertyAssertion(matthew, hasFather, peter);

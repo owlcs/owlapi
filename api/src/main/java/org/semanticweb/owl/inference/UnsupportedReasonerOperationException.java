@@ -1,6 +1,5 @@
 package org.semanticweb.owl.inference;
 
-import org.semanticweb.owl.model.OWLException;
 /*
  * Copyright (C) 2007, University of Manchester
  *

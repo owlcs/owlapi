@@ -4,7 +4,6 @@ import edu.unika.aifb.rdf.api.syntax.RDFConsumer;
 import org.semanticweb.owl.io.RDFXMLOntologyFormat;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.CollectionFactory;
-import org.semanticweb.owl.util.OWLDataUtil;
 import org.semanticweb.owl.vocab.*;
 import static org.semanticweb.owl.vocab.OWLRDFVocabulary.*;
 import org.xml.sax.SAXException;
@@ -103,6 +102,10 @@ public class OWLRDFConsumer implements RDFConsumer {
     // Same as owlClassURIs but for annotation properties
     private Set<URI> annotationPropertyURIs;
 
+    private Set<URI> annotationURIs;
+
+    private Map<URI, OWLAnnotation> annotationURI2Annotation;
+
 
     private Set<URI> ontologyPropertyURIs;
 
@@ -140,6 +143,8 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private Map<URI, OWLAxiom> reifiedAxiomsMap;
 
+    private Map<URI, Set<OWLAnnotation>> annotationsBySubject;
+
     // A translator for lists of descriptions (such lists are used
     // in intersections, unions etc.)
     private OptimisedListTranslator<OWLClassExpression> descriptionListTranslator;
@@ -154,6 +159,10 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private OptimisedListTranslator<OWLDataPropertyExpression> dataPropertyListTranslator;
 
+    private OptimisedListTranslator<OWLDataRange> dataRangeListTranslator;
+
+    private OptimisedListTranslator<OWLFacetRestriction> faceRestrictionListTranslator;
+
     // Handlers for built in types
     private Map<URI, BuiltInTypeHandler> builtInTypeTripleHandlers;
 
@@ -164,14 +173,14 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     // Handlers for general literal triples (i.e. triples which
     // have predicates that are not part of the built in OWL/RDFS/RDF
-    // vocabulary.  Such triples either constitute annotations of
+    // vocabulary.  Such triples either constitute annotationURIs of
     // relationships between an individual and a data literal (typed or
     // untyped)
     private List<AbstractLiteralTripleHandler> literalTripleHandlers;
 
     // Handlers for general resource triples (i.e. triples which
     // have predicates that are not part of the built in OWL/RDFS/RDF
-    // vocabulary.  Such triples either constitute annotations or
+    // vocabulary.  Such triples either constitute annotationURIs or
     // relationships between an individual and another individual.
     private List<AbstractResourceTripleHandler> resourceTripleHandlers;
 
@@ -227,6 +236,9 @@ public class OWLRDFConsumer implements RDFConsumer {
         individualURIs = CollectionFactory.createSet();
         annotationPropertyURIs = CollectionFactory.createSet();
         annotationPropertyURIs.addAll(OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTIES);
+        annotationURIs = new HashSet<URI>();
+        annotationURI2Annotation = new HashMap<URI, OWLAnnotation>();
+        annotationsBySubject = new HashMap<URI, Set<OWLAnnotation>>();
         ontologyPropertyURIs = CollectionFactory.createSet();
         ontologyPropertyURIs.add(OWLRDFVocabulary.OWL_PRIOR_VERSION.getURI());
         ontologyPropertyURIs.add(OWLRDFVocabulary.OWL_BACKWARD_COMPATIBLE_WITH.getURI());
@@ -257,6 +269,11 @@ public class OWLRDFConsumer implements RDFConsumer {
 
         dataPropertyListTranslator = new OptimisedListTranslator<OWLDataPropertyExpression>(this,
                 new DataPropertyListItemTranslator(this));
+
+        dataRangeListTranslator = new OptimisedListTranslator<OWLDataRange>(this, new DataRangeListItemTranslator(this));
+
+        faceRestrictionListTranslator = new OptimisedListTranslator<OWLFacetRestriction>(this, new OWLFacetRestrictionListItemTranslator(this));
+
         builtInTypeTripleHandlers = CollectionFactory.createMap();
         setupTypeTripleHandlers();
         setupPredicateHandlers();
@@ -335,12 +352,11 @@ public class OWLRDFConsumer implements RDFConsumer {
         synonymMap.put(URI.create(Namespaces.OWL + "valuesFrom"), OWL_ON_CLASS.getURI());
 
         // Preliminary OWL 1.1 Vocab
-        synonymMap.put(URI.create(Namespaces.OWL + "qualifiedMinCardinality"), OWL_MIN_CARDINALITY.getURI());
-        synonymMap.put(URI.create(Namespaces.OWL + "qualifiedMaxCardinality"), OWL_MAX_CARDINALITY.getURI());
-        synonymMap.put(URI.create(Namespaces.OWL + "qualifiedExactCardinality"), OWL_CARDINALITY.getURI());
         synonymMap.put(URI.create(Namespaces.OWL + "cardinalityType"), OWL_ON_CLASS.getURI());
         synonymMap.put(URI.create(Namespaces.OWL + "dataComplementOf"), OWL_COMPLEMENT_OF.getURI());
         synonymMap.put(OWL_ANTI_SYMMETRIC_PROPERTY.getURI(), OWL_ASYMMETRIC_PROPERTY.getURI());
+
+        synonymMap.put(OWL_DATA_RANGE.getURI(), OWL_DATATYPE.getURI());
 
         // DAML+OIL -> OWL
         synonymMap.put(URI.create("http://www.daml.org/2001/03/daml+oil#subClassOf"), RDFS_SUBCLASS_OF.getURI());
@@ -477,6 +493,8 @@ public class OWLRDFConsumer implements RDFConsumer {
         addBuiltInTypeTripleHandler(new TypePropertyHandler(this));
         addBuiltInTypeTripleHandler(new TypeAllDisjointClassesHandler(this));
         addBuiltInTypeTripleHandler(new TypeAllDisjointPropertiesHandler(this));
+        addBuiltInTypeTripleHandler(new TypeNamedIndividualHandler(this));
+        addBuiltInTypeTripleHandler(new TypeAnnotationHandler(this));
 
         addBuiltInTypeTripleHandler(new TypeSWRLAtomListHandler(this));
         addBuiltInTypeTripleHandler(new TypeSWRLBuiltInAtomHandler(this));
@@ -535,6 +553,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addPredicateHandler(new TPRestHandler(this));
         addPredicateHandler(new TPFirstResourceHandler(this));
         addPredicateHandler(new TPDeclaredAsHandler(this));
+        addPredicateHandler(new TPHasKeyHandler(this));
 
         addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.BROADER));
         addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.NARROWER));
@@ -677,6 +696,10 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
+    protected void addAnnotationURI(URI uri) {
+        annotationURIs.add(uri);
+    }
+
 
     public boolean isRestriction(URI uri) {
         return restrictionURIs.contains(uri);
@@ -806,12 +829,12 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     protected OWLObjectProperty getOWLObjectProperty(URI uri) {
-        return getDataFactory().getOWLObjectProperty(uri);
+        return getDataFactory().getObjectProperty(uri);
     }
 
 
     protected OWLDataProperty getOWLDataProperty(URI uri) {
-        return getDataFactory().getOWLDataProperty(uri);
+        return getDataFactory().getDataProperty(uri);
     }
 
 
@@ -819,7 +842,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         if (isAnonymousNode(uri)) {
             return getDataFactory().getOWLAnonymousIndividual(uri.toString());
         } else {
-            return getDataFactory().getOWLIndividual(uri);
+            return getDataFactory().getIndividual(uri);
         }
     }
 
@@ -1108,12 +1131,16 @@ public class OWLRDFConsumer implements RDFConsumer {
                 translator.translateRule(ruleURI);
             }
 
+            // Now deal with annotationURIs - what a bloody pain
+
+            translateAnnotations();
+
             // We need to mop up all remaining triples.  These triples will be in the
             // triples by subject map.  Other triples which reside in the triples by
             // predicate (single valued) triple aren't "root" triples for axioms.  First
             // we translate all system triples and then go for triples whose predicates
             // are not system/reserved vocabulary URIs to translate these into ABox assertions
-            // or annotations
+            // or annotationURIs
             for (URI subject : new ArrayList<URI>(resTriplesBySubject.keySet())) {
                 Map<URI, Set<URI>> map = resTriplesBySubject.get(subject);
                 if (map == null) {
@@ -1131,7 +1158,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
 
             // TODO: TIDY UP!  This is a copy and paste hack!!
-            // Now for the ABox assertions and annotations
+            // Now for the ABox assertions and annotationURIs
             for (URI subject : new ArrayList<URI>(resTriplesBySubject.keySet())) {
                 Map<URI, Set<URI>> map = resTriplesBySubject.get(subject);
                 if (map == null) {
@@ -1178,6 +1205,90 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
+    private void translateAnnotations() {
+        // Construct an ordering on annotations
+
+        for (URI annotationURI : annotationURIs) {
+            translateAnnotation(annotationURI);
+        }
+        System.out.println("Translated annotations");
+        for (OWLAnnotation annos : annotationURI2Annotation.values()) {
+            System.out.println(annos);
+        }
+    }
+
+
+    private Set<URI> getAnnotationsForSubject(URI subject) {
+        Set<URI> result = new HashSet<URI>();
+        for(URI annoURI : annotationURIs) {
+            URI annoURISubject = getResourceObject(annoURI, OWL_SUBJECT.getURI(), false);
+            if (annoURISubject != null && annoURISubject.equals(subject)) {
+                result.add(annoURI);
+            }
+        }
+        return result;
+    }
+
+    private OWLAnnotation translateAnnotation(URI node) {
+        OWLAnnotation anno = annotationURI2Annotation.get(node);
+        if(anno != null) {
+            return anno;
+        }
+        URI subject = getResourceObject(node, OWL_SUBJECT.getURI(), true);
+        URI predicate = getResourceObject(node, OWL_PREDICATE.getURI(), true);
+        Object object = getResourceObject(node, OWL_OBJECT.getURI(), true);
+        if (object == null) {
+            object = getLiteralObject(node, OWL_OBJECT.getURI(), true);
+        }
+        getResourceObject(node, predicate, true);
+        // We now have to get any annotations on this annotation
+        Set<OWLAnnotation> translatedAnnotations = new HashSet<OWLAnnotation>();
+        for(URI annotationURI : getAnnotationsForSubject(node)) {
+            OWLAnnotation annotation = translateAnnotation(annotationURI);
+            translatedAnnotations.add(annotation);
+        }
+
+
+        if(!annotationURIs.contains(subject)) {
+            System.out.println("BASE: ANNOTATION: " + subject);
+            for(URI pred : getPredicatesBySubject(subject)) {
+                System.out.println("\t\t" + pred);
+            }
+        }
+        
+        if(object == null) {
+            System.out.println("NULL");
+            return null;
+        }
+        else {
+            OWLAnnotationValue value = translateAnnotationValue(object);
+            OWLAnnotation annotation = getDataFactory().getAnnotation(predicate, value, translatedAnnotations.toArray(new OWLAnnotation[translatedAnnotations.size()]));
+            System.out.println("Translated annotation: " + annotation);
+            return annotation;
+        }
+
+
+    }
+
+
+    private OWLAnnotationValue translateAnnotationValue(Object object) {
+        OWLAnnotationValue value;
+        if (object instanceof URI) {
+            URI uri = (URI) object;
+            if (isAnonymousNode(uri)) {
+                value = getDataFactory().getOWLAnonymousIndividual(uri.toString());
+            } else {
+                value = getDataFactory().getIRI(uri);
+            }
+
+        } else if (object instanceof OWLLiteral) {
+            value = (OWLLiteral) object;
+        } else {
+            throw new RuntimeException("Unknown type of annotation value: " + object);
+        }
+        return value;
+    }
+
     private void translateDanglingEntities() throws OWLException {
         owlClassURIs.remove(OWLRDFVocabulary.OWL_THING.getURI());
         owlClassURIs.remove(OWLRDFVocabulary.OWL_NOTHING.getURI());
@@ -1189,12 +1300,12 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         for (URI propURI : objectPropertyURIs) {
             if (!isAnonymousNode(propURI)) {
-                OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propURI);
+                OWLObjectProperty prop = getDataFactory().getObjectProperty(propURI);
                 addDeclarationIfNecessary(prop);
             }
         }
         for (URI propURI : dataPropertyURIs) {
-            OWLDataProperty prop = getDataFactory().getOWLDataProperty(propURI);
+            OWLDataProperty prop = getDataFactory().getDataProperty(propURI);
             addDeclarationIfNecessary(prop);
         }
         // We don't need to do this with individuals, since there is no
@@ -1389,34 +1500,53 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
             return getDataFactory().getDataOneOf(typedConstants);
         }
-        URI complementOfObject = getResourceObject(uri, OWL_COMPLEMENT_OF.getURI(), true);
+        URI intersectionOfObject = getResourceObject(uri, OWL_INTERSECTION_OF.getURI(), true);
+        if (intersectionOfObject != null) {
+            Set<OWLDataRange> dataRanges = translateToDataRangeSet(intersectionOfObject);
+            return getDataFactory().getDataIntersectionOf(dataRanges);
+        }
+        URI unionOfObject = getResourceObject(uri, OWL_UNION_OF.getURI(), true);
+        if (unionOfObject != null) {
+            Set<OWLDataRange> dataRanges = translateToDataRangeSet(unionOfObject);
+            return getDataFactory().getDataUnionOf(dataRanges);
+        }
+        // The plain complement of triple predicate is in here for legacy reasons
+        URI complementOfObject = getResourceObject(uri, OWL_DATATYPE_COMPLEMENT_OF.getURI(), true);
+        if (complementOfObject == null) {
+            complementOfObject = getResourceObject(uri, OWL_COMPLEMENT_OF.getURI(), true);
+        }
         if (complementOfObject != null) {
             OWLDataRange operand = translateDataRange(complementOfObject);
             return getDataFactory().getDataComplementOf(operand);
         }
-        URI onDataRangeObject = getResourceObject(uri, OWL_ON_DATA_RANGE.getURI(), true);
-        if (onDataRangeObject != null && !isAnonymousNode(onDataRangeObject)) {
-            OWLDatatype restrictedDataRange = (OWLDatatype) translateDataRange(onDataRangeObject);
-            // Get facet(s!)
-            // Get facet value
+
+        URI onDatatypeObject = getResourceObject(uri, OWL_ON_DATA_TYPE.getURI(), true);
+        if (onDatatypeObject == null) {
+            getResourceObject(uri, OWL_ON_DATA_RANGE.getURI(), true);
+        }
+        if (onDatatypeObject != null) {
+            OWLDatatype restrictedDataRange = (OWLDatatype) translateDataRange(onDatatypeObject);
+
+            // Now we have to get the restricted facets - there is some legacy translation code here... the current
+            // spec uses a list of triples where the predicate is a facet and the object a literal that is restricted
+            // by the facet.  Originally, there just used to be multiple facet-"facet value" triples
 
             Set<OWLFacetRestriction> restrictions = new HashSet<OWLFacetRestriction>();
 
-            for (URI facetURI : OWLFacet.FACET_URIS) {
-                OWLLiteral val;
-                while ((val = getLiteralObject(uri, facetURI, true)) != null) {
-                    if (val.isTyped()) {
+            URI facetRestrictionList = getResourceObject(uri, OWL_WITH_RESTRICTIONS.getURI(), true);
+            if (facetRestrictionList != null) {
+                restrictions = translateToFacetRestrictionSet(facetRestrictionList);
+            } else {
+                // Try the legacy encoding
+                for (URI facetURI : OWLFacet.FACET_URIS) {
+                    OWLLiteral val;
+                    while ((val = getLiteralObject(uri, facetURI, true)) != null) {
                         restrictions.add(dataFactory.getFacetRestriction(
-                                OWLFacet.getFacet(facetURI),
-                                (OWLTypedLiteral) val));
-                    } else {
-                        restrictions.add(dataFactory.getFacetRestriction(
-                                OWLFacet.getFacet(facetURI),
-                                dataFactory.getTypedLiteral(val.getString(),
-                                        OWLDataUtil.getIntDatatype(dataFactory))));
+                                OWLFacet.getFacet(facetURI), val));
                     }
                 }
             }
+
 
             return dataFactory.getDatatypeRestriction(restrictedDataRange, restrictions);
         }
@@ -1425,7 +1555,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     public OWLDataPropertyExpression translateDataPropertyExpression(URI uri) throws OWLException {
-        return dataFactory.getOWLDataProperty(uri);
+        return dataFactory.getDataProperty(uri);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1449,7 +1579,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addOWLObjectProperty(mainNode);
         if (!isAnonymousNode(mainNode)) {
             // Simple object property
-            prop = getDataFactory().getOWLObjectProperty(mainNode);
+            prop = getDataFactory().getObjectProperty(mainNode);
             translatedProperties.put(mainNode, prop);
             return prop;
         } else {
@@ -1472,6 +1602,9 @@ public class OWLRDFConsumer implements RDFConsumer {
         return getOWLIndividual(node);
     }
 
+    public Set<OWLAnnotation> translateAnnotations(URI subject, URI predicate) {
+        return Collections.emptySet();
+    }
 
     private Map<URI, OWLClassExpression> translatedDescriptions = new HashMap<URI, OWLClassExpression>();
 
@@ -1525,8 +1658,29 @@ public class OWLRDFConsumer implements RDFConsumer {
         return individualListTranslator.translateToSet(mainNode);
     }
 
+    public Set<OWLDataRange> translateToDataRangeSet(URI mainNode) throws OWLException {
+        return dataRangeListTranslator.translateToSet(mainNode);
+    }
+
+    public Set<OWLFacetRestriction> translateToFacetRestrictionSet(URI mainNode) throws OWLException {
+        return faceRestrictionListTranslator.translateToSet(mainNode);
+    }
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+    public Set<URI> getPredicatesBySubject(URI subject) {
+        Set<URI> uris = new HashSet<URI>();
+        Map<URI, Set<URI>> predObjMap = resTriplesBySubject.get(subject);
+        if (predObjMap != null) {
+            uris.addAll(predObjMap.keySet());
+        }
+        Map<URI, Set<OWLLiteral>> predObjMapLit = litTriplesBySubject.get(subject);
+        if (predObjMapLit != null) {
+            uris.addAll(predObjMapLit.keySet());
+        }
+        return uris;
+    }
 
     public URI getResourceObject(URI subject, URI predicate, boolean consume) {
         Map<URI, URI> subjPredMap = singleValuedResTriplesByPredicate.get(predicate);

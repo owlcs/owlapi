@@ -38,7 +38,7 @@ import java.util.Set;
  * may have the same URI as an OWLIndividual (or other entity) but will still be considered to
  * be a separate object.
  */
-public interface OWLEntity extends OWLObject, OWLNamedObject {
+public interface OWLEntity extends OWLObject, OWLNamedObject, OWLAnnotationSubject {
 
     /**
      * Gets the annotations for this entity.  These are deemed to be annotations in annotation assertion
@@ -134,17 +134,17 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     OWLDataProperty asOWLDataProperty();
 
     /**
-     * A convenience method that determines if this entity is an OWLIndividual
+     * A convenience method that determines if this entity is an OWLNamedIndividual
      *
-     * @return <code>true</code> if this entity is an OWLIndividual, otherwise <code>false</code>
+     * @return <code>true</code> if this entity is an OWLNamedIndividual, otherwise <code>false</code>
      */
     boolean isOWLIndividual();
 
     /**
-     * A convenience method that obtains this entity as an OWLIndividual (in order to
+     * A convenience method that obtains this entity as an OWLNamedIndividual (in order to
      * avoid explicit casting).
      *
-     * @return The entity as an OWLIndividual.
+     * @return The entity as an OWLNamedIndividual.
      * @throws OWLRuntimeException if this entity is not an OWLIndividual (check with the
      *                             isOWLIndividual method first).
      */
@@ -166,6 +166,22 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      *                             isOWLDatatype method first).
      */
     OWLDatatype asOWLDatatype();
+
+    /**
+     * A convenience method that determines if this entity is an OWLAnnotationProperty
+     *
+     * @return <code>true</code> if this entity is an OWLAnnotationProperty, otherwise <code>false</code>
+     */
+    boolean isOWLAnnotationProperty();
+
+    /**
+     * A convenience method that obtains this entity as an OWLAnnotationProperty (in order to
+     * avoid explicit casting).
+     *
+     * @return The entity as an OWLAnnotationProperty.
+     * @throws OWLRuntimeException if this entity is not an OWLAnnotationProperty
+     */
+    OWLAnnotationProperty asOWLAnnotationProperty();
 
     void accept(OWLEntityVisitor visitor);
 

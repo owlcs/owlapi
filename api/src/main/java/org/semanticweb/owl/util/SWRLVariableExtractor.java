@@ -2,9 +2,9 @@ package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.*;
 
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *

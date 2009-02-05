@@ -36,7 +36,7 @@ public class SWRLDifferentFromAtomImpl extends SWRLBinaryAtomImpl<OWLObjectPrope
 
     public SWRLDifferentFromAtomImpl(OWLDataFactory dataFactory, SWRLAtomIObject arg0,
                                      SWRLAtomIObject arg1) {
-        super(dataFactory, dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM.getURI()), arg0, arg1);
+        super(dataFactory, dataFactory.getObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM.getURI()), arg0, arg1);
     }
 
 

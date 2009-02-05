@@ -43,9 +43,9 @@ public class SKOSObjectTripleHandler extends TriplePredicateHandler {
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        OWLIndividual subj = getDataFactory().getOWLIndividual(subject);
-        OWLIndividual obj = getDataFactory().getOWLIndividual(object);
-        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(predicate);
+        OWLIndividual subj = getDataFactory().getIndividual(subject);
+        OWLIndividual obj = getDataFactory().getIndividual(object);
+        OWLObjectProperty prop = getDataFactory().getObjectProperty(predicate);
         addAxiom(getDataFactory().getObjectPropertyAssertion(subj, prop, obj));
     }
 

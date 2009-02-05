@@ -71,8 +71,8 @@ public class TestDisjoints extends TestCase {
 //        OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
 //        OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
 //        OWLClass clsC = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
-//        OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
-//        OWLClassExpression clsD = man.getOWLDataFactory().getObjectSomeValuesFrom(prop, man.getOWLDataFactory().getOWLThing());
+//        OWLObjectProperty prop = man.getOWLDataFactory().getObjectProperty(TestUtils.createURI());
+//        OWLClassExpression clsD = man.getOWLDataFactory().getObjectSomeValuesFrom(prop, man.getOWLDataFactory().getThing());
 //        Set<OWLClassExpression> descriptions = new HashSet<OWLClassExpression>();
 //        descriptions.add(clsA);
 //        descriptions.add(clsB);
@@ -100,7 +100,7 @@ public class TestDisjoints extends TestCase {
         OWLOntology ontA = man.createOntology(TestUtils.createURI());
         OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
         OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
-        OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
+        OWLObjectProperty prop = man.getOWLDataFactory().getObjectProperty(TestUtils.createURI());
         OWLClassExpression descA = man.getOWLDataFactory().getObjectSomeValuesFrom(prop, clsA);
         OWLClassExpression descB = man.getOWLDataFactory().getObjectSomeValuesFrom(prop, clsB);
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();

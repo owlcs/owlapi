@@ -1,6 +1,5 @@
 package org.semanticweb.owl.io;
 
-import org.semanticweb.owl.model.OWLOntologyFormat;
 import org.semanticweb.owl.vocab.NamespaceOWLOntologyFormat;
 /*
  * Copyright (C) 2006, University of Manchester

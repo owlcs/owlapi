@@ -94,6 +94,25 @@ public class RDFGraph {
     }
 
 
+    public boolean isAnonymousNodeSharedSubject(RDFResourceNode node) {
+        if(!node.isAnonymous()) {
+            return false;
+        }
+        int count = 0;
+        for(RDFTriple triple : triples) {
+            if(!triple.getObject().isLiteral()) {
+                RDFResourceNode object = (RDFResourceNode) triple.getObject();
+                if(object.equals(node)) {
+                    count++;
+                    if(count > 1) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public Set<RDFResourceNode> getRootAnonymousNodes() {
         if (rootAnonymousNodes == null) {
             rebuildAnonRoots();

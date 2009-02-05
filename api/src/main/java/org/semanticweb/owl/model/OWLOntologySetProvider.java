@@ -1,7 +1,5 @@
 package org.semanticweb.owl.model;
 
-import org.semanticweb.owl.model.OWLOntology;
-
 import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester

@@ -346,7 +346,7 @@ public class ManchesterOWLSyntaxEditorParser {
     public OWLObjectProperty getOWLObjectProperty(String name) {
         OWLObjectProperty prop = owlEntityChecker.getOWLObjectProperty(name);
         if (prop == null && objectPropertyNames.contains(name)) {
-            prop = getDataFactory().getOWLObjectProperty(getURI(name));
+            prop = getDataFactory().getObjectProperty(getURI(name));
         }
         return prop;
     }
@@ -355,7 +355,7 @@ public class ManchesterOWLSyntaxEditorParser {
     public OWLNamedIndividual getOWLIndividual(String name) {
         OWLNamedIndividual ind = owlEntityChecker.getOWLIndividual(name);
         if (ind == null && objectPropertyNames.contains(name)) {
-            ind = getDataFactory().getOWLIndividual(getURI(name));
+            ind = getDataFactory().getIndividual(getURI(name));
         }
         return ind;
     }
@@ -364,7 +364,7 @@ public class ManchesterOWLSyntaxEditorParser {
     public OWLDataProperty getOWLDataProperty(String name) {
         OWLDataProperty prop = owlEntityChecker.getOWLDataProperty(name);
         if (prop == null && objectPropertyNames.contains(name)) {
-            prop = getDataFactory().getOWLDataProperty(getURI(name));
+            prop = getDataFactory().getDataProperty(getURI(name));
         }
         return prop;
     }
@@ -2001,9 +2001,9 @@ public class ManchesterOWLSyntaxEditorParser {
 
         public OWLClass getOWLClass(String name) {
             if (name.equals("Thing") || name.equals("owl:Thing")) {
-                return dataFactory.getOWLThing();
+                return dataFactory.getThing();
             } else if (name.equals("Nothing") || name.equals("owl:Nothing")) {
-                return dataFactory.getOWLNothing();
+                return dataFactory.getNothing();
             } else if (classNames.contains(name)) {
                 return dataFactory.getOWLClass(getURI(name));
             } else {
@@ -2014,7 +2014,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
         public OWLObjectProperty getOWLObjectProperty(String name) {
             if (objectPropertyNames.contains(name)) {
-                return dataFactory.getOWLObjectProperty(getURI(name));
+                return dataFactory.getObjectProperty(getURI(name));
             } else {
                 return null;
             }
@@ -2023,7 +2023,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
         public OWLDataProperty getOWLDataProperty(String name) {
             if (dataPropertyNames.contains(name)) {
-                return dataFactory.getOWLDataProperty(getURI(name));
+                return dataFactory.getDataProperty(getURI(name));
             } else {
                 return null;
             }
@@ -2032,7 +2032,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
         public OWLNamedIndividual getOWLIndividual(String name) {
             if (individualNames.contains(name)) {
-                return dataFactory.getOWLIndividual(getURI(name));
+                return dataFactory.getIndividual(getURI(name));
             } else {
                 return null;
             }

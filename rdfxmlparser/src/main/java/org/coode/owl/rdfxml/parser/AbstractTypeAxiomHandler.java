@@ -1,11 +1,12 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLLiteral;
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owl.vocab.XSDVocabulary;
 
 import java.net.URI;
+import java.util.Set;
+import java.util.HashSet;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -53,26 +54,57 @@ public abstract class AbstractTypeAxiomHandler extends BuiltInTypeHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         consumeTriple(subject, predicate, object);
-        URI subjectTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_SUBJECT.getURI(), true);
-        if (subjectTripleObject == null) {
-            throw new OWLRDFXMLParserMalformedNodeException("missing rdf:subject triple.");
+        Set<URI> predicates = getConsumer().getPredicatesBySubject(subject);
+        predicates.remove(OWLRDFVocabulary.OWL_SUBJECT.getURI());
+        predicates.remove(OWLRDFVocabulary.OWL_PREDICATE.getURI());
+        predicates.remove(OWLRDFVocabulary.OWL_OBJECT.getURI());
+        predicates.remove(OWLRDFVocabulary.RDF_SUBJECT.getURI());
+        predicates.remove(OWLRDFVocabulary.RDF_PREDICATE.getURI());
+        predicates.remove(OWLRDFVocabulary.RDF_OBJECT.getURI());
+        predicates.remove(OWLRDFVocabulary.RDF_TYPE.getURI());
+
+        Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
+        for(URI candidatePredicate : predicates) {
+            getConsumer().isAnnotationProperty(candidatePredicate);
+            
         }
+        URI subjectTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SUBJECT.getURI(), true);
+        if(subjectTripleObject == null) {
+            subjectTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_SUBJECT.getURI(), true);
+        }
+        if (subjectTripleObject == null) {
+            throw new OWLRDFXMLParserMalformedNodeException("missing owl:subject triple.");
+        }
+
         URI predicateTripleObject = getConsumer().getResourceObject(subject,
+                OWLRDFVocabulary.OWL_PREDICATE.getURI(),
+                true);
+        if(predicateTripleObject == null) {
+            predicateTripleObject = getConsumer().getResourceObject(subject,
                 OWLRDFVocabulary.RDF_PREDICATE.getURI(),
                 true);
-        if (predicateTripleObject == null) {
-            throw new OWLRDFXMLParserMalformedNodeException("missing rdf:predicate triple.");
         }
-        URI objectTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
+        if (predicateTripleObject == null) {
+            throw new OWLRDFXMLParserMalformedNodeException("missing owl:predicate triple.");
+        }
+
+        URI objectTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_OBJECT.getURI(), true);
+        if(objectTripleObject == null) {
+            objectTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
+        }
         OWLAxiom ax = null;
+
         if (objectTripleObject != null) {
-            ax = handleAxiomTriples(subjectTripleObject, predicateTripleObject, objectTripleObject);
+            ax = handleAxiomTriples(subjectTripleObject, predicateTripleObject, objectTripleObject, annotations);
         } else {
-            OWLLiteral con = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
-            if (con == null) {
-                throw new OWLRDFXMLParserMalformedNodeException("missing rdf:object triple.");
+            OWLLiteral con = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_OBJECT.getURI(), true);
+            if(con == null) {
+                con = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
             }
-            ax = handleAxiomTriples(subjectTripleObject, predicateTripleObject, con);
+            if (con == null) {
+                throw new OWLRDFXMLParserMalformedNodeException("missing owl:object triple.");
+            }
+            ax = handleAxiomTriples(subjectTripleObject, predicateTripleObject, con, annotations);
         }
         addAxiom(ax);
         getConsumer().addReifiedAxiom(subject, ax);
@@ -81,26 +113,7 @@ public abstract class AbstractTypeAxiomHandler extends BuiltInTypeHandler {
 
     }
 
-//    private void handleAnnotations(OWLAxiom axiom, URI mainNode) throws OWLException {
-//        getConsumer().g
-//        for(Triple triple : new HashSet<Triple>(getConsumer().getTriplesBySubject(mainNode))) {
-//            if(getConsumer().isAnnotationProperty(triple.getPredicate())) {
-//                consumeTriple(subject, predicate, object);
-//                if (triple.isLiteralTriple()) {
-//                    OWLConstantAnnotation anno = getDataFactory().getOWLConstantAnnotation(triple.getPredicate(), getConsumer().getConstant((LiteralTriple) triple));
-//                    getDataFactory().getOWLAxiomAnnotationAxiom(axiom, anno);
-//                }
-//                else {
-//                    OWLTypedLiteral con = getDataFactory().getTypedLiteral(
-//                            object.toString(),
-//                            getDataFactory().getDatatype(XSDVocabulary.ANY_URI.getURIFromValue())
-//                    );
-//                    OWLConstantAnnotation anno = getDataFactory().getOWLConstantAnnotation(triple.getPredicate(), con);
-//                    getDataFactory().getOWLAxiomAnnotationAxiom(axiom, anno);
-//                }
-//            }
-//        }
-//    }
+
 
 
     /**
@@ -112,9 +125,9 @@ public abstract class AbstractTypeAxiomHandler extends BuiltInTypeHandler {
      * @param objectTripleObject    The object triple object, pointing to the axiom object
      */
     protected abstract OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject,
-                                                   URI objectTripleObject) throws OWLException;
+                                                   URI objectTripleObject, Set<OWLAnnotation> annotations) throws OWLException;
 
 
     protected abstract OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject,
-                                                   OWLLiteral con) throws OWLException;
+                                                   OWLLiteral con, Set<OWLAnnotation> annotations) throws OWLException;
 }

@@ -107,7 +107,7 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
 
 
     protected OWLObjectProperty getOWLObjectProperty(String id) {
-        return getDataFactory().getOWLObjectProperty(getURIFromValue(id));
+        return getDataFactory().getObjectProperty(getURIFromValue(id));
     }
 
 
@@ -122,7 +122,7 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         if (id1 == null) {
             return getDataFactory().getOWLClass(getURIFromValue(id0));
         } else {
-            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getURIFromValue(id0));
+            OWLObjectProperty prop = getDataFactory().getObjectProperty(getURIFromValue(id0));
             OWLClass filler = getDataFactory().getOWLClass(getURIFromValue(id1));
             return getDataFactory().getObjectSomeValuesFrom(prop, filler);
         }
@@ -151,9 +151,9 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
 //        if (getConsumer().isTerm()) {
 //            ent = getDataFactory().getOWLClass(getURIFromValue(id));
 //        } else if (getConsumer().isTypedef()) {
-//            ent = getDataFactory().getOWLObjectProperty(getURIFromValue(id));
+//            ent = getDataFactory().getObjectProperty(getURIFromValue(id));
 //        } else {
-//            ent = getDataFactory().getOWLIndividual(getURIFromValue(id));
+//            ent = getDataFactory().getIndividual(getURIFromValue(id));
 //        }
 //        OWLAxiom ax = getDataFactory().getOWLEntityAnnotationAxiom(ent, anno);
 //        applyChange(new AddAxiom(getOntology(), ax));

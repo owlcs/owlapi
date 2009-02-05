@@ -1,6 +1,10 @@
-package org.semanticweb.owl.model;
+package org.coode.owl.rdfxml.parser;
 
-import java.util.Set;/*
+import org.semanticweb.owl.model.OWLDataRange;
+import org.semanticweb.owl.model.OWLLiteral;
+import org.semanticweb.owl.model.OWLException;
+
+import java.net.URI;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -25,16 +29,21 @@ import java.util.Set;/*
 
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 15-Jan-2009
+ * Date: 02-Feb-2009
  */
-public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
+public class DataRangeListItemTranslator implements ListItemTranslator<OWLDataRange> {
 
-    OWLClassExpression getClassExpression();
+    private OWLRDFConsumer consumer;
 
-    Set<OWLPropertyExpression> getPropertyExpressions();
+    public DataRangeListItemTranslator(OWLRDFConsumer consumer) {
+        this.consumer = consumer;
+    }
 
-    Set<OWLObjectPropertyExpression> getObjectPropertyExpressions();
+    public OWLDataRange translate(OWLLiteral firstObject) throws OWLException {
+        return null;
+    }
 
-    Set<OWLDataPropertyExpression> getDataPropertyExpressions();
-
+    public OWLDataRange translate(URI firstObject) throws OWLException {
+        return consumer.translateDataRange(firstObject);
+    }
 }

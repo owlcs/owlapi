@@ -1,7 +1,5 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLException;
-
 import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -50,6 +48,6 @@ public class OWLObjectPropertyElementHandler extends AbstractOWLObjectPropertyEl
 
 
     protected void endObjectPropertyElement() {
-        setOWLObjectPropertyExpression(getOWLDataFactory().getOWLObjectProperty(uri));
+        setOWLObjectPropertyExpression(getOWLDataFactory().getObjectProperty(uri));
     }
 }

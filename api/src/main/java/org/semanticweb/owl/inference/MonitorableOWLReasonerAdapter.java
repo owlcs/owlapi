@@ -1,12 +1,8 @@
 package org.semanticweb.owl.inference;
 
 import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.util.ProgressMonitor;
 import org.semanticweb.owl.util.NullProgressMonitor;
-
-import java.util.List;
-import java.util.ArrayList;
+import org.semanticweb.owl.util.ProgressMonitor;
 /*
  * Copyright (C) 2007, University of Manchester
  *

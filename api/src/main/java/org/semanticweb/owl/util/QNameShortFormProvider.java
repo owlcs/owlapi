@@ -2,8 +2,8 @@ package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.OWLEntity;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /*
  * Copyright (C) 2007, University of Manchester

@@ -261,7 +261,7 @@ public class SatisfiabilityConverter {
 
 
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
-            result = and(factory.getObjectSomeValuesFrom(axiom.getProperty(), factory.getOWLThing()),
+            result = and(factory.getObjectSomeValuesFrom(axiom.getProperty(), factory.getThing()),
                     not(axiom.getDomain()));
         }
 

@@ -49,6 +49,13 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
         return ontology.getObjectPropertyDomainAxioms(this);
     }
 
+    public boolean isObjectPropertyExpression() {
+        return true;
+    }
+
+    public boolean isDataPropertyExpression() {
+        return false;
+    }
 
     public boolean isFunctional(OWLOntology ontology) {
         return ontology.getFunctionalObjectPropertyAxiom(this) != null;

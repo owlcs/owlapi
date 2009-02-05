@@ -1,6 +1,5 @@
 package org.semanticweb.owl.io;
 
-import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
 

@@ -56,7 +56,7 @@ public class Example7 {
 
             // First get a reference to our hasAge property
             OWLDataFactory factory = man.getOWLDataFactory();
-            OWLDataProperty hasAge = factory.getOWLDataProperty(URI.create(base + "hasAge"));
+            OWLDataProperty hasAge = factory.getDataProperty(URI.create(base + "hasAge"));
             // For completeness, we will make hasAge functional by adding an axiom to state this
             OWLFunctionalDataPropertyAxiom funcAx = factory.getFunctionalDataProperty(hasAge);
             man.applyChange(new AddAxiom(ont, funcAx));

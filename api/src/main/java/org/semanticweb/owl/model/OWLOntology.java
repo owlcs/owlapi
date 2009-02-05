@@ -245,6 +245,9 @@ public interface OWLOntology extends OWLNamedObject {
      */
     Set<OWLNamedIndividual> getReferencedIndividuals();
 
+    Set<OWLDatatype> getReferencedDatatypes();
+
+    Set<OWLAnnotationProperty> getReferencedAnnotationProperties();
 
     /**
      * Gets the set of URIs that are used in annotations (e.g. rdfs:label)
@@ -275,6 +278,8 @@ public interface OWLOntology extends OWLNamedObject {
      *         It is therefore safe to apply changes to this ontology while iterating over this set.
      */
     boolean containsEntityReference(OWLEntity owlEntity);
+
+    boolean containsEntityReference(URI uri);
 
 
     /**
@@ -415,6 +420,8 @@ public interface OWLOntology extends OWLNamedObject {
      */
     Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual);
 
+    Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property);
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Annotation axioms
@@ -507,7 +514,9 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set of entity annotation axioms. Note that this set will be a copy and will not be updated if the
      *         ontology changes.  It is therefore safe to iterate over this set while making changes to the ontology.
      */
-    Set<OWLAnnotationAssertionAxiom> getEntityAnnotationAxioms(OWLEntity entity);
+    Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLEntity entity);
+
+    Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(IRI subject);
 
 //    Set<OWLAnnotationAssertionAxiom> getAnnotations();
 

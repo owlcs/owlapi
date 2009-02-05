@@ -315,10 +315,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
     public void visit(OWLHasKeyAxiom axiom) {
         axiom.getClassExpression().accept(this);
-        for (OWLObjectPropertyExpression prop : axiom.getObjectPropertyExpressions()) {
-            prop.accept(this);
-        }
-        for (OWLDataPropertyExpression prop : axiom.getDataPropertyExpressions()) {
+        for (OWLPropertyExpression prop : axiom.getPropertyExpressions()) {
             prop.accept(this);
         }
     }

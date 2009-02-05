@@ -465,7 +465,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         if (!unsatClass.isAnonymous()) {
             expandWithDefiningAxioms((OWLClass) unsatClass, expansionLimit);
         } else {
-            OWLClass owlThing = owlOntologyManager.getOWLDataFactory().getOWLThing();
+            OWLClass owlThing = owlOntologyManager.getOWLDataFactory().getThing();
             OWLSubClassOfAxiom axiom = owlOntologyManager.getOWLDataFactory().getSubClassOf(unsatClass, owlThing);
             debuggingAxioms.add(axiom);
             expandAxioms();

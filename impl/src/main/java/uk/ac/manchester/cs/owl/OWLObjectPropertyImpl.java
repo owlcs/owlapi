@@ -189,6 +189,13 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
         return true;
     }
 
+    public OWLAnnotationProperty asOWLAnnotationProperty() {
+        throw new OWLRuntimeException("Not an annotation property");
+    }
+
+    public boolean isOWLAnnotationProperty() {
+        return false;
+    }
 
     protected int compareObjectOfSameType(OWLObject object) {
         return getURI().compareTo(((OWLObjectProperty) object).getURI());

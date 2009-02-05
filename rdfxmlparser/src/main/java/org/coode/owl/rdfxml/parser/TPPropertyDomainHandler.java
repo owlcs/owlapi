@@ -42,13 +42,15 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
 
 
     public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
-        if (!isAnonymous(object)) {
-            if (getConsumer().isObjectPropertyOnly(subject)) {
-                return true;
-            } else if (getConsumer().isDataPropertyOnly(subject)) {
-                return true;
-            }
-        }
+        // Need to parse everything to make sure
+
+//        if (!isAnonymous(object)) {
+//            if (getConsumer().isObjectPropertyOnly(subject)) {
+//                return true;
+//            } else if (getConsumer().isDataPropertyOnly(subject)) {
+//                return true;
+//            }
+//        }
         return false;
     }
 

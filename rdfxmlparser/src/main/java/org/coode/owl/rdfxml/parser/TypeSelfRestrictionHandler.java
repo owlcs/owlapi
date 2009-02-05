@@ -44,5 +44,7 @@ public class TypeSelfRestrictionHandler extends BuiltInTypeHandler {
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         consumeTriple(subject, predicate, object);
         getConsumer().addSelfRestriction(subject);
+        // Patch to new OWL syntax
+        getConsumer().addTriple(subject, OWLRDFVocabulary.OWL_HAS_SELF.getURI(), getDataFactory().getTypedLiteral(true));
     }
 }

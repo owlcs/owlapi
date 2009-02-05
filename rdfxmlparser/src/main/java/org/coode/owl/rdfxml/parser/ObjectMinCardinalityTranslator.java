@@ -58,4 +58,8 @@ public class ObjectMinCardinalityTranslator extends AbstractObjectCardinalityTra
     protected URI getCardinalityTriplePredicate() throws OWLException {
         return OWLRDFVocabulary.OWL_MIN_CARDINALITY.getURI();
     }
+
+    protected URI getQualifiedCardinalityTriplePredicate() throws OWLException {
+        return OWLRDFVocabulary.OWL_MIN_QUALIFIED_CARDINALITY.getURI();
+    }
 }

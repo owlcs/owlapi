@@ -105,10 +105,6 @@ public class OWLOntologyNamespaceManager extends XMLWriterNamespaceManager {
             processEntity(ent);
         }
 
-        for (URI uri : getAnnotationURIsThatRequireNamespaces()) {
-            processURI(uri);
-        }
-
         Map<String, String> ns2prefixMap = namespaceUtil.getNamespace2PrefixMap();
         for (String ns : ns2prefixMap.keySet()) {
             if (!ns.equals(Namespaces.OWL11.toString()) && !ns.equals(Namespaces.OWL11XML.toString())) {
@@ -124,20 +120,8 @@ public class OWLOntologyNamespaceManager extends XMLWriterNamespaceManager {
         result.addAll(ontology.getReferencedObjectProperties());
         result.addAll(ontology.getReferencedDataProperties());
         result.addAll(ontology.getReferencedIndividuals());
+        result.addAll(ontology.getReferencedAnnotationProperties());
         return result;
-    }
-
-
-    protected Set<URI> getAnnotationURIsThatRequireNamespaces() {
-        Set<URI> results = new HashSet<URI>();
-        OWLOntologyFormat format = man.getOntologyFormat(ontology);
-        // Nasty hack until OWL 1.1 spec is fixed
-        if (format instanceof RDFXMLOntologyFormat) {
-            RDFXMLOntologyFormat rdfXmlFormat = (RDFXMLOntologyFormat) format;
-            results.addAll(rdfXmlFormat.getAnnotationURIs());
-        }
-        results.addAll(ontology.getAnnotationURIs());
-        return results;
     }
 
 

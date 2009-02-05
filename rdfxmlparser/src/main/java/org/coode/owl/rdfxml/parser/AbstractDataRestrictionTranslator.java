@@ -53,7 +53,7 @@ public abstract class AbstractDataRestrictionTranslator extends AbstractRestrict
         if(onPropertyObject == null) {
             throw new MalformedDescriptionException(OWLRDFVocabulary.OWL_ON_PROPERTY + " not present");
         }
-        return getDataFactory().getOWLDataProperty(onPropertyObject);
+        return getDataFactory().getDataProperty(onPropertyObject);
     }
 
 }

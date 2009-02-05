@@ -96,17 +96,27 @@ public enum OWLRDFVocabulary {
 
     OWL_SELF_RESTRICTION(Namespaces.OWL, "SelfRestriction"),
 
+    OWL_HAS_SELF(Namespaces.OWL, "hasSelf"),
+
     OWL_DISJOINT_UNION_OF(Namespaces.OWL, "disjointUnionOf"),
 
     OWL_MIN_CARDINALITY(Namespaces.OWL, "minCardinality"),
 
+    OWL_MIN_QUALIFIED_CARDINALITY(Namespaces.OWL,  "minQualifiedCardinality"),
+
     OWL_CARDINALITY(Namespaces.OWL, "cardinality"),
 
+    OWL_QUALIFIED_CARDINALITY(Namespaces.OWL, "qualifiedCardinality"),
+
     OWL_ANNOTATION_PROPERTY(Namespaces.OWL, "AnnotationProperty"),
+
+    OWL_ANNOTATION(Namespaces.OWL, "Annotation"),
 
     OWL_DECLARED_AS(Namespaces.OWL, "declaredAs"),
 
     OWL_INDIVIDUAL(Namespaces.OWL, "Individual"),
+
+    OWL_NAMED_INDIVIDUAL(Namespaces.OWL, "NamedIndividual"),
 
     OWL_DATATYPE(Namespaces.OWL, "Datatype"),
 
@@ -125,6 +135,8 @@ public enum OWLRDFVocabulary {
     RDF_LIST(Namespaces.RDF, "List"),
 
     OWL_MAX_CARDINALITY(Namespaces.OWL, "maxCardinality"),
+
+    OWL_MAX_QUALIFIED_CARDINALITY(Namespaces.OWL, "maxQualifiedCardinality"),
 
     OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION(
             Namespaces.OWL, "NegativeObjectPropertyAssertion"),
@@ -156,6 +168,8 @@ public enum OWLRDFVocabulary {
 
     OWL_COMPLEMENT_OF(Namespaces.OWL, "complementOf"),
 
+    OWL_DATATYPE_COMPLEMENT_OF(Namespaces.OWL, "datatypeComplementOf"),
+
     OWL_ALL_DIFFERENT(Namespaces.OWL, "AllDifferent"),
 
     OWL_DISTINCT_MEMBERS(Namespaces.OWL, "distinctMembers"),
@@ -185,6 +199,12 @@ public enum OWLRDFVocabulary {
     RDF_PREDICATE(Namespaces.RDF, "predicate"),
 
     RDF_OBJECT(Namespaces.RDF, "object"),
+
+    OWL_SUBJECT(Namespaces.OWL, "subject"),
+
+    OWL_PREDICATE(Namespaces.OWL, "predicate"),
+
+    OWL_OBJECT(Namespaces.OWL, "object"),
 
     RDF_DESCRIPTION(Namespaces.RDF, "Description"),
 
@@ -224,7 +244,14 @@ public enum OWLRDFVocabulary {
 
     OWL_ON_CLASS(Namespaces.OWL, "onClass"),
 
+    /**
+     * Legacy vocabulary
+     */
     OWL_ON_DATA_RANGE(Namespaces.OWL, "onDataRange"),
+
+    OWL_ON_DATA_TYPE(Namespaces.OWL, "onDatatype"),
+
+    OWL_WITH_RESTRICTIONS(Namespaces.OWL, "withRestrictions"),
 
     OWL_INVERSE_OBJECT_PROPERTY_EXPRESSION(Namespaces.OWL, "inverseObjectPropertyExpression"),
 

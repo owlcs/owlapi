@@ -134,6 +134,14 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         return false;
     }
 
+    public OWLAnnotationProperty asOWLAnnotationProperty() {
+        throw new OWLRuntimeException("Not an annotation property");
+    }
+
+    public boolean isOWLAnnotationProperty() {
+        return true;
+    }
+
     public void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }

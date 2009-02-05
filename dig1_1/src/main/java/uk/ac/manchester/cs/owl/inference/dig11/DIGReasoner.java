@@ -265,7 +265,7 @@ public class DIGReasoner extends OWLReasonerAdapter {
 
     public boolean isConsistent(OWLOntology ontology)throws OWLReasonerException {
         synchroniseReasoner();
-        return isSatisfiable(getOWLOntologyManager().getOWLDataFactory().getOWLThing());
+        return isSatisfiable(getOWLOntologyManager().getOWLDataFactory().getThing());
     }
 
     public boolean isSatisfiable(OWLClassExpression cls)throws OWLReasonerException {
@@ -347,7 +347,7 @@ public class DIGReasoner extends OWLReasonerAdapter {
      */
     public Set<OWLClass> getInconsistentClasses()throws OWLReasonerException {
         // No need to sync - the getEquivalentClasses method will do this
-        return getEquivalentClasses(getOWLOntologyManager().getOWLDataFactory().getOWLNothing());
+        return getEquivalentClasses(getOWLOntologyManager().getOWLDataFactory().getNothing());
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -40,6 +40,10 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         this.iri = iri;
     }
 
+    public boolean isOWLIndividual() {
+        return true;
+    }
+
     public IRI getIRI() {
         return iri;
     }
@@ -58,6 +62,14 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
 
     public OWLNamedIndividual asOWLIndividual() {
         return this;
+    }
+
+    public OWLAnnotationProperty asOWLAnnotationProperty() {
+        throw new OWLRuntimeException("Not an annotation property");
+    }
+
+    public boolean isOWLAnnotationProperty() {
+        return false;
     }
 
     public boolean equals(Object obj) {

@@ -84,10 +84,10 @@ public class OWLPrimer {
             // and appending #John.  Note however, that there is no reuqirement that a URI of a class,
             // property or individual that is used in an ontology have a correspondance with the
             // URI of the ontology.
-            OWLIndividual john = factory.getOWLIndividual(URI.create(ontologyURI + "#John"));
-            OWLIndividual mary = factory.getOWLIndividual(URI.create(ontologyURI + "#Mary"));
-            OWLIndividual susan = factory.getOWLIndividual(URI.create(ontologyURI + "#Susan"));
-            OWLIndividual bill = factory.getOWLIndividual(URI.create(ontologyURI + "#Bill"));
+            OWLIndividual john = factory.getIndividual(URI.create(ontologyURI + "#John"));
+            OWLIndividual mary = factory.getIndividual(URI.create(ontologyURI + "#Mary"));
+            OWLIndividual susan = factory.getIndividual(URI.create(ontologyURI + "#Susan"));
+            OWLIndividual bill = factory.getIndividual(URI.create(ontologyURI + "#Bill"));
 
             // The ontologies that we created aren't contained in any ontology at the moment.
             // Individuals (or classes or properties) can't directly be added to an ontology,
@@ -100,7 +100,7 @@ public class OWLPrimer {
             // have a reference to the hasWife object property (object properties link an individual
             // to an individual, and data properties link and individual to a constant - here, we
             // need an object property because John and Mary are individuals).
-            OWLObjectProperty hasWife = factory.getOWLObjectProperty(URI.create(ontologyURI + "#hasWife"));
+            OWLObjectProperty hasWife = factory.getObjectProperty(URI.create(ontologyURI + "#hasWife"));
 
             // Now we need to create the assertion that John hasWife Mary. To do this we need
             // an axiom, in this case an object property assertion axiom. This can be thought of
@@ -121,20 +121,20 @@ public class OWLPrimer {
             //
             // John  hasSon Bill
             // Get a refernece to the hasSon property
-            OWLObjectProperty hasSon = factory.getOWLObjectProperty(URI.create(ontologyURI + "#hasSon"));
+            OWLObjectProperty hasSon = factory.getObjectProperty(URI.create(ontologyURI + "#hasSon"));
             // Create the assertion,  John hasSon Bill
             OWLAxiom axiom2 = factory.getObjectPropertyAssertion(john, hasSon, bill);
             // Apply the change
             manager.applyChange(new AddAxiom(ont, axiom2));
 
             // John hasDaughter Susan
-            OWLObjectProperty hasDaughter = factory.getOWLObjectProperty(URI.create(ontologyURI + "#hasDaughter"));
+            OWLObjectProperty hasDaughter = factory.getObjectProperty(URI.create(ontologyURI + "#hasDaughter"));
             OWLAxiom axiom3 = factory.getObjectPropertyAssertion(john, hasDaughter, susan);
             manager.applyChange(new AddAxiom(ont, axiom3));
 
             // John hasAge 33
             // In this case, hasAge is a data property, which we need a reference to
-            OWLDataProperty hasAge = factory.getOWLDataProperty(URI.create(ontologyURI + "#hasAge"));
+            OWLDataProperty hasAge = factory.getDataProperty(URI.create(ontologyURI + "#hasAge"));
             // We create a data property assertion instead of an object property assertion
             OWLAxiom axiom4 = factory.getDataPropertyAssertion(john, hasAge, 33);
             manager.applyChange(new AddAxiom(ont, axiom4));
@@ -167,9 +167,9 @@ public class OWLPrimer {
 
             // Now specify the genders of John, Mary, Bill and Susan.  To do this we need the male
             // and female individuals and the hasGender object property.
-            OWLIndividual male = factory.getOWLIndividual(URI.create(ontologyURI + "#male"));
-            OWLIndividual female = factory.getOWLIndividual(URI.create(ontologyURI + "#female"));
-            OWLObjectProperty hasGender = factory.getOWLObjectProperty(URI.create(ontologyURI + "#hasGender"));
+            OWLIndividual male = factory.getIndividual(URI.create(ontologyURI + "#male"));
+            OWLIndividual female = factory.getIndividual(URI.create(ontologyURI + "#female"));
+            OWLObjectProperty hasGender = factory.getObjectProperty(URI.create(ontologyURI + "#hasGender"));
 
             Set<OWLAxiom> genders = new HashSet<OWLAxiom>();
             genders.add(factory.getObjectPropertyAssertion(john, hasGender, male));
@@ -237,7 +237,7 @@ public class OWLPrimer {
 
             // We can specify the inverse property of hasWife as hasHusband
             // We first need a reference to the hasHusband property.
-            OWLObjectProperty hasHusband = factory.getOWLObjectProperty(URI.create(ont.getURI() + "#hasHusband"));
+            OWLObjectProperty hasHusband = factory.getObjectProperty(URI.create(ont.getURI() + "#hasHusband"));
             // The full URI of the hasHusband property will be http://example.com/owl/families#hasHusband
             // since the URI of our ontology is http://example.com/owl/families
             // Create the inverse object properties axiom and add it
@@ -251,7 +251,7 @@ public class OWLPrimer {
 
             // OWL allows a property hierarchy to be specified.  Here, hasSon and hasDaughter will
             // be specified as hasChild.
-            OWLObjectProperty hasChild = factory.getOWLObjectProperty(URI.create(ont.getURI() + "#hasChild"));
+            OWLObjectProperty hasChild = factory.getObjectProperty(URI.create(ont.getURI() + "#hasChild"));
             OWLSubObjectPropertyOfAxiom hasSonSubHasChildAx = factory.getSubObjectPropertyOf(hasSon, hasChild);
             // Add the axiom
             manager.addAxiom(ont, hasSonSubHasChildAx);

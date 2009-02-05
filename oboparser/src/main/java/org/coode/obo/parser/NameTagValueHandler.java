@@ -48,9 +48,9 @@ public class NameTagValueHandler extends AbstractTagValueHandler {
         if (getConsumer().isTerm()) {
             ent = getDataFactory().getOWLClass(getURIFromValue(id));
         } else if (getConsumer().isTypedef()) {
-            ent = getDataFactory().getOWLObjectProperty(getURIFromValue(id));
+            ent = getDataFactory().getObjectProperty(getURIFromValue(id));
         } else {
-            ent = getDataFactory().getOWLIndividual(getURIFromValue(id));
+            ent = getDataFactory().getIndividual(getURIFromValue(id));
         }
         OWLLiteral con = getDataFactory().getTypedLiteral(value);
         OWLAxiom ax = getDataFactory().getAnnotationAssertion(ent.getURI(), OWLRDFVocabulary.RDFS_LABEL.getURI(), con);

@@ -313,9 +313,9 @@ public class OBOConsumer implements OBOParserHandler {
         if (isTerm()) {
             return getCurrentClass();
         } else if (isTypedef()) {
-            return getDataFactory().getOWLObjectProperty(getURI(currentId));
+            return getDataFactory().getObjectProperty(getURI(currentId));
         } else {
-            return getDataFactory().getOWLIndividual(getURI(currentId));
+            return getDataFactory().getIndividual(getURI(currentId));
         }
     }
 

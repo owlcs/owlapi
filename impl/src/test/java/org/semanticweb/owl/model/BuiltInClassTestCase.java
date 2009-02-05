@@ -54,7 +54,7 @@ public class BuiltInClassTestCase extends TestCase {
 
 
     public void testOWLThing() {
-        OWLClass thing = dataFactory.getOWLThing();
+        OWLClass thing = dataFactory.getThing();
         assertTrue(thing.isOWLThing());
         assertFalse(thing.isOWLNothing());
     }
@@ -66,7 +66,7 @@ public class BuiltInClassTestCase extends TestCase {
     }
 
     public void testOWLNothing() {
-        OWLClass nothing = dataFactory.getOWLNothing();
+        OWLClass nothing = dataFactory.getNothing();
         assertTrue(nothing.isOWLNothing());
         assertFalse(nothing.isOWLThing());
     }
@@ -78,7 +78,7 @@ public class BuiltInClassTestCase extends TestCase {
     }
 
     public void testAnonymousClass() {
-        OWLClassExpression desc = dataFactory.getObjectHasSelf(dataFactory.getOWLObjectProperty(TestUtils.createURI()));
+        OWLClassExpression desc = dataFactory.getObjectHasSelf(dataFactory.getObjectProperty(TestUtils.createURI()));
         assertFalse(desc.isOWLThing());
         assertFalse(desc.isOWLNothing());
     }

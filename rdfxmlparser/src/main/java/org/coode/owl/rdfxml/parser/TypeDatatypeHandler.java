@@ -1,6 +1,7 @@
 package org.coode.owl.rdfxml.parser;
 
 import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLDatatype;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -42,6 +43,12 @@ public class TypeDatatypeHandler extends BuiltInTypeHandler {
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+        if (!getConsumer().isAnonymousNode(subject)) {
+            OWLDatatype dt = getDataFactory().getDatatype(subject);
+            if (!dt.isBuiltIn()) {
+                addAxiom(getDataFactory().getDeclaration(dt));
+            }
+        }
         getConsumer().addOWLDatatype(subject);
     }
 }

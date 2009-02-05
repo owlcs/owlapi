@@ -1,4 +1,6 @@
-package org.semanticweb.owl.model;/*
+package org.semanticweb.owl.model;
+
+/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -28,4 +30,5 @@ package org.semanticweb.owl.model;/*
  * A marker interface for annotation subjects, which can either be IRIs or anonymous individuals.
  */
 public interface OWLAnnotationSubject extends OWLAnnotationObject {
+
 }

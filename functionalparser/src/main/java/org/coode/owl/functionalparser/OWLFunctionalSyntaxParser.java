@@ -697,7 +697,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         URI uri;
         uri = URI();
         {
-            if (true) return dataFactory.getOWLDataProperty(uri);
+            if (true) return dataFactory.getDataProperty(uri);
         }
         throw new Error("Missing return statement in function");
     }
@@ -1589,7 +1589,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         URI uri;
         uri = URI();
         {
-            if (true) return dataFactory.getOWLIndividual(uri);
+            if (true) return dataFactory.getIndividual(uri);
         }
         throw new Error("Missing return statement in function");
     }
@@ -1598,7 +1598,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         URI uri;
         uri = URI();
         {
-            if (true) return dataFactory.getOWLObjectProperty(uri);
+            if (true) return dataFactory.getObjectProperty(uri);
         }
         throw new Error("Missing return statement in function");
     }

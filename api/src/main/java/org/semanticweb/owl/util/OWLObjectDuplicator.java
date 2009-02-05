@@ -69,9 +69,9 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         for (URI uri : uriReplacementMap.keySet()) {
             URI repURI = uriReplacementMap.get(uri);
             replacementMap.put(dataFactory.getOWLClass(uri), repURI);
-            replacementMap.put(dataFactory.getOWLObjectProperty(uri), repURI);
-            replacementMap.put(dataFactory.getOWLDataProperty(uri), repURI);
-            replacementMap.put(dataFactory.getOWLIndividual(uri), repURI);
+            replacementMap.put(dataFactory.getObjectProperty(uri), repURI);
+            replacementMap.put(dataFactory.getDataProperty(uri), repURI);
+            replacementMap.put(dataFactory.getIndividual(uri), repURI);
         }
     }
 
@@ -578,13 +578,13 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     public void visit(OWLDataProperty property) {
         URI uri = getURI(property);
-        obj = dataFactory.getOWLDataProperty(uri);
+        obj = dataFactory.getDataProperty(uri);
     }
 
 
     public void visit(OWLObjectProperty property) {
         URI uri = getURI(property);
-        obj = dataFactory.getOWLObjectProperty(uri);
+        obj = dataFactory.getObjectProperty(uri);
     }
 
 
@@ -596,7 +596,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     public void visit(OWLNamedIndividual individual) {
         URI uri = getURI(individual);
-        obj = dataFactory.getOWLIndividual(uri);
+        obj = dataFactory.getIndividual(uri);
     }
 
 
@@ -715,9 +715,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public void visit(OWLHasKeyAxiom axiom) {
         axiom.getClassExpression().accept(this);
         OWLClassExpression ce = (OWLClassExpression) obj;
-        Set<OWLObjectPropertyExpression> oprops = duplicateSet(axiom.getObjectPropertyExpressions());
-        Set<OWLDataPropertyExpression> dprops = duplicateSet(axiom.getDataPropertyExpressions());
-        obj = dataFactory.getHasKey(ce, oprops, dprops);
+        Set<OWLPropertyExpression> props = duplicateSet(axiom.getPropertyExpressions());
+        obj = dataFactory.getHasKey(ce, props);
     }
 
     public void visit(OWLDataIntersectionOf node) {

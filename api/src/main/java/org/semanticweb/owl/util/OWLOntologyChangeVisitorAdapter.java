@@ -1,6 +1,9 @@
 package org.semanticweb.owl.util;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.AddAxiom;
+import org.semanticweb.owl.model.OWLOntologyChangeVisitor;
+import org.semanticweb.owl.model.RemoveAxiom;
+import org.semanticweb.owl.model.SetOntologyURI;
 /*
  * Copyright (C) 2006, University of Manchester
  *

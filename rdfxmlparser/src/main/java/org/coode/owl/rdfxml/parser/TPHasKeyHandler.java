@@ -1,11 +1,13 @@
 package org.coode.owl.rdfxml.parser;
 
 import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLClassExpression;
+import org.semanticweb.owl.model.OWLPropertyExpression;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
-/*
- * Copyright (C) 2006, University of Manchester
+import java.util.Set;/*
+ * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -27,23 +29,27 @@ import java.net.URI;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 09-Dec-2006<br><br>
+ * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+ * Date: 02-Feb-2009
  */
-public class TypeAnnotationPropertyHandler extends BuiltInTypeHandler{
+public class TPHasKeyHandler extends TriplePredicateHandler {
 
-    public TypeAnnotationPropertyHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI());
+    private OptimisedListTranslator<OWLPropertyExpression> listTranslator;
+
+    public TPHasKeyHandler(OWLRDFConsumer consumer) {
+        super(consumer, OWLRDFVocabulary.OWL_HAS_KEY.getURI());
+        this.listTranslator = new OptimisedListTranslator<OWLPropertyExpression>(getConsumer(), new HasKeyListItemTranslator(getConsumer()));
     }
 
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+        return false;
+    }
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        addAxiom(getDataFactory().getDeclaration(getDataFactory().getAnnotationProperty(subject)));
-        getConsumer().addAnnotationProperty(subject);
         consumeTriple(subject, predicate, object);
+        OWLClassExpression ce = translateDescription(subject);
+        Set<OWLPropertyExpression> props = listTranslator.translateToSet(object);
+        addAxiom(getDataFactory().getHasKey(ce, props));
     }
 }

@@ -292,6 +292,13 @@ public class TurtleRenderer extends RDFRendererBase {
         writeComment(ind.getURI().toString());
     }
 
+    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
+        writeComment(prop.getURI().toString());
+    }
+
+    protected void writeDatatypeComment(OWLDatatype datatype) {
+        writeComment(datatype.getURI().toString());
+    }
 
     private void writeComment(String comment) {
         write("###  ");

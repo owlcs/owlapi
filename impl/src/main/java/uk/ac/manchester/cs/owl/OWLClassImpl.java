@@ -303,6 +303,14 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
         return false;
     }
 
+    public OWLAnnotationProperty asOWLAnnotationProperty() {
+        throw new OWLRuntimeException("Not an annotation property");
+    }
+
+    public boolean isOWLAnnotationProperty() {
+        return false;
+    }
+
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

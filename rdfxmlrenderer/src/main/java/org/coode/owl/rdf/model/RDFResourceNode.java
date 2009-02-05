@@ -98,6 +98,6 @@ public class RDFResourceNode extends RDFNode {
 
 
     public String toString() {
-        return (uri != null ? "<" + uri.toString() + ">" : Integer.toString(anonId));
+        return (uri != null ? "<" + uri.toString() + ">" : "genid" + Integer.toString(anonId));
     }
 }

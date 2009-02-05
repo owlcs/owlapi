@@ -39,13 +39,10 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
 
     private OWLAnnotation annotation;
 
-    private URI uri;
-
     public OWLAnnotationAssertionAxiomImpl(OWLDataFactory dataFactory, URI uri, OWLAnnotation annotation) {
         super(dataFactory);
-        this.subject = subject;
+        this.subject = dataFactory.getIRI(uri);
         this.annotation = annotation;
-        this.uri = uri;
     }
 
     public OWLAnnotationValue getValue() {
@@ -53,8 +50,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
     }
 
     public OWLAnnotationSubject getSubject() {
-        throw new OWLRuntimeException("TODO");
-//        return subject;
+        return subject;
     }
 
     public OWLAnnotationProperty getProperty() {

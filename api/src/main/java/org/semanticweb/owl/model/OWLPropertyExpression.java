@@ -175,4 +175,8 @@ public interface OWLPropertyExpression<P extends OWLPropertyExpression, R extend
     void accept(OWLPropertyExpressionVisitor visitor);
 
     <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor);
+
+    boolean isDataPropertyExpression();
+
+    boolean isObjectPropertyExpression();
 }

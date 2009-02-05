@@ -43,7 +43,7 @@ public abstract class AbstractOWLObjectCardinalityElementHandler extends Abstrac
 
     public void startElement(String name) throws OWLXMLParserException {
         super.startElement(name);
-        setFiller(getOWLDataFactory().getOWLThing());
+        setFiller(getOWLDataFactory().getThing());
     }
 
 

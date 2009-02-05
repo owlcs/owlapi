@@ -1,6 +1,7 @@
 package org.coode.owl.rdf.rdfxml;
 
 import org.coode.xml.XMLWriter;
+import org.coode.owl.rdf.model.RDFResourceNode;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObject;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
@@ -104,6 +105,10 @@ public class RDFXMLWriter {
 
     public void writeAboutAttribute(URI value) {
             writeAttribute(Namespaces.RDF + "about", value.toString());
+    }
+
+    public void writeNodeIDAttribute(RDFResourceNode node) {
+        writeAttribute(Namespaces.RDF + "nodeID", node.toString());
     }
 
     private void writeAttribute(String attributeName, String value) {

@@ -43,7 +43,7 @@ public class SKOSConceptTripleHandler extends BuiltInTypeHandler {
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        OWLIndividual ind = getDataFactory().getOWLIndividual(subject);
+        OWLIndividual ind = getDataFactory().getIndividual(subject);
         OWLClass skosConcept = getDataFactory().getOWLClass(SKOSVocabulary.CONCPET.getURI());
         addAxiom(getDataFactory().getClassAssertion(ind, skosConcept));
     }

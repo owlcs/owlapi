@@ -194,16 +194,16 @@ public class DescriptionTranslatorSelector {
                 }
             }
         }
-        if (consumer.hasPredicate(mainNode, OWL_MIN_CARDINALITY.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_MIN_CARDINALITY.getURI()) || consumer.hasPredicate(mainNode, OWL_MIN_QUALIFIED_CARDINALITY.getURI())) {
             return type.equals(RestrictionType.DATA) ? dataMinCardinalityTranslator : objectMinCardinalityTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_CARDINALITY.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_CARDINALITY.getURI()) || consumer.hasPredicate(mainNode, OWL_QUALIFIED_CARDINALITY.getURI())) {
             return type.equals(RestrictionType.DATA) ? dataCardinalityTranslator : objectCardinalityTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_MAX_CARDINALITY.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_MAX_CARDINALITY.getURI()) || consumer.hasPredicate(mainNode, OWL_MAX_QUALIFIED_CARDINALITY.getURI())) {
             return type.equals(RestrictionType.DATA) ? dataMaxCardinalityTranslator : objectMaxCardinalityTranslator;
         }
-        if(consumer.isSelfRestriction(mainNode)) {
+        if(consumer.isSelfRestriction(mainNode) || consumer.hasPredicate(mainNode, OWL_HAS_SELF.getURI())) {
             return selfRestrictionTranslator;
         }
         throw new OWLRDFParserException("Unable to determine the type of restriction!");

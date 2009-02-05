@@ -1,6 +1,12 @@
-package org.semanticweb.owl.model;
+package org.coode.owl.rdfxml.parser;
 
-import java.util.Set;/*
+import org.semanticweb.owl.model.OWLObject;
+import org.semanticweb.owl.model.OWLLiteral;
+import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLFacetRestriction;
+import org.semanticweb.owl.vocab.OWLFacet;
+
+import java.net.URI;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -25,16 +31,27 @@ import java.util.Set;/*
 
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 15-Jan-2009
+ * Date: 02-Feb-2009
  */
-public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
+public class OWLFacetRestrictionListItemTranslator implements ListItemTranslator<OWLFacetRestriction> {
 
-    OWLClassExpression getClassExpression();
+    private OWLRDFConsumer consumer;
 
-    Set<OWLPropertyExpression> getPropertyExpressions();
+    public OWLFacetRestrictionListItemTranslator(OWLRDFConsumer consumer) {
+        this.consumer = consumer;
+    }
 
-    Set<OWLObjectPropertyExpression> getObjectPropertyExpressions();
+    public OWLFacetRestriction translate(OWLLiteral firstObject) throws OWLException {
+        return null;
+    }
 
-    Set<OWLDataPropertyExpression> getDataPropertyExpressions();
-
+    public OWLFacetRestriction translate(URI firstObject) throws OWLException {
+        for(OWLFacet facet : OWLFacet.values()) {
+            OWLLiteral lit = consumer.getLiteralObject(firstObject, facet.getURI(), true);
+            if(lit != null) {
+                return consumer.getDataFactory().getFacetRestriction(facet, lit);
+            }
+        }
+        return null;
+    }
 }

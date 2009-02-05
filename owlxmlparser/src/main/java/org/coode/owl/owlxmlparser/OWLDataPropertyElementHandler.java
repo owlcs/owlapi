@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLDataPropertyExpression;
-import org.semanticweb.owl.model.OWLException;
 
 import java.net.URI;
 /*
@@ -56,7 +55,7 @@ public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWL
     }
 
     final public void endElement() throws OWLXMLParserException {
-        prop = getOWLDataFactory().getOWLDataProperty(uri);
+        prop = getOWLDataFactory().getDataProperty(uri);
         getParentHandler().handleChild(this);
     }
 

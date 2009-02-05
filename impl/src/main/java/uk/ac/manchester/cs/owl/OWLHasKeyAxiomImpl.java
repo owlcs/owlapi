@@ -35,15 +35,12 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
 
     private OWLClassExpression expression;
 
-    private Set<OWLObjectPropertyExpression> objectPropertyExpressions;
+    private Set<OWLPropertyExpression> propertyExpressions;
 
-    private Set<OWLDataPropertyExpression> dataPropertyExpressions;
-
-    public OWLHasKeyAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression expression, Set<? extends OWLObjectPropertyExpression> objectPropertyExpressions, Set<? extends OWLDataPropertyExpression> dataPropertyExpressions, OWLAnnotation... annotations) {
+    public OWLHasKeyAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression expression, Set<? extends OWLPropertyExpression> propertyExpressions, OWLAnnotation... annotations) {
         super(dataFactory, annotations);
         this.expression = expression;
-        this.objectPropertyExpressions = Collections.unmodifiableSet(new TreeSet<OWLObjectPropertyExpression>(objectPropertyExpressions));
-        this.dataPropertyExpressions = Collections.unmodifiableSet(new TreeSet<OWLDataPropertyExpression>(dataPropertyExpressions));
+        this.propertyExpressions = Collections.unmodifiableSortedSet(new TreeSet<OWLPropertyExpression>(propertyExpressions));
     }
 
     public AxiomType getAxiomType() {
@@ -58,12 +55,28 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
         return expression;
     }
 
+    public Set<OWLPropertyExpression> getPropertyExpressions() {
+        return propertyExpressions;
+    }
+
     public Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
-        return dataPropertyExpressions;
+        Set<OWLDataPropertyExpression> props = new TreeSet<OWLDataPropertyExpression>();
+        for(OWLPropertyExpression prop : propertyExpressions) {
+            if(prop.isDataPropertyExpression()) {
+                props.add((OWLDataPropertyExpression) prop);
+            }
+        }
+        return props;
     }
 
     public Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
-        return objectPropertyExpressions;
+        Set<OWLObjectPropertyExpression> props = new TreeSet<OWLObjectPropertyExpression>();
+        for(OWLPropertyExpression prop : propertyExpressions) {
+            if(prop.isObjectPropertyExpression()) {
+                props.add((OWLObjectPropertyExpression) prop);
+            }
+        }
+        return props;
     }
 
     protected int compareObjectOfSameType(OWLObject object) {
@@ -72,11 +85,7 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
         if (diff != 0) {
             return diff;
         }
-        diff = compareSets(objectPropertyExpressions, other.getObjectPropertyExpressions());
-        if (diff != 0) {
-            return diff;
-        }
-        return compareSets(dataPropertyExpressions, other.getDataPropertyExpressions());
+        return compareSets(propertyExpressions, other.getPropertyExpressions());
     }
 
     public void accept(OWLObjectVisitor visitor) {

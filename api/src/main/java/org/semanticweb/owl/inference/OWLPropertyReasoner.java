@@ -1,6 +1,9 @@
 package org.semanticweb.owl.inference;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.OWLClassExpression;
+import org.semanticweb.owl.model.OWLDataProperty;
+import org.semanticweb.owl.model.OWLDataRange;
+import org.semanticweb.owl.model.OWLObjectProperty;
 
 import java.util.Set;
 /*

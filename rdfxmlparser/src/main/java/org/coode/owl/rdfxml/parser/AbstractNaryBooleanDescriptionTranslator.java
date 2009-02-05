@@ -62,7 +62,7 @@ public abstract class AbstractNaryBooleanDescriptionTranslator extends AbstractD
             else {
                 // Zero - just return thing
                 logger.fine("Number of operands is zero! Translating as owl:Thing");
-                return getDataFactory().getOWLThing();
+                return getDataFactory().getThing();
             }
         }
         return createDescription(operands);

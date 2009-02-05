@@ -55,7 +55,7 @@ public class Example6 {
 
             // First we need to obtain references to our hasPart property and our Nose class
             OWLDataFactory factory = man.getOWLDataFactory();
-            OWLObjectProperty hasPart = factory.getOWLObjectProperty(URI.create(base + "#hasPart"));
+            OWLObjectProperty hasPart = factory.getObjectProperty(URI.create(base + "#hasPart"));
             OWLClass nose = factory.getOWLClass(URI.create(base + "#Nose"));
             // Now create a restriction to describe the class of individuals that have at least one
             // part that is a kind of nose

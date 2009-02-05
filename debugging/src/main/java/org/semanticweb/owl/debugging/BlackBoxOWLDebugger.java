@@ -442,7 +442,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
         // Ensure the ontology contains the signature of the class which is being debugged
         OWLDataFactory factory = owlOntologyManager.getOWLDataFactory();
-        OWLAxiom ax = factory.getSubClassOf(currentClass, factory.getOWLThing());
+        OWLAxiom ax = factory.getSubClassOf(currentClass, factory.getThing());
         changes.add(new AddAxiom(debuggingOntology, ax));
         owlOntologyManager.applyChanges(changes);
     }

@@ -1,6 +1,5 @@
 package org.semanticweb.owl.util;
 
-import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLOntologyURIMapper;
 
 import java.net.URI;

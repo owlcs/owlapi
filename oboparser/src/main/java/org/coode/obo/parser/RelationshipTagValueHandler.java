@@ -46,7 +46,7 @@ public class RelationshipTagValueHandler extends AbstractTagValueHandler {
     public void handle(String id, String value) {
         URI propURI = getURIFromValue(value.substring(0, value.indexOf(' ')).trim());
         URI fillerURI = getURIFromValue(value.substring(value.indexOf(' '), value.length()).trim());
-        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propURI);
+        OWLObjectProperty prop = getDataFactory().getObjectProperty(propURI);
         OWLClass filler = getDataFactory().getOWLClass(fillerURI);
         OWLClassExpression restriction = getDataFactory().getObjectSomeValuesFrom(prop, filler);
         OWLClass subCls = getDataFactory().getOWLClass(getURIFromValue(id));

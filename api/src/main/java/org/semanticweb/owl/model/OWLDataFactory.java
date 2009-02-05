@@ -63,7 +63,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *
      * @return The OWL Class corresponding to owl:Thing
      */
-    OWLClass getOWLThing();
+    OWLClass getThing();
 
 
     /**
@@ -71,15 +71,15 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *
      * @return The OWL Class corresponding to owl:Nothing
      */
-    OWLClass getOWLNothing();
+    OWLClass getNothing();
 
-    OWLObjectProperty getOWLTopObjectProperty();
+    OWLObjectProperty getTopObjectProperty();
 
-    OWLDataProperty getOWLTopDataProperty();
+    OWLDataProperty getTopDataProperty();
 
-    OWLObjectProperty getOWLBottomObjectProperty();
+    OWLObjectProperty getBottomObjectProperty();
 
-    OWLDataProperty getOWLBottomDataProperty();
+    OWLDataProperty getBottomDataProperty();
 
 
     /**
@@ -123,7 +123,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param uri The URI of the object property to be obtained
      * @return The object representing the object property that has the specified URI
      */
-    OWLObjectProperty getOWLObjectProperty(URI uri);
+    OWLObjectProperty getObjectProperty(URI uri);
 
 
     /**
@@ -140,7 +140,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @throws OWLRuntimeException if the namespace prefix in the specified CURIE does not have a mapping to a namespace
      *                             in the specified namespace manager.
      */
-    OWLObjectProperty getOWLObjectProperty(String curie, NamespaceManager namespaceManager);
+    OWLObjectProperty getObjectProperty(String curie, NamespaceManager namespaceManager);
 
 
     /**
@@ -149,7 +149,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param uri The URI of the data property to be obtained
      * @return The object representing the data property that has the specified URI
      */
-    OWLDataProperty getOWLDataProperty(URI uri);
+    OWLDataProperty getDataProperty(URI uri);
 
 
     /**
@@ -166,7 +166,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @throws OWLRuntimeException if the namespace prefix in the specified CURIE does not have a mapping to a namespace
      *                             in the specified namespace manager.
      */
-    OWLDataProperty getOWLDataProperty(String curie, NamespaceManager namespaceManager);
+    OWLDataProperty getDataProperty(String curie, NamespaceManager namespaceManager);
 
 
     /**
@@ -175,7 +175,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param uri The URI of the individual to be obtained
      * @return The object representing the individual that has the specified URI
      */
-    OWLNamedIndividual getOWLIndividual(URI uri);
+    OWLNamedIndividual getIndividual(URI uri);
 
 
     /**
@@ -192,7 +192,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @throws OWLRuntimeException if the namespace prefix in the specified CURIE does not have a mapping to a namespace
      *                             in the specified namespace manager.
      */
-    OWLIndividual getOWLIndividual(String curie, NamespaceManager namespaceManager);
+    OWLIndividual getIndividual(String curie, NamespaceManager namespaceManager);
 
 
     OWLAnonymousIndividual getOWLAnonymousIndividual(String id);
@@ -672,12 +672,10 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                                                OWLObjectPropertyExpression inverseProperty,
                                                                OWLAnnotation... annotations);
 
-    OWLHasKeyAxiom getHasKey(OWLClassExpression ce, Set<? extends OWLObjectPropertyExpression> objectProperties, Set<? extends OWLDataPropertyExpression> dataProperties,
-                             OWLAnnotation... annotations);
+    OWLHasKeyAxiom getHasKey(OWLClassExpression ce, Set<? extends OWLPropertyExpression> objectProperties, OWLAnnotation... annotations);
 
-    OWLHasKeyAxiom getHasKey(OWLClassExpression ce, OWLObjectPropertyExpression... properties);
 
-    OWLHasKeyAxiom getHasKey(OWLClassExpression ce, OWLDataPropertyExpression... properties);
+    OWLHasKeyAxiom getHasKey(OWLClassExpression ce, OWLPropertyExpression... properties);
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //

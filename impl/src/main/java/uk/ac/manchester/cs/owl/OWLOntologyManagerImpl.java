@@ -330,6 +330,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
 
+    /**
+     * Sets the format of an ontology
+     * @param ontology The ontology
+     * @param format The format of the ontology
+     */
     public void setOntologyFormat(OWLOntology ontology, OWLOntologyFormat format) {
         ontologyFormatsByOntology.put(ontology, format);
     }

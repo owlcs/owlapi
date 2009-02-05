@@ -370,7 +370,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     public Set<OWLAnnotationAssertionAxiom> writeAnnotations(OWLEntity entity) {
         writeSection(ANNOTATIONS, entity.getAnnotations(getOntology()), ",", true);
-        return getOntology().getEntityAnnotationAxioms(entity);
+        return getOntology().getAnnotationAssertionAxioms(entity);
     }
 
 

@@ -30,7 +30,7 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLAnonymousIndividual extends OWLIndividual {
+public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValue {
 
     /**
      * Gets the ID of this individual

@@ -63,7 +63,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         this.writer = writer;
         writeEnitiesAsURIs = true;
         nsm = new OWLOntologyNamespaceManager(man, ontology);
-        focusedObject = man.getOWLDataFactory().getOWLThing();
+        focusedObject = man.getOWLDataFactory().getThing();
     }
 
 

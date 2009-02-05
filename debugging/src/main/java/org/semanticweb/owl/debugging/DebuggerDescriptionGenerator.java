@@ -92,7 +92,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         // prop some Thing subclassOf domain
-        OWLClassExpression sub = dataFactory.getObjectSomeValuesFrom(axiom.getProperty(), dataFactory.getOWLThing());
+        OWLClassExpression sub = dataFactory.getObjectSomeValuesFrom(axiom.getProperty(), dataFactory.getThing());
         OWLSubClassOfAxiom ax = dataFactory.getSubClassOf(sub, axiom.getDomain());
         ax.accept(this);
     }
@@ -122,7 +122,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         // Thing subclassOf prop only Range
         OWLClassExpression sup = dataFactory.getObjectAllValuesFrom(axiom.getProperty(), axiom.getRange());
-        OWLSubClassOfAxiom ax = dataFactory.getSubClassOf(dataFactory.getOWLThing(), sup);
+        OWLSubClassOfAxiom ax = dataFactory.getSubClassOf(dataFactory.getThing(), sup);
         ax.accept(this);
     }
 
@@ -137,7 +137,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         //  subProp some {a} subClassOf supProp some {a}
-        OWLIndividual ind = dataFactory.getOWLIndividual(URI.create("http://debugger.com#" + System.nanoTime()));
+        OWLIndividual ind = dataFactory.getIndividual(URI.create("http://debugger.com#" + System.nanoTime()));
         OWLClassExpression sub = dataFactory.getObjectHasValue(axiom.getSubProperty(), ind);
         OWLClassExpression sup = dataFactory.getObjectHasValue(axiom.getSuperProperty(), ind);
         OWLAxiom ax = dataFactory.getSubClassOf(sub, sup);
@@ -181,7 +181,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
 
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        if (axiom.getDescriptions().size() == 2 && axiom.getDescriptions().contains(dataFactory.getOWLNothing())) {
+        if (axiom.getDescriptions().size() == 2 && axiom.getDescriptions().contains(dataFactory.getNothing())) {
             for (OWLClassExpression desc : axiom.getDescriptions()) {
                 if (!desc.isOWLNothing()) {
                     this.desc = desc;

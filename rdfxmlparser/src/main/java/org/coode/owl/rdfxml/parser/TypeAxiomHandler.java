@@ -3,9 +3,11 @@ package org.coode.owl.rdfxml.parser;
 import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLAnnotation;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -43,7 +45,7 @@ public class TypeAxiomHandler extends AbstractTypeAxiomHandler {
     }
 
 
-    protected OWLAxiom handleAxiomTriples(URI subjectTriple, URI predicateTriple, URI objectTriple) throws
+    protected OWLAxiom handleAxiomTriples(URI subjectTriple, URI predicateTriple, URI objectTriple, Set<OWLAnnotation> annotations) throws
                                                                                                              OWLException {
         // Reconstitute the original triple from the reification triples
         getConsumer().handle(subjectTriple, predicateTriple, objectTriple);
@@ -51,7 +53,7 @@ public class TypeAxiomHandler extends AbstractTypeAxiomHandler {
     }
 
 
-    protected OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject, OWLLiteral con) throws
+    protected OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject, OWLLiteral con, Set<OWLAnnotation> annotations) throws
                                                                                                                OWLException {
         getConsumer().handle(subjectTripleObject, predicateTripleObject, con);
         return getConsumer().getLastAddedAxiom();

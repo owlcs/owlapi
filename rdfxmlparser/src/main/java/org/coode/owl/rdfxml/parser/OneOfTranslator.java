@@ -62,7 +62,7 @@ public class OneOfTranslator extends AbstractDescriptionTranslator {
         }
         if (individuals.isEmpty()) {
             logger.info("Empty set in owl:oneOf class description - converting to owl:Nothing");
-            return getDataFactory().getOWLNothing();
+            return getDataFactory().getNothing();
         }
         return getDataFactory().getObjectOneOf(individuals);
     }

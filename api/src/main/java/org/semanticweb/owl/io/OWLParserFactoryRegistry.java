@@ -1,7 +1,5 @@
 package org.semanticweb.owl.io;
 
-import org.semanticweb.owl.model.OWLException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

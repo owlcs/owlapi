@@ -70,7 +70,4 @@ public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTripping
         System.out.println(target);
     }
 
-    public void testManchesterOWLSyntax() throws Exception {
-        // We can't represent axiom annotations yet
-    }
 }

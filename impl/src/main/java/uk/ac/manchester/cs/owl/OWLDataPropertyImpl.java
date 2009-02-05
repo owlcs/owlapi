@@ -49,6 +49,14 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
                 getURI().equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getURI());
     }
 
+    public boolean isDataPropertyExpression() {
+        return true;
+    }
+
+    public boolean isObjectPropertyExpression() {
+        return false;
+    }
+
     public IRI getIRI() {
         return iri;
     }
@@ -232,6 +240,14 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
 
 
     public boolean isOWLObjectProperty() {
+        return false;
+    }
+
+    public OWLAnnotationProperty asOWLAnnotationProperty() {
+        throw new OWLRuntimeException("Not an annotation property");
+    }
+
+    public boolean isOWLAnnotationProperty() {
         return false;
     }
 

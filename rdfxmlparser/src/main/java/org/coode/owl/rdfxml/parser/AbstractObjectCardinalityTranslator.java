@@ -53,6 +53,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
      */
     protected abstract URI getCardinalityTriplePredicate() throws OWLException;
 
+    protected abstract URI getQualifiedCardinalityTriplePredicate() throws OWLException;
 
     /**
      * Translates and consumes the cardinality triple.
@@ -62,6 +63,9 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
      */
     private int translateCardinality(URI mainNode) throws OWLException {
         OWLLiteral con = getLiteralObject(mainNode, getCardinalityTriplePredicate(), true);
+        if(con == null) {
+            con = getLiteralObject(mainNode, getQualifiedCardinalityTriplePredicate(), true);
+        }
         if(con == null) {
             throw new MalformedDescriptionException(getCardinalityTriplePredicate() + " not present");
         }
@@ -80,7 +84,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
     private OWLClassExpression translateFiller(URI mainNode) throws OWLException {
         URI onClassObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_CLASS.getURI(), true);
         if(onClassObject == null) {
-            return getDataFactory().getOWLThing();
+            return getDataFactory().getThing();
         }
         return translateToDescription(onClassObject);
     }

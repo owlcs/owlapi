@@ -1,6 +1,9 @@
-package org.semanticweb.owl.model;
+package org.coode.owl.rdfxml.parser;
 
-import java.util.Set;/*
+import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owl.model.OWLException;
+
+import java.net.URI;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -25,16 +28,16 @@ import java.util.Set;/*
 
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 15-Jan-2009
+ * Date: 04-Feb-2009
  */
-public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
+public class TypeAnnotationHandler extends BuiltInTypeHandler {
 
-    OWLClassExpression getClassExpression();
+    public TypeAnnotationHandler(OWLRDFConsumer consumer) {
+        super(consumer, OWLRDFVocabulary.OWL_ANNOTATION.getURI());
+    }
 
-    Set<OWLPropertyExpression> getPropertyExpressions();
-
-    Set<OWLObjectPropertyExpression> getObjectPropertyExpressions();
-
-    Set<OWLDataPropertyExpression> getDataPropertyExpressions();
-
+    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+        getConsumer().addAnnotationURI(subject);
+        System.out.println("ANNOTATION! " + subject);
+    }
 }

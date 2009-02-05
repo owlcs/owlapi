@@ -91,29 +91,29 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return getOWLClass(namespaceManager.getURI(curi));
     }
 
-    public OWLClass getOWLThing() {
+    public OWLClass getThing() {
         return getOWLClass(OWLRDFVocabulary.OWL_THING.getURI());
     }
 
 
-    public OWLClass getOWLNothing() {
+    public OWLClass getNothing() {
         return getOWLClass(OWLRDFVocabulary.OWL_NOTHING.getURI());
     }
 
-    public OWLDataProperty getOWLBottomDataProperty() {
-        return getOWLDataProperty(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getURI());
+    public OWLDataProperty getBottomDataProperty() {
+        return getDataProperty(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getURI());
     }
 
-    public OWLObjectProperty getOWLBottomObjectProperty() {
-        return getOWLObjectProperty(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getURI());
+    public OWLObjectProperty getBottomObjectProperty() {
+        return getObjectProperty(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getURI());
     }
 
-    public OWLDataProperty getOWLTopDataProperty() {
-        return getOWLDataProperty(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getURI());
+    public OWLDataProperty getTopDataProperty() {
+        return getDataProperty(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getURI());
     }
 
-    public OWLObjectProperty getOWLTopObjectProperty() {
-        return getOWLObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI());
+    public OWLObjectProperty getTopObjectProperty() {
+        return getObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI());
     }
 
     public OWLDatatype getTopDatatype() {
@@ -141,7 +141,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLObjectProperty getOWLObjectProperty(URI uri) {
+    public OWLObjectProperty getObjectProperty(URI uri) {
         OWLObjectProperty prop = objectPropertiesByURI.get(uri);
         if (prop == null) {
             prop = new OWLObjectPropertyImpl(this, getIRI(uri));
@@ -151,7 +151,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDataProperty getOWLDataProperty(URI uri) {
+    public OWLDataProperty getDataProperty(URI uri) {
         OWLDataProperty prop = dataPropertiesByURI.get(uri);
         if (prop == null) {
             prop = new OWLDataPropertyImpl(this, getIRI(uri));
@@ -161,7 +161,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLNamedIndividual getOWLIndividual(URI uri) {
+    public OWLNamedIndividual getIndividual(URI uri) {
         OWLNamedIndividual ind = individualsByURI.get(uri);
         if (ind == null) {
             ind = new OWLNamedIndividualImpl(this, getIRI(uri));
@@ -170,16 +170,16 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return ind;
     }
 
-    public OWLDataProperty getOWLDataProperty(String curi, NamespaceManager namespaceManager) {
-        return getOWLDataProperty(namespaceManager.getURI(curi));
+    public OWLDataProperty getDataProperty(String curi, NamespaceManager namespaceManager) {
+        return getDataProperty(namespaceManager.getURI(curi));
     }
 
-    public OWLIndividual getOWLIndividual(String curi, NamespaceManager namespaceManager) {
-        return getOWLIndividual(namespaceManager.getURI(curi));
+    public OWLIndividual getIndividual(String curi, NamespaceManager namespaceManager) {
+        return getIndividual(namespaceManager.getURI(curi));
     }
 
-    public OWLObjectProperty getOWLObjectProperty(String curi, NamespaceManager namespaceManager) {
-        return getOWLObjectProperty(namespaceManager.getURI(curi));
+    public OWLObjectProperty getObjectProperty(String curi, NamespaceManager namespaceManager) {
+        return getObjectProperty(namespaceManager.getURI(curi));
     }
 
     public OWLAnonymousIndividual getOWLAnonymousIndividual(String id) {
@@ -399,7 +399,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLObjectExactCardinality getObjectExactCardinality(
             OWLObjectPropertyExpression property, int cardinality) {
-        return new OWLObjectExactCardinalityImpl(this, property, cardinality, getOWLThing());
+        return new OWLObjectExactCardinalityImpl(this, property, cardinality, getThing());
     }
 
 
@@ -411,7 +411,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLObjectMinCardinality getObjectMinCardinality(
             OWLObjectPropertyExpression property, int cardinality) {
-        return new OWLObjectMinCardinalityImpl(this, property, cardinality, getOWLThing());
+        return new OWLObjectMinCardinalityImpl(this, property, cardinality, getThing());
     }
 
 
@@ -423,7 +423,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLObjectMaxCardinality getObjectMaxCardinality(
             OWLObjectPropertyExpression property, int cardinality) {
-        return new OWLObjectMaxCardinalityImpl(this, property, cardinality, getOWLThing());
+        return new OWLObjectMaxCardinalityImpl(this, property, cardinality, getThing());
     }
 
 
@@ -735,16 +735,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return new OWLInverseObjectPropertiesAxiomImpl(this, forwardProperty, inverseProperty, annotations);
     }
 
-    public OWLHasKeyAxiom getHasKey(OWLClassExpression ce, Set<? extends OWLObjectPropertyExpression> objectProperties, Set<? extends OWLDataPropertyExpression> dataProperties, OWLAnnotation... annotations) {
-        return new OWLHasKeyAxiomImpl(this, ce, objectProperties, dataProperties, annotations);
+    public OWLHasKeyAxiom getHasKey(OWLClassExpression ce, Set<? extends OWLPropertyExpression> objectProperties, OWLAnnotation... annotations) {
+        return new OWLHasKeyAxiomImpl(this, ce, objectProperties, annotations);
     }
 
-    public OWLHasKeyAxiom getHasKey(OWLClassExpression ce, OWLDataPropertyExpression... properties) {
-        return getHasKey(ce, new HashSet<OWLObjectPropertyExpression>(0), CollectionFactory.createSet(properties));
-    }
-
-    public OWLHasKeyAxiom getHasKey(OWLClassExpression ce, OWLObjectPropertyExpression... properties) {
-        return getHasKey(ce, CollectionFactory.createSet(properties), new HashSet<OWLDataProperty>(0));
+    public OWLHasKeyAxiom getHasKey(OWLClassExpression ce, OWLPropertyExpression... properties) {
+        return getHasKey(ce, CollectionFactory.createSet(properties));
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -167,6 +167,14 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         return false;
     }
 
+    public OWLAnnotationProperty asOWLAnnotationProperty() {
+        throw new OWLRuntimeException("Not an annotation property");
+    }
+
+    public boolean isOWLAnnotationProperty() {
+        return false;
+    }
+
     public void accept(OWLEntityVisitor visitor) {
         visitor.visit(this);
     }

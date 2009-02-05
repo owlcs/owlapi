@@ -482,13 +482,13 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             ;
         }
         if (inverse) {
-            OWLObjectProperty prop = factory.getOWLObjectProperty(uri);
+            OWLObjectProperty prop = factory.getObjectProperty(uri);
             {
                 if (true) return factory.getOWLObjectPropertyInverse(prop);
             }
         } else {
             {
-                if (true) return factory.getOWLObjectProperty(uri);
+                if (true) return factory.getObjectProperty(uri);
             }
         }
         throw new Error("Missing return statement in function");
@@ -499,7 +499,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         boolean inverse = false;
         uri = parseId();
         {
-            if (true) return factory.getOWLDataProperty(uri);
+            if (true) return factory.getDataProperty(uri);
         }
         throw new Error("Missing return statement in function");
     }
@@ -609,7 +609,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
         int card = Integer.parseInt(t.image);
         if (filler == null) {
-            filler = factory.getOWLThing();
+            filler = factory.getThing();
         }
         if (min) {
             {
@@ -631,7 +631,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         URI uri;
         uri = parseId();
         {
-            if (true) return factory.getOWLIndividual(uri);
+            if (true) return factory.getIndividual(uri);
         }
         throw new Error("Missing return statement in function");
     }

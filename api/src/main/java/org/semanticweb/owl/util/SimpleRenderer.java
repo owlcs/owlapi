@@ -711,6 +711,11 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLAnnotation node) {
         sb.append("Annotation(");
+        Set<OWLAnnotation> annos = node.getAnnotations();
+        for(OWLAnnotation anno : annos) {
+            anno.accept(this);
+            sb.append(" ");
+        }
         node.getProperty().accept(this);
         sb.append(" ");
         node.getValue().accept(this);

@@ -664,7 +664,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             if (true) return null;
         }
         {
-            if (true) return dataFactory.getOWLObjectProperty(uri);
+            if (true) return dataFactory.getObjectProperty(uri);
         }
         throw new Error("Missing return statement in function");
     }
@@ -757,7 +757,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         URI name;
         name = Name();
         {
-            if (true) return dataFactory.getOWLIndividual(name);
+            if (true) return dataFactory.getIndividual(name);
         }
         throw new Error("Missing return statement in function");
     }

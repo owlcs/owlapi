@@ -86,7 +86,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         this.writer = writer;
         this.df = df;
         shortFormProvider = new SimpleShortFormProvider();
-        subject = df.getOWLThing();
+        subject = df.getThing();
     }
 
 
@@ -607,7 +607,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        df.getObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing()).accept(this);
+        df.getObjectSomeValuesFrom(axiom.getProperty(), df.getThing()).accept(this);
         writeSpace();
         write(SUBCLASS);
         writeSpace();

@@ -231,11 +231,6 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
 
-    public boolean isOWLIndividual() {
-        return true;
-    }
-
-
     public boolean isOWLObjectProperty() {
         return false;
     }

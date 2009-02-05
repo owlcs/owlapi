@@ -58,4 +58,8 @@ public class ObjectCardinalityTranslator extends AbstractObjectCardinalityTransl
     protected URI getCardinalityTriplePredicate() throws OWLException {
         return OWLRDFVocabulary.OWL_CARDINALITY.getURI();
     }
+
+    protected URI getQualifiedCardinalityTriplePredicate() throws OWLException {
+        return OWLRDFVocabulary.OWL_QUALIFIED_CARDINALITY.getURI();
+    }
 }

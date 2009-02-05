@@ -563,9 +563,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     public void visit(OWLHasKeyAxiom axiom) {
         hashCode = 821;
         hashCode = hashCode * MULT + axiom.getClassExpression().hashCode();
-        hashCode = hashCode * MULT + axiom.getObjectPropertyExpressions().hashCode();
-        hashCode = hashCode * MULT + axiom.getDataPropertyExpressions().hashCode();
-
+        hashCode = hashCode * MULT + axiom.getPropertyExpressions().hashCode();
     }
 
     public void visit(OWLAnnotationPropertyDomain axiom) {

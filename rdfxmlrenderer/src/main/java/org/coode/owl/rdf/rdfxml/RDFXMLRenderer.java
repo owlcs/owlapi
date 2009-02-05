@@ -50,6 +50,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     private Set<RDFResourceNode> pending;
 
+    private Set<RDFResourceNode> renderedAnonymousNodes;
 
     public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w) {
         this(manager, ontology, w, manager.getOntologyFormat(ontology));
@@ -59,6 +60,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w, OWLOntologyFormat format) {
         super(ontology, manager, format);
         pending = new HashSet<RDFResourceNode>();
+        renderedAnonymousNodes = new HashSet<RDFResourceNode>();
         writer = new RDFXMLWriter(XMLWriterFactory.getInstance().createXMLWriter(w,
                 new OWLOntologyNamespaceManager(manager,
                         ontology,
@@ -75,6 +77,11 @@ public class RDFXMLRenderer extends RDFRendererBase {
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ONTOLOGY.getURI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getURI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getURI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getURI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.RDFS_DATATYPE.getURI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_AXIOM.getURI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION.getURI());
     }
 
 
@@ -108,6 +115,13 @@ public class RDFXMLRenderer extends RDFRendererBase {
         writer.writeComment(EscapeUtils.escapeXML(prop.getURI().toString()));
     }
 
+    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
+        writer.writeComment(EscapeUtils.escapeXML(prop.getURI().toString()));
+    }
+
+    protected void writeDatatypeComment(OWLDatatype datatype) {
+        writer.writeComment(EscapeUtils.escapeXML(datatype.getURI().toString()));
+    }
 
     protected void writeBanner(String name) {
         writer.writeComment(
@@ -123,9 +137,12 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         pending.add(node);
         Set<RDFTriple> triples = new TreeSet<RDFTriple>(new TripleComparator());
-        triples.addAll(getGraph().getTriplesForSubject(node));
+        if (node.isAnonymous() && !renderedAnonymousNodes.contains(node)) {
+            triples.addAll(getGraph().getTriplesForSubject(node));
+//            renderedAnonymousNodes.add(node);
+        }
         RDFTriple candidatePrettyPrintTypeTriple = null;
-        for (RDFTriple triple : getGraph().getTriplesForSubject(node)) {
+        for (RDFTriple triple : triples) {
             URI propertyURI = triple.getProperty().getURI();
             if (propertyURI.equals(OWLRDFVocabulary.RDF_TYPE.getURI()) && !triple.getObject().isAnonymous()) {
                 if (OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(triple.getObject().getURI())) {
@@ -145,6 +162,11 @@ public class RDFXMLRenderer extends RDFRendererBase {
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getURI());
         }
+//        else {
+//            if (getGraph().isAnonymousNodeSharedSubject(node)) {
+//                writer.writeNodeIDAttribute(node);
+//            }
+//        }
         for (RDFTriple triple : triples) {
             if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple.equals(triple)) {
                 continue;

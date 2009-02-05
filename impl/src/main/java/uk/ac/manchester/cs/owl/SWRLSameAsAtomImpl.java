@@ -36,7 +36,7 @@ public class SWRLSameAsAtomImpl extends SWRLBinaryAtomImpl<OWLObjectProperty, SW
 
     public SWRLSameAsAtomImpl(OWLDataFactory dataFactory, SWRLAtomIObject arg0,
                               SWRLAtomIObject arg1) {
-        super(dataFactory, dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS.getURI()), arg0, arg1);
+        super(dataFactory, dataFactory.getObjectProperty(OWLRDFVocabulary.OWL_SAME_AS.getURI()), arg0, arg1);
     }
 
 

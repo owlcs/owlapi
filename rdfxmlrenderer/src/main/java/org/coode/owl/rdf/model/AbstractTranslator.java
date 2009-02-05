@@ -95,39 +95,38 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     public void visit(OWLDeclaration axiom) {
-        if (axiom.getEntity() instanceof OWLClass) {
+        if (axiom.getEntity().isOWLClass()) {
             addAxiom(axiom,
                     axiom.getEntity(),
                     OWLRDFVocabulary.RDF_TYPE.getURI(),
                     OWLRDFVocabulary.OWL_CLASS.getURI());
-        } else if (axiom.getEntity() instanceof OWLDataProperty) {
+        } else if (axiom.getEntity().isOWLDataProperty()) {
             addAxiom(axiom,
                     axiom.getEntity(),
                     OWLRDFVocabulary.RDF_TYPE.getURI(),
                     OWLRDFVocabulary.OWL_DATA_PROPERTY.getURI());
-        } else if (axiom.getEntity() instanceof OWLObjectProperty) {
+        } else if (axiom.getEntity().isOWLObjectProperty()) {
             addAxiom(axiom,
                     axiom.getEntity(),
                     OWLRDFVocabulary.RDF_TYPE.getURI(),
                     OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI());
-        } else if (axiom.getEntity() instanceof OWLIndividual) {
+        } else if (axiom.getEntity().isOWLIndividual()) {
             addAxiom(axiom,
                     axiom.getEntity(),
                     OWLRDFVocabulary.RDF_TYPE.getURI(),
-                    OWLRDFVocabulary.OWL_INDIVIDUAL.getURI());
-        } else if (axiom.getEntity() instanceof OWLDatatype) {
+                    OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getURI());
+        } else if (axiom.getEntity().isOWLDatatype()) {
             addAxiom(axiom,
                     axiom.getEntity(),
                     OWLRDFVocabulary.RDF_TYPE.getURI(),
-                    OWLRDFVocabulary.OWL_DATATYPE.getURI());
+                    OWLRDFVocabulary.RDFS_DATATYPE.getURI());
         }
-        throw new OWLRuntimeException("TODO");
-        // Annotations
-//        for (OWLAnnotationAxiom ax : ontology.getEntityAnnotationAxioms(axiom.getEntity())) {
-//            addTriple(axiom.getEntity(),
-//                    ax.getAnnotation().getAnnotationURI(),
-//                    ax.getAnnotation().getAnnotationValue());
-//        }
+        else if(axiom.getEntity().isOWLAnnotationProperty()) {
+            addAxiom(axiom,
+                    axiom.getEntity(),
+                    OWLRDFVocabulary.RDF_TYPE.getURI(),
+                    OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI());
+        }
     }
 
 
@@ -209,12 +208,15 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     public void visit(OWLAnnotationAssertionAxiom axiom) {
-        addTriple(axiom.getSubject(),
-                axiom.getProperty().getURI(),
-                axiom.getAnnotation().getValue());
-        addTriple(getResourceNode(axiom.getProperty()),
-                getPredicateNode(RDF_TYPE.getURI()),
-                getResourceNode(OWL_ANNOTATION_PROPERTY.getURI()));
+//        translateAnnotation(axiom, axiom.getAnnotation());
+//        addTriple(axiom.getSubject(),
+//                axiom.getProperty().getURI(),
+//                axiom.getAnnotation().getValue());
+        translateAnnotation(axiom.getSubject(), axiom.getAnnotation());
+        addAxiom(axiom, axiom.getSubject(), axiom.getProperty(), axiom.getValue());
+//        addTriple(getResourceNode(axiom.getProperty()),
+//                getPredicateNode(RDF_TYPE.getURI()),
+//                getResourceNode(OWL_ANNOTATION_PROPERTY.getURI()));
 
 //        if (axiom.getAnnotation().getValue().isAnonymousIndividual()) {
 //            OWLIndividual ind = (OWLIndividual) axiom.getAnnotation().getValue().asAnonymousIndividual();
@@ -239,10 +241,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     public void visit(OWLHasKeyAxiom axiom) {
-        Set<OWLObject> props = new HashSet<OWLObject>();
-        props.addAll(axiom.getDataPropertyExpressions());
-        props.addAll(axiom.getObjectPropertyExpressions());
-        addAxiom(axiom, axiom.getClassExpression(), OWL_HAS_KEY.getURI(), props);
+        addAxiom(axiom, axiom.getClassExpression(), OWL_HAS_KEY.getURI(), axiom.getPropertyExpressions());
     }
 
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
@@ -389,7 +388,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!nodeMap.containsKey(desc)) {
             nodeMap.put(desc, getResourceNode(desc.getURI()));
         }
-        addTriple(desc, RDF_TYPE.getURI(), OWL_CLASS.getURI());
+//        addTriple(desc, RDF_TYPE.getURI(), OWL_CLASS.getURI());
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -495,17 +494,17 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     public void visit(OWLObjectExactCardinality desc) {
-        translateObjectCardinality(desc, OWL_CARDINALITY.getURI());
+        translateObjectCardinality(desc, desc.isQualified() ? OWL_QUALIFIED_CARDINALITY.getURI() : OWL_CARDINALITY.getURI());
     }
 
 
     public void visit(OWLObjectMaxCardinality desc) {
-        translateObjectCardinality(desc, OWL_MAX_CARDINALITY.getURI());
+        translateObjectCardinality(desc, desc.isQualified() ? OWL_MAX_QUALIFIED_CARDINALITY.getURI() : OWL_MAX_CARDINALITY.getURI());
     }
 
 
     public void visit(OWLObjectMinCardinality desc) {
-        translateObjectCardinality(desc, OWL_MIN_CARDINALITY.getURI());
+        translateObjectCardinality(desc, desc.isQualified() ? OWL_MIN_QUALIFIED_CARDINALITY.getURI() : OWL_MIN_CARDINALITY.getURI());
     }
 
 
@@ -544,14 +543,14 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(OWLDataOneOf node) {
         translateAnonymousNode(node);
-        addTriple(node, RDF_TYPE.getURI(), OWL_DATA_RANGE.getURI());
+        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
         addTriple(node, OWL_ONE_OF.getURI(), node.getValues());
     }
 
 
     public void visit(OWLDataComplementOf node) {
         translateAnonymousNode(node);
-        addTriple(node, RDF_TYPE.getURI(), OWL_DATA_RANGE.getURI());
+        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
         addTriple(node, OWL_COMPLEMENT_OF.getURI(), node.getDataRange());
     }
 
@@ -559,44 +558,44 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     public void visit(OWLDataIntersectionOf node) {
         translateAnonymousNode(node);
         addTriple(node, OWL_INTERSECTION_OF.getURI(), node.getOperands());
-        addTriple(node, RDF_TYPE.getURI(), OWL_CLASS.getURI());
+        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
     }
 
     public void visit(OWLDataUnionOf node) {
         translateAnonymousNode(node);
         addTriple(node, OWL_UNION_OF.getURI(), node.getOperands());
-        addTriple(node, RDF_TYPE.getURI(), OWL_CLASS.getURI());
+        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
     }
 
     public void visit(OWLDatatype node) {
         if (!nodeMap.containsKey(node)) {
             nodeMap.put(node, getResourceNode(node.getURI()));
         }
-        addTriple(node, RDF_TYPE.getURI(), OWL_DATATYPE.getURI());
+        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
     }
 
 
     public void visit(OWLDatatypeRestriction node) {
         translateAnonymousNode(node);
-        addTriple(node, RDF_TYPE.getURI(), OWL_DATA_RANGE.getURI());
-        addTriple(node, OWL_ON_DATA_RANGE.getURI(), node.getDatatype());
-        for (OWLFacetRestriction restriction : node.getFacetRestrictions()) {
-            translateAnonymousNode(node);
-            addTriple(node, restriction.getFacet().getURI(), restriction.getFacetValue());
-        }
+        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
+        addTriple(node, OWL_ON_DATA_TYPE.getURI(), node.getDatatype());
+        addTriple(node, OWL_WITH_RESTRICTIONS.getURI(), node.getFacetRestrictions());
     }
 
 
     public void visit(OWLFacetRestriction node) {
-
+        translateAnonymousNode(node);
+        addTriple(node, node.getFacet().getURI(), node.getFacetValue());
     }
 
     public void visit(IRI iri) {
-
+        if (!nodeMap.containsKey(iri)) {
+            nodeMap.put(iri, getResourceNode(iri.toURI()));
+        }
     }
 
     public void visit(OWLAnnotation node) {
-
+        
     }
 
     public void visit(OWLTypedLiteral node) {
@@ -613,7 +612,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getURI()));
         }
-        addTriple(property, RDF_TYPE.getURI(), OWL_DATA_PROPERTY.getURI());
+//        addTriple(property, RDF_TYPE.getURI(), OWL_DATA_PROPERTY.getURI());
     }
 
 
@@ -621,14 +620,14 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getURI()));
         }
-        addTriple(property, RDF_TYPE.getURI(), OWL_OBJECT_PROPERTY.getURI());
+//        addTriple(property, RDF_TYPE.getURI(), OWL_OBJECT_PROPERTY.getURI());
     }
 
     public void visit(OWLAnnotationProperty property) {
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getURI()));
         }
-        addTriple(property, RDF_TYPE.getURI(), OWL_ANNOTATION_PROPERTY.getURI());
+//        addTriple(property, RDF_TYPE.getURI(), OWL_ANNOTATION_PROPERTY.getURI());
     }
 
     public void visit(OWLObjectPropertyInverse property) {
@@ -787,7 +786,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         for (OWLAxiom ax : ontology.getAxioms(ind)) {
             ax.accept(this);
         }
-//        for (OWLAxiom ax : ontology.getEntityAnnotationAxioms(ind)) {
+//        for (OWLAxiom ax : ontology.getAnnotationAssertionAxioms(ind)) {
 //            ax.accept(this);
 //        }
 
@@ -826,28 +825,54 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     private void addAxiom(OWLAxiom ax, RESOURCE subj, PREDICATE pred, NODE obj) {
-        // If the axiom has any annotations, we have to reify it - bloody RDF!
-        // TODO: HANDLE ANNOTATIONS
-//        if (ontology.getAnnotations(ax).isEmpty() && !(ax instanceof OWLNegativeObjectPropertyAssertionAxiom) && !(ax instanceof OWLNegativeDataPropertyAssertionAxiom)) {
-//             Just do a straight translation
+        // Base triple
         addTriple(subj, pred, obj);
-//        } else {
-        // Reify!
-//            translateAnonymousNode(ax);
-//            addTriple(getResourceNode(ax), getPredicateNode(RDF_SUBJECT.getURI()), subj);
-//            addTriple(getResourceNode(ax), getPredicateNode(RDF_PREDICATE.getURI()), pred);
-//            addTriple(getResourceNode(ax), getPredicateNode(RDF_OBJECT.getURI()), obj);
-//             Now add the annos
-//            for (OWLAnnotationAxiom annoAx : ax.getAnnotationAssertionAxioms(ontology)) {
-//                addTriple(getResourceNode(annoAx.getAnnotation().getAnnotationURI()),
-//                        getPredicateNode(RDF_TYPE.getURI()),
-//                        getResourceNode(OWL_ANNOTATION_PROPERTY.getURI()));
-//                addTriple(ax, annoAx.getAnnotation().getAnnotationURI(), annoAx.getAnnotation().getAnnotationValue());
-//                addTriple(ax, RDF_TYPE.getURI(), OWL_AXIOM.getURI());
-//            }
-//        }
+        if(ax.getAnnotations().isEmpty()) {
+            return;
+        }
+        // The axiom has annotations and we therefore need to reify the axiom in order to add the annotations
+        translateAnonymousNode(ax);
+        addTriple(getResourceNode(ax), getPredicateNode(RDF_TYPE.getURI()), getResourceNode(OWL_AXIOM.getURI()));
+        addTriple(getResourceNode(ax), getPredicateNode(OWL_SUBJECT.getURI()), subj);
+        addTriple(getResourceNode(ax), getPredicateNode(OWL_PREDICATE.getURI()), pred);
+        addTriple(getResourceNode(ax), getPredicateNode(OWL_OBJECT.getURI()), obj);
+        translateAnnotations(ax);
     }
 
+    private void translateAnnotations(OWLAxiom ax) {
+        translateAnonymousNode(ax);
+        for(OWLAnnotation anno : ax.getAnnotations()) {
+            translateAnnotation(ax, anno);
+        }
+    }
+
+    /**
+     * Translates an annotation on a given subject.  This method implements the TANN(ann, y) translation
+     * in the spec
+     * @param subject The subject of the annotation
+     * @param annotation The annotation
+     */
+    private void translateAnnotation(OWLObject subject, OWLAnnotation annotation) {
+        // We first add the base triple
+        addTriple(subject, annotation.getProperty().getURI(), annotation.getValue());
+        // If the annotation doesn't have annotations on it then we're done
+        if(annotation.getAnnotations().isEmpty()) {
+            return;
+        }
+        // The annotation has annotations on it so we need to reify the annotation
+        // The main node is the annotation, it is typed as an annotation
+        translateAnonymousNode(annotation);
+        addTriple(annotation, RDF_TYPE.getURI(), OWL_ANNOTATION.getURI());
+        if (isAnonymous(subject)) {
+            translateAnonymousNode(subject);
+        }
+        addTriple(annotation, OWL_SUBJECT.getURI(), subject);
+        addTriple(annotation, OWL_PREDICATE.getURI(), annotation.getProperty().getURI());
+        addTriple(annotation, OWL_OBJECT.getURI(), annotation.getValue());
+        for(OWLAnnotation anno : annotation.getAnnotations()) {
+            translateAnnotation(annotation, anno);
+        }
+    }
 
     private void translateAnonymousNode(OWLObject object) {
         nodeMap.put(object, getAnonymousNode(object));
@@ -972,6 +997,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
                 manager.getOWLDataFactory().getDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getURI()));
     }
 
+    private boolean isAnonymous(OWLObject object) {
+        return !(object instanceof OWLEntity || object instanceof IRI);
+    }
 
     private boolean isObjectPunned(OWLObject entity) {
         punningChecker.reset();
