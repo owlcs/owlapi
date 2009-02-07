@@ -64,12 +64,6 @@ public class ManchesterOWLSyntaxEditorParser {
 
     private final String EOF = "<EOF>";
 
-    //private Set<Character> skip = new HashSet<Character>();
-
-    //private Set<Character> delims = new HashSet<Character>();
-
-    //private Set<Character> escapeChars = new HashSet<Character>();
-
     private String base;
 
     private Set<String> classNames;

@@ -91,7 +91,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 //                    write("", THAT, " ");
 //                }
 //                else {
-                write("", AND, " ");
+                write(" ", AND, " ");
 //                }
             }
 
@@ -171,7 +171,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
                 if (isUseWrapping()) {
                     writeNewLine();
                 }
-                write("", OR, " ");
+                write(" ", OR, " ");
             }
 
             first = false;
@@ -436,7 +436,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public void visit(OWLSubClassOfAxiom axiom) {
         setAxiomWriting();
         setUseTabbing(false);
-        writeFrameKeyword(CLASS);
+//        writeFrameKeyword(CLASS);
         axiom.getSubClass().accept(this);
         writeSectionKeyword(SUBCLASS_OF);
         axiom.getSuperClass().accept(this);
@@ -719,8 +719,18 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
         setAxiomWriting();
-        writeFrameKeyword(EQUIVALENT_CLASSES);
-        writeCommaSeparatedList(axiom.getDescriptions());
+        if(axiom.getDescriptions().size() == 2) {
+            OWLClassExpression [] ces = axiom.getDescriptions().toArray(new OWLClassExpression[2]);
+            ces[0].accept(this);
+            writeSpace();
+            writeFrameKeyword(EQUIVALENT_CLASSES);
+            writeSpace();
+            ces[1].accept(this);
+        }
+        else {
+            writeFrameKeyword(EQUIVALENT_CLASSES);
+            writeCommaSeparatedList(axiom.getDescriptions());
+        }
         restore();
     }
 
