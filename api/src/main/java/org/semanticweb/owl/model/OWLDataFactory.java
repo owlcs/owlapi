@@ -663,7 +663,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                                                  OWLAnnotation... annotations);
 
 
-    OWLComplextSubPropertyAxiom getObjectPropertyChainSubProperty(
+    OWLSubPropertyChainAxiom getObjectPropertyChainSubProperty(
             List<? extends OWLObjectPropertyExpression> chain, OWLObjectPropertyExpression superProperty,
             OWLAnnotation... annotations);
 

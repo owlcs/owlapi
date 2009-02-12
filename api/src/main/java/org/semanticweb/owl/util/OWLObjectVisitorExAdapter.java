@@ -140,7 +140,7 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
         return defaultReturnValue;
     }
 
-    public O visit(OWLComplextSubPropertyAxiom axiom) {
+    public O visit(OWLSubPropertyChainAxiom axiom) {
         return defaultReturnValue;
     }
 

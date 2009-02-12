@@ -5,10 +5,12 @@ import org.semanticweb.owl.inference.OWLReasonerException;
 import org.semanticweb.owl.inference.OWLReasonerFactory;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.OWLAxiomVisitorAdapter;
+import org.semanticweb.reasonerfactory.OWLReasonerSetupException;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,7 +45,11 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
     public SemanticLocalityEvaluator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory) {
         this.df = man.getOWLDataFactory();
-        reasoner = reasonerFactory.createReasoner(man);
+        try {
+            reasoner = reasonerFactory.createReasoner(man, new HashSet<OWLOntology>());
+        } catch (OWLReasonerSetupException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
 

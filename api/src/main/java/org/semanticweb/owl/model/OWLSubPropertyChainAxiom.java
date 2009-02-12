@@ -1,14 +1,8 @@
-package org.semanticweb.owl.util;
+package org.semanticweb.owl.model;
 
-import org.semanticweb.owl.model.OWLEntity;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.net.URI;
+import java.util.List;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2006, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -35,27 +29,21 @@ import java.net.URI;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 28-Nov-2007<br><br>
+ * Date: 22-Nov-2006<br><br>
  */
-public class ReferencedEntitySetProvider implements OWLEntitySetProvider<OWLEntity> {
+public interface OWLSubPropertyChainAxiom extends OWLObjectPropertyAxiom {
 
-    private Set<OWLOntology> ontologies;
+    List<OWLObjectPropertyExpression> getPropertyChain();
 
-
-    public ReferencedEntitySetProvider(Set<OWLOntology> ontologies) {
-        this.ontologies = ontologies;
-    }
+    OWLObjectPropertyExpression getSuperProperty();
 
 
-    public Set<OWLEntity> getEntities() {
-        Set<OWLEntity> entities = new HashSet<OWLEntity>();
-        for(OWLOntology ont : ontologies) {
-            entities.addAll(ont.getReferencedClasses());
-            entities.addAll(ont.getReferencedObjectProperties());
-            entities.addAll(ont.getReferencedDataProperties());
-            entities.addAll(ont.getReferencedIndividuals());
-            entities.addAll(ont.getReferencedAnnotationProperties());
-        }
-        return entities;
-    }
+    /**
+     * Determines if this axiom is of the form:  P o P -> P, which
+     * is an encoding of Transitive(P)
+     *
+     * @return <code>true</code> if this encodes that the super property
+     *         is transitive, otherwise <code>false</code>.
+     */
+    boolean isEncodingOfTransitiveProperty();
 }

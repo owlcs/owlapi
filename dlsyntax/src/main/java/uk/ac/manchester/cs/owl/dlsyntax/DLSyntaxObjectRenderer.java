@@ -435,7 +435,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
         write(axiom.getPropertyChain(), COMP, false);
         writeSpace();
         write(SUBCLASS);

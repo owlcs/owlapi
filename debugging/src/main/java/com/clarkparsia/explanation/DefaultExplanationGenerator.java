@@ -52,14 +52,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
 
     private static OWLReasoner createAndLoadReasoner(OWLOntologyManager man, OWLReasonerFactory factory,
                                                      OWLOntology ont) {
-        OWLReasoner reasoner = factory.createReasoner(man);
-        try {
-            reasoner.loadOntologies(man.getImportsClosure(ont));
-            return reasoner;
-        }
-        catch (OWLReasonerException e) {
-            throw new OWLRuntimeException(e);
-        }
+        return factory.createReasoner(man, man.getImportsClosure(ont));
     }
 
 

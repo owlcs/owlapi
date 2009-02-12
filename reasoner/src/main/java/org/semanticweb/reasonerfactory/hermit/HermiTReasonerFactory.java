@@ -2,11 +2,14 @@ package org.semanticweb.reasonerfactory.hermit;
 
 import org.semanticweb.owl.inference.OWLReasoner;
 import org.semanticweb.owl.inference.OWLReasonerFactory;
+import org.semanticweb.owl.inference.OWLReasonerException;
 import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.reasonerfactory.OWLReasonerSetupException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Set;
 
 /*
  * Copyright (C) 2008, University of Manchester
@@ -60,14 +63,19 @@ public class HermiTReasonerFactory implements OWLReasonerFactory {
 
 
 
-    public OWLReasoner createReasoner(OWLOntologyManager manager) {
+    public OWLReasoner createReasoner(OWLOntologyManager manager, Set<OWLOntology> ontologies) throws OWLReasonerSetupException{
         try {
-            return (OWLReasoner) constructor.newInstance(manager);
+            OWLReasoner reasoner = (OWLReasoner) constructor.newInstance(manager);
+            reasoner.loadOntologies(ontologies);
+            return reasoner;
+
         } catch (InstantiationException e) {
             throw new OWLReasonerSetupException(this, e);
         } catch (IllegalAccessException e) {
             throw new OWLReasonerSetupException(this, e);
         } catch (InvocationTargetException e) {
+            throw new OWLReasonerSetupException(this, e);
+        } catch (OWLReasonerException e) {
             throw new OWLReasonerSetupException(this, e);
         }
     }

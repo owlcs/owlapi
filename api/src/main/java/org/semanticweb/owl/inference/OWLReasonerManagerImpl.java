@@ -2,9 +2,9 @@ package org.semanticweb.owl.inference;
 
 import org.semanticweb.owl.model.OWLOntologyManager;
 import org.semanticweb.owl.model.OWLRuntimeException;
+import org.semanticweb.owl.model.OWLOntology;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -43,9 +43,11 @@ public class OWLReasonerManagerImpl implements OWLReasonerManager {
 
     private OWLReasonerFactory currentReasonerFactory;
 
-    private OWLReasoner reasoner;
+//    private OWLReasoner reasoner;
 
     private OWLOntologyManager man;
+
+    private Map<Set<OWLOntology>, OWLReasoner> ontologies2ReasonerMap = new HashMap<Set<OWLOntology>, OWLReasoner>();
 
     public OWLReasonerManagerImpl(OWLOntologyManager man) {
         this.man = man;
@@ -87,7 +89,12 @@ public class OWLReasonerManagerImpl implements OWLReasonerManager {
             throw new OWLRuntimeException("Reasoner factory not registered: " + factory.getReasonerName());
         }
         currentReasonerFactory = factory;
-        reasoner.dispose();
+        for (OWLReasoner reasoner : ontologies2ReasonerMap.values()) {
+            if (reasoner != null) {
+                reasoner.dispose();
+            }
+        }
+        ontologies2ReasonerMap.clear();
         fireReasonerFactoryChanged();
     }
 
@@ -97,16 +104,18 @@ public class OWLReasonerManagerImpl implements OWLReasonerManager {
     }
 
 
-    public OWLReasoner getReasoner() {
+    public OWLReasoner getReasoner(Set<OWLOntology> ontologies) {
+        OWLReasoner reasoner = ontologies2ReasonerMap.get(ontologies);
         if(reasoner == null) {
-            reasoner = currentReasonerFactory.createReasoner(man);
+            reasoner = currentReasonerFactory.createReasoner(man, ontologies);
+            ontologies2ReasonerMap.put(Collections.unmodifiableSet(new HashSet<OWLOntology>(ontologies)), reasoner);
         }
         return reasoner;
     }
 
 
-    public OWLReasoner createReasoner() {
-        return currentReasonerFactory.createReasoner(man);
+    public OWLReasoner createReasoner(Set<OWLOntology> ontologies) {
+        return currentReasonerFactory.createReasoner(man, ontologies);
     }
 
     protected void fireReasonerFactoryAdded() {

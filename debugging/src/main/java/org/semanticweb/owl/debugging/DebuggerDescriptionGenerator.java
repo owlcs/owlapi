@@ -229,7 +229,7 @@ public class DebuggerDescriptionGenerator implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
     }
 
 

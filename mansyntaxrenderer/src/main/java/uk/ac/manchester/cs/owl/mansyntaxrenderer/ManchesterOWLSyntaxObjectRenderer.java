@@ -787,7 +787,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
         setAxiomWriting();
         writeFrameType(axiom.getSuperProperty());
         writeSectionKeyword(SUB_PROPERTY_CHAIN);

@@ -105,7 +105,7 @@ public class OWLAxiomVisitorAdapter implements OWLAxiomVisitor {
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
     }
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
     }
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {

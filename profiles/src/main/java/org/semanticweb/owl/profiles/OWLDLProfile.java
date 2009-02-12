@@ -290,7 +290,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLComplextSubPropertyAxiom axiom) {
+        public ConstructNotAllowed visit(OWLSubPropertyChainAxiom axiom) {
             return new OWL2AxiomNotAllowed(axiom, false);
         }
 

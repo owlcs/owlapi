@@ -100,5 +100,14 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
         }
         return null;
     }
+
+    public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+        for(OWLEntity ent : shortFormProvider.getEntities(name)) {
+            if(ent.isOWLAnnotationProperty()) {
+                return ent.asOWLAnnotationProperty();
+            }
+        }
+        return null;
+    }
 }
 

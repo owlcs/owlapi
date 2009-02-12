@@ -1,6 +1,10 @@
 package org.semanticweb.owl.inference;
 
 import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owl.model.OWLOntology;
+import org.semanticweb.reasonerfactory.OWLReasonerSetupException;
+
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -48,5 +52,5 @@ public interface OWLReasonerFactory {
      * reasoner to obtain a data factory etc.)
      * @return A new reasoner.
      */
-    OWLReasoner createReasoner(OWLOntologyManager manager);
+    OWLReasoner createReasoner(OWLOntologyManager manager, Set<OWLOntology> ontologies) throws OWLReasonerSetupException;
 }

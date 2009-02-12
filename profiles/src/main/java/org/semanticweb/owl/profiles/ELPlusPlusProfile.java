@@ -341,7 +341,7 @@ public class ELPlusPlusProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLComplextSubPropertyAxiom axiom) {
+        public ConstructNotAllowed visit(OWLSubPropertyChainAxiom axiom) {
             // Global check required.
             return null;
         }

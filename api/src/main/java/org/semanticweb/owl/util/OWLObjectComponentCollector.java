@@ -434,7 +434,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
         handleObject(axiom);
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             prop.accept(this);

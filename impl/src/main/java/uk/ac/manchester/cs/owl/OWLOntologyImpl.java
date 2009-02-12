@@ -65,7 +65,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private Set<OWLClassAxiom> generalClassAxioms = createSet();
 
-    private Set<OWLComplextSubPropertyAxiom> propertyChainSubPropertyAxioms = createSet();
+    private Set<OWLSubPropertyChainAxiom> propertyChainSubPropertyAxioms = createSet();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -416,7 +416,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLComplextSubPropertyAxiom> getPropertyChainSubPropertyAxioms() {
+    public Set<OWLSubPropertyChainAxiom> getPropertyChainSubPropertyAxioms() {
         return getReturnSet(propertyChainSubPropertyAxioms);
     }
 
@@ -2017,7 +2017,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
 
 
-        public void visit(OWLComplextSubPropertyAxiom axiom) {
+        public void visit(OWLSubPropertyChainAxiom axiom) {
             if (addAxiom) {
                 addToIndexedSet(PROPERTY_CHAIN_SUB_PROPERTY, axiomsByType, axiom);
                 addAxiomToSet(axiom, owlObjectPropertyAxioms);

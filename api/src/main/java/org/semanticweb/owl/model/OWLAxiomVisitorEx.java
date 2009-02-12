@@ -128,7 +128,7 @@ public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O> {
     O visit(OWLSameIndividualsAxiom axiom);
 
 
-    O visit(OWLComplextSubPropertyAxiom axiom);
+    O visit(OWLSubPropertyChainAxiom axiom);
 
 
     O visit(OWLInverseObjectPropertiesAxiom axiom);

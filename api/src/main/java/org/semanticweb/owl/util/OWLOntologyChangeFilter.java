@@ -137,7 +137,7 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor {
     public void visit(OWLClassAssertionAxiom axiom) {
     }
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
     }
 
     public void visit(OWLDataPropertyAssertionAxiom axiom) {

@@ -1,8 +1,11 @@
 package org.semanticweb.owl.vocab;
 
+import org.semanticweb.owl.model.*;
+
 import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Collections;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -334,4 +337,5 @@ public enum OWLRDFVocabulary {
     public String toString() {
         return uri.toString();
     }
+    
 }

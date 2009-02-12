@@ -42,7 +42,7 @@ public class OWLObjectVisitorAdapter implements OWLObjectVisitor {
     public void visit(OWLClassAssertionAxiom axiom) {
     }
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
     }
 
     public void visit(OWLDataPropertyAssertionAxiom axiom) {

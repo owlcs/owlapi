@@ -71,8 +71,6 @@ public class Example8 {
             // make sure these jars are on the classpath
             OWLReasonerFactory reasonerFactory = new PelletReasonerFactory();
 
-            OWLReasoner reasoner = reasonerFactory.createReasoner(manager);
-
             // We now need to load some ontologies into the reasoner.  This is typically the
             // imports closure of an ontology that we're interested in.  In this case, we want
             // the imports closure of the pizza ontology.  Note that no assumptions are made
@@ -80,13 +78,14 @@ public class Example8 {
             // we loaded just the pizza ontology (using a singleton set) then any imported ontologies
             // would not automatically be loaded.
             // Obtain and load the imports closure of the pizza ontology
-            Set<OWLOntology> importsClosure = manager.getImportsClosure(ont);
-            reasoner.loadOntologies(importsClosure);
+            OWLReasoner reasoner = reasonerFactory.createReasoner(manager, manager.getImportsClosure(ont));
+
+
             reasoner.classify();
 
             // We can examine the expressivity of our ontology (some reasoners do not support
             // the full expressivity of OWL)
-            DLExpressivityChecker checker = new DLExpressivityChecker(importsClosure);
+            DLExpressivityChecker checker = new DLExpressivityChecker(manager.getImportsClosure(ont));
             System.out.println("Expressivity: " + checker.getDescriptionLogicName());
 
             // We can determine if the pizza ontology is actually consistent.  (If an ontology is

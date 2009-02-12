@@ -217,7 +217,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
             write("\n\n");
         }
 
-        for (OWLComplextSubPropertyAxiom ax : ontology.getPropertyChainSubPropertyAxioms()) {
+        for (OWLSubPropertyChainAxiom ax : ontology.getPropertyChainSubPropertyAxioms()) {
             write("// Sub property chain axiom\n");
             ax.accept(this);
             write("\n\n");
@@ -522,7 +522,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
         writeAxiomStart(SUB_OBJECT_PROPERTY_OF, axiom);
         write(SUB_OBJECT_PROPERTY_CHAIN);
         writeOpenBracket();

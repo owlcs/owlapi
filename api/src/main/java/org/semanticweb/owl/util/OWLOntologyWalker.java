@@ -190,7 +190,7 @@ public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
             }
 
 
-            public E visit(OWLComplextSubPropertyAxiom axiom) {
+            public E visit(OWLSubPropertyChainAxiom axiom) {
                 currentAxiom = axiom;
                 return super.visit(axiom);
             }

@@ -255,7 +255,7 @@ public class SatisfiabilityConverter {
         }
 
 
-        public void visit(OWLComplextSubPropertyAxiom axiom) {
+        public void visit(OWLSubPropertyChainAxiom axiom) {
             throw new OWLRuntimeException("Not implemented: Cannot generate explanation for " + axiom);
         }
 

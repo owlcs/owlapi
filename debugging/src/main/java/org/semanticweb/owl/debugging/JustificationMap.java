@@ -400,7 +400,7 @@ public class JustificationMap {
         }
 
 
-        public void visit(OWLComplextSubPropertyAxiom axiom) {
+        public void visit(OWLSubPropertyChainAxiom axiom) {
             rhs.add(axiom.getSuperProperty());
             lhs.addAll(axiom.getPropertyChain());
         }

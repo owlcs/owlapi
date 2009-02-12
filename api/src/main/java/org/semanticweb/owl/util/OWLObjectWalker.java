@@ -288,7 +288,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(OWLComplextSubPropertyAxiom axiom) {
+        public void visit(OWLSubPropertyChainAxiom axiom) {
             process(axiom);
             for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
                 prop.accept(this);

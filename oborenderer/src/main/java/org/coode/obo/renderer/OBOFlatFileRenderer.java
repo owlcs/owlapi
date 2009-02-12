@@ -438,7 +438,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         }
 
         // transitive over
-        for (OWLComplextSubPropertyAxiom ax : ontology.getPropertyChainSubPropertyAxioms()) {
+        for (OWLSubPropertyChainAxiom ax : ontology.getPropertyChainSubPropertyAxioms()) {
             if (ax.getSuperProperty().equals(property)) {
                 final List<OWLObjectPropertyExpression> chain = ax.getPropertyChain();
                 if (chain.size() == 2 &&

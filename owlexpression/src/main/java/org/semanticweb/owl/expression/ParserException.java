@@ -53,6 +53,8 @@ public class ParserException extends Exception {
 
     private boolean integerExpected;
 
+    private boolean annotationPropertyExpected;
+
     private Set<String> expectedKeywords;
 
     private int startPos;
@@ -64,6 +66,7 @@ public class ParserException extends Exception {
                                                               boolean dataPropertyNameExpected,
                                                               boolean individualNameExpected,
                                                               boolean datatypeNameExpected,
+                                                              boolean annotationPropertyExpected,
                                                               Set<String> expectedKeywords) {
         this.currentToken = currentToken;
         this.lineNumber = lineNumber;
@@ -73,6 +76,7 @@ public class ParserException extends Exception {
         this.dataPropertyNameExpected = dataPropertyNameExpected;
         this.individualNameExpected = individualNameExpected;
         this.datatypeNameExpected = datatypeNameExpected;
+        this.annotationPropertyExpected = annotationPropertyExpected;
         this.expectedKeywords = expectedKeywords;
         this.startPos = startPos;
     }
@@ -84,6 +88,7 @@ public class ParserException extends Exception {
                                                               boolean dataPropertyNameExpected,
                                                               boolean individualNameExpected,
                                                               boolean datatypeNameExpected,
+                                                              boolean annotationPropertyExpected,
                                                               String ... keywords) {
         this.currentToken = currentToken;
         this.lineNumber = lineNumber;
@@ -93,6 +98,7 @@ public class ParserException extends Exception {
         this.dataPropertyNameExpected = dataPropertyNameExpected;
         this.individualNameExpected = individualNameExpected;
         this.datatypeNameExpected = datatypeNameExpected;
+        this.annotationPropertyExpected = annotationPropertyExpected;
         this.expectedKeywords = new HashSet<String>(Arrays.asList(keywords));
         this.startPos = startPos;
     }
@@ -110,7 +116,7 @@ public class ParserException extends Exception {
 
 
     public ParserException(String currentToken, int startPos, int lineNumber, int columnNumber, String ... keywords) {
-        this(currentToken, startPos, lineNumber, columnNumber, false, false, false, false, false, keywords);
+        this(currentToken, startPos, lineNumber, columnNumber, false, false, false, false, false, false, keywords);
     }
 
 
@@ -141,6 +147,10 @@ public class ParserException extends Exception {
 
     public boolean isDatatypeNameExpected() {
         return datatypeNameExpected;
+    }
+
+    public boolean isAnnotationPropertyNameExpected() {
+        return annotationPropertyExpected;
     }
 
 

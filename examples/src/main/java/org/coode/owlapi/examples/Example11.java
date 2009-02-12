@@ -67,8 +67,7 @@ public class Example11 {
             OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
 
             // Create the reasoner and classify the ontology
-            OWLReasoner reasoner = reasonerFactory.createReasoner(man);
-            reasoner.loadOntologies(Collections.singleton(ont));
+            OWLReasoner reasoner = reasonerFactory.createReasoner(man, Collections.singleton(ont));
             reasoner.classify();
 
             // To generate an inferred ontology we use implementations of inferred axiom generators

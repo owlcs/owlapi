@@ -2,15 +2,12 @@ package uk.ac.manchester.cs.owl.mansyntaxrenderer;
 
 import org.coode.manchesterowlsyntax.ManchesterOWLSyntax;
 import static org.coode.manchesterowlsyntax.ManchesterOWLSyntax.*;
-import org.coode.xml.OWLOntologyNamespaceManager;
 import org.semanticweb.owl.io.OWLRendererException;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.CollectionFactory;
 import org.semanticweb.owl.util.OWLEntityCollector;
-import org.semanticweb.owl.util.ShortFormProvider;
 
 import java.io.Writer;
-import java.net.URI;
 import java.util.*;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -44,47 +41,62 @@ import java.util.*;
  */
 public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectRenderer implements OWLEntityVisitor {
 
-    private OWLOntologyNamespaceManager nsm;
+//    private OWLOntologyNamespaceManager nsm;
 
-    private OWLOntology ontology;
+//    private OWLOntology ontology;
 
+    private Set<OWLOntology> ontologies;
 
     public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
                                             Writer writer) {
+        this(owlOntologyManager, Collections.singleton(ontology), writer);
+    }
+
+    public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager, Set<OWLOntology> ontologies,
+                                            Writer writer) {
         super(writer);
-        this.ontology = ontology;
-        nsm = new OWLOntologyNamespaceManager(owlOntologyManager, ontology);
-        setShortFormProvider(new ShortFormProvider() {
-            public String getShortForm(OWLEntity entity) {
-                return nsm.getQName(entity.getURI().toString());
-            }
-
-
-            public void dispose() {
-            }
-        });
+        this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);
+//        this.ontology = ontology;
+//        nsm = new OWLOntologyNamespaceManager(owlOntologyManager, ontology);
+//        setShortFormProvider(new ShortFormProvider() {
+//            public String getShortForm(OWLEntity entity) {
+//                return nsm.getQName(entity.getURI().toString());
+//            }
+//
+//
+//            public void dispose() {
+//            }
+//        });
     }
 
 
-    private OWLOntology getOntology() {
-        return this.ontology;
-    }
+//    private OWLOntology getOntology() {
+//        return this.ontology;
+//    }
 
 
-    public OWLOntologyNamespaceManager getNamespaceManager() {
-        return nsm;
+    Set<OWLOntology> getOntologies() {
+        return ontologies;
     }
+
+//    public OWLOntologyNamespaceManager getNamespaceManager() {
+//        return nsm;
+//    }
 
 
     public void writeOntology() throws OWLRendererException {
-        writePrefixMap();
+//        writePrefixMap();
+        if(ontologies.size() != 1) {
+            throw new RuntimeException("Can only render one ontology");
+        }
+        OWLOntology ontology = getOntologies().iterator().next();
         writeNewLine();
         write(ONTOLOGY.toString());
         write(":");
         writeSpace();
-        writeFullURI(getOntology().getURI().toString());
+        writeFullURI(ontology.getURI().toString());
         writeNewLine();
-        for (OWLImportsDeclaration decl : getOntology().getImportsDeclarations()) {
+        for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
             write(IMPORT.toString());
             write(":");
             writeSpace();
@@ -92,55 +104,55 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             writeNewLine();
         }
         writeNewLine();
-        writeSection(ANNOTATIONS, getOntology().getAnnotations(), ",", true);
+        writeSection(ANNOTATIONS, ontology.getAnnotations(), ",", true);
 
-        for (OWLObjectProperty prop : getOntology().getReferencedObjectProperties()) {
+        for (OWLObjectProperty prop : ontology.getReferencedObjectProperties()) {
             write(prop);
             writeNewLine();
             writeNewLine();
         }
-        for (OWLDataProperty prop : getOntology().getReferencedDataProperties()) {
+        for (OWLDataProperty prop : ontology.getReferencedDataProperties()) {
             write(prop);
             writeNewLine();
             writeNewLine();
         }
-        for (OWLClass cls : getOntology().getReferencedClasses()) {
+        for (OWLClass cls : ontology.getReferencedClasses()) {
             write(cls);
             writeNewLine();
             writeNewLine();
         }
-        for (OWLNamedIndividual ind : getOntology().getReferencedIndividuals()) {
+        for (OWLNamedIndividual ind : ontology.getReferencedIndividuals()) {
             write(ind);
             writeNewLine();
             writeNewLine();
         }
         // Nary disjoint classes axioms
-        for (OWLDisjointClassesAxiom ax : getOntology().getAxioms(AxiomType.DISJOINT_CLASSES)) {
+        for (OWLDisjointClassesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_CLASSES)) {
             if (ax.getDescriptions().size() > 2) {
-                writeSection(DISJOINT_CLASSES, ax.getDescriptions(), ",", true);
+                writeSection(DISJOINT_CLASSES, ax.getDescriptions(), ",", false);
             }
         }
         flush();
     }
 
 
-    public void writePrefixMap() {
-        Map<String, String> prefixMap = new HashMap<String, String>();
-        for (String prefix : nsm.getPrefixes()) {
-            prefixMap.put(prefix, nsm.getNamespaceForPrefix(prefix));
-            write(NAMESPACE.toString());
-            write(":");
-            writeSpace();
-            write(prefix);
-            writeSpace();
-            writeFullURI(nsm.getNamespaceForPrefix(prefix));
-            writeNewLine();
-        }
-        if (!prefixMap.isEmpty()) {
-            writeNewLine();
-            writeNewLine();
-        }
-    }
+//    public void writePrefixMap() {
+//        Map<String, String> prefixMap = new HashMap<String, String>();
+//        for (String prefix : nsm.getPrefixes()) {
+//            prefixMap.put(prefix, nsm.getNamespaceForPrefix(prefix));
+//            write(NAMESPACE.toString());
+//            write(":");
+//            writeSpace();
+//            write(prefix);
+//            writeSpace();
+//            writeFullURI(nsm.getNamespaceForPrefix(prefix));
+//            writeNewLine();
+//        }
+//        if (!prefixMap.isEmpty()) {
+//            writeNewLine();
+//            writeNewLine();
+//        }
+//    }
 
 
     public void writeFullURI(String uri) {
@@ -150,37 +162,44 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
 
-    protected void write(URI uri) {
-        String qname = nsm.getQName(uri.toString());
-        if (qname != null) {
-            super.write(qname);
-        } else {
-            writeFullURI(uri.toString());
-        }
-    }
+//    protected void write(URI uri) {
+//        String qname = nsm.getQName(uri.toString());
+//        if (qname != null) {
+//            super.write(qname);
+//        } else {
+//            writeFullURI(uri.toString());
+//        }
+//    }
 
 
     public Set<OWLAxiom> write(OWLClass cls) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(CLASS, cls));
-        writeSection(EQUIVALENT_TO, cls.getEquivalentClasses(getOntology()), ",", true);
-        axioms.addAll(getOntology().getEquivalentClassesAxioms(cls));
-        Set<OWLClassExpression> superclasses = cls.getSuperClasses(getOntology());
-        if (!superclasses.isEmpty()) {
-            writeSection(SUBCLASS_OF, superclasses, ",", true);
-            axioms.addAll(getOntology().getSubClassAxiomsForSubClass(cls));
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(EQUIVALENT_TO, cls.getEquivalentClasses(ontology), ",", true);
+            axioms.addAll(ontology.getEquivalentClassesAxioms(cls));
         }
-        Set<OWLAxiom> pairwiseDisjointClassesAxioms = new HashSet<OWLAxiom>();
-        Set<OWLClassExpression> disjointClasses = new HashSet<OWLClassExpression>();
-        for (OWLDisjointClassesAxiom ax : getOntology().getDisjointClassesAxioms(cls)) {
-            if (ax.getDescriptions().size() <= 2) {
-                pairwiseDisjointClassesAxioms.add(ax);
-                disjointClasses.addAll(ax.getDescriptions());
+
+        for (OWLOntology ontology : getOntologies()) {
+            Set<OWLClassExpression> superclasses = cls.getSuperClasses(ontology);
+            if (!superclasses.isEmpty()) {
+                writeSection(SUBCLASS_OF, superclasses, ",", true);
+                axioms.addAll(ontology.getSubClassAxiomsForSubClass(cls));
             }
         }
-        disjointClasses.remove(cls);
-        axioms.addAll(pairwiseDisjointClassesAxioms);
-        writeSection(DISJOINT_WITH, disjointClasses, ",", true);
+        for (OWLOntology ontology : getOntologies()) {
+            Set<OWLAxiom> pairwiseDisjointClassesAxioms = new HashSet<OWLAxiom>();
+            Set<OWLClassExpression> disjointClasses = new HashSet<OWLClassExpression>();
+            for (OWLDisjointClassesAxiom ax : ontology.getDisjointClassesAxioms(cls)) {
+                if (ax.getDescriptions().size() <= 2) {
+                    pairwiseDisjointClassesAxioms.add(ax);
+                    disjointClasses.addAll(ax.getDescriptions());
+                }
+            }
+            disjointClasses.remove(cls);
+            axioms.addAll(pairwiseDisjointClassesAxioms);
+            writeSection(DISJOINT_WITH, disjointClasses, ", ", false);
+        }
         writeEntitySectionEnd();
         return axioms;
     }
@@ -197,51 +216,80 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(OBJECT_PROPERTY, property));
         List<String> characteristics = new ArrayList<String>();
-        if (property.isFunctional(getOntology())) {
-            characteristics.add(FUNCTIONAL.toString());
-            axioms.add(getOntology().getFunctionalObjectPropertyAxiom(property));
+        for (OWLOntology ontology : getOntologies()) {
+            if (property.isFunctional(ontology)) {
+                characteristics.add(FUNCTIONAL.toString());
+                axioms.add(ontology.getFunctionalObjectPropertyAxiom(property));
+            }
         }
-        if (property.isInverseFunctional(getOntology())) {
-            characteristics.add(INVERSE_FUNCTIONAL.toString());
-            axioms.add(getOntology().getInverseFunctionalObjectPropertyAxiom(property));
+
+        for (OWLOntology ontology : getOntologies()) {
+            if (property.isInverseFunctional(ontology)) {
+                characteristics.add(INVERSE_FUNCTIONAL.toString());
+                axioms.add(ontology.getInverseFunctionalObjectPropertyAxiom(property));
+            }
         }
-        if (property.isSymmetric(getOntology())) {
-            characteristics.add(SYMMETRIC.toString());
-            axioms.add(getOntology().getSymmetricObjectPropertyAxiom(property));
+        for (OWLOntology ontology : getOntologies()) {
+            if (property.isSymmetric(ontology)) {
+                characteristics.add(SYMMETRIC.toString());
+                axioms.add(ontology.getSymmetricObjectPropertyAxiom(property));
+            }
         }
-        if (property.isTransitive(getOntology())) {
-            characteristics.add(TRANSITIVE.toString());
-            axioms.add(getOntology().getTransitiveObjectPropertyAxiom(property));
+        for (OWLOntology ontology : getOntologies()) {
+            if (property.isTransitive(ontology)) {
+                characteristics.add(TRANSITIVE.toString());
+                axioms.add(ontology.getTransitiveObjectPropertyAxiom(property));
+            }
         }
-        if (property.isReflexive(getOntology())) {
-            characteristics.add(REFLEXIVE.toString());
-            axioms.add(getOntology().getReflexiveObjectPropertyAxiom(property));
+        for (OWLOntology ontology : getOntologies()) {
+            if (property.isReflexive(ontology)) {
+                characteristics.add(REFLEXIVE.toString());
+                axioms.add(ontology.getReflexiveObjectPropertyAxiom(property));
+            }
         }
-        if (property.isIrreflexive(getOntology())) {
-            characteristics.add(IRREFLEXIVE.toString());
-            axioms.add(getOntology().getIrreflexiveObjectPropertyAxiom(property));
+        for (OWLOntology ontology : getOntologies()) {
+            if (property.isIrreflexive(ontology)) {
+                characteristics.add(IRREFLEXIVE.toString());
+                axioms.add(ontology.getIrreflexiveObjectPropertyAxiom(property));
+            }
         }
-        if (property.isAsymmetric(getOntology())) {
-            characteristics.add(ANTI_SYMMETRIC.toString());
-            axioms.add(getOntology().getAsymmetricObjectPropertyAxiom(property));
+        for (OWLOntology ontology : getOntologies()) {
+            if (property.isAsymmetric(ontology)) {
+                characteristics.add(ANTI_SYMMETRIC.toString());
+                axioms.add(ontology.getAsymmetricObjectPropertyAxiom(property));
+            }
         }
         writeSection(CHARACTERISTICS, new LinkedHashSet(characteristics), ",", true);
-        writeSection(DOMAIN, property.getDomains(getOntology()), ",", true);
-        axioms.addAll(getOntology().getObjectPropertyDomainAxioms(property));
-        writeSection(RANGE, property.getRanges(getOntology()), ",", true);
-        axioms.addAll(getOntology().getObjectPropertyRangeAxioms(property));
-        writeSection(INVERSE_OF, property.getInverses(getOntology()), ",", true);
-        axioms.addAll(getOntology().getInverseObjectPropertyAxioms(property));
-        writeSection(SUB_PROPERTY_OF, property.getSuperProperties(getOntology()), ",", true);
-        axioms.addAll(getOntology().getObjectSubPropertyAxiomsForSubProperty(property));
-        writeSection(EQUIVALENT_TO, property.getEquivalentProperties(getOntology()), ",", true);
-        axioms.addAll(getOntology().getEquivalentObjectPropertiesAxioms(property));
-        writeSection(DISJOINT_WITH, property.getDisjointProperties(getOntology()), ",", true);
-        axioms.addAll(getOntology().getDisjointObjectPropertiesAxiom(property));
-        for (OWLComplextSubPropertyAxiom ax : getOntology().getPropertyChainSubPropertyAxioms()) {
-            if (ax.getSuperProperty().equals(property)) {
-                writeSection(SUB_PROPERTY_CHAIN, new LinkedHashSet<OWLObjectPropertyExpression>(ax.getPropertyChain()), " o ", false);
-                axioms.add(ax);
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(DOMAIN, property.getDomains(ontology), ",", true);
+            axioms.addAll(ontology.getObjectPropertyDomainAxioms(property));
+        }
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(RANGE, property.getRanges(ontology), ",", true);
+            axioms.addAll(ontology.getObjectPropertyRangeAxioms(property));
+        }
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(INVERSE_OF, property.getInverses(ontology), ",", true);
+            axioms.addAll(ontology.getInverseObjectPropertyAxioms(property));
+        }
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(SUB_PROPERTY_OF, property.getSuperProperties(ontology), ",", true);
+            axioms.addAll(ontology.getObjectSubPropertyAxiomsForSubProperty(property));
+        }
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(EQUIVALENT_TO, property.getEquivalentProperties(ontology), ",", true);
+            axioms.addAll(ontology.getEquivalentObjectPropertiesAxioms(property));
+        }
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(DISJOINT_WITH, property.getDisjointProperties(ontology), ",", true);
+            axioms.addAll(ontology.getDisjointObjectPropertiesAxiom(property));
+        }
+        for (OWLOntology ontology : getOntologies()) {
+            for (OWLSubPropertyChainAxiom ax : ontology.getPropertyChainSubPropertyAxioms()) {
+                if (ax.getSuperProperty().equals(property)) {
+                    writeSection(SUB_PROPERTY_CHAIN, new LinkedHashSet<OWLObjectPropertyExpression>(ax.getPropertyChain()), " o ", false);
+                    axioms.add(ax);
+                }
             }
         }
         writeEntitySectionEnd();
@@ -253,21 +301,33 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(DATA_PROPERTY, property));
         List<String> characteristics = new ArrayList<String>();
-        if (property.isFunctional(getOntology())) {
-            characteristics.add(FUNCTIONAL.toString());
-            axioms.add(getOntology().getFunctionalDataPropertyAxiom(property));
+        for (OWLOntology ontology : getOntologies()) {
+            if (property.isFunctional(ontology)) {
+                characteristics.add(FUNCTIONAL.toString());
+                axioms.add(ontology.getFunctionalDataPropertyAxiom(property));
+            }
+            writeSection(CHARACTERISTICS, new LinkedHashSet(characteristics), ",", true);
         }
-        writeSection(CHARACTERISTICS, new LinkedHashSet(characteristics), ",", true);
-        writeSection(DOMAIN, property.getDomains(getOntology()), ",", true);
-        axioms.addAll(getOntology().getDataPropertyDomainAxioms(property));
-        writeSection(RANGE, property.getRanges(getOntology()), ",", true);
-        axioms.addAll(getOntology().getDataPropertyRangeAxiom(property));
-        writeSection(SUB_PROPERTY_OF, property.getSuperProperties(getOntology()), ",", true);
-        axioms.addAll(getOntology().getDataSubPropertyAxiomsForSubProperty(property));
-        writeSection(EQUIVALENT_TO, property.getEquivalentProperties(getOntology()), ",", true);
-        axioms.addAll(getOntology().getEquivalentDataPropertiesAxiom(property));
-        writeSection(DISJOINT_WITH, property.getDisjointProperties(getOntology()), ",", true);
-        axioms.addAll(getOntology().getDisjointDataPropertiesAxiom(property));
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(DOMAIN, property.getDomains(ontology), ",", true);
+            axioms.addAll(ontology.getDataPropertyDomainAxioms(property));
+        }
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(RANGE, property.getRanges(ontology), ",", true);
+            axioms.addAll(ontology.getDataPropertyRangeAxiom(property));
+        }
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(SUB_PROPERTY_OF, property.getSuperProperties(ontology), ",", true);
+            axioms.addAll(ontology.getDataSubPropertyAxiomsForSubProperty(property));
+        }
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(EQUIVALENT_TO, property.getEquivalentProperties(ontology), ",", true);
+            axioms.addAll(ontology.getEquivalentDataPropertiesAxiom(property));
+        }
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(DISJOINT_WITH, property.getDisjointProperties(ontology), ",", true);
+            axioms.addAll(ontology.getDisjointDataPropertiesAxiom(property));
+        }
         writeEntitySectionEnd();
         return axioms;
     }
@@ -276,49 +336,57 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     public Set<OWLAxiom> write(OWLNamedIndividual individual) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(INDIVIDUAL, individual));
-        writeSection(TYPES, individual.getTypes(getOntology()), ",", true);
-        axioms.addAll(getOntology().getClassAssertionAxioms(individual));
-        // Facts - messy!
-        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> objectMap = individual.getObjectPropertyValues(getOntology());
-        Map<OWLDataPropertyExpression, Set<OWLLiteral>> dataMap = individual.getDataPropertyValues(getOntology());
-        // Negative facts
-        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> negObjectMap = individual.getNegativeObjectPropertyValues(
-                getOntology());
-        Map<OWLDataPropertyExpression, Set<OWLLiteral>> negDataMap = individual.getNegativeDataPropertyValues(
-                getOntology());
-
-        if (!objectMap.isEmpty() || !dataMap.isEmpty() || !negObjectMap.isEmpty() || !negDataMap.isEmpty()) {
-            writeSection(FACTS);
-            incrementTab(4);
-            writeNewLine();
-            writeFacts(objectMap, false);
-            if (!objectMap.isEmpty() && (!dataMap.isEmpty() || !negObjectMap.isEmpty() || !negDataMap.isEmpty())) {
-                write(",");
-                writeNewLine();
-            }
-            writeFacts(dataMap, false);
-            if (!dataMap.isEmpty() && (!negObjectMap.isEmpty() || !negDataMap.isEmpty())) {
-                write(",");
-                writeNewLine();
-            }
-            writeFacts(negObjectMap, true);
-            if (!negDataMap.isEmpty() && !negObjectMap.isEmpty()) {
-                write(",");
-                writeNewLine();
-            }
-            writeFacts(negDataMap, true);
-            popTab();
-            writeNewLine();
-            writeNewLine();
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(TYPES, individual.getTypes(ontology), ",", true);
+            axioms.addAll(ontology.getClassAssertionAxioms(individual));
         }
-        axioms.addAll(getOntology().getNegativeDataPropertyAssertionAxioms(individual));
-        axioms.addAll(getOntology().getNegativeObjectPropertyAssertionAxioms(individual));
-        axioms.addAll(getOntology().getObjectPropertyAssertionAxioms(individual));
-        axioms.addAll(getOntology().getDataPropertyAssertionAxioms(individual));
-        writeSection(SAME_AS, individual.getSameIndividuals(getOntology()), ",", true);
-        axioms.addAll(getOntology().getSameIndividualAxioms(individual));
-        writeSection(DIFFERENT_FROM, individual.getDifferentIndividuals(getOntology()), ",", true);
-        axioms.addAll(getOntology().getDifferentIndividualAxioms(individual));
+        for (OWLOntology ontology : getOntologies()) {
+            // Facts - messy!
+            Map<OWLObjectPropertyExpression, Set<OWLIndividual>> objectMap = individual.getObjectPropertyValues(ontology);
+            Map<OWLDataPropertyExpression, Set<OWLLiteral>> dataMap = individual.getDataPropertyValues(ontology);
+            // Negative facts
+            Map<OWLObjectPropertyExpression, Set<OWLIndividual>> negObjectMap = individual.getNegativeObjectPropertyValues(
+                    ontology);
+            Map<OWLDataPropertyExpression, Set<OWLLiteral>> negDataMap = individual.getNegativeDataPropertyValues(
+                    ontology);
+
+            if (!objectMap.isEmpty() || !dataMap.isEmpty() || !negObjectMap.isEmpty() || !negDataMap.isEmpty()) {
+                writeSection(FACTS);
+                incrementTab(4);
+                writeNewLine();
+                writeFacts(objectMap, false);
+                if (!objectMap.isEmpty() && (!dataMap.isEmpty() || !negObjectMap.isEmpty() || !negDataMap.isEmpty())) {
+                    write(",");
+                    writeNewLine();
+                }
+                writeFacts(dataMap, false);
+                if (!dataMap.isEmpty() && (!negObjectMap.isEmpty() || !negDataMap.isEmpty())) {
+                    write(",");
+                    writeNewLine();
+                }
+                writeFacts(negObjectMap, true);
+                if (!negDataMap.isEmpty() && !negObjectMap.isEmpty()) {
+                    write(",");
+                    writeNewLine();
+                }
+                writeFacts(negDataMap, true);
+                popTab();
+                writeNewLine();
+                writeNewLine();
+            }
+            axioms.addAll(ontology.getNegativeDataPropertyAssertionAxioms(individual));
+            axioms.addAll(ontology.getNegativeObjectPropertyAssertionAxioms(individual));
+            axioms.addAll(ontology.getObjectPropertyAssertionAxioms(individual));
+            axioms.addAll(ontology.getDataPropertyAssertionAxioms(individual));
+        }
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(SAME_AS, individual.getSameIndividuals(ontology), ",", true);
+            axioms.addAll(ontology.getSameIndividualAxioms(individual));
+        }
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(DIFFERENT_FROM, individual.getDifferentIndividuals(ontology), ",", true);
+            axioms.addAll(ontology.getDifferentIndividualAxioms(individual));
+        }
         writeEntitySectionEnd();
         return axioms;
     }
@@ -369,8 +437,12 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
 
     public Set<OWLAnnotationAssertionAxiom> writeAnnotations(OWLEntity entity) {
-        writeSection(ANNOTATIONS, entity.getAnnotations(getOntology()), ",", true);
-        return getOntology().getAnnotationAssertionAxioms(entity);
+        Set<OWLAnnotationAssertionAxiom> axioms = new HashSet<OWLAnnotationAssertionAxiom>();
+        for (OWLOntology ontology : getOntologies()) {
+            writeSection(ANNOTATIONS, entity.getAnnotations(ontology), ",", true);
+            axioms.addAll(ontology.getAnnotationAssertionAxioms(entity));
+        }
+        return axioms;
     }
 
 

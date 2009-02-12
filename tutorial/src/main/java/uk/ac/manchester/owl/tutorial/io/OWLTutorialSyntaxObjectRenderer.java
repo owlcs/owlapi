@@ -489,7 +489,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         axiom.getObject().accept(this);
     }
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
         write("chain");
         writeOpenBracket();
         write(axiom.getPropertyChain());

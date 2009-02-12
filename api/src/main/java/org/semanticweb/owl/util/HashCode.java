@@ -222,7 +222,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
         hashCode = 107;
         hashCode = hashCode * MULT + axiom.getPropertyChain().hashCode();
         hashCode = hashCode * MULT + axiom.getSuperProperty().hashCode();

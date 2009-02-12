@@ -145,11 +145,11 @@ public enum ManchesterOWLSyntax {
 
     ASYMMETRIC("Asymmetric", false, true, false, false),
 
-    INVERSE_OF("InverseOf", false, true, false, false),
+    INVERSE_OF("InverseOf", true, true, false, false),
 
     INVERSES("Inverses", true, false, false, false),
 
-    SUB_PROPERTY_OF("SubPropertyOf", false, true, false, false),
+    SUB_PROPERTY_OF("SubPropertyOf", true, true, false, false),
 
     SUB_PROPERTY_CHAIN("SubPropertyChain", true, true, false, false),
 

@@ -254,7 +254,7 @@ public class AxiomType<C extends OWLAxiom> {
             true,
             true);
 
-    public static final AxiomType<OWLComplextSubPropertyAxiom> PROPERTY_CHAIN_SUB_PROPERTY = new AxiomType<OWLComplextSubPropertyAxiom>(
+    public static final AxiomType<OWLSubPropertyChainAxiom> PROPERTY_CHAIN_SUB_PROPERTY = new AxiomType<OWLSubPropertyChainAxiom>(
             "Object property chain subproperty",
             true,
             true,

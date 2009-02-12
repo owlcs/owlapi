@@ -3,12 +3,15 @@ package org.semanticweb.reasonerfactory.factpp;
 import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.inference.OWLReasoner;
 import org.semanticweb.owl.inference.OWLReasonerFactory;
+import org.semanticweb.owl.inference.OWLReasonerException;
 import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.reasonerfactory.OWLReasonerSetupException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Set;
 
 /*
  * Copyright (C) 2008, University of Manchester
@@ -65,10 +68,11 @@ public class FaCTPlusPlusReasonerFactory implements OWLReasonerFactory {
     }
 
 
-    public OWLReasoner createReasoner(OWLOntologyManager manager) {
+    public OWLReasoner createReasoner(OWLOntologyManager manager, Set<OWLOntology> ontologies) throws OWLReasonerSetupException {
         try {
             OWLReasoner reasoner = (OWLReasoner) factPPConstructor.newInstance(manager);
             setSynchronisingMethod.invoke(reasoner, Boolean.FALSE);
+            reasoner.loadOntologies(ontologies);
             return reasoner;
         }
         catch (InstantiationException e) {
@@ -82,14 +86,9 @@ public class FaCTPlusPlusReasonerFactory implements OWLReasonerFactory {
         }
         catch(UnsatisfiedLinkError e) {
             throw new FaCTNativeLibraryNotFoundException();
+        } catch (OWLReasonerException e) {
+            throw new OWLReasonerSetupException(this, e);
         }
     }
 
-
-    public static void main(String[] args) {
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-
-        FaCTPlusPlusReasonerFactory f = new FaCTPlusPlusReasonerFactory();
-        f.createReasoner(null);
-    }
 }

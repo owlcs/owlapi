@@ -724,9 +724,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLComplextSubPropertyAxiom getObjectPropertyChainSubProperty(
+    public OWLSubPropertyChainAxiom getObjectPropertyChainSubProperty(
             List<? extends OWLObjectPropertyExpression> chain, OWLObjectPropertyExpression superProperty, OWLAnnotation... annotations) {
-        return new OWLComplexSubPropertyAxiomImpl(this, chain, superProperty, annotations);
+        return new OWLSubPropertyChainAxiomImpl(this, chain, superProperty, annotations);
     }
 
 

@@ -187,7 +187,7 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set that is returned is a copy of the axioms in the ontology - it will not be updated if the ontology
      *         changes.  It is therefore safe to apply changes to this ontology while iterating over this set.
      */
-    Set<OWLComplextSubPropertyAxiom> getPropertyChainSubPropertyAxioms();
+    Set<OWLSubPropertyChainAxiom> getPropertyChainSubPropertyAxioms();
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     //

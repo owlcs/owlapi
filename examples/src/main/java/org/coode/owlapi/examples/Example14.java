@@ -53,9 +53,8 @@ public class Example14 {
             // Create a reasoner.  We will use Pellet in this case.  Make sure that the latest
             // version of the Pellet libraries are on the runtime class path
             OWLReasonerFactory reasonerFactory = new PelletReasonerFactory();
-            OWLReasoner reasoner = reasonerFactory.createReasoner(man);
-            // We only have our one ontology to load into the reasoner
-            reasoner.loadOntologies(Collections.singleton(ont));
+            OWLReasoner reasoner = reasonerFactory.createReasoner(man, Collections.singleton(ont));
+            
 
             // Now we can query the reasoner, suppose we want to determine the properties that
             // instances of Marghertia pizza must have

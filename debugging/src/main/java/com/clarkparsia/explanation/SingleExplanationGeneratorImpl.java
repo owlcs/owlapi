@@ -100,7 +100,7 @@ public abstract class SingleExplanationGeneratorImpl implements TransactionAware
 
     public OWLClassReasoner getAltReasoner() {
         if (altReasoner == null) {
-            altReasoner = reasonerFactory.createReasoner(owlOntologyManager);
+            altReasoner = reasonerFactory.createReasoner(owlOntologyManager, getOntologies());
         }
 
         return altReasoner;

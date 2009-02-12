@@ -2,7 +2,9 @@ package org.semanticweb.reasonerfactory.pellet;
 
 import org.semanticweb.owl.inference.OWLReasoner;
 import org.semanticweb.owl.inference.OWLReasonerFactory;
+import org.semanticweb.owl.inference.OWLReasonerException;
 import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.reasonerfactory.OWLReasonerSetupException;
 
 import java.lang.reflect.Constructor;
@@ -10,6 +12,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Set;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -193,9 +196,11 @@ public class PelletReasonerFactory implements OWLReasonerFactory {
      * @param manager The manager
      * @return An instance of OWLReasoner that corresponds to the Pellet reasoner.
      */
-    public OWLReasoner createReasoner(OWLOntologyManager manager) {
+    public OWLReasoner createReasoner(OWLOntologyManager manager, Set<OWLOntology> ontologies) throws OWLReasonerSetupException {
         try {
-            return (OWLReasoner) reasonerConstructor.newInstance(manager);
+            OWLReasoner reasoner = (OWLReasoner) reasonerConstructor.newInstance(manager);
+            reasoner.loadOntologies(ontologies);
+            return reasoner;
         }
         catch (InstantiationException e) {
             throw new OWLReasonerSetupException(this, e);
@@ -204,6 +209,8 @@ public class PelletReasonerFactory implements OWLReasonerFactory {
             throw new OWLReasonerSetupException(this, e);
         }
         catch (InvocationTargetException e) {
+            throw new OWLReasonerSetupException(this, e);
+        } catch (OWLReasonerException e) {
             throw new OWLReasonerSetupException(this, e);
         }
     }

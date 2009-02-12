@@ -1,6 +1,9 @@
 package org.semanticweb.owl.inference;
 
+import org.semanticweb.owl.model.OWLOntology;
+
 import java.util.List;
+import java.util.Set;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -108,7 +111,7 @@ public interface OWLReasonerManager {
      * @return The currently cached reasoner that was created (first)
      * from the current reasoner factory.  This will not be <code>null</code>.
      */
-    OWLReasoner getReasoner();
+    OWLReasoner getReasoner(Set<OWLOntology> ontologies) throws OWLReasonerException;
 
 
     /**
@@ -117,5 +120,5 @@ public interface OWLReasonerManager {
      * @return A new instance of a reasoner created with
      * the current reasoner factory.
      */
-    OWLReasoner createReasoner();
+    OWLReasoner createReasoner(Set<OWLOntology> ontologies) throws OWLReasonerException;
 }

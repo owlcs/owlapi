@@ -485,7 +485,7 @@ public class StructuralTransformation {
         }
 
 
-        public Set<OWLAxiom> visit(OWLComplextSubPropertyAxiom axiom) {
+        public Set<OWLAxiom> visit(OWLSubPropertyChainAxiom axiom) {
             return toSet(axiom);
         }
 

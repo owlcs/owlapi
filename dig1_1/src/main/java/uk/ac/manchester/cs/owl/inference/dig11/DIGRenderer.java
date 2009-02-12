@@ -326,7 +326,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////

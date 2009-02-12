@@ -1,6 +1,9 @@
 package org.semanticweb.owl.inference;
 
 import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owl.model.OWLOntology;
+
+import java.util.Set;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -50,7 +53,7 @@ public class NullReasonerFactory implements OWLReasonerFactory {
     }
 
 
-    public OWLReasoner createReasoner(OWLOntologyManager manager) {
+    public OWLReasoner createReasoner(OWLOntologyManager manager, Set<OWLOntology> ontologies) {
         return reasoner;
     }
 }

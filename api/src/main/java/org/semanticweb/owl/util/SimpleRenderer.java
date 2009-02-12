@@ -380,7 +380,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
         sb.append("ObjectPropertyChainSubProperty(");
         sb.append("(");
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {

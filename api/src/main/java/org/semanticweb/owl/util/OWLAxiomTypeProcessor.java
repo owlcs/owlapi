@@ -212,7 +212,7 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
         process(axiom, PROPERTY_CHAIN_SUB_PROPERTY);
     }
 

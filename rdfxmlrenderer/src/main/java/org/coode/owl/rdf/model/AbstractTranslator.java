@@ -319,7 +319,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLComplextSubPropertyAxiom axiom) {
+    public void visit(OWLSubPropertyChainAxiom axiom) {
         RESOURCE anonNode = getAnonymousNode(axiom);
         RESOURCE list = translateList(axiom.getPropertyChain());
         addTriple(anonNode, getPredicateNode(OWL_PROPERTY_CHAIN.getURI()), list);
