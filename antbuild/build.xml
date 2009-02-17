@@ -41,9 +41,6 @@
         <fileset dir="${libdir}">
             <include name="*.jar"/>
         </fileset>
-        <fileset dir="/Users/matthewhorridge/lib/pellet/2.0.0-rc3/lib">
-            <include name="*.jar"/>
-        </fileset>
     </path>
 
 
