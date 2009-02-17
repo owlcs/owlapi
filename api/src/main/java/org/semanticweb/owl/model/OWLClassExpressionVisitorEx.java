@@ -74,7 +74,7 @@ public interface OWLClassExpressionVisitorEx<O> {
     O visit(OWLDataAllValuesFrom desc);
 
 
-    O visit(OWLDataValueRestriction desc);
+    O visit(OWLDataHasValue desc);
 
 
     O visit(OWLDataMinCardinality desc);

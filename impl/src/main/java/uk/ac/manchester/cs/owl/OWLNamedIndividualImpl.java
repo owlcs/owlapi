@@ -64,6 +64,10 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         return this;
     }
 
+    public OWLAnonymousIndividual asAnonymousIndividual() {
+        throw new OWLRuntimeException("Not an anonymous individual");
+    }
+
     public OWLAnnotationProperty asOWLAnnotationProperty() {
         throw new OWLRuntimeException("Not an annotation property");
     }

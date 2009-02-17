@@ -10,7 +10,6 @@ import org.semanticweb.reasonerfactory.OWLReasonerSetupException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -239,7 +238,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLDataValueRestriction desc) {
+        public void visit(OWLDataHasValue desc) {
             throw new RuntimeException();
         }
 

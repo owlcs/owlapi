@@ -55,13 +55,13 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
             // Property chain
             URI chainList = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getURI(), true);
             List<OWLObjectPropertyExpression> properties = getConsumer().translateToObjectPropertyList(chainList);
-            addAxiom(getDataFactory().getObjectPropertyChainSubProperty(properties,
+            addAxiom(getDataFactory().getSubPropertyChainOf(properties,
                     translateObjectProperty(object)));
             consumeTriple(subject, predicate, object);
         } else if (getConsumer().isList(subject, false)) {
             // Legacy object property chain representation
             List<OWLObjectPropertyExpression> properties = getConsumer().translateToObjectPropertyList(subject);
-            addAxiom(getDataFactory().getObjectPropertyChainSubProperty(properties,
+            addAxiom(getDataFactory().getSubPropertyChainOf(properties,
                     translateObjectProperty(object)));
             consumeTriple(subject, predicate, object);
         }

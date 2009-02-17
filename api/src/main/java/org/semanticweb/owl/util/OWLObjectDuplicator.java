@@ -308,7 +308,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         axiom.getSuperProperty().accept(this);
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
         List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>();
@@ -316,7 +316,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
             p.accept(this);
             chain.add((OWLObjectPropertyExpression) obj);
         }
-        obj = dataFactory.getObjectPropertyChainSubProperty(chain, prop);
+        obj = dataFactory.getSubPropertyChainOf(chain, prop);
     }
 
 
@@ -431,7 +431,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
         desc.getProperty().accept(this);
         OWLDataPropertyExpression prop = (OWLDataPropertyExpression) obj;
         desc.getValue().accept(this);
@@ -567,12 +567,12 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public void visit(OWLTypedLiteral node) {
         node.getDatatype().accept(this);
         OWLDatatype dt = (OWLDatatype) obj;
-        obj = dataFactory.getTypedLiteral(node.getString(), dt);
+        obj = dataFactory.getTypedLiteral(node.getLiteral(), dt);
     }
 
 
     public void visit(OWLRDFTextLiteral node) {
-        obj = dataFactory.getRDFTextLiteral(node.getString(), node.getLang());
+        obj = dataFactory.getRDFTextLiteral(node.getLiteral(), node.getLang());
     }
 
 
@@ -591,7 +591,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public void visit(OWLObjectPropertyInverse property) {
         property.getInverse().accept(this);
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
-        obj = dataFactory.getOWLObjectPropertyInverse(prop);
+        obj = dataFactory.getObjectPropertyInverse(prop);
     }
 
     public void visit(OWLNamedIndividual individual) {

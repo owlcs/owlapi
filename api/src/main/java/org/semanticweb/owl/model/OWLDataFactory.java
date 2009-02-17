@@ -195,9 +195,9 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLIndividual getIndividual(String curie, NamespaceManager namespaceManager);
 
 
-    OWLAnonymousIndividual getOWLAnonymousIndividual(String id);
+    OWLAnonymousIndividual getAnonymousIndividual(String id);
 
-    OWLObjectPropertyInverse getOWLObjectPropertyInverse(OWLObjectPropertyExpression property);
+    OWLObjectPropertyInverse getObjectPropertyInverse(OWLObjectPropertyExpression property);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -429,7 +429,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                                 int cardinality, OWLDataRange dataRange);
 
 
-    OWLDataValueRestriction getDataHasValue(OWLDataPropertyExpression property, OWLLiteral value);
+    OWLDataHasValue getDataHasValue(OWLDataPropertyExpression property, OWLLiteral value);
 
 
     OWLObjectComplementOf getObjectComplementOf(OWLClassExpression operand);
@@ -645,7 +645,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                                                OWLAnnotation... annotations);
 
 
-    OWLSameIndividualsAxiom getSameIndividuals(Set<OWLIndividual> individuals,
+    OWLSameIndividualsAxiom getSameIndividuals(Set<? extends OWLIndividual> individuals,
                                                OWLAnnotation... annotations);
 
 
@@ -663,7 +663,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                                                  OWLAnnotation... annotations);
 
 
-    OWLSubPropertyChainAxiom getObjectPropertyChainSubProperty(
+    OWLSubPropertyChainOfAxiom getSubPropertyChainOf(
             List<? extends OWLObjectPropertyExpression> chain, OWLObjectPropertyExpression superProperty,
             OWLAnnotation... annotations);
 
@@ -687,24 +687,48 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLAnnotation getAnnotation(URI property, OWLAnnotationValue value, OWLAnnotation... annotations);
 
-    OWLAnnotation getAnnotation(OWLAnnotationProperty property, String literal, String lang, OWLAnnotation... annotations);
 
     OWLAnnotation getAnnotation(URI property, String literal, String lang, OWLAnnotation... annotations);
+    
+    OWLAnnotation getAnnotation(OWLAnnotationProperty property, String literal, String lang, OWLAnnotation... annotations);
 
-    OWLAnnotation getAnnotation(OWLAnnotationProperty property, URI uri, OWLAnnotation... annotations);
 
     OWLAnnotation getAnnotation(URI property, URI uri, OWLAnnotation... annotations);
 
+    OWLAnnotation getAnnotation(OWLAnnotationProperty property, URI uri, OWLAnnotation... annotations);
 
-    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotation annotation);
+    OWLAnnotation getLabelAnnotation(String value, OWLAnnotation... annotations);
 
-    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotationProperty property, String literal, String lang);
+    OWLAnnotation getLabelAnnotation(String value, String lang, OWLAnnotation... annotations);
 
-    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, URI propertyURI, String literal, String lang);
+    OWLAnnotation getCommentAnnotation(String value, OWLAnnotation... annotations);
 
-    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotationProperty property, OWLLiteral literal);
+    OWLAnnotation getCommentAnnotation(String value, String lang, OWLAnnotation... annotations);
 
-    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, URI propertyURI, OWLLiteral literal);
+
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotation annotation, OWLAnnotation... annotations);
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLEntity subject, OWLAnnotation annotation, OWLAnnotation... annotations);
+
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, URI propertyURI, String literal, String lang, OWLAnnotation... annotations);
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotationProperty property, String literal, String lang, OWLAnnotation... annotations);
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLEntity subject, URI property, String literal, String lang, OWLAnnotation... annotations);
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLEntity subject, OWLAnnotationProperty property, String literal, String lang, OWLAnnotation... annotations);
+
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, URI propertyURI, OWLLiteral literal, OWLAnnotation... annotations);
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLEntity subject, URI propertyURI, OWLLiteral literal, OWLAnnotation... annotations);
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotationProperty property, OWLLiteral literal, OWLAnnotation... annotations);
+
+    OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLEntity subject, OWLAnnotationProperty property, OWLLiteral literal, OWLAnnotation... annotations);
+
 
 
     OWLImportsDeclaration getImportsDeclaration(OWLOntology subject, URI importedOntologyURI);

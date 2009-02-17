@@ -1,9 +1,7 @@
-package uk.ac.manchester.cs.owl;
+package org.semanticweb.owl.expression;
 
-import org.semanticweb.owl.model.OWLLiteral;
-import org.semanticweb.owl.model.OWLDataFactory;
-/*
- * Copyright (C) 2006, University of Manchester
+import org.semanticweb.owl.model.OWLOntology;/*
+ * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -25,36 +23,12 @@ import org.semanticweb.owl.model.OWLDataFactory;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
+ * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+ * Date: 15-Feb-2009
  */
-public abstract class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
+public interface OWLOntologyChecker {
 
-    private String literal;
+    OWLOntology getOntology(String name);
 
-
-    public OWLLiteralImpl(OWLDataFactory dataFactory, String literal) {
-        super(dataFactory);
-        this.literal = literal;
-    }
-
-
-    public String getLiteral() {
-        return literal;
-    }
-
-
-    public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLLiteral)) {
-                return false;
-            }
-            return ((OWLLiteral) obj).getLiteral().equals(getLiteral());
-        }
-        return false;
-    }
 }

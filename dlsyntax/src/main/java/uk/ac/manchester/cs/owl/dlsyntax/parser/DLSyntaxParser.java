@@ -336,7 +336,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         jj_consume_token(SUBCLASSOF);
         supProp = parseObjectPropertyId();
         {
-            if (true) return factory.getObjectPropertyChainSubProperty(props, supProp);
+            if (true) return factory.getSubPropertyChainOf(props, supProp);
         }
         throw new Error("Missing return statement in function");
     }
@@ -484,7 +484,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         if (inverse) {
             OWLObjectProperty prop = factory.getObjectProperty(uri);
             {
-                if (true) return factory.getOWLObjectPropertyInverse(prop);
+                if (true) return factory.getObjectPropertyInverse(prop);
             }
         } else {
             {

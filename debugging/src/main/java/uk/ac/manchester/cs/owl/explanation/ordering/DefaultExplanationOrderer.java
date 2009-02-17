@@ -493,7 +493,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         }
 
 
-        public void visit(OWLSubPropertyChainAxiom axiom) {
+        public void visit(OWLSubPropertyChainOfAxiom axiom) {
         }
 
 
@@ -753,7 +753,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         }
 
 
-        public void visit(OWLSubPropertyChainAxiom axiom) {
+        public void visit(OWLSubPropertyChainOfAxiom axiom) {
 
         }
 

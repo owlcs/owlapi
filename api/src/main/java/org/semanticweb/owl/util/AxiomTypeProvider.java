@@ -201,8 +201,8 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
-        axiomType = PROPERTY_CHAIN_SUB_PROPERTY;
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
+        axiomType = SUB_PROPERTY_CHAIN_OF;
     }
 
 

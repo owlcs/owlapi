@@ -300,7 +300,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             prop.accept(this);
         }
@@ -413,7 +413,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
         desc.getProperty().accept(this);
         desc.getValue().accept(this);
     }

@@ -56,7 +56,7 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
         requiresBracket = true;
     }
 
-    public void visit(OWLDataValueRestriction node) {
+    public void visit(OWLDataHasValue node) {
         requiresBracket = true;
     }
 

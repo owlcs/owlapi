@@ -489,7 +489,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         axiom.getObject().accept(this);
     }
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         write("chain");
         writeOpenBracket();
         write(axiom.getPropertyChain());
@@ -602,7 +602,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         writeRestriction(operator("some"), desc);
     }
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
         writeRestriction("has-value", desc.getProperty(), desc.getValue());
     }
 
@@ -695,7 +695,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLTypedLiteral node) {
         write("\"");
-        write(node.getString());
+        write(node.getLiteral());
         write("\"");
         write("^^");
         write(node.getDatatype().getURI());
@@ -703,7 +703,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLRDFTextLiteral node) {
         write("\"");
-        write(node.getString());
+        write(node.getLiteral());
         write("\"");
         write("@");
         write(node.getLang());

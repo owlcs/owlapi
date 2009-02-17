@@ -319,7 +319,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         RESOURCE anonNode = getAnonymousNode(axiom);
         RESOURCE list = translateList(axiom.getPropertyChain());
         addTriple(anonNode, getPredicateNode(OWL_PROPERTY_CHAIN.getURI()), list);
@@ -445,7 +445,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
         translateDataRestrictionStart(desc);
         addTriple(desc, OWL_HAS_VALUE.getURI(), desc.getValue());
     }
@@ -599,12 +599,12 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     public void visit(OWLTypedLiteral node) {
-        nodeMap.put(node, getLiteralNode(node.getString(), node.getDatatype().getURI()));
+        nodeMap.put(node, getLiteralNode(node.getLiteral(), node.getDatatype().getURI()));
     }
 
 
     public void visit(OWLRDFTextLiteral node) {
-        nodeMap.put(node, getLiteralNode(node.getString(), node.getLang()));
+        nodeMap.put(node, getLiteralNode(node.getLiteral(), node.getLang()));
     }
 
 

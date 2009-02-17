@@ -1,4 +1,6 @@
 package org.semanticweb.owl.model;
+
+import java.util.List;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -26,9 +28,22 @@ package org.semanticweb.owl.model;
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
+ * Bio-Health Informatics Group<br>
+ * Date: 22-Nov-2006<br><br>
  */
-public interface OWLDataValueRestriction extends OWLValueRestriction<OWLDataPropertyExpression, OWLLiteral> {
+public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
 
+    List<OWLObjectPropertyExpression> getPropertyChain();
+
+    OWLObjectPropertyExpression getSuperProperty();
+
+
+    /**
+     * Determines if this axiom is of the form:  P o P -> P, which
+     * is an encoding of Transitive(P)
+     *
+     * @return <code>true</code> if this encodes that the super property
+     *         is transitive, otherwise <code>false</code>.
+     */
+    boolean isEncodingOfTransitiveProperty();
 }

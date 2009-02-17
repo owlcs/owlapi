@@ -435,7 +435,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         write(axiom.getPropertyChain(), COMP, false);
         writeSpace();
         write(SUBCLASS);
@@ -597,7 +597,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
         writeValueRestriction(desc);
     }
 
@@ -647,12 +647,12 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
 
     public void visit(OWLTypedLiteral node) {
-        write(node.getString());
+        write(node.getLiteral());
     }
 
 
     public void visit(OWLRDFTextLiteral node) {
-        write(node.getString());
+        write(node.getLiteral());
     }
 
 

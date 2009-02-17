@@ -174,7 +174,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLSubPropertyChainAxiom axiom) {
+    public O visit(OWLSubPropertyChainOfAxiom axiom) {
         return delegate.visit(axiom);
     }
 
@@ -253,7 +253,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLDataValueRestriction desc) {
+    public O visit(OWLDataHasValue desc) {
         return delegate.visit(desc);
     }
 

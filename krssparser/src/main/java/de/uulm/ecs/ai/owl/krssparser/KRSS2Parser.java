@@ -225,7 +225,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>(2);
             chain.add(r);
             chain.add(s);
-            addAxiom(dataFactory.getObjectPropertyChainSubProperty(chain, r));
+            addAxiom(dataFactory.getSubPropertyChainOf(chain, r));
         } else {
             ;
         }
@@ -239,7 +239,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>(2);
             chain.add(s);
             chain.add(r);
-            addAxiom(dataFactory.getObjectPropertyChainSubProperty(chain, r));
+            addAxiom(dataFactory.getSubPropertyChainOf(chain, r));
         } else {
             ;
         }
@@ -445,7 +445,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>(2);
         chain.add(subProp1);
         chain.add(subProp2);
-        addAxiom(dataFactory.getObjectPropertyChainSubProperty(chain, superProp));
+        addAxiom(dataFactory.getSubPropertyChainOf(chain, superProp));
     }
 
     final public void Implies() throws ParseException, KRSS2OWLParserException {

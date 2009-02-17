@@ -367,7 +367,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLSameIndividualsAxiom axiom) {
     }
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
     }
 
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
@@ -513,7 +513,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
     }
 
     public final void visit(OWLDataMinCardinality desc) {

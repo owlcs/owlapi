@@ -125,7 +125,7 @@ public interface OWLAxiomVisitor extends OWLAnnotationAxiomVisitor {
     void visit(OWLSameIndividualsAxiom axiom);
 
 
-    void visit(OWLSubPropertyChainAxiom axiom);
+    void visit(OWLSubPropertyChainOfAxiom axiom);
 
 
     void visit(OWLInverseObjectPropertiesAxiom axiom);

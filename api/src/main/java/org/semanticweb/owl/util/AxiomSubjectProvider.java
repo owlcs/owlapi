@@ -212,7 +212,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         subject = axiom.getSuperProperty();
     }
 

@@ -38,7 +38,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *
      * @return gets the lexical value of this literal
      */
-    String getString();
+    String getLiteral();
 
 
     /**

@@ -120,7 +120,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //        // Property chain restrictions
-//        for (OWLComplextSubPropertyAxiom ax : ontology.getAxioms(AxiomType.PROPERTY_CHAIN_SUB_PROPERTY)) {
+//        for (OWLComplextSubPropertyAxiom ax : ontology.getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
 //            if(ax.getSuperProperty().equals(manager.getOWLDataFactory().getObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI()))) {
 //                // 1st condition is
 //                continue;

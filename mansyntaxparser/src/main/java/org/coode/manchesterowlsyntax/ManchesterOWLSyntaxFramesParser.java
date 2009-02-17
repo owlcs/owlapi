@@ -5,6 +5,7 @@ import org.semanticweb.owl.model.OWLDataFactory;
 import org.semanticweb.owl.expression.OWLExpressionParser;
 import org.semanticweb.owl.expression.OWLEntityChecker;
 import org.semanticweb.owl.expression.ParserException;
+import org.semanticweb.owl.expression.OWLOntologyChecker;
 
 import java.util.Set;/*
  * Copyright (C) 2008, University of Manchester
@@ -39,6 +40,8 @@ public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<
 
     private OWLEntityChecker checker;
 
+    private OWLOntologyChecker ontologyChecker;
+
     public ManchesterOWLSyntaxFramesParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
         this.checker = checker;
@@ -49,10 +52,15 @@ public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<
         this.checker = entityChecker;
     }
 
+    public void setOWLOntologyChecker(OWLOntologyChecker ontologyChecker) {
+        this.ontologyChecker = ontologyChecker;
+    }
+
 
     public Set<OWLAxiom> parse(String expression) throws ParserException {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
         parser.setOWLEntityChecker(checker);
+        parser.setOWLOntologyChecker(ontologyChecker);
         return parser.parseFrames();
     }
 }

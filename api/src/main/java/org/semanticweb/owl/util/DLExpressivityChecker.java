@@ -389,7 +389,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
         constructs.add(D);
         desc.getProperty().accept(this);
     }
@@ -623,7 +623,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         constructs.add(R);
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             prop.accept(this);

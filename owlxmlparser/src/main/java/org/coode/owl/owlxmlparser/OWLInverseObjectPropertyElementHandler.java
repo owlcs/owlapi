@@ -1,6 +1,5 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 /*
@@ -51,6 +50,6 @@ public class OWLInverseObjectPropertyElementHandler extends AbstractOWLObjectPro
         if(inverse == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), OWLXMLVocabulary.INVERSE_OBJECT_PROPERTY.getShortName());
         }
-        setOWLObjectPropertyExpression(getOWLDataFactory().getOWLObjectPropertyInverse(inverse));
+        setOWLObjectPropertyExpression(getOWLDataFactory().getObjectPropertyInverse(inverse));
     }
 }

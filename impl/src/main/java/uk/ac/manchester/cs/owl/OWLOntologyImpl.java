@@ -65,7 +65,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private Set<OWLClassAxiom> generalClassAxioms = createSet();
 
-    private Set<OWLSubPropertyChainAxiom> propertyChainSubPropertyAxioms = createSet();
+    private Set<OWLSubPropertyChainOfAxiom> propertyChainSubPropertyAxioms = createSet();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -416,7 +416,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLSubPropertyChainAxiom> getPropertyChainSubPropertyAxioms() {
+    public Set<OWLSubPropertyChainOfAxiom> getPropertyChainSubPropertyAxioms() {
         return getReturnSet(propertyChainSubPropertyAxioms);
     }
 
@@ -2017,13 +2017,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
 
 
-        public void visit(OWLSubPropertyChainAxiom axiom) {
+        public void visit(OWLSubPropertyChainOfAxiom axiom) {
             if (addAxiom) {
-                addToIndexedSet(PROPERTY_CHAIN_SUB_PROPERTY, axiomsByType, axiom);
+                addToIndexedSet(SUB_PROPERTY_CHAIN_OF, axiomsByType, axiom);
                 addAxiomToSet(axiom, owlObjectPropertyAxioms);
                 addAxiomToSet(axiom, propertyChainSubPropertyAxioms);
             } else {
-                removeAxiomFromSet(PROPERTY_CHAIN_SUB_PROPERTY, axiomsByType, axiom, true);
+                removeAxiomFromSet(SUB_PROPERTY_CHAIN_OF, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom, owlObjectPropertyAxioms);
                 removeAxiomFromSet(axiom, propertyChainSubPropertyAxioms);
             }
@@ -2212,7 +2212,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         owlObjectPropertyAxioms.addAll(getAxiomsInternal(TRANSITIVE_OBJECT_PROPERTY));
         owlObjectPropertyAxioms.addAll(getAxiomsInternal(IRREFLEXIVE_OBJECT_PROPERTY));
         owlObjectPropertyAxioms.addAll(getAxiomsInternal(INVERSE_FUNCTIONAL_OBJECT_PROPERTY));
-        owlObjectPropertyAxioms.addAll(getAxiomsInternal(PROPERTY_CHAIN_SUB_PROPERTY));
+        owlObjectPropertyAxioms.addAll(getAxiomsInternal(SUB_PROPERTY_CHAIN_OF));
     }
 
 

@@ -217,7 +217,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
             write("\n\n");
         }
 
-        for (OWLSubPropertyChainAxiom ax : ontology.getPropertyChainSubPropertyAxioms()) {
+        for (OWLSubPropertyChainOfAxiom ax : ontology.getPropertyChainSubPropertyAxioms()) {
             write("// Sub property chain axiom\n");
             ax.accept(this);
             write("\n\n");
@@ -522,7 +522,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         writeAxiomStart(SUB_OBJECT_PROPERTY_OF, axiom);
         write(SUB_OBJECT_PROPERTY_CHAIN);
         writeOpenBracket();
@@ -663,7 +663,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
         writeRestriction(DATA_HAS_VALUE, desc.getProperty(), desc.getValue());
     }
 
@@ -774,7 +774,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLTypedLiteral node) {
         write("\"");
-        write(EscapeUtils.escapeString(node.getString()));
+        write(EscapeUtils.escapeString(node.getLiteral()));
         write("\"");
         write("^^");
         write(node.getDatatype().getURI());
@@ -783,7 +783,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLRDFTextLiteral node) {
         write("\"");
-        write(EscapeUtils.escapeString(node.getString()));
+        write(EscapeUtils.escapeString(node.getLiteral()));
         write("\"");
         write("@");
         write(node.getLang());

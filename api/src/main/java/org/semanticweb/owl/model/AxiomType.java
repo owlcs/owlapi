@@ -254,8 +254,8 @@ public class AxiomType<C extends OWLAxiom> {
             true,
             true);
 
-    public static final AxiomType<OWLSubPropertyChainAxiom> PROPERTY_CHAIN_SUB_PROPERTY = new AxiomType<OWLSubPropertyChainAxiom>(
-            "Object property chain subproperty",
+    public static final AxiomType<OWLSubPropertyChainOfAxiom> SUB_PROPERTY_CHAIN_OF = new AxiomType<OWLSubPropertyChainOfAxiom>(
+            "Sub Object Property Chain Of",
             true,
             true,
             true);
@@ -377,7 +377,7 @@ public class AxiomType<C extends OWLAxiom> {
         AXIOM_TYPES.add(SUB_OBJECT_PROPERTY);
         AXIOM_TYPES.add(EQUIVALENT_OBJECT_PROPERTIES);
         AXIOM_TYPES.add(INVERSE_OBJECT_PROPERTIES);
-        AXIOM_TYPES.add(PROPERTY_CHAIN_SUB_PROPERTY);
+        AXIOM_TYPES.add(SUB_PROPERTY_CHAIN_OF);
         AXIOM_TYPES.add(FUNCTIONAL_OBJECT_PROPERTY);
         AXIOM_TYPES.add(INVERSE_FUNCTIONAL_OBJECT_PROPERTY);
         AXIOM_TYPES.add(SYMMETRIC_OBJECT_PROPERTY);

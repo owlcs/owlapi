@@ -134,7 +134,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
         for (OWLAnnotation ax : ontology.getAnnotations()) {
             if (ax.getProperty().isComment()) {
-                tvpList.addPair(OBOVocabulary.REMARK, ((OWLLiteral) ax.getValue()).getString());
+                tvpList.addPair(OBOVocabulary.REMARK, ((OWLLiteral) ax.getValue()).getLiteral());
             } else {
                 tvpList.visit(ax);
             }
@@ -438,7 +438,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         }
 
         // transitive over
-        for (OWLSubPropertyChainAxiom ax : ontology.getPropertyChainSubPropertyAxioms()) {
+        for (OWLSubPropertyChainOfAxiom ax : ontology.getPropertyChainSubPropertyAxioms()) {
             if (ax.getSuperProperty().equals(property)) {
                 final List<OWLObjectPropertyExpression> chain = ax.getPropertyChain();
                 if (chain.size() == 2 &&
@@ -531,7 +531,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
             if (annotation.getProperty().equals(OWLRDFVocabulary.RDFS_LABEL.getURI())) {
                 potentialNames.add(annotation);
             } else if (annotation.getProperty().isComment()) {
-                tvpList.addPair(OBOVocabulary.COMMENT, ((OWLLiteral) annotation.getValue()).getString());
+                tvpList.addPair(OBOVocabulary.COMMENT, ((OWLLiteral) annotation.getValue()).getLiteral());
             } else {
                 tvpList.visit(annotation);
             }
@@ -540,7 +540,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         if (tvpList.getValues(OBOVocabulary.NAME).isEmpty()) { // one name required!!
             if (!potentialNames.isEmpty()) {
                 OWLAnnotation firstLabel = potentialNames.iterator().next();
-                tvpList.addPair(OBOVocabulary.NAME, ((OWLLiteral) firstLabel.getValue()).getString());
+                tvpList.addPair(OBOVocabulary.NAME, ((OWLLiteral) firstLabel.getValue()).getLiteral());
                 potentialNames.remove(firstLabel);
             } else {
                 tvpList.addPair(OBOVocabulary.NAME, getID(entity));
@@ -566,7 +566,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
     private String renderPropertyAssertion(OWLDataProperty property, OWLLiteral literal) {
         StringBuilder sb = new StringBuilder(getID(property));
         sb.append(" \"");
-        sb.append(literal.getString());
+        sb.append(literal.getLiteral());
         sb.append("\" ");
         if (literal.isTyped()) {
             sb.append(literal.asOWLTypedLiteral().getDatatype().getURI());

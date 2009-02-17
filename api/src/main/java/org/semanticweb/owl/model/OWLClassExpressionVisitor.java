@@ -59,7 +59,7 @@ public interface OWLClassExpressionVisitor {
 
     void visit(OWLDataAllValuesFrom desc);
 
-    void visit(OWLDataValueRestriction desc);
+    void visit(OWLDataHasValue desc);
 
     void visit(OWLDataMinCardinality desc);
 

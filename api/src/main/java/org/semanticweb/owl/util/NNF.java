@@ -223,7 +223,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
     }
 
 
-    public OWLClassExpression visit(OWLDataValueRestriction desc) {
+    public OWLClassExpression visit(OWLDataHasValue desc) {
         return desc.asSomeValuesFrom().accept(this);
     }
 
@@ -551,7 +551,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
     }
 
 
-    public OWLAxiom visit(OWLSubPropertyChainAxiom axiom) {
+    public OWLAxiom visit(OWLSubPropertyChainOfAxiom axiom) {
         return axiom;
     }
 

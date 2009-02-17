@@ -103,7 +103,7 @@ public class Example10 {
                             // The value isn't a typed constant, so we can safely obtain it
                             // as an OWLRDFTextLiteral and check the lang is Portuguese (pt)
                             if (val.asRDFTextLiteral().hasLang("pt")) {
-                                System.out.println(cls + " -> " + val.getString());
+                                System.out.println(cls + " -> " + val.getLiteral());
                             }
                         }
                     }

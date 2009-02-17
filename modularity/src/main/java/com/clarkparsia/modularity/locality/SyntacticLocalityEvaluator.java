@@ -505,7 +505,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX: (TS) Added the cases where this is local
-        public void visit(OWLSubPropertyChainAxiom axiom) {
+        public void visit(OWLSubPropertyChainOfAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -748,7 +748,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLDataValueRestriction desc) {
+        public void visit(OWLDataHasValue desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -1017,7 +1017,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX: (TS) A data value restriction is never top-equivalent 
-        public void visit(OWLDataValueRestriction desc) {
+        public void visit(OWLDataHasValue desc) {
             isTopEquivalent = false;
         }
 

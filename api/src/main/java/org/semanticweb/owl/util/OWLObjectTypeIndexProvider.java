@@ -293,7 +293,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
@@ -383,7 +383,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
         type = DESCRIPTION_TYPE_INDEX_BASE + 14;
     }
 

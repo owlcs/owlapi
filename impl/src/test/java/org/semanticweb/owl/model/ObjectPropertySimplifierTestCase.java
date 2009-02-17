@@ -41,24 +41,24 @@ public class ObjectPropertySimplifierTestCase extends AbstractOWLTestCase {
 
     public void testInverseSimplification() {
         OWLObjectProperty p = getOWLDataFactory().getObjectProperty(URI.create("p"));
-        OWLObjectPropertyExpression inv = getOWLDataFactory().getOWLObjectPropertyInverse(p);
+        OWLObjectPropertyExpression inv = getOWLDataFactory().getObjectPropertyInverse(p);
         OWLObjectPropertyExpression exp = inv.getSimplified();
         assertEquals(inv, exp);
     }
 
     public void testInverseInverseSimplification() {
         OWLObjectProperty p = getOWLDataFactory().getObjectProperty(URI.create("p"));
-        OWLObjectPropertyExpression inv = getOWLDataFactory().getOWLObjectPropertyInverse(p);
-        OWLObjectPropertyExpression inv2 = getOWLDataFactory().getOWLObjectPropertyInverse(inv);
+        OWLObjectPropertyExpression inv = getOWLDataFactory().getObjectPropertyInverse(p);
+        OWLObjectPropertyExpression inv2 = getOWLDataFactory().getObjectPropertyInverse(inv);
         OWLObjectPropertyExpression exp = inv2.getSimplified();
         assertEquals(p, exp);
     }
 
     public void testInverseInverseInverseSimplification() {
         OWLObjectProperty p = getOWLDataFactory().getObjectProperty(URI.create("p"));
-        OWLObjectPropertyExpression inv = getOWLDataFactory().getOWLObjectPropertyInverse(p);
-        OWLObjectPropertyExpression inv2 = getOWLDataFactory().getOWLObjectPropertyInverse(inv);
-        OWLObjectPropertyExpression inv3 = getOWLDataFactory().getOWLObjectPropertyInverse(inv2);
+        OWLObjectPropertyExpression inv = getOWLDataFactory().getObjectPropertyInverse(p);
+        OWLObjectPropertyExpression inv2 = getOWLDataFactory().getObjectPropertyInverse(inv);
+        OWLObjectPropertyExpression inv3 = getOWLDataFactory().getObjectPropertyInverse(inv2);
         OWLObjectPropertyExpression exp = inv3.getSimplified();
         assertEquals(inv, exp);
     }

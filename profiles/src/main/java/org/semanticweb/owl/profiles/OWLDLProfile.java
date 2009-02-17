@@ -290,7 +290,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLSubPropertyChainAxiom axiom) {
+        public ConstructNotAllowed visit(OWLSubPropertyChainOfAxiom axiom) {
             return new OWL2AxiomNotAllowed(axiom, false);
         }
 
@@ -404,7 +404,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDataValueRestriction desc) {
+        public ConstructNotAllowed visit(OWLDataHasValue desc) {
             ConstructNotAllowed na = desc.getValue().accept(this);
             if (na != null) {
                 return new DescriptionNotAllowed(na, desc);

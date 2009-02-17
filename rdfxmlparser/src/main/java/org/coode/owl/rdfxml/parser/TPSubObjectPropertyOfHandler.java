@@ -59,7 +59,7 @@ public class TPSubObjectPropertyOfHandler extends TriplePredicateHandler {
                     getConsumer(),
                     new OWLObjectPropertyExpressionListItemTranslator(getConsumer()));
             List<OWLObjectPropertyExpression> props = translator.translateList(subject);
-            addAxiom(getDataFactory().getObjectPropertyChainSubProperty(props,
+            addAxiom(getDataFactory().getSubPropertyChainOf(props,
                     translateObjectProperty(object)));
         } else {
             addAxiom(getDataFactory().getSubObjectPropertyOf(translateObjectProperty(subject),

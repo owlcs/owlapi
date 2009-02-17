@@ -119,7 +119,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         }
 
 
-        public void visit(OWLDataValueRestriction desc) {
+        public void visit(OWLDataHasValue desc) {
             result.add(desc);
         }
 

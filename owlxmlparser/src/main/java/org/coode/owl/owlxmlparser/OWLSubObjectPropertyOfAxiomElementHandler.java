@@ -68,7 +68,7 @@ public class OWLSubObjectPropertyOfAxiomElementHandler extends AbstractOWLAxiomE
         if (subProperty != null) {
             return getOWLDataFactory().getSubObjectPropertyOf(subProperty, superProperty);
         } else {
-            return getOWLDataFactory().getObjectPropertyChainSubProperty(propertyList, superProperty);
+            return getOWLDataFactory().getSubPropertyChainOf(propertyList, superProperty);
         }
     }
 }

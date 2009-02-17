@@ -35,7 +35,7 @@ import java.util.List;
  * Bio-Health Informatics Group<br>
  * Date: 22-Nov-2006<br><br>
  */
-public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implements OWLSubPropertyChainAxiom {
+public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implements OWLSubPropertyChainOfAxiom {
 
     private List<OWLObjectPropertyExpression> propertyChain;
 
@@ -93,21 +93,21 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
         if (!super.equals(obj)) {
             return false;
         }
-        if (!(obj instanceof OWLSubPropertyChainAxiom)) {
+        if (!(obj instanceof OWLSubPropertyChainOfAxiom)) {
             return false;
         }
-        OWLSubPropertyChainAxiom other = (OWLSubPropertyChainAxiom) obj;
+        OWLSubPropertyChainOfAxiom other = (OWLSubPropertyChainOfAxiom) obj;
         return other.getPropertyChain().equals(getPropertyChain()) && other.getSuperProperty().equals(superProperty);
     }
 
 
     public AxiomType getAxiomType() {
-        return AxiomType.PROPERTY_CHAIN_SUB_PROPERTY;
+        return AxiomType.SUB_PROPERTY_CHAIN_OF;
     }
 
 
     protected int compareObjectOfSameType(OWLObject object) {
-        OWLSubPropertyChainAxiom other = (OWLSubPropertyChainAxiom) object;
+        OWLSubPropertyChainOfAxiom other = (OWLSubPropertyChainOfAxiom) object;
         int i = 0;
         while (i < propertyChain.size() && i < other.getPropertyChain().size()) {
             int diff = propertyChain.get(i).compareTo(other.getPropertyChain().get(i));

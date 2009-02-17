@@ -139,7 +139,7 @@ public class StructuralTransformation {
         }
 
 
-        public OWLClassExpression visit(OWLDataValueRestriction desc) {
+        public OWLClassExpression visit(OWLDataHasValue desc) {
             return desc;
         }
 
@@ -485,7 +485,7 @@ public class StructuralTransformation {
         }
 
 
-        public Set<OWLAxiom> visit(OWLSubPropertyChainAxiom axiom) {
+        public Set<OWLAxiom> visit(OWLSubPropertyChainOfAxiom axiom) {
             return toSet(axiom);
         }
 

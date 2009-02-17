@@ -35,7 +35,7 @@ import java.util.Set;
  */
 public class OWLSameIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl implements OWLSameIndividualsAxiom {
 
-    public OWLSameIndividualsAxiomImpl(OWLDataFactory dataFactory, Set<OWLIndividual> individuals, OWLAnnotation... annotations) {
+    public OWLSameIndividualsAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> individuals, OWLAnnotation... annotations) {
         super(dataFactory, individuals, annotations);
     }
 

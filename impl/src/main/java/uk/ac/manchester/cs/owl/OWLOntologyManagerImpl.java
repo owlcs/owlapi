@@ -139,14 +139,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         return ontologiesByID.containsKey(id);
     }
 
+    private OWLOntologyID createID(URI ontologyURI) {
+        return new OWLOntologyID(dataFactory.getIRI(ontologyURI));
+    }
+
     public OWLOntology getOntology(URI ontologyURI) {
-        OntologyIRIVersionIRIPair pair = new OntologyIRIVersionIRIPair(ontologyURI, null);
-        return ontologiesByID.get(ontologyURI);
+        return ontologiesByID.get(createID(ontologyURI));
     }
 
 
     public OWLOntology getImportedOntology(OWLImportsDeclaration declaration) {
-        OWLOntology importedOntology = ontologiesByID.get(declaration.getImportedOntologyURI());
+        OWLOntology importedOntology = ontologiesByID.get(createID(declaration.getImportedOntologyURI()));
         if (importedOntology != null) {
             return importedOntology;
         }

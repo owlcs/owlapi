@@ -182,7 +182,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return getObjectProperty(namespaceManager.getURI(curi));
     }
 
-    public OWLAnonymousIndividual getOWLAnonymousIndividual(String id) {
+    public OWLAnonymousIndividual getAnonymousIndividual(String id) {
         return new OWLAnonymousIndividualImpl(this, new NodeIDImpl(id));
     }
 
@@ -371,8 +371,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDataValueRestriction getDataHasValue(OWLDataPropertyExpression property, OWLLiteral value) {
-        return new OWLDataValueRestrictionImpl(this, property, value);
+    public OWLDataHasValue getDataHasValue(OWLDataPropertyExpression property, OWLLiteral value) {
+        return new OWLDataHasValueImpl(this, property, value);
     }
 
 
@@ -696,7 +696,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLSameIndividualsAxiom getSameIndividuals(Set<OWLIndividual> individuals, OWLAnnotation... annotations) {
+    public OWLSameIndividualsAxiom getSameIndividuals(Set<? extends OWLIndividual> individuals, OWLAnnotation... annotations) {
         return new OWLSameIndividualsAxiomImpl(this, individuals, annotations);
     }
 
@@ -719,12 +719,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLObjectPropertyInverse getOWLObjectPropertyInverse(OWLObjectPropertyExpression property) {
+    public OWLObjectPropertyInverse getObjectPropertyInverse(OWLObjectPropertyExpression property) {
         return new OWLObjectPropertyInverseImpl(this, property);
     }
 
 
-    public OWLSubPropertyChainAxiom getObjectPropertyChainSubProperty(
+    public OWLSubPropertyChainOfAxiom getSubPropertyChainOf(
             List<? extends OWLObjectPropertyExpression> chain, OWLObjectPropertyExpression superProperty, OWLAnnotation... annotations) {
         return new OWLSubPropertyChainAxiomImpl(this, chain, superProperty, annotations);
     }
@@ -783,24 +783,60 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return getAnnotation(getAnnotationProperty(property), uri, annotations);
     }
 
-    public OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotation annotation) {
+    public OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotation annotation, OWLAnnotation... annotations) {
         return new OWLAnnotationAssertionAxiomImpl(this, subject, annotation);
     }
 
-    public OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotationProperty property, OWLLiteral literal) {
-        return getAnnotationAssertion(subject, getAnnotation(property, literal));
+    public OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotationProperty property, OWLLiteral literal, OWLAnnotation... annotations) {
+        return getAnnotationAssertion(subject, getAnnotation(property, literal, annotations));
     }
 
-    public OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotationProperty property, String literal, String lang) {
-        return getAnnotationAssertion(subject, getAnnotation(property, literal, lang));
+    public OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, OWLAnnotationProperty property, String literal, String lang, OWLAnnotation... annotations) {
+        return getAnnotationAssertion(subject, getAnnotation(property, literal, lang, annotations));
     }
 
-    public OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, URI propertyURI, OWLLiteral literal) {
-        return getAnnotationAssertion(subject, getAnnotation(propertyURI, literal));
+    public OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, URI propertyURI, OWLLiteral literal, OWLAnnotation... annotations) {
+        return getAnnotationAssertion(subject, getAnnotation(propertyURI, literal, annotations));
     }
 
-    public OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, URI propertyURI, String literal, String lang) {
-        return getAnnotationAssertion(subject, getAnnotation(propertyURI, literal, lang));
+    public OWLAnnotationAssertionAxiom getAnnotationAssertion(URI subject, URI propertyURI, String literal, String lang, OWLAnnotation... annotations) {
+        return getAnnotationAssertion(subject, getAnnotation(propertyURI, literal, lang, annotations));
+    }
+
+    public OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLEntity subject, OWLAnnotation annotation, OWLAnnotation... annotations) {
+        return getAnnotationAssertion(subject.getURI(), annotation, annotations);
+    }
+
+    public OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLEntity subject, OWLAnnotationProperty property, OWLLiteral literal, OWLAnnotation... annotations) {
+        return getAnnotationAssertion(subject.getURI(), property, literal, annotations);
+    }
+
+    public OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLEntity subject, OWLAnnotationProperty property, String literal, String lang, OWLAnnotation... annotations) {
+        return getAnnotationAssertion(subject.getURI(), property, literal, lang, annotations);
+    }
+
+    public OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLEntity subject, URI property, String literal, String lang, OWLAnnotation... annotations) {
+        return getAnnotationAssertion(subject.getURI(), property, literal, lang, annotations);
+    }
+
+    public OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLEntity subject, URI propertyURI, OWLLiteral literal, OWLAnnotation... annotations) {
+        return getAnnotationAssertion(subject.getURI(), propertyURI, literal, annotations);
+    }
+
+    public OWLAnnotation getCommentAnnotation(String value, OWLAnnotation... annotations) {
+        return getAnnotation(OWLRDFVocabulary.RDFS_COMMENT.getURI(), getTypedLiteral(value), annotations);
+    }
+
+    public OWLAnnotation getCommentAnnotation(String value, String lang, OWLAnnotation... annotations) {
+        return getAnnotation(OWLRDFVocabulary.RDFS_COMMENT.getURI(), value, lang, annotations);
+    }
+
+    public OWLAnnotation getLabelAnnotation(String value, OWLAnnotation... annotations) {
+        return getAnnotation(OWLRDFVocabulary.RDFS_LABEL.getURI(), getTypedLiteral(value), annotations);
+    }
+
+    public OWLAnnotation getLabelAnnotation(String value, String lang, OWLAnnotation... annotations) {
+        return getAnnotation(OWLRDFVocabulary.RDFS_LABEL.getURI(), value, lang, annotations);
     }
 
     public OWLAnnotationProperty getAnnotationProperty(URI uri) {

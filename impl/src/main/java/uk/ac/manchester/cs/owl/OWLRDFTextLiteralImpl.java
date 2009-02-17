@@ -118,6 +118,6 @@ public class OWLRDFTextLiteralImpl extends OWLLiteralImpl implements OWLRDFTextL
             return diff;
         }
 
-        return getString().compareTo(other.getString());
+        return getLiteral().compareTo(other.getLiteral());
     }
 }

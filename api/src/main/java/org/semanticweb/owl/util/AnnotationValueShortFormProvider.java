@@ -122,7 +122,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         // We return the literal value of constants or use the alternate
         // short form provider to render individuals.
         if (object instanceof OWLLiteral) {
-            return ((OWLLiteral) object).getString();
+            return ((OWLLiteral) object).getLiteral();
         } else {
             return alternateShortFormProvider.getShortForm((OWLEntity) object);
         }

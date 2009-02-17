@@ -194,7 +194,7 @@ public class DIGRenderer implements OWLObjectVisitor {
         axiom.getFirstProperty().accept(this);
         // Equal to the inverse
         OWLObjectPropertyExpression invProp = axiom.getSecondProperty();
-        manager.getOWLDataFactory().getOWLObjectPropertyInverse(invProp).accept(this);
+        manager.getOWLDataFactory().getObjectPropertyInverse(invProp).accept(this);
         popCurrentNode();
     }
 
@@ -326,7 +326,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -496,7 +496,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
     }
 
 

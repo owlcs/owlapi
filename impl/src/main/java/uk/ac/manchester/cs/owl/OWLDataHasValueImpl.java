@@ -1,6 +1,6 @@
-package org.semanticweb.owl.model;
+package uk.ac.manchester.cs.owl;
 
-import java.util.List;
+import org.semanticweb.owl.model.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -29,21 +29,43 @@ import java.util.List;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 22-Nov-2006<br><br>
+ * Date: 26-Oct-2006<br><br>
  */
-public interface OWLSubPropertyChainAxiom extends OWLObjectPropertyAxiom {
+public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLDataHasValue {
 
-    List<OWLObjectPropertyExpression> getPropertyChain();
+    public OWLDataHasValueImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLLiteral value) {
+        super(dataFactory, property, value);
+    }
 
-    OWLObjectPropertyExpression getSuperProperty();
+
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            return obj instanceof OWLDataHasValue;
+        }
+        return false;
+    }
 
 
-    /**
-     * Determines if this axiom is of the form:  P o P -> P, which
-     * is an encoding of Transitive(P)
-     *
-     * @return <code>true</code> if this encodes that the super property
-     *         is transitive, otherwise <code>false</code>.
-     */
-    boolean isEncodingOfTransitiveProperty();
+    public OWLClassExpression asSomeValuesFrom() {
+        return getOWLDataFactory().getDataSomeValuesFrom(getProperty(), getOWLDataFactory().getDataOneOf(getValue()));
+    }
+
+
+    public void accept(OWLClassExpressionVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+
+    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

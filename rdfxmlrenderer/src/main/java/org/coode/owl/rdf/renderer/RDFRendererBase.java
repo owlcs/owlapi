@@ -1,7 +1,6 @@
 package org.coode.owl.rdf.renderer;
 
 import org.coode.owl.rdf.model.*;
-import org.semanticweb.owl.io.RDFXMLOntologyFormat;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.SWRLVariableExtractor;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
@@ -406,7 +405,7 @@ public abstract class RDFRendererBase {
                     }
                     axioms.add(ax);
                 }
-                axioms.addAll(ontology.getAxioms(manager.getOWLDataFactory().getOWLObjectPropertyInverse(property)));
+                axioms.addAll(ontology.getAxioms(manager.getOWLDataFactory().getObjectPropertyInverse(property)));
                 createGraph(axioms);
             }
 

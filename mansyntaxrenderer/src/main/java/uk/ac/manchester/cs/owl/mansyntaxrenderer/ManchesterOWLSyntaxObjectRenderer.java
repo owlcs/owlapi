@@ -253,7 +253,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
         writeRestriction(desc);
     }
 
@@ -353,17 +353,17 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLTypedLiteral node) {
         if (node.getDatatype().getURI().equals(XSDVocabulary.DOUBLE.getURI())) {
-            write(node.getString());
+            write(node.getLiteral());
         } else if (node.getDatatype().getURI().equals(XSDVocabulary.FLOAT.getURI())) {
-            write(node.getString());
+            write(node.getLiteral());
             write("f");
         } else if (node.getDatatype().getURI().equals(XSDVocabulary.INTEGER.getURI())) {
-            write(node.getString());
+            write(node.getLiteral());
         } else {
             write("\"");
             pushTab(getIndent());
-//            write(node.getString(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
-            write(node.getString());
+//            write(node.getLiteral(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
+            write(node.getLiteral());
             popTab();
             write("\"^^");
             write(node.getDatatype().getURI());
@@ -374,8 +374,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public void visit(OWLRDFTextLiteral node) {
         write("\"");
         pushTab(getIndent());
-        write(node.getString());
-//        write(node.getString(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
+        write(node.getLiteral());
+//        write(node.getLiteral(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
         popTab();
         write("\"");
         write("@");
@@ -787,7 +787,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         setAxiomWriting();
         writeFrameType(axiom.getSuperProperty());
         writeSectionKeyword(SUB_PROPERTY_CHAIN);

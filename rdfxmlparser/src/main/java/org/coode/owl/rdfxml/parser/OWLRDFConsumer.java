@@ -840,7 +840,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     protected OWLIndividual getOWLIndividual(URI uri) {
         if (isAnonymousNode(uri)) {
-            return getDataFactory().getOWLAnonymousIndividual(uri.toString());
+            return getDataFactory().getAnonymousIndividual(uri.toString());
         } else {
             return getDataFactory().getIndividual(uri);
         }
@@ -1276,7 +1276,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         if (object instanceof URI) {
             URI uri = (URI) object;
             if (isAnonymousNode(uri)) {
-                value = getDataFactory().getOWLAnonymousIndividual(uri.toString());
+                value = getDataFactory().getAnonymousIndividual(uri.toString());
             } else {
                 value = getDataFactory().getIRI(uri);
             }
@@ -1493,7 +1493,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                 if (con.isTyped()) {
                     typedConstants.add((OWLTypedLiteral) con);
                 } else {
-                    typedConstants.add(getDataFactory().getTypedLiteral(con.getString(),
+                    typedConstants.add(getDataFactory().getTypedLiteral(con.getLiteral(),
                             getDataFactory().getDatatype(
                                     XSDVocabulary.STRING.getURI())));
                 }
@@ -1591,7 +1591,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                         "Attempting to translate inverse property (anon property), but inverseOf triple is missing (" + mainNode + ")");
             }
             OWLObjectPropertyExpression otherProperty = translateObjectPropertyExpression(inverseOfObject);
-            prop = getDataFactory().getOWLObjectPropertyInverse(otherProperty);
+            prop = getDataFactory().getObjectPropertyInverse(otherProperty);
             translatedProperties.put(mainNode, prop);
             return prop;
         }

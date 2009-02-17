@@ -89,13 +89,13 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         private OWLLiteral process(OWLDataPropertyExpression prop, OWLLiteral con) {
             OWLDatatype dt = map.get(prop);
             if (dt != null) {
-                return getDataFactory().getTypedLiteral(con.getString(), dt);
+                return getDataFactory().getTypedLiteral(con.getLiteral(), dt);
             } else {
                 return con;
             }
         }
 
-        public void visit(OWLDataValueRestriction desc) {
+        public void visit(OWLDataHasValue desc) {
             super.visit(desc);
             setLastObject(getDataFactory().getDataHasValue(desc.getProperty(), process(desc.getProperty(), desc.getValue())));
         }

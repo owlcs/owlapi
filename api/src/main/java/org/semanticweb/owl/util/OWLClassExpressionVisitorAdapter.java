@@ -89,7 +89,7 @@ public class OWLClassExpressionVisitorAdapter implements OWLClassExpressionVisit
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
     }
 
 

@@ -41,24 +41,30 @@ public class ParserException extends Exception {
 
     private int columnNumber;
 
-    private boolean classNameExpected;
+    private boolean classNameExpected = false;
 
-    private boolean objectPropertyNameExpected;
+    private boolean objectPropertyNameExpected = false;
 
-    private boolean dataPropertyNameExpected;
+    private boolean dataPropertyNameExpected = false;
 
-    private boolean individualNameExpected;
+    private boolean individualNameExpected = false;
 
-    private boolean datatypeNameExpected;
+    private boolean datatypeNameExpected = false;
 
-    private boolean integerExpected;
+    private boolean integerExpected = false;
 
-    private boolean annotationPropertyExpected;
+    private boolean annotationPropertyExpected = false;
+
+    private boolean ontologyNameExpected = false;
 
     private Set<String> expectedKeywords;
 
     private int startPos;
 
+    public ParserException(String currentToken, int startPos, int lineNumber, int columnNumber, boolean ontologyNameExpected, String ... keywords) {
+        this(currentToken, startPos, lineNumber, columnNumber, false, false, false, false, false, false, keywords);
+        this.ontologyNameExpected = ontologyNameExpected;
+    }
 
     public ParserException(String currentToken, int startPos, int lineNumber, int columnNumber,
                                                               boolean classNameExpected,
@@ -153,6 +159,9 @@ public class ParserException extends Exception {
         return annotationPropertyExpected;
     }
 
+    public boolean isOntologyNameExpected() {
+        return ontologyNameExpected;
+    }
 
     public Set<String> getExpectedKeywords() {
         return expectedKeywords;

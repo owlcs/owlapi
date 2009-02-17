@@ -53,6 +53,13 @@ public interface OWLIndividual extends OWLObject {
      */
     OWLNamedIndividual asNamedIndividual();
 
+    /**
+     * Obtains this individual an anonymous individual if it is indeed anonymous
+     * @return The individual as an anonymous individual
+     * @throws OWLRuntimeException if this individual is named
+     */
+    OWLAnonymousIndividual asAnonymousIndividual();
+
 
     /**
      * A convenience method, which gets the types of this individual, that

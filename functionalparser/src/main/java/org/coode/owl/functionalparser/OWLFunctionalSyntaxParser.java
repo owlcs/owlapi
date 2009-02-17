@@ -1089,7 +1089,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             }
         } else if (chain != null) {
             {
-                if (true) return dataFactory.getObjectPropertyChainSubProperty(chain, superProperty);
+                if (true) return dataFactory.getSubPropertyChainOf(chain, superProperty);
             }
         } else {
             {

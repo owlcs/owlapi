@@ -189,7 +189,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataValueRestriction node) {
+    public void visit(OWLDataHasValue node) {
     }
 
 
@@ -539,7 +539,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        OWLObjectPropertyExpression prop = df.getOWLObjectPropertyInverse(axiom.getProperty());
+        OWLObjectPropertyExpression prop = df.getObjectPropertyInverse(axiom.getProperty());
         df.getObjectMaxCardinality(prop, 1).accept(this);
     }
 
@@ -590,7 +590,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {

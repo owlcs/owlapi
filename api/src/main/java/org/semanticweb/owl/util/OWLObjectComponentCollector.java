@@ -202,7 +202,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
     }
@@ -434,7 +434,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         handleObject(axiom);
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             prop.accept(this);

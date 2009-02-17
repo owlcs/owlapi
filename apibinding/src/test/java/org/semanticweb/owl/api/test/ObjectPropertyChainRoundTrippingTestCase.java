@@ -49,7 +49,7 @@ public class ObjectPropertyChainRoundTrippingTestCase extends AbstractRoundTripp
         props.add(propA);
         props.add(propB);
         props.add(propC);
-        OWLAxiom ax = getFactory().getObjectPropertyChainSubProperty(props, propD);
+        OWLAxiom ax = getFactory().getSubPropertyChainOf(props, propD);
         addAxiom(ont, ax);
         return ont;
     }

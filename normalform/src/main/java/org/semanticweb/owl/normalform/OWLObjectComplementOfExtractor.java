@@ -81,7 +81,7 @@ public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
     }
 
 

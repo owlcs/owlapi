@@ -44,6 +44,10 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
         return true;
     }
 
+    public OWLAnonymousIndividual asAnonymousIndividual() {
+        return this;
+    }
+
     public OWLNamedIndividual asNamedIndividual() {
         throw new OWLRuntimeException("Not a named individual! This method should only be called on named individuals");
     }

@@ -380,7 +380,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         sb.append("ObjectPropertyChainSubProperty(");
         sb.append("(");
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
@@ -512,7 +512,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
         sb.append("DataValue(");
         desc.getProperty().accept(this);
         insertSpace();
@@ -595,7 +595,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLTypedLiteral node) {
         sb.append("\"");
-        sb.append(node.getString());
+        sb.append(node.getLiteral());
         sb.append("\"^^");
         node.getDatatype().accept(this);
     }
@@ -603,7 +603,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLRDFTextLiteral node) {
         sb.append("\"");
-        sb.append(node.getString());
+        sb.append(node.getLiteral());
         sb.append("\"");
         sb.append("@");
         sb.append(node.getLang());

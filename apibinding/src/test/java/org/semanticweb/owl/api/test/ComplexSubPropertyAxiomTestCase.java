@@ -45,7 +45,7 @@ public class ComplexSubPropertyAxiomTestCase extends AbstractFileRoundTrippingTe
         List<OWLObjectProperty> chain = new ArrayList<OWLObjectProperty>();
         chain.add(propP);
         chain.add(propQ);
-        axioms.add(getFactory().getObjectPropertyChainSubProperty(chain, propR));
+        axioms.add(getFactory().getSubPropertyChainOf(chain, propR));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

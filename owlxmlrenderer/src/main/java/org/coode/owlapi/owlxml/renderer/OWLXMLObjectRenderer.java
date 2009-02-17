@@ -295,7 +295,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLSubPropertyChainAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         writer.writeStartElement(SUB_OBJECT_PROPERTY_OF.getURI());
         writeAnnotations(axiom);
         writer.writeStartElement(SUB_OBJECT_PROPERTY_CHAIN.getURI());
@@ -431,7 +431,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDataValueRestriction desc) {
+    public void visit(OWLDataHasValue desc) {
         writer.writeStartElement(DATA_HAS_VALUE.getURI());
         desc.getProperty().accept(this);
         desc.getValue().accept(this);
@@ -575,7 +575,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLTypedLiteral node) {
         writer.writeStartElement(CONSTANT.getURI());
         writer.writeDatatypeAttribute(node.getDatatype().getURI());
-        writer.writeTextContent(node.getString());
+        writer.writeTextContent(node.getLiteral());
         writer.writeEndElement();
     }
 
@@ -584,7 +584,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(CONSTANT.getURI());
         // TODO: Add in lang when added to spec
 //        writer.writeDatatypeAttribute(node.getLang());
-        writer.writeTextContent(node.getString());
+        writer.writeTextContent(node.getLiteral());
         writer.writeEndElement();
     }
 
