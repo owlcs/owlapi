@@ -750,31 +750,4 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
     }
 
 
-    public static void main(String[] args) {
-        try {
-            OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            final OWLOntology ont = man.loadOntology(URI.create(
-                    "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owl"));
-            JFrame f = new JFrame();
-
-            BidirectionalShortFormProvider sfp = new BidirectionalShortFormProviderAdapter(Collections.singleton(ont),
-                    new SimpleShortFormProvider());
-
-            final OWLExpressionParser<Set<OWLAxiom>> parser = new ManchesterOWLSyntaxClassFrameParser(man.getOWLDataFactory(),
-                    new ShortFormEntityChecker(
-                            sfp));
-
-            final OWLExpressionEditor<Set<OWLAxiom>> editor = new OWLExpressionEditor<Set<OWLAxiom>>(man, parser, sfp);
-
-            final JTextArea code = new JTextArea();
-            code.setFont(new Font("monospaced", Font.PLAIN, 12));
-            f.setContentPane(new JScrollPane(editor));
-            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            f.setSize(new Dimension(500, 400));
-            f.setVisible(true);
-        }
-        catch (OWLOntologyCreationException e) {
-            e.printStackTrace();
-        }
-    }
 }

@@ -34,7 +34,7 @@ import java.util.Set;/*
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 05-Feb-2009
  */
-public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<OWLAxiom>> {
+public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<OntologyAxiomPair>> {
 
     private OWLDataFactory dataFactory;
 
@@ -57,7 +57,7 @@ public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<
     }
 
 
-    public Set<OWLAxiom> parse(String expression) throws ParserException {
+    public Set<OntologyAxiomPair> parse(String expression) throws ParserException {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
         parser.setOWLEntityChecker(checker);
         parser.setOWLOntologyChecker(ontologyChecker);

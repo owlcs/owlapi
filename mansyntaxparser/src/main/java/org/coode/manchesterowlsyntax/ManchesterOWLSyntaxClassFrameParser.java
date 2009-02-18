@@ -41,7 +41,7 @@ import java.util.Set;
  * An expression parser that parses a Manchester OWL Syntax Class Frame to produce a
  * set of axioms that represent the class frame.
  */
-public class ManchesterOWLSyntaxClassFrameParser implements OWLExpressionParser<Set<OWLAxiom>> {
+public class ManchesterOWLSyntaxClassFrameParser implements OWLExpressionParser<Set<OntologyAxiomPair>> {
 
     private OWLDataFactory dataFactory;
 
@@ -58,7 +58,7 @@ public class ManchesterOWLSyntaxClassFrameParser implements OWLExpressionParser<
     }
 
 
-    public Set<OWLAxiom> parse(String expression) throws ParserException {
+    public Set<OntologyAxiomPair> parse(String expression) throws ParserException {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
         parser.setOWLEntityChecker(checker);
         return parser.parseClassFrameEOF();

@@ -192,6 +192,9 @@ public class ParserException extends Exception {
         sb.append(" column ");
         sb.append(columnNumber);
         sb.append(". Expected one of:\n");
+        if(ontologyNameExpected) {
+            sb.append("\tOntology name\n");
+        }
         if(classNameExpected) {
             sb.append("\tClass name\n");
         }
@@ -206,6 +209,9 @@ public class ParserException extends Exception {
         }
         if(datatypeNameExpected) {
             sb.append("\tDatatype name\n");
+        }
+        if(annotationPropertyExpected) {
+            sb.append("\tAnnotation property\n");
         }
         if(integerExpected) {
             sb.append("\tInteger\n");
