@@ -1,8 +1,8 @@
 package org.semanticweb.owl.expression;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import org.semanticweb.owl.util.CollectionFactory;
+
+import java.util.*;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -41,6 +41,8 @@ public class ParserException extends Exception {
 
     private int columnNumber;
 
+    private List<String> tokenSequence;
+
     private boolean classNameExpected = false;
 
     private boolean objectPropertyNameExpected = false;
@@ -61,12 +63,13 @@ public class ParserException extends Exception {
 
     private int startPos;
 
-    public ParserException(String currentToken, int startPos, int lineNumber, int columnNumber, boolean ontologyNameExpected, String ... keywords) {
-        this(currentToken, startPos, lineNumber, columnNumber, false, false, false, false, false, false, keywords);
+
+    public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber, boolean ontologyNameExpected, String ... keywords) {
+        this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false, false, keywords);
         this.ontologyNameExpected = ontologyNameExpected;
     }
 
-    public ParserException(String currentToken, int startPos, int lineNumber, int columnNumber,
+    public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber,
                                                               boolean classNameExpected,
                                                               boolean objectPropertyNameExpected,
                                                               boolean dataPropertyNameExpected,
@@ -74,7 +77,8 @@ public class ParserException extends Exception {
                                                               boolean datatypeNameExpected,
                                                               boolean annotationPropertyExpected,
                                                               Set<String> expectedKeywords) {
-        this.currentToken = currentToken;
+        this.currentToken = tokenSequence.iterator().next();
+        this.tokenSequence = tokenSequence;
         this.lineNumber = lineNumber;
         this.columnNumber = columnNumber;
         this.classNameExpected = classNameExpected;
@@ -88,7 +92,7 @@ public class ParserException extends Exception {
     }
 
 
-    public ParserException(String currentToken, int startPos, int lineNumber, int columnNumber,
+    public ParserException(List<String> tokenSeqence, int startPos, int lineNumber, int columnNumber,
                                                               boolean classNameExpected,
                                                               boolean objectPropertyNameExpected,
                                                               boolean dataPropertyNameExpected,
@@ -96,35 +100,32 @@ public class ParserException extends Exception {
                                                               boolean datatypeNameExpected,
                                                               boolean annotationPropertyExpected,
                                                               String ... keywords) {
-        this.currentToken = currentToken;
-        this.lineNumber = lineNumber;
-        this.columnNumber = columnNumber;
-        this.classNameExpected = classNameExpected;
-        this.objectPropertyNameExpected = objectPropertyNameExpected;
-        this.dataPropertyNameExpected = dataPropertyNameExpected;
-        this.individualNameExpected = individualNameExpected;
-        this.datatypeNameExpected = datatypeNameExpected;
-        this.annotationPropertyExpected = annotationPropertyExpected;
-        this.expectedKeywords = new HashSet<String>(Arrays.asList(keywords));
-        this.startPos = startPos;
+        this(tokenSeqence, startPos, lineNumber, columnNumber,
+                classNameExpected,
+                objectPropertyNameExpected,
+                dataPropertyNameExpected,
+                individualNameExpected,
+                datatypeNameExpected,
+                annotationPropertyExpected,
+                CollectionFactory.createSet(keywords));
     }
 
 
-    public ParserException(String currentToken, int lineNumber, int columnNumber, boolean integerExpected,
+    public ParserException(List<String> tokenSequence, int lineNumber, int columnNumber, boolean integerExpected,
                            int startPos) {
-        this.currentToken = currentToken;
-        this.lineNumber = lineNumber;
-        this.columnNumber = columnNumber;
-        this.integerExpected = integerExpected;
-        this.startPos = startPos;
-        expectedKeywords = new HashSet<String>();
+        this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false, false, new HashSet<String>());
+        this.integerExpected = true;
     }
 
 
-    public ParserException(String currentToken, int startPos, int lineNumber, int columnNumber, String ... keywords) {
-        this(currentToken, startPos, lineNumber, columnNumber, false, false, false, false, false, false, keywords);
+    public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber, String ... keywords) {
+        this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false, false, keywords);
     }
 
+
+    public List<String> getTokenSequence() {
+        return tokenSequence;
+    }
 
     public int getStartPos() {
         return startPos;
@@ -220,6 +221,11 @@ public class ParserException extends Exception {
             sb.append("\t");
             sb.append(kw);
             sb.append("\n");
+        }
+        sb.append("SEQ: ");
+        for(String s : tokenSequence) {
+            sb.append(s);
+            sb.append(" ");
         }
         return sb.toString();
     }

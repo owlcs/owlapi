@@ -134,7 +134,7 @@ public class OWLOntologyNamespaceManager extends XMLWriterNamespaceManager {
     private void processURI(URI uri) {
         String s = uri.toString();
         namespaceUtil.split(s, splitResults);
-        if (!(splitResults[0].equals("") && splitResults[1].equals(""))) {
+        if (!(splitResults[0].equals("") || splitResults[1].equals(""))) {
             namespaceUtil.getPrefix(splitResults[0]);
         }
     }

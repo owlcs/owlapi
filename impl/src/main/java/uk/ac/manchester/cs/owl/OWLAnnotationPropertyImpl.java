@@ -135,7 +135,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
     }
 
     public OWLAnnotationProperty asOWLAnnotationProperty() {
-        throw new OWLRuntimeException("Not an annotation property");
+        return this;
     }
 
     public boolean isOWLAnnotationProperty() {

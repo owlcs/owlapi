@@ -50,6 +50,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     private Set<AxiomType> filteredAxiomTypes = new HashSet<AxiomType>();
 
+    private boolean renderExtensions = true;
+
     private OWLAxiomFilter axiomFilter = new OWLAxiomFilter() {
         public boolean passes(OWLAxiom axiom) {
             return true;
@@ -202,6 +204,25 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return axiomFilter.passes(axiom);
     }
 
+    public Set<OWLAxiom> writeFrame(OWLEntity entity) {
+        if(entity.isOWLClass()) {
+            return write(entity.asOWLClass());
+        }
+        if(entity.isOWLObjectProperty()) {
+            return write(entity.asOWLObjectProperty());
+        }
+        if(entity.isOWLDataProperty()) {
+            return write(entity.asOWLDataProperty());
+        }
+        if(entity.isOWLIndividual()) {
+            return write(entity.asOWLIndividual());
+        }
+        if(entity.isOWLAnnotationProperty()) {
+            return write(entity.asOWLAnnotationProperty());
+        }
+        return Collections.emptySet();
+    }
+
     public Set<OWLAxiom> write(OWLClass cls) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(CLASS, cls));
@@ -230,6 +251,18 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 }
                 writeSection(SUBCLASS_OF, superclasses, ",", true, ontology);
             }
+            if (renderExtensions) {
+                for(OWLOntology ont : getOntologies()) {
+                    Set<OWLClassExpression> subClasses = new TreeSet<OWLClassExpression>();
+                    for(OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSuperClass(cls)) {
+                        if(isDisplayed(ax)) {
+                            subClasses.add(ax.getSubClass());
+                            axioms.add(ax);
+                        }
+                    }
+                    writeSection(SUPERCLASS_OF, subClasses, ",", true, ont);
+                }
+            }
         }
         if (!isFiltered(AxiomType.DISJOINT_CLASSES)) {
             for (OWLOntology ontology : getOntologies()) {
@@ -248,6 +281,34 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 writeSection(DISJOINT_WITH, disjointClasses, ", ", false, ontology);
             }
         }
+        if(!isFiltered(AxiomType.CLASS_ASSERTION)) {
+            for(OWLOntology ontology : getOntologies()) {
+                Set<OWLIndividual> individuals = new TreeSet<OWLIndividual>();
+                for(OWLClassAssertionAxiom ax : ontology.getClassAssertionAxioms(cls)) {
+                    if(isDisplayed(ax)) {
+                        individuals.add(ax.getIndividual());
+                        axioms.add(ax);
+                    }
+                }
+                writeSection(INDIVIDUALS, individuals, ",", true, ontology);
+            }
+        }
+        if(!isFiltered(AxiomType.SWRL_RULE)) {
+            for(OWLOntology ontology : getOntologies()) {
+                Set<OWLAxiom> rules = new HashSet<OWLAxiom>();
+                for(SWRLRule rule : ontology.getRules()) {
+                    if (isDisplayed(rule)) {
+                        for(SWRLAtom atom : rule.getHead()) {
+                            if(atom.getPredicate().equals(cls)) {
+                                writeSection(RULE, rules, "¤", true, ontology);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
         writeEntitySectionEnd();
         return axioms;
     }
@@ -263,6 +324,69 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     public Set<OWLAxiom> write(OWLObjectProperty property) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(OBJECT_PROPERTY, property));
+        if (!isFiltered(AxiomType.SUB_OBJECT_PROPERTY)) {
+            for (OWLOntology ontology : getOntologies()) {
+                Set<OWLObjectPropertyExpression> properties = new TreeSet<OWLObjectPropertyExpression>();
+                for(OWLSubObjectPropertyOfAxiom ax : ontology.getObjectSubPropertyAxiomsForSubProperty(property)) {
+                    if(isDisplayed(ax)) {
+                        properties.add(ax.getSuperProperty());
+                        axioms.add(ax);
+                    }
+                }
+                writeSection(SUB_PROPERTY_OF, properties, ",", true, ontology);
+            }
+            if(renderExtensions) {
+                for(OWLOntology ontology : getOntologies()) {
+                    Set<OWLObjectPropertyExpression> properties = new TreeSet<OWLObjectPropertyExpression>();
+                    for(OWLSubObjectPropertyOfAxiom ax : ontology.getObjectSubPropertyAxiomsForSuperProperty(property)) {
+                        if(isDisplayed(ax)) {
+                            properties.add(ax.getSubProperty());
+                            axioms.add(ax);
+                        }
+                    }
+                    writeSection(SUPER_PROPERTY_OF, properties, ",", true, ontology);
+                }
+            }
+        }
+        if (!isFiltered(AxiomType.EQUIVALENT_OBJECT_PROPERTIES)) {
+            for (OWLOntology ontology : getOntologies()) {
+                Set<OWLObjectPropertyExpression> properties = new TreeSet<OWLObjectPropertyExpression>();
+                for(OWLEquivalentObjectPropertiesAxiom ax : ontology.getEquivalentObjectPropertiesAxioms(property)) {
+                    if(isDisplayed(ax)) {
+                        properties.addAll(ax.getProperties());
+                        axioms.add(ax);
+                    }
+                }
+                properties.remove(property);
+                writeSection(EQUIVALENT_TO, properties, ",", true, ontology);
+            }
+        }
+        if (!isFiltered(AxiomType.DISJOINT_OBJECT_PROPERTIES)) {
+            for (OWLOntology ontology : getOntologies()) {
+                Set<OWLObjectPropertyExpression> properties = new TreeSet<OWLObjectPropertyExpression>();
+                for(OWLDisjointObjectPropertiesAxiom ax : ontology.getDisjointObjectPropertiesAxiom(property)) {
+                    if(isDisplayed(ax)) {
+                        properties.addAll(ax.getProperties());
+                        axioms.add(ax);
+                    }
+                }
+                properties.remove(property);
+                writeSection(DISJOINT_WITH, properties, ",", true, ontology);
+            }
+        }
+        if (!isFiltered(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
+            for (OWLOntology ontology : getOntologies()) {
+                for (OWLSubPropertyChainOfAxiom ax : ontology.getPropertyChainSubPropertyAxioms()) {
+                    if (ax.getSuperProperty().equals(property)) {
+                        if (isDisplayed(ax)) {
+                            writeSection(SUB_PROPERTY_CHAIN, new LinkedHashSet<OWLObjectPropertyExpression>(ax.getPropertyChain()), " o ", false, ontology);
+                            axioms.add(ax);
+                        }
+                    }
+                }
+            }
+        }
+
         for (OWLOntology ontology : getOntologies()) {
             List<String> characteristics = new ArrayList<String>();
             if (!isFiltered(AxiomType.FUNCTIONAL_OBJECT_PROPERTY)) {
@@ -355,55 +479,24 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 writeSection(INVERSE_OF, properties, ",", true, ontology);
             }
         }
-        if (!isFiltered(AxiomType.SUB_OBJECT_PROPERTY)) {
-            for (OWLOntology ontology : getOntologies()) {
-                Set<OWLObjectPropertyExpression> properties = new TreeSet<OWLObjectPropertyExpression>();
-                for(OWLSubObjectPropertyOfAxiom ax : ontology.getObjectSubPropertyAxiomsForSubProperty(property)) {
-                    if(isDisplayed(ax)) {
-                        properties.add(ax.getSuperProperty());
-                        axioms.add(ax);
-                    }
-                }
-                writeSection(SUB_PROPERTY_OF, properties, ",", true, ontology);
-            }
-        }
-        if (!isFiltered(AxiomType.EQUIVALENT_OBJECT_PROPERTIES)) {
-            for (OWLOntology ontology : getOntologies()) {
-                Set<OWLObjectPropertyExpression> properties = new TreeSet<OWLObjectPropertyExpression>();
-                for(OWLEquivalentObjectPropertiesAxiom ax : ontology.getEquivalentObjectPropertiesAxioms(property)) {
-                    if(isDisplayed(ax)) {
-                        properties.addAll(ax.getProperties());
-                        axioms.add(ax);
-                    }
-                }
-                properties.remove(property);
-                writeSection(EQUIVALENT_TO, properties, ",", true, ontology);
-            }
-        }
-        if (!isFiltered(AxiomType.DISJOINT_OBJECT_PROPERTIES)) {
-            for (OWLOntology ontology : getOntologies()) {
-                Set<OWLObjectPropertyExpression> properties = new TreeSet<OWLObjectPropertyExpression>();
-                for(OWLDisjointObjectPropertiesAxiom ax : ontology.getDisjointObjectPropertiesAxiom(property)) {
-                    if(isDisplayed(ax)) {
-                        properties.addAll(ax.getProperties());
-                        axioms.add(ax);
-                    }
-                }
-                properties.remove(property);
-                writeSection(DISJOINT_WITH, properties, ",", true, ontology);
-            }
-        }
-        if (!isFiltered(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
-            for (OWLOntology ontology : getOntologies()) {
-                for (OWLSubPropertyChainOfAxiom ax : ontology.getPropertyChainSubPropertyAxioms()) {
-                    if (ax.getSuperProperty().equals(property)) {
-                        if (isDisplayed(ax)) {
-                            writeSection(SUB_PROPERTY_CHAIN, new LinkedHashSet<OWLObjectPropertyExpression>(ax.getPropertyChain()), " o ", false, ontology);
-                            axioms.add(ax);
+
+        if(!isFiltered(AxiomType.SWRL_RULE)) {
+            for(OWLOntology ontology : getOntologies()) {
+                Set<OWLAxiom> rules = new HashSet<OWLAxiom>();
+                for(SWRLRule rule : ontology.getRules()) {
+                    if (isDisplayed(rule)) {
+                        for(SWRLAtom atom : rule.getHead()) {
+                            if(atom.getPredicate().equals(property)) {
+                                rules.add(rule);
+                                writeSection(RULE, rules, "¤", true, ontology);
+                                break;
+                            }
                         }
                     }
                 }
+
             }
+
         }
         writeEntitySectionEnd();
         return axioms;
@@ -487,6 +580,22 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 writeSection(DISJOINT_WITH, props, ",", true, ontology);
             }
         }
+        if(!isFiltered(AxiomType.SWRL_RULE)) {
+            for(OWLOntology ontology : getOntologies()) {
+                Set<OWLAxiom> rules = new HashSet<OWLAxiom>();
+                for(SWRLRule rule : ontology.getRules()) {
+                    if (isDisplayed(rule)) {
+                        for(SWRLAtom atom : rule.getHead()) {
+                            if(atom.getPredicate().equals(property)) {
+                                writeSection(RULE, rules, "¤", true, ontology);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
         writeEntitySectionEnd();
         return axioms;
     }
@@ -509,7 +618,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         for (OWLOntology ontology : getOntologies()) {
             // Facts - messy!
-            Map<OWLObjectPropertyExpression, Set<OWLIndividual>> objectMap = Collections.emptyMap();
+            Map<OWLObjectPropertyExpression, Set<OWLIndividual>> objectMap = new TreeMap<OWLObjectPropertyExpression, Set<OWLIndividual>>();
             if (!isFiltered(AxiomType.OBJECT_PROPERTY_ASSERTION)) {
                 for(OWLObjectPropertyAssertionAxiom ax : ontology.getObjectPropertyAssertionAxioms(individual)) {
                     if(isDisplayed(ax)) {
@@ -523,7 +632,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     }
                 }
             }
-            Map<OWLDataPropertyExpression, Set<OWLLiteral>> dataMap = Collections.emptyMap();
+            Map<OWLDataPropertyExpression, Set<OWLLiteral>> dataMap = new TreeMap<OWLDataPropertyExpression, Set<OWLLiteral>>();
             if (!isFiltered(AxiomType.DATA_PROPERTY_ASSERTION)) {
                 for(OWLDataPropertyAssertionAxiom ax : ontology.getDataPropertyAssertionAxioms(individual)) {
                     if(isDisplayed(ax)) {
@@ -538,7 +647,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 }
             }
             // Negative facts
-            Map<OWLObjectPropertyExpression, Set<OWLIndividual>> negObjectMap = Collections.emptyMap();
+            Map<OWLObjectPropertyExpression, Set<OWLIndividual>> negObjectMap = new TreeMap<OWLObjectPropertyExpression, Set<OWLIndividual>>();
             if (!isFiltered(AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION)) {
                 for(OWLNegativeObjectPropertyAssertionAxiom ax : ontology.getNegativeObjectPropertyAssertionAxioms(individual)) {
                     if(isDisplayed(ax)) {
@@ -552,7 +661,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     }
                 }
             }
-            Map<OWLDataPropertyExpression, Set<OWLLiteral>> negDataMap = Collections.emptyMap();
+            Map<OWLDataPropertyExpression, Set<OWLLiteral>> negDataMap = new TreeMap<OWLDataPropertyExpression, Set<OWLLiteral>>();
             if (!isFiltered(AxiomType.NEGATIVE_DATA_PROPERTY_ASSERTION)) {
                 for(OWLNegativeDataPropertyAssertionAxiom ax : ontology.getNegativeDataPropertyAssertionAxioms(individual)) {
                     if(isDisplayed(ax)) {
@@ -622,6 +731,17 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             }
         }
         writeEntitySectionEnd();
+        return axioms;
+    }
+
+    public Set<OWLAxiom> write(SWRLRule rule) {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(1);
+        for (OWLOntology ontology : getOntologies()) {
+            if (ontology.containsAxiom(rule)) {
+                writeSection(RULE, Collections.singleton(rule), "¤", true, ontology);
+                axioms.add(rule);
+            }
+        }
         return axioms;
     }
 

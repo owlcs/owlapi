@@ -422,6 +422,7 @@ public interface OWLOntology extends OWLNamedObject {
 
     Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property);
 
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Annotation axioms

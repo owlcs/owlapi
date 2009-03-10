@@ -2,6 +2,7 @@ package org.coode.manchesterowlsyntax;
 
 import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLDataFactory;
+import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.expression.OWLExpressionParser;
 import org.semanticweb.owl.expression.OWLEntityChecker;
 import org.semanticweb.owl.expression.ParserException;
@@ -42,6 +43,8 @@ public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<
 
     private OWLOntologyChecker ontologyChecker;
 
+    private OWLOntology defaultOntology;
+
     public ManchesterOWLSyntaxFramesParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
         this.checker = checker;
@@ -56,10 +59,14 @@ public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<
         this.ontologyChecker = ontologyChecker;
     }
 
+    public void setDefaultOntology(OWLOntology ontology) {
+        this.defaultOntology = ontology;
+    }
 
     public Set<OntologyAxiomPair> parse(String expression) throws ParserException {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
         parser.setOWLEntityChecker(checker);
+        parser.setDefaultOntology(defaultOntology);
         parser.setOWLOntologyChecker(ontologyChecker);
         return parser.parseFrames();
     }

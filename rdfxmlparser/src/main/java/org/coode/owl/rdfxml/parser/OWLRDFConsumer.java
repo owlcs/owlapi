@@ -221,6 +221,8 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private Set<URI> swrlDifferentFromAtoms;
 
+    private URIProvider uriProvider;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -315,6 +317,10 @@ public class OWLRDFConsumer implements RDFConsumer {
         setupSinglePredicateMaps();
 
         setupSKOSTipleHandlers();
+    }
+
+    public void setURIProvider(URIProvider uriProvider) {
+        this.uriProvider = uriProvider;
     }
 
     private void addSingleValuedResPredicate(OWLRDFVocabulary v) {
@@ -577,8 +583,14 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     private URI getURI(String s) {
-
-        URI uri = uriMap.get(s);
+        URI uri = null;
+        if(uriProvider != null) {
+            uri = uriProvider.getURI(s);
+        }
+        if(uri != null) {
+            return uri;
+        }
+        uri = uriMap.get(s);
         if (uri == null) {
             uri = URI.create(s);
             uriMap.put(s, uri);
@@ -787,18 +799,21 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
             if (!ont.equals(ontology)) {
-                if (ont.getAnnotationURIs().contains(uri)) {
-                    // Cache URI
-                    annotationPropertyURIs.addAll(ont.getAnnotationURIs());
-                    return annotationPropertyURIs.contains(uri);
-                } else {
-                    OWLOntologyFormat format = owlOntologyManager.getOntologyFormat(ont);
-                    if (format instanceof RDFXMLOntologyFormat) {
-                        RDFXMLOntologyFormat rdfFormat = (RDFXMLOntologyFormat) format;
-                        annotationPropertyURIs.addAll(rdfFormat.getAnnotationURIs());
-                        return annotationPropertyURIs.contains(uri);
-                    }
+                for(OWLAnnotationProperty prop : ont.getReferencedAnnotationProperties()) {
+                    annotationPropertyURIs.add(prop.getURI());
                 }
+//                if (ont.getAnnotationURIs().contains(uri)) {
+//                     Cache URI
+//                    annotationPropertyURIs.addAll(ont.getAnnotationURIs());
+//                    return annotationPropertyURIs.contains(uri);
+//                } else {
+//                    OWLOntologyFormat format = owlOntologyManager.getOntologyFormat(ont);
+//                    if (format instanceof RDFXMLOntologyFormat) {
+//                        RDFXMLOntologyFormat rdfFormat = (RDFXMLOntologyFormat) format;
+//                        annotationPropertyURIs.addAll(rdfFormat.getAnnotationURIs());
+//                        return annotationPropertyURIs.contains(uri);
+//                    }
+//                }
             }
         }
         return false;

@@ -81,6 +81,7 @@ public class ManchesterOWLSyntaxTokenizer {
         delims.add('<');
         delims.add('>');
         delims.add('=');
+        delims.add('?');
     }
 
 

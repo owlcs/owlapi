@@ -71,6 +71,11 @@ public class RDFXMLParser extends AbstractOWLParser {
                     }
                 }
             };
+            URIProvider prov = new URIProvider() {
+                public URI getURI(String s) {
+                    return parser.getURI(s);
+                }
+            };
             consumer = new OWLRDFConsumer(owlOntologyManager, ontology, new AnonymousNodeChecker() {
                 public boolean isAnonymousNode(URI uri) {
                     return parser.isAnonymousNodeURI(uri.toString());
@@ -81,6 +86,7 @@ public class RDFXMLParser extends AbstractOWLParser {
                     return parser.isAnonymousNodeURI(uri);
                 }
             });
+            consumer.setURIProvider(prov);
             consumer.setOntologyFormat(format);
             InputSource is = getInputSource(inputSource);
             parser.parse(is, consumer);

@@ -79,6 +79,8 @@ public enum ManchesterOWLSyntax {
 
     SUBCLASS_OF("SubClassOf", true, true, false, false),
 
+    SUPERCLASS_OF("SuperClassOf", true, true, false, false),
+
     EQUIVALENT_TO("EquivalentTo", true, true, false, false),
 
     EQUIVALENT_CLASSES("EquivalentClasses", true, true, false, false),
@@ -88,6 +90,8 @@ public enum ManchesterOWLSyntax {
     EQUIVALENT_DATA_PROPERTIES("EquivalentDataProperties", true, true, false, false),
 
     DISJOINT_WITH("DisjointWith", true, true, false, false),
+
+    INDIVIDUALS("Individuals", true, true, false, false),
 
     DISJOINT_CLASSES("DisjointClasses", true, true, false, false),
 
@@ -151,9 +155,13 @@ public enum ManchesterOWLSyntax {
 
     SUB_PROPERTY_OF("SubPropertyOf", true, true, false, false),
 
+    SUPER_PROPERTY_OF("SuperPropertyOf", true, true, false, false),
+
     SUB_PROPERTY_CHAIN("SubPropertyChain", true, true, false, false),
 
-    HAS_KEY("HasKey", true, false, false, false);
+    HAS_KEY("HasKey", true, false, false, false),
+
+    RULE("Rule", true, false, false, false);
 
     private boolean sectionKeyword;
 

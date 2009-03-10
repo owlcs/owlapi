@@ -198,6 +198,27 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     public OWLOntologyImpl(OWLDataFactory dataFactory, OWLOntologyID ontologyID) {
         super(dataFactory);
         this.ontologyID = ontologyID;
+
+        if(owlClassReferences == null) {
+            throw new OWLRuntimeException("Internal Error: Class reference index is null after init");
+        }
+
+        if(owlObjectPropertyReferences == null) {
+            throw new OWLRuntimeException("Internal Error: Object property reference index is null after init");
+        }
+
+        if(owlDataPropertyReferences == null) {
+            throw new OWLRuntimeException("Internal Error: Data property reference index is null after init");
+        }
+
+        if(owlIndividualReferences == null) {
+            throw new OWLRuntimeException("Internal Error: Individual reference index is null after init");
+        }
+
+
+        if(annotationPropertyReferences == null) {
+            throw new OWLRuntimeException("Internal Error: Annotation property reference index is null after init");
+        }
     }
 
     public OWLOntologyID getOntologyID() {
@@ -433,34 +454,34 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    private Map<OWLClass, Set<OWLAxiom>> getOWLClassReferences() {
-        return getReturnMap(owlClassReferences);
-    }
-
-
-    private Map<OWLObjectProperty, Set<OWLAxiom>> getOWLObjectPropertyReferences() {
-        return getReturnMap(owlObjectPropertyReferences);
-    }
-
-
-    private Map<OWLDataProperty, Set<OWLAxiom>> getOWLDataPropertyReferences() {
-        return getReturnMap(owlDataPropertyReferences);
-    }
-
-
-    private Map<OWLNamedIndividual, Set<OWLAxiom>> getOWLIndividualReferences() {
-        return getReturnMap(owlIndividualReferences);
-    }
-
-
-    private Map<OWLDatatype, Set<OWLAxiom>> getOWLDatatypeReferences() {
-        return getReturnMap(owlDatatypeReferences);
-    }
-
-
-    private Map<OWLAnnotationProperty, Set<OWLAxiom>> getOWLAnnotationPropertyReferences() {
-        return getReturnMap(annotationPropertyReferences);
-    }
+//    private Map<OWLClass, Set<OWLAxiom>> getOWLClassReferences() {
+//        return getReturnMap(owlClassReferences);
+//    }
+//
+//
+//    private Map<OWLObjectProperty, Set<OWLAxiom>> getOWLObjectPropertyReferences() {
+//        return getReturnMap(owlObjectPropertyReferences);
+//    }
+//
+//
+//    private Map<OWLDataProperty, Set<OWLAxiom>> getOWLDataPropertyReferences() {
+//        return getReturnMap(owlDataPropertyReferences);
+//    }
+//
+//
+//    private Map<OWLNamedIndividual, Set<OWLAxiom>> getOWLIndividualReferences() {
+//        return getReturnMap(owlIndividualReferences);
+//    }
+//
+//
+//    private Map<OWLDatatype, Set<OWLAxiom>> getOWLDatatypeReferences() {
+//        return getReturnMap(owlDatatypeReferences);
+//    }
+//
+//
+//    private Map<OWLAnnotationProperty, Set<OWLAxiom>> getOWLAnnotationPropertyReferences() {
+//        return getReturnMap(annotationPropertyReferences);
+//    }
 
 
     public Set<URI> getAnnotationURIs() {
@@ -489,7 +510,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public boolean containsDatatypeReference(URI datatypeURI) {
-        return getReferencedDatatypes().contains(getOWLDataFactory().getDatatype(datatypeURI));
+        return owlDatatypeReferences.containsKey(getOWLDataFactory().getDatatype(datatypeURI));
     }
 
 
@@ -527,32 +548,32 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public boolean containsReference(OWLClass owlClass) {
-        return owlClassReferences.keySet().contains(owlClass);
+        return owlClassReferences.containsKey(owlClass);
     }
 
 
     public boolean containsReference(OWLObjectProperty prop) {
-        return getOWLObjectPropertyReferences().keySet().contains(prop);
+        return owlObjectPropertyReferences.containsKey(prop);
     }
 
 
     public boolean containsReference(OWLDataProperty prop) {
-        return getOWLDataPropertyReferences().keySet().contains(prop);
+        return owlDataPropertyReferences.containsKey(prop);
     }
 
 
     public boolean containsReference(OWLIndividual ind) {
-        return getOWLIndividualReferences().keySet().contains(ind);
+        return owlIndividualReferences.containsKey(ind);
     }
 
 
     public boolean containsReference(OWLDatatype dt) {
-        return getOWLDatatypeReferences().keySet().contains(dt);
+        return owlDatatypeReferences.containsKey(dt);
     }
 
 
     public boolean containsReference(OWLAnnotationProperty property) {
-        return getOWLAnnotationPropertyReferences().keySet().contains(property);
+        return annotationPropertyReferences.containsKey(property);
     }
 
 
@@ -587,19 +608,22 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
         if (owlEntity instanceof OWLClass) {
-            return getAxioms(((OWLClass) owlEntity), getOWLClassReferences(), false);
+            return getAxioms(owlEntity.asOWLClass(), owlClassReferences, false);
         }
         if (owlEntity instanceof OWLObjectProperty) {
-            return getAxioms(((OWLObjectProperty) owlEntity), getOWLObjectPropertyReferences(), false);
+            return getAxioms(owlEntity.asOWLObjectProperty(), owlObjectPropertyReferences, false);
         }
         if (owlEntity instanceof OWLDataProperty) {
-            return getAxioms(((OWLDataProperty) owlEntity), getOWLDataPropertyReferences(), false);
+            return getAxioms(owlEntity.asOWLDataProperty(), owlDataPropertyReferences, false);
         }
         if (owlEntity instanceof OWLNamedIndividual) {
-            return getAxioms(((OWLNamedIndividual) owlEntity), getOWLIndividualReferences(), false);
+            return getAxioms(owlEntity.asOWLIndividual(), owlIndividualReferences, false);
         }
         if (owlEntity instanceof OWLDatatype) {
-            return getAxioms(((OWLDatatype) owlEntity), getOWLDatatypeReferences(), false);
+            return getAxioms(owlEntity.asOWLDatatype(), owlDatatypeReferences, false);
+        }
+        if(owlEntity instanceof OWLAnnotationProperty) {
+            return getAxioms(owlEntity.asOWLAnnotationProperty(), annotationPropertyReferences, false);
         }
         return Collections.emptySet();
     }
@@ -660,51 +684,15 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLDataPropertyAxiom> getAxioms(final OWLDataProperty prop) {
         final Set<OWLDataPropertyAxiom> result = createSet();
-        for (OWLAxiom ax : getAxioms(prop, getOWLDataPropertyReferences(), false)) {
-            ax.accept(new OWLAxiomVisitorAdapter() {
-
-                public void visit(OWLDataPropertyDomainAxiom axiom) {
-                    if (axiom.getProperty().equals(prop)) {
-                        result.add(axiom);
-                    }
-                }
-
-
-                public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-                    if (axiom.getProperties().contains(prop)) {
-                        result.add(axiom);
-                    }
-                }
-
-
-                public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-                    if (axiom.getProperties().contains(prop)) {
-                        result.add(axiom);
-                    }
-                }
-
-
-                public void visit(OWLDataPropertyRangeAxiom axiom) {
-                    if (axiom.getProperty().equals(axiom.getProperty())) {
-                        result.add(axiom);
-                    }
-                }
-
-
-                public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-                    if (axiom.getProperty().equals(prop)) {
-                        result.add(axiom);
-                    }
-                }
-
-
-                public void visit(OWLSubDataPropertyOfAxiom axiom) {
-                    if (axiom.getSubProperty().equals(prop)) {
-                        result.add(axiom);
-                    }
-                }
-            });
+        result.addAll(getDataPropertyDomainAxioms(prop));
+        result.addAll(getEquivalentDataPropertiesAxiom(prop));
+        result.addAll(getDisjointDataPropertiesAxiom(prop));
+        result.addAll(getDataPropertyRangeAxiom(prop));
+        OWLFunctionalDataPropertyAxiom ax = getFunctionalDataPropertyAxiom(prop);
+        if (ax != null) {
+            result.add(ax);
         }
+        result.addAll(getDataSubPropertyAxiomsForSubProperty(prop));
         return result;
     }
 
@@ -772,11 +760,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public Set<OWLDatatype> getReferencedDatatypes() {
-        return getReturnSet(getOWLDatatypeReferences().keySet());
+        return getReturnSet(owlDatatypeReferences.keySet());
     }
 
     public Set<OWLAnnotationProperty> getReferencedAnnotationProperties() {
-        return getReturnSet(getOWLAnnotationPropertyReferences().keySet());
+        return getReturnSet(annotationPropertyReferences.keySet());
     }
 
     public Set<OWLImportsDeclaration> getImportsDeclarations() {

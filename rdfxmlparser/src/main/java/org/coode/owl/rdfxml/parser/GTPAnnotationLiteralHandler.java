@@ -47,14 +47,8 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
 
 
     public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) throws OWLException {
-        // If the property is an annotation prop AND
-        // we know the type of the subject, we can create
-        // the appropriate declaration and entity annotation axiom in streaming mode
-        if (!getConsumer().isAnnotationProperty(predicate)) {
-            return false;
-        }
-        return getConsumer().isClass(subject) || getConsumer().isObjectPropertyOnly(subject) || getConsumer().isDataPropertyOnly(
-                subject);
+        // If the property is an annotation prop then yes we can
+        return getConsumer().isAnnotationProperty(predicate);
     }
 
 

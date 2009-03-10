@@ -24,6 +24,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     protected static final SAXParserFactory s_parserFactory = SAXParserFactory.newInstance();
 
+    private Map<String, String> resolvedURIs = new HashMap<String, String>();
+
+    protected Map<String, URI> uriCache = new HashMap<String, URI>();
 
     static {
         s_parserFactory.setNamespaceAware(true);
@@ -320,6 +323,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         if (value != null) {
             try {
                 m_baseURI = m_baseURI.resolve(value);
+                resolvedURIs.clear();
             }
             catch (IllegalArgumentException e) {
                 RDFParserException exception = new RDFParserException("New base URI '" + value + "' cannot be resolved against curent base URI " + m_baseURI.toString(),
@@ -342,6 +346,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             m_language = value;
     }
 
+    private int cacheHits = 0;
 
     /**
      * Resolves an URI with the current base.
@@ -362,7 +367,21 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
         else {
             try {
-                return m_baseURI.resolve(uri).toString();
+                String resolved = resolvedURIs.get(uri);
+                if(resolved != null) {
+//                    cacheHits++;
+//                    if((cacheHits % 10000) == 0) {
+//                        System.out.println(cacheHits + " cache hits");
+//                    }
+                    return resolved;
+                }
+                else {
+                    URI theURI = m_baseURI.resolve(uri);
+                    String u = theURI.toString();
+                    uriCache.put(u, theURI);
+                    resolvedURIs.put(uri, u);
+                    return u;  
+                }
             }
             catch (IllegalArgumentException e) {
                 RDFParserException exception = new RDFParserException("URI '" + uri + "' cannot be resolved against curent base URI " + m_baseURI.toString(),
@@ -549,6 +568,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     }
 
 
+
     /**
      * Checks whether given characters contain only whitespace.
      * @param buffer the data being checked
@@ -620,6 +640,11 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     public boolean isAnonymousNodeURI(String uri) {
         return uri.indexOf("#genid") != -1;
+    }
+
+    public URI getURI(String s) {
+        return uriCache.get(s);
+//        throw new RuntimeException("DISABLED");
     }
 
 

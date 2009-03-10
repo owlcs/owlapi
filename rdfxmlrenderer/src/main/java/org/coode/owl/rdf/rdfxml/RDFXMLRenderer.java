@@ -137,10 +137,11 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         pending.add(node);
         Set<RDFTriple> triples = new TreeSet<RDFTriple>(new TripleComparator());
-        if (node.isAnonymous() && !renderedAnonymousNodes.contains(node)) {
-            triples.addAll(getGraph().getTriplesForSubject(node));
+        triples.addAll(getGraph().getTriplesForSubject(node));
+//        if (node.isAnonymous() && !renderedAnonymousNodes.contains(node)) {
+//
 //            renderedAnonymousNodes.add(node);
-        }
+//        }
         RDFTriple candidatePrettyPrintTypeTriple = null;
         for (RDFTriple triple : triples) {
             URI propertyURI = triple.getProperty().getURI();

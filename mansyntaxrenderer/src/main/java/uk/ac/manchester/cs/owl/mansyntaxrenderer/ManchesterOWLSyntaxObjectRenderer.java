@@ -112,12 +112,21 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     private void writeRestriction(OWLQuantifiedRestriction restriction, ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
+        boolean conjunctionOrDisjunction = false;
         if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
+            if (restriction.getFiller() instanceof OWLObjectIntersectionOf || restriction.getFiller() instanceof OWLObjectUnionOf) {
+                conjunctionOrDisjunction = true;
+                incrementTab(4);
+                writeNewLine();
+            }
             write("(");
         }
         restriction.getFiller().accept(this);
         if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
             write(")");
+            if(conjunctionOrDisjunction) {
+                popTab();
+            }
         }
     }
 
@@ -360,26 +369,50 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         } else if (node.getDatatype().getURI().equals(XSDVocabulary.INTEGER.getURI())) {
             write(node.getLiteral());
         } else {
-            write("\"");
+//            write("\"");
             pushTab(getIndent());
 //            write(node.getLiteral(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
-            write(node.getLiteral());
+            writeLiteral(node.getLiteral());
             popTab();
-            write("\"^^");
+            write("^^");
             write(node.getDatatype().getURI());
         }
     }
 
 
     public void visit(OWLRDFTextLiteral node) {
-        write("\"");
+//        write("\"");
         pushTab(getIndent());
-        write(node.getLiteral());
+        writeLiteral(node.getLiteral());
 //        write(node.getLiteral(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
         popTab();
-        write("\"");
+//        write("\"");
         write("@");
         write(node.getLang());
+    }
+
+    private void writeLiteral(String literal) {
+        write("\"");
+        if(literal.indexOf("\"") == -1 && literal.indexOf("\\") != -1) {
+            write(literal);
+        }
+        else {
+
+            literal = literal.replace("\\", "\\\\");
+            literal = literal.replace("\"", "\\\"");
+            write(literal);
+        }
+        write("\"");
+//        if(literal.indexOf('\"') != -1) {
+//            write("\"\"\"");
+//            write(literal);
+//            write("\"\"\"");
+//        }
+//        else {
+//            write("\"");
+//            write(literal);
+//            write("\"");
+//        }
     }
 
 
