@@ -255,7 +255,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     public void visit(OWLDisjointClassesAxiom axiom) {
         handleObject(axiom);
-        process(axiom.getDescriptions());
+        process(axiom.getClassExpressions());
     }
 
 
@@ -340,7 +340,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     public void visit(OWLDisjointUnionAxiom axiom) {
         handleObject(axiom);
         axiom.getOWLClass().accept(this);
-        process(axiom.getDescriptions());
+        process(axiom.getClassExpressions());
     }
 
 
@@ -384,14 +384,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     public void visit(OWLClassAssertionAxiom axiom) {
         handleObject(axiom);
-        axiom.getDescription().accept(this);
+        axiom.getClassExpression().accept(this);
         axiom.getIndividual().accept(this);
     }
 
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
         handleObject(axiom);
-        process(axiom.getDescriptions());
+        process(axiom.getClassExpressions());
     }
 
 
