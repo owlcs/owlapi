@@ -41,18 +41,18 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     private Set<OWLClassExpression> classExpressions;
 
 
-    public OWLNaryClassAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> descriptions, OWLAnnotation... annotations) {
+    public OWLNaryClassAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions, OWLAnnotation... annotations) {
         super(dataFactory, annotations);
-        this.classExpressions = Collections.unmodifiableSortedSet(new TreeSet<OWLClassExpression>(descriptions));
+        this.classExpressions = Collections.unmodifiableSortedSet(new TreeSet<OWLClassExpression>(classExpressions));
     }
 
 
-    public Set<OWLClassExpression> getDescriptions() {
+    public Set<OWLClassExpression> getClassExpressions() {
         return classExpressions;
     }
 
 
-    public Set<OWLClassExpression> getDescriptionsMinus(OWLClassExpression... descs) {
+    public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... descs) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>(classExpressions);
         for (OWLClassExpression desc : descs) {
             result.remove(desc);
@@ -66,13 +66,13 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
             if (!(obj instanceof OWLNaryClassAxiom)) {
                 return false;
             }
-            return ((OWLNaryClassAxiom) obj).getDescriptions().equals(classExpressions);
+            return ((OWLNaryClassAxiom) obj).getClassExpressions().equals(classExpressions);
         }
         return false;
     }
 
 
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareSets(classExpressions, ((OWLNaryClassAxiom) object).getDescriptions());
+        return compareSets(classExpressions, ((OWLNaryClassAxiom) object).getClassExpressions());
     }
 }

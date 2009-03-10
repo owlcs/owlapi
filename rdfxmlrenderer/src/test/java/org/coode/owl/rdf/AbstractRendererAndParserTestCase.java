@@ -89,7 +89,7 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
         for (OWLAxiom ax : getAxioms()) {
             man.applyChange(new AddAxiom(ontA, ax));
         }
-//        OWLOntologyAnnotationAxiom anno = getDataFactory().getOWLOntologyAnnotationAxiom(ontA, getDataFactory().getCommentAnnotation(getDescription()));
+//        OWLOntologyAnnotationAxiom anno = getDataFactory().getOWLOntologyAnnotationAxiom(ontA, getDataFactory().getCommentAnnotation(getClassExpression()));
 //        man.applyChange(new AddAxiom(ontA, anno));
         File tempFile = File.createTempFile("Ontology", ".owl");
         man.saveOntology(ontA, tempFile.toURI());
@@ -100,6 +100,6 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
 
     protected abstract Set<OWLAxiom> getAxioms();
 
-    protected abstract String getDescription();
+    protected abstract String getClassExpression();
 
 }

@@ -455,15 +455,15 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
 
         public void visit(OWLClassAssertionAxiom axiom) {
-            if (!axiom.getDescription().isAnonymous()) {
+            if (!axiom.getClassExpression().isAnonymous()) {
                 source = axiom.getIndividual().asNamedIndividual();
-                target = axiom.getDescription().asOWLClass();
+                target = axiom.getClassExpression().asOWLClass();
             }
         }
 
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            Iterator<OWLClassExpression> it = axiom.getDescriptions().iterator();
+            Iterator<OWLClassExpression> it = axiom.getClassExpressions().iterator();
             source = it.next().asOWLClass();
             target = it.next().asOWLClass();
         }
@@ -554,7 +554,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
 
         public void visit(OWLDisjointClassesAxiom axiom) {
-            for (OWLClassExpression desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 if (!desc.isAnonymous()) {
                     getAxiomsForLHS(desc.asOWLClass()).add(axiom);
                 }
@@ -696,13 +696,13 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         public void visit(OWLClassAssertionAxiom axiom) {
             if (!axiom.getIndividual().isAnonymous()) {
                 getAxiomsForLHS(axiom.getIndividual().asNamedIndividual()).add(axiom);
-                indexAxiomsByRHSEntities(axiom.getDescription(), axiom);
+                indexAxiomsByRHSEntities(axiom.getClassExpression(), axiom);
             }
         }
 
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            for (OWLClassExpression desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 if (!desc.isAnonymous()) {
                     getAxiomsForLHS(desc.asOWLClass()).add(axiom);
                 }

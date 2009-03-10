@@ -31,7 +31,7 @@ import org.semanticweb.owl.model.OWLAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
-public class OWLDisjointClassesAxiomElementHandler extends AbstractOWLDescriptionOperandAxiomElementHandler {
+public class OWLDisjointClassesAxiomElementHandler extends AbstractClassExpressionOperandAxiomElementHandler {
 
     public OWLDisjointClassesAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);

@@ -47,9 +47,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     protected List<? extends OWLObject> sort(Collection<? extends OWLObject> objects) {
-        List<? extends OWLObject> sortedDescriptions = new ArrayList<OWLObject>(objects);
-        Collections.sort(sortedDescriptions);
-        return sortedDescriptions;
+        List<? extends OWLObject> sortedObjects = new ArrayList<OWLObject>(objects);
+        Collections.sort(sortedObjects);
+        return sortedObjects;
     }
 
 
@@ -157,7 +157,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //
-    // Class descriptions
+    // Class expressions
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -519,7 +519,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public void visit(OWLDisjointClassesAxiom axiom) {
         setAxiomWriting();
         writeFrameKeyword(DISJOINT_CLASSES);
-        writeCommaSeparatedList(axiom.getDescriptions());
+        writeCommaSeparatedList(axiom.getClassExpressions());
         restore();
     }
 
@@ -645,7 +645,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         setAxiomWriting();
         writeFrameType(axiom.getOWLClass());
         writeSectionKeyword(DISJOINT_UNION_OF);
-        writeCommaSeparatedList(axiom.getDescriptions());
+        writeCommaSeparatedList(axiom.getClassExpressions());
         restore();
     }
 
@@ -745,15 +745,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         setAxiomWriting();
         writeFrameType(axiom.getIndividual());
         writeSectionKeyword(TYPES);
-        axiom.getDescription().accept(this);
+        axiom.getClassExpression().accept(this);
         restore();
     }
 
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
         setAxiomWriting();
-        if(axiom.getDescriptions().size() == 2) {
-            OWLClassExpression [] ces = axiom.getDescriptions().toArray(new OWLClassExpression[2]);
+        if(axiom.getClassExpressions().size() == 2) {
+            OWLClassExpression [] ces = axiom.getClassExpressions().toArray(new OWLClassExpression[2]);
             ces[0].accept(this);
             writeSpace();
             writeFrameKeyword(EQUIVALENT_CLASSES);
@@ -762,7 +762,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         }
         else {
             writeFrameKeyword(EQUIVALENT_CLASSES);
-            writeCommaSeparatedList(axiom.getDescriptions());
+            writeCommaSeparatedList(axiom.getClassExpressions());
         }
         restore();
     }

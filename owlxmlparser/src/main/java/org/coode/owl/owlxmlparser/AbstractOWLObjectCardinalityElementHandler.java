@@ -31,7 +31,7 @@ import org.semanticweb.owl.model.OWLClassExpression;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
-public abstract class AbstractOWLObjectCardinalityElementHandler extends AbstractDescriptionFillerRestriction
+public abstract class AbstractOWLObjectCardinalityElementHandler extends AbstractClassExpressionFillerRestriction
 {
 
     private int cardinality;

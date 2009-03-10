@@ -78,8 +78,8 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
         for (OWLOntology o : ontologies) {
             for (OWLEquivalentClassesAxiom ax : o.getEquivalentClassesAxioms(cls)) {
                 changes.add(new RemoveAxiom(o, ax));
-                for (OWLClassExpression equivCls : ax.getDescriptions()) {
-                    supers.addAll(getDescriptions(equivCls));
+                for (OWLClassExpression equivCls : ax.getClassExpressions()) {
+                    supers.addAll(getClassExpressions(equivCls));
                 }
             }
         }
@@ -90,7 +90,7 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
     }
 
 
-    private Set<OWLClassExpression> getDescriptions(OWLClassExpression desc) {
+    private Set<OWLClassExpression> getClassExpressions(OWLClassExpression desc) {
         final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         if (splitIntersections) {
             desc.accept(new OWLClassExpressionVisitorAdapter() {

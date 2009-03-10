@@ -31,7 +31,7 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br><br>
  */
-public class OWLClassElementHandler extends AbstractOWLDescriptionElementHandler {
+public class OWLClassElementHandler extends AbstractClassExpressionElementHandler {
 
     private URI uri;
 
@@ -48,10 +48,10 @@ public class OWLClassElementHandler extends AbstractOWLDescriptionElementHandler
     }
 
 
-    public void endDescriptionElement() throws OWLXMLParserException {
+    public void endClassExpressionElement() throws OWLXMLParserException {
         if (uri == null) {
             throw new OWLXMLParserAttributeNotFoundException(getLineNumber(), "URI");
         }
-        setDescription(getOWLDataFactory().getOWLClass(uri));
+        setClassExpression(getOWLDataFactory().getOWLClass(uri));
     }
 }

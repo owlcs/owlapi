@@ -67,7 +67,7 @@ public interface OWLIndividual extends OWLObject {
      *
      * @param ontology The ontology that should be examined for class assertion
      *                 axioms in order to get the types for this individual.
-     * @return A set of descriptions that correspond the asserted types of this
+     * @return A set of class expressions that correspond the asserted types of this
      *         individual in the specified ontology.
      */
     public Set<OWLClassExpression> getTypes(OWLOntology ontology);
@@ -78,7 +78,7 @@ public interface OWLIndividual extends OWLObject {
      * examining the specified ontologies.
      *
      * @param ontologies The ontologies to be examined for class assertions
-     * @return A set of descriptions that represent the types of this
+     * @return A set of class expressions that represent the types of this
      *         individual as asserted in the specified ontologies.
      */
     public Set<OWLClassExpression> getTypes(Set<OWLOntology> ontologies);

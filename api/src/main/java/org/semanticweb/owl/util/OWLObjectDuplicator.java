@@ -124,7 +124,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public void visit(OWLClassAssertionAxiom axiom) {
         axiom.getIndividual().accept(this);
         OWLIndividual ind = (OWLIndividual) obj;
-        axiom.getDescription().accept(this);
+        axiom.getClassExpression().accept(this);
         OWLClassExpression type = (OWLClassExpression) obj;
         obj = dataFactory.getClassAssertion(ind, type);
     }
@@ -182,7 +182,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
 
     public void visit(OWLDisjointClassesAxiom axiom) {
-        Set<OWLClassExpression> descs = duplicateSet(axiom.getDescriptions());
+        Set<OWLClassExpression> descs = duplicateSet(axiom.getClassExpressions());
         obj = dataFactory.getDisjointClasses(descs);
     }
 
@@ -202,7 +202,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public void visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept(this);
         OWLClass cls = (OWLClass) obj;
-        Set<OWLClassExpression> ops = duplicateSet(axiom.getDescriptions());
+        Set<OWLClassExpression> ops = duplicateSet(axiom.getClassExpressions());
         obj = dataFactory.getDisjointUnion(cls, ops);
     }
 
@@ -217,7 +217,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        Set<OWLClassExpression> descs = duplicateSet(axiom.getDescriptions());
+        Set<OWLClassExpression> descs = duplicateSet(axiom.getClassExpressions());
         obj = dataFactory.getEquivalentClasses(descs);
     }
 

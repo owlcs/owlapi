@@ -159,7 +159,7 @@ public class StructuralTransformation {
         public OWLClassExpression visit(OWLObjectComplementOf desc) {
             // Should be a literal
             if (desc.getOperand().isAnonymous()) {
-                throw new IllegalStateException("Negation of arbitrary descriptions not allowed");
+                throw new IllegalStateException("Negation of arbitrary class expressions not allowed");
             }
             return desc;
         }
@@ -291,7 +291,7 @@ public class StructuralTransformation {
 
 
         public Set<OWLAxiom> visit(OWLClassAssertionAxiom axiom) {
-            return subClassOf(df.getObjectOneOf(axiom.getIndividual()), axiom.getDescription());
+            return subClassOf(df.getObjectOneOf(axiom.getIndividual()), axiom.getClassExpression());
         }
 
 
@@ -339,7 +339,7 @@ public class StructuralTransformation {
         public Set<OWLAxiom> visit(OWLDisjointClassesAxiom axiom) {
             // Explode
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(axiom.getDescriptions());
+            List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(axiom.getClassExpressions());
             for (int i = 0; i < classExpressions.size(); i++) {
                 for (int j = i + 1; j < classExpressions.size(); j++) {
                     axioms.addAll(subClassOf(classExpressions.get(i), classExpressions.get(j)));
@@ -377,8 +377,8 @@ public class StructuralTransformation {
         public Set<OWLAxiom> visit(OWLDisjointUnionAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
             axioms.addAll(df.getOWLEquivalentClassesAxiom(axiom.getOWLClass(),
-                    df.getObjectUnionOf(axiom.getDescriptions())).accept(this));
-            axioms.addAll(df.getDisjointClasses(axiom.getDescriptions()).accept(this));
+                    df.getObjectUnionOf(axiom.getClassExpressions())).accept(this));
+            axioms.addAll(df.getDisjointClasses(axiom.getClassExpressions()).accept(this));
             return axioms;
         }
 
@@ -390,7 +390,7 @@ public class StructuralTransformation {
 
         public Set<OWLAxiom> visit(OWLEquivalentClassesAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(axiom.getDescriptions());
+            List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(axiom.getClassExpressions());
             for (int i = 0; i < classExpressions.size(); i++) {
                 for (int j = i + 1; j < classExpressions.size(); j++) {
                     axioms.addAll(subClassOf(classExpressions.get(i), classExpressions.get(j)));

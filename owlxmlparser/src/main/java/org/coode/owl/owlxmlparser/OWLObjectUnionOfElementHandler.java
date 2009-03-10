@@ -33,14 +33,14 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
-public class OWLObjectUnionOfElementHandler extends AbstractNaryBooleanDescriptionElementHandler {
+public class OWLObjectUnionOfElementHandler extends AbstractNaryBooleanClassExpressionElementHandler {
 
     public OWLObjectUnionOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
 
-    protected OWLClassExpression createOWLDescription(Set<OWLClassExpression> operands) {
+    protected OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) {
         return getOWLDataFactory().getObjectUnionOf(operands);
     }
 }

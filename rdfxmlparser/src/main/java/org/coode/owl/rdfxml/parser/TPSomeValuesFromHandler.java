@@ -65,7 +65,7 @@ public class TPSomeValuesFromHandler extends TriplePredicateHandler {
                     eagerConsume = true;
                     // In order to translate the restriction we need to add the triple.
                     consumer.addTriple(subject, predicate, object);
-                    translateDescription(subject);
+                    translateClassExpression(subject);
                     consumer.consumeTriple(subject, OWLRDFVocabulary.OWL_ON_PROPERTY.getURI(), obj);
                     eagerConsume = false;
                     return true;

@@ -143,7 +143,7 @@ public class Example9 {
 
 
         public void visit(OWLObjectSomeValuesFrom desc) {
-            // This method gets called when a description (OWLClassExpression) is an
+            // This method gets called when a class expression is an
             // existential (someValuesFrom) restriction and it asks us to visit it
             restrictedProperties.add(desc.getProperty());
         }

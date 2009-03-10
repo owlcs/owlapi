@@ -94,7 +94,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         public void visit(OWLClassAssertionAxiom axiom) {
             process(axiom);
             axiom.getIndividual().accept(this);
-            axiom.getDescription().accept(this);
+            axiom.getClassExpression().accept(this);
         }
 
 
@@ -143,7 +143,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLDisjointClassesAxiom axiom) {
             process(axiom);
-            for (OWLClassExpression desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 desc.accept(this);
             }
         }
@@ -168,7 +168,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         public void visit(OWLDisjointUnionAxiom axiom) {
             process(axiom);
             axiom.getOWLClass().accept(this);
-            for (OWLClassExpression desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 desc.accept(this);
             }
         }
@@ -206,7 +206,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
             process(axiom);
-            for (OWLClassExpression desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 desc.accept(this);
             }
         }

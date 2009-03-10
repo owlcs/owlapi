@@ -32,7 +32,7 @@ import org.semanticweb.owl.vocab.OWLXMLVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
-public class OWLObjectAllValuesFromElementHandler extends AbstractDescriptionFillerRestriction {
+public class OWLObjectAllValuesFromElementHandler extends AbstractClassExpressionFillerRestriction {
 
     public static final String ELEMENT_NAME = OWLXMLVocabulary.OBJECT_SOME_VALUES_FROM.toString();
 

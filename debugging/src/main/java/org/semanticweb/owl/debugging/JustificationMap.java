@@ -254,8 +254,8 @@ public class JustificationMap {
 
 
         public void visit(OWLDisjointClassesAxiom axiom) {
-            rhs.addAll(axiom.getDescriptions());
-            lhs.addAll(axiom.getDescriptions());
+            rhs.addAll(axiom.getClassExpressions());
+            lhs.addAll(axiom.getClassExpressions());
         }
 
 
@@ -327,10 +327,10 @@ public class JustificationMap {
 
 
         public void visit(OWLDisjointUnionAxiom axiom) {
-            rhs.addAll(axiom.getDescriptions());
+            rhs.addAll(axiom.getClassExpressions());
             rhs.add(axiom.getOWLClass());
             lhs.add(axiom.getOWLClass());
-            lhs.addAll(axiom.getDescriptions());
+            lhs.addAll(axiom.getClassExpressions());
         }
 
 
@@ -357,14 +357,14 @@ public class JustificationMap {
 
 
         public void visit(OWLClassAssertionAxiom axiom) {
-            rhs.add(axiom.getDescription());
+            rhs.add(axiom.getClassExpression());
             lhs.add(axiom.getIndividual());
         }
 
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            rhs.addAll(axiom.getDescriptions());
-            lhs.addAll(axiom.getDescriptions());
+            rhs.addAll(axiom.getClassExpressions());
+            lhs.addAll(axiom.getClassExpressions());
         }
 
 

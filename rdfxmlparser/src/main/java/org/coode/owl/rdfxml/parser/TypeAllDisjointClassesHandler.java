@@ -48,7 +48,7 @@ public class TypeAllDisjointClassesHandler extends BuiltInTypeHandler {
         consumeTriple(subject, predicate, object);
         URI listNode = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS.getURI(), true);
         if (listNode != null) {
-            Set<OWLClassExpression> desc = getConsumer().translateToDescriptionSet(listNode);
+            Set<OWLClassExpression> desc = getConsumer().translateToClassExpressionSet(listNode);
             addAxiom(getDataFactory().getDisjointClasses(desc));
         } else {
             throw new OWLRDFXMLParserMalformedNodeException("Malformed AllDisjointClasses -  members triple not present");

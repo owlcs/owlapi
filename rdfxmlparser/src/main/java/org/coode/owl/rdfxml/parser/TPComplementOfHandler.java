@@ -42,6 +42,6 @@ public class TPComplementOfHandler extends AbstractNamedEquivalentClassAxiomHand
     }
 
     protected OWLClassExpression translateEquivalentClass(URI mainNode) throws OWLException {
-        return getDataFactory().getObjectComplementOf(getConsumer().translateDescription(mainNode));
+        return getDataFactory().getObjectComplementOf(getConsumer().translateClassExpression(mainNode));
     }
 }

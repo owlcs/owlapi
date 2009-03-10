@@ -48,7 +48,7 @@ public class TestAnonymousType extends AbstractRendererAndParserTestCase {
     }
 
 
-    protected String getDescription() {
+    protected String getClassExpression() {
         return "Anonymous type test case";
     }
 }

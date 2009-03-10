@@ -49,8 +49,8 @@ public class NegationalNormalFormConverter implements NormalFormRewriter {
     public boolean isInNormalForm(OWLClassExpression classExpression) {
         // The classExpression is in negational normal form if negations
         // only appear in front of named concepts
-        extractor.getComplementedDescriptions(classExpression);
-        for (OWLClassExpression desc : extractor.getComplementedDescriptions(classExpression)) {
+        extractor.getComplementedClassExpressions(classExpression);
+        for (OWLClassExpression desc : extractor.getComplementedClassExpressions(classExpression)) {
             if (desc.isAnonymous()) {
                 return false;
             }

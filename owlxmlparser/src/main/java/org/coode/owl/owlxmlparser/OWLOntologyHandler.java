@@ -79,8 +79,8 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
 
-    public void handleChild(AbstractOWLDescriptionElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Encountered a description, but was expecting an axiom.");
+    public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException {
+        throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Encountered a class expression, but was expecting an axiom.");
     }
 
 

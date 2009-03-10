@@ -330,7 +330,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         writeAxiomStart(CLASS_ASSERTION, axiom);
         axiom.getIndividual().accept(this);
         writeSpace();
-        axiom.getDescription().accept(this);
+        axiom.getClassExpression().accept(this);
         writeAxiomEnd();
     }
 
@@ -391,7 +391,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLDisjointClassesAxiom axiom) {
         writeAxiomStart(DISJOINT_CLASSES, axiom);
-        write(axiom.getDescriptions());
+        write(axiom.getClassExpressions());
         writeAxiomEnd();
     }
 
@@ -414,7 +414,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         writeAxiomStart(DISJOINT_UNION, axiom);
         axiom.getOWLClass().accept(this);
         writeSpace();
-        write(axiom.getDescriptions());
+        write(axiom.getClassExpressions());
         writeAxiomEnd();
     }
 
@@ -432,7 +432,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
         writeAxiomStart(EQUIVALENT_CLASSES, axiom);
-        write(axiom.getDescriptions());
+        write(axiom.getClassExpressions());
         writeAxiomEnd();
     }
 

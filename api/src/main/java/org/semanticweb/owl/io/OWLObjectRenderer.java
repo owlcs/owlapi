@@ -33,7 +33,7 @@ import org.semanticweb.owl.util.ShortFormProvider;
  * Date: 08-Oct-2007<br><br>
  *
  * A general purpose interface, implementations of which can be used
- * to renderer OWL objects (e.g. class descriptions, axioms etc.) for
+ * to renderer OWL objects (e.g. class expressions, axioms etc.) for
  * presentation in user interfaces, colsole writing etc. etc.  Many
  * ontology renderers may also choose to implement this interface.
  */

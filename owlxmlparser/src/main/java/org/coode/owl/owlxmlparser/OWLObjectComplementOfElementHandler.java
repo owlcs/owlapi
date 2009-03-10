@@ -31,7 +31,7 @@ import org.semanticweb.owl.model.OWLClassExpression;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
-public class OWLObjectComplementOfElementHandler extends AbstractOWLDescriptionElementHandler {
+public class OWLObjectComplementOfElementHandler extends AbstractClassExpressionElementHandler {
 
     private OWLClassExpression operand;
 
@@ -41,15 +41,15 @@ public class OWLObjectComplementOfElementHandler extends AbstractOWLDescriptionE
     }
 
 
-    public void handleChild(AbstractOWLDescriptionElementHandler handler) {
+    public void handleChild(AbstractClassExpressionElementHandler handler) {
         operand = handler.getOWLObject();
     }
 
 
-    protected void endDescriptionElement() throws OWLXMLParserException {
+    protected void endClassExpressionElement() throws OWLXMLParserException {
         if (operand == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "description element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "class expression element");
         }
-        setDescription(getOWLDataFactory().getObjectComplementOf(operand));
+        setClassExpression(getOWLDataFactory().getObjectComplementOf(operand));
     }
 }

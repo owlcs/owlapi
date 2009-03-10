@@ -45,7 +45,7 @@ public class ObjectHasValueTranslator extends AbstractObjectRestrictionTranslato
     protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
         URI hasValueObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getURI(), true);
         if (hasValueObject == null) {
-            throw new MalformedDescriptionException(OWLRDFVocabulary.OWL_HAS_VALUE + " triple not present");
+            throw new MalformedClassExpressionException(OWLRDFVocabulary.OWL_HAS_VALUE + " triple not present");
         }
         OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
         OWLIndividual ind = getConsumer().getOWLIndividual(hasValueObject);

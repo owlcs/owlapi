@@ -167,18 +167,18 @@ public enum ManchesterOWLSyntax {
 
     private boolean axiomKeyword;
 
-    private boolean descriptionQuantiferKeyword;
+    private boolean classExpressionQuantiferKeyword;
 
-    private boolean descriptionConnectiveKeyword;
+    private boolean classExpressionConnectiveKeyword;
 
     private String rendering;
 
-    private ManchesterOWLSyntax(String rendering, boolean sectionKeyword, boolean axiomKeyword, boolean descriptionQuantifierKeyword, boolean descriptionConnectiveKeyword) {
+    private ManchesterOWLSyntax(String rendering, boolean sectionKeyword, boolean axiomKeyword, boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword) {
         this.rendering = rendering;
         this.sectionKeyword = sectionKeyword;
         this.axiomKeyword = axiomKeyword;
-        this.descriptionConnectiveKeyword = descriptionConnectiveKeyword;
-        this.descriptionQuantiferKeyword = descriptionQuantifierKeyword;
+        this.classExpressionConnectiveKeyword = classExpressionConnectiveKeyword;
+        this.classExpressionQuantiferKeyword = classExpressionQuantifierKeyword;
     }
 
 
@@ -192,13 +192,13 @@ public enum ManchesterOWLSyntax {
     }
 
 
-    public boolean isDescriptionConnectiveKeyword() {
-        return descriptionConnectiveKeyword;
+    public boolean isClassExpressionConnectiveKeyword() {
+        return classExpressionConnectiveKeyword;
     }
 
 
-    public boolean isDescriptionQuantiferKeyword() {
-        return descriptionQuantiferKeyword;
+    public boolean isClassExpressionQuantiferKeyword() {
+        return classExpressionQuantiferKeyword;
     }
 
 

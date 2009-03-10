@@ -33,14 +33,14 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
-public class OWLObjectIntersectionOfElementHandler extends AbstractNaryBooleanDescriptionElementHandler {
+public class OWLObjectIntersectionOfElementHandler extends AbstractNaryBooleanClassExpressionElementHandler {
 
     public OWLObjectIntersectionOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
 
-    protected OWLClassExpression createOWLDescription(Set<OWLClassExpression> operands) {
+    protected OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) {
         return getOWLDataFactory().getObjectIntersectionOf(operands);
     }
 }

@@ -31,7 +31,7 @@ import org.semanticweb.owl.model.OWLClassExpression;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
-public class OWLObjectSomeValuesFromElementHandler extends AbstractDescriptionFillerRestriction {
+public class OWLObjectSomeValuesFromElementHandler extends AbstractClassExpressionFillerRestriction {
 
     public OWLObjectSomeValuesFromElementHandler(OWLXMLParserHandler handler) {
         super(handler);

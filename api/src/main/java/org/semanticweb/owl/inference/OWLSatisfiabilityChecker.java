@@ -32,7 +32,7 @@ import org.semanticweb.owl.model.OWLClassExpression;
  * Date: 01-Mar-2007<br><br>
  *
  * A minimal reasoner interface which allows the satisfiability of
- * a class description to be checked.
+ * a class expression to be checked.
  *
  */
 public interface OWLSatisfiabilityChecker extends OWLReasonerBase {

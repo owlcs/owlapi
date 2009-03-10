@@ -238,7 +238,7 @@ public abstract class RDFRendererBase {
         generalAxioms.addAll(ontology.getPropertyChainSubPropertyAxioms());
         generalAxioms.addAll(ontology.getAxioms(AxiomType.DIFFERENT_INDIVIDUALS));
         for (OWLDisjointClassesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_CLASSES)) {
-            if (ax.getDescriptions().size() > 2) {
+            if (ax.getClassExpressions().size() > 2) {
                 generalAxioms.add(ax);
             }
         }
@@ -351,7 +351,7 @@ public abstract class RDFRendererBase {
                 for (OWLAxiom ax : ontology.getAxioms(cls)) {
                     if (ax instanceof OWLDisjointClassesAxiom) {
                         OWLDisjointClassesAxiom disjAx = (OWLDisjointClassesAxiom) ax;
-                        if (disjAx.getDescriptions().size() > 2) {
+                        if (disjAx.getClassExpressions().size() > 2) {
                             continue;
                         }
                     }

@@ -214,7 +214,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
             if (ax instanceof OWLEquivalentClassesAxiom && ((OWLEquivalentClassesAxiom) ax).getNamedClasses().isEmpty()) {
                 exceptions.add(new OBOStorageException(ax, null, "Equivalent class GCI found in ontology cannot be translated to OBO"));
             } else if (ax instanceof OWLDisjointClassesAxiom) {
-                for (OWLClassExpression op : ((OWLDisjointClassesAxiom) ax).getDescriptions()) {
+                for (OWLClassExpression op : ((OWLDisjointClassesAxiom) ax).getClassExpressions()) {
                     if (op.isAnonymous()) {
                         exceptions.add(new OBOStorageException(ax, null, "Disjoint axiom contains anonymous classes - cannot be translated to OBO"));
                         break;

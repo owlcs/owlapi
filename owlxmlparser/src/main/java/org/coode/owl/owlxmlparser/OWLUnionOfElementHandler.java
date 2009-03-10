@@ -39,7 +39,7 @@ public class OWLUnionOfElementHandler extends AbstractOWLElementHandler<OWLClass
     }
 
 
-    public void handleChild(AbstractOWLDescriptionElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException {
         // We simply pass on to our parent, which MUST be an OWLDisjointUnionOf
         getParentHandler().handleChild(handler);
     }

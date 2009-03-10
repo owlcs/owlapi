@@ -50,7 +50,7 @@ public interface OWLElementHandler<O> {
     public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException;
 
 
-    public void handleChild(AbstractOWLDescriptionElementHandler handler) throws OWLXMLParserException;
+    public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException;
 
 
     public void handleChild(AbstractOWLObjectPropertyElementHandler handler) throws OWLXMLParserException;

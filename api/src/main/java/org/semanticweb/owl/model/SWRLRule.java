@@ -67,18 +67,18 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
 
     /**
-     * Determines if this rule uses anonymous descriptions in
+     * Determines if this rule uses anonymous class expressions in
      * class atoms.
      * @return <code>true</code> if this rule contains anonymous
-     * class description in class atoms, otherwise <code>false</code>.
+     * class expression in class atoms, otherwise <code>false</code>.
      */
-    boolean containsAnonymousDescriptions();
+    boolean containsAnonymousClassExpressions();
 
 
     /**
      * Gets the predicates of class atoms.
-     * @return A set of descriptions that represent the
-     * class descriptions that are predicates of class atoms.
+     * @return A set of class expressions that represent the
+     * class class expressions that are predicates of class atoms.
      */
     Set<OWLClassExpression> getClassAtomPredicates();
 }

@@ -34,12 +34,12 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public abstract class AbstractDescriptionTranslator implements DescriptionTranslator {
+public abstract class AbstractClassExpressionTranslator implements ClassExpressionTranslator {
 
     private OWLRDFConsumer consumer;
 
 
-    protected AbstractDescriptionTranslator(OWLRDFConsumer consumer) {
+    protected AbstractClassExpressionTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
 
@@ -64,8 +64,8 @@ public abstract class AbstractDescriptionTranslator implements DescriptionTransl
         return consumer.isTriplePresent(mainNode, predicate, value, true);
     }
 
-    protected Set<OWLClassExpression> translateToDescriptionSet(URI mainNode) throws OWLException {
-        return consumer.translateToDescriptionSet(mainNode);
+    protected Set<OWLClassExpression> translateToClassExpressionSet(URI mainNode) throws OWLException {
+        return consumer.translateToClassExpressionSet(mainNode);
     }
 
     protected Set<OWLIndividual> translateToIndividualSet(URI mainNode) throws OWLException {
@@ -76,8 +76,8 @@ public abstract class AbstractDescriptionTranslator implements DescriptionTransl
         return consumer.getDataFactory();
     }
 
-    protected OWLClassExpression translateToDescription(URI mainNode) throws OWLException {
-        return consumer.translateDescription(mainNode);
+    protected OWLClassExpression translateToClassExpression(URI mainNode) throws OWLException {
+        return consumer.translateClassExpression(mainNode);
     }
 
 }

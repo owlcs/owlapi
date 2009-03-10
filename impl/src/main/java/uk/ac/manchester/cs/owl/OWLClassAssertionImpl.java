@@ -45,7 +45,7 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
     }
 
 
-    public OWLClassExpression getDescription() {
+    public OWLClassExpression getClassExpression() {
         return classExpression;
     }
 
@@ -62,7 +62,7 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
             }
             OWLClassAssertionAxiom other = (OWLClassAssertionAxiom) obj;
             return other.getIndividual().equals(individual) &&
-                    other.getDescription().equals(classExpression);
+                    other.getClassExpression().equals(classExpression);
         }
         return false;
     }
@@ -94,7 +94,7 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
         if (diff != 0) {
             return diff;
         } else {
-            return getDescription().compareTo(otherAx.getDescription());
+            return getClassExpression().compareTo(otherAx.getClassExpression());
         }
     }
 

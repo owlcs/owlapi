@@ -53,8 +53,8 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         // Can handle because the uris can easily be translated to classes
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
-        operands.add(translateDescription(subject));
-        operands.add(translateDescription(object));
+        operands.add(translateClassExpression(subject));
+        operands.add(translateClassExpression(object));
         addAxiom(getDataFactory().getEquivalentClasses(operands));
         consumeTriple(subject, predicate, object);
     }

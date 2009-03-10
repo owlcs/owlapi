@@ -54,7 +54,7 @@ public class TestQCR extends AbstractRendererAndParserTestCase {
     }
 
 
-    protected String getDescription() {
+    protected String getClassExpression() {
         return "Qualified Cardinality";
     }
 }

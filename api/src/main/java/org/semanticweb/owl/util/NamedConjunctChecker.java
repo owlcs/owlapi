@@ -59,12 +59,12 @@ public class NamedConjunctChecker {
 
 
     /**
-     * Checks whether a named class is a conjunct in a given class description.
+     * Checks whether a named class is a conjunct in a given class expression.
      * For class expressions which aren't named classes or object intersections this
      * method will always return false.
      *
      * @param conjunct        The conjunct to check for
-     * @param classExpression The description to be checked
+     * @param classExpression The expression to be checked
      */
     public boolean isNamedConjunct(OWLClass conjunct, OWLClassExpression classExpression) {
         reset();
@@ -75,13 +75,13 @@ public class NamedConjunctChecker {
 
 
     /**
-     * Checks whether the specified description has a named conjunct.  For
+     * Checks whether the specified expression has a named conjunct.  For
      * For class expressions which aren't named classes or object intersections this
      * method will always return false.
      *
-     * @param classExpression The description to be checked.
-     * @return <code>true</code> if the description is in fact a named class (<code>OWLClass</code>)
-     *         or if the description is an intersection that has a named operand (included nested intersections),
+     * @param classExpression The expression to be checked.
+     * @return <code>true</code> if the expression is in fact a named class (<code>OWLClass</code>)
+     *         or if the expression is an intersection that has a named operand (included nested intersections),
      *         otherwise <code>false</code>
      */
     public boolean hasNamedConjunct(OWLClassExpression classExpression) {
@@ -99,11 +99,11 @@ public class NamedConjunctChecker {
 
 
     /**
-     * Gets the named conjuncts for the specified description.
+     * Gets the named conjuncts for the specified expression.
      *
-     * @param classExpression The description whose conjuncts are to be retrieved.
-     * @return A set containing the named conjuncts of the specified description.  If
-     *         the description is not a named class or an intersection then the set will
+     * @param classExpression The expression whose conjuncts are to be retrieved.
+     * @return A set containing the named conjuncts of the specified expression.  If
+     *         the expression is not a named class or an intersection then the set will
      *         definitely be empty.
      */
     public Set<OWLClass> getNamedConjuncts(OWLClassExpression classExpression) {

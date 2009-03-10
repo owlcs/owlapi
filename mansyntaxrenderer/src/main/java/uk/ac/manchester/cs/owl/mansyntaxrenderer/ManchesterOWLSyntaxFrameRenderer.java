@@ -152,8 +152,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         // Nary disjoint classes axioms
         for (OWLDisjointClassesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_CLASSES)) {
-            if (ax.getDescriptions().size() > 2) {
-                writeSection(DISJOINT_CLASSES, ax.getDescriptions(), ",", false);
+            if (ax.getClassExpressions().size() > 2) {
+                writeSection(DISJOINT_CLASSES, ax.getClassExpressions(), ",", false);
             }
         }
         flush();
@@ -231,7 +231,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 Set<OWLClassExpression> equivalentClasses = new TreeSet<OWLClassExpression>();
                 for (OWLEquivalentClassesAxiom ax : ontology.getEquivalentClassesAxioms(cls)) {
                     if (isDisplayed(ax)) {
-                        equivalentClasses.addAll(ax.getDescriptions());
+                        equivalentClasses.addAll(ax.getClassExpressions());
                         axioms.add(ax);
                     }
                 }
@@ -270,9 +270,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 Set<OWLClassExpression> disjointClasses = new TreeSet<OWLClassExpression>();
                 for (OWLDisjointClassesAxiom ax : ontology.getDisjointClassesAxioms(cls)) {
                     if (isDisplayed(ax)) {
-                        if (ax.getDescriptions().size() <= 2) {
+                        if (ax.getClassExpressions().size() <= 2) {
                             pairwiseDisjointClassesAxioms.add(ax);
-                            disjointClasses.addAll(ax.getDescriptions());
+                            disjointClasses.addAll(ax.getClassExpressions());
                         }
                         axioms.add(ax);
                     }
@@ -609,7 +609,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 Set<OWLClassExpression> expressions = new TreeSet<OWLClassExpression>();
                 for(OWLClassAssertionAxiom ax : ontology.getClassAssertionAxioms(individual)) {
                     if(isDisplayed(ax)) {
-                        expressions.add(ax.getDescription());
+                        expressions.add(ax.getClassExpression());
                         axioms.add(ax);
                     }
                 }

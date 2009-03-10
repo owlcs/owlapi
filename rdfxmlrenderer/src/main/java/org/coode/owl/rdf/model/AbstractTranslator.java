@@ -61,7 +61,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     public void visit(OWLClassAssertionAxiom axiom) {
-        addAxiom(axiom, axiom.getIndividual(), RDF_TYPE.getURI(), axiom.getDescription());
+        addAxiom(axiom, axiom.getIndividual(), RDF_TYPE.getURI(), axiom.getClassExpression());
     }
 
 
@@ -142,22 +142,22 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    private DescriptionComparator descriptionComparator = new DescriptionComparator();
+    private ClassExpressionComparator classExpressionComparator = new ClassExpressionComparator();
 
 
     /**
-     * Renders a set of descriptions in a pairwise manner using the specified URI.  It
+     * Renders a set of class expressions in a pairwise manner using the specified URI.  It
      * is assumed that the relationship described by the URI (e.g. disjointWith) is
      * symmetric.  The method delegates to the <code>addPairwise</code> method after sorting
-     * the descriptions so that named classes appear first.
+     * the class expressions so that named classes appear first.
      *
      * @param axiom            The axiom which will dictate which axiom annotation get rendered
-     * @param classExpressions The set of descriptions to be rendered.
-     * @param uri              The URI which describes the relationship between pairs of descriptions.
+     * @param classExpressions The set of class expressions to be rendered.
+     * @param uri              The URI which describes the relationship between pairs of class expressions.
      */
-    private void addPairwiseDescriptions(OWLAxiom axiom, Set<OWLClassExpression> classExpressions, URI uri) {
+    private void addPairwiseClassExpressions(OWLAxiom axiom, Set<OWLClassExpression> classExpressions, URI uri) {
         List<OWLClassExpression> classExpressionList = new ArrayList<OWLClassExpression>(classExpressions);
-        Collections.sort(classExpressionList, descriptionComparator);
+        Collections.sort(classExpressionList, classExpressionComparator);
         addPairwise(axiom, classExpressionList, uri);
 
     }
@@ -170,12 +170,12 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     public void visit(OWLDisjointClassesAxiom axiom) {
-        if (axiom.getDescriptions().size() == 2) {
-            addPairwiseDescriptions(axiom, axiom.getDescriptions(), OWL_DISJOINT_WITH.getURI());
+        if (axiom.getClassExpressions().size() == 2) {
+            addPairwiseClassExpressions(axiom, axiom.getClassExpressions(), OWL_DISJOINT_WITH.getURI());
         } else {
             translateAnonymousNode(axiom);
             addTriple(axiom, RDF_TYPE.getURI(), OWL_ALL_DISJOINT_CLASSES.getURI());
-            addTriple(axiom, OWL_MEMBERS.getURI(), axiom.getDescriptions());
+            addTriple(axiom, OWL_MEMBERS.getURI(), axiom.getClassExpressions());
         }
     }
 
@@ -203,7 +203,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     public void visit(OWLDisjointUnionAxiom axiom) {
-        addAxiom(axiom, axiom.getOWLClass(), OWL_DISJOINT_UNION_OF.getURI(), axiom.getDescriptions());
+        addAxiom(axiom, axiom.getOWLClass(), OWL_DISJOINT_UNION_OF.getURI(), axiom.getClassExpressions());
     }
 
 
@@ -237,7 +237,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        addPairwiseDescriptions(axiom, axiom.getDescriptions(), OWL_EQUIVALENT_CLASS.getURI());
+        addPairwiseClassExpressions(axiom, axiom.getClassExpressions(), OWL_EQUIVALENT_CLASS.getURI());
     }
 
     public void visit(OWLHasKeyAxiom axiom) {
@@ -1084,7 +1084,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    private class DescriptionComparator implements Comparator<OWLClassExpression> {
+    private class ClassExpressionComparator implements Comparator<OWLClassExpression> {
 
         public int compare(OWLClassExpression o1, OWLClassExpression o2) {
             if (!o1.isAnonymous()) {

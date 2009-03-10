@@ -315,9 +315,9 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
 
     public void visit(OWLDisjointClassesAxiom axiom) {
-        if (axiom.getDescriptions().size() != 2) {
-            for (OWLClassExpression left : axiom.getDescriptions()) {
-                for (OWLClassExpression right : axiom.getDescriptions()) {
+        if (axiom.getClassExpressions().size() != 2) {
+            for (OWLClassExpression left : axiom.getClassExpressions()) {
+                for (OWLClassExpression right : axiom.getClassExpressions()) {
                     if (left != right) {
                         if (left.equals(subject)) {
                             left.accept(this);
@@ -341,7 +341,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
                 }
             }
         } else {
-            Iterator<OWLClassExpression> it = axiom.getDescriptions().iterator();
+            Iterator<OWLClassExpression> it = axiom.getClassExpressions().iterator();
             OWLClassExpression descA = it.next();
             OWLClassExpression descB = it.next();
             OWLClassExpression lhs;
@@ -365,10 +365,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        if (axiom.getDescriptions().size() > 2) {
+        if (axiom.getClassExpressions().size() > 2) {
             Set<Set<OWLClassExpression>> rendered = new HashSet<Set<OWLClassExpression>>();
-            for (OWLClassExpression left : axiom.getDescriptions()) {
-                for (OWLClassExpression right : axiom.getDescriptions()) {
+            for (OWLClassExpression left : axiom.getClassExpressions()) {
+                for (OWLClassExpression right : axiom.getClassExpressions()) {
                     if (left != right) {
                         Set<OWLClassExpression> cur = CollectionFactory.createSet(left, right);
                         if (!rendered.contains(cur)) {
@@ -383,8 +383,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
                     }
                 }
             }
-        } else if (axiom.getDescriptions().size() == 2) {
-            Iterator<OWLClassExpression> it = axiom.getDescriptions().iterator();
+        } else if (axiom.getClassExpressions().size() == 2) {
+            Iterator<OWLClassExpression> it = axiom.getClassExpressions().iterator();
             OWLClassExpression descA = it.next();
             OWLClassExpression descB = it.next();
             OWLClassExpression lhs;
@@ -422,7 +422,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(":");
         writeSpace();
-        axiom.getDescription().accept(this);
+        axiom.getClassExpression().accept(this);
     }
 
 

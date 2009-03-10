@@ -105,7 +105,7 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
     }
 
 
-    public void handleChild(AbstractOWLDescriptionElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException {
         throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 

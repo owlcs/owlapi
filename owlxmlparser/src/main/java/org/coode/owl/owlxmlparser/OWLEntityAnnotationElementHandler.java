@@ -53,7 +53,7 @@ public class OWLEntityAnnotationElementHandler extends AbstractOWLAxiomElementHa
     }
 
 
-    public void handleChild(AbstractOWLDescriptionElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException {
         if (handler.getOWLObject().isAnonymous()) {
             throw new OWLXMLParserException(getLineNumber(), "Anonymous classes are not allowed in annotations");
         }

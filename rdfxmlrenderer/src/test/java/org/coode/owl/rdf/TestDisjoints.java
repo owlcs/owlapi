@@ -73,23 +73,23 @@ public class TestDisjoints extends TestCase {
 //        OWLClass clsC = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
 //        OWLObjectProperty prop = man.getOWLDataFactory().getObjectProperty(TestUtils.createURI());
 //        OWLClassExpression clsD = man.getOWLDataFactory().getObjectSomeValuesFrom(prop, man.getOWLDataFactory().getThing());
-//        Set<OWLClassExpression> descriptions = new HashSet<OWLClassExpression>();
-//        descriptions.add(clsA);
-//        descriptions.add(clsB);
-//        descriptions.add(clsC);
-//        descriptions.add(clsD);
-//        OWLAxiom ax = man.getOWLDataFactory().getDisjointClasses(descriptions);
+//        Set<OWLClassExpression> expressions = new HashSet<OWLClassExpression>();
+//        expressions.add(clsA);
+//        expressions.add(clsB);
+//        expressions.add(clsC);
+//        expressions.add(clsD);
+//        OWLAxiom ax = man.getOWLDataFactory().getDisjointClasses(expressions);
 //        man.applyChange(new AddAxiom(ontA, ax));
 //        File tempFile = File.createTempFile("Ontology", ".owl");
 //        man.saveOntology(ontA, tempFile.toURI());
 //        OWLOntology ontB = man.loadOntologyFromPhysicalURI(tempFile.toURI());
 //        Set<OWLAxiom> pairwiseAxioms = new HashSet<OWLAxiom>();
-//        List<OWLClassExpression> descriptionsList = new ArrayList<OWLClassExpression>(descriptions);
-//        for(int i = 0; i < descriptions.size(); i++) {
-//            for(int j = i; j < descriptions.size(); j++) {
+//        List<OWLClassExpression> expressionsList = new ArrayList<OWLClassExpression>(expressions);
+//        for(int i = 0; i < expressions.size(); i++) {
+//            for(int j = i; j < expressions.size(); j++) {
 //                if(i != j) {
 //                    System.out.println(i + " -- " + j);
-//                    pairwiseAxioms.add(man.getOWLDataFactory().getDisjointClasses(CollectionFactory.createSet(descriptionsList.get(i), descriptionsList.get(j))));
+//                    pairwiseAxioms.add(man.getOWLDataFactory().getDisjointClasses(CollectionFactory.createSet(expressionsList.get(i), expressionsList.get(j))));
 //                }
 //            }
 //        }

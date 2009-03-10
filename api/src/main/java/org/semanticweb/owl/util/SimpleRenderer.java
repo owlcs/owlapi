@@ -142,7 +142,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLDisjointClassesAxiom axiom) {
         sb.append("DisjointClasses(");
-        render(axiom.getDescriptions());
+        render(axiom.getClassExpressions());
         sb.append(")");
     }
 
@@ -253,7 +253,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("DisjointUnion(");
         axiom.getOWLClass().accept(this);
         insertSpace();
-        render(axiom.getDescriptions());
+        render(axiom.getClassExpressions());
         sb.append(" )");
     }
 
@@ -318,7 +318,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLClassAssertionAxiom axiom) {
         sb.append("ClassAssertion(");
-        axiom.getDescription().accept(this);
+        axiom.getClassExpression().accept(this);
         insertSpace();
         axiom.getIndividual().accept(this);
         sb.append(")");
@@ -327,7 +327,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
         sb.append("EquivalentClasses(");
-        render(axiom.getDescriptions());
+        render(axiom.getClassExpressions());
         sb.append(" )");
     }
 

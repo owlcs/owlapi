@@ -365,7 +365,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    //  Conversion of non-descriptions to NNF
+    //  Conversion of non-class expressions to NNF
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -393,7 +393,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
 
     public OWLAxiom visit(OWLDisjointClassesAxiom axiom) {
         Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
-        for (OWLClassExpression op : axiom.getDescriptions()) {
+        for (OWLClassExpression op : axiom.getClassExpressions()) {
             ops.add(op.accept(this));
         }
         return dataFactory.getDisjointClasses(ops);
@@ -465,7 +465,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
 
     public OWLAxiom visit(OWLDisjointUnionAxiom axiom) {
         Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
-        for (OWLClassExpression op : axiom.getDescriptions()) {
+        for (OWLClassExpression op : axiom.getClassExpressions()) {
             descs.add(op.accept(this));
         }
         return dataFactory.getDisjointUnion(axiom.getOWLClass(), descs);
@@ -504,8 +504,8 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
 
 
     public OWLAxiom visit(OWLClassAssertionAxiom axiom) {
-        if (axiom.getDescription().isAnonymous()) {
-            return dataFactory.getClassAssertion(axiom.getIndividual(), axiom.getDescription().accept(this));
+        if (axiom.getClassExpression().isAnonymous()) {
+            return dataFactory.getClassAssertion(axiom.getIndividual(), axiom.getClassExpression().accept(this));
         } else {
             return axiom;
         }
@@ -514,7 +514,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
 
     public OWLAxiom visit(OWLEquivalentClassesAxiom axiom) {
         Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
-        for (OWLClassExpression op : axiom.getDescriptions()) {
+        for (OWLClassExpression op : axiom.getClassExpressions()) {
             ops.add(op.accept(this));
         }
         return dataFactory.getEquivalentClasses(ops);

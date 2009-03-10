@@ -38,7 +38,7 @@ import java.util.Set;
  */
 public class TestDifferentIndividualsAxiom extends AbstractRendererAndParserTestCase {
 
-    protected String getDescription() {
+    protected String getClassExpression() {
         return "Different individuals axioms test case";
     }
 

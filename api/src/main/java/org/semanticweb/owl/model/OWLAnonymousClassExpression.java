@@ -29,7 +29,7 @@ package org.semanticweb.owl.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  * <p/>
- * The base interface for all descriptions which are not named
+ * The base interface for all class expressions which are not named
  * class expressions (i.e. all class expressions which are not <code>OWLClass</code>).
  */
 public interface OWLAnonymousClassExpression extends OWLClassExpression {

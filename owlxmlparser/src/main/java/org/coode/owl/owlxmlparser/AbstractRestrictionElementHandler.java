@@ -33,7 +33,7 @@ import org.semanticweb.owl.model.OWLPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
-public abstract class AbstractRestrictionElementHandler<P extends OWLPropertyExpression, F extends OWLObject> extends AbstractOWLDescriptionElementHandler {
+public abstract class AbstractRestrictionElementHandler<P extends OWLPropertyExpression, F extends OWLObject> extends AbstractClassExpressionElementHandler {
 
     private P property;
 
@@ -62,8 +62,8 @@ public abstract class AbstractRestrictionElementHandler<P extends OWLPropertyExp
     }
 
 
-    final protected void endDescriptionElement() throws OWLXMLParserException {
-        setDescription(createRestriction());
+    final protected void endClassExpressionElement() throws OWLXMLParserException {
+        setClassExpression(createRestriction());
     }
 
 

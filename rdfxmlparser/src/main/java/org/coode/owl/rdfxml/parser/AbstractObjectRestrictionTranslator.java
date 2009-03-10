@@ -48,13 +48,9 @@ public abstract class AbstractObjectRestrictionTranslator extends AbstractRestri
      * @throws OWLException If the on property triple doesn't exist.
      */
     protected OWLObjectPropertyExpression translateOnProperty(URI mainNode) throws OWLException {
-//        Triple onPropertyTriple = getFirstTripleWithPredicate(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY.getURIFromValue());
-//        if(onPropertyTriple == null) {
-//            throw new MalformedDescriptionException(OWLRDFVocabulary.OWL_ON_PROPERTY + " is not present");
-//        }
         URI onPropertyURI = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY.getURI(), true);
         if(onPropertyURI == null) {
-            throw new MalformedDescriptionException(OWLRDFVocabulary.OWL_ON_PROPERTY + " is not present");
+            throw new MalformedClassExpressionException(OWLRDFVocabulary.OWL_ON_PROPERTY + " is not present");
         }
         return getConsumer().translateObjectPropertyExpression(onPropertyURI);
     }

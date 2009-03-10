@@ -47,13 +47,13 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
      * Gets the named classes (excluding owl:Thing and owl:Nothing) that are in this equivalent classes axiom.
      *
      * @return A set of classes that represents the named classes that are specified to be
-     *         equivalent to some other class (description), excluding the built in classes owl:Thing
+     *         equivalent to some other class (expression), excluding the built in classes owl:Thing
      *         and owl:Nothing
      */
     Set<OWLClass> getNamedClasses();
 
     /**
-     * Determines if this class axiom makes a class description equivalent to nothing.
+     * Determines if this class axiom makes a class expression equivalent to nothing.
      *
      * @return <code>true</code> if this axiom contains owl:Nothing as an equivalent
      *         class.
@@ -62,7 +62,7 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
 
 
     /**
-     * Determines if this class axiom makes a class description equivalent to thing.
+     * Determines if this class axiom makes a class expression equivalent to thing.
      *
      * @return <code>true</code> if this axioms contains owl:Thing as an equivalent class.
      */

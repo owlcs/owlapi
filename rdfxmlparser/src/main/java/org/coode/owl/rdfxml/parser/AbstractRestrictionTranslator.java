@@ -35,7 +35,7 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public abstract class AbstractRestrictionTranslator extends AbstractDescriptionTranslator {
+public abstract class AbstractRestrictionTranslator extends AbstractClassExpressionTranslator {
 
     public AbstractRestrictionTranslator(OWLRDFConsumer consumer) {
         super(consumer);

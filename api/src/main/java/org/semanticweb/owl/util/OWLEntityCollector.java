@@ -35,8 +35,8 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 13-Nov-2006<br><br>
  * <p/>
- * A utiliity class that visits axioms, descriptions etc. and accumulates the named objects
- * that are referred to in those axioms, descriptions etc.  For example, if the collector
+ * A utiliity class that visits axioms, class expressions etc. and accumulates the named objects
+ * that are referred to in those axioms, class expressions etc.  For example, if the collector
  * visited the axiom (propP some C) subClassOf (propQ some D), it would contain the objects
  * propP, C, propQ and D.
  */
@@ -62,7 +62,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
     /**
      * Clears all objects that have accumulated during the course
-     * of visiting axioms, descriptions etc.
+     * of visiting axioms, class expressions etc.
      */
     public void reset() {
         objects.clear();
@@ -95,7 +95,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
 
     /**
-     * Gets the objects that are used by all axioms, descriptions etc. that this
+     * Gets the objects that are used by all axioms, class expressions etc. that this
      * collector has visited since it was constructed or reset.
      *
      * @return An unmodifiable set of objects.
@@ -135,7 +135,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
 
     public void visit(OWLDisjointClassesAxiom axiom) {
-        for (OWLClassExpression desc : axiom.getDescriptions()) {
+        for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
         }
     }
@@ -218,7 +218,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
     public void visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept((OWLEntityVisitor) this);
-        for (OWLClassExpression desc : axiom.getDescriptions()) {
+        for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
         }
     }
@@ -253,13 +253,13 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
 
     public void visit(OWLClassAssertionAxiom axiom) {
-        axiom.getDescription().accept(this);
+        axiom.getClassExpression().accept(this);
         axiom.getIndividual().accept(this);
     }
 
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        for (OWLClassExpression desc : axiom.getDescriptions()) {
+        for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
         }
     }

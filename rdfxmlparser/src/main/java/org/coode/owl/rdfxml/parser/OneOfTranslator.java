@@ -40,7 +40,7 @@ import java.util.logging.Logger;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public class OneOfTranslator extends AbstractDescriptionTranslator {
+public class OneOfTranslator extends AbstractClassExpressionTranslator {
 
     Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
 
@@ -52,7 +52,7 @@ public class OneOfTranslator extends AbstractDescriptionTranslator {
     public OWLClassExpression translate(URI mainNode) throws OWLException {
         URI oneOfObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getURI(), true);
         if (oneOfObject == null) {
-            throw new MalformedDescriptionException(OWLRDFVocabulary.OWL_ONE_OF + " triple not present when translating oneOf");
+            throw new MalformedClassExpressionException(OWLRDFVocabulary.OWL_ONE_OF + " triple not present when translating oneOf");
         }
         Set<OWLIndividual> individuals = translateToIndividualSet(oneOfObject);
         for (OWLIndividual ind : individuals) {
@@ -61,7 +61,7 @@ public class OneOfTranslator extends AbstractDescriptionTranslator {
             }
         }
         if (individuals.isEmpty()) {
-            logger.info("Empty set in owl:oneOf class description - converting to owl:Nothing");
+            logger.info("Empty set in owl:oneOf class expression - converting to owl:Nothing");
             return getDataFactory().getNothing();
         }
         return getDataFactory().getObjectOneOf(individuals);

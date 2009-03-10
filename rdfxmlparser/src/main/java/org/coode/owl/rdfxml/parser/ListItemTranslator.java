@@ -42,7 +42,7 @@ public interface ListItemTranslator<O extends OWLObject> {
 
     /**
      * The rdf:first triple that represents the item to be translated.  This triple
-     * will point to something like a description, individual.
+     * will point to something like a class expression, individual.
      * @param firstObject The rdf:first triple that points to the item to be translated.
      * @return The translated item.
      */

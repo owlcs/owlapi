@@ -79,7 +79,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLDisjointClassesAxiom axiom) {
-            Set<OWLClassExpression> disjClasses = axiom.getDescriptions();
+            Set<OWLClassExpression> disjClasses = axiom.getClassExpressions();
             OWLClassExpression conjunction = df.getObjectIntersectionOf(disjClasses);
 
             if (log.isLoggable(Level.FINE))
@@ -98,7 +98,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            Set<OWLClassExpression> eqClasses = axiom.getDescriptions();
+            Set<OWLClassExpression> eqClasses = axiom.getClassExpressions();
             if (eqClasses.size() != 2)
                 return;
 
@@ -169,7 +169,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             desc.accept(this);
 
             if (newClassExpression == null)
-                throw new RuntimeException("Unsupported description " + desc);
+                throw new RuntimeException("Unsupported class expression " + desc);
 
             return newClassExpression;
         }
@@ -244,13 +244,13 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLDisjointClassesAxiom ax) {
-            Set<OWLClassExpression> disjointclasses = replaceBottom(ax.getDescriptions());
+            Set<OWLClassExpression> disjointclasses = replaceBottom(ax.getClassExpressions());
             newAxiom = df.getDisjointClasses(disjointclasses);
         }
 
 
         public void visit(OWLEquivalentClassesAxiom ax) {
-            Set<OWLClassExpression> eqclasses = replaceBottom(ax.getDescriptions());
+            Set<OWLClassExpression> eqclasses = replaceBottom(ax.getClassExpressions());
             newAxiom = df.getEquivalentClasses(eqclasses);
         }
 

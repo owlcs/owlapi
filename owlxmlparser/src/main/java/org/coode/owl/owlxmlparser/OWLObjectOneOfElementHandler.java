@@ -34,7 +34,7 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
-public class OWLObjectOneOfElementHandler extends AbstractOWLDescriptionElementHandler {
+public class OWLObjectOneOfElementHandler extends AbstractClassExpressionElementHandler {
 
     private Set<OWLIndividual> individuals;
 
@@ -49,10 +49,10 @@ public class OWLObjectOneOfElementHandler extends AbstractOWLDescriptionElementH
     }
 
 
-    protected void endDescriptionElement() throws OWLXMLParserException {
+    protected void endClassExpressionElement() throws OWLXMLParserException {
         if (individuals.size() < 1) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected at least one individual in object oneOf");
         }
-        setDescription(getOWLDataFactory().getObjectOneOf(individuals));
+        setClassExpression(getOWLDataFactory().getObjectOneOf(individuals));
     }
 }

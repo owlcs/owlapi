@@ -47,7 +47,7 @@ import java.util.logging.Logger;
  * <p/>
  * A parser/interpreter for an RDF graph which represents an OWL ontology.  The
  * consumer interprets triple patterns in the graph to produce the appropriate
- * OWLAPI entities, descriptions and axioms.
+ * OWLAPI entities, class expressions and axioms.
  * <p/>
  * The parser is based on triple handlers.  A given triple handler handles a specific
  * type of triple.  Generally speaking this is based on the predicate of a triple, for
@@ -145,9 +145,9 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private Map<URI, Set<OWLAnnotation>> annotationsBySubject;
 
-    // A translator for lists of descriptions (such lists are used
+    // A translator for lists of class expressions (such lists are used
     // in intersections, unions etc.)
-    private OptimisedListTranslator<OWLClassExpression> descriptionListTranslator;
+    private OptimisedListTranslator<OWLClassExpression> classExpressionListTranslator;
 
     // A translator for individual lists (such lists are used in
     // object oneOf constructs)
@@ -193,7 +193,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private OWLDataFactory dataFactory;
 
-    private DescriptionTranslatorSelector descriptionTranslatorSelector;
+    private ClassExpressionTranslatorSelector classExpressionTranslatorSelector;
 
     private OWLAxiom lastAddedAxiom;
 
@@ -227,7 +227,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     public OWLRDFConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, AnonymousNodeChecker checker) {
-        descriptionTranslatorSelector = new DescriptionTranslatorSelector(this);
+        classExpressionTranslatorSelector = new ClassExpressionTranslatorSelector(this);
         this.owlOntologyManager = owlOntologyManager;
         this.ontology = ontology;
         this.dataFactory = owlOntologyManager.getOWLDataFactory();
@@ -259,8 +259,8 @@ public class OWLRDFConsumer implements RDFConsumer {
         listFirstResourceTripleMap = CollectionFactory.createMap();
         listRestTripleMap = CollectionFactory.createMap();
         reifiedAxiomsMap = CollectionFactory.createMap();
-        descriptionListTranslator = new OptimisedListTranslator<OWLClassExpression>(this,
-                new DescriptionListItemTranslator(this));
+        classExpressionListTranslator = new OptimisedListTranslator<OWLClassExpression>(this,
+                new ClassExpressionListItemTranslator(this));
         individualListTranslator = new OptimisedListTranslator<OWLIndividual>(this,
                 new IndividualListItemTranslator(this));
         constantListTranslator = new OptimisedListTranslator<OWLLiteral>(this,
@@ -1357,7 +1357,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         listFirstLiteralTripleMap.clear();
         listFirstResourceTripleMap.clear();
         listRestTripleMap.clear();
-        translatedDescriptions.clear();
+        translatedClassExpression.clear();
         listURIs.clear();
         resTriplesBySubject.clear();
         litTriplesBySubject.clear();
@@ -1621,24 +1621,24 @@ public class OWLRDFConsumer implements RDFConsumer {
         return Collections.emptySet();
     }
 
-    private Map<URI, OWLClassExpression> translatedDescriptions = new HashMap<URI, OWLClassExpression>();
+    private Map<URI, OWLClassExpression> translatedClassExpression = new HashMap<URI, OWLClassExpression>();
 
 
-    public OWLClassExpression translateDescription(URI mainNode) throws OWLException {
+    public OWLClassExpression translateClassExpression(URI mainNode) throws OWLException {
         if (!isAnonymousNode(mainNode)) {
             return getDataFactory().getOWLClass(mainNode);
         }
-        OWLClassExpression desc = translatedDescriptions.get(mainNode);
+        OWLClassExpression desc = translatedClassExpression.get(mainNode);
         if (desc == null) {
-            DescriptionTranslator translator = descriptionTranslatorSelector.getDescriptionTranslator(mainNode);
+            ClassExpressionTranslator translator = classExpressionTranslatorSelector.getClassExpressionTranslator(mainNode);
             if (translator != null) {
                 desc = translator.translate(mainNode);
-                translatedDescriptions.put(mainNode, desc);
+                translatedClassExpression.put(mainNode, desc);
                 restrictionURIs.remove(mainNode);
                 objectRestrictionURIs.remove(mainNode);
             } else {
                 logger.fine(
-                        "Unable to determine the type of description from the available triples - assuming owl:Class");
+                        "Unable to determine the type of class expression from the available triples - assuming owl:Class");
                 return getDataFactory().getOWLClass(mainNode);
             }
         }
@@ -1646,8 +1646,8 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    public OWLClassExpression getDescriptionIfTranslated(URI mainNode) {
-        return translatedDescriptions.get(mainNode);
+    public OWLClassExpression getClassExpressionIfTranslated(URI mainNode) {
+        return translatedClassExpression.get(mainNode);
     }
 
 
@@ -1659,8 +1659,8 @@ public class OWLRDFConsumer implements RDFConsumer {
         return dataPropertyListTranslator.translateList(mainNode);
     }
 
-    public Set<OWLClassExpression> translateToDescriptionSet(URI mainNode) throws OWLException {
-        return descriptionListTranslator.translateToSet(mainNode);
+    public Set<OWLClassExpression> translateToClassExpressionSet(URI mainNode) throws OWLException {
+        return classExpressionListTranslator.translateToSet(mainNode);
     }
 
 

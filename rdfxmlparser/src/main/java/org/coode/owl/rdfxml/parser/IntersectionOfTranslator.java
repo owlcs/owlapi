@@ -37,17 +37,17 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  * <p/>
- * A description translator which produces an <code>OWLIntersectionOf</code>
- * description.  This relies on the main node having an intersectionOf
+ * A class expression translator which produces an <code>OWLIntersectionOf</code>.  
+ * This relies on the main node having an intersectionOf
  * triple.
  */
-public class IntersectionOfTranslator extends AbstractNaryBooleanDescriptionTranslator {
+public class IntersectionOfTranslator extends AbstractNaryBooleanClassExpressionTranslator {
 
     public IntersectionOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
-    protected OWLClassExpression createDescription(Set<OWLClassExpression> operands) throws OWLException {
+    protected OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) throws OWLException {
         return getDataFactory().getObjectIntersectionOf(operands);
     }
 

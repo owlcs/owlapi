@@ -133,7 +133,7 @@ public class OWLDLProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLClassAssertionAxiom axiom) {
-            ConstructNotAllowed descNA = axiom.getDescription().accept(this);
+            ConstructNotAllowed descNA = axiom.getClassExpression().accept(this);
             if (descNA != null) {
                 return new AxiomNotAllowed(descNA, axiom);
             } else {
@@ -182,10 +182,10 @@ public class OWLDLProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLDisjointClassesAxiom axiom) {
-            if (axiom.getDescriptions().size() > 2) {
+            if (axiom.getClassExpressions().size() > 2) {
                 return new DisjointClassAxiomNotAllowed(axiom);
             }
-            for (OWLClassExpression desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 ConstructNotAllowed na = desc.accept(this);
                 if (na != null) {
                     return new AxiomNotAllowed(na, axiom);
@@ -221,7 +221,7 @@ public class OWLDLProfile implements OWLProfile {
 
 
         public ConstructNotAllowed visit(OWLEquivalentClassesAxiom axiom) {
-            for (OWLClassExpression desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 ConstructNotAllowed na = desc.accept(this);
                 if (na != null) {
                     return new AxiomNotAllowed(na, axiom);
@@ -360,7 +360,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLDataAllValuesFrom desc) {
             ConstructNotAllowed na = desc.getFiller().accept(this);
             if (na != null) {
-                return new DescriptionNotAllowed(na, desc);
+                return new ClassExpressionNotAllowed(na, desc);
             } else {
                 return null;
             }
@@ -397,7 +397,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLDataSomeValuesFrom desc) {
             ConstructNotAllowed na = desc.getFiller().accept(this);
             if (na != null) {
-                return new DescriptionNotAllowed(na, desc);
+                return new ClassExpressionNotAllowed(na, desc);
             } else {
                 return null;
             }
@@ -407,7 +407,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLDataHasValue desc) {
             ConstructNotAllowed na = desc.getValue().accept(this);
             if (na != null) {
-                return new DescriptionNotAllowed(na, desc);
+                return new ClassExpressionNotAllowed(na, desc);
             } else {
                 return null;
             }
@@ -417,7 +417,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLObjectAllValuesFrom desc) {
             ConstructNotAllowed na = desc.getFiller().accept(this);
             if (na != null) {
-                return new DescriptionNotAllowed(na, desc);
+                return new ClassExpressionNotAllowed(na, desc);
             } else {
                 return null;
             }
@@ -427,7 +427,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLObjectComplementOf desc) {
             ConstructNotAllowed na = desc.getOperand().accept(this);
             if (na != null) {
-                return new DescriptionNotAllowed(na, desc);
+                return new ClassExpressionNotAllowed(na, desc);
             } else {
                 return null;
             }
@@ -451,7 +451,7 @@ public class OWLDLProfile implements OWLProfile {
             for (OWLClassExpression op : desc.getOperands()) {
                 ConstructNotAllowed na = op.accept(this);
                 if (na != null) {
-                    return new DescriptionNotAllowed(na, desc);
+                    return new ClassExpressionNotAllowed(na, desc);
                 }
             }
             return null;
@@ -497,7 +497,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLObjectSomeValuesFrom desc) {
             ConstructNotAllowed na = desc.getFiller().accept(this);
             if (na != null) {
-                return new DescriptionNotAllowed(na, desc);
+                return new ClassExpressionNotAllowed(na, desc);
             } else {
                 return null;
             }
@@ -508,7 +508,7 @@ public class OWLDLProfile implements OWLProfile {
             for (OWLClassExpression op : desc.getOperands()) {
                 ConstructNotAllowed na = op.accept(this);
                 if (na != null) {
-                    return new DescriptionNotAllowed(na, desc);
+                    return new ClassExpressionNotAllowed(na, desc);
                 }
             }
             return null;
@@ -732,7 +732,7 @@ public class OWLDLProfile implements OWLProfile {
     }
 
 
-    private class QCRsNotAllowed extends DescriptionNotAllowed {
+    private class QCRsNotAllowed extends ClassExpressionNotAllowed {
 
         public QCRsNotAllowed(OWLClassExpression construct) {
             super(construct);
@@ -740,7 +740,7 @@ public class OWLDLProfile implements OWLProfile {
     }
 
 
-    private class SelfRestrictionsNotAllowed extends DescriptionNotAllowed {
+    private class SelfRestrictionsNotAllowed extends ClassExpressionNotAllowed {
 
         public SelfRestrictionsNotAllowed(OWLClassExpression construct) {
             super(construct);
@@ -782,7 +782,7 @@ public class OWLDLProfile implements OWLProfile {
     }
 
 
-    private class NonSimplePropertiesNotAllowedInCardinalityRestrictions extends DescriptionNotAllowed {
+    private class NonSimplePropertiesNotAllowedInCardinalityRestrictions extends ClassExpressionNotAllowed {
 
         public NonSimplePropertiesNotAllowedInCardinalityRestrictions(OWLObjectCardinalityRestriction construct) {
             super(construct);

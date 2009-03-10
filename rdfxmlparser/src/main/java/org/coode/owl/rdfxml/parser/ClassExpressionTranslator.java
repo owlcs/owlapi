@@ -1,6 +1,5 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
 
@@ -34,24 +33,24 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
+ *
+ * Give a node in an RDF graph, which represents the main node
+ * of an OWL class expression, the <code>ClassExpressionTranslator</code>
+ * consumes the triples that represent the class expression, and
+ * translates the triples to the appropriate OWL API <code>OWLClassExpression</code>
+ * object.
  */
-public class DescriptionListItemTranslator implements ListItemTranslator<OWLClassExpression> {
+public interface ClassExpressionTranslator {
 
-    private OWLRDFConsumer consumer;
-
-
-    public DescriptionListItemTranslator(OWLRDFConsumer consumer) {
-        this.consumer = consumer;
-    }
-
-
-    public OWLClassExpression translate(URI uri) throws OWLException {
-        return consumer.translateDescription(uri);
-    }
-
-
-    public OWLClassExpression translate(OWLLiteral firstObject) throws OWLException {
-        throw new OWLRDFParserException(
-                "Cannot translate list item to description, because rdf:first triple is a literal triple.");
-    }
+    /**
+     * Translates the specified main node into an <code>OWLClassExpression</code>.
+     * All triples used in the translation are consumed.
+     * @param mainNode The main node of the set of triples that represent the
+     * class expression.
+     * @return The class expression that represents the translation.
+     * @throws OWLException If the translation could not take place, possibly because the
+     * class expression (set of triples) was malformed.
+     */
+    OWLClassExpression translate(URI mainNode) throws OWLException;
+    
 }

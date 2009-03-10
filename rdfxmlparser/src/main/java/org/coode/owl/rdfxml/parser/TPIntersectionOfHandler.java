@@ -46,6 +46,6 @@ public class TPIntersectionOfHandler extends AbstractNamedEquivalentClassAxiomHa
 
 
     protected OWLClassExpression translateEquivalentClass(URI mainNode) throws OWLException {
-        return getDataFactory().getObjectIntersectionOf(getConsumer().translateToDescriptionSet(mainNode));
+        return getDataFactory().getObjectIntersectionOf(getConsumer().translateToClassExpressionSet(mainNode));
     }
 }

@@ -408,7 +408,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
     /**
      * Returns the collection of (named) most specific superclasses
-     * of the given description. The result of this will be a set of
+     * of the given class expression. The result of this will be a set of
      * sets, where each set in the collection represents an
      * equivalence class.
      */
@@ -423,7 +423,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
     /**
      * Returns the collection of all superclasses of the given
-     * description. The result of this will be a set of sets, where
+     * class expression. The result of this will be a set of sets, where
      * each set in the collection represents an equivalence class.
      */
 
@@ -437,7 +437,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
     /**
      * Returns the collection of (named) most general subclasses
-     * of the given description. The result of this will be a set of
+     * of the given class expression. The result of this will be a set of
      * sets, where each set in the collection represents an
      * equivalence class.
      */
@@ -452,7 +452,8 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
     /**
      * Returns the collection of all subclasses of the given
-     * description. The result of this will be a set of sets, where
+     * class expression
+     * . The result of this will be a set of sets, where
      * each set in the collection represents an equivalence class.
      */
 
@@ -466,7 +467,8 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
     /**
      * Returns the collection of (named) classes which are equivalent
-     * to the given description.
+     * to the given class expression
+     * .
      */
     public Set<OWLClass> getEquivalentClasses(OWLClassExpression clsC) {
         if (clsC.isAnonymous()) {
@@ -518,7 +520,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
 
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            for (OWLClassExpression desc : axiom.getDescriptions()) {
+            for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 if (desc.equals(current)) {
                     continue;
                 }
@@ -641,7 +643,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
         public void visit(OWLEquivalentClassesAxiom axiom) {
             // We want operands that don't contain the search class when
             // flattened
-            Set<OWLClassExpression> equivalentClasses = axiom.getDescriptions();
+            Set<OWLClassExpression> equivalentClasses = axiom.getClassExpressions();
             Set<OWLClassExpression> candidateClassExpressions = new HashSet<OWLClassExpression>();
             checker.reset();
             boolean found = false;

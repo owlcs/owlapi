@@ -60,7 +60,7 @@ public abstract class AbstractNamedEquivalentClassAxiomHandler extends TriplePre
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         consumeTriple(subject, predicate, object);
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
-        operands.add(translateDescription(subject));
+        operands.add(translateClassExpression(subject));
         operands.add(translateEquivalentClass(object));
         addAxiom(getDataFactory().getEquivalentClasses(operands));
     }

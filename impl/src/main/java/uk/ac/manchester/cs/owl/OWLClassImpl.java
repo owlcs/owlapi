@@ -169,7 +169,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     public Set<OWLClassExpression> getEquivalentClasses(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLEquivalentClassesAxiom axiom : getEquivalentClassesAxioms(ontology)) {
-            result.addAll(axiom.getDescriptions());
+            result.addAll(axiom.getClassExpressions());
         }
         // Don't have the class equivalent to itself
         result.remove(this);
@@ -189,7 +189,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     public Set<OWLClassExpression> getDisjointClasses(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLDisjointClassesAxiom axiom : getDisjointClassesAxioms(ontology)) {
-            result.addAll(axiom.getDescriptions());
+            result.addAll(axiom.getClassExpressions());
         }
         // The disjoint classes will contain this class - remove it!
         result.remove(this);

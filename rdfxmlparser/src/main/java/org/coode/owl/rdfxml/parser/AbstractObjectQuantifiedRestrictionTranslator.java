@@ -45,9 +45,9 @@ public abstract class AbstractObjectQuantifiedRestrictionTranslator extends Abst
     final protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
         URI fillerObject = getResourceObject(mainNode, getFillerTriplePredicate(), true);
         if (fillerObject == null) {
-            throw new MalformedDescriptionException(getFillerTriplePredicate() + " triple not present");
+            throw new MalformedClassExpressionException(getFillerTriplePredicate() + " triple not present");
         }
-        OWLClassExpression desc = translateToDescription(fillerObject);
+        OWLClassExpression desc = translateToClassExpression(fillerObject);
         return createRestriction(translateOnProperty(mainNode), desc);
     }
 

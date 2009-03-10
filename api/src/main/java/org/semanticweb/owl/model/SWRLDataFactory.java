@@ -47,10 +47,10 @@ public interface SWRLDataFactory {
 
 
     /**
-     * Gets a SWRL class atom, i.e.  C(x) where C is a class description and
+     * Gets a SWRL class atom, i.e.  C(x) where C is a class expression and
      * x is either an individual id or an i-variable
      *
-     * @param desc The class description
+     * @param desc The class expression
      * @param arg  The argument (x)
      */
     SWRLClassAtom getSWRLClassAtom(OWLClassExpression desc, SWRLAtomIObject arg);
@@ -60,7 +60,7 @@ public interface SWRLDataFactory {
      * Gets a SWRL data range atom, i.e.  D(x) where D is an OWL data range and
      * x is either a constant or a d-variable
      *
-     * @param rng The class description
+     * @param rng The class expression
      * @param arg The argument (x)
      */
     SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange rng, SWRLAtomDObject arg);

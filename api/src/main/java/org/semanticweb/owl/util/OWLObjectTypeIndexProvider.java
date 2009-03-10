@@ -312,94 +312,94 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    //  Anon Descriptions
+    //  Anon class expressions
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static final int DESCRIPTION_TYPE_INDEX_BASE = 3000;
+    public static final int CLASS_EXPRESSION_TYPE_INDEX_BASE = 3000;
 
 
     public void visit(OWLObjectIntersectionOf desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + ONTOLOGY;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + ONTOLOGY;
     }
 
     public void visit(OWLObjectUnionOf desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 2;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 2;
     }
 
 
     public void visit(OWLObjectComplementOf desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 3;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 3;
     }
 
 
     public void visit(OWLObjectOneOf desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 4;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 4;
     }
 
 
     public void visit(OWLObjectSomeValuesFrom desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 5;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 5;
     }
 
 
     public void visit(OWLObjectAllValuesFrom desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 6;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 6;
     }
 
 
     public void visit(OWLObjectHasValue desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 7;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 7;
     }
 
 
     public void visit(OWLObjectMinCardinality desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 8;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 8;
     }
 
 
     public void visit(OWLObjectExactCardinality desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 9;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 9;
     }
 
 
     public void visit(OWLObjectMaxCardinality desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 10;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 10;
     }
 
 
     public void visit(OWLObjectHasSelf desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 11;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 11;
     }
 
 
     public void visit(OWLDataSomeValuesFrom desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 12;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 12;
     }
 
 
     public void visit(OWLDataAllValuesFrom desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 13;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 13;
     }
 
 
     public void visit(OWLDataHasValue desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 14;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 14;
     }
 
 
     public void visit(OWLDataMinCardinality desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 15;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 15;
     }
 
 
     public void visit(OWLDataExactCardinality desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 16;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 16;
     }
 
 
     public void visit(OWLDataMaxCardinality desc) {
-        type = DESCRIPTION_TYPE_INDEX_BASE + 17;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 17;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,9 @@
-package org.coode.owl.rdfxml.parser;
+package org.coode.owl.owlxmlparser;
 
+import org.semanticweb.owl.model.OWLClassExpression;
+
+import java.util.HashSet;
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -28,11 +32,30 @@ package org.coode.owl.rdfxml.parser;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
+ * Date: 14-Dec-2006<br><br>
  */
-public class MalformedDescriptionException extends OWLRDFParserException {
+public abstract class AbstractNaryBooleanClassExpressionElementHandler extends AbstractClassExpressionElementHandler {
 
-    public MalformedDescriptionException(String message) {
-        super(message);
+    private Set<OWLClassExpression> operands;
+
+    public AbstractNaryBooleanClassExpressionElementHandler(OWLXMLParserHandler handler) {
+        super(handler);
+        operands = new HashSet<OWLClassExpression>();
     }
+
+
+    public void handleChild(AbstractClassExpressionElementHandler handler) {
+        operands.add(handler.getOWLObject());
+    }
+
+
+    protected void endClassExpressionElement() throws OWLXMLParserException {
+        if(operands.size() < 2) {
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "at least 2 class expression elements");
+        }
+        setClassExpression(createClassExpression(operands));
+    }
+
+    protected abstract OWLClassExpression createClassExpression(Set<OWLClassExpression> operands);
+
 }

@@ -52,8 +52,8 @@ public class TPDisjointUnionHandler extends TriplePredicateHandler {
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        OWLClass cls = (OWLClass) translateDescription(subject);
-        Set<OWLClassExpression> classExpressions = getConsumer().translateToDescriptionSet(object);
+        OWLClass cls = (OWLClass) translateClassExpression(subject);
+        Set<OWLClassExpression> classExpressions = getConsumer().translateToClassExpressionSet(object);
         addAxiom(getDataFactory().getDisjointUnion(cls, classExpressions));
         consumeTriple(subject, predicate, object);
     }

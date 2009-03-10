@@ -37,16 +37,16 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  * <p/>
- * Translates a set of triples to an <code>OWLUnionOf</code> description.
+ * Translates a set of triples to an <code>OWLUnionOf</code>.
  */
-public class UnionOfTranslator extends AbstractNaryBooleanDescriptionTranslator {
+public class UnionOfTranslator extends AbstractNaryBooleanClassExpressionTranslator {
 
     public UnionOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
 
-    protected OWLClassExpression createDescription(Set<OWLClassExpression> operands) throws OWLException {
+    protected OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) throws OWLException {
         return getDataFactory().getObjectUnionOf(operands);
     }
 

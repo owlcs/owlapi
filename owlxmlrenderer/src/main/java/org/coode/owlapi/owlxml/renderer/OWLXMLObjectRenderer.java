@@ -85,7 +85,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLClassAssertionAxiom axiom) {
         writer.writeStartElement(CLASS_ASSERTION.getURI());
         writeAnnotations(axiom);
-        axiom.getDescription().accept(this);
+        axiom.getClassExpression().accept(this);
         axiom.getIndividual().accept(this);
         writer.writeEndElement();
     }
@@ -148,7 +148,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLDisjointClassesAxiom axiom) {
         writer.writeStartElement(DISJOINT_CLASSES.getURI());
         writeAnnotations(axiom);
-        render(axiom.getDescriptions());
+        render(axiom.getClassExpressions());
         writer.writeEndElement();
     }
 
@@ -174,7 +174,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writeAnnotations(axiom);
         axiom.getOWLClass().accept(this);
         writer.writeStartElement(UNION_OF.getURI());
-        render(axiom.getDescriptions());
+        render(axiom.getClassExpressions());
         writer.writeEndElement();
         writer.writeEndElement();
     }
@@ -195,7 +195,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLEquivalentClassesAxiom axiom) {
         writer.writeStartElement(EQUIVALENT_CLASSES.getURI());
         writeAnnotations(axiom);
-        render(axiom.getDescriptions());
+        render(axiom.getClassExpressions());
         writer.writeEndElement();
     }
 

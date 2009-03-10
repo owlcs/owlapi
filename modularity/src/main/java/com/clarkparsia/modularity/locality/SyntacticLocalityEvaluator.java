@@ -90,7 +90,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLClassAssertionAxiom axiom) {
-            isLocal = topEvaluator.isTopEquivalent(axiom.getDescription(), signature, localityCls);
+            isLocal = topEvaluator.isTopEquivalent(axiom.getClassExpression(), signature, localityCls);
         }
 
 
@@ -166,9 +166,9 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX: (TS) An n-ary disj classes axiom is local
-        //              iff at most one of the involved class descriptions is not bot-equivalent.
+        //              iff at most one of the involved class class expressions is not bot-equivalent.
         public void visit(OWLDisjointClassesAxiom axiom) {
-            Collection<OWLClassExpression> disjs = axiom.getDescriptions();
+            Collection<OWLClassExpression> disjs = axiom.getClassExpressions();
             int size = disjs.size();
             if (size == 1) {
                 throw new RuntimeException("Unary disjoint axiom.");
@@ -255,7 +255,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // - if RHS is top-equiv, one descr on LHS is top-equiv and the others are bot-equiv
         public void visit(OWLDisjointUnionAxiom axiom) {
             OWLClass lhs = axiom.getOWLClass();
-            Collection<OWLClassExpression> rhs = axiom.getDescriptions();
+            Collection<OWLClassExpression> rhs = axiom.getClassExpressions();
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                     if (!signature.contains(lhs)) {
@@ -306,14 +306,14 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         public void visit(OWLEquivalentClassesAxiom axiom) {
             isLocal = true;
 
-            Iterator<OWLClassExpression> eqs = axiom.getDescriptions().iterator();
+            Iterator<OWLClassExpression> eqs = axiom.getClassExpressions().iterator();
             OWLClassExpression first = eqs.next();
 
-            // axiom is local if it contains a single class description
+            // axiom is local if it contains a single class expression
             if (!eqs.hasNext())
                 return;
 
-            // axiom is local iff either all class descriptions evaluate to TOP
+            // axiom is local iff either all class class expressions evaluate to TOP
             // or all evaluate to BOTTOM
 
             // check if first class descr. is BOTTOM
@@ -323,7 +323,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             if (!isBottom && !topEvaluator.isTopEquivalent(first, signature, localityCls))
                 isLocal = false;
 
-//            // unless we find a non-locality, process all the class descriptions
+//            // unless we find a non-locality, process all the class class expressions
 //            while (isLocal && eqs.hasNext()) {
 //                OWLClassExpression next = eqs.next();
 //
@@ -343,7 +343,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 //            }
 
             if (isBottom) {
-                // unless we find a non-locality, process all the class descriptions
+                // unless we find a non-locality, process all the class class expressions
                 while (isLocal && eqs.hasNext()) {
                     OWLClassExpression next = eqs.next();
                     // first class descr. was BOTTOM, so this one should be BOTTOM too
@@ -352,7 +352,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     }
                 }
             } else {
-                // unless we find a non-locality, process all the class descriptions
+                // unless we find a non-locality, process all the class class expressions
                 while (isLocal && eqs.hasNext()) {
                     OWLClassExpression next = eqs.next();
                     // first class descr. was TOP, so this one should be TOP too
@@ -631,7 +631,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
     /**
-     * Used to determine if descriptions are equivalent to \bottom using the provided locality class
+     * Used to determine if class expressions are equivalent to \bottom using the provided locality class
      */
     private static class BottomEquivalenceEvaluator implements OWLClassExpressionVisitor {
 
@@ -909,7 +909,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
     /**
-     * Used to determine if descriptions are equivalent to \top using the provided locality class
+     * Used to determine if class expressions are equivalent to \top using the provided locality class
      */
     private static class TopEquivalenceEvaluator implements OWLClassExpressionVisitor {
 

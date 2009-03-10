@@ -37,9 +37,9 @@ public interface OWLClass extends OWLClassExpression, OWLEntity, OWLNamedObject 
 
     /**
      * A convenience method that examines the axioms in the specified ontology
-     * and return the descriptions corresponding to super classes of this class.
+     * and return the class expressions corresponding to super classes of this class.
      * @param ontology The ontology to be examined
-     * @return A <code>Set</code> of <code>OWLDescription</code>s that represent
+     * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represent
      * the superclasses of this class, which have been asserted in the specified
      * ontology.
      */
@@ -48,10 +48,10 @@ public interface OWLClass extends OWLClassExpression, OWLEntity, OWLNamedObject 
 
     /**
      * A convenience method that examines the axioms in the specified ontologies
-     * and returns the description corresponding to the asserted super classes
+     * and returns the class expression corresponding to the asserted super classes
      * of this class.
      * @param ontologies The set of ontologies to be examined.
-     * @return A set of <code>OWLDescription</code>s that represent the super classes
+     * @return A set of <code>OWLClassExpressions</code>s that represent the super classes
      * of this class
      */
     Set<OWLClassExpression> getSuperClasses(Set<OWLOntology> ontologies);
@@ -61,7 +61,7 @@ public interface OWLClass extends OWLClassExpression, OWLEntity, OWLNamedObject 
      * Gets the classes which have been <i>asserted</i> to be subclasses of this class
      * in the specified ontology.
      * @param ontology The ontology which should be examined for subclass axioms.
-     * @return A <code>Set</code> of <code>OWLDescription</code>s that represet the
+     * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represet the
      * asserted subclasses of this class.
      */
     Set<OWLClassExpression> getSubClasses(OWLOntology ontology);
@@ -70,17 +70,17 @@ public interface OWLClass extends OWLClassExpression, OWLEntity, OWLNamedObject 
      * Gets the classes which have been <i>asserted</i> to be subclasses of this class
      * in the specified ontologies.
      * @param ontologies The ontologies which should be examined for subclass axioms.
-     * @return A <code>Set</code> of <code>OWLDescription</code>s that represet the
+     * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represet the
      * asserted subclasses of this class.
      */
     Set<OWLClassExpression> getSubClasses(Set<OWLOntology> ontologies);
 
     /**
      * A convenience method that examines the axioms in the specified ontology
-     * and returns the descriptions corresponding to equivalent classes of this
+     * and returns the class expressions corresponding to equivalent classes of this
      * class.
      * @param ontology The ontology to be examined for axioms
-     * @return A <code>Set</code> of <code>OWLDescription</code>s that represent
+     * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represent
      * the equivalent classes of this class, that have been asserted in the specified
      * ontology.
      */
@@ -88,10 +88,10 @@ public interface OWLClass extends OWLClassExpression, OWLEntity, OWLNamedObject 
 
     /**
      * A convenience method that examines the axioms in the specified ontologies
-     * and returns the descriptions corresponding to equivalent classes of this
+     * and returns the class expressions corresponding to equivalent classes of this
      * class.
      * @param ontologies The ontologies to be examined for axioms
-     * @return A <code>Set</code> of <code>OWLDescription</code>s that represent
+     * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represent
      * the equivalent classes of this class, that have been asserted in the specified
      * ontologies.
      */
@@ -101,7 +101,7 @@ public interface OWLClass extends OWLClassExpression, OWLEntity, OWLNamedObject 
      * Gets the classes which have been asserted to be disjoint with this class by
      * axioms in the specified ontology.
      * @param ontology The ontology to search for disjoint class axioms
-     * @return A <code>Set</code> of <code>OWLDescription</code>s that represent
+     * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represent
      * the disjoint classes of this class.
      */
     Set<OWLClassExpression> getDisjointClasses(OWLOntology ontology);
@@ -110,7 +110,7 @@ public interface OWLClass extends OWLClassExpression, OWLEntity, OWLNamedObject 
      * Gets the classes which have been asserted to be disjoint with this class by
      * axioms in the specified ontologies.
      * @param ontologies The ontologies to search for disjoint class axioms
-     * @return A <code>Set</code> of <code>OWLDescription</code>s that represent
+     * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represent
      * the disjoint classes of this class.
      */
     Set<OWLClassExpression> getDisjointClasses(Set<OWLOntology> ontologies);

@@ -163,7 +163,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            Set<OWLClassExpression> descs = axiom.getDescriptions();
+            Set<OWLClassExpression> descs = axiom.getClassExpressions();
             if (!descs.contains(cls)) {
                 return;
             }

@@ -36,7 +36,7 @@ import java.util.Set;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  * <p/>
- * An interface for creating entities, descriptions and axioms.
+ * An interface for creating entities, class expressions and axioms.
  */
 public interface OWLDataFactory extends SWRLDataFactory {
 
@@ -526,7 +526,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLDifferentIndividualsAxiom getDifferentIndividuals(OWLIndividual... individuals);
 
 
-    OWLDisjointClassesAxiom getDisjointClasses(Set<? extends OWLClassExpression> descriptions, OWLAnnotation... annotations);
+    OWLDisjointClassesAxiom getDisjointClasses(Set<? extends OWLClassExpression> classExpressions, OWLAnnotation... annotations);
 
     OWLDisjointClassesAxiom getDisjointClasses(OWLClassExpression... classExpressions);
 
@@ -540,10 +540,10 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLDisjointObjectPropertiesAxiom getDisjointObjectProperties(OWLObjectPropertyExpression... properties);
 
-    OWLDisjointUnionAxiom getDisjointUnion(OWLClass owlClass, Set<? extends OWLClassExpression> descriptions, OWLAnnotation... annotations);
+    OWLDisjointUnionAxiom getDisjointUnion(OWLClass owlClass, Set<? extends OWLClassExpression> classExpressions, OWLAnnotation... annotations);
 
 
-    OWLEquivalentClassesAxiom getEquivalentClasses(Set<? extends OWLClassExpression> descriptions, OWLAnnotation... annotations);
+    OWLEquivalentClassesAxiom getEquivalentClasses(Set<? extends OWLClassExpression> classExpressions, OWLAnnotation... annotations);
 
     OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLClassExpression clsA, OWLClassExpression clsB, OWLAnnotation... annotations);
 

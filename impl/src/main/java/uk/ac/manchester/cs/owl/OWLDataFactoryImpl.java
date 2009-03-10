@@ -502,8 +502,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDisjointClassesAxiom getDisjointClasses(Set<? extends OWLClassExpression> descriptions, OWLAnnotation... annotations) {
-        return new OWLDisjointClassesAxiomImpl(this, descriptions, annotations);
+    public OWLDisjointClassesAxiom getDisjointClasses(Set<? extends OWLClassExpression> classExpressions, OWLAnnotation... annotations) {
+        return new OWLDisjointClassesAxiomImpl(this, classExpressions, annotations);
     }
 
     public OWLDisjointClassesAxiom getDisjointClasses(OWLClassExpression... classExpressions) {
@@ -538,13 +538,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLDisjointUnionAxiom getDisjointUnion(OWLClass owlClass,
-                                                  Set<? extends OWLClassExpression> descriptions, OWLAnnotation... annotations) {
-        return new OWLDisjointUnionImpl(this, owlClass, descriptions, annotations);
+                                                  Set<? extends OWLClassExpression> classExpressions, OWLAnnotation... annotations) {
+        return new OWLDisjointUnionImpl(this, owlClass, classExpressions, annotations);
     }
 
 
-    public OWLEquivalentClassesAxiom getEquivalentClasses(Set<? extends OWLClassExpression> descriptions, OWLAnnotation... annotations) {
-        return new OWLEquivalentClassesImpl(this, descriptions, annotations);
+    public OWLEquivalentClassesAxiom getEquivalentClasses(Set<? extends OWLClassExpression> classExpressions, OWLAnnotation... annotations) {
+        return new OWLEquivalentClassesImpl(this, classExpressions, annotations);
     }
 
 
@@ -904,10 +904,10 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     /**
-     * Gets a SWRL class atom, i.e.  C(x) where C is a class description and
+     * Gets a SWRL class atom, i.e.  C(x) where C is a class expression and
      * x is either an individual id or an i-variable
      *
-     * @param desc The class description
+     * @param desc The class expression
      * @param arg  The argument (x)
      */
     public SWRLClassAtom getSWRLClassAtom(OWLClassExpression desc, SWRLAtomIObject arg) {
@@ -919,7 +919,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * Gets a SWRL data range atom, i.e.  D(x) where D is an OWL data range and
      * x is either a constant or a d-variable
      *
-     * @param rng The class description
+     * @param rng The class expression
      * @param arg The argument (x)
      */
     public SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange rng, SWRLAtomDObject arg) {

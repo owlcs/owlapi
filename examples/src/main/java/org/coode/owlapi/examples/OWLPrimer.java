@@ -44,8 +44,8 @@ import java.util.Set;
  * Date: 15-Apr-2008<br><br>
  * <p/>
  * The following example uses entities and axioms that are used in the OWL Primer.
- * The purpose of this example is to illustrate some of the methods of creating class
- * descriptions and various types of axioms.  Typically, an ontology wouldn't be constructed
+ * The purpose of this example is to illustrate some of the methods of creating
+ * class expressions and various types of axioms.  Typically, an ontology wouldn't be constructed
  * programmatically in a long drawn out fashion like this, it would be constructe in
  * an ontology editor such as Protege 4, or Swoop.  The OWL API would then be used to
  * examine the asserted structure of the ontology, and in conjunction with an OWL reasoner
@@ -315,7 +315,7 @@ public class OWLPrimer {
 
             // Now we want to say that Person has exactly 1 Age, exactly 1 Gender and,  only has gender
             // that is male or female.  We will deal with these restrictions one by one and then combine
-            // them as a superclass (Necessary conditions) of Person.  All anonymous class descriptions
+            // them as a superclass (Necessary conditions) of Person.  All anonymous class expressions
             // extend OWLClassExpression.
 
             // First, hasAge exactly 1
@@ -323,7 +323,7 @@ public class OWLPrimer {
             // Now the hasGender exactly 1
             OWLObjectExactCardinality hasGenderRestriction = factory.getObjectExactCardinality(hasGender, 1);
             // And finally, the hasGender only {male female}
-            // To create this restriction, we need an OWLObjectOneOf description since male and female are individuals
+            // To create this restriction, we need an OWLObjectOneOf class expression since male and female are individuals
             // We can just list as many individuals as we need as the argument of the method.
             OWLObjectOneOf maleOrFemale = factory.getObjectOneOf(male, female);
             // Now create the actual restriction

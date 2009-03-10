@@ -61,7 +61,7 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
     private int translateCardinality(URI mainNode) throws OWLException {
         OWLLiteral cardiObject = getLiteralObject(mainNode, getCardinalityTriplePredicate(), true);
         if (cardiObject == null) {
-            throw new MalformedDescriptionException(getCardinalityTriplePredicate() + " not present");
+            throw new MalformedClassExpressionException(getCardinalityTriplePredicate() + " not present");
         }
         return Integer.parseInt(cardiObject.getLiteral());
     }
@@ -73,7 +73,7 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
      * triple then owl:Thing is returned.
      *
      * @param mainNode The main node of the restriction
-     * @return The description corresponding to the filler (not <code>null</code>)
+     * @return The class expression corresponding to the filler (not <code>null</code>)
      */
     private OWLDataRange translateFiller(URI mainNode) throws OWLException {
         URI onDataRangeObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_DATA_RANGE.getURI(), true);

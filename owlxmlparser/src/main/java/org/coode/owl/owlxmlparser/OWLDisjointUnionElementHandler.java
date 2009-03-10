@@ -53,7 +53,7 @@ public class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandl
     }
 
 
-    public void handleChild(AbstractOWLDescriptionElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException {
         if (cls == null) {
             OWLClassExpression desc = handler.getOWLObject();
             if (desc.isAnonymous()) {

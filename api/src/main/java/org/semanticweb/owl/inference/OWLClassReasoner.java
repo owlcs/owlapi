@@ -55,7 +55,7 @@ public interface OWLClassReasoner extends OWLSatisfiabilityChecker {
 
     /**
      * Returns the collection of (named) most specific superclasses
-     * of the given description. The result of this will be a set of
+     * of the given class expression. The result of this will be a set of
      * sets, where each set in the collection represents an
      * equivalence class.
      */
@@ -65,7 +65,7 @@ public interface OWLClassReasoner extends OWLSatisfiabilityChecker {
 
     /**
      * Returns the collection of all superclasses of the given
-     * description. The result of this will be a set of sets, where
+     * class expression. The result of this will be a set of sets, where
      * each set in the collection represents an equivalence class.
      */
 
@@ -74,7 +74,7 @@ public interface OWLClassReasoner extends OWLSatisfiabilityChecker {
 
     /**
      * Returns the collection of (named) most general subclasses
-     * of the given description. The result of this will be a set of
+     * of the given class expression. The result of this will be a set of
      * sets, where each set in the collection represents an
      * equivalence class.
      */
@@ -84,7 +84,7 @@ public interface OWLClassReasoner extends OWLSatisfiabilityChecker {
 
     /**
      * Returns the collection of all subclasses of the given
-     * description. The result of this will be a set of sets, where
+     * class expression. The result of this will be a set of sets, where
      * each set in the collection represents an equivalence class.
      */
 
@@ -93,7 +93,7 @@ public interface OWLClassReasoner extends OWLSatisfiabilityChecker {
 
     /**
      * Returns the collection of (named) classes which are equivalent
-     * to the given description.
+     * to the given class expression.
      */
     public Set<OWLClass> getEquivalentClasses(OWLClassExpression clsC) throws OWLReasonerException;
 

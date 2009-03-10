@@ -43,6 +43,6 @@ public class TPUnionOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
 
 
     protected OWLClassExpression translateEquivalentClass(URI mainNode) throws OWLException {
-        return getDataFactory().getObjectUnionOf(getConsumer().translateToDescriptionSet(mainNode));
+        return getDataFactory().getObjectUnionOf(getConsumer().translateToClassExpressionSet(mainNode));
     }
 }

@@ -59,21 +59,21 @@ public class ExistentialCollector extends OWLClassExpressionVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf description) {
-        for (OWLClassExpression operand : description.getOperands()) {
+    public void visit(OWLObjectIntersectionOf expression) {
+        for (OWLClassExpression operand : expression.getOperands()) {
             operand.accept(this);
         }
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom description) {
-        Set<OWLClassExpression> fillers = restrictions.get(description
+    public void visit(OWLObjectSomeValuesFrom classExpression) {
+        Set<OWLClassExpression> fillers = restrictions.get(classExpression
                 .getProperty());
         if (fillers == null) {
             fillers = new HashSet<OWLClassExpression>();
-            restrictions.put(description.getProperty(), fillers);
+            restrictions.put(classExpression.getProperty(), fillers);
         }
-        fillers.add(description.getFiller());
+        fillers.add(classExpression.getFiller());
     }
 
 }

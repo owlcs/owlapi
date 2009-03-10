@@ -80,12 +80,12 @@ public class Example14 {
     }
 
     /**
-     * Prints out the properties that instances of a class description must have
+     * Prints out the properties that instances of a class expression must have
      *
      * @param man      The manager
      * @param ont      The ontology
      * @param reasoner The reasoner
-     * @param cls      The class description
+     * @param cls      The class expression
      * @throws OWLReasonerException If there was a problem during reasoning
      */
     private static void printProperties(OWLOntologyManager man, OWLOntology ont, OWLReasoner reasoner, OWLClass cls) throws OWLReasonerException {

@@ -52,7 +52,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     public Set<OWLClassExpression> getTypes(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLClassAssertionAxiom axiom : ontology.getClassAssertionAxioms(this)) {
-            result.add(axiom.getDescription());
+            result.add(axiom.getClassExpression());
         }
         return result;
     }

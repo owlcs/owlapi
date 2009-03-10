@@ -34,20 +34,20 @@ import java.util.Set;
 public interface OWLNaryClassAxiom extends OWLClassAxiom {
 
     /**
-     * Gets all of the descriptions that appear in this
+     * Gets all of the class expressions that appear in this
      * axiom.
-     * @return A <code>Set</code> of descriptions that appear in the
+     * @return A <code>Set</code> of class expressions that appear in the
      * axiom.
      */
-    public Set<OWLClassExpression> getDescriptions();
+    public Set<OWLClassExpression> getClassExpressions();
 
 
     /**
-     * Gets the set of descriptions that appear in this axiom minus the specfied
-     * descriptions.
-     * @param desc The descriptions to subtract from the descriptions in this axiom
-     * @return A set containing all of the description in this axiom (the descriptions
-     * returned by getDescriptions()) minus the specified list of descriptions
+     * Gets the set of class expressions that appear in this axiom minus the specfied
+     * class expressions.
+     * @param desc The class expressions to subtract from the class expressions in this axiom
+     * @return A set containing all of the class expressions in this axiom (the class expressions
+     * returned by getClassExpressions()) minus the specified list of class expressions
      */
-    public Set<OWLClassExpression> getDescriptionsMinus(OWLClassExpression... desc);
+    public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc);
 }

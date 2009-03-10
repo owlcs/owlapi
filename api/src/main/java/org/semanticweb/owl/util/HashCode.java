@@ -66,7 +66,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     public void visit(OWLClassAssertionAxiom axiom) {
         hashCode = 7;
         hashCode = hashCode * MULT + axiom.getIndividual().hashCode();
-        hashCode = hashCode * MULT + axiom.getDescription().hashCode();
+        hashCode = hashCode * MULT + axiom.getClassExpression().hashCode();
     }
 
 
@@ -113,7 +113,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
 
     public void visit(OWLDisjointClassesAxiom axiom) {
         hashCode = 31;
-        hashCode = hashCode * MULT + axiom.getDescriptions().hashCode();
+        hashCode = hashCode * MULT + axiom.getClassExpressions().hashCode();
     }
 
 
@@ -132,7 +132,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     public void visit(OWLDisjointUnionAxiom axiom) {
         hashCode = 43;
         hashCode = hashCode * MULT + axiom.getOWLClass().hashCode();
-        hashCode = hashCode * MULT + axiom.getDescriptions().hashCode();
+        hashCode = hashCode * MULT + axiom.getClassExpressions().hashCode();
     }
 
 
@@ -145,7 +145,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
         hashCode = 53;
-        hashCode = hashCode * MULT + axiom.getDescriptions().hashCode();
+        hashCode = hashCode * MULT + axiom.getClassExpressions().hashCode();
     }
 
 

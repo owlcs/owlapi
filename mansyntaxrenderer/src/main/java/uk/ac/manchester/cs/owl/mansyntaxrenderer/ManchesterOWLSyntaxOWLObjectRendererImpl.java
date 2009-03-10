@@ -38,7 +38,7 @@ import java.io.Writer;
  * Date: 25-Nov-2007<br><br>
  *
  * An implementation of the OWLObjectRenderer interface.  (Renders
- * standalone class descriptions and axioms in the manchester syntax).
+ * standalone class class expressions and axioms in the manchester syntax).
  */
 public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRenderer {
 

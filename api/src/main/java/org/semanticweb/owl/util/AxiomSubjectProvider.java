@@ -64,7 +64,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
         subject = axiom.getProperty();
     }
 
-    private OWLClassExpression selectDescription(Set<OWLClassExpression> descs) {
+    private OWLClassExpression selectClassExpression(Set<OWLClassExpression> descs) {
         for (OWLClassExpression desc : descs) {
             if (!desc.isAnonymous()) {
                 return desc;
@@ -75,7 +75,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
 
 
     public void visit(OWLDisjointClassesAxiom axiom) {
-        subject = selectDescription(axiom.getDescriptions());
+        subject = selectClassExpression(axiom.getClassExpressions());
     }
 
 
@@ -178,7 +178,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
 
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        subject = selectDescription(axiom.getDescriptions());
+        subject = selectClassExpression(axiom.getClassExpressions());
     }
 
 

@@ -578,7 +578,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //
 //        public Set<ConstructNotAllowed> visit(OWLClassAssertionAxiom axiom) {
-//            Set<ConstructNotAllowed> na = axiom.getDescription().accept(this);
+//            Set<ConstructNotAllowed> na = axiom.getClassExpression().accept(this);
 //            if (na.isEmpty()) {
 //                return Collections.emptySet();
 //            } else {
@@ -628,7 +628,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //        public Set<ConstructNotAllowed> visit(OWLDisjointClassesAxiom axiom) {
 //            Set<ConstructNotAllowed> na = getSet();
-//            for (OWLClassExpression desc : axiom.getDescriptions()) {
+//            for (OWLClassExpression desc : axiom.getClassExpressions()) {
 //                Set<ConstructNotAllowed> descNa = desc.accept(this);
 //                na.addAll(descNa);
 //            }
@@ -660,7 +660,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //        public Set<ConstructNotAllowed> visit(OWLDisjointUnionAxiom axiom) {
 //            Set<ConstructNotAllowed> na = getSet();
-//            for (OWLClassExpression desc : axiom.getDescriptions()) {
+//            for (OWLClassExpression desc : axiom.getClassExpressions()) {
 //                na.addAll(desc.accept(this));
 //            }
 //            if (!na.isEmpty()) {
@@ -682,7 +682,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //        public Set<ConstructNotAllowed> visit(OWLEquivalentClassesAxiom axiom) {
 //            Set<ConstructNotAllowed> na = getSet();
-//            for (OWLClassExpression desc : axiom.getDescriptions()) {
+//            for (OWLClassExpression desc : axiom.getClassExpressions()) {
 //                na.addAll(desc.accept(this));
 //            }
 //            if (!na.isEmpty()) {
@@ -844,7 +844,7 @@ public class OWL2Profile implements OWLProfile {
 //        public Set<ConstructNotAllowed> visit(OWLDataAllValuesFrom desc) {
 //            Set<ConstructNotAllowed> na = desc.getFiller().accept(this);
 //            if (!na.isEmpty()) {
-//                return getSet(new DescriptionNotAllowed(na, desc));
+//                return getSet(new ClassExpressionNotAllowed(na, desc));
 //            } else {
 //                return Collections.emptySet();
 //            }
@@ -869,7 +869,7 @@ public class OWL2Profile implements OWLProfile {
 //        public Set<ConstructNotAllowed> visit(OWLDataSomeValuesFrom desc) {
 //            Set<ConstructNotAllowed> na = desc.getFiller().accept(this);
 //            if (!na.isEmpty()) {
-//                return getSet(new DescriptionNotAllowed(na, desc));
+//                return getSet(new ClassExpressionNotAllowed(na, desc));
 //            } else {
 //                return Collections.emptySet();
 //            }
@@ -879,7 +879,7 @@ public class OWL2Profile implements OWLProfile {
 //        public Set<ConstructNotAllowed> visit(OWLDataValueRestriction desc) {
 //            Set<ConstructNotAllowed> na = desc.getValue().accept(this);
 //            if (!na.isEmpty()) {
-//                return getSet(new DescriptionNotAllowed(na, desc));
+//                return getSet(new ClassExpressionNotAllowed(na, desc));
 //            } else {
 //                return Collections.emptySet();
 //            }
@@ -889,7 +889,7 @@ public class OWL2Profile implements OWLProfile {
 //        public Set<ConstructNotAllowed> visit(OWLObjectAllValuesFrom desc) {
 //            Set<ConstructNotAllowed> na = desc.getFiller().accept(this);
 //            if (!na.isEmpty()) {
-//                return getSet(new DescriptionNotAllowed(na, desc));
+//                return getSet(new ClassExpressionNotAllowed(na, desc));
 //            } else {
 //                return Collections.emptySet();
 //            }
@@ -899,7 +899,7 @@ public class OWL2Profile implements OWLProfile {
 //        public Set<ConstructNotAllowed> visit(OWLObjectComplementOf desc) {
 //            Set<ConstructNotAllowed> na = desc.getOperand().accept(this);
 //            if (!na.isEmpty()) {
-//                return getSet(new DescriptionNotAllowed(na, desc));
+//                return getSet(new ClassExpressionNotAllowed(na, desc));
 //            } else {
 //                return Collections.emptySet();
 //            }
@@ -920,7 +920,7 @@ public class OWL2Profile implements OWLProfile {
 //            for (OWLClassExpression op : desc.getOperands()) {
 //                Set<ConstructNotAllowed> na = op.accept(this);
 //                if (!na.isEmpty()) {
-//                    return getSet(new DescriptionNotAllowed(na, desc));
+//                    return getSet(new ClassExpressionNotAllowed(na, desc));
 //                }
 //            }
 //            return Collections.emptySet();
@@ -961,7 +961,7 @@ public class OWL2Profile implements OWLProfile {
 //        public Set<ConstructNotAllowed> visit(OWLObjectSomeValuesFrom desc) {
 //            Set<ConstructNotAllowed> na = desc.getFiller().accept(this);
 //            if (!na.isEmpty()) {
-//                return getSet(new DescriptionNotAllowed(na, desc));
+//                return getSet(new ClassExpressionNotAllowed(na, desc));
 //            } else {
 //                return Collections.emptySet();
 //            }
@@ -972,7 +972,7 @@ public class OWL2Profile implements OWLProfile {
 //            for (OWLClassExpression op : desc.getOperands()) {
 //                Set<ConstructNotAllowed> na = op.accept(this);
 //                if (!na.isEmpty()) {
-//                    return getSet(new DescriptionNotAllowed(na, desc));
+//                    return getSet(new ClassExpressionNotAllowed(na, desc));
 //                }
 //            }
 //            return Collections.emptySet();
@@ -1168,7 +1168,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //    }
 //
-//    public class NonSimplePropertyInCardinalityRestriction extends DescriptionNotAllowed {
+//    public class NonSimplePropertyInCardinalityRestriction extends ClassExpressionNotAllowed {
 //
 //        public NonSimplePropertyInCardinalityRestriction(OWLObjectCardinalityRestriction construct) {
 //            super(construct);
@@ -1214,7 +1214,7 @@ public class OWL2Profile implements OWLProfile {
 //    }
 //
 //
-//    public class NonSimplePropertyInExistsSelfRestriction extends DescriptionNotAllowed {
+//    public class NonSimplePropertyInExistsSelfRestriction extends ClassExpressionNotAllowed {
 //
 //        public NonSimplePropertyInExistsSelfRestriction(ConstructNotAllowed cause, OWLClassExpression construct) {
 //            super(cause, construct);

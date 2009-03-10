@@ -71,7 +71,7 @@ public interface OWLAxiom extends OWLObject, OWLAnnotationSubject {
 
 
     /**
-     * Gets this axioms in negation normal form.  i.e. any class descriptions involved in this
+     * Gets this axioms in negation normal form.  i.e. any class expressions involved in this
      * axiom are converted into negation normal form.
      *
      * @return The axiom in negation normal form.

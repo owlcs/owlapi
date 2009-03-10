@@ -51,7 +51,7 @@ public abstract class AbstractDataRestrictionTranslator extends AbstractRestrict
     protected OWLDataPropertyExpression translateOnProperty(URI mainNode) throws OWLException {
         URI onPropertyObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY.getURI(), true);
         if(onPropertyObject == null) {
-            throw new MalformedDescriptionException(OWLRDFVocabulary.OWL_ON_PROPERTY + " not present");
+            throw new MalformedClassExpressionException(OWLRDFVocabulary.OWL_ON_PROPERTY + " not present");
         }
         return getDataFactory().getDataProperty(onPropertyObject);
     }

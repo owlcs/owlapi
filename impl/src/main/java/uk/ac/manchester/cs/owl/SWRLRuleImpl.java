@@ -54,7 +54,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
 
     private boolean anon;
 
-    private Boolean containsAnonymousDescriptions = null;
+    private Boolean containsAnonymousClassExpressions = null;
 
     private Set<OWLClassExpression> classAtomsPredicates;
 
@@ -120,31 +120,31 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
     }
 
 
-    public boolean containsAnonymousDescriptions() {
-        if (containsAnonymousDescriptions == null) {
+    public boolean containsAnonymousClassExpressions() {
+        if (containsAnonymousClassExpressions == null) {
             for(SWRLAtom atom : consequent) {
                 if(atom instanceof SWRLClassAtom) {
                     if(((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
-                        containsAnonymousDescriptions = true;
+                        containsAnonymousClassExpressions = true;
                         break;
                     }
                 }
             }
-            if(containsAnonymousDescriptions == null) {
+            if(containsAnonymousClassExpressions == null) {
                 for(SWRLAtom atom : antecedent) {
                     if(atom instanceof SWRLClassAtom) {
                         if(((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
-                            containsAnonymousDescriptions = true;
+                            containsAnonymousClassExpressions = true;
                             break;
                         }
                     }
                 }
             }
-            if(containsAnonymousDescriptions == null) {
-                containsAnonymousDescriptions = false;
+            if(containsAnonymousClassExpressions == null) {
+                containsAnonymousClassExpressions = false;
             }
         }
-        return containsAnonymousDescriptions;
+        return containsAnonymousClassExpressions;
     }
 
 

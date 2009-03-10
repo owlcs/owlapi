@@ -67,7 +67,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
             con = getLiteralObject(mainNode, getQualifiedCardinalityTriplePredicate(), true);
         }
         if(con == null) {
-            throw new MalformedDescriptionException(getCardinalityTriplePredicate() + " not present");
+            throw new MalformedClassExpressionException(getCardinalityTriplePredicate() + " not present");
         }
         return Integer.parseInt(con.getLiteral());
     }
@@ -78,7 +78,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
      * restriction (the onClass triple at the time of writing). If there is no filler
      * triple then owl:Thing is returned.
      * @param mainNode The main node of the restriction
-     * @return The description corresponding to the filler (not <code>null</code>)
+     * @return The class expression corresponding to the filler (not <code>null</code>)
      * @throws OWLException
      */
     private OWLClassExpression translateFiller(URI mainNode) throws OWLException {
@@ -86,7 +86,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
         if(onClassObject == null) {
             return getDataFactory().getThing();
         }
-        return translateToDescription(onClassObject);
+        return translateToClassExpression(onClassObject);
     }
 
 

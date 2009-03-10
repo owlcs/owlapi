@@ -39,9 +39,9 @@ public interface OWLPropertyExpression<P extends OWLPropertyExpression, R extend
      * Gets the asserted domains of this property.
      * @param ontology The ontology that should be examined for axioms which
      *                 assert a domain of this property
-     * @return A set of <code>OWLDescription</code>s corresponding to the
+     * @return A set of <code>OWLClassExpression</code>s corresponding to the
      *         domains of this property (the domain of the property is essentially the
-     *         intersection of these descriptions).
+     *         intersection of these class expressions).
      */
     Set<OWLClassExpression> getDomains(OWLOntology ontology);
 
@@ -50,7 +50,7 @@ public interface OWLPropertyExpression<P extends OWLPropertyExpression, R extend
      * Gets the asserted domains of this property by examining the
      * axioms in the specified ontologies.
      * @param ontologies The ontologies to be examined.
-     * @return A set of <code>OWLDescription</code>s that represent the asserted
+     * @return A set of <code>OWLClassExpression</code>s that represent the asserted
      *         domains of this property.
      */
     Set<OWLClassExpression> getDomains(Set<OWLOntology> ontologies);

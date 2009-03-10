@@ -47,7 +47,7 @@ public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor
         result = new HashSet<OWLClassExpression>();
     }
 
-    public Set<OWLClassExpression> getComplementedDescriptions(OWLClassExpression desc) {
+    public Set<OWLClassExpression> getComplementedClassExpressions(OWLClassExpression desc) {
         reset();
         desc.accept(this);
         return new HashSet<OWLClassExpression>(result);

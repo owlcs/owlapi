@@ -39,7 +39,7 @@ import java.util.Set;
  */
 public class TestNegativeDataPropertyAssertionAxiom extends AbstractRendererAndParserTestCase {
 
-    protected String getDescription() {
+    protected String getClassExpression() {
         return "Negative data property assertion test case";
     }
 

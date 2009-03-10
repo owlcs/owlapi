@@ -1,9 +1,6 @@
-package org.coode.owl.rdfxml.parser;
+package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.OWLException;
-
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -32,25 +29,15 @@ import java.net.URI;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
- *
- * Give a node in an RDF graph, which represents the main node
- * of an OWL description, the <code>DescriptionTranslator</code>
- * consumes the triples that represent the description, and
- * translates the triples to the appropriate OWL API <code>OWLDescription</code>
- * object.
+ * Date: 14-Dec-2006<br><br>
  */
-public interface DescriptionTranslator {
+public abstract class AbstractClassExpressionFillerRestriction extends AbstractObjectRestrictionElementHandler<OWLClassExpression> {
 
-    /**
-     * Translates the specified main node into an <code>OWLDescription</code>.
-     * All triples used in the translation are consumed.
-     * @param mainNode The main node of the set of triples that represent the
-     * description.
-     * @return The description that represents the translation.
-     * @throws OWLException If the translation could not take place, possibly because the
-     * description (set of triples) was malformed.
-     */
-    OWLClassExpression translate(URI mainNode) throws OWLException;
-    
+    public AbstractClassExpressionFillerRestriction(OWLXMLParserHandler handler) {
+        super(handler);
+    }
+
+    public void handleChild(AbstractClassExpressionElementHandler handler) {
+        setFiller(handler.getOWLObject());
+    }
 }

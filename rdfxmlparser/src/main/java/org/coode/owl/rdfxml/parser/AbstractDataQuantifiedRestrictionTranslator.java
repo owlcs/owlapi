@@ -47,7 +47,7 @@ public abstract class AbstractDataQuantifiedRestrictionTranslator extends Abstra
     final protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
         URI fillerObject = getResourceObject(mainNode, getFillerTriplePredicate(), true);
         if(fillerObject == null) {
-            throw new MalformedDescriptionException(getFillerTriplePredicate() + " is not present");
+            throw new MalformedClassExpressionException(getFillerTriplePredicate() + " is not present");
         }
         OWLDataRange dataRange = getConsumer().translateDataRange(fillerObject);
         return createRestriction(translateOnProperty(mainNode), dataRange);

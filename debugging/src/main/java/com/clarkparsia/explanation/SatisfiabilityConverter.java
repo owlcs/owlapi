@@ -101,7 +101,7 @@ public class SatisfiabilityConverter {
 
         public void visit(OWLClassAssertionAxiom axiom) {
             OWLIndividual ind = axiom.getIndividual();
-            OWLClassExpression c = axiom.getDescription();
+            OWLClassExpression c = axiom.getClassExpression();
 
             result = and(oneOf(ind), not(c));
         }
@@ -147,7 +147,7 @@ public class SatisfiabilityConverter {
 
 
         public void visit(OWLDisjointClassesAxiom axiom) {
-            result = and(axiom.getDescriptions());
+            result = and(axiom.getClassExpressions());
         }
 
 
@@ -172,7 +172,7 @@ public class SatisfiabilityConverter {
 
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            Iterator<OWLClassExpression> classes = axiom.getDescriptions().iterator();
+            Iterator<OWLClassExpression> classes = axiom.getClassExpressions().iterator();
             OWLClassExpression c1 = classes.next();
             OWLClassExpression c2 = classes.next();
 

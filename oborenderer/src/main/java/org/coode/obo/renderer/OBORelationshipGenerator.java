@@ -92,7 +92,7 @@ public class OBORelationshipGenerator extends OWLClassExpressionVisitorAdapter {
         }
     }
 
-    // TODO error handling for un-translatable descriptions
+    // TODO error handling for un-translatable class expressions
 
 
     private OBORelationship getRelationship(OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLClassExpression> desc) {

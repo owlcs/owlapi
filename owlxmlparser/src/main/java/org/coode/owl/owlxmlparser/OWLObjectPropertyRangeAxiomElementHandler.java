@@ -44,7 +44,7 @@ public class OWLObjectPropertyRangeAxiomElementHandler extends AbstractOWLAxiomE
         super(handler);
     }
 
-    public void handleChild(AbstractOWLDescriptionElementHandler handler) {
+    public void handleChild(AbstractClassExpressionElementHandler handler) {
         range = handler.getOWLObject();
     }
 
@@ -59,7 +59,7 @@ public class OWLObjectPropertyRangeAxiomElementHandler extends AbstractOWLAxiomE
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), OWLXMLVocabulary.OBJECT_PROPERTY.getShortName());
         }
         if (range == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "OWL description element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "OWL class expression element");
         }
         return getOWLDataFactory().getObjectPropertyRange(property, range);
     }

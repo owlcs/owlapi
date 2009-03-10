@@ -50,13 +50,13 @@ public class OWLSubClassAxiomElementHandler extends AbstractOWLAxiomElementHandl
     }
 
 
-    public void handleChild(AbstractOWLDescriptionElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException {
         if (subClass == null) {
             subClass = handler.getOWLObject();
         } else if (supClass == null) {
             supClass = handler.getOWLObject();
         } else {
-            throw new OWLXMLParserUnexpectedElementException(getLineNumber(), "Expected exactly two class description elements");
+            throw new OWLXMLParserUnexpectedElementException(getLineNumber(), "Expected exactly two class expression elements");
         }
     }
 

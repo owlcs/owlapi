@@ -63,7 +63,7 @@ public class TestURIsWithNumericFragments extends AbstractRendererAndParserTestC
     }
 
 
-    protected String getDescription() {
+    protected String getClassExpression() {
         return "URIs with purely numeric fragments";
     }
 }

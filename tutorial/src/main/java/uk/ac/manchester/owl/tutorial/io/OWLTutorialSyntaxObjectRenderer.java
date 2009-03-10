@@ -354,7 +354,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         axiom.getIndividual().accept(this);
         write(keyword(":"));
         writeSpace();
-        axiom.getDescription().accept(this);
+        axiom.getClassExpression().accept(this);
     }
 
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
@@ -397,7 +397,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(OWLDisjointClassesAxiom axiom) {
-        write(axiom.getDescriptions(), keyword("|"));
+        write(axiom.getClassExpressions(), keyword("|"));
     }
 
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
@@ -414,7 +414,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         writeSpace();
         write(keyword("=="));
         writeSpace();
-        write(axiom.getDescriptions(), keyword("|"));
+        write(axiom.getClassExpressions(), keyword("|"));
     }
 
     public void visit(OWLAnnotationAssertionAxiom axiom) {
@@ -422,7 +422,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        write(axiom.getDescriptions(), keyword("=="));
+        write(axiom.getClassExpressions(), keyword("=="));
     }
 
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {

@@ -44,7 +44,7 @@ public class OWLClassAssertionAxiomElementHandler extends AbstractOWLAxiomElemen
     }
 
 
-    public void handleChild(AbstractOWLDescriptionElementHandler handler) {
+    public void handleChild(AbstractClassExpressionElementHandler handler) {
         classExpression = handler.getOWLObject();
     }
 

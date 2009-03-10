@@ -40,7 +40,7 @@ import java.util.Set;
  */
 public class TestEquivalentClasses extends AbstractRendererAndParserTestCase {
 
-    protected String getDescription() {
+    protected String getClassExpression() {
         return "Equivalent classes axioms test case";
     }
 

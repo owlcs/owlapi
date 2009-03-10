@@ -48,7 +48,7 @@ public class TPHasKeyHandler extends TriplePredicateHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         consumeTriple(subject, predicate, object);
-        OWLClassExpression ce = translateDescription(subject);
+        OWLClassExpression ce = translateClassExpression(subject);
         Set<OWLPropertyExpression> props = listTranslator.translateToSet(object);
         addAxiom(getDataFactory().getHasKey(ce, props));
     }

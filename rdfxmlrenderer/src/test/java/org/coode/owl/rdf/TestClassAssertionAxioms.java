@@ -38,7 +38,7 @@ import java.util.Set;
  */
 public class TestClassAssertionAxioms extends AbstractRendererAndParserTestCase {
 
-    protected String getDescription() {
+    protected String getClassExpression() {
         return "Class assertion axioms test case";
     }
 

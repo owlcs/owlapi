@@ -36,14 +36,14 @@ import java.util.logging.Logger;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  *
- * A base class for translators that translate a set of triples to an Nary boolean description -
- * i.e. an OWLIntersectionOf or OWLUnionOf description.
+ * A base class for translators that translate a set of triples to an Nary boolean class expressions -
+ * i.e. an OWLIntersectionOf or OWLUnionOf class expression.
  */
-public abstract class AbstractNaryBooleanDescriptionTranslator extends AbstractDescriptionTranslator {
+public abstract class AbstractNaryBooleanClassExpressionTranslator extends AbstractClassExpressionTranslator {
 
     private Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
 
-    public AbstractNaryBooleanDescriptionTranslator(OWLRDFConsumer consumer) {
+    public AbstractNaryBooleanClassExpressionTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
@@ -51,9 +51,9 @@ public abstract class AbstractNaryBooleanDescriptionTranslator extends AbstractD
     public OWLClassExpression translate(URI mainNode) throws OWLException {
         URI object = getResourceObject(mainNode, getPredicateURI(), true);
         if(object == null) {
-            throw new MalformedDescriptionException("Triple with " + getPredicateURI() + " not present");
+            throw new MalformedClassExpressionException("Triple with " + getPredicateURI() + " not present");
         }
-        Set<OWLClassExpression> operands = translateToDescriptionSet(object);
+        Set<OWLClassExpression> operands = translateToClassExpressionSet(object);
         if(operands.size() < 2) {
             logger.fine("Number of operands is less than 2");
             if(operands.size() == 1) {
@@ -65,10 +65,10 @@ public abstract class AbstractNaryBooleanDescriptionTranslator extends AbstractD
                 return getDataFactory().getThing();
             }
         }
-        return createDescription(operands);
+        return createClassExpression(operands);
     }
 
-    protected abstract OWLClassExpression createDescription(Set<OWLClassExpression> operands) throws OWLException;
+    protected abstract OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) throws OWLException;
 
     protected abstract URI getPredicateURI() throws OWLException;
 }

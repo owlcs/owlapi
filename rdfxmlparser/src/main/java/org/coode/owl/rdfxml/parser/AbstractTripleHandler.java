@@ -71,8 +71,8 @@ public class AbstractTripleHandler {
     }
 
 
-    protected OWLClassExpression translateDescription(URI uri) throws OWLException {
-        return consumer.translateDescription(uri);
+    protected OWLClassExpression translateClassExpression(URI uri) throws OWLException {
+        return consumer.translateClassExpression(uri);
     }
 
 

@@ -46,7 +46,7 @@ public class OWLDataPropertyDomainAxiomElementHandler extends AbstractOWLAxiomEl
     }
 
 
-    public void handleChild(AbstractOWLDescriptionElementHandler handler) {
+    public void handleChild(AbstractClassExpressionElementHandler handler) {
         domain = handler.getOWLObject();
     }
 
@@ -61,7 +61,7 @@ public class OWLDataPropertyDomainAxiomElementHandler extends AbstractOWLAxiomEl
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "data property element");
         }
         if (domain == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "class description element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "class expression element");
         }
         return getOWLDataFactory().getDataPropertyDomain(property, domain);
     }

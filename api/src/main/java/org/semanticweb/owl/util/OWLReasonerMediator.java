@@ -98,7 +98,7 @@ public class OWLReasonerMediator implements OWLReasoner {
      * asks for the subclasses of an undefined entity then an empty <code>Set</code>
      * will be returned.  Most methods which have boolean return values will return
      * <code>false</code>, for example <code>isType</code> will return false if the
-     * individual is undefined, or the class description which is the type references
+     * individual is undefined, or the class expression which is the type references
      * an undefined entity.  The exception to this is the <code>isSatisfiable</code>
      * asks request which will return the value set by <code>setUndefinedClassesSatisfiable</code>.
      *
