@@ -19,7 +19,7 @@
     <!-- The directory where intermediate build products will be placed -->
     <property name="builddir" value="build"/>
 
-    <!-- A directory into which class files will be placed during the build process-->
+    <!-- A directory into which class files will be placed during the build answer-->
     <property name="classesdir" value="${builddir}/classes"/>
 
     <!-- The directory where the javadoc will be generated to-->

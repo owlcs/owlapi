@@ -2,7 +2,7 @@ package org.coode.owlapi.examples;
 
 import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.SimpleDocumentMapper;
+import org.semanticweb.owl.util.SimpleURIMapper;
 
 import java.net.URI;
 import java.util.Collections;
@@ -64,7 +64,7 @@ public class Example3 {
             // Create a physical URI which can be resolved to point to where our ontology will be saved.
             URI physicalURI = URI.create("file:/tmp/SWRLTest.owl");
             // Set up a mapping, which maps the ontology URI to the physical URI
-            SimpleDocumentMapper mapper = new SimpleDocumentMapper(ontologyURI, physicalURI);
+            SimpleURIMapper mapper = new SimpleURIMapper(ontologyURI, physicalURI);
             manager.addURIMapper(mapper);
 
             // Now create the ontology - we use the ontology URI (not the physical URI)

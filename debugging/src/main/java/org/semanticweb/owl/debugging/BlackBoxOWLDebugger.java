@@ -3,7 +3,7 @@ package org.semanticweb.owl.debugging;
 import org.semanticweb.owl.inference.OWLSatisfiabilityChecker;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.OWLEntityCollector;
-import org.semanticweb.owl.util.SimpleDocumentMapper;
+import org.semanticweb.owl.util.SimpleURIMapper;
 
 import java.net.URI;
 import java.util.*;
@@ -428,7 +428,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             owlOntologyManager.removeOntology(debuggingOntology);
         }
         URI uri = createURI();
-        OWLOntologyDocumentMapper mapper = new SimpleDocumentMapper(uri, uri);
+        SimpleURIMapper mapper = new SimpleURIMapper(uri, uri);
         owlOntologyManager.addURIMapper(mapper);
         debuggingOntology = owlOntologyManager.createOntology(uri);
         owlOntologyManager.removeURIMapper(mapper);

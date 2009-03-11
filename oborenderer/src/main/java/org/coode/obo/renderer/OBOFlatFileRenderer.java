@@ -276,7 +276,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
                 handleIntersection(cls, intersection, tvpList);
             } else {
                 // TODO handle datatype restrictions
-                exceptions.add(new OBOStorageException(cls, equiv, "Cannot process equivalent class that is not intersection or union"));
+                exceptions.add(new OBOStorageException(cls, equiv, "Cannot answer equivalent class that is not intersection or union"));
             }
         }
 

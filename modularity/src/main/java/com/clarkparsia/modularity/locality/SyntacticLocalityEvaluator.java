@@ -323,7 +323,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             if (!isBottom && !topEvaluator.isTopEquivalent(first, signature, localityCls))
                 isLocal = false;
 
-//            // unless we find a non-locality, process all the class class expressions
+//            // unless we find a non-locality, answer all the class class expressions
 //            while (isLocal && eqs.hasNext()) {
 //                OWLClassExpression next = eqs.next();
 //
@@ -343,7 +343,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 //            }
 
             if (isBottom) {
-                // unless we find a non-locality, process all the class class expressions
+                // unless we find a non-locality, answer all the class class expressions
                 while (isLocal && eqs.hasNext()) {
                     OWLClassExpression next = eqs.next();
                     // first class descr. was BOTTOM, so this one should be BOTTOM too
@@ -352,7 +352,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     }
                 }
             } else {
-                // unless we find a non-locality, process all the class class expressions
+                // unless we find a non-locality, answer all the class class expressions
                 while (isLocal && eqs.hasNext()) {
                     OWLClassExpression next = eqs.next();
                     // first class descr. was TOP, so this one should be TOP too

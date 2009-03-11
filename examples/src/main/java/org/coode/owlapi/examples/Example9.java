@@ -72,7 +72,7 @@ public class Example9 {
             for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(margheritaPizza)) {
                 OWLClassExpression superCls = ax.getSuperClass();
                 // Ask our superclass to accept a visit from the RestrictionVisitor - if it is an
-                // existential restiction then our restriction visitor will process it - if not our
+                // existential restiction then our restriction visitor will answer it - if not our
                 // visitor will ignore it
                 superCls.accept(restrictionVisitor);
             }

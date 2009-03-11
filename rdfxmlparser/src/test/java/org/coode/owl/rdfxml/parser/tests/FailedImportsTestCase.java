@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owl.io.OWLParserFactoryRegistry;
 import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.util.SimpleURIMapper;
 import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
@@ -49,11 +50,11 @@ public class FailedImportsTestCase extends TestCase {
         URI a = getClass().getResource("/owlapi/A.owl").toURI();
         final URI b = getClass().getResource("/owlapi/B.owl").toURI();
 
-        manager.addURIMapper(new OWLOntologyDocumentMapper() {
+        manager.addURIMapper(new OWLOntologyURIMapper() {
 
             private URI ontBURI = URI.create("http://www.semanticweb.org/ontologies/2007/7/A.owl");
 
-            public URI getDocumentIRI(URI ontologyURI) {
+            public URI getPhysicalURI(URI ontologyURI) {
                 if (ontologyURI.equals(ontBURI)) {
                     return b;
                 } else {

@@ -788,7 +788,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
         public void characters(char[] data, int start, int length) throws SAXException {
             if (!isWhitespaceOnly(data, start, length))
-                throw new RDFParserException("Cannot process characters when node is excepted.", m_documentLocator);
+                throw new RDFParserException("Cannot answer characters when node is excepted.", m_documentLocator);
         }
     }
 
@@ -836,7 +836,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
         public void characters(char[] data, int start, int length) throws SAXException {
             if (!isWhitespaceOnly(data, start, length))
-                throw new RDFParserException("Cannot process characters when object properties are excepted.",
+                throw new RDFParserException("Cannot answer characters when object properties are excepted.",
                                              m_documentLocator);
         }
     }
@@ -907,7 +907,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         public void characters(char[] data, int start, int length) throws SAXException {
             if (m_innerNode != null) {
                 if (!isWhitespaceOnly(data, start, length))
-                    throw new RDFParserException("Cannot process characters when object properties are excepted.",
+                    throw new RDFParserException("Cannot answer characters when object properties are excepted.",
                                                  m_documentLocator);
             }
             else
@@ -1134,7 +1134,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
         public void characters(char[] data, int start, int length) throws SAXException {
             if (!isWhitespaceOnly(data, start, length))
-                throw new RDFParserException("Cannot process characters when object properties are excepted.",
+                throw new RDFParserException("Cannot answer characters when object properties are excepted.",
                                              m_documentLocator);
         }
     }

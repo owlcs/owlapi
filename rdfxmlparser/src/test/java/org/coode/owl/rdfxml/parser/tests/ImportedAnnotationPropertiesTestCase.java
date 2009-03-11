@@ -6,7 +6,7 @@ import org.semanticweb.owl.io.OWLParserFactoryRegistry;
 import org.semanticweb.owl.model.OWLIndividual;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.util.SimpleDocumentMapper;
+import org.semanticweb.owl.util.SimpleURIMapper;
 import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
@@ -59,9 +59,9 @@ public class ImportedAnnotationPropertiesTestCase extends TestCase {
 
     public void testImportedAnnotationProperties() throws Exception {
         URI ontURI = URI.create("http://www.semanticweb.org/ontologies/importAnnotationProperties.owl");
-        man.addURIMapper(new SimpleDocumentMapper(URI.create("http://www.semanticweb.org/ontologies/annotationProperties.owl"),
+        man.addURIMapper(new SimpleURIMapper(URI.create("http://www.semanticweb.org/ontologies/annotationProperties.owl"),
                 getClass().getResource("/owlapi/AnnotationURIsTest.owl").toURI()));
-        man.addURIMapper(new SimpleDocumentMapper(ontURI,
+        man.addURIMapper(new SimpleURIMapper(ontURI,
                 getClass().getResource("/owlapi/ImportAnnotationPropertiesTest.owl").toURI()));
 
         OWLOntology ontA = man.loadOntology(ontURI);

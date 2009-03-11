@@ -5,6 +5,7 @@ import org.semanticweb.owl.io.OWLOntologyOutputTarget;
 import org.semanticweb.owl.io.PhysicalURIInputSource;
 import org.semanticweb.owl.io.PhysicalURIMappingNotFoundException;
 import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.util.NonMappingOntologyURIMapper;
 
 import java.net.URI;
 import java.util.*;
@@ -51,7 +52,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     private Map<OWLOntology, OWLOntologyFormat> ontologyFormatsByOntology;
 
-    private List<OWLOntologyDocumentMapper> documentMappers;
+    private List<OWLOntologyURIMapper> documentMappers;
 
     private List<OWLOntologyFactory> ontologyFactories;
 
@@ -84,7 +85,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         ontologiesByID = new HashMap<OWLOntologyID, OWLOntology>();
         physicalURIsByID = new HashMap<OWLOntologyID, URI>();
         ontologyFormatsByOntology = new HashMap<OWLOntology, OWLOntologyFormat>();
-        documentMappers = new ArrayList<OWLOntologyDocumentMapper>();
+        documentMappers = new ArrayList<OWLOntologyURIMapper>();
         ontologyFactories = new ArrayList<OWLOntologyFactory>();
         installDefaultURIMappers();
         installDefaultOntologyFactories();
@@ -644,7 +645,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public void addURIMapper(OWLOntologyDocumentMapper mapper) {
+    public void addURIMapper(OWLOntologyURIMapper mapper) {
         documentMappers.add(0, mapper);
     }
 
@@ -654,7 +655,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
 
-    public void removeURIMapper(OWLOntologyDocumentMapper mapper) {
+    public void removeURIMapper(OWLOntologyURIMapper mapper) {
         documentMappers.remove(mapper);
     }
 
@@ -682,8 +683,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
      *         <code>null</code> if no physical URI can be found.
      */
     private URI getDocumentURI(OWLOntologyID ontologyID, boolean quiet) {
-        for (OWLOntologyDocumentMapper mapper : documentMappers) {
-            URI physicalURI = mapper.getDocumentIRI(ontologyID.getDefaultDocumentIRI().toURI());
+        for (OWLOntologyURIMapper mapper : documentMappers) {
+            URI physicalURI = mapper.getPhysicalURI(ontologyID.getDefaultDocumentIRI().toURI());
             if (physicalURI != null) {
                 return physicalURI;
             }
@@ -699,7 +700,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     private void installDefaultURIMappers() {
         // By defaut install the default mapper that simply maps
         // ontology URIs to themselves.
-        addURIMapper(new OWLOntologyDocumentMapperImpl());
+        addURIMapper(new NonMappingOntologyURIMapper());
     }
 
 
