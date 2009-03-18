@@ -171,7 +171,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDeclaration axiom) {
+        public ConstructNotAllowed visit(OWLDeclarationAxiom axiom) {
             return null;
         }
 

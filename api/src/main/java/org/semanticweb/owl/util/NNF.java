@@ -304,7 +304,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
             // Encode as a data union of and return result
             Set<OWLDataOneOf> oneOfs = new HashSet<OWLDataOneOf>();
             for (OWLLiteral lit : node.getValues()) {
-                oneOfs.add(dataFactory.getDataOneOf(lit));
+                oneOfs.add(dataFactory.getOWLDataOneOf(lit));
             }
             return dataFactory.getDataUnionOf(oneOfs).accept(this);
         }
@@ -396,7 +396,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
         for (OWLClassExpression op : axiom.getClassExpressions()) {
             ops.add(op.accept(this));
         }
-        return dataFactory.getDisjointClasses(ops);
+        return dataFactory.getOWLDisjointClassesAxiom(ops);
     }
 
 
@@ -468,11 +468,11 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
         for (OWLClassExpression op : axiom.getClassExpressions()) {
             descs.add(op.accept(this));
         }
-        return dataFactory.getDisjointUnion(axiom.getOWLClass(), descs);
+        return dataFactory.getOWLDisjointUnionAxiom(axiom.getOWLClass(), descs);
     }
 
 
-    public OWLAxiom visit(OWLDeclaration axiom) {
+    public OWLAxiom visit(OWLDeclarationAxiom axiom) {
         return axiom;
     }
 
@@ -517,7 +517,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
         for (OWLClassExpression op : axiom.getClassExpressions()) {
             ops.add(op.accept(this));
         }
-        return dataFactory.getEquivalentClasses(ops);
+        return dataFactory.getOWLEquivalentClassesAxiom(ops);
     }
 
 

@@ -5,6 +5,7 @@ import org.semanticweb.owl.model.*;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -40,7 +41,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
     private Set<OWLIndividual> individuals;
 
 
-    public OWLNaryIndividualAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> individuals, OWLAnnotation... annotations) {
+    public OWLNaryIndividualAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> individuals, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.individuals = Collections.unmodifiableSortedSet(new TreeSet<OWLIndividual>(individuals));
     }

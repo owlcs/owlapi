@@ -49,7 +49,7 @@ public class InferredEquivalentClassAxiomGenerator extends InferredClassAxiomGen
         Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>(reasoner.getEquivalentClasses(entity));
         equivalentClasses.add(entity);
         if (equivalentClasses.size() > 1) {
-            result.add(dataFactory.getEquivalentClasses(equivalentClasses));
+            result.add(dataFactory.getOWLEquivalentClassesAxiom(equivalentClasses));
         }
     }
 

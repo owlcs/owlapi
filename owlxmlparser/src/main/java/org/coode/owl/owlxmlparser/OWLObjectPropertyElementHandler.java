@@ -48,6 +48,6 @@ public class OWLObjectPropertyElementHandler extends AbstractOWLObjectPropertyEl
 
 
     protected void endObjectPropertyElement() {
-        setOWLObjectPropertyExpression(getOWLDataFactory().getObjectProperty(uri));
+        setOWLObjectPropertyExpression(getOWLDataFactory().getOWLObjectProperty(uri));
     }
 }

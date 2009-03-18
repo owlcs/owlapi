@@ -1,7 +1,6 @@
 package org.semanticweb.owl.api.test;
 
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.OWLFacet;
 import org.semanticweb.owl.io.StringOutputTarget;
 
 import java.util.Set;
@@ -39,7 +38,7 @@ public class DisjointClassesTestCase extends AbstractFileRoundTrippingTestCase {
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");
         OWLClass clsC = getOWLClass("C");
-        axioms.add(getFactory().getDisjointClasses(clsA, clsB, clsC));
+        axioms.add(getFactory().getOWLDisjointClassesAxiom(clsA, clsB, clsC));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

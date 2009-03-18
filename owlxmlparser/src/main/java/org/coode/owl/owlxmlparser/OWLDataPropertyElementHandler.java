@@ -55,7 +55,7 @@ public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWL
     }
 
     final public void endElement() throws OWLXMLParserException {
-        prop = getOWLDataFactory().getDataProperty(uri);
+        prop = getOWLDataFactory().getOWLDataProperty(uri);
         getParentHandler().handleChild(this);
     }
 

@@ -2,12 +2,14 @@ package uk.ac.manchester.cs.owl.mansyntaxrenderer;
 
 import org.coode.manchesterowlsyntax.ManchesterOWLSyntax;
 import static org.coode.manchesterowlsyntax.ManchesterOWLSyntax.*;
+import org.coode.xml.OWLOntologyNamespaceManager;
 import org.semanticweb.owl.io.OWLRendererException;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.*;
 
 import java.io.Writer;
 import java.util.*;
+import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -40,7 +42,9 @@ import java.util.*;
  */
 public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectRenderer implements OWLEntityVisitor {
 
-//    private OWLOntologyNamespaceManager nsm;
+    private OWLOntologyManager man;
+
+    private OWLOntologyNamespaceManager nsm;
 
     private OWLOntology defaultOntology;
 
@@ -50,7 +54,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     private Set<AxiomType> filteredAxiomTypes = new HashSet<AxiomType>();
 
-    private boolean renderExtensions = true;
+    private boolean renderExtensions = false;
 
     private OWLAxiomFilter axiomFilter = new OWLAxiomFilter() {
         public boolean passes(OWLAxiom axiom) {
@@ -68,18 +72,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                                             OWLOntology defaultOntology,
                                             Writer writer) {
         super(writer);
+        this.man = owlOntologyManager;
         this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);
         this.defaultOntology = defaultOntology;
-//        nsm = new OWLOntologyNamespaceManager(owlOntologyManager, ontology);
-//        setShortFormProvider(new ShortFormProvider() {
-//            public String getShortForm(OWLEntity entity) {
-//                return nsm.getQName(entity.getURI().toString());
-//            }
-//
-//
-//            public void dispose() {
-//            }
-//        });
+
     }
 
     public void setAxiomFilter(OWLAxiomFilter axiomFilter) {
@@ -94,7 +90,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         filteredAxiomTypes.add(axiomType);
     }
 
-//    private OWLOntology getOntology() {
+    public void setRenderExtensions(boolean renderExtensions) {
+        this.renderExtensions = renderExtensions;
+    }
+
+    //    private OWLOntology getOntology() {
 //        return this.ontology;
 //    }
 
@@ -103,13 +103,25 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return ontologies;
     }
 
-//    public OWLOntologyNamespaceManager getNamespaceManager() {
-//        return nsm;
-//    }
+    public OWLOntologyNamespaceManager getNamespaceManager() {
+        return nsm;
+    }
 
 
     public void writeOntology() throws OWLRendererException {
-//        writePrefixMap();
+        if(nsm == null) {
+            nsm = new OWLOntologyNamespaceManager(man, defaultOntology);
+            setShortFormProvider(new ShortFormProvider() {
+                public String getShortForm(OWLEntity entity) {
+                    return nsm.getQName(entity.getURI().toString());
+                }
+
+
+                public void dispose() {
+                }
+            });
+        }
+        writePrefixMap();
         if (ontologies.size() != 1) {
             throw new RuntimeException("Can only render one ontology");
         }
@@ -159,23 +171,23 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         flush();
     }
 
-//    public void writePrefixMap() {
-//        Map<String, String> prefixMap = new HashMap<String, String>();
-//        for (String prefix : nsm.getPrefixes()) {
-//            prefixMap.put(prefix, nsm.getNamespaceForPrefix(prefix));
-//            write(NAMESPACE.toString());
-//            write(":");
-//            writeSpace();
-//            write(prefix);
-//            writeSpace();
-//            writeFullURI(nsm.getNamespaceForPrefix(prefix));
-//            writeNewLine();
-//        }
-//        if (!prefixMap.isEmpty()) {
-//            writeNewLine();
-//            writeNewLine();
-//        }
-//    }
+    public void writePrefixMap() {
+        Map<String, String> prefixMap = new HashMap<String, String>();
+        for (String prefix : getNamespaceManager().getPrefixes()) {
+            prefixMap.put(prefix, getNamespaceManager().getNamespaceForPrefix(prefix));
+            write(NAMESPACE.toString());
+            write(":");
+            writeSpace();
+            write(prefix);
+            writeSpace();
+            writeFullURI(getNamespaceManager().getNamespaceForPrefix(prefix));
+            writeNewLine();
+        }
+        if (!prefixMap.isEmpty()) {
+            writeNewLine();
+            writeNewLine();
+        }
+    }
 
 
     public void writeFullURI(String uri) {
@@ -184,14 +196,17 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         write(">");
     }
 
-//    protected void write(URI uri) {
-//        String qname = nsm.getQName(uri.toString());
-//        if (qname != null) {
-//            super.write(qname);
-//        } else {
-//            writeFullURI(uri.toString());
-//        }
-//    }
+    protected void write(URI uri) {
+        String qname = null;
+        if(nsm != null) {
+            qname = getNamespaceManager().getQName(uri.toString());
+        }
+        if (qname != null) {
+            super.write(qname);
+        } else {
+            writeFullURI(uri.toString());
+        }
+    }
 
     public boolean isFiltered(AxiomType axiomType) {
         return filteredAxiomTypes.contains(axiomType);
@@ -316,7 +331,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     protected void writeEntitySectionEnd() {
         popTab();
-        writeNewLine();
         writeNewLine();
     }
 
@@ -844,6 +858,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     private void writeOntologiesList(OWLOntology... ontologies) {
+        if(!renderExtensions) {
+            return;
+        }
         if (ontologies.length == 0) {
             return;
         }

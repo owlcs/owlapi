@@ -143,7 +143,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
             operands.add(curCls);
             operands.add(cls);
-            temporaryAxioms.add(owlOntologyManager.getOWLDataFactory().getEquivalentClasses(operands));
+            temporaryAxioms.add(owlOntologyManager.getOWLDataFactory().getOWLEquivalentClassesAxiom(operands));
             for (OWLAxiom ax : temporaryAxioms) {
                 owlOntologyManager.applyChanges(Arrays.asList(new AddAxiom(getOWLOntology(), ax)));
             }
@@ -442,7 +442,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
         // Ensure the ontology contains the signature of the class which is being debugged
         OWLDataFactory factory = owlOntologyManager.getOWLDataFactory();
-        OWLAxiom ax = factory.getSubClassOf(currentClass, factory.getThing());
+        OWLAxiom ax = factory.getSubClassOf(currentClass, factory.getOWLThing());
         changes.add(new AddAxiom(debuggingOntology, ax));
         owlOntologyManager.applyChanges(changes);
     }

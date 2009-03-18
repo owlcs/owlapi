@@ -389,7 +389,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         axiom.getSuperProperty().accept(this);
     }
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
     }
 
     public void visit(OWLDifferentIndividualsAxiom axiom) {

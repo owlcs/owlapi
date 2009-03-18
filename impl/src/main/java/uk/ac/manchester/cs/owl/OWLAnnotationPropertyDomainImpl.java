@@ -1,6 +1,8 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.*;/*
+import org.semanticweb.owl.model.*;
+
+import java.util.Collection;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -33,8 +35,8 @@ public class OWLAnnotationPropertyDomainImpl extends OWLAxiomImpl implements OWL
 
     private IRI domain;
 
-    public OWLAnnotationPropertyDomainImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, IRI domain) {
-        super(dataFactory);
+    public OWLAnnotationPropertyDomainImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, IRI domain, Collection<? extends OWLAnnotation> annotations) {
+        super(dataFactory, annotations);
         this.domain = domain;
         this.property = property;
     }

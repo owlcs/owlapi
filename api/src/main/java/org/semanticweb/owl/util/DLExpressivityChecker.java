@@ -537,7 +537,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
 
     }
 

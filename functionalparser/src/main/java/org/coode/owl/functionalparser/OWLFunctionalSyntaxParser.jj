@@ -677,7 +677,7 @@ void Ontology() throws OWLOntologyCreationException :
             applyChange(new SetOntologyURI(ontology, ontologyURI));
         }
     (anno=Annotation(){
-        ax = dataFactory.getAnnotationAssertion(ontology.getURI(), anno);
+        ax = dataFactory.getAnnotationAssertion(ontology.getIRI(), anno);
         addAxiom(ax);
         currentAnnotations.clear();
     })*
@@ -1281,7 +1281,7 @@ OWLClassAxiom SubClassOf() :
 }
 {
     <SUBCLASSOF><OPENPAR>AxiomAnnotationSet()subClass=ClassExpression() superClass=ClassExpression()<CLOSEPAR>{
-        return dataFactory.getSubClassOf(subClass, superClass);
+        return dataFactory.getOWLSubClassOfAxiom(subClass, superClass);
     }
 }
 
@@ -1291,7 +1291,7 @@ OWLClassAxiom EquivalentClasses() :
 }
 {
     <EQUIVALENTCLASSES><OPENPAR>AxiomAnnotationSet()classExpressions=ClassExpressionSet()<CLOSEPAR> {
-        return dataFactory.getEquivalentClasses(classExpressions);
+        return dataFactory.getOWLEquivalentClassesAxiom(classExpressions);
     }
 }
 
@@ -1301,7 +1301,7 @@ OWLClassAxiom DisjointClasses() :
 }
 {
     <DISJOINTCLASSES><OPENPAR>AxiomAnnotationSet()classExpressions=ClassExpressionSet()<CLOSEPAR> {
-        return dataFactory.getDisjointClasses(classExpressions);
+        return dataFactory.getOWLDisjointClassesAxiom(classExpressions);
     }
 }
 
@@ -1360,7 +1360,7 @@ OWLPropertyAxiom SubObjectPropertyOf() :
             return dataFactory.getSubObjectPropertyOf(subProperty, superProperty);
         }
         else if(chain != null) {
-            return dataFactory.getObjectPropertyChainSubProperty(chain, superProperty);
+            return dataFactory.getSubPropertyChainOf(chain, superProperty);
         }
         else {
             return null;
@@ -1709,7 +1709,7 @@ OWLNamedIndividual IndividualURI() :
     URI uri;
 }
 {
-    uri=URI() {return dataFactory.getOWLIndividual(uri);}
+    uri=URI() {return dataFactory.getOWLNamedIndividual(uri);}
 }
 
 OWLObjectProperty ObjectPropertyURI() :
@@ -1734,15 +1734,15 @@ OWLAnnotation Annotation() :
 }
 {
     ((<LABEL> <OPENPAR> con=Constant() <CLOSEPAR>) {
-        return dataFactory.getAnnotation(OWLRDFVocabulary.RDFS_LABEL.getURI(), con);
+        return dataFactory.getAnnotation(dataFactory.getAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getURI()), con);
     })
     |
     ((<COMMENT> <OPENPAR> con=Constant() <CLOSEPAR>) {
-        return dataFactory.getAnnotation(OWLRDFVocabulary.RDFS_COMMENT.getURI(), con);
+        return dataFactory.getAnnotation(dataFactory.getAnnotationProperty(OWLRDFVocabulary.RDFS_COMMENT.getURI()), con);
     })
     |
     ((<ANNOTATION><OPENPAR>uri=URI()con=Constant()<CLOSEPAR>){
-        return dataFactory.getAnnotation(uri, con);
+        return dataFactory.getAnnotation(dataFactory.getAnnotationProperty(uri), con);
     })
 }
 
@@ -1782,7 +1782,7 @@ OWLAnnotationAssertionAxiom EntityAnnotation() :
 }
 {
     <ENTITYANNOTATION><OPENPAR>AxiomAnnotationSet() entity = Entity() anno = Annotation() <CLOSEPAR> {
-        return dataFactory.getAnnotationAssertion(entity.getURI(), anno);
+        return dataFactory.getAnnotationAssertion(entity.getIRI(), anno);
     }
 }
 
@@ -1798,7 +1798,7 @@ OWLAxiom Declaration() :
             return null;
         }
         else {
-            return dataFactory.getDeclaration(entity);
+            return dataFactory.getOWLDeclarationAxiom(entity);
         }
         }
 

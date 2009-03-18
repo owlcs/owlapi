@@ -124,7 +124,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         restriction.getFiller().accept(this);
         if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
             write(")");
-            if(conjunctionOrDisjunction) {
+            if (conjunctionOrDisjunction) {
                 popTab();
             }
         }
@@ -361,17 +361,21 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
 
     public void visit(OWLTypedLiteral node) {
-        if (node.getDatatype().getURI().equals(XSDVocabulary.DOUBLE.getURI())) {
+        if (node.getDatatype().isDouble()) {
             write(node.getLiteral());
-        } else if (node.getDatatype().getURI().equals(XSDVocabulary.FLOAT.getURI())) {
+        }
+        else if (node.getDatatype().isFloat()) {
             write(node.getLiteral());
             write("f");
-        } else if (node.getDatatype().getURI().equals(XSDVocabulary.INTEGER.getURI())) {
+        }
+        else if (node.getDatatype().isInteger()) {
             write(node.getLiteral());
-        } else {
-//            write("\"");
+        }
+        else if (node.getDatatype().isString()) {
+            writeLiteral(node.getLiteral());
+        }
+        else {
             pushTab(getIndent());
-//            write(node.getLiteral(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
             writeLiteral(node.getLiteral());
             popTab();
             write("^^");
@@ -381,19 +385,16 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
 
     public void visit(OWLRDFTextLiteral node) {
-//        write("\"");
         pushTab(getIndent());
         writeLiteral(node.getLiteral());
-//        write(node.getLiteral(), wrap ? LINE_LENGTH : Integer.MAX_VALUE);
         popTab();
-//        write("\"");
         write("@");
         write(node.getLang());
     }
 
     private void writeLiteral(String literal) {
         write("\"");
-        if(literal.indexOf("\"") == -1 && literal.indexOf("\\") != -1) {
+        if (literal.indexOf("\"") == -1 && literal.indexOf("\\") != -1) {
             write(literal);
         }
         else {
@@ -656,23 +657,28 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
             write("<");
             write(((OWLOntology) object).getURI().toString());
             write(">");
-        } else {
+        }
+        else {
             if (object instanceof OWLClassExpression) {
                 writeFrameKeyword(CLASS);
-            } else if (object instanceof OWLObjectPropertyExpression) {
+            }
+            else if (object instanceof OWLObjectPropertyExpression) {
                 writeFrameKeyword(OBJECT_PROPERTY);
-            } else if (object instanceof OWLDataPropertyExpression) {
+            }
+            else if (object instanceof OWLDataPropertyExpression) {
                 writeFrameKeyword(DATA_PROPERTY);
-            } else if (object instanceof OWLIndividual) {
+            }
+            else if (object instanceof OWLIndividual) {
                 writeFrameKeyword(INDIVIDUAL);
-            } else if (object instanceof OWLAnnotationProperty) {
+            }
+            else if (object instanceof OWLAnnotationProperty) {
                 writeFrameKeyword(ANNOTATION_PROPERTY);
             }
         }
         object.accept(this);
     }
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
         setAxiomWriting();
         writeFrameType(axiom.getEntity());
         restore();
@@ -752,8 +758,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
         setAxiomWriting();
-        if(axiom.getClassExpressions().size() == 2) {
-            OWLClassExpression [] ces = axiom.getClassExpressions().toArray(new OWLClassExpression[2]);
+        if (axiom.getClassExpressions().size() == 2) {
+            OWLClassExpression[] ces = axiom.getClassExpressions().toArray(new OWLClassExpression[2]);
             ces[0].accept(this);
             writeSpace();
             writeFrameKeyword(EQUIVALENT_CLASSES);

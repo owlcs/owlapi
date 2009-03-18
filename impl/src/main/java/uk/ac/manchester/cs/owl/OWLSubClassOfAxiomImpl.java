@@ -4,6 +4,7 @@ import org.semanticweb.owl.model.*;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -42,7 +43,7 @@ public class OWLSubClassOfAxiomImpl extends OWLNaryClassAxiomImpl implements OWL
 
 
     public OWLSubClassOfAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression subClass,
-                                  OWLClassExpression superClass, OWLAnnotation... annotations) {
+                                  OWLClassExpression superClass, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, new HashSet<OWLClassExpression>(Arrays.asList(subClass, superClass)), annotations);
         this.subClass = subClass;
         this.superClass = superClass;

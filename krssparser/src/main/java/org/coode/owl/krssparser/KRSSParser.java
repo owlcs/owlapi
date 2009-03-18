@@ -136,7 +136,7 @@ public class KRSSParser implements KRSSParserConstants {
         ops.add(clsA);
         ops.add(clsB);
         {
-            if (true) return dataFactory.getEquivalentClasses(ops);
+            if (true) return dataFactory.getOWLEquivalentClassesAxiom(ops);
         }
         throw new Error("Missing return statement in function");
     }
@@ -363,7 +363,7 @@ public class KRSSParser implements KRSSParserConstants {
         URI uri;
         uri = Name();
         {
-            if (true) return dataFactory.getObjectProperty(uri);
+            if (true) return dataFactory.getOWLObjectProperty(uri);
         }
         throw new Error("Missing return statement in function");
     }
@@ -454,7 +454,7 @@ public class KRSSParser implements KRSSParserConstants {
         URI name;
         name = Name();
         {
-            if (true) return dataFactory.getIndividual(name);
+            if (true) return dataFactory.getOWLNamedIndividual(name);
         }
         throw new Error("Missing return statement in function");
     }

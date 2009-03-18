@@ -92,7 +92,7 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         // prop some Thing subclassOf domain
-        OWLClassExpression sub = dataFactory.getObjectSomeValuesFrom(axiom.getProperty(), dataFactory.getThing());
+        OWLClassExpression sub = dataFactory.getObjectSomeValuesFrom(axiom.getProperty(), dataFactory.getOWLThing());
         OWLSubClassOfAxiom ax = dataFactory.getSubClassOf(sub, axiom.getDomain());
         ax.accept(this);
     }
@@ -122,7 +122,7 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         // Thing subclassOf prop only Range
         OWLClassExpression sup = dataFactory.getObjectAllValuesFrom(axiom.getProperty(), axiom.getRange());
-        OWLSubClassOfAxiom ax = dataFactory.getSubClassOf(dataFactory.getThing(), sup);
+        OWLSubClassOfAxiom ax = dataFactory.getSubClassOf(dataFactory.getOWLThing(), sup);
         ax.accept(this);
     }
 
@@ -137,7 +137,7 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
 
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         //  subProp some {a} subClassOf supProp some {a}
-        OWLIndividual ind = dataFactory.getIndividual(URI.create("http://debugger.com#" + System.nanoTime()));
+        OWLIndividual ind = dataFactory.getOWLNamedIndividual(URI.create("http://debugger.com#" + System.nanoTime()));
         OWLClassExpression sub = dataFactory.getObjectHasValue(axiom.getSubProperty(), ind);
         OWLClassExpression sup = dataFactory.getObjectHasValue(axiom.getSuperProperty(), ind);
         OWLAxiom ax = dataFactory.getSubClassOf(sub, sup);
@@ -149,7 +149,7 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
     }
 
 
@@ -181,7 +181,7 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
 
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        if (axiom.getClassExpressions().size() == 2 && axiom.getClassExpressions().contains(dataFactory.getNothing())) {
+        if (axiom.getClassExpressions().size() == 2 && axiom.getClassExpressions().contains(dataFactory.getOWLNothing())) {
             for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 if (!desc.isOWLNothing()) {
                     this.desc = desc;

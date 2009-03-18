@@ -500,6 +500,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     void addOntologyChangeListener(OWLOntologyChangeListener listener, OWLOntologyChangeBroadcastStrategy strategy);
 
+    /**
+     * Sets the default strategy that is used to broadcast ontology changes.
+     * @param strategy The strategy to be used for broadcasting changes.  This strategy will override any previously
+     * set broadcast strategy.  The strategy should not be <code>null</code>.
+     * @see org.semanticweb.owl.model.DefaultChangeBroadcastStrategy
+     * @see org.semanticweb.owl.model.EDTChangeBroadcastStrategy
+     */
+    void setDefaultChangeBroadcastStrategy(OWLOntologyChangeBroadcastStrategy strategy);
 
     /**
      * Removes a previously added listener.
@@ -558,4 +566,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     void removeOntologyLoaderListener(OWLOntologyLoaderListener listener);
+
+
+    void addOntologyChangeProgessListener(OWLOntologyChangeProgressListener listener);
+
+    void removeOntologyChangeProgessListener(OWLOntologyChangeProgressListener listener);
+
 }

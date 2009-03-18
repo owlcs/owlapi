@@ -405,7 +405,7 @@ public abstract class RDFRendererBase {
                     }
                     axioms.add(ax);
                 }
-                axioms.addAll(ontology.getAxioms(manager.getOWLDataFactory().getObjectPropertyInverse(property)));
+                axioms.addAll(ontology.getAxioms(manager.getOWLDataFactory().getOWLObjectPropertyInverse(property)));
                 createGraph(axioms);
             }
 

@@ -2,10 +2,7 @@ package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -41,7 +38,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     private Set<OWLClassExpression> classExpressions;
 
 
-    public OWLNaryClassAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions, OWLAnnotation... annotations) {
+    public OWLNaryClassAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.classExpressions = Collections.unmodifiableSortedSet(new TreeSet<OWLClassExpression>(classExpressions));
     }

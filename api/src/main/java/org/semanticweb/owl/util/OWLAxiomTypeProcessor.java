@@ -126,7 +126,7 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
         process(axiom, DECLARATION);
     }
 

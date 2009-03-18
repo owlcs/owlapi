@@ -48,13 +48,13 @@ public class TPDeclaredAsHandler extends TriplePredicateHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         if (object.equals(OWLRDFVocabulary.OWL_CLASS.getURI())) {
-            addAxiom(getDataFactory().getDeclaration(getDataFactory().getOWLClass(subject)));
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLClass(subject)));
         } else if (object.equals(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI())) {
-            addAxiom(getDataFactory().getDeclaration(getDataFactory().getObjectProperty(subject)));
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLObjectProperty(subject)));
         } else if (object.equals(OWLRDFVocabulary.OWL_DATA_PROPERTY.getURI())) {
-            addAxiom(getDataFactory().getDeclaration(getDataFactory().getDataProperty(subject)));
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDataProperty(subject)));
         } else if (object.equals(OWLRDFVocabulary.OWL_DATATYPE.getURI())) {
-            addAxiom(getDataFactory().getDeclaration(getDataFactory().getDatatype(subject)));
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDatatype(subject)));
         }
     }
 }

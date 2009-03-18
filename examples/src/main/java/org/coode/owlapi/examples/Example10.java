@@ -59,12 +59,12 @@ public class Example10 {
             // Now we create the content of our comment.  In this case we simply want a plain string literal.
             // We'll attach a language to the comment to specify that our comment is written in English (en).
             OWLAnnotation commentAnno = df.getAnnotation(
-                    df.getAnnotationProperty(OWLRDFVocabulary.RDFS_COMMENT.getURI()),
-                    "A class which represents pizzas", "en");
+                    df.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_COMMENT.getURI()),
+                    df.getRDFTextLiteral("A class which represents pizzas", "en"));
 
             // Specify that the pizza class has an annotation - to do this we attach an entity annotation using
             // an entity annotation axiom (remember, classes are entities)
-            OWLAxiom ax = df.getAnnotationAssertion(pizzaCls.getURI(), commentAnno);
+            OWLAxiom ax = df.getAnnotationAssertion(pizzaCls.getIRI(), commentAnno);
 
             // Add the axiom to the ontology
             man.applyChange(new AddAxiom(ont, ax));
@@ -78,9 +78,9 @@ public class Example10 {
             OWLLiteral lit = df.getTypedLiteral("Added a comment to the pizza class");
             // The above constant is just a plain literal containing the version info text/comment
             // we need to create an annotation, which pairs a URI with the constant
-            OWLAnnotation anno = df.getAnnotation(df.getAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO.getURI()), lit);
+            OWLAnnotation anno = df.getAnnotation(df.getOWLAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO.getURI()), lit);
             // Now we can add this as an ontology annotation
-            OWLAnnotationAxiom annoAx = df.getAnnotationAssertion(ont.getURI(), anno);
+            OWLAnnotationAxiom annoAx = df.getAnnotationAssertion(ont.getIRI(), anno);
             // Apply the change in the usual way
             man.applyChange(new AddAxiom(ont, annoAx));
 

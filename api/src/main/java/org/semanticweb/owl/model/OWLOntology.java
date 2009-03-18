@@ -445,7 +445,7 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set that is returned is a copy - it will not be updated if the ontology changes.  It is therefore
      *         safe to apply changes to this ontology while iterating over this set.
      */
-    Set<OWLDeclaration> getDeclarationAxioms();
+    Set<OWLDeclarationAxiom> getDeclarationAxioms();
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -506,7 +506,7 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The set of declaration axioms. Note that this set will be a copy and will not be updated if the ontology
      *         changes.  It is therefore safe to iterate over this set while making changes to the ontology.
      */
-    Set<OWLDeclaration> getDeclarationAxioms(OWLEntity subject);
+    Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity subject);
 
     /**
      * Gets the axioms that annotate the specified entity.

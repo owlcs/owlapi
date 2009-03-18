@@ -129,7 +129,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
      */
     private void setOntologies() {
         if (root == null) {
-            root = manager.getOWLDataFactory().getThing();
+            root = manager.getOWLDataFactory().getOWLThing();
         }
         rebuildImplicitRoots();
     }

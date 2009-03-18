@@ -62,7 +62,7 @@ public class OneOfTranslator extends AbstractClassExpressionTranslator {
         }
         if (individuals.isEmpty()) {
             logger.info("Empty set in owl:oneOf class expression - converting to owl:Nothing");
-            return getDataFactory().getNothing();
+            return getDataFactory().getOWLNothing();
         }
         return getDataFactory().getObjectOneOf(individuals);
     }

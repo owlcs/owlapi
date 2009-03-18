@@ -1,6 +1,8 @@
 package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
+
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -34,7 +36,7 @@ import org.semanticweb.owl.model.*;
 public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLNegativeDataPropertyAssertionAxiom {
 
     public OWLNegativeDataPropertyAssertionImplAxiom(OWLDataFactory dataFactory, OWLIndividual subject, OWLDataPropertyExpression property,
-                                                     OWLLiteral object, OWLAnnotation... annotations) {
+                                                     OWLLiteral object, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, subject, property, object, annotations);
     }
 

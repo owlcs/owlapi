@@ -5,6 +5,7 @@ import org.semanticweb.owl.model.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -44,7 +45,7 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
 
     public OWLSubPropertyChainAxiomImpl(OWLDataFactory dataFactory,
                                           List<? extends OWLObjectPropertyExpression> propertyChain,
-                                          OWLObjectPropertyExpression superProperty, OWLAnnotation... annotations) {
+                                          OWLObjectPropertyExpression superProperty, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.propertyChain = new ArrayList<OWLObjectPropertyExpression>(propertyChain);
         this.superProperty = superProperty;

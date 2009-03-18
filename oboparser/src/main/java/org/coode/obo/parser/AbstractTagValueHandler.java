@@ -107,7 +107,7 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
 
 
     protected OWLObjectProperty getOWLObjectProperty(String id) {
-        return getDataFactory().getObjectProperty(getURIFromValue(id));
+        return getDataFactory().getOWLObjectProperty(getURIFromValue(id));
     }
 
 
@@ -122,7 +122,7 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         if (id1 == null) {
             return getDataFactory().getOWLClass(getURIFromValue(id0));
         } else {
-            OWLObjectProperty prop = getDataFactory().getObjectProperty(getURIFromValue(id0));
+            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getURIFromValue(id0));
             OWLClass filler = getDataFactory().getOWLClass(getURIFromValue(id1));
             return getDataFactory().getObjectSomeValuesFrom(prop, filler);
         }
@@ -136,10 +136,10 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
     protected OWLLiteral getBooleanConstant(Boolean b) {
         if (b) {
             return getDataFactory().getTypedLiteral("true",
-                    getDataFactory().getDatatype(XSDVocabulary.BOOLEAN.getURI()));
+                    getDataFactory().getOWLDatatype(XSDVocabulary.BOOLEAN.getURI()));
         } else {
             return getDataFactory().getTypedLiteral("false",
-                    getDataFactory().getDatatype(XSDVocabulary.BOOLEAN.getURI()));
+                    getDataFactory().getOWLDatatype(XSDVocabulary.BOOLEAN.getURI()));
         }
     }
 
@@ -151,9 +151,9 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
 //        if (getConsumer().isTerm()) {
 //            ent = getDataFactory().getOWLClass(getURIFromValue(id));
 //        } else if (getConsumer().isTypedef()) {
-//            ent = getDataFactory().getObjectProperty(getURIFromValue(id));
+//            ent = getDataFactory().getOWLObjectProperty(getURIFromValue(id));
 //        } else {
-//            ent = getDataFactory().getIndividual(getURIFromValue(id));
+//            ent = getDataFactory().getOWLNamedIndividual(getURIFromValue(id));
 //        }
 //        OWLAxiom ax = getDataFactory().getOWLEntityAnnotationAxiom(ent, anno);
 //        applyChange(new AddAxiom(getOntology(), ax));

@@ -79,7 +79,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLDeclaration axiom) {
+    public O visit(OWLDeclarationAxiom axiom) {
         return delegate.visit(axiom);
     }
 

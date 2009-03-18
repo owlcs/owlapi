@@ -117,8 +117,8 @@ public class OWLObjectPropertyManager {
     public Set<OWLObjectPropertyExpression> getCompositeProperties() {
         if (compositeDirty) {
             compositeProperties.clear();
-            compositeProperties.add(man.getOWLDataFactory().getObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI()));
-            compositeProperties.add(man.getOWLDataFactory().getObjectProperty(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getURI()));
+            compositeProperties.add(man.getOWLDataFactory().getOWLObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI()));
+            compositeProperties.add(man.getOWLDataFactory().getOWLObjectProperty(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getURI()));
             // We only depend on:
             //   1) Property chain axioms
             //   2) Transitive property axioms

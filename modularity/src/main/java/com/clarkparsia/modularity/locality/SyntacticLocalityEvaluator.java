@@ -151,7 +151,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         // BUGFIX: (TS) Individual declaration axioms are local, too.
         //              They need to be added to the module after the locality checks have been performed. 
-        public void visit(OWLDeclaration axiom) {
+        public void visit(OWLDeclarationAxiom axiom) {
             isLocal = true;
 //            isLocal = !(axiom.getEntity().isOWLIndividual());
         }

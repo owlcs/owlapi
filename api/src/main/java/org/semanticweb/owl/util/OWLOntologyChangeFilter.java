@@ -149,7 +149,7 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor {
     public void visit(OWLDataPropertyRangeAxiom axiom) {
     }
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
     }
 
     public void visit(OWLDifferentIndividualsAxiom axiom) {

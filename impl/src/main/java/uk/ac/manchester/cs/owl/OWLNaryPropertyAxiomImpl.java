@@ -5,6 +5,7 @@ import org.semanticweb.owl.model.*;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -40,7 +41,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
     private Set<P> properties;
 
 
-    public OWLNaryPropertyAxiomImpl(OWLDataFactory dataFactory, Set<? extends P> properties, OWLAnnotation... annotations) {
+    public OWLNaryPropertyAxiomImpl(OWLDataFactory dataFactory, Set<? extends P> properties, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.properties = new TreeSet<P>(properties);
     }

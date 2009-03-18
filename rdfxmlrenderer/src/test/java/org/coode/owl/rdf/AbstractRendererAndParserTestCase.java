@@ -63,15 +63,15 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
     }
 
     public OWLObjectProperty createObjectProperty() {
-        return man.getOWLDataFactory().getObjectProperty(TestUtils.createURI());
+        return man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
     }
 
     public OWLDataProperty createDataProperty() {
-        return man.getOWLDataFactory().getDataProperty(TestUtils.createURI());
+        return man.getOWLDataFactory().getOWLDataProperty(TestUtils.createURI());
     }
 
     public OWLIndividual createIndividual() {
-        return man.getOWLDataFactory().getIndividual(TestUtils.createURI());
+        return man.getOWLDataFactory().getOWLNamedIndividual(TestUtils.createURI());
     }
 
 

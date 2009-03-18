@@ -4,6 +4,7 @@ import org.semanticweb.owl.model.*;
 
 import java.util.Arrays;
 import java.util.TreeSet;
+import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -41,7 +42,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
     private OWLObjectPropertyExpression second;
 
     public OWLInverseObjectPropertiesAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression first,
-                                               OWLObjectPropertyExpression second, OWLAnnotation... annotations) {
+                                               OWLObjectPropertyExpression second, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(first, second)), annotations);
         this.first = first;
         this.second = second;

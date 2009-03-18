@@ -6,8 +6,7 @@ import org.semanticweb.owl.model.OWLOntologyFormat;
 import org.semanticweb.owl.io.StringOutputTarget;
 
 import java.util.Set;
-import java.util.HashSet;
-import java.net.URI;/*
+import java.util.HashSet;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their

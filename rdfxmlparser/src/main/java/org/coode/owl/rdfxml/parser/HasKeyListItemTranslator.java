@@ -45,10 +45,10 @@ public class HasKeyListItemTranslator implements ListItemTranslator<OWLPropertyE
 
     public OWLPropertyExpression translate(URI firstObject) throws OWLException {
         if(consumer.isObjectPropertyOnly(firstObject)) {
-            return consumer.getDataFactory().getObjectProperty(firstObject);
+            return consumer.getDataFactory().getOWLObjectProperty(firstObject);
         }
         else {
-            return consumer.getDataFactory().getDataProperty(firstObject);
+            return consumer.getDataFactory().getOWLDataProperty(firstObject);
         }
     }
 }

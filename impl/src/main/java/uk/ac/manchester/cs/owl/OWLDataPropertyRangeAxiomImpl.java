@@ -1,6 +1,8 @@
 package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
+
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -33,7 +35,7 @@ import org.semanticweb.owl.model.*;
  */
 public class OWLDataPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWLDataPropertyExpression, OWLDataRange> implements OWLDataPropertyRangeAxiom {
 
-    public OWLDataPropertyRangeAxiomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLDataRange range, OWLAnnotation... annotations) {
+    public OWLDataPropertyRangeAxiomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLDataRange range, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, property, range, annotations);
     }
 

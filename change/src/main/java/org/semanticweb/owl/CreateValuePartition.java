@@ -96,7 +96,7 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
         }
 
         // 2) Make the values disjoint
-        changes.add(new AddAxiom(targetOntology, getDataFactory().getDisjointClasses(valuePartionClasses)));
+        changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLDisjointClassesAxiom(valuePartionClasses)));
 
         // 3) Add a covering axiom to the value partition
         OWLClassExpression union = getDataFactory().getObjectUnionOf(valuePartionClasses);

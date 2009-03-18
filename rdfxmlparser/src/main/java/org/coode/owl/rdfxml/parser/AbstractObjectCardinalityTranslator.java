@@ -84,7 +84,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
     private OWLClassExpression translateFiller(URI mainNode) throws OWLException {
         URI onClassObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_CLASS.getURI(), true);
         if(onClassObject == null) {
-            return getDataFactory().getThing();
+            return getDataFactory().getOWLThing();
         }
         return translateToClassExpression(onClassObject);
     }

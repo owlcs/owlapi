@@ -40,7 +40,7 @@ public class DataComplementOfTestCase extends AbstractFileRoundTrippingTestCase 
         OWLDataProperty p = getOWLDataProperty("p");
         OWLDataPropertyRangeAxiom ax = getFactory().getDataPropertyRange(p, complement);
         axioms.add(ax);
-        axioms.add(getFactory().getDeclaration(p));
+        axioms.add(getFactory().getOWLDeclarationAxiom(p));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

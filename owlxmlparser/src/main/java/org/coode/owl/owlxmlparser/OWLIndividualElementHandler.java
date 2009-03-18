@@ -58,7 +58,7 @@ public class OWLIndividualElementHandler extends AbstractOWLElementHandler<OWLNa
 
     final public void endElement() throws OWLXMLParserException {
 //        URI uri = getNameAttribute();
-        individual = getOWLDataFactory().getIndividual(name);
+        individual = getOWLDataFactory().getOWLNamedIndividual(name);
         getParentHandler().handleChild(this);
     }
 }

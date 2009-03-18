@@ -37,7 +37,7 @@ public class TypeNamedIndividualHandler extends BuiltInTypeHandler {
     }
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        addAxiom(getDataFactory().getDeclaration(getDataFactory().getIndividual(subject)));
+        addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLNamedIndividual(subject)));
         getConsumer().addIndividual(subject);
     }
 }

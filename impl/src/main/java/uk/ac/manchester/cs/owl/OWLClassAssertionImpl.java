@@ -1,6 +1,8 @@
 package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
+
+import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -38,7 +40,7 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
     private OWLClassExpression classExpression;
 
 
-    public OWLClassAssertionImpl(OWLDataFactory dataFactory, OWLIndividual individual, OWLClassExpression classExpression, OWLAnnotation... annotations) {
+    public OWLClassAssertionImpl(OWLDataFactory dataFactory, OWLIndividual individual, OWLClassExpression classExpression, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.individual = individual;
         this.classExpression = classExpression;

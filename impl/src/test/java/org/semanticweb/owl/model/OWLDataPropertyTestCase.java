@@ -34,6 +34,6 @@ import java.net.URI;
 public class OWLDataPropertyTestCase extends AbstractOWLEntityTestCase {
 
     protected OWLEntity createEntity(URI uri) throws Exception {
-        return getOWLDataFactory().getDataProperty(uri);
+        return getOWLDataFactory().getOWLDataProperty(uri);
     }
 }

@@ -35,7 +35,7 @@ public class OWLDataEnumerationTestCase extends AbstractOWLNaryOperandsObjectTes
 
 
     protected OWLObject createObject(Set<OWLTypedLiteral> operands) throws Exception {
-        return getOWLDataFactory().getDataOneOf(operands);
+        return getOWLDataFactory().getOWLDataOneOf(operands);
     }
 
 

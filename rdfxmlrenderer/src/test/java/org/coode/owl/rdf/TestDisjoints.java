@@ -71,14 +71,14 @@ public class TestDisjoints extends TestCase {
 //        OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
 //        OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
 //        OWLClass clsC = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
-//        OWLObjectProperty prop = man.getOWLDataFactory().getObjectProperty(TestUtils.createURI());
-//        OWLClassExpression clsD = man.getOWLDataFactory().getObjectSomeValuesFrom(prop, man.getOWLDataFactory().getThing());
+//        OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
+//        OWLClassExpression clsD = man.getOWLDataFactory().getObjectSomeValuesFrom(prop, man.getOWLDataFactory().getOWLThing());
 //        Set<OWLClassExpression> expressions = new HashSet<OWLClassExpression>();
 //        expressions.add(clsA);
 //        expressions.add(clsB);
 //        expressions.add(clsC);
 //        expressions.add(clsD);
-//        OWLAxiom ax = man.getOWLDataFactory().getDisjointClasses(expressions);
+//        OWLAxiom ax = man.getOWLDataFactory().getOWLDisjointClassesAxiom(expressions);
 //        man.applyChange(new AddAxiom(ontA, ax));
 //        File tempFile = File.createTempFile("Ontology", ".owl");
 //        man.saveOntology(ontA, tempFile.toURI());
@@ -89,7 +89,7 @@ public class TestDisjoints extends TestCase {
 //            for(int j = i; j < expressions.size(); j++) {
 //                if(i != j) {
 //                    System.out.println(i + " -- " + j);
-//                    pairwiseAxioms.add(man.getOWLDataFactory().getDisjointClasses(CollectionFactory.createSet(expressionsList.get(i), expressionsList.get(j))));
+//                    pairwiseAxioms.add(man.getOWLDataFactory().getOWLDisjointClassesAxiom(CollectionFactory.createSet(expressionsList.get(i), expressionsList.get(j))));
 //                }
 //            }
 //        }
@@ -100,13 +100,13 @@ public class TestDisjoints extends TestCase {
         OWLOntology ontA = man.createOntology(TestUtils.createURI());
         OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
         OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
-        OWLObjectProperty prop = man.getOWLDataFactory().getObjectProperty(TestUtils.createURI());
+        OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
         OWLClassExpression descA = man.getOWLDataFactory().getObjectSomeValuesFrom(prop, clsA);
         OWLClassExpression descB = man.getOWLDataFactory().getObjectSomeValuesFrom(prop, clsB);
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         classExpressions.add(descA);
         classExpressions.add(descB);
-        OWLAxiom ax = man.getOWLDataFactory().getDisjointClasses(classExpressions);
+        OWLAxiom ax = man.getOWLDataFactory().getOWLDisjointClassesAxiom(classExpressions);
         man.applyChange(new AddAxiom(ontA, ax));
         File tempFile = File.createTempFile("Ontology", ".owl");
         man.saveOntology(ontA, tempFile.toURI());

@@ -267,7 +267,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
                 referenceFound = expansionAxioms.addAll(ont.getAxioms((OWLIndividual) obj));
             }
             if (!referenceFound)
-                expansionAxioms.add(owlOntologyManager.getOWLDataFactory().getDeclaration(
+                expansionAxioms.add(owlOntologyManager.getOWLDataFactory().getOWLDeclarationAxiom(
                         obj));
         }
         expansionAxioms.removeAll(debuggingAxioms);
@@ -465,7 +465,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         if (!unsatClass.isAnonymous()) {
             expandWithDefiningAxioms((OWLClass) unsatClass, expansionLimit);
         } else {
-            OWLClass owlThing = owlOntologyManager.getOWLDataFactory().getThing();
+            OWLClass owlThing = owlOntologyManager.getOWLDataFactory().getOWLThing();
             OWLSubClassOfAxiom axiom = owlOntologyManager.getOWLDataFactory().getSubClassOf(unsatClass, owlThing);
             debuggingAxioms.add(axiom);
             expandAxioms();
@@ -576,7 +576,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
     private void removeDeclarations() {
         OWLAxiomVisitor declarationRemover = new OWLAxiomVisitorAdapter() {
-            public void visit(OWLDeclaration axiom) {
+            public void visit(OWLDeclarationAxiom axiom) {
                 debuggingAxioms.remove(axiom);
             }
         };

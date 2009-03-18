@@ -1,8 +1,12 @@
 package org.semanticweb.owl.api.test;
 
+import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLClass;
 import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLSubClassOfAxiom;
+
+import java.util.HashSet;
+import java.util.Set;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -31,7 +35,22 @@ import org.semanticweb.owl.model.OWLSubClassOfAxiom;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 12-Oct-2008<br><br>
  */
-public class SubClassAxiomTestCase extends AbstractOWLAPITestCase {
+public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
+
+
+    protected String getFileName() {
+        return "SubClassOf.rdf";
+    }
+
+
+    public void testCorrectAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLClass clsA = getOWLClass("A");
+        OWLClass clsB = getOWLClass("B");
+        axioms.add(getFactory().getSubClassOf(clsA, clsB));
+        assertEquals(getOnt().getAxioms(), axioms);
+    }
+
 
     /**
      * Tests the isGCI method on OWLSubClassAxiom

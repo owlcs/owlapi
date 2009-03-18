@@ -256,7 +256,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
             }
         }
 
-        final OWLClass owlThing = getOWLOntologyManager().getOWLDataFactory().getThing();
+        final OWLClass owlThing = getOWLOntologyManager().getOWLDataFactory().getOWLThing();
 
         // if no named superclass is specified, then this must be asserted to be a subclass of owl:Thing
         if (!cls.equals(owlThing) && tvpList.getValues(OBOVocabulary.IS_A).isEmpty()) {

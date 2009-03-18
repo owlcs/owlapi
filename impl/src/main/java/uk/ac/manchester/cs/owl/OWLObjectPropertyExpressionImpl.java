@@ -220,7 +220,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
     public OWLObjectPropertyExpression getInverseProperty() {
         if (inverse == null) {
-            inverse = getOWLDataFactory().getObjectPropertyInverse(this);
+            inverse = getOWLDataFactory().getOWLObjectPropertyInverse(this);
         }
         return inverse;
     }

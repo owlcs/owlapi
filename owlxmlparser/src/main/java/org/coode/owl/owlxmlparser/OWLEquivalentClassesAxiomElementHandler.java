@@ -39,6 +39,6 @@ public class OWLEquivalentClassesAxiomElementHandler extends AbstractClassExpres
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getEquivalentClasses(getOperands());
+        return getOWLDataFactory().getOWLEquivalentClassesAxiom(getOperands());
     }
 }

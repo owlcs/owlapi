@@ -3,6 +3,7 @@ package uk.ac.manchester.cs.owl;
 import org.semanticweb.owl.model.*;
 
 import java.util.Set;
+import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -33,12 +34,12 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLDeclarationImpl extends OWLAxiomImpl implements OWLDeclaration {
+public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarationAxiom {
 
     private OWLEntity entity;
 
 
-    public OWLDeclarationImpl(OWLDataFactory dataFactory, OWLEntity entity, OWLAnnotation... annotations) {
+    public OWLDeclarationAxiomImpl(OWLDataFactory dataFactory, OWLEntity entity, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.entity = entity;
     }
@@ -61,8 +62,8 @@ public class OWLDeclarationImpl extends OWLAxiomImpl implements OWLDeclaration {
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
-            if (obj instanceof OWLDeclaration) {
-                return ((OWLDeclaration) obj).getEntity().equals(entity);
+            if (obj instanceof OWLDeclarationAxiom) {
+                return ((OWLDeclarationAxiom) obj).getEntity().equals(entity);
             }
         }
         return false;
@@ -93,6 +94,6 @@ public class OWLDeclarationImpl extends OWLAxiomImpl implements OWLDeclaration {
 
 
     protected int compareObjectOfSameType(OWLObject object) {
-        return entity.compareTo(((OWLDeclaration) object).getEntity());
+        return entity.compareTo(((OWLDeclarationAxiom) object).getEntity());
     }
 }

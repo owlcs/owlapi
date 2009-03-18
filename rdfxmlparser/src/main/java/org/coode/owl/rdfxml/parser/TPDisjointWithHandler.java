@@ -56,7 +56,7 @@ public class TPDisjointWithHandler extends TriplePredicateHandler {
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateClassExpression(subject));
         operands.add(translateClassExpression(object));
-        addAxiom(getDataFactory().getDisjointClasses(operands));
+        addAxiom(getDataFactory().getOWLDisjointClassesAxiom(operands));
         consumeTriple(subject, predicate, object);
     }
 }

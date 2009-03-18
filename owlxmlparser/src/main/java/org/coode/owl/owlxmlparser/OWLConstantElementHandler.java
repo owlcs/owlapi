@@ -53,7 +53,7 @@ public class OWLConstantElementHandler extends AbstractOWLElementHandler<OWLLite
 
     public void endElement() throws OWLXMLParserException {
         if (uri != null) {
-            literal = getOWLDataFactory().getTypedLiteral(getText(), getOWLDataFactory().getDatatype(uri));
+            literal = getOWLDataFactory().getTypedLiteral(getText(), getOWLDataFactory().getOWLDatatype(uri));
         } else {
             literal = getOWLDataFactory().getTypedLiteral(getText());
         }

@@ -49,7 +49,7 @@ public class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandl
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getDisjointUnion(cls, classExpressions);
+        return getOWLDataFactory().getOWLDisjointUnionAxiom(cls, classExpressions);
     }
 
 

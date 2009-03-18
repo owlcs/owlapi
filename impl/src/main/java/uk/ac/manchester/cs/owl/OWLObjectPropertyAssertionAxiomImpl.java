@@ -1,6 +1,8 @@
 package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
+
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -33,8 +35,11 @@ import org.semanticweb.owl.model.*;
  */
 public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual> implements OWLObjectPropertyAssertionAxiom {
 
-    public OWLObjectPropertyAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, OWLObjectPropertyExpression property,
-                                               OWLIndividual object, OWLAnnotation... annotations) {
+    public OWLObjectPropertyAssertionAxiomImpl(OWLDataFactory dataFactory,
+                                               OWLIndividual subject,
+                                               OWLObjectPropertyExpression property,
+                                               OWLIndividual object,
+                                               Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, subject, property, object, annotations);
     }
 
@@ -46,13 +51,16 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         return false;
     }
 
+
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
+
 
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -62,6 +70,7 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
 
     public AxiomType getAxiomType() {
         return AxiomType.OBJECT_PROPERTY_ASSERTION;

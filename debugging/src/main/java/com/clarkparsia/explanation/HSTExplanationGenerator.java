@@ -277,7 +277,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
             // Removal may have dereferenced some entities, if so declarations are added
             Set<OWLEntity> sig = getSignature(axiom);
-            List<OWLDeclaration> temporaryDeclarations = new ArrayList<OWLDeclaration>(
+            List<OWLDeclarationAxiom> temporaryDeclarations = new ArrayList<OWLDeclarationAxiom>(
                     sig.size());
             for (OWLEntity e : sig) {
                 boolean referenced = false;
@@ -285,15 +285,15 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                     for (Iterator<OWLAxiom> j = i.next().getReferencingAxioms(e).iterator(); !referenced
                             && j.hasNext();) {
                         OWLAxiom a = j.next();
-                        referenced = a.isLogicalAxiom() || (a instanceof OWLDeclaration);
+                        referenced = a.isLogicalAxiom() || (a instanceof OWLDeclarationAxiom);
                     }
                 }
                 if (!referenced) {
-                    OWLDeclaration declaration = getOntologyManager().getOWLDataFactory().getDeclaration(e);
+                    OWLDeclarationAxiom declaration = getOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(e);
                     temporaryDeclarations.add(declaration);
                 }
             }
-            for (OWLDeclaration decl : temporaryDeclarations) {
+            for (OWLDeclarationAxiom decl : temporaryDeclarations) {
                 OntologyUtils.addAxiom(decl, getReasoner().getLoadedOntologies(),
                         getOntologyManager());
             }
@@ -364,7 +364,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                 log.fine("Restoring axiom: " + axiom);
 
             // Remove any temporary declarations
-            for (OWLDeclaration decl : temporaryDeclarations) {
+            for (OWLDeclarationAxiom decl : temporaryDeclarations) {
                 OntologyUtils.removeAxiom(decl, getReasoner().getLoadedOntologies(),
                         getOntologyManager());
             }

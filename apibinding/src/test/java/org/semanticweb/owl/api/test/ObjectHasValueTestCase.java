@@ -39,7 +39,7 @@ public class ObjectHasValueTestCase extends AbstractFileRoundTrippingTestCase {
          OWLIndividual ind = getOWLIndividual("a");
          OWLObjectProperty propP = getOWLObjectProperty("p");
          axioms.add(getFactory().getSubClassOf(clsA, getFactory().getObjectHasValue(propP, ind)));
-         axioms.add(getFactory().getDeclaration(propP));
+         axioms.add(getFactory().getOWLDeclarationAxiom(propP));
          assertEquals(getOnt().getAxioms(), axioms);
     }
 

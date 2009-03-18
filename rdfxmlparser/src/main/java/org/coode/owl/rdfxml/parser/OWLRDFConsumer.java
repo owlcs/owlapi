@@ -844,12 +844,12 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     protected OWLObjectProperty getOWLObjectProperty(URI uri) {
-        return getDataFactory().getObjectProperty(uri);
+        return getDataFactory().getOWLObjectProperty(uri);
     }
 
 
     protected OWLDataProperty getOWLDataProperty(URI uri) {
-        return getDataFactory().getDataProperty(uri);
+        return getDataFactory().getOWLDataProperty(uri);
     }
 
 
@@ -857,7 +857,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         if (isAnonymousNode(uri)) {
             return getDataFactory().getAnonymousIndividual(uri.toString());
         } else {
-            return getDataFactory().getIndividual(uri);
+            return getDataFactory().getOWLNamedIndividual(uri);
         }
     }
 
@@ -1277,7 +1277,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         else {
             OWLAnnotationValue value = translateAnnotationValue(object);
-            OWLAnnotation annotation = getDataFactory().getAnnotation(predicate, value, translatedAnnotations.toArray(new OWLAnnotation[translatedAnnotations.size()]));
+            OWLAnnotation annotation = getDataFactory().getAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), value, translatedAnnotations);
             System.out.println("Translated annotation: " + annotation);
             return annotation;
         }
@@ -1315,12 +1315,12 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         for (URI propURI : objectPropertyURIs) {
             if (!isAnonymousNode(propURI)) {
-                OWLObjectProperty prop = getDataFactory().getObjectProperty(propURI);
+                OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propURI);
                 addDeclarationIfNecessary(prop);
             }
         }
         for (URI propURI : dataPropertyURIs) {
-            OWLDataProperty prop = getDataFactory().getDataProperty(propURI);
+            OWLDataProperty prop = getDataFactory().getOWLDataProperty(propURI);
             addDeclarationIfNecessary(prop);
         }
         // We don't need to do this with individuals, since there is no
@@ -1340,7 +1340,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                 }
             }
             if (!ref) {
-                addAxiom(getDataFactory().getDeclaration(entity));
+                addAxiom(getDataFactory().getOWLDeclarationAxiom(entity));
             }
         }
     }
@@ -1488,7 +1488,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      */
     private OWLLiteral getOWLConstant(String literal, String datatype, String lang) {
         if (datatype != null) {
-            return dataFactory.getTypedLiteral(literal, dataFactory.getDatatype(getURI(datatype)));
+            return dataFactory.getTypedLiteral(literal, dataFactory.getOWLDatatype(getURI(datatype)));
         } else {
             if (lang != null) {
                 return dataFactory.getRDFTextLiteral(literal, lang);
@@ -1509,11 +1509,11 @@ public class OWLRDFConsumer implements RDFConsumer {
                     typedConstants.add((OWLTypedLiteral) con);
                 } else {
                     typedConstants.add(getDataFactory().getTypedLiteral(con.getLiteral(),
-                            getDataFactory().getDatatype(
+                            getDataFactory().getOWLDatatype(
                                     XSDVocabulary.STRING.getURI())));
                 }
             }
-            return getDataFactory().getDataOneOf(typedConstants);
+            return getDataFactory().getOWLDataOneOf(typedConstants);
         }
         URI intersectionOfObject = getResourceObject(uri, OWL_INTERSECTION_OF.getURI(), true);
         if (intersectionOfObject != null) {
@@ -1537,11 +1537,13 @@ public class OWLRDFConsumer implements RDFConsumer {
 
         URI onDatatypeObject = getResourceObject(uri, OWL_ON_DATA_TYPE.getURI(), true);
         if (onDatatypeObject == null) {
-            getResourceObject(uri, OWL_ON_DATA_RANGE.getURI(), true);
+            onDatatypeObject = getResourceObject(uri, OWL_ON_DATA_RANGE.getURI(), true);
         }
         if (onDatatypeObject != null) {
             OWLDatatype restrictedDataRange = (OWLDatatype) translateDataRange(onDatatypeObject);
 
+            // Consume the datatype type triple
+            getResourceObject(uri, RDF_TYPE.getURI(), true);
             // Now we have to get the restricted facets - there is some legacy translation code here... the current
             // spec uses a list of triples where the predicate is a facet and the object a literal that is restricted
             // by the facet.  Originally, there just used to be multiple facet-"facet value" triples
@@ -1565,12 +1567,12 @@ public class OWLRDFConsumer implements RDFConsumer {
 
             return dataFactory.getDatatypeRestriction(restrictedDataRange, restrictions);
         }
-        return getDataFactory().getDatatype(uri);
+        return getDataFactory().getOWLDatatype(uri);
     }
 
 
     public OWLDataPropertyExpression translateDataPropertyExpression(URI uri) throws OWLException {
-        return dataFactory.getDataProperty(uri);
+        return dataFactory.getOWLDataProperty(uri);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1594,7 +1596,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addOWLObjectProperty(mainNode);
         if (!isAnonymousNode(mainNode)) {
             // Simple object property
-            prop = getDataFactory().getObjectProperty(mainNode);
+            prop = getDataFactory().getOWLObjectProperty(mainNode);
             translatedProperties.put(mainNode, prop);
             return prop;
         } else {
@@ -1606,7 +1608,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                         "Attempting to translate inverse property (anon property), but inverseOf triple is missing (" + mainNode + ")");
             }
             OWLObjectPropertyExpression otherProperty = translateObjectPropertyExpression(inverseOfObject);
-            prop = getDataFactory().getObjectPropertyInverse(otherProperty);
+            prop = getDataFactory().getOWLObjectPropertyInverse(otherProperty);
             translatedProperties.put(mainNode, prop);
             return prop;
         }

@@ -62,7 +62,7 @@ public abstract class AbstractNaryBooleanClassExpressionTranslator extends Abstr
             else {
                 // Zero - just return thing
                 logger.fine("Number of operands is zero! Translating as owl:Thing");
-                return getDataFactory().getThing();
+                return getDataFactory().getOWLThing();
             }
         }
         return createClassExpression(operands);

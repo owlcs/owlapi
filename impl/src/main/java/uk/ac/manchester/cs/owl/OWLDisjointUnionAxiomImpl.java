@@ -33,13 +33,13 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLDisjointUnionImpl extends OWLNaryClassAxiomImpl implements OWLDisjointUnionAxiom {
+public class OWLDisjointUnionAxiomImpl extends OWLNaryClassAxiomImpl implements OWLDisjointUnionAxiom {
 
     private OWLClass owlClass;
 
 
-    public OWLDisjointUnionImpl(OWLDataFactory dataFactory, OWLClass owlClass,
-                                Set<? extends OWLClassExpression> classExpressions, OWLAnnotation... annotations) {
+    public OWLDisjointUnionAxiomImpl(OWLDataFactory dataFactory, OWLClass owlClass,
+                                Set<? extends OWLClassExpression> classExpressions, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, classExpressions, annotations);
         this.owlClass = owlClass;
     }

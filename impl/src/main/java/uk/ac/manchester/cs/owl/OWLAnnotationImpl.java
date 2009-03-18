@@ -41,11 +41,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
     private Set<OWLAnnotation> annotations;
 
-    public OWLAnnotationImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, OWLAnnotationValue value, OWLAnnotation... annotations) {
-        this(dataFactory, property, value, new HashSet<OWLAnnotation>(Arrays.asList(annotations)));
-    }
-
-    public OWLAnnotationImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, OWLAnnotationValue value, Set<OWLAnnotation> annotations) {
+    public OWLAnnotationImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory);
         this.property = property;
         this.value = value;

@@ -431,7 +431,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         }
 
 
-        public void visit(OWLDeclaration axiom) {
+        public void visit(OWLDeclarationAxiom axiom) {
         }
 
 
@@ -656,7 +656,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         }
 
 
-        public void visit(OWLDeclaration axiom) {
+        public void visit(OWLDeclarationAxiom axiom) {
         }
 
 

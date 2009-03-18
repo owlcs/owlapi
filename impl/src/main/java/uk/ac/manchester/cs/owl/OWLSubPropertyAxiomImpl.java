@@ -1,6 +1,8 @@
 package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
+
+import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -38,7 +40,7 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> e
     private P superProperty;
 
 
-    public OWLSubPropertyAxiomImpl(OWLDataFactory dataFactory, P subProperty, P superProperty, OWLAnnotation... annotations) {
+    public OWLSubPropertyAxiomImpl(OWLDataFactory dataFactory, P subProperty, P superProperty, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.subProperty = subProperty;
         this.superProperty = superProperty;

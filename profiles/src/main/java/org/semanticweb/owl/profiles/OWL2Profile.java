@@ -121,7 +121,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //        // Property chain restrictions
 //        for (OWLComplextSubPropertyAxiom ax : ontology.getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
-//            if(ax.getSuperProperty().equals(manager.getOWLDataFactory().getObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI()))) {
+//            if(ax.getSuperProperty().equals(manager.getOWLDataFactory().getOWLObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI()))) {
 //                // 1st condition is
 //                continue;
 //            }
@@ -1021,7 +1021,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //
 //        public Set<ConstructNotAllowed> visit(OWLTypedLiteral node) {
-//            Set<ConstructNotAllowed> na = node.getDatatype().accept(this);
+//            Set<ConstructNotAllowed> na = node.getOWLDatatype().accept(this);
 //            return Collections.emptySet();
 //        }
 //

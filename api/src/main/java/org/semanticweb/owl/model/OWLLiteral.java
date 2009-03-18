@@ -31,7 +31,7 @@ package org.semanticweb.owl.model;
  * <p/>
  * Represents a literal (typed or rdf:TEXT).
  */
-public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotationValue {
+public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotationValue, OWLPropertyAssertionObject {
 
     /**
      * Gets the lexical value of this literal

@@ -1,6 +1,8 @@
 package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
+
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -36,7 +38,7 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
     private OWLClassExpression domain;
 
 
-    public OWLPropertyDomainAxiomImpl(OWLDataFactory dataFactory, P property, OWLClassExpression domain, OWLAnnotation... annotations) {
+    public OWLPropertyDomainAxiomImpl(OWLDataFactory dataFactory, P property, OWLClassExpression domain, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, property, annotations);
         this.domain = domain;
     }

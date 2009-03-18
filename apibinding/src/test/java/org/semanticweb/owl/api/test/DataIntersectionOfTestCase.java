@@ -4,8 +4,7 @@ import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.io.StringOutputTarget;
 
 import java.util.Set;
-import java.util.HashSet;
-import java.net.URI;/*
+import java.util.HashSet;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -42,7 +41,7 @@ public class DataIntersectionOfTestCase extends AbstractFileRoundTrippingTestCas
         OWLDataProperty p = getOWLDataProperty("p");
         OWLDataPropertyRangeAxiom ax = getFactory().getDataPropertyRange(p, intersection);
         axioms.add(ax);
-        axioms.add(getFactory().getDeclaration(p));
+        axioms.add(getFactory().getOWLDeclarationAxiom(p));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

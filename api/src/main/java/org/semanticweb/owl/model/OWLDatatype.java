@@ -46,4 +46,12 @@ public interface OWLDatatype extends OWLDataRange, OWLEntity, OWLNamedObject {
      */
     OWLDatatypeVocabulary getBuiltInDatatype();
 
+    boolean isString();
+
+    boolean isInteger();
+
+    boolean isFloat();
+
+    boolean isDouble();
+
 }

@@ -80,13 +80,13 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
             for (int i = 0; i < descList.size(); i++) {
                 for (int j = i + 1; j < descList.size(); j++) {
                     changes.add(new AddAxiom(targetOntology,
-                            getDataFactory().getDisjointClasses(CollectionFactory.createSet(
+                            getDataFactory().getOWLDisjointClassesAxiom(CollectionFactory.createSet(
                                     descList.get(i),
                                     descList.get(j)))));
                 }
             }
         } else {
-            changes.add(new AddAxiom(targetOntology, getDataFactory().getDisjointClasses(classExpressions)));
+            changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLDisjointClassesAxiom(classExpressions)));
         }
     }
 

@@ -49,6 +49,6 @@ public class OWLDatatypeElementHandler extends AbstractOWLDataRangeHandler {
         if (uri == null) {
             throw new OWLXMLParserAttributeNotFoundException(getLineNumber(), "URI");
         }
-        setDataRange(getOWLDataFactory().getDatatype(uri));
+        setDataRange(getOWLDataFactory().getOWLDatatype(uri));
     }
 }

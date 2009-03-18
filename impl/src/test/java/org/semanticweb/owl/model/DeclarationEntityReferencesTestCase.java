@@ -38,7 +38,7 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLTestCase {
 
     public void testOWLClassDeclarationAxiom() throws Exception {
         OWLClass cls = getOWLDataFactory().getOWLClass(TestUtils.createURI());
-        OWLAxiom ax = getOWLDataFactory().getDeclaration(cls);
+        OWLAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(cls);
         OWLOntologyManager man = getOWLOntologyManager();
         OWLOntology ont = man.createOntology(TestUtils.createURI());
         man.applyChange(new AddAxiom(ont, ax));
@@ -46,8 +46,8 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLTestCase {
     }
 
     public void testOWLObjectPropertyDeclarationAxiom() throws Exception {
-        OWLObjectProperty prop = getOWLDataFactory().getObjectProperty(TestUtils.createURI());
-        OWLAxiom ax = getOWLDataFactory().getDeclaration(prop);
+        OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
+        OWLAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(prop);
         OWLOntologyManager man = getOWLOntologyManager();
         OWLOntology ont = man.createOntology(TestUtils.createURI());
         man.applyChange(new AddAxiom(ont, ax));
@@ -55,8 +55,8 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLTestCase {
     }
 
     public void testOWLDataPropertyDeclarationAxiom() throws Exception {
-        OWLDataProperty prop = getOWLDataFactory().getDataProperty(TestUtils.createURI());
-        OWLAxiom ax = getOWLDataFactory().getDeclaration(prop);
+        OWLDataProperty prop = getOWLDataFactory().getOWLDataProperty(TestUtils.createURI());
+        OWLAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(prop);
         OWLOntologyManager man = getOWLOntologyManager();
         OWLOntology ont = man.createOntology(TestUtils.createURI());
         man.applyChange(new AddAxiom(ont, ax));
@@ -64,8 +64,8 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLTestCase {
     }
 
     public void testOWLIndividualDeclarationAxiom() throws Exception {
-        OWLNamedIndividual ind = getOWLDataFactory().getIndividual(TestUtils.createURI());
-        OWLAxiom ax = getOWLDataFactory().getDeclaration(ind);
+        OWLNamedIndividual ind = getOWLDataFactory().getOWLNamedIndividual(TestUtils.createURI());
+        OWLAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(ind);
         OWLOntologyManager man = getOWLOntologyManager();
         OWLOntology ont = man.createOntology(TestUtils.createURI());
         man.applyChange(new AddAxiom(ont, ax));

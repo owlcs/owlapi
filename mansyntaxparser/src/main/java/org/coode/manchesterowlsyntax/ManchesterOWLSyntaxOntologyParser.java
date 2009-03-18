@@ -64,20 +64,17 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
             boolean foundOntology = false;
             while((line = br.readLine()) != null) {
                     sb.append(line);
-                    sb.append("\n");
-                    if(!foundOntology  && line.trim().length() > 0 && !line.trim().startsWith("//")) {
-                        if(line.indexOf(ManchesterOWLSyntax.NAMESPACE.toString()) == -1) {
-                            if(line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1) {
-                                foundOntology = true;
-                            }
-                        }
-                        else {
-                            // Should contain an ontology
-                            if(line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) == -1) {
-                                throw new ManchesterOWLSyntaxParserException("Expected 'Ontology:' <URI>");
-                            }
-                        }
+                sb.append("\n");
+                if(!foundOntology  && line.trim().length() > 0 && !line.trim().startsWith("//")) {
+
+                    // Should contain an ontology or a namespace
+                    if(line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) >= 0) {
+                        foundOntology = true;
                     }
+                    else if(line.indexOf(ManchesterOWLSyntax.NAMESPACE.toString()) == -1) {
+                        throw new ManchesterOWLSyntaxParserException("Expected 'Ontology:' <URI>");
+                    }
+                }
             }
             String s = sb.toString();
             ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(getOWLOntologyManager().getOWLDataFactory(),

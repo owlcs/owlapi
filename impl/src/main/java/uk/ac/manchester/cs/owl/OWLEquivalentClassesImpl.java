@@ -5,6 +5,7 @@ import org.semanticweb.owl.model.*;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -37,7 +38,7 @@ public class OWLEquivalentClassesImpl extends OWLNaryClassAxiomImpl implements O
 
     private Set<OWLClass> namedClasses;
 
-    public OWLEquivalentClassesImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions, OWLAnnotation... annotations) {
+    public OWLEquivalentClassesImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, classExpressions, annotations);
         namedClasses = null;
     }

@@ -1,7 +1,7 @@
-package org.semanticweb.owl.model;
+package org.semanticweb.owl.reasoner;
 
-/*
- * Copyright (C) 2006, University of Manchester
+import org.semanticweb.owl.model.OWLException;/*
+ * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -23,25 +23,21 @@ package org.semanticweb.owl.model;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <p/>
- * A declaration axiom declares an entity in an ontology.  It doesn't affect
- * the logical meaning of the ontology.  Such axioms are necessary for adding
- * labels etc. to classes, properties and individuals.  Declaration axioms can
- * also be used for structural consistency checking, for example some tools
- * may enforce that all entities in the ontology must be declared.
+ * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+ * Date: 21-Jan-2009
  */
-public interface OWLDeclaration extends OWLAxiom {
+public abstract class OWLReasonerException extends OWLException {
 
-    /**
-     * Gets the entity that this axiom declares.
-     *
-     * @return The entity that is declared by this axiom.
-     */
-    OWLEntity getEntity();
+    public OWLReasonerException(Throwable cause) {
+        super(cause);
+    }
+
+    public OWLReasonerException(String message) {
+        super(message);
+    }
+
+    public OWLReasonerException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

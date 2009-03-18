@@ -2,7 +2,6 @@ package org.semanticweb.owl.api.test;
 
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
-import org.semanticweb.owl.vocab.DublinCoreVocabulary;
 import org.semanticweb.owl.io.StringOutputTarget;
 
 import java.util.Set;
@@ -44,23 +43,27 @@ public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTripping
         OWLOntology ont = getOWLOntology("OntA");
         OWLDataFactory factory = getFactory();
 
-        OWLAnnotationProperty prop = factory.getAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getURI());
+        OWLAnnotationProperty prop = factory.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getURI());
 
         Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
         for(int i = 0; i < 2; i++) {
             Set<OWLAnnotation> innerAnnotations = new HashSet<OWLAnnotation>();
             for(int j = 0 ; j < 2; j++) {
                 OWLLiteral lit = getFactory().getTypedLiteral("Annotation " + (j + 1) * 10);
-                innerAnnotations.add(getFactory().getAnnotation(OWLRDFVocabulary.RDFS_LABEL.getURI(), lit));
+                innerAnnotations.add(getFactory().getAnnotation(getFactory().getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getURI()),
+                                                                lit));
             }
             OWLLiteral lit = getFactory().getTypedLiteral("Annotation " + (i + 1));
-            annotations.add(getFactory().getAnnotation(OWLRDFVocabulary.RDFS_LABEL.getURI(), lit, innerAnnotations.toArray(new OWLAnnotation[innerAnnotations.size()])));
+            annotations.add(getFactory().getAnnotation(getFactory().getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getURI()),
+                                                       lit,
+                                                       innerAnnotations));
         }
 
-        OWLEntity entity = factory.getIndividual(URI.create("http://www.another.com/ont#peter"));
-//        addAxiom(ont, factory.getDeclaration(entity));
-        OWLAnnotationAssertionAxiom ax = factory.getAnnotationAssertion(entity.getURI(),
-                factory.getAnnotation(prop.getURI(), "X", "en", annotations.toArray(new OWLAnnotation[annotations.size()])));
+        OWLEntity entity = factory.getOWLNamedIndividual(URI.create("http://www.another.com/ont#peter"));
+//        addAxiom(ont, factory.getOWLDeclarationAxiom(entity));
+        OWLAnnotationAssertionAxiom ax = factory.getAnnotationAssertion(entity.getIRI(),
+                factory.getAnnotation(prop,
+                                      getFactory().getRDFTextLiteral("X", "en"), annotations));
         addAxiom(ont, ax);
 
         return ont;

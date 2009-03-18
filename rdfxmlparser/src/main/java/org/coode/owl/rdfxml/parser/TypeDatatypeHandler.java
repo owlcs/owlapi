@@ -44,9 +44,9 @@ public class TypeDatatypeHandler extends BuiltInTypeHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         if (!getConsumer().isAnonymousNode(subject)) {
-            OWLDatatype dt = getDataFactory().getDatatype(subject);
+            OWLDatatype dt = getDataFactory().getOWLDatatype(subject);
             if (!dt.isBuiltIn()) {
-                addAxiom(getDataFactory().getDeclaration(dt));
+                addAxiom(getDataFactory().getOWLDeclarationAxiom(dt));
             }
         }
         getConsumer().addOWLDatatype(subject);

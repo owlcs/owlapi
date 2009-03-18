@@ -132,7 +132,7 @@ public class SatisfiabilityConverter {
         }
 
 
-        public void visit(OWLDeclaration axiom) {
+        public void visit(OWLDeclarationAxiom axiom) {
             throw new OWLRuntimeException("Not implemented: Cannot generate explanation for " + axiom);
         }
 
@@ -261,7 +261,7 @@ public class SatisfiabilityConverter {
 
 
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
-            result = and(factory.getObjectSomeValuesFrom(axiom.getProperty(), factory.getThing()),
+            result = and(factory.getObjectSomeValuesFrom(axiom.getProperty(), factory.getOWLThing()),
                     not(axiom.getDomain()));
         }
 

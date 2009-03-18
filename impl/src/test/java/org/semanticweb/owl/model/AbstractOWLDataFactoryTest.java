@@ -56,7 +56,7 @@ public abstract class AbstractOWLDataFactoryTest extends AbstractOWLTestCase {
     }
 
     protected OWLObjectProperty createOWLObjectProperty() throws Exception {
-        return getOWLDataFactory().getObjectProperty(createURI());
+        return getOWLDataFactory().getOWLObjectProperty(createURI());
     }
 
     protected OWLClass createOWLClass() throws Exception {
@@ -64,15 +64,15 @@ public abstract class AbstractOWLDataFactoryTest extends AbstractOWLTestCase {
     }
 
     protected OWLIndividual createOWLIndividual() throws Exception {
-        return getOWLDataFactory().getIndividual(createURI());
+        return getOWLDataFactory().getOWLNamedIndividual(createURI());
     }
 
     protected OWLDataProperty createOWLDataProperty() throws OWLException {
-        return getOWLDataFactory().getDataProperty(createURI());
+        return getOWLDataFactory().getOWLDataProperty(createURI());
     }
 
     protected OWLDatatype createOWLDatatype() throws OWLException {
-        return getOWLDataFactory().getDatatype(createURI());
+        return getOWLDataFactory().getOWLDatatype(createURI());
     }
 
     protected OWLTypedLiteral createOWLTypedConstant() throws OWLException {

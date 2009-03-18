@@ -38,7 +38,7 @@ public class AxiomType<C extends OWLAxiom> {
 
     private String name;
 
-    private boolean owl11Axiom;
+    private boolean owl2Axiom;
 
     private boolean nonSyntacticOWL11Axiom;
 
@@ -51,9 +51,9 @@ public class AxiomType<C extends OWLAxiom> {
     private static int count = 0;
 
 
-    private AxiomType(String name, boolean owl11Axiom, boolean nonSyntacticOWL11Axiom, boolean isLogical) {
+    private AxiomType(String name, boolean owl2Axiom, boolean nonSyntacticOWL11Axiom, boolean isLogical) {
         this.name = name;
-        this.owl11Axiom = owl11Axiom;
+        this.owl2Axiom = owl2Axiom;
         this.nonSyntacticOWL11Axiom = nonSyntacticOWL11Axiom;
         this.isLogical = isLogical;
         index = count;
@@ -66,8 +66,8 @@ public class AxiomType<C extends OWLAxiom> {
     }
 
 
-    public boolean isOWL11Axiom() {
-        return owl11Axiom;
+    public boolean isOWL2Axiom() {
+        return owl2Axiom;
     }
 
 
@@ -314,7 +314,7 @@ public class AxiomType<C extends OWLAxiom> {
     );
 
 
-    public static final AxiomType<OWLDeclaration> DECLARATION = new AxiomType<OWLDeclaration>(
+    public static final AxiomType<OWLDeclarationAxiom> DECLARATION = new AxiomType<OWLDeclarationAxiom>(
             "Declaration",
             true,
             true,

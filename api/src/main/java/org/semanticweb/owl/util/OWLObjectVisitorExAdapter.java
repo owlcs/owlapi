@@ -64,7 +64,7 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
         return defaultReturnValue;
     }
 
-    public O visit(OWLDeclaration axiom) {
+    public O visit(OWLDeclarationAxiom axiom) {
         return defaultReturnValue;
     }
 

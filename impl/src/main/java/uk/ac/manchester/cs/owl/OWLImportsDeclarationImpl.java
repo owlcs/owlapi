@@ -3,6 +3,8 @@ package uk.ac.manchester.cs.owl;
 import org.semanticweb.owl.model.*;
 
 import java.net.URI;
+import java.util.Collections;
+import java.util.ArrayList;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -40,7 +42,7 @@ public class OWLImportsDeclarationImpl extends OWLAxiomImpl implements OWLImport
     private URI uri;
 
     public OWLImportsDeclarationImpl(OWLDataFactory dataFactory, OWLOntology subject, URI importsURI) {
-        super(dataFactory);
+        super(dataFactory, new ArrayList<OWLAnnotation>(0));
         this.ont = subject;
         this.uri = importsURI;
     }

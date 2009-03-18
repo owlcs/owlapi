@@ -86,7 +86,7 @@ public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O> {
     O visit(OWLDisjointUnionAxiom axiom);
 
 
-    O visit(OWLDeclaration axiom);
+    O visit(OWLDeclarationAxiom axiom);
 
 
     O visit(OWLAnnotationAssertionAxiom axiom);

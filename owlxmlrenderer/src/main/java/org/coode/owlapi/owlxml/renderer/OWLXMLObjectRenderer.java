@@ -128,7 +128,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
         writeAnnotations(axiom);
         writer.writeStartElement(DECLARATION.getURI());
         writeAnnotations(axiom);

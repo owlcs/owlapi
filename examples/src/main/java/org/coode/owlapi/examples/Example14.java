@@ -67,7 +67,7 @@ public class Example14 {
 
             // We can also ask if the instances of a class must have a property
             OWLClass mozzarellaTopping = man.getOWLDataFactory().getOWLClass(URI.create(namespace + "MozzarellaTopping"));
-            OWLObjectProperty hasOrigin = man.getOWLDataFactory().getObjectProperty(URI.create(namespace + "hasCountryOfOrigin"));
+            OWLObjectProperty hasOrigin = man.getOWLDataFactory().getOWLObjectProperty(URI.create(namespace + "hasCountryOfOrigin"));
             if (hasProperty(man, reasoner, mozzarellaTopping, hasOrigin)) {
                 System.out.println("Instances of " + mozzarellaTopping + " have a country of origin");
             }
@@ -111,7 +111,7 @@ public class Example14 {
         // of this some values from restriction.  If the intersection is satisfiable then the instances of
         // the class don't have to have the property, otherwise, they do.
         OWLDataFactory dataFactory = man.getOWLDataFactory();
-        OWLClassExpression restriction = dataFactory.getObjectSomeValuesFrom(prop, dataFactory.getThing());
+        OWLClassExpression restriction = dataFactory.getObjectSomeValuesFrom(prop, dataFactory.getOWLThing());
         // Now we see if the intersection of the class and the complement of this restriction is satisfiable
         OWLClassExpression complement = dataFactory.getObjectComplementOf(restriction);
         OWLClassExpression intersection = dataFactory.getObjectIntersectionOf(cls, complement);

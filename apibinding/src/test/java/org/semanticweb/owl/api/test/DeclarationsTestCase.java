@@ -39,12 +39,12 @@ public class DeclarationsTestCase extends AbstractFileRoundTrippingTestCase {
 
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getDeclaration(getFactory().getOWLClass(URI.create("http://www.semanticweb.org/ontologies/declarations#Cls"))));
-        axioms.add(getFactory().getDeclaration(getFactory().getObjectProperty(URI.create("http://www.semanticweb.org/ontologies/declarations#op"))));
-        axioms.add(getFactory().getDeclaration(getFactory().getDataProperty(URI.create("http://www.semanticweb.org/ontologies/declarations#dp"))));
-        axioms.add(getFactory().getDeclaration(getFactory().getIndividual(URI.create("http://www.semanticweb.org/ontologies/declarations#ni"))));
-        axioms.add(getFactory().getDeclaration(getFactory().getAnnotationProperty(URI.create("http://www.semanticweb.org/ontologies/declarations#ap"))));
-        axioms.add(getFactory().getDeclaration(getFactory().getDatatype(URI.create("http://www.semanticweb.org/ontologies/declarations#dt"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLClass(URI.create("http://www.semanticweb.org/ontologies/declarations#Cls"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLObjectProperty(URI.create("http://www.semanticweb.org/ontologies/declarations#op"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLDataProperty(URI.create("http://www.semanticweb.org/ontologies/declarations#dp"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLNamedIndividual(URI.create("http://www.semanticweb.org/ontologies/declarations#ni"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLAnnotationProperty(URI.create("http://www.semanticweb.org/ontologies/declarations#ap"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLDatatype(URI.create("http://www.semanticweb.org/ontologies/declarations#dt"))));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

@@ -99,7 +99,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
         hashCode = 23;
         hashCode = hashCode * MULT + axiom.getEntity().hashCode();
     }

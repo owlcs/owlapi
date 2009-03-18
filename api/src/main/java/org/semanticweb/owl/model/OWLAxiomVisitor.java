@@ -35,7 +35,7 @@ public interface OWLAxiomVisitor extends OWLAnnotationAxiomVisitor {
     void visit(OWLImportsDeclaration axiom);
 
 
-    void visit(OWLDeclaration axiom);
+    void visit(OWLDeclarationAxiom axiom);
 
 
     void visit(OWLSubClassOfAxiom axiom);

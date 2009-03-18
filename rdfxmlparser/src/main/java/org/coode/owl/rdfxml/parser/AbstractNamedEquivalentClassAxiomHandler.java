@@ -62,7 +62,7 @@ public abstract class AbstractNamedEquivalentClassAxiomHandler extends TriplePre
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateClassExpression(subject));
         operands.add(translateEquivalentClass(object));
-        addAxiom(getDataFactory().getEquivalentClasses(operands));
+        addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands));
     }
 
     protected abstract OWLClassExpression translateEquivalentClass(URI mainNode) throws OWLException;

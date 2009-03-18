@@ -258,7 +258,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
         sb.append("Declaration(");
         OWLEntity entity = axiom.getEntity();
         if (entity.isOWLClass()) {

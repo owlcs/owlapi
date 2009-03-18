@@ -73,7 +73,7 @@ public class DIGQueryResponseImpl implements DIGQueryResponse {
                 }
             }
             if (((Element) synonymsList.item(i)).getElementsByTagName(Vocab.TOP).getLength() != 0) {
-                equivalents.add(factory.getThing());
+                equivalents.add(factory.getOWLThing());
             }
             conceptSet.add(equivalents);
         }
@@ -90,7 +90,7 @@ public class DIGQueryResponseImpl implements DIGQueryResponse {
             Set<OWLObjectProperty> equivalents = new HashSet<OWLObjectProperty>();
             for (int j = 0; j < catomList.getLength(); j++) {
                 String name = ((Element) catomList.item(j)).getAttribute("name");
-                final OWLObjectProperty prop = factory.getObjectProperty(URI.create(name));
+                final OWLObjectProperty prop = factory.getOWLObjectProperty(URI.create(name));
                 if (prop != null) {
                     equivalents.add(prop);
                 }
@@ -107,7 +107,7 @@ public class DIGQueryResponseImpl implements DIGQueryResponse {
         NodeList individualElementList = element.getElementsByTagName(Vocab.INDIVIDUAL);
         for (int i = 0; i < individualElementList.getLength(); i++) {
             final Element individualElement = (Element) individualElementList.item(i);
-            final OWLIndividual curInd = factory.getIndividual(URI.create(individualElement.getAttribute("name")));
+            final OWLIndividual curInd = factory.getOWLNamedIndividual(URI.create(individualElement.getAttribute("name")));
             if (curInd != null) {
                 individuals.add(curInd);
             }

@@ -1,6 +1,8 @@
 package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
+
+import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -31,7 +33,7 @@ import org.semanticweb.owl.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression, O extends OWLObject> extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
+public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject> extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
 
     private OWLIndividual subject;
 
@@ -40,7 +42,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
     private O object;
 
 
-    public OWLIndividualRelationshipAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, P property, O object, OWLAnnotation... annotations) {
+    public OWLIndividualRelationshipAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, P property, O object, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.subject = subject;
         this.property = property;

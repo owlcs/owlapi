@@ -81,6 +81,7 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
                 translateObjectPropertyRange(subject, object, predicate);
             }
         }
+        System.out.println("TRANSLATED!");
     }
 
 

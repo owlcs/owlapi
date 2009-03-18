@@ -4,6 +4,8 @@ import org.semanticweb.owl.model.OWLAnnotation;
 import org.semanticweb.owl.model.OWLDataFactory;
 import org.semanticweb.owl.model.OWLDataPropertyCharacteristicAxiom;
 import org.semanticweb.owl.model.OWLDataPropertyExpression;
+
+import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -39,7 +41,7 @@ public abstract class OWLDataPropertyCharacteristicAxiomImpl extends OWLProperty
     private OWLDataPropertyExpression property;
 
 
-    public OWLDataPropertyCharacteristicAxiomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLAnnotation... annotations) {
+    public OWLDataPropertyCharacteristicAxiomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.property = property;
     }

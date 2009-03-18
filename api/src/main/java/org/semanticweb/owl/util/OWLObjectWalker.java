@@ -127,7 +127,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(OWLDeclaration axiom) {
+        public void visit(OWLDeclarationAxiom axiom) {
             process(axiom);
             axiom.getEntity().accept(this);
         }

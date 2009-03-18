@@ -34,7 +34,7 @@ package org.semanticweb.owl.model;
  * relationship is related to the object of the relationship via
  * the property.
  */
-public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O extends OWLObject> extends OWLIndividualAxiom {
+public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject> extends OWLIndividualAxiom {
 
     /**
      * Gets the individual (i.e. the subject of the relationship)

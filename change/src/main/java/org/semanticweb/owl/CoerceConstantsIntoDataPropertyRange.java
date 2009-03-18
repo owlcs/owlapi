@@ -83,7 +83,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
             for (OWLLiteral con : oneOf.getValues()) {
                 vals.add(process(prop, con));
             }
-            return getDataFactory().getDataOneOf(vals);
+            return getDataFactory().getOWLDataOneOf(vals);
         }
 
         private OWLLiteral process(OWLDataPropertyExpression prop, OWLLiteral con) {

@@ -76,7 +76,7 @@ public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
             }
 
 
-            public E visit(OWLDeclaration axiom) {
+            public E visit(OWLDeclarationAxiom axiom) {
                 currentAxiom = axiom;
                 return super.visit(axiom);
             }

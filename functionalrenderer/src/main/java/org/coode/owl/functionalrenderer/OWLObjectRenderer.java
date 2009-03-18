@@ -63,7 +63,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         this.writer = writer;
         writeEnitiesAsURIs = true;
         nsm = new OWLOntologyNamespaceManager(man, ontology);
-        focusedObject = man.getOWLDataFactory().getThing();
+        focusedObject = man.getOWLDataFactory().getOWLThing();
     }
 
 
@@ -373,7 +373,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
         writeAxiomStart(DECLARATION, axiom);
         writeEnitiesAsURIs = false;
         axiom.getEntity().accept(this);

@@ -50,6 +50,6 @@ public class OWLInverseObjectPropertyElementHandler extends AbstractOWLObjectPro
         if(inverse == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), OWLXMLVocabulary.INVERSE_OBJECT_PROPERTY.getShortName());
         }
-        setOWLObjectPropertyExpression(getOWLDataFactory().getObjectPropertyInverse(inverse));
+        setOWLObjectPropertyExpression(getOWLDataFactory().getOWLObjectPropertyInverse(inverse));
     }
 }

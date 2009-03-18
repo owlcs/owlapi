@@ -4,7 +4,6 @@ import org.semanticweb.owl.model.*;
 import static org.semanticweb.owl.model.AxiomType.*;
 import static org.semanticweb.owl.util.CollectionFactory.createMap;
 import static org.semanticweb.owl.util.CollectionFactory.createSet;
-import org.semanticweb.owl.util.OWLAxiomVisitorAdapter;
 import org.semanticweb.owl.util.OWLEntityCollector;
 
 import java.net.URI;
@@ -401,13 +400,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLDeclaration> getDeclarationAxioms() {
+    public Set<OWLDeclarationAxiom> getDeclarationAxioms() {
         return getAxioms(DECLARATION);
     }
 
 
-    public Set<OWLDeclaration> getDeclarationAxioms(OWLEntity entity) {
-        OWLDeclaration ax = getOWLDataFactory().getDeclaration(entity);
+    public Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity entity) {
+        OWLDeclarationAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(entity);
         if (getAxiomsInternal(DECLARATION).contains(ax)) {
             return Collections.singleton(ax);
         } else {
@@ -495,22 +494,22 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public boolean containsObjectPropertyReference(URI propURI) {
-        return owlObjectPropertyReferences.containsKey(getOWLDataFactory().getObjectProperty(propURI));
+        return owlObjectPropertyReferences.containsKey(getOWLDataFactory().getOWLObjectProperty(propURI));
     }
 
 
     public boolean containsDataPropertyReference(URI propURI) {
-        return owlDataPropertyReferences.containsKey(getOWLDataFactory().getDataProperty(propURI));
+        return owlDataPropertyReferences.containsKey(getOWLDataFactory().getOWLDataProperty(propURI));
     }
 
 
     public boolean containsIndividualReference(URI individualURI) {
-        return owlIndividualReferences.containsKey(getOWLDataFactory().getIndividual(individualURI));
+        return owlIndividualReferences.containsKey(getOWLDataFactory().getOWLNamedIndividual(individualURI));
     }
 
 
     public boolean containsDatatypeReference(URI datatypeURI) {
-        return owlDatatypeReferences.containsKey(getOWLDataFactory().getDatatype(datatypeURI));
+        return owlDatatypeReferences.containsKey(getOWLDataFactory().getOWLDatatype(datatypeURI));
     }
 
 
@@ -578,7 +577,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public boolean containsEntityDeclaration(OWLEntity owlEntity) {
-        OWLDeclaration ax = getOWLDataFactory().getDeclaration(owlEntity);
+        OWLDeclarationAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(owlEntity);
         return getAxiomsInternal(DECLARATION).contains(ax);
     }
 
@@ -1203,7 +1202,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public List<OWLOntologyChange> applyChange(OWLOntologyChange change) {
-        List<OWLOntologyChange> appliedChanges = new ArrayList<OWLOntologyChange>(1);
+        List<OWLOntologyChange> appliedChanges = new ArrayList<OWLOntologyChange>(2);
         changeFilter.reset();
         change.accept(changeFilter);
         List<OWLOntologyChange> applied = changeFilter.getAppliedChanges();
@@ -1757,7 +1756,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
 
 
-        public void visit(OWLDeclaration axiom) {
+        public void visit(OWLDeclarationAxiom axiom) {
             if (addAxiom) {
                 addToIndexedSet(DECLARATION, axiomsByType, axiom);
             } else {

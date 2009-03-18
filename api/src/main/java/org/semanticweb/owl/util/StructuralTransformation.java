@@ -102,7 +102,7 @@ public class StructuralTransformation {
 
         public Set<OWLAxiom> getAxioms() {
             axioms.clear();
-            OWLClass lhs = df.getThing();
+            OWLClass lhs = df.getOWLThing();
             OWLClassExpression rhs2 = rhs.accept(this);
             axioms.add(getSCA(lhs, rhs2));
             return axioms;
@@ -274,7 +274,7 @@ public class StructuralTransformation {
 
 
         private Set<OWLAxiom> subClassOf(OWLClassExpression sub, OWLClassExpression sup) {
-            return Collections.singleton((OWLAxiom) df.getSubClassOf(df.getThing(),
+            return Collections.singleton((OWLAxiom) df.getSubClassOf(df.getOWLThing(),
                     df.getObjectUnionOf(df.getObjectComplementOf(
                             sub), sup).getNNF()));
         }
@@ -307,7 +307,7 @@ public class StructuralTransformation {
 
 
         public Set<OWLAxiom> visit(OWLDataPropertyRangeAxiom axiom) {
-            return toSet(df.getSubClassOf(df.getThing(),
+            return toSet(df.getSubClassOf(df.getOWLThing(),
                     df.getDataAllValuesFrom(axiom.getProperty(), axiom.getRange())));
         }
 
@@ -317,7 +317,7 @@ public class StructuralTransformation {
         }
 
 
-        public Set<OWLAxiom> visit(OWLDeclaration axiom) {
+        public Set<OWLAxiom> visit(OWLDeclarationAxiom axiom) {
             return toSet(axiom);
         }
 
@@ -376,9 +376,9 @@ public class StructuralTransformation {
 
         public Set<OWLAxiom> visit(OWLDisjointUnionAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            axioms.addAll(df.getOWLEquivalentClassesAxiom(axiom.getOWLClass(),
+            axioms.addAll(df.getOWLEquivalentClasses(axiom.getOWLClass(),
                     df.getObjectUnionOf(axiom.getClassExpressions())).accept(this));
-            axioms.addAll(df.getDisjointClasses(axiom.getClassExpressions()).accept(this));
+            axioms.addAll(df.getOWLDisjointClassesAxiom(axiom.getClassExpressions()).accept(this));
             return axioms;
         }
 
@@ -428,13 +428,13 @@ public class StructuralTransformation {
 
 
         public Set<OWLAxiom> visit(OWLFunctionalDataPropertyAxiom axiom) {
-            return toSet(df.getSubClassOf(df.getThing(),
+            return toSet(df.getSubClassOf(df.getOWLThing(),
                     df.getDataMaxCardinality(axiom.getProperty(), 1)));
         }
 
 
         public Set<OWLAxiom> visit(OWLFunctionalObjectPropertyAxiom axiom) {
-            return toSet(df.getSubClassOf(df.getThing(),
+            return toSet(df.getSubClassOf(df.getOWLThing(),
                     df.getObjectMaxCardinality(axiom.getProperty(), 1)));
         }
 
@@ -445,7 +445,7 @@ public class StructuralTransformation {
 
 
         public Set<OWLAxiom> visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-            return toSet(df.getSubClassOf(df.getThing(),
+            return toSet(df.getSubClassOf(df.getOWLThing(),
                     df.getObjectMaxCardinality(axiom.getProperty().getInverseProperty(),
                             1)));
         }
@@ -469,7 +469,7 @@ public class StructuralTransformation {
         public Set<OWLAxiom> visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
             return subClassOf(df.getObjectOneOf(axiom.getSubject()),
                     df.getDataAllValuesFrom(axiom.getProperty(),
-                            df.getDataComplementOf(df.getDataOneOf(axiom.getObject()))));
+                            df.getDataComplementOf(df.getOWLDataOneOf(axiom.getObject()))));
         }
 
 
@@ -491,12 +491,12 @@ public class StructuralTransformation {
 
 
         public Set<OWLAxiom> visit(OWLObjectPropertyDomainAxiom axiom) {
-            return subClassOf(df.getObjectSomeValuesFrom(axiom.getProperty(), df.getThing()), axiom.getDomain());
+            return subClassOf(df.getObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing()), axiom.getDomain());
         }
 
 
         public Set<OWLAxiom> visit(OWLObjectPropertyRangeAxiom axiom) {
-            return toSet(df.getSubClassOf(df.getThing(),
+            return toSet(df.getSubClassOf(df.getOWLThing(),
                     df.getObjectAllValuesFrom(axiom.getProperty(), axiom.getRange())));
         }
 

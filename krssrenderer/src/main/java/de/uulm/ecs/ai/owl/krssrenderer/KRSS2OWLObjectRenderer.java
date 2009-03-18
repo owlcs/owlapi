@@ -321,7 +321,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLDisjointUnionAxiom axiom) {
     }
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
     }
 
     public void visit(OWLAnnotationAssertionAxiom axiom) {

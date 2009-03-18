@@ -86,7 +86,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
                 log.fine("Calling the Reasoner");
 
             try {
-                isLocal = reasoner.isEquivalentClass(conjunction, df.getNothing());
+                isLocal = reasoner.isEquivalentClass(conjunction, df.getOWLNothing());
             }
             catch (OWLReasonerException e) {
                 throw new OWLRuntimeException(e);
@@ -194,7 +194,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             if (signature.contains(desc))
                 newClassExpression = desc;
             else
-                newClassExpression = df.getNothing();
+                newClassExpression = df.getOWLNothing();
         }
 
 
@@ -202,7 +202,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             if (signature.contains(desc.getProperty().asOWLDataProperty()))
                 newClassExpression = desc;
             else
-                newClassExpression = df.getThing();
+                newClassExpression = df.getOWLThing();
         }
 
 
@@ -210,7 +210,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             if (signature.contains(desc.getProperty().asOWLDataProperty()))
                 newClassExpression = desc;
             else
-                newClassExpression = df.getNothing();
+                newClassExpression = df.getOWLNothing();
         }
 
 
@@ -218,7 +218,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             if (signature.contains(desc.getProperty().asOWLDataProperty()))
                 newClassExpression = desc;
             else
-                newClassExpression = df.getThing();
+                newClassExpression = df.getOWLThing();
         }
 
 
@@ -226,7 +226,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             if (signature.contains(desc.getProperty().asOWLDataProperty()))
                 newClassExpression = desc;
             else
-                newClassExpression = df.getNothing();
+                newClassExpression = df.getOWLNothing();
         }
 
 
@@ -234,7 +234,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             if (signature.contains(desc.getProperty().asOWLDataProperty()))
                 newClassExpression = desc;
             else
-                newClassExpression = df.getNothing();
+                newClassExpression = df.getOWLNothing();
         }
 
 
@@ -245,13 +245,13 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         public void visit(OWLDisjointClassesAxiom ax) {
             Set<OWLClassExpression> disjointclasses = replaceBottom(ax.getClassExpressions());
-            newAxiom = df.getDisjointClasses(disjointclasses);
+            newAxiom = df.getOWLDisjointClassesAxiom(disjointclasses);
         }
 
 
         public void visit(OWLEquivalentClassesAxiom ax) {
             Set<OWLClassExpression> eqclasses = replaceBottom(ax.getClassExpressions());
-            newAxiom = df.getEquivalentClasses(eqclasses);
+            newAxiom = df.getOWLEquivalentClassesAxiom(eqclasses);
         }
 
 
@@ -259,7 +259,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             if (signature.contains(desc.getProperty().getNamedProperty()))
                 newClassExpression = df.getObjectAllValuesFrom(desc.getProperty(), replaceBottom(desc.getFiller()));
             else
-                newClassExpression = df.getThing();
+                newClassExpression = df.getOWLThing();
         }
 
 
@@ -272,7 +272,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             if (signature.contains(desc.getProperty().getNamedProperty()))
                 newClassExpression = desc;
             else
-                newClassExpression = df.getNothing();
+                newClassExpression = df.getOWLNothing();
         }
 
 
@@ -286,7 +286,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             if (signature.contains(desc.getProperty().getNamedProperty()))
                 newClassExpression = desc;
             else
-                newClassExpression = df.getThing();
+                newClassExpression = df.getOWLThing();
         }
 
 
@@ -294,7 +294,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             if (signature.contains(desc.getProperty().getNamedProperty()))
                 newClassExpression = desc;
             else
-                newClassExpression = df.getNothing();
+                newClassExpression = df.getOWLNothing();
         }
 
 
@@ -313,7 +313,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
                 newClassExpression = df.getObjectSomeValuesFrom(desc.getProperty(),
                         replaceBottom(desc.getFiller()));
             } else
-                newClassExpression = df.getNothing();
+                newClassExpression = df.getOWLNothing();
         }
 
 

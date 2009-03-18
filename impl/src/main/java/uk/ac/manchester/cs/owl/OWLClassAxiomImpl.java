@@ -3,6 +3,8 @@ package uk.ac.manchester.cs.owl;
 import org.semanticweb.owl.model.OWLAnnotation;
 import org.semanticweb.owl.model.OWLClassAxiom;
 import org.semanticweb.owl.model.OWLDataFactory;
+
+import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -35,7 +37,7 @@ import org.semanticweb.owl.model.OWLDataFactory;
  */
 public abstract class OWLClassAxiomImpl extends OWLLogicalAxiomImpl implements OWLClassAxiom {
 
-    protected OWLClassAxiomImpl(OWLDataFactory dataFactory, OWLAnnotation... annotations) {
+    protected OWLClassAxiomImpl(OWLDataFactory dataFactory, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
     }
 }

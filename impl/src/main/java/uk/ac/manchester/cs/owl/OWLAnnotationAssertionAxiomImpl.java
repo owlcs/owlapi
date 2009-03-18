@@ -3,6 +3,7 @@ package uk.ac.manchester.cs.owl;
 import org.semanticweb.owl.model.*;
 
 import java.net.URI;
+import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -37,16 +38,19 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
 
     private OWLAnnotationSubject subject;
 
-    private OWLAnnotation annotation;
+    private OWLAnnotationProperty property;
 
-    public OWLAnnotationAssertionAxiomImpl(OWLDataFactory dataFactory, URI uri, OWLAnnotation annotation) {
-        super(dataFactory);
-        this.subject = dataFactory.getIRI(uri);
-        this.annotation = annotation;
+    private OWLAnnotationValue value;
+
+    public OWLAnnotationAssertionAxiomImpl(OWLDataFactory dataFactory, OWLAnnotationSubject subject, OWLAnnotationProperty property, OWLAnnotationValue value, Collection<? extends OWLAnnotation> annotations) {
+        super(dataFactory, annotations);
+        this.subject = subject;
+        this.property = property;
+        this.value = value;
     }
 
     public OWLAnnotationValue getValue() {
-        return annotation.getValue();
+        return value;
     }
 
     public OWLAnnotationSubject getSubject() {
@@ -54,11 +58,11 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
     }
 
     public OWLAnnotationProperty getProperty() {
-        return annotation.getProperty();
+        return property;
     }
 
     public OWLAnnotation getAnnotation() {
-        return annotation;
+        return getOWLDataFactory().getAnnotation(property, value);
     }
 
     public boolean isLogicalAxiom() {
@@ -72,7 +76,11 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         if (diff != 0) {
             return diff;
         }
-        return annotation.compareTo(other.getAnnotation());
+        diff = property.compareTo(other.getProperty());
+        if(diff != 0) {
+            return diff;
+        }
+        return object.compareTo(other.getValue());
     }
 
     public void accept(OWLObjectVisitor visitor) {

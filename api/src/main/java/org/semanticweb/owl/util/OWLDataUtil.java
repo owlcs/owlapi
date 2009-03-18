@@ -56,22 +56,22 @@ public class OWLDataUtil {
 
 
     public static OWLDatatype getIntDatatype(OWLDataFactory dataFactory) throws OWLException {
-        return dataFactory.getDatatype(INT_URI);
+        return dataFactory.getOWLDatatype(INT_URI);
     }
 
 
     public static OWLDatatype getLongDatatype(OWLDataFactory dataFactory) throws OWLException {
-        return dataFactory.getDatatype(XSDVocabulary.LONG.getURI());
+        return dataFactory.getOWLDatatype(XSDVocabulary.LONG.getURI());
     }
 
 
     public static OWLDatatype getFloatDatatype(OWLDataFactory dataFactory) throws OWLException {
-        return dataFactory.getDatatype(XSDVocabulary.FLOAT.getURI());
+        return dataFactory.getOWLDatatype(XSDVocabulary.FLOAT.getURI());
     }
 
 
     public static OWLDatatype getDoubleDatatype(OWLDataFactory dataFactory) throws OWLException {
-        return dataFactory.getDatatype(XSDVocabulary.DOUBLE.getURI());
+        return dataFactory.getOWLDatatype(XSDVocabulary.DOUBLE.getURI());
     }
 
     /**
@@ -86,7 +86,7 @@ public class OWLDataUtil {
         if (v == null) {
             throw new OWLRuntimeException("Don't know how to translate " + n.getClass());
         }
-        return dataFactory.getDatatype(v.getURI());
+        return dataFactory.getOWLDatatype(v.getURI());
     }
 
     public static Set<OWLFacetRestriction> getFacetRestrictionSet(OWLDataFactory dataFactory, OWLFacet facet, OWLTypedLiteral facetValue) {

@@ -105,17 +105,17 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
 
 
     public OWLObjectProperty getOWLObjectProperty(String name) {
-        return getFactory().getObjectProperty(URI.create(uriBase + "#" + name));
+        return getFactory().getOWLObjectProperty(URI.create(uriBase + "#" + name));
     }
 
 
     public OWLDataProperty getOWLDataProperty(String name) {
-        return getFactory().getDataProperty(URI.create(uriBase + "#" + name));
+        return getFactory().getOWLDataProperty(URI.create(uriBase + "#" + name));
     }
 
 
     public OWLNamedIndividual getOWLIndividual(String name) {
-        return getFactory().getIndividual(URI.create(uriBase + "#" + name));
+        return getFactory().getOWLNamedIndividual(URI.create(uriBase + "#" + name));
     }
 
 

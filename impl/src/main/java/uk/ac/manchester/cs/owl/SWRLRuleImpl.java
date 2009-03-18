@@ -4,10 +4,7 @@ import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.SWRLVariableExtractor;
 
 import java.net.URI;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -59,8 +56,8 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
     private Set<OWLClassExpression> classAtomsPredicates;
 
 
-    public SWRLRuleImpl(OWLDataFactory dataFactory, URI uri, Set<? extends SWRLAtom> antecedent, Set<? extends SWRLAtom> consequent) {
-        super(dataFactory);
+    public SWRLRuleImpl(OWLDataFactory dataFactory, URI uri, Set<? extends SWRLAtom> antecedent, Set<? extends SWRLAtom> consequent, Collection<? extends OWLAnnotation> annotations) {
+        super(dataFactory, annotations);
         this.uri = uri;
         anon = false;
         this.consequent = new TreeSet<SWRLAtom>(consequent);
@@ -69,8 +66,8 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
 
 
     public SWRLRuleImpl(OWLDataFactory dataFactory, boolean anon, URI uri, Set<? extends SWRLAtom> antecedent,
-                        Set<? extends SWRLAtom> consequent) {
-        super(dataFactory);
+                        Set<? extends SWRLAtom> consequent, Collection<? extends OWLAnnotation> annotations) {
+        super(dataFactory, annotations);
         this.anon = anon;
         this.uri = uri;
         this.antecedent = new TreeSet<SWRLAtom>(antecedent);
@@ -79,7 +76,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
 
 
     public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> antecedent, Set<? extends SWRLAtom> consequent) {
-        this(dataFactory, true, URI.create("http://www.semanticweb.org/swrl#" + System.nanoTime()), antecedent, consequent);
+        this(dataFactory, true, URI.create("http://www.semanticweb.org/swrl#" + System.nanoTime()), antecedent, consequent, new ArrayList<OWLAnnotation>(0));
     }
 
 

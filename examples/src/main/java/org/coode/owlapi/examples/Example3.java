@@ -90,8 +90,8 @@ public class Example3 {
                     ));
             manager.applyChange(new AddAxiom(ontology, rule));
 
-            OWLObjectProperty prop = factory.getObjectProperty(URI.create(ontologyURI + "#propA"));
-            OWLObjectProperty propB = factory.getObjectProperty(URI.create(ontologyURI + "#propB"));
+            OWLObjectProperty prop = factory.getOWLObjectProperty(URI.create(ontologyURI + "#propA"));
+            OWLObjectProperty propB = factory.getOWLObjectProperty(URI.create(ontologyURI + "#propB"));
             SWRLObjectPropertyAtom propAtom = factory.getSWRLObjectPropertyAtom(prop, var, var);
             SWRLObjectPropertyAtom propAtom2 = factory.getSWRLObjectPropertyAtom(propB, var, var);
             Set<SWRLAtom> antecedent = new HashSet<SWRLAtom>();

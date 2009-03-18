@@ -172,7 +172,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
         jj_consume_token(CLOSEPAR);
         if (subClass instanceof OWLClass) {
-            addAxiom(dataFactory.getDeclaration((OWLClass) subClass));
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) subClass));
             if (superClass != null) {
                 addAxiom(dataFactory.getSubClassOf(subClass, superClass));
             }
@@ -188,11 +188,11 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         clsB = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         if (clsA instanceof OWLClass)
-            addAxiom(dataFactory.getDeclaration((OWLClass) clsA));
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) clsA));
         Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
         ops.add(clsA);
         ops.add(clsB);
-        addAxiom(dataFactory.getEquivalentClasses(ops));
+        addAxiom(dataFactory.getOWLEquivalentClassesAxiom(ops));
     }
 
     final public void DefinePrimitiveRole() throws ParseException, KRSS2OWLParserException {
@@ -205,7 +205,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         jj_consume_token(DEFINEPRIMITIVEROLE);
         subProp = RoleName();
         if (subProp != null)
-            addAxiom(dataFactory.getDeclaration(subProp));
+            addAxiom(dataFactory.getOWLDeclarationAxiom(subProp));
         Parent(subProp);
         RightIdentity(subProp);
         Parents(subProp);
@@ -284,7 +284,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             for (OWLClassExpression eachClassExpression : descs) {
                 addAxiom(dataFactory.getObjectPropertyDomain(subProp, eachClassExpression));
                 if (eachClassExpression instanceof OWLClass)
-                    addAxiom(dataFactory.getDeclaration((OWLClass) eachClassExpression));
+                    addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachClassExpression));
             }
         } else {
             ;
@@ -319,7 +319,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             for (OWLClassExpression eachClassExpression : descs) {
                 addAxiom(dataFactory.getObjectPropertyRange(subProp, eachClassExpression));
                 if (eachClassExpression instanceof OWLClass)
-                    addAxiom(dataFactory.getDeclaration((OWLClass) eachClassExpression));
+                    addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachClassExpression));
             }
         } else {
             ;
@@ -372,7 +372,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                     for (OWLClassExpression eachDescription : descs) {
                         addAxiom(dataFactory.getObjectPropertyRange(subProp, eachDescription));
                         if (eachDescription instanceof OWLClass)
-                              addAxiom(dataFactory.getDeclaration((OWLClass) eachDescription));
+                              addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) eachDescription));
                     }
                 }
             )+
@@ -393,7 +393,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                         for (OWLObjectProperty prop : roles) {
                             addAxiom(dataFactory.getSubObjectPropertyOf(subProp, prop));
                             if (prop instanceof OWLObjectProperty)
-                                addAxiom(dataFactory.getDeclaration((OWLObjectProperty) prop));
+                                addAxiom(dataFactory.getOWLDeclarationAxiom((OWLObjectProperty) prop));
                         }
                 } else {
                     jj_consume_token(-1);
@@ -407,7 +407,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                     superProp = RoleName();
                     addAxiom(dataFactory.getSubObjectPropertyOf(subProp, superProp));
                     if (superProp instanceof OWLObjectProperty)
-                        addAxiom(dataFactory.getDeclaration((OWLObjectProperty) superProp));
+                        addAxiom(dataFactory.getOWLDeclarationAxiom((OWLObjectProperty) superProp));
                 } else {
                     jj_consume_token(-1);
                     throw new ParseException();
@@ -458,9 +458,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         jj_consume_token(CLOSEPAR);
         addAxiom(dataFactory.getSubClassOf(subClassExpression, superClassExpression));
         if (subClassExpression instanceof OWLClass)
-            addAxiom(dataFactory.getDeclaration((OWLClass) subClassExpression));
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) subClassExpression));
         if (superClassExpression instanceof OWLClass)
-            addAxiom(dataFactory.getDeclaration((OWLClass) superClassExpression));
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) superClassExpression));
     }
 
     final public void Transitive() throws ParseException, KRSS2OWLParserException {
@@ -482,9 +482,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         jj_consume_token(CLOSEPAR);
         addAxiom(dataFactory.getObjectPropertyRange(prop, rng));
         if (prop instanceof OWLObjectProperty)
-            addAxiom(dataFactory.getDeclaration((OWLObjectProperty) prop));
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLObjectProperty) prop));
         if (rng instanceof OWLClass)
-            addAxiom(dataFactory.getDeclaration((OWLClass) rng));
+            addAxiom(dataFactory.getOWLDeclarationAxiom((OWLClass) rng));
     }
 
     final public OWLClassExpression ConceptExpression() throws ParseException, KRSS2OWLParserException {
@@ -664,7 +664,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             if (true) return null;
         }
         {
-            if (true) return dataFactory.getObjectProperty(uri);
+            if (true) return dataFactory.getOWLObjectProperty(uri);
         }
         throw new Error("Missing return statement in function");
     }
@@ -757,7 +757,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         URI name;
         name = Name();
         {
-            if (true) return dataFactory.getIndividual(name);
+            if (true) return dataFactory.getOWLNamedIndividual(name);
         }
         throw new Error("Missing return statement in function");
     }

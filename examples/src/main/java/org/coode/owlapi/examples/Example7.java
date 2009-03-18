@@ -56,14 +56,14 @@ public class Example7 {
 
             // First get a reference to our hasAge property
             OWLDataFactory factory = man.getOWLDataFactory();
-            OWLDataProperty hasAge = factory.getDataProperty(URI.create(base + "hasAge"));
+            OWLDataProperty hasAge = factory.getOWLDataProperty(URI.create(base + "hasAge"));
             // For completeness, we will make hasAge functional by adding an axiom to state this
             OWLFunctionalDataPropertyAxiom funcAx = factory.getFunctionalDataProperty(hasAge);
             man.applyChange(new AddAxiom(ont, funcAx));
 
             // Now create the data range which correponds to int greater than 18.  To do this, we
             // get hold of the int datatype and then restrict it with a minInclusive facet restriction.
-            OWLDatatype intDatatype = factory.getDatatype(XSDVocabulary.INT.getURI());
+            OWLDatatype intDatatype = factory.getOWLDatatype(XSDVocabulary.INT.getURI());
             // Create the value "18", which is an int.
             OWLTypedLiteral eighteenConstant = factory.getTypedLiteral(18);
             // Now create our custom datarange, which is int greater than or equal to 18.  To do this,

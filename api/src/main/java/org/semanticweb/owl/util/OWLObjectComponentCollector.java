@@ -344,7 +344,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
         handleObject(axiom);
         axiom.getEntity().accept(this);
     }

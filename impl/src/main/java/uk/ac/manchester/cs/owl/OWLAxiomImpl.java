@@ -7,10 +7,7 @@ import org.semanticweb.owl.model.OWLEntity;
 import org.semanticweb.owl.util.NNF;
 import org.semanticweb.owl.util.OWLEntityCollector;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -47,10 +44,10 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
     private Set<OWLAnnotation> annotations;
 
-    public OWLAxiomImpl(OWLDataFactory dataFactory, OWLAnnotation... annotations) {
+    public OWLAxiomImpl(OWLDataFactory dataFactory, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory);
-        if (annotations.length > 0) {
-            this.annotations = Collections.unmodifiableSortedSet(new TreeSet<OWLAnnotation>(Arrays.asList(annotations)));
+        if (!annotations.isEmpty()) {
+            this.annotations = Collections.unmodifiableSortedSet(new TreeSet<OWLAnnotation>(annotations));
         } else {
             this.annotations = Collections.emptySet();
         }

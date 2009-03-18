@@ -333,8 +333,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         // Adding all entity declaration axioms
         for (int i = 0; i < ontologyAxiomSet.size(); i++) {
             OWLAxiom axiom = ontologyAxiomSet.getAxiom(i);
-            if (OWLDeclaration.class.isAssignableFrom(axiom.getClass())) {
-                if (sig.contains(((OWLDeclaration) axiom).getEntity())) {
+            if (OWLDeclarationAxiom.class.isAssignableFrom(axiom.getClass())) {
+                if (sig.contains(((OWLDeclarationAxiom) axiom).getEntity())) {
                     enrichedModule.add(axiom);
                 }
             }

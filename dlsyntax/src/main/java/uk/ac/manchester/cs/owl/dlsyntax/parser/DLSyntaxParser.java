@@ -294,7 +294,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             if (rhs instanceof OWLObjectComplementOf && !rhs.isAnonymous()) {
                 {
                     if (true)
-                        return factory.getDisjointClasses(lhs, ((OWLObjectComplementOf) rhs).getOperand());
+                        return factory.getOWLDisjointClassesAxiom(lhs, ((OWLObjectComplementOf) rhs).getOperand());
                 }
             }
             {
@@ -304,7 +304,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             jj_consume_token(EQUIVALENTTO);
             rhs = parseClassDescription();
             {
-                if (true) return factory.getOWLEquivalentClassesAxiom(lhs, rhs);
+                if (true) return factory.getOWLEquivalentClasses(lhs, rhs);
             }
         } else {
             jj_consume_token(-1);
@@ -482,13 +482,13 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             ;
         }
         if (inverse) {
-            OWLObjectProperty prop = factory.getObjectProperty(uri);
+            OWLObjectProperty prop = factory.getOWLObjectProperty(uri);
             {
-                if (true) return factory.getObjectPropertyInverse(prop);
+                if (true) return factory.getOWLObjectPropertyInverse(prop);
             }
         } else {
             {
-                if (true) return factory.getObjectProperty(uri);
+                if (true) return factory.getOWLObjectProperty(uri);
             }
         }
         throw new Error("Missing return statement in function");
@@ -499,7 +499,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         boolean inverse = false;
         uri = parseId();
         {
-            if (true) return factory.getDataProperty(uri);
+            if (true) return factory.getOWLDataProperty(uri);
         }
         throw new Error("Missing return statement in function");
     }
@@ -609,7 +609,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
         int card = Integer.parseInt(t.image);
         if (filler == null) {
-            filler = factory.getThing();
+            filler = factory.getOWLThing();
         }
         if (min) {
             {
@@ -631,7 +631,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         URI uri;
         uri = parseId();
         {
-            if (true) return factory.getIndividual(uri);
+            if (true) return factory.getOWLNamedIndividual(uri);
         }
         throw new Error("Missing return statement in function");
     }
@@ -687,7 +687,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
         jj_consume_token(CLOSEBRACE);
         {
-            if (true) return factory.getDataOneOf(values);
+            if (true) return factory.getOWLDataOneOf(values);
         }
         throw new Error("Missing return statement in function");
     }

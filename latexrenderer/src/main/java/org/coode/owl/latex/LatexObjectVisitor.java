@@ -86,7 +86,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         this.writer = writer;
         this.df = df;
         shortFormProvider = new SimpleShortFormProvider();
-        subject = df.getThing();
+        subject = df.getOWLThing();
     }
 
 
@@ -446,7 +446,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
     }
 
 
@@ -539,7 +539,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        OWLObjectPropertyExpression prop = df.getObjectPropertyInverse(axiom.getProperty());
+        OWLObjectPropertyExpression prop = df.getOWLObjectPropertyInverse(axiom.getProperty());
         df.getObjectMaxCardinality(prop, 1).accept(this);
     }
 
@@ -607,7 +607,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        df.getObjectSomeValuesFrom(axiom.getProperty(), df.getThing()).accept(this);
+        df.getObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing()).accept(this);
         writeSpace();
         write(SUBCLASS);
         writeSpace();

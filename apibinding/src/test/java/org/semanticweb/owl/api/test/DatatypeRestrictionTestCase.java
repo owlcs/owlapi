@@ -32,7 +32,7 @@ import java.util.HashSet;/*
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 02-Feb-2009
  */
-public class DataRestrictionTestCase extends AbstractFileRoundTrippingTestCase {
+public class DatatypeRestrictionTestCase extends AbstractFileRoundTrippingTestCase {
 
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
@@ -44,7 +44,7 @@ public class DataRestrictionTestCase extends AbstractFileRoundTrippingTestCase {
         OWLDataProperty p = getOWLDataProperty("p");
         OWLDataPropertyRangeAxiom ax = getFactory().getDataPropertyRange(p, dr);
         axioms.add(ax);
-        axioms.add(getFactory().getDeclaration(p));
+        axioms.add(getFactory().getOWLDeclarationAxiom(p));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

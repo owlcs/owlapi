@@ -4,7 +4,8 @@ import org.semanticweb.owl.model.*;
 
 import java.util.Collections;
 import java.util.Set;
-import java.util.TreeSet;/*
+import java.util.TreeSet;
+import java.util.Collection;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -37,7 +38,7 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
 
     private Set<OWLPropertyExpression> propertyExpressions;
 
-    public OWLHasKeyAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression expression, Set<? extends OWLPropertyExpression> propertyExpressions, OWLAnnotation... annotations) {
+    public OWLHasKeyAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression expression, Set<? extends OWLPropertyExpression> propertyExpressions, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.expression = expression;
         this.propertyExpressions = Collections.unmodifiableSortedSet(new TreeSet<OWLPropertyExpression>(propertyExpressions));

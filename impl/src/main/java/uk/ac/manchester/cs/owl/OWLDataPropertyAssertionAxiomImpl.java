@@ -1,6 +1,8 @@
 package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
+
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -34,7 +36,7 @@ import org.semanticweb.owl.model.*;
 public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLDataPropertyAssertionAxiom {
 
     public OWLDataPropertyAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, OWLDataPropertyExpression property,
-                                             OWLLiteral value, OWLAnnotation... annotations) {
+                                             OWLLiteral value, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, subject, property, value, annotations);
     }
 

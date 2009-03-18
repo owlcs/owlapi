@@ -41,7 +41,7 @@ public class DataUnionOfTestCase extends AbstractFileRoundTrippingTestCase {
         OWLDataProperty p = getOWLDataProperty("p");
         OWLDataPropertyRangeAxiom ax = getFactory().getDataPropertyRange(p, union);
         axioms.add(ax);
-        axioms.add(getFactory().getDeclaration(p));
+        axioms.add(getFactory().getOWLDeclarationAxiom(p));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

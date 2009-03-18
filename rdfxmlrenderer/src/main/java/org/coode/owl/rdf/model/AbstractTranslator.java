@@ -94,7 +94,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLDeclaration axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
         if (axiom.getEntity().isOWLClass()) {
             addAxiom(axiom,
                     axiom.getEntity(),
@@ -994,7 +994,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     private OWLTypedLiteral toTypedConstant(int i) {
         return manager.getOWLDataFactory().getTypedLiteral(Integer.toString(i),
-                manager.getOWLDataFactory().getDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getURI()));
+                manager.getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getURI()));
     }
 
     private boolean isAnonymous(OWLObject object) {

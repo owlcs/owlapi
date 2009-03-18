@@ -35,6 +35,6 @@ public class OWLIndividualTestCase extends AbstractOWLEntityTestCase {
 
 
     protected OWLEntity createEntity(URI uri) throws Exception {
-        return getOWLDataFactory().getIndividual(uri);
+        return getOWLDataFactory().getOWLNamedIndividual(uri);
     }
 }
