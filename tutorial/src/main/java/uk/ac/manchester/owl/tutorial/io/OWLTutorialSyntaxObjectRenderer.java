@@ -163,7 +163,8 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(ontology.getAxioms());
         axioms.removeAll(ontology.getImportsDeclarations());
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
-            decl.accept(this);
+            write("Imports: ");
+            write(decl.getURI().toString());
             write("\n");
         }
 
@@ -443,7 +444,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLImportsDeclaration axiom) {
         write(keyword("imports"));
-        write(axiom.getImportedOntologyURI());
+        write(axiom.getURI());
     }
 
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {

@@ -156,15 +156,6 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLImportsDeclaration axiom) {
-        sb.append("Imports(");
-        sb.append(axiom.getSubject().getURI());
-        sb.append(" -> ");
-        sb.append(axiom.getImportedOntologyURI());
-        sb.append(")");
-    }
-
-
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         sb.append("ObjectPropertyDomain(");
         axiom.getProperty().accept(this);

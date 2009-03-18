@@ -31,23 +31,20 @@ import java.net.URI;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  * <p/>
- * A special kind of axiom that annotates an ontology to
- * describe the ontologies that it imports.
+ *
  */
-public interface OWLImportsDeclaration extends OWLAxiom {
+public interface OWLImportsDeclaration extends Comparable<OWLImportsDeclaration> {
 
     /**
-     * Gets the ontology that is the subject of this imports declaration.
-     *
-     * @return The subject of this imports statement
+     * Gets the import IRI
+     * @return The import IRI that points to the ontology to be imported.  The imported
+     * ontology should have this IRI as its IRI (although this isn't enforced).
      */
-    OWLOntology getSubject();
+    IRI getIRI();
 
     /**
-     * A convenience method that gets the value of the annotation
-     * as a URI.
-     *
-     * @return The URI of the ontology that is imported
+     * A convenience method to obtain the import IRI as a URI
+     * @return The import IRI as a URI
      */
-    URI getImportedOntologyURI();
+    URI getURI();
 }

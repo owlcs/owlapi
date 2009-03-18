@@ -136,7 +136,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             write(IMPORT.toString());
             write(":");
             writeSpace();
-            writeFullURI(decl.getImportedOntologyURI().toString());
+            writeFullURI(decl.getURI().toString());
             writeNewLine();
         }
         writeNewLine();

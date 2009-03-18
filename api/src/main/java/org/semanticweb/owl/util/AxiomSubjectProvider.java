@@ -82,12 +82,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     public void visit(OWLDataPropertyDomainAxiom axiom) {
         subject = axiom.getProperty();
     }
-
-
-    public void visit(OWLImportsDeclaration axiom) {
-        subject = axiom.getSubject();
-    }
-
+    
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         subject = axiom.getProperty();
     }

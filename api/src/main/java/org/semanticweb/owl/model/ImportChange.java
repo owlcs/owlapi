@@ -1,10 +1,6 @@
 package org.semanticweb.owl.model;
-
-import org.semanticweb.owl.util.OWLEntityCollector;
-
-import java.util.Set;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -26,25 +22,28 @@ import java.util.Set;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 18-Mar-2009
  */
-public abstract class OWLAxiomChange extends OWLOntologyChange {
+public class ImportChange extends OWLOntologyChange {
 
-    private OWLAxiom axiom;
+    private OWLImportsDeclaration declaration;
 
-
-    public OWLAxiomChange(OWLOntology ont, OWLAxiom axiom) {
+    public ImportChange(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
         super(ont);
-        this.axiom = axiom;
+        declaration = importDeclaration;
     }
 
-    public boolean isAxiomChange() {
-        return true;
+
+    /**
+     * Gets the import declaration that the change pertains to.
+     * @return The import declaration
+     */
+    public OWLImportsDeclaration getImportDeclaration() {
+        return declaration;
     }
 
 
@@ -53,38 +52,34 @@ public abstract class OWLAxiomChange extends OWLOntologyChange {
      * @return <code>true</code> if this change is an import change, otherwise <code>false</code>.
      */
     public boolean isImportChange() {
+        return true;
+    }
+
+
+    /**
+     * Determines if the change will cause the addition or
+     * removal of an axiom from an ontology.
+     * @return <code>true</code> if the change is an <code>OWLAddAxiomChange</code>
+     *         or <code>OWLRemoveAxiomChange</code> otherwise <code>false</code>.
+     */
+    public boolean isAxiomChange() {
         return false;
     }
 
 
     /**
-     * Determines if the change will add an axiom to an ontology,
-     * or remove an axiom from an ontology.
-     * @return <code>true</code> if the change will add an axiom
-     * to an ontology, <code>false</code> if the change will remove
-     * an axiom from an ontology.
-     */
-    protected abstract boolean isAdd();
-
-
-    /**
-     * Gets the axiom that is involved in the change (the
-     * axiom to either be added or removed)
+     * If the change is an axiom change (i.e. AddAxiom or RemoveAxiom)
+     * this method obtains the axiom.
+     * @return The Axiom if this change is an axiom change
+     * @throws UnsupportedOperationException If the change is not an axiom change (check
+     * with the <code>isAxiomChange</code> method first).
      */
     public OWLAxiom getAxiom() {
-        return axiom;
+        throw new UnsupportedOperationException("Not an axiom");
     }
 
 
-    /**
-     * A convenience method that obtains the entities which are
-     * referenced in the axiom contained within this change.
-     * @return A <code>Set</code> of entities which are referenced
-     * by the axiom contained within this change.
-     */
-    public Set<OWLEntity> getEntities() {
-        OWLEntityCollector collector = new OWLEntityCollector();
-        axiom.accept(collector);
-        return collector.getObjects();
+    public void accept(OWLOntologyChangeVisitor visitor) {
+
     }
 }

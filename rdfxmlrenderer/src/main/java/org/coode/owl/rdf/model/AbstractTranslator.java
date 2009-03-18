@@ -275,8 +275,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     public void visit(OWLImportsDeclaration axiom) {
-        addTriple(axiom.getSubject(), OWL_IMPORTS.getURI(), axiom.getImportedOntologyURI());
-        addTriple(getResourceNode(axiom.getImportedOntologyURI()),
+        addTriple(ontology, OWL_IMPORTS.getURI(), axiom.getURI());
+        addTriple(getResourceNode(axiom.getURI()),
                 getPredicateNode(RDF_TYPE.getURI()),
                 getResourceNode(OWL_ONTOLOGY.getURI()));
     }

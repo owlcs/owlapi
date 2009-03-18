@@ -1,6 +1,6 @@
 package org.semanticweb.owl.model;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -22,24 +22,46 @@ package org.semanticweb.owl.model;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 18-Mar-2009
  */
-public interface OWLOntologyChangeVisitor  {
+public class AddImport extends ImportChange {
 
-    void visit(AddAxiom change);
-
-    void visit(RemoveAxiom change);
-
-    void visit(SetOntologyURI change);
-
-    void visit(AddImport change);
-
-    void visit(RemoveImport change);
+    public AddImport(OWLOntology ont,
+                     OWLImportsDeclaration importDeclaration) {
+        super(ont, importDeclaration);
+    }
 
 
+
+    public int hashCode() {
+        return getOntology().hashCode() * 37 + getImportDeclaration().hashCode();
+    }
+
+
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof AddImport)) {
+            return false;
+        }
+        AddImport other = (AddImport) obj;
+        return getImportDeclaration().equals(other.getImportDeclaration());
+    }
+
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ADD IMPORT: ");
+        sb.append(getImportDeclaration().toString());
+        return sb.toString();
+    }
+
+    public void accept(OWLOntologyChangeVisitor visitor) {
+        visitor.visit(this);
+    }
 }

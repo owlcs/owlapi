@@ -141,7 +141,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         }
 
         for (OWLImportsDeclaration importDecl : ontology.getImportsDeclarations()) {
-            tvpList.addPair(OBOVocabulary.IMPORT, importDecl.getImportedOntologyURI().toString());
+            tvpList.addPair(OBOVocabulary.IMPORT, importDecl.getURI().toString());
         }
 
         Map<String, String> namespace2PrefixMap = loadUsedNamespaces(ontology);

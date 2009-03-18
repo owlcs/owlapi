@@ -50,9 +50,6 @@ public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O> {
     O visit(OWLDataPropertyDomainAxiom axiom);
 
 
-    O visit(OWLImportsDeclaration axiom);
-
-
     O visit(OWLObjectPropertyDomainAxiom axiom);
 
 

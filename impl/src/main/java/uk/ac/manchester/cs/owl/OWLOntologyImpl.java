@@ -48,7 +48,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 //    private Set<OWLAxiom> allAxioms = createSet();
 
-    private Set<OWLLogicalAxiom> logicalAxioms = createSet();
+    private Set<OWLImportsDeclaration> importsDeclarations = createSet();
 
     private Map<AxiomType, Set<OWLAxiom>> axiomsByType = createMap();
 
@@ -767,7 +767,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public Set<OWLImportsDeclaration> getImportsDeclarations() {
-        return getAxioms(IMPORTS_DECLARATION);
+        return getReturnSet(importsDeclarations);
     }
 
 
@@ -1285,6 +1285,22 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 handleAxiomAdded(axiom);
             }
         }
+
+
+        public void visit(AddImport change) {
+            if(!importsDeclarations.contains(change.getImportDeclaration())) {
+                appliedChanges.add(change);
+                importsDeclarations.add(change.getImportDeclaration());
+            }
+        }
+
+
+        public void visit(RemoveImport change) {
+            if(!importsDeclarations.contains(change.getImportDeclaration())) {
+                appliedChanges.add(change);
+                importsDeclarations.remove(change.getImportDeclaration());
+            }
+        }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1557,15 +1573,6 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 removeAxiomFromSet(DATA_PROPERTY_DOMAIN, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom, owlDataPropertyAxioms);
                 removeAxiomFromSet(axiom.getProperty(), dataPropertyDomainAxiomsByProperty, axiom, true);
-            }
-        }
-
-
-        public void visit(OWLImportsDeclaration axiom) {
-            if (addAxiom) {
-                addToIndexedSet(IMPORTS_DECLARATION, axiomsByType, axiom);
-            } else {
-                removeAxiomFromSet(IMPORTS_DECLARATION, axiomsByType, axiom, true);
             }
         }
 

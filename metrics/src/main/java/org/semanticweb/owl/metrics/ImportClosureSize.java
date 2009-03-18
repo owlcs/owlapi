@@ -51,12 +51,7 @@ public class ImportClosureSize extends IntegerValuedMetric {
 
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         for(OWLOntologyChange change : changes) {
-            if(change.isAxiomChange()) {
-                OWLAxiomChange axChg = (OWLAxiomChange) change;
-                if(axChg.getAxiom() instanceof OWLImportsDeclaration) {
-                    return true;
-                }
-            }
+            
         }
         return false;
     }

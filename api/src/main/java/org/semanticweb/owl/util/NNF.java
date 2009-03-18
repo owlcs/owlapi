@@ -405,12 +405,6 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
                 axiom.getDomain().accept(this));
     }
 
-
-    public OWLAxiom visit(OWLImportsDeclaration axiom) {
-        return axiom;
-    }
-
-
     public OWLAxiom visit(OWLObjectPropertyDomainAxiom axiom) {
         return dataFactory.getObjectPropertyDomain(axiom.getProperty(),
                 axiom.getDomain().accept(this));

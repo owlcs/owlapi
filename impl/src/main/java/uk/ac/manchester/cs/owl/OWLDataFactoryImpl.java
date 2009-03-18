@@ -739,7 +739,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         if (importedOntologyURI.getFragment() != null && importedOntologyURI.getFragment().length() == 0) {
             cleanedImportedOntologyURI = URI.create(importedOntologyURI.toString().substring(0, importedOntologyURI.toString().length() - 1));
         }
-        return new OWLImportsDeclarationImpl(this, subject, cleanedImportedOntologyURI);
+        return new OWLImportsDeclarationImpl(this, getIRI(cleanedImportedOntologyURI));
     }
 
 

@@ -3,7 +3,6 @@ package uk.ac.manchester.cs.owl.mansyntaxrenderer;
 import org.coode.manchesterowlsyntax.ManchesterOWLSyntax;
 import static org.coode.manchesterowlsyntax.ManchesterOWLSyntax.*;
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.XSDVocabulary;
 
 import java.io.Writer;
 import java.util.*;
@@ -534,18 +533,18 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(OWLImportsDeclaration axiom) {
-        setAxiomWriting();
-        writeFrameKeyword(ONTOLOGY);
-        write("<");
-        write(axiom.getSubject().getURI().toString());
-        write(">");
-        writeSectionKeyword(IMPORT);
-        write("<");
-        write(axiom.getImportedOntologyURI().toString());
-        write(">");
-        restore();
-    }
+//    public void visit(OWLImportsDeclaration axiom) {
+//        setAxiomWriting();
+//        writeFrameKeyword(ONTOLOGY);
+//        write("<");
+//        write(axiom.getSubject().getURI().toString());
+//        write(">");
+//        writeSectionKeyword(IMPORT);
+//        write("<");
+//        write(axiom.getURI().toString());
+//        write(">");
+//        restore();
+//    }
 
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {

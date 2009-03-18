@@ -32,9 +32,6 @@ package org.semanticweb.owl.model;
  */
 public interface OWLAxiomVisitor extends OWLAnnotationAxiomVisitor {
 
-    void visit(OWLImportsDeclaration axiom);
-
-
     void visit(OWLDeclarationAxiom axiom);
 
 

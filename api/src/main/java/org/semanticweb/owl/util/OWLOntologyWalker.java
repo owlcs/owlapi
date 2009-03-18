@@ -147,13 +147,6 @@ public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
                 return super.visit(axiom);
             }
 
-
-            public E visit(OWLImportsDeclaration axiom) {
-                currentAxiom = axiom;
-                return super.visit(axiom);
-            }
-
-
             public E visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
                 currentAxiom = axiom;
                 return super.visit(axiom);

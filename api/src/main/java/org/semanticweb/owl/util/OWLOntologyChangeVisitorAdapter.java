@@ -1,9 +1,6 @@
 package org.semanticweb.owl.util;
 
-import org.semanticweb.owl.model.AddAxiom;
-import org.semanticweb.owl.model.OWLOntologyChangeVisitor;
-import org.semanticweb.owl.model.RemoveAxiom;
-import org.semanticweb.owl.model.SetOntologyURI;
+import org.semanticweb.owl.model.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -45,5 +42,13 @@ public class OWLOntologyChangeVisitorAdapter implements OWLOntologyChangeVisitor
 
 
     public void visit(AddAxiom change) {
+    }
+
+
+    public void visit(AddImport change) {
+    }
+
+
+    public void visit(RemoveImport change) {
     }
 }

@@ -239,12 +239,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getProperty().accept(this);
         }
 
-
-        public void visit(OWLImportsDeclaration axiom) {
-            process(axiom);
-        }
-
-
         public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
             process(axiom);
             axiom.getProperty().accept(this);

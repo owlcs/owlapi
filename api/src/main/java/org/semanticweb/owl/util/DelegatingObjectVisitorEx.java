@@ -138,12 +138,6 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
         return delegate.visit(axiom);
     }
 
-
-    public O visit(OWLImportsDeclaration axiom) {
-        return delegate.visit(axiom);
-    }
-
-
     public O visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         return delegate.visit(axiom);
     }

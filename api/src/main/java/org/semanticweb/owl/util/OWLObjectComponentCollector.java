@@ -264,12 +264,6 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
         axiom.getProperty().accept(this);
     }
 
-
-    public void visit(OWLImportsDeclaration axiom) {
-        handleObject(axiom);
-    }
-
-
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         handleObject(axiom);
         axiom.getDomain().accept(this);

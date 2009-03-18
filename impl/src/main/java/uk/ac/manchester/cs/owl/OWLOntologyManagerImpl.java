@@ -156,7 +156,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
 
     public OWLOntology getImportedOntology(OWLImportsDeclaration declaration) {
-        OWLOntology importedOntology = ontologiesByID.get(createID(declaration.getImportedOntologyURI()));
+        OWLOntology importedOntology = ontologiesByID.get(createID(declaration.getURI()));
         if (importedOntology != null) {
             return importedOntology;
         }
@@ -166,7 +166,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             // -- attempt to resolve this situation
             for (OWLOntologyID ontID : physicalURIsByID.keySet()) {
                 URI physicalURI = physicalURIsByID.get(ontID);
-                if (declaration.getImportedOntologyURI().equals(physicalURI)) {
+                if (declaration.getURI().equals(physicalURI)) {
                     // Declaration appears to use a physical URI! What a mess!
                     return ontologiesByID.get(ontID);
                 }
@@ -320,7 +320,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
 
     private void checkForImportsChange(OWLOntologyChange change) {
-        if (change.isAxiomChange() && change.getAxiom() instanceof OWLImportsDeclaration) {
+        if (change.isImportChange()) {
             resetImportsClosureCache();
         }
     }
@@ -795,14 +795,14 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     private void loadImports(OWLImportsDeclaration declaration) throws OWLOntologyCreationException {
         importsLoadCount++;
         try {
-            loadOntology(declaration.getImportedOntologyURI());
+            loadOntology(declaration.getURI());
         }
         catch (OWLOntologyCreationException e) {
             if (!silentMissingImportsHandling) {
                 throw e;
             } else {
                 // Silent
-                MissingImportEvent evt = new MissingImportEvent(declaration.getImportedOntologyURI(), e);
+                MissingImportEvent evt = new MissingImportEvent(declaration.getURI(), e);
                 fireMissingImportEvent(evt);
             }
         }

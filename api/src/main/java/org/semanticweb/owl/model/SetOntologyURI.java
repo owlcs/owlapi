@@ -53,6 +53,15 @@ public class SetOntologyURI extends OWLOntologyChange {
     }
 
 
+    /**
+     * Determines if this change is an import change
+     * @return <code>true</code> if this change is an import change, otherwise <code>false</code>.
+     */
+    public boolean isImportChange() {
+        return false;
+    }
+
+
     public int hashCode() {
         return 57 + ontologyID.hashCode() + getNewURI().hashCode() * 3;
     }

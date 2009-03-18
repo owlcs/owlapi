@@ -439,11 +439,6 @@ public class StructuralTransformation {
         }
 
 
-        public Set<OWLAxiom> visit(OWLImportsDeclaration axiom) {
-            return toSet(axiom);
-        }
-
-
         public Set<OWLAxiom> visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
             return toSet(df.getSubClassOf(df.getOWLThing(),
                     df.getObjectMaxCardinality(axiom.getProperty().getInverseProperty(),

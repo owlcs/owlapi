@@ -65,12 +65,6 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
         process(axiom, DATA_PROPERTY_DOMAIN);
     }
 
-
-    public void visit(OWLImportsDeclaration axiom) {
-        process(axiom, IMPORTS_DECLARATION);
-    }
-
-
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         process(axiom, OBJECT_PROPERTY_DOMAIN);
     }

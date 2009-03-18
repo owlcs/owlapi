@@ -124,9 +124,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
  //           addAxiom(axAnnoAx);
         }
         currentAnnotations.clear();
-        if(ax instanceof OWLImportsDeclaration) {
-            man.makeLoadImportRequest((OWLImportsDeclaration) ax);
-        }
+//        if(ax instanceof OWLImportsDeclaration) {
+//            man.makeLoadImportRequest((OWLImportsDeclaration) ax);
+//        }
     }
     jj_consume_token(CLOSEPAR);
   }
@@ -790,26 +790,26 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   final public OWLAxiom Axiom() throws ParseException {
-    OWLAxiom ax = null;
-    if (jj_2_52(2)) {
-      ax = ImportsDeclaration();
-    } else if (jj_2_53(2)) {
-      ax = ClassAxiom();
-    } else if (jj_2_54(2)) {
-      ax = ObjectPropertyAxiom();
-    } else if (jj_2_55(2)) {
-      ax = DataPropertyAxiom();
-    } else if (jj_2_56(2)) {
-      ax = IndividualAxiom();
-    } else if (jj_2_57(2)) {
-      ax = Declaration();
-    } else if (jj_2_58(2)) {
-      ax = EntityAnnotation();
-    } else {
-      jj_consume_token(-1);
-      throw new ParseException();
-    }
-        {if (true) return ax;}
+//    OWLAxiom ax = null;
+//    if (jj_2_52(2)) {
+//      ax = ImportsDeclaration();
+//    } else if (jj_2_53(2)) {
+//      ax = ClassAxiom();
+//    } else if (jj_2_54(2)) {
+//      ax = ObjectPropertyAxiom();
+//    } else if (jj_2_55(2)) {
+//      ax = DataPropertyAxiom();
+//    } else if (jj_2_56(2)) {
+//      ax = IndividualAxiom();
+//    } else if (jj_2_57(2)) {
+//      ax = Declaration();
+//    } else if (jj_2_58(2)) {
+//      ax = EntityAnnotation();
+//    } else {
+//      jj_consume_token(-1);
+//      throw new ParseException();
+//    }
+//        {if (true) return ax;}
     throw new Error("Missing return statement in function");
   }
 

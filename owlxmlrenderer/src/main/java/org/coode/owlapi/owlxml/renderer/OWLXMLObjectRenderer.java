@@ -68,7 +68,9 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLOntology ontology) {
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
-            decl.accept(this);
+            writer.writeStartElement(IMPORTS.getURI());
+            writer.writeTextContent(decl.getURI().toString());
+            writer.writeEndElement();
         }
         for (OWLAxiom ax : new TreeSet<OWLAxiom>(ontology.getAxioms())) {
             ax.accept(this);
@@ -230,15 +232,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         axiom.getProperty().accept(this);
         writer.writeEndElement();
     }
-
-
-    public void visit(OWLImportsDeclaration axiom) {
-        writer.writeStartElement(IMPORTS.getURI());
-        writeAnnotations(axiom);
-        writer.writeTextContent(axiom.getImportedOntologyURI().toString());
-        writer.writeEndElement();
-    }
-
+    
 
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         writer.writeStartElement(INVERSE_FUNCTIONAL_OBJECT_PROPERTY.getURI());

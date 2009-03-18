@@ -151,12 +151,6 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
-    public void visit(OWLImportsDeclaration axiom) {
-        type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
-    }
-
-
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }

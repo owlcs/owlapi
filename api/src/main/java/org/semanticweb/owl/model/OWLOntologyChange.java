@@ -56,12 +56,22 @@ public abstract class OWLOntologyChange {
      */
     public abstract OWLAxiom getAxiom();
 
+
+    /**
+     * Determines if this change is an import change
+     * @return <code>true</code> if this change is an import change, otherwise <code>false</code>.
+     */
+    public abstract boolean isImportChange();
+
     /**
      * Gets the ontology that the change is/was applied to
+     * @return The ontology that the change is applicable to
      */
     public OWLOntology getOntology() {
         return ont;
     }
+
+
 
     public abstract void accept(OWLOntologyChangeVisitor visitor);
 

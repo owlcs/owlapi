@@ -2269,6 +2269,7 @@ public class ManchesterOWLSyntaxEditorParser {
             OWLOntologyCreationException,
             OWLOntologyChangeException {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
+        Set<AddImport> imports = new HashSet<AddImport>();
         this.defaultOntology = ont;
         URI ontologyURI = null;
         processDeclaredEntities();
@@ -2295,7 +2296,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 axioms.addAll(parseValuePartitionFrame());
             } else if (section.equalsIgnoreCase(IMPORT)) {
                 OWLImportsDeclaration decl = parseImportsDeclaration(ont);
-                axioms.add(new OntologyAxiomPair(ont, decl));
+                imports.add(new AddImport(ont, decl));
                 manager.makeLoadImportRequest(decl);
             } else if (section.equalsIgnoreCase(NAMESPACE)) {
                 Map<String, URI> nsMap = parseNamespace();

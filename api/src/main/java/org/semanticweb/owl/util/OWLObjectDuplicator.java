@@ -246,14 +246,6 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
 
-    public void visit(OWLImportsDeclaration axiom) {
-        axiom.getSubject().accept(this);
-        OWLOntology ont = (OWLOntology) obj;
-        URI uri = axiom.getImportedOntologyURI();
-        obj = dataFactory.getImportsDeclaration(ont, uri);
-    }
-
-
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         obj = dataFactory.getInverseFunctionalObjectProperty((OWLObjectPropertyExpression) obj);
