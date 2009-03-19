@@ -61,7 +61,7 @@ public class TPTypeHandler extends TriplePredicateHandler {
                 logger.fine("Individual of builtin type " + object);
             }
         }
-        addAxiom(getDataFactory().getClassAssertion(
+        addAxiom(getDataFactory().getOWLClassAssertionAxiom(
                 translateIndividual(subject),
                 translateClassExpression(object)));
         consumeTriple(subject, predicate, object);

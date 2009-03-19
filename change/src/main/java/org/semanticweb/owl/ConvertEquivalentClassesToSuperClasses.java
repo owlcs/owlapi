@@ -85,7 +85,7 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
         }
         supers.remove(cls);
         for (OWLClassExpression sup : supers) {
-            changes.add(new AddAxiom(targetOntology, getDataFactory().getSubClassOf(cls, sup)));
+            changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassOfAxiom(cls, sup)));
         }
     }
 

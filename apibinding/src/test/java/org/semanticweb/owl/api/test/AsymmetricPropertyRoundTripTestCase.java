@@ -35,7 +35,7 @@ public class AsymmetricPropertyRoundTripTestCase extends AbstractRoundTrippingTe
     protected OWLOntology createOntology() {
         try {
             OWLOntology ont = getOWLOntology("Test");
-            getManager().addAxiom(ont, getFactory().getAsymmetricObjectProperty(getOWLObjectProperty("p")));
+            getManager().addAxiom(ont, getFactory().getOWLAsymmetricObjectPropertyAxiom(getOWLObjectProperty("p")));
             return ont;
         }
         catch (OWLOntologyChangeException e) {

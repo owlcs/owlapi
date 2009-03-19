@@ -32,7 +32,7 @@ package org.semanticweb.owl.model;
 public class OWLDataValueRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLDataProperty, OWLTypedLiteral> {
 
     protected OWLRestriction createRestriction(OWLDataProperty prop, OWLTypedLiteral filler) throws Exception {
-        return getOWLDataFactory().getDataHasValue(prop, filler);
+        return getOWLDataFactory().getOWLDataHasValue(prop, filler);
     }
 
 

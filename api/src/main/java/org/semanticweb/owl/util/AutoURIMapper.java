@@ -279,7 +279,7 @@ public class AutoURIMapper extends DefaultHandler implements OWLOntologyURIMappe
     private class OWLXMLOntologyRootElementHandler implements OntologyRootElementHandler {
 
         public URI handle(Attributes attributes) {
-            String ontURI = attributes.getValue(Namespaces.OWL2XML.toString(), "URI");
+            String ontURI = attributes.getValue(Namespaces.OWL.toString(), "URI");
             if (ontURI == null) {
                 ontURI = attributes.getValue("URI");
             }

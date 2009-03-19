@@ -7,6 +7,8 @@ import org.semanticweb.owl.io.OWLRendererException;
 import org.semanticweb.owl.io.OWLRendererIOException;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLRuntimeException;
+import org.semanticweb.owl.model.IRI;
+import org.semanticweb.owl.model.NodeID;
 import org.semanticweb.owl.util.VersionInfo;
 import org.semanticweb.owl.vocab.Namespaces;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
@@ -52,19 +54,24 @@ public class OWLXMLWriter {
     public OWLXMLWriter(Writer writer, XMLWriterNamespaceManager xmlWriterNamespaceManager, OWLOntology ontology) {
         this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer,
                                                                      xmlWriterNamespaceManager,
-                                                                     Namespaces.OWL2XML.toString());
+                                                                     Namespaces.OWL.toString());
     }
 
 
     public OWLXMLWriter(Writer writer, XMLWriterNamespaceManager xmlWriterNamespaceManager) {
-        this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer, xmlWriterNamespaceManager, Namespaces.OWL2XML.toString());
+        this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer, xmlWriterNamespaceManager, Namespaces.OWL.toString());
     }
 
 
     public void startDocument(OWLOntology ontology) throws OWLRendererException {
         try {
             writer.startDocument(OWLXMLVocabulary.ONTOLOGY.toString());
-            writeNameAttribute(ontology.getURI());
+            if (ontology.getIRI() != null) {
+                writer.writeAttribute(Namespaces.OWL + "ontologyIRI", ontology.getIRI().toString());
+                if(ontology.getVersionIRI() != null) {
+                    writer.writeAttribute(Namespaces.OWL + "versionIRI", ontology.getIRI().toString());
+                }
+            }
         }
         catch (IOException e) {
             throw new OWLRendererIOException(e);
@@ -105,18 +112,26 @@ public class OWLXMLWriter {
 
     public void writeDatatypeAttribute(URI datatype) {
         try {
-            writer.writeAttribute(OWLXMLVocabulary.DATATYPE_URI.getURI().toString(), datatype.toString());
+            writer.writeAttribute(OWLXMLVocabulary.DATATYPE_IRI.getURI().toString(), datatype.toString());
         }
         catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
-
-    public void writeNameAttribute(URI uri) {
+    public void writeNodeIDAttribute(NodeID nodeID) {
         try {
-            String value = uri.toString();
-            String attName = Namespaces.OWL2XML + "URI";
+            writer.writeAttribute(OWLXMLVocabulary.NODE_ID.getURI().toString(), nodeID.toString());
+        }
+        catch (IOException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    public void writeIRIAttribute(IRI iri) {
+        try {
+            String value = iri.toString();
+            String attName = Namespaces.OWL + "IRI";
             if (value.startsWith(writer.getXMLBase())) {
                 writer.writeAttribute(attName, value.substring(writer.getXMLBase().length(), value.length()));
             }
@@ -129,10 +144,19 @@ public class OWLXMLWriter {
         }
     }
 
+    public void writeLangAttribute(String lang) {
+        try {
+            writer.writeAttribute(Namespaces.XML + "lang", lang);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public void writeCardinalityAttribute(int cardinality) {
         try {
-            writer.writeAttribute(Namespaces.OWL2XML + "cardinality", Integer.toString(cardinality));
+            writer.writeAttribute(Namespaces.OWL + "cardinality", Integer.toString(cardinality));
         }
         catch (IOException e) {
             throw new RuntimeException(e);

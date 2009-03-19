@@ -53,6 +53,6 @@ public class OWLObjectOneOfElementHandler extends AbstractClassExpressionElement
         if (individuals.size() < 1) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected at least one individual in object oneOf");
         }
-        setClassExpression(getOWLDataFactory().getObjectOneOf(individuals));
+        setClassExpression(getOWLDataFactory().getOWLObjectOneOf(individuals));
     }
 }

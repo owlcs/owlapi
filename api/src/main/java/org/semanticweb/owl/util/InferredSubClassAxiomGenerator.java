@@ -44,7 +44,7 @@ public class InferredSubClassAxiomGenerator extends InferredClassAxiomGenerator<
                              Set<OWLSubClassOfAxiom> result) throws OWLReasonerException {
         if (reasoner.isSatisfiable(entity)) {
             for (OWLClass sup : OWLReasonerAdapter.flattenSetOfSets(reasoner.getSuperClasses(entity))) {
-                result.add(dataFactory.getSubClassOf(entity, sup));
+                result.add(dataFactory.getOWLSubClassOfAxiom(entity, sup));
             }
         }
     }

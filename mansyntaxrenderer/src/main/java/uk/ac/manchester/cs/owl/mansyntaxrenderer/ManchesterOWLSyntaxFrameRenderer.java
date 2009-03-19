@@ -721,7 +721,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.SAME_INDIVIDUAL)) {
             for (OWLOntology ontology : getOntologies()) {
                 Set<OWLIndividual> inds = new TreeSet<OWLIndividual>();
-                for(OWLSameIndividualsAxiom ax : ontology.getSameIndividualAxioms(individual)) {
+                for(OWLSameIndividualAxiom ax : ontology.getSameIndividualAxioms(individual)) {
                     if(isDisplayed(ax)) {
                         inds.addAll(ax.getIndividuals());
                         axioms.add(ax);

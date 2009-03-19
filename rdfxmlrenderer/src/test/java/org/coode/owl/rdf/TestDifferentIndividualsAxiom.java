@@ -48,7 +48,7 @@ public class TestDifferentIndividualsAxiom extends AbstractRendererAndParserTest
         for (int i = 0; i < 5; i++) {
             individuals.add(createIndividual());
         }
-        OWLAxiom ax = getDataFactory().getDifferentIndividuals(individuals);
+        OWLAxiom ax = getDataFactory().getOWLDifferentIndividualsAxiom(individuals);
         return Collections.singleton(ax);
     }
 }

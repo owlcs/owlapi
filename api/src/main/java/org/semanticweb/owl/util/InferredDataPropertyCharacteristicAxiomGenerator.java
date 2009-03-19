@@ -45,7 +45,7 @@ public class InferredDataPropertyCharacteristicAxiomGenerator extends InferredDa
     protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLDataPropertyCharacteristicAxiom> result) throws
             OWLReasonerException {
         if (reasoner.isFunctional(entity)) {
-            result.add(dataFactory.getFunctionalDataProperty(entity));
+            result.add(dataFactory.getOWLFunctionalDataPropertyAxiom(entity));
         }
     }
 

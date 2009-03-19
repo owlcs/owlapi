@@ -42,6 +42,6 @@ public class OWLObjectAllValuesFromElementHandler extends AbstractClassExpressio
 
 
     protected OWLClassExpression createRestriction() {
-        return getOWLDataFactory().getObjectAllValuesFrom(getProperty(), getFiller());
+        return getOWLDataFactory().getOWLObjectAllValuesFrom(getProperty(), getFiller());
     }
 }

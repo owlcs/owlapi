@@ -39,6 +39,6 @@ public class OWLNegativeDataPropertyAssertionAxiomElementHandler extends Abstrac
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getNegativeDataPropertyAssertion(getSubject(), getProperty(), getObject());
+        return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(getSubject(), getProperty(), getObject());
     }
 }

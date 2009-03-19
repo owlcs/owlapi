@@ -47,7 +47,7 @@ public class InferredDisjointClassesAxiomGenerator extends InferredClassAxiomGen
             OWLReasonerException {
         for (OWLClass cls : getAllEntities(reasoner)) {
             if (!cls.equals(entity)) {
-                if (!reasoner.isSatisfiable(dataFactory.getObjectIntersectionOf(CollectionFactory.createSet(entity, cls)))) {
+                if (!reasoner.isSatisfiable(dataFactory.getOWLObjectIntersectionOf(CollectionFactory.createSet(entity, cls)))) {
                     result.add(dataFactory.getOWLDisjointClassesAxiom(entity, cls));
                 }
             }

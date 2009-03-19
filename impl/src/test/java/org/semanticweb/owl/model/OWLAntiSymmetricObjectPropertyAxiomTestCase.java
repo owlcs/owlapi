@@ -32,6 +32,6 @@ package org.semanticweb.owl.model;
 public class OWLAntiSymmetricObjectPropertyAxiomTestCase extends AbstractOWLObjectPropertyCharacteristicAxiomTestCase {
 
     protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) throws OWLException {
-        return getOWLDataFactory().getAsymmetricObjectProperty(property);
+        return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(property);
     }
 }

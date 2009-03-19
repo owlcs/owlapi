@@ -272,7 +272,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
                 /* OBO equivalence must be of the form "A and p some B and ..."
                  * if this class is equiv to a restriction, put this into an intersection with owl:Thing as the named class
                  */
-                OWLObjectIntersectionOf intersection = getOWLOntologyManager().getOWLDataFactory().getObjectIntersectionOf(owlThing, equiv);
+                OWLObjectIntersectionOf intersection = getOWLOntologyManager().getOWLDataFactory().getOWLObjectIntersectionOf(owlThing, equiv);
                 handleIntersection(cls, intersection, tvpList);
             } else {
                 // TODO handle datatype restrictions

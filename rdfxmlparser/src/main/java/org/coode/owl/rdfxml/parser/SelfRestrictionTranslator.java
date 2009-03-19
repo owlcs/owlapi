@@ -47,6 +47,6 @@ public class SelfRestrictionTranslator extends AbstractObjectRestrictionTranslat
             throw new OWLRuntimeException("No hasSelf triple");
         }
         OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
-        return getDataFactory().getObjectHasSelf(prop);
+        return getDataFactory().getOWLObjectHasSelf(prop);
     }
 }

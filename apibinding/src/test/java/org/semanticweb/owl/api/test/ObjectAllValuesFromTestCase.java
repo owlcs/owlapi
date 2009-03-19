@@ -42,7 +42,7 @@ public class ObjectAllValuesFromTestCase extends AbstractFileRoundTrippingTestCa
          OWLClass clsA = getOWLClass("A");
          OWLClass clsB = getOWLClass("B");
          OWLObjectProperty propP = getOWLObjectProperty("p");
-         axioms.add(getFactory().getSubClassOf(clsA, getFactory().getObjectAllValuesFrom(propP, clsB)));
+         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectAllValuesFrom(propP, clsB)));
          axioms.add(getFactory().getOWLDeclarationAxiom(clsB));
          axioms.add(getFactory().getOWLDeclarationAxiom(propP));
          assertEquals(getOnt().getAxioms(), axioms);

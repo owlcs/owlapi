@@ -41,7 +41,7 @@ public class ObjectMaxQualifiedCardinalityTestCase extends AbstractFileRoundTrip
          OWLClass clsA = getOWLClass("A");
          OWLClass clsB = getOWLClass("B");
          OWLObjectProperty prop = getOWLObjectProperty("p");
-         axioms.add(getFactory().getSubClassOf(clsA, getFactory().getObjectMaxCardinality(prop, 3, clsB)));
+         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectMaxCardinality(prop, 3, clsB)));
          assertEquals(getOnt().getAxioms(), axioms);
     }
 

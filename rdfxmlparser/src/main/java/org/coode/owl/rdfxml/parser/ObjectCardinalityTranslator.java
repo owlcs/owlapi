@@ -45,13 +45,13 @@ public class ObjectCardinalityTranslator extends AbstractObjectCardinalityTransl
 
 
     protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi) throws OWLException {
-        return getDataFactory().getObjectExactCardinality(prop, cardi);
+        return getDataFactory().getOWLObjectExactCardinality(prop, cardi);
     }
 
 
     protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi,
                                                    OWLClassExpression filler) throws OWLException {
-        return getDataFactory().getObjectExactCardinality(prop, cardi, filler);
+        return getDataFactory().getOWLObjectExactCardinality(prop, cardi, filler);
     }
 
 

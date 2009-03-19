@@ -49,6 +49,6 @@ public class OWLDataComplementOfElementHandler extends AbstractOWLDataRangeHandl
         if (operand == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "data range element");
         }
-        setDataRange(getOWLDataFactory().getDataComplementOf(operand));
+        setDataRange(getOWLDataFactory().getOWLDataComplementOf(operand));
     }
 }

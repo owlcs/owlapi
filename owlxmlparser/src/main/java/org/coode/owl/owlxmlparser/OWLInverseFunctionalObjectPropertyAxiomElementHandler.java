@@ -39,6 +39,6 @@ public class OWLInverseFunctionalObjectPropertyAxiomElementHandler extends Abstr
 
 
     protected OWLAxiom createPropertyCharacteristicAxiom() {
-        return getOWLDataFactory().getInverseFunctionalObjectProperty(getProperty());
+        return getOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(getProperty());
     }
 }

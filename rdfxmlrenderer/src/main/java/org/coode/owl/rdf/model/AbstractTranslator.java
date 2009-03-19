@@ -208,18 +208,18 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     public void visit(OWLAnnotationAssertionAxiom axiom) {
-//        translateAnnotation(axiom, axiom.getAnnotation());
+//        translateAnnotation(axiom, axiom.getOWLAnnotation());
 //        addTriple(axiom.getSubject(),
 //                axiom.getProperty().getURI(),
-//                axiom.getAnnotation().getValue());
+//                axiom.getOWLAnnotation().getValue());
         translateAnnotation(axiom.getSubject(), axiom.getAnnotation());
         addAxiom(axiom, axiom.getSubject(), axiom.getProperty(), axiom.getValue());
 //        addTriple(getResourceNode(axiom.getProperty()),
 //                getPredicateNode(RDF_TYPE.getURI()),
 //                getResourceNode(OWL_ANNOTATION_PROPERTY.getURI()));
 
-//        if (axiom.getAnnotation().getValue().isAnonymousIndividual()) {
-//            OWLIndividual ind = (OWLIndividual) axiom.getAnnotation().getValue().asAnonymousIndividual();
+//        if (axiom.getOWLAnnotation().getValue().isAnonymousIndividual()) {
+//            OWLIndividual ind = (OWLIndividual) axiom.getOWLAnnotation().getValue().asAnonymousIndividual();
 //            processAnonymousIndividual(ind);
 //        }
     }
@@ -357,7 +357,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         addPairwise(axiom, axiom.getIndividuals(), OWL_SAME_AS.getURI());
     }
 
@@ -993,7 +993,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     private OWLTypedLiteral toTypedConstant(int i) {
-        return manager.getOWLDataFactory().getTypedLiteral(Integer.toString(i),
+        return manager.getOWLDataFactory().getOWLTypedLiteral(Integer.toString(i),
                 manager.getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getURI()));
     }
 

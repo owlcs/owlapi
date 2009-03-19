@@ -817,7 +817,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         setAxiomWriting();
         writeFrameKeyword(SAME_INDIVIDUAL);
         writeCommaSeparatedList(axiom.getIndividuals());

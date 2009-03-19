@@ -269,10 +269,12 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
 
     public void visit(OWLAnnotationAssertionAxiom axiom) {
-        sb.append("EntityAnnotationAxiom(");
+        sb.append("AnnotationAssertion(");
+        axiom.getProperty().accept(this);
+        insertSpace();
         axiom.getSubject().accept(this);
         insertSpace();
-        axiom.getAnnotation().accept(this);
+        axiom.getValue().accept(this);
         sb.append(")");
     }
 
@@ -364,7 +366,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         sb.append("SameIndividual(");
         render(axiom.getIndividuals());
         sb.append(" )");

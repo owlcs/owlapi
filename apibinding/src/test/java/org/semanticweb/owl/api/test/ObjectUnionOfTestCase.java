@@ -40,7 +40,7 @@ public class ObjectUnionOfTestCase extends AbstractFileRoundTrippingTestCase {
          OWLClass clsA = getOWLClass("A");
          OWLClass clsB = getOWLClass("B");
          OWLClass clsC = getOWLClass("C");
-         axioms.add(getFactory().getSubClassOf(clsA, getFactory().getObjectUnionOf(clsB, clsC)));
+         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectUnionOf(clsB, clsC)));
          assertEquals(getOnt().getAxioms(), axioms);
     }
 

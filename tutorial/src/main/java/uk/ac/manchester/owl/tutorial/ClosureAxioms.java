@@ -90,14 +90,14 @@ public class ClosureAxioms {
             }
 
             /* Create a union of the fillers */
-            OWLClassExpression union = factory.getObjectUnionOf(fillers);
+            OWLClassExpression union = factory.getOWLObjectUnionOf(fillers);
 
             /* Create a universal restriction */
-            OWLClassExpression universal = factory.getObjectAllValuesFrom(prop,
+            OWLClassExpression universal = factory.getOWLObjectAllValuesFrom(prop,
                     union);
 
             /* Create a new axiom */
-            OWLAxiom newAxiom = factory.getSubClassOf(clazz, universal);
+            OWLAxiom newAxiom = factory.getOWLSubClassOfAxiom(clazz, universal);
 
             /* Now add the axiom to the ontology */
             AddAxiom addAxiom = new AddAxiom(ontology, newAxiom);

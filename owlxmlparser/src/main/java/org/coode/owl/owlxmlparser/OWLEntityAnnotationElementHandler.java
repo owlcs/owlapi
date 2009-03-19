@@ -75,6 +75,6 @@ public class OWLEntityAnnotationElementHandler extends AbstractOWLAxiomElementHa
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getAnnotationAssertion(entity.getIRI(), annotation);
+        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(entity.getIRI(), annotation);
     }
 }

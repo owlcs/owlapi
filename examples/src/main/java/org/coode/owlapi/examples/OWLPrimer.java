@@ -105,7 +105,7 @@ public class OWLPrimer {
             // Now we need to create the assertion that John hasWife Mary. To do this we need
             // an axiom, in this case an object property assertion axiom. This can be thought of
             // as a "triple" that has a subject, john, a predicate, hasWife and an object Mary
-            OWLObjectPropertyAssertionAxiom axiom1 = factory.getObjectPropertyAssertion(john, hasWife, mary);
+            OWLObjectPropertyAssertionAxiom axiom1 = factory.getOWLObjectPropertyAssertionAxiom(john, hasWife, mary);
 
             // We now need to add this assertion to our ontology.  To do this, we apply an ontology change
             // to the ontology via the OWLOntologyManager.
@@ -123,42 +123,42 @@ public class OWLPrimer {
             // Get a refernece to the hasSon property
             OWLObjectProperty hasSon = factory.getOWLObjectProperty(URI.create(ontologyURI + "#hasSon"));
             // Create the assertion,  John hasSon Bill
-            OWLAxiom axiom2 = factory.getObjectPropertyAssertion(john, hasSon, bill);
+            OWLAxiom axiom2 = factory.getOWLObjectPropertyAssertionAxiom(john, hasSon, bill);
             // Apply the change
             manager.applyChange(new AddAxiom(ont, axiom2));
 
             // John hasDaughter Susan
             OWLObjectProperty hasDaughter = factory.getOWLObjectProperty(URI.create(ontologyURI + "#hasDaughter"));
-            OWLAxiom axiom3 = factory.getObjectPropertyAssertion(john, hasDaughter, susan);
+            OWLAxiom axiom3 = factory.getOWLObjectPropertyAssertionAxiom(john, hasDaughter, susan);
             manager.applyChange(new AddAxiom(ont, axiom3));
 
             // John hasAge 33
             // In this case, hasAge is a data property, which we need a reference to
             OWLDataProperty hasAge = factory.getOWLDataProperty(URI.create(ontologyURI + "#hasAge"));
             // We create a data property assertion instead of an object property assertion
-            OWLAxiom axiom4 = factory.getDataPropertyAssertion(john, hasAge, 33);
+            OWLAxiom axiom4 = factory.getOWLDataPropertyAssertionAxiom(john, hasAge, 33);
             manager.applyChange(new AddAxiom(ont, axiom4));
 
             // In the above code, 33 is an integer, so we can just pass 33 into the data factory method.
             // Behind the scenes the OWL API will create a typed constant that it will use as the value
             // of the data property assertion.  We could have manually created the constant as follows:
             OWLDatatype intDatatype = factory.getOWLDatatype(XSDVocabulary.INT.getURI());
-            OWLTypedLiteral thirtyThree = factory.getTypedLiteral("33", intDatatype);
+            OWLTypedLiteral thirtyThree = factory.getOWLTypedLiteral("33", intDatatype);
             // We would then create the axiom as follows:
-            factory.getDataPropertyAssertion(john, hasAge, thirtyThree);
+            factory.getOWLDataPropertyAssertionAxiom(john, hasAge, thirtyThree);
             // However, the convenice method is much shorter!
 
             // We can now create the other facts/assertion for Mary.  The OWL API uses a change
             // object model, which means we can stack up changes (or sets of axioms) and apply the
             // changes (or add the axioms) in one go.  We will do this for Mary
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            axioms.add(factory.getObjectPropertyAssertion(mary, hasSon, bill));
-            axioms.add(factory.getObjectPropertyAssertion(mary, hasDaughter, susan));
-            axioms.add(factory.getDataPropertyAssertion(mary, hasAge, 31));
+            axioms.add(factory.getOWLObjectPropertyAssertionAxiom(mary, hasSon, bill));
+            axioms.add(factory.getOWLObjectPropertyAssertionAxiom(mary, hasDaughter, susan));
+            axioms.add(factory.getOWLDataPropertyAssertionAxiom(mary, hasAge, 31));
 
             // Add facts/assertions for Bill and Susan
-            axioms.add(factory.getDataPropertyAssertion(bill, hasAge, 13));
-            axioms.add(factory.getDataPropertyAssertion(mary, hasAge, 8));
+            axioms.add(factory.getOWLDataPropertyAssertionAxiom(bill, hasAge, 13));
+            axioms.add(factory.getOWLDataPropertyAssertionAxiom(mary, hasAge, 8));
 
             // Now add all the axioms in one go - there is a convenience method on OWLOntologyManager
             // that will automatically generate the AddAxiom change objects for us.  We need to
@@ -172,10 +172,10 @@ public class OWLPrimer {
             OWLObjectProperty hasGender = factory.getOWLObjectProperty(URI.create(ontologyURI + "#hasGender"));
 
             Set<OWLAxiom> genders = new HashSet<OWLAxiom>();
-            genders.add(factory.getObjectPropertyAssertion(john, hasGender, male));
-            genders.add(factory.getObjectPropertyAssertion(mary, hasGender, female));
-            genders.add(factory.getObjectPropertyAssertion(bill, hasGender, male));
-            genders.add(factory.getObjectPropertyAssertion(susan, hasGender, female));
+            genders.add(factory.getOWLObjectPropertyAssertionAxiom(john, hasGender, male));
+            genders.add(factory.getOWLObjectPropertyAssertionAxiom(mary, hasGender, female));
+            genders.add(factory.getOWLObjectPropertyAssertionAxiom(bill, hasGender, male));
+            genders.add(factory.getOWLObjectPropertyAssertionAxiom(susan, hasGender, female));
 
             // Add the facts about the genders
             manager.addAxioms(ont, genders);
@@ -198,21 +198,21 @@ public class OWLPrimer {
             // of the various properties that we are interested in.
             Set<OWLAxiom> domainsAndRanges = new HashSet<OWLAxiom>();
             // Domain and then range of hasWife
-            domainsAndRanges.add(factory.getObjectPropertyDomain(hasWife, person));
-            domainsAndRanges.add(factory.getObjectPropertyRange(hasWife, person));
+            domainsAndRanges.add(factory.getOWLObjectPropertyDomainAxiom(hasWife, person));
+            domainsAndRanges.add(factory.getOWLObjectPropertyRangeAxiom(hasWife, person));
             // Domain and range of hasSon and also hasDaugher
-            domainsAndRanges.add(factory.getObjectPropertyDomain(hasSon, person));
-            domainsAndRanges.add(factory.getObjectPropertyRange(hasSon, person));
-            domainsAndRanges.add(factory.getObjectPropertyDomain(hasDaughter, person));
-            domainsAndRanges.add(factory.getObjectPropertyRange(hasDaughter, person));
+            domainsAndRanges.add(factory.getOWLObjectPropertyDomainAxiom(hasSon, person));
+            domainsAndRanges.add(factory.getOWLObjectPropertyRangeAxiom(hasSon, person));
+            domainsAndRanges.add(factory.getOWLObjectPropertyDomainAxiom(hasDaughter, person));
+            domainsAndRanges.add(factory.getOWLObjectPropertyRangeAxiom(hasDaughter, person));
 
             // We also have the domain of the data property hasAge as Person, and the range as
             // integer.
             // We need the integer datatype.  The XML Schema Datatype URIs are used for data types.
             // The OWL API provide a built in set via the XSDVocabulary enum.
-            domainsAndRanges.add(factory.getDataPropertyDomain(hasAge, person));
+            domainsAndRanges.add(factory.getOWLDataPropertyDomainAxiom(hasAge, person));
             OWLDatatype integerDatatype = factory.getOWLDatatype(XSDVocabulary.INTEGER.getURI());
-            domainsAndRanges.add(factory.getDataPropertyRange(hasAge, integerDatatype));
+            domainsAndRanges.add(factory.getOWLDataPropertyRangeAxiom(hasAge, integerDatatype));
 
             // Now add all of our domain and range axioms
             manager.addAxioms(ont, domainsAndRanges);
@@ -225,7 +225,7 @@ public class OWLPrimer {
 
             // We can also explicitly say than an individual is an instance of a given class.
             // To do this we use a Class assertion axiom.
-            OWLClassAssertionAxiom classAssertionAx = factory.getClassAssertion(john, person);
+            OWLClassAssertionAxiom classAssertionAx = factory.getOWLClassAssertionAxiom(john, person);
             // Add the axiom directly using the addAxiom convenience method on OWLOntologyManager
             manager.addAxiom(ont, classAssertionAx);
 
@@ -241,7 +241,7 @@ public class OWLPrimer {
             // The full URI of the hasHusband property will be http://example.com/owl/families#hasHusband
             // since the URI of our ontology is http://example.com/owl/families
             // Create the inverse object properties axiom and add it
-            manager.addAxiom(ont, factory.getInverseObjectProperties(hasWife, hasHusband));
+            manager.addAxiom(ont, factory.getOWLInverseObjectPropertiesAxiom(hasWife, hasHusband));
 
             //////////////////////////////////////////////////////////////////////////////////////////////
             //
@@ -252,11 +252,11 @@ public class OWLPrimer {
             // OWL allows a property hierarchy to be specified.  Here, hasSon and hasDaughter will
             // be specified as hasChild.
             OWLObjectProperty hasChild = factory.getOWLObjectProperty(URI.create(ont.getURI() + "#hasChild"));
-            OWLSubObjectPropertyOfAxiom hasSonSubHasChildAx = factory.getSubObjectPropertyOf(hasSon, hasChild);
+            OWLSubObjectPropertyOfAxiom hasSonSubHasChildAx = factory.getOWLSubObjectPropertyOfAxiom(hasSon, hasChild);
             // Add the axiom
             manager.addAxiom(ont, hasSonSubHasChildAx);
             // And hasDaughter, which is also a sub property of hasChild
-            manager.addAxiom(ont, factory.getSubObjectPropertyOf(hasDaughter, hasChild));
+            manager.addAxiom(ont, factory.getOWLSubObjectPropertyOfAxiom(hasDaughter, hasChild));
 
             //////////////////////////////////////////////////////////////////////////////////////////////
             //
@@ -268,7 +268,7 @@ public class OWLPrimer {
             // something can have at most one hasAge property.  We can do this with a
             // functional data property axiom
             // First create the axiom
-            OWLFunctionalDataPropertyAxiom hasAgeFuncAx = factory.getFunctionalDataProperty(hasAge);
+            OWLFunctionalDataPropertyAxiom hasAgeFuncAx = factory.getOWLFunctionalDataPropertyAxiom(hasAge);
             // Now add it to the ontology
             manager.addAxiom(ont, hasAgeFuncAx);
 
@@ -276,10 +276,10 @@ public class OWLPrimer {
             // Note that the asymmetric property axiom used to be called antisymmetric - older versions
             // of the OWL API may refer to antisymmetric property axioms
             Set<OWLAxiom> hasWifeAxioms = new HashSet<OWLAxiom>();
-            hasWifeAxioms.add(factory.getFunctionalObjectProperty(hasWife));
-            hasWifeAxioms.add(factory.getInverseFunctionalObjectProperty(hasWife));
-            hasWifeAxioms.add(factory.getIrreflexiveObjectProperty(hasWife));
-            hasWifeAxioms.add(factory.getAsymmetricObjectProperty(hasWife));
+            hasWifeAxioms.add(factory.getOWLFunctionalObjectPropertyAxiom(hasWife));
+            hasWifeAxioms.add(factory.getOWLInverseFunctionalObjectPropertyAxiom(hasWife));
+            hasWifeAxioms.add(factory.getOWLIrreflexiveObjectPropertyAxiom(hasWife));
+            hasWifeAxioms.add(factory.getOWLAsymmetricObjectPropertyAxiom(hasWife));
             // Add all of the axioms that specify the characteristics of hasWife
             manager.addAxioms(ont, hasWifeAxioms);
 
@@ -303,9 +303,9 @@ public class OWLPrimer {
             // does not add them to an ontology - only axioms can be added to an ontology.
 
             // Now say that Man, Woman and Parent are subclasses of Person
-            manager.addAxiom(ont, factory.getSubClassOf(man, person));
-            manager.addAxiom(ont, factory.getSubClassOf(woman, person));
-            manager.addAxiom(ont, factory.getSubClassOf(parent, person));
+            manager.addAxiom(ont, factory.getOWLSubClassOfAxiom(man, person));
+            manager.addAxiom(ont, factory.getOWLSubClassOfAxiom(woman, person));
+            manager.addAxiom(ont, factory.getOWLSubClassOfAxiom(parent, person));
 
             //////////////////////////////////////////////////////////////////////////////////////////////
             //
@@ -319,45 +319,45 @@ public class OWLPrimer {
             // extend OWLClassExpression.
 
             // First, hasAge exactly 1
-            OWLDataExactCardinality hasAgeRestriction = factory.getDataExactCardinality(hasAge, 1);
+            OWLDataExactCardinality hasAgeRestriction = factory.getOWLDataExactCardinality(hasAge, 1);
             // Now the hasGender exactly 1
-            OWLObjectExactCardinality hasGenderRestriction = factory.getObjectExactCardinality(hasGender, 1);
+            OWLObjectExactCardinality hasGenderRestriction = factory.getOWLObjectExactCardinality(hasGender, 1);
             // And finally, the hasGender only {male female}
             // To create this restriction, we need an OWLObjectOneOf class expression since male and female are individuals
             // We can just list as many individuals as we need as the argument of the method.
-            OWLObjectOneOf maleOrFemale = factory.getObjectOneOf(male, female);
+            OWLObjectOneOf maleOrFemale = factory.getOWLObjectOneOf(male, female);
             // Now create the actual restriction
-            OWLObjectAllValuesFrom hasGenderOnlyMaleFemale = factory.getObjectAllValuesFrom(hasGender, maleOrFemale);
+            OWLObjectAllValuesFrom hasGenderOnlyMaleFemale = factory.getOWLObjectAllValuesFrom(hasGender, maleOrFemale);
 
             // Finally, we bundle these restrictions up into an intersection, since we want person
             // to be a subclass of the intersection of them
-            OWLObjectIntersectionOf intersection = factory.getObjectIntersectionOf(hasAgeRestriction,
+            OWLObjectIntersectionOf intersection = factory.getOWLObjectIntersectionOf(hasAgeRestriction,
                     hasGenderRestriction,
                     hasGenderOnlyMaleFemale);
             // And now we set this anonymous intersection class to be a superclass of Person using a subclass axiom
-            manager.addAxiom(ont, factory.getSubClassOf(person, intersection));
+            manager.addAxiom(ont, factory.getOWLSubClassOfAxiom(person, intersection));
 
             // Restrictions and other anonymous classes can also be used anywhere a named class can be used.
             // Let's set the range of hasSon to be Person and hasGender value male.  This requires an anonymous
             // class that is the intersection of Person, and also, hasGender value male.  We need to create
             // the hasGender value male restriction - this describes the class of things that have a hasGender
             // relationship to the individual male.
-            OWLObjectHasValue hasGenderValueMaleRestriction = factory.getObjectHasValue(hasGender,
+            OWLObjectHasValue hasGenderValueMaleRestriction = factory.getOWLObjectHasValue(hasGender,
                     male);
             // Now combine this with Person in an intersection
-            OWLClassExpression personAndHasGenderValueMale = factory.getObjectIntersectionOf(person,
+            OWLClassExpression personAndHasGenderValueMale = factory.getOWLObjectIntersectionOf(person,
                     hasGenderValueMaleRestriction);
             // Now specify this anonymous class as the range of hasSon using an object property range axioms
-            manager.addAxiom(ont, factory.getObjectPropertyRange(hasSon, personAndHasGenderValueMale));
+            manager.addAxiom(ont, factory.getOWLObjectPropertyRangeAxiom(hasSon, personAndHasGenderValueMale));
 
             // We can do a similar thing for hasDaughter, by specifying that hasDaughter has a range
             // of Person and hasGender value female.  This time, we will make things a little more compact by
             // not using so many variables
 
-            OWLClassExpression rangeOfHasDaughter = factory.getObjectIntersectionOf(person,
-                    factory.getObjectHasValue(hasGender,
+            OWLClassExpression rangeOfHasDaughter = factory.getOWLObjectIntersectionOf(person,
+                    factory.getOWLObjectHasValue(hasGender,
                             female));
-            manager.addAxiom(ont, factory.getObjectPropertyRange(hasDaughter, rangeOfHasDaughter));
+            manager.addAxiom(ont, factory.getOWLObjectPropertyRangeAxiom(hasDaughter, rangeOfHasDaughter));
 
             //////////////////////////////////////////////////////////////////////////////////////////////
             //
@@ -372,39 +372,39 @@ public class OWLPrimer {
             // 13 and less than 20.  In Manchester Syntax this is written as Person and hasAge some int[>=13, <20]
             // We create a data range by taking the integer datatype and applying facet restrictions to it.
             // Note that we have statically imported the data range facet vocabulary OWLFacet
-            OWLFacetRestriction geq13 = factory.getFacetRestriction(MIN_INCLUSIVE, factory.getTypedLiteral(13));
+            OWLFacetRestriction geq13 = factory.getOWLFacetRestriction(MIN_INCLUSIVE, factory.getOWLTypedLiteral(13));
             // We don't have to explicitly create the typed constant, there are convenience methods to do this
-            OWLFacetRestriction lt20 = factory.getFacetRestriction(MAX_EXCLUSIVE, 20);
+            OWLFacetRestriction lt20 = factory.getOWLFacetRestriction(MAX_EXCLUSIVE, 20);
             // Restrict the base type, integer (which is just an XML Schema Datatype) with the facet
             // restrictions.
-            OWLDataRange dataRng = factory.getDatatypeRestriction(integerDatatype, geq13, lt20);
+            OWLDataRange dataRng = factory.getOWLDatatypeRestriction(integerDatatype, geq13, lt20);
             // Now we have the data range of greater than equal to 13 and less than 20 we can use this in a
             // restriction.
-            OWLDataSomeValuesFrom teenagerAgeRestriction = factory.getDataSomeValuesFrom(hasAge, dataRng);
+            OWLDataSomeValuesFrom teenagerAgeRestriction = factory.getOWLDataSomeValuesFrom(hasAge, dataRng);
 
             // Now make Teenager equivalent to Person and hasAge some int[>=13, <20]
             // First create the class Person and hasAge some int[>=13, <20]
-            OWLClassExpression teenagePerson = factory.getObjectIntersectionOf(person, teenagerAgeRestriction);
+            OWLClassExpression teenagePerson = factory.getOWLObjectIntersectionOf(person, teenagerAgeRestriction);
 
             OWLClass teenager = factory.getOWLClass(URI.create(ontologyURI + "#Teenager"));
-            OWLEquivalentClassesAxiom teenagerDefinition = factory.getOWLEquivalentClasses(teenager, teenagePerson);
+            OWLEquivalentClassesAxiom teenagerDefinition = factory.getOWLEquivalentClassesAxiom(teenager, teenagePerson);
             manager.addAxiom(ont, teenagerDefinition);
 
             // Do the same for Adult that has an age greater than 21
-            OWLDataRange geq21 = factory.getDatatypeRestriction(integerDatatype,
-                    factory.getFacetRestriction(MIN_INCLUSIVE, 21));
+            OWLDataRange geq21 = factory.getOWLDatatypeRestriction(integerDatatype,
+                    factory.getOWLFacetRestriction(MIN_INCLUSIVE, 21));
             OWLClass adult = factory.getOWLClass(URI.create(ontologyURI + "#Adult"));
-            OWLClassExpression adultAgeRestriction = factory.getDataSomeValuesFrom(hasAge, geq21);
-            OWLClassExpression adultPerson = factory.getObjectIntersectionOf(person, adultAgeRestriction);
-            OWLAxiom adultDefinition = factory.getOWLEquivalentClasses(adult, adultPerson);
+            OWLClassExpression adultAgeRestriction = factory.getOWLDataSomeValuesFrom(hasAge, geq21);
+            OWLClassExpression adultPerson = factory.getOWLObjectIntersectionOf(person, adultAgeRestriction);
+            OWLAxiom adultDefinition = factory.getOWLEquivalentClassesAxiom(adult, adultPerson);
             manager.addAxiom(ont, adultDefinition);
 
             // And finally Child
-            OWLDataRange notGeq21 = factory.getDataComplementOf(geq21);
+            OWLDataRange notGeq21 = factory.getOWLDataComplementOf(geq21);
             OWLClass child = factory.getOWLClass(URI.create(ontologyURI + "#Child"));
-            OWLClassExpression childAgeRestriction = factory.getDataSomeValuesFrom(hasAge, notGeq21);
-            OWLClassExpression childPerson = factory.getObjectIntersectionOf(person, childAgeRestriction);
-            OWLAxiom childDefinition = factory.getOWLEquivalentClasses(child, childPerson);
+            OWLClassExpression childAgeRestriction = factory.getOWLDataSomeValuesFrom(hasAge, notGeq21);
+            OWLClassExpression childPerson = factory.getOWLObjectIntersectionOf(person, childAgeRestriction);
+            OWLAxiom childDefinition = factory.getOWLEquivalentClassesAxiom(child, childPerson);
             manager.addAxiom(ont, childDefinition);
 
             //////////////////////////////////////////////////////////////////////////////////////////////
@@ -416,10 +416,10 @@ public class OWLPrimer {
             // In OWL, we can say that individuals are different from each other.  To do this we use a
             // different individuals axiom.  Since John, Mary, Bill and Susan are all different individuals,
             // we can express this using a different individuals axiom.
-            OWLDifferentIndividualsAxiom diffInds = factory.getDifferentIndividuals(john, mary, bill, susan);
+            OWLDifferentIndividualsAxiom diffInds = factory.getOWLDifferentIndividualsAxiom(john, mary, bill, susan);
             manager.addAxiom(ont, diffInds);
             // Male and Female are also different
-            manager.addAxiom(ont, factory.getDifferentIndividuals(male, female));
+            manager.addAxiom(ont, factory.getOWLDifferentIndividualsAxiom(male, female));
 
             //////////////////////////////////////////////////////////////////////////////////////////////
             //

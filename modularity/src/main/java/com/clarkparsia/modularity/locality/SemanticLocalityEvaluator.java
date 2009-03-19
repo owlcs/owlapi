@@ -80,7 +80,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         public void visit(OWLDisjointClassesAxiom axiom) {
             Set<OWLClassExpression> disjClasses = axiom.getClassExpressions();
-            OWLClassExpression conjunction = df.getObjectIntersectionOf(disjClasses);
+            OWLClassExpression conjunction = df.getOWLObjectIntersectionOf(disjClasses);
 
             if (log.isLoggable(Level.FINE))
                 log.fine("Calling the Reasoner");
@@ -257,14 +257,14 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         public void visit(OWLObjectAllValuesFrom desc) {
             if (signature.contains(desc.getProperty().getNamedProperty()))
-                newClassExpression = df.getObjectAllValuesFrom(desc.getProperty(), replaceBottom(desc.getFiller()));
+                newClassExpression = df.getOWLObjectAllValuesFrom(desc.getProperty(), replaceBottom(desc.getFiller()));
             else
                 newClassExpression = df.getOWLThing();
         }
 
 
         public void visit(OWLObjectComplementOf desc) {
-            newClassExpression = df.getObjectComplementOf(replaceBottom(desc.getOperand()));
+            newClassExpression = df.getOWLObjectComplementOf(replaceBottom(desc.getOperand()));
         }
 
 
@@ -278,7 +278,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         public void visit(OWLObjectIntersectionOf desc) {
             Set<OWLClassExpression> operands = desc.getOperands();
-            newClassExpression = df.getObjectIntersectionOf(replaceBottom(operands));
+            newClassExpression = df.getOWLObjectIntersectionOf(replaceBottom(operands));
         }
 
 
@@ -310,7 +310,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         public void visit(OWLObjectSomeValuesFrom desc) {
             if (signature.contains(desc.getProperty().getNamedProperty())) {
-                newClassExpression = df.getObjectSomeValuesFrom(desc.getProperty(),
+                newClassExpression = df.getOWLObjectSomeValuesFrom(desc.getProperty(),
                         replaceBottom(desc.getFiller()));
             } else
                 newClassExpression = df.getOWLNothing();
@@ -319,7 +319,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         public void visit(OWLObjectUnionOf desc) {
             Set<OWLClassExpression> operands = desc.getOperands();
-            newClassExpression = df.getObjectUnionOf(replaceBottom(operands));
+            newClassExpression = df.getOWLObjectUnionOf(replaceBottom(operands));
         }
 
 
@@ -331,7 +331,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         public void visit(OWLSubClassOfAxiom ax) {
             OWLClassExpression sup = replaceBottom(ax.getSuperClass());
             OWLClassExpression sub = replaceBottom(ax.getSubClass());
-            newAxiom = df.getSubClassOf(sub, sup);
+            newAxiom = df.getOWLSubClassOfAxiom(sub, sup);
         }
     }
 

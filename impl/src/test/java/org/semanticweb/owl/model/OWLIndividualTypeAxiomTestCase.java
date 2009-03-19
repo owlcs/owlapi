@@ -43,6 +43,6 @@ public class OWLIndividualTypeAxiomTestCase extends AbstractOWLBinaryOperandAxio
 
 
     protected OWLAxiom createAxiom(OWLIndividual leftOperand, OWLClassExpression rightOperand) throws Exception {
-        return getOWLDataFactory().getClassAssertion(leftOperand, rightOperand);
+        return getOWLDataFactory().getOWLClassAssertionAxiom(leftOperand, rightOperand);
     }
 }

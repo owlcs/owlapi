@@ -85,7 +85,7 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
 
 
     public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
-        OWLAnnotationAssertionAxiom ax = getOWLDataFactory().getAnnotationAssertion(getOntology().getIRI(), handler.getOWLObject());
+        OWLAnnotationAssertionAxiom ax = getOWLDataFactory().getOWLAnnotationAssertionAxiom(getOntology().getIRI(), handler.getOWLObject());
         try {
             getOWLOntologyManager().applyChange(new AddAxiom(getOntology(), ax));
         }

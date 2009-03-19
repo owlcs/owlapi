@@ -33,32 +33,32 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 
     public void testCreation() throws Exception {
         OWLClassExpression operand = getOWLDataFactory().getOWLClass(createURI());
-        OWLObjectComplementOf not = getOWLDataFactory().getObjectComplementOf(operand);
+        OWLObjectComplementOf not = getOWLDataFactory().getOWLObjectComplementOf(operand);
         assertNotNull(not);
     }
 
 
     public void testEqualsPositive() throws Exception {
         OWLClassExpression operand = getOWLDataFactory().getOWLClass(createURI());
-        OWLObjectComplementOf notA = getOWLDataFactory().getObjectComplementOf(operand);
-        OWLObjectComplementOf notB = getOWLDataFactory().getObjectComplementOf(operand);
+        OWLObjectComplementOf notA = getOWLDataFactory().getOWLObjectComplementOf(operand);
+        OWLObjectComplementOf notB = getOWLDataFactory().getOWLObjectComplementOf(operand);
         assertEquals(notA, notB);
     }
 
 
     public void testEqualsNegative() throws Exception {
         OWLClassExpression operandA = getOWLDataFactory().getOWLClass(createURI());
-        OWLObjectComplementOf notA = getOWLDataFactory().getObjectComplementOf(operandA);
+        OWLObjectComplementOf notA = getOWLDataFactory().getOWLObjectComplementOf(operandA);
         OWLClassExpression operandB = getOWLDataFactory().getOWLClass(createURI());
-        OWLObjectComplementOf notB = getOWLDataFactory().getObjectComplementOf(operandB);
+        OWLObjectComplementOf notB = getOWLDataFactory().getOWLObjectComplementOf(operandB);
         assertNotEquals(notA, notB);
     }
 
 
     public void testHashCode() throws Exception {
         OWLClassExpression operand = getOWLDataFactory().getOWLClass(createURI());
-        OWLObjectComplementOf notA = getOWLDataFactory().getObjectComplementOf(operand);
-        OWLObjectComplementOf notB = getOWLDataFactory().getObjectComplementOf(operand);
+        OWLObjectComplementOf notA = getOWLDataFactory().getOWLObjectComplementOf(operand);
+        OWLObjectComplementOf notB = getOWLDataFactory().getOWLObjectComplementOf(operand);
         assertEquals(notA.hashCode(), notB.hashCode());
     }
 }

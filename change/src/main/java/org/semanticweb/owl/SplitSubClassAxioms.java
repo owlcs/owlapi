@@ -65,7 +65,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
                 if (splitter.result.size() > 1) {
                     changes.add(new RemoveAxiom(ont, ax));
                     for (OWLClassExpression desc : splitter.result) {
-                        OWLAxiom replAx = getDataFactory().getSubClassOf(ax.getSubClass(), desc);
+                        OWLAxiom replAx = getDataFactory().getOWLSubClassOfAxiom(ax.getSubClass(), desc);
                         changes.add(new AddAxiom(ont, replAx));
                     }
                 }

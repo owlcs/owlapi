@@ -85,7 +85,7 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
                 descs.add(ax.getSuperClass());
             }
         }
-        OWLClassExpression equivalentClass = getDataFactory().getObjectIntersectionOf(descs);
+        OWLClassExpression equivalentClass = getDataFactory().getOWLObjectIntersectionOf(descs);
         Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>();
         equivalentClasses.add(cls);
         equivalentClasses.add(equivalentClass);

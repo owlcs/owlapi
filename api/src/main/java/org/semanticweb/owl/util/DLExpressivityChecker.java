@@ -618,7 +618,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         constructs.add(O);
     }
 

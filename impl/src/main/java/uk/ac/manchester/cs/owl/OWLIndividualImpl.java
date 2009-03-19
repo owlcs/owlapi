@@ -166,7 +166,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
 
     public Set<OWLIndividual> getSameIndividuals(OWLOntology ontology) {
         Set<OWLIndividual> result = new TreeSet<OWLIndividual>();
-        for (OWLSameIndividualsAxiom ax : ontology.getSameIndividualAxioms(this)) {
+        for (OWLSameIndividualAxiom ax : ontology.getSameIndividualAxioms(this)) {
             result.addAll(ax.getIndividuals());
         }
         result.remove(this);

@@ -138,8 +138,9 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
 
     public void visit(OWLAnnotationAssertionAxiom axiom) {
         hashCode = 47;
-        hashCode = hashCode * MULT + axiom.getSubject().hashCode() * 571;
-        hashCode = hashCode * MULT + axiom.getAnnotation().hashCode();
+        hashCode = hashCode * MULT + axiom.getSubject().hashCode();
+        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
+        hashCode = hashCode * MULT + axiom.getValue().hashCode();
     }
 
 
@@ -248,7 +249,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         hashCode = 137;
         hashCode = hashCode * MULT + axiom.getIndividuals().hashCode();
     }

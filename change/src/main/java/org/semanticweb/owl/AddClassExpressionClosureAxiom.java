@@ -98,9 +98,9 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
         if (fillers.isEmpty()) {
             return;
         }
-        OWLClassExpression closureAxiomFiller = getDataFactory().getObjectUnionOf(fillers);
-        OWLClassExpression closureAxiomDesc = getDataFactory().getObjectAllValuesFrom(property, closureAxiomFiller);
-        changes.add(new AddAxiom(targetOntology, getDataFactory().getSubClassOf(cls, closureAxiomDesc)));
+        OWLClassExpression closureAxiomFiller = getDataFactory().getOWLObjectUnionOf(fillers);
+        OWLClassExpression closureAxiomDesc = getDataFactory().getOWLObjectAllValuesFrom(property, closureAxiomFiller);
+        changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassOfAxiom(cls, closureAxiomDesc)));
     }
 
 
@@ -138,7 +138,7 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
 
         public void visit(OWLObjectHasValue desc) {
             if (desc.getProperty().equals(property)) {
-                fillers.add(getDataFactory().getObjectOneOf(CollectionFactory.createSet(desc.getValue())));
+                fillers.add(getDataFactory().getOWLObjectOneOf(CollectionFactory.createSet(desc.getValue())));
             }
         }
     }

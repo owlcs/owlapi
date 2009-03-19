@@ -50,6 +50,6 @@ public class OWLObjectComplementOfElementHandler extends AbstractClassExpression
         if (operand == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "class expression element");
         }
-        setClassExpression(getOWLDataFactory().getObjectComplementOf(operand));
+        setClassExpression(getOWLDataFactory().getOWLObjectComplementOf(operand));
     }
 }

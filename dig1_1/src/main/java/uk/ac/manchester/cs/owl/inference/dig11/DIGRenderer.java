@@ -124,7 +124,7 @@ public class DIGRenderer implements OWLObjectVisitor {
         popCurrentNode();
     }
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         // Render as pairwise equivalent isets
         for (OWLIndividual indA : axiom.getIndividuals()) {
             for (OWLIndividual indB : axiom.getIndividuals()) {

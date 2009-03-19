@@ -318,7 +318,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(OWLSameIndividualsAxiom axiom) {
+        public void visit(OWLSameIndividualAxiom axiom) {
             process(axiom);
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 ind.accept(this);

@@ -35,7 +35,7 @@ public class OWLOrTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLClas
 
 
     protected OWLObject createObject(Set<OWLClassExpression> operands) throws Exception {
-        return getOWLDataFactory().getObjectUnionOf(operands);
+        return getOWLDataFactory().getOWLObjectUnionOf(operands);
     }
 
 

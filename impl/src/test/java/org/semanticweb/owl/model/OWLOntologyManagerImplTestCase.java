@@ -60,8 +60,8 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
     public void testImports() throws Exception {
         OWLOntology ontA = manager.createOntology(TestUtils.createURI());
         OWLOntology ontB = manager.createOntology(TestUtils.createURI());
-        OWLImportsDeclaration decl = manager.getOWLDataFactory().getImportsDeclaration(ontA, ontB.getURI());
-        manager.applyChange(new AddAxiom(ontA, decl));
+        OWLImportsDeclaration decl = manager.getOWLDataFactory().getImportsDeclaration(ontB.getURI());
+        manager.applyChange(new AddImport(ontA, decl));
         assertTrue(manager.getImports(ontA).contains(ontB));
         manager.removeOntology(ontB);
         assertFalse(manager.getImports(ontA).contains(ontB));
@@ -72,10 +72,10 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
         OWLOntology ontA = manager.createOntology(TestUtils.createURI());
         OWLOntology ontB = manager.createOntology(TestUtils.createURI());
         OWLOntology ontC = manager.createOntology(TestUtils.createURI());
-        OWLImportsDeclaration declA = manager.getOWLDataFactory().getImportsDeclaration(ontA, ontB.getURI());
-        OWLImportsDeclaration declB = manager.getOWLDataFactory().getImportsDeclaration(ontB, ontC.getURI());
-        manager.applyChange(new AddAxiom(ontA, declA));
-        manager.applyChange(new AddAxiom(ontB, declB));
+        OWLImportsDeclaration declA = manager.getOWLDataFactory().getImportsDeclaration(ontB.getURI());
+        OWLImportsDeclaration declB = manager.getOWLDataFactory().getImportsDeclaration(ontC.getURI());
+        manager.applyChange(new AddImport(ontA, declA));
+        manager.applyChange(new AddImport(ontB, declB));
         assertTrue(manager.getImportsClosure(ontA).contains(ontA));
         assertTrue(manager.getImportsClosure(ontA).contains(ontB));
         assertTrue(manager.getImportsClosure(ontA).contains(ontC));

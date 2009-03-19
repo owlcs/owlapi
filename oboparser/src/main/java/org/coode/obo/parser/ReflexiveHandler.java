@@ -43,7 +43,7 @@ public class ReflexiveHandler extends AbstractTagValueHandler {
     public void handle(String id, String value) {
         if (Boolean.parseBoolean(value)) {
             OWLObjectProperty prop = getOWLObjectProperty(id);
-            OWLAxiom ax = getDataFactory().getReflexiveObjectProperty(prop);
+            OWLAxiom ax = getDataFactory().getOWLReflexiveObjectPropertyAxiom(prop);
             applyChange(new AddAxiom(getOntology(), ax));
         } else {
             addAnnotation(id, OBOVocabulary.IS_REFLEXIVE.getName(), getBooleanConstant(false));

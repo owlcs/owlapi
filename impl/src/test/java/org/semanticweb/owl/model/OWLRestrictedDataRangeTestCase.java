@@ -39,10 +39,10 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
     public void testCreation() throws Exception {
         OWLDatatype rng = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLTypedLiteral facetValue = getOWLDataFactory().getTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
+        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
                 createURI()));
         Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
-        OWLDatatypeRestriction restRng = getOWLDataFactory().getDatatypeRestriction(rng, restrictions);
+        OWLDatatypeRestriction restRng = getOWLDataFactory().getOWLDatatypeRestriction(rng, restrictions);
 
         assertNotNull(restRng);
     }
@@ -50,13 +50,13 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
     public void testEqualsPositive() throws Exception {
         OWLDatatype rng = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLTypedLiteral facetValue = getOWLDataFactory().getTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
+        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
                 createURI()));
         Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
 
-        OWLDatatypeRestriction restRngA = getOWLDataFactory().getDatatypeRestriction(rng,
+        OWLDatatypeRestriction restRngA = getOWLDataFactory().getOWLDatatypeRestriction(rng,
                 restrictions);
-        OWLDatatypeRestriction restRngB = getOWLDataFactory().getDatatypeRestriction(rng,
+        OWLDatatypeRestriction restRngB = getOWLDataFactory().getOWLDatatypeRestriction(rng,
                 restrictions);
         assertEquals(restRngA, restRngB);
     }
@@ -64,14 +64,14 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
     public void testEqualsNegative() throws Exception {
         OWLDatatype rng = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLTypedLiteral facetValue = getOWLDataFactory().getTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
+        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
                 createURI()));
         Set<OWLFacetRestriction> restrictionsA = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
         Set<OWLFacetRestriction> restrictionsB = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLFacet.MIN_INCLUSIVE, facetValue);
 
-        OWLDatatypeRestriction restRngA = getOWLDataFactory().getDatatypeRestriction(rng,
+        OWLDatatypeRestriction restRngA = getOWLDataFactory().getOWLDatatypeRestriction(rng,
                 restrictionsA);
-        OWLDatatypeRestriction restRngB = getOWLDataFactory().getDatatypeRestriction(rng,
+        OWLDatatypeRestriction restRngB = getOWLDataFactory().getOWLDatatypeRestriction(rng,
                 restrictionsB);
         assertNotEquals(restRngA, restRngB);
     }
@@ -79,12 +79,12 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
     public void testHashCode() throws Exception {
         OWLDatatype rng = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLTypedLiteral facetValue = getOWLDataFactory().getTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
+        OWLTypedLiteral facetValue = getOWLDataFactory().getOWLTypedLiteral("3", getOWLDataFactory().getOWLDatatype(
                 createURI()));
         Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getOWLDataFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
 
-        OWLDatatypeRestriction restRngA = getOWLDataFactory().getDatatypeRestriction(rng, restrictions);
-        OWLDatatypeRestriction restRngB = getOWLDataFactory().getDatatypeRestriction(rng, restrictions);
+        OWLDatatypeRestriction restRngA = getOWLDataFactory().getOWLDatatypeRestriction(rng, restrictions);
+        OWLDatatypeRestriction restRngB = getOWLDataFactory().getOWLDatatypeRestriction(rng, restrictions);
         assertEquals(restRngA.hashCode(), restRngB.hashCode());
     }
 }

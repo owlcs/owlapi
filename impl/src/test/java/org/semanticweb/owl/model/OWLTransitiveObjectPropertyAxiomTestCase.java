@@ -33,6 +33,6 @@ public class OWLTransitiveObjectPropertyAxiomTestCase extends AbstractOWLObjectP
 
 
     protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) throws OWLException {
-        return getOWLDataFactory().getTransitiveObjectProperty(property);
+        return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(property);
     }
 }

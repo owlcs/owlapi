@@ -39,6 +39,6 @@ public class OWLDisjointDataPropertiesAxiomElementHandler extends AbstractOWLDat
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getDisjointDataProperties(getOperands());
+        return getOWLDataFactory().getOWLDisjointDataPropertiesAxiom(getOperands());
     }
 }

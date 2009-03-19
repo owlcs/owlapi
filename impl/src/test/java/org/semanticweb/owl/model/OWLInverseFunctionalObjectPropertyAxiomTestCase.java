@@ -33,6 +33,6 @@ public class OWLInverseFunctionalObjectPropertyAxiomTestCase extends AbstractOWL
 
 
     protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) throws OWLException {
-        return getOWLDataFactory().getInverseFunctionalObjectProperty(property);
+        return getOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(property);
     }
 }

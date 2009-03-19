@@ -49,6 +49,6 @@ public class DataHasValueTranslator extends AbstractDataRestrictionTranslator {
         if (con == null) {
             throw new MalformedClassExpressionException(OWLRDFVocabulary.OWL_HAS_VALUE.getURI() + " triple is not present");
         }
-        return getDataFactory().getDataHasValue(translateOnProperty(mainNode), con);
+        return getDataFactory().getOWLDataHasValue(translateOnProperty(mainNode), con);
     }
 }

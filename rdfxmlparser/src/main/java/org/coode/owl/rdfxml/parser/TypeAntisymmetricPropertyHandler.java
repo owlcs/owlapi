@@ -47,7 +47,7 @@ public class TypeAntisymmetricPropertyHandler extends BuiltInTypeHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         getConsumer().addOWLObjectProperty(subject);
-        addAxiom(getDataFactory().getAsymmetricObjectProperty(translateObjectProperty(subject)));
+        addAxiom(getDataFactory().getOWLAsymmetricObjectPropertyAxiom(translateObjectProperty(subject)));
         consumeTriple(subject, predicate, object);
     }
 }

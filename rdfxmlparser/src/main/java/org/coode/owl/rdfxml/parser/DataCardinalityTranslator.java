@@ -46,7 +46,7 @@ public class DataCardinalityTranslator extends AbstractDataCardinalityTranslator
 
     protected OWLClassExpression createRestriction(OWLDataPropertyExpression prop, int cardi, OWLDataRange filler) throws
             OWLException {
-        return getDataFactory().getDataExactCardinality(prop, cardi, filler);
+        return getDataFactory().getOWLDataExactCardinality(prop, cardi, filler);
     }
 
 

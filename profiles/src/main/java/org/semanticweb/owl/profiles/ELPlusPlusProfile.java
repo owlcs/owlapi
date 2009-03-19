@@ -336,7 +336,7 @@ public class ELPlusPlusProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLSameIndividualsAxiom axiom) {
+        public ConstructNotAllowed visit(OWLSameIndividualAxiom axiom) {
             return new AxiomNotAllowed(axiom);
         }
 

@@ -38,12 +38,12 @@ public class OWLImportsClosureTestCase extends AbstractOWLTestCase {
         OWLOntology ontA = getOWLOntologyManager().createOntology(TestUtils.createURI());
         OWLOntology ontB = getOWLOntologyManager().createOntology(TestUtils.createURI());
         assertTrue(getOWLOntologyManager().getImportsClosure(ontA).contains(ontA));
-        OWLImportsDeclaration importsDeclaration = getOWLDataFactory().getImportsDeclaration(ontA, ontB.getURI());
-        getOWLOntologyManager().applyChange(new AddAxiom(ontA, importsDeclaration));
+        OWLImportsDeclaration importsDeclaration = getOWLDataFactory().getImportsDeclaration(ontB.getURI());
+        getOWLOntologyManager().applyChange(new AddImport(ontA, importsDeclaration));
         assertTrue(getOWLOntologyManager().getImportsClosure(ontA).contains(ontB));
-        getOWLOntologyManager().applyChange(new RemoveAxiom(ontA, importsDeclaration));
+        getOWLOntologyManager().applyChange(new AddImport(ontA, importsDeclaration));
         assertFalse(getOWLOntologyManager().getImportsClosure(ontA).contains(ontB));
-        getOWLOntologyManager().applyChange(new AddAxiom(ontA, importsDeclaration));
+        getOWLOntologyManager().applyChange(new AddImport(ontA, importsDeclaration));
         assertTrue(getOWLOntologyManager().getImportsClosure(ontA).contains(ontB));
         getOWLOntologyManager().removeOntology(ontB);
         assertFalse(getOWLOntologyManager().getImportsClosure(ontA).contains(ontB));

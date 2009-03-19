@@ -106,7 +106,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
 
 
     public OWLClassExpression getComplementNNF() {
-        return getOWLDataFactory().getObjectComplementOf(this);
+        return getOWLDataFactory().getOWLObjectComplementOf(this);
     }
 
 

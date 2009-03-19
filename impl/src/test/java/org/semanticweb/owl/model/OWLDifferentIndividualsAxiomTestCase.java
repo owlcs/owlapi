@@ -35,7 +35,7 @@ public class OWLDifferentIndividualsAxiomTestCase extends AbstractOWLNaryOperand
 
 
     protected OWLObject createObject(Set<OWLIndividual> operands) throws Exception {
-        return getOWLDataFactory().getDifferentIndividuals(operands);
+        return getOWLDataFactory().getOWLDifferentIndividualsAxiom(operands);
     }
 
 

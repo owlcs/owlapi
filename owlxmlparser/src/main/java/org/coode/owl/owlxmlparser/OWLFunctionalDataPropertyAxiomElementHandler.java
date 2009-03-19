@@ -48,6 +48,6 @@ public class OWLFunctionalDataPropertyAxiomElementHandler extends AbstractOWLPro
         if (getProperty() == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected data property element");
         }
-        return getOWLDataFactory().getFunctionalDataProperty(getProperty());
+        return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(getProperty());
     }
 }

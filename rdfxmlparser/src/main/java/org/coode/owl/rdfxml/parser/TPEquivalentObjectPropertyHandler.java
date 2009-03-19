@@ -54,7 +54,7 @@ public class TPEquivalentObjectPropertyHandler extends TriplePredicateHandler {
         Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
         properties.add(translateObjectProperty(subject));
         properties.add(translateObjectProperty(object));
-        addAxiom(getDataFactory().getEquivalentObjectProperties(properties));
+        addAxiom(getDataFactory().getOWLEquivalentObjectPropertiesAxiom(properties));
         consumeTriple(subject, predicate, object);
     }
 }

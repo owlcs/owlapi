@@ -48,7 +48,7 @@ public class TypeNegativeObjectPropertyAssertionHandler extends AbstractTypeAxio
     protected OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject, URI objectTripleObject, Set<OWLAnnotation> annotations) throws
             OWLException {
 
-        return getDataFactory().getNegativeObjectPropertyAssertion(
+        return getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(
                 translateIndividual(subjectTripleObject),
                 translateObjectProperty(predicateTripleObject),
                 translateIndividual(objectTripleObject)

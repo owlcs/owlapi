@@ -671,7 +671,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //
 //        public Set<ConstructNotAllowed> visit(OWLAnnotationAssertionAxiom axiom) {
-//            Set<ConstructNotAllowed> na = axiom.getAnnotation().accept(this);
+//            Set<ConstructNotAllowed> na = axiom.getOWLAnnotation().accept(this);
 //            if (!na.isEmpty()) {
 //                return getSet(new AxiomNotAllowed(na, axiom));
 //            } else {

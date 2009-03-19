@@ -124,7 +124,7 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         } else {
             OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getURIFromValue(id0));
             OWLClass filler = getDataFactory().getOWLClass(getURIFromValue(id1));
-            return getDataFactory().getObjectSomeValuesFrom(prop, filler);
+            return getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
         }
     }
 
@@ -135,10 +135,10 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
 
     protected OWLLiteral getBooleanConstant(Boolean b) {
         if (b) {
-            return getDataFactory().getTypedLiteral("true",
+            return getDataFactory().getOWLTypedLiteral("true",
                     getDataFactory().getOWLDatatype(XSDVocabulary.BOOLEAN.getURI()));
         } else {
-            return getDataFactory().getTypedLiteral("false",
+            return getDataFactory().getOWLTypedLiteral("false",
                     getDataFactory().getOWLDatatype(XSDVocabulary.BOOLEAN.getURI()));
         }
     }

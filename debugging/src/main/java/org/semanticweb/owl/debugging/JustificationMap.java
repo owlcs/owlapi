@@ -394,7 +394,7 @@ public class JustificationMap {
         }
 
 
-        public void visit(OWLSameIndividualsAxiom axiom) {
+        public void visit(OWLSameIndividualAxiom axiom) {
             rhs.addAll(axiom.getIndividuals());
             lhs.addAll(axiom.getIndividuals());
         }

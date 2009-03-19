@@ -51,8 +51,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
     public void render(OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLRendererException {
         try {
             OWLOntologyNamespaceManager nsm = new OWLOntologyNamespaceManager(getOWLOntologyManager(), ontology);
-            nsm.setDefaultNamespace(Namespaces.OWL2XML.toString());
-            nsm.setPrefix("owl2xml", Namespaces.OWL2XML.toString());
+            nsm.setDefaultNamespace(Namespaces.OWL.toString());
             if(format instanceof NamespaceOWLOntologyFormat) {
                 NamespaceOWLOntologyFormat namespaceFormat = (NamespaceOWLOntologyFormat) format;
                 for(String prefix : namespaceFormat.getNamespacesByPrefixMap().keySet()) {
@@ -65,6 +64,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
                     nsm.setDefaultNamespace(namespaceFormat.getDefaultNamespace());
                 }
             }
+            nsm.setPrefix("xml", Namespaces.XML.toString());
             OWLXMLWriter w = new OWLXMLWriter(writer, nsm, ontology);
             w.startDocument(ontology);
             OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(ontology, w);

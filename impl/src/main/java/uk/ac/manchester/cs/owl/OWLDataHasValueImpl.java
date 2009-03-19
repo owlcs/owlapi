@@ -47,7 +47,7 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLDataProperty
 
 
     public OWLClassExpression asSomeValuesFrom() {
-        return getOWLDataFactory().getDataSomeValuesFrom(getProperty(), getOWLDataFactory().getOWLDataOneOf(getValue()));
+        return getOWLDataFactory().getOWLDataSomeValuesFrom(getProperty(), getOWLDataFactory().getOWLDataOneOf(getValue()));
     }
 
 

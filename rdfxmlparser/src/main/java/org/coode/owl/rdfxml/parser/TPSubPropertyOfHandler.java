@@ -55,13 +55,13 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
             // Property chain
             URI chainList = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getURI(), true);
             List<OWLObjectPropertyExpression> properties = getConsumer().translateToObjectPropertyList(chainList);
-            addAxiom(getDataFactory().getSubPropertyChainOf(properties,
+            addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(properties,
                     translateObjectProperty(object)));
             consumeTriple(subject, predicate, object);
         } else if (getConsumer().isList(subject, false)) {
             // Legacy object property chain representation
             List<OWLObjectPropertyExpression> properties = getConsumer().translateToObjectPropertyList(subject);
-            addAxiom(getDataFactory().getSubPropertyChainOf(properties,
+            addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(properties,
                     translateObjectProperty(object)));
             consumeTriple(subject, predicate, object);
         }
@@ -104,7 +104,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
 
     private void translateSubObjectProperty(URI subject, URI predicate, URI object) throws OWLException {
         // Object - object
-        addAxiom(getDataFactory().getSubObjectPropertyOf(translateObjectProperty(subject),
+        addAxiom(getDataFactory().getOWLSubObjectPropertyOfAxiom(translateObjectProperty(subject),
                 translateObjectProperty(object)));
         consumeTriple(subject, predicate, object);
     }
@@ -112,7 +112,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
 
     private void translateSubDataProperty(URI subject, URI predicate, URI object) throws OWLException {
         // Data - Data
-        addAxiom(getDataFactory().getSubDataPropertyOf(translateDataProperty(subject),
+        addAxiom(getDataFactory().getOWLSubDataPropertyOfAxiom(translateDataProperty(subject),
                 translateDataProperty(object)));
         consumeTriple(subject, predicate, object);
     }

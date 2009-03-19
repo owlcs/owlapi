@@ -90,7 +90,7 @@ public class OWLDataUtil {
     }
 
     public static Set<OWLFacetRestriction> getFacetRestrictionSet(OWLDataFactory dataFactory, OWLFacet facet, OWLTypedLiteral facetValue) {
-        return Collections.singleton(dataFactory.getFacetRestriction(facet, facetValue));
+        return Collections.singleton(dataFactory.getOWLFacetRestriction(facet, facetValue));
     }
 
     /**
@@ -101,30 +101,30 @@ public class OWLDataUtil {
      *         corresponds to the translation of the specified number.
      */
     public static <N extends Number> OWLTypedLiteral getTypedConstant(OWLDataFactory dataFactory, N val) {
-        return dataFactory.getTypedLiteral(val.toString(), getDatatype(dataFactory, val));
+        return dataFactory.getOWLTypedLiteral(val.toString(), getDatatype(dataFactory, val));
     }
 
 
     public static <N extends Number> OWLDataRange getMinInclusiveRestrictedInt(OWLDataFactory dataFactory, N minInclusive) {
-        return dataFactory.getDatatypeRestriction(getDatatype(dataFactory, minInclusive),
+        return dataFactory.getOWLDatatypeRestriction(getDatatype(dataFactory, minInclusive),
                 getFacetRestrictionSet(dataFactory, OWLFacet.MIN_INCLUSIVE,
                         getTypedConstant(dataFactory, minInclusive)));
     }
 
     public static <N extends Number> OWLDataRange getMinExclusiveRestrictedInt(OWLDataFactory dataFactory, N minExclusive) {
-        return dataFactory.getDatatypeRestriction(getDatatype(dataFactory, minExclusive),
+        return dataFactory.getOWLDatatypeRestriction(getDatatype(dataFactory, minExclusive),
                 getFacetRestrictionSet(dataFactory, OWLFacet.MIN_EXCLUSIVE,
                         getTypedConstant(dataFactory, minExclusive)));
     }
 
     public static <N extends Number> OWLDataRange getMaxInclusiveRestrictedInteger(OWLDataFactory dataFactory, N maxInclusive) {
-        return dataFactory.getDatatypeRestriction(getDatatype(dataFactory, maxInclusive),
+        return dataFactory.getOWLDatatypeRestriction(getDatatype(dataFactory, maxInclusive),
                 getFacetRestrictionSet(dataFactory, OWLFacet.MAX_INCLUSIVE,
                         getTypedConstant(dataFactory, maxInclusive)));
     }
 
     public static <N extends Number> OWLDataRange getMaxExclusiveRestrictedInteger(OWLDataFactory dataFactory, N maxExclusive) {
-        return dataFactory.getDatatypeRestriction(getDatatype(dataFactory, maxExclusive),
+        return dataFactory.getOWLDatatypeRestriction(getDatatype(dataFactory, maxExclusive),
                 getFacetRestrictionSet(dataFactory,
                         OWLFacet.MAX_EXCLUSIVE,
                         getTypedConstant(dataFactory, maxExclusive)));
@@ -133,23 +133,23 @@ public class OWLDataUtil {
     public static <N extends Number> OWLDataRange getMinMaxInclusiveRestrictedInteger(OWLDataFactory dataFactory, N minInclusive, N maxInclusive) {
         OWLDatatype dr = getDatatype(dataFactory, minInclusive);
         Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
-        facetRestrictions.add(dataFactory.getFacetRestriction(OWLFacet.MIN_INCLUSIVE,
+        facetRestrictions.add(dataFactory.getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE,
                 getTypedConstant(dataFactory, minInclusive)));
-        facetRestrictions.add(dataFactory.getFacetRestriction(OWLFacet.MAX_INCLUSIVE,
+        facetRestrictions.add(dataFactory.getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE,
                 getTypedConstant(dataFactory, maxInclusive)));
 
-        return dataFactory.getDatatypeRestriction(dr, facetRestrictions);
+        return dataFactory.getOWLDatatypeRestriction(dr, facetRestrictions);
     }
 
     public static <N extends Number> OWLDataRange getMinMaxExclusiveRestrictedInteger(OWLDataFactory dataFactory, N minExclusive, N maxExclusive) {
         OWLDatatype dr = getDatatype(dataFactory, minExclusive);
         Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
-        facetRestrictions.add(dataFactory.getFacetRestriction(OWLFacet.MIN_EXCLUSIVE,
+        facetRestrictions.add(dataFactory.getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE,
                 getTypedConstant(dataFactory, minExclusive)));
-        facetRestrictions.add(dataFactory.getFacetRestriction(OWLFacet.MAX_EXCLUSIVE,
+        facetRestrictions.add(dataFactory.getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE,
                 getTypedConstant(dataFactory, maxExclusive)));
 
-        return dataFactory.getDatatypeRestriction(dr, facetRestrictions);
+        return dataFactory.getOWLDatatypeRestriction(dr, facetRestrictions);
     }
 
 

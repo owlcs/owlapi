@@ -48,7 +48,7 @@ public class IntersectionOfTranslator extends AbstractNaryBooleanClassExpression
     }
 
     protected OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) throws OWLException {
-        return getDataFactory().getObjectIntersectionOf(operands);
+        return getDataFactory().getOWLObjectIntersectionOf(operands);
     }
 
 

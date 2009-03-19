@@ -47,7 +47,7 @@ public class UnionOfTranslator extends AbstractNaryBooleanClassExpressionTransla
 
 
     protected OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) throws OWLException {
-        return getDataFactory().getObjectUnionOf(operands);
+        return getDataFactory().getOWLObjectUnionOf(operands);
     }
 
 

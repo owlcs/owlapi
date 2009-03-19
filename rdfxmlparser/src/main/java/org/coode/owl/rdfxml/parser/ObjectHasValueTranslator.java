@@ -52,6 +52,6 @@ public class ObjectHasValueTranslator extends AbstractObjectRestrictionTranslato
         if (!ind.isAnonymous()) {
             getConsumer().addIndividual(((OWLNamedIndividual) ind).getURI());
         }
-        return getDataFactory().getObjectHasValue(prop, ind);
+        return getDataFactory().getOWLObjectHasValue(prop, ind);
     }
 }

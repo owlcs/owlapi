@@ -44,7 +44,7 @@ public class InferredInverseObjectPropertiesAxiomGenerator extends InferredObjec
     protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLInverseObjectPropertiesAxiom> result) throws
             OWLReasonerException {
         for (OWLObjectProperty prop : OWLReasonerAdapter.flattenSetOfSets(reasoner.getInverseProperties(entity))) {
-            result.add(dataFactory.getInverseObjectProperties(entity, prop));
+            result.add(dataFactory.getOWLInverseObjectPropertiesAxiom(entity, prop));
         }
     }
 

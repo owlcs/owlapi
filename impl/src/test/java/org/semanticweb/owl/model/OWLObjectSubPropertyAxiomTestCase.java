@@ -42,6 +42,6 @@ public class OWLObjectSubPropertyAxiomTestCase extends AbstractOWLBinaryOperandA
 
 
     protected OWLAxiom createAxiom(OWLObjectProperty leftOperand, OWLObjectProperty rightOperand) throws Exception {
-        return getOWLDataFactory().getSubObjectPropertyOf(leftOperand, rightOperand);
+        return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(leftOperand, rightOperand);
     }
 }

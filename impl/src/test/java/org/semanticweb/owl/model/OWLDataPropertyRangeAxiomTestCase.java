@@ -42,6 +42,6 @@ public class OWLDataPropertyRangeAxiomTestCase extends AbstractOWLBinaryOperandA
 
 
     protected OWLAxiom createAxiom(OWLDataProperty leftOperand, OWLDataRange rightOperand) throws Exception {
-        return getOWLDataFactory().getDataPropertyRange(leftOperand, rightOperand);
+        return getOWLDataFactory().getOWLDataPropertyRangeAxiom(leftOperand, rightOperand);
     }
 }

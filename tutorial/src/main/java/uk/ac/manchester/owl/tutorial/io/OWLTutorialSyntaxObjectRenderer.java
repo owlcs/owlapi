@@ -529,7 +529,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         writePropertyCharacteristic("reflexive", axiom, axiom.getProperty());
     }
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         write(axiom.getIndividuals(), keyword("="));
     }
 

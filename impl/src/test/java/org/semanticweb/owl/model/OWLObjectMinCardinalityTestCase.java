@@ -32,12 +32,12 @@ package org.semanticweb.owl.model;
 public class OWLObjectMinCardinalityTestCase extends AbstractOWLObjectCardinalityRestrictionTestCase {
 
     protected OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop, int cardinality) throws Exception {
-        return getOWLDataFactory().getObjectMinCardinality(prop, cardinality);
+        return getOWLDataFactory().getOWLObjectMinCardinality(prop, cardinality);
     }
 
 
     protected OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop, int cardinality,
                                                                 OWLClassExpression classExpression) throws Exception {
-        return getOWLDataFactory().getObjectMinCardinality(prop, cardinality, classExpression);
+        return getOWLDataFactory().getOWLObjectMinCardinality(prop, cardinality, classExpression);
     }
 }

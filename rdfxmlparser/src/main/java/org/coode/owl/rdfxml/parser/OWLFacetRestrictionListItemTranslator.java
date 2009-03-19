@@ -1,6 +1,5 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLObject;
 import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLFacetRestriction;
@@ -49,7 +48,7 @@ public class OWLFacetRestrictionListItemTranslator implements ListItemTranslator
         for(OWLFacet facet : OWLFacet.values()) {
             OWLLiteral lit = consumer.getLiteralObject(firstObject, facet.getURI(), true);
             if(lit != null) {
-                return consumer.getDataFactory().getFacetRestriction(facet, lit);
+                return consumer.getDataFactory().getOWLFacetRestriction(facet, lit);
             }
         }
         return null;

@@ -517,7 +517,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        df.getDataMaxCardinality(axiom.getProperty(), 1).accept(this);
+        df.getOWLDataMaxCardinality(axiom.getProperty(), 1).accept(this);
     }
 
 
@@ -526,7 +526,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        df.getObjectMaxCardinality(axiom.getProperty(), 1).accept(this);
+        df.getOWLObjectMaxCardinality(axiom.getProperty(), 1).accept(this);
     }
 
 
@@ -540,7 +540,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         write(SUBCLASS);
         writeSpace();
         OWLObjectPropertyExpression prop = df.getOWLObjectPropertyInverse(axiom.getProperty());
-        df.getObjectMaxCardinality(prop, 1).accept(this);
+        df.getOWLObjectMaxCardinality(prop, 1).accept(this);
     }
 
 
@@ -607,7 +607,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        df.getObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing()).accept(this);
+        df.getOWLObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing()).accept(this);
         writeSpace();
         write(SUBCLASS);
         writeSpace();
@@ -620,7 +620,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        df.getObjectAllValuesFrom(axiom.getProperty(), axiom.getRange()).accept(this);
+        df.getOWLObjectAllValuesFrom(axiom.getProperty(), axiom.getRange()).accept(this);
     }
 
 
@@ -637,7 +637,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         for (Iterator<OWLIndividual> it = axiom.getIndividuals().iterator(); it.hasNext();) {
             write("\\{");
             it.next().accept(this);

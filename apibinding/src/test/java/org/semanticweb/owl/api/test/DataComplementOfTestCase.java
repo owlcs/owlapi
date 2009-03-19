@@ -35,10 +35,10 @@ public class DataComplementOfTestCase extends AbstractFileRoundTrippingTestCase 
 
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLDataRange intdr = getFactory().getIntegerDatatype();
-        OWLDataRange complement = getFactory().getDataComplementOf(intdr);
+        OWLDataRange intdr = getFactory().getIntegerOWLDatatype();
+        OWLDataRange complement = getFactory().getOWLDataComplementOf(intdr);
         OWLDataProperty p = getOWLDataProperty("p");
-        OWLDataPropertyRangeAxiom ax = getFactory().getDataPropertyRange(p, complement);
+        OWLDataPropertyRangeAxiom ax = getFactory().getOWLDataPropertyRangeAxiom(p, complement);
         axioms.add(ax);
         axioms.add(getFactory().getOWLDeclarationAxiom(p));
         assertEquals(getOnt().getAxioms(), axioms);

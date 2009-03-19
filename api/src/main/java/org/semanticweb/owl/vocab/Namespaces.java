@@ -31,7 +31,7 @@ package org.semanticweb.owl.vocab;
  */
 public enum Namespaces {
 
-    OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
+//    OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
 
     /**
      * The OWL 2 namespace is here for legacy reasons.
@@ -54,7 +54,7 @@ public enum Namespaces {
 
     XSD("http://www.w3.org/2001/XMLSchema#"),
 
-    XML("http://www.w3.org/XML/1998/namespace"),
+    XML("http://www.w3.org/XML/1998/namespace/"),
 
     SWRL("http://www.w3.org/2003/11/swrl#"),
 

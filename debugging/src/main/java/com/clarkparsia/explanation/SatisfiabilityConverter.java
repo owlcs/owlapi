@@ -51,12 +51,12 @@ public class SatisfiabilityConverter {
 
 
         private OWLObjectIntersectionOf and(OWLClassExpression desc1, OWLClassExpression desc2) {
-            return factory.getObjectIntersectionOf(set(desc1, desc2));
+            return factory.getOWLObjectIntersectionOf(set(desc1, desc2));
         }
 
 
         private OWLObjectIntersectionOf and(Set<OWLClassExpression> set) {
-            return factory.getObjectIntersectionOf(set);
+            return factory.getOWLObjectIntersectionOf(set);
         }
 
 
@@ -66,17 +66,17 @@ public class SatisfiabilityConverter {
 
 
         private OWLObjectComplementOf not(OWLClassExpression desc) {
-            return factory.getObjectComplementOf(desc);
+            return factory.getOWLObjectComplementOf(desc);
         }
 
 
         private OWLObjectOneOf oneOf(OWLIndividual ind) {
-            return factory.getObjectOneOf(Collections.singleton(ind));
+            return factory.getOWLObjectOneOf(Collections.singleton(ind));
         }
 
 
         private OWLObjectUnionOf or(OWLClassExpression desc1, OWLClassExpression desc2) {
-            return factory.getObjectUnionOf(set(desc1, desc2));
+            return factory.getOWLObjectUnionOf(set(desc1, desc2));
         }
 
 
@@ -109,21 +109,21 @@ public class SatisfiabilityConverter {
 
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
-            OWLClassExpression sup = factory.getDataHasValue(axiom.getProperty(), axiom.getObject());
-            OWLSubClassOfAxiom ax = factory.getSubClassOf(sub, sup);
+            OWLClassExpression sup = factory.getOWLDataHasValue(axiom.getProperty(), axiom.getObject());
+            OWLSubClassOfAxiom ax = factory.getOWLSubClassOfAxiom(sub, sup);
             ax.accept(this);
         }
 
 
         public void visit(OWLDataPropertyDomainAxiom axiom) {
-            OWLClassExpression sub = factory.getDataSomeValuesFrom(axiom.getProperty(), factory.getTopDatatype());
+            OWLClassExpression sub = factory.getOWLDataSomeValuesFrom(axiom.getProperty(), factory.getTopDatatype());
             result = and(sub, not(axiom.getDomain()));
         }
 
 
         public void visit(OWLDataPropertyRangeAxiom axiom) {
-            result = factory.getDataSomeValuesFrom(axiom.getProperty(),
-                    factory.getDataComplementOf(axiom.getRange()));
+            result = factory.getOWLDataSomeValuesFrom(axiom.getProperty(),
+                    factory.getOWLDataComplementOf(axiom.getRange()));
         }
 
 
@@ -142,7 +142,7 @@ public class SatisfiabilityConverter {
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 nominals.add(oneOf(ind));
             }
-            result = factory.getObjectIntersectionOf(nominals);
+            result = factory.getOWLObjectIntersectionOf(nominals);
         }
 
 
@@ -235,22 +235,22 @@ public class SatisfiabilityConverter {
 
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
-            OWLClassExpression sup = factory.getDataHasValue(axiom.getProperty(), axiom.getObject());
-            factory.getSubClassOf(sub, not(sup)).accept(this);
+            OWLClassExpression sup = factory.getOWLDataHasValue(axiom.getProperty(), axiom.getObject());
+            factory.getOWLSubClassOfAxiom(sub, not(sup)).accept(this);
         }
 
 
         public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
-            OWLClassExpression sup = factory.getObjectHasValue(axiom.getProperty(), axiom.getObject());
-            factory.getSubClassOf(sub, not(sup)).accept(this);
+            OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(), axiom.getObject());
+            factory.getOWLSubClassOfAxiom(sub, not(sup)).accept(this);
         }
 
 
         public void visit(OWLObjectPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
-            OWLClassExpression sup = factory.getObjectHasValue(axiom.getProperty(), axiom.getObject());
-            OWLSubClassOfAxiom ax = factory.getSubClassOf(sub, sup);
+            OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(), axiom.getObject());
+            OWLSubClassOfAxiom ax = factory.getOWLSubClassOfAxiom(sub, sup);
             ax.accept(this);
         }
 
@@ -261,13 +261,13 @@ public class SatisfiabilityConverter {
 
 
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
-            result = and(factory.getObjectSomeValuesFrom(axiom.getProperty(), factory.getOWLThing()),
+            result = and(factory.getOWLObjectSomeValuesFrom(axiom.getProperty(), factory.getOWLThing()),
                     not(axiom.getDomain()));
         }
 
 
         public void visit(OWLObjectPropertyRangeAxiom axiom) {
-            result = factory.getObjectSomeValuesFrom(axiom.getProperty(), not(axiom.getRange()));
+            result = factory.getOWLObjectSomeValuesFrom(axiom.getProperty(), not(axiom.getRange()));
         }
 
 
@@ -280,7 +280,7 @@ public class SatisfiabilityConverter {
         }
 
 
-        public void visit(OWLSameIndividualsAxiom axiom) {
+        public void visit(OWLSameIndividualAxiom axiom) {
             Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 nominals.add(not(oneOf(ind)));

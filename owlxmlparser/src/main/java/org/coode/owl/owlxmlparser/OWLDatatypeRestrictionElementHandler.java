@@ -49,7 +49,7 @@ public class OWLDatatypeRestrictionElementHandler extends AbstractOWLDataRangeHa
 
 
     protected void endDataRangeElement() {
-        setDataRange(getOWLDataFactory().getDatatypeRestriction(restrictedDataRange, facetRestrictions));
+        setDataRange(getOWLDataFactory().getOWLDatatypeRestriction(restrictedDataRange, facetRestrictions));
     }
 
 

@@ -39,6 +39,6 @@ public class OWLReflexiveObjectPropertyAxiomElementHandler extends AbstractOWLOb
 
 
     protected OWLAxiom createPropertyCharacteristicAxiom() {
-        return getOWLDataFactory().getReflexiveObjectProperty(getProperty());
+        return getOWLDataFactory().getOWLReflexiveObjectPropertyAxiom(getProperty());
     }
 }

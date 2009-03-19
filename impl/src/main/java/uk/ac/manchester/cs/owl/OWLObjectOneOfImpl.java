@@ -40,7 +40,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     private Set<OWLIndividual> values;
 
 
-    public OWLObjectOneOfImpl(OWLDataFactory dataFactory, Set<OWLIndividual> values) {
+    public OWLObjectOneOfImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> values) {
         super(dataFactory);
         this.values = new HashSet<OWLIndividual>(values);
     }
@@ -62,9 +62,9 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
         } else {
             Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : values) {
-                ops.add(getOWLDataFactory().getObjectOneOf(ind));
+                ops.add(getOWLDataFactory().getOWLObjectOneOf(ind));
             }
-            return getOWLDataFactory().getObjectUnionOf(ops);
+            return getOWLDataFactory().getOWLObjectUnionOf(ops);
         }
     }
 

@@ -51,7 +51,7 @@ public class TPDistinctMembersHandler extends TriplePredicateHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         Set<OWLIndividual> inds = getConsumer().translateToIndividualSet(object);
-        addAxiom(getDataFactory().getDifferentIndividuals(inds));
+        addAxiom(getDataFactory().getOWLDifferentIndividualsAxiom(inds));
         consumeTriple(subject, predicate, object);
     }
 }

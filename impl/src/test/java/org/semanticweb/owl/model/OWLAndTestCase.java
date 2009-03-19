@@ -34,7 +34,7 @@ import java.util.Set;
 public class OWLAndTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLClassExpression> {
 
     protected OWLObject createObject(Set<OWLClassExpression> objects) throws Exception {
-        return getOWLDataFactory().getObjectIntersectionOf(objects);
+        return getOWLDataFactory().getOWLObjectIntersectionOf(objects);
     }
 
 

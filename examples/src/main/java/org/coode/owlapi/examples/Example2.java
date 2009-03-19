@@ -79,7 +79,7 @@ public class Example2 {
             OWLClass clsA = factory.getOWLClass(URI.create(ontologyURI + "#A"));
             OWLClass clsB = factory.getOWLClass(URI.create(ontologyURI + "#B"));
             // Now create the axiom
-            OWLAxiom axiom = factory.getSubClassOf(clsA, clsB);
+            OWLAxiom axiom = factory.getOWLSubClassOfAxiom(clsA, clsB);
             // We now add the axiom to the ontology, so that the ontology states that
             // A is a subclass of B.  To do this we create an AddAxiom change object.
             AddAxiom addAxiom = new AddAxiom(ontology, axiom);

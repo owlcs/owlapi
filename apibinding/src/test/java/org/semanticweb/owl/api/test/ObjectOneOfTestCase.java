@@ -42,7 +42,7 @@ public class ObjectOneOfTestCase extends AbstractFileRoundTrippingTestCase {
          OWLClass clsA = getOWLClass("A");
          OWLNamedIndividual indA = getOWLIndividual("a");
          OWLNamedIndividual indB = getOWLIndividual("b");
-         axioms.add(getFactory().getSubClassOf(clsA, getFactory().getObjectOneOf(indA, indB)));
+         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectOneOf(indA, indB)));
          assertEquals(getOnt().getAxioms(), axioms);
     }
 

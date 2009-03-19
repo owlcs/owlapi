@@ -55,7 +55,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     private Map<URI, OWLAnnotationProperty> annotationPropertiesByURI;
 
 
-    public OWLDataFactoryImpl() {
+    private OWLDataFactoryImpl() {
         classesByURI = new HashMap<URI, OWLClass>();
         objectPropertiesByURI = new HashMap<URI, OWLObjectProperty>();
         dataPropertiesByURI = new HashMap<URI, OWLDataProperty>();
@@ -133,22 +133,22 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDatatype getIntegerDatatype() {
+    public OWLDatatype getIntegerOWLDatatype() {
         return getOWLDatatype(XSDVocabulary.INTEGER.getURI());
     }
 
 
-    public OWLDatatype getFloatDatatype() {
+    public OWLDatatype getFloatOWLDatatype() {
         return getOWLDatatype(XSDVocabulary.FLOAT.getURI());
     }
 
 
-    public OWLDatatype getDoubleDatatype() {
+    public OWLDatatype getDoubleOWLDatatype() {
         return getOWLDatatype(XSDVocabulary.DOUBLE.getURI());
     }
 
 
-    public OWLDatatype getBooleanDatatype() {
+    public OWLDatatype getBooleanOWLDatatype() {
         return getOWLDatatype(XSDVocabulary.BOOLEAN.getURI());
     }
 
@@ -201,7 +201,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLAnonymousIndividual getAnonymousIndividual(String id) {
+    public OWLAnonymousIndividual getOWLAnonymousIndividual(String id) {
         return new OWLAnonymousIndividualImpl(this, new NodeIDImpl(id));
     }
 
@@ -216,33 +216,33 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLTypedLiteral getTypedLiteral(String literal,
+    public OWLTypedLiteral getOWLTypedLiteral(String literal,
                                            OWLDatatype datatype) {
         return new OWLTypedLiteralImpl(this, literal, datatype);
     }
 
 
-    public OWLTypedLiteral getTypedLiteral(int value) {
+    public OWLTypedLiteral getOWLTypedLiteral(int value) {
         return new OWLTypedLiteralImpl(this, Integer.toString(value), getOWLDatatype(XSDVocabulary.INTEGER.getURI()));
     }
 
 
-    public OWLTypedLiteral getTypedLiteral(double value) {
+    public OWLTypedLiteral getOWLTypedLiteral(double value) {
         return new OWLTypedLiteralImpl(this, Double.toString(value), getOWLDatatype(XSDVocabulary.DOUBLE.getURI()));
     }
 
 
-    public OWLTypedLiteral getTypedLiteral(boolean value) {
+    public OWLTypedLiteral getOWLTypedLiteral(boolean value) {
         return new OWLTypedLiteralImpl(this, Boolean.toString(value), getOWLDatatype(XSDVocabulary.BOOLEAN.getURI()));
     }
 
 
-    public OWLTypedLiteral getTypedLiteral(float value) {
+    public OWLTypedLiteral getOWLTypedLiteral(float value) {
         return new OWLTypedLiteralImpl(this, Float.toString(value), getOWLDatatype(XSDVocabulary.FLOAT.getURI()));
     }
 
 
-    public OWLTypedLiteral getTypedLiteral(String value) {
+    public OWLTypedLiteral getOWLTypedLiteral(String value) {
         return new OWLTypedLiteralImpl(this, value, getOWLDatatype(XSDVocabulary.STRING.getURI()));
     }
 
@@ -263,275 +263,275 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDataComplementOf getDataComplementOf(OWLDataRange dataRange) {
+    public OWLDataComplementOf getOWLDataComplementOf(OWLDataRange dataRange) {
         return new OWLDataComplementOfImpl(this, dataRange);
     }
 
 
-    public OWLDataIntersectionOf getDataIntersectionOf(OWLDataRange... dataRanges) {
-        return getDataIntersectionOf(CollectionFactory.createSet(dataRanges));
+    public OWLDataIntersectionOf getOWLDataIntersectionOf(OWLDataRange... dataRanges) {
+        return getOWLDataIntersectionOf(CollectionFactory.createSet(dataRanges));
     }
 
 
-    public OWLDataIntersectionOf getDataIntersectionOf(Set<? extends OWLDataRange> dataRanges) {
+    public OWLDataIntersectionOf getOWLDataIntersectionOf(Set<? extends OWLDataRange> dataRanges) {
         return new OWLDataIntersectionOfImpl(this, dataRanges);
     }
 
 
-    public OWLDataUnionOf getDataUnionOf(OWLDataRange... dataRanges) {
-        return getDataUnionOf(CollectionFactory.createSet(dataRanges));
+    public OWLDataUnionOf getOWLDataUnionOf(OWLDataRange... dataRanges) {
+        return getOWLDataUnionOf(CollectionFactory.createSet(dataRanges));
     }
 
 
-    public OWLDataUnionOf getDataUnionOf(Set<? extends OWLDataRange> dataRanges) {
+    public OWLDataUnionOf getOWLDataUnionOf(Set<? extends OWLDataRange> dataRanges) {
         return new OWLDataUnionOfImpl(this, dataRanges);
     }
 
 
-    public OWLDatatypeRestriction getDatatypeRestriction(OWLDatatype datatype,
+    public OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype datatype,
                                                          Set<OWLFacetRestriction> facets) {
         return new OWLDatatypeRestrictionImpl(this, datatype, facets);
     }
 
 
-    public OWLDatatypeRestriction getDatatypeRestriction(OWLDatatype datatype,
+    public OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype datatype,
                                                          OWLFacet facet,
                                                          OWLLiteral typedConstant) {
-        return new OWLDatatypeRestrictionImpl(this, datatype, Collections.singleton(getFacetRestriction(facet, typedConstant)));
+        return new OWLDatatypeRestrictionImpl(this, datatype, Collections.singleton(getOWLFacetRestriction(facet, typedConstant)));
     }
 
 
-    public OWLDatatypeRestriction getDatatypeRestriction(OWLDatatype dataRange,
+    public OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype dataRange,
                                                          OWLFacetRestriction... facetRestrictions) {
-        return getDatatypeRestriction(dataRange, CollectionFactory.createSet(facetRestrictions));
+        return getOWLDatatypeRestriction(dataRange, CollectionFactory.createSet(facetRestrictions));
     }
 
 
-    public OWLFacetRestriction getFacetRestriction(OWLFacet facet,
+    public OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet,
                                                    int facetValue) {
-        return getFacetRestriction(facet, getTypedLiteral(facetValue));
+        return getOWLFacetRestriction(facet, getOWLTypedLiteral(facetValue));
     }
 
 
-    public OWLFacetRestriction getFacetRestriction(OWLFacet facet,
+    public OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet,
                                                    double facetValue) {
-        return getFacetRestriction(facet, getTypedLiteral(facetValue));
+        return getOWLFacetRestriction(facet, getOWLTypedLiteral(facetValue));
     }
 
 
-    public OWLFacetRestriction getFacetRestriction(OWLFacet facet,
+    public OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet,
                                                    float facetValue) {
-        return getFacetRestriction(facet, getTypedLiteral(facetValue));
+        return getOWLFacetRestriction(facet, getOWLTypedLiteral(facetValue));
     }
 
 
-    public OWLFacetRestriction getFacetRestriction(OWLFacet facet,
+    public OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet,
                                                    OWLLiteral facetValue) {
         return new OWLFacetRestrictionImpl(this, facet, facetValue);
     }
 
 
-    public OWLObjectIntersectionOf getObjectIntersectionOf(Set<? extends OWLClassExpression> operands) {
+    public OWLObjectIntersectionOf getOWLObjectIntersectionOf(Set<? extends OWLClassExpression> operands) {
         return new OWLObjectIntersectionOfImpl(this, operands);
     }
 
 
-    public OWLObjectIntersectionOf getObjectIntersectionOf(OWLClassExpression... operands) {
-        return getObjectIntersectionOf(CollectionFactory.createSet(operands));
+    public OWLObjectIntersectionOf getOWLObjectIntersectionOf(OWLClassExpression... operands) {
+        return getOWLObjectIntersectionOf(CollectionFactory.createSet(operands));
     }
 
 
-    public OWLDataAllValuesFrom getDataAllValuesFrom(OWLDataPropertyExpression property,
+    public OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property,
                                                      OWLDataRange dataRange) {
         return new OWLDataAllValuesFromImpl(this, property, dataRange);
     }
 
 
-    public OWLDataExactCardinality getDataExactCardinality(OWLDataPropertyExpression property,
+    public OWLDataExactCardinality getOWLDataExactCardinality(OWLDataPropertyExpression property,
                                                            int cardinality) {
         return new OWLDataExactCardinalityImpl(this, property, cardinality, getTopDatatype());
     }
 
 
-    public OWLDataExactCardinality getDataExactCardinality(OWLDataPropertyExpression property,
+    public OWLDataExactCardinality getOWLDataExactCardinality(OWLDataPropertyExpression property,
                                                            int cardinality,
                                                            OWLDataRange dataRange) {
         return new OWLDataExactCardinalityImpl(this, property, cardinality, dataRange);
     }
 
 
-    public OWLDataMaxCardinality getDataMaxCardinality(OWLDataPropertyExpression property,
+    public OWLDataMaxCardinality getOWLDataMaxCardinality(OWLDataPropertyExpression property,
                                                        int cardinality) {
         return new OWLDataMaxCardinalityImpl(this, property, cardinality, getTopDatatype());
     }
 
 
-    public OWLDataMaxCardinality getDataMaxCardinality(OWLDataPropertyExpression property,
+    public OWLDataMaxCardinality getOWLDataMaxCardinality(OWLDataPropertyExpression property,
                                                        int cardinality,
                                                        OWLDataRange dataRange) {
         return new OWLDataMaxCardinalityImpl(this, property, cardinality, dataRange);
     }
 
 
-    public OWLDataMinCardinality getDataMinCardinality(OWLDataPropertyExpression property,
+    public OWLDataMinCardinality getOWLDataMinCardinality(OWLDataPropertyExpression property,
                                                        int cardinality) {
         return new OWLDataMinCardinalityImpl(this, property, cardinality, getTopDatatype());
     }
 
 
-    public OWLDataMinCardinality getDataMinCardinality(OWLDataPropertyExpression property,
+    public OWLDataMinCardinality getOWLDataMinCardinality(OWLDataPropertyExpression property,
                                                        int cardinality,
                                                        OWLDataRange dataRange) {
         return new OWLDataMinCardinalityImpl(this, property, cardinality, dataRange);
     }
 
 
-    public OWLDataSomeValuesFrom getDataSomeValuesFrom(OWLDataPropertyExpression property,
+    public OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property,
                                                        OWLDataRange dataRange) {
         return new OWLDataSomeValuesFromImpl(this, property, dataRange);
     }
 
 
-    public OWLDataHasValue getDataHasValue(OWLDataPropertyExpression property,
+    public OWLDataHasValue getOWLDataHasValue(OWLDataPropertyExpression property,
                                            OWLLiteral value) {
         return new OWLDataHasValueImpl(this, property, value);
     }
 
 
-    public OWLObjectComplementOf getObjectComplementOf(OWLClassExpression operand) {
+    public OWLObjectComplementOf getOWLObjectComplementOf(OWLClassExpression operand) {
         return new OWLObjectComplementOfImpl(this, operand);
     }
 
 
-    public OWLObjectAllValuesFrom getObjectAllValuesFrom(OWLObjectPropertyExpression property,
+    public OWLObjectAllValuesFrom getOWLObjectAllValuesFrom(OWLObjectPropertyExpression property,
                                                          OWLClassExpression classExpression) {
         return new OWLObjectAllValuesFromImpl(this, property, classExpression);
     }
 
 
-    public OWLObjectOneOf getObjectOneOf(Set<OWLIndividual> values) {
+    public OWLObjectOneOf getOWLObjectOneOf(Set<? extends OWLIndividual> values) {
         return new OWLObjectOneOfImpl(this, values);
     }
 
 
-    public OWLObjectOneOf getObjectOneOf(OWLIndividual... individuals) {
-        return getObjectOneOf(CollectionFactory.createSet(individuals));
+    public OWLObjectOneOf getOWLObjectOneOf(OWLIndividual... individuals) {
+        return getOWLObjectOneOf(CollectionFactory.createSet(individuals));
     }
 
 
-    public OWLObjectExactCardinality getObjectExactCardinality(OWLObjectPropertyExpression property,
+    public OWLObjectExactCardinality getOWLObjectExactCardinality(OWLObjectPropertyExpression property,
                                                                int cardinality) {
         return new OWLObjectExactCardinalityImpl(this, property, cardinality, getOWLThing());
     }
 
 
-    public OWLObjectExactCardinality getObjectExactCardinality(OWLObjectPropertyExpression property,
+    public OWLObjectExactCardinality getOWLObjectExactCardinality(OWLObjectPropertyExpression property,
                                                                int cardinality,
                                                                OWLClassExpression classExpression) {
         return new OWLObjectExactCardinalityImpl(this, property, cardinality, classExpression);
     }
 
 
-    public OWLObjectMinCardinality getObjectMinCardinality(OWLObjectPropertyExpression property,
+    public OWLObjectMinCardinality getOWLObjectMinCardinality(OWLObjectPropertyExpression property,
                                                            int cardinality) {
         return new OWLObjectMinCardinalityImpl(this, property, cardinality, getOWLThing());
     }
 
 
-    public OWLObjectMinCardinality getObjectMinCardinality(OWLObjectPropertyExpression property,
+    public OWLObjectMinCardinality getOWLObjectMinCardinality(OWLObjectPropertyExpression property,
                                                            int cardinality,
                                                            OWLClassExpression classExpression) {
         return new OWLObjectMinCardinalityImpl(this, property, cardinality, classExpression);
     }
 
 
-    public OWLObjectMaxCardinality getObjectMaxCardinality(OWLObjectPropertyExpression property,
+    public OWLObjectMaxCardinality getOWLObjectMaxCardinality(OWLObjectPropertyExpression property,
                                                            int cardinality) {
         return new OWLObjectMaxCardinalityImpl(this, property, cardinality, getOWLThing());
     }
 
 
-    public OWLObjectMaxCardinality getObjectMaxCardinality(OWLObjectPropertyExpression property,
+    public OWLObjectMaxCardinality getOWLObjectMaxCardinality(OWLObjectPropertyExpression property,
                                                            int cardinality,
                                                            OWLClassExpression classExpression) {
         return new OWLObjectMaxCardinalityImpl(this, property, cardinality, classExpression);
     }
 
 
-    public OWLObjectHasSelf getObjectHasSelf(OWLObjectPropertyExpression property) {
+    public OWLObjectHasSelf getOWLObjectHasSelf(OWLObjectPropertyExpression property) {
         return new OWLObjectHasSelfImpl(this, property);
     }
 
 
-    public OWLObjectSomeValuesFrom getObjectSomeValuesFrom(OWLObjectPropertyExpression property,
+    public OWLObjectSomeValuesFrom getOWLObjectSomeValuesFrom(OWLObjectPropertyExpression property,
                                                            OWLClassExpression classExpression) {
         return new OWLObjectSomeValuesFromImpl(this, property, classExpression);
     }
 
 
-    public OWLObjectHasValue getObjectHasValue(OWLObjectPropertyExpression property,
+    public OWLObjectHasValue getOWLObjectHasValue(OWLObjectPropertyExpression property,
                                                OWLIndividual individual) {
         return new OWLObjectHasValueImpl(this, property, individual);
     }
 
 
-    public OWLObjectUnionOf getObjectUnionOf(Set<? extends OWLClassExpression> operands) {
+    public OWLObjectUnionOf getOWLObjectUnionOf(Set<? extends OWLClassExpression> operands) {
         return new OWLObjectUnionOfImpl(this, operands);
     }
 
 
-    public OWLObjectUnionOf getObjectUnionOf(OWLClassExpression... operands) {
-        return getObjectUnionOf(CollectionFactory.createSet(operands));
+    public OWLObjectUnionOf getOWLObjectUnionOf(OWLClassExpression... operands) {
+        return getOWLObjectUnionOf(CollectionFactory.createSet(operands));
     }
 
 
-    public OWLAsymmetricObjectPropertyAxiom getAsymmetricObjectProperty(OWLObjectPropertyExpression propertyExpression,
+    public OWLAsymmetricObjectPropertyAxiom getOWLAsymmetricObjectPropertyAxiom(OWLObjectPropertyExpression propertyExpression,
                                                                         Set<? extends OWLAnnotation> annotations) {
         return new OWLAsymmetricObjectPropertyAxiomImpl(this, propertyExpression, annotations);
     }
 
 
-    public OWLAsymmetricObjectPropertyAxiom getAsymmetricObjectProperty(OWLObjectPropertyExpression propertyExpression) {
-        return getAsymmetricObjectProperty(propertyExpression, EMPTY_ANNOTATIONS_SET);
+    public OWLAsymmetricObjectPropertyAxiom getOWLAsymmetricObjectPropertyAxiom(OWLObjectPropertyExpression propertyExpression) {
+        return getOWLAsymmetricObjectPropertyAxiom(propertyExpression, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDataPropertyDomainAxiom getDataPropertyDomain(OWLDataPropertyExpression property,
+    public OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(OWLDataPropertyExpression property,
                                                             OWLClassExpression domain,
                                                             Set<? extends OWLAnnotation> annotations) {
         return new OWLDataPropertyDomainAxiomImpl(this, property, domain, annotations);
     }
 
 
-    public OWLDataPropertyDomainAxiom getDataPropertyDomain(OWLDataPropertyExpression property,
+    public OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(OWLDataPropertyExpression property,
                                                             OWLClassExpression domain) {
-        return getDataPropertyDomain(property, domain, EMPTY_ANNOTATIONS_SET);
+        return getOWLDataPropertyDomainAxiom(property, domain, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDataPropertyRangeAxiom getDataPropertyRange(OWLDataPropertyExpression propery,
+    public OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(OWLDataPropertyExpression propery,
                                                           OWLDataRange owlDataRange,
                                                           Set<? extends OWLAnnotation> annotations) {
         return new OWLDataPropertyRangeAxiomImpl(this, propery, owlDataRange, annotations);
     }
 
 
-    public OWLDataPropertyRangeAxiom getDataPropertyRange(OWLDataPropertyExpression propery,
+    public OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(OWLDataPropertyExpression propery,
                                                           OWLDataRange owlDataRange) {
-        return getDataPropertyRange(propery, owlDataRange, EMPTY_ANNOTATIONS_SET);
+        return getOWLDataPropertyRangeAxiom(propery, owlDataRange, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLSubDataPropertyOfAxiom getSubDataPropertyOf(OWLDataPropertyExpression subProperty,
+    public OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(OWLDataPropertyExpression subProperty,
                                                           OWLDataPropertyExpression superProperty,
                                                           Set<? extends OWLAnnotation> annotations) {
         return new OWLSubDataPropertyOfAxiomImpl(this, subProperty, superProperty, annotations);
     }
 
 
-    public OWLSubDataPropertyOfAxiom getSubDataPropertyOf(OWLDataPropertyExpression subProperty,
+    public OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(OWLDataPropertyExpression subProperty,
                                                           OWLDataPropertyExpression superProperty) {
-        return getSubDataPropertyOf(subProperty, superProperty, EMPTY_ANNOTATIONS_SET);
+        return getOWLSubDataPropertyOfAxiom(subProperty, superProperty, EMPTY_ANNOTATIONS_SET);
     }
 
 
@@ -562,19 +562,19 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDifferentIndividualsAxiom getDifferentIndividuals(Set<? extends OWLIndividual> individuals,
+    public OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(Set<? extends OWLIndividual> individuals,
                                                                 Set<? extends OWLAnnotation> annotations) {
         return new OWLDifferentIndividualsAxiomImpl(this, individuals, annotations);
     }
 
 
-    public OWLDifferentIndividualsAxiom getDifferentIndividuals(OWLIndividual... individuals) {
-        return getDifferentIndividuals(CollectionFactory.createSet(individuals));
+    public OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(OWLIndividual... individuals) {
+        return getOWLDifferentIndividualsAxiom(CollectionFactory.createSet(individuals));
     }
 
 
-    public OWLDifferentIndividualsAxiom getDifferentIndividuals(Set<? extends OWLIndividual> individuals) {
-        return getDifferentIndividuals(individuals, EMPTY_ANNOTATIONS_SET);
+    public OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(Set<? extends OWLIndividual> individuals) {
+        return getOWLDifferentIndividualsAxiom(individuals, EMPTY_ANNOTATIONS_SET);
     }
 
 
@@ -596,33 +596,33 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDisjointDataPropertiesAxiom getDisjointDataProperties(Set<? extends OWLDataPropertyExpression> properties,
+    public OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(Set<? extends OWLDataPropertyExpression> properties,
                                                                     Set<? extends OWLAnnotation> annotations) {
         return new OWLDisjointDataPropertiesAxiomImpl(this, properties, annotations);
     }
 
 
-    public OWLDisjointDataPropertiesAxiom getDisjointDataProperties(Set<? extends OWLDataPropertyExpression> properties) {
-        return getDisjointDataProperties(properties, EMPTY_ANNOTATIONS_SET);
+    public OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(Set<? extends OWLDataPropertyExpression> properties) {
+        return getOWLDisjointDataPropertiesAxiom(properties, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDisjointDataPropertiesAxiom getDisjointDataProperties(OWLDataPropertyExpression... properties) {
-        return getDisjointDataProperties(CollectionFactory.createSet(properties));
+    public OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(OWLDataPropertyExpression... properties) {
+        return getOWLDisjointDataPropertiesAxiom(CollectionFactory.createSet(properties));
     }
 
 
-    public OWLDisjointObjectPropertiesAxiom getDisjointObjectProperties(OWLObjectPropertyExpression... properties) {
-        return getDisjointObjectProperties(CollectionFactory.createSet(properties));
+    public OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(OWLObjectPropertyExpression... properties) {
+        return getOWLDisjointObjectPropertiesAxiom(CollectionFactory.createSet(properties));
     }
 
 
-    public OWLDisjointObjectPropertiesAxiom getDisjointObjectProperties(Set<? extends OWLObjectPropertyExpression> properties) {
-        return getDisjointObjectProperties(properties, EMPTY_ANNOTATIONS_SET);
+    public OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(Set<? extends OWLObjectPropertyExpression> properties) {
+        return getOWLDisjointObjectPropertiesAxiom(properties, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDisjointObjectPropertiesAxiom getDisjointObjectProperties(Set<? extends OWLObjectPropertyExpression> properties,
+    public OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(Set<? extends OWLObjectPropertyExpression> properties,
                                                                         Set<? extends OWLAnnotation> annotations) {
         return new OWLDisjointObjectPropertiesAxiomImpl(this, properties, annotations);
     }
@@ -634,13 +634,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLEquivalentClassesAxiom getOWLEquivalentClasses(OWLClassExpression clsA,
+    public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLClassExpression clsA,
                                                              OWLClassExpression clsB) {
-        return getOWLEquivalentClasses(clsA, clsB, EMPTY_ANNOTATIONS_SET);
+        return getOWLEquivalentClassesAxiom(clsA, clsB, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLEquivalentClassesAxiom getOWLEquivalentClasses(OWLClassExpression clsA,
+    public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLClassExpression clsA,
                                                              OWLClassExpression clsB,
                                                              Set<? extends OWLAnnotation> annotations) {
         return getOWLEquivalentClassesAxiom(CollectionFactory.createSet(clsA, clsB), annotations);
@@ -659,82 +659,81 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLEquivalentDataPropertiesAxiom getEquivalentDataProperties(Set<? extends OWLDataPropertyExpression> properties,
+    public OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(Set<? extends OWLDataPropertyExpression> properties,
                                                                         Set<? extends OWLAnnotation> annotations) {
         return new OWLEquivalentDataPropertiesAxiomImpl(this, properties, annotations);
     }
 
 
-    public OWLEquivalentDataPropertiesAxiom getEquivalentDataProperties(Set<? extends OWLDataPropertyExpression> properties) {
-        return getEquivalentDataProperties(properties, EMPTY_ANNOTATIONS_SET);
+    public OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(Set<? extends OWLDataPropertyExpression> properties) {
+        return getOWLEquivalentDataPropertiesAxiom(properties, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLEquivalentDataPropertiesAxiom getEquivalentDataProperties(OWLDataPropertyExpression propertyA,
+    public OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(OWLDataPropertyExpression propertyA,
                                                                         OWLDataPropertyExpression propertyB) {
-        return getEquivalentDataProperties(propertyA, propertyB, EMPTY_ANNOTATIONS_SET);
+        return getOWLEquivalentDataPropertiesAxiom(propertyA, propertyB, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLEquivalentDataPropertiesAxiom getEquivalentDataProperties(OWLDataPropertyExpression propertyA,
+    public OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(OWLDataPropertyExpression propertyA,
                                                                         OWLDataPropertyExpression propertyB,
                                                                         Set<? extends OWLAnnotation> annotations) {
-        return getEquivalentDataProperties(CollectionFactory.createSet(propertyA, propertyB), annotations);
+        return getOWLEquivalentDataPropertiesAxiom(CollectionFactory.createSet(propertyA, propertyB), annotations);
     }
 
 
-    public OWLEquivalentDataPropertiesAxiom getEquivalentDataProperties(OWLDataPropertyExpression... properties) {
-        return getEquivalentDataProperties(CollectionFactory.createSet(properties));
+    public OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(OWLDataPropertyExpression... properties) {
+        return getOWLEquivalentDataPropertiesAxiom(CollectionFactory.createSet(properties));
     }
 
 
-    public OWLEquivalentObjectPropertiesAxiom getEquivalentObjectProperties(OWLObjectPropertyExpression... properties) {
-        return getEquivalentObjectProperties(CollectionFactory.createSet(properties));
+    public OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(OWLObjectPropertyExpression... properties) {
+        return getOWLEquivalentObjectPropertiesAxiom(CollectionFactory.createSet(properties));
     }
 
 
-    public OWLEquivalentObjectPropertiesAxiom getEquivalentObjectProperties(Set<? extends OWLObjectPropertyExpression> properties) {
-        return getEquivalentObjectProperties(properties, EMPTY_ANNOTATIONS_SET);
+    public OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(Set<? extends OWLObjectPropertyExpression> properties) {
+        return getOWLEquivalentObjectPropertiesAxiom(properties, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLEquivalentObjectPropertiesAxiom getEquivalentObjectProperties(OWLObjectPropertyExpression propertyA,
+    public OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(OWLObjectPropertyExpression propertyA,
                                                                             OWLObjectPropertyExpression propertyB) {
-        return getEquivalentObjectProperties(propertyA, propertyB, EMPTY_ANNOTATIONS_SET);
+        return getOWLEquivalentObjectPropertiesAxiom(propertyA, propertyB, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLEquivalentObjectPropertiesAxiom getEquivalentObjectProperties(OWLObjectPropertyExpression propertyA,
+    public OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(OWLObjectPropertyExpression propertyA,
                                                                             OWLObjectPropertyExpression propertyB,
                                                                             Set<? extends OWLAnnotation> annotations) {
-        return getEquivalentObjectProperties(CollectionFactory.createSet(propertyA, propertyB), annotations);
+        return getOWLEquivalentObjectPropertiesAxiom(CollectionFactory.createSet(propertyA, propertyB), annotations);
     }
 
 
-    public OWLFunctionalDataPropertyAxiom getFunctionalDataProperty(OWLDataPropertyExpression property,
+    public OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(OWLDataPropertyExpression property,
                                                                     Set<? extends OWLAnnotation> annotations) {
         return new OWLFunctionalDataPropertyAxiomImpl(this, property, annotations);
     }
 
 
-    public OWLFunctionalDataPropertyAxiom getFunctionalDataProperty(OWLDataPropertyExpression property) {
-        return getFunctionalDataProperty(property, EMPTY_ANNOTATIONS_SET);
+    public OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(OWLDataPropertyExpression property) {
+        return getOWLFunctionalDataPropertyAxiom(property, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLFunctionalObjectPropertyAxiom getFunctionalObjectProperty(OWLObjectPropertyExpression property,
+    public OWLFunctionalObjectPropertyAxiom getOWLFunctionalObjectPropertyAxiom(OWLObjectPropertyExpression property,
                                                                         Set<? extends OWLAnnotation> annotations) {
         return new OWLFunctionalObjectPropertyAxiomImpl(this, property, annotations);
     }
 
 
-    public OWLFunctionalObjectPropertyAxiom getFunctionalObjectProperty(OWLObjectPropertyExpression property) {
-        return getFunctionalObjectProperty(property, EMPTY_ANNOTATIONS_SET);
+    public OWLFunctionalObjectPropertyAxiom getOWLFunctionalObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+        return getOWLFunctionalObjectPropertyAxiom(property, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLImportsDeclaration getImportsDeclaration(OWLOntology subject,
-                                                       URI importedOntologyURI) {
+    public OWLImportsDeclaration getImportsDeclaration(URI importedOntologyURI) {
         URI cleanedImportedOntologyURI = importedOntologyURI;
         if (importedOntologyURI.getFragment() != null && importedOntologyURI.getFragment().length() == 0) {
             cleanedImportedOntologyURI = URI.create(importedOntologyURI.toString().substring(0, importedOntologyURI.toString().length() - 1));
@@ -743,7 +742,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDataPropertyAssertionAxiom getDataPropertyAssertion(OWLIndividual subject,
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                   OWLDataPropertyExpression property,
                                                                   OWLLiteral object,
                                                                   Set<? extends OWLAnnotation> annotations) {
@@ -751,56 +750,56 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDataPropertyAssertionAxiom getDataPropertyAssertion(OWLIndividual subject,
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                   OWLDataPropertyExpression property,
                                                                   OWLLiteral object) {
-        return getDataPropertyAssertion(subject, property, object, EMPTY_ANNOTATIONS_SET);
+        return getOWLDataPropertyAssertionAxiom(subject, property, object, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDataPropertyAssertionAxiom getDataPropertyAssertion(OWLIndividual subject,
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                   OWLDataPropertyExpression property,
                                                                   int value) {
-        return getDataPropertyAssertion(subject, property, getTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+        return getOWLDataPropertyAssertionAxiom(subject, property, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDataPropertyAssertionAxiom getDataPropertyAssertion(OWLIndividual subject,
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                   OWLDataPropertyExpression property,
                                                                   double value) {
-        return getDataPropertyAssertion(subject, property, getTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+        return getOWLDataPropertyAssertionAxiom(subject, property, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDataPropertyAssertionAxiom getDataPropertyAssertion(OWLIndividual subject,
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                   OWLDataPropertyExpression property,
                                                                   float value) {
-        return getDataPropertyAssertion(subject, property, getTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+        return getOWLDataPropertyAssertionAxiom(subject, property, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDataPropertyAssertionAxiom getDataPropertyAssertion(OWLIndividual subject,
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                   OWLDataPropertyExpression property,
                                                                   boolean value) {
-        return getDataPropertyAssertion(subject, property, getTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+        return getOWLDataPropertyAssertionAxiom(subject, property, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDataPropertyAssertionAxiom getDataPropertyAssertion(OWLIndividual subject,
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                   OWLDataPropertyExpression property,
                                                                   String value) {
-        return getDataPropertyAssertion(subject, property, getTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+        return getOWLDataPropertyAssertionAxiom(subject, property, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLNegativeDataPropertyAssertionAxiom getNegativeDataPropertyAssertion(OWLIndividual subject,
+    public OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                                   OWLDataPropertyExpression property,
                                                                                   OWLLiteral object) {
-        return getNegativeDataPropertyAssertion(subject, property, object, EMPTY_ANNOTATIONS_SET);
+        return getOWLNegativeDataPropertyAssertionAxiom(subject, property, object, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLNegativeDataPropertyAssertionAxiom getNegativeDataPropertyAssertion(OWLIndividual subject,
+    public OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                                   OWLDataPropertyExpression property,
                                                                                   OWLLiteral object,
                                                                                   Set<? extends OWLAnnotation> annotations) {
@@ -808,14 +807,14 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLNegativeObjectPropertyAssertionAxiom getNegativeObjectPropertyAssertion(OWLIndividual subject,
+    public OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(OWLIndividual subject,
                                                                                       OWLObjectPropertyExpression property,
                                                                                       OWLIndividual object) {
-        return getNegativeObjectPropertyAssertion(subject, property, object, EMPTY_ANNOTATIONS_SET);
+        return getOWLNegativeObjectPropertyAssertionAxiom(subject, property, object, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLNegativeObjectPropertyAssertionAxiom getNegativeObjectPropertyAssertion(OWLIndividual subject,
+    public OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(OWLIndividual subject,
                                                                                       OWLObjectPropertyExpression property,
                                                                                       OWLIndividual object,
                                                                                       Set<? extends OWLAnnotation> annotations) {
@@ -823,148 +822,148 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLObjectPropertyAssertionAxiom getObjectPropertyAssertion(OWLIndividual individual,
+    public OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLIndividual individual,
                                                                       OWLObjectPropertyExpression property,
                                                                       OWLIndividual object) {
-        return getObjectPropertyAssertion(individual, property, object, EMPTY_ANNOTATIONS_SET);
+        return getOWLObjectPropertyAssertionAxiom(individual, property, object, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLClassAssertionAxiom getClassAssertion(OWLIndividual individual,
+    public OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLIndividual individual,
                                                     OWLClassExpression classExpression) {
-        return getClassAssertion(individual, classExpression, EMPTY_ANNOTATIONS_SET);
+        return getOWLClassAssertionAxiom(individual, classExpression, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLClassAssertionAxiom getClassAssertion(OWLIndividual individual,
+    public OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLIndividual individual,
                                                     OWLClassExpression classExpression,
                                                     Set<? extends OWLAnnotation> annotations) {
         return new OWLClassAssertionImpl(this, individual, classExpression, annotations);
     }
 
 
-    public OWLInverseFunctionalObjectPropertyAxiom getInverseFunctionalObjectProperty(OWLObjectPropertyExpression property) {
-        return getInverseFunctionalObjectProperty(property, EMPTY_ANNOTATIONS_SET);
+    public OWLInverseFunctionalObjectPropertyAxiom getOWLInverseFunctionalObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+        return getOWLInverseFunctionalObjectPropertyAxiom(property, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLInverseFunctionalObjectPropertyAxiom getInverseFunctionalObjectProperty(OWLObjectPropertyExpression property,
+    public OWLInverseFunctionalObjectPropertyAxiom getOWLInverseFunctionalObjectPropertyAxiom(OWLObjectPropertyExpression property,
                                                                                       Set<? extends OWLAnnotation> annotations) {
         return new OWLInverseFunctionalObjectPropertyAxiomImpl(this, property, annotations);
     }
 
 
-    public OWLIrreflexiveObjectPropertyAxiom getIrreflexiveObjectProperty(OWLObjectPropertyExpression property,
+    public OWLIrreflexiveObjectPropertyAxiom getOWLIrreflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property,
                                                                           Set<? extends OWLAnnotation> annotations) {
         return new OWLIrreflexiveObjectPropertyAxiomImpl(this, property, annotations);
     }
 
 
-    public OWLReflexiveObjectPropertyAxiom getReflexiveObjectProperty(OWLObjectPropertyExpression property) {
-        return getReflexiveObjectProperty(property, EMPTY_ANNOTATIONS_SET);
+    public OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+        return getOWLReflexiveObjectPropertyAxiom(property, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLIrreflexiveObjectPropertyAxiom getIrreflexiveObjectProperty(OWLObjectPropertyExpression property) {
-        return getIrreflexiveObjectProperty(property, EMPTY_ANNOTATIONS_SET);
+    public OWLIrreflexiveObjectPropertyAxiom getOWLIrreflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+        return getOWLIrreflexiveObjectPropertyAxiom(property, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLObjectPropertyDomainAxiom getObjectPropertyDomain(OWLObjectPropertyExpression property,
+    public OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(OWLObjectPropertyExpression property,
                                                                 OWLClassExpression classExpression,
                                                                 Set<? extends OWLAnnotation> annotations) {
         return new OWLObjectPropertyDomainAxiomImpl(this, property, classExpression, annotations);
     }
 
 
-    public OWLObjectPropertyDomainAxiom getObjectPropertyDomain(OWLObjectPropertyExpression property,
+    public OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(OWLObjectPropertyExpression property,
                                                                 OWLClassExpression classExpression) {
-        return getObjectPropertyDomain(property, classExpression, EMPTY_ANNOTATIONS_SET);
+        return getOWLObjectPropertyDomainAxiom(property, classExpression, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLObjectPropertyRangeAxiom getObjectPropertyRange(OWLObjectPropertyExpression property,
+    public OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(OWLObjectPropertyExpression property,
                                                               OWLClassExpression range,
                                                               Set<? extends OWLAnnotation> annotations) {
         return new OWLObjectPropertyRangeAxiomImpl(this, property, range, annotations);
     }
 
 
-    public OWLObjectPropertyRangeAxiom getObjectPropertyRange(OWLObjectPropertyExpression property,
+    public OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(OWLObjectPropertyExpression property,
                                                               OWLClassExpression range) {
-        return getObjectPropertyRange(property, range, EMPTY_ANNOTATIONS_SET);
+        return getOWLObjectPropertyRangeAxiom(property, range, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLSubObjectPropertyOfAxiom getSubObjectPropertyOf(OWLObjectPropertyExpression subProperty,
+    public OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(OWLObjectPropertyExpression subProperty,
                                                               OWLObjectPropertyExpression superProperty,
                                                               Set<? extends OWLAnnotation> annotations) {
         return new OWLSubObjectPropertyOfAxiomImpl(this, subProperty, superProperty, annotations);
     }
 
 
-    public OWLSubObjectPropertyOfAxiom getSubObjectPropertyOf(OWLObjectPropertyExpression subProperty,
+    public OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(OWLObjectPropertyExpression subProperty,
                                                               OWLObjectPropertyExpression superProperty) {
-        return getSubObjectPropertyOf(subProperty, superProperty, EMPTY_ANNOTATIONS_SET);
+        return getOWLSubObjectPropertyOfAxiom(subProperty, superProperty, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLReflexiveObjectPropertyAxiom getReflexiveObjectProperty(OWLObjectPropertyExpression property,
+    public OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property,
                                                                       Set<? extends OWLAnnotation> annotations) {
         return new OWLReflexiveObjectPropertyAxiomImpl(this, property, annotations);
     }
 
 
-    public OWLSameIndividualsAxiom getSameIndividuals(Set<? extends OWLIndividual> individuals,
+    public OWLSameIndividualAxiom getOWLSameIndividualAxiom(Set<? extends OWLIndividual> individuals,
                                                       Set<? extends OWLAnnotation> annotations) {
-        return new OWLSameIndividualsAxiomImpl(this, individuals, annotations);
+        return new OWLSameIndividualAxiomImpl(this, individuals, annotations);
     }
 
 
-    public OWLSameIndividualsAxiom getSameIndividuals(OWLIndividual... individuals) {
+    public OWLSameIndividualAxiom getOWLSameIndividualAxiom(OWLIndividual... individuals) {
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         inds.addAll(Arrays.asList(individuals));
-        return getSameIndividuals(inds);
+        return getOWLSameIndividualAxiom(inds);
     }
 
 
-    public OWLSameIndividualsAxiom getSameIndividuals(Set<? extends OWLIndividual> individuals) {
-        return getSameIndividuals(individuals, EMPTY_ANNOTATIONS_SET);
+    public OWLSameIndividualAxiom getOWLSameIndividualAxiom(Set<? extends OWLIndividual> individuals) {
+        return getOWLSameIndividualAxiom(individuals, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLSubClassOfAxiom getSubClassOf(OWLClassExpression subClass,
+    public OWLSubClassOfAxiom getOWLSubClassOfAxiom(OWLClassExpression subClass,
                                                     OWLClassExpression superClass,
                                                     Set<? extends OWLAnnotation> annotations) {
         return new OWLSubClassOfAxiomImpl(this, subClass, superClass, annotations);
     }
 
 
-    public OWLSubClassOfAxiom getSubClassOf(OWLClassExpression subClass,
+    public OWLSubClassOfAxiom getOWLSubClassOfAxiom(OWLClassExpression subClass,
                                                     OWLClassExpression superClass) {
-        return getSubClassOf(subClass, superClass, EMPTY_ANNOTATIONS_SET);
+        return getOWLSubClassOfAxiom(subClass, superClass, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLSymmetricObjectPropertyAxiom getSymmetricObjectProperty(OWLObjectPropertyExpression property,
+    public OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property,
                                                                       Set<? extends OWLAnnotation> annotations) {
         return new OWLSymmetricObjectPropertyAxiomImpl(this, property, annotations);
     }
 
 
-    public OWLSymmetricObjectPropertyAxiom getSymmetricObjectProperty(OWLObjectPropertyExpression property) {
-        return getSymmetricObjectProperty(property, EMPTY_ANNOTATIONS_SET);
+    public OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+        return getOWLSymmetricObjectPropertyAxiom(property, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLTransitiveObjectPropertyAxiom getTransitiveObjectProperty(OWLObjectPropertyExpression property,
+    public OWLTransitiveObjectPropertyAxiom getOWLTransitiveObjectPropertyAxiom(OWLObjectPropertyExpression property,
                                                                         Set<? extends OWLAnnotation> annotations) {
         return new OWLTransitiveObjectPropertyAxiomImpl(this, property, annotations);
     }
 
 
-    public OWLTransitiveObjectPropertyAxiom getTransitiveObjectProperty(OWLObjectPropertyExpression property) {
-        return getTransitiveObjectProperty(property, EMPTY_ANNOTATIONS_SET);
+    public OWLTransitiveObjectPropertyAxiom getOWLTransitiveObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+        return getOWLTransitiveObjectPropertyAxiom(property, EMPTY_ANNOTATIONS_SET);
     }
 
 
@@ -973,48 +972,48 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLInverseObjectPropertiesAxiom getInverseObjectProperties(OWLObjectPropertyExpression forwardProperty,
+    public OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(OWLObjectPropertyExpression forwardProperty,
                                                                       OWLObjectPropertyExpression inverseProperty,
                                                                       Set<? extends OWLAnnotation> annotations) {
         return new OWLInverseObjectPropertiesAxiomImpl(this, forwardProperty, inverseProperty, annotations);
     }
 
 
-    public OWLInverseObjectPropertiesAxiom getInverseObjectProperties(OWLObjectPropertyExpression forwardProperty,
+    public OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(OWLObjectPropertyExpression forwardProperty,
                                                                       OWLObjectPropertyExpression inverseProperty) {
-        return getInverseObjectProperties(forwardProperty, inverseProperty, EMPTY_ANNOTATIONS_SET);
+        return getOWLInverseObjectPropertiesAxiom(forwardProperty, inverseProperty, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLSubPropertyChainOfAxiom getSubPropertyChainOf(List<? extends OWLObjectPropertyExpression> chain,
+    public OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(List<? extends OWLObjectPropertyExpression> chain,
                                                             OWLObjectPropertyExpression superProperty,
                                                             Set<? extends OWLAnnotation> annotations) {
         return new OWLSubPropertyChainAxiomImpl(this, chain, superProperty, annotations);
     }
 
 
-    public OWLSubPropertyChainOfAxiom getSubPropertyChainOf(List<? extends OWLObjectPropertyExpression> chain,
+    public OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(List<? extends OWLObjectPropertyExpression> chain,
                                                             OWLObjectPropertyExpression superProperty) {
-        return getSubPropertyChainOf(chain, superProperty, EMPTY_ANNOTATIONS_SET);
+        return getOWLSubPropertyChainOfAxiom(chain, superProperty, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLHasKeyAxiom getHasKey(OWLClassExpression ce,
+    public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
                                     Set<? extends OWLPropertyExpression> properties,
                                     Set<? extends OWLAnnotation> annotations) {
         return new OWLHasKeyAxiomImpl(this, ce, properties, annotations);
     }
 
 
-    public OWLHasKeyAxiom getHasKey(OWLClassExpression ce,
+    public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
                                     Set<? extends OWLPropertyExpression> properties) {
-        return getHasKey(ce, properties, EMPTY_ANNOTATIONS_SET);
+        return getOWLHasKeyAxiom(ce, properties, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLHasKeyAxiom getHasKey(OWLClassExpression ce,
+    public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
                                     OWLPropertyExpression... properties) {
-        return getHasKey(ce, CollectionFactory.createSet(properties));
+        return getOWLHasKeyAxiom(ce, CollectionFactory.createSet(properties));
     }
 
 
@@ -1031,13 +1030,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLEquivalentObjectPropertiesAxiom getEquivalentObjectProperties(Set<? extends OWLObjectPropertyExpression> properties,
+    public OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(Set<? extends OWLObjectPropertyExpression> properties,
                                                                             Set<? extends OWLAnnotation> annotations) {
         return new OWLEquivalentObjectPropertiesAxiomImpl(this, properties, annotations);
     }
 
 
-    public OWLObjectPropertyAssertionAxiom getObjectPropertyAssertion(OWLIndividual individual,
+    public OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLIndividual individual,
                                                                       OWLObjectPropertyExpression property,
                                                                       OWLIndividual object,
                                                                       Set<? extends OWLAnnotation> annotations) {
@@ -1045,7 +1044,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLSubAnnotationPropertyOf getSubAnnotationPropertyOf(OWLAnnotationProperty sub,
+    public OWLSubAnnotationPropertyOf getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub,
                                                                  OWLAnnotationProperty sup) {
         throw new OWLRuntimeException("TODO");
     }
@@ -1071,9 +1070,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @param value The annotation value
      * @return The annotation on the specified property with the specified value
      */
-    public OWLAnnotation getAnnotation(OWLAnnotationProperty property,
+    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property,
                                        OWLAnnotationValue value) {
-        return getAnnotation(property, value, EMPTY_ANNOTATIONS_SET);
+        return getOWLAnnotation(property, value, EMPTY_ANNOTATIONS_SET);
     }
 
 
@@ -1084,34 +1083,34 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @param annotations Annotations on the annotation
      * @return The annotation on the specified property with the specified value
      */
-    public OWLAnnotation getAnnotation(OWLAnnotationProperty property,
+    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property,
                                        OWLAnnotationValue value,
                                        Set<? extends OWLAnnotation> annotations) {
         return new OWLAnnotationImpl(this, property, value, annotations);
     }
 
 
-    public OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLAnnotationSubject subject,
+    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
                                                               OWLAnnotation annotation) {
-        return getAnnotationAssertion(subject, annotation.getProperty(), annotation.getValue());
+        return getOWLAnnotationAssertionAxiom(subject, annotation.getProperty(), annotation.getValue());
     }
 
 
-    public OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLAnnotationSubject subject,
+    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
                                                               OWLAnnotation annotation,
                                                               Set<? extends OWLAnnotation> annotations) {
-        return getAnnotationAssertion(subject, annotation.getProperty(), annotation.getValue(), annotations);
+        return getOWLAnnotationAssertionAxiom(subject, annotation.getProperty(), annotation.getValue(), annotations);
     }
 
 
-    public OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLAnnotationSubject subject,
+    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
                                                               OWLAnnotationProperty property,
                                                               OWLAnnotationValue value) {
-        return getAnnotationAssertion(subject, property, value, EMPTY_ANNOTATIONS_SET);
+        return getOWLAnnotationAssertionAxiom(subject, property, value, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLAnnotationAssertionAxiom getAnnotationAssertion(OWLAnnotationSubject subject,
+    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
                                                               OWLAnnotationProperty property,
                                                               OWLAnnotationValue value,
                                                               Set<? extends OWLAnnotation> annotations) {
@@ -1119,13 +1118,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLAnnotationPropertyDomain getAnnotationPropertyDomain(OWLAnnotationProperty prop,
+    public OWLAnnotationPropertyDomain getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
                                                                    IRI domain) {
         return new OWLAnnotationPropertyDomainImpl(this, prop, domain, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLAnnotationPropertyRange getAnnotationPropertyRange(OWLAnnotationProperty prop,
+    public OWLAnnotationPropertyRange getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop,
                                                                  IRI range) {
         return new OWLAnnotationPropertyRangeAxiomImpl(this, prop, range, EMPTY_ANNOTATIONS_SET);
     }

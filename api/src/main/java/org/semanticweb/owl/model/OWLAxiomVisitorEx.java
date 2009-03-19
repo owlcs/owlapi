@@ -122,7 +122,7 @@ public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O> {
     O visit(OWLInverseFunctionalObjectPropertyAxiom axiom);
 
 
-    O visit(OWLSameIndividualsAxiom axiom);
+    O visit(OWLSameIndividualAxiom axiom);
 
 
     O visit(OWLSubPropertyChainOfAxiom axiom);

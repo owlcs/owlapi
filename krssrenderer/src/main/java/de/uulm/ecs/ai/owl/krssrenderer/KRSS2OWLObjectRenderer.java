@@ -364,7 +364,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
     }
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
     }
 
     public void visit(OWLSubPropertyChainOfAxiom axiom) {

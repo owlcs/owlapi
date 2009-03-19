@@ -36,13 +36,13 @@ public class DatatypeRestrictionTestCase extends AbstractFileRoundTrippingTestCa
 
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLDataRange dr = getFactory().getDatatypeRestriction(
-                getFactory().getIntegerDatatype(),
-                getFactory().getFacetRestriction(OWLFacet.MIN_INCLUSIVE, 18),
-                getFactory().getFacetRestriction(OWLFacet.MAX_INCLUSIVE, 30)
+        OWLDataRange dr = getFactory().getOWLDatatypeRestriction(
+                getFactory().getIntegerOWLDatatype(),
+                getFactory().getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, 18),
+                getFactory().getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, 30)
         );
         OWLDataProperty p = getOWLDataProperty("p");
-        OWLDataPropertyRangeAxiom ax = getFactory().getDataPropertyRange(p, dr);
+        OWLDataPropertyRangeAxiom ax = getFactory().getOWLDataPropertyRangeAxiom(p, dr);
         axioms.add(ax);
         axioms.add(getFactory().getOWLDeclarationAxiom(p));
         assertEquals(getOnt().getAxioms(), axioms);

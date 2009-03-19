@@ -77,7 +77,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
         if (constant == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "typed constant element");
         }
-        setDataRange(getOWLDataFactory().getDatatypeRestriction((OWLDatatype) dataRange, OWLFacet.getFacet(facetURI), constant));
+        setDataRange(getOWLDataFactory().getOWLDatatypeRestriction((OWLDatatype) dataRange, OWLFacet.getFacet(facetURI), constant));
 
 
     }

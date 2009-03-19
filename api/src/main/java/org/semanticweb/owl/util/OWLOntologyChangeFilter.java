@@ -215,7 +215,7 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor {
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
     }
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
     }
 
     public void visit(OWLSubClassOfAxiom axiom) {

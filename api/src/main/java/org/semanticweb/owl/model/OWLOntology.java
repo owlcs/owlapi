@@ -421,6 +421,7 @@ public interface OWLOntology extends OWLNamedObject {
     Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual);
 
     Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property);
+    
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -715,7 +716,7 @@ public interface OWLOntology extends OWLNamedObject {
     Set<OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxioms(OWLIndividual individual);
 
 
-    Set<OWLSameIndividualsAxiom> getSameIndividualAxioms(OWLIndividual individual);
+    Set<OWLSameIndividualAxiom> getSameIndividualAxioms(OWLIndividual individual);
 
 
     Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(OWLIndividual individual);

@@ -56,6 +56,6 @@ public class OWLInverseObjectPropertiesAxiomElementHandler extends AbstractOWLOb
             // Syntactic variant of symmetric property
             propB = propA;
         }
-        return getOWLDataFactory().getInverseObjectProperties(propA, propB);
+        return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(propA, propB);
     }
 }

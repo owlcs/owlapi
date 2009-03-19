@@ -61,7 +61,7 @@ public class Example4 {
             OWLObjectProperty hasFather = dataFactory.getOWLObjectProperty(URI.create(base + "#hasFather"));
             // Now create the actual assertion (triple), as an object property assertion axiom
             // matthew --> hasFather --> peter
-            OWLObjectPropertyAssertionAxiom assertion = dataFactory.getObjectPropertyAssertion(matthew, hasFather, peter);
+            OWLObjectPropertyAssertionAxiom assertion = dataFactory.getOWLObjectPropertyAssertionAxiom(matthew, hasFather, peter);
             // Finally, add the axiom to our ontology and save
             AddAxiom addAxiomChange = new AddAxiom(ont, assertion);
             man.applyChange(addAxiomChange);

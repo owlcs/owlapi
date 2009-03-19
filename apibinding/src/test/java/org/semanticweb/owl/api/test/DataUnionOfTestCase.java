@@ -35,11 +35,11 @@ public class DataUnionOfTestCase extends AbstractFileRoundTrippingTestCase {
 
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLDataRange intdr = getFactory().getIntegerDatatype();
-        OWLDataRange floatdr = getFactory().getFloatDatatype();
-        OWLDataRange union = getFactory().getDataUnionOf(intdr, floatdr);
+        OWLDataRange intdr = getFactory().getIntegerOWLDatatype();
+        OWLDataRange floatdr = getFactory().getFloatOWLDatatype();
+        OWLDataRange union = getFactory().getOWLDataUnionOf(intdr, floatdr);
         OWLDataProperty p = getOWLDataProperty("p");
-        OWLDataPropertyRangeAxiom ax = getFactory().getDataPropertyRange(p, union);
+        OWLDataPropertyRangeAxiom ax = getFactory().getOWLDataPropertyRangeAxiom(p, union);
         axioms.add(ax);
         axioms.add(getFactory().getOWLDeclarationAxiom(p));
         assertEquals(getOnt().getAxioms(), axioms);

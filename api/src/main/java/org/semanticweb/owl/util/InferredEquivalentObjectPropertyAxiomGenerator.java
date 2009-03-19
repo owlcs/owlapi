@@ -45,7 +45,7 @@ public class InferredEquivalentObjectPropertyAxiomGenerator extends InferredObje
             OWLReasonerException {
         Set<OWLObjectProperty> equivProps = new HashSet<OWLObjectProperty>(reasoner.getEquivalentProperties(entity));
         equivProps.add(entity);
-        result.add(dataFactory.getEquivalentObjectProperties(equivProps));
+        result.add(dataFactory.getOWLEquivalentObjectPropertiesAxiom(equivProps));
     }
 
 

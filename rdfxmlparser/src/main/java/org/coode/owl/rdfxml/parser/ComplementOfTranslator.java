@@ -55,6 +55,6 @@ public class ComplementOfTranslator extends AbstractClassExpressionTranslator {
         if (operand == null) {
             throw new MalformedClassExpressionException("Could not translate complement of operand");
         }
-        return getDataFactory().getObjectComplementOf(operand);
+        return getDataFactory().getOWLObjectComplementOf(operand);
     }
 }

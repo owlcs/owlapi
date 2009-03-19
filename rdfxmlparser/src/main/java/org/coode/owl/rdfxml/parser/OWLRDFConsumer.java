@@ -625,6 +625,9 @@ public class OWLRDFConsumer implements RDFConsumer {
         // of memory).
     }
 
+    protected void addImport(OWLImportsDeclaration declaration) throws OWLException {
+        owlOntologyManager.applyChange(new AddImport(ontology, declaration));
+    }
 
     public OWLAxiom getLastAddedAxiom() {
         return lastAddedAxiom;
@@ -855,7 +858,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     protected OWLIndividual getOWLIndividual(URI uri) {
         if (isAnonymousNode(uri)) {
-            return getDataFactory().getAnonymousIndividual(uri.toString());
+            return getDataFactory().getOWLAnonymousIndividual(uri.toString());
         } else {
             return getDataFactory().getOWLNamedIndividual(uri);
         }
@@ -1277,7 +1280,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         else {
             OWLAnnotationValue value = translateAnnotationValue(object);
-            OWLAnnotation annotation = getDataFactory().getAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), value, translatedAnnotations);
+            OWLAnnotation annotation = getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), value, translatedAnnotations);
             System.out.println("Translated annotation: " + annotation);
             return annotation;
         }
@@ -1291,7 +1294,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         if (object instanceof URI) {
             URI uri = (URI) object;
             if (isAnonymousNode(uri)) {
-                value = getDataFactory().getAnonymousIndividual(uri.toString());
+                value = getDataFactory().getOWLAnonymousIndividual(uri.toString());
             } else {
                 value = getDataFactory().getIRI(uri);
             }
@@ -1488,12 +1491,12 @@ public class OWLRDFConsumer implements RDFConsumer {
      */
     private OWLLiteral getOWLConstant(String literal, String datatype, String lang) {
         if (datatype != null) {
-            return dataFactory.getTypedLiteral(literal, dataFactory.getOWLDatatype(getURI(datatype)));
+            return dataFactory.getOWLTypedLiteral(literal, dataFactory.getOWLDatatype(getURI(datatype)));
         } else {
             if (lang != null) {
                 return dataFactory.getRDFTextLiteral(literal, lang);
             } else {
-                return dataFactory.getTypedLiteral(literal);
+                return dataFactory.getOWLTypedLiteral(literal);
             }
         }
     }
@@ -1508,7 +1511,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                 if (con.isTyped()) {
                     typedConstants.add((OWLTypedLiteral) con);
                 } else {
-                    typedConstants.add(getDataFactory().getTypedLiteral(con.getLiteral(),
+                    typedConstants.add(getDataFactory().getOWLTypedLiteral(con.getLiteral(),
                             getDataFactory().getOWLDatatype(
                                     XSDVocabulary.STRING.getURI())));
                 }
@@ -1518,12 +1521,12 @@ public class OWLRDFConsumer implements RDFConsumer {
         URI intersectionOfObject = getResourceObject(uri, OWL_INTERSECTION_OF.getURI(), true);
         if (intersectionOfObject != null) {
             Set<OWLDataRange> dataRanges = translateToDataRangeSet(intersectionOfObject);
-            return getDataFactory().getDataIntersectionOf(dataRanges);
+            return getDataFactory().getOWLDataIntersectionOf(dataRanges);
         }
         URI unionOfObject = getResourceObject(uri, OWL_UNION_OF.getURI(), true);
         if (unionOfObject != null) {
             Set<OWLDataRange> dataRanges = translateToDataRangeSet(unionOfObject);
-            return getDataFactory().getDataUnionOf(dataRanges);
+            return getDataFactory().getOWLDataUnionOf(dataRanges);
         }
         // The plain complement of triple predicate is in here for legacy reasons
         URI complementOfObject = getResourceObject(uri, OWL_DATATYPE_COMPLEMENT_OF.getURI(), true);
@@ -1532,7 +1535,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         if (complementOfObject != null) {
             OWLDataRange operand = translateDataRange(complementOfObject);
-            return getDataFactory().getDataComplementOf(operand);
+            return getDataFactory().getOWLDataComplementOf(operand);
         }
 
         URI onDatatypeObject = getResourceObject(uri, OWL_ON_DATA_TYPE.getURI(), true);
@@ -1558,14 +1561,14 @@ public class OWLRDFConsumer implements RDFConsumer {
                 for (URI facetURI : OWLFacet.FACET_URIS) {
                     OWLLiteral val;
                     while ((val = getLiteralObject(uri, facetURI, true)) != null) {
-                        restrictions.add(dataFactory.getFacetRestriction(
+                        restrictions.add(dataFactory.getOWLFacetRestriction(
                                 OWLFacet.getFacet(facetURI), val));
                     }
                 }
             }
 
 
-            return dataFactory.getDatatypeRestriction(restrictedDataRange, restrictions);
+            return dataFactory.getOWLDatatypeRestriction(restrictedDataRange, restrictions);
         }
         return getDataFactory().getOWLDatatype(uri);
     }

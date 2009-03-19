@@ -43,6 +43,6 @@ public class TPOneOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
 
 
     protected OWLClassExpression translateEquivalentClass(URI mainNode) throws OWLException {
-        return getDataFactory().getObjectOneOf(getConsumer().translateToIndividualSet(mainNode));
+        return getDataFactory().getOWLObjectOneOf(getConsumer().translateToIndividualSet(mainNode));
     }
 }

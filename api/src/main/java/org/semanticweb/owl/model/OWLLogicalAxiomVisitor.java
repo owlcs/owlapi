@@ -112,7 +112,7 @@ public interface OWLLogicalAxiomVisitor {
     void visit(OWLInverseFunctionalObjectPropertyAxiom axiom);
 
 
-    void visit(OWLSameIndividualsAxiom axiom);
+    void visit(OWLSameIndividualAxiom axiom);
 
 
     void visit(OWLSubPropertyChainOfAxiom axiom);

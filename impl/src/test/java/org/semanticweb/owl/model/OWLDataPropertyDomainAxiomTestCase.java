@@ -43,6 +43,6 @@ public class OWLDataPropertyDomainAxiomTestCase extends AbstractOWLBinaryOperand
 
 
     protected OWLAxiom createAxiom(OWLDataProperty leftOperand, OWLClassExpression rightOperand) throws Exception {
-        return getOWLDataFactory().getDataPropertyDomain(leftOperand, rightOperand);
+        return getOWLDataFactory().getOWLDataPropertyDomainAxiom(leftOperand, rightOperand);
     }
 }

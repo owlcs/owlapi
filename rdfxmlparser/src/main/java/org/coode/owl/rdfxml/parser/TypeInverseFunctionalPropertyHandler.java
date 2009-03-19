@@ -47,7 +47,7 @@ public class TypeInverseFunctionalPropertyHandler extends BuiltInTypeHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         getConsumer().addOWLObjectProperty(subject);
-        addAxiom(getDataFactory().getInverseFunctionalObjectProperty(translateObjectProperty(subject)));
+        addAxiom(getDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(translateObjectProperty(subject)));
         consumeTriple(subject, predicate, object);
     }
 }

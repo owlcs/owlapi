@@ -2,7 +2,6 @@ package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
 
-import java.net.URI;
 import java.util.Collection;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -62,7 +61,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
     }
 
     public OWLAnnotation getAnnotation() {
-        return getOWLDataFactory().getAnnotation(property, value);
+        return getOWLDataFactory().getOWLAnnotation(property, value);
     }
 
     public boolean isLogicalAxiom() {
@@ -80,7 +79,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         if(diff != 0) {
             return diff;
         }
-        return object.compareTo(other.getValue());
+        return value.compareTo(other.getValue());
     }
 
     public void accept(OWLObjectVisitor visitor) {
@@ -104,4 +103,23 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
     public AxiomType getAxiomType() {
         return AxiomType.ANNOTATION_ASSERTION;
     }
+
+
+    public boolean equals(Object obj) {
+        if(obj == null) {
+            return false;
+        }
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OWLAnnotationAssertionAxiom)) {
+            return false;
+        }
+        OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) obj;
+        return subject.equals(other.getSubject()) && property.equals(other.getProperty()) && value.equals(other.getValue());
+    }
+
+
+
+
 }

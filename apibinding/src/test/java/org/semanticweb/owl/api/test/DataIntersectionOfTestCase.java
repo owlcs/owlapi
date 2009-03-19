@@ -35,11 +35,11 @@ public class DataIntersectionOfTestCase extends AbstractFileRoundTrippingTestCas
 
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLDataRange intdr = getFactory().getIntegerDatatype();
-        OWLDataRange floatdr = getFactory().getFloatDatatype();
-        OWLDataRange intersection = getFactory().getDataIntersectionOf(intdr, floatdr);
+        OWLDataRange intdr = getFactory().getIntegerOWLDatatype();
+        OWLDataRange floatdr = getFactory().getFloatOWLDatatype();
+        OWLDataRange intersection = getFactory().getOWLDataIntersectionOf(intdr, floatdr);
         OWLDataProperty p = getOWLDataProperty("p");
-        OWLDataPropertyRangeAxiom ax = getFactory().getDataPropertyRange(p, intersection);
+        OWLDataPropertyRangeAxiom ax = getFactory().getOWLDataPropertyRangeAxiom(p, intersection);
         axioms.add(ax);
         axioms.add(getFactory().getOWLDeclarationAxiom(p));
         assertEquals(getOnt().getAxioms(), axioms);

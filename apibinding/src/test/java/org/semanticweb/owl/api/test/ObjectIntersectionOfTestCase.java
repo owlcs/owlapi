@@ -38,7 +38,7 @@ public class ObjectIntersectionOfTestCase extends AbstractFileRoundTrippingTestC
          OWLClass clsA = getOWLClass("A");
          OWLClass clsB = getOWLClass("B");
          OWLClass clsC = getOWLClass("C");
-         axioms.add(getFactory().getSubClassOf(clsA, getFactory().getObjectIntersectionOf(clsB, clsC)));
+         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectIntersectionOf(clsB, clsC)));
          assertEquals(getOnt().getAxioms(), axioms);
     }
 

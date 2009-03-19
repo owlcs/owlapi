@@ -202,7 +202,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         subject = axiom.getIndividuals().iterator().next();
     }
 

@@ -62,6 +62,6 @@ public class OWLSubClassAxiomElementHandler extends AbstractOWLAxiomElementHandl
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getSubClassOf(subClass, supClass);
+        return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, supClass);
     }
 }

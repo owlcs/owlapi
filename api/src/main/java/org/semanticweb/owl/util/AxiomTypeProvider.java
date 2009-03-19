@@ -70,12 +70,7 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
     public void visit(OWLDataPropertyDomainAxiom axiom) {
         axiomType = DATA_PROPERTY_DOMAIN;
     }
-
-
-    public void visit(OWLImportsDeclaration axiom) {
-        axiomType = IMPORTS_DECLARATION;
-    }
-
+    
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         axiomType = OBJECT_PROPERTY_DOMAIN;
@@ -196,7 +191,7 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         axiomType = SAME_INDIVIDUAL;
     }
 

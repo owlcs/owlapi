@@ -293,7 +293,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         for (OWLIndividual ind : axiom.getIndividuals()) {
             ind.accept(this);
         }

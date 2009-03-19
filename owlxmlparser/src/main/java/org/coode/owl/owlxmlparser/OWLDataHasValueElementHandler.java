@@ -46,6 +46,6 @@ public class OWLDataHasValueElementHandler extends AbstractDataRestrictionElemen
 
 
     protected OWLClassExpression createRestriction() {
-        return getOWLDataFactory().getDataHasValue(getProperty(), getFiller());
+        return getOWLDataFactory().getOWLDataHasValue(getProperty(), getFiller());
     }
 }

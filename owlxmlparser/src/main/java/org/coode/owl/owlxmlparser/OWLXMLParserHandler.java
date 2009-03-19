@@ -129,7 +129,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
         });
 
-        addFactory(new AbstractElementHandlerFactory(CONSTANT) {
+        addFactory(new AbstractElementHandlerFactory(LITERAL) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLConstantElementHandler(handler);
             }
@@ -198,7 +198,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         });
 
 
-        addFactory(new AbstractElementHandlerFactory(DATATYPE_FACET_RESTRICTION) {
+        addFactory(new AbstractElementHandlerFactory(FACET_RESTRICTION) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLDatatypeFacetRestrictionElementHandler(handler);
             }
@@ -405,14 +405,6 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
         });
 
-        /**
-         * AntiSymmetric object property for legacy reasons
-         */
-        addFactory(new AbstractElementHandlerFactory(ANTI_SYMMETRIC_OBJECT_PROPERTY) {
-            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
-                return new OWLAntisymmetricObjectPropertyAxiomElementHandler(handler);
-            }
-        });
 
         addFactory(new AbstractElementHandlerFactory(ASYMMETRIC_OBJECT_PROPERTY) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
@@ -518,7 +510,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
         });
 
-        addFactory(new AbstractElementHandlerFactory(ENTITY_ANNOTATION) {
+        addFactory(new AbstractElementHandlerFactory(ANNOTATION_ASSERTION) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLEntityAnnotationElementHandler(handler);
             }

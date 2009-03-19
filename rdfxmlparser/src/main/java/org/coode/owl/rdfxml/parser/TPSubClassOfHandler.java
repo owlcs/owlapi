@@ -62,7 +62,7 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         OWLClassExpression subClass = translateClassExpression(subject);
         OWLClassExpression supClass = translateClassExpression(object);
-        OWLAxiom ax = getDataFactory().getSubClassOf(subClass, supClass);
+        OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(subClass, supClass);
         addAxiom(ax);
         consumeTriple(subject, predicate, object);
     }

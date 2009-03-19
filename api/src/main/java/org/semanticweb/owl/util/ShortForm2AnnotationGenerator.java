@@ -79,11 +79,11 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
                 if (languageTag != null) {
                     con = ontologyManager.getOWLDataFactory().getRDFTextLiteral(shortForm, languageTag);
                 } else {
-                    con = ontologyManager.getOWLDataFactory().getTypedLiteral(shortForm);
+                    con = ontologyManager.getOWLDataFactory().getOWLTypedLiteral(shortForm);
                 }
                 if (ontology.containsEntityReference(ent)) {
                     OWLOntologyChange chg = new AddAxiom(ont,
-                            ontologyManager.getOWLDataFactory().getAnnotationAssertion(ent.getIRI(),
+                            ontologyManager.getOWLDataFactory().getOWLAnnotationAssertionAxiom(ent.getIRI(),
                                     ontologyManager.getOWLDataFactory().getOWLAnnotationProperty(annotationURI),
                                     con));
                     changes.add(chg);

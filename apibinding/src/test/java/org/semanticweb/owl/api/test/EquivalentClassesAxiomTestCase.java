@@ -38,11 +38,11 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");
         OWLObjectProperty propP = getOWLObjectProperty("p");
-        OWLClassExpression desc = getFactory().getObjectSomeValuesFrom(propP, clsB);
-        OWLClassExpression desc2 = getFactory().getObjectSomeValuesFrom(propP, clsA);
-        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClasses(clsA, desc);
+        OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(propP, clsB);
+        OWLClassExpression desc2 = getFactory().getOWLObjectSomeValuesFrom(propP, clsA);
+        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(clsA, desc);
         assertTrue(ax.containsNamedEquivalentClass());
-        OWLEquivalentClassesAxiom ax2 = getFactory().getOWLEquivalentClasses(desc, desc2);
+        OWLEquivalentClassesAxiom ax2 = getFactory().getOWLEquivalentClassesAxiom(desc, desc2);
         assertFalse(ax2.containsNamedEquivalentClass());
     }
 
@@ -51,8 +51,8 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");
         OWLObjectProperty propP = getOWLObjectProperty("p");
-        OWLClassExpression desc = getFactory().getObjectSomeValuesFrom(propP, clsB);
-        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClasses(clsA, desc);
+        OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(propP, clsB);
+        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(clsA, desc);
         Set<OWLClass> clses = ax.getNamedClasses();
         assertEquals(clses.size(), 1);
         assertTrue(clses.contains(clsA));
@@ -61,8 +61,8 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
     public void testGetNamedClassesWithNothing() {
         OWLClass clsB = getOWLClass("B");
         OWLObjectProperty propP = getOWLObjectProperty("p");
-        OWLClassExpression desc = getFactory().getObjectSomeValuesFrom(propP, clsB);
-        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClasses(getFactory().getOWLNothing(), desc);
+        OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(propP, clsB);
+        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(getFactory().getOWLNothing(), desc);
         Set<OWLClass> clses = ax.getNamedClasses();
         assertTrue(clses.isEmpty());
         assertFalse(ax.containsOWLThing());
@@ -72,8 +72,8 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
     public void testGetNamedClassesWithThing() {
         OWLClass clsB = getOWLClass("B");
         OWLObjectProperty propP = getOWLObjectProperty("p");
-        OWLClassExpression desc = getFactory().getObjectSomeValuesFrom(propP, clsB);
-        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClasses(getFactory().getOWLThing(), desc);
+        OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(propP, clsB);
+        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(getFactory().getOWLThing(), desc);
         Set<OWLClass> clses = ax.getNamedClasses();
         assertTrue(clses.isEmpty());
         assertFalse(ax.containsOWLNothing());
@@ -91,11 +91,11 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
         OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(clses);
         Set<OWLSubClassOfAxiom> scas = ax.asSubClassAxioms();
         assertEquals(scas.size(), 6);
-        assertTrue(scas.contains(getFactory().getSubClassOf(clsA, clsB)));
-        assertTrue(scas.contains(getFactory().getSubClassOf(clsB, clsA)));
-        assertTrue(scas.contains(getFactory().getSubClassOf(clsA, clsC)));
-        assertTrue(scas.contains(getFactory().getSubClassOf(clsC, clsA)));
-        assertTrue(scas.contains(getFactory().getSubClassOf(clsB, clsC)));
-        assertTrue(scas.contains(getFactory().getSubClassOf(clsC, clsB)));
+        assertTrue(scas.contains(getFactory().getOWLSubClassOfAxiom(clsA, clsB)));
+        assertTrue(scas.contains(getFactory().getOWLSubClassOfAxiom(clsB, clsA)));
+        assertTrue(scas.contains(getFactory().getOWLSubClassOfAxiom(clsA, clsC)));
+        assertTrue(scas.contains(getFactory().getOWLSubClassOfAxiom(clsC, clsA)));
+        assertTrue(scas.contains(getFactory().getOWLSubClassOfAxiom(clsB, clsC)));
+        assertTrue(scas.contains(getFactory().getOWLSubClassOfAxiom(clsC, clsB)));
     }
 }

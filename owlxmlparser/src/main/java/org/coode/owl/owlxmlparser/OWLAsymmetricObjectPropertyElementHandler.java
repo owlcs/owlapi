@@ -36,6 +36,6 @@ public class OWLAsymmetricObjectPropertyElementHandler extends AbstractOWLObject
     }
 
     protected OWLAxiom createPropertyCharacteristicAxiom() {
-        return getOWLDataFactory().getAsymmetricObjectProperty(getProperty());
+        return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(getProperty());
     }
 }

@@ -41,34 +41,34 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         Set<OWLAxiom> logicalAxioms = new HashSet<OWLAxiom>();
 
         // Class axioms
-        logicalAxioms.add(df.getSubClassOf(getOWLClass("A"), getOWLClass("B")));
-        logicalAxioms.add(df.getOWLEquivalentClasses(getOWLClass("C"), getOWLClass("D")));
+        logicalAxioms.add(df.getOWLSubClassOfAxiom(getOWLClass("A"), getOWLClass("B")));
+        logicalAxioms.add(df.getOWLEquivalentClassesAxiom(getOWLClass("C"), getOWLClass("D")));
         logicalAxioms.add(df.getOWLDisjointClassesAxiom(getOWLClass("D"), getOWLClass("E")));
         // Object property
         OWLObjectProperty propP = getOWLObjectProperty("p");
-        logicalAxioms.add(df.getSubObjectPropertyOf(propP, getOWLObjectProperty("q")));
-        logicalAxioms.add(df.getEquivalentObjectProperties(propP, getOWLObjectProperty("q")));
-        logicalAxioms.add(df.getDisjointObjectProperties(propP, getOWLObjectProperty("q")));
-        logicalAxioms.add(df.getObjectPropertyDomain(propP, getOWLClass("A")));
-        logicalAxioms.add(df.getObjectPropertyRange(propP, getOWLClass("A")));
-        logicalAxioms.add(df.getObjectPropertyAssertion(getOWLIndividual("a"), propP, getOWLIndividual("b")));
-        logicalAxioms.add(df.getFunctionalObjectProperty(propP));
-        logicalAxioms.add(df.getInverseFunctionalObjectProperty(propP));
-        logicalAxioms.add(df.getSymmetricObjectProperty(propP));
-        logicalAxioms.add(df.getTransitiveObjectProperty(propP));
-        logicalAxioms.add(df.getReflexiveObjectProperty(propP));
-        logicalAxioms.add(df.getIrreflexiveObjectProperty(propP));
-        logicalAxioms.add(df.getAsymmetricObjectProperty(propP));
+        logicalAxioms.add(df.getOWLSubObjectPropertyOfAxiom(propP, getOWLObjectProperty("q")));
+        logicalAxioms.add(df.getOWLEquivalentObjectPropertiesAxiom(propP, getOWLObjectProperty("q")));
+        logicalAxioms.add(df.getOWLDisjointObjectPropertiesAxiom(propP, getOWLObjectProperty("q")));
+        logicalAxioms.add(df.getOWLObjectPropertyDomainAxiom(propP, getOWLClass("A")));
+        logicalAxioms.add(df.getOWLObjectPropertyRangeAxiom(propP, getOWLClass("A")));
+        logicalAxioms.add(df.getOWLObjectPropertyAssertionAxiom(getOWLIndividual("a"), propP, getOWLIndividual("b")));
+        logicalAxioms.add(df.getOWLFunctionalObjectPropertyAxiom(propP));
+        logicalAxioms.add(df.getOWLInverseFunctionalObjectPropertyAxiom(propP));
+        logicalAxioms.add(df.getOWLSymmetricObjectPropertyAxiom(propP));
+        logicalAxioms.add(df.getOWLTransitiveObjectPropertyAxiom(propP));
+        logicalAxioms.add(df.getOWLReflexiveObjectPropertyAxiom(propP));
+        logicalAxioms.add(df.getOWLIrreflexiveObjectPropertyAxiom(propP));
+        logicalAxioms.add(df.getOWLAsymmetricObjectPropertyAxiom(propP));
 
         // Data property
         OWLDataProperty propD = getOWLDataProperty("d");
-        logicalAxioms.add(df.getSubDataPropertyOf(propD, getOWLDataProperty("q")));
-        logicalAxioms.add(df.getEquivalentDataProperties(propD, getOWLDataProperty("q")));
-        logicalAxioms.add(df.getDisjointDataProperties(propD, getOWLDataProperty("q")));
-        logicalAxioms.add(df.getDataPropertyDomain(propD, getOWLClass("A")));
-        logicalAxioms.add(df.getDataPropertyRange(propD, df.getIntegerDatatype()));
-        logicalAxioms.add(df.getDataPropertyAssertion(getOWLIndividual("a"), propD, df.getTypedLiteral(3)));
-        logicalAxioms.add(df.getFunctionalDataProperty(propD));
+        logicalAxioms.add(df.getOWLSubDataPropertyOfAxiom(propD, getOWLDataProperty("q")));
+        logicalAxioms.add(df.getOWLEquivalentDataPropertiesAxiom(propD, getOWLDataProperty("q")));
+        logicalAxioms.add(df.getOWLDisjointDataPropertiesAxiom(propD, getOWLDataProperty("q")));
+        logicalAxioms.add(df.getOWLDataPropertyDomainAxiom(propD, getOWLClass("A")));
+        logicalAxioms.add(df.getOWLDataPropertyRangeAxiom(propD, df.getIntegerOWLDatatype()));
+        logicalAxioms.add(df.getOWLDataPropertyAssertionAxiom(getOWLIndividual("a"), propD, df.getOWLTypedLiteral(3)));
+        logicalAxioms.add(df.getOWLFunctionalDataPropertyAxiom(propD));
 
 
         getManager().addAxioms(ont, logicalAxioms);

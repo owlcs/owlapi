@@ -49,7 +49,7 @@ public class OWLObjectExistsSelfElementHandler extends AbstractClassExpressionEl
         if (property == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Was expecting object property expression element");
         }
-        setClassExpression(getOWLDataFactory().getObjectHasSelf(property));
+        setClassExpression(getOWLDataFactory().getOWLObjectHasSelf(property));
     }
 
 

@@ -27,17 +27,8 @@ package org.semanticweb.owl.model;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
- * Date: 25-Oct-2006
+ * Date: 24-Oct-2006
  */
-public class OWLFunctionalDataPropertyTestCase extends AbstractOWLPropertyCharacteristicTestCase<OWLDataProperty> {
+public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
 
-
-    protected OWLDataProperty createProperty() throws Exception {
-        return createOWLDataProperty();
-    }
-
-
-    protected OWLPropertyAxiom createOWLPropertyAxiom(OWLDataProperty property) throws OWLException {
-        return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(property);
-    }
 }

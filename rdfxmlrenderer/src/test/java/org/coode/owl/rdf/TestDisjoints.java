@@ -72,7 +72,7 @@ public class TestDisjoints extends TestCase {
 //        OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
 //        OWLClass clsC = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
 //        OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
-//        OWLClassExpression clsD = man.getOWLDataFactory().getObjectSomeValuesFrom(prop, man.getOWLDataFactory().getOWLThing());
+//        OWLClassExpression clsD = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(prop, man.getOWLDataFactory().getOWLThing());
 //        Set<OWLClassExpression> expressions = new HashSet<OWLClassExpression>();
 //        expressions.add(clsA);
 //        expressions.add(clsB);
@@ -101,8 +101,8 @@ public class TestDisjoints extends TestCase {
         OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
         OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
         OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
-        OWLClassExpression descA = man.getOWLDataFactory().getObjectSomeValuesFrom(prop, clsA);
-        OWLClassExpression descB = man.getOWLDataFactory().getObjectSomeValuesFrom(prop, clsB);
+        OWLClassExpression descA = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(prop, clsA);
+        OWLClassExpression descB = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(prop, clsB);
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         classExpressions.add(descA);
         classExpressions.add(descB);

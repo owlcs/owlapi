@@ -41,11 +41,17 @@ public enum OWLXMLVocabulary {
 
     OBJECT_PROPERTY("ObjectProperty"),
 
-    INDIVIDUAL("Individual"),
+    INDIVIDUAL("NamedIndividual"),
+
+    ANNOTATION_PROPERTY("AnnotationProperty"),
 
     DATATYPE("Datatype"),
 
     ANNOTATION("Annotation"),
+
+    ANONYMOUS_INDIVIDUAL("AnonymousIndividual"),
+
+    NODE_ID("nodeID"),
 
     ANNOTATION_URI("annotationURI"),
 
@@ -59,7 +65,7 @@ public enum OWLXMLVocabulary {
 
     ONTOLOGY("Ontology"),
 
-    CONSTANT("Constant"),
+    LITERAL("Literal"),
 
     INVERSE_OBJECT_PROPERTY("InverseObjectProperty"),
 
@@ -69,11 +75,15 @@ public enum OWLXMLVocabulary {
 
     DATATYPE_RESTRICTION("DatatypeRestriction"),
 
-    DATATYPE_FACET_RESTRICTION("DatatypeFacetRestriction"),
+    FACET_RESTRICTION("FacetRestriction"),
+
+    DATA_UNION_OF("DataUnionOf"),
+
+    DATA_INTERSECTION_OF("DataIntersectionOf"),
 
     DATATYPE_FACET("facet"),
 
-    DATATYPE_URI("datatypeURI"),
+    DATATYPE_IRI("datatypeIRI"),
 
     DATA_RANGE("DataRange"),
 
@@ -141,11 +151,6 @@ public enum OWLXMLVocabulary {
 
     SYMMETRIC_OBJECT_PROPERTY("SymmetricObjectProperty"),
 
-    /**
-     * @deprecated Use AsymmetricObjectProperty instead.
-     */
-    ANTI_SYMMETRIC_OBJECT_PROPERTY("AntisymmetricObjectProperty"),
-
     ASYMMETRIC_OBJECT_PROPERTY("AsymmetricObjectProperty"),
 
     REFLEXIVE_OBJECT_PROPERTY("ReflexiveObjectProperty"),
@@ -180,9 +185,17 @@ public enum OWLXMLVocabulary {
 
     NEGATIVE_DATA_PROPERTY_ASSERTION("NegativeDataPropertyAssertion"),
 
+    HAS_KEY("HasKey"),
+
     DECLARATION("Declaration"),
 
-    ENTITY_ANNOTATION("EntityAnnotation");
+    ANNOTATION_ASSERTION("AnnotationAssertion"),
+
+    ANNOTATION_PROPERTY_DOMAIN("AnnotationPropertyDomain"),
+
+    ANNOTATION_PROPERTY_RANGE("AnnotationPropertyRange"),
+
+    SUB_ANNOTATION_PROPERTY_OF("SubAnnotationPropertyOf");
 
     private URI uri;
 
@@ -190,7 +203,7 @@ public enum OWLXMLVocabulary {
 
 
     OWLXMLVocabulary(String name) {
-        this.uri = URI.create(Namespaces.OWL2XML + name);
+        this.uri = URI.create(Namespaces.OWL + name);
         shortName = name;
     }
 

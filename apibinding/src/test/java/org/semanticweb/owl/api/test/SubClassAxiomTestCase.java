@@ -47,7 +47,7 @@ public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");
-        axioms.add(getFactory().getSubClassOf(clsA, clsB));
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, clsB));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
@@ -59,10 +59,10 @@ public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");
         OWLClass clsC = getOWLClass("C");
-        OWLClassExpression desc = getFactory().getObjectIntersectionOf(clsA, clsC);
-        OWLSubClassOfAxiom ax1 = getFactory().getSubClassOf(clsA, clsB);
+        OWLClassExpression desc = getFactory().getOWLObjectIntersectionOf(clsA, clsC);
+        OWLSubClassOfAxiom ax1 = getFactory().getOWLSubClassOfAxiom(clsA, clsB);
         assertFalse(ax1.isGCI());
-        OWLSubClassOfAxiom ax2 = getFactory().getSubClassOf(desc, clsB);
+        OWLSubClassOfAxiom ax2 = getFactory().getOWLSubClassOfAxiom(desc, clsB);
         assertTrue(ax2.isGCI());
 
     }

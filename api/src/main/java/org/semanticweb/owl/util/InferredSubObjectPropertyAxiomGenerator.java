@@ -44,7 +44,7 @@ public class InferredSubObjectPropertyAxiomGenerator extends InferredObjectPrope
     protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLSubObjectPropertyOfAxiom> result) throws
             OWLReasonerException {
         for (OWLObjectProperty prop : OWLReasonerAdapter.flattenSetOfSets(reasoner.getSuperProperties(entity))) {
-            result.add(dataFactory.getSubObjectPropertyOf(entity, prop));
+            result.add(dataFactory.getOWLSubObjectPropertyOfAxiom(entity, prop));
         }
     }
 

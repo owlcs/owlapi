@@ -582,7 +582,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         // BUGFIX: (TS) Same individuals axioms are local, too.
         //              They need to be added to the module after the locality checks have been performed.
-        public void visit(OWLSameIndividualsAxiom axiom) {
+        public void visit(OWLSameIndividualAxiom axiom) {
 //            isLocal = false;
             isLocal = true;
         }

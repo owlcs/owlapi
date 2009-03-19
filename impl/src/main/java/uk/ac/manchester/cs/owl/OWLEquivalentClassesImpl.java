@@ -86,7 +86,7 @@ public class OWLEquivalentClassesImpl extends OWLNaryClassAxiomImpl implements O
         for (OWLClassExpression descA : getClassExpressions()) {
             for (OWLClassExpression descB : getClassExpressions()) {
                 if (!descA.equals(descB)) {
-                    result.add(getOWLDataFactory().getSubClassOf(descA, descB));
+                    result.add(getOWLDataFactory().getOWLSubClassOfAxiom(descA, descB));
                 }
             }
         }

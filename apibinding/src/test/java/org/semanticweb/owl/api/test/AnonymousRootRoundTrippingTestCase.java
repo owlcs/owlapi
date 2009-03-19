@@ -44,7 +44,7 @@ public class AnonymousRootRoundTrippingTestCase extends AbstractRoundTrippingTes
         for (int i = 0; i < 10; i++) {
             inds.add(getOWLIndividual("Ind" + i));
         }
-        addAxiom(ont, getFactory().getDifferentIndividuals(inds));
+        addAxiom(ont, getFactory().getOWLDifferentIndividualsAxiom(inds));
         return ont;
     }
 }

@@ -39,7 +39,7 @@ public class OWLFunctionalObjectPropertyAxiomElementHandler extends AbstractOWLO
 
 
     protected OWLAxiom createPropertyCharacteristicAxiom() {
-        return getOWLDataFactory().getFunctionalObjectProperty(getProperty());
+        return getOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(getProperty());
     }
 
 

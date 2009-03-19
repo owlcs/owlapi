@@ -2,9 +2,12 @@ package org.coode.owlapi.owlxml.renderer;
 
 import org.semanticweb.owl.model.*;
 import static org.semanticweb.owl.vocab.OWLXMLVocabulary.*;
+import org.semanticweb.owl.apibinding.OWLManager;
+import org.semanticweb.owl.io.OWLXMLOntologyFormat;
 
 import java.util.Set;
 import java.util.TreeSet;
+import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -54,15 +57,19 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(IRI iri) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
+        writer.writeIRIAttribute(iri);
     }
 
     public void visit(OWLAnonymousIndividual individual) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
+        writer.writeStartElement(ANONYMOUS_INDIVIDUAL.getURI());
+        writer.writeNodeIDAttribute(individual.getID());
+        writer.writeEndElement();
     }
 
     private void writeAnnotations(OWLAxiom axiom) {
-        throw new OWLRuntimeException("TODO: Implement");
+        for(OWLAnnotation anno : axiom.getAnnotations()) {
+            anno.accept(this);
+        }
     }
 
 
@@ -183,13 +190,11 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLAnnotationAssertionAxiom axiom) {
-        // Get written out with declarations
-        // Not anymore!
-        // This is not in the spec
-        writer.writeStartElement(ENTITY_ANNOTATION.getURI());
+        writer.writeStartElement(ANNOTATION_ASSERTION.getURI());
         writeAnnotations(axiom);
+        axiom.getProperty().accept(this);
         axiom.getSubject().accept(this);
-        axiom.getAnnotation().accept(this);
+        axiom.getValue().accept(this);
         writer.writeEndElement();
     }
 
@@ -336,7 +341,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         writer.writeStartElement(SAME_INDIVIDUALS.getURI());
         writeAnnotations(axiom);
         render(axiom.getIndividuals());
@@ -371,7 +376,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLClass desc) {
         writer.writeStartElement(CLASS.getURI());
-        writer.writeNameAttribute(desc.getURI());
+        writer.writeIRIAttribute(desc.getIRI());
         writer.writeEndElement();
     }
 
@@ -541,13 +546,12 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLDatatype node) {
         writer.writeStartElement(DATATYPE.getURI());
-        writer.writeNameAttribute(node.getURI());
+        writer.writeIRIAttribute(node.getIRI());
         writer.writeEndElement();
     }
 
 
     public void visit(OWLDatatypeRestriction node) {
-        // TODO: Fix this when added to spec
         writer.writeStartElement(DATATYPE_RESTRICTION.getURI());
         node.getDatatype().accept(this);
         for (OWLFacetRestriction restriction : node.getFacetRestrictions()) {
@@ -558,8 +562,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLFacetRestriction node) {
-        // TODO: Fix this when added to spec
-        writer.writeStartElement(DATATYPE_FACET_RESTRICTION.getURI());
+        writer.writeStartElement(FACET_RESTRICTION.getURI());
         writer.writeFacetAttribute(node.getFacet().getURI());
         node.getFacetValue().accept(this);
         writer.writeEndElement();
@@ -567,7 +570,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLTypedLiteral node) {
-        writer.writeStartElement(CONSTANT.getURI());
+        writer.writeStartElement(LITERAL.getURI());
         writer.writeDatatypeAttribute(node.getDatatype().getURI());
         writer.writeTextContent(node.getLiteral());
         writer.writeEndElement();
@@ -575,9 +578,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLRDFTextLiteral node) {
-        writer.writeStartElement(CONSTANT.getURI());
-        // TODO: Add in lang when added to spec
-//        writer.writeDatatypeAttribute(node.getLang());
+        writer.writeStartElement(LITERAL.getURI());
+        writer.writeLangAttribute(node.getLang());
         writer.writeTextContent(node.getLiteral());
         writer.writeEndElement();
     }
@@ -585,14 +587,14 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLDataProperty property) {
         writer.writeStartElement(DATA_PROPERTY.getURI());
-        writer.writeNameAttribute(property.getURI());
+        writer.writeIRIAttribute(property.getIRI());
         writer.writeEndElement();
     }
 
 
     public void visit(OWLObjectProperty property) {
         writer.writeStartElement(OBJECT_PROPERTY.getURI());
-        writer.writeNameAttribute(property.getURI());
+        writer.writeIRIAttribute(property.getIRI());
         writer.writeEndElement();
     }
 
@@ -606,73 +608,94 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLNamedIndividual individual) {
         writer.writeStartElement(INDIVIDUAL.getURI());
-        writer.writeNameAttribute(individual.getURI());
+        writer.writeIRIAttribute(individual.getIRI());
         writer.writeEndElement();
     }
 
     public void visit(OWLHasKeyAxiom axiom) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
+        writer.writeStartElement(HAS_KEY.getURI());
+        writeAnnotations(axiom);
+        axiom.getClassExpression().accept(this);
+        for(OWLPropertyExpression prop : axiom.getPropertyExpressions()) {
+            prop.accept(this);
+        }
+        writer.writeEndElement();
     }
 
     public void visit(OWLDataIntersectionOf node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
+        writer.writeStartElement(DATA_INTERSECTION_OF.getURI());
+        for(OWLDataRange rng : node.getOperands()) {
+            rng.accept(this);
+        }
+        writer.writeEndElement();
     }
 
     public void visit(OWLDataUnionOf node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
+        writer.writeStartElement(DATA_UNION_OF.getURI());
+        for(OWLDataRange rng : node.getOperands()) {
+            rng.accept(this);
+        }
+        writer.writeEndElement();
     }
 
     public void visit(OWLAnnotationProperty property) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
+        writer.writeStartElement(ANNOTATION_PROPERTY.getURI());
+        writer.writeIRIAttribute(property.getIRI());
+        writer.writeEndElement();
     }
 
     public void visit(OWLAnnotation annotation) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
+        writer.writeStartElement(ANNOTATION.getURI());
+        for(OWLAnnotation anno : annotation.getAnnotations()) {
+            anno.accept(this);
+        }
+        annotation.getProperty().accept(this);
+        annotation.getValue().accept(this);
+        writer.writeEndElement();
     }
 
     public void visit(OWLAnnotationPropertyDomain axiom) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
+        writer.writeStartElement(ANNOTATION_PROPERTY_DOMAIN.getURI());
+        axiom.getProperty().accept(this);
+        axiom.getDomain().accept(this);
+        writer.writeEndElement();
     }
 
     public void visit(OWLAnnotationPropertyRange axiom) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
+        writer.writeStartElement(ANNOTATION_PROPERTY_RANGE.getURI());
+        axiom.getProperty().accept(this);
+        axiom.getRange().accept(this);
+        writer.writeEndElement();
     }
 
     public void visit(OWLSubAnnotationPropertyOf axiom) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
-    }
-
-    public void visit(OWLAnnotationValue value) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
+        writer.writeStartElement(SUB_ANNOTATION_PROPERTY_OF.getURI());
+        axiom.getSubProperty().accept(this);
+        axiom.getSuperProperty().accept(this);
+        writer.writeEndElement();
     }
 
     public void visit(SWRLRule rule) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
 
     public void visit(SWRLClassAtom node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
 
     public void visit(SWRLDataRangeAtom node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
 
     public void visit(SWRLObjectPropertyAtom node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
 
     public void visit(SWRLDataValuedPropertyAtom node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
 
     public void visit(SWRLBuiltInAtom node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
 
@@ -710,5 +733,32 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         for (OWLObject obj : objects) {
             obj.accept(this);
         }
+    }
+
+    public static void main(String[] args) {
+        try {
+            OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+//            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
+            long t0 = System.currentTimeMillis();
+            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("file:/Users/matthewhorridge/ontologies/thesaurus/Thesaurus.owl"));
+            long t1 = System.currentTimeMillis();
+
+            System.gc();
+            System.gc();
+            System.gc();
+            Runtime r = Runtime.getRuntime();
+            long total = r.totalMemory();
+            long free = r.freeMemory();
+            System.out.println((total - free) / (1024 * 1024));
+            System.out.println("Loaded in " + (t1 - t0));
+            man.saveOntology(ont, new OWLXMLOntologyFormat(), URI.create("file:/tmp/out.txt"));
+        }
+        catch (OWLOntologyCreationException e) {
+            e.printStackTrace();
+        }
+        catch (OWLOntologyStorageException e) {
+            e.printStackTrace();
+        }
+
     }
 }

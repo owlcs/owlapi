@@ -1,4 +1,8 @@
-package org.semanticweb.owl.model;
+package uk.ac.manchester.cs.owl;
+
+import org.semanticweb.owl.model.*;
+
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -26,18 +30,41 @@ package org.semanticweb.owl.model;
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
+ * Bio-Health Informatics Group<br>
+ * Date: 26-Oct-2006<br><br>
  */
-public class OWLFunctionalDataPropertyTestCase extends AbstractOWLPropertyCharacteristicTestCase<OWLDataProperty> {
+public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl implements OWLSameIndividualAxiom {
 
-
-    protected OWLDataProperty createProperty() throws Exception {
-        return createOWLDataProperty();
+    public OWLSameIndividualAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> individuals, Set<? extends OWLAnnotation> annotations) {
+        super(dataFactory, individuals, annotations);
     }
 
 
-    protected OWLPropertyAxiom createOWLPropertyAxiom(OWLDataProperty property) throws OWLException {
-        return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(property);
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            return obj instanceof OWLSameIndividualAxiom;
+        }
+        return false;
+    }
+
+    public void accept(OWLAxiomVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    public AxiomType getAxiomType() {
+        return AxiomType.SAME_INDIVIDUAL;
     }
 }

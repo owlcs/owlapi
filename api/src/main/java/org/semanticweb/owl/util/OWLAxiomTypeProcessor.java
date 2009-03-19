@@ -201,7 +201,7 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLSameIndividualsAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         process(axiom, SAME_INDIVIDUAL);
     }
 

@@ -230,7 +230,7 @@ public class OBOConsumer implements OBOParserHandler {
         if (unionOfOperands.size() == 1) {
             equivalentClass = unionOfOperands.iterator().next();
         } else {
-            equivalentClass = getDataFactory().getObjectUnionOf(unionOfOperands);
+            equivalentClass = getDataFactory().getOWLObjectUnionOf(unionOfOperands);
         }
         createEquivalentClass(equivalentClass);
     }
@@ -241,7 +241,7 @@ public class OBOConsumer implements OBOParserHandler {
         if (intersectionOfOperands.size() == 1) {
             equivalentClass = intersectionOfOperands.iterator().next();
         } else {
-            equivalentClass = getDataFactory().getObjectIntersectionOf(intersectionOfOperands);
+            equivalentClass = getDataFactory().getOWLObjectIntersectionOf(intersectionOfOperands);
         }
         createEquivalentClass(equivalentClass);
     }
@@ -268,9 +268,9 @@ public class OBOConsumer implements OBOParserHandler {
                 if (tag.equals("import")) {
                     try {
                         URI uri = URI.create(value.trim());
-                        OWLImportsDeclaration decl = owlOntologyManager.getOWLDataFactory().getImportsDeclaration(ontology, uri);
+                        OWLImportsDeclaration decl = owlOntologyManager.getOWLDataFactory().getImportsDeclaration(uri);
                         owlOntologyManager.makeLoadImportRequest(decl);
-                        owlOntologyManager.applyChange(new AddAxiom(ontology, decl));
+                        owlOntologyManager.applyChange(new AddImport(ontology, decl));
                     }
                     catch (OWLOntologyCreationException e) {
                         e.printStackTrace();
@@ -278,7 +278,7 @@ public class OBOConsumer implements OBOParserHandler {
                 } else {
                     // Ontology annotations
                     throw new OWLRuntimeException("TODO");
-//                        OWLLiteral con = getDataFactory().getTypedLiteral(value);
+//                        OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
 //                        OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getURI(tag), con);
 //                        OWLOntologyAnnotationAxiom ax = getDataFactory().getOWLOntologyAnnotationAxiom(ontology, anno);
 //                        owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
@@ -287,7 +287,7 @@ public class OBOConsumer implements OBOParserHandler {
                 // Add as annotation
                 throw new OWLRuntimeException("TODO");
 //                    OWLEntity entity = getCurrentEntity();
-//                    OWLLiteral con = getDataFactory().getTypedLiteral(value);
+//                    OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
 //                    OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getURI(tag), con);
 //                    OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLEntityAnnotationAxiom(entity, anno);
 //                    owlOntologyManager.applyChange(new AddAxiom(ontology, ax));

@@ -32,7 +32,7 @@ package org.semanticweb.owl.model;
 public class OWLSymmetricObjectPropertyAxiomTestCase extends AbstractOWLObjectPropertyCharacteristicAxiomTestCase {
 
     protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) throws OWLException {
-        return getOWLDataFactory().getSymmetricObjectProperty(property);
+        return getOWLDataFactory().getOWLSymmetricObjectPropertyAxiom(property);
     }
 
 

@@ -39,8 +39,8 @@ public class NestedClassExpressionRoundTrippingTestCase extends AbstractRoundTri
         OWLObjectProperty prop = getOWLObjectProperty("propP");
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");
-        OWLClassExpression desc = getFactory().getObjectSomeValuesFrom(prop, getFactory().getObjectSomeValuesFrom(prop, clsB));
-        OWLAxiom ax = getFactory().getSubClassOf(clsA, desc);
+        OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(prop, getFactory().getOWLObjectSomeValuesFrom(prop, clsB));
+        OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(clsA, desc);
         addAxiom(ont, ax);
         return ont;
     }

@@ -39,7 +39,7 @@ public class UntypedSubClassOfTestCase extends AbstractFileRoundTrippingTestCase
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");
-        axioms.add(getFactory().getSubClassOf(clsA, clsB));
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, clsB));
         assertEquals(axioms, getOnt().getAxioms());
     }
 

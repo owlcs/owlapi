@@ -489,7 +489,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         }
 
 
-        public void visit(OWLSameIndividualsAxiom axiom) {
+        public void visit(OWLSameIndividualAxiom axiom) {
         }
 
 
@@ -743,7 +743,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         }
 
 
-        public void visit(OWLSameIndividualsAxiom axiom) {
+        public void visit(OWLSameIndividualAxiom axiom) {
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 if (!ind.isAnonymous()) {
                     getAxiomsForLHS(ind.asNamedIndividual()).add(axiom);

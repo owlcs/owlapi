@@ -134,7 +134,7 @@ public class AxiomType<C extends OWLAxiom> {
             false,
             true);
 
-    public static final AxiomType<OWLSameIndividualsAxiom> SAME_INDIVIDUAL = new AxiomType<OWLSameIndividualsAxiom>(
+    public static final AxiomType<OWLSameIndividualAxiom> SAME_INDIVIDUAL = new AxiomType<OWLSameIndividualAxiom>(
             "Same individual",
             false,
             false,
@@ -303,14 +303,6 @@ public class AxiomType<C extends OWLAxiom> {
             true,
             true,
             true
-    );
-
-
-    public static final AxiomType<OWLImportsDeclaration> IMPORTS_DECLARATION = new AxiomType<OWLImportsDeclaration>(
-            "Imports declaration",
-            false,
-            false,
-            false
     );
 
 

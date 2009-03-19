@@ -66,7 +66,7 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
             Set<OWLDataPropertyExpression> props = new HashSet<OWLDataPropertyExpression>();
             props.add(translateDataProperty(subject));
             props.add(translateDataProperty(object));
-            addAxiom(getDataFactory().getEquivalentDataProperties(props));
+            addAxiom(getDataFactory().getOWLEquivalentDataPropertiesAxiom(props));
             consumeTriple(subject, predicate, object);
         } else {
             // Assume object!?
@@ -81,7 +81,7 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
         props.add(translateObjectProperty(subject));
         props.add(translateObjectProperty(object));
-        addAxiom(getDataFactory().getEquivalentObjectProperties(props));
+        addAxiom(getDataFactory().getOWLEquivalentObjectPropertiesAxiom(props));
         consumeTriple(subject, predicate, object);
     }
 }

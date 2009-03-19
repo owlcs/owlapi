@@ -56,6 +56,6 @@ public class OWLSubDataPropertyOfAxiomElementHandler extends AbstractOWLAxiomEle
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getSubDataPropertyOf(subProperty, superProperty);
+        return getOWLDataFactory().getOWLSubDataPropertyOfAxiom(subProperty, superProperty);
     }
 }

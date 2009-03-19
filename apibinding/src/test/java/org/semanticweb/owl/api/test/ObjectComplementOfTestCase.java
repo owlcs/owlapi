@@ -39,7 +39,7 @@ public class ObjectComplementOfTestCase extends AbstractFileRoundTrippingTestCas
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");
-        axioms.add(getFactory().getSubClassOf(clsA, getFactory().getObjectComplementOf(clsB)));
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectComplementOf(clsB)));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

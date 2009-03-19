@@ -34,7 +34,7 @@ import java.util.Set;
 public class OWLDisjointDataPropertiesTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLDataProperty> {
 
     protected OWLObject createObject(Set<OWLDataProperty> operands) throws Exception {
-        return getOWLDataFactory().getDisjointDataProperties(operands);
+        return getOWLDataFactory().getOWLDisjointDataPropertiesAxiom(operands);
     }
 
 

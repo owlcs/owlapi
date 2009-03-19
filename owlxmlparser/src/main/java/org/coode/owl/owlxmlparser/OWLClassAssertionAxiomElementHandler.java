@@ -61,6 +61,6 @@ public class OWLClassAssertionAxiomElementHandler extends AbstractOWLAxiomElemen
         if (classExpression == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "classExpression kind element");
         }
-        return getOWLDataFactory().getClassAssertion(individual, classExpression);
+        return getOWLDataFactory().getOWLClassAssertionAxiom(individual, classExpression);
     }
 }

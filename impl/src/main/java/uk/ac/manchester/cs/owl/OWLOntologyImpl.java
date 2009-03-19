@@ -177,7 +177,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private Map<OWLIndividual, Set<OWLDifferentIndividualsAxiom>> differentIndividualsAxiomsByIndividual = null; // Build lazily
 
-    private Map<OWLIndividual, Set<OWLSameIndividualsAxiom>> sameIndividualsAxiomsByIndividual = null; // Build lazily
+    private Map<OWLIndividual, Set<OWLSameIndividualAxiom>> sameIndividualsAxiomsByIndividual = null; // Build lazily
 
 //    private Map<OWLEntity, Set<OWLDeclaration>> owlDeclarationAxiomMap = null; // Build lazily
 
@@ -1163,10 +1163,10 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLSameIndividualsAxiom> getSameIndividualAxioms(OWLIndividual individual) {
+    public Set<OWLSameIndividualAxiom> getSameIndividualAxioms(OWLIndividual individual) {
         if (sameIndividualsAxiomsByIndividual == null) {
             sameIndividualsAxiomsByIndividual = createMap();
-            for (OWLSameIndividualsAxiom axiom : getAxiomsInternal(SAME_INDIVIDUAL)) {
+            for (OWLSameIndividualAxiom axiom : getAxiomsInternal(SAME_INDIVIDUAL)) {
                 for (OWLIndividual ind : axiom.getIndividuals()) {
                     addToIndexedSet(ind, sameIndividualsAxiomsByIndividual, axiom);
                 }
@@ -1994,7 +1994,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
 
 
-        public void visit(OWLSameIndividualsAxiom axiom) {
+        public void visit(OWLSameIndividualAxiom axiom) {
             if (addAxiom) {
                 addToIndexedSet(SAME_INDIVIDUAL, axiomsByType, axiom);
                 addAxiomToSet(axiom, owlIndividualAxioms);

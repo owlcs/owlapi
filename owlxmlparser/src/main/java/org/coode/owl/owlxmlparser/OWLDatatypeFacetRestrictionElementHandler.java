@@ -68,6 +68,6 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
 
 
     public OWLFacetRestriction getOWLObject() {
-        return getOWLDataFactory().getFacetRestriction(facet, constant);
+        return getOWLDataFactory().getOWLFacetRestriction(facet, constant);
     }
 }
