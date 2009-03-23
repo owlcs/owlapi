@@ -268,7 +268,7 @@ public class OBOConsumer implements OBOParserHandler {
                 if (tag.equals("import")) {
                     try {
                         URI uri = URI.create(value.trim());
-                        OWLImportsDeclaration decl = owlOntologyManager.getOWLDataFactory().getImportsDeclaration(uri);
+                        OWLImportsDeclaration decl = owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(uri);
                         owlOntologyManager.makeLoadImportRequest(decl);
                         owlOntologyManager.applyChange(new AddImport(ontology, decl));
                     }

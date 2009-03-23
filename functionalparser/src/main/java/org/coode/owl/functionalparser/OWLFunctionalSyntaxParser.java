@@ -1469,7 +1469,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(OPENPAR);
     uri = URI();
     jj_consume_token(CLOSEPAR);
-        OWLImportsDeclaration importsDeclaration = dataFactory.getImportsDeclaration(uri);
+        OWLImportsDeclaration importsDeclaration = dataFactory.getOWLImportsDeclaration(uri);
         {if (true) return importsDeclaration;}
     throw new Error("Missing return statement in function");
   }

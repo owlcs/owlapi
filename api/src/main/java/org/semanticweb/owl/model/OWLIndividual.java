@@ -135,4 +135,8 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      * @return
      */
     Set<OWLIndividual> getDifferentIndividuals(OWLOntology ontology);
+
+    void accept(OWLIndividualVisitor visitor);
+
+    <O> O accept(OWLIndividualVisitorEx<O> visitor);
 }

@@ -38,7 +38,7 @@ import java.net.URI;
  */
 public class NNFTestCase extends TestCase {
 
-    private OWLDataFactory df = new OWLDataFactoryImpl();
+    private OWLDataFactory df = OWLDataFactoryImpl.getInstance();
 
     private OWLClass clsA = df.getOWLClass(URI.create("A"));
 

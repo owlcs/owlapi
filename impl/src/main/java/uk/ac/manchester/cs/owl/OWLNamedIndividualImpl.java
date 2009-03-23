@@ -131,4 +131,14 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
     public void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
+
+
+    public void accept(OWLIndividualVisitor visitor) {
+        visitor.visit(this);
+    }
+
+
+    public <O> O accept(OWLIndividualVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

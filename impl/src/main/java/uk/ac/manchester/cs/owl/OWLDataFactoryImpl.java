@@ -41,6 +41,7 @@ import java.util.*;
  */
 public class OWLDataFactoryImpl implements OWLDataFactory {
 
+    private static OWLDataFactory instance = new OWLDataFactoryImpl();
 
     private Map<URI, OWLClass> classesByURI;
 
@@ -56,12 +57,16 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     private OWLDataFactoryImpl() {
-        classesByURI = new HashMap<URI, OWLClass>();
+        classesByURI = new WeakHashMap<URI, OWLClass>();
         objectPropertiesByURI = new HashMap<URI, OWLObjectProperty>();
         dataPropertiesByURI = new HashMap<URI, OWLDataProperty>();
         datatypesByURI = new HashMap<URI, OWLDatatype>();
         individualsByURI = new HashMap<URI, OWLNamedIndividual>();
         annotationPropertiesByURI = new HashMap<URI, OWLAnnotationProperty>();
+    }
+
+    public static OWLDataFactory getInstance() {
+        return instance;
     }
 
 
@@ -630,7 +635,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(Set<? extends OWLClassExpression> classExpressions,
                                                                   Set<? extends OWLAnnotation> annotations) {
-        return new OWLEquivalentClassesImpl(this, classExpressions, annotations);
+        return new OWLEquivalentClassesAxiomImpl(this, classExpressions, annotations);
     }
 
 
@@ -733,7 +738,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLImportsDeclaration getImportsDeclaration(URI importedOntologyURI) {
+    public OWLImportsDeclaration getOWLImportsDeclaration(URI importedOntologyURI) {
         URI cleanedImportedOntologyURI = importedOntologyURI;
         if (importedOntologyURI.getFragment() != null && importedOntologyURI.getFragment().length() == 0) {
             cleanedImportedOntologyURI = URI.create(importedOntologyURI.toString().substring(0, importedOntologyURI.toString().length() - 1));
@@ -1114,6 +1119,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
                                                               OWLAnnotationProperty property,
                                                               OWLAnnotationValue value,
                                                               Set<? extends OWLAnnotation> annotations) {
+
         return new OWLAnnotationAssertionAxiomImpl(this, subject, property, value, annotations);
     }
 
@@ -1303,5 +1309,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     private static Set<OWLAnnotation> EMPTY_ANNOTATIONS_SET = Collections.emptySet();
+
+
 
 }

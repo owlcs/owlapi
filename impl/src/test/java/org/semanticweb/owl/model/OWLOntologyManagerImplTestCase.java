@@ -2,7 +2,6 @@ package org.semanticweb.owl.model;
 
 import junit.framework.TestCase;
 import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 import org.semanticweb.owl.util.NonMappingOntologyURIMapper;
 /*
@@ -42,7 +41,7 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
+        manager = new OWLOntologyManagerImpl();
         manager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         manager.addURIMapper(new NonMappingOntologyURIMapper());
     }
@@ -60,7 +59,7 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
     public void testImports() throws Exception {
         OWLOntology ontA = manager.createOntology(TestUtils.createURI());
         OWLOntology ontB = manager.createOntology(TestUtils.createURI());
-        OWLImportsDeclaration decl = manager.getOWLDataFactory().getImportsDeclaration(ontB.getURI());
+        OWLImportsDeclaration decl = manager.getOWLDataFactory().getOWLImportsDeclaration(ontB.getURI());
         manager.applyChange(new AddImport(ontA, decl));
         assertTrue(manager.getImports(ontA).contains(ontB));
         manager.removeOntology(ontB);
@@ -72,8 +71,8 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
         OWLOntology ontA = manager.createOntology(TestUtils.createURI());
         OWLOntology ontB = manager.createOntology(TestUtils.createURI());
         OWLOntology ontC = manager.createOntology(TestUtils.createURI());
-        OWLImportsDeclaration declA = manager.getOWLDataFactory().getImportsDeclaration(ontB.getURI());
-        OWLImportsDeclaration declB = manager.getOWLDataFactory().getImportsDeclaration(ontC.getURI());
+        OWLImportsDeclaration declA = manager.getOWLDataFactory().getOWLImportsDeclaration(ontB.getURI());
+        OWLImportsDeclaration declB = manager.getOWLDataFactory().getOWLImportsDeclaration(ontC.getURI());
         manager.applyChange(new AddImport(ontA, declA));
         manager.applyChange(new AddImport(ontB, declB));
         assertTrue(manager.getImportsClosure(ontA).contains(ontA));

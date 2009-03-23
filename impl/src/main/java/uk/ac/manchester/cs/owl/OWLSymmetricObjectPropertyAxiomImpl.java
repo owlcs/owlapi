@@ -3,6 +3,8 @@ package uk.ac.manchester.cs.owl;
 import org.semanticweb.owl.model.*;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.HashSet;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -37,6 +39,14 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
 
     public OWLSymmetricObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, property, annotations);
+    }
+
+
+    public Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms() {
+        Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<OWLSubObjectPropertyOfAxiom>(5);
+        result.add(getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(getProperty(), getProperty().getInverseProperty().getSimplified()));
+        result.add(getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(getProperty().getInverseProperty().getSimplified(), getProperty()));
+        return result;
     }
 
 

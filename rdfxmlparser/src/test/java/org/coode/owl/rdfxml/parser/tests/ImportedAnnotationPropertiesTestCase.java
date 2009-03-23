@@ -50,7 +50,7 @@ public class ImportedAnnotationPropertiesTestCase extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         // Use the reference implementation
-        man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
+        man = new OWLOntologyManagerImpl();
         OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
         ParsableOWLOntologyFactory factory = new ParsableOWLOntologyFactory();
         man.addOntologyFactory(factory);

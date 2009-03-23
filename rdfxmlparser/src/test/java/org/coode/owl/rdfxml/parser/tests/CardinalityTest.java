@@ -45,8 +45,7 @@ import java.net.URI;
 public class CardinalityTest extends TestCase {
 
     public void testParser() throws Exception {
-        OWLDataFactory dataFactory = new OWLDataFactoryImpl();
-        OWLOntologyManager manager = new OWLOntologyManagerImpl(dataFactory);
+        OWLOntologyManager manager = new OWLOntologyManagerImpl();
         OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
         manager.addOntologyFactory(new ParsableOWLOntologyFactory());
         URI a = getClass().getResource("/owlapi/cardinality.owl").toURI();

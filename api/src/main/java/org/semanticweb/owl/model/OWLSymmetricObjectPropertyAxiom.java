@@ -1,4 +1,6 @@
 package org.semanticweb.owl.model;
+
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -31,4 +33,5 @@ package org.semanticweb.owl.model;
  */
 public interface OWLSymmetricObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
+    Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms();
 }

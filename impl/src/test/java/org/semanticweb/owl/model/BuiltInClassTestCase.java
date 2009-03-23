@@ -43,7 +43,7 @@ public class BuiltInClassTestCase extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        dataFactory = new OWLDataFactoryImpl();
+        dataFactory = OWLDataFactoryImpl.getInstance();
     }
 
 

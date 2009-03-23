@@ -2,8 +2,7 @@ package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
 
-import java.util.Set;
-import java.util.Collection;
+import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -67,5 +66,17 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
 
     public AxiomType getAxiomType() {
         return AxiomType.EQUIVALENT_OBJECT_PROPERTIES;
+    }
+
+
+    public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
+        List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>(getProperties());
+        Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<OWLSubObjectPropertyOfAxiom>();
+        for(int i = 0; i < props.size() - 1; i++) {
+            for(int j = i + 1; j < props.size(); j++) {
+                axs.add(getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(props.get(i), props.get(j)));
+            }
+        }
+        return axs;
     }
 }

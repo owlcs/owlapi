@@ -1,4 +1,6 @@
 package org.semanticweb.owl.model;
+
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -46,4 +48,6 @@ public interface OWLInverseObjectPropertiesAxiom extends OWLNaryPropertyAxiom<OW
      * Gets the second of the two object properties.
      */
     OWLObjectPropertyExpression getSecondProperty();
+
+    Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
 }

@@ -42,7 +42,7 @@ public abstract class AbstractOWLTestCase extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        dataFactory = new OWLDataFactoryImpl();
+        dataFactory = OWLDataFactoryImpl.getInstance();
     }
 
 
@@ -58,7 +58,7 @@ public abstract class AbstractOWLTestCase extends TestCase {
 
     public OWLOntologyManager getOWLOntologyManager() {
         if(owlOntologyManager == null) {
-            owlOntologyManager = new OWLOntologyManagerImpl(getOWLDataFactory());
+            owlOntologyManager = new OWLOntologyManagerImpl();
             owlOntologyManager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         }
         return owlOntologyManager;

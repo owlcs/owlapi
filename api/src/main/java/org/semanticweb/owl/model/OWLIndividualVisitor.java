@@ -1,6 +1,6 @@
 package org.semanticweb.owl.model;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -22,16 +22,16 @@ package org.semanticweb.owl.model;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 20-Mar-2009
  */
-public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression, R extends OWLPropertyRange> extends OWLUnaryPropertyAxiom<P> {
+public interface OWLIndividualVisitor {
 
-    public R getRange();
+    void visit(OWLNamedIndividual individual);
 
-    OWLSubClassOfAxiom asSubClassOfAxiom();
+    void visit(OWLAnonymousIndividual individual);
+
 }

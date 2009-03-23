@@ -64,7 +64,7 @@ public class OWLOntologyURIChanger {
             for (OWLImportsDeclaration decl : ont.getImportsDeclarations()) {
                 if (decl.getURI().equals(ontology.getURI())) {
                     changes.add(new RemoveImport(ont, decl));
-                    changes.add(new AddImport(ont, owlOntologyManager.getOWLDataFactory().getImportsDeclaration(newURI)));
+                    changes.add(new AddImport(ont, owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(newURI)));
                 }
             }
         }

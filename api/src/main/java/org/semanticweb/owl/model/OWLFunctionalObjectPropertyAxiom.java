@@ -31,4 +31,6 @@ package org.semanticweb.owl.model;
  */
 public interface OWLFunctionalObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
+    OWLSubClassOfAxiom asOWLSubClassOfAxiom();
+
 }

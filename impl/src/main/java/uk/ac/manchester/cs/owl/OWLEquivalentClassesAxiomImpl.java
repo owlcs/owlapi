@@ -34,11 +34,11 @@ import java.util.Collection;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group<br> Date:
  * 26-Oct-2006<br><br>
  */
-public class OWLEquivalentClassesImpl extends OWLNaryClassAxiomImpl implements OWLEquivalentClassesAxiom {
+public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl implements OWLEquivalentClassesAxiom {
 
     private Set<OWLClass> namedClasses;
 
-    public OWLEquivalentClassesImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions, Collection<? extends OWLAnnotation> annotations) {
+    public OWLEquivalentClassesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, classExpressions, annotations);
         namedClasses = null;
     }

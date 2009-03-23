@@ -2207,7 +2207,7 @@ public class ManchesterOWLSyntaxEditorParser {
             throwException(IMPORT);
         }
         URI importedOntologyURI = parseURI();
-        return dataFactory.getImportsDeclaration(importedOntologyURI);
+        return dataFactory.getOWLImportsDeclaration(importedOntologyURI);
     }
 
 

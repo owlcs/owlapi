@@ -67,4 +67,11 @@ public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<O
     public AxiomType getAxiomType() {
         return AxiomType.OBJECT_PROPERTY_RANGE;
     }
+
+
+    public OWLSubClassOfAxiom asSubClassOfAxiom() {
+        OWLDataFactory df = getOWLDataFactory();
+        OWLClassExpression sup = df.getOWLObjectAllValuesFrom(getProperty(), getRange());
+        return df.getOWLSubClassOfAxiom(df.getOWLThing(), sup);
+    }
 }

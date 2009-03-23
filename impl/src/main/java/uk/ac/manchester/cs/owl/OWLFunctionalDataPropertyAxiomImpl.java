@@ -72,4 +72,10 @@ public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacter
     protected int compareObjectOfSameType(OWLObject object) {
         return getProperty().compareTo(((OWLFunctionalDataPropertyAxiom) object).getProperty());
     }
+
+
+    public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
+        OWLDataFactory df = getOWLDataFactory();
+        return df.getOWLSubClassOfAxiom(df.getOWLThing(), df.getOWLDataMaxCardinality(getProperty(), 1));
+    }
 }

@@ -38,7 +38,7 @@ public class OWLImportsClosureTestCase extends AbstractOWLTestCase {
         OWLOntology ontA = getOWLOntologyManager().createOntology(TestUtils.createURI());
         OWLOntology ontB = getOWLOntologyManager().createOntology(TestUtils.createURI());
         assertTrue(getOWLOntologyManager().getImportsClosure(ontA).contains(ontA));
-        OWLImportsDeclaration importsDeclaration = getOWLDataFactory().getImportsDeclaration(ontB.getURI());
+        OWLImportsDeclaration importsDeclaration = getOWLDataFactory().getOWLImportsDeclaration(ontB.getURI());
         getOWLOntologyManager().applyChange(new AddImport(ontA, importsDeclaration));
         assertTrue(getOWLOntologyManager().getImportsClosure(ontA).contains(ontB));
         getOWLOntologyManager().applyChange(new AddImport(ontA, importsDeclaration));

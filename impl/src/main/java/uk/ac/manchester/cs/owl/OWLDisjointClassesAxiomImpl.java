@@ -3,6 +3,9 @@ package uk.ac.manchester.cs.owl;
 import org.semanticweb.owl.model.*;
 
 import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -66,5 +69,17 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
 
     public AxiomType getAxiomType() {
         return AxiomType.DISJOINT_CLASSES;
+    }
+
+
+    public Set<OWLSubClassOfAxiom> asSubClassOfAxioms() {
+        Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
+        List<OWLClassExpression> list = new ArrayList<OWLClassExpression>(getClassExpressions());
+        for(int i = 0; i < list.size() - 1; i++) {
+            for(int j = i + 1; j < list.size(); j++) {
+                result.add(getOWLDataFactory().getOWLSubClassOfAxiom(list.get(i), getOWLDataFactory().getOWLObjectComplementOf(list.get(j))));
+            }
+        }
+        return result;
     }
 }

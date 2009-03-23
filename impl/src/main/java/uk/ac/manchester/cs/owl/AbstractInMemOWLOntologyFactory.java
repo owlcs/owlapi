@@ -35,7 +35,7 @@ import java.net.URI;
  */
 public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFactory {
 
-    private static OWLDataFactory dataFactory = new OWLDataFactoryImpl();
+    private static OWLDataFactory dataFactory = OWLDataFactoryImpl.getInstance();
 
     private OWLOntologyManager ontologyManager;
 

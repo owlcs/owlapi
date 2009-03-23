@@ -41,7 +41,7 @@ public class ChangeOntologyURITestCase extends AbstractOWLTestCase {
         URI newURI = URI.create("http://www.semanticweb.org/ontologies/ontB");
         OWLOntology ont = man.createOntology(oldURI);
         OWLOntology importingOnt = man.createOntology(URI.create("http://www.semanticweb.org/ontologies/ontC"));
-        man.applyChange(new AddImport(importingOnt, man.getOWLDataFactory().getImportsDeclaration(ont.getURI())));
+        man.applyChange(new AddImport(importingOnt, man.getOWLDataFactory().getOWLImportsDeclaration(ont.getURI())));
         assertTrue(man.contains(oldURI));
         OWLOntologyURIChanger changer = new OWLOntologyURIChanger(man);
         man.applyChanges(changer.getChanges(ont, newURI));

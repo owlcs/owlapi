@@ -64,4 +64,14 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+
+    public void accept(OWLIndividualVisitor visitor) {
+        visitor.visit(this);
+    }
+
+
+    public <O> O accept(OWLIndividualVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

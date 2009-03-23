@@ -56,7 +56,7 @@ public class TestDisjoints extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
+        man = new OWLOntologyManagerImpl();
         OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
         man.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         man.addOntologyFactory(new ParsableOWLOntologyFactory());

@@ -42,7 +42,7 @@ public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
 
     public void endElement() throws OWLXMLParserException {
         URI ontURI = getURI(getText().trim());
-        OWLImportsDeclaration decl = getOWLDataFactory().getImportsDeclaration(ontURI);
+        OWLImportsDeclaration decl = getOWLDataFactory().getOWLImportsDeclaration(ontURI);
         try {
             getOWLOntologyManager().applyChange(new AddImport(getOntology(), decl));
             getOWLOntologyManager().makeLoadImportRequest(decl);

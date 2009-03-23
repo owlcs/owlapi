@@ -1048,7 +1048,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                                        Set<? extends OWLAnnotation> annotations);
 
 
-    OWLImportsDeclaration getImportsDeclaration(URI importedOntologyURI);
+    OWLImportsDeclaration getOWLImportsDeclaration(URI importedOntologyURI);
 
 
     OWLAnnotationPropertyDomain getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,

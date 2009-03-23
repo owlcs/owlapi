@@ -2,9 +2,7 @@ package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
 
-import java.util.Arrays;
-import java.util.TreeSet;
-import java.util.Collection;
+import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -87,5 +85,14 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
 
     public AxiomType getAxiomType() {
         return AxiomType.INVERSE_OBJECT_PROPERTIES;
+    }
+
+
+    public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
+        Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<OWLSubObjectPropertyOfAxiom>();
+        OWLDataFactory df = getOWLDataFactory();
+        axs.add(df.getOWLSubObjectPropertyOfAxiom(first, second.getInverseProperty().getSimplified()));
+        axs.add(df.getOWLSubObjectPropertyOfAxiom(second, first.getInverseProperty().getSimplified()));
+        return axs;
     }
 }
