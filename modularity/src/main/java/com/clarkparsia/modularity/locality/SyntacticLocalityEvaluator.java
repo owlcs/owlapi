@@ -74,6 +74,10 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
+        public void visit(OWLDatatypeDefinition axiom) {
+            throw new RuntimeException("NOT IMPLEMENTED");   
+        }
+
         // BUGFIX: (TS) Antisymm OP axioms are local in the *_BOTTOM case:
         //              The empty object property is antisymmetric!
         public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
@@ -905,6 +909,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     break;
             }
         }
+
+
     }
 
 

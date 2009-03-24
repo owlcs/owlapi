@@ -310,6 +310,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      */
     OWLDatatype getBooleanOWLDatatype();
 
+
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //
     //  Data ranges
@@ -380,6 +381,10 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
 
     OWLDataIntersectionOf getOWLDataIntersectionOf(OWLDataRange... dataRanges);
+
+    OWLDatatypeDefinition getOWLDatatypeDefinition(OWLDatatype datatype, OWLDataRange dataRange);
+
+    OWLDatatypeDefinition getOWLDatatypeDefinition(OWLDatatype datatype, OWLDataRange dataRange, Set<? extends OWLAnnotation> annotations);
 
     ////////////////////////////////////////////////////////////////////////////////////
     //
@@ -984,6 +989,9 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                                                            OWLDataPropertyExpression property,
                                                                            OWLLiteral object,
                                                                            Set<? extends OWLAnnotation> annotations);
+
+
+
 
     /****************************************************************************************************************/
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////

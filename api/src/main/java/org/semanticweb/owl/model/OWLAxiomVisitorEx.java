@@ -134,5 +134,8 @@ public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O> {
     O visit(OWLHasKeyAxiom axiom);
 
 
+    O visit(OWLDatatypeDefinition axiom);
+
+
     O visit(SWRLRule rule);
 }

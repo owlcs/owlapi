@@ -816,6 +816,12 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
+
+    public void visit(OWLDatatypeDefinition axiom) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED");
+    }
+
+
     public String keyword(String str) {
         return ("<span class='key'>" + str + "</span>");
     }

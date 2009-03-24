@@ -225,4 +225,9 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
     public void visit(OWLSubAnnotationPropertyOf axiom) {
         axiomType = SUB_ANNOTATION_PROPERTY_OF;
     }
+
+
+    public void visit(OWLDatatypeDefinition axiom) {
+        axiomType = DATATYPE_DEFINITION;
+    }
 }

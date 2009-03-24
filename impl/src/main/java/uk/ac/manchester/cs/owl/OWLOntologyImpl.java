@@ -776,6 +776,18 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
+    public Set<OWLDatatypeDefinition> getDatatypeDefinitions(OWLDatatype datatype) {
+        Set<OWLDatatypeDefinition> result = new HashSet<OWLDatatypeDefinition>();
+        Set<OWLDatatypeDefinition> axioms = getAxiomsInternal(AxiomType.DATATYPE_DEFINITION);
+        for(OWLDatatypeDefinition ax : axioms) {
+            if(ax.getDatatype().equals(datatype)) {
+                result.add(ax);
+            }
+        }
+        return result;
+    }
+
+
     public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(OWLClass cls) {
         if (subClassAxiomsByLHS == null) {
             subClassAxiomsByLHS = createMap();
@@ -2031,6 +2043,17 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             } else {
                 removeAxiomFromSet(SWRL_RULE, axiomsByType, rule, true);
                 removeAxiomFromSet(rule, ruleAxioms);
+            }
+        }
+
+
+        public void visit(OWLDatatypeDefinition axiom) {
+            // Just use general indexing (on the assumption that there won't be many
+            // datatype definitions).  This could always be optimised at a later stage.
+            if(addAxiom) {
+                addToIndexedSet(DATATYPE_DEFINITION, axiomsByType, axiom);
+            } else {
+                removeAxiomFromSet(DATATYPE_DEFINITION, axiomsByType, axiom, true);
             }
         }
     }

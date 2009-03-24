@@ -195,7 +195,9 @@ public enum OWLXMLVocabulary {
 
     ANNOTATION_PROPERTY_RANGE("AnnotationPropertyRange"),
 
-    SUB_ANNOTATION_PROPERTY_OF("SubAnnotationPropertyOf");
+    SUB_ANNOTATION_PROPERTY_OF("SubAnnotationPropertyOf"),
+
+    DATATYPE_DEFINITION("DatatypeDefinition");
 
     private URI uri;
 

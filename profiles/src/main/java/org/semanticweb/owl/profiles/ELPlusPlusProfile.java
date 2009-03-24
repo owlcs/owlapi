@@ -146,6 +146,11 @@ public class ELPlusPlusProfile implements OWLProfile {
         }
 
 
+        public ConstructNotAllowed visit(OWLDatatypeDefinition axiom) {
+            return null;
+        }
+
+
         public ConstructNotAllowed visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
             return new AxiomNotAllowed(axiom);
         }

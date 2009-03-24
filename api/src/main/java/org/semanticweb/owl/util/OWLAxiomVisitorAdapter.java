@@ -149,4 +149,8 @@ public class OWLAxiomVisitorAdapter implements OWLAxiomVisitor {
 
     public void visit(OWLSubAnnotationPropertyOf axiom) {
     }
+
+
+    public void visit(OWLDatatypeDefinition axiom) {
+    }
 }

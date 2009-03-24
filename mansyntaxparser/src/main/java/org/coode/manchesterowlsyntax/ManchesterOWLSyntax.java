@@ -47,6 +47,8 @@ public enum ManchesterOWLSyntax {
 
     INDIVIDUAL("Individual", true, false, false, false),
 
+    DATATYPE("Datatype", true, false, false, false),
+
     ANNOTATION_PROPERTY("AnnotationProperty", true, false, false, false),
 
     SOME("some", false, false, true, false),

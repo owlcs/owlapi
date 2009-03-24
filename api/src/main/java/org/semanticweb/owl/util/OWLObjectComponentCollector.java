@@ -623,4 +623,9 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    public void visit(OWLDatatypeDefinition axiom) {
+        handleObject(axiom);
+        axiom.getDatatype().accept(this);
+        axiom.getDataRange().accept(this);
+    }
 }

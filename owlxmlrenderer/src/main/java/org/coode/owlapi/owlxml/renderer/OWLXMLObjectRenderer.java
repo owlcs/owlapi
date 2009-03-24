@@ -675,6 +675,15 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
+
+    public void visit(OWLDatatypeDefinition axiom) {
+        writer.writeStartElement(DATATYPE_DEFINITION.getURI());
+        axiom.getDatatype().accept(this);
+        axiom.getDataRange().accept(this);
+        writer.writeEndElement();
+    }
+
+
     public void visit(SWRLRule rule) {
     }
 

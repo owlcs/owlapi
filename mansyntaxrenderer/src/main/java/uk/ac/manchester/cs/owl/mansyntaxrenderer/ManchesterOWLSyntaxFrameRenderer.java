@@ -235,6 +235,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if(entity.isOWLAnnotationProperty()) {
             return write(entity.asOWLAnnotationProperty());
         }
+        if(entity.isOWLDatatype()) {
+            return write(entity.asOWLDatatype());
+        }
         return Collections.emptySet();
     }
 
@@ -742,6 +745,25 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 }
                 inds.remove(individual);
                 writeSection(DIFFERENT_FROM, inds, ",", true, ontology);
+            }
+        }
+        writeEntitySectionEnd();
+        return axioms;
+    }
+
+    public Set<OWLAxiom> write(OWLDatatype datatype) {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        axioms.addAll(writeEntityStart(DATATYPE, datatype));
+        if (!isFiltered(AxiomType.DATATYPE_DEFINITION)) {
+            for(OWLOntology ontology : getOntologies()) {
+                Set<OWLDataRange> dataRanges = new TreeSet<OWLDataRange>();
+                for(OWLDatatypeDefinition ax : ontology.getDatatypeDefinitions(datatype)) {
+                    if(isDisplayed(ax)) {
+                        axioms.add(ax);
+                        dataRanges.add(ax.getDataRange());
+                    }
+                }
+                writeSection(EQUIVALENT_TO, dataRanges, ",", true, ontology);
             }
         }
         writeEntitySectionEnd();

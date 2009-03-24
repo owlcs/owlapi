@@ -511,6 +511,9 @@ public class DIGRenderer implements OWLObjectVisitor {
     public void visit(OWLDataMaxCardinality desc) {
     }
 
+
+    public void visit(OWLDatatypeDefinition axiom) {
+    }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

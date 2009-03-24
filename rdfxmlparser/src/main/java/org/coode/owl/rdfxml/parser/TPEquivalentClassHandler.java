@@ -2,6 +2,8 @@ package org.coode.owl.rdfxml.parser;
 
 import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLDatatype;
+import org.semanticweb.owl.model.OWLDataRange;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -46,16 +48,24 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
 
     public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
         // Can handle when streaming if the subject or object are named
-        return !isSubjectOrObjectAnonymous(subject, object);
+        return !isSubjectOrObjectAnonymous(subject, object) && (getConsumer().isClass(subject) || getConsumer().isDataRange(subject));
     }
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         // Can handle because the uris can easily be translated to classes
-        Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
-        operands.add(translateClassExpression(subject));
-        operands.add(translateClassExpression(object));
-        addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands));
+        if(getConsumer().isDataRange(object) || getConsumer().isDataRange(subject)) {
+            OWLDatatype datatype = getDataFactory().getOWLDatatype(subject);
+            OWLDataRange dataRange = getConsumer().translateDataRange(object);
+            addAxiom(getDataFactory().getOWLDatatypeDefinition(datatype, dataRange));
+        }
+        else {
+            Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
+            operands.add(translateClassExpression(subject));
+            operands.add(translateClassExpression(object));
+            addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands));
+        }
         consumeTriple(subject, predicate, object);
+
     }
 }

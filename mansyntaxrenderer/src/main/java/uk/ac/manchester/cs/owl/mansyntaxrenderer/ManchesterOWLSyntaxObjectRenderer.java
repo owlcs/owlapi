@@ -971,6 +971,11 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         write(")");
     }
 
+
+    public void visit(OWLDatatypeDefinition axiom) {
+        
+    }
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Ontology

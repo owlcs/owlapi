@@ -796,6 +796,15 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    public void visit(OWLDatatypeDefinition axiom) {
+        sb.append("DatatypeDefinition(");
+        axiom.getDatatype().accept(this);
+        sb.append(" ");
+        axiom.getDataRange().accept(this);
+        sb.append(")");
+    }
+
+
     public void visit(SWRLAtomDVariable node) {
         sb.append("?");
         sb.append(getShortForm(node.getURI()));

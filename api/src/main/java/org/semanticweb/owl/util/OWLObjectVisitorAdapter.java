@@ -290,4 +290,8 @@ public class OWLObjectVisitorAdapter implements OWLObjectVisitor {
 
     public void visit(SWRLSameAsAtom node) {
     }
+
+
+    public void visit(OWLDatatypeDefinition axiom) {
+    }
 }

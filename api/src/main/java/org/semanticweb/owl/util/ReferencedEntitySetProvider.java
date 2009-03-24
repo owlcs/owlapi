@@ -55,6 +55,7 @@ public class ReferencedEntitySetProvider implements OWLEntitySetProvider<OWLEnti
             entities.addAll(ont.getReferencedDataProperties());
             entities.addAll(ont.getReferencedIndividuals());
             entities.addAll(ont.getReferencedAnnotationProperties());
+            entities.addAll(ont.getReferencedDatatypes());
         }
         return entities;
     }

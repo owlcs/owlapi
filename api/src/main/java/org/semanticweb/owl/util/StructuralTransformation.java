@@ -545,5 +545,10 @@ public class StructuralTransformation {
         public Set<OWLAxiom> visit(OWLSubAnnotationPropertyOf axiom) {
             return toSet(axiom);
         }
+
+
+        public Set<OWLAxiom> visit(OWLDatatypeDefinition axiom) {
+            return toSet(axiom);
+        }
     }
 }

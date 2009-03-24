@@ -331,6 +331,11 @@ public class SatisfiabilityConverter {
         public void visit(OWLSubAnnotationPropertyOf axiom) {
             throw new OWLRuntimeException("Not implemented: Cannot generate explanation for " + axiom);
         }
+
+
+        public void visit(OWLDatatypeDefinition axiom) {
+            throw new OWLRuntimeException("Not implemented: Cannot generate explanation for " + axiom);
+        }
     }
 
 

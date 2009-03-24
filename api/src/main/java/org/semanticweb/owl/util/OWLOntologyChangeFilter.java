@@ -247,4 +247,7 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor {
 
     public void visit(OWLSubAnnotationPropertyOf axiom) {
     }
+
+    public void visit(OWLDatatypeDefinition axiom) {
+    }
 }

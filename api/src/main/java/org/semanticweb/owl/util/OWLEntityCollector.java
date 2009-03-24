@@ -584,6 +584,12 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         axiom.getSuperProperty().accept(this);
     }
 
+
+    public void visit(OWLDatatypeDefinition axiom) {
+        axiom.getDatatype().accept(this);
+        axiom.getDataRange().accept(this);
+    }
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // SWRL Object Visitor

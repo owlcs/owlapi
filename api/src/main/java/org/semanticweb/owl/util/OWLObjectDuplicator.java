@@ -532,7 +532,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
 
     public void visit(OWLDatatype node) {
-        URI uri = node.getURI();
+        URI uri = getURI(node);
         obj = dataFactory.getOWLDatatype(uri);
     }
 
@@ -771,6 +771,15 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         } else {
             obj = iri;
         }
+    }
+
+
+    public void visit(OWLDatatypeDefinition axiom) {
+        axiom.getDatatype().accept(this);
+        OWLDatatype dt = (OWLDatatype) obj;
+        axiom.getDataRange().accept(this);
+        OWLDataRange rng = (OWLDataRange) obj;
+        obj = dataFactory.getOWLDatatypeDefinition(dt, rng);
     }
 
 

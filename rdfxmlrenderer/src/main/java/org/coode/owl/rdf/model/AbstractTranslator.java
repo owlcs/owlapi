@@ -244,6 +244,12 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         addAxiom(axiom, axiom.getClassExpression(), OWL_HAS_KEY.getURI(), axiom.getPropertyExpressions());
     }
 
+
+    public void visit(OWLDatatypeDefinition axiom) {
+        addAxiom(axiom, axiom.getDatatype(), OWL_EQUIVALENT_CLASS.getURI(), axiom.getDataRange());
+    }
+
+
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         addPairwise(axiom,
                 axiom.getProperties(),

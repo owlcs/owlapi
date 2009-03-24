@@ -387,4 +387,9 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
     public O visit(OWLOntology ontology) {
         return defaultReturnValue;
     }
+
+
+    public O visit(OWLDatatypeDefinition axiom) {
+        return defaultReturnValue;
+    }
 }

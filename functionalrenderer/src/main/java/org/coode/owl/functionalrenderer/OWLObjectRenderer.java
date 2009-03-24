@@ -951,6 +951,16 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         write(")");
     }
 
+
+    public void visit(OWLDatatypeDefinition axiom) {
+        writeAxiomStart(DATATYPE_DEFINITION, axiom);
+        axiom.getDatatype().accept(this);
+        writeSpace();
+        axiom.getDataRange().accept(this);
+        writeAxiomEnd();
+    }
+
+
     public void visit(SWRLRule rule) {
         // TODO:
     }

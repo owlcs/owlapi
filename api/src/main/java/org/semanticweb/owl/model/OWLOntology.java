@@ -520,26 +520,6 @@ public interface OWLOntology extends OWLNamedObject {
 
     Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(IRI subject);
 
-//    Set<OWLAnnotationAssertionAxiom> getAnnotations();
-
-//    /**
-//     * Gets the ontology annotations whose subject is the specified ontology.
-//     *
-//     * @param subject The ontology that is the subject of the annotations.
-//     * @return The set of annotation axioms which have been asserted in this ontology, which have the specified ontology
-//     *         as their subject. Note that this set will be a copy and will not be updated if the ontology changes.  It
-//     *         is therefore safe to iterate over this set while making changes to the ontology.
-//     */
-//    Set<OWLOntologyAnnotationAxiom> getAnnotations(OWLOntology subject);
-//
-//
-//    /**
-//     * Gets all of the ontology annotation axioms which have been asserted in this ontology.
-//     *
-//     * @return The set of ontology annotation axioms. Note that this set will be a copy and will not be updated if the
-//     *         ontology changes.  It is therefore safe to iterate over this set while making changes to the ontology.
-//     */
-//    Set<OWLOntologyAnnotationAxiom> getOntologyAnnotationAxioms();
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -720,4 +700,6 @@ public interface OWLOntology extends OWLNamedObject {
 
 
     Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(OWLIndividual individual);
+
+    Set<OWLDatatypeDefinition> getDatatypeDefinitions(OWLDatatype datatype);
 }

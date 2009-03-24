@@ -236,4 +236,9 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     public void visit(OWLSubAnnotationPropertyOf axiom) {
         subject = axiom.getSubProperty();
     }
+
+
+    public void visit(OWLDatatypeDefinition axiom) {
+        subject = axiom.getDataRange();
+    }
 }

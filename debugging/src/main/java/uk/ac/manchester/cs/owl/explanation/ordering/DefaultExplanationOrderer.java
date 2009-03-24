@@ -515,6 +515,10 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
         public void visit(OWLSubAnnotationPropertyOf axiom) {
         }
+
+
+        public void visit(OWLDatatypeDefinition axiom) {
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -755,6 +759,10 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
         public void visit(OWLSubPropertyChainOfAxiom axiom) {
 
+        }
+
+
+        public void visit(OWLDatatypeDefinition axiom) {
         }
 
 

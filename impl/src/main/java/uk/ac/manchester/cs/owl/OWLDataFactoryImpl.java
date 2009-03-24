@@ -1311,5 +1311,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     private static Set<OWLAnnotation> EMPTY_ANNOTATIONS_SET = Collections.emptySet();
 
 
+    public OWLDatatypeDefinition getOWLDatatypeDefinition(OWLDatatype datatype,
+                                                          OWLDataRange dataRange) {
+        return getOWLDatatypeDefinition(datatype, dataRange, EMPTY_ANNOTATIONS_SET);
+    }
 
+
+    public OWLDatatypeDefinition getOWLDatatypeDefinition(OWLDatatype datatype,
+                                                          OWLDataRange dataRange,
+                                                          Set<? extends OWLAnnotation> annotations) {
+        return new OWLDatatypeDefinitionImpl(this, datatype, dataRange, annotations);
+    }
 }

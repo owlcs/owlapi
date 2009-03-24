@@ -655,5 +655,12 @@ public class OWLObjectWalker<O extends OWLObject> {
             node.getFirstArgument().accept(this);
             node.getSecondArgument().accept(this);
         }
+
+
+        public void visit(OWLDatatypeDefinition axiom) {
+            process(axiom);
+            axiom.getDatatype().accept(this);
+            axiom.getDataRange().accept(this);
+        }
     }
 }

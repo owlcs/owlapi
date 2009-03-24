@@ -350,6 +350,12 @@ public class AxiomType<C extends OWLAxiom> {
             false
     );
 
+    public static final AxiomType<OWLDatatypeDefinition> DATATYPE_DEFINITION = new AxiomType<OWLDatatypeDefinition>(
+            "Datatype definition",
+            true,
+            true,
+            true
+    );
 
     static {
         AXIOM_TYPES = new HashSet<AxiomType>();
@@ -383,7 +389,7 @@ public class AxiomType<C extends OWLAxiom> {
         AXIOM_TYPES.add(SUB_DATA_PROPERTY);
         AXIOM_TYPES.add(EQUIVALENT_DATA_PROPERTIES);
         AXIOM_TYPES.add(FUNCTIONAL_DATA_PROPERTY);
-//        AXIOM_TYPES.add(IMPORTS_DECLARATION);
+        AXIOM_TYPES.add(DATATYPE_DEFINITION);
         AXIOM_TYPES.add(DISJOINT_UNION);
         AXIOM_TYPES.add(DECLARATION);
         AXIOM_TYPES.add(SWRL_RULE);

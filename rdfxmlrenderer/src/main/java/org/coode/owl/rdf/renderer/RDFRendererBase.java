@@ -367,6 +367,7 @@ public abstract class RDFRendererBase {
 
 
             public void visit(OWLDatatype datatype) {
+                axioms.addAll(ontology.getDatatypeDefinitions(datatype));
                 createGraph(axioms);
             }
 
