@@ -41,5 +41,9 @@ public interface OWLOntologyChangeVisitor  {
 
     void visit(RemoveImport change);
 
+    void visit(AddOntologyAnnotation change);
+
+    void visit(RemoveOntologyAnnotation change);
+
 
 }

@@ -53,9 +53,16 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
 
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+
         OWLAnnotation anno = getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate),
                                                             getConsumer().getDataFactory().getIRI(object));
-        OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(getConsumer().getDataFactory().getIRI(subject), anno);
-        addAxiom(decAx);
+        if(getConsumer().isOntology(subject)) {
+            // Assume we annotation our ontology?
+            getConsumer().addOntologyAnnotation(anno);
+        }
+        else {
+            OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(getConsumer().getDataFactory().getIRI(subject), anno);
+            addAxiom(decAx);
+        }
     }
 }

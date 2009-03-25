@@ -90,12 +90,38 @@ public abstract class RDFRendererBase {
         // Put imports at the top of the rendering
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         // TODO: Sort out annotations an imports
-//        axioms.addAll(ontology.getImportsDeclarations());
-//        axioms.addAll(ontology.getAnnotations());
+
         createGraph(axioms);
         graph.addTriple(new RDFTriple(new RDFResourceNode(ontology.getURI()),
                 new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
                 new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getURI())));
+        for(OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
+            graph.addTriple(new RDFTriple(new RDFResourceNode(ontology.getURI()),
+                new RDFResourceNode(OWLRDFVocabulary.OWL_IMPORTS.getURI()),
+                new RDFResourceNode(decl.getURI())));
+        }
+        for(OWLAnnotation anno : ontology.getAnnotations()) {
+            RDFNode node;
+            if(anno.getValue() instanceof OWLLiteral) {
+                OWLLiteral val = (OWLLiteral) anno.getValue();
+                if(val.isTyped()) {
+                    node = new RDFLiteralNode(val.getLiteral(), val.asOWLTypedLiteral().getDatatype().getURI());
+                }
+                else {
+                    node = new RDFLiteralNode(val.getLiteral(), val.asRDFTextLiteral().getLang());
+                }
+            }
+            else if(anno.getValue() instanceof IRI) {
+                IRI val = (IRI) anno.getValue();
+                node = new RDFResourceNode(val.toURI());
+            }
+            else {
+                node = new RDFResourceNode(System.identityHashCode(anno.getValue()));
+            }
+
+            graph.addTriple(new RDFTriple(new RDFResourceNode(ontology.getURI()),
+                new RDFResourceNode(anno.getProperty().getURI()), node));
+        }
         render(new RDFResourceNode(ontology.getURI()));
 
         // Annotation properties

@@ -127,20 +127,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         OWLOntology ontology = getOntologies().iterator().next();
         writeNewLine();
-        write(ONTOLOGY.toString());
-        write(":");
-        writeSpace();
-        writeFullURI(ontology.getURI().toString());
-        writeNewLine();
-        for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
-            write(IMPORT.toString());
-            write(":");
-            writeSpace();
-            writeFullURI(decl.getURI().toString());
-            writeNewLine();
-        }
-        writeNewLine();
-        writeSection(ANNOTATIONS, ontology.getAnnotations(), ",", true);
+        writeOntologyHeader(ontology);
 
         for (OWLObjectProperty prop : ontology.getReferencedObjectProperties()) {
             write(prop);
@@ -170,6 +157,25 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         flush();
     }
+
+
+    public void writeOntologyHeader(OWLOntology ontology) {
+        write(ONTOLOGY.toString());
+        write(":");
+        writeSpace();
+        writeFullURI(ontology.getURI().toString());
+        writeNewLine();
+        for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
+            write(IMPORT.toString());
+            write(":");
+            writeSpace();
+            writeFullURI(decl.getURI().toString());
+            writeNewLine();
+        }
+        writeNewLine();
+        writeSection(ANNOTATIONS, ontology.getAnnotations(), ",", true);
+    }
+
 
     public void writePrefixMap() {
         Map<String, String> prefixMap = new HashMap<String, String>();

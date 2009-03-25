@@ -51,4 +51,12 @@ public class OWLOntologyChangeVisitorAdapter implements OWLOntologyChangeVisitor
 
     public void visit(RemoveImport change) {
     }
+
+
+    public void visit(AddOntologyAnnotation change) {
+    }
+
+
+    public void visit(RemoveOntologyAnnotation change) {
+    }
 }

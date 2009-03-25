@@ -1,11 +1,6 @@
-package uk.ac.manchester.cs.owl;
-
-import org.semanticweb.owl.model.*;
-
-import java.net.URI;
-import java.util.ArrayList;
+package org.semanticweb.owl.model;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -27,38 +22,51 @@ import java.util.ArrayList;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 24-Mar-2009
  */
-public class OWLImportsDeclarationImpl implements OWLImportsDeclaration {
+public class RemoveOntologyAnnotation extends OWLOntologyChange {
 
-    private IRI iri;
+    private OWLAnnotation annotation;
 
-    public OWLImportsDeclarationImpl(OWLDataFactory dataFactory, IRI iri) {
-        this.iri = iri;
+
+    public RemoveOntologyAnnotation(OWLOntology ont,
+                                    OWLAnnotation annotation) {
+        super(ont);
+        this.annotation = annotation;
     }
 
-    public boolean isLogicalAxiom() {
+
+    public OWLAnnotation getAnnotation() {
+        return annotation;
+    }
+
+
+    public boolean isAxiomChange() {
         return false;
     }
 
 
-    public IRI getIRI() {
-        return iri;
+    public OWLAxiom getAxiom() {
+        return null;
     }
 
 
-    public URI getURI() {
-        return iri.toURI();
+    public boolean isImportChange() {
+        return false;
+    }
+
+
+    public void accept(OWLOntologyChangeVisitor visitor) {
+        visitor.visit(this);
     }
 
 
     public int hashCode() {
-        return iri.hashCode();
+        return 23 + getOntology().hashCode() + getAnnotation().hashCode();
     }
 
 
@@ -66,15 +74,10 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration {
         if(obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLImportsDeclaration)) {
+        if(!(obj instanceof RemoveOntologyAnnotation)) {
             return false;
         }
-        OWLImportsDeclaration other = (OWLImportsDeclaration) obj;
-        return this.iri.equals(other.getIRI());
-    }
-
-
-    public int compareTo(OWLImportsDeclaration o) {
-        return iri.compareTo(o.getIRI());
+        RemoveOntologyAnnotation other = (RemoveOntologyAnnotation) obj;
+        return getAnnotation().equals(other.getAnnotation()) && getOntology().equals(other.getOntology());
     }
 }

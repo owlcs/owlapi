@@ -50,6 +50,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private Set<OWLImportsDeclaration> importsDeclarations = createSet();
 
+    private Set<OWLAnnotation> ontologyAnnotations = createSet();
+
     private Map<AxiomType, Set<OWLAxiom>> axiomsByType = createMap();
 
     private Set<SWRLRule> ruleAxioms = createSet();
@@ -385,7 +387,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public Set<OWLAnnotation> getAnnotations() {
-        return Collections.emptySet();
+        return getReturnSet(ontologyAnnotations);
     }
 
     public Set<OWLAnnotationAxiom> getAnnotationAxioms() {
@@ -1308,9 +1310,23 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
         public void visit(RemoveImport change) {
-            if(!importsDeclarations.contains(change.getImportDeclaration())) {
+            if(importsDeclarations.contains(change.getImportDeclaration())) {
                 appliedChanges.add(change);
                 importsDeclarations.remove(change.getImportDeclaration());
+            }
+        }
+
+
+        public void visit(AddOntologyAnnotation change) {
+            if(ontologyAnnotations.add(change.getAnnotation())) {
+                appliedChanges.add(change);
+            }
+        }
+
+
+        public void visit(RemoveOntologyAnnotation change) {
+            if(ontologyAnnotations.remove(change.getAnnotation())) {
+                appliedChanges.add(change);
             }
         }
     }

@@ -1095,32 +1095,12 @@ public class ManchesterOWLSyntaxEditorParser {
 
 
     public Set<OntologyAxiomPair> parseAnnotations(URI subject) throws ParserException {
-        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
         String header = consumeToken();
         if (!header.equals(ANNOTATIONS)) {
             throwException(ANNOTATIONS);
         }
         Set<OWLOntology> onts = getOntologies();
-        String sep = ",";
-        while (sep.equals(",")) {
-            potentialKeywords.clear();
-            OWLAnnotationProperty annoProp = parseAnnotationProperty();
-            String obj = peekToken();
-            if (isIndividualName(obj) || isClassName(obj) || isObjectPropertyName(obj) || isDataPropertyName(obj)) {
-                consumeToken();
-                URI uri = getURI(obj);
-                OWLAnnotation anno = dataFactory.getOWLAnnotation(annoProp, getIRI(obj));
-                annos.add(anno);
-            } else {
-                OWLLiteral con = parseConstant();
-                OWLAnnotation anno = dataFactory.getOWLAnnotation(annoProp, con);
-                annos.add(anno);
-            }
-            sep = peekToken();
-            if (sep.equals(",")) {
-                consumeToken();
-            }
-        }
+        Set<OWLAnnotation> annos = parseAnnotationList();
         Set<OntologyAxiomPair> pairs = new HashSet<OntologyAxiomPair>();
         for(OWLOntology ont : onts) {
             for(OWLAnnotation anno : annos) {
@@ -1130,6 +1110,39 @@ public class ManchesterOWLSyntaxEditorParser {
         }
 
         return pairs;
+    }
+
+
+    private Set<OWLAnnotation> parseAnnotationList() throws ParserException {
+        String sep = ",";
+        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
+        while (sep.equals(",")) {
+            potentialKeywords.clear();
+            annos.addAll(parseAnnotation());
+            sep = peekToken();
+            if (sep.equals(",")) {
+                consumeToken();
+            }
+        }
+        return annos;
+    }
+
+
+    private Set<OWLAnnotation> parseAnnotation() throws ParserException {
+        OWLAnnotationProperty annoProp = parseAnnotationProperty();
+        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
+        String obj = peekToken();
+        if (isIndividualName(obj) || isClassName(obj) || isObjectPropertyName(obj) || isDataPropertyName(obj)) {
+            consumeToken();
+            URI uri = getURI(obj);
+            OWLAnnotation anno = dataFactory.getOWLAnnotation(annoProp, getIRI(obj));
+            annos.add(anno);
+        } else {
+            OWLLiteral con = parseConstant();
+            OWLAnnotation anno = dataFactory.getOWLAnnotation(annoProp, con);
+            annos.add(anno);
+        }
+        return annos;
     }
 
 
@@ -2461,6 +2474,50 @@ public class ManchesterOWLSyntaxEditorParser {
         }
         changes.add(new SetOntologyURI(ont, ontologyURI));
         manager.applyChanges(changes);
+    }
+
+    public ManchesterOWLSyntaxOntologyHeader parseOntologyHeader() throws ParserException {
+        String tok = consumeToken();
+        if(!tok.equalsIgnoreCase(ONTOLOGY)) {
+            throwException(ONTOLOGY);
+        }
+        URI ontologyURI = null;
+        URI versionURI = null;
+        if(peekToken().equals("<")) {
+            ontologyURI = parseURI();
+            if(peekToken().equals("<")) {
+                versionURI = parseURI();
+            }
+        }
+        Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
+        Set<OWLImportsDeclaration> imports = new HashSet<OWLImportsDeclaration>();
+        tok = peekToken();
+        if(!tok.equalsIgnoreCase(EOF) && !tok.equals("<") && !tok.equals(IMPORT) && !tok.equals(ANNOTATIONS)) {
+            throwException("<$URI$>", IMPORT, ANNOTATIONS, EOF);
+        }
+
+        while(true) {
+            String section = peekToken();
+            if(section.equals(IMPORT)) {
+                consumeToken();
+                imports.add(getDataFactory().getOWLImportsDeclaration(parseURI()));
+
+            }
+            else if(section.equals(ANNOTATIONS)) {
+                consumeToken();
+                annotations.addAll(parseAnnotationList());
+            }
+            else if(section.equalsIgnoreCase(EOF)) {
+                break;
+            }
+            else {
+                throwException(IMPORT, ANNOTATIONS);
+            }
+        }
+        return new ManchesterOWLSyntaxOntologyHeader(getDataFactory().getIRI(ontologyURI),
+                                                     getDataFactory().getIRI(versionURI),
+                                                     annotations,
+                                                     imports);
     }
 
     protected void throwException(boolean ontologyNameExpected) throws ParserException {

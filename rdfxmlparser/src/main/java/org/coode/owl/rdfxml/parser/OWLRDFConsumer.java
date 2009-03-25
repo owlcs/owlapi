@@ -625,6 +625,10 @@ public class OWLRDFConsumer implements RDFConsumer {
         // of memory).
     }
 
+    protected void addOntologyAnnotation(OWLAnnotation annotation) throws OWLException {
+        owlOntologyManager.applyChange(new AddOntologyAnnotation(getOntology(), annotation));
+    }
+
     protected void addImport(OWLImportsDeclaration declaration) throws OWLException {
         owlOntologyManager.applyChange(new AddImport(ontology, declaration));
     }

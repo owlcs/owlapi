@@ -59,7 +59,12 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
 
     public void handleTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         consumeTriple(subject, predicate, object);
-        OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getIRI(subject), getDataFactory().getOWLAnnotationProperty(predicate), object);
-        addAxiom(ax);
+        if(getConsumer().isOntology(subject)) {
+            getConsumer().addOntologyAnnotation(getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), object));
+        }
+        else {
+            OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getIRI(subject), getDataFactory().getOWLAnnotationProperty(predicate), object);
+            addAxiom(ax);
+        }
     }
 }
