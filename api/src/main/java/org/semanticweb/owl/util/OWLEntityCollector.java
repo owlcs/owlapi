@@ -571,15 +571,15 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         objects.add(property);
     }
 
-    public void visit(OWLAnnotationPropertyDomain axiom) {
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         axiom.getProperty().accept(this);
     }
 
-    public void visit(OWLAnnotationPropertyRange axiom) {
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         axiom.getProperty().accept(this);
     }
 
-    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
     }

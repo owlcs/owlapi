@@ -496,19 +496,19 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
         }
     }
 
-    public void visit(OWLAnnotationPropertyDomain axiom) {
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         handleObject(axiom);
         axiom.getProperty().accept(this);
         axiom.getDomain().accept(this);
     }
 
-    public void visit(OWLAnnotationPropertyRange axiom) {
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         handleObject(axiom);
         axiom.getProperty().accept(this);
         axiom.getRange().accept(this);
     }
 
-    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         handleObject(axiom);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);

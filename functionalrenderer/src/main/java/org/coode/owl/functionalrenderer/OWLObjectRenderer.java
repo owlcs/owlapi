@@ -880,7 +880,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         writeAxiomEnd();
     }
 
-    public void visit(OWLAnnotationPropertyDomain axiom) {
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         writeAxiomStart(ANNOTATION_PROPERTY_DOMAIN, axiom);
         axiom.getProperty().accept(this);
         write(" ");
@@ -888,7 +888,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         writeAxiomEnd();
     }
 
-    public void visit(OWLAnnotationPropertyRange axiom) {
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         writeAxiomStart(ANNOTATION_PROPERTY_RANGE, axiom);
         axiom.getProperty().accept(this);
         write(" ");
@@ -896,7 +896,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         writeAxiomEnd();
     }
 
-    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         writeAxiomStart(SUB_ANNOTATION_PROPERTY_OF, axiom);
         axiom.getSubProperty().accept(this);
         write(" ");

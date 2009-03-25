@@ -557,15 +557,15 @@ public class ELPlusPlusProfile implements OWLProfile {
             throw new OWLRuntimeException("TODO");
         }
 
-        public ConstructNotAllowed visit(OWLAnnotationPropertyDomain axiom) {
+        public ConstructNotAllowed visit(OWLAnnotationPropertyDomainAxiom axiom) {
             throw new OWLRuntimeException("TODO");
         }
 
-        public ConstructNotAllowed visit(OWLAnnotationPropertyRange axiom) {
+        public ConstructNotAllowed visit(OWLAnnotationPropertyRangeAxiom axiom) {
             throw new OWLRuntimeException("TODO");
         }
 
-        public ConstructNotAllowed visit(OWLSubAnnotationPropertyOf axiom) {
+        public ConstructNotAllowed visit(OWLSubAnnotationPropertyOfAxiom axiom) {
             throw new OWLRuntimeException("TODO");
         }
     }

@@ -316,15 +316,15 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
         return defaultReturnValue;
     }
 
-    public O visit(OWLAnnotationPropertyDomain axiom) {
+    public O visit(OWLAnnotationPropertyDomainAxiom axiom) {
         return defaultReturnValue;
     }
 
-    public O visit(OWLAnnotationPropertyRange axiom) {
+    public O visit(OWLAnnotationPropertyRangeAxiom axiom) {
         return defaultReturnValue;
     }
 
-    public O visit(OWLSubAnnotationPropertyOf axiom) {
+    public O visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         return defaultReturnValue;
     }
 

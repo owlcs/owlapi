@@ -29,28 +29,28 @@ import java.util.Collection;/*
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 17-Jan-2009
  */
-public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyRangeAxiom {
+public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyDomainAxiom {
 
     private OWLAnnotationProperty property;
 
-    protected IRI range;
+    private IRI domain;
 
-    public OWLAnnotationPropertyRangeAxiomImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, IRI range, Collection<? extends OWLAnnotation> annotations) {
+    public OWLAnnotationPropertyDomainAxiomImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, IRI domain, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
+        this.domain = domain;
         this.property = property;
-        this.range = range;
+    }
+
+    public IRI getDomain() {
+        return domain;
     }
 
     public OWLAnnotationProperty getProperty() {
         return property;
     }
 
-    public IRI getRange() {
-        return range;
-    }
-
     public AxiomType getAxiomType() {
-        return AxiomType.ANNOTATION_PROPERTY_RANGE;
+        return AxiomType.ANNOTATION_PROPERTY_DOMAIN;
     }
 
     public boolean isLogicalAxiom() {
@@ -58,12 +58,12 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
     }
 
     protected int compareObjectOfSameType(OWLObject object) {
-        OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) object;
+        OWLAnnotationPropertyDomainAxiom other = (OWLAnnotationPropertyDomainAxiom) object;
         int diff = property.compareTo(other.getProperty());
         if (diff != 0) {
             return diff;
         }
-        return range.compareTo(other.getRange());
+        return domain.compareTo(other.getDomain());
     }
 
     public void accept(OWLObjectVisitor visitor) {
@@ -87,10 +87,10 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
         if(obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLAnnotationPropertyRangeAxiom)) {
+        if(!(obj instanceof OWLAnnotationPropertyDomainAxiom)) {
             return false;
         }
-        OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) obj;
-        return property.equals(other.getProperty()) && range.equals(other.getRange());
+        OWLAnnotationPropertyDomainAxiom other = (OWLAnnotationPropertyDomainAxiom) obj;
+        return property.equals(other.getProperty()) && domain.equals(other.getDomain());
     }
 }

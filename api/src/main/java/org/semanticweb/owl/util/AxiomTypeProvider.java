@@ -214,15 +214,15 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
         axiomType = HAS_KEY;
     }
 
-    public void visit(OWLAnnotationPropertyDomain axiom) {
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         axiomType = ANNOTATION_PROPERTY_DOMAIN;
     }
 
-    public void visit(OWLAnnotationPropertyRange axiom) {
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         axiomType = ANNOTATION_PROPERTY_RANGE;
     }
 
-    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         axiomType = SUB_ANNOTATION_PROPERTY_OF;
     }
 

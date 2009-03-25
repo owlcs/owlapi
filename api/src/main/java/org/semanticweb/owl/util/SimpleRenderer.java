@@ -670,7 +670,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(shortFormProvider.getShortForm(property));
     }
 
-    public void visit(OWLAnnotationPropertyDomain axiom) {
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         sb.append("AnnotationPropertyDomain(");
         axiom.getProperty().accept(this);
         sb.append(" ");
@@ -678,7 +678,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(")");
     }
 
-    public void visit(OWLAnnotationPropertyRange axiom) {
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         sb.append("AnnotationPropertyRange(");
         axiom.getProperty().accept(this);
         sb.append(" ");
@@ -686,7 +686,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(")");
     }
 
-    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         sb.append("SubAnnotationPropertyOf(");
         axiom.getSubProperty().accept(this);
         sb.append(" ");

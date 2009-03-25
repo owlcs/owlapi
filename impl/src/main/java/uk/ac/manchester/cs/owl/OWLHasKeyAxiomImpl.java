@@ -104,4 +104,16 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OWLHasKeyAxiom)) {
+            return false;
+        }
+        OWLHasKeyAxiom other = (OWLHasKeyAxiom) obj;
+        return expression.equals(other.getClassExpression()) && propertyExpressions.equals(other.getPropertyExpressions());
+    }
 }

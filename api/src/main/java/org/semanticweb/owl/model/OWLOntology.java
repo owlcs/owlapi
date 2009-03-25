@@ -439,6 +439,11 @@ public interface OWLOntology extends OWLNamedObject {
      */
     Set<OWLAnnotationAxiom> getAnnotationAxioms();
 
+    Set<OWLSubAnnotationPropertyOfAxiom> getSubAnnotationPropertyOfAxioms(OWLAnnotationProperty subProperty);
+
+    Set<OWLAnnotationPropertyDomainAxiom> getAnnotationPropertyDomainAxioms(OWLAnnotationProperty property);
+
+    Set<OWLAnnotationPropertyRangeAxiom> getAnnotationPropertyRangeAxioms(OWLAnnotationProperty property);
 
     /**
      * Gets all of the annotation axioms in this ontology.

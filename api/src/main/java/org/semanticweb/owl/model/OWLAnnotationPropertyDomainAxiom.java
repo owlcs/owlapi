@@ -1,4 +1,6 @@
-package org.semanticweb.owl.model;/*
+package org.semanticweb.owl.model;
+
+/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -23,15 +25,12 @@ package org.semanticweb.owl.model;/*
 
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 17-Jan-2009
+ * Date: 13-Jan-2009
  */
-public interface OWLAnnotationAxiomVisitor {
+public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom {
 
-    void visit(OWLAnnotationAssertionAxiom axiom);
+    OWLAnnotationProperty getProperty();
 
-    void visit(OWLSubAnnotationPropertyOfAxiom axiom);
+    IRI getDomain();
 
-    void visit(OWLAnnotationPropertyDomainAxiom axiom);
-
-    void visit(OWLAnnotationPropertyRangeAxiom axiom);
 }

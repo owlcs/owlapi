@@ -692,21 +692,21 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         restore();
     }
 
-    public void visit(OWLAnnotationPropertyDomain axiom) {
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         setAxiomWriting();
         writeFrameType(axiom.getProperty());
         writeSectionKeyword(DOMAIN);
         axiom.getDomain().accept(this);
     }
 
-    public void visit(OWLAnnotationPropertyRange axiom) {
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         setAxiomWriting();
         writeFrameType(axiom.getProperty());
         writeSectionKeyword(RANGE);
         axiom.getRange().accept(this);
     }
 
-    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         setAxiomWriting();
         writeFrameType(axiom.getSubProperty());
         writeFrameKeyword(SUB_PROPERTY_OF);

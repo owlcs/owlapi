@@ -1520,26 +1520,26 @@ public class ManchesterOWLSyntaxEditorParser {
                         axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLSubAnnotationPropertyOfAxiom(prop, pe)));
                     }
                 }
-//            } else if (sect.equalsIgnoreCase(DOMAIN)) {
-//                potentialKeywords.clear();
-//                consumeToken();
-//                Set<OWLOntology> onts = getOntologies();
-//                Set<OWLClassExpression> domains = ;
-//                for (OWLOntology ont : onts) {
-//                    for (OWLClassExpression dom : domains) {
-//                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationPropertyDomainAxiom(prop, dom)));
-//                    }
-//                }
-//            } else if (sect.equalsIgnoreCase(RANGE)) {
-//                potentialKeywords.clear();
-//                consumeToken();
-//                Set<OWLOntology> onts = getOntologies();
-//                Set<OWLDataRange> ranges = parseDataRangeList();
-//                for (OWLOntology ont : onts) {
-//                    for (OWLDataRange rng : ranges) {
-//                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationPropertyRangeAxiom(prop, rng)));
-//                    }
-//                }
+            } else if (sect.equalsIgnoreCase(DOMAIN)) {
+                potentialKeywords.clear();
+                consumeToken();
+                Set<OWLOntology> onts = getOntologies();
+                Set<IRI> domains = parseNameList();
+                for (OWLOntology ont : onts) {
+                    for (IRI dom : domains) {
+                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationPropertyDomainAxiom(prop, dom)));
+                    }
+                }
+            } else if (sect.equalsIgnoreCase(RANGE)) {
+                potentialKeywords.clear();
+                consumeToken();
+                Set<OWLOntology> onts = getOntologies();
+                Set<IRI> ranges = parseNameList();
+                for (OWLOntology ont : onts) {
+                    for (IRI rng : ranges) {
+                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationPropertyRangeAxiom(prop, rng)));
+                    }
+                }
             } else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
                 potentialKeywords.clear();
                 axioms.addAll(parseAnnotations(prop));
@@ -2361,6 +2361,54 @@ public class ManchesterOWLSyntaxEditorParser {
         return URI.create(uri);
     }
 
+    public Set<IRI> parseNameList() throws ParserException {
+        String sep = ",";
+        Set<IRI> iris = new HashSet<IRI>();
+        while (sep.equals(",")) {
+            potentialKeywords.clear();
+            String token = peekToken();
+            if(isClassName(token)) {
+                iris.add(owlEntityChecker.getOWLClass(token).getIRI());
+                consumeToken();
+            }
+            else if(isObjectPropertyName(token)) {
+                iris.add(owlEntityChecker.getOWLObjectProperty(token).getIRI());
+                consumeToken();
+            }
+            else if(isDataPropertyName(token)) {
+                iris.add(owlEntityChecker.getOWLDataProperty(token).getIRI());
+                consumeToken();
+            }
+            else if(isIndividualName(token)) {
+                iris.add(owlEntityChecker.getOWLIndividual(token).getIRI());
+                consumeToken();
+            }
+            else if(isAnnotationPropertyName(token)) {
+                iris.add(owlEntityChecker.getOWLAnnotationProperty(token).getIRI());
+                consumeToken();
+            }
+            else if(isDatatypeName(token)) {
+                iris.add(owlEntityChecker.getOWLDatatype(token).getIRI());
+                consumeToken();
+            }
+            else if(isOntologyName(token)) {
+                iris.add(getOntology(token).getIRI());
+                consumeToken();
+            }
+            else if(token.equals("<")) {
+                URI uri = parseURI();
+                iris.add(getDataFactory().getIRI(uri));
+            }
+            else {
+                throwException(true, true, true, true, true, true, "<$URI$>");
+            }
+            sep = peekToken();
+            if (sep.equals(",")) {
+                consumeToken();
+            }
+        }
+        return iris;
+    }
 
     private void processDeclaredEntities() {
         for (int i = 0; i < tokens.size(); i++) {

@@ -534,15 +534,15 @@ public class StructuralTransformation {
             return toSet(axiom);
         }
 
-        public Set<OWLAxiom> visit(OWLAnnotationPropertyDomain axiom) {
+        public Set<OWLAxiom> visit(OWLAnnotationPropertyDomainAxiom axiom) {
             return toSet(axiom);
         }
 
-        public Set<OWLAxiom> visit(OWLAnnotationPropertyRange axiom) {
+        public Set<OWLAxiom> visit(OWLAnnotationPropertyRangeAxiom axiom) {
             return toSet(axiom);
         }
 
-        public Set<OWLAxiom> visit(OWLSubAnnotationPropertyOf axiom) {
+        public Set<OWLAxiom> visit(OWLSubAnnotationPropertyOfAxiom axiom) {
             return toSet(axiom);
         }
 

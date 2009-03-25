@@ -654,21 +654,21 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-    public void visit(OWLAnnotationPropertyDomain axiom) {
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         writer.writeStartElement(ANNOTATION_PROPERTY_DOMAIN.getURI());
         axiom.getProperty().accept(this);
         axiom.getDomain().accept(this);
         writer.writeEndElement();
     }
 
-    public void visit(OWLAnnotationPropertyRange axiom) {
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         writer.writeStartElement(ANNOTATION_PROPERTY_RANGE.getURI());
         axiom.getProperty().accept(this);
         axiom.getRange().accept(this);
         writer.writeEndElement();
     }
 
-    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         writer.writeStartElement(SUB_ANNOTATION_PROPERTY_OF.getURI());
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);

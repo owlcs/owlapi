@@ -328,14 +328,14 @@ public class AxiomType<C extends OWLAxiom> {
             false
     );
 
-    public static final AxiomType<OWLSubAnnotationPropertyOf> SUB_ANNOTATION_PROPERTY_OF = new AxiomType<OWLSubAnnotationPropertyOf>(
+    public static final AxiomType<OWLSubAnnotationPropertyOfAxiom> SUB_ANNOTATION_PROPERTY_OF = new AxiomType<OWLSubAnnotationPropertyOfAxiom>(
             "Sub annotation property",
             true,
             true,
             false
     );
 
-    public static final AxiomType<OWLAnnotationPropertyRange> ANNOTATION_PROPERTY_RANGE = new AxiomType<OWLAnnotationPropertyRange>(
+    public static final AxiomType<OWLAnnotationPropertyRangeAxiom> ANNOTATION_PROPERTY_RANGE = new AxiomType<OWLAnnotationPropertyRangeAxiom>(
             "Annotation property range",
             true,
             true,
@@ -343,7 +343,7 @@ public class AxiomType<C extends OWLAxiom> {
     );
 
 
-    public static final AxiomType<OWLAnnotationPropertyDomain> ANNOTATION_PROPERTY_DOMAIN = new AxiomType<OWLAnnotationPropertyDomain>(
+    public static final AxiomType<OWLAnnotationPropertyDomainAxiom> ANNOTATION_PROPERTY_DOMAIN = new AxiomType<OWLAnnotationPropertyDomainAxiom>(
             "Annotation property domain",
             true,
             true,

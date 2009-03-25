@@ -1049,9 +1049,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLSubAnnotationPropertyOf getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub,
+    public OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub,
                                                                  OWLAnnotationProperty sup) {
-        throw new OWLRuntimeException("TODO");
+        return new OWLSubAnnotationPropertyOfAxiomImpl(this, sub, sup, EMPTY_ANNOTATIONS_SET);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1124,13 +1124,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLAnnotationPropertyDomain getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
+    public OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
                                                                    IRI domain) {
-        return new OWLAnnotationPropertyDomainImpl(this, prop, domain, EMPTY_ANNOTATIONS_SET);
+        return new OWLAnnotationPropertyDomainAxiomImpl(this, prop, domain, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLAnnotationPropertyRange getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop,
+    public OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop,
                                                                  IRI range) {
         return new OWLAnnotationPropertyRangeAxiomImpl(this, prop, range, EMPTY_ANNOTATIONS_SET);
     }

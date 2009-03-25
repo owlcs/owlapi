@@ -320,15 +320,15 @@ public class SatisfiabilityConverter {
             throw new OWLRuntimeException("Not implemented: Cannot generate explanation for " + axiom);
         }
 
-        public void visit(OWLAnnotationPropertyDomain axiom) {
+        public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
             throw new OWLRuntimeException("Not implemented: Cannot generate explanation for " + axiom);
         }
 
-        public void visit(OWLAnnotationPropertyRange axiom) {
+        public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
             throw new OWLRuntimeException("Not implemented: Cannot generate explanation for " + axiom);
         }
 
-        public void visit(OWLSubAnnotationPropertyOf axiom) {
+        public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
             throw new OWLRuntimeException("Not implemented: Cannot generate explanation for " + axiom);
         }
 

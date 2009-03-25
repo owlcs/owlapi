@@ -225,15 +225,15 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
         subject = axiom.getClassExpression();
     }
 
-    public void visit(OWLAnnotationPropertyDomain axiom) {
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         subject = axiom.getProperty();
     }
 
-    public void visit(OWLAnnotationPropertyRange axiom) {
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         subject = axiom.getProperty();
     }
 
-    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         subject = axiom.getSubProperty();
     }
 

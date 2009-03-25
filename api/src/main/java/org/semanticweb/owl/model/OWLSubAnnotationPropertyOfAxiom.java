@@ -23,15 +23,11 @@ package org.semanticweb.owl.model;/*
 
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 17-Jan-2009
+ * Date: 13-Jan-2009
  */
-public interface OWLAnnotationAxiomVisitor {
+public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
 
-    void visit(OWLAnnotationAssertionAxiom axiom);
+    OWLAnnotationProperty getSubProperty();
 
-    void visit(OWLSubAnnotationPropertyOfAxiom axiom);
-
-    void visit(OWLAnnotationPropertyDomainAxiom axiom);
-
-    void visit(OWLAnnotationPropertyRangeAxiom axiom);
+    OWLAnnotationProperty getSuperProperty();
 }

@@ -656,15 +656,15 @@ public class OWLDLProfile implements OWLProfile {
             return null;
         }
 
-        public ConstructNotAllowed visit(OWLAnnotationPropertyDomain axiom) {
+        public ConstructNotAllowed visit(OWLAnnotationPropertyDomainAxiom axiom) {
             return null;
         }
 
-        public ConstructNotAllowed visit(OWLAnnotationPropertyRange axiom) {
+        public ConstructNotAllowed visit(OWLAnnotationPropertyRangeAxiom axiom) {
             return null;
         }
 
-        public ConstructNotAllowed visit(OWLSubAnnotationPropertyOf axiom) {
+        public ConstructNotAllowed visit(OWLSubAnnotationPropertyOfAxiom axiom) {
             return null;
         }
 

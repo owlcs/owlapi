@@ -180,19 +180,19 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getAnnotation().accept(this);
         }
 
-        public void visit(OWLAnnotationPropertyDomain axiom) {
+        public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
             process(axiom);
             axiom.getProperty().accept(this);
             axiom.getDomain().accept(this);
         }
 
-        public void visit(OWLAnnotationPropertyRange axiom) {
+        public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
             process(axiom);
             axiom.getProperty().accept(this);
             axiom.getRange().accept(this);
         }
 
-        public void visit(OWLSubAnnotationPropertyOf axiom) {
+        public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
             process(axiom);
             axiom.getSubProperty().accept(this);
             axiom.getSuperProperty().accept(this);

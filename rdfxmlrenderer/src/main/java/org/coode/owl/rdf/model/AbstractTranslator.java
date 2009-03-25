@@ -224,15 +224,15 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 //        }
     }
 
-    public void visit(OWLAnnotationPropertyDomain axiom) {
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         addAxiom(axiom, axiom.getProperty(), RDFS_DOMAIN.getURI(), axiom.getDomain());
     }
 
-    public void visit(OWLAnnotationPropertyRange axiom) {
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         addAxiom(axiom, axiom.getProperty(), RDFS_RANGE.getURI(), axiom.getRange());
     }
 
-    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         addAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getURI(), axiom.getSuperProperty());
     }
 

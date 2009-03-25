@@ -29,9 +29,9 @@ public interface OWLAnnotationAxiomVisitorEx<O> {
 
     O visit(OWLAnnotationAssertionAxiom axiom);
 
-    O visit(OWLSubAnnotationPropertyOf axiom);
+    O visit(OWLSubAnnotationPropertyOfAxiom axiom);
 
-    O visit(OWLAnnotationPropertyDomain axiom);
+    O visit(OWLAnnotationPropertyDomainAxiom axiom);
 
-    O visit(OWLAnnotationPropertyRange axiom);
+    O visit(OWLAnnotationPropertyRangeAxiom axiom);
 }

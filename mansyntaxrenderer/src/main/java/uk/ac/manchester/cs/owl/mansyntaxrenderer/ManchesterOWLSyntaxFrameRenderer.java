@@ -790,7 +790,50 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     public Set<OWLAxiom> write(OWLAnnotationProperty property) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(ANNOTATION_PROPERTY, property));
-        // TODO: SUPER PROPS, DOMAIN, RANGES
+        if(!isFiltered(AxiomType.ANNOTATION_ASSERTION)) {
+            for(OWLOntology ont : getOntologies()) {
+                Set<OWLAnnotation> annos = new TreeSet<OWLAnnotation>();
+                for(OWLAnnotationAssertionAxiom ax : ont.getAnnotationAssertionAxioms(property)) {
+                    if (isDisplayed(ax)) {
+                        annos.add(ax.getAnnotation());
+                    }
+                }
+                writeSection(ANNOTATIONS, annos, ",", true, ont);
+            }
+        }
+        if(!isFiltered(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
+            for(OWLOntology ont : getOntologies()) {
+                Set<OWLAnnotationProperty> props = new TreeSet<OWLAnnotationProperty>();
+                for(OWLSubAnnotationPropertyOfAxiom ax : ont.getSubAnnotationPropertyOfAxioms(property)) {
+                    if (isDisplayed(ax)) {
+                        props.add(ax.getSuperProperty());
+                    }
+                }
+                writeSection(SUB_PROPERTY_OF, props, ",", true, ont);
+            }
+        }
+        if(!isFiltered(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
+            for(OWLOntology ont : getOntologies()) {
+                Set<IRI> iris = new TreeSet<IRI>();
+                for(OWLAnnotationPropertyDomainAxiom ax : ont.getAnnotationPropertyDomainAxioms(property)) {
+                    if (isDisplayed(ax)) {
+                        iris.add(ax.getDomain());
+                    }
+                }
+                writeSection(DOMAIN, iris, ",", true, ont);
+            }
+        }
+        if(!isFiltered(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
+            for(OWLOntology ont : getOntologies()) {
+                Set<IRI> iris = new TreeSet<IRI>();
+                for(OWLAnnotationPropertyRangeAxiom ax : ont.getAnnotationPropertyRangeAxioms(property)) {
+                    if (isDisplayed(ax)) {
+                        iris.add(ax.getRange());
+                    }
+                }
+                writeSection(RANGE, iris, ",", true, ont);
+            }
+        }
         return axioms;
     }
 

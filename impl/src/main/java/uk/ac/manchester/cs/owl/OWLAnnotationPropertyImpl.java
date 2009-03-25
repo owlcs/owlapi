@@ -149,4 +149,17 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
     public URI getURI() {
         return iri.toURI();
     }
+
+
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OWLAnnotationProperty)) {
+            return false;
+        }
+        OWLAnnotationProperty other = (OWLAnnotationProperty) obj;
+        return iri.equals(other.getIRI());
+    }
+
 }

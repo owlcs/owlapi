@@ -1,6 +1,7 @@
 package org.coode.owl.rdfxml.parser;
 
 import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLAnnotationProperty;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -45,11 +46,14 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject,
+                                      URI predicate,
+                                      URI object) throws OWLException {
         if (!isAnonymous(object)) {
             if (getConsumer().isObjectPropertyOnly(subject)) {
                 return true;
-            } else if (getConsumer().isDataPropertyOnly(subject)) {
+            }
+            else if (getConsumer().isDataPropertyOnly(subject)) {
                 return true;
             }
         }
@@ -57,25 +61,34 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject,
+                             URI predicate,
+                             URI object) throws OWLException {
         if (getConsumer().isObjectPropertyOnly(subject)) {
             translateObjectPropertyRange(subject, object, predicate);
-        } else if (getConsumer().isDataPropertyOnly(subject)) {
-            addAxiom(getDataFactory().getOWLDataPropertyRangeAxiom(translateDataProperty(subject),
-                    translateDataRange(object)));
+        }
+        else if (getConsumer().isDataPropertyOnly(subject)) {
+            addAxiom(getDataFactory().getOWLDataPropertyRangeAxiom(translateDataProperty(subject), translateDataRange(object)));
             consumeTriple(subject, predicate, object);
-        } else {
+        }
+        else if(getConsumer().isAnnotationProperty(subject)) {
+            OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(subject);
+            addAxiom(getDataFactory().getOWLAnnotationPropertyRangeAxiom(prop, getDataFactory().getIRI(object)));
+            consumeTriple(subject, predicate, object);
+        }
+        else {
             if (getConsumer().isDataRange(object)) {
                 // Assume data property
                 logger.fine("Assuming data property because range appears to be datatype: " + subject + " -> " + predicate + " -> " + object);
-                addAxiom(getDataFactory().getOWLDataPropertyRangeAxiom(translateDataProperty(subject),
-                        translateDataRange(object)));
+                addAxiom(getDataFactory().getOWLDataPropertyRangeAxiom(translateDataProperty(subject), translateDataRange(object)));
                 consumeTriple(subject, predicate, object);
-            } else if (getConsumer().isClass(object)) {
+            }
+            else if (getConsumer().isClass(object)) {
                 // Assume object property
                 logger.fine("Assuming object property because range appears to be a class: " + subject + " -> " + predicate + " -> " + object);
                 translateObjectPropertyRange(subject, object, predicate);
-            } else {
+            }
+            else {
                 // Right - just assume an object property!
                 logger.fine("Unable to determine range type.  Assuming object property: " + subject + " -> " + predicate + " -> " + object);
                 translateObjectPropertyRange(subject, object, predicate);
@@ -85,9 +98,10 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
     }
 
 
-    private void translateObjectPropertyRange(URI subject, URI object, URI predicate) throws OWLException {
-        addAxiom(getDataFactory().getOWLObjectPropertyRangeAxiom(translateObjectProperty(subject),
-                translateClassExpression(object)));
+    private void translateObjectPropertyRange(URI subject,
+                                              URI object,
+                                              URI predicate) throws OWLException {
+        addAxiom(getDataFactory().getOWLObjectPropertyRangeAxiom(translateObjectProperty(subject), translateClassExpression(object)));
         consumeTriple(subject, predicate, object);
     }
 }

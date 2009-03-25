@@ -559,15 +559,15 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
         return rule;
     }
 
-    public OWLAxiom visit(OWLAnnotationPropertyDomain axiom) {
+    public OWLAxiom visit(OWLAnnotationPropertyDomainAxiom axiom) {
         return axiom;
     }
 
-    public OWLAxiom visit(OWLAnnotationPropertyRange axiom) {
+    public OWLAxiom visit(OWLAnnotationPropertyRangeAxiom axiom) {
         return axiom;
     }
 
-    public OWLAxiom visit(OWLSubAnnotationPropertyOf axiom) {
+    public OWLAxiom visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         return axiom;
     }
 

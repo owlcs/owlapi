@@ -402,6 +402,39 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
+    public Set<OWLSubAnnotationPropertyOfAxiom> getSubAnnotationPropertyOfAxioms(OWLAnnotationProperty subProperty) {
+        Set<OWLSubAnnotationPropertyOfAxiom> result = new HashSet<OWLSubAnnotationPropertyOfAxiom>();
+        for(OWLSubAnnotationPropertyOfAxiom ax : getAxiomsInternal(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
+            if(ax.getSubProperty().equals(subProperty)) {
+                result.add(ax);
+            }
+        }
+        return result;
+    }
+
+
+    public Set<OWLAnnotationPropertyDomainAxiom> getAnnotationPropertyDomainAxioms(OWLAnnotationProperty property) {
+        Set<OWLAnnotationPropertyDomainAxiom> result = new HashSet<OWLAnnotationPropertyDomainAxiom>();
+        for(OWLAnnotationPropertyDomainAxiom ax : getAxiomsInternal(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
+            if (ax.getProperty().equals(property)) {
+                result.add(ax);
+            }
+        }
+        return result;
+    }
+
+
+    public Set<OWLAnnotationPropertyRangeAxiom> getAnnotationPropertyRangeAxioms(OWLAnnotationProperty property) {
+        Set<OWLAnnotationPropertyRangeAxiom> result = new HashSet<OWLAnnotationPropertyRangeAxiom>();
+        for(OWLAnnotationPropertyRangeAxiom ax : getAxiomsInternal(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
+            if(ax.getProperty().equals(property)) {
+                result.add(ax);
+            }
+        }
+        return result;
+    }
+
+
     public Set<OWLDeclarationAxiom> getDeclarationAxioms() {
         return getAxioms(DECLARATION);
     }
@@ -664,17 +697,17 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 result.add(ax);
             }
         }
-        for(OWLSubAnnotationPropertyOf ax : getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
+        for(OWLSubAnnotationPropertyOfAxiom ax : getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
             if(ax.getSubProperty().equals(prop)) {
                 result.add(ax);
             }
         }
-        for(OWLAnnotationPropertyRange ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
+        for(OWLAnnotationPropertyRangeAxiom ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
             if(ax.getProperty().equals(prop)) {
                 result.add(ax);
             }
         }
-        for(OWLAnnotationPropertyDomain ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
+        for(OWLAnnotationPropertyDomainAxiom ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
             if(ax.getProperty().equals(prop)) {
                 result.add(ax);
             }
@@ -736,6 +769,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         entities.addAll(getReferencedDataProperties());
         entities.addAll(getReferencedIndividuals());
         entities.addAll(getReferencedDatatypes());
+        entities.addAll(getReferencedAnnotationProperties());
         return entities;
     }
 
@@ -1815,7 +1849,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             }
         }
 
-        public void visit(OWLAnnotationPropertyDomain axiom) {
+        public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
             if (addAxiom) {
                 addToIndexedSet(ANNOTATION_PROPERTY_DOMAIN, axiomsByType, axiom);
             } else {
@@ -1823,7 +1857,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             }
         }
 
-        public void visit(OWLAnnotationPropertyRange axiom) {
+        public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
             if (addAxiom) {
                 addToIndexedSet(ANNOTATION_PROPERTY_RANGE, axiomsByType, axiom);
             } else {
@@ -1831,7 +1865,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             }
         }
 
-        public void visit(OWLSubAnnotationPropertyOf axiom) {
+        public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
             if (addAxiom) {
                 addToIndexedSet(SUB_ANNOTATION_PROPERTY_OF, axiomsByType, axiom);
             } else {

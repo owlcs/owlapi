@@ -688,13 +688,13 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     public void visit(OWLHasKeyAxiom axiom) {
     }
 
-    public void visit(OWLAnnotationPropertyDomain axiom) {
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
     }
 
-    public void visit(OWLAnnotationPropertyRange axiom) {
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
     }
 
-    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
     }
 
     public void visit(OWLDataIntersectionOf node) {

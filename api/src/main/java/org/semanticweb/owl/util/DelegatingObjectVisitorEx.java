@@ -420,15 +420,15 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
         return delegate.visit(annotation);
     }
 
-    public O visit(OWLAnnotationPropertyDomain axiom) {
+    public O visit(OWLAnnotationPropertyDomainAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-    public O visit(OWLAnnotationPropertyRange axiom) {
+    public O visit(OWLAnnotationPropertyRangeAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-    public O visit(OWLSubAnnotationPropertyOf axiom) {
+    public O visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         return delegate.visit(axiom);
     }
 

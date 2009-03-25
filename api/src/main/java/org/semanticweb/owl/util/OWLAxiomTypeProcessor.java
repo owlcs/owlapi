@@ -133,15 +133,15 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
         process(axiom, HAS_KEY);
     }
 
-    public void visit(OWLAnnotationPropertyDomain axiom) {
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         process(axiom, ANNOTATION_PROPERTY_DOMAIN);
     }
 
-    public void visit(OWLAnnotationPropertyRange axiom) {
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         process(axiom, ANNOTATION_PROPERTY_RANGE);
     }
 
-    public void visit(OWLSubAnnotationPropertyOf axiom) {
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         process(axiom, SUB_ANNOTATION_PROPERTY_OF);
     }
 

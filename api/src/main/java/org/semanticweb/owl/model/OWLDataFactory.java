@@ -1059,15 +1059,15 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLImportsDeclaration getOWLImportsDeclaration(URI importedOntologyURI);
 
 
-    OWLAnnotationPropertyDomain getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
+    OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
                                                             IRI domain);
 
 
-    OWLAnnotationPropertyRange getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop,
+    OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop,
                                                           IRI range);
 
 
-    OWLSubAnnotationPropertyOf getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub,
+    OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub,
                                                           OWLAnnotationProperty sup);
 }
 

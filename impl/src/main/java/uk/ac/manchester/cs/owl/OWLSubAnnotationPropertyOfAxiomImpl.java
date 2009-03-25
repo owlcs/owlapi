@@ -30,31 +30,32 @@ import java.util.Collection;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 24-Mar-2009
+ * Date: 25-Mar-2009
  */
-public class OWLDatatypeDefinitionImpl extends OWLAxiomImpl implements OWLDatatypeDefinition {
+public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements OWLSubAnnotationPropertyOfAxiom {
 
-    private OWLDatatype datatype;
+    private OWLAnnotationProperty subProperty;
 
-    private OWLDataRange dataRange;
+    private OWLAnnotationProperty superProperty;
 
 
-    public OWLDatatypeDefinitionImpl(OWLDataFactory dataFactory,
-                                     OWLDatatype datatype,
-                                     OWLDataRange dataRange, Collection<? extends OWLAnnotation> annotations) {
+    public OWLSubAnnotationPropertyOfAxiomImpl(OWLDataFactory dataFactory,
+                                               OWLAnnotationProperty subProperty,
+                                               OWLAnnotationProperty superProperty,
+                                               Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
-        this.datatype = datatype;
-        this.dataRange = dataRange;
+        this.subProperty = subProperty;
+        this.superProperty = superProperty;
     }
 
 
-    public OWLDatatype getDatatype() {
-        return datatype;
+    public OWLAnnotationProperty getSubProperty() {
+        return subProperty;
     }
 
 
-    public OWLDataRange getDataRange() {
-        return dataRange;
+    public OWLAnnotationProperty getSuperProperty() {
+        return superProperty;
     }
 
 
@@ -69,12 +70,12 @@ public class OWLDatatypeDefinitionImpl extends OWLAxiomImpl implements OWLDataty
 
 
     public boolean isLogicalAxiom() {
-        return true;
+        return false;
     }
 
 
     public AxiomType getAxiomType() {
-        return AxiomType.DATATYPE_DEFINITION;
+        return AxiomType.SUB_ANNOTATION_PROPERTY_OF;
     }
 
 
@@ -89,12 +90,12 @@ public class OWLDatatypeDefinitionImpl extends OWLAxiomImpl implements OWLDataty
 
 
     protected int compareObjectOfSameType(OWLObject object) {
-        OWLDatatypeDefinition other = (OWLDatatypeDefinition) object;
-        int diff = getDatatype().compareTo(other.getDatatype());
+        OWLSubAnnotationPropertyOfAxiom other = (OWLSubAnnotationPropertyOfAxiom) object;
+        int diff = subProperty.compareTo(other.getSubProperty());
         if(diff != 0) {
             return diff;
         }
-        return getDataRange().compareTo(other.getDataRange());
+        return superProperty.compareTo(other.getSuperProperty());
     }
 
 
@@ -102,10 +103,10 @@ public class OWLDatatypeDefinitionImpl extends OWLAxiomImpl implements OWLDataty
         if(obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLDatatypeDefinition)) {
+        if(!(obj instanceof OWLSubAnnotationPropertyOfAxiom)) {
             return false;
         }
-        OWLDatatypeDefinition other = (OWLDatatypeDefinition) obj;
-        return datatype.equals(other.getDatatype()) && dataRange.equals(other.getDataRange());
+        OWLSubAnnotationPropertyOfAxiom other = (OWLSubAnnotationPropertyOfAxiom) obj;
+        return subProperty.equals(other.getSubProperty()) && superProperty.equals(other.getSuperProperty());
     }
 }

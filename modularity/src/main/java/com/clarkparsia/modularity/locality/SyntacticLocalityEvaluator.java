@@ -620,15 +620,15 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             throw new OWLRuntimeException("NOT IMPLEMENTED");
         }
 
-        public void visit(OWLAnnotationPropertyDomain axiom) {
+        public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
             throw new OWLRuntimeException("NOT IMPLEMENTED");
         }
 
-        public void visit(OWLAnnotationPropertyRange axiom) {
+        public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
             throw new OWLRuntimeException("NOT IMPLEMENTED");
         }
 
-        public void visit(OWLSubAnnotationPropertyOf axiom) {
+        public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
             throw new OWLRuntimeException("NOT IMPLEMENTED");
         }
     }
