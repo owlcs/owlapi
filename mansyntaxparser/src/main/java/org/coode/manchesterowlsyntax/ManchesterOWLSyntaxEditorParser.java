@@ -69,8 +69,6 @@ public class ManchesterOWLSyntaxEditorParser {
         }
     };
 
-    private final String EOF = "<EOF>";
-
     private String base;
 
     private Set<String> classNames;
@@ -257,12 +255,15 @@ public class ManchesterOWLSyntaxEditorParser {
         base = "http://www.semanticweb.org#";
         owlEntityChecker = new DefaultEntityChecker();
         tokens = new ArrayList<ManchesterOWLSyntaxTokenizer.Token>();
-        ManchesterOWLSyntaxTokenizer tokenizer = new ManchesterOWLSyntaxTokenizer(buffer);
-        tokens.addAll(tokenizer.tokenize());
+        tokens.addAll(getTokenizer(s).tokenize());
         tokenIndex = 0;
         for(SWRLBuiltInsVocabulary v : SWRLBuiltInsVocabulary.values()) {
             ruleBuiltIns.put(v.getShortName(), v);
         }
+    }
+
+    protected ManchesterOWLSyntaxTokenizer getTokenizer(String s) {
+        return new ManchesterOWLSyntaxTokenizer(s);
     }
 
 
@@ -418,7 +419,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    private ManchesterOWLSyntaxTokenizer.Token getLastToken() {
+    protected ManchesterOWLSyntaxTokenizer.Token getLastToken() {
         if (tokenIndex - 1 > -1) {
             return tokens.get(tokenIndex - 1);
         } else {
@@ -427,7 +428,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    private String peekToken() {
+    protected String peekToken() {
         return getToken().getToken();
     }
 
@@ -485,8 +486,8 @@ public class ManchesterOWLSyntaxEditorParser {
      */
     public OWLClassExpression parseClassExpression() throws ParserException {
         OWLClassExpression desc = parseIntersection();
-        if (!consumeToken().equals(EOF)) {
-            throwException(EOF);
+        if (!consumeToken().equals(ManchesterOWLSyntaxTokenizer.EOF)) {
+            throwException(ManchesterOWLSyntaxTokenizer.EOF);
         }
         return desc;
     }
@@ -611,7 +612,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    private OWLClassExpression parseObjectRestriction() throws ParserException {
+    public OWLClassExpression parseObjectRestriction() throws ParserException {
         OWLObjectPropertyExpression prop = parseObjectPropertyExpression();
         String kw = consumeToken();
         if (kw.equalsIgnoreCase(SOME)) {
@@ -960,7 +961,7 @@ public class ManchesterOWLSyntaxEditorParser {
         } else if (isClassName(tok)) {
             String name = consumeToken();
             return getOWLClass(name);
-        } else if (!tok.equals(EOF) || !lookaheadCheck) {
+        } else if (!tok.equals(ManchesterOWLSyntaxTokenizer.EOF) || !lookaheadCheck) {
             consumeToken();
             throwException(true, false, false, false, false, false, "(", "{");
         }
@@ -1039,7 +1040,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 resetPossible(possible);
                 axioms.addAll(parseRuleFrame());
             } else {
-                if (tok.equals(EOF)) {
+                if (tok.equals(ManchesterOWLSyntaxTokenizer.EOF)) {
                     break;
                 } else {
                     consumeToken();
@@ -1288,7 +1289,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 axioms.addAll(parseAnnotations(cls));
             } else {
                 // If force EOF then we need EOF or else everything is o.k.
-                if (eof && !sect.equals(EOF)) {
+                if (eof && !sect.equals(ManchesterOWLSyntaxTokenizer.EOF)) {
                     consumeToken();
                     throwException(SUB_CLASS_OF, EQUIVALENT_TO, DISJOINT_WITH, ANNOTATIONS);
                 } else {
@@ -1419,7 +1420,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 }
             } else {
                 // If force EOF then we need EOF or else everything is o.k.
-                if (eof && !sect.equals(EOF)) {
+                if (eof && !sect.equals(ManchesterOWLSyntaxTokenizer.EOF)) {
                     consumeToken();
                     throwException(SUB_PROPERTY_OF,
                             EQUIVALENT_TO,
@@ -1716,7 +1717,7 @@ public class ManchesterOWLSyntaxEditorParser {
         Set<OWLOntology> onts = getOntologies();
         OWLObjectPropertyExpression prop = parseObjectPropertyExpression();
         String clsName = consumeToken();
-        if (clsName.equals(EOF)) {
+        if (clsName.equals(ManchesterOWLSyntaxTokenizer.EOF)) {
             throwException(false, true, false, false, false, false);
         }
         OWLClass cls = getOWLClass(clsName);
@@ -2524,7 +2525,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 axioms.add(new OntologyAxiomPair(ont, parseDifferentIndividuals()));
             } else if (section.equalsIgnoreCase(SAME_INDIVIDUAL)) {
                 axioms.add(new OntologyAxiomPair(ont, parseSameIndividual()));
-            } else if (section.equals(EOF)) {
+            } else if (section.equals(ManchesterOWLSyntaxTokenizer.EOF)) {
                 break;
             } else {
                 consumeToken();
@@ -2566,8 +2567,8 @@ public class ManchesterOWLSyntaxEditorParser {
         Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
         Set<OWLImportsDeclaration> imports = new HashSet<OWLImportsDeclaration>();
         tok = peekToken();
-        if(!tok.equalsIgnoreCase(EOF) && !tok.equals("<") && !tok.equals(IMPORT) && !tok.equals(ANNOTATIONS)) {
-            throwException("<$URI$>", IMPORT, ANNOTATIONS, EOF);
+        if(!tok.equalsIgnoreCase(ManchesterOWLSyntaxTokenizer.EOF) && !tok.equals("<") && !tok.equals(IMPORT) && !tok.equals(ANNOTATIONS)) {
+            throwException("<$URI$>", IMPORT, ANNOTATIONS, ManchesterOWLSyntaxTokenizer.EOF);
         }
 
         while(true) {
@@ -2581,7 +2582,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 consumeToken();
                 annotations.addAll(parseAnnotationList());
             }
-            else if(section.equalsIgnoreCase(EOF)) {
+            else if(section.equalsIgnoreCase(ManchesterOWLSyntaxTokenizer.EOF)) {
                 break;
             }
             else {
@@ -2679,12 +2680,12 @@ public class ManchesterOWLSyntaxEditorParser {
         if(index < 0) {
             index = 0;
         }
-        while(index < tokens.size() && seq.size() < 4 && seq.indexOf(EOF) == -1) {
+        while(index < tokens.size() && seq.size() < 4 && seq.indexOf(ManchesterOWLSyntaxTokenizer.EOF) == -1) {
             seq.add(tokens.get(index).getToken());
             index++;
         }
         if(seq.size() == 0) {
-            seq.add(EOF);
+            seq.add(ManchesterOWLSyntaxTokenizer.EOF);
         }
         return seq;
     }

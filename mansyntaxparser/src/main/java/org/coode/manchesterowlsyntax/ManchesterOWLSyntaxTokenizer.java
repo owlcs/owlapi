@@ -36,11 +36,11 @@ import java.util.Set;
  */
 public class ManchesterOWLSyntaxTokenizer {
 
-    private final String EOF = "<EOF>";
+    public static final String EOF = "<EOF>";
 
-    private Set<Character> skip = new HashSet<Character>();
+    protected Set<Character> skip = new HashSet<Character>();
 
-    private Set<Character> delims = new HashSet<Character>();
+    protected Set<Character> delims = new HashSet<Character>();
 
     private String buffer;
 
