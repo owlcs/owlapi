@@ -1,10 +1,9 @@
 package org.semanticweb.owl.reasoner;
 
-import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLOntologyManager;
 import org.semanticweb.owl.model.OWLOntology;
 
-import java.util.Set;/*
+/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their

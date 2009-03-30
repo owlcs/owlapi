@@ -147,6 +147,8 @@ public class ManchesterOWLSyntaxEditorParser {
 
     public static final String SUB_PROPERTY_OF = ManchesterOWLSyntax.SUB_PROPERTY_OF.toString() + ":";
 
+    public static final String SUPER_PROPERTY_OF = ManchesterOWLSyntax.SUPER_PROPERTY_OF.toString() + ":";
+
     public static final String DOMAIN = ManchesterOWLSyntax.DOMAIN.toString() + ":";
 
     public static final String RANGE = ManchesterOWLSyntax.RANGE.toString() + ":";
@@ -156,6 +158,8 @@ public class ManchesterOWLSyntaxEditorParser {
     public static final String CHARACTERISTICS = ManchesterOWLSyntax.CHARACTERISTICS.toString() + ":";
 
     public static final String INDIVIDUAL = ManchesterOWLSyntax.INDIVIDUAL.toString() + ":";
+
+    public static final String INDIVIDUALS = ManchesterOWLSyntax.INDIVIDUALS.toString() + ":";
 
     public static final String ANNOTATIONS = ManchesterOWLSyntax.ANNOTATIONS.toString() + ":";
 
@@ -1270,7 +1274,17 @@ public class ManchesterOWLSyntaxEditorParser {
                     }
                 }
 
-            } else if (sect.equals(ANNOTATIONS)) {
+            } else if(sect.equals(INDIVIDUALS)) {
+                consumeToken();
+                Set<OWLOntology> onts = getOntologies();
+                Set<OWLIndividual> inds = parseIndividualList();
+                for(OWLOntology ont : onts) {
+                    for (OWLIndividual ind : inds) {
+                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLClassAssertionAxiom(ind, cls)));
+                    }
+                }
+            }
+            else if (sect.equals(ANNOTATIONS)) {
                 axioms.addAll(parseAnnotations(cls));
             } else {
                 // If force EOF then we need EOF or else everything is o.k.
@@ -1317,7 +1331,19 @@ public class ManchesterOWLSyntaxEditorParser {
                         axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLSubObjectPropertyOfAxiom(prop, pe)));
                     }
                 }
-            } else if (sect.equalsIgnoreCase(EQUIVALENT_TO)) {
+            }
+            else if (sect.equalsIgnoreCase(SUPER_PROPERTY_OF)) {
+                potentialKeywords.clear();
+                consumeToken();
+                Set<OWLOntology> onts = getOntologies();
+                Set<OWLObjectPropertyExpression> props = parseObjectPropertyList();
+                for (OWLOntology ont : onts) {
+                    for (OWLObjectPropertyExpression pe : props) {
+                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLSubObjectPropertyOfAxiom(pe, prop)));
+                    }
+                }
+            }
+            else if (sect.equalsIgnoreCase(EQUIVALENT_TO)) {
                 potentialKeywords.clear();
                 consumeToken();
                 Set<OWLOntology> onts = getOntologies();
