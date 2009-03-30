@@ -1,6 +1,5 @@
 package org.semanticweb.reasonerfactory.factpp;
 
-import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.inference.OWLReasoner;
 import org.semanticweb.owl.inference.OWLReasonerFactory;
 import org.semanticweb.owl.inference.OWLReasonerException;
