@@ -5,6 +5,7 @@ import org.coode.owl.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owl.io.OWLParserFactoryRegistry;
 import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
@@ -13,6 +14,8 @@ import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -114,4 +117,32 @@ public class TestDisjoints extends TestCase {
         assertTrue(ontB.getAxioms().contains(ax));
     }
 
+
+    public void testDisjointClassesWithAxiomAnnotation() throws Exception {
+        OWLOntology ontA = man.createOntology(TestUtils.createURI());
+        final OWLDataFactory df = man.getOWLDataFactory();
+
+        OWLClass clsA = df.getOWLClass(TestUtils.createURI());
+        OWLClass clsB = df.getOWLClass(TestUtils.createURI());
+        OWLClass clsC = df.getOWLClass(TestUtils.createURI());
+
+        final OWLAnnotation helloAnnot = df.getOWLAnnotation(df.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_COMMENT.getURI()),
+                                                             df.getOWLTypedLiteral("hello"));
+
+        OWLAxiom ax = df.getOWLDisjointClassesAxiom(clsA, clsB, clsC);
+        OWLAxiom annotAx = df.getOWLAnnotationAssertionAxiom(ax, helloAnnot);
+
+        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        changes.add(new AddAxiom(ontA, ax));
+        changes.add(new AddAxiom(ontA, annotAx));
+        man.applyChanges(changes);
+
+        File tempFile = File.createTempFile("Ontology", ".owl");
+        man.saveOntology(ontA, tempFile.toURI());
+
+        OWLOntology ontB = man.loadOntologyFromPhysicalURI(tempFile.toURI());
+        final Set<OWLAxiom> axioms = ontB.getAxioms();
+        assertTrue(axioms.contains(ax));
+        assertTrue(axioms.contains(annotAx));
+    }
 }
