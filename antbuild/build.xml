@@ -10,7 +10,7 @@
           the zip file produced by the build.  For release builds this
           should be of the format <major>.<minor>.<revision>.  Note that the svn
             revision number will automatically be appended to this build number! -->
-    <property name="version" value="2.2.1"/>
+    <property name="version" value="3.0.0"/>
 
     <!-- The directory that contains the jar file dependencies for
          the class path and building a release -->
