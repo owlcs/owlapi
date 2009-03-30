@@ -65,6 +65,12 @@
 
         <dependency>
             <groupId>owlapi</groupId>
+            <artifactId>oborenderer</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>owlapi</groupId>
             <artifactId>owlxmlparser</artifactId>
             <version>2.2.0</version>
         </dependency>
