@@ -222,11 +222,6 @@ public class ParserException extends Exception {
             sb.append(kw);
             sb.append("\n");
         }
-        sb.append("SEQ: ");
-        for(String s : tokenSequence) {
-            sb.append(s);
-            sb.append(" ");
-        }
         return sb.toString();
     }
 }

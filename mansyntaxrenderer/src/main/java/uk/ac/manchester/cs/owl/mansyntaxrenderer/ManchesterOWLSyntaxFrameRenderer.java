@@ -305,6 +305,15 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 writeSection(DISJOINT_WITH, disjointClasses, ", ", false, ontology);
             }
         }
+        if(!isFiltered(AxiomType.HAS_KEY)) {
+            for(OWLOntology ontology : getOntologies()) {
+                for(OWLHasKeyAxiom ax : ontology.getHasKeyAxioms(cls)) {
+                    if(isDisplayed(ax)) {
+                        writeSection(HAS_KEY, ax.getPropertyExpressions(), ", ", true, ontology);
+                    }
+                }
+            }
+        }
         if(!isFiltered(AxiomType.CLASS_ASSERTION)) {
             for(OWLOntology ontology : getOntologies()) {
                 Set<OWLIndividual> individuals = new TreeSet<OWLIndividual>();

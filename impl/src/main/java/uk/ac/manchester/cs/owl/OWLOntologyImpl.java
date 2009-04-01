@@ -104,6 +104,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private Map<OWLClass, Set<OWLDisjointUnionAxiom>> disjointUnionAxiomsByClass = null; // Build lazily
 
+    private Map<OWLClass, Set<OWLHasKeyAxiom>> hasKeyAxiomsByClass = null; // Build lazily
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // OWLObjectPropertyAxioms by OWLObjectProperty
@@ -893,6 +895,20 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
         return getReturnSet(getAxioms(owlClass, disjointUnionAxiomsByClass));
     }
+
+
+    public Set<OWLHasKeyAxiom> getHasKeyAxioms(OWLClass cls) {
+        if(hasKeyAxiomsByClass == null) {
+            hasKeyAxiomsByClass = createMap();
+            for(OWLHasKeyAxiom axiom : getAxiomsInternal(HAS_KEY)) {
+                if (!axiom.getClassExpression().isAnonymous()) {
+                    addToIndexedSet(axiom.getClassExpression().asOWLClass(), hasKeyAxiomsByClass, axiom);
+                }
+            }
+        }
+        return getReturnSet(getAxioms(cls, hasKeyAxiomsByClass));
+    }
+
 
 
     // Object properties
@@ -1876,8 +1892,14 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         public void visit(OWLHasKeyAxiom axiom) {
             if (addAxiom) {
                 addToIndexedSet(HAS_KEY, axiomsByType, axiom);
+                if (!axiom.getClassExpression().isAnonymous()) {
+                    addToIndexedSet(axiom.getClassExpression().asOWLClass(), hasKeyAxiomsByClass, axiom);
+                }
             } else {
                 removeAxiomFromSet(HAS_KEY, axiomsByType, axiom, true);
+                if (!axiom.getClassExpression().isAnonymous()) {
+                    removeAxiomFromSet(axiom.getClassExpression().asOWLClass(), hasKeyAxiomsByClass, axiom, true);
+                }
             }
         }
 

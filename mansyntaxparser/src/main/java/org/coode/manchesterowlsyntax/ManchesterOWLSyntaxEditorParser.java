@@ -131,6 +131,8 @@ public class ManchesterOWLSyntaxEditorParser {
 
     public static final String DISJOINT_UNION_OF = ManchesterOWLSyntax.DISJOINT_UNION_OF.toString() + ":";
 
+    public static final String HAS_KEY = ManchesterOWLSyntax.HAS_KEY.toString() + ":";
+
     public static final String DISJOINT_CLASSES = ManchesterOWLSyntax.DISJOINT_CLASSES.toString() + ":";
 
     public static final String DISJOINT_OBJECT_PROPERTIES = ManchesterOWLSyntax.DISJOINT_OBJECT_PROPERTIES.toString() + ":";
@@ -562,6 +564,23 @@ public class ManchesterOWLSyntaxEditorParser {
         return parseObjectPropertyExpression(false);
     }
 
+    public OWLPropertyExpression parsePropertyExpression() throws ParserException {
+        String tok = peekToken();
+        if(isObjectPropertyName(tok)) {
+            return parseObjectPropertyExpression();
+        }
+        else if(tok.equalsIgnoreCase(INV)) {
+            return parseObjectPropertyExpression();
+        }
+        else if(isDataPropertyName(tok)) {
+            return parseDataProperty();  
+        }
+        else {
+            consumeToken();
+            throwException(false, true, true, false, false, false, INV);
+        }
+        return null;
+    }
 
     public OWLClassExpression parseRestriction() throws ParserException {
         String tok = peekToken();
@@ -1002,7 +1021,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 potentialKeywords.clear();
                 resetPossible(possible);
                 axioms.addAll(parseClassFrame());
-                possible.addAll(Arrays.asList(SUB_CLASS_OF, EQUIVALENT_TO, DISJOINT_WITH));
+                possible.addAll(Arrays.asList(SUB_CLASS_OF, EQUIVALENT_TO, DISJOINT_WITH, HAS_KEY));
                 possible.add(SUPER_CLASS_OF);
             } else if (tok.equalsIgnoreCase(OBJECT_PROPERTY)) {
                 potentialKeywords.clear();
@@ -1265,6 +1284,15 @@ public class ManchesterOWLSyntaxEditorParser {
                 for (OWLOntology ont : onts) {
                     axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLDisjointUnionAxiom(cls, descs)));
                 }
+
+            } else if (sect.equalsIgnoreCase(HAS_KEY)) {
+                consumeToken();
+                Set<OWLOntology> onts = getOntologies();
+                Set<OWLPropertyExpression> props = parsePropertyList();
+                for(OWLOntology ont : onts) {
+                    axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLHasKeyAxiom(cls, props)));
+                }
+
             } else if (sect.equals(SUPER_CLASS_OF)) {
                 consumeToken();
                 Set<OWLOntology> onts = getOntologies();
@@ -1291,7 +1319,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 // If force EOF then we need EOF or else everything is o.k.
                 if (eof && !sect.equals(ManchesterOWLSyntaxTokenizer.EOF)) {
                     consumeToken();
-                    throwException(SUB_CLASS_OF, EQUIVALENT_TO, DISJOINT_WITH, ANNOTATIONS);
+                    throwException(SUB_CLASS_OF, EQUIVALENT_TO, DISJOINT_WITH, HAS_KEY, ANNOTATIONS);
                 } else {
                     break;
                 }
@@ -2132,6 +2160,22 @@ public class ManchesterOWLSyntaxEditorParser {
         }
         return props;
     }
+
+
+    public Set<OWLPropertyExpression> parsePropertyList() throws ParserException {
+           Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
+           String sep = ",";
+           while (sep.equals(",")) {
+               OWLPropertyExpression prop = parsePropertyExpression();
+               props.add(prop);
+               sep = peekToken();
+               if (sep.equals(",")) {
+                   consumeToken();
+               }
+           }
+           return props;
+       }
+
 
     public Set<OWLObjectPropertyExpression> parseObjectPropertyList() throws ParserException {
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();

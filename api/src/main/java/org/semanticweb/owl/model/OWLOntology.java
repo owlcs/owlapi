@@ -586,6 +586,16 @@ public interface OWLOntology extends OWLNamedObject {
      */
     Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(OWLClass owlClass);
 
+
+    /**
+     * Gets the has key axioms that have the specified class as their subject.
+     * @param cls The subject of the has key axioms
+     * @return The set of has key axioms that have cls as their subject. The set that is returned is a copy -
+     * it will not be updated if the ontology changes.  It is therefore safe to apply changes to this ontology
+     * while iterating over this set.
+     */
+    Set<OWLHasKeyAxiom> getHasKeyAxioms(OWLClass cls);
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Object properties
