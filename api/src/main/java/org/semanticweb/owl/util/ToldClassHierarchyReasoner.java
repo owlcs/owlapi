@@ -240,7 +240,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
             result = extractChildren(object);
             for (Iterator<OWLClass> it = result.iterator(); it.hasNext();) {
                 OWLClass curChild = it.next();
-                if (getAncestors(curChild).contains(curChild)) {
+                if (getAncestors(object).contains(curChild)) {
                     it.remove();
                 }
             }
