@@ -54,7 +54,7 @@ public enum Namespaces {
 
     XSD("http://www.w3.org/2001/XMLSchema#"),
 
-    XML("http://www.w3.org/XML/1998/namespace/"),
+    XML("http://www.w3.org/XML/1998/namespace"),
 
     SWRL("http://www.w3.org/2003/11/swrl#"),
 
