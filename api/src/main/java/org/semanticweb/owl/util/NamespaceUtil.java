@@ -215,7 +215,8 @@ public class NamespaceUtil {
         String computedPrefix = namespace.substring(startIndex, endIndex);
         String candidatePrefix = computedPrefix;
         int candidateIndex = 2;
-        while (namespace2PrefixMap.containsValue(candidatePrefix)) {
+        while (namespace2PrefixMap.containsValue(candidatePrefix) ||
+               standardNamespacePrefixMappings.containsValue(candidatePrefix)) {
             candidatePrefix = computedPrefix + candidateIndex;
             candidateIndex++;
         }
