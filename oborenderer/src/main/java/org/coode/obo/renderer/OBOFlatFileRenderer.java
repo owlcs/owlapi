@@ -64,6 +64,8 @@ import java.util.*;
  * - cardinality is expressed as an '=' separated tag value pair in [1] and underspecified in [2]. OBOEdit 2
  * does not parse this (at the time of writing) so this has been changed to standard TVP syntax
  * - OBO 1.2 currently specifies pairwise disjointness which this renderer follows so files may get large
+ * - Exceptions are caught along the way and then wrapped in an OBOStorageIncompleteException which is thrown
+ * after serialisation ends
  * <p/>
  * <p/>
  * References:
@@ -109,10 +111,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         writeStanzas(ontology, writer);
 
         if (!exceptions.isEmpty()) {
-//            throw new OWLRendererException("OBO Storage incomplete: " + exceptions.size() + " warnings.");
-            for (OBOStorageException e : exceptions) {
-                System.err.println(e.getMessage());
-            }
+            throw new OBOStorageIncompleteException(exceptions);
         }
     }
 
