@@ -45,6 +45,8 @@ public class NamespaceUtil {
 
     private Map<String, String> standardNamespacePrefixMappings;
 
+    private int candidateIndex = 1;
+
 
     public NamespaceUtil() {
         standardNamespacePrefixMappings = new HashMap<String, String>();
@@ -146,15 +148,9 @@ public class NamespaceUtil {
         if (prefix == null) {
             // For some reason, we couldn't generate a decent prefix
             // Compute an auto generated prefix
-            int candidateIndex = 0;
-            while (true) {
-                candidateIndex++;
-                String candidatePrefix = "p" + candidateIndex;
-                if (!namespace2PrefixMap.containsValue(candidatePrefix)) {
-                    prefix = candidatePrefix;
-                    break;
-                }
-            }
+            do {
+                prefix = "p" + candidateIndex++;
+            } while (namespace2PrefixMap.containsValue(prefix));
         }
         namespace2PrefixMap.put(namespace, prefix);
         return prefix;
