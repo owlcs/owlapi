@@ -196,7 +196,7 @@ public class NamespaceUtil {
             return null;
         }
         int endIndex = startIndex + 1;
-        for (int i = startIndex; i < namespace.length(); i++) {
+        for (int i = startIndex; endIndex < namespace.length() && i < namespace.length(); i++) {
             char curChar = namespace.charAt(endIndex);
             // We include any NCNameChar except a full stop (.) so
             // that if the URI looks like a file with an extension the
