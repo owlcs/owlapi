@@ -41,6 +41,10 @@ public class OWLOntologyChangeVisitorAdapter implements OWLOntologyChangeVisitor
     }
 
 
+    public void visit(SetOntologyID change) {
+    }
+
+
     public void visit(AddAxiom change) {
     }
 
@@ -59,4 +63,6 @@ public class OWLOntologyChangeVisitorAdapter implements OWLOntologyChangeVisitor
 
     public void visit(RemoveOntologyAnnotation change) {
     }
+
+
 }

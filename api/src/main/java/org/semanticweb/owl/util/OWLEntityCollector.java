@@ -543,7 +543,9 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
     public void visit(OWLAnnotationAssertionAxiom axiom) {
-        axiom.getAnnotation().accept(this);
+        axiom.getSubject().accept(this);
+        axiom.getProperty().accept(this);
+        axiom.getValue().accept(this);
     }
 
     public void visit(OWLAnonymousIndividual individual) {
@@ -551,7 +553,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
     public void visit(IRI iri) {
-
+        
     }
 
     //    public void visit(OWLAnnotationValue value) {

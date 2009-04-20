@@ -71,9 +71,23 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     public void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OWLOntologyOutputTarget target,
                               OWLOntologyFormat format) throws OWLOntologyStorageException {
         if (target.isWriterAvailable()) {
-            storeOntology(manager, ontology, target.getWriter(), format);
+            try {
+                Writer writer = target.getWriter();
+                storeOntology(manager, ontology, writer, format);
+                writer.close();
+            }
+            catch (IOException e) {
+                throw new OWLOntologyStorageException(e);
+            }
         } else if (target.isOutputStreamAvailable()) {
-            storeOntology(manager, ontology, new BufferedWriter(new OutputStreamWriter(target.getOutputStream())), format);
+            try {
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(target.getOutputStream()));
+                storeOntology(manager, ontology, writer, format);
+                writer.close();
+            }
+            catch (IOException e) {
+                throw new OWLOntologyStorageException(e);
+            }
         } else if (target.isPhysicalURIAvailable()) {
             storeOntology(manager, ontology, target.getPhysicalURI(), format);
         } else {

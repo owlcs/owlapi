@@ -163,7 +163,14 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         write(ONTOLOGY.toString());
         write(":");
         writeSpace();
+        int indent = getIndent();
         writeFullURI(ontology.getURI().toString());
+        writeNewLine();
+        pushTab(indent);
+        if(ontology.getVersionIRI() != null) {
+           writeFullURI(ontology.getVersionIRI().toURI().toString());
+        }
+        popTab();
         writeNewLine();
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
             write(IMPORT.toString());

@@ -3,6 +3,7 @@ package org.coode.manchesterowlsyntax;
 import org.semanticweb.owl.model.IRI;
 import org.semanticweb.owl.model.OWLAnnotation;
 import org.semanticweb.owl.model.OWLImportsDeclaration;
+import org.semanticweb.owl.model.OWLOntologyID;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -37,9 +38,7 @@ import java.util.HashSet;
  */
 public class ManchesterOWLSyntaxOntologyHeader {
 
-    private IRI ontologyIRI;
-
-    private IRI versionIRI;
+    private OWLOntologyID ontologyID;
 
     private Set<OWLAnnotation> annotations;
 
@@ -50,20 +49,14 @@ public class ManchesterOWLSyntaxOntologyHeader {
                                              IRI versionIRI,
                                              Set<OWLAnnotation> annotations,
                                              Set<OWLImportsDeclaration> importsDeclarations) {
-        this.ontologyIRI = ontologyIRI;
-        this.versionIRI = versionIRI;
+        this.ontologyID = new OWLOntologyID(ontologyIRI, versionIRI);
         this.annotations = new HashSet<OWLAnnotation>(annotations);
         this.importsDeclarations = new HashSet<OWLImportsDeclaration>(importsDeclarations);
     }
 
 
-    public IRI getOntologyIRI() {
-        return ontologyIRI;
-    }
-
-
-    public IRI getVersionIRI() {
-        return versionIRI;
+    public OWLOntologyID getOntologyID() {
+        return ontologyID;
     }
 
 

@@ -2,6 +2,7 @@ package org.semanticweb.owl.io;
 
 import java.io.OutputStream;
 import java.io.Writer;
+import java.io.IOException;
 import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -43,11 +44,11 @@ public interface OWLOntologyOutputTarget {
 
     boolean isWriterAvailable();
 
-    Writer getWriter();
+    Writer getWriter() throws IOException;
 
     boolean isOutputStreamAvailable();
 
-    OutputStream getOutputStream();
+    OutputStream getOutputStream() throws IOException;
 
     boolean isPhysicalURIAvailable();
 

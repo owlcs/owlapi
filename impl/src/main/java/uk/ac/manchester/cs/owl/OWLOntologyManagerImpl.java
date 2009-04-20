@@ -332,6 +332,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             renameOntology(setURI.getOriginalOntologyID());
             resetImportsClosureCache();
         }
+        else if(change instanceof SetOntologyID) {
+            SetOntologyID setID = (SetOntologyID) change;
+            renameOntology(setID.getOriginalOntologyID());
+            resetImportsClosureCache();
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////

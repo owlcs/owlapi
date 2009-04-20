@@ -2619,8 +2619,22 @@ public class ManchesterOWLSyntaxEditorParser {
             String section = peekToken();
             if(section.equals(IMPORT)) {
                 consumeToken();
-                imports.add(getDataFactory().getOWLImportsDeclaration(parseURI()));
-
+                tok = peekToken();
+                URI importedURI = null;
+                if(tok.equals("<")) {
+                    importedURI = parseURI();
+                }
+                else if (isOntologyName(tok)) {
+                    consumeToken();
+                    OWLOntology ont = getOntology(tok);
+                    if (ont != null) {
+                        importedURI = ont.getURI();
+                    }
+                } else {
+                    consumeToken();
+                    throwOntologyNameOrURIExpectedException();
+                }
+                imports.add(getDataFactory().getOWLImportsDeclaration(importedURI));
             }
             else if(section.equals(ANNOTATIONS)) {
                 consumeToken();
@@ -2645,6 +2659,16 @@ public class ManchesterOWLSyntaxEditorParser {
                 lastToken.getPos(),
                 lastToken.getRow(),
                 lastToken.getCol(), ontologyNameExpected);
+    }
+
+    protected void throwOntologyNameOrURIExpectedException() throws ParserException {
+        ManchesterOWLSyntaxTokenizer.Token lastToken = getLastToken();
+        throw new ParserException(getTokenSequence(),
+                                  lastToken.getPos(),
+                                  lastToken.getRow(),
+                                  lastToken.getCol(),
+                                  true,
+                                  "<$ONTOLOGYYURI$>");
     }
 
     protected void throwException(String... keywords) throws ParserException {

@@ -37,6 +37,8 @@ public interface OWLOntologyChangeVisitor  {
 
     void visit(SetOntologyURI change);
 
+    void visit(SetOntologyID change);
+
     void visit(AddImport change);
 
     void visit(RemoveImport change);

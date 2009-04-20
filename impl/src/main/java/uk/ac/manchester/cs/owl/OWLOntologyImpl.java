@@ -1335,6 +1335,16 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             }
         }
 
+
+        public void visit(SetOntologyID change) {
+            OWLOntologyID id = change.getNewOntologyID();
+            if(!id.equals(ontologyID)) {
+                appliedChanges.add(change);
+                ontologyID = id;
+            }
+        }
+
+
         public void visit(AddAxiom change) {
             OWLAxiom axiom = change.getAxiom();
             // TODO:

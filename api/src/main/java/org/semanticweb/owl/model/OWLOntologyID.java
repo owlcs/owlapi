@@ -56,7 +56,7 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
      * Constructs an ontology identifier specifiying the ontology IRI and version IRI
      *
      * @param ontologyIRI The ontology IRI (may be <code>null</code>)
-     * @param versionIRI  The version IRI
+     * @param versionIRI  The version IRI (must be <code>null</code> if the ontologyIRI is null)
      */
     public OWLOntologyID(IRI ontologyIRI, IRI versionIRI) {
         this.ontologyIRI = ontologyIRI;
