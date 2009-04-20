@@ -34,7 +34,7 @@ import java.util.Set;
  * An OWL ontology contains a set of axioms.  These axioms can be annotation axioms,
  * declaration axioms, imports axioms or logical axioms
  */
-public interface OWLAxiom extends OWLObject, OWLAnnotationSubject {
+public interface OWLAxiom extends OWLObject {
 
     void accept(OWLAxiomVisitor visitor);
 
