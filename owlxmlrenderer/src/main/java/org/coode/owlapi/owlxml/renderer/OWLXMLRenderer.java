@@ -12,6 +12,7 @@ import org.semanticweb.owl.vocab.Namespaces;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Map;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -54,9 +55,10 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
             nsm.setDefaultNamespace(Namespaces.OWL.toString());
             if(format instanceof NamespaceOWLOntologyFormat) {
                 NamespaceOWLOntologyFormat namespaceFormat = (NamespaceOWLOntologyFormat) format;
-                for(String prefix : namespaceFormat.getNamespacesByPrefixMap().keySet()) {
-                    String ns = namespaceFormat.getNamespace(prefix);
-                    if(ns != null) {
+                final Map<String,String> nsByPrefixMap = namespaceFormat.getNamespacesByPrefixMap();
+                for(String prefix : nsByPrefixMap.keySet()) {
+                    String ns = nsByPrefixMap.get(prefix);
+                    if(ns != null && ns.length() > 0) {
                        nsm.setPrefix(prefix, ns);
                     }
                 }
