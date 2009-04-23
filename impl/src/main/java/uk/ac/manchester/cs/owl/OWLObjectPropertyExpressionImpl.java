@@ -58,7 +58,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     }
 
     public boolean isFunctional(OWLOntology ontology) {
-        return ontology.getFunctionalObjectPropertyAxiom(this) != null;
+        return ontology.getFunctionalObjectPropertyAxioms(this) != null;
     }
 
 
@@ -73,7 +73,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isInverseFunctional(OWLOntology ontology) {
-        return ontology.getInverseFunctionalObjectPropertyAxiom(this) != null;
+        return ontology.getInverseFunctionalObjectPropertyAxioms(this) != null;
     }
 
 
@@ -88,7 +88,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isSymmetric(OWLOntology ontology) {
-        return ontology.getSymmetricObjectPropertyAxiom(this) != null;
+        return ontology.getSymmetricObjectPropertyAxioms(this) != null;
     }
 
 
@@ -102,7 +102,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     }
 
     public boolean isAsymmetric(OWLOntology ontology) {
-        return ontology.getAsymmetricObjectPropertyAxiom(this) != null;
+        return ontology.getAsymmetricObjectPropertyAxioms(this) != null;
     }
 
 
@@ -117,7 +117,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isReflexive(OWLOntology ontology) {
-        return ontology.getReflexiveObjectPropertyAxiom(this) != null;
+        return ontology.getReflexiveObjectPropertyAxioms(this) != null;
     }
 
 
@@ -132,7 +132,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isIrreflexive(OWLOntology ontology) {
-        return ontology.getIrreflexiveObjectPropertyAxiom(this) != null;
+        return ontology.getIrreflexiveObjectPropertyAxioms(this) != null;
     }
 
 
@@ -147,7 +147,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isTransitive(OWLOntology ontology) {
-        return ontology.getTransitiveObjectPropertyAxiom(this) != null;
+        return ontology.getTransitiveObjectPropertyAxioms(this) != null;
     }
 
 
@@ -181,7 +181,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
     protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>> getDisjointPropertiesAxioms(
             OWLOntology ontology) {
-        return ontology.getDisjointObjectPropertiesAxiom(this);
+        return ontology.getDisjointObjectPropertiesAxioms(this);
     }
 
 

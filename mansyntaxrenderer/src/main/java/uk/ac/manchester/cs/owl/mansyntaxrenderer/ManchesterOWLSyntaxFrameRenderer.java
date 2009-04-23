@@ -403,7 +403,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.DISJOINT_OBJECT_PROPERTIES)) {
             for (OWLOntology ontology : getOntologies()) {
                 Set<OWLObjectPropertyExpression> properties = new TreeSet<OWLObjectPropertyExpression>();
-                for(OWLDisjointObjectPropertiesAxiom ax : ontology.getDisjointObjectPropertiesAxiom(property)) {
+                for(OWLDisjointObjectPropertiesAxiom ax : ontology.getDisjointObjectPropertiesAxioms(property)) {
                     if(isDisplayed(ax)) {
                         properties.addAll(ax.getProperties());
                         axioms.add(ax);
@@ -429,53 +429,60 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         for (OWLOntology ontology : getOntologies()) {
             List<String> characteristics = new ArrayList<String>();
             if (!isFiltered(AxiomType.FUNCTIONAL_OBJECT_PROPERTY)) {
-                OWLFunctionalObjectPropertyAxiom ax = ontology.getFunctionalObjectPropertyAxiom(property);
-                if(isDisplayed(ax)) {
-                    characteristics.add(FUNCTIONAL.toString());
-                    axioms.add(ax);
+                for(OWLFunctionalObjectPropertyAxiom ax : ontology.getFunctionalObjectPropertyAxioms(property)) {
+                    if(isDisplayed(ax)) {
+                        characteristics.add(FUNCTIONAL.toString());
+                        axioms.add(ax);
+                    }
                 }
             }
 
             if (!isFiltered(AxiomType.INVERSE_FUNCTIONAL_OBJECT_PROPERTY)) {
-                    OWLAxiom ax = ontology.getInverseFunctionalObjectPropertyAxiom(property);
-                    if (isDisplayed(ax)) {
-                        characteristics.add(INVERSE_FUNCTIONAL.toString());
-                        axioms.add(ax);
+                    for(OWLAxiom ax : ontology.getInverseFunctionalObjectPropertyAxioms(property)) {
+                        if (isDisplayed(ax)) {
+                            characteristics.add(INVERSE_FUNCTIONAL.toString());
+                            axioms.add(ax);
+                        }
                     }
             }
             if (!isFiltered(AxiomType.SYMMETRIC_OBJECT_PROPERTY)) {
-                    OWLAxiom ax = ontology.getSymmetricObjectPropertyAxiom(property);
-                    if (isDisplayed(ax)) {
-                        characteristics.add(SYMMETRIC.toString());
-                        axioms.add(ax);
+                    for(OWLAxiom ax : ontology.getSymmetricObjectPropertyAxioms(property)) {
+                        if (isDisplayed(ax)) {
+                            characteristics.add(SYMMETRIC.toString());
+                            axioms.add(ax);
+                        }
                     }
             }
             if (!isFiltered(AxiomType.TRANSITIVE_OBJECT_PROPERTY)) {
-                OWLAxiom ax = ontology.getTransitiveObjectPropertyAxiom(property);
-                if (isDisplayed(ax)) {
-                    characteristics.add(TRANSITIVE.toString());
-                    axioms.add(ax);
+                for(OWLAxiom ax : ontology.getTransitiveObjectPropertyAxioms(property)) {
+                    if (isDisplayed(ax)) {
+                        characteristics.add(TRANSITIVE.toString());
+                        axioms.add(ax);
+                    }
                 }
             }
             if (!isFiltered(AxiomType.REFLEXIVE_OBJECT_PROPERTY)) {
-                OWLAxiom ax = ontology.getReflexiveObjectPropertyAxiom(property);
-                if(isDisplayed(ax)) {
-                    characteristics.add(REFLEXIVE.toString());
-                    axioms.add(ax);
+                for(OWLAxiom ax : ontology.getReflexiveObjectPropertyAxioms(property)) {
+                    if(isDisplayed(ax)) {
+                        characteristics.add(REFLEXIVE.toString());
+                        axioms.add(ax);
+                    }
                 }
             }
             if (!isFiltered(AxiomType.IRREFLEXIVE_OBJECT_PROPERTY)) {
-                OWLAxiom ax = ontology.getIrreflexiveObjectPropertyAxiom(property);
-                if (isDisplayed(ax)) {
-                    characteristics.add(IRREFLEXIVE.toString());
-                    axioms.add(ax);
+                for(OWLAxiom ax : ontology.getIrreflexiveObjectPropertyAxioms(property)) {
+                    if (isDisplayed(ax)) {
+                        characteristics.add(IRREFLEXIVE.toString());
+                        axioms.add(ax);
+                    }
                 }
             }
-            if (!isFiltered(AxiomType.ANTI_SYMMETRIC_OBJECT_PROPERTY)) {
-                OWLAxiom ax = ontology.getAsymmetricObjectPropertyAxiom(property);
-                if (isDisplayed(ax)) {
-                    characteristics.add(ANTI_SYMMETRIC.toString());
-                    axioms.add(ax);
+            if (!isFiltered(AxiomType.ASYMMETRIC_OBJECT_PROPERTY)) {
+                for(OWLAxiom ax : ontology.getAsymmetricObjectPropertyAxioms(property)) {
+                    if (isDisplayed(ax)) {
+                        characteristics.add(ANTI_SYMMETRIC.toString());
+                        axioms.add(ax);
+                    }
                 }
             }
             writeSection(CHARACTERISTICS, new LinkedHashSet(characteristics), ",", true, ontology);
@@ -548,10 +555,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.FUNCTIONAL_DATA_PROPERTY)) {
             for (OWLOntology ontology : getOntologies()) {
                 List<String> characteristics = new ArrayList<String>();
-                OWLAxiom ax = ontology.getFunctionalDataPropertyAxiom(property);
-                if (isDisplayed(ax)) {
-                    characteristics.add(FUNCTIONAL.toString());
-                    axioms.add(ax);
+                for(OWLAxiom ax : ontology.getFunctionalDataPropertyAxioms(property)) {
+                    if (isDisplayed(ax)) {
+                        characteristics.add(FUNCTIONAL.toString());
+                        axioms.add(ax);
+                    }
                 }
                 writeSection(CHARACTERISTICS, new LinkedHashSet(characteristics), ",", true, ontology);
             }
@@ -572,7 +580,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.DATA_PROPERTY_RANGE)) {
             for (OWLOntology ontology : getOntologies()) {
                 Set<OWLDataRange> ranges = new TreeSet<OWLDataRange>();
-                for(OWLDataPropertyRangeAxiom ax : ontology.getDataPropertyRangeAxiom(property)) {
+                for(OWLDataPropertyRangeAxiom ax : ontology.getDataPropertyRangeAxioms(property)) {
                     if(isDisplayed(ax)) {
                         ranges.add(ax.getRange());
                         axioms.add(ax);
@@ -596,7 +604,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.EQUIVALENT_DATA_PROPERTIES)) {
             for (OWLOntology ontology : getOntologies()) {
                 Set<OWLDataPropertyExpression> props = new TreeSet<OWLDataPropertyExpression>();
-                for(OWLEquivalentDataPropertiesAxiom ax : ontology.getEquivalentDataPropertiesAxiom(property)) {
+                for(OWLEquivalentDataPropertiesAxiom ax : ontology.getEquivalentDataPropertiesAxioms(property)) {
                     if(isDisplayed(ax)) {
                         props.addAll(ax.getProperties());
                         axioms.add(ax);
@@ -609,7 +617,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.DISJOINT_DATA_PROPERTIES)) {
             for (OWLOntology ontology : getOntologies()) {
                 Set<OWLDataPropertyExpression> props = new TreeSet<OWLDataPropertyExpression>();
-                for(OWLDisjointDataPropertiesAxiom ax : ontology.getDisjointDataPropertiesAxiom(property)) {
+                for(OWLDisjointDataPropertiesAxiom ax : ontology.getDisjointDataPropertiesAxioms(property)) {
                     if(isDisplayed(ax)) {
                         props.addAll(ax.getProperties());
                         axioms.add(ax);

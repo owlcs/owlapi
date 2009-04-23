@@ -72,7 +72,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
 
 
     public boolean isFunctional(OWLOntology ontology) {
-        return ontology.getFunctionalDataPropertyAxiom(this) != null;
+        return ontology.getFunctionalDataPropertyAxioms(this) != null;
     }
 
 
@@ -88,7 +88,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
 
     protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>> getDisjointPropertiesAxioms(
             OWLOntology ontology) {
-        return ontology.getDisjointDataPropertiesAxiom(this);
+        return ontology.getDisjointDataPropertiesAxioms(this);
     }
 
 
@@ -99,7 +99,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
 
     protected Set<? extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>> getRangeAxioms(
             OWLOntology ontology) {
-        return ontology.getDataPropertyRangeAxiom(this);
+        return ontology.getDataPropertyRangeAxioms(this);
     }
 
 
@@ -110,7 +110,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
 
     protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>> getEquivalentPropertiesAxioms(
             OWLOntology ontology) {
-        return ontology.getEquivalentDataPropertiesAxiom(this);
+        return ontology.getEquivalentDataPropertiesAxioms(this);
     }
 
 

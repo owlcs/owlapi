@@ -53,7 +53,7 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
 
 
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        axiomType = ANTI_SYMMETRIC_OBJECT_PROPERTY;
+        axiomType = ASYMMETRIC_OBJECT_PROPERTY;
     }
 
 

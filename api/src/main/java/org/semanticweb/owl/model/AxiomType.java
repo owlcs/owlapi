@@ -212,8 +212,8 @@ public class AxiomType<C extends OWLAxiom> {
             false,
             true);
 
-    public static final AxiomType<OWLAsymmetricObjectPropertyAxiom> ANTI_SYMMETRIC_OBJECT_PROPERTY = new AxiomType<OWLAsymmetricObjectPropertyAxiom>(
-            "Anti-symmetric object property",
+    public static final AxiomType<OWLAsymmetricObjectPropertyAxiom> ASYMMETRIC_OBJECT_PROPERTY = new AxiomType<OWLAsymmetricObjectPropertyAxiom>(
+            "Asymmetric object property",
             true,
             true,
             true);
@@ -379,7 +379,7 @@ public class AxiomType<C extends OWLAxiom> {
         AXIOM_TYPES.add(FUNCTIONAL_OBJECT_PROPERTY);
         AXIOM_TYPES.add(INVERSE_FUNCTIONAL_OBJECT_PROPERTY);
         AXIOM_TYPES.add(SYMMETRIC_OBJECT_PROPERTY);
-        AXIOM_TYPES.add(ANTI_SYMMETRIC_OBJECT_PROPERTY);
+        AXIOM_TYPES.add(ASYMMETRIC_OBJECT_PROPERTY);
         AXIOM_TYPES.add(TRANSITIVE_OBJECT_PROPERTY);
         AXIOM_TYPES.add(REFLEXIVE_OBJECT_PROPERTY);
         AXIOM_TYPES.add(IRREFLEXIVE_OBJECT_PROPERTY);

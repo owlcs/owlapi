@@ -47,7 +47,7 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
 
 
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        process(axiom, ANTI_SYMMETRIC_OBJECT_PROPERTY);
+        process(axiom, ASYMMETRIC_OBJECT_PROPERTY);
     }
 
 

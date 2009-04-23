@@ -291,8 +291,7 @@ public interface OWLOntology extends OWLNamedObject {
      *
      * @param owlEntity The entity
      * @return <code>true</code> if the ontology contains a declaration for the specified entity, otherwise
-     *         <code>false</code> The set that is returned is a copy - it will not be updated if the ontology changes.
-     *         It is therefore safe to apply changes to this ontology while iterating over this set.
+     *         <code>false</code>.
      */
     boolean containsEntityDeclaration(OWLEntity owlEntity);
 
@@ -632,17 +631,17 @@ public interface OWLOntology extends OWLNamedObject {
     Set<OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertiesAxioms(OWLObjectPropertyExpression property);
 
 
-    Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxiom(OWLObjectPropertyExpression property);
+    Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(OWLObjectPropertyExpression property);
 
 
-    OWLFunctionalObjectPropertyAxiom getFunctionalObjectPropertyAxiom(OWLObjectPropertyExpression property);
+    Set<OWLFunctionalObjectPropertyAxiom> getFunctionalObjectPropertyAxioms(OWLObjectPropertyExpression property);
 
 
-    OWLInverseFunctionalObjectPropertyAxiom getInverseFunctionalObjectPropertyAxiom(
+    Set<OWLInverseFunctionalObjectPropertyAxiom> getInverseFunctionalObjectPropertyAxioms(
             OWLObjectPropertyExpression property);
 
 
-    OWLSymmetricObjectPropertyAxiom getSymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property);
+    Set<OWLSymmetricObjectPropertyAxiom> getSymmetricObjectPropertyAxioms(OWLObjectPropertyExpression property);
 
 
     /**
@@ -653,15 +652,15 @@ public interface OWLOntology extends OWLNamedObject {
      * @return The axiom that states that this property is asymmetric, or <code>null</code> if there is
      *         no axiom that states this.
      */
-    OWLAsymmetricObjectPropertyAxiom getAsymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property);
+    Set<OWLAsymmetricObjectPropertyAxiom> getAsymmetricObjectPropertyAxioms(OWLObjectPropertyExpression property);
 
-    OWLReflexiveObjectPropertyAxiom getReflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property);
-
-
-    OWLIrreflexiveObjectPropertyAxiom getIrreflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property);
+    Set<OWLReflexiveObjectPropertyAxiom> getReflexiveObjectPropertyAxioms(OWLObjectPropertyExpression property);
 
 
-    OWLTransitiveObjectPropertyAxiom getTransitiveObjectPropertyAxiom(OWLObjectPropertyExpression property);
+    Set<OWLIrreflexiveObjectPropertyAxiom> getIrreflexiveObjectPropertyAxioms(OWLObjectPropertyExpression property);
+
+
+    Set<OWLTransitiveObjectPropertyAxiom> getTransitiveObjectPropertyAxioms(OWLObjectPropertyExpression property);
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -679,16 +678,16 @@ public interface OWLOntology extends OWLNamedObject {
     Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(OWLDataProperty property);
 
 
-    Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxiom(OWLDataProperty property);
+    Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(OWLDataProperty property);
 
 
-    Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxiom(OWLDataProperty property);
+    Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxioms(OWLDataProperty property);
 
 
-    Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxiom(OWLDataProperty property);
+    Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(OWLDataProperty property);
 
 
-    OWLFunctionalDataPropertyAxiom getFunctionalDataPropertyAxiom(OWLDataPropertyExpression property);
+    Set<OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxioms(OWLDataPropertyExpression property);
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     //

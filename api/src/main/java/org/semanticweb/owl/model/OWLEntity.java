@@ -34,7 +34,7 @@ import java.util.Set;
  * <p/>
  * A marker interface for classes, properties, individuals (including anonymous individuals)
  * and datatypes. Entities are the fundamental building blocks of ontologies, and all entities
- * are identified by a URI.  Note that OWL 1.1 supports punning, which means that an OWLClass
+ * are identified by a URI.  Note that OWL 2 supports punning, which means that an OWLClass
  * may have the same URI as an OWLIndividual (or other entity) but will still be considered to
  * be a separate object.
  */
@@ -42,7 +42,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLAnnotationSubje
 
     /**
      * Gets the annotations for this entity.  These are deemed to be annotations in annotation assertion
-     * axioms that have an IRI that is equal to the IRI of this entity.
+     * axioms that have a subject that is an IRI that is equal to the IRI of this entity.
      *
      * @param ontology The ontology to be examined for annotation assertion axioms
      * @return The annotations that participate directly in an annotation assertion whose subject is an
@@ -75,7 +75,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLAnnotationSubje
      * <li>a datatype and the URI is in the set of built in data type URIs</li>
      * <li>an annotation property and the URI is in the set of built in annotation property URIs</li>
      * </ul>
-     *
      * @return <code>true</code> if this entity is a built in entity, or <code>false</code>
      *         if this entity is not a builtin entity.
      */

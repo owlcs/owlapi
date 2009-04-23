@@ -124,19 +124,19 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyRangeAxiom>> objectPropertyRangeAxiomsByProperty = null; // Build lazily
 
-    private Map<OWLObjectPropertyExpression, OWLFunctionalObjectPropertyAxiom> functionalObjectPropertyAxiomsByProperty = null; // Build lazily
+    private Map<OWLObjectPropertyExpression, Set<OWLFunctionalObjectPropertyAxiom>> functionalObjectPropertyAxiomsByProperty = null; // Build lazily
 
-    private Map<OWLObjectPropertyExpression, OWLInverseFunctionalObjectPropertyAxiom> inverseFunctionalPropertyAxiomsByProperty = null; // Build lazily
+    private Map<OWLObjectPropertyExpression, Set<OWLInverseFunctionalObjectPropertyAxiom>> inverseFunctionalPropertyAxiomsByProperty = null; // Build lazily
 
-    private Map<OWLObjectPropertyExpression, OWLSymmetricObjectPropertyAxiom> symmetricPropertyAxiomsByProperty = null; // Build lazily
+    private Map<OWLObjectPropertyExpression, Set<OWLSymmetricObjectPropertyAxiom>> symmetricPropertyAxiomsByProperty = null; // Build lazily
 
-    private Map<OWLObjectPropertyExpression, OWLAsymmetricObjectPropertyAxiom> antiSymmetricPropertyAxiomsByProperty = null; // Build lazily
+    private Map<OWLObjectPropertyExpression, Set<OWLAsymmetricObjectPropertyAxiom>> asymmetricPropertyAxiomsByProperty = null; // Build lazily
 
-    private Map<OWLObjectPropertyExpression, OWLReflexiveObjectPropertyAxiom> reflexivePropertyAxiomsByProperty = null; // Build lazily
+    private Map<OWLObjectPropertyExpression, Set<OWLReflexiveObjectPropertyAxiom>> reflexivePropertyAxiomsByProperty = null; // Build lazily
 
-    private Map<OWLObjectPropertyExpression, OWLIrreflexiveObjectPropertyAxiom> irreflexivePropertyAxiomsByProperty = null; // Build lazily
+    private Map<OWLObjectPropertyExpression, Set<OWLIrreflexiveObjectPropertyAxiom>> irreflexivePropertyAxiomsByProperty = null; // Build lazily
 
-    private Map<OWLObjectPropertyExpression, OWLTransitiveObjectPropertyAxiom> transitivePropertyAxiomsByProperty = null; // Build lazily
+    private Map<OWLObjectPropertyExpression, Set<OWLTransitiveObjectPropertyAxiom>> transitivePropertyAxiomsByProperty = null; // Build lazily
 
     private Map<OWLObjectPropertyExpression, Set<OWLInverseObjectPropertiesAxiom>> inversePropertyAxiomsByProperty = null; // Build lazily
 
@@ -158,7 +158,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private Map<OWLDataPropertyExpression, Set<OWLDataPropertyRangeAxiom>> dataPropertyRangeAxiomsByProperty = null; // Build lazily
 
-    private Map<OWLDataPropertyExpression, OWLFunctionalDataPropertyAxiom> functionalDataPropertyAxiomsByProperty = null; // Build lazily
+    private Map<OWLDataPropertyExpression, Set<OWLFunctionalDataPropertyAxiom>> functionalDataPropertyAxiomsByProperty = null; // Build lazily
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -624,17 +624,17 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     public Set<OWLObjectPropertyAxiom> getAxioms(final OWLObjectPropertyExpression prop) {
         final Set<OWLObjectPropertyAxiom> result = new HashSet<OWLObjectPropertyAxiom>(50);
 
-        addAxiomToSet(getAsymmetricObjectPropertyAxiom(prop), result);
-        addAxiomToSet(getReflexiveObjectPropertyAxiom(prop), result);
-        addAxiomToSet(getSymmetricObjectPropertyAxiom(prop), result);
-        addAxiomToSet(getIrreflexiveObjectPropertyAxiom(prop), result);
-        addAxiomToSet(getTransitiveObjectPropertyAxiom(prop), result);
-        addAxiomToSet(getInverseFunctionalObjectPropertyAxiom(prop), result);
-        addAxiomToSet(getFunctionalObjectPropertyAxiom(prop), result);
+        result.addAll(getAsymmetricObjectPropertyAxioms(prop));
+        result.addAll(getReflexiveObjectPropertyAxioms(prop));
+        result.addAll(getSymmetricObjectPropertyAxioms(prop));
+        result.addAll(getIrreflexiveObjectPropertyAxioms(prop));
+        result.addAll(getTransitiveObjectPropertyAxioms(prop));
+        result.addAll(getInverseFunctionalObjectPropertyAxioms(prop));
+        result.addAll(getFunctionalObjectPropertyAxioms(prop));
         result.addAll(getInverseObjectPropertyAxioms(prop));
         result.addAll(getObjectPropertyDomainAxioms(prop));
         result.addAll(getEquivalentObjectPropertiesAxioms(prop));
-        result.addAll(getDisjointObjectPropertiesAxiom(prop));
+        result.addAll(getDisjointObjectPropertiesAxioms(prop));
         result.addAll(getObjectPropertyRangeAxioms(prop));
         result.addAll(getObjectSubPropertyAxiomsForSubProperty(prop));
         return result;
@@ -669,13 +669,10 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     public Set<OWLDataPropertyAxiom> getAxioms(final OWLDataProperty prop) {
         final Set<OWLDataPropertyAxiom> result = createSet();
         result.addAll(getDataPropertyDomainAxioms(prop));
-        result.addAll(getEquivalentDataPropertiesAxiom(prop));
-        result.addAll(getDisjointDataPropertiesAxiom(prop));
-        result.addAll(getDataPropertyRangeAxiom(prop));
-        OWLFunctionalDataPropertyAxiom ax = getFunctionalDataPropertyAxiom(prop);
-        if (ax != null) {
-            result.add(ax);
-        }
+        result.addAll(getEquivalentDataPropertiesAxioms(prop));
+        result.addAll(getDisjointDataPropertiesAxioms(prop));
+        result.addAll(getDataPropertyRangeAxioms(prop));
+        result.addAll(getFunctionalDataPropertyAxioms(prop));
         result.addAll(getDataSubPropertyAxiomsForSubProperty(prop));
         return result;
     }
@@ -931,7 +928,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxiom(
+    public Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(
             OWLObjectPropertyExpression property) {
         if (disjointObjectPropertyAxiomsByProperty == null) {
             disjointObjectPropertyAxiomsByProperty = createMap();
@@ -944,90 +941,76 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return getReturnSet(getAxioms(property, disjointObjectPropertyAxiomsByProperty));
     }
 
-
-    public OWLFunctionalObjectPropertyAxiom getFunctionalObjectPropertyAxiom(OWLObjectPropertyExpression property) {
-        if (functionalObjectPropertyAxiomsByProperty == null) {
-            functionalObjectPropertyAxiomsByProperty = createMap();
-            for (OWLFunctionalObjectPropertyAxiom axiom : getAxiomsInternal(FUNCTIONAL_OBJECT_PROPERTY)) {
-                functionalObjectPropertyAxiomsByProperty.put(axiom.getProperty(), axiom);
-            }
+    private <T extends OWLObjectPropertyCharacteristicAxiom> Map<OWLObjectPropertyExpression, Set<T>> buildObjectPropertyCharacteristicsIndex(AxiomType<T> type) {
+        Map<OWLObjectPropertyExpression, Set<T>> map = createMap();
+        for(T ax : getAxiomsInternal(type)) {
+            addToIndexedSet(ax.getProperty(), map, ax);
         }
-        return functionalObjectPropertyAxiomsByProperty.get(property);
+        return map;
+    }
+
+    public Set<OWLFunctionalObjectPropertyAxiom> getFunctionalObjectPropertyAxioms(OWLObjectPropertyExpression property) {
+        if (functionalObjectPropertyAxiomsByProperty == null) {
+            functionalObjectPropertyAxiomsByProperty = buildObjectPropertyCharacteristicsIndex(FUNCTIONAL_OBJECT_PROPERTY);
+        }
+        return getReturnSet(getAxioms(property, functionalObjectPropertyAxiomsByProperty));
     }
 
 
-    public OWLInverseFunctionalObjectPropertyAxiom getInverseFunctionalObjectPropertyAxiom(
+    public Set<OWLInverseFunctionalObjectPropertyAxiom> getInverseFunctionalObjectPropertyAxioms(
             OWLObjectPropertyExpression property) {
         if (inverseFunctionalPropertyAxiomsByProperty == null) {
-            inverseFunctionalPropertyAxiomsByProperty = createMap();
-            for (OWLInverseFunctionalObjectPropertyAxiom axiom : getAxiomsInternal(INVERSE_FUNCTIONAL_OBJECT_PROPERTY)) {
-                inverseFunctionalPropertyAxiomsByProperty.put(axiom.getProperty(), axiom);
-            }
+            inverseFunctionalPropertyAxiomsByProperty = buildObjectPropertyCharacteristicsIndex(INVERSE_FUNCTIONAL_OBJECT_PROPERTY);
         }
         return inverseFunctionalPropertyAxiomsByProperty.get(property);
     }
 
 
-    public OWLSymmetricObjectPropertyAxiom getSymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+    public Set<OWLSymmetricObjectPropertyAxiom> getSymmetricObjectPropertyAxioms(OWLObjectPropertyExpression property) {
         if (symmetricPropertyAxiomsByProperty == null) {
-            symmetricPropertyAxiomsByProperty = createMap();
-            for (OWLSymmetricObjectPropertyAxiom axiom : getAxiomsInternal(SYMMETRIC_OBJECT_PROPERTY)) {
-                symmetricPropertyAxiomsByProperty.put(axiom.getProperty(), axiom);
-            }
+            symmetricPropertyAxiomsByProperty = buildObjectPropertyCharacteristicsIndex(SYMMETRIC_OBJECT_PROPERTY);
         }
         return symmetricPropertyAxiomsByProperty.get(property);
     }
 
 
-    public OWLAsymmetricObjectPropertyAxiom getAsymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property) {
-        if (antiSymmetricPropertyAxiomsByProperty == null) {
-            antiSymmetricPropertyAxiomsByProperty = createMap();
-            for (OWLAsymmetricObjectPropertyAxiom axiom : getAxiomsInternal(ANTI_SYMMETRIC_OBJECT_PROPERTY)) {
-                antiSymmetricPropertyAxiomsByProperty.put(axiom.getProperty(), axiom);
-            }
+    public Set<OWLAsymmetricObjectPropertyAxiom> getAsymmetricObjectPropertyAxioms(OWLObjectPropertyExpression property) {
+        if (asymmetricPropertyAxiomsByProperty == null) {
+            asymmetricPropertyAxiomsByProperty = buildObjectPropertyCharacteristicsIndex(ASYMMETRIC_OBJECT_PROPERTY);
         }
-        return antiSymmetricPropertyAxiomsByProperty.get(property);
+        return asymmetricPropertyAxiomsByProperty.get(property);
     }
 
 
-    public OWLReflexiveObjectPropertyAxiom getReflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+    public Set<OWLReflexiveObjectPropertyAxiom> getReflexiveObjectPropertyAxioms(OWLObjectPropertyExpression property) {
         if (reflexivePropertyAxiomsByProperty == null) {
-            reflexivePropertyAxiomsByProperty = createMap();
-            for (OWLReflexiveObjectPropertyAxiom axiom : getAxiomsInternal(REFLEXIVE_OBJECT_PROPERTY)) {
-                reflexivePropertyAxiomsByProperty.put(axiom.getProperty(), axiom);
-            }
+            reflexivePropertyAxiomsByProperty = buildObjectPropertyCharacteristicsIndex(REFLEXIVE_OBJECT_PROPERTY);
         }
         return reflexivePropertyAxiomsByProperty.get(property);
     }
 
 
-    public OWLIrreflexiveObjectPropertyAxiom getIrreflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+    public Set<OWLIrreflexiveObjectPropertyAxiom> getIrreflexiveObjectPropertyAxioms(OWLObjectPropertyExpression property) {
         if (irreflexivePropertyAxiomsByProperty == null) {
-            irreflexivePropertyAxiomsByProperty = createMap();
-            for (OWLIrreflexiveObjectPropertyAxiom axiom : getAxiomsInternal(IRREFLEXIVE_OBJECT_PROPERTY)) {
-                irreflexivePropertyAxiomsByProperty.put(axiom.getProperty(), axiom);
-            }
+            irreflexivePropertyAxiomsByProperty = buildObjectPropertyCharacteristicsIndex(IRREFLEXIVE_OBJECT_PROPERTY);
         }
         return irreflexivePropertyAxiomsByProperty.get(property);
     }
 
 
-    public OWLTransitiveObjectPropertyAxiom getTransitiveObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+    public Set<OWLTransitiveObjectPropertyAxiom> getTransitiveObjectPropertyAxioms(OWLObjectPropertyExpression property) {
         if (transitivePropertyAxiomsByProperty == null) {
-            transitivePropertyAxiomsByProperty = createMap();
-            for (OWLTransitiveObjectPropertyAxiom axiom : getAxiomsInternal(TRANSITIVE_OBJECT_PROPERTY)) {
-                transitivePropertyAxiomsByProperty.put(axiom.getProperty(), axiom);
-            }
+            transitivePropertyAxiomsByProperty = buildObjectPropertyCharacteristicsIndex(TRANSITIVE_OBJECT_PROPERTY);
         }
         return transitivePropertyAxiomsByProperty.get(property);
     }
 
 
-    public OWLFunctionalDataPropertyAxiom getFunctionalDataPropertyAxiom(OWLDataPropertyExpression property) {
+    public Set<OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxioms(OWLDataPropertyExpression property) {
         if (functionalDataPropertyAxiomsByProperty == null) {
             functionalDataPropertyAxiomsByProperty = createMap();
-            for (OWLFunctionalDataPropertyAxiom axiom : getAxiomsInternal(FUNCTIONAL_DATA_PROPERTY)) {
-                functionalDataPropertyAxiomsByProperty.put(axiom.getProperty(), axiom);
+            for(OWLFunctionalDataPropertyAxiom ax : getAxiomsInternal(FUNCTIONAL_DATA_PROPERTY)) {
+                addToIndexedSet(ax.getProperty(), functionalDataPropertyAxiomsByProperty, ax);
             }
         }
         return functionalDataPropertyAxiomsByProperty.get(property);
@@ -1067,7 +1050,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxiom(OWLDataProperty property) {
+    public Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(OWLDataProperty property) {
         if (dataPropertyRangeAxiomsByProperty == null) {
             dataPropertyRangeAxiomsByProperty = createMap();
             for (OWLDataPropertyRangeAxiom axiom : getAxiomsInternal(DATA_PROPERTY_RANGE)) {
@@ -1078,7 +1061,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxiom(OWLDataProperty property) {
+    public Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxioms(OWLDataProperty property) {
         if (equivalentDataPropertyAxiomsByProperty == null) {
             equivalentDataPropertyAxiomsByProperty = createMap();
             for (OWLEquivalentDataPropertiesAxiom axiom : getAxiomsInternal(EQUIVALENT_DATA_PROPERTIES)) {
@@ -1091,7 +1074,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxiom(OWLDataProperty property) {
+    public Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(OWLDataProperty property) {
         if (disjointDataPropertyAxiomsByProperty == null) {
             disjointDataPropertyAxiomsByProperty = createMap();
             for (OWLDisjointDataPropertiesAxiom axiom : getAxiomsInternal(DISJOINT_DATA_PROPERTIES)) {
@@ -1518,12 +1501,12 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
             if (addAxiom) {
                 addAxiomToSet(axiom, owlObjectPropertyAxioms);
-                addAxiomToMap(axiom.getProperty(), antiSymmetricPropertyAxiomsByProperty, axiom);
-                addToIndexedSet(ANTI_SYMMETRIC_OBJECT_PROPERTY, axiomsByType, axiom);
+                addToIndexedSet(axiom.getProperty(), asymmetricPropertyAxiomsByProperty, axiom);
+                addToIndexedSet(ASYMMETRIC_OBJECT_PROPERTY, axiomsByType, axiom);
             } else {
-                removeAxiomFromSet(ANTI_SYMMETRIC_OBJECT_PROPERTY, axiomsByType, axiom, true);
+                removeAxiomFromSet(ASYMMETRIC_OBJECT_PROPERTY, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom, owlObjectPropertyAxioms);
-                removeAxiomFromMap(axiom.getProperty(), antiSymmetricPropertyAxiomsByProperty);
+                removeAxiomFromSet(axiom.getProperty(), asymmetricPropertyAxiomsByProperty, axiom, true);
             }
         }
 
@@ -1531,12 +1514,12 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
             if (addAxiom) {
                 addAxiomToSet(axiom, owlObjectPropertyAxioms);
-                addAxiomToMap(axiom.getProperty(), reflexivePropertyAxiomsByProperty, axiom);
+                addToIndexedSet(axiom.getProperty(), reflexivePropertyAxiomsByProperty, axiom);
                 addToIndexedSet(REFLEXIVE_OBJECT_PROPERTY, axiomsByType, axiom);
             } else {
                 removeAxiomFromSet(REFLEXIVE_OBJECT_PROPERTY, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom, owlObjectPropertyAxioms);
-                removeAxiomFromMap(axiom.getProperty(), reflexivePropertyAxiomsByProperty);
+                removeAxiomFromSet(axiom.getProperty(), reflexivePropertyAxiomsByProperty, axiom, true);
             }
         }
 
@@ -1737,11 +1720,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 addAxiomToSet(axiom, owlObjectPropertyAxioms);
                 addToIndexedSet(FUNCTIONAL_OBJECT_PROPERTY, axiomsByType, axiom);
-                addAxiomToMap(axiom.getProperty(), functionalObjectPropertyAxiomsByProperty, axiom);
+                addToIndexedSet(axiom.getProperty(), functionalObjectPropertyAxiomsByProperty, axiom);
             } else {
                 removeAxiomFromSet(FUNCTIONAL_OBJECT_PROPERTY, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom, owlObjectPropertyAxioms);
-                removeAxiomFromMap(axiom.getProperty(), functionalObjectPropertyAxiomsByProperty);
+                removeAxiomFromSet(axiom.getProperty(), functionalObjectPropertyAxiomsByProperty, axiom, true);
             }
         }
 
@@ -1842,11 +1825,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 addToIndexedSet(SYMMETRIC_OBJECT_PROPERTY, axiomsByType, axiom);
                 addAxiomToSet(axiom, owlObjectPropertyAxioms);
-                addAxiomToMap(axiom.getProperty(), symmetricPropertyAxiomsByProperty, axiom);
+                addToIndexedSet(axiom.getProperty(), symmetricPropertyAxiomsByProperty, axiom);
             } else {
                 removeAxiomFromSet(SYMMETRIC_OBJECT_PROPERTY, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom, owlObjectPropertyAxioms);
-                removeAxiomFromMap(axiom.getProperty(), symmetricPropertyAxiomsByProperty);
+                removeAxiomFromSet(axiom.getProperty(), symmetricPropertyAxiomsByProperty, axiom, true);
             }
         }
 
@@ -1868,11 +1851,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 addToIndexedSet(FUNCTIONAL_DATA_PROPERTY, axiomsByType, axiom);
                 addAxiomToSet(axiom, owlDataPropertyAxioms);
-                addAxiomToMap(axiom.getProperty(), functionalDataPropertyAxiomsByProperty, axiom);
+                addToIndexedSet(axiom.getProperty(), functionalDataPropertyAxiomsByProperty, axiom);
             } else {
                 removeAxiomFromSet(FUNCTIONAL_DATA_PROPERTY, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom, owlDataPropertyAxioms);
-                removeAxiomFromMap(axiom.getProperty(), functionalDataPropertyAxiomsByProperty);
+                removeAxiomFromSet(axiom.getProperty(), functionalDataPropertyAxiomsByProperty, axiom, true);
             }
         }
 
@@ -1963,11 +1946,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 addToIndexedSet(TRANSITIVE_OBJECT_PROPERTY, axiomsByType, axiom);
                 addAxiomToSet(axiom, owlObjectPropertyAxioms);
-                addAxiomToMap(axiom.getProperty(), transitivePropertyAxiomsByProperty, axiom);
+                addToIndexedSet(axiom.getProperty(), transitivePropertyAxiomsByProperty, axiom);
             } else {
                 removeAxiomFromSet(TRANSITIVE_OBJECT_PROPERTY, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom, owlObjectPropertyAxioms);
-                removeAxiomFromMap(axiom.getProperty(), transitivePropertyAxiomsByProperty);
+                removeAxiomFromSet(axiom.getProperty(), transitivePropertyAxiomsByProperty, axiom, true);
             }
         }
 
@@ -1976,11 +1959,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 addToIndexedSet(IRREFLEXIVE_OBJECT_PROPERTY, axiomsByType, axiom);
                 addAxiomToSet(axiom, owlObjectPropertyAxioms);
-                addAxiomToMap(axiom.getProperty(), irreflexivePropertyAxiomsByProperty, axiom);
+                addToIndexedSet(axiom.getProperty(), irreflexivePropertyAxiomsByProperty, axiom);
             } else {
                 removeAxiomFromSet(IRREFLEXIVE_OBJECT_PROPERTY, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom, owlObjectPropertyAxioms);
-                removeAxiomFromMap(axiom.getProperty(), irreflexivePropertyAxiomsByProperty);
+                removeAxiomFromSet(axiom.getProperty(), irreflexivePropertyAxiomsByProperty, axiom, true);
             }
         }
 
@@ -2004,11 +1987,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 addToIndexedSet(INVERSE_FUNCTIONAL_OBJECT_PROPERTY, axiomsByType, axiom);
                 addAxiomToSet(axiom, owlObjectPropertyAxioms);
-                addAxiomToMap(axiom.getProperty(), inverseFunctionalPropertyAxiomsByProperty, axiom);
+                addToIndexedSet(axiom.getProperty(), inverseFunctionalPropertyAxiomsByProperty, axiom);
             } else {
                 removeAxiomFromSet(INVERSE_FUNCTIONAL_OBJECT_PROPERTY, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom, owlObjectPropertyAxioms);
-                removeAxiomFromMap(axiom.getProperty(), inverseFunctionalPropertyAxiomsByProperty);
+                removeAxiomFromSet(axiom.getProperty(), inverseFunctionalPropertyAxiomsByProperty, axiom, true);
             }
         }
 
@@ -2223,7 +2206,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private void buildObjectPropertyAxiomsIndex() {
         owlObjectPropertyAxioms = createSet();
-        owlObjectPropertyAxioms.addAll(getAxiomsInternal(ANTI_SYMMETRIC_OBJECT_PROPERTY));
+        owlObjectPropertyAxioms.addAll(getAxiomsInternal(ASYMMETRIC_OBJECT_PROPERTY));
         owlObjectPropertyAxioms.addAll(getAxiomsInternal(REFLEXIVE_OBJECT_PROPERTY));
         owlObjectPropertyAxioms.addAll(getAxiomsInternal(OBJECT_PROPERTY_DOMAIN));
         owlObjectPropertyAxioms.addAll(getAxiomsInternal(EQUIVALENT_OBJECT_PROPERTIES));
