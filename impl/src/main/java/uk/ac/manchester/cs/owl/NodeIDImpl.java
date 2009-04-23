@@ -36,7 +36,7 @@ public class NodeIDImpl implements NodeID {
     }
 
     public String toString() {
-        return id;
+        return "_:" + id;
     }
 
     public int compareTo(NodeID o) {
