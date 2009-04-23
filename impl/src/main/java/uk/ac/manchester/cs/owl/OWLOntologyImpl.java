@@ -935,7 +935,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(OWLObjectPropertyExpression property) {
-        if (objectPropertyRangeAxiomsByProperty == null) {
+        if (objectPropertyDomainAxiomsByProperty == null) {
             objectPropertyDomainAxiomsByProperty = createMap();
             for (OWLObjectPropertyDomainAxiom axiom : getAxiomsInternal(OBJECT_PROPERTY_DOMAIN)) {
                 addToIndexedSet(axiom.getProperty(), objectPropertyDomainAxiomsByProperty, axiom);
