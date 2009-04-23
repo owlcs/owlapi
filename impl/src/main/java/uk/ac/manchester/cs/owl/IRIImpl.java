@@ -2,6 +2,7 @@ package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owl.vocab.Namespaces;
 
 import java.net.URI;
 import java.util.Collections;
@@ -51,8 +52,9 @@ public class IRIImpl implements IRI {
         return OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(uri);
     }
 
-    public boolean isDisallowedVocabulary() {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
+
+    public boolean isReservedVocabularyWithSpecialTreatment() {
+        return false;
     }
 
     public boolean isNothing() {
@@ -60,11 +62,10 @@ public class IRIImpl implements IRI {
     }
 
     public boolean isReservedVocabulary() {
-        return OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(uri);
-    }
-
-    public boolean isSpecialTreatmentReservedVocabulary() {
-        return false;
+        return uri.toString().startsWith(Namespaces.OWL.toString()) ||
+                uri.toString().startsWith(Namespaces.RDF.toString()) ||
+                uri.toString().startsWith(Namespaces.RDFS.toString()) ||
+                uri.toString().startsWith(Namespaces.XML.toString());
     }
 
     public boolean isThing() {

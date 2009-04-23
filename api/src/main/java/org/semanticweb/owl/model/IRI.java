@@ -34,36 +34,31 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue {
     /**
      * Obtains this IRI as a URI.  Note that Java URIs handle unicode characters,
      * so there is no loss during this translation.
-     *
      * @return The URI
      */
     URI toURI();
 
+
     /**
-     * Determines if this IRI is in the reserved vocabulary.
-     *
+     * Determines if this IRI is in the reserved vocabulary.  An IRI is in the reserved vocabulary if it starts with
+     * <http://www.w3.org/1999/02/22-rdf-syntax-ns#> or <http://www.w3.org/2000/01/rdf-schema#>
+     * or <http://www.w3.org/2001/XMLSchema#> or <http://www.w3.org/2002/07/owl#>
      * @return <code>true</code> if the IRI is in the reserved vocabulary, otherwise <code>false</code>.
      */
     boolean isReservedVocabulary();
 
-    boolean isSpecialTreatmentReservedVocabulary();
-
-    /**
-     * Disallowed vocabulary must not be used to name entities, ontologies, or ontology versions
-     *
-     * @return <code>true</code> if this IRI is disallowed vocabulary, otherwise <code>false</code>
-     */
-    boolean isDisallowedVocabulary();
-
+    
     boolean isBuiltIn();
+
 
     boolean isThing();
 
+
     boolean isNothing();
+
 
     /**
      * Obtained this IRI surrounded by angled brackets
-     *
      * @return This IRI surrounded by &lt; and &gt;
      */
     String toQuotedString();
