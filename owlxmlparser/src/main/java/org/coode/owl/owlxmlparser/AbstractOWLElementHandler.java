@@ -149,6 +149,9 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
         throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
+    public void handleChild(OWLAnnotationPropertyElementHandler handler) throws OWLXMLParserException {
+        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
+    }
 
     final public void handleChars(char[] chars, int start, int length) {
         if (isTextContentPossible()) {

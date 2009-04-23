@@ -1,10 +1,11 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDataPropertyExpression;
+import org.semanticweb.owl.model.OWLDataRange;
 
-import java.net.URI;
+import java.util.Set;
+import java.util.HashSet;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -26,37 +27,27 @@ import java.net.URI;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 23-Apr-2009
  */
-public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWLDataPropertyExpression> {
+public class OWLDataUnionOfElementHandler extends AbstractOWLDataRangeHandler {
 
-    private OWLDataPropertyExpression prop;
+    private Set<OWLDataRange> dataRanges = new HashSet<OWLDataRange>();
 
-    private URI uri;
-
-    public OWLDataPropertyElementHandler(OWLXMLParserHandler handler) {
+    public OWLDataUnionOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
 
-    public OWLDataPropertyExpression getOWLObject() {
-        return prop;
+    public void handleChild(AbstractOWLDataRangeHandler handler) throws OWLXMLParserException {
+        dataRanges.add(handler.getOWLObject());
     }
 
-    public void attribute(String localName, String value) throws OWLXMLParserException {
-        if(localName.equals("IRI")) {
-            uri = getURI(value);
-        }
-    }
 
-    final public void endElement() throws OWLXMLParserException {
-        prop = getOWLDataFactory().getOWLDataProperty(uri);
-        getParentHandler().handleChild(this);
+    protected void endDataRangeElement() throws OWLXMLParserException {
+        setDataRange(getOWLDataFactory().getOWLDataUnionOf(dataRanges));
     }
-
 }

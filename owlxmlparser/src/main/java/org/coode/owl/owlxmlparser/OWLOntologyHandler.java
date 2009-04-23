@@ -46,7 +46,7 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
 
 
     public void attribute(String name, String value) throws OWLXMLParserException {
-        if (name.equals("URI")) {
+        if (name.equals("ontologyIRI")) {
             try {
                 getOWLOntologyManager().applyChange(new SetOntologyURI(getOntology(), URI.create(value)));
             }

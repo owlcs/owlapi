@@ -41,7 +41,7 @@ public class OWLObjectPropertyElementHandler extends AbstractOWLObjectPropertyEl
 
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
-        if(localName.equals("URI")) {
+        if(localName.equals("IRI")) {
             uri = getURI(value);
         }
     }

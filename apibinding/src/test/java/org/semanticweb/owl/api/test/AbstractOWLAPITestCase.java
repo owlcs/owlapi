@@ -118,6 +118,10 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
         return getFactory().getOWLNamedIndividual(URI.create(uriBase + "#" + name));
     }
 
+    public OWLDatatype getOWLDatatype(String name) {
+        return getFactory().getOWLDatatype(URI.create(uriBase + "#" + name));
+    }
+
 
     public void addAxiom(OWLOntology ont, OWLAxiom ax) {
         try {

@@ -184,9 +184,10 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
             ax.accept(this);
             write("\n");
         }
+        write(")");
 
-        write("\n// ");
-        write(VersionInfo.getVersionInfo().getGeneratedByMessage());
+//        write("\n// ");
+//        write(VersionInfo.getVersionInfo().getGeneratedByMessage());
     }
 
 

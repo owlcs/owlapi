@@ -73,6 +73,18 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
     }
 
 
+    public void handleChild(AbstractOWLDataRangeHandler handler) throws OWLXMLParserException {
+        checkForEntity(handler.getOWLObject());
+        entity = (OWLEntity) handler.getOWLObject();
+    }
+
+
+    public void handleChild(OWLAnnotationPropertyElementHandler handler) throws OWLXMLParserException {
+        checkForEntity(handler.getOWLObject());
+        entity = (OWLEntity) handler.getOWLObject();
+    }
+
+
     public void handleChild(OWLIndividualElementHandler handler) {
         entity = handler.getOWLObject();
     }

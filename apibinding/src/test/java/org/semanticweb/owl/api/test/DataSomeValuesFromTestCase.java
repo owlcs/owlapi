@@ -1,9 +1,12 @@
 package org.semanticweb.owl.api.test;
 
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.io.StringOutputTarget;
-import org.semanticweb.owl.model.OWLOntologyFormat;
+
+import java.util.Set;
+import java.util.HashSet;
 /*
- * Copyright (C) 2008, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -25,42 +28,30 @@ import org.semanticweb.owl.model.OWLOntologyFormat;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 07-Aug-2008<br><br>
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 23-Apr-2009
  */
-public class Test04RoundTripTestCase extends AbstractFileRoundTrippingTestCase {
+public class DataSomeValuesFromTestCase extends AbstractFileRoundTrippingTestCase {
 
+    public void testCorrectAxioms() {
+         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+         OWLClass clsA = getOWLClass("A");
+         OWLDatatype dt = getOWLDatatype("B");
+         OWLDataProperty propP = getOWLDataProperty("p");
+         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataSomeValuesFrom(propP, dt)));
+         axioms.add(getFactory().getOWLDeclarationAxiom(dt));
+         axioms.add(getFactory().getOWLDeclarationAxiom(propP));
+         assertEquals(getOnt().getAxioms(), axioms);
+    }
 
     protected String getFileName() {
-        return "Test04.txt";
+        return "DataSomeValuesFrom.rdf";
     }
-
 
     protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
-//        if(format.equals(new ManchesterOWLSyntaxOntologyFormat())) {
-//            try {
-//                FileOutputStream fos = new FileOutputStream(new File("/tmp/mansyntax.txt"));
-//                BufferedOutputStream bos = new BufferedOutputStream(fos);
-//                OutputStreamWriter w = new OutputStreamWriter(bos);
-//                w.write(target.toString());
-//                w.flush();
-//                w.close();
-//            }
-//            catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-    }
-
-
-    public void testManchesterOWLSyntax() throws Exception {
-        super.testManchesterOWLSyntax();
-    }
-
-
-    public void testOWLXML() throws Exception {
-//        super.testOWLXML();
+        System.out.println(target);
     }
 }

@@ -42,7 +42,7 @@ public class OWLClassElementHandler extends AbstractClassExpressionElementHandle
 
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
-        if (localName.equals("URI")) {
+        if (localName.equals("IRI")) {
             uri = getURI(value);
         }
     }
@@ -50,7 +50,7 @@ public class OWLClassElementHandler extends AbstractClassExpressionElementHandle
 
     public void endClassExpressionElement() throws OWLXMLParserException {
         if (uri == null) {
-            throw new OWLXMLParserAttributeNotFoundException(getLineNumber(), "URI");
+            throw new OWLXMLParserAttributeNotFoundException(getLineNumber(), "IRI");
         }
         setClassExpression(getOWLDataFactory().getOWLClass(uri));
     }

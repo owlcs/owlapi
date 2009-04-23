@@ -38,9 +38,7 @@ public abstract class AbstractDataRangeFillerRestrictionElementHandler extends A
         super(handler);
     }
 
-
     public void handleChild(AbstractOWLDataRangeHandler handler) {
         setFiller(handler.getOWLObject());
     }
-
 }

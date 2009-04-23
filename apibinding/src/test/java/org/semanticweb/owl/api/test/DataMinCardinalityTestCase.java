@@ -1,10 +1,12 @@
-package org.coode.owl.owlxmlparser;
+package org.semanticweb.owl.api.test;
 
-import org.semanticweb.owl.model.OWLDataPropertyExpression;
+import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.io.StringOutputTarget;
 
-import java.net.URI;
+import java.util.Set;
+import java.util.HashSet;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -26,37 +28,28 @@ import java.net.URI;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 23-Apr-2009
  */
-public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWLDataPropertyExpression> {
+public class DataMinCardinalityTestCase extends AbstractFileRoundTrippingTestCase {
 
-    private OWLDataPropertyExpression prop;
-
-    private URI uri;
-
-    public OWLDataPropertyElementHandler(OWLXMLParserHandler handler) {
-        super(handler);
+    public void testCorrectAxioms() {
+         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+         OWLClass clsA = getOWLClass("A");
+         OWLDataProperty prop = getOWLDataProperty("p");
+         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataMinCardinality(prop, 3)));
+         axioms.add(getFactory().getOWLDeclarationAxiom(prop));
+         assertEquals(getOnt().getAxioms(), axioms);
     }
 
-
-    public OWLDataPropertyExpression getOWLObject() {
-        return prop;
+    protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
+        System.out.println(target);
     }
 
-    public void attribute(String localName, String value) throws OWLXMLParserException {
-        if(localName.equals("IRI")) {
-            uri = getURI(value);
-        }
+    protected String getFileName() {
+        return "DataMinCardinality.rdf";
     }
-
-    final public void endElement() throws OWLXMLParserException {
-        prop = getOWLDataFactory().getOWLDataProperty(uri);
-        getParentHandler().handleChild(this);
-    }
-
 }

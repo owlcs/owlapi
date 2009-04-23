@@ -148,6 +148,12 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
         });
 
+        addFactory(new AbstractElementHandlerFactory(ANNOTATION_PROPERTY) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new OWLAnnotationPropertyElementHandler(handler);
+            }
+        });
+
         addFactory(new AbstractElementHandlerFactory(OBJECT_PROPERTY) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLObjectPropertyElementHandler(handler);
@@ -197,6 +203,17 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
         });
 
+        addFactory(new AbstractElementHandlerFactory(DATA_INTERSECTION_OF) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new OWLDataIntersectionOfElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(DATA_UNION_OF) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new OWLDataUnionOfElementHandler(handler);
+            }
+        });
 
         addFactory(new AbstractElementHandlerFactory(FACET_RESTRICTION) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
@@ -624,10 +641,10 @@ public class OWLXMLParserHandler extends DefaultHandler {
             for (int i = 0; i < attributes.getLength(); i++) {
                 handler.attribute(attributes.getLocalName(i), attributes.getValue(i));
             }
-            handler.startElement(uri);
+            handler.startElement(localName);
         }
         catch (OWLException e) {
-            throw new SAXException("(Current element " + localName, e);
+            throw new SAXException(e.getMessage() + "(Current element " + localName + ")", e);
         }
     }
 

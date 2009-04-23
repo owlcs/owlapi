@@ -75,6 +75,7 @@ public interface OWLElementHandler<O> {
 
     public void handleChild(OWLDatatypeFacetRestrictionElementHandler handler) throws OWLXMLParserException;
 
+    public void handleChild(OWLAnnotationPropertyElementHandler handler) throws OWLXMLParserException;
 
     public void handleChars(char[] chars, int start, int length) throws OWLXMLParserException;
 

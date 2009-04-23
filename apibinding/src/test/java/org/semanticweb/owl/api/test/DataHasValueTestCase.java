@@ -1,9 +1,12 @@
 package org.semanticweb.owl.api.test;
 
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.io.StringOutputTarget;
-import org.semanticweb.owl.model.OWLOntologyFormat;
+
+import java.util.Set;
+import java.util.HashSet;
 /*
- * Copyright (C) 2008, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -25,25 +28,29 @@ import org.semanticweb.owl.model.OWLOntologyFormat;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 23-Jul-2008<br><br>
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 23-Apr-2009
  */
-public class Test03RoundTripTestCase extends AbstractFileRoundTrippingTestCase {
+public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
 
+    public void testCorrectAxioms() {
+         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+         OWLClass clsA = getOWLClass("A");
+         OWLLiteral ind = getFactory().getOWLTypedLiteral(3);
+         OWLDataProperty propP = getOWLDataProperty("p");
+         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataHasValue(propP, ind)));
+         axioms.add(getFactory().getOWLDeclarationAxiom(propP));
+         assertEquals(getOnt().getAxioms(), axioms);
+    }
 
     protected String getFileName() {
-        return "Test03.rdf";
+        return "DataHasValue.rdf";
     }
-
 
     protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
-        
-    }
-
-
-    public void testOWLXML() throws Exception {
-        // This is overriden for now because it's not clear how to serialise language tags.
+        System.out.println(target);
     }
 }

@@ -1,13 +1,15 @@
 package org.semanticweb.owl.api.test;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owl.model.OWLClass;
+import org.semanticweb.owl.model.OWLDataProperty;
+import org.semanticweb.owl.model.OWLOntologyFormat;
 import org.semanticweb.owl.io.StringOutputTarget;
 
 import java.util.Set;
 import java.util.HashSet;
-
 /*
- * Copyright (C) 2008, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -30,21 +32,21 @@ import java.util.HashSet;
  */
 
 /**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 02-Feb-2009
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 23-Apr-2009
  */
-public class DataIntersectionOfTestCase extends AbstractFileRoundTrippingTestCase {
+public class DataMaxCardinalityTestCase extends AbstractFileRoundTrippingTestCase {
+
 
     public void testCorrectAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLDataRange intdr = getFactory().getIntegerOWLDatatype();
-        OWLDataRange floatdr = getFactory().getFloatOWLDatatype();
-        OWLDataRange intersection = getFactory().getOWLDataIntersectionOf(intdr, floatdr);
-        OWLDataProperty p = getOWLDataProperty("p");
-        OWLDataPropertyRangeAxiom ax = getFactory().getOWLDataPropertyRangeAxiom(p, intersection);
-        axioms.add(ax);
-        axioms.add(getFactory().getOWLDeclarationAxiom(p));
-        assertEquals(getOnt().getAxioms(), axioms);
+         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+         OWLClass clsA = getOWLClass("A");
+         OWLDataProperty prop = getOWLDataProperty("p");
+         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataMaxCardinality(prop, 3)));
+         axioms.add(getFactory().getOWLDeclarationAxiom(prop));
+         assertEquals(getOnt().getAxioms(), axioms);
     }
 
     protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
@@ -52,8 +54,6 @@ public class DataIntersectionOfTestCase extends AbstractFileRoundTrippingTestCas
     }
 
     protected String getFileName() {
-        return "DataIntersectionOf.rdf";
+        return "DataMaxCardinality.rdf";
     }
-
-
 }

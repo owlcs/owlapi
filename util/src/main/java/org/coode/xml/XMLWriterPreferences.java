@@ -47,7 +47,7 @@ public class XMLWriterPreferences {
 
 
     private XMLWriterPreferences() {
-        useNamespaceEntities = true;
+        useNamespaceEntities = false;
         indenting = true;
         indentSize = 4;
     }

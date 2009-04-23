@@ -1,6 +1,11 @@
-package org.semanticweb.owl.api.test;
+package org.coode.owl.owlxmlparser;
+
+import org.semanticweb.owl.model.OWLDataRange;
+
+import java.util.Set;
+import java.util.HashSet;
 /*
- * Copyright (C) 2008, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -22,15 +27,27 @@ package org.semanticweb.owl.api.test;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 23-Jul-2008<br><br>
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 23-Apr-2009
  */
-public class Test01RoundTripTestCase extends AbstractFileRoundTrippingTestCase {
+public class OWLDataIntersectionOfElementHandler extends AbstractOWLDataRangeHandler {
+
+    private Set<OWLDataRange> dataRanges = new HashSet<OWLDataRange>();
+
+    public OWLDataIntersectionOfElementHandler(OWLXMLParserHandler handler) {
+        super(handler);
+    }
 
 
-    protected String getFileName() {
-        return "Test01.rdf";
+    public void handleChild(AbstractOWLDataRangeHandler handler) throws OWLXMLParserException {
+        dataRanges.add(handler.getOWLObject());
+    }
+
+
+    protected void endDataRangeElement() throws OWLXMLParserException {
+        setDataRange(getOWLDataFactory().getOWLDataIntersectionOf(dataRanges));
     }
 }

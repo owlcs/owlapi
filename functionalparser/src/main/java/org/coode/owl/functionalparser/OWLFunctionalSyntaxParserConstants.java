@@ -132,7 +132,7 @@ public interface OWLFunctionalSyntaxParserConstants {
     "\"Class\"",
     "\"ObjectProperty\"",
     "\"DataProperty\"",
-    "\"Individual\"",
+    "\"NamedIndividual\"",
     "\"Datatype\"",
     "\"DataOneOf\"",
     "\"ObjectOneOf\"",

@@ -1238,7 +1238,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         for (URI annotationURI : annotationURIs) {
             translateAnnotation(annotationURI);
         }
-        System.out.println("Translated annotations");
         for (OWLAnnotation annos : annotationURI2Annotation.values()) {
             System.out.println(annos);
         }
@@ -1276,13 +1275,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
 
 
-        if(!annotationURIs.contains(subject)) {
-            System.out.println("BASE: ANNOTATION: " + subject);
-            for(URI pred : getPredicatesBySubject(subject)) {
-                System.out.println("\t\t" + pred);
-            }
-        }
-        
         if(object == null) {
             System.out.println("NULL");
             return null;
