@@ -54,6 +54,8 @@ public enum OWLRDFVocabulary {
 
     OWL_IMPORTS(Namespaces.OWL, "imports"),
 
+    OWL_VERSION_IRI(Namespaces.OWL, "versionIRI"),
+
     OWL_VERSION_INFO(Namespaces.OWL, "versionInfo"),
 
     OWL_EQUIVALENT_CLASS(Namespaces.OWL, "equivalentClass"),

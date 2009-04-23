@@ -89,12 +89,21 @@ public abstract class RDFRendererBase {
 
         // Put imports at the top of the rendering
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        // TODO: Sort out annotations an imports
+
 
         createGraph(axioms);
-        graph.addTriple(new RDFTriple(new RDFResourceNode(ontology.getURI()),
-                new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-                new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getURI())));
+        OWLOntologyID ontID = ontology.getOntologyID();
+        if(ontID.getOntologyIRI() != null) {
+            graph.addTriple(new RDFTriple(new RDFResourceNode(ontology.getURI()),
+                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
+                            new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getURI())));
+            if(ontID.getVersionIRI() != null) {
+                graph.addTriple(new RDFTriple(new RDFResourceNode(ontology.getURI()),
+                                new RDFResourceNode(OWLRDFVocabulary.OWL_VERSION_IRI.getURI()),
+                                new RDFResourceNode(ontID.getVersionIRI().toURI())));
+            }
+        }
+
         for(OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
             graph.addTriple(new RDFTriple(new RDFResourceNode(ontology.getURI()),
                 new RDFResourceNode(OWLRDFVocabulary.OWL_IMPORTS.getURI()),

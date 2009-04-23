@@ -560,6 +560,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addPredicateHandler(new TPFirstResourceHandler(this));
         addPredicateHandler(new TPDeclaredAsHandler(this));
         addPredicateHandler(new TPHasKeyHandler(this));
+        addPredicateHandler(new TPVersionIRIHandler(this));
 
         addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.BROADER));
         addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.NARROWER));
@@ -623,6 +624,10 @@ public class OWLRDFConsumer implements RDFConsumer {
         // Consider recording which entity URIs have been used here. This
         // might make translation of "dangling entities" faster (at the expense
         // of memory).
+    }
+
+    protected void setOntologyID(OWLOntologyID ontologyID) throws OWLException {
+        owlOntologyManager.applyChange(new SetOntologyID(ontology, ontologyID));
     }
 
     protected void addOntologyAnnotation(OWLAnnotation annotation) throws OWLException {
