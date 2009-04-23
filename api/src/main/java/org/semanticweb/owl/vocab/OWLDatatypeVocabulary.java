@@ -34,8 +34,6 @@ import java.util.*;
  */
 public enum OWLDatatypeVocabulary {
 
-    OWL_REAL_PLUS(Namespaces.OWL, "realPlus", Category.NUMBER, false),
-
     OWL_REAL(Namespaces.OWL, "real", Category.NUMBER, false),
 
     OWL_RATIONAL(Namespaces.OWL, "rational", Category.NUMBER, false),
