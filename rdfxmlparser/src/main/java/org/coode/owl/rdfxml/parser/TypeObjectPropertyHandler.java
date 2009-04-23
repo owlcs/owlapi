@@ -41,7 +41,9 @@ public class TypeObjectPropertyHandler extends BuiltInTypeHandler {
     }
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLObjectProperty(subject)));
+        if (!isAnonymous(subject)) {
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLObjectProperty(subject)));
+        }
         getConsumer().addOWLObjectProperty(subject);
     }
 }
