@@ -47,9 +47,6 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue {
      */
     boolean isReservedVocabulary();
 
-    
-    boolean isBuiltIn();
-
 
     boolean isThing();
 

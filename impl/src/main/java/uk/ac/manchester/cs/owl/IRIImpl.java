@@ -48,10 +48,6 @@ public class IRIImpl implements IRI {
         return uri;
     }
 
-    public boolean isBuiltIn() {
-        return OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(uri);
-    }
-
 
     public boolean isReservedVocabularyWithSpecialTreatment() {
         return false;

@@ -25,8 +25,8 @@ package org.semanticweb.owl.model;/*
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 18-Jan-2009
  * <p/>
- * An object that identifies an ontology.  Since OWL 2, ontologies do not have to have an ontology URI, or if they
- * have an ontology URI then they can optionally also have a version URI.  Instance of this OWLOntologyID class bundle
+ * An object that identifies an ontology.  Since OWL 2, ontologies do not have to have an ontology IRI, or if they
+ * have an ontology IRI then they can optionally also have a version IRI.  Instances of this OWLOntologyID class bundle
  * identifying information of an ontology together.
  */
 public final class OWLOntologyID implements Comparable<OWLOntologyID> {
@@ -43,22 +43,23 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
 
     private int hashCode;
 
+
     /**
      * Constructs an ontology identifier specifying the ontology IRI
-     *
      * @param ontologyIRI The ontology IRI used to indentify the ontology
      */
     public OWLOntologyID(IRI ontologyIRI) {
         this(ontologyIRI, null);
     }
 
+
     /**
      * Constructs an ontology identifier specifiying the ontology IRI and version IRI
-     *
      * @param ontologyIRI The ontology IRI (may be <code>null</code>)
-     * @param versionIRI  The version IRI (must be <code>null</code> if the ontologyIRI is null)
+     * @param versionIRI The version IRI (must be <code>null</code> if the ontologyIRI is null)
      */
-    public OWLOntologyID(IRI ontologyIRI, IRI versionIRI) {
+    public OWLOntologyID(IRI ontologyIRI,
+                         IRI versionIRI) {
         this.ontologyIRI = ontologyIRI;
         hashCode = 17;
         if (ontologyIRI != null) {
@@ -71,7 +72,8 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
             }
             this.versionIRI = versionIRI;
             hashCode += 37 * versionIRI.hashCode();
-        } else {
+        }
+        else {
             this.versionIRI = null;
         }
         if (ontologyIRI == null) {
@@ -80,6 +82,7 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
         }
     }
 
+
     /**
      * Constructs an ontology identifier specifying that the ontology IRI (and hence the version IRI) is not present.
      */
@@ -87,29 +90,55 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
         this(null, null);
     }
 
+
+    /**
+     * Determines if this is a valid OWL 2 DL ontology ID.  To be a valid OWL 2 DL ID, the ontology IRI and version IRI
+     * must not be reserved vocabulary.
+     * @return <code>true</code> if this is a valid OWL 2 DL ontology ID, otherwise <code>false</code>
+     * @see org.semanticweb.owl.model.IRI#isReservedVocabulary()
+     */
+    public boolean isOWL2DLOntologyID() {
+        return ontologyIRI == null || (!ontologyIRI.isReservedVocabulary() && (versionIRI == null || !versionIRI.isReservedVocabulary()));
+    }
+
+
     public int compareTo(OWLOntologyID o) {
         return toString().compareTo(o.toString());
     }
+
 
     public IRI getOntologyIRI() {
         return ontologyIRI;
     }
 
+
     public IRI getVersionIRI() {
         return versionIRI;
     }
 
+
+    /**
+     * Gets the IRI which is used as a default for the document that contain a representation of an ontology with this
+     * ID. This will be the version IRI if there is an ontology IRI and version IRI, else it will be the ontology IRI
+     * if there is an ontology IRI but no version IRI, else it will be <code>null</code> if there is no ontology IRI.
+     * (See section 3.2 of the OWL 2 specification)
+     * @return The IRI that can be used as a default for an ontology document containing an ontology as identified
+     *         by this ontology ID.  Returns the default IRI or <code>null</code>.
+     */
     public IRI getDefaultDocumentIRI() {
         if (ontologyIRI != null) {
             if (versionIRI != null) {
                 return versionIRI;
-            } else {
+            }
+            else {
                 return ontologyIRI;
             }
-        } else {
+        }
+        else {
             return null;
         }
     }
+
 
     private static int getNextCounter() {
         counter++;
@@ -125,15 +154,18 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
             if (versionIRI != null) {
                 sb.append(versionIRI.toQuotedString());
             }
-        } else {
+        }
+        else {
             sb.append(internalID);
         }
         return sb.toString();
     }
 
+
     public int hashCode() {
         return hashCode;
     }
+
 
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -145,7 +177,8 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
         OWLOntologyID other = (OWLOntologyID) obj;
         if (ontologyIRI != null) {
             return other.ontologyIRI != null && ontologyIRI.equals(other.ontologyIRI) && (versionIRI == null || other.versionIRI != null && versionIRI.equals(other.versionIRI));
-        } else {
+        }
+        else {
             return other.ontologyIRI == null && internalID.equals(other.internalID);
         }
     }

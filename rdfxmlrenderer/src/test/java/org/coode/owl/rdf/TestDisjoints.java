@@ -66,39 +66,6 @@ public class TestDisjoints extends TestCase {
         man.addOntologyStorer(new RDFXMLOntologyStorer());
     }
 
-    // The test case below is redundant now that the RDF mapping for OWL 2 contains
-    // an "AllDisjoint" mapping.
-
-//    public void testDisjoints() throws Exception {
-//        OWLOntology ontA = man.createOntology(TestUtils.createURI());
-//        OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
-//        OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
-//        OWLClass clsC = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
-//        OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
-//        OWLClassExpression clsD = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(prop, man.getOWLDataFactory().getOWLThing());
-//        Set<OWLClassExpression> expressions = new HashSet<OWLClassExpression>();
-//        expressions.add(clsA);
-//        expressions.add(clsB);
-//        expressions.add(clsC);
-//        expressions.add(clsD);
-//        OWLAxiom ax = man.getOWLDataFactory().getOWLDisjointClassesAxiom(expressions);
-//        man.applyChange(new AddAxiom(ontA, ax));
-//        File tempFile = File.createTempFile("Ontology", ".owl");
-//        man.saveOntology(ontA, tempFile.toURI());
-//        OWLOntology ontB = man.loadOntologyFromPhysicalURI(tempFile.toURI());
-//        Set<OWLAxiom> pairwiseAxioms = new HashSet<OWLAxiom>();
-//        List<OWLClassExpression> expressionsList = new ArrayList<OWLClassExpression>(expressions);
-//        for(int i = 0; i < expressions.size(); i++) {
-//            for(int j = i; j < expressions.size(); j++) {
-//                if(i != j) {
-//                    System.out.println(i + " -- " + j);
-//                    pairwiseAxioms.add(man.getOWLDataFactory().getOWLDisjointClassesAxiom(CollectionFactory.createSet(expressionsList.get(i), expressionsList.get(j))));
-//                }
-//            }
-//        }
-//        assertTrue(ontB.getAxioms().containsAll(pairwiseAxioms));
-//    }
-
     public void testAnonDisjoints() throws Exception {
         OWLOntology ontA = man.createOntology(TestUtils.createURI());
         OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
@@ -118,31 +85,4 @@ public class TestDisjoints extends TestCase {
     }
 
 
-    public void testDisjointClassesWithAxiomAnnotation() throws Exception {
-        OWLOntology ontA = man.createOntology(TestUtils.createURI());
-        final OWLDataFactory df = man.getOWLDataFactory();
-
-        OWLClass clsA = df.getOWLClass(TestUtils.createURI());
-        OWLClass clsB = df.getOWLClass(TestUtils.createURI());
-        OWLClass clsC = df.getOWLClass(TestUtils.createURI());
-
-        final OWLAnnotation helloAnnot = df.getOWLAnnotation(df.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_COMMENT.getURI()),
-                                                             df.getOWLTypedLiteral("hello"));
-
-        OWLAxiom ax = df.getOWLDisjointClassesAxiom(clsA, clsB, clsC);
-        OWLAxiom annotAx = df.getOWLAnnotationAssertionAxiom(ax, helloAnnot);
-
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
-        changes.add(new AddAxiom(ontA, ax));
-        changes.add(new AddAxiom(ontA, annotAx));
-        man.applyChanges(changes);
-
-        File tempFile = File.createTempFile("Ontology", ".owl");
-        man.saveOntology(ontA, tempFile.toURI());
-
-        OWLOntology ontB = man.loadOntologyFromPhysicalURI(tempFile.toURI());
-        final Set<OWLAxiom> axioms = ontB.getAxioms();
-        assertTrue(axioms.contains(ax));
-        assertTrue(axioms.contains(annotAx));
-    }
 }

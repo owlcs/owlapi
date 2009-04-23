@@ -39,6 +39,10 @@ import java.util.Set;
  */
 public interface OWLOntology extends OWLNamedObject {
 
+    /**
+     * Gets the identity of this ontology (i.e. ontology IRI + version IRI)
+     * @return The ID of this ontology.
+     */
     OWLOntologyID getOntologyID();
 
     /**
