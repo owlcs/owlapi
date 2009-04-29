@@ -54,7 +54,7 @@ public class XMLWriterImpl implements XMLWriter {
 
     private XMLWriterNamespaceManager xmlWriterNamespaceManager;
 
-    private Map entities;
+    private Map<String, String> entities;
 
     private static final int TEXT_CONTENT_WRAP_LIMIT = 15;
 
@@ -79,27 +79,34 @@ public class XMLWriterImpl implements XMLWriter {
 
 
     private void setupEntities() {
-        ArrayList namespaces = new ArrayList(xmlWriterNamespaceManager.getNamespaces());
-        Collections.sort(namespaces, new Comparator() {
-            public int compare(Object o1, Object o2) {
+        List<String> namespaces = new ArrayList<String>(xmlWriterNamespaceManager.getNamespaces());
+        Collections.sort(namespaces, new Comparator<String>() {
+            public int compare(String o1, String o2) {
                 // Shortest string first
-                return ((String) o1).length() - ((String) o2).length();
+                return o1.length() - o2.length();
             }
         });
-        entities = new LinkedHashMap();
-        for (Iterator it = namespaces.iterator(); it.hasNext();) {
-            String curNamespace = (String) it.next();
-            String curPrefix = xmlWriterNamespaceManager.getPrefixForNamespace(curNamespace);
-            entities.put(curNamespace, "&" + curPrefix + ";");
+        entities = new LinkedHashMap<String, String>();
+        for (String curNamespace : namespaces) {
+            String curPrefix = "";
+            if (xmlWriterNamespaceManager.getDefaultNamespace().equals(curNamespace)){
+                curPrefix = xmlWriterNamespaceManager.getDefaultPrefix();
+            }
+            else{
+                curPrefix = xmlWriterNamespaceManager.getPrefixForNamespace(curNamespace);
+
+            }
+            if (curPrefix.length() > 0){
+                    entities.put(curNamespace, "&" + curPrefix + ";");
+                }
         }
     }
 
 
     private String swapForEntity(String value) {
         String repVal;
-        for (Iterator it = entities.keySet().iterator(); it.hasNext();) {
-            String curEntity = (String) it.next();
-            String entityVal = (String) entities.get(curEntity);
+        for (String curEntity : entities.keySet()) {
+            String entityVal = entities.get(curEntity);
             if (value.length() > curEntity.length()) {
                 repVal = value.replace(curEntity, entityVal);
 //                repVal = StringUtils.replaceOnce(value, curEntity, entityVal);
@@ -134,7 +141,7 @@ public class XMLWriterImpl implements XMLWriter {
 
     public void setWrapAttributes(boolean b) {
         if (elementStack.size() > 0) {
-            XMLElement element = (XMLElement) elementStack.peek();
+            XMLElement element = elementStack.peek();
             element.setWrapAttributes(b);
         }
     }
@@ -142,14 +149,14 @@ public class XMLWriterImpl implements XMLWriter {
 
     public void writeStartElement(String name) throws IOException {
         String qName = xmlWriterNamespaceManager.getQName(name);
-        if (qName == null) {
+        if(qName == null) {
             // Could not generate a valid QName, therefore, we cannot
             // write valid XML - just throw an exception!
             throw new RuntimeException("Could not generate legal element name (qname) for " + name);
         }
         XMLElement element = new XMLElement(qName, elementStack.size());
         if (elementStack.size() > 0) {
-            XMLElement topElement = (XMLElement) elementStack.peek();
+            XMLElement topElement = elementStack.peek();
             if (topElement != null) {
                 topElement.writeElementStart(false);
             }
@@ -161,20 +168,20 @@ public class XMLWriterImpl implements XMLWriter {
     public void writeEndElement() throws IOException {
         // Pop the element off the stack and write it out
         if (elementStack.size() > 0) {
-            XMLElement element = (XMLElement) elementStack.pop();
+            XMLElement element = elementStack.pop();
             element.writeElementEnd();
         }
     }
 
 
     public void writeAttribute(String attr, String val) {
-        XMLElement element = (XMLElement) elementStack.peek();
+        XMLElement element = elementStack.peek();
         element.setAttribute(xmlWriterNamespaceManager.getQName(attr), val);
     }
 
 
     public void writeTextContent(String text) {
-        XMLElement element = (XMLElement) elementStack.peek();
+        XMLElement element = elementStack.peek();
         element.setText(text);
     }
 
@@ -183,14 +190,15 @@ public class XMLWriterImpl implements XMLWriter {
         XMLElement element = new XMLElement(null, elementStack.size());
         element.setText("<!-- " + commentText + " -->");
         if (!elementStack.isEmpty()) {
-            XMLElement topElement = (XMLElement) elementStack.peek();
+            XMLElement topElement = elementStack.peek();
             if (topElement != null) {
                 topElement.writeElementStart(false);
             }
         }
         if (preambleWritten) {
             element.writeElementStart(true);
-        } else {
+        }
+        else {
             elementStack.push(element);
         }
     }
@@ -198,9 +206,8 @@ public class XMLWriterImpl implements XMLWriter {
 
     private void writeEntities(String rootName) throws IOException {
         writer.write("\n\n<!DOCTYPE " + xmlWriterNamespaceManager.getQName(rootName) + " [\n");
-        for (Iterator it = entities.keySet().iterator(); it.hasNext();) {
-            String entityVal = (String) it.next();
-            String entity = (String) entities.get(entityVal);
+        for (String entityVal : entities.keySet()) {
+            String entity = entities.get(entityVal);
             entity = entity.substring(1, entity.length() - 1);
             writer.write("    <!ENTITY ");
             writer.write(entity);
@@ -233,9 +240,10 @@ public class XMLWriterImpl implements XMLWriter {
         if (xmlBase.length() != 0) {
             writeAttribute("xml:base", xmlBase);
         }
-        for (Iterator it = xmlWriterNamespaceManager.getPrefixes().iterator(); it.hasNext();) {
-            String curPrefix = (String) it.next();
-            writeAttribute("xmlns:" + curPrefix, xmlWriterNamespaceManager.getNamespaceForPrefix(curPrefix));
+        for (String curPrefix : xmlWriterNamespaceManager.getPrefixes()) {
+            if (curPrefix.length() > 0){
+                writeAttribute("xmlns:" + curPrefix, xmlWriterNamespaceManager.getNamespaceForPrefix(curPrefix));
+            }
         }
     }
 
@@ -253,7 +261,7 @@ public class XMLWriterImpl implements XMLWriter {
 
         private String name;
 
-        private Map attributes;
+        private Map<String, String> attributes;
 
         String textContent;
 
@@ -272,7 +280,7 @@ public class XMLWriterImpl implements XMLWriter {
 
         public XMLElement(String name, int indentation) {
             this.name = name;
-            attributes = new LinkedHashMap();
+            attributes = new LinkedHashMap<String, String>();
             this.indentation = indentation;
             textContent = null;
             startWritten = false;
@@ -318,24 +326,27 @@ public class XMLWriterImpl implements XMLWriter {
                     if (close) {
                         if (textContent != null) {
                             writeElementEnd();
-                        } else {
+                        }
+                        else {
                             writer.write("/>");
                             writeNewLine();
                         }
-                    } else {
+                    }
+                    else {
                         if (textContent == null) {
                             writer.write('>');
                             writeNewLine();
                         }
                     }
-                } else {
+                }
+                else {
                     // Name is null so by convension this is a comment
                     if (textContent != null) {
                         writer.write("\n\n\n");
                         StringTokenizer tokenizer = new StringTokenizer(textContent, "\n", true);
                         while (tokenizer.hasMoreTokens()) {
                             String token = tokenizer.nextToken();
-                            if (token.equals("\n") == false) {
+                            if (!token.equals("\n")) {
                                 insertIndentation();
                             }
                             writer.write(token);
@@ -349,9 +360,10 @@ public class XMLWriterImpl implements XMLWriter {
 
         public void writeElementEnd() throws IOException {
             if (name != null) {
-                if (startWritten == false) {
+                if (!startWritten) {
                     writeElementStart(true);
-                } else {
+                }
+                else {
                     if (textContent == null) {
                         insertIndentation();
                     }
@@ -370,7 +382,8 @@ public class XMLWriterImpl implements XMLWriter {
             writer.write('"');
             if (XMLWriterPreferences.getInstance().isUseNamespaceEntities()) {
                 writer.write(swapForEntity(EscapeUtils.escapeXML(val)));
-            } else {
+            }
+            else {
                 writer.write(EscapeUtils.escapeXML(val));
             }
             writer.write('"');
@@ -380,7 +393,7 @@ public class XMLWriterImpl implements XMLWriter {
         private void writeAttributes() throws IOException {
             for (Iterator it = attributes.keySet().iterator(); it.hasNext();) {
                 String attr = (String) it.next();
-                String val = (String) attributes.get(attr);
+                String val = attributes.get(attr);
                 writer.write(' ');
                 writeAttribute(attr, val);
                 if (it.hasNext() && wrapAttributes) {

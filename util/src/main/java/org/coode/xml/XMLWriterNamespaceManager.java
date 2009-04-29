@@ -47,8 +47,8 @@ public class XMLWriterNamespaceManager {
 
 
     public XMLWriterNamespaceManager(String defaultNamespace) {
-        prefixNamespaceMap = new HashMap();
-        namespacePrefixMap = new HashMap();
+        prefixNamespaceMap = new HashMap<String, String>();
+        namespacePrefixMap = new HashMap<String, String>();
         this.defaultNamespace = defaultNamespace;
     }
 
@@ -112,5 +112,27 @@ public class XMLWriterNamespaceManager {
 
     public Set<String> getNamespaces() {
         return new HashSet<String>(namespacePrefixMap.keySet());
+    }
+
+
+    public Map<String, String> getPrefixNamespaceMap(){
+        return new HashMap<String, String>(prefixNamespaceMap);
+    }
+
+
+    /**
+     * Search for a prefix other than "" for the default namespace
+     * @return the first prefix found for the default namespace that is not ""
+     */
+    public String getDefaultPrefix() {
+        for (String prefix : prefixNamespaceMap.keySet()){
+            if (!prefix.equals("")){ // if the default has a blank entry then skip it
+                final String ns = prefixNamespaceMap.get(prefix);
+                if (ns.equals(defaultNamespace)){
+                    return prefix;
+                }
+            }
+        }
+        return "";
     }
 }
