@@ -821,7 +821,7 @@ public class ManchesterOWLSyntaxEditorParser {
             return parseDataComplementOf();
         } else if (tok.equals("{")) {
             return parseDataOneOf();
-        } else if (!allowLookahead) {
+        } else if (!tok.equals(ManchesterOWLSyntaxTokenizer.EOF) || !allowLookahead) {
             consumeToken();
             throwException(false, false, false, false, true, false, NOT, "{");
         }
