@@ -13,10 +13,8 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.*;
 import java.net.URI;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.net.URISyntaxException;
+import java.util.*;
 
 /*
  * Copyright (C) 2007, University of Manchester
@@ -90,6 +88,7 @@ public class AutoURIMapper extends DefaultHandler implements OWLOntologyURIMappe
         fileExtensions.add("owl");
         fileExtensions.add("xml");
         fileExtensions.add("rdf");
+        fileExtensions.add("omn");
         mapped = false;
         handlerMap = new HashMap<String, OntologyRootElementHandler>();
         handlerMap.put(Namespaces.RDF + "RDF", new RDFXMLOntologyRootElementHandler());
@@ -178,6 +177,9 @@ public class AutoURIMapper extends DefaultHandler implements OWLOntologyURIMappe
                 if (file.getName().endsWith(".obo")) {
                     oboFileMap.put(file.getName(), file.toURI());
                 }
+                else if(file.getName().endsWith(".omn")) {
+                    parseManchesterSyntaxFile(file);
+                }
                 else {
                     for (String ext : fileExtensions) {
                         if (file.getName().endsWith(ext)) {
@@ -211,6 +213,34 @@ public class AutoURIMapper extends DefaultHandler implements OWLOntologyURIMappe
         }
     }
 
+    private void parseManchesterSyntaxFile(File file) {
+        try {
+            // Ontology: <URI>
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            URI ontologyURI = null;
+            while((line = br.readLine()) != null) {
+                StringTokenizer tokenizer = new StringTokenizer(line, " \r\n", false);
+                while(tokenizer.hasMoreTokens()) {
+                    String tok = tokenizer.nextToken();
+                    if(tok.startsWith("<") && tok.endsWith(">")) {
+                        ontologyURI = new URI(tok.substring(1, tok.length() - 1));
+                        uriMap.put(file.toURI(), ontologyURI);
+                        break;
+                    }
+                }
+                if(ontologyURI != null) {
+                    break;
+                }
+            }
+        }
+        catch (IOException e) {
+            // Ignore - don't care
+        }
+        catch (URISyntaxException e) {
+            // Ignore - don't care
+        }
+    }
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         OntologyRootElementHandler handler = handlerMap.get(uri + localName);
@@ -289,4 +319,5 @@ public class AutoURIMapper extends DefaultHandler implements OWLOntologyURIMappe
             return URI.create(ontURI);
         }
     }
+
 }
