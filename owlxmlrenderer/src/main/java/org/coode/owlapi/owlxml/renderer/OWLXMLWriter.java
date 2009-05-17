@@ -5,17 +5,19 @@ import org.coode.xml.XMLWriterFactory;
 import org.coode.xml.XMLWriterNamespaceManager;
 import org.semanticweb.owl.io.OWLRendererException;
 import org.semanticweb.owl.io.OWLRendererIOException;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLRuntimeException;
-import org.semanticweb.owl.model.IRI;
-import org.semanticweb.owl.model.NodeID;
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.VersionInfo;
+import org.semanticweb.owl.util.OntologyURIShortFormProvider;
 import org.semanticweb.owl.vocab.Namespaces;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
+import org.semanticweb.owl.vocab.OWLFacet;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URI;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.Comparator;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -45,21 +47,70 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 12-Dec-2006<br><br>
+ *
+ * Writes OWL/XML.  In an OWL/XML documents written by this writer, the base is always the ontology URI, and
+ * the default namespace is always the OWL namespace (http://www.w3.org/2002/07/owl#).  Unlike RDF/XML, entity
+ * URIs aren't abbreviated using the XML namespace mechanism, instead they are encoded using 'prefix' elements.
  */
 public class OWLXMLWriter {
 
     private XMLWriter writer;
 
+    private Map<String, String> iriPrefixMap = new TreeMap<String, String>(new Comparator<String>() {
+        public int compare(String o1, String o2) {
+            int diff = o1.length() - o2.length();
+            if(diff != 0) {
+                return diff;
+            }
+            return o1.compareTo(o2);
+        }
+    });
 
-    public OWLXMLWriter(Writer writer, XMLWriterNamespaceManager xmlWriterNamespaceManager, OWLOntology ontology) {
-        this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer,
-                                                                     xmlWriterNamespaceManager,
-                                                                     Namespaces.OWL.toString());
+    public OWLXMLWriter(Writer writer, OWLOntology ontology) {
+        XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(Namespaces.OWL.toString());
+        nsm.setPrefix("xsd", Namespaces.XSD.toString());
+        nsm.setPrefix("rdf", Namespaces.RDF.toString());
+        nsm.setPrefix("xml", Namespaces.XML.toString());
+        URI ontologyURI = ontology.getURI();
+        String base = Namespaces.OWL.toString();
+        if(ontologyURI != null) {
+            base = ontologyURI.toString();
+        }
+        this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer, nsm, base);
+        
     }
 
+    /**
+     * A convenience method to write a prefix.
+     * @param name The name of the prefix (e.g.  owl is the prefix name for the OWL prefix)
+     * @param iri The prefix iri
+     */
+    public void writePrefix(String name, String iri) throws IOException {
+        writer.writeStartElement(OWLXMLVocabulary.PREFIX.getURI().toString());
+        writer.writeAttribute(OWLXMLVocabulary.NAME_ATTRIBUTE.getURI().toString(), name);
+        writer.writeAttribute(OWLXMLVocabulary.IRI_ATTRIBUTE.getURI().toString(), iri);
+        writer.writeEndElement();
+        iriPrefixMap.put(iri, name);
+    }
 
-    public OWLXMLWriter(Writer writer, XMLWriterNamespaceManager xmlWriterNamespaceManager) {
-        this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer, xmlWriterNamespaceManager, Namespaces.OWL.toString());
+    /**
+     * Gets an IRI attribute value for a full IRI.  If the IRI has a prefix that coincides with
+     * a written prefix then the compact IRI will be returned, otherwise the full IRI will be returned.
+     * @param iri The IRI
+     * @return Either the compact version of the IRI or the full IRI.
+     */
+    public String getIRIString(URI iri) {
+        String fullIRI = iri.toString();
+        for(String prefix : iriPrefixMap.keySet()) {
+            if(fullIRI.startsWith(prefix)) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(iriPrefixMap.get(prefix));
+                sb.append(":");
+                sb.append(fullIRI.substring(prefix.length()));
+                return sb.toString();
+            }
+        }
+        return fullIRI;
     }
 
 
@@ -90,9 +141,9 @@ public class OWLXMLWriter {
     }
 
 
-    public void writeStartElement(URI name) {
+    public void writeStartElement(OWLXMLVocabulary name) {
         try {
-            writer.writeStartElement(name.toString());
+            writer.writeStartElement(name.getURI().toString());
         }
         catch (IOException e) {
             throw new OWLRuntimeException(e);
@@ -110,9 +161,13 @@ public class OWLXMLWriter {
     }
 
 
-    public void writeDatatypeAttribute(URI datatype) {
+    /**
+     * Writes a datatype attributed (used on Literal elements).  The full datatype IRI is written out
+     * @param datatype The datatype
+     */
+    public void writeDatatypeAttribute(OWLDatatype datatype) {
         try {
-            writer.writeAttribute(OWLXMLVocabulary.DATATYPE_IRI.getURI().toString(), datatype.toString());
+            writer.writeAttribute(OWLXMLVocabulary.DATATYPE_IRI.getURI().toString(), datatype.getURI().toString());
         }
         catch (IOException e) {
             throw new OWLRuntimeException(e);
@@ -130,18 +185,58 @@ public class OWLXMLWriter {
 
     public void writeIRIAttribute(IRI iri) {
         try {
+            String attName = OWLXMLVocabulary.IRI_ATTRIBUTE.getURI().toString();
             String value = iri.toString();
-            String attName = Namespaces.OWL + "IRI";
             if (value.startsWith(writer.getXMLBase())) {
                 writer.writeAttribute(attName, value.substring(writer.getXMLBase().length(), value.length()));
             }
             else {
-                writer.writeAttribute(attName, value);
+                String val = getIRIString(iri.toURI());
+                if(!val.equals(iri.toString())) {
+                    writer.writeAttribute(OWLXMLVocabulary.ABBREVIATED_IRI_ATTRIBUTE.getURI().toString(), val);
+                }
+                else {
+                    writer.writeAttribute(attName, val);   
+                }
             }
         }
         catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    /**
+     * Writes an IRI element for a given IRI
+     * @param iri The IRI to be written as an element.  If the IRI can be abbreviated
+     * then an AbbreviatedIRI element will be written
+     * @throws IOException
+     */
+    public void writeIRIElement(IRI iri) {
+        try {
+            String iriString = iri.toString();
+            if (iriString.startsWith(writer.getXMLBase())) {
+                writeStartElement(OWLXMLVocabulary.IRI_ELEMENT);
+                writeTextContent(iriString.substring(writer.getXMLBase().length(), iriString.length()));
+                writeEndElement();
+            }
+            else {
+                String val = getIRIString(iri.toURI());
+                if(!val.equals(iriString)) {
+                    writeStartElement(OWLXMLVocabulary.ABBREVIATED_IRI_ELEMENT);
+                    writer.writeTextContent(val);
+                    writeEndElement();
+                }
+                else {
+                    writeStartElement(OWLXMLVocabulary.IRI_ELEMENT);
+                    writer.writeTextContent(val);
+                    writeEndElement();
+                }
+            }
+        } catch (IOException e) {
+            throw new OWLRuntimeException(e);
+        }
+
     }
 
     public void writeLangAttribute(String lang) {
@@ -156,7 +251,7 @@ public class OWLXMLWriter {
 
     public void writeCardinalityAttribute(int cardinality) {
         try {
-            writer.writeAttribute(Namespaces.OWL + "cardinality", Integer.toString(cardinality));
+            writer.writeAttribute(OWLXMLVocabulary.CARDINALITY_ATTRIBUTE.getURI().toString(), Integer.toString(cardinality));
         }
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -174,9 +269,9 @@ public class OWLXMLWriter {
     }
 
 
-    public void writeFacetAttribute(URI facetURI) {
+    public void writeFacetAttribute(OWLFacet facet) {
         try {
-            writer.writeAttribute(OWLXMLVocabulary.DATATYPE_FACET.getURI().toString(), facetURI.toString());
+            writer.writeAttribute(OWLXMLVocabulary.DATATYPE_FACET.getURI().toString(), getIRIString(facet.getURI()));
         }
         catch (IOException e) {
             throw new RuntimeException(e);

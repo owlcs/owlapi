@@ -9,6 +9,7 @@ import org.semanticweb.owl.model.OWLOntologyFormat;
 import org.semanticweb.owl.model.OWLOntologyManager;
 import org.semanticweb.owl.vocab.NamespaceOWLOntologyFormat;
 import org.semanticweb.owl.vocab.Namespaces;
+import org.semanticweb.owl.util.OntologyURIShortFormProvider;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -67,8 +68,25 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
                 }
             }
             nsm.setPrefix("xml", Namespaces.XML.toString());
-            OWLXMLWriter w = new OWLXMLWriter(writer, nsm, ontology);
+
+            OWLXMLWriter w = new OWLXMLWriter(writer, ontology);
             w.startDocument(ontology);
+            // Write out the prefixes
+            if(ontology.getURI() != null) {
+                OntologyURIShortFormProvider sfp = new OntologyURIShortFormProvider();
+                String sf = sfp.getShortForm(ontology.getURI());
+                if (sf.trim().length() > 0) {
+                    w.writePrefix(sf, ontology.getURI().toString());
+                }
+
+            }
+
+
+            w.writePrefix("rdf", Namespaces.RDF.toString());
+            w.writePrefix("rdfs", Namespaces.RDFS.toString());
+            w.writePrefix("xsd", Namespaces.XSD.toString());
+            w.writePrefix("owl", Namespaces.OWL.toString());
+
             OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(ontology, w);
             ontology.accept(ren);
             w.endDocument();
