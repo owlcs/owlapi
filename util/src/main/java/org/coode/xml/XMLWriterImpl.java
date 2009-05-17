@@ -56,7 +56,7 @@ public class XMLWriterImpl implements XMLWriter {
 
     private Map<String, String> entities;
 
-    private static final int TEXT_CONTENT_WRAP_LIMIT = 15;
+    private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
 
     private boolean preambleWritten;
 
