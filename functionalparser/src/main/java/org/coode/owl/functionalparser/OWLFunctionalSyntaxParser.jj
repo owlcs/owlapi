@@ -221,7 +221,17 @@ TOKEN:
 
 TOKEN:
 {
-    <ENTITYANNOTATION: "EntityAnnotation">
+    <ANNOTATIONPROPERTY: "AnnotationProperty">
+}
+
+TOKEN:
+{
+    <ANNOTATIONASSERTION: "AnnotationAssertion">
+}
+
+TOKEN:
+{
+    <HASKEY: "HasKey">
 }
 
 TOKEN:
@@ -266,6 +276,16 @@ TOKEN:
 TOKEN:
 {
     <DATAONEOF: "DataOneOf">
+}
+
+TOKEN:
+{
+    <DATAUNIONOF: "DataUnionOf">
+}
+
+TOKEN:
+{
+    <DATAINTERSECTIONOF: "DataIntersectionOf">
 }
 
 
@@ -1109,6 +1129,28 @@ OWLDataProperty DataProperty()  :
     }
 }
 
+OWLAnnotationProperty AnnotationProperty()  :
+{
+    OWLAnnotationProperty prop;
+}
+{
+    (<ANNOTATIONPROPERTY><OPENPAR>prop=AnnotationPropertyURI()<CLOSEPAR>) {
+        return prop;
+    }
+}
+
+OWLAnnotationProperty AnnotationPropertyURI() :
+{
+    URI uri;
+}
+{
+    uri = URI() {
+        return dataFactory.getOWLAnnotationProperty(uri);
+    }
+}
+
+
+
 OWLNamedIndividual Individual()  :
 {
     OWLNamedIndividual ind;
@@ -1167,7 +1209,7 @@ OWLDataRange DataRange()  :
     OWLDataRange rng;
 }
 {
-    (rng=DatatypeURI() | rng=DataOneOf() | rng=DataComplementOf() | rng=DataRangeRestriction()) {
+    (rng=DatatypeURI() | rng=DataOneOf() | rng=DataComplementOf() | rng=DataRangeRestriction() | rng=DataIntersectionOf() | rng=DataUnionOf()) {
         return rng;
     }
 }
@@ -1194,6 +1236,28 @@ OWLDataRange DataOneOf()  :
     }
 }
 
+OWLDataRange DataUnionOf() :
+{
+    OWLDataRange dataRange;
+    Set<OWLDataRange> ranges = new HashSet<OWLDataRange>();
+}
+{
+    <DATAUNIONOF><OPENPAR>(dataRange=DataRange(){ranges.add(dataRange);})*<CLOSEPAR> {
+        return dataFactory.getOWLDataUnionOf(ranges);
+    }
+}
+
+OWLDataRange DataIntersectionOf() :
+{
+    OWLDataRange dataRange;
+    Set<OWLDataRange> ranges = new HashSet<OWLDataRange>();
+}
+{
+    <DATAINTERSECTIONOF><OPENPAR>(dataRange=DataRange(){ranges.add(dataRange);})*<CLOSEPAR> {
+        return dataFactory.getOWLDataIntersectionOf(ranges);
+    }
+}
+
 OWLDataRange DataRangeRestriction() :
 {
     OWLFacet v;
@@ -1202,7 +1266,7 @@ OWLDataRange DataRangeRestriction() :
     Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
 }
 {
-    (<DATATYPERESTRICTION><OPENPAR>rng=Datatype()((facetRestriction=DataRangeFacetRestriction()){
+    (<DATATYPERESTRICTION><OPENPAR>rng=DatatypeURI()((facetRestriction=DataRangeFacetRestriction()){
         facetRestrictions.add(facetRestriction);
     })+<CLOSEPAR>) {
         return dataFactory.getOWLDatatypeRestriction(rng, facetRestrictions);
@@ -1250,7 +1314,8 @@ OWLAxiom Axiom() :
     | ax=DataPropertyAxiom()
     | ax=IndividualAxiom()
     | ax=Declaration()
-    | ax=EntityAnnotation()) {
+    | ax=HasKey()
+    | ax=AnnotationAssertion()) {
         return ax;
     }
 }
@@ -1646,7 +1711,7 @@ OWLIndividualAxiom ClassAssertion() :
     OWLClassExpression desc;
 }
 {
-    <CLASSASSERTION><OPENPAR>AxiomAnnotationSet() ind=IndividualURI() desc=ClassExpression()  <CLOSEPAR> {
+    <CLASSASSERTION><OPENPAR>AxiomAnnotationSet() desc=ClassExpression() ind=IndividualURI()  <CLOSEPAR> {
         return dataFactory.getOWLClassAssertionAxiom(ind, desc);
     }
 }
@@ -1772,14 +1837,29 @@ void DocumentationAnnotation() :
     <DOCUMENTATION><OPENPAR>TypedConstant()<CLOSEPAR>
 }
 
-OWLAnnotationAssertionAxiom EntityAnnotation() :
+OWLAnnotationAssertionAxiom AnnotationAssertion() :
 {
     OWLEntity entity;
     OWLAnnotation anno;
 }
 {
-    <ENTITYANNOTATION><OPENPAR>AxiomAnnotationSet() entity = Entity() anno = Annotation() <CLOSEPAR> {
+    <ANNOTATIONASSERTION><OPENPAR>AxiomAnnotationSet() entity = Entity() anno = Annotation() <CLOSEPAR> {
         return dataFactory.getOWLAnnotationAssertionAxiom(entity.getIRI(), anno);
+    }
+}
+
+OWLHasKeyAxiom HasKey() :
+{
+    OWLClassExpression ce;
+    OWLPropertyExpression prop;
+    Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
+}
+{
+    <HASKEY><OPENPAR>AxiomAnnotationSet() ce=ClassExpression()
+     <OPENPAR>(prop=ObjectPropertyExpression() {props.add(prop);})*<CLOSEPAR>
+     <OPENPAR>(prop=DataPropertyExpression() {props.add(prop);})*<CLOSEPAR>
+     <CLOSEPAR> {
+        return dataFactory.getOWLHasKeyAxiom(ce, props);
     }
 }
 
@@ -1806,7 +1886,7 @@ OWLEntity Entity() :
     OWLEntity entity;
 }
 {
-    (entity=Class() | entity=ObjectProperty() | entity=DataProperty() | entity=Individual()) {
+    (entity=Class() | entity=ObjectProperty() | entity=DataProperty() | entity=Individual() | entity=Datatype() | entity=AnnotationProperty()) {
         return entity;
     }
 
