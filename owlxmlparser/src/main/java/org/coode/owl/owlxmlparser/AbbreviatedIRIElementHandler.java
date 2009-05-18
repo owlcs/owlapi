@@ -1,8 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLAnnotationProperty;
-
-import java.net.URI;
+import org.semanticweb.owl.model.IRI;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -30,29 +28,29 @@ import java.net.URI;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 23-Apr-2009
+ * Date: 17-May-2009
  */
-public class OWLAnnotationPropertyElementHandler extends AbstractOWLElementHandler<OWLAnnotationProperty> {
+public class AbbreviatedIRIElementHandler extends AbstractIRIElementHandler {
 
-    private OWLAnnotationProperty prop;
-
-    private URI uri;
-
-    public OWLAnnotationPropertyElementHandler(OWLXMLParserHandler handler) {
+     public AbbreviatedIRIElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    private IRI iri;
 
-    public OWLAnnotationProperty getOWLObject() {
-        return prop;
+    public boolean isTextContentPossible() {
+        return true;
     }
 
-    public void attribute(String localName, String value) throws OWLXMLParserException {
-        uri = getIRIFromAttribute(localName, value);
+
+    public IRI getOWLObject() throws OWLXMLParserException {
+        return iri;
     }
 
-    final public void endElement() throws OWLXMLParserException {
-        prop = getOWLDataFactory().getOWLAnnotationProperty(uri);
-        getParentHandler().handleChild(this);
+    public void endElement() throws OWLXMLParserException {
+        String iriText = getText().trim();
+        iri = getOWLDataFactory().getIRI(getAbbreviatedIRI(iriText));
+        handleChild(this);
     }
+
 }

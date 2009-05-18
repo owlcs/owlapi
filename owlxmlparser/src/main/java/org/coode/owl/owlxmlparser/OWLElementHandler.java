@@ -70,12 +70,15 @@ public interface OWLElementHandler<O> {
 
     public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException;
 
+    public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException;
 
     public void handleChild(OWLSubObjectPropertyChainElementHandler handler) throws OWLXMLParserException;
 
     public void handleChild(OWLDatatypeFacetRestrictionElementHandler handler) throws OWLXMLParserException;
 
     public void handleChild(OWLAnnotationPropertyElementHandler handler) throws OWLXMLParserException;
+
+    public void handleChild(AbstractIRIElementHandler handler) throws OWLXMLParserException;
 
     public void handleChars(char[] chars, int start, int length) throws OWLXMLParserException;
 

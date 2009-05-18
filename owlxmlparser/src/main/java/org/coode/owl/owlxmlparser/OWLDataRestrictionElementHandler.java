@@ -65,7 +65,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
     public void attribute(String localName, String value) throws OWLXMLParserException {
         super.attribute(localName, value);
         if (localName.equals("facet")) {
-            facetURI = getURI(value);
+            facetURI = getIRI(value);
         }
     }
 

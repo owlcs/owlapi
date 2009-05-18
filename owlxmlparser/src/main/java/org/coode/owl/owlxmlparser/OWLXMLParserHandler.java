@@ -5,6 +5,7 @@ import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
 import org.semanticweb.owl.vocab.Namespaces;
+import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 import static org.semanticweb.owl.vocab.OWLXMLVocabulary.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -63,6 +64,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
     private Locator locator;
 
     private Stack<URI> bases;
+
+    private Map<String, String> prefixName2IRIMap = new HashMap<String, String>();
 
 
     /**
@@ -133,20 +136,21 @@ public class OWLXMLParserHandler extends DefaultHandler {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLConstantElementHandler(handler);
             }
-        });
+        }, "Constant");
 
-        addFactory(new AbstractElementHandlerFactory(IMPORTS) {
+
+        addFactory(new AbstractElementHandlerFactory(IMPORT) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLImportsHandler(handler);
             }
-        });
+        }, "Imports");
 
 
         addFactory(new AbstractElementHandlerFactory(CLASS) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLClassElementHandler(handler);
             }
-        });
+        }, "OWLClass");
 
         addFactory(new AbstractElementHandlerFactory(ANNOTATION_PROPERTY) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
@@ -172,11 +176,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
         });
 
-        addFactory(new AbstractElementHandlerFactory(INDIVIDUAL) {
+        addFactory(new AbstractElementHandlerFactory(NAMED_INDIVIDUAL) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLIndividualElementHandler(handler);
             }
-        });
+        }, "Individual");
 
 
         addFactory(new AbstractElementHandlerFactory(DATA_COMPLEMENT_OF) {
@@ -259,11 +263,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
         });
 
-        addFactory(new AbstractElementHandlerFactory(OBJECT_EXISTS_SELF) {
+        addFactory(new AbstractElementHandlerFactory(OBJECT_HAS_SELF) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLObjectExistsSelfElementHandler(handler);
             }
-        });
+        }, "ObjectExistsSelf");
 
         addFactory(new AbstractElementHandlerFactory(OBJECT_HAS_VALUE) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
@@ -368,11 +372,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
         });
 
-        addFactory(new AbstractElementHandlerFactory(SUB_OBJECT_PROPERTY_CHAIN) {
+        addFactory(new AbstractElementHandlerFactory(PROPERTY_CHAIN) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLSubObjectPropertyChainElementHandler(handler);
             }
-        });
+        }, "SubObjectPropertyChain");
 
         addFactory(new AbstractElementHandlerFactory(EQUIVALENT_OBJECT_PROPERTIES) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
@@ -483,11 +487,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
         });
 
-        addFactory(new AbstractElementHandlerFactory(SAME_INDIVIDUALS) {
+        addFactory(new AbstractElementHandlerFactory(SAME_INDIVIDUAL) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLSameIndividualsAxiomElementHandler(handler);
             }
-        });
+        }, "SameIndividuals");
 
         addFactory(new AbstractElementHandlerFactory(DIFFERENT_INDIVIDUALS) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
@@ -529,13 +533,32 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
         addFactory(new AbstractElementHandlerFactory(ANNOTATION_ASSERTION) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
-                return new OWLEntityAnnotationElementHandler(handler);
+                return new OWLAnnotationAssertionElementHandler(handler);
             }
-        });
+        }, "EntityAnnotation");
 
         addFactory(new AbstractElementHandlerFactory(DECLARATION) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLDeclarationAxiomElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(IRI_ELEMENT) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new IRIElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(ABBREVIATED_IRI_ELEMENT) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new AbbreviatedIRIElementHandler(handler);
+            }
+        });
+
+
+        addFactory(new AbstractElementHandlerFactory(ANONYMOUS_INDIVIDUAL) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new OWLAnonymousIndividualElementHandler(handler);
             }
         });
     }
@@ -557,25 +580,61 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     private Map<String, URI> uriMap = new HashMap<String, URI>();
 
-    public URI getURI(String string) throws OWLXMLParserException {
+    public URI getIRI(String iri) throws OWLXMLParserException {
         try {
-            URI uri = uriMap.get(string);
+            URI uri = uriMap.get(iri);
             if (uri == null) {
-                uri = new URI(string);
+                uri = new URI(iri);
                 if (!uri.isAbsolute()) {
                     URI base = getBase();
                     if (base == null)
                         throw new OWLXMLParserException(getLineNumber(), "Unable to resolve relative URI");
                     uri = getBase().resolve(uri);
                 }
-                uriMap.put(string, uri);
+                uriMap.put(iri, uri);
             }
             return uri;
-        }
-        catch (URISyntaxException e) {
+        } catch (URISyntaxException e) {
             throw new OWLXMLParserException(getLineNumber(), e);
         }
     }
+
+    public URI getAbbreviatedIRI(String abbreviatedIRI) throws OWLXMLParserException {
+        int sepIndex = abbreviatedIRI.indexOf(':');
+        if(sepIndex == -1) {
+            throw new OWLXMLParserException(getLineNumber(), abbreviatedIRI + " is not an abbreviated IRI");
+        }
+        String prefixName = abbreviatedIRI.substring(0, sepIndex);
+        String localName = abbreviatedIRI.substring(sepIndex + 1);
+        String base = prefixName2IRIMap.get(prefixName);
+        if(base == null) {
+            throw new OWLXMLParserException(getLineNumber(), "Prefix name not defined: " + prefixName);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(base);
+        sb.append(localName);
+        return getIRI(sb.toString());
+    }
+//
+//    public URI getURI(String string) throws OWLXMLParserException {
+//        try {
+//            URI uri = uriMap.get(string);
+//            if (uri == null) {
+//                uri = new URI(string);
+//                if (!uri.isAbsolute()) {
+//                    URI base = getBase();
+//                    if (base == null)
+//                        throw new OWLXMLParserException(getLineNumber(), "Unable to resolve relative URI");
+//                    uri = getBase().resolve(uri);
+//                }
+//                uriMap.put(string, uri);
+//            }
+//            return uri;
+//        }
+//        catch (URISyntaxException e) {
+//            throw new OWLXMLParserException(getLineNumber(), e);
+//        }
+//    }
 
 
     public Map<String, String> getPrefix2NamespaceMap() {
@@ -583,8 +642,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
 
-    private void addFactory(OWLElementHandlerFactory factory) {
-        handlerMap.put(factory.getElementName().getShortName(), factory);
+    private void addFactory(OWLElementHandlerFactory factory, String... legacyElementNames) {
+        handlerMap.put(factory.getElementName(), factory);
+        for (String elementName : legacyElementNames) {
+            handlerMap.put(elementName, factory);
+        }
     }
 
 
@@ -620,7 +682,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 throw new SAXException(e);
             }
         } else {
-            throw new SAXException("Unexpected text content: " + ch);
+//            throw new SAXException("Unexpected text content: " + ch + " for element ");
         }
     }
 
@@ -628,6 +690,14 @@ public class OWLXMLParserHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         try {
             processXMLBase(attributes);
+            if (localName.equals(OWLXMLVocabulary.PREFIX.getShortName())) {
+                String name = attributes.getValue(OWLXMLVocabulary.NAME_ATTRIBUTE.getShortName());
+                String iriString = attributes.getValue(OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName());
+                if (name != null && iriString != null) {
+                    prefixName2IRIMap.put(name, iriString);
+                }
+                return;
+            }
             OWLElementHandlerFactory handlerFactory = handlerMap.get(localName);
             if (handlerFactory == null) {
                 throw new OWLXMLParserUnknownElementType(getLineNumber(), uri + localName);
@@ -670,6 +740,9 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
         try {
+            if(localName.equals(OWLXMLVocabulary.PREFIX.getShortName())) {
+                return;
+            }
             OWLElementHandler handler = handlerStack.remove(0);
             handler.endElement();
             bases.pop();

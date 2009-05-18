@@ -34,7 +34,7 @@ import org.semanticweb.owl.vocab.OWLXMLVocabulary;
  */
 public interface OWLElementHandlerFactory {
 
-    public OWLXMLVocabulary getElementName();
+    public String getElementName();
 
     public OWLElementHandler createHandler(OWLXMLParserHandler handler);
 }

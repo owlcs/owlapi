@@ -1,14 +1,8 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.OWLXMLVocabulary;
-
-import java.net.URI;
-import java.util.Set;
-import java.util.HashSet;
-
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2007, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -35,41 +29,30 @@ import java.util.HashSet;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 18-Dec-2006<br><br>
+ * Date: 20-Mar-2007<br><br>
  */
-public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAnnotation> {
+public class OWLAnnotationAssertionElementHandler extends AbstractOWLAxiomElementHandler {
 
-    private Set<OWLAnnotation> annotations;
-
-    private OWLAnnotationProperty property;
-
-    private OWLAnnotationValue object;
-
-    public OWLAnnotationElementHandler(OWLXMLParserHandler handler) {
+    public OWLAnnotationAssertionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    private OWLAnnotationSubject subject = null;
 
-    public void startElement(String name) throws OWLXMLParserException {
-        super.startElement(name);
-    }
+    private OWLAnnotationValue object = null;
 
-    public void endElement() throws OWLXMLParserException {
-        getParentHandler().handleChild(this);
-    }
+    private OWLAnnotationProperty property = null;
 
-    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
-        if(annotations == null) {
-            annotations = new HashSet<OWLAnnotation>();
+    public void handleChild(AbstractIRIElementHandler handler) throws OWLXMLParserException {
+        if(subject == null) {
+            subject = handler.getOWLObject();
         }
-        annotations.add(handler.getOWLObject());
+        else {
+            object = handler.getOWLObject();
+        }
     }
 
     public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException {
-        object = handler.getOWLObject();
-    }
-
-    public void handleChild(OWLConstantElementHandler handler) throws OWLXMLParserException {
         object = handler.getOWLObject();
     }
 
@@ -77,16 +60,13 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
         property = handler.getOWLObject();
     }
 
-    public void handleChild(AbstractIRIElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(OWLConstantElementHandler handler) throws OWLXMLParserException {
         object = handler.getOWLObject();
     }
 
-    public OWLAnnotation getOWLObject() {
-        return getOWLDataFactory().getOWLAnnotation(property, object, annotations);
+    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(subject, property, object);
     }
 
-
-    public boolean isTextContentPossible() {
-        return false;
-    }
+    
 }

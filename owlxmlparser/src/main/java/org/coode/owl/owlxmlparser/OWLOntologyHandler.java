@@ -62,7 +62,8 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
             getOWLOntologyManager().applyChange(new AddAxiom(getOntology(), handler.getOWLObject()));
             Set<OWLAnnotation> annotations = handler.getAnnotations();
             for (OWLAnnotation anno : annotations) {
-                throw new OWLRuntimeException("TODO");
+                System.err.println("Warning: Dropping annotations");
+//                throw new OWLRuntimeException("TODO");
 //                OWLAxiom ax = handler.getOWLObject();
 //                OWLAxiom annoAx = getOWLDataFactory().getOWLAxiomAnnotationAxiom(ax, anno);
 //                getOWLOntologyManager().addAxiom(getOntology(), annoAx);

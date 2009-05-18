@@ -1,8 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLAnnotationProperty;
-
-import java.net.URI;
+import org.semanticweb.owl.model.OWLAnonymousIndividual;
+import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -30,29 +29,30 @@ import java.net.URI;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 23-Apr-2009
+ * Date: 17-May-2009
  */
-public class OWLAnnotationPropertyElementHandler extends AbstractOWLElementHandler<OWLAnnotationProperty> {
+public class OWLAnonymousIndividualElementHandler extends AbstractOWLElementHandler<OWLAnonymousIndividual> {
 
-    private OWLAnnotationProperty prop;
+    private OWLAnonymousIndividual ind;
 
-    private URI uri;
-
-    public OWLAnnotationPropertyElementHandler(OWLXMLParserHandler handler) {
+    public OWLAnonymousIndividualElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
-
-    public OWLAnnotationProperty getOWLObject() {
-        return prop;
+    public OWLAnonymousIndividual getOWLObject() throws OWLXMLParserException {
+        return ind;
     }
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
-        uri = getIRIFromAttribute(localName, value);
+        if(localName.equals(OWLXMLVocabulary.NODE_ID.getShortName())) {
+            ind = getOWLDataFactory().getOWLAnonymousIndividual(value.trim());
+        }
+        else {
+            super.attribute(localName, value);
+        }
     }
 
-    final public void endElement() throws OWLXMLParserException {
-        prop = getOWLDataFactory().getOWLAnnotationProperty(uri);
+    public void endElement() throws OWLXMLParserException {
         getParentHandler().handleChild(this);
     }
 }

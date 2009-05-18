@@ -33,14 +33,19 @@ import org.semanticweb.owl.vocab.OWLXMLVocabulary;
  */
 public abstract class AbstractElementHandlerFactory implements OWLElementHandlerFactory {
 
-    private OWLXMLVocabulary elementName;
+    private String elementName;
 
     public AbstractElementHandlerFactory(OWLXMLVocabulary v) {
-        this.elementName = v;
+        this.elementName = v.getShortName();
     }
 
 
-    public OWLXMLVocabulary getElementName() {
+    protected AbstractElementHandlerFactory(String elementName) {
+        this.elementName = elementName;
+    }
+
+
+    public String getElementName() {
         return elementName;
     }
 

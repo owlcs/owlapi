@@ -47,7 +47,7 @@ public class OWLConstantElementHandler extends AbstractOWLElementHandler<OWLLite
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
         if (localName.equals(OWLXMLVocabulary.DATATYPE_IRI.getShortName())) {
-            uri = getURI(value);
+            uri = getIRI(value);
         }
     }
 

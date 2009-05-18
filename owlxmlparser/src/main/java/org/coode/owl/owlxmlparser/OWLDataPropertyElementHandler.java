@@ -49,9 +49,7 @@ public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWL
     }
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
-        if(localName.equals("IRI")) {
-            uri = getURI(value);
-        }
+        uri = getIRIFromAttribute(localName, value);
     }
 
     final public void endElement() throws OWLXMLParserException {

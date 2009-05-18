@@ -59,7 +59,6 @@ public abstract class AbstractOWLAxiomElementHandler extends AbstractOWLElementH
 
 
     public void startElement(String name) throws OWLXMLParserException {
-        super.startElement(name);
         if (annotations != null) {
             annotations.clear();
         }

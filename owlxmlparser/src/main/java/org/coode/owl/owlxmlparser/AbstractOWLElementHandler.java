@@ -3,6 +3,7 @@ package org.coode.owl.owlxmlparser;
 import org.semanticweb.owl.model.OWLDataFactory;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 
 import java.net.URI;
 /*
@@ -51,6 +52,31 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
         this.handler = handler;
     }
 
+    public URI getIRIFromAttribute(String localName, String value) throws OWLXMLParserException {
+        if(localName.equals(OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName())) {
+            return getIRI(value);
+        }
+        else if(localName.equals(OWLXMLVocabulary.ABBREVIATED_IRI_ATTRIBUTE.getShortName())) {
+            return getAbbreviatedIRI(value);
+        }
+        else if(localName.equals("URI")) {
+            // Legacy
+            return getIRI(value);
+        }
+        throw new OWLXMLParserException(getLineNumber(), "IRI attribute not found");
+    }
+
+
+    public URI getIRIFromElement(String elementLocalName, String textContent) throws OWLXMLParserException {
+        if(elementLocalName.equals(OWLXMLVocabulary.IRI_ELEMENT.getShortName())) {
+            return handler.getIRI(textContent.trim());
+        }
+        else if(elementLocalName.equals(OWLXMLVocabulary.ABBREVIATED_IRI_ELEMENT.getShortName())) {
+            return handler.getAbbreviatedIRI(textContent.trim());
+        }
+        throw new OWLXMLParserException(getLineNumber(), elementLocalName + " is not an IRI element");
+    }
+
 
     protected OWLOntologyManager getOWLOntologyManager() throws OWLXMLParserException {
         return handler.getOWLOntologyManager();
@@ -81,9 +107,17 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
         throw new OWLXMLParserUnexpectedElementException(handler.getLineNumber(), getElementName());
     }
 
-    protected URI getURI(String uri) throws OWLXMLParserException {
-        return handler.getURI(uri);
+    protected URI getIRI(String iri) throws OWLXMLParserException {
+        return handler.getIRI(iri);
     }
+
+    protected URI getAbbreviatedIRI(String abbreviatedIRI) throws OWLXMLParserException {
+        return handler.getAbbreviatedIRI(abbreviatedIRI);
+    }
+
+//    protected URI getURI(String uri) throws OWLXMLParserException {
+//        return handler.getURI(uri);
+//    }
 
     protected int getLineNumber() {
         return handler.getLineNumber();
@@ -150,6 +184,14 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
     }
 
     public void handleChild(OWLAnnotationPropertyElementHandler handler) throws OWLXMLParserException {
+        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
+    }
+
+    public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException {
+        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
+    }
+
+    public void handleChild(AbstractIRIElementHandler handler) throws OWLXMLParserException {
         throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 

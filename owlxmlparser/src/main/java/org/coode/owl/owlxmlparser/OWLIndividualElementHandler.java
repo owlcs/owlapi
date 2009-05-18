@@ -50,9 +50,7 @@ public class OWLIndividualElementHandler extends AbstractOWLElementHandler<OWLNa
 
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
-        if (localName.equals("IRI")) {
-            name = getURI(value);
-        }
+        name = getIRIFromAttribute(localName, value);
     }
 
 
