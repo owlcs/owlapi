@@ -75,7 +75,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         applyChange(addAxiom);
     }
 
-    public void setNamespaces(PrefixManager nsm) {
+    public void setPrefixes(PrefixManager nsm) {
         if(prefixMap == null) {
             prefixMap = new HashMap<String, String>();
         }

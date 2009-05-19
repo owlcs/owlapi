@@ -82,11 +82,11 @@ public class OWLFunctionalSyntaxParser {
         applyChange(addAxiom);
     }
 
-    public void setNamespaces(NamespaceManager nsm) {
+    public void setPrefixes(PrefixManager nsm) {
         if(prefixMap == null) {
             prefixMap = new HashMap<String, String>();
         }
-        prefixMap.putAll(nsm.getNamespaceMap());
+        prefixMap.putAll(nsm.getPrefixName2PrefixMap());
     }
 }
 
