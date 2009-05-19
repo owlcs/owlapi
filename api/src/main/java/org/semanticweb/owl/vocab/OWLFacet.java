@@ -95,7 +95,6 @@ public enum OWLFacet {
         return uri;
     }
 
-
     public String getShortName() {
         return shortName;
     }

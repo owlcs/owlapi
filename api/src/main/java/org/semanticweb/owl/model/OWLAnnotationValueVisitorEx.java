@@ -33,5 +33,5 @@ public interface OWLAnnotationValueVisitorEx<O> {
 
     O visit(OWLTypedLiteral literal);
 
-    O visit(OWLRDFTextLiteral literal);
+    O visit(OWLStringLiteral literal);
 }

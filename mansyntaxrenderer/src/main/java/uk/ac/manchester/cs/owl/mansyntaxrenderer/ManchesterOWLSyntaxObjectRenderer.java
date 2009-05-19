@@ -383,7 +383,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(OWLRDFTextLiteral node) {
+    public void visit(OWLStringLiteral node) {
         pushTab(getIndent());
         writeLiteral(node.getLiteral());
         popTab();

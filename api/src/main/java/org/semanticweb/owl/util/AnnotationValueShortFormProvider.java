@@ -175,7 +175,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
 //        }
 
 
-        public void visit(OWLRDFTextLiteral untypedConstantVal) {
+        public void visit(OWLStringLiteral untypedConstantVal) {
             if (preferredLanguages == null || preferredLanguages.isEmpty()) { // if there are no languages just match the first thing
                 lastLangMatchIndex = 0;
                 candidateValue = untypedConstantVal;

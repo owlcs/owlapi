@@ -35,7 +35,7 @@ public interface OWLDataVisitor extends OWLDataRangeVisitor {
 
     void visit(OWLTypedLiteral node);
 
-    void visit(OWLRDFTextLiteral node);
+    void visit(OWLStringLiteral node);
 
     void visit(OWLFacetRestriction node);
 }

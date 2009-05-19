@@ -569,7 +569,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
 
     }
 
-    public void visit(OWLRDFTextLiteral node) {
+    public void visit(OWLStringLiteral node) {
 
     }
 

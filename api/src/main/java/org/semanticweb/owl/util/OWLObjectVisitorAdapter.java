@@ -198,7 +198,7 @@ public class OWLObjectVisitorAdapter implements OWLObjectVisitor {
     public void visit(OWLFacetRestriction node) {
     }
 
-    public void visit(OWLRDFTextLiteral node) {
+    public void visit(OWLStringLiteral node) {
     }
 
     public void visit(OWLTypedLiteral node) {

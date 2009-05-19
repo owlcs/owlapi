@@ -651,7 +651,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
-    public void visit(OWLRDFTextLiteral node) {
+    public void visit(OWLStringLiteral node) {
         write(node.getLiteral());
     }
 

@@ -1495,7 +1495,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             return dataFactory.getOWLTypedLiteral(literal, dataFactory.getOWLDatatype(getURI(datatype)));
         } else {
             if (lang != null) {
-                return dataFactory.getRDFTextLiteral(literal, lang);
+                return dataFactory.getOWLStringLiteral(literal, lang);
             } else {
                 return dataFactory.getOWLTypedLiteral(literal);
             }

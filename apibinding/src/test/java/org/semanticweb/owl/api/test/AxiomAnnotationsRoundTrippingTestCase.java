@@ -63,7 +63,7 @@ public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTripping
 //        addAxiom(ont, factory.getOWLDeclarationAxiom(entity));
         OWLAnnotationAssertionAxiom ax = factory.getOWLAnnotationAssertionAxiom(entity.getIRI(),
                 factory.getOWLAnnotation(prop,
-                                      getFactory().getRDFTextLiteral("X", "en"), annotations));
+                                      getFactory().getOWLStringLiteral("X", "en"), annotations));
         addAxiom(ont, ax);
 
         return ont;

@@ -96,6 +96,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return cls;
     }
 
+    public OWLClass getOWLClass(IRI iri) {
+        return getOWLClass(iri.toURI());
+    }
 
     public OWLClass getOWLClass(String curi,
                                 NamespaceManager namespaceManager) {
@@ -167,6 +170,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return prop;
     }
 
+    public OWLObjectProperty getOWLObjectProperty(IRI iri) {
+        return getOWLObjectProperty(iri.toURI());
+    }
 
     public OWLDataProperty getOWLDataProperty(URI uri) {
         OWLDataProperty prop = dataPropertiesByURI.get(uri);
@@ -177,6 +183,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return prop;
     }
 
+    public OWLDataProperty getOWLDataProperty(IRI iri) {
+        return getOWLDataProperty(iri.toURI());
+    }
 
     public OWLNamedIndividual getOWLNamedIndividual(URI uri) {
         OWLNamedIndividual ind = individualsByURI.get(uri);
@@ -187,6 +196,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return ind;
     }
 
+    public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
+        return getOWLNamedIndividual(iri.toURI());
+    }
 
     public OWLDataProperty getOWLDataProperty(String curi,
                                            NamespaceManager namespaceManager) {
@@ -220,6 +232,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return dt;
     }
 
+    public OWLDatatype getOWLDatatype(IRI iri) {
+        return getOWLDatatype(iri.toURI());
+    }
 
     public OWLTypedLiteral getOWLTypedLiteral(String literal,
                                            OWLDatatype datatype) {
@@ -252,9 +267,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLRDFTextLiteral getRDFTextLiteral(String literal,
+    public OWLStringLiteral getOWLStringLiteral(String literal,
                                                String lang) {
-        return new OWLRDFTextLiteralImpl(this, literal, lang);
+        return new OWLStringLiteralImpl(this, literal, lang);
     }
 
 
@@ -746,6 +761,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return new OWLImportsDeclarationImpl(this, getIRI(cleanedImportedOntologyURI));
     }
 
+    public OWLImportsDeclaration getOWLImportsDeclaration(IRI importedOntologyIRI) {
+        return getOWLImportsDeclaration(importedOntologyIRI.toURI());
+    }
 
     public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
                                                                   OWLDataPropertyExpression property,
@@ -1051,7 +1069,11 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub,
                                                                  OWLAnnotationProperty sup) {
-        return new OWLSubAnnotationPropertyOfAxiomImpl(this, sub, sup, EMPTY_ANNOTATIONS_SET);
+        return getOWLSubAnnotationPropertyOfAxiom(sub, sup, EMPTY_ANNOTATIONS_SET);
+    }
+
+    public OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub, OWLAnnotationProperty sup, Set<? extends OWLAnnotation> annotations) {
+        return new OWLSubAnnotationPropertyOfAxiomImpl(this, sub, sup, annotations);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1068,6 +1090,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return prop;
     }
 
+    public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
+        return getOWLAnnotationProperty(iri.toURI());
+    }
 
     /**
      * Gets an annotation
@@ -1125,14 +1150,26 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
+                                                                   IRI domain, Set<? extends OWLAnnotation> annotations) {
+        return new OWLAnnotationPropertyDomainAxiomImpl(this, prop, domain, annotations);
+    }
+
+
+    public OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
                                                                    IRI domain) {
-        return new OWLAnnotationPropertyDomainAxiomImpl(this, prop, domain, EMPTY_ANNOTATIONS_SET);
+        return getOWLAnnotationPropertyDomainAxiom(prop, domain, EMPTY_ANNOTATIONS_SET);
+    }
+
+
+    public OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop,
+                                                                 IRI range, Set<? extends OWLAnnotation> annotations) {
+        return new OWLAnnotationPropertyRangeAxiomImpl(this, prop, range, annotations);
     }
 
 
     public OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop,
                                                                  IRI range) {
-        return new OWLAnnotationPropertyRangeAxiomImpl(this, prop, range, EMPTY_ANNOTATIONS_SET);
+        return getOWLAnnotationPropertyRangeAxiom(prop, range, EMPTY_ANNOTATIONS_SET);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////

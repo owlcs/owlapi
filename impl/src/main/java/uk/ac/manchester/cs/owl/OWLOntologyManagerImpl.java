@@ -704,7 +704,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
      */
     private URI getDocumentURI(OWLOntologyID ontologyID, boolean quiet) {
         for (OWLOntologyURIMapper mapper : documentMappers) {
-            URI physicalURI = mapper.getPhysicalURI(ontologyID.getDefaultDocumentIRI().toURI());
+            IRI defIRI = ontologyID.getDefaultDocumentIRI();
+            if(defIRI == null) {
+                return null;
+            }
+            URI physicalURI = mapper.getPhysicalURI(defIRI.toURI());
             if (physicalURI != null) {
                 return physicalURI;
             }

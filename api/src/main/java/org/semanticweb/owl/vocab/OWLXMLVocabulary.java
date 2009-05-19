@@ -41,7 +41,7 @@ public enum OWLXMLVocabulary {
 
     OBJECT_PROPERTY("ObjectProperty"),
 
-    INDIVIDUAL("NamedIndividual"),
+    NAMED_INDIVIDUAL("NamedIndividual"),
 
     ANNOTATION_PROPERTY("AnnotationProperty"),
 
@@ -55,7 +55,7 @@ public enum OWLXMLVocabulary {
 
     ANNOTATION_URI("annotationURI"),
 
-    IMPORTS("Import"),
+    IMPORT("Import"),
 
     LABEL("Label"),
 
@@ -99,7 +99,7 @@ public enum OWLXMLVocabulary {
 
     OBJECT_ALL_VALUES_FROM("ObjectAllValuesFrom"),
 
-    OBJECT_EXISTS_SELF("ObjectExistsSelf"),
+    OBJECT_HAS_SELF("ObjectHasSelf"),
 
     OBJECT_HAS_VALUE("ObjectHasValue"),
 
@@ -133,7 +133,7 @@ public enum OWLXMLVocabulary {
 
     SUB_OBJECT_PROPERTY_OF("SubObjectPropertyOf"),
 
-    SUB_OBJECT_PROPERTY_CHAIN("SubObjectPropertyChain"),
+    PROPERTY_CHAIN("PropertyChain"),
 
     EQUIVALENT_OBJECT_PROPERTIES("EquivalentObjectProperties"),
 
@@ -171,7 +171,7 @@ public enum OWLXMLVocabulary {
 
     FUNCTIONAL_DATA_PROPERTY("FunctionalDataProperty"),
 
-    SAME_INDIVIDUALS("SameIndividuals"),
+    SAME_INDIVIDUAL("SameIndividual"),
 
     DIFFERENT_INDIVIDUALS("DifferentIndividuals"),
 
@@ -197,11 +197,26 @@ public enum OWLXMLVocabulary {
 
     SUB_ANNOTATION_PROPERTY_OF("SubAnnotationPropertyOf"),
 
-    DATATYPE_DEFINITION("DatatypeDefinition");
+    DATATYPE_DEFINITION("DatatypeDefinition"),
+
+    PREFIX("Prefix"),
+
+    NAME_ATTRIBUTE("name"),
+
+    IRI_ATTRIBUTE("IRI"),
+
+    ABBREVIATED_IRI_ATTRIBUTE("abbreviatedIRI"),
+
+    IRI_ELEMENT("IRI"),
+
+    ABBREVIATED_IRI_ELEMENT("AbbreviatedIRI"),
+
+    CARDINALITY_ATTRIBUTE("cardinality");
 
     private URI uri;
 
     private String shortName;
+
 
 
     OWLXMLVocabulary(String name) {

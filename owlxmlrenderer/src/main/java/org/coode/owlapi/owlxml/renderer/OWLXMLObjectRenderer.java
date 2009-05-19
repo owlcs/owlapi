@@ -2,7 +2,6 @@ package org.coode.owlapi.owlxml.renderer;
 
 import org.semanticweb.owl.model.*;
 import static org.semanticweb.owl.vocab.OWLXMLVocabulary.*;
-import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.io.OWLXMLOntologyFormat;
 
@@ -574,7 +573,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLRDFTextLiteral node) {
+    public void visit(OWLStringLiteral node) {
         writer.writeStartElement(LITERAL);
         writer.writeLangAttribute(node.getLang());
         writer.writeTextContent(node.getLiteral());

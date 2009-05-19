@@ -702,7 +702,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write(node.getDatatype().getURI());
     }
 
-    public void visit(OWLRDFTextLiteral node) {
+    public void visit(OWLStringLiteral node) {
         write("\"");
         write(node.getLiteral());
         write("\"");

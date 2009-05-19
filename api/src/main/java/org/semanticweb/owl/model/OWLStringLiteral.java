@@ -1,5 +1,6 @@
-package org.semanticweb.owl.model;/*
- * Copyright (C) 2008, University of Manchester
+package org.semanticweb.owl.model;
+/*
+ * Copyright (C) 2006, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -21,17 +22,30 @@ package org.semanticweb.owl.model;/*
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
 /**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 17-Jan-2009
+ * Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group
+ * Date: 24-Oct-2006
  */
-public interface OWLAnnotationValueVisitor {
+public interface OWLStringLiteral extends OWLLiteral {
 
-    void visit(IRI iri);
+    /**
+     * Gets the language tag (if present)
+     * @return A <code>String</code> which represents the langauge tag,
+     * or <code>null</code> if there is no language tag
+     */
+    public String getLang();
 
-    void visit(OWLAnonymousIndividual individual);
 
-    void visit(OWLTypedLiteral literal);
-
-    void visit(OWLStringLiteral literal);
+    /**
+     * Determines if this constant has a specific language tag.
+     * @param lang The specific lang to test for.
+     * @return <code>true</code> if this constant has the specified
+     * langauge tag, or <code>false</code> if this constant does not
+     * have a language tag or if this constant has a language tag that
+     * is not equal to the specified language tag.
+     */
+    boolean hasLang(String lang);
 }

@@ -129,7 +129,7 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
     }
 
 //    protected OWLLiteral getUntypedConstant(String literal) throws OWLException {
-//        return getDataFactory().getRDFTextLiteral(literal);
+//        return getDataFactory().getOWLStringLiteral(literal);
 //    }
 
 

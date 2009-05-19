@@ -148,7 +148,6 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Ontology: ");
         if (ontologyIRI != null) {
             sb.append(ontologyIRI.toQuotedString());
             if (versionIRI != null) {

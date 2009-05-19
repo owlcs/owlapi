@@ -938,7 +938,7 @@ public class ManchesterOWLSyntaxEditorParser {
             else if (peekToken().equals("@")) {
                 consumeToken();
                 String lang = consumeToken();
-                return dataFactory.getRDFTextLiteral(lit, lang);
+                return dataFactory.getOWLStringLiteral(lit, lang);
             }
             else {
                 return dataFactory.getOWLTypedLiteral(lit);

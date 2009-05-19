@@ -413,7 +413,7 @@ public class ELPlusPlusProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLRDFTextLiteral node) {
+        public ConstructNotAllowed visit(OWLStringLiteral node) {
             return null;
         }
 

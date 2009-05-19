@@ -563,8 +563,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
 
-    public void visit(OWLRDFTextLiteral node) {
-        obj = dataFactory.getRDFTextLiteral(node.getLiteral(), node.getLang());
+    public void visit(OWLStringLiteral node) {
+        obj = dataFactory.getOWLStringLiteral(node.getLiteral(), node.getLang());
     }
 
 

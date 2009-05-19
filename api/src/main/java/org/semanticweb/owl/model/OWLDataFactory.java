@@ -98,7 +98,8 @@ public interface OWLDataFactory extends SWRLDataFactory {
      */
     OWLClass getOWLClass(URI uri);
 
-
+    OWLClass getOWLClass(IRI iri);
+    
     /**
      * Gets an OWL class that has a URI that is obtained by expanding a compact URI (CURIE) using a specified
      * prefix namespace mapping.
@@ -140,6 +141,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLObjectProperty getOWLObjectProperty(String curie,
                                            NamespaceManager namespaceManager);
 
+    OWLObjectProperty getOWLObjectProperty(IRI iri);
 
     OWLObjectPropertyInverse getOWLObjectPropertyInverse(OWLObjectPropertyExpression property);
 
@@ -150,6 +152,8 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return The object representing the data property that has the specified URI
      */
     OWLDataProperty getOWLDataProperty(URI uri);
+
+    OWLDataProperty getOWLDataProperty(IRI iri);
 
 
     /**
@@ -176,6 +180,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      */
     OWLNamedIndividual getOWLNamedIndividual(URI uri);
 
+    OWLNamedIndividual getOWLNamedIndividual(IRI iri);
 
     /**
      * Gets an OWL individual that has a URI that is obtained by expanding a compact URI (CURIE) using a specified
@@ -198,6 +203,8 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
 
     OWLAnnotationProperty getOWLAnnotationProperty(URI uri);
+
+    OWLAnnotationProperty getOWLAnnotationProperty(IRI iri);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -256,12 +263,12 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
 
     /**
-     * Gets an OWLRDFTextLiteral.  That is, a string with a language tag
-     * @param literal The string literal
-     * @param lang The language.  Must not be <code>null</code>
-     * @return The OWLRDFTextLiteral that represent the string with a language tag
+     * Gets an OWLStringLiteral.  That is, a string possibly with a language tag
+     * @param literal The quoted string
+     * @param lang The language. 
+     * @return The OWLStringLiteral that represent the string possibly with a language tag
      */
-    OWLRDFTextLiteral getRDFTextLiteral(String literal,
+    OWLStringLiteral getOWLStringLiteral(String literal,
                                         String lang);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -278,6 +285,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      */
     OWLDatatype getOWLDatatype(URI uri);
 
+    OWLDatatype getOWLDatatype(IRI iri);
 
     /**
      * A convenience method that obtains the datatype that represents integers.  This datatype will have the URI of
@@ -1058,16 +1066,31 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLImportsDeclaration getOWLImportsDeclaration(URI importedOntologyURI);
 
+    OWLImportsDeclaration getOWLImportsDeclaration(IRI importedOntologyIRI);
+
 
     OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
                                                             IRI domain);
+
+
+    OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
+                                                            IRI domain,
+                                                            Set<? extends OWLAnnotation> annotations);
 
 
     OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop,
                                                           IRI range);
 
 
+    OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop,
+                                                          IRI range,
+                                                          Set<? extends OWLAnnotation> annotations);
+
     OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub,
                                                           OWLAnnotationProperty sup);
+
+    OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub,
+                                                          OWLAnnotationProperty sup,
+                                                          Set<? extends OWLAnnotation> annotations);
 }
 

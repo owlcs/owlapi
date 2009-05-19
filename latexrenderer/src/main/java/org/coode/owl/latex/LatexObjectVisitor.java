@@ -735,7 +735,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLRDFTextLiteral node) {
+    public void visit(OWLStringLiteral node) {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////

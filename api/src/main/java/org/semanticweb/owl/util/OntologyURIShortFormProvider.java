@@ -48,11 +48,11 @@ public class OntologyURIShortFormProvider implements URIShortFormProvider {
             }
         }
         else if(uri.getHost() != null) {
-            shortForm = uri.getHost();
+            shortForm = uri.toString();
         }
-        if(!Character.isUpperCase(shortForm.charAt(0))) {
-            shortForm = Character.toUpperCase(shortForm.charAt(0)) + shortForm.substring(1, shortForm.length());
-        }
+//        if(!Character.isUpperCase(shortForm.charAt(0))) {
+//            shortForm = Character.toUpperCase(shortForm.charAt(0)) + shortForm.substring(1, shortForm.length());
+//        }
 
         return shortForm;
 

@@ -284,7 +284,7 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
         return defaultReturnValue;
     }
 
-    public O visit(OWLRDFTextLiteral node) {
+    public O visit(OWLStringLiteral node) {
         return defaultReturnValue;
     }
 

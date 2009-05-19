@@ -34,7 +34,7 @@ import java.util.Set;
  * <p/>
  * Represents a named or anonymous individual.
  */
-public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
+public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, OWLAnnotationValue {
 
     /**
      * Determines if this object represents an anonymous individual.

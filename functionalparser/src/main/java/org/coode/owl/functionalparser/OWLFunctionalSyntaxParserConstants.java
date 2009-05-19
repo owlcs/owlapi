@@ -9,96 +9,103 @@ public interface OWLFunctionalSyntaxParserConstants {
   int STRINGLITERAL = 10;
   int OPENPAR = 12;
   int CLOSEPAR = 13;
-  int COLON = 14;
-  int ONTOLOGY = 15;
-  int LABEL = 16;
-  int IMPORTS = 17;
-  int COMMENT = 18;
-  int SUBCLASSOF = 19;
-  int LANGIDENTIFIER = 20;
-  int EQUIVALENTCLASSES = 21;
-  int DISJOINTCLASSES = 22;
-  int DISJOINTUNION = 23;
-  int ANNOTATION = 24;
-  int ANNOTATIONPROPERTY = 25;
-  int ANNOTATIONASSERTION = 26;
-  int HASKEY = 27;
-  int DECLARATION = 28;
-  int DOCUMENTATION = 29;
-  int CLASS = 30;
-  int OBJECTPROP = 31;
-  int DATAPROP = 32;
-  int INDIVIDUAL = 33;
-  int DATATYPE = 34;
-  int DATAONEOF = 35;
-  int DATAUNIONOF = 36;
-  int DATAINTERSECTIONOF = 37;
-  int OBJECTONEOF = 38;
-  int OBJECTUNIONOF = 39;
-  int OBJECTHASVALUE = 40;
-  int INVERSEOBJECTPROPERTY = 41;
-  int INVERSEOBJECTPROPERTIES = 42;
-  int DATACOMPLEMENTOF = 43;
-  int DATATYPERESTRICTION = 44;
-  int OBJECTINTERSECTIONOF = 45;
-  int OBJECTCOMPLEMENTOF = 46;
-  int OBJECTALLVALUESFROM = 47;
-  int OBJECTSOMEVALUESFROM = 48;
-  int OBJECTEXISTSSELF = 49;
-  int OBJECTMINCARDINALITY = 50;
-  int OBJECTMAXCARDINALITY = 51;
-  int OBJECTEXACTCARDINALITY = 52;
-  int DATAALLVALUESFROM = 53;
-  int DATASOMEVALUESFROM = 54;
-  int DATAHASVALUE = 55;
-  int DATAEXISTSSELF = 56;
-  int DATAMINCARDINALITY = 57;
-  int DATAMAXCARDINALITY = 58;
-  int DATAEXACTCARDINALITY = 59;
-  int SUBOBJECTPROPERTYCHAIN = 60;
-  int SUBOBJECTPROPERTYOF = 61;
-  int EQUIVALENTOBJECTPROPERTIES = 62;
-  int DISJOINTOBJECTPROPERTIES = 63;
-  int OBJECTPROPERTYDOMAIN = 64;
-  int OBJECTPROPERTYRANGE = 65;
-  int FUNCTIONALOBJECTPROPERTY = 66;
-  int INVERSEFUNCTIONALOBJECTPROPERTY = 67;
-  int REFLEXIVEOBJECTPROPERTY = 68;
-  int IRREFLEXIVEOBJECTPROPERTY = 69;
-  int SYMMETRICOBJECTPROPERTY = 70;
-  int ANTISYMMETRICOBJECTPROPERTY = 71;
-  int TRANSITIVEOBJECTPROPERTY = 72;
-  int SUBDATAPROPERTYOF = 73;
-  int EQUIVALENTDATAPROPERTIES = 74;
-  int DISJOINTDATAPROPERTIES = 75;
-  int DATAPROPERTYDOMAIN = 76;
-  int DATAPROPERTYRANGE = 77;
-  int FUNCTIONALDATAPROPERTY = 78;
-  int SAMEINDIVIDUALS = 79;
-  int DIFFERENTINDIVIDUALS = 80;
-  int CLASSASSERTION = 81;
-  int OBJECTPROPERTYASSERTION = 82;
-  int NEGATIVEOBJECTPROPERTYASSERTION = 83;
-  int DATAPROPERTYASSERTION = 84;
-  int NEGATIVEDATAPROPERTYASSERTION = 85;
-  int NAMESPACE = 86;
-  int LENGTH = 87;
-  int MINLENGTH = 88;
-  int MAXLENGTH = 89;
-  int PATTERN = 90;
-  int MININCLUSIVE = 91;
-  int MAXINCLUSIVE = 92;
-  int MINEXCLUSIVE = 93;
-  int MAXEXCLUSIVE = 94;
-  int TOTALDIGITS = 95;
-  int FRACTIONDIGITS = 96;
-  int EQUALS = 97;
-  int INT = 98;
-  int QURI = 99;
-  int NCNAME1 = 100;
-  int NCCHAR_FULL = 101;
-  int NCCHAR1 = 102;
-  int ERROR = 103;
+  int ONTOLOGY = 14;
+  int LABEL = 15;
+  int IMPORT = 16;
+  int COMMENT = 17;
+  int SUBCLASSOF = 18;
+  int LANGIDENTIFIER = 19;
+  int EQUIVALENTCLASSES = 20;
+  int DISJOINTCLASSES = 21;
+  int DISJOINTUNION = 22;
+  int ANNOTATION = 23;
+  int ANNOTATIONPROPERTY = 24;
+  int ANNOTATIONASSERTION = 25;
+  int SUBANNOTATIONPROPERTYOF = 26;
+  int ANNOTATIONPROPERTYDOMAIN = 27;
+  int ANNOTATIONPROPERTYRANGE = 28;
+  int HASKEY = 29;
+  int DECLARATION = 30;
+  int DOCUMENTATION = 31;
+  int CLASS = 32;
+  int OBJECTPROP = 33;
+  int DATAPROP = 34;
+  int NAMEDINDIVIDUAL = 35;
+  int DATATYPE = 36;
+  int DATAONEOF = 37;
+  int DATAUNIONOF = 38;
+  int DATAINTERSECTIONOF = 39;
+  int OBJECTONEOF = 40;
+  int OBJECTUNIONOF = 41;
+  int OBJECTHASVALUE = 42;
+  int INVERSEOBJECTPROPERTY = 43;
+  int INVERSEOBJECTPROPERTIES = 44;
+  int DATACOMPLEMENTOF = 45;
+  int DATATYPERESTRICTION = 46;
+  int DATATYPEDEFINITION = 47;
+  int OBJECTINTERSECTIONOF = 48;
+  int OBJECTCOMPLEMENTOF = 49;
+  int OBJECTALLVALUESFROM = 50;
+  int OBJECTSOMEVALUESFROM = 51;
+  int OBJECTHASSELF = 52;
+  int OBJECTMINCARDINALITY = 53;
+  int OBJECTMAXCARDINALITY = 54;
+  int OBJECTEXACTCARDINALITY = 55;
+  int DATAALLVALUESFROM = 56;
+  int DATASOMEVALUESFROM = 57;
+  int DATAHASVALUE = 58;
+  int DATAMINCARDINALITY = 59;
+  int DATAMAXCARDINALITY = 60;
+  int DATAEXACTCARDINALITY = 61;
+  int SUBOBJECTPROPERTYCHAIN = 62;
+  int SUBOBJECTPROPERTYOF = 63;
+  int EQUIVALENTOBJECTPROPERTIES = 64;
+  int DISJOINTOBJECTPROPERTIES = 65;
+  int OBJECTPROPERTYDOMAIN = 66;
+  int OBJECTPROPERTYRANGE = 67;
+  int FUNCTIONALOBJECTPROPERTY = 68;
+  int INVERSEFUNCTIONALOBJECTPROPERTY = 69;
+  int REFLEXIVEOBJECTPROPERTY = 70;
+  int IRREFLEXIVEOBJECTPROPERTY = 71;
+  int SYMMETRICOBJECTPROPERTY = 72;
+  int ASYMMETRICOBJECTPROPERTY = 73;
+  int TRANSITIVEOBJECTPROPERTY = 74;
+  int SUBDATAPROPERTYOF = 75;
+  int EQUIVALENTDATAPROPERTIES = 76;
+  int DISJOINTDATAPROPERTIES = 77;
+  int DATAPROPERTYDOMAIN = 78;
+  int DATAPROPERTYRANGE = 79;
+  int FUNCTIONALDATAPROPERTY = 80;
+  int SAMEINDIVIDUAL = 81;
+  int DIFFERENTINDIVIDUALS = 82;
+  int CLASSASSERTION = 83;
+  int OBJECTPROPERTYASSERTION = 84;
+  int NEGATIVEOBJECTPROPERTYASSERTION = 85;
+  int DATAPROPERTYASSERTION = 86;
+  int NEGATIVEDATAPROPERTYASSERTION = 87;
+  int PREFIX = 88;
+  int LENGTH = 89;
+  int MINLENGTH = 90;
+  int MAXLENGTH = 91;
+  int PATTERN = 92;
+  int MININCLUSIVE = 93;
+  int MAXINCLUSIVE = 94;
+  int MINEXCLUSIVE = 95;
+  int MAXEXCLUSIVE = 96;
+  int TOTALDIGITS = 97;
+  int FRACTIONDIGITS = 98;
+  int EQUALS = 99;
+  int INT = 100;
+  int FULLIRI = 101;
+  int PNAME_NS = 102;
+  int PN_LOCAL = 103;
+  int PNAME_LN = 104;
+  int PN_PREFIX = 105;
+  int PN_CHARS_BASE = 106;
+  int PN_CHARS = 107;
+  int PN_CHARS_U = 108;
+  int NODEID = 109;
+  int ERROR = 110;
 
   int DEFAULT = 0;
   int IN_COMMENT = 1;
@@ -119,7 +126,6 @@ public interface OWLFunctionalSyntaxParserConstants {
     "<token of kind 11>",
     "\"(\"",
     "\")\"",
-    "\":\"",
     "\"Ontology\"",
     "\"Label\"",
     "\"Import\"",
@@ -132,6 +138,9 @@ public interface OWLFunctionalSyntaxParserConstants {
     "\"Annotation\"",
     "\"AnnotationProperty\"",
     "\"AnnotationAssertion\"",
+    "\"SubAnnotationPropertyOf\"",
+    "\"AnnotationPropertyDomain\"",
+    "\"AnnotationPropertyRange\"",
     "\"HasKey\"",
     "\"Declaration\"",
     "\"Documentation\"",
@@ -150,22 +159,22 @@ public interface OWLFunctionalSyntaxParserConstants {
     "\"InverseObjectProperties\"",
     "\"DataComplementOf\"",
     "\"DatatypeRestriction\"",
+    "\"DatatypeDefinition\"",
     "\"ObjectIntersectionOf\"",
     "\"ObjectComplementOf\"",
     "\"ObjectAllValuesFrom\"",
     "\"ObjectSomeValuesFrom\"",
-    "\"ObjectExistsSelf\"",
+    "\"ObjectHasSelf\"",
     "\"ObjectMinCardinality\"",
     "\"ObjectMaxCardinality\"",
     "\"ObjectExactCardinality\"",
     "\"DataAllValuesFrom\"",
     "\"DataSomeValuesFrom\"",
     "\"DataHasValue\"",
-    "\"DataExistsSelf\"",
     "\"DataMinCardinality\"",
     "\"DataMaxCardinality\"",
     "\"DataExactCardinality\"",
-    "\"SubObjectPropertyChain\"",
+    "\"ObjectPropertyChain\"",
     "\"SubObjectPropertyOf\"",
     "\"EquivalentObjectProperties\"",
     "\"DisjointObjectProperties\"",
@@ -176,7 +185,7 @@ public interface OWLFunctionalSyntaxParserConstants {
     "\"ReflexiveObjectProperty\"",
     "\"IrreflexiveObjectProperty\"",
     "\"SymmetricObjectProperty\"",
-    "\"AntiSymmetricObjectProperty\"",
+    "\"AsymmetricObjectProperty\"",
     "\"TransitiveObjectProperty\"",
     "\"SubDataPropertyOf\"",
     "\"EquivalentDataProperties\"",
@@ -184,14 +193,14 @@ public interface OWLFunctionalSyntaxParserConstants {
     "\"DataPropertyDomain\"",
     "\"DataPropertyRange\"",
     "\"FunctionalDataProperty\"",
-    "\"SameIndividuals\"",
+    "\"SameIndividual\"",
     "\"DifferentIndividuals\"",
     "\"ClassAssertion\"",
     "\"ObjectPropertyAssertion\"",
     "\"NegativeObjectPropertyAssertion\"",
     "\"DataPropertyAssertion\"",
     "\"NegativeDataPropertyAssertion\"",
-    "\"Namespace\"",
+    "\"Prefix\"",
     "\"length\"",
     "\"minLength\"",
     "\"maxLength\"",
@@ -204,10 +213,15 @@ public interface OWLFunctionalSyntaxParserConstants {
     "\"fractionDigits\"",
     "\"=\"",
     "<INT>",
-    "<QURI>",
-    "<NCNAME1>",
-    "<NCCHAR_FULL>",
-    "<NCCHAR1>",
+    "<FULLIRI>",
+    "<PNAME_NS>",
+    "<PN_LOCAL>",
+    "<PNAME_LN>",
+    "<PN_PREFIX>",
+    "<PN_CHARS_BASE>",
+    "<PN_CHARS>",
+    "<PN_CHARS_U>",
+    "<NODEID>",
     "<ERROR>",
     "\"^^\"",
   };

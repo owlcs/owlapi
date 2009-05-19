@@ -71,7 +71,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *
      * @return This literal as a more specific RDF Text Literal
      */
-    OWLRDFTextLiteral asRDFTextLiteral();
+    OWLStringLiteral asRDFTextLiteral();
 
 
     void accept(OWLDataVisitor visitor);

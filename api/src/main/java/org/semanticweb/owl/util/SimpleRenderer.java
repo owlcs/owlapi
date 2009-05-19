@@ -51,8 +51,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public SimpleRenderer() {
         sb = new StringBuilder();
-        shortFormProvider = new SimpleShortFormProvider();
-        uriShortFormProvider = new SimpleURIShortFormProvider();
+        shortFormProvider = new PrefixShortFormProvider();
+        uriShortFormProvider = new PrefixShortFormProvider();
     }
 
 
@@ -85,7 +85,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     public void visit(OWLOntology ontology) {
-        sb.append("Ontology(" + ontology.getURI() + " [Axioms: " + ontology.getAxiomCount() + "] [Logical axioms: " + ontology.getLogicalAxiomCount() + "])");
+        sb.append("Ontology(" + ontology.getOntologyID() + " [Axioms: " + ontology.getAxiomCount() + "] [Logical axioms: " + ontology.getLogicalAxiomCount() + "])");
     }
 
 
@@ -374,8 +374,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
 
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        sb.append("ObjectPropertyChainSubProperty(");
-        sb.append("(");
+        sb.append("SubObjectPropertyOf(");
+        sb.append("ObjectPropertyChain(");
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             insertSpace();
             prop.accept(this);
@@ -474,7 +474,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
 
     public void visit(OWLObjectHasSelf desc) {
-        sb.append("ObjectExistsSelf(");
+        sb.append("ObjectHasSelf(");
         desc.getProperty().accept(this);
         sb.append(")");
     }
@@ -506,7 +506,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
 
     public void visit(OWLDataHasValue desc) {
-        sb.append("DataValue(");
+        sb.append("DataHasValue(");
         desc.getProperty().accept(this);
         insertSpace();
         desc.getValue().accept(this);
@@ -594,12 +594,14 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLRDFTextLiteral node) {
+    public void visit(OWLStringLiteral node) {
         sb.append("\"");
         sb.append(node.getLiteral());
         sb.append("\"");
-        sb.append("@");
-        sb.append(node.getLang());
+            sb.append("@");
+        if (node.getLang() != null) {
+            sb.append(node.getLang());
+        }
     }
 
 
@@ -636,15 +638,17 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLHasKeyAxiom axiom) {
         sb.append("HasKey(");
         axiom.getClassExpression().accept(this);
-        sb.append(" ");
+        sb.append(" (");
         for (OWLObjectPropertyExpression prop : axiom.getObjectPropertyExpressions()) {
             prop.accept(this);
             sb.append(" ");
         }
+        sb.append(") (");
         for (OWLDataPropertyExpression prop : axiom.getDataPropertyExpressions()) {
             prop.accept(this);
             sb.append(" ");
         }
+        sb.append(")");
         sb.append(")");
     }
 
@@ -699,7 +703,9 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     public void visit(IRI iri) {
+        sb.append("<");
         sb.append(iri);
+        sb.append(">");
     }
 
     public void visit(OWLAnnotation node) {

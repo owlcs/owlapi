@@ -354,7 +354,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
     }
 
 
-    public OWLDataRange visit(OWLRDFTextLiteral node) {
+    public OWLDataRange visit(OWLStringLiteral node) {
         return null;
     }
 

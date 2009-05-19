@@ -609,7 +609,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLRDFTextLiteral node) {
+    public void visit(OWLStringLiteral node) {
         nodeMap.put(node, getLiteralNode(node.getLiteral(), node.getLang()));
     }
 

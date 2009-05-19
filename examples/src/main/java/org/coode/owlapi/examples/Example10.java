@@ -60,7 +60,7 @@ public class Example10 {
             // We'll attach a language to the comment to specify that our comment is written in English (en).
             OWLAnnotation commentAnno = df.getOWLAnnotation(
                     df.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_COMMENT.getURI()),
-                    df.getRDFTextLiteral("A class which represents pizzas", "en"));
+                    df.getOWLStringLiteral("A class which represents pizzas", "en"));
 
             // Specify that the pizza class has an annotation - to do this we attach an entity annotation using
             // an entity annotation axiom (remember, classes are entities)

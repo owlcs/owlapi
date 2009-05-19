@@ -3,7 +3,6 @@ package org.coode.owl.functionalrenderer;
 import org.coode.string.EscapeUtils;
 import org.coode.xml.OWLOntologyNamespaceManager;
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.VersionInfo;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 import static org.semanticweb.owl.vocab.OWLXMLVocabulary.*;
 
@@ -159,7 +158,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
             }
         }
         for(OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
-            write(IMPORTS);
+            write(IMPORT);
             write("(");
             writeFullIRI(decl.getIRI());
             write(")\n");
@@ -554,7 +553,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         writeAxiomStart(SUB_OBJECT_PROPERTY_OF, axiom);
-        write(SUB_OBJECT_PROPERTY_CHAIN);
+        write(PROPERTY_CHAIN);
         writeOpenBracket();
         for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it.hasNext();) {
             it.next().accept(this);
@@ -602,7 +601,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLSameIndividualAxiom axiom) {
-        writeAxiomStart(SAME_INDIVIDUALS, axiom);
+        writeAxiomStart(SAME_INDIVIDUAL, axiom);
         write(axiom.getIndividuals());
         writeAxiomEnd();
     }
@@ -740,7 +739,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLObjectHasSelf desc) {
-        write(OBJECT_EXISTS_SELF, desc.getProperty());
+        write(OBJECT_HAS_SELF, desc.getProperty());
     }
 
 
@@ -815,7 +814,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLRDFTextLiteral node) {
+    public void visit(OWLStringLiteral node) {
         write("\"");
         write(EscapeUtils.escapeString(node.getLiteral()));
         write("\"");
@@ -858,7 +857,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLNamedIndividual individual) {
         if (!writeEnitiesAsURIs) {
-            write(INDIVIDUAL);
+            write(NAMED_INDIVIDUAL);
             writeOpenBracket();
         }
         individual.getIRI().accept(this);
@@ -871,13 +870,23 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         writeAxiomStart(HAS_KEY, axiom);
         axiom.getClassExpression().accept(this);
         write(" ");
-        for(Iterator<OWLPropertyExpression>  it = axiom.getPropertyExpressions().iterator(); it.hasNext(); ) {
+        write("(");
+        for(Iterator<? extends OWLPropertyExpression>  it = axiom.getObjectPropertyExpressions().iterator(); it.hasNext(); ) {
             OWLPropertyExpression prop = it.next();
             prop.accept(this);
             if(it.hasNext()) {
                 write(" ");
             }
         }
+        write(") (");
+        for(Iterator<? extends OWLPropertyExpression>  it = axiom.getDataPropertyExpressions().iterator(); it.hasNext(); ) {
+            OWLPropertyExpression prop = it.next();
+            prop.accept(this);
+            if(it.hasNext()) {
+                write(" ");
+            }
+        }
+        write(")");
         writeAxiomEnd();
     }
 

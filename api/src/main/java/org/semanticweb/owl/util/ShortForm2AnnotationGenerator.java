@@ -77,7 +77,7 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
                 String shortForm = shortFormProvider.getShortForm(ent);
                 OWLLiteral con;
                 if (languageTag != null) {
-                    con = ontologyManager.getOWLDataFactory().getRDFTextLiteral(shortForm, languageTag);
+                    con = ontologyManager.getOWLDataFactory().getOWLStringLiteral(shortForm, languageTag);
                 } else {
                     con = ontologyManager.getOWLDataFactory().getOWLTypedLiteral(shortForm);
                 }

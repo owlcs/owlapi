@@ -68,7 +68,13 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
     public OWLOntology createMergedOntology(OWLOntologyManager ontologyManager, URI ontologyURI) throws
                                                                                                  OWLOntologyCreationException,
                                                                                                  OWLOntologyChangeException {
-        OWLOntology ontology = ontologyManager.createOntology(ontologyURI);
+        OWLOntology ontology;
+        if(ontologyURI != null) {
+            ontology =  ontologyManager.createOntology(ontologyURI);
+        }
+        else {
+             ontology = ontologyManager.createOntology();
+        }
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         for (OWLOntology ont : setProvider.getOntologies()) {
             for (OWLAxiom ax : getAxioms(ont)) {

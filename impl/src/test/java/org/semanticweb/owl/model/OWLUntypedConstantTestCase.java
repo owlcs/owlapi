@@ -32,31 +32,31 @@ package org.semanticweb.owl.model;
 public class OWLUntypedConstantTestCase extends AbstractOWLDataFactoryTest {
 
     public void testCreation() throws Exception {
-        OWLRDFTextLiteral conB = getOWLDataFactory().getRDFTextLiteral("TEST", "LANG");
+        OWLStringLiteral conB = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
         assertNotNull(conB);
     }
 
 
     public void testEqualsPositive() throws Exception {
-        OWLRDFTextLiteral conC = getOWLDataFactory().getRDFTextLiteral("TEST", "LANG");
-        OWLRDFTextLiteral conD = getOWLDataFactory().getRDFTextLiteral("TEST", "LANG");
+        OWLStringLiteral conC = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
+        OWLStringLiteral conD = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
         assertEquals(conC, conD);
     }
 
 
     public void testEqualsNegative() throws Exception {
-        OWLRDFTextLiteral conC = getOWLDataFactory().getRDFTextLiteral("TEST", "LANG");
-        OWLRDFTextLiteral conD = getOWLDataFactory().getRDFTextLiteral("TEST", "OTHER_LANG");
+        OWLStringLiteral conC = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
+        OWLStringLiteral conD = getOWLDataFactory().getOWLStringLiteral("TEST", "OTHER_LANG");
         assertNotEquals(conC, conD);
-        OWLRDFTextLiteral conE = getOWLDataFactory().getRDFTextLiteral("TEST", "LANG");
-        OWLRDFTextLiteral conF = getOWLDataFactory().getRDFTextLiteral("OTHER", "LANG");
+        OWLStringLiteral conE = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
+        OWLStringLiteral conF = getOWLDataFactory().getOWLStringLiteral("OTHER", "LANG");
         assertNotEquals(conE, conF);
     }
 
 
     public void testHashCode() throws Exception {
-        OWLRDFTextLiteral conA = getOWLDataFactory().getRDFTextLiteral("TEST", "LANG");
-        OWLRDFTextLiteral conB = getOWLDataFactory().getRDFTextLiteral("TEST", "LANG");
+        OWLStringLiteral conA = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
+        OWLStringLiteral conB = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
         assertEquals(conA.hashCode(), conB.hashCode());
     }
 }
