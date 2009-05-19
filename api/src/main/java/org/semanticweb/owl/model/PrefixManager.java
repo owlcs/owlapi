@@ -46,11 +46,11 @@ public interface PrefixManager {
      * Determines if this manager knows about a given prefix name and it contains a (non-null) mapping for the
      * prefix.
      *
-     * @param prefix The prefix to be tested for.
+     * @param prefixName The prefix name to be tested for.
      * @return <code>true</code> if the manager knows about this prefix and there is a non-null mapping for this
      *         prefix.
      */
-    boolean containsPrefixMapping(String prefix);
+    boolean containsPrefixMapping(String prefixName);
 
 
     /**
