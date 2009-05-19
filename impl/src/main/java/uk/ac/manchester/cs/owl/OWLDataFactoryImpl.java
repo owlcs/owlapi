@@ -101,8 +101,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
     public OWLClass getOWLClass(String curi,
-                                NamespaceManager namespaceManager) {
-        return getOWLClass(namespaceManager.getURI(curi));
+                                PrefixManager prefixManager) {
+        return getOWLClass(prefixManager.getURI(curi));
     }
 
 
@@ -201,20 +201,20 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
     public OWLDataProperty getOWLDataProperty(String curi,
-                                           NamespaceManager namespaceManager) {
-        return getOWLDataProperty(namespaceManager.getURI(curi));
+                                           PrefixManager prefixManager) {
+        return getOWLDataProperty(prefixManager.getURI(curi));
     }
 
 
     public OWLNamedIndividual getOWLNamedIndividual(String curi,
-                                       NamespaceManager namespaceManager) {
-        return getOWLNamedIndividual(namespaceManager.getURI(curi));
+                                       PrefixManager prefixManager) {
+        return getOWLNamedIndividual(prefixManager.getURI(curi));
     }
 
 
     public OWLObjectProperty getOWLObjectProperty(String curi,
-                                               NamespaceManager namespaceManager) {
-        return getOWLObjectProperty(namespaceManager.getURI(curi));
+                                               PrefixManager prefixManager) {
+        return getOWLObjectProperty(prefixManager.getURI(curi));
     }
 
 

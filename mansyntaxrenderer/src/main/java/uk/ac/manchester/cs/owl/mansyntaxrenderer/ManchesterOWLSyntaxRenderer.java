@@ -5,8 +5,7 @@ import org.semanticweb.owl.io.OWLRendererException;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
 import org.semanticweb.owl.model.OWLOntologyFormat;
-import org.semanticweb.owl.vocab.NamespaceOWLOntologyFormat;
-import org.coode.xml.OWLOntologyNamespaceManager;
+import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
 
 import java.io.Writer;
 import java.util.Map;
@@ -50,8 +49,8 @@ public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(getOWLOntologyManager(), ontology, writer);
         OWLOntologyFormat format = getOWLOntologyManager().getOntologyFormat(ontology);
-        if(format instanceof NamespaceOWLOntologyFormat) {
-            NamespaceOWLOntologyFormat namespaceFormat = (NamespaceOWLOntologyFormat) format;
+        if(format instanceof PrefixOWLOntologyFormat) {
+            PrefixOWLOntologyFormat namespaceFormat = (PrefixOWLOntologyFormat) format;
             Map<String, String> prefixMap = namespaceFormat.getNamespacesByPrefixMap();
             for(String prefix : prefixMap.keySet()) {
 //                ren.getNamespaceManager().setPrefix(prefix, prefixMap.get(prefix));

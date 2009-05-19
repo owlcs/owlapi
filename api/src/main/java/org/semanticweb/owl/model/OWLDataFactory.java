@@ -102,19 +102,19 @@ public interface OWLDataFactory extends SWRLDataFactory {
     
     /**
      * Gets an OWL class that has a URI that is obtained by expanding a compact URI (CURIE) using a specified
-     * prefix namespace mapping.
+     * prefix mapping.
      * @param curie The compact URI.
-     * @param namespaceManager The namespace manager that is responsible for mapping namespace prefixes to namespaces,
+     * @param prefixManager The prefix manager that is responsible for mapping prefix names to prefixes,
      * and is used to expand the specified compact URI (CURIE).
-     * @return An OWL class that has the URI obtained by expanding the specified CURIE using the specified namespace
-     *         manager.  For example, suppose "m:Cat" was specified the CURIE, the namespaceManager would be used to obtain
-     *         the namespace for the "m" prefix, this namespace would then be concatenated with "Cat" to obtain the full URI
+     * @return An OWL class that has the URI obtained by expanding the specified CURIE using the specified prefix
+     *         manager.  For example, suppose "m:Cat" was specified the CURIE, the prefix manager would be used to obtain
+     *         the prefix for the "m:" prefix name, this prefix would then be concatenated with "Cat" to obtain the full URI
      *         which would be the URI of the OWL class obtained by this method.
-     * @throws OWLRuntimeException if the namespace prefix in the specified CURIE does not have a mapping to a namespace
-     * in the specified namespace manager.
+     * @throws OWLRuntimeException if the prefix name in the specified CURIE does not have a mapping to a prefix
+     * in the specified prefix manager.
      */
     OWLClass getOWLClass(String curie,
-                         NamespaceManager namespaceManager);
+                         PrefixManager prefixManager);
 
 
     /**
@@ -127,19 +127,19 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     /**
      * Gets an OWL object property that has a URI that is obtained by expanding a compact URI (CURIE) using a specified
-     * prefix namespace mapping.
+     * prefix mapping.
      * @param curie The compact URI.
-     * @param namespaceManager The namespace manager that is responsible for mapping namespace prefixes to namespaces,
+     * @param prefixManager The prefix manager that is responsible for mapping prefix names to prefixes,
      * and is used to expand the specified compact URI (CURIE).
-     * @return An OWL object property that has the URI obtained by expanding the specified CURIE using the specified namespace
-     *         manager.  For example, suppose "m:pet" was specified the CURIE, the namespaceManager would be used to obtain
-     *         the namespace for the "m" prefix, this namespace would then be concatenated with "pet" to obtain the full URI
+     * @return An OWL object property that has the URI obtained by expanding the specified CURIE using the specified prefix
+     *         manager.  For example, suppose "m:Cat" was specified the CURIE, the prefix manager would be used to obtain
+     *         the prefix for the "m:" prefix name, this prefix would then be concatenated with "Cat" to obtain the full URI
      *         which would be the URI of the OWL object property obtained by this method.
-     * @throws OWLRuntimeException if the namespace prefix in the specified CURIE does not have a mapping to a namespace
-     * in the specified namespace manager.
+     * @throws OWLRuntimeException if the prefix name in the specified CURIE does not have a mapping to a prefix
+     * in the specified prefix manager.
      */
     OWLObjectProperty getOWLObjectProperty(String curie,
-                                           NamespaceManager namespaceManager);
+                                           PrefixManager prefixManager);
 
     OWLObjectProperty getOWLObjectProperty(IRI iri);
 
@@ -158,19 +158,19 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     /**
      * Gets an OWL data property that has a URI that is obtained by expanding a compact URI (CURIE) using a specified
-     * prefix namespace mapping.
+     * prefix mapping.
      * @param curie The compact URI.
-     * @param namespaceManager The namespace manager that is responsible for mapping namespace prefixes to namespaces,
+     * @param prefixManager The prefix manager that is responsible for mapping prefix names to prefixes,
      * and is used to expand the specified compact URI (CURIE).
-     * @return An OWL data property that has the URI obtained by expanding the specified CURIE using the specified namespace
-     *         manager.  For example, suppose "m:age" was specified the CURIE, the namespaceManager would be used to obtain
-     *         the namespace for the "m" prefix, this namespace would then be concatenated with "age" to obtain the full URI
-     *         which would be the URI of the OWL object property obtained by this method.
-     * @throws OWLRuntimeException if the namespace prefix in the specified CURIE does not have a mapping to a namespace
-     * in the specified namespace manager.
+     * @return An OWL data property that has the URI obtained by expanding the specified CURIE using the specified prefix
+     *         manager.  For example, suppose "m:Cat" was specified the CURIE, the prefix manager would be used to obtain
+     *         the prefix for the "m:" prefix name, this prefix would then be concatenated with "Cat" to obtain the full URI
+     *         which would be the URI of the OWL data property obtained by this method.
+     * @throws OWLRuntimeException if the prefix name in the specified CURIE does not have a mapping to a prefix
+     * in the specified prefix manager.
      */
     OWLDataProperty getOWLDataProperty(String curie,
-                                       NamespaceManager namespaceManager);
+                                       PrefixManager prefixManager);
 
 
     /**
@@ -183,20 +183,20 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLNamedIndividual getOWLNamedIndividual(IRI iri);
 
     /**
-     * Gets an OWL individual that has a URI that is obtained by expanding a compact URI (CURIE) using a specified
-     * prefix namespace mapping.
+     * Gets an OWL named individual that has a URI that is obtained by expanding a compact URI (CURIE) using a specified
+     * prefix mapping.
      * @param curie The compact URI.
-     * @param namespaceManager The namespace manager that is responsible for mapping namespace prefixes to namespaces,
+     * @param prefixManager The prefix manager that is responsible for mapping prefix names to prefixes,
      * and is used to expand the specified compact URI (CURIE).
-     * @return An OWL individual that has the URI obtained by expanding the specified CURIE using the specified namespace
-     *         manager.  For example, suppose "m:person" was specified the CURIE, the namespaceManager would be used to obtain
-     *         the namespace for the "m" prefix, this namespace would then be concatenated with "person" to obtain the full URI
-     *         which would be the URI of the OWL object property obtained by this method.
-     * @throws OWLRuntimeException if the namespace prefix in the specified CURIE does not have a mapping to a namespace
-     * in the specified namespace manager.
+     * @return An OWL named individual that has the URI obtained by expanding the specified CURIE using the specified prefix
+     *         manager.  For example, suppose "m:Cat" was specified the CURIE, the prefix manager would be used to obtain
+     *         the prefix for the "m:" prefix name, this prefix would then be concatenated with "Cat" to obtain the full URI
+     *         which would be the URI of the OWL named individual obtained by this method.
+     * @throws OWLRuntimeException if the prefix name in the specified CURIE does not have a mapping to a prefix
+     * in the specified prefix manager.
      */
     OWLNamedIndividual getOWLNamedIndividual(String curie,
-                                             NamespaceManager namespaceManager);
+                                             PrefixManager prefixManager);
 
 
     OWLAnonymousIndividual getOWLAnonymousIndividual(String id);

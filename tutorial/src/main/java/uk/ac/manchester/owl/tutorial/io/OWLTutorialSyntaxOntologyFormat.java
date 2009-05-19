@@ -1,6 +1,6 @@
 package uk.ac.manchester.owl.tutorial.io;
 
-import org.semanticweb.owl.vocab.NamespaceOWLOntologyFormat;
+import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -32,7 +32,7 @@ import org.semanticweb.owl.vocab.NamespaceOWLOntologyFormat;
  * Date: 24-April-2007<br>
  * <br>
  */
-public class OWLTutorialSyntaxOntologyFormat extends NamespaceOWLOntologyFormat {
+public class OWLTutorialSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
 
     @Override
     public String toString() {

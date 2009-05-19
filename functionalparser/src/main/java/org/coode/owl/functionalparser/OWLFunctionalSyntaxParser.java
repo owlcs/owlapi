@@ -75,11 +75,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         applyChange(addAxiom);
     }
 
-    public void setNamespaces(NamespaceManager nsm) {
+    public void setNamespaces(PrefixManager nsm) {
         if(prefixMap == null) {
             prefixMap = new HashMap<String, String>();
         }
-        prefixMap.putAll(nsm.getNamespaceMap());
+        prefixMap.putAll(nsm.getPrefixName2PrefixMap());
     }
 
   final public void parse() throws ParseException, OWLOntologyCreationException {

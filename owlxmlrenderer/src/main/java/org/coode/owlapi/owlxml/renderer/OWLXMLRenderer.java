@@ -7,7 +7,7 @@ import org.semanticweb.owl.io.OWLRendererIOException;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyFormat;
 import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.vocab.NamespaceOWLOntologyFormat;
+import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
 import org.semanticweb.owl.vocab.Namespaces;
 import org.semanticweb.owl.util.OntologyURIShortFormProvider;
 
@@ -54,8 +54,8 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
         try {
             OWLOntologyNamespaceManager nsm = new OWLOntologyNamespaceManager(getOWLOntologyManager(), ontology);
             nsm.setDefaultNamespace(Namespaces.OWL.toString());
-            if(format instanceof NamespaceOWLOntologyFormat) {
-                NamespaceOWLOntologyFormat namespaceFormat = (NamespaceOWLOntologyFormat) format;
+            if(format instanceof PrefixOWLOntologyFormat) {
+                PrefixOWLOntologyFormat namespaceFormat = (PrefixOWLOntologyFormat) format;
                 final Map<String,String> nsByPrefixMap = namespaceFormat.getNamespacesByPrefixMap();
                 for(String prefix : nsByPrefixMap.keySet()) {
                     String ns = nsByPrefixMap.get(prefix);
@@ -63,8 +63,8 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
                        nsm.setPrefix(prefix, ns);
                     }
                 }
-                if(namespaceFormat.getDefaultNamespace() != null) {
-                    nsm.setDefaultNamespace(namespaceFormat.getDefaultNamespace());
+                if(namespaceFormat.getDefaultPrefix() != null) {
+                    nsm.setDefaultNamespace(namespaceFormat.getDefaultPrefix());
                 }
             }
             nsm.setPrefix("xml", Namespaces.XML.toString());

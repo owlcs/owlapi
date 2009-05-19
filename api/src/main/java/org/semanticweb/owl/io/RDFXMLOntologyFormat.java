@@ -1,7 +1,7 @@
 package org.semanticweb.owl.io;
 
 import org.semanticweb.owl.model.OWLAnnotation;
-import org.semanticweb.owl.vocab.NamespaceOWLOntologyFormat;
+import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
 
 import java.net.URI;
 import java.util.*;
@@ -35,7 +35,7 @@ import java.util.*;
  * Bio-Health Informatics Group<br>
  * Date: 02-Jan-2007<br><br>
  */
-public class RDFXMLOntologyFormat extends NamespaceOWLOntologyFormat {
+public class RDFXMLOntologyFormat extends PrefixOWLOntologyFormat {
 
     private Map<URI, Set<OWLAnnotation>> annotationURI2Annotation;
 

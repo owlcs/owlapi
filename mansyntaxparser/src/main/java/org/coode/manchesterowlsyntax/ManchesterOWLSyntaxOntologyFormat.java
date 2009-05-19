@@ -1,6 +1,6 @@
 package org.coode.manchesterowlsyntax;
 
-import org.semanticweb.owl.vocab.NamespaceOWLOntologyFormat;
+import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -31,7 +31,7 @@ import org.semanticweb.owl.vocab.NamespaceOWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 10-May-2007<br><br>
  */
-public class ManchesterOWLSyntaxOntologyFormat extends NamespaceOWLOntologyFormat {
+public class ManchesterOWLSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
 
     public String toString() {
         return "Manchester OWL Syntax";

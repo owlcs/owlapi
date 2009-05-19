@@ -23,10 +23,9 @@ package org.coode.xml;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-import org.semanticweb.owl.io.RDFXMLOntologyFormat;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.NamespaceUtil;
-import org.semanticweb.owl.vocab.NamespaceOWLOntologyFormat;
+import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
 import org.semanticweb.owl.vocab.Namespaces;
 
 import java.net.URI;
@@ -82,15 +81,15 @@ public class OWLOntologyNamespaceManager extends XMLWriterNamespaceManager {
 
     private void processOntology() {
         namespaceUtil = new NamespaceUtil();
-        if (ontologyFormat instanceof NamespaceOWLOntologyFormat) {
-            NamespaceOWLOntologyFormat namespaceFormat = (NamespaceOWLOntologyFormat) ontologyFormat;
+        if (ontologyFormat instanceof PrefixOWLOntologyFormat) {
+            PrefixOWLOntologyFormat namespaceFormat = (PrefixOWLOntologyFormat) ontologyFormat;
             Map<String, String> namespacesByPrefix = namespaceFormat.getNamespacesByPrefixMap();
             for (String prefix : namespacesByPrefix.keySet()) {
                 if (prefix.length() > 0) {
                     namespaceUtil.setPrefix(namespacesByPrefix.get(prefix), prefix);
                 }
             }
-            String defaultNamespace = namespaceFormat.getDefaultNamespace();
+            String defaultNamespace = namespaceFormat.getDefaultPrefix();
             if (defaultNamespace != null) {
                 setDefaultNamespace(defaultNamespace);
             }

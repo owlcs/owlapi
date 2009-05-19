@@ -1,6 +1,6 @@
 package org.semanticweb.owl.io;
 
-import org.semanticweb.owl.vocab.NamespaceOWLOntologyFormat;
+import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -31,7 +31,7 @@ import org.semanticweb.owl.vocab.NamespaceOWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 02-Jan-2007<br><br>
  */
-public class OWLXMLOntologyFormat extends NamespaceOWLOntologyFormat {
+public class OWLXMLOntologyFormat extends PrefixOWLOntologyFormat {
 
     public String toString() {
         return "OWL/XML";
