@@ -77,13 +77,20 @@ public interface PrefixManager {
 
 
     /**
-     * Gets the URI for a given CURI.  The CURI must have a prefix name that is registered with this
+     * Gets the URI for a given prefix IRI.  The prefix IRI must have a prefix name that is registered with this
      * manager, or a runtime exception will be thrown.
      *
-     * @param curie The CURIE
-     * @return The full URI.
-     * @throws OWLRuntimeException if the prefix name of the CURIE doesn't have a corresponding prefix managed by this
+     * @param prefixIRI The Prefix IRI
+     * @return The full IRI.
+     * @throws OWLRuntimeException if the prefix name of the prefix IRI doesn't have a corresponding prefix managed by this
      *                             manager.
      */
-    URI getURI(String curie);
+    URI getURI(String prefixIRI);
+
+    /**
+     * Gets the prefix IRI given a URI.
+     * @param uri The URI
+     * @return 
+     */
+    String getPrefixIRI(URI uri);
 }

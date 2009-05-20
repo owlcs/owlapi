@@ -636,7 +636,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final public OWLAnnotationProperty AnnotationProperty() throws ParseException {
     OWLAnnotationProperty prop;
+    jj_consume_token(ANNOTATIONPROPERTY);
+    jj_consume_token(OPENPAR);
     prop = AnnotationPropertyURI();
+    jj_consume_token(CLOSEPAR);
         {if (true) return prop;}
     throw new Error("Missing return statement in function");
   }
@@ -668,7 +671,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final public OWLDatatype Datatype() throws ParseException {
     OWLDatatype dt;
+    jj_consume_token(DATATYPE);
+    jj_consume_token(OPENPAR);
     dt = DatatypeURI();
+    jj_consume_token(CLOSEPAR);
         {if (true) return dt;}
     throw new Error("Missing return statement in function");
   }
@@ -702,7 +708,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(DATATYPEDEFINITION);
     jj_consume_token(OPENPAR);
     axAnnos = AxiomAnnotationSet();
-    datatype = Datatype();
+    datatype = DatatypeURI();
     dr = DataRange();
     jj_consume_token(CLOSEPAR);
         {if (true) return dataFactory.getOWLDatatypeDefinition(datatype, dr, axAnnos);}
@@ -1540,7 +1546,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
       anno = Annotation();
                                                                                       if(annos!=null) {annos.add(anno);}
     }
-    prop = AnnotationProperty();
+    prop = AnnotationPropertyURI();
     val = AnnotationValue();
     jj_consume_token(CLOSEPAR);
         {if (true) return dataFactory.getOWLAnnotation(prop, val, annos);}
@@ -1614,7 +1620,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(ANNOTATIONASSERTION);
     jj_consume_token(OPENPAR);
     axiomAnnos = AxiomAnnotationSet();
-    prop = AnnotationProperty();
+    prop = AnnotationPropertyURI();
     subj = AnnotationSubject();
     val = AnnotationValue();
     jj_consume_token(CLOSEPAR);
@@ -1629,8 +1635,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(SUBANNOTATIONPROPERTYOF);
     jj_consume_token(OPENPAR);
     axiomAnnos = AxiomAnnotationSet();
-    subProp = AnnotationProperty();
-    superProperty = AnnotationProperty();
+    subProp = AnnotationPropertyURI();
+    superProperty = AnnotationPropertyURI();
     jj_consume_token(CLOSEPAR);
         {if (true) return dataFactory.getOWLSubAnnotationPropertyOfAxiom(subProp, superProperty, axiomAnnos);}
     throw new Error("Missing return statement in function");
@@ -1643,7 +1649,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(ANNOTATIONPROPERTYDOMAIN);
     jj_consume_token(OPENPAR);
     axiomAnnos = AxiomAnnotationSet();
-    prop = AnnotationProperty();
+    prop = AnnotationPropertyURI();
     domain = IRI();
     jj_consume_token(CLOSEPAR);
         {if (true) return dataFactory.getOWLAnnotationPropertyDomainAxiom(prop, domain, axiomAnnos);}
@@ -1657,7 +1663,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(ANNOTATIONPROPERTYRANGE);
     jj_consume_token(OPENPAR);
     axiomAnnos = AxiomAnnotationSet();
-    prop = AnnotationProperty();
+    prop = AnnotationPropertyURI();
     range = IRI();
     jj_consume_token(CLOSEPAR);
         {if (true) return dataFactory.getOWLAnnotationPropertyRangeAxiom(prop, range, axiomAnnos);}
@@ -3260,7 +3266,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  final private boolean jj_3R_113() {
+  final private boolean jj_3R_112() {
     if (jj_scan_token(STRINGLITERAL)) return true;
     return false;
   }
@@ -3288,7 +3294,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   final private boolean jj_3R_109() {
-    if (jj_3R_113()) return true;
+    if (jj_3R_112()) return true;
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3_113()) jj_scanpos = xsp;
@@ -3339,7 +3345,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   final private boolean jj_3R_108() {
-    if (jj_3R_113()) return true;
+    if (jj_3R_112()) return true;
     if (jj_scan_token(111)) return true;
     return false;
   }
@@ -3713,7 +3719,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   final private boolean jj_3R_106() {
-    if (jj_3R_48()) return true;
+    if (jj_scan_token(DATATYPE)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
@@ -3779,11 +3786,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  final private boolean jj_3R_112() {
-    if (jj_3R_19()) return true;
-    return false;
-  }
-
   final private boolean jj_3R_80() {
     if (jj_scan_token(INVERSEOBJECTPROPERTIES)) return true;
     if (jj_scan_token(OPENPAR)) return true;
@@ -3801,7 +3803,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   final private boolean jj_3R_107() {
-    if (jj_3R_112()) return true;
+    if (jj_scan_token(ANNOTATIONPROPERTY)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 

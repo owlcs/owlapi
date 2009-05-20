@@ -1172,7 +1172,7 @@ OWLAnnotationProperty AnnotationProperty()  :
     OWLAnnotationProperty prop;
 }
 {
-    (prop=AnnotationPropertyURI()) {
+    (<ANNOTATIONPROPERTY><OPENPAR>prop=AnnotationPropertyURI()<CLOSEPAR>) {
         return prop;
     }
 }
@@ -1215,7 +1215,7 @@ OWLDatatype Datatype()  :
     OWLDatatype dt;
 }
 {
-   (dt=DatatypeURI()) {
+   (<DATATYPE><OPENPAR>dt=DatatypeURI()<CLOSEPAR>) {
         return dt;
    }
 }
@@ -1260,7 +1260,7 @@ OWLDatatypeDefinition DatatypeDefinition() :
     Set<OWLAnnotation> axAnnos;
 }
 {
-    <DATATYPEDEFINITION><OPENPAR>(axAnnos = AxiomAnnotationSet() datatype=Datatype() dr=DataRange()<CLOSEPAR>) {
+    <DATATYPEDEFINITION><OPENPAR>(axAnnos = AxiomAnnotationSet() datatype=DatatypeURI() dr=DataRange()<CLOSEPAR>) {
         return dataFactory.getOWLDatatypeDefinition(datatype, dr, axAnnos);
     }
 }
@@ -1893,7 +1893,7 @@ OWLAnnotation Annotation() :
     OWLAnnotation anno = null;
 }
 {
-    ((<ANNOTATION><OPENPAR>(({annos = new HashSet<OWLAnnotation>();}anno=Annotation(){if(annos!=null) {annos.add(anno);}})*) prop=AnnotationProperty()val=AnnotationValue()<CLOSEPAR>){
+    ((<ANNOTATION><OPENPAR>(({annos = new HashSet<OWLAnnotation>();}anno=Annotation(){if(annos!=null) {annos.add(anno);}})*) prop=AnnotationPropertyURI()val=AnnotationValue()<CLOSEPAR>){
         return dataFactory.getOWLAnnotation(prop, val, annos);
     })
 }
@@ -1952,7 +1952,7 @@ OWLAnnotationAssertionAxiom AnnotationAssertion() :
     Set<OWLAnnotation> axiomAnnos;
 }
 {
-    <ANNOTATIONASSERTION><OPENPAR>axiomAnnos=AxiomAnnotationSet() prop=AnnotationProperty() subj=AnnotationSubject() val=AnnotationValue()  <CLOSEPAR> {
+    <ANNOTATIONASSERTION><OPENPAR>axiomAnnos=AxiomAnnotationSet() prop=AnnotationPropertyURI() subj=AnnotationSubject() val=AnnotationValue()  <CLOSEPAR> {
         return dataFactory.getOWLAnnotationAssertionAxiom(subj, prop, val, axiomAnnos);
     }
 }
@@ -1964,7 +1964,7 @@ OWLSubAnnotationPropertyOfAxiom SubAnnotationPropertyOf() :
     Set<OWLAnnotation> axiomAnnos;
 }
 {
-    <SUBANNOTATIONPROPERTYOF><OPENPAR>axiomAnnos = AxiomAnnotationSet() subProp = AnnotationProperty() superProperty = AnnotationProperty()<CLOSEPAR> {
+    <SUBANNOTATIONPROPERTYOF><OPENPAR>axiomAnnos = AxiomAnnotationSet() subProp = AnnotationPropertyURI() superProperty = AnnotationPropertyURI()<CLOSEPAR> {
         return dataFactory.getOWLSubAnnotationPropertyOfAxiom(subProp, superProperty, axiomAnnos);
     }
 }
@@ -1977,7 +1977,7 @@ OWLAnnotationPropertyDomainAxiom AnnotationPropertyDomain() :
 
 }
 {
-    <ANNOTATIONPROPERTYDOMAIN><OPENPAR> axiomAnnos = AxiomAnnotationSet() prop=AnnotationProperty() domain=IRI()<CLOSEPAR> {
+    <ANNOTATIONPROPERTYDOMAIN><OPENPAR> axiomAnnos = AxiomAnnotationSet() prop=AnnotationPropertyURI() domain=IRI()<CLOSEPAR> {
         return dataFactory.getOWLAnnotationPropertyDomainAxiom(prop, domain, axiomAnnos);
     }
 }
@@ -1989,7 +1989,7 @@ OWLAnnotationPropertyRangeAxiom AnnotationPropertyRange() :
     Set<OWLAnnotation> axiomAnnos;
 }
 {
-    <ANNOTATIONPROPERTYRANGE><OPENPAR> axiomAnnos=AxiomAnnotationSet() prop=AnnotationProperty() range=IRI()<CLOSEPAR> {
+    <ANNOTATIONPROPERTYRANGE><OPENPAR> axiomAnnos=AxiomAnnotationSet() prop=AnnotationPropertyURI() range=IRI()<CLOSEPAR> {
         return dataFactory.getOWLAnnotationPropertyRangeAxiom(prop, range, axiomAnnos);
     }
 }

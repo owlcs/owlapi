@@ -1,6 +1,9 @@
 package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.OWLEntity;
+import org.semanticweb.owl.model.OWLOntology;
+import org.semanticweb.owl.model.OWLAnnotation;
+import org.semanticweb.owl.model.IRI;
 import org.semanticweb.owl.vocab.Namespaces;
 
 import java.util.Map;
@@ -66,6 +69,26 @@ public class PrefixShortFormProvider implements ShortFormProvider, URIShortFormP
         setPrefix("skos", Namespaces.SKOS.toString());
         setPrefix("dc", Namespaces.SKOS.toString());
     }
+
+    public void createPrefixes(OWLOntology ontology) {
+        for(OWLEntity entity : ontology.getReferencedEntities()) {
+            createPrefix(entity.getURI());
+        }
+        for(OWLAnnotation anno : ontology.getAnnotations()) {
+            if (anno.getValue() instanceof IRI) {
+                createPrefix(((IRI) anno.getValue()).toURI());
+            }
+        }
+    }
+
+    public void createPrefix(URI uri) {
+        // Split on fragment, path, what?
+        String fragment = uri.getFragment();
+        if(fragment != null) {
+            
+        }
+    }
+
 
     /**
      * Sets the prefix name for a prefix.  For example,  'owl:' is the prefix name for the OWL namespace.

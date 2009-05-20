@@ -271,7 +271,7 @@ public class OWLXMLWriter {
 
     public void writeFacetAttribute(OWLFacet facet) {
         try {
-            writer.writeAttribute(OWLXMLVocabulary.DATATYPE_FACET.getURI().toString(), getIRIString(facet.getURI()));
+            writer.writeAttribute(OWLXMLVocabulary.DATATYPE_FACET.getURI().toString(), facet.getURI().toString());
         }
         catch (IOException e) {
             throw new RuntimeException(e);

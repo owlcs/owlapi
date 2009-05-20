@@ -372,7 +372,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
         });
 
-        addFactory(new AbstractElementHandlerFactory(PROPERTY_CHAIN) {
+        addFactory(new AbstractElementHandlerFactory(OBJECT_PROPERTY_CHAIN) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLSubObjectPropertyChainElementHandler(handler);
             }
@@ -559,6 +559,13 @@ public class OWLXMLParserHandler extends DefaultHandler {
         addFactory(new AbstractElementHandlerFactory(ANONYMOUS_INDIVIDUAL) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLAnonymousIndividualElementHandler(handler);
+            }
+        });
+
+
+        addFactory(new AbstractElementHandlerFactory(HAS_KEY) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new OWLHasKeyElementHandler(handler);
             }
         });
     }

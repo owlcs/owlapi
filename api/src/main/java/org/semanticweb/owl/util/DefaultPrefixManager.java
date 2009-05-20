@@ -4,10 +4,7 @@ import org.semanticweb.owl.model.PrefixManager;
 import org.semanticweb.owl.vocab.Namespaces;
 
 import java.net.URI;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -38,8 +35,6 @@ import java.util.Map;
  */
 public class DefaultPrefixManager implements PrefixManager {
 
-    private String defaultNamespace;
-
     private Map<String, String> prefix2NamespaceMap;
 
 
@@ -52,41 +47,64 @@ public class DefaultPrefixManager implements PrefixManager {
 
     public void clear() {
         // Clear the default namespace and map
-        defaultNamespace = null;
         prefix2NamespaceMap.clear();
     }
 
 
     /**
      * Creates a namespace manager that has the specified default namespace.
-     * @param defaultNamespace The namespace to be used as the default namespace.
+     * @param defaultPrefix The namespace to be used as the default namespace.
      */
-    public DefaultPrefixManager(String defaultNamespace) {
-        this.defaultNamespace = defaultNamespace;
-        prefix2NamespaceMap = new HashMap<String, String>();
-        prefix2NamespaceMap.put("", defaultNamespace);
-        registerNamespace("owl", Namespaces.OWL.toString());
-        registerNamespace("rdfs", Namespaces.RDFS.toString());
-        registerNamespace("rdf", Namespaces.RDF.toString());
-        registerNamespace("xsd", Namespaces.XSD.toString());
-        registerNamespace("skos", Namespaces.SKOS.toString());
+    public DefaultPrefixManager(String defaultPrefix) {
+        prefix2NamespaceMap = new TreeMap<String, String>(new Comparator<String>() {
+            public int compare(String o1, String o2) {
+                int diff = o1.length() - o2.length();
+                if(diff != 0) {
+                    return diff;
+                }
+                else {
+                    return o1.compareTo(o2);
+                }
+            }
+        });
+
+        if (defaultPrefix != null) {
+            setDefaultPrefix(defaultPrefix);
+        }
+        setPrefix("owl:", Namespaces.OWL.toString());
+        setPrefix("rdfs:", Namespaces.RDFS.toString());
+        setPrefix("rdf:", Namespaces.RDF.toString());
+        setPrefix("xsd:", Namespaces.XSD.toString());
+        setPrefix("skos:", Namespaces.SKOS.toString());
     }
 
 
     /**
-     * Sets the default namespace.  This will also bind the empty string
-     * prefix to this namespace.
-     * @param defaultNamespace The namespace to be used as the default namespace.  Note that
+     * Sets the default namespace.  This will also bind the prefix name ":" to this prefix
+     * @param defaultPrefix The namespace to be used as the default namespace.  Note that
      * the value may be <code>null</code> in order to clear the default namespace.
      */
-    public void setDefaultNamespace(String defaultNamespace) {
-        this.defaultNamespace = defaultNamespace;
-        prefix2NamespaceMap.put("", defaultNamespace);
+    public void setDefaultPrefix(String defaultPrefix) {
+        setPrefix(":", defaultPrefix);
     }
 
+    public String getPrefixIRI(URI uri) {
+        String uriString = uri.toString();
+        for(String prefixName : prefix2NamespaceMap.keySet()) {
+            String prefix = prefix2NamespaceMap.get(prefixName);
+            if(uriString.startsWith(prefix)) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(prefixName);
+                String localName = uriString.substring(prefix.length());
+                sb.append(localName);
+                return sb.toString();
+            }
+        }
+        return null;
+    }
 
     public String getDefaultPrefix() {
-        return defaultNamespace;
+        return prefix2NamespaceMap.get(":");
     }
 
 
@@ -115,21 +133,27 @@ public class DefaultPrefixManager implements PrefixManager {
         return Collections.unmodifiableMap(prefix2NamespaceMap);
     }
 
-    public String getPrefix(String prefix) {
-        return prefix2NamespaceMap.get(prefix);
+    public String getPrefix(String prefixName) {
+        return prefix2NamespaceMap.get(prefixName);
     }
 
 
     /**
-     * Adds a prefix namespace mapping
-     * @param prefix The prefix (must not be null)
-     * @param namespace The namespace that the prefix points to
+     * Adds a prefix name to prefix mapping
+     * @param prefixName name The prefix name (must not be null)
+     * @param prefix The prefix
+     * @throws NullPointerException if the prefix name or prefix is <code>null</code>.
+     * @throws IllegalArgumentException if the prefix name does not end with a colon.
      */
-    public void registerNamespace(String prefix, String namespace) {
-        prefix2NamespaceMap.put(prefix, namespace);
-        if(prefix.trim().length() == 0) {
-            defaultNamespace = namespace;
+    public void setPrefix(String prefixName, String prefix) {
+        if(prefix == null) {
+            throw new NullPointerException("Prefix name must not be null");
         }
+        if(!prefixName.endsWith(":")) {
+            Thread.dumpStack();
+            throw new IllegalArgumentException("Prefix names must end with a colon (:)");
+        }
+        prefix2NamespaceMap.put(prefixName, prefix);
     }
 
 

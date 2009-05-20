@@ -55,7 +55,10 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
      * @param namespace The namespace
      */
     public void addPrefixNamespaceMapping(String prefix, String namespace) {
-        nsm.registerNamespace(prefix, namespace);
+        if(!prefix.endsWith(":")) {
+            prefix = prefix + ":";
+        }
+        nsm.setPrefix(prefix, namespace);
     }
 
 
@@ -65,7 +68,7 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
      * @param namespace The namespace to be set.
      */
     public void setDefaultNamespace(String namespace) {
-        nsm.setDefaultNamespace(namespace);
+        nsm.setDefaultPrefix(namespace);
     }
 
 
@@ -100,5 +103,9 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
 
     public URI getURI(String curi) {       
         return nsm.getURI(curi);
+    }
+
+    public String getPrefixIRI(URI uri) {
+        return nsm.getPrefixIRI(uri);
     }
 }

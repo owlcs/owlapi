@@ -5,6 +5,7 @@ import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.io.RDFXMLOntologyFormat;
 import org.semanticweb.owl.io.StringInputSource;
 import org.semanticweb.owl.io.StringOutputTarget;
+import org.semanticweb.owl.io.UnparsableOntologyException;
 import org.semanticweb.owl.model.*;
 
 import java.net.URI;
@@ -148,6 +149,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
      */
     public void roundTripOntology(OWLOntology ont, OWLOntologyFormat format) {
         try {
+            UnparsableOntologyException.setIncludeStackTraceInMessage(true);
             StringOutputTarget target = new StringOutputTarget();
             manager.saveOntology(ont, format, target);
             handleSaved(target, format);

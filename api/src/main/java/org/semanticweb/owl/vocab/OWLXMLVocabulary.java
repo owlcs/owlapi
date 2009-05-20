@@ -133,7 +133,7 @@ public enum OWLXMLVocabulary {
 
     SUB_OBJECT_PROPERTY_OF("SubObjectPropertyOf"),
 
-    PROPERTY_CHAIN("PropertyChain"),
+    OBJECT_PROPERTY_CHAIN("ObjectPropertyChain"),
 
     EQUIVALENT_OBJECT_PROPERTIES("EquivalentObjectProperties"),
 

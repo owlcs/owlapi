@@ -1,10 +1,10 @@
 package org.coode.owl.functionalrenderer;
 
 import org.coode.string.EscapeUtils;
-import org.coode.xml.OWLOntologyNamespaceManager;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 import static org.semanticweb.owl.vocab.OWLXMLVocabulary.*;
+import org.semanticweb.owl.util.DefaultPrefixManager;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -42,7 +42,7 @@ import java.util.*;
  */
 public class OWLObjectRenderer implements OWLObjectVisitor {
 
-    private OWLOntologyNamespaceManager nsm;
+    private DefaultPrefixManager prefixManager;
 
     private OWLOntology ontology;
 
@@ -60,7 +60,9 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         this.ontology = ontology;
         this.writer = writer;
         writeEnitiesAsURIs = true;
-        nsm = new OWLOntologyNamespaceManager(man, ontology);
+        prefixManager = new DefaultPrefixManager();
+        String defPrefix = ontology.getURI() + "#";
+        prefixManager.setDefaultPrefix(defPrefix);
         focusedObject = man.getOWLDataFactory().getOWLThing();
     }
 
@@ -70,8 +72,8 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    private void writeNamespace(String prefix, String namespace) {
-        write("Namespace");
+    private void writePrefix(String prefix, String namespace) {
+        write("Prefix");
         writeOpenBracket();
         write(prefix);
         write("=");
@@ -83,12 +85,9 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    private void writeNamespaces() {
-        if (nsm.getDefaultNamespace() != null) {
-            writeNamespace("", nsm.getDefaultNamespace());
-        }
-        for (String prefix : nsm.getPrefixes()) {
-            writeNamespace(prefix, nsm.getNamespaceForPrefix(prefix));
+    private void writePrefixes() {
+        for (String prefix : prefixManager.getPrefixName2PrefixMap().keySet()) {
+            writePrefix(prefix, prefixManager.getPrefix(prefix));
         }
     }
 
@@ -127,7 +126,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     private void write(URI uri) {
         String uriString = uri.toString();
-        String qname = nsm.getQName(uriString);
+        String qname = prefixManager.getPrefixIRI(uri);
         if (qname != null && !qname.equals(uriString)) {
             write(qname);
         } else {
@@ -146,7 +145,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLOntology ontology) {
-        writeNamespaces();
+        writePrefixes();
         write("\n\n");
         write(ONTOLOGY);
         write("(");
@@ -553,7 +552,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         writeAxiomStart(SUB_OBJECT_PROPERTY_OF, axiom);
-        write(PROPERTY_CHAIN);
+        write(OBJECT_PROPERTY_CHAIN);
         writeOpenBracket();
         for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it.hasNext();) {
             it.next().accept(this);
@@ -799,7 +798,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLFacetRestriction node) {
-        write(node.getFacet().getShortName());
+        write(node.getFacet().getURI());
         writeSpace();
         node.getFacetValue().accept(this);
     }

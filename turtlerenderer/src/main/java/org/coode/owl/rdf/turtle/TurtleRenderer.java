@@ -8,6 +8,7 @@ import org.coode.owl.rdf.renderer.RDFRendererBase;
 import org.coode.xml.OWLOntologyNamespaceManager;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.VersionInfo;
+import org.semanticweb.owl.util.DefaultPrefixManager;
 import org.semanticweb.owl.vocab.XSDVocabulary;
 
 import java.io.PrintWriter;
@@ -50,7 +51,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
     private Set<RDFResourceNode> pending;
 
-    private OWLOntologyNamespaceManager nsm;
+    private PrefixManager pm;
 
     private String base;
 
@@ -59,22 +60,18 @@ public class TurtleRenderer extends RDFRendererBase {
         super(ontology, manager);
         this.writer = new PrintWriter(writer);
         pending = new HashSet<RDFResourceNode>();
-        nsm = new OWLOntologyNamespaceManager(manager, getOntology());
+        pm = new DefaultPrefixManager(ontology.getURI() + "#");
         base = "";
     }
 
 
     private void writeNamespaces() {
-        write("@prefix : ");
-        writeAsURI(nsm.getDefaultNamespace());
-        write(" .");
-        writeNewLine();
-        for (String prefix : nsm.getPrefixes()) {
-            String ns = nsm.getNamespaceForPrefix(prefix);
+        for (String prefixName : pm.getPrefixName2PrefixMap().keySet()) {
+            String prefix = pm.getPrefix(prefixName);
             write("@prefix ");
-            write(prefix);
-            write(": ");
-            writeAsURI(ns);
+            write(prefixName);
+            write(" ");
+            writeAsURI(prefix);
             write(" .");
             writeNewLine();
         }
@@ -139,12 +136,12 @@ public class TurtleRenderer extends RDFRendererBase {
 
 
     private void write(URI uri) {
+
         if (uri.equals(getOntology().getURI())) {
             writeAsURI(uri.toString());
         } else {
-            String uriString = uri.toString();
-            String name = nsm.getQName(uriString);
-            if (name == null || name.equals(uriString)) {
+            String name = pm.getPrefixIRI(uri);
+            if (name == null) {
                 // No QName!
                 writeAsURI(uri.toString());
             } else {

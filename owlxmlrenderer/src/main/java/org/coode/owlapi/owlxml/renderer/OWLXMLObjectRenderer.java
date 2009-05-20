@@ -294,7 +294,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         writer.writeStartElement(SUB_OBJECT_PROPERTY_OF);
         writeAnnotations(axiom);
-        writer.writeStartElement(PROPERTY_CHAIN);
+        writer.writeStartElement(OBJECT_PROPERTY_CHAIN);
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             prop.accept(this);
         }
