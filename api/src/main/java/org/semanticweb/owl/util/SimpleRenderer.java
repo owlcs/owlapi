@@ -93,6 +93,12 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(" ");
     }
 
+    public void writeAnnotations(OWLAxiom axiom) {
+        for(OWLAnnotation anno : axiom.getAnnotations()) {
+            anno.accept(this);
+            insertSpace();
+        }
+    }
 
     private <N extends OWLObject> Set<N> toSortedSet(Set<N> set) {
         return new TreeSet<N>(set);
@@ -270,6 +276,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLAnnotationAssertionAxiom axiom) {
         sb.append("AnnotationAssertion(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         insertSpace();
         axiom.getSubject().accept(this);
