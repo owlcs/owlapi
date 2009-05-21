@@ -91,6 +91,6 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
             return false;
         }
         OWLAnnotationPropertyDomainAxiom other = (OWLAnnotationPropertyDomainAxiom) obj;
-        return property.equals(other.getProperty()) && domain.equals(other.getDomain());
+        return property.equals(other.getProperty()) && domain.equals(other.getDomain())  && getAnnotations().equals(other.getAnnotations());
     }
 }

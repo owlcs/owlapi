@@ -106,18 +106,17 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
 
 
     public boolean equals(Object obj) {
-        return obj == this;
-//        if(obj == null) {
-//            return false;
-//        }
-//        if(obj == this) {
-//            return true;
-//        }
-//        if(!(obj instanceof OWLAnnotationAssertionAxiom)) {
-//            return false;
-//        }
-//        OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) obj;
-//        return subject.equals(other.getSubject()) && property.equals(other.getProperty()) && value.equals(other.getValue());
+        if(obj == null) {
+            return false;
+        }
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OWLAnnotationAssertionAxiom)) {
+            return false;
+        }
+        OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) obj;
+        return subject.equals(other.getSubject()) && property.equals(other.getProperty()) && value.equals(other.getValue())  && getAnnotations().equals(other.getAnnotations());
     }
 
 

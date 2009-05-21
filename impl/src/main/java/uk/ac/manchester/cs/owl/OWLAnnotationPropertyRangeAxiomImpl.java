@@ -91,6 +91,6 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
             return false;
         }
         OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) obj;
-        return property.equals(other.getProperty()) && range.equals(other.getRange());
+        return property.equals(other.getProperty()) && range.equals(other.getRange())  && getAnnotations().equals(other.getAnnotations());
     }
 }

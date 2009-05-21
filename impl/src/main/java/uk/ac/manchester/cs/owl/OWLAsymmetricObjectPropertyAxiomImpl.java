@@ -42,7 +42,7 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyChara
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
-            return obj instanceof OWLAsymmetricObjectPropertyAxiom;
+            return obj instanceof OWLAsymmetricObjectPropertyAxiom  && getAnnotations().equals(((OWLAxiom) obj).getAnnotations());
         }
         return false;
     }
