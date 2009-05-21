@@ -71,7 +71,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     if(line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) >= 0) {
                         foundOntology = true;
                     }
-                    else if(line.indexOf(ManchesterOWLSyntax.NAMESPACE.toString()) == -1) {
+                    else if(line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) == -1) {
                         throw new ManchesterOWLSyntaxParserException("Expected 'Ontology:' <URI>");
                     }
                 }

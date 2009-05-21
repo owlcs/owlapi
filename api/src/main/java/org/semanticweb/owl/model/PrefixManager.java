@@ -88,9 +88,10 @@ public interface PrefixManager {
     URI getURI(String prefixIRI);
 
     /**
-     * Gets the prefix IRI given a URI.
-     * @param uri The URI
-     * @return 
+     * Gets the prefix IRI given a IRI (URI).
+     * @param uri The IRI (URI)
+     * @return The prefix IRI for this IRI, or <code>null</code> if a prefix IRI cannot be generated.
      */
     String getPrefixIRI(URI uri);
+    
 }

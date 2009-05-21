@@ -37,7 +37,7 @@ public enum ManchesterOWLSyntax {
 
     IMPORT("Import", true, true, false, false),
 
-    NAMESPACE("Namespace", false, false, false, false),
+    PREFIX("Prefix", false, false, false, false),
 
     CLASS("Class", true, false, false, false),
 

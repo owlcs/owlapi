@@ -51,8 +51,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public SimpleRenderer() {
         sb = new StringBuilder();
-        shortFormProvider = new PrefixShortFormProvider();
-        uriShortFormProvider = new PrefixShortFormProvider();
+        shortFormProvider = new DefaultPrefixManager();
+        uriShortFormProvider = new DefaultPrefixManager();
     }
 
 

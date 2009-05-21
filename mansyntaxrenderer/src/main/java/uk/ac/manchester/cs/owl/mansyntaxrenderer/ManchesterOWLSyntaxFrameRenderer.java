@@ -2,7 +2,6 @@ package uk.ac.manchester.cs.owl.mansyntaxrenderer;
 
 import org.coode.manchesterowlsyntax.ManchesterOWLSyntax;
 import static org.coode.manchesterowlsyntax.ManchesterOWLSyntax.*;
-import org.coode.xml.OWLOntologyNamespaceManager;
 import org.semanticweb.owl.io.OWLRendererException;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.*;
@@ -44,7 +43,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     private OWLOntologyManager man;
 
-    private OWLOntologyNamespaceManager nsm;
+    private DefaultPrefixManager pm;
 
     private OWLOntology defaultOntology;
 
@@ -103,23 +102,15 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return ontologies;
     }
 
-    public OWLOntologyNamespaceManager getNamespaceManager() {
-        return nsm;
+    public DefaultPrefixManager getNamespaceManager() {
+        return pm;
     }
 
 
     public void writeOntology() throws OWLRendererException {
-        if(nsm == null) {
-            nsm = new OWLOntologyNamespaceManager(man, defaultOntology);
-            setShortFormProvider(new ShortFormProvider() {
-                public String getShortForm(OWLEntity entity) {
-                    return nsm.getQName(entity.getURI().toString());
-                }
-
-
-                public void dispose() {
-                }
-            });
+        if(pm == null) {
+            pm = new DefaultPrefixManager();
+            setShortFormProvider(pm);
         }
         writePrefixMap();
         if (ontologies.size() != 1) {
@@ -186,14 +177,14 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     public void writePrefixMap() {
         Map<String, String> prefixMap = new HashMap<String, String>();
-        for (String prefix : getNamespaceManager().getPrefixes()) {
-            prefixMap.put(prefix, getNamespaceManager().getNamespaceForPrefix(prefix));
-            write(NAMESPACE.toString());
-            write(":");
-            writeSpace();
-            write(prefix);
-            writeSpace();
-            writeFullURI(getNamespaceManager().getNamespaceForPrefix(prefix));
+        for (String prefixName : getNamespaceManager().getPrefixName2PrefixMap().keySet()) {
+            String prefix = getNamespaceManager().getPrefix(prefixName);
+            prefixMap.put(prefixName, prefix);
+            write(PREFIX.toString());
+            write(": ");
+            write(prefixName);
+            write(" = ");
+            writeFullURI(prefix);
             writeNewLine();
         }
         if (!prefixMap.isEmpty()) {
@@ -211,8 +202,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     protected void write(URI uri) {
         String qname = null;
-        if(nsm != null) {
-            qname = getNamespaceManager().getQName(uri.toString());
+        if(pm != null) {
+            qname = getNamespaceManager().getPrefixIRI(uri);
         }
         if (qname != null) {
             super.write(qname);

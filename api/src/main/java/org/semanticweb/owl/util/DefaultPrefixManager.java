@@ -1,6 +1,7 @@
 package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.PrefixManager;
+import org.semanticweb.owl.model.OWLEntity;
 import org.semanticweb.owl.vocab.Namespaces;
 
 import java.net.URI;
@@ -33,7 +34,7 @@ import java.util.*;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 10-Sep-2008<br><br>
  */
-public class DefaultPrefixManager implements PrefixManager {
+public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, URIShortFormProvider {
 
     private Map<String, String> prefix2NamespaceMap;
 
@@ -168,5 +169,28 @@ public class DefaultPrefixManager implements PrefixManager {
                 return;
             }
         }
+    }
+
+    public String getShortForm(URI uri) {
+        String sf = getPrefixIRI(uri);
+        if(sf == null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("<");
+            sb.append(uri);
+            sb.append(">");
+            return sb.toString();
+        }
+        else {
+            return sf;
+        }
+    }
+
+    public String getShortForm(OWLEntity entity) {
+        return getShortForm(entity.getURI());
+    }
+
+
+
+    public void dispose() {
     }
 }
