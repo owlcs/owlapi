@@ -61,6 +61,6 @@ public class OWLObjectPropertyRangeAxiomElementHandler extends AbstractOWLAxiomE
         if (range == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "OWL class expression element");
         }
-        return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range);
+        return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range, getAnnotations());
     }
 }

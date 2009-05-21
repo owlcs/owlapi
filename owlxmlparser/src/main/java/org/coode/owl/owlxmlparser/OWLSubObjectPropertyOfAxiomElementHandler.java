@@ -66,9 +66,9 @@ public class OWLSubObjectPropertyOfAxiomElementHandler extends AbstractOWLAxiomE
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
         if (subProperty != null) {
-            return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(subProperty, superProperty);
+            return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(subProperty, superProperty, getAnnotations());
         } else {
-            return getOWLDataFactory().getOWLSubPropertyChainOfAxiom(propertyList, superProperty);
+            return getOWLDataFactory().getOWLSubPropertyChainOfAxiom(propertyList, superProperty, getAnnotations());
         }
     }
 }

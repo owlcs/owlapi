@@ -39,6 +39,6 @@ public class OWLSameIndividualsAxiomElementHandler extends AbstractOWLIndividual
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLSameIndividualAxiom(getOperands());
+        return getOWLDataFactory().getOWLSameIndividualAxiom(getOperands(), getAnnotations());
     }
 }

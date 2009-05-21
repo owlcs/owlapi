@@ -60,14 +60,6 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
     public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException {
         try {
             getOWLOntologyManager().applyChange(new AddAxiom(getOntology(), handler.getOWLObject()));
-            Set<OWLAnnotation> annotations = handler.getAnnotations();
-            for (OWLAnnotation anno : annotations) {
-                System.err.println("Warning: Dropping annotations");
-//                throw new OWLRuntimeException("TODO");
-//                OWLAxiom ax = handler.getOWLObject();
-//                OWLAxiom annoAx = getOWLDataFactory().getOWLAxiomAnnotationAxiom(ax, anno);
-//                getOWLOntologyManager().addAxiom(getOntology(), annoAx);
-            }
         }
         catch (OWLOntologyChangeException e) {
             throw new OWLXMLParserException(getLineNumber(), e);

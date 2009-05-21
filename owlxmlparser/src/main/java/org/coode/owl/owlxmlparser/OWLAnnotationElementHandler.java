@@ -82,7 +82,12 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
     }
 
     public OWLAnnotation getOWLObject() {
-        return getOWLDataFactory().getOWLAnnotation(property, object, annotations);
+        if (annotations == null) {
+            return getOWLDataFactory().getOWLAnnotation(property, object);
+        }
+        else {
+            return getOWLDataFactory().getOWLAnnotation(property, object, annotations);
+        }
     }
 
 

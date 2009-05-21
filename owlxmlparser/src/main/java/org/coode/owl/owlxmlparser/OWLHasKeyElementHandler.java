@@ -63,6 +63,6 @@ public class OWLHasKeyElementHandler extends AbstractOWLAxiomElementHandler {
     }
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLHasKeyAxiom(ce, props);
+        return getOWLDataFactory().getOWLHasKeyAxiom(ce, props, getAnnotations());
     }
 }

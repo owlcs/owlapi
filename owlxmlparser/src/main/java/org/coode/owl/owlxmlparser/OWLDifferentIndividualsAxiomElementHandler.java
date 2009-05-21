@@ -39,6 +39,6 @@ public class OWLDifferentIndividualsAxiomElementHandler extends AbstractOWLIndiv
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getOperands());
+        return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getOperands(), getAnnotations());
     }
 }

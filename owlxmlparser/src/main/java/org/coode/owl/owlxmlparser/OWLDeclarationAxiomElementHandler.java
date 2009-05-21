@@ -91,7 +91,7 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLDeclarationAxiom(entity);
+        return getOWLDataFactory().getOWLDeclarationAxiom(entity, getAnnotations());
     }
 
 

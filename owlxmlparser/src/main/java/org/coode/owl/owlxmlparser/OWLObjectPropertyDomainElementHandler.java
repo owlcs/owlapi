@@ -61,6 +61,6 @@ public class OWLObjectPropertyDomainElementHandler extends AbstractOWLAxiomEleme
         if (domain == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected class expression element");
         }
-        return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(property, domain);
+        return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(property, domain, getAnnotations());
     }
 }

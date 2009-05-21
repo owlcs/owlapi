@@ -39,6 +39,6 @@ public class OWLDataPropertyAssertionAxiomElementHandler extends AbstractOWLData
 
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(getSubject(), getProperty(), getObject());
+        return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(getSubject(), getProperty(), getObject(), getAnnotations());
     }
 }
