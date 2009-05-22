@@ -84,9 +84,10 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOn
         Set<OWLClass> subclasses = new HashSet<OWLClass>();
         for (OWLOntology ont : ontologies) {
             for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSuperClass(cls)) {
-                if (!ax.getSubClass().isAnonymous()) {
-                    if (!ax.getSubClass().asOWLClass().isDefined(ontologies)) {
-                        subclasses.add(ax.getSuperClass().asOWLClass());
+                OWLClassExpression subCls = ax.getSubClass();
+                if (!subCls.isAnonymous()) {
+                    if (!subCls.asOWLClass().isDefined(ontologies)) {
+                        subclasses.add(subCls.asOWLClass());
                     }
                 }
             }

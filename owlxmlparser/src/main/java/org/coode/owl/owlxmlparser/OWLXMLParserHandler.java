@@ -535,7 +535,13 @@ public class OWLXMLParserHandler extends DefaultHandler {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLAnnotationAssertionElementHandler(handler);
             }
-        }, "EntityAnnotation");
+        });
+
+        addFactory(new AbstractElementHandlerFactory("EntityAnnotation") {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new LegacyEntityAnnotationElementHandler(handler);
+            }
+        });
 
         addFactory(new AbstractElementHandlerFactory(DECLARATION) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {

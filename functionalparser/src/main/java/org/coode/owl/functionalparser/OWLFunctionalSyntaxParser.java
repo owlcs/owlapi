@@ -32,6 +32,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         this.currentAnnotations = new HashSet<OWLAnnotation>();
         if(prefixMap == null) {
             prefixMap = new HashMap<String, String>();
+            prefixMap.put("owl:", Namespaces.OWL.toString());
+            prefixMap.put("RDF:", Namespaces.RDF.toString());
+            prefixMap.put("rdfs:", Namespaces.RDFS.toString());
+            prefixMap.put("xml:", Namespaces.XML.toString());
+            prefixMap.put("xsd:", Namespaces.XSD.toString());
         }
         string2URI = new HashMap<String, URI>();
     }
@@ -2600,21 +2605,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     finally { jj_save(112, xla); }
   }
 
-  final private boolean jj_3_33() {
-    if (jj_3R_45()) return true;
-    return false;
-  }
-
-  final private boolean jj_3_97() {
-    if (jj_3R_19()) return true;
-    return false;
-  }
-
-  final private boolean jj_3_68() {
-    if (jj_3R_76()) return true;
-    return false;
-  }
-
   final private boolean jj_3_3() {
     if (jj_3R_19()) return true;
     Token xsp;
@@ -3926,6 +3916,21 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final private boolean jj_3R_89() {
     if (jj_3R_111()) return true;
+    return false;
+  }
+
+  final private boolean jj_3_33() {
+    if (jj_3R_45()) return true;
+    return false;
+  }
+
+  final private boolean jj_3_97() {
+    if (jj_3R_19()) return true;
+    return false;
+  }
+
+  final private boolean jj_3_68() {
+    if (jj_3R_76()) return true;
     return false;
   }
 
