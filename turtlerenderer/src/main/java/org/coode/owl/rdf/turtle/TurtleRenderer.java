@@ -5,7 +5,6 @@ import org.coode.owl.rdf.model.RDFNode;
 import org.coode.owl.rdf.model.RDFResourceNode;
 import org.coode.owl.rdf.model.RDFTriple;
 import org.coode.owl.rdf.renderer.RDFRendererBase;
-import org.coode.xml.OWLOntologyNamespaceManager;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.VersionInfo;
 import org.semanticweb.owl.util.DefaultPrefixManager;
