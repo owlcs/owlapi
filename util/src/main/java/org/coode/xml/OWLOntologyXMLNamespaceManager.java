@@ -87,7 +87,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             for (String prefixName : namespacesByPrefix.keySet()) {
                     String xmlnsPrefixName = prefixName.substring(0, prefixName.length() - 1);
                     String xmlnsPrefix = namespacesByPrefix.get(prefixName);
-                    namespaceUtil.setPrefix(xmlnsPrefixName, xmlnsPrefix);
+                    namespaceUtil.setPrefix(xmlnsPrefix, xmlnsPrefixName);
             }
         }
         if (!ontology.getRules().isEmpty()) {
