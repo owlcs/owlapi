@@ -379,7 +379,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLAnnotationAxiom> getAnnotationAxioms() {
         int size = getAxiomCount(ANNOTATION_ASSERTION) + getAxiomCount(ANNOTATION_PROPERTY_DOMAIN) +
-                getAxiomCount(ANNOTATION_PROPERTY_RANGE) + getAxiomCount(SUB_ANNOTATION_PROPERTY_OF);
+                   getAxiomCount(ANNOTATION_PROPERTY_RANGE) + getAxiomCount(SUB_ANNOTATION_PROPERTY_OF);
         Set<OWLAnnotationAxiom> result = new HashSet<OWLAnnotationAxiom>(size);
         result.addAll(getAxioms(ANNOTATION_ASSERTION));
         result.addAll(getAxioms(ANNOTATION_PROPERTY_DOMAIN));
@@ -438,20 +438,17 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLEntity entity) {
-        return getAnnotationAssertionAxioms(entity.getIRI());
+        Set<OWLAnnotationAssertionAxiom> axioms = new HashSet<OWLAnnotationAssertionAxiom>();
+        axioms.addAll(getAnnotationAssertionAxiomsBySubject(entity));
+        axioms.addAll(getAnnotationAssertionAxiomsBySubject(entity.getIRI()));
+        return axioms;
     }
 
+
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(IRI subject) {
-        if (annotationAssertionAxiomsBySubject == null) {
-            annotationAssertionAxiomsBySubject = createMap();
-            for (OWLAnnotationAssertionAxiom axiom : getAxiomsInternal(ANNOTATION_ASSERTION)) {
-                if (axiom.getSubject() instanceof IRI) {
-                    addToIndexedSet(axiom.getSubject(), annotationAssertionAxiomsBySubject, axiom);
-                }
-            }
-        }
-        return getReturnSet(getAxioms(subject, annotationAssertionAxiomsBySubject, false));
+        return getAnnotationAssertionAxiomsBySubject(subject);
     }
+
 
     public Set<OWLClassAxiom> getGeneralClassAxioms() {
         return getReturnSet(generalClassAxioms);
@@ -1583,17 +1580,17 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 addToIndexedSet(OBJECT_PROPERTY_DOMAIN, axiomsByType, axiom);
                 if (axiom.getProperty() instanceof OWLObjectProperty) {
                     addToIndexedSet(axiom.getProperty(),
-                            objectPropertyDomainAxiomsByProperty,
-                            axiom);
+                                    objectPropertyDomainAxiomsByProperty,
+                                    axiom);
                 }
             } else {
                 removeAxiomFromSet(OBJECT_PROPERTY_DOMAIN, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom, owlObjectPropertyAxioms);
                 if (axiom.getProperty() instanceof OWLObjectProperty) {
                     removeAxiomFromSet(axiom.getProperty(),
-                            objectPropertyDomainAxiomsByProperty,
-                            axiom,
-                            true);
+                                       objectPropertyDomainAxiomsByProperty,
+                                       axiom,
+                                       true);
                 }
             }
         }
@@ -1782,9 +1779,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 removeAxiomFromSet(ANNOTATION_ASSERTION, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom.getSubject(), annotationAssertionAxiomsBySubject, axiom, true);
                 removeAxiomFromSet(axiom.getAnnotation().getProperty().getURI(),
-                        annotationAxiomsByAnnotationURI,
-                        axiom,
-                        true);
+                                   annotationAxiomsByAnnotationURI,
+                                   axiom,
+                                   true);
             }
         }
 
@@ -2277,6 +2274,17 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         for (OWLDisjointUnionAxiom axiom : getAxiomsInternal(DISJOINT_UNION)) {
             addToIndexedSet(axiom.getOWLClass(), classAxiomsByClass, axiom);
         }
+    }
+
+
+    private Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxiomsBySubject(OWLAnnotationSubject subject){
+        if (annotationAssertionAxiomsBySubject == null) {
+            annotationAssertionAxiomsBySubject = createMap();
+            for (OWLAnnotationAssertionAxiom axiom : getAxiomsInternal(ANNOTATION_ASSERTION)) {
+                addToIndexedSet(axiom.getSubject(), annotationAssertionAxiomsBySubject, axiom);
+            }
+        }
+        return getReturnSet(getAxioms(subject, annotationAssertionAxiomsBySubject, false));
     }
 
 
