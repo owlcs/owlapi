@@ -78,7 +78,7 @@ public class OWLManager {
      * @return The new manager.
      */
     public static OWLOntologyManager createOWLOntologyManager() {
-        return createOWLOntologyManager(OWLDataFactoryImpl.getInstance());
+        return createOWLOntologyManager(new OWLDataFactoryImpl());
     }
 
 

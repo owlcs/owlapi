@@ -56,7 +56,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     private Map<URI, OWLAnnotationProperty> annotationPropertiesByURI;
 
 
-    private OWLDataFactoryImpl() {
+    public OWLDataFactoryImpl() {
         classesByURI = new WeakHashMap<URI, OWLClass>();
         objectPropertiesByURI = new HashMap<URI, OWLObjectProperty>();
         dataPropertiesByURI = new HashMap<URI, OWLDataProperty>();

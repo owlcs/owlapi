@@ -116,6 +116,9 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, U
 
 
     public URI getURI(String curie) {
+        if(curie.startsWith("<")) {
+            return URI.create(curie.substring(1, curie.length() - 1));
+        }
         int sep = curie.indexOf(':');
         if(sep == -1) {
             if (getDefaultPrefix() != null) {

@@ -6,7 +6,7 @@ import org.coode.owl.rdf.model.RDFResourceNode;
 import org.coode.owl.rdf.model.RDFTriple;
 import org.coode.owl.rdf.renderer.RDFRendererBase;
 import org.coode.string.EscapeUtils;
-import org.coode.xml.OWLOntologyNamespaceManager;
+import org.coode.xml.OWLOntologyXMLNamespaceManager;
 import org.coode.xml.XMLWriterFactory;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.VersionInfo;
@@ -62,7 +62,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         pending = new HashSet<RDFResourceNode>();
         renderedAnonymousNodes = new HashSet<RDFResourceNode>();
         writer = new RDFXMLWriter(XMLWriterFactory.getInstance().createXMLWriter(w,
-                new OWLOntologyNamespaceManager(manager,
+                new OWLOntologyXMLNamespaceManager(manager,
                         ontology,
                         format),
                 ontology.getURI().toString()));

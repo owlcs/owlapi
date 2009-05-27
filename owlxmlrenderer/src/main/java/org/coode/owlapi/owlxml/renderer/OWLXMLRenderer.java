@@ -1,6 +1,6 @@
 package org.coode.owlapi.owlxml.renderer;
 
-import org.coode.xml.OWLOntologyNamespaceManager;
+import org.coode.xml.OWLOntologyXMLNamespaceManager;
 import org.semanticweb.owl.io.AbstractOWLRenderer;
 import org.semanticweb.owl.io.OWLRendererException;
 import org.semanticweb.owl.io.OWLRendererIOException;
@@ -52,7 +52,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
 
     public void render(OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLRendererException {
         try {
-            OWLOntologyNamespaceManager nsm = new OWLOntologyNamespaceManager(getOWLOntologyManager(), ontology);
+            OWLOntologyXMLNamespaceManager nsm = new OWLOntologyXMLNamespaceManager(getOWLOntologyManager(), ontology);
             nsm.setDefaultNamespace(Namespaces.OWL.toString());
             if(format instanceof PrefixOWLOntologyFormat) {
                 PrefixOWLOntologyFormat namespaceFormat = (PrefixOWLOntologyFormat) format;
