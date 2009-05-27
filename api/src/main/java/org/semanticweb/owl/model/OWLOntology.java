@@ -332,6 +332,16 @@ public interface OWLOntology extends OWLNamedObject {
 
 
     /**
+     * Determines if the ontology contains a reference to an annotation property that has a specific URI.
+     *
+     * @param propURI The URI of the property
+     * @return <code>true</code> if the ontology references (ontology signature contains) a property that has the
+     *         specified URI.
+     */
+    boolean containsAnnotationPropertyReference(URI propURI);
+
+
+    /**
      * Determines if the ontology contains a reference to an individual that has a specific URI.
      *
      * @param individualURI The URI of the individual
