@@ -49,7 +49,8 @@ public class TPDataPropertDomainHandler extends TriplePredicateHandler {
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         addAxiom(getDataFactory().getOWLDataPropertyDomainAxiom(
                 translateDataProperty(subject),
-                translateClassExpression(object)
+                translateClassExpression(object),
+                getPendingAnnotations()
         ));
         consumeTriple(subject, predicate, object);
     }

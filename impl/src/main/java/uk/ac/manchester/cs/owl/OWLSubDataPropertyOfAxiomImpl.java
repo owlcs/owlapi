@@ -41,12 +41,20 @@ public class OWLSubDataPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLDa
     }
 
 
+    public OWLSubDataPropertyOfAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLSubDataPropertyOfAxiom(getSubProperty(), getSuperProperty());
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLSubDataPropertyOfAxiom;
         }
         return false;
     }
+
 
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);

@@ -39,6 +39,12 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
         super(dataFactory, individuals, annotations);
     }
 
+    public OWLAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getIndividuals());
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

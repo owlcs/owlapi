@@ -40,6 +40,12 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         super(dataFactory, properties, annotations);
     }
 
+    public OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(getProperties());
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

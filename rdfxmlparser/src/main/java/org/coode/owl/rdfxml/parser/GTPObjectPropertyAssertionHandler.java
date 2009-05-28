@@ -59,7 +59,8 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
         addAxiom(getDataFactory().getOWLObjectPropertyAssertionAxiom(
                 translateIndividual(subject),
                 translateObjectProperty(predicate),
-                translateIndividual(object)
+                translateIndividual(object),
+                getPendingAnnotations()
         ));
     }
 }

@@ -164,7 +164,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
             catch (UnparsableOntologyException e) {
                 throw e;
             }
-            catch (Exception e) {
+            catch (Throwable e) {
                 Throwable t = e;
                 while (t != null) {
                     // For certain IO errors, no matter which parser we try, it

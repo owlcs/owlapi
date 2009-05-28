@@ -47,7 +47,7 @@ public class TypeTransitivePropertyHandler extends BuiltInTypeHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         getConsumer().addOWLObjectProperty(subject);
-        addAxiom(getDataFactory().getOWLTransitiveObjectPropertyAxiom(translateObjectProperty(subject)));
+        addAxiom(getDataFactory().getOWLTransitiveObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 }

@@ -38,7 +38,7 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br><br>
  */
-public class TypeNegativeObjectPropertyAssertionHandler extends AbstractTypeAxiomHandler {
+public class TypeNegativeObjectPropertyAssertionHandler extends TypeAxiomHandler {
 
     public TypeNegativeObjectPropertyAssertionHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getURI());

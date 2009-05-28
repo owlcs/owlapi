@@ -114,6 +114,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLSubClassOfAxiom axiom) {
         sb.append("SubClassOf(");
+        writeAnnotations(axiom);
         axiom.getSubClass().accept(this);
         insertSpace();
         axiom.getSuperClass().accept(this);

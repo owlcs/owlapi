@@ -49,6 +49,12 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
         return result;
     }
 
+    public OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLSymmetricObjectPropertyAxiom(getProperty());
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

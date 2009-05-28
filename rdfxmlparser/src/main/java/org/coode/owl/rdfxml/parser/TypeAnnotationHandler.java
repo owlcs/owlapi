@@ -38,6 +38,5 @@ public class TypeAnnotationHandler extends BuiltInTypeHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         getConsumer().addAnnotationURI(subject);
-        System.out.println("ANNOTATION! " + subject);
     }
 }

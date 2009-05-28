@@ -39,6 +39,12 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
         super(dataFactory, property, annotations);
     }
 
+    public OWLReflexiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLReflexiveObjectPropertyAxiom(getProperty());
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

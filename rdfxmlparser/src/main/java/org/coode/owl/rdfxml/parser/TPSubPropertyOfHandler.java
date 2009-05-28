@@ -60,13 +60,13 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
             // Property chain
             URI chainList = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getURI(), true);
             List<OWLObjectPropertyExpression> properties = getConsumer().translateToObjectPropertyList(chainList);
-            addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(properties, translateObjectProperty(object)));
+            addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(properties, translateObjectProperty(object), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
         else if (getConsumer().isList(subject, false)) {
             // Legacy object property chain representation
             List<OWLObjectPropertyExpression> properties = getConsumer().translateToObjectPropertyList(subject);
-            addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(properties, translateObjectProperty(object)));
+            addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(properties, translateObjectProperty(object), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
         // If any one of the properties is an object property then assume both are
@@ -80,7 +80,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
         else if (getConsumer().isAnnotationProperty(subject)) {
             OWLAnnotationProperty subAnnoProp = getDataFactory().getOWLAnnotationProperty(subject);
             OWLAnnotationProperty superAnnoProp = getDataFactory().getOWLAnnotationProperty(object);
-            addAxiom(getDataFactory().getOWLSubAnnotationPropertyOfAxiom(subAnnoProp, superAnnoProp));
+            addAxiom(getDataFactory().getOWLSubAnnotationPropertyOfAxiom(subAnnoProp, superAnnoProp, getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
         else {
@@ -119,7 +119,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
                                             URI predicate,
                                             URI object) throws OWLException {
         // Object - object
-        addAxiom(getDataFactory().getOWLSubObjectPropertyOfAxiom(translateObjectProperty(subject), translateObjectProperty(object)));
+        addAxiom(getDataFactory().getOWLSubObjectPropertyOfAxiom(translateObjectProperty(subject), translateObjectProperty(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 
@@ -128,7 +128,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
                                           URI predicate,
                                           URI object) throws OWLException {
         // Data - Data
-        addAxiom(getDataFactory().getOWLSubDataPropertyOfAxiom(translateDataProperty(subject), translateDataProperty(object)));
+        addAxiom(getDataFactory().getOWLSubDataPropertyOfAxiom(translateDataProperty(subject), translateDataProperty(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 }

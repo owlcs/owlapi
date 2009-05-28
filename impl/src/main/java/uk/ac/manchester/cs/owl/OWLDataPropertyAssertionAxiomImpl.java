@@ -40,6 +40,12 @@ public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationship
         super(dataFactory, subject, property, value, annotations);
     }
 
+    public OWLDataPropertyAssertionAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(getSubject(), getProperty(), getObject());
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

@@ -40,6 +40,12 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
         super(dataFactory, subject, property, object, annotations);
     }
 
+    public OWLNegativeObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(getSubject(), getProperty(), getObject());
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

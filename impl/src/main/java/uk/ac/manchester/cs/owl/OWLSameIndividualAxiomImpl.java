@@ -39,6 +39,12 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         super(dataFactory, individuals, annotations);
     }
 
+    public OWLSameIndividualAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLSameIndividualAxiom(getIndividuals());
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

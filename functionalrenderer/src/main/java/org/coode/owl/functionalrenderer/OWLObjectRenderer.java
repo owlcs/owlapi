@@ -818,8 +818,10 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         write("\"");
         write(EscapeUtils.escapeString(node.getLiteral()));
         write("\"");
-        write("@");
-        write(node.getLang());
+        if (node.getLang() != null) {
+            write("@");
+            write(node.getLang());
+        }
     }
 
 

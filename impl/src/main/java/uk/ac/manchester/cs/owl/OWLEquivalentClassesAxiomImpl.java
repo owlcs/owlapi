@@ -43,6 +43,12 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         namedClasses = null;
     }
 
+    public OWLEquivalentClassesAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLEquivalentClassesAxiom(getClassExpressions());
+    }
 
     public boolean containsNamedEquivalentClass() {
         return !getNamedClasses().isEmpty();

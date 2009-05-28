@@ -52,6 +52,13 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
     }
 
 
+    public OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLSubPropertyChainOfAxiom(getPropertyChain(), getSuperProperty());
+    }
+
     public List<OWLObjectPropertyExpression> getPropertyChain() {
         return Collections.unmodifiableList(propertyChain);
     }

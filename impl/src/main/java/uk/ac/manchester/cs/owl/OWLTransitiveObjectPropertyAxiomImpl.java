@@ -39,6 +39,12 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         super(dataFactory, property, annotations);
     }
 
+    public OWLTransitiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(getProperty());
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

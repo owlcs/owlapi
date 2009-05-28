@@ -1,10 +1,11 @@
-package org.semanticweb.owl.util;
+package org.semanticweb.owl.api.test;
 
-import org.semanticweb.owl.model.OWLOntologyURIMapper;
+import org.semanticweb.owl.model.*;
 
-import java.net.URI;
+import java.util.Set;
+import java.util.HashSet;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -26,19 +27,17 @@ import java.net.URI;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br><br>
- *
- * An ontology URI mapper that simply returns the ontology URI
- * without performing any mapping operation.
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 28-May-2009
  */
-public class NonMappingOntologyURIMapper implements OWLOntologyURIMapper {
+public class SubClassOfAxiomAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
-    public URI getPhysicalURI(URI ontologyURI) {
-        return ontologyURI;
+    protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
+        OWLClass clsA = getOWLClass("A");
+        OWLClass clsB = getOWLClass("B");
+        return getFactory().getOWLSubClassOfAxiom(clsA, clsB, annos);
     }
 }

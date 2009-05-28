@@ -40,6 +40,12 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends OWLObjectProper
         super(dataFactory, property, annotations);
     }
 
+    public OWLInverseFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(getProperty());
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

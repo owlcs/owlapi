@@ -44,6 +44,13 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
         this.propertyExpressions = Collections.unmodifiableSortedSet(new TreeSet<OWLPropertyExpression>(propertyExpressions));
     }
 
+    public OWLHasKeyAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLHasKeyAxiom(getClassExpression(), getPropertyExpressions());
+    }
+
     public AxiomType getAxiomType() {
         return AxiomType.HAS_KEY;
     }

@@ -47,6 +47,12 @@ public class OWLDatatypeDefinitionImpl extends OWLAxiomImpl implements OWLDataty
         this.dataRange = dataRange;
     }
 
+    public OWLAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLDatatypeDefinition(getDatatype(), getDataRange());
+    }
 
     public OWLDatatype getDatatype() {
         return datatype;

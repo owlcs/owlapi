@@ -41,6 +41,13 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
         this.range = range;
     }
 
+    public OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLAnnotationPropertyRangeAxiom(getProperty(), getRange());
+    }
+
     public OWLAnnotationProperty getProperty() {
         return property;
     }

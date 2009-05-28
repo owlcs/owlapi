@@ -48,6 +48,12 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
         this.superProperty = superProperty;
     }
 
+    public OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLSubAnnotationPropertyOfAxiom(getSubProperty(), getSuperProperty());
+    }
 
     public OWLAnnotationProperty getSubProperty() {
         return subProperty;

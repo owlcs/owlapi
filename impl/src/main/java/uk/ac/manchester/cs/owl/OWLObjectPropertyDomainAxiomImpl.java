@@ -39,6 +39,12 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
         super(dataFactory, property, domain, annotations);
     }
 
+    public OWLObjectPropertyDomainAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(getProperty(), getDomain());
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

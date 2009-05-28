@@ -46,6 +46,12 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
         this.classExpression = classExpression;
     }
 
+    public OWLClassAssertionAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLClassAssertionAxiom(getIndividual(), getClassExpression());
+    }
 
     public OWLClassExpression getClassExpression() {
         return classExpression;

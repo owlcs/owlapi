@@ -184,6 +184,8 @@ public class OWLRDFConsumer implements RDFConsumer {
     // relationships between an individual and another individual.
     private List<AbstractResourceTripleHandler> resourceTripleHandlers;
 
+    private Set<OWLAnnotation> pendingAnnotations = new HashSet<OWLAnnotation>();
+
     /**
      * The ontology that the RDF will be parsed into
      */
@@ -356,6 +358,11 @@ public class OWLRDFConsumer implements RDFConsumer {
         synonymMap = CollectionFactory.createMap();
         // Legacy protege-owl representation of QCRs
         synonymMap.put(URI.create(Namespaces.OWL + "valuesFrom"), OWL_ON_CLASS.getURI());
+
+        // Intermediate OWL 2 spec
+        synonymMap.put(OWL_SUBJECT.getURI(), OWL_ANNOTATED_SOURCE.getURI());
+        synonymMap.put(OWL_PREDICATE.getURI(), OWL_ANNOTATED_PROPERTY.getURI());
+        synonymMap.put(OWL_OBJECT.getURI(), OWL_ANNOTATED_TARGET.getURI());
 
         // Preliminary OWL 1.1 Vocab
         synonymMap.put(URI.create(Namespaces.OWL + "cardinalityType"), OWL_ON_CLASS.getURI());
@@ -581,6 +588,27 @@ public class OWLRDFConsumer implements RDFConsumer {
     private Map<String, URI> uriMap = CollectionFactory.createMap();
 
     int currentBaseCount = 0;
+
+    /**
+     * Gets any annotations that were translated since the last call of this method (calling
+     * this method clears the current pending annotations)
+     * @return The set (possibly empty) of pending annotations.
+     */
+    public Set<OWLAnnotation> getPendingAnnotations() {
+        if (!pendingAnnotations.isEmpty()) {
+            Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>(pendingAnnotations);
+            pendingAnnotations.clear();
+            return annos;
+        }
+        else {
+            return Collections.emptySet();
+        }
+    }
+
+    public void setPendingAnnotations(Set<OWLAnnotation> annotations) {
+        pendingAnnotations.clear();
+        pendingAnnotations.addAll(annotations);
+    }
 
 
     private URI getURI(String s) {
@@ -1494,11 +1522,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         if (datatype != null) {
             return dataFactory.getOWLTypedLiteral(literal, dataFactory.getOWLDatatype(getURI(datatype)));
         } else {
-            if (lang != null) {
-                return dataFactory.getOWLStringLiteral(literal, lang);
-            } else {
-                return dataFactory.getOWLTypedLiteral(literal);
-            }
+            return dataFactory.getOWLStringLiteral(literal, lang);
         }
     }
 
@@ -1622,9 +1646,35 @@ public class OWLRDFConsumer implements RDFConsumer {
     public OWLIndividual translateIndividual(URI node) throws OWLException {
         return getOWLIndividual(node);
     }
-
-    public Set<OWLAnnotation> translateAnnotations(URI subject, URI predicate) {
-        return Collections.emptySet();
+    
+    public Set<OWLAnnotation> translateAnnotations(URI subject) {
+        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
+        Set<URI> predicates = getPredicatesBySubject(subject);
+        for(URI predicate : predicates) {
+//            if(isAnnotationProperty(predicate)) {
+                System.out.println("ANNO PROP: " + subject);
+                URI resVal = getResourceObject(subject, predicate, true);
+                while(resVal != null) {
+                    OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(predicate);
+                    OWLAnnotationValue val;
+                    if(isAnonymousNode(resVal)) {
+                        val = getDataFactory().getOWLAnonymousIndividual(resVal.toString());
+                    }
+                    else {
+                        val = IRI.create(resVal);
+                    }
+                    annos.add(getDataFactory().getOWLAnnotation(prop, val));
+                    resVal = getResourceObject(subject, predicate, true);
+                }
+                OWLLiteral litVal = getLiteralObject(subject, predicate, true);
+                while(litVal != null) {
+                    OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(predicate);
+                    annos.add(getDataFactory().getOWLAnnotation(prop, litVal));
+                    litVal = getLiteralObject(subject, predicate, true);
+                }
+//            }
+        }
+        return annos;
     }
 
     private Map<URI, OWLClassExpression> translatedClassExpression = new HashMap<URI, OWLClassExpression>();

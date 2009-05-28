@@ -43,7 +43,7 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
 
 
     public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
-        return getConsumer().isAnnotationProperty(predicate);
+        return !isAnonymous(subject) && getConsumer().isAnnotationProperty(predicate);
     }
 
 
@@ -61,7 +61,7 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
             getConsumer().addOntologyAnnotation(anno);
         }
         else {
-            OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(getConsumer().getDataFactory().getIRI(subject), anno);
+            OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(getConsumer().getDataFactory().getIRI(subject), anno, getPendingAnnotations());
             addAxiom(decAx);
         }
     }

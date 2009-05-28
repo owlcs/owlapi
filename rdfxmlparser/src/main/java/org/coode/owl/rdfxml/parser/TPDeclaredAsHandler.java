@@ -48,13 +48,13 @@ public class TPDeclaredAsHandler extends TriplePredicateHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         if (object.equals(OWLRDFVocabulary.OWL_CLASS.getURI())) {
-            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLClass(subject)));
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLClass(subject), getPendingAnnotations()));
         } else if (object.equals(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI())) {
-            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLObjectProperty(subject)));
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLObjectProperty(subject), getPendingAnnotations()));
         } else if (object.equals(OWLRDFVocabulary.OWL_DATA_PROPERTY.getURI())) {
-            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDataProperty(subject)));
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDataProperty(subject), getPendingAnnotations()));
         } else if (object.equals(OWLRDFVocabulary.OWL_DATATYPE.getURI())) {
-            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDatatype(subject)));
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDatatype(subject), getPendingAnnotations()));
         }
     }
 }

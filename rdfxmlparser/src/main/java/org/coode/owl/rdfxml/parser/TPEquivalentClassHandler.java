@@ -57,13 +57,13 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
         if(getConsumer().isDataRange(object) || getConsumer().isDataRange(subject)) {
             OWLDatatype datatype = getDataFactory().getOWLDatatype(subject);
             OWLDataRange dataRange = getConsumer().translateDataRange(object);
-            addAxiom(getDataFactory().getOWLDatatypeDefinition(datatype, dataRange));
+            addAxiom(getDataFactory().getOWLDatatypeDefinition(datatype, dataRange, getPendingAnnotations()));
         }
         else {
             Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
             operands.add(translateClassExpression(subject));
             operands.add(translateClassExpression(object));
-            addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands));
+            addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands, getPendingAnnotations()));
         }
         consumeTriple(subject, predicate, object);
 

@@ -52,6 +52,19 @@ public interface OWLAxiom extends OWLObject {
      */
     boolean isLogicalAxiom();
 
+    /**
+     * Determines if this axiom has any annotations on it
+     * @return <code>true</code> if this axiom has annotations on it, otherwise <code>false</code>
+     */
+    boolean isAnnotated();
+
+    /**
+     * Gets an axiom that is structurally equivalent to this axiom without annotations.  This essentially
+     * returns a version of this axiom stripped of any annotations
+     * @return The annotationless version of this axiom
+     */
+    OWLAxiom getAxiomWithoutAnnotations();
+
 
     /**
      * A convenience method that obtains the entities that this axiom

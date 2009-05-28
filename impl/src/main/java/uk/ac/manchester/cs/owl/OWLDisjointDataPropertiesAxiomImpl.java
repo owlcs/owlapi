@@ -40,6 +40,12 @@ public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl
         super(dataFactory, properties, annotations);
     }
 
+    public OWLDisjointDataPropertiesAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLDisjointDataPropertiesAxiom(getProperties());
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

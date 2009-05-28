@@ -47,8 +47,7 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
 
 
     public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) throws OWLException {
-        // If the property is an annotation prop then yes we can
-        return getConsumer().isAnnotationProperty(predicate);
+        return !isAnonymous(subject) && getConsumer().isAnnotationProperty(predicate);
     }
 
 
@@ -63,7 +62,7 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
             getConsumer().addOntologyAnnotation(getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), object));
         }
         else {
-            OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getIRI(subject), getDataFactory().getOWLAnnotationProperty(predicate), object);
+            OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getIRI(subject), getDataFactory().getOWLAnnotationProperty(predicate), object, getPendingAnnotations());
             addAxiom(ax);
         }
     }

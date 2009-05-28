@@ -1,9 +1,9 @@
 package org.semanticweb.owl.api.test;
 
 import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.util.OWLEntityCollector;
 
 import java.util.Set;
-import java.util.Collections;
 import java.util.HashSet;
 /*
  * Copyright (C) 2009, University of Manchester
@@ -34,31 +34,27 @@ import java.util.HashSet;
  * Information Management Group<br>
  * Date: 28-May-2009
  */
-public class HasKeyAnnotatedTestCase extends AbstractAxiomsRoundTrippingTestCase {
+public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-
-    protected Set<? extends OWLAxiom> createAxioms() {
-        OWLAnnotationProperty ap = getFactory().getOWLAnnotationProperty(IRI.create("http://annotation.com/annos#prop"));
-        OWLLiteral val = getFactory().getOWLStringLiteral("Test", null);
-        OWLAnnotation anno = getFactory().getOWLAnnotation(ap, val);
+    final protected Set<? extends OWLAxiom> createAxioms() {
+        OWLAnnotationProperty prop = getOWLAnnotationProperty("prop");
+        OWLLiteral lit = getFactory().getOWLStringLiteral("Test", null);
+        OWLAnnotation anno1 = getFactory().getOWLAnnotation(prop, lit);
+        OWLAnnotationProperty prop2 = getOWLAnnotationProperty("prop2");
+        OWLAnnotation anno2 = getFactory().getOWLAnnotation(prop2, lit);
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
-        annos.add(anno);
-        OWLClassExpression ce = getOWLClass("A");
-        OWLObjectProperty p1 = getOWLObjectProperty("p1");
-        OWLObjectProperty p2 = getOWLObjectProperty("p2");
-        OWLObjectProperty p3 = getOWLObjectProperty("p3");
-
-        Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
-        props.add(p1);
-        props.add(p2);
-        props.add(p3);
-        OWLHasKeyAxiom ax = getFactory().getOWLHasKeyAxiom(ce, props, annos);
-        Set<OWLAxiom> axs = new HashSet<OWLAxiom>();
-        axs.add(ax);
-        axs.add(getFactory().getOWLDeclarationAxiom(ap));
-        axs.add(getFactory().getOWLDeclarationAxiom(p1));
-        axs.add(getFactory().getOWLDeclarationAxiom(p2));
-        axs.add(getFactory().getOWLDeclarationAxiom(p3));
-        return axs;
+        annos.add(anno1);
+        annos.add(anno2);
+        OWLAxiom ax = getMainAxiom(annos);
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        axioms.add(ax);
+        OWLEntityCollector entityCollector = new OWLEntityCollector();
+        ax.accept(entityCollector);
+        for(OWLEntity ent : entityCollector.getObjects()) {
+            axioms.add(getFactory().getOWLDeclarationAxiom(ent));
+        }
+        return axioms;
     }
+
+    protected abstract OWLAxiom getMainAxiom(Set<OWLAnnotation> annos);
 }

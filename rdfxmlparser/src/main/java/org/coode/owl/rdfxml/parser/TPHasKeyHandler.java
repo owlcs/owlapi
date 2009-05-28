@@ -50,6 +50,6 @@ public class TPHasKeyHandler extends TriplePredicateHandler {
         consumeTriple(subject, predicate, object);
         OWLClassExpression ce = translateClassExpression(subject);
         Set<OWLPropertyExpression> props = listTranslator.translateToSet(object);
-        addAxiom(getDataFactory().getOWLHasKeyAxiom(ce, props));
+        addAxiom(getDataFactory().getOWLHasKeyAxiom(ce, props, getPendingAnnotations()));
     }
 }

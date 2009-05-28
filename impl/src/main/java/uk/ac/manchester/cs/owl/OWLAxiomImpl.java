@@ -53,6 +53,10 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
         }
     }
 
+    public boolean isAnnotated() {
+        return !annotations.isEmpty();
+    }
+
     public Set<OWLAnnotation> getAnnotations() {
         return annotations;
     }
@@ -64,7 +68,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
         if (!(obj instanceof OWLAxiom)) {
             return false;
         }
-        return annotations.equals(((OWLAxiom) obj).getAnnotations());
+        OWLAxiom other = (OWLAxiom) obj;
+        return annotations.equals(other.getAnnotations());
     }
 
 

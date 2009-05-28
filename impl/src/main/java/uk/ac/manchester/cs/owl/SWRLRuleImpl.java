@@ -74,6 +74,12 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
         this.consequent = new TreeSet<SWRLAtom>(consequent);
     }
 
+    public SWRLRule getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getSWRLRule(getURI(), isAnonymous(), getBody(), getHead());
+    }
 
     public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> antecedent, Set<? extends SWRLAtom> consequent) {
         this(dataFactory, true, URI.create("http://www.semanticweb.org/swrl#" + System.nanoTime()), antecedent, consequent, new ArrayList<OWLAnnotation>(0));

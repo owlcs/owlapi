@@ -59,7 +59,7 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
         addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(
                 translateIndividual(subject),
                 translateDataProperty(predicate),
-                object
+                object, getPendingAnnotations()
         ));
         consumeTriple(subject, predicate, object);
     }

@@ -46,6 +46,13 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
         this.second = second;
     }
 
+    public OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(getFirstProperty(), getSecondProperty());
+    }
+
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

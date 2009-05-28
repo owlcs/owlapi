@@ -63,7 +63,7 @@ public class TPTypeHandler extends TriplePredicateHandler {
         }
         addAxiom(getDataFactory().getOWLClassAssertionAxiom(
                 translateIndividual(subject),
-                translateClassExpression(object)));
+                translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 }

@@ -47,7 +47,7 @@ public class TypeReflexivePropertyHandler extends BuiltInTypeHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         getConsumer().addOWLObjectProperty(subject);
-        addAxiom(getDataFactory().getOWLReflexiveObjectPropertyAxiom(translateObjectProperty(subject)));
+        addAxiom(getDataFactory().getOWLReflexiveObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 }

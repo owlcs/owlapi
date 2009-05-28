@@ -40,6 +40,12 @@ public class OWLSubObjectPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWL
         super(dataFactory, subProperty, superProperty, annotations);
     }
 
+    public OWLSubObjectPropertyOfAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(getSubProperty(), getSuperProperty());
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

@@ -3,9 +3,11 @@ package org.coode.owl.rdfxml.parser;
 import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLAnnotation;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -62,7 +64,8 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         OWLClassExpression subClass = translateClassExpression(subject);
         OWLClassExpression supClass = translateClassExpression(object);
-        OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(subClass, supClass);
+        Set<OWLAnnotation> pendingAnnotations = getConsumer().getPendingAnnotations();
+        OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(subClass, supClass, pendingAnnotations);
         addAxiom(ax);
         consumeTriple(subject, predicate, object);
     }

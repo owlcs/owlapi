@@ -39,6 +39,12 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         super(dataFactory, property, annotations);
     }
 
+    public OWLFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(getProperty());
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

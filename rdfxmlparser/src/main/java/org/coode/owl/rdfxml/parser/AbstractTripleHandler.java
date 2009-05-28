@@ -3,6 +3,7 @@ package org.coode.owl.rdfxml.parser;
 import org.semanticweb.owl.model.*;
 
 import java.net.URI;
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -46,6 +47,9 @@ public class AbstractTripleHandler {
         return consumer;
     }
 
+    protected Set<OWLAnnotation> getPendingAnnotations() {
+        return consumer.getPendingAnnotations();
+    }
 
     protected void consumeTriple(URI subject, URI predicate, URI object) throws OWLException {
         consumer.consumeTriple(subject, predicate, object);

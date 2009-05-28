@@ -41,6 +41,13 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
         this.property = property;
     }
 
+    public OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLAnnotationPropertyDomainAxiom(getProperty(), getDomain());
+    }
+
     public IRI getDomain() {
         return domain;
     }

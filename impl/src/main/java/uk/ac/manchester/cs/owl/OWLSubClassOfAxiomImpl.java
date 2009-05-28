@@ -49,6 +49,12 @@ public class OWLSubClassOfAxiomImpl extends OWLNaryClassAxiomImpl implements OWL
         this.superClass = superClass;
     }
 
+    public OWLSubClassOfAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLSubClassOfAxiom(getSubClass(), getSuperClass());
+    }
 
     public OWLClassExpression getSubClass() {
         return subClass;

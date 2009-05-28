@@ -53,7 +53,7 @@ public class TPDisjointObjectPropertiesHandler extends TriplePredicateHandler {
         Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
         properties.add(translateObjectProperty(subject));
         properties.add(translateObjectProperty(object));
-        addAxiom(getDataFactory().getOWLDisjointObjectPropertiesAxiom(properties));
+        addAxiom(getDataFactory().getOWLDisjointObjectPropertiesAxiom(properties, getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 }

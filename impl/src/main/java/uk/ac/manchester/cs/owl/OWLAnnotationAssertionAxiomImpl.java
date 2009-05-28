@@ -48,6 +48,13 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         this.value = value;
     }
 
+    public OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations() {
+        if(!isAnnotated()) {
+            return this;
+        }
+        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(getSubject(), getProperty(), getValue());
+    }
+
     public OWLAnnotationValue getValue() {
         return value;
     }

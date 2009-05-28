@@ -2,6 +2,7 @@ package org.coode.owl.rdfxml.parser;
 
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLAnnotationProperty;
+import org.semanticweb.owl.model.IRI;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -69,7 +70,7 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
         }
         else if (getConsumer().isAnnotationProperty(subject)) {
             OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(subject);
-            addAxiom(getDataFactory().getOWLAnnotationPropertyDomainAxiom(prop, getDataFactory().getIRI(object)));
+            addAxiom(getDataFactory().getOWLAnnotationPropertyDomainAxiom(prop, IRI.create(object), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
         else {
@@ -89,7 +90,7 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
     private void translateDataPropertyDomain(URI subject,
                                              URI predicate,
                                              URI object) throws OWLException {
-        addAxiom(getDataFactory().getOWLDataPropertyDomainAxiom(translateDataProperty(subject), translateClassExpression(object)));
+        addAxiom(getDataFactory().getOWLDataPropertyDomainAxiom(translateDataProperty(subject), translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 
@@ -97,7 +98,7 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
     private void translateObjectPropertyDomain(URI subject,
                                                URI predicate,
                                                URI object) throws OWLException {
-        addAxiom(getDataFactory().getOWLObjectPropertyDomainAxiom(translateObjectProperty(subject), translateClassExpression(object)));
+        addAxiom(getDataFactory().getOWLObjectPropertyDomainAxiom(translateObjectProperty(subject), translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 }
