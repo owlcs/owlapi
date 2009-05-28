@@ -48,7 +48,7 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
     public void attribute(String name, String value) throws OWLXMLParserException {
         if (name.equals("ontologyIRI")) {
             try {
-                getOWLOntologyManager().applyChange(new SetOntologyURI(getOntology(), URI.create(value)));
+                getOWLOntologyManager().applyChange(new SetOntologyID(getOntology(), new OWLOntologyID(IRI.create(value))));
             }
             catch (OWLOntologyChangeException e) {
                 throw new OWLXMLParserException(getLineNumber(), e);
@@ -78,9 +78,8 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
 
 
     public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
-        OWLAnnotationAssertionAxiom ax = getOWLDataFactory().getOWLAnnotationAssertionAxiom(getOntology().getIRI(), handler.getOWLObject());
         try {
-            getOWLOntologyManager().applyChange(new AddAxiom(getOntology(), ax));
+            getOWLOntologyManager().applyChange(new AddOntologyAnnotation(getOntology(), handler.getOWLObject()));
         }
         catch (OWLOntologyChangeException e) {
             throw new OWLXMLParserException(getLineNumber(), e);

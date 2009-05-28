@@ -91,7 +91,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
         writer.println("<body>");
         writer.print("<h1>");
         writer.print("Ontology: ");
-        writer.print(ontology.getURI());
+        writer.print(ontology.getOntologyID().toString());
         writer.println("</h1>");
     }
 

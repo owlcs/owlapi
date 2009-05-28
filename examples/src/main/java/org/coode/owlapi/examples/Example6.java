@@ -43,7 +43,7 @@ public class Example6 {
         try {
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
             String base = "http://org.semanticweb.restrictionexample";
-            OWLOntology ont = man.createOntology(URI.create(base));
+            OWLOntology ont = man.createOntology(IRI.create(base));
 
             // In this example we will add an axiom to state that all Heads have
             // parts that are noses (in fact, here we merely state that a Head has
@@ -55,14 +55,14 @@ public class Example6 {
 
             // First we need to obtain references to our hasPart property and our Nose class
             OWLDataFactory factory = man.getOWLDataFactory();
-            OWLObjectProperty hasPart = factory.getOWLObjectProperty(URI.create(base + "#hasPart"));
-            OWLClass nose = factory.getOWLClass(URI.create(base + "#Nose"));
+            OWLObjectProperty hasPart = factory.getOWLObjectProperty(IRI.create(base + "#hasPart"));
+            OWLClass nose = factory.getOWLClass(IRI.create(base + "#Nose"));
             // Now create a restriction to describe the class of individuals that have at least one
             // part that is a kind of nose
             OWLClassExpression hasPartSomeNose = factory.getOWLObjectSomeValuesFrom(hasPart, nose);
 
             // Obtain a reference to the Head class so that we can specify that Heads have noses
-            OWLClass head = factory.getOWLClass(URI.create(base + "#Head"));
+            OWLClass head = factory.getOWLClass(IRI.create(base + "#Head"));
             // We now want to state that Head is a subclass of hasPart some Nose, to do this we
             // create a subclass axiom, with head as the subclass and "hasPart some Nose" as the
             // superclass (remember, restrictions are also classes - they describe classes of individuals

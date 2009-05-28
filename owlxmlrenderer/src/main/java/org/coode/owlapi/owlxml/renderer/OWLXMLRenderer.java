@@ -71,17 +71,6 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
 
             OWLXMLWriter w = new OWLXMLWriter(writer, ontology);
             w.startDocument(ontology);
-            // Write out the prefixes
-            if(ontology.getURI() != null) {
-                OntologyURIShortFormProvider sfp = new OntologyURIShortFormProvider();
-                String sf = sfp.getShortForm(ontology.getURI());
-                if (sf.trim().length() > 0) {
-                    w.writePrefix(sf, ontology.getURI().toString());
-                }
-
-            }
-
-
             w.writePrefix("rdf", Namespaces.RDF.toString());
             w.writePrefix("rdfs", Namespaces.RDFS.toString());
             w.writePrefix("xsd", Namespaces.XSD.toString());

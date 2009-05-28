@@ -3,10 +3,7 @@ package uk.ac.manchester.owl.tutorial.examples;
 import gnu.getopt.Getopt;
 import gnu.getopt.LongOpt;
 import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owl.model.*;
 import uk.ac.manchester.owl.tutorial.ClosureAxioms;
 
 import java.net.URI;
@@ -113,7 +110,7 @@ public class ClosureAxiomsExample {
             }
 
             URI physicalURI = URI.create(inputOntology);
-            URI classURI = URI.create(classToClose);
+            IRI classIRI = IRI.create(classToClose);
             URI outputURI = URI.create(outputOntology);
 
             /* Load an ontology */
@@ -122,14 +119,14 @@ public class ClosureAxiomsExample {
                     .loadOntologyFromPhysicalURI(physicalURI);
             System.out.println("Ontology Loaded...");
             System.out.println("Logical URI : " + physicalURI);
-            System.out.println("Physical URI: " + ontology.getURI());
+            System.out.println("Physical URI: " + ontology.getOntologyID());
             System.out.println("Format      : "
                     + manager.getOntologyFormat(ontology));
 
             ClosureAxioms closureAxioms = new ClosureAxioms(manager, ontology);
 
-            OWLClass clazz = manager.getOWLDataFactory().getOWLClass(classURI);
-            System.out.println("Class URI   : " + classURI);
+            OWLClass clazz = manager.getOWLDataFactory().getOWLClass(classIRI);
+            System.out.println("Class URI   : " + classIRI);
             System.out.println(clazz);
 
             /* Add the closure axioms */

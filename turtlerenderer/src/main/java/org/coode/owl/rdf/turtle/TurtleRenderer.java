@@ -9,6 +9,7 @@ import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.VersionInfo;
 import org.semanticweb.owl.util.DefaultPrefixManager;
 import org.semanticweb.owl.vocab.XSDVocabulary;
+import org.semanticweb.owl.vocab.Namespaces;
 
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -50,7 +51,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
     private Set<RDFResourceNode> pending;
 
-    private PrefixManager pm;
+    private DefaultPrefixManager pm;
 
     private String base;
 
@@ -59,7 +60,10 @@ public class TurtleRenderer extends RDFRendererBase {
         super(ontology, manager);
         this.writer = new PrintWriter(writer);
         pending = new HashSet<RDFResourceNode>();
-        pm = new DefaultPrefixManager(ontology.getURI() + "#");
+        pm = new DefaultPrefixManager();
+        if(!ontology.isAnonymous()) {
+            pm.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI() + "#");
+        }
         base = "";
     }
 
@@ -134,15 +138,15 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
 
-    private void write(URI uri) {
+    private void write(IRI iri) {
 
-        if (uri.equals(getOntology().getURI())) {
-            writeAsURI(uri.toString());
+        if (iri.equals(getOntology().getOntologyID().getOntologyIRI())) {
+            writeAsURI(iri.toString());
         } else {
-            String name = pm.getPrefixIRI(uri);
+            String name = pm.getPrefixIRI(iri);
             if (name == null) {
                 // No QName!
-                writeAsURI(uri.toString());
+                writeAsURI(iri.toString());
             } else {
                 if (name.indexOf(':') != -1) {
                     write(name);
@@ -185,7 +189,7 @@ public class TurtleRenderer extends RDFRendererBase {
             } else {
                 writeStringLiteral(node.getLiteral());
                 write("^^");
-                write(node.getDatatype());
+                write(IRI.create(node.getDatatype()));
             }
         } else {
             writeStringLiteral(node.getLiteral());
@@ -212,7 +216,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
     private void write(RDFResourceNode node) {
         if (!node.isAnonymous()) {
-            write(node.getURI());
+            write(IRI.create(node.getURI()));
         } else {
             pushTab();
             if (!isObjectList(node)) {
@@ -253,7 +257,12 @@ public class TurtleRenderer extends RDFRendererBase {
         writeNamespaces();
         write("@base ");
         write("<");
-        write(getOntology().getURI().toString());
+        if (!getOntology().isAnonymous()) {
+            write(getOntology().getOntologyID().getOntologyIRI().toString());
+        }
+        else {
+            write(Namespaces.OWL.toString());
+        }
         write("> .");
         writeNewLine();
         writeNewLine();

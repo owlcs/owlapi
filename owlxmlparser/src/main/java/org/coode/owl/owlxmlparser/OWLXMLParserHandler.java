@@ -1,9 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.vocab.Namespaces;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 import static org.semanticweb.owl.vocab.OWLXMLVocabulary.*;
@@ -591,28 +588,31 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
-    private Map<String, URI> uriMap = new HashMap<String, URI>();
+    private Map<String, IRI> iriMap = new HashMap<String, IRI>();
 
-    public URI getIRI(String iri) throws OWLXMLParserException {
+    public IRI getIRI(String iriStr) throws OWLXMLParserException {
         try {
-            URI uri = uriMap.get(iri);
-            if (uri == null) {
-                uri = new URI(iri);
+            IRI iri = iriMap.get(iriStr);
+            if (iri == null) {
+                URI uri = new URI(iriStr);
                 if (!uri.isAbsolute()) {
                     URI base = getBase();
                     if (base == null)
                         throw new OWLXMLParserException(getLineNumber(), "Unable to resolve relative URI");
-                    uri = getBase().resolve(uri);
+                    iri = IRI.create(getBase().resolve(uri));
                 }
-                uriMap.put(iri, uri);
+                else {
+                    iri = IRI.create(uri);
+                }
+                iriMap.put(iriStr, iri);
             }
-            return uri;
+            return iri;
         } catch (URISyntaxException e) {
             throw new OWLXMLParserException(getLineNumber(), e);
         }
     }
 
-    public URI getAbbreviatedIRI(String abbreviatedIRI) throws OWLXMLParserException {
+    public IRI getAbbreviatedIRI(String abbreviatedIRI) throws OWLXMLParserException {
         int sepIndex = abbreviatedIRI.indexOf(':');
         if(sepIndex == -1) {
             throw new OWLXMLParserException(getLineNumber(), abbreviatedIRI + " is not an abbreviated IRI");
@@ -629,9 +629,9 @@ public class OWLXMLParserHandler extends DefaultHandler {
         return getIRI(sb.toString());
     }
 //
-//    public URI getURI(String string) throws OWLXMLParserException {
+//    public URI getIRI(String string) throws OWLXMLParserException {
 //        try {
-//            URI uri = uriMap.get(string);
+//            URI uri = iriMap.get(string);
 //            if (uri == null) {
 //                uri = new URI(string);
 //                if (!uri.isAbsolute()) {
@@ -640,7 +640,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
 //                        throw new OWLXMLParserException(getLineNumber(), "Unable to resolve relative URI");
 //                    uri = getBase().resolve(uri);
 //                }
-//                uriMap.put(string, uri);
+//                iriMap.put(string, uri);
 //            }
 //            return uri;
 //        }

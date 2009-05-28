@@ -225,6 +225,10 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return ontologyID;
     }
 
+    public boolean isAnonymous() {
+        return getOntologyID().isAnonymous();
+    }
+
     public IRI getIRI() {
         return getOntologyID().getOntologyIRI();
     }
@@ -1250,16 +1254,6 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 axiom.accept(changeVisitor);
                 appliedChanges.add(change);
                 handleAxiomRemoved(axiom);
-            }
-        }
-
-
-        public void visit(SetOntologyURI change) {
-            URI newOntURI = change.getNewURI();
-            OWLOntologyID id = new OWLOntologyID(getOWLDataFactory().getIRI(newOntURI), ontologyID.getVersionIRI());
-            if (!id.equals(ontologyID)) {
-                appliedChanges.add(change);
-                ontologyID = id;
             }
         }
 

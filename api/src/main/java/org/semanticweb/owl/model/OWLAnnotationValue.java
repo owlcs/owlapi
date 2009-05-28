@@ -32,5 +32,8 @@ package org.semanticweb.owl.model;
  */
 public interface OWLAnnotationValue extends OWLAnnotationObject {
 
+    void accept(OWLAnnotationValueVisitor visitor);
+
+    <O> O accept(OWLAnnotationValueVisitorEx<O> visitor);
 }
 

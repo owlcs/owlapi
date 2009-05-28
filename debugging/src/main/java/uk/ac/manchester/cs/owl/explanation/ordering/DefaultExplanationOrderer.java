@@ -71,9 +71,9 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         entitiesByAxiomRHS = new HashMap<OWLAxiom, Set<OWLEntity>>();
         seedExtractor = new SeedExtractor();
         man = OWLManager.createOWLOntologyManager();
-        man.addURIMapper(new OWLOntologyURIMapper() {
-            public URI getPhysicalURI(URI ontologyURI) {
-                return ontologyURI;
+        man.addIRIMapper(new OWLOntologyIRIMapper() {
+            public URI getPhysicalURI(IRI ontologyIRI) {
+                return ontologyIRI.toURI();
             }
         });
         mappedAxioms = new HashMap<OWLObject, Set<OWLAxiom>>();
@@ -258,7 +258,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
             if (ont != null) {
                 man.removeOntology(ont);
             }
-            ont = man.createOntology(URI.create("http://www.semanticweb.org/ontology" + System.currentTimeMillis()));
+            ont = man.createOntology(IRI.create("http://www.semanticweb.org/ontology" + System.currentTimeMillis()));
 
             List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
             for (OWLAxiom ax : currentExplanation) {

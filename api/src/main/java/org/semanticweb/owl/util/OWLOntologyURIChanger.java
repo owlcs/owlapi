@@ -2,7 +2,6 @@ package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.*;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 /*
@@ -52,19 +51,19 @@ public class OWLOntologyURIChanger {
      * Changes the URI of the specified ontology to the new URI.
      *
      * @param ontology The ontology whose URI is to be changed.
-     * @param newURI   The new URI for the ontology
+     * @param newIRI
      * @return A list of changes, which when applied will change the URI of the
      *         specified ontology, and also update the imports declarations in any ontologies
      *         which import the specified ontology.
      */
-    public List<OWLOntologyChange> getChanges(OWLOntology ontology, URI newURI) {
+    public List<OWLOntologyChange> getChanges(OWLOntology ontology, IRI newIRI) {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
-        changes.add(new SetOntologyURI(ontology, newURI));
+        changes.add(new SetOntologyID(ontology, new OWLOntologyID(newIRI, ontology.getOntologyID().getVersionIRI())));
         for (OWLOntology ont : owlOntologyManager.getOntologies()) {
             for (OWLImportsDeclaration decl : ont.getImportsDeclarations()) {
-                if (decl.getURI().equals(ontology.getURI())) {
+                if (decl.getIRI().equals(ontology.getOntologyID().getOntologyIRI())) {
                     changes.add(new RemoveImport(ont, decl));
-                    changes.add(new AddImport(ont, owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(newURI)));
+                    changes.add(new AddImport(ont, owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(newIRI)));
                 }
             }
         }

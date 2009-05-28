@@ -94,7 +94,7 @@ public class Debugger {
         }
 
         writer.println("<h1>Ontology Debugging Report</h1>");
-        writer.println("<p>Ontology: " + ontology.getURI() + "</p>");
+        writer.println("<p>Ontology: " + ontology.getOntologyID() + "</p>");
 
         if (unsatisfiables.isEmpty()) {
             writer.println("<p>No Unsatisfiable Classes found</p>");

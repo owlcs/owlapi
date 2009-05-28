@@ -32,14 +32,14 @@ package org.semanticweb.owl.model;
 public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 
     public void testCreation() throws Exception {
-        OWLClassExpression operand = getOWLDataFactory().getOWLClass(createURI());
+        OWLClassExpression operand = getOWLDataFactory().getOWLClass(createIRI());
         OWLObjectComplementOf not = getOWLDataFactory().getOWLObjectComplementOf(operand);
         assertNotNull(not);
     }
 
 
     public void testEqualsPositive() throws Exception {
-        OWLClassExpression operand = getOWLDataFactory().getOWLClass(createURI());
+        OWLClassExpression operand = getOWLDataFactory().getOWLClass(createIRI());
         OWLObjectComplementOf notA = getOWLDataFactory().getOWLObjectComplementOf(operand);
         OWLObjectComplementOf notB = getOWLDataFactory().getOWLObjectComplementOf(operand);
         assertEquals(notA, notB);
@@ -47,16 +47,16 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 
 
     public void testEqualsNegative() throws Exception {
-        OWLClassExpression operandA = getOWLDataFactory().getOWLClass(createURI());
+        OWLClassExpression operandA = getOWLDataFactory().getOWLClass(createIRI());
         OWLObjectComplementOf notA = getOWLDataFactory().getOWLObjectComplementOf(operandA);
-        OWLClassExpression operandB = getOWLDataFactory().getOWLClass(createURI());
+        OWLClassExpression operandB = getOWLDataFactory().getOWLClass(createIRI());
         OWLObjectComplementOf notB = getOWLDataFactory().getOWLObjectComplementOf(operandB);
         assertNotEquals(notA, notB);
     }
 
 
     public void testHashCode() throws Exception {
-        OWLClassExpression operand = getOWLDataFactory().getOWLClass(createURI());
+        OWLClassExpression operand = getOWLDataFactory().getOWLClass(createIRI());
         OWLObjectComplementOf notA = getOWLDataFactory().getOWLObjectComplementOf(operand);
         OWLObjectComplementOf notB = getOWLDataFactory().getOWLObjectComplementOf(operand);
         assertEquals(notA.hashCode(), notB.hashCode());

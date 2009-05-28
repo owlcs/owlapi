@@ -1,6 +1,8 @@
 package org.coode.obo.parser;
 
-import org.semanticweb.owl.model.SetOntologyURI;
+import org.semanticweb.owl.model.SetOntologyID;
+import org.semanticweb.owl.model.OWLOntologyID;
+import org.semanticweb.owl.model.IRI;
 
 import java.net.URI;
 /*
@@ -43,6 +45,6 @@ public class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
         // Set the base to be the default base + default namespace
         String uri = OBOVocabulary.ONTOLOGY_URI_BASE + "/" + value.toLowerCase();
         getConsumer().setDefaultNamespace(uri + "#");
-        applyChange(new SetOntologyURI(getOntology(), URI.create(uri)));
+        applyChange(new SetOntologyID(getOntology(), new OWLOntologyID(IRI.create(uri))));
     }
 }

@@ -412,12 +412,12 @@ public class OWLRDFConsumer implements RDFConsumer {
             addLegacyMapping(v);
         }
         for (OWLFacet v : OWLFacet.values()) {
-            synonymMap.put(URI.create(Namespaces.OWL.toString() + v.getShortName()), v.getURI());
-            synonymMap.put(URI.create(Namespaces.OWL11.toString() + v.getShortName()), v.getURI());
-            synonymMap.put(URI.create(Namespaces.OWL2.toString() + v.getShortName()), v.getURI());
+            synonymMap.put(URI.create(Namespaces.OWL.toString() + v.getShortName()), v.getIRI().toURI());
+            synonymMap.put(URI.create(Namespaces.OWL11.toString() + v.getShortName()), v.getIRI().toURI());
+            synonymMap.put(URI.create(Namespaces.OWL2.toString() + v.getShortName()), v.getIRI().toURI());
         }
         for (OWLFacet v : OWLFacet.values()) {
-            synonymMap.put(URI.create(Namespaces.OWL2.toString() + v.getShortName()), v.getURI());
+            synonymMap.put(URI.create(Namespaces.OWL2.toString() + v.getShortName()), v.getIRI().toURI());
         }
     }
 
@@ -1126,9 +1126,9 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
 
             // Do we need to change the ontology URI?
-            if (!ontologyURIs.contains(ontology.getURI())) {
+            if (!ontologyURIs.contains(ontology.getOntologyID().getOntologyIRI().toURI())) {
                 if (ontologyURIs.size() == 1) {
-                    owlOntologyManager.applyChange(new SetOntologyURI(ontology, firstOntologyURI));
+                    owlOntologyManager.applyChange(new SetOntologyID(ontology, new OWLOntologyID(IRI.create(firstOntologyURI))));
                 } else {
                     if (ontologyURIs.isEmpty()) {
                         if (xmlBase == null) {
@@ -1137,19 +1137,19 @@ public class OWLRDFConsumer implements RDFConsumer {
                         } else {
                             logger.fine(
                                     "There are no resources which are typed as ontologies.  Cannot determine the URI of the ontology being parsed - using xml:base.");
-                            owlOntologyManager.applyChange(new SetOntologyURI(ontology, xmlBase));
+                            owlOntologyManager.applyChange(new SetOntologyID(ontology, new OWLOntologyID(IRI.create(xmlBase))));
                         }
                     } else {
                         logger.fine(
                                 "There are multiple resources which are typed as ontologies.  Using the first encountered ontology URI.");
-                        owlOntologyManager.applyChange(new SetOntologyURI(ontology, firstOntologyURI));
+                        owlOntologyManager.applyChange(new SetOntologyID(ontology, new OWLOntologyID(IRI.create(firstOntologyURI))));
                     }
                 }
             }
 
 
             if (tripleProcessor.isLoggable(Level.FINE)) {
-                tripleProcessor.fine("Loaded " + ontology.getURI());
+                tripleProcessor.fine("Loaded " + ontology.getOntologyID());
             }
 
             // First mop up any rules triples
@@ -1454,7 +1454,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
         }
 //        if(addCount < 10000) {
-//            if(!predicate.equals(OWLRDFVocabulary.OWL_ON_PROPERTY.getURI())) {
+//            if(!predicate.equals(OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI())) {
 //                addCount++;
 //            }
 
@@ -1559,11 +1559,11 @@ public class OWLRDFConsumer implements RDFConsumer {
                 restrictions = translateToFacetRestrictionSet(facetRestrictionList);
             } else {
                 // Try the legacy encoding
-                for (URI facetURI : OWLFacet.FACET_URIS) {
+                for (IRI facetIRI : OWLFacet.FACET_IRIS) {
                     OWLLiteral val;
-                    while ((val = getLiteralObject(uri, facetURI, true)) != null) {
+                    while ((val = getLiteralObject(uri, facetIRI.toURI(), true)) != null) {
                         restrictions.add(dataFactory.getOWLFacetRestriction(
-                                OWLFacet.getFacet(facetURI), val));
+                                OWLFacet.getFacet(facetIRI), val));
                     }
                 }
             }

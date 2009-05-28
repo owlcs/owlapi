@@ -537,11 +537,11 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 //        setAxiomWriting();
 //        writeFrameKeyword(ONTOLOGY);
 //        write("<");
-//        write(axiom.getSubject().getURI().toString());
+//        write(axiom.getSubject().getIRI().toString());
 //        write(">");
 //        writeSectionKeyword(IMPORT);
 //        write("<");
-//        write(axiom.getURI().toString());
+//        write(axiom.getIRI().toString());
 //        write(">");
 //        restore();
 //    }
@@ -653,9 +653,12 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         setAxiomWriting();
         if (object instanceof OWLOntology) {
             writeFrameKeyword(ONTOLOGY);
-            write("<");
-            write(((OWLOntology) object).getURI().toString());
-            write(">");
+            OWLOntology ont = (OWLOntology) object;
+            if (!ont.isAnonymous()) {
+                write("<");
+                write(ont.getOntologyID().getOntologyIRI().toString());
+                write(">");
+            }
         }
         else {
             if (object instanceof OWLClassExpression) {

@@ -1,6 +1,5 @@
 package org.semanticweb.owl.model;
 
-import java.net.URI;
 import java.util.Map;
 /*
  * Copyright (C) 2008, University of Manchester
@@ -85,13 +84,13 @@ public interface PrefixManager {
      * @throws OWLRuntimeException if the prefix name of the prefix IRI doesn't have a corresponding prefix managed by this
      *                             manager.
      */
-    URI getURI(String prefixIRI);
+    IRI getIRI(String prefixIRI);
 
     /**
      * Gets the prefix IRI given a IRI (URI).
-     * @param uri The IRI (URI)
+     * @param iri
      * @return The prefix IRI for this IRI, or <code>null</code> if a prefix IRI cannot be generated.
      */
-    String getPrefixIRI(URI uri);
+    String getPrefixIRI(IRI iri);
     
 }

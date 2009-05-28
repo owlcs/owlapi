@@ -40,17 +40,17 @@ public class NNFTestCase extends TestCase {
 
     private OWLDataFactory df = OWLDataFactoryImpl.getInstance();
 
-    private OWLClass clsA = df.getOWLClass(URI.create("A"));
+    private OWLClass clsA = df.getOWLClass(IRI.create("A"));
 
-    private OWLClass clsB = df.getOWLClass(URI.create("B"));
+    private OWLClass clsB = df.getOWLClass(IRI.create("B"));
 
-    private OWLClass clsC = df.getOWLClass(URI.create("C"));
+    private OWLClass clsC = df.getOWLClass(IRI.create("C"));
 
-    private OWLClass clsD = df.getOWLClass(URI.create("D"));
+    private OWLClass clsD = df.getOWLClass(IRI.create("D"));
 
-    private OWLObjectProperty propP = df.getOWLObjectProperty(URI.create("p"));
+    private OWLObjectProperty propP = df.getOWLObjectProperty(IRI.create("p"));
 
-    private OWLIndividual indA = df.getOWLNamedIndividual(URI.create("a"));
+    private OWLIndividual indA = df.getOWLNamedIndividual(IRI.create("a"));
 
     private OWLClassExpression getNNF(OWLClassExpression classExpression) {
         NNF nnf = new NNF(df);

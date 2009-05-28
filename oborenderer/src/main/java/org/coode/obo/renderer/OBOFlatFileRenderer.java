@@ -97,7 +97,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         exceptions.clear();
 
-        final String ontURIStr = ontology.getURI().toString();
+        final String ontURIStr = ontology.getOntologyID().getOntologyIRI().toString();
         if (ontURIStr.endsWith("/")) {
             defaultNamespace = ontURIStr;
         } else {
@@ -568,7 +568,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         sb.append(literal.getLiteral());
         sb.append("\" ");
         if (literal.isTyped()) {
-            sb.append(literal.asOWLTypedLiteral().getDatatype().getURI());
+            sb.append(literal.asOWLStringLiteral().getDatatype().getURI());
         }
         return sb.toString();
     }

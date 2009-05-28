@@ -60,22 +60,22 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     Set<OWLOntology> getOntologies(OWLAxiom axiom);
 
     /**
-     * Gets the versions of the ontology that have the specified URI
+     * Gets the versions of the ontology that have the specified IRI
      *
-     * @param ontology The ontology URI
-     * @return The set of ontologies that have the specified ontology URI.
+     * @param ontology The ontology IRI
+     * @return The set of ontologies that have the specified ontology IRI.
      */
-    Set<OWLOntology> getVersions(URI ontology);
+    Set<OWLOntology> getVersions(IRI ontology);
 
     /**
-     * Determines if there is an ontology with the specified URI that is managed by this manager (the ontology version
+     * Determines if there is an ontology with the specified IRI that is managed by this manager (the ontology version
      * IRI will be matched against any version IRI including <code>null</code>)
      *
-     * @param ontologyURI The URI of the ontology to test for
-     * @return <code>true</code> if there is an ontology with the specified URI that is managed by this manager,
+     * @param ontologyIRI The IRI of the ontology to test for
+     * @return <code>true</code> if there is an ontology with the specified IRI that is managed by this manager,
      *         otherwise <code>false</code>.
      */
-    boolean contains(URI ontologyURI);
+    boolean contains(IRI ontologyIRI);
 
 
     /**
@@ -88,13 +88,15 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     boolean contains(OWLOntologyID id);
 
     /**
-     * Gets a previously loaded/created ontology that corresponds to the specified ontology URI.
+     * Gets a previously loaded/created ontology that corresponds to the specified ontology IRI.
      *
-     * @param ontologyURI The URI of the ontology to be obtained (this is not the physical URI of the ontology).
-     * @return The ontology that has the specified URI.
-     * @throws UnknownOWLOntologyException if there isn't an ontology in this manager which has the specified URI.
+     * @param ontologyIRI The IRI of the ontology to be obtained (this is not the physical IRI of the ontology).
+     * @return The ontology that has the specified IRI.
+     * @throws UnknownOWLOntologyException if there isn't an ontology in this manager which has the specified IRI.
      */
-    OWLOntology getOntology(URI ontologyURI) throws UnknownOWLOntologyException;
+    OWLOntology getOntology(IRI ontologyIRI) throws UnknownOWLOntologyException;
+
+    OWLOntology getOntology(OWLOntologyID ontologyID) throws UnknownOWLOntologyException;
 
 
     /**
@@ -114,7 +116,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @return A set of <code>OWLOntology</code> instances that represent the direct imports of the specified ontology.
      *         If, for what ever reason, an imported ontology could not be loaded, then it will not be contained in the
      *         returned set of ontologies.
-     * @throws UnknownOWLOntologyException if there isn't an ontology in this manager which has the specified URI.
+     * @throws UnknownOWLOntologyException if there isn't an ontology in this manager which has the specified IRI.
      */
     Set<OWLOntology> getImports(OWLOntology ontology) throws UnknownOWLOntologyException;
 
@@ -127,7 +129,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *         will also include the specified ontology. Example: if A imports B and B imports C, then calling this
      *         method with A will return the set consisting of A, B and C. If, for what ever reason, an imported
      *         ontology could not be loaded, then it will not be contained in the returned set of ontologies.
-     * @throws UnknownOWLOntologyException if there isn't an ontology in this manager which has the specified URI.
+     * @throws UnknownOWLOntologyException if there isn't an ontology in this manager which has the specified IRI.
      */
     Set<OWLOntology> getImportsClosure(OWLOntology ontology) throws UnknownOWLOntologyException;
 
@@ -198,7 +200,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Creates a new (empty) ontology that does not have an ontology URI (and therefore does not have a version URI)
+     * Creates a new (empty) ontology that does not have an ontology IRI (and therefore does not have a version IRI)
      *
      * @return The newly created ontology
      * @throws OWLOntologyCreationException if there was a problem creating the ontology
@@ -206,10 +208,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     OWLOntology createOntology() throws OWLOntologyCreationException;
 
     /**
-     * Creates a new ontology that is initialised to contain specific axioms. The ontology will not have a URI.
+     * Creates a new ontology that is initialised to contain specific axioms. The ontology will not have an IRI.
      *
      * @param axioms The axioms that should be copied into the new ontology
-     * @return An ontology without a URI that contains all of the specified axioms
+     * @return An ontology without an IRI that contains all of the specified axioms
      * @throws OWLOntologyCreationException if there was a problem creating the new ontology, if the new ontology
      *                                      already exists in this manager.
      * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
@@ -218,81 +220,81 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     /**
-     * Creates a new ontology that has the specified ontology URI and is initialised to contain specific axioms.
+     * Creates a new ontology that has the specified ontology IRI and is initialised to contain specific axioms.
      *
-     * @param ontologyURI The URI of the new ontology.
+     * @param ontologyIRI The IRI of the new ontology.
      * @param axioms      The axioms that should be copied into the new ontology
-     * @return An ontology that has the specified URI and contains all of the specified axioms
+     * @return An ontology that has the specified IRI and contains all of the specified axioms
      * @throws OWLOntologyCreationException if there was a problem creating the new ontology, if the new ontology
      *                                      already exists in this manager.
      * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
      */
-    OWLOntology createOntology(Set<OWLAxiom> axioms, URI ontologyURI) throws OWLOntologyCreationException,
+    OWLOntology createOntology(Set<OWLAxiom> axioms, IRI ontologyIRI) throws OWLOntologyCreationException,
             OWLOntologyChangeException;
 
 
     /**
-     * Creates a new (empty) ontology that has the specified ontology URI (and no version URI)
+     * Creates a new (empty) ontology that has the specified ontology IRI (and no version IRI)
      *
-     * @param ontologyURI The URI of the ontology to be created.  The ontology URI will be mapped to a physical URI in
+     * @param ontologyIRI The IRI of the ontology to be created.  The ontology IRI will be mapped to a physical IRI in
      *                    order to determine the type of ontology factory that will be used to create the ontology.  If
      *                    this mapping is <code>null</code> then a default (in memory) implementation of the ontology
      *                    will most likely be created.
-     * @return The newly created ontology, or if an ontology with the specified URI already exists then this existing
+     * @return The newly created ontology, or if an ontology with the specified IRI already exists then this existing
      *         ontology will be returned.
      * @throws OWLOntologyCreationException If the ontology could not be created.
      */
-    OWLOntology createOntology(URI ontologyURI) throws OWLOntologyCreationException;
+    OWLOntology createOntology(IRI ontologyIRI) throws OWLOntologyCreationException;
 
 
     /**
-     * Creates a new (empty) ontology that has the specified ontology URI.
+     * Creates a new (empty) ontology that has the specified ontology IRI.
      *
-     * @param ontologyURI The URI of the ontology to be created.  The ontology URI will be mapped to a physical URI in
+     * @param ontologyIRI The IRI of the ontology to be created.  The ontology IRI will be mapped to a physical IRI in
      *                    order to determine the type of ontology factory that will be used to create the ontology.  If
      *                    this mapping is <code>null</code> then a default (in memory) implementation of the ontology
      *                    will most likely be created.
-     * @param versionURI  The version URI of the ontology
-     * @return The newly created ontology, or if an ontology with the specified URI already exists then this existing
+     * @param versionIRI  The version IRI of the ontology
+     * @return The newly created ontology, or if an ontology with the specified IRI already exists then this existing
      *         ontology will be returned.
      * @throws OWLOntologyCreationException If the ontology could not be created.
      */
-    OWLOntology createOntology(URI ontologyURI, URI versionURI) throws OWLOntologyCreationException;
+    OWLOntology createOntology(IRI ontologyIRI, IRI versionIRI) throws OWLOntologyCreationException;
 
 
     /**
-     * Creates a new ontology that has the specified ontology URI and is initialised to contain the axioms that are
+     * Creates a new ontology that has the specified ontology IRI and is initialised to contain the axioms that are
      * contained in the specified ontologies.  Note that the specified ontologies need not be managed by this manager.
      *
-     * @param ontologyURI           The URI of the new ontology.
+     * @param ontologyIRI           The IRI of the new ontology.
      * @param ontologies            The ontologies whose axioms should be copied into the new ontology
      * @param copyLogicalAxiomsOnly If set to <code>true</code> only logical axioms are copied into the new ontology.
      *                              If set to <code>false</code> then all axioms (including annotation axioms) are
      *                              copied into the new ontology.
-     * @return An ontology that has the specified URI and contains all of the axioms that are contained in the specified
+     * @return An ontology that has the specified IRI and contains all of the axioms that are contained in the specified
      *         ontologies possibly minus all non-logical axioms
      * @throws OWLOntologyCreationException if there was a problem creating the new ontology, if the new ontology
      *                                      already exists in this manager.
      * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
      */
-    OWLOntology createOntology(URI ontologyURI, Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly) throws
+    OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly) throws
             OWLOntologyCreationException,
             OWLOntologyChangeException;
 
 
     /**
-     * Creates a new ontology that has the specified ontology URI and is initialised to contain the axioms that are
+     * Creates a new ontology that has the specified ontology IRI and is initialised to contain the axioms that are
      * contained in the specified ontologies.  Note that the specified ontologies need not be managed by this manager.
      *
-     * @param ontologyURI The URI of the new ontology.
+     * @param ontologyIRI The IRI of the new ontology.
      * @param ontologies  The ontologies whose axioms should be copied into the new ontology
-     * @return An ontology that has the specified URI and contains all of the axioms that are contained in the specified
+     * @return An ontology that has the specified IRI and contains all of the axioms that are contained in the specified
      *         ontologies
      * @throws OWLOntologyCreationException if there was a problem creating the new ontology, if the new ontology
      *                                      already exists in this manager.
      * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
      */
-    OWLOntology createOntology(URI ontologyURI, Set<OWLOntology> ontologies) throws OWLOntologyCreationException,
+    OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies) throws OWLOntologyCreationException,
             OWLOntologyChangeException;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -304,16 +306,16 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Loads the ontology specified by the <code>ontologyURI</code> parameter.  Note that this is <b>NOT</b> the
-     * physical URI that points to a concrete representation (e.g. an RDF/XML OWL file) of an ontology.  The mapping to
-     * a physical URI will be determined by using one of the loaded <code>OWLOntologyURIMapper</code>s.
+     * Loads the ontology specified by the <code>ontologyIRI</code> parameter.  Note that this is <b>NOT</b> the
+     * physical IRI that points to a concrete representation (e.g. an RDF/XML OWL file) of an ontology.  The mapping to
+     * a physical IRI will be determined by using one of the loaded <code>OWLOntologyIRIMapper</code>s.
      *
-     * @param ontologyURI The ontology URI (sometimes called logical URI of the ontology to be loaded)
+     * @param ontologyIRI The ontology IRI (sometimes called logical IRI of the ontology to be loaded)
      * @return The <code>OWLOntology</code> representation of the ontology that was loaded.  If an ontology with the
-     *         specified URI is already loaded then that ontology will be returned.
+     *         specified IRI is already loaded then that ontology will be returned.
      * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
      */
-    OWLOntology loadOntology(URI ontologyURI) throws OWLOntologyCreationException;
+    OWLOntology loadOntology(IRI ontologyIRI) throws OWLOntologyCreationException;
 
 
     /**
@@ -334,7 +336,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     OWLOntology loadOntology(OWLOntologyInputSource inputSource) throws OWLOntologyCreationException;
 
     /**
-     * Attempts to remove an ontology.  The ontology which is identified by the specified URI is removed regardless of
+     * Attempts to remove an ontology.  The ontology which is identified by the specified IRI is removed regardless of
      * whether it is referenced by other ontologies via imports statements.
      *
      * @param ontology The ontology to be removed.  If this manager does not manage the ontology then nothing happens.
@@ -343,25 +345,25 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     /**
-     * Gets the physical URI for a given ontology.  This will either be the physical URI from where the ontology was
-     * obtained from during loading, or the physcial URI which was specified (via a mapper) when the (empty) ontology
-     * was created.  Note that this may not correspond to the first physical URI found in the list of mappings from
-     * ontology URI to physcial URI. The reason for this is that it might not have been possible to load the ontology
-     * from the first physical URI found in the mapping table.
+     * Gets the physical IRI for a given ontology.  This will either be the physical IRI from where the ontology was
+     * obtained from during loading, or the physcial IRI which was specified (via a mapper) when the (empty) ontology
+     * was created.  Note that this may not correspond to the first physical IRI found in the list of mappings from
+     * ontology IRI to physcial IRI. The reason for this is that it might not have been possible to load the ontology
+     * from the first physical IRI found in the mapping table.
      *
-     * @param ontology The ontology whose physical URI is to be obtained.
-     * @return The physical URI of the ontology.
+     * @param ontology The ontology whose physical IRI is to be obtained.
+     * @return The physical IRI of the ontology.
      * @throws UnknownOWLOntologyException If the specified ontology is not managed by this manager.
      */
     URI getPhysicalURIForOntology(OWLOntology ontology) throws UnknownOWLOntologyException;
 
 
     /**
-     * Overrides the current physical URI for a given ontology.  This method does not alter the URI mappers which are
+     * Overrides the current physical URI for a given ontology.  This method does not alter the IRI mappers which are
      * installed, but alters the physical URI of an ontology that has already been loaded.
      *
      * @param ontology    The ontology that has already been loaded.
-     * @param physicalURI The new physical URI of the ontology.
+     * @param physicalURI The new physcial URI
      * @throws UnknownOWLOntologyException If the specified ontology is not managed by this manager.
      */
     void setPhysicalURIForOntology(OWLOntology ontology, URI physicalURI) throws UnknownOWLOntologyException;
@@ -388,7 +390,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
     /**
      * Saves the specified ontology.  The ontology will be saved to the location that it was loaded from, or if it was
-     * created programmatically, it will be saved to the location specified by an ontology URI mapper at creation time.
+     * created programmatically, it will be saved to the location specified by an ontology IRI mapper at creation time.
      * The ontology will be saved in the same format which it was loaded from, or the default ontology format if the
      * ontology was created programmatically.
      *
@@ -400,10 +402,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     /**
-     * Saves the specified ontology, using the specified URI to determine where/how the ontology should be saved.
+     * Saves the specified ontology, using the specified IRI to determine where/how the ontology should be saved.
      *
      * @param ontology    The ontology to be saved.
-     * @param physicalURI The physical URI which will be used to determine how and where the ontology will be saved.
+     * @param physicalURI
      * @throws OWLOntologyStorageException If the ontology cannot be saved.
      */
     void saveOntology(OWLOntology ontology, URI physicalURI) throws OWLOntologyStorageException,
@@ -414,7 +416,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
             UnknownOWLOntologyException;
 
 
-    void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, URI physcialURI) throws
+    void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, URI physicalURI) throws
             OWLOntologyStorageException,
             UnknownOWLOntologyException;
 
@@ -429,12 +431,12 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     /**
-     * Adds a mapper to this manager.  The mapper is used to obtain physical URIs for ontology URIs (logical URIs).  The
+     * Adds a mapper to this manager.  The mapper is used to obtain physical IRIs for ontology IRIs (logical IRIs).  The
      * mapper will be added so that it is given the highest priority (i.e. it will be tried first).
      *
      * @param mapper The mapper to be added.
      */
-    void addURIMapper(OWLOntologyURIMapper mapper);
+    void addIRIMapper(OWLOntologyIRIMapper mapper);
 
 
     /**
@@ -442,17 +444,17 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *
      * @param mapper The mapper to be removed.
      */
-    void removeURIMapper(OWLOntologyURIMapper mapper);
+    void removeIRIMapper(OWLOntologyIRIMapper mapper);
 
 
     /**
-     * Clears any installed URI mappers
+     * Clears any installed IRI mappers
      */
-    void clearURIMappers();
+    void clearIRIMappers();
 
 
     /**
-     * Adds an ontology factory that is capable of creating an ontology given a particular physical URI.
+     * Adds an ontology factory that is capable of creating an ontology given a particular physical IRI.
      *
      * @param factory The factory to be added.
      */

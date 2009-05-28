@@ -1,13 +1,11 @@
-package org.coode.owl.rdf;
+package org.semanticweb.owl.util;
 
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.OWLIndividual;
+import org.semanticweb.owl.model.OWLOntologyIRIMapper;
+import org.semanticweb.owl.model.IRI;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.net.URI;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2006, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -34,21 +32,14 @@ import java.util.Set;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 06-Jul-2007<br><br>
+ * Date: 12-Dec-2006<br><br>
+ *
+ * An ontology URI mapper that simply returns the ontology URI
+ * without performing any mapping operation.
  */
-public class TestAnonymousType extends AbstractRendererAndParserTestCase {
+public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper {
 
-
-    protected Set<OWLAxiom> getAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClassExpression desc = getDataFactory().getOWLObjectComplementOf(getDataFactory().getOWLClass(TestUtils.createIRI()));
-        OWLIndividual ind = getDataFactory().getOWLNamedIndividual(TestUtils.createIRI());
-        axioms.add(getDataFactory().getOWLClassAssertionAxiom(ind, desc));
-        return axioms;
-    }
-
-
-    protected String getClassExpression() {
-        return "Anonymous type test case";
+    public URI getPhysicalURI(IRI ontologyIRI) {
+        return ontologyIRI.toURI();
     }
 }

@@ -34,32 +34,32 @@ import java.net.URI;
 public abstract class AbstractOWLEntityTestCase extends AbstractOWLDataFactoryTest {
 
 
-    protected abstract OWLEntity createEntity(URI uri) throws Exception;
+    protected abstract OWLEntity createEntity(IRI iri) throws Exception;
 
     public void testCreation() throws Exception {
-        assertNotNull(createEntity(createURI()));
+        assertNotNull(createEntity(createIRI()));
     }
 
 
     public void testEqualsPositive() throws Exception {
-        URI uri = createURI();
-        OWLEntity entityA = createEntity(uri);
-        OWLEntity entityB = createEntity(uri);
+        IRI iri = createIRI();
+        OWLEntity entityA = createEntity(iri);
+        OWLEntity entityB = createEntity(iri);
         assertEquals(entityA, entityB);
     }
 
 
     public void testEqualsNegative() throws Exception {
-        OWLEntity entityA = createEntity(createURI());
-        OWLEntity entityB = createEntity(createURI());
+        OWLEntity entityA = createEntity(createIRI());
+        OWLEntity entityB = createEntity(createIRI());
         assertNotEquals(entityA, entityB);
     }
 
 
     public void testHashCode() throws Exception {
-        URI uri = createURI();
-        int hashCodeA = createEntity(uri).hashCode();
-        int hashCodeB = createEntity(uri).hashCode();
+        IRI iri = createIRI();
+        int hashCodeA = createEntity(iri).hashCode();
+        int hashCodeB = createEntity(iri).hashCode();
         assertEquals(hashCodeA, hashCodeB);
     }
 }

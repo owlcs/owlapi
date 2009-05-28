@@ -121,7 +121,7 @@ public class OWL2Profile implements OWLProfile {
 //
 //        // Property chain restrictions
 //        for (OWLComplextSubPropertyAxiom ax : ontology.getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
-//            if(ax.getSuperProperty().equals(manager.getOWLDataFactory().getOWLObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI()))) {
+//            if(ax.getSuperProperty().equals(manager.getOWLDataFactory().getOWLObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI()))) {
 //                // 1st condition is
 //                continue;
 //            }
@@ -177,10 +177,10 @@ public class OWL2Profile implements OWLProfile {
 //        Set<URI> dataPropertyURIs = new HashSet<URI>();
 //        for (OWLOntology ont : manager.getImportsClosure(ontology)) {
 //            for (OWLObjectProperty prop : ont.getReferencedObjectProperties()) {
-//                objectPropertyURIs.add(prop.getURI());
+//                objectPropertyURIs.add(prop.getIRI());
 //            }
 //            for (OWLDataProperty prop : ont.getReferencedDataProperties()) {
-//                dataPropertyURIs.add(prop.getURI());
+//                dataPropertyURIs.add(prop.getIRI());
 //            }
 //        }
 //        for (URI uri : objectPropertyURIs) {
@@ -190,7 +190,7 @@ public class OWL2Profile implements OWLProfile {
 //        }
 //
 //
-//        return new OWL2ProfileReport(this, ontology.getURI(), notAllowed, nonSimpleRoles, simpleRoles);
+//        return new OWL2ProfileReport(this, ontology.getIRI(), notAllowed, nonSimpleRoles, simpleRoles);
 //    }
 //
 //    private static Set<ConstructNotAllowed> getSet(ConstructNotAllowed na) {
@@ -1251,7 +1251,7 @@ public class OWL2Profile implements OWLProfile {
 //    public static void main(String[] args) {
 //        try {
 //            OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-//            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://xmlns.com/foaf/0.1"));
+//            OWLOntology ont = man.loadOntologyFromPhysicalURI(IRI.create("http://xmlns.com/foaf/0.1"));
 //            OWL2Profile p = new OWL2Profile();
 //            OWLProfileReport rp = p.checkOntology(ont, man);
 //            System.out.println(rp);

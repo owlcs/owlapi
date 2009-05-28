@@ -49,7 +49,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     private Set<OWLOntology> ontologies;
 
-    private URIShortFormProvider shortFormProvider = new OntologyURIShortFormProvider();
+    private OntologyURIShortFormProvider shortFormProvider = new OntologyURIShortFormProvider();
 
     private Set<AxiomType> filteredAxiomTypes = new HashSet<AxiomType>();
 
@@ -154,14 +154,16 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         write(ONTOLOGY.toString());
         write(":");
         writeSpace();
-        int indent = getIndent();
-        writeFullURI(ontology.getURI().toString());
-        writeNewLine();
-        pushTab(indent);
-        if(ontology.getVersionIRI() != null) {
-           writeFullURI(ontology.getVersionIRI().toURI().toString());
+        if (!ontology.isAnonymous()) {
+            int indent = getIndent();
+            writeFullURI(ontology.getOntologyID().getOntologyIRI().toString());
+            writeNewLine();
+            pushTab(indent);
+            if(ontology.getVersionIRI() != null) {
+               writeFullURI(ontology.getVersionIRI().toURI().toString());
+            }
+            popTab();
         }
-        popTab();
         writeNewLine();
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
             write(IMPORT.toString());
@@ -200,7 +202,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         write(">");
     }
 
-    protected void write(URI uri) {
+    protected void write(IRI uri) {
         String qname = null;
         if(pm != null) {
             qname = getNamespaceManager().getPrefixIRI(uri);
@@ -952,16 +954,12 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         if (ontologies.length == 1) {
             if (defaultOntology != null) {
-//                if (ontologies[0].equals(defaultOntology)) {
-//                    write("[in default]");
-//                    return;
-//                }
             }
         }
         write("[in ");
         int count = 0;
         for (OWLOntology ont : ontologies) {
-            write(shortFormProvider.getShortForm(ont.getURI()));
+            write(shortFormProvider.getShortForm(ont));
             count++;
             if (count < ontologies.length) {
                 write(", ");
@@ -971,72 +969,4 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
 
-    private class EntityDependency implements Comparator<OWLEntity> {
-
-
-        private OWLOntology ont;
-
-        private Set<Set<OWLEntity>> cyclicDependencies;
-
-        public EntityDependency(OWLOntology ont) {
-            this.ont = ont;
-            cyclicDependencies = new HashSet<Set<OWLEntity>>();
-        }
-
-
-        public Set<Set<OWLEntity>> getCyclicDependencies() {
-            return cyclicDependencies;
-        }
-
-
-        public int compare(OWLEntity o1, OWLEntity o2) {
-            Set<? extends OWLAxiom> axioms1 = Collections.emptySet();
-            if (o1.isOWLClass()) {
-                axioms1 = ont.getAxioms(o1.asOWLClass());
-            } else if (o1.isOWLObjectProperty()) {
-                axioms1 = ont.getAxioms(o1.asOWLObjectProperty());
-            } else if (o1.isOWLDataProperty()) {
-                axioms1 = ont.getAxioms(o1.asOWLDataProperty());
-            } else if (o1.isOWLIndividual()) {
-                axioms1 = ont.getAxioms(o1.asOWLIndividual());
-            }
-            OWLEntityCollector collector1 = new OWLEntityCollector();
-            for (OWLAxiom ax1 : axioms1) {
-                ax1.accept(collector1);
-            }
-            Set<OWLEntity> dependents1 = collector1.getObjects();
-            dependents1.remove(o1);
-
-            Set<? extends OWLAxiom> axioms2 = Collections.emptySet();
-            if (o1.isOWLClass()) {
-                axioms2 = ont.getAxioms(o2.asOWLClass());
-            } else if (o1.isOWLObjectProperty()) {
-                axioms2 = ont.getAxioms(o2.asOWLObjectProperty());
-            } else if (o1.isOWLDataProperty()) {
-                axioms2 = ont.getAxioms(o2.asOWLDataProperty());
-            } else if (o1.isOWLIndividual()) {
-                axioms2 = ont.getAxioms(o2.asOWLIndividual());
-            }
-            OWLEntityCollector collector2 = new OWLEntityCollector();
-            for (OWLAxiom ax2 : axioms2) {
-                ax2.accept(collector2);
-            }
-            Set<OWLEntity> dependents2 = collector2.getObjects();
-            dependents2.remove(o2);
-            if (dependents1.contains(o2)) {
-                if (dependents2.contains(o1)) {
-                    // Cyclic dependency!
-                    cyclicDependencies.add(CollectionFactory.createSet(o1, o2));
-                    return 0;
-                }
-                // o1 is dependent on o2
-                return -1;
-            } else if (dependents2.contains(o1)) {
-                // o2 is dependent on o1
-                return 1;
-            }
-            // Not comparable - order doesn't matter
-            return -1;
-        }
-    }
 }

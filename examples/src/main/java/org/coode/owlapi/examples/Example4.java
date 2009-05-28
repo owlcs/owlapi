@@ -46,7 +46,7 @@ public class Example4 {
 
             String base = "http://www.semanticweb.org/ontologies/individualsexample";
 
-            OWLOntology ont = man.createOntology(URI.create(base));
+            OWLOntology ont = man.createOntology(IRI.create(base));
 
             OWLDataFactory dataFactory = man.getOWLDataFactory();
 
@@ -54,11 +54,11 @@ public class Example4 {
             // who is peter.
             // We need a subject and object - matthew is the subject and peter is the
             // object.  We use the data factory to obtain references to these individuals
-            OWLIndividual matthew = dataFactory.getOWLNamedIndividual(URI.create(base + "#matthew"));
-            OWLIndividual peter = dataFactory.getOWLNamedIndividual(URI.create(base + "#peter"));
+            OWLIndividual matthew = dataFactory.getOWLNamedIndividual(IRI.create(base + "#matthew"));
+            OWLIndividual peter = dataFactory.getOWLNamedIndividual(IRI.create(base + "#peter"));
             // We want to link the subject and object with the hasFather property, so use the data factory
             // to obtain a reference to this object property.
-            OWLObjectProperty hasFather = dataFactory.getOWLObjectProperty(URI.create(base + "#hasFather"));
+            OWLObjectProperty hasFather = dataFactory.getOWLObjectProperty(IRI.create(base + "#hasFather"));
             // Now create the actual assertion (triple), as an object property assertion axiom
             // matthew --> hasFather --> peter
             OWLObjectPropertyAssertionAxiom assertion = dataFactory.getOWLObjectPropertyAssertionAxiom(matthew, hasFather, peter);

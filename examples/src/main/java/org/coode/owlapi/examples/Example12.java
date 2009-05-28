@@ -51,8 +51,8 @@ public class Example12 {
             OWLOntologyMerger merger = new OWLOntologyMerger(man);
             // We merge all of the loaded ontologies.  Since an OWLOntologyManager is an OWLOntologySetProvider we
             // just pass this in.  We also need to specify the URI of the new ontology that will be created.
-            URI mergedOntologyURI = URI.create("http://www.semanticweb.com/mymergedont");
-            OWLOntology merged = merger.createMergedOntology(man, mergedOntologyURI);
+            IRI mergedOntologyIRI = IRI.create("http://www.semanticweb.com/mymergedont");
+            OWLOntology merged = merger.createMergedOntology(man, mergedOntologyIRI);
             // Print out the axioms in the merged ontology.
             for(OWLAxiom ax : merged.getAxioms()) {
                 System.out.println(ax);

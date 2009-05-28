@@ -135,12 +135,25 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     }
 
 
+    /**
+     * Gets a suggested default namespace bases on the ID of an ontology.  If the ontology has an IRI then
+     * this IRI will be used to suggest a default namespace, otherwise, the OWL namespace will be returned
+     * as the default namespace
+     * @param ontology The ontology
+     * @return A suggested default namespace
+     */
     private static String getDefaultNamespace(OWLOntology ontology) {
-        String base = ontology.getURI().toString();
-        if (!base.endsWith("#") && !base.endsWith("/")) {
-            base += "#";
+        if(ontology.getOntologyID().isAnonymous()) {
+            // What do we return here? Just return the OWL namespace for now.
+            return Namespaces.OWL.toString();
         }
-        return base;
+        else {
+            String base = ontology.getOntologyID().getOntologyIRI().toString();
+            if (!base.endsWith("#") && !base.endsWith("/")) {
+                base += "#";
+            }
+            return base;
+        }
     }
 
 

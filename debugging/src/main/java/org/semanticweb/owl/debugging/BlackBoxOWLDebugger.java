@@ -3,7 +3,7 @@ package org.semanticweb.owl.debugging;
 import org.semanticweb.owl.inference.OWLSatisfiabilityChecker;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.OWLEntityCollector;
-import org.semanticweb.owl.util.SimpleURIMapper;
+import org.semanticweb.owl.util.SimpleIRIMapper;
 
 import java.net.URI;
 import java.util.*;
@@ -409,7 +409,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         createDebuggingOntology();
 //        RDFXMLRenderer ren = new RDFXMLRenderer();
 //        ren.setOWLOntologyManager(owlOntologyManager);
-//        ren.render(debuggingOntology, URI.create("file:/Users/matthewhorridge/Desktop/DebuggingOntology" + ontologyCounter + ".owl"));
+//        ren.render(debuggingOntology, IRI.create("file:/Users/matthewhorridge/Desktop/DebuggingOntology" + ontologyCounter + ".owl"));
         ontologyCounter++;
         reasoner.clearOntologies();
         reasoner.loadOntologies(Collections.singleton(debuggingOntology));
@@ -428,10 +428,10 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             owlOntologyManager.removeOntology(debuggingOntology);
         }
         URI uri = createURI();
-        SimpleURIMapper mapper = new SimpleURIMapper(uri, uri);
-        owlOntologyManager.addURIMapper(mapper);
-        debuggingOntology = owlOntologyManager.createOntology(uri);
-        owlOntologyManager.removeURIMapper(mapper);
+        SimpleIRIMapper mapper = new SimpleIRIMapper(uri, uri);
+        owlOntologyManager.addIRIMapper(mapper);
+        debuggingOntology = owlOntologyManager.createOntology(IRI.create(uri));
+        owlOntologyManager.removeIRIMapper(mapper);
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         for (OWLAxiom ax : debuggingAxioms) {
             changes.add(new AddAxiom(debuggingOntology, ax));

@@ -46,7 +46,7 @@ public class OWLFacetRestrictionListItemTranslator implements ListItemTranslator
 
     public OWLFacetRestriction translate(URI firstObject) throws OWLException {
         for(OWLFacet facet : OWLFacet.values()) {
-            OWLLiteral lit = consumer.getLiteralObject(firstObject, facet.getURI(), true);
+            OWLLiteral lit = consumer.getLiteralObject(firstObject, facet.getIRI().toURI(), true);
             if(lit != null) {
                 return consumer.getDataFactory().getOWLFacetRestriction(facet, lit);
             }

@@ -1,6 +1,14 @@
 package org.semanticweb.owl.model;
 
-import java.net.URI;/*
+import org.semanticweb.owl.vocab.Namespaces;
+import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+
+import java.net.URI;
+import java.net.URL;
+import java.net.URISyntaxException;
+import java.util.Collections;
+import java.util.Set;
+import java.io.File;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -29,34 +37,168 @@ import java.net.URI;/*
  * <p/>
  * Represents International Resource Identifiers
  */
-public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue {
+public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
 
     /**
      * Obtains this IRI as a URI.  Note that Java URIs handle unicode characters,
      * so there is no loss during this translation.
+     *
      * @return The URI
      */
-    URI toURI();
+    public abstract URI toURI();
 
 
     /**
      * Determines if this IRI is in the reserved vocabulary.  An IRI is in the reserved vocabulary if it starts with
      * <http://www.w3.org/1999/02/22-rdf-syntax-ns#> or <http://www.w3.org/2000/01/rdf-schema#>
      * or <http://www.w3.org/2001/XMLSchema#> or <http://www.w3.org/2002/07/owl#>
+     *
      * @return <code>true</code> if the IRI is in the reserved vocabulary, otherwise <code>false</code>.
      */
-    boolean isReservedVocabulary();
+    public abstract boolean isReservedVocabulary();
 
 
-    boolean isThing();
+    public abstract boolean isThing();
 
 
-    boolean isNothing();
+    public abstract boolean isNothing();
 
 
     /**
      * Obtained this IRI surrounded by angled brackets
+     *
      * @return This IRI surrounded by &lt; and &gt;
      */
-    String toQuotedString();
+    public abstract String toQuotedString();
+
+    public static IRI create(String str) {
+        return new IRIImpl(URI.create(str));
+    }
+
+    public static IRI create(URI uri) {
+        if (uri == null) {
+            throw new IllegalArgumentException("URI must not be null");
+        }
+        return new IRIImpl(uri);
+    }
+
+    public static IRI create(File file) {
+        return new IRIImpl(file.toURI());
+    }
+
+    public static IRI create(URL url) throws URISyntaxException {
+        return new IRIImpl(url.toURI());
+    }
+
+
+    private static class IRIImpl extends IRI {
+
+        private URI uri;
+
+        public IRIImpl(URI uri) {
+            if (uri == null) {
+                throw new IllegalArgumentException("URI must not be null");
+            }
+            this.uri = uri;
+        }
+
+        public URI toURI() {
+            return uri;
+        }
+
+
+        public boolean isReservedVocabularyWithSpecialTreatment() {
+            return false;
+        }
+
+        public boolean isNothing() {
+            return uri.equals(OWLRDFVocabulary.OWL_NOTHING.getURI());
+        }
+
+        public boolean isReservedVocabulary() {
+            return uri.toString().startsWith(Namespaces.OWL.toString()) ||
+                    uri.toString().startsWith(Namespaces.RDF.toString()) ||
+                    uri.toString().startsWith(Namespaces.RDFS.toString()) ||
+                    uri.toString().startsWith(Namespaces.XML.toString());
+        }
+
+        public boolean isThing() {
+            return uri.equals(OWLRDFVocabulary.OWL_THING.getURI());
+        }
+
+        public void accept(OWLObjectVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+            return visitor.visit(this);
+        }
+
+        public Set<OWLClass> getClassesInSignature() {
+            return Collections.emptySet();
+        }
+
+        public Set<OWLDataProperty> getDataPropertiesInSignature() {
+            return Collections.emptySet();
+        }
+
+        public Set<OWLNamedIndividual> getIndividualsInSignature() {
+            return Collections.emptySet();
+        }
+
+        public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
+            return Collections.emptySet();
+        }
+
+        public Set<OWLEntity> getSignature() {
+            return Collections.emptySet();
+        }
+
+        public int compareTo(OWLObject o) {
+            if (!(o instanceof IRI)) {
+                return -1;
+            }
+            IRI other = (IRI) o;
+            return uri.compareTo(other.toURI());
+        }
+
+        public String toString() {
+            return uri.toString();
+        }
+
+        public String toQuotedString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("<");
+            sb.append(uri);
+            sb.append(">");
+
+            return sb.toString();
+        }
+
+        public int hashCode() {
+            return uri.hashCode();
+        }
+
+        public void accept(OWLAnnotationValueVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+            return visitor.visit(this);
+        }
+
+        public boolean equals(Object obj) {
+            if (obj == null) {
+                return false;
+            }
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof IRI)) {
+                return false;
+            }
+            IRI other = (IRI) obj;
+            return uri.equals(other.toURI());
+        }
+    }
 }

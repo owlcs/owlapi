@@ -88,50 +88,8 @@ public abstract class RDFRendererBase {
         beginDocument();
 
         // Put imports at the top of the rendering
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 
-
-        createGraph(axioms);
-        OWLOntologyID ontID = ontology.getOntologyID();
-        if(ontID.getOntologyIRI() != null) {
-            graph.addTriple(new RDFTriple(new RDFResourceNode(ontology.getURI()),
-                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-                            new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getURI())));
-            if(ontID.getVersionIRI() != null) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(ontology.getURI()),
-                                new RDFResourceNode(OWLRDFVocabulary.OWL_VERSION_IRI.getURI()),
-                                new RDFResourceNode(ontID.getVersionIRI().toURI())));
-            }
-        }
-
-        for(OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
-            graph.addTriple(new RDFTriple(new RDFResourceNode(ontology.getURI()),
-                new RDFResourceNode(OWLRDFVocabulary.OWL_IMPORTS.getURI()),
-                new RDFResourceNode(decl.getURI())));
-        }
-        for(OWLAnnotation anno : ontology.getAnnotations()) {
-            RDFNode node;
-            if(anno.getValue() instanceof OWLLiteral) {
-                OWLLiteral val = (OWLLiteral) anno.getValue();
-                if(val.isTyped()) {
-                    node = new RDFLiteralNode(val.getLiteral(), val.asOWLTypedLiteral().getDatatype().getURI());
-                }
-                else {
-                    node = new RDFLiteralNode(val.getLiteral(), val.asRDFTextLiteral().getLang());
-                }
-            }
-            else if(anno.getValue() instanceof IRI) {
-                IRI val = (IRI) anno.getValue();
-                node = new RDFResourceNode(val.toURI());
-            }
-            else {
-                node = new RDFResourceNode(System.identityHashCode(anno.getValue()));
-            }
-
-            graph.addTriple(new RDFTriple(new RDFResourceNode(ontology.getURI()),
-                new RDFResourceNode(anno.getProperty().getURI()), node));
-        }
-        render(new RDFResourceNode(ontology.getURI()));
+        renderOntologyHeader();
 
         // Annotation properties
 
@@ -329,6 +287,58 @@ public abstract class RDFRendererBase {
         endDocument();
     }
 
+    private void renderOntologyHeader() {
+        graph = new RDFGraph();
+        OWLOntologyID ontID = ontology.getOntologyID();
+        RDFResourceNode ontologyNode = null;
+        if(ontID.getOntologyIRI() != null) {
+            ontologyNode = new RDFResourceNode(ontID.getOntologyIRI().toURI());
+            graph.addTriple(new RDFTriple(ontologyNode,
+                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
+                            new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getURI())));
+            if(ontID.getVersionIRI() != null) {
+                graph.addTriple(new RDFTriple(ontologyNode,
+                                new RDFResourceNode(OWLRDFVocabulary.OWL_VERSION_IRI.getURI()),
+                                new RDFResourceNode(ontID.getVersionIRI().toURI())));
+            }
+        }
+        else {
+            ontologyNode = new RDFResourceNode(System.identityHashCode(ontology));
+        }
+        for(OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
+            graph.addTriple(new RDFTriple(ontologyNode,
+                new RDFResourceNode(OWLRDFVocabulary.OWL_IMPORTS.getURI()),
+                new RDFResourceNode(decl.getURI())));
+        }
+        for(OWLAnnotation anno : ontology.getAnnotations()) {
+            OWLAnnotationValueVisitorEx<RDFNode> valVisitor = new OWLAnnotationValueVisitorEx<RDFNode>() {
+                public RDFNode visit(IRI iri) {
+                    return new RDFResourceNode(iri.toURI());
+                }
+
+                public RDFNode visit(OWLAnonymousIndividual individual) {
+                    return new RDFResourceNode(System.identityHashCode(individual));
+                }
+
+                public RDFNode visit(OWLTypedLiteral literal) {
+                    return new RDFLiteralNode(literal.getLiteral(), literal.asOWLStringLiteral().getDatatype().getURI());
+                }
+
+                public RDFNode visit(OWLStringLiteral literal) {
+                    return new RDFLiteralNode(literal.getLiteral(), literal.asRDFTextLiteral().getLang());
+                }
+            };
+            RDFNode node = anno.getValue().accept(valVisitor);
+
+
+            graph.addTriple(new RDFTriple(
+                    ontologyNode,
+                    new RDFResourceNode(anno.getProperty().getURI()),
+                    node));
+        }
+        render(ontologyNode);
+    }
+
 
     private OWLOntologyFormat getOntologyFormat() {
         return format;
@@ -455,16 +465,17 @@ public abstract class RDFRendererBase {
     }
 
 
-    private void createGraph(Set<? extends OWLAxiom> axioms) {
+    private void createGraph(Set<? extends OWLObject> objects) {
         RDFTranslator translator = new RDFTranslator(manager, ontology);
-        for (OWLAxiom ax : axioms) {
-            ax.accept(translator);
+        for (OWLObject obj : objects) {
+            obj.accept(translator);
         }
         graph = translator.getGraph();
     }
 
 
     private void addTypeTriple(OWLEntity entity) {
+        graph = new RDFGraph();
         entity.accept(new OWLEntityVisitor() {
             public void visit(OWLClass cls) {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(cls.getURI()),
@@ -491,10 +502,10 @@ public abstract class RDFRendererBase {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
                         new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
                         new RDFResourceNode(OWLRDFVocabulary.OWL_DATA_PROPERTY.getURI())));
-//                if (annotationURIs.contains(property.getURI())) {
-//                    graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
-//                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-//                            new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
+//                if (annotationURIs.contains(property.getIRI())) {
+//                    graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()),
+//                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()),
+//                            new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI())));
 //                }
             }
 
@@ -503,10 +514,10 @@ public abstract class RDFRendererBase {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
                         new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
                         new RDFResourceNode(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI())));
-//                if (annotationURIs.contains(property.getURI())) {
-//                    graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()),
-//                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()),
-//                            new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
+//                if (annotationURIs.contains(property.getIRI())) {
+//                    graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()),
+//                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()),
+//                            new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI())));
 //                }
             }
 

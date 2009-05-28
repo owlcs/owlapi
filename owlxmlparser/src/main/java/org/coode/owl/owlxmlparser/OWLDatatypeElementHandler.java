@@ -1,5 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
+import org.semanticweb.owl.model.IRI;
+
 import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -33,20 +35,20 @@ import java.net.URI;
  */
 public class OWLDatatypeElementHandler extends AbstractOWLDataRangeHandler {
 
-    private URI uri;
+    private IRI iri;
 
     public OWLDatatypeElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
-        uri = getIRIFromAttribute(localName, value);
+        iri = getIRIFromAttribute(localName, value);
     }
 
     protected void endDataRangeElement() throws OWLXMLParserException {
-        if (uri == null) {
+        if (iri == null) {
             throw new OWLXMLParserAttributeNotFoundException(getLineNumber(), "IRI");
         }
-        setDataRange(getOWLDataFactory().getOWLDatatype(uri));
+        setDataRange(getOWLDataFactory().getOWLDatatype(iri));
     }
 }

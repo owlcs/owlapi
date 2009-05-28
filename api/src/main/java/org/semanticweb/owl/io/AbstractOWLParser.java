@@ -1,9 +1,6 @@
 package org.semanticweb.owl.io;
 
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyCreationException;
-import org.semanticweb.owl.model.OWLOntologyFormat;
-import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owl.model.*;
 import org.xml.sax.InputSource;
 
 import java.io.BufferedInputStream;

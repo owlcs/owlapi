@@ -37,37 +37,37 @@ package org.semanticweb.owl.model;
 public class DeclarationEntityReferencesTestCase extends AbstractOWLTestCase {
 
     public void testOWLClassDeclarationAxiom() throws Exception {
-        OWLClass cls = getOWLDataFactory().getOWLClass(TestUtils.createURI());
+        OWLClass cls = getOWLDataFactory().getOWLClass(TestUtils.createIRI());
         OWLAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(cls);
         OWLOntologyManager man = getOWLOntologyManager();
-        OWLOntology ont = man.createOntology(TestUtils.createURI());
+        OWLOntology ont = man.createOntology(TestUtils.createIRI());
         man.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getReferencedClasses().contains(cls));
     }
 
     public void testOWLObjectPropertyDeclarationAxiom() throws Exception {
-        OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
+        OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(TestUtils.createIRI());
         OWLAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(prop);
         OWLOntologyManager man = getOWLOntologyManager();
-        OWLOntology ont = man.createOntology(TestUtils.createURI());
+        OWLOntology ont = man.createOntology(TestUtils.createIRI());
         man.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getReferencedObjectProperties().contains(prop));
     }
 
     public void testOWLDataPropertyDeclarationAxiom() throws Exception {
-        OWLDataProperty prop = getOWLDataFactory().getOWLDataProperty(TestUtils.createURI());
+        OWLDataProperty prop = getOWLDataFactory().getOWLDataProperty(TestUtils.createIRI());
         OWLAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(prop);
         OWLOntologyManager man = getOWLOntologyManager();
-        OWLOntology ont = man.createOntology(TestUtils.createURI());
+        OWLOntology ont = man.createOntology(TestUtils.createIRI());
         man.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getReferencedDataProperties().contains(prop));
     }
 
     public void testOWLIndividualDeclarationAxiom() throws Exception {
-        OWLNamedIndividual ind = getOWLDataFactory().getOWLNamedIndividual(TestUtils.createURI());
+        OWLNamedIndividual ind = getOWLDataFactory().getOWLNamedIndividual(TestUtils.createIRI());
         OWLAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(ind);
         OWLOntologyManager man = getOWLOntologyManager();
-        OWLOntology ont = man.createOntology(TestUtils.createURI());
+        OWLOntology ont = man.createOntology(TestUtils.createIRI());
         man.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getReferencedIndividuals().contains(ind));
     }

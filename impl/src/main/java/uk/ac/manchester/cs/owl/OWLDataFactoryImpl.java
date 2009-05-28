@@ -83,7 +83,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         if (uri == null) {
             return null;
         }
-        return new IRIImpl(uri);
+        return IRI.create(uri);
     }
 
 
@@ -102,7 +102,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLClass getOWLClass(String curi,
                                 PrefixManager prefixManager) {
-        return getOWLClass(prefixManager.getURI(curi));
+        return getOWLClass(prefixManager.getIRI(curi));
     }
 
 
@@ -202,19 +202,19 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLDataProperty getOWLDataProperty(String curi,
                                            PrefixManager prefixManager) {
-        return getOWLDataProperty(prefixManager.getURI(curi));
+        return getOWLDataProperty(prefixManager.getIRI(curi));
     }
 
 
     public OWLNamedIndividual getOWLNamedIndividual(String curi,
                                        PrefixManager prefixManager) {
-        return getOWLNamedIndividual(prefixManager.getURI(curi));
+        return getOWLNamedIndividual(prefixManager.getIRI(curi));
     }
 
 
     public OWLObjectProperty getOWLObjectProperty(String curi,
                                                PrefixManager prefixManager) {
-        return getOWLObjectProperty(prefixManager.getURI(curi));
+        return getOWLObjectProperty(prefixManager.getIRI(curi));
     }
 
 

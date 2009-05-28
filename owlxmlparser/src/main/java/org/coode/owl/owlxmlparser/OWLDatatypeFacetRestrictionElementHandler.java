@@ -3,6 +3,7 @@ package org.coode.owl.owlxmlparser;
 import org.semanticweb.owl.model.OWLFacetRestriction;
 import org.semanticweb.owl.model.OWLLiteral;
 import org.semanticweb.owl.model.OWLTypedLiteral;
+import org.semanticweb.owl.model.IRI;
 import org.semanticweb.owl.vocab.OWLFacet;
 
 import java.net.URI;
@@ -58,7 +59,7 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
         if (localName.equals("facet")) {
-            facet = OWLFacet.getFacet(URI.create(value));
+            facet = OWLFacet.getFacet(IRI.create(value));
         }
     }
 

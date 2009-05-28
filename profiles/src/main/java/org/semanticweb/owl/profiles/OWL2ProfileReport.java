@@ -1,6 +1,7 @@
 package org.semanticweb.owl.profiles;
 
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
+import org.semanticweb.owl.model.OWLOntologyID;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -40,9 +41,9 @@ public class OWL2ProfileReport extends OWLProfileReport {
     private Set<OWLObjectPropertyExpression> simpleRoles;
 
 
-    public OWL2ProfileReport(OWLProfile profile, URI ontologyURI, Set<ConstructNotAllowed> disallowedConstructs, Set<OWLObjectPropertyExpression> nonSimpleRoles,
+    public OWL2ProfileReport(OWLProfile profile, OWLOntologyID ontologyID, Set<ConstructNotAllowed> disallowedConstructs, Set<OWLObjectPropertyExpression> nonSimpleRoles,
                              Set<OWLObjectPropertyExpression> simpleRoles) {
-        super(profile, ontologyURI, disallowedConstructs);
+        super(profile, ontologyID, disallowedConstructs);
         this.nonSimpleRoles = new TreeSet<OWLObjectPropertyExpression>(nonSimpleRoles);
         this.simpleRoles = new TreeSet<OWLObjectPropertyExpression>(simpleRoles);
     }

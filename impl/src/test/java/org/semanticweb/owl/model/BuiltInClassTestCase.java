@@ -78,7 +78,7 @@ public class BuiltInClassTestCase extends TestCase {
     }
 
     public void testAnonymousClass() {
-        OWLClassExpression desc = dataFactory.getOWLObjectHasSelf(dataFactory.getOWLObjectProperty(TestUtils.createURI()));
+        OWLClassExpression desc = dataFactory.getOWLObjectHasSelf(dataFactory.getOWLObjectProperty(TestUtils.createIRI()));
         assertFalse(desc.isOWLThing());
         assertFalse(desc.isOWLNothing());
     }

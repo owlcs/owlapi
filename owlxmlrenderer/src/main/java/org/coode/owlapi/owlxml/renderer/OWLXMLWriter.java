@@ -7,7 +7,6 @@ import org.semanticweb.owl.io.OWLRendererException;
 import org.semanticweb.owl.io.OWLRendererIOException;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.VersionInfo;
-import org.semanticweb.owl.util.OntologyURIShortFormProvider;
 import org.semanticweb.owl.vocab.Namespaces;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 import org.semanticweb.owl.vocab.OWLFacet;
@@ -71,10 +70,9 @@ public class OWLXMLWriter {
         nsm.setPrefix("xsd", Namespaces.XSD.toString());
         nsm.setPrefix("rdf", Namespaces.RDF.toString());
         nsm.setPrefix("xml", Namespaces.XML.toString());
-        URI ontologyURI = ontology.getURI();
         String base = Namespaces.OWL.toString();
-        if(ontologyURI != null) {
-            base = ontologyURI.toString();
+        if(!ontology.isAnonymous()) {
+            base = ontology.getOntologyID().getOntologyIRI().toString();
         }
         this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer, nsm, base);
         
@@ -117,10 +115,10 @@ public class OWLXMLWriter {
     public void startDocument(OWLOntology ontology) throws OWLRendererException {
         try {
             writer.startDocument(OWLXMLVocabulary.ONTOLOGY.toString());
-            if (ontology.getIRI() != null) {
-                writer.writeAttribute(Namespaces.OWL + "ontologyIRI", ontology.getIRI().toString());
+            if (!ontology.isAnonymous()) {
+                writer.writeAttribute(Namespaces.OWL + "ontologyIRI", ontology.getOntologyID().getOntologyIRI().toString());
                 if(ontology.getVersionIRI() != null) {
-                    writer.writeAttribute(Namespaces.OWL + "versionIRI", ontology.getIRI().toString());
+                    writer.writeAttribute(Namespaces.OWL + "versionIRI", ontology.getOntologyID().getOntologyIRI().toString());
                 }
             }
         }
@@ -271,7 +269,7 @@ public class OWLXMLWriter {
 
     public void writeFacetAttribute(OWLFacet facet) {
         try {
-            writer.writeAttribute(OWLXMLVocabulary.DATATYPE_FACET.getURI().toString(), facet.getURI().toString());
+            writer.writeAttribute(OWLXMLVocabulary.DATATYPE_FACET.getURI().toString(), facet.getIRI().toString());
         }
         catch (IOException e) {
             throw new RuntimeException(e);

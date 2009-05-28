@@ -4,12 +4,11 @@ import junit.framework.TestCase;
 import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owl.io.OWLParserFactoryRegistry;
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.SimpleURIMapper;
-import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
 
 import java.net.URI;
+import java.net.URL;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -46,18 +45,18 @@ public class FailedImportsTestCase extends TestCase {
         OWLOntologyManager manager = new OWLOntologyManagerImpl();
         OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
         manager.addOntologyFactory(new ParsableOWLOntologyFactory());
-        URI a = getClass().getResource("/owlapi/A.owl").toURI();
+        URL a = getClass().getResource("/owlapi/A.owl");
         final URI b = getClass().getResource("/owlapi/B.owl").toURI();
 
-        manager.addURIMapper(new OWLOntologyURIMapper() {
+        manager.addIRIMapper(new OWLOntologyIRIMapper() {
 
-            private URI ontBURI = URI.create("http://www.semanticweb.org/ontologies/2007/7/A.owl");
+            private IRI ontBURI = IRI.create("http://www.semanticweb.org/ontologies/2007/7/A.owl");
 
-            public URI getPhysicalURI(URI ontologyURI) {
-                if (ontologyURI.equals(ontBURI)) {
+            public URI getPhysicalURI(IRI ontologyIRI) {
+                if (ontologyIRI.equals(ontBURI)) {
                     return b;
                 } else {
-                    return ontologyURI;
+                    return ontologyIRI.toURI();
                 }
             }
         });
@@ -75,7 +74,7 @@ public class FailedImportsTestCase extends TestCase {
 
         assertEquals(1, manager.getOntologies().size());
 
-        manager.loadOntologyFromPhysicalURI(a);
+        manager.loadOntologyFromPhysicalURI(a.toURI());
 
         for (OWLOntology ont : manager.getOntologies()) {
             System.out.println("ont = " + ont);

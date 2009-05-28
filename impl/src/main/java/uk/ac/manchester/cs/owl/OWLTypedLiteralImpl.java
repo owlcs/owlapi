@@ -47,7 +47,7 @@ public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiter
     }
 
 
-    public OWLTypedLiteral asOWLTypedLiteral() {
+    public OWLTypedLiteral asOWLStringLiteral() {
         return this;
     }
 
@@ -88,6 +88,14 @@ public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiter
 
 
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    public void accept(OWLAnnotationValueVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

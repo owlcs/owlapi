@@ -441,14 +441,14 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * module as an ontology.
      *
      * @param signature the seed signature (set of entities) for the module
-     * @param uri       the URI for the module
-     * @return the module, having the specified URI
+     * @param iri       the IRI for the module
+     * @return the module, having the specified IRI
      * @throws OWLOntologyChangeException   if adding axioms to the module fails
      * @throws OWLOntologyCreationException if the module cannot be created
      */
-    public OWLOntology extractAsOntology(Set<OWLEntity> signature, URI uri) throws OWLOntologyCreationException, OWLOntologyChangeException {
+    public OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri) throws OWLOntologyCreationException, OWLOntologyChangeException {
         Set<OWLAxiom> axs = extract(signature);
-        OWLOntology newOnt = manager.createOntology(uri);
+        OWLOntology newOnt = manager.createOntology(iri);
         LinkedList<AddAxiom> addaxs = new LinkedList<AddAxiom>();
         for (OWLAxiom ax : axs) {
             addaxs.add(new AddAxiom(newOnt, ax));

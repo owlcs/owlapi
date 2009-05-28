@@ -61,11 +61,21 @@ public class RDFXMLRenderer extends RDFRendererBase {
         super(ontology, manager, format);
         pending = new HashSet<RDFResourceNode>();
         renderedAnonymousNodes = new HashSet<RDFResourceNode>();
+
+        OWLOntologyXMLNamespaceManager nsm = new OWLOntologyXMLNamespaceManager(manager,
+                ontology,
+                format);
+        String defaultNamespace = nsm.getDefaultNamespace();
+        String base;
+        if(defaultNamespace.endsWith("#")) {
+            base = defaultNamespace.substring(0, defaultNamespace.length() - 1);
+        }
+        else {
+            base = defaultNamespace;
+        }
         writer = new RDFXMLWriter(XMLWriterFactory.getInstance().createXMLWriter(w,
-                new OWLOntologyXMLNamespaceManager(manager,
-                        ontology,
-                        format),
-                ontology.getURI().toString()));
+                nsm,
+                base));
         prettyPrintedTypes = new HashSet<URI>();
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_CLASS.getURI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI());

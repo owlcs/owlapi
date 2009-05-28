@@ -2,6 +2,7 @@
 package org.coode.owl.krssparser;
 
 import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.vocab.Namespaces;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,7 +27,12 @@ public class KRSSParser implements KRSSParserConstants {
         this.ontology = ontology;
         this.dataFactory = dataFactory;
         string2URI = new HashMap<String, URI>();
-        base = ontology.getURI().toString() + "#";
+        if (!ontology.isAnonymous()) {
+            base = ontology.getOntologyID().getOntologyIRI() + "#";
+        }
+        else {
+            base = Namespaces.OWL.toString();
+        }
     }
 
     protected void addAxiom(OWLAxiom ax) throws KRSSOWLParserException {

@@ -1,8 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLDataPropertyExpression;
-
-import java.net.URI;
+import org.semanticweb.owl.model.IRI;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -37,7 +36,7 @@ public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWL
 
     private OWLDataPropertyExpression prop;
 
-    private URI uri;
+    private IRI iri;
 
     public OWLDataPropertyElementHandler(OWLXMLParserHandler handler) {
         super(handler);
@@ -49,11 +48,11 @@ public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWL
     }
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
-        uri = getIRIFromAttribute(localName, value);
+        iri = getIRIFromAttribute(localName, value);
     }
 
     final public void endElement() throws OWLXMLParserException {
-        prop = getOWLDataFactory().getOWLDataProperty(uri);
+        prop = getOWLDataFactory().getOWLDataProperty(iri);
         getParentHandler().handleChild(this);
     }
 

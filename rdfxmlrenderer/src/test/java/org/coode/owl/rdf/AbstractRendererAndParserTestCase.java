@@ -6,12 +6,10 @@ import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owl.io.OWLParserFactoryRegistry;
 import org.semanticweb.owl.model.*;
 import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
 
 import java.io.File;
-import java.net.URI;
 import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -59,19 +57,19 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
     }
 
     public OWLClass createClass() {
-        return man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
+        return man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());
     }
 
     public OWLObjectProperty createObjectProperty() {
-        return man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
+        return man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createIRI());
     }
 
     public OWLDataProperty createDataProperty() {
-        return man.getOWLDataFactory().getOWLDataProperty(TestUtils.createURI());
+        return man.getOWLDataFactory().getOWLDataProperty(TestUtils.createIRI());
     }
 
     public OWLIndividual createIndividual() {
-        return man.getOWLDataFactory().getOWLNamedIndividual(TestUtils.createURI());
+        return man.getOWLDataFactory().getOWLNamedIndividual(TestUtils.createIRI());
     }
 
 
@@ -85,7 +83,7 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
     }
 
     public void testSaveAndReload() throws Exception {
-        OWLOntology ontA = man.createOntology(URI.create("http://rdfxmltests/ontology"));
+        OWLOntology ontA = man.createOntology(IRI.create("http://rdfxmltests/ontology"));
         for (OWLAxiom ax : getAxioms()) {
             man.applyChange(new AddAxiom(ontA, ax));
         }

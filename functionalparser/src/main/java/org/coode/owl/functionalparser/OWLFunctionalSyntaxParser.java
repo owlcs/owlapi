@@ -133,8 +133,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         man.makeLoadImportRequest(decl);
       } else if (jj_2_6(2)) {
         anno = Annotation();
-        ax = dataFactory.getOWLAnnotationAssertionAxiom(ontology.getIRI(), anno);
-        addAxiom(ax);
+        
         currentAnnotations.clear();
       } else {
         jj_consume_token(-1);

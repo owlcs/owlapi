@@ -37,13 +37,20 @@ import java.util.Set;
  * <p/>
  * An ontology cannot be modified directly.  Changes must be applied using an <code>OWLOntologyManager</code>.
  */
-public interface OWLOntology extends OWLNamedObject {
+public interface OWLOntology extends OWLObject {
 
     /**
      * Gets the identity of this ontology (i.e. ontology IRI + version IRI)
      * @return The ID of this ontology.
      */
     OWLOntologyID getOntologyID();
+
+    /**
+     * Determines whether or not this ontology is anonymous.  An ontology is anonymous if it does not have an ontology
+     * IRI.
+     * @return <code>true</code> if this ontology is anonymous, otherwise <code>false</code>
+     */
+    boolean isAnonymous();
 
     /**
      * Gets the version IRI of this ontology

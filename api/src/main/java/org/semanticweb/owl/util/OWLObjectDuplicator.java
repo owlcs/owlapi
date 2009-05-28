@@ -40,7 +40,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     private Object obj;
 
-    private Map<OWLEntity, URI> replacementMap;
+    private Map<OWLEntity, IRI> replacementMap;
 
 
     /**
@@ -50,7 +50,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      * @param dataFactory The data factory to be used for the duplication.
      */
     public OWLObjectDuplicator(OWLDataFactory dataFactory) {
-        this(new HashMap<OWLEntity, URI>(), dataFactory);
+        this(new HashMap<OWLEntity, IRI>(), dataFactory);
     }
 
 
@@ -59,19 +59,19 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      * data factory and uri replacement map.
      *
      * @param dataFactory       The data factory to be used for the duplication.
-     * @param uriReplacementMap The map to use for the replacement of URIs.  Any uris
+     * @param iriReplacementMap The map to use for the replacement of URIs.  Any uris
      *                          the appear in the map will be replaced as objects are duplicated.  This can
      *                          be used to "rename" entities.
      */
-    public OWLObjectDuplicator(OWLDataFactory dataFactory, Map<URI, URI> uriReplacementMap) {
+    public OWLObjectDuplicator(OWLDataFactory dataFactory, Map<IRI, IRI> iriReplacementMap) {
         this.dataFactory = dataFactory;
-        this.replacementMap = new HashMap<OWLEntity, URI>();
-        for (URI uri : uriReplacementMap.keySet()) {
-            URI repURI = uriReplacementMap.get(uri);
-            replacementMap.put(dataFactory.getOWLClass(uri), repURI);
-            replacementMap.put(dataFactory.getOWLObjectProperty(uri), repURI);
-            replacementMap.put(dataFactory.getOWLDataProperty(uri), repURI);
-            replacementMap.put(dataFactory.getOWLNamedIndividual(uri), repURI);
+        this.replacementMap = new HashMap<OWLEntity, IRI>();
+        for (IRI iri : iriReplacementMap.keySet()) {
+            IRI repIRI = iriReplacementMap.get(iri);
+            replacementMap.put(dataFactory.getOWLClass(iri), repIRI);
+            replacementMap.put(dataFactory.getOWLObjectProperty(iri), repIRI);
+            replacementMap.put(dataFactory.getOWLDataProperty(iri), repIRI);
+            replacementMap.put(dataFactory.getOWLNamedIndividual(iri), repIRI);
         }
     }
 
@@ -80,13 +80,13 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      * data factory and uri replacement map.
      *
      * @param dataFactory             The data factory to be used for the duplication.
-     * @param entityURIReplacementMap The map to use for the replacement of URIs.  Any uris
+     * @param entityIRIReplacementMap The map to use for the replacement of URIs.  Any uris
      *                                the appear in the map will be replaced as objects are duplicated.  This can
      *                                be used to "rename" entities.
      */
-    public OWLObjectDuplicator(Map<OWLEntity, URI> entityURIReplacementMap, OWLDataFactory dataFactory) {
+    public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap, OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
-        this.replacementMap = new HashMap<OWLEntity, URI>(entityURIReplacementMap);
+        this.replacementMap = new HashMap<OWLEntity, IRI>(entityIRIReplacementMap);
     }
 
     public <O extends OWLObject> O duplicateObject(OWLObject object) {
@@ -104,15 +104,15 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
 
     /**
-     * Given a URI, returns a URI.  This may be the same URI, or
-     * an alternative URI if a replacement has been specified.
+     * Given an IRI, returns a IRI.  This may be the same IRI, or
+     * an alternative IRI if a replacement has been specified.
      */
-    private URI getURI(OWLEntity entity) {
-        URI replacement = replacementMap.get(entity);
+    private IRI getIRI(OWLEntity entity) {
+        IRI replacement = replacementMap.get(entity);
         if (replacement != null) {
             return replacement;
         } else {
-            return entity.getURI();
+            return entity.getIRI();
         }
     }
 
@@ -209,10 +209,10 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     public void visit(OWLAnnotationAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
-        OWLEntity entity = (OWLEntity) obj;
+        OWLAnnotationSubject subject = (OWLAnnotationSubject) obj;
         axiom.getAnnotation().accept(this);
         OWLAnnotation anno = (OWLAnnotation) obj;
-        obj = dataFactory.getOWLAnnotationAssertionAxiom(entity.getIRI(), anno);
+        obj = dataFactory.getOWLAnnotationAssertionAxiom(subject, anno);
     }
 
 
@@ -373,7 +373,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
 
     public void visit(OWLClass desc) {
-        URI uri = getURI(desc);
+        IRI uri = getIRI(desc);
         obj = dataFactory.getOWLClass(uri);
     }
 
@@ -532,8 +532,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
 
     public void visit(OWLDatatype node) {
-        URI uri = getURI(node);
-        obj = dataFactory.getOWLDatatype(uri);
+        IRI iri = getIRI(node);
+        obj = dataFactory.getOWLDatatype(iri);
     }
 
 
@@ -569,14 +569,14 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
 
     public void visit(OWLDataProperty property) {
-        URI uri = getURI(property);
-        obj = dataFactory.getOWLDataProperty(uri);
+        IRI iri = getIRI(property);
+        obj = dataFactory.getOWLDataProperty(iri);
     }
 
 
     public void visit(OWLObjectProperty property) {
-        URI uri = getURI(property);
-        obj = dataFactory.getOWLObjectProperty(uri);
+        IRI iri = getIRI(property);
+        obj = dataFactory.getOWLObjectProperty(iri);
     }
 
 
@@ -587,8 +587,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
     public void visit(OWLNamedIndividual individual) {
-        URI uri = getURI(individual);
-        obj = dataFactory.getOWLNamedIndividual(uri);
+        IRI iri = getIRI(individual);
+        obj = dataFactory.getOWLNamedIndividual(iri);
     }
 
 
@@ -723,7 +723,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
 
     public void visit(OWLAnnotationProperty property) {
-        obj = dataFactory.getOWLAnnotationProperty(getURI(property));
+        obj = dataFactory.getOWLAnnotationProperty(getIRI(property));
     }
 
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
@@ -765,12 +765,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
     public void visit(IRI iri) {
-        URI replacement = replacementMap.get(iri.toURI());
-        if (replacement != null) {
-            obj = dataFactory.getIRI(replacement);
-        } else {
-            obj = iri;
-        }
+        obj = iri;
     }
 
 

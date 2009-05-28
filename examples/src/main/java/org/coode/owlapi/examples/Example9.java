@@ -51,7 +51,7 @@ public class Example9 {
 
             // Load the pizza ontology
             OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create(PHYSICAL_URI));
-            System.out.println("Loaded: " + ont.getURI());
+            System.out.println("Loaded: " + ont.getOntologyID());
 
             // We want to examine the restrictions on margherita pizza.  To do this, we
             // need to obtain a reference to the margherita pizza class.  In this case, we
@@ -59,8 +59,8 @@ public class Example9 {
             // URI plus #Margherita - note that this isn't always the case.  A class may have
             // a URI that bears no resemblance to the ontology URI which contains axioms about the
             // class).
-            URI margheritaPizzaURI = URI.create(ont.getURI() + "#Margherita");
-            OWLClass margheritaPizza = man.getOWLDataFactory().getOWLClass(margheritaPizzaURI);
+            IRI margheritaPizzaIRI = IRI.create(ont.getOntologyID().getOntologyIRI() + "#Margherita");
+            OWLClass margheritaPizza = man.getOWLDataFactory().getOWLClass(margheritaPizzaIRI);
 
             // Now we want to collect the properties which are used in existential restrictions on the
             // class.  To do this, we will create a utility class - RestrictionVisitor, which acts as

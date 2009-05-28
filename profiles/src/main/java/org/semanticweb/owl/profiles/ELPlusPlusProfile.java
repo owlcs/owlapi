@@ -84,7 +84,7 @@ public class ELPlusPlusProfile implements OWLProfile {
                 disallowedConstructs.add(cause);
             }
         }
-        return new OWLProfileReport(this, ontology.getURI(), disallowedConstructs);
+        return new OWLProfileReport(this, ontology.getOntologyID(), disallowedConstructs);
     }
 
 //    private void dump(ConstructNotAllowed cause, int level) {
@@ -630,8 +630,8 @@ public class ELPlusPlusProfile implements OWLProfile {
             ToStringRenderer.getInstance().setRenderer(new DLSyntaxObjectRenderer());
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
             man.setSilentMissingImportsHandling(true);
-//            OWLOntology ont = man.loadOntology(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
-            OWLOntology ont = man.loadOntology(URI.create("http://rpc295.cs.man.ac.uk:8080/ontologyrepository/download?ontology=http://sweet.jpl.nasa.gov/ontology/earthrealm.owl&version=0&format=RDF/XML"));
+//            OWLOntology ont = man.loadOntology(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
+            OWLOntology ont = man.loadOntology(IRI.create("http://rpc295.cs.man.ac.uk:8080/ontologyrepository/download?ontology=http://sweet.jpl.nasa.gov/ontology/earthrealm.owl&version=0&format=RDF/XML"));
             ELPlusPlusProfile profile = new ELPlusPlusProfile();
             profile.checkOntology(ont, man);
         }

@@ -31,7 +31,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         this.ontology = ontology;
         this.dataFactory = dataFactory;
         this.string2URI = new HashMap<String, URI>();
-        this.base = ontology.getURI().toString() + "#";
+        this.base = ontology.getOntologyID().getOntologyIRI().toString() + "#";
         this.utils = new NamespaceUtil();
     }
 

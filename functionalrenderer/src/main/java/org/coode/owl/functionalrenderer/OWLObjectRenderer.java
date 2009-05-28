@@ -8,7 +8,6 @@ import org.semanticweb.owl.util.DefaultPrefixManager;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.net.URI;
 import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -61,8 +60,10 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         this.writer = writer;
         writeEnitiesAsURIs = true;
         prefixManager = new DefaultPrefixManager();
-        String defPrefix = ontology.getURI() + "#";
-        prefixManager.setDefaultPrefix(defPrefix);
+        if (!ontology.isAnonymous()) {
+            String defPrefix = ontology.getOntologyID().getOntologyIRI() + "#";
+            prefixManager.setDefaultPrefix(defPrefix);
+        }
         focusedObject = man.getOWLDataFactory().getOWLThing();
     }
 
@@ -124,14 +125,14 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    private void write(URI uri) {
-        String uriString = uri.toString();
-        String qname = prefixManager.getPrefixIRI(uri);
-        if (qname != null && !qname.equals(uriString)) {
+    private void write(IRI iri) {
+        String iriString = iri.toString();
+        String qname = prefixManager.getPrefixIRI(iri);
+        if (qname != null && !qname.equals(iriString)) {
             write(qname);
         } else {
             write("<");
-            write(uriString);
+            write(iriString);
             write(">");
         }
     }
@@ -149,8 +150,8 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         write("\n\n");
         write(ONTOLOGY);
         write("(");
-        if (ontology.getIRI() != null) {
-            writeFullIRI(ontology.getIRI());
+        if (!ontology.isAnonymous()) {
+            writeFullIRI(ontology.getOntologyID().getOntologyIRI());
             if(ontology.getVersionIRI() != null) {
                 write("\n");
                 writeFullIRI(ontology.getVersionIRI());
@@ -798,7 +799,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLFacetRestriction node) {
-        write(node.getFacet().getURI());
+        write(node.getFacet().getIRI());
         writeSpace();
         node.getFacetValue().accept(this);
     }
@@ -809,7 +810,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         write(EscapeUtils.escapeString(node.getLiteral()));
         write("\"");
         write("^^");
-        write(node.getDatatype().getURI());
+        write(node.getDatatype().getIRI());
     }
 
 
@@ -944,7 +945,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(IRI iri) {
-        write(iri.toURI());
+        write(iri);
     }
 
     public void visit(OWLAnnotation node) {

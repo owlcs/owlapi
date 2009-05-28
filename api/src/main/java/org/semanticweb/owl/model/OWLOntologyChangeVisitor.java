@@ -35,8 +35,6 @@ public interface OWLOntologyChangeVisitor  {
 
     void visit(RemoveAxiom change);
 
-    void visit(SetOntologyURI change);
-
     void visit(SetOntologyID change);
 
     void visit(AddImport change);

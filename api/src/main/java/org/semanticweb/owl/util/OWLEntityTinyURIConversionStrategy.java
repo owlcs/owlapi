@@ -52,7 +52,7 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
 
     private String base;
 
-    private Map<OWLEntity, URI> entityNameMap;
+    private Map<OWLEntity, IRI> entityNameMap;
 
     private OWLEntityFragmentProvider fragmentProvider;
 
@@ -75,23 +75,23 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
      */
     public OWLEntityTinyURIConversionStrategy(String base) {
         this.base = base;
-        entityNameMap = new HashMap<OWLEntity, URI>();
+        entityNameMap = new HashMap<OWLEntity, IRI>();
         fragmentProvider = new OWLEntityFragmentProvider();
     }
 
 
-    public URI getConvertedURI(OWLEntity entity) {
-        URI uri = entityNameMap.get(entity);
-        if (uri != null) {
-            return uri;
+    public IRI getConvertedIRI(OWLEntity entity) {
+        IRI iri = entityNameMap.get(entity);
+        if (iri != null) {
+            return iri;
         }
         if (entity instanceof OWLDatatype) {
-            return entity.getURI();
+            return entity.getIRI();
         }
         String name = fragmentProvider.getName(entity);
-        uri = URI.create(base + name);
-        entityNameMap.put(entity, uri);
-        return uri;
+        iri = IRI.create(base + name);
+        entityNameMap.put(entity, iri);
+        return iri;
     }
 
 

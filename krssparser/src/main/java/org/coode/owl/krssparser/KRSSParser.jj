@@ -28,7 +28,12 @@ public class KRSSParser {
         this.ontology = ontology;
         this.dataFactory = dataFactory;
         string2URI = new HashMap<String, URI>();
-        base = ontology.getURI().toString() + "#";
+        if (!ontology.isAnonymous()) {
+            base = ontology.getOntologyID().getOntologyIRI() + "#";
+        }
+        else {
+            base = Namespaces.OWL.toString();
+        }
     }
 
     protected void addAxiom(OWLAxiom ax) throws KRSSOWLParserException {

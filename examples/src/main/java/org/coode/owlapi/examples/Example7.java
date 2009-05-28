@@ -47,7 +47,7 @@ public class Example7 {
         try {
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
             String base = "http://org.semanticweb.datarangeexample";
-            OWLOntology ont = man.createOntology(URI.create(base));
+            OWLOntology ont = man.createOntology(IRI.create(base));
 
             // We want to add an axiom to our ontology that states that adults
             // have an age greater than 18.  To do this, we will create a restriction
@@ -56,7 +56,7 @@ public class Example7 {
 
             // First get a reference to our hasAge property
             OWLDataFactory factory = man.getOWLDataFactory();
-            OWLDataProperty hasAge = factory.getOWLDataProperty(URI.create(base + "hasAge"));
+            OWLDataProperty hasAge = factory.getOWLDataProperty(IRI.create(base + "hasAge"));
             // For completeness, we will make hasAge functional by adding an axiom to state this
             OWLFunctionalDataPropertyAxiom funcAx = factory.getOWLFunctionalDataPropertyAxiom(hasAge);
             man.applyChange(new AddAxiom(ont, funcAx));
@@ -78,7 +78,7 @@ public class Example7 {
             // Now we want to say all adults have an age that is greater or equal to 18 - i.e. Adult is a subclass of
             // hasAge some int[>= 18]
             // Obtain a reference to the Adult class
-            OWLClass adult = factory.getOWLClass(URI.create(base + "#Adult"));
+            OWLClass adult = factory.getOWLClass(IRI.create(base + "#Adult"));
             // Now make adult a subclass of the things that have an age greater to or equal to 18
             OWLSubClassOfAxiom ax = factory.getOWLSubClassOfAxiom(adult, thingsWithAgeGreaterOrEqualTo18);
             // Add our axiom to the ontology

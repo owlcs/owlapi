@@ -66,12 +66,12 @@ public class OWLPrimer {
             // URI is essentially a name for the ontology.  Note that the URI doesn't necessarily
             // point to a location on the web - in this example, we won't publish the ontology at
             // the URL corresponding to the ontology URI below.
-            URI ontologyURI = URI.create("http://example.com/owl/families");
+            IRI ontologyIRI = IRI.create("http://example.com/owl/families");
 
             // Now that we have a URI for out ontology, we can create the actual ontology.
             // Note that the create ontology method throws an OWLOntologyCreationException if
             // there was a problem creating the ontology.
-            OWLOntology ont = manager.createOntology(ontologyURI);
+            OWLOntology ont = manager.createOntology(ontologyIRI);
 
             // We can use the manager to get a reference to an OWLDataFactory.  The data factory
             // provides a point for creating OWL API objects such as classes, properties and
@@ -84,10 +84,10 @@ public class OWLPrimer {
             // and appending #John.  Note however, that there is no reuqirement that a URI of a class,
             // property or individual that is used in an ontology have a correspondance with the
             // URI of the ontology.
-            OWLIndividual john = factory.getOWLNamedIndividual(URI.create(ontologyURI + "#John"));
-            OWLIndividual mary = factory.getOWLNamedIndividual(URI.create(ontologyURI + "#Mary"));
-            OWLIndividual susan = factory.getOWLNamedIndividual(URI.create(ontologyURI + "#Susan"));
-            OWLIndividual bill = factory.getOWLNamedIndividual(URI.create(ontologyURI + "#Bill"));
+            OWLIndividual john = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#John"));
+            OWLIndividual mary = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#Mary"));
+            OWLIndividual susan = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#Susan"));
+            OWLIndividual bill = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#Bill"));
 
             // The ontologies that we created aren't contained in any ontology at the moment.
             // Individuals (or classes or properties) can't directly be added to an ontology,
@@ -100,7 +100,7 @@ public class OWLPrimer {
             // have a reference to the hasWife object property (object properties link an individual
             // to an individual, and data properties link and individual to a constant - here, we
             // need an object property because John and Mary are individuals).
-            OWLObjectProperty hasWife = factory.getOWLObjectProperty(URI.create(ontologyURI + "#hasWife"));
+            OWLObjectProperty hasWife = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasWife"));
 
             // Now we need to create the assertion that John hasWife Mary. To do this we need
             // an axiom, in this case an object property assertion axiom. This can be thought of
@@ -121,20 +121,20 @@ public class OWLPrimer {
             //
             // John  hasSon Bill
             // Get a refernece to the hasSon property
-            OWLObjectProperty hasSon = factory.getOWLObjectProperty(URI.create(ontologyURI + "#hasSon"));
+            OWLObjectProperty hasSon = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasSon"));
             // Create the assertion,  John hasSon Bill
             OWLAxiom axiom2 = factory.getOWLObjectPropertyAssertionAxiom(john, hasSon, bill);
             // Apply the change
             manager.applyChange(new AddAxiom(ont, axiom2));
 
             // John hasDaughter Susan
-            OWLObjectProperty hasDaughter = factory.getOWLObjectProperty(URI.create(ontologyURI + "#hasDaughter"));
+            OWLObjectProperty hasDaughter = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasDaughter"));
             OWLAxiom axiom3 = factory.getOWLObjectPropertyAssertionAxiom(john, hasDaughter, susan);
             manager.applyChange(new AddAxiom(ont, axiom3));
 
             // John hasAge 33
             // In this case, hasAge is a data property, which we need a reference to
-            OWLDataProperty hasAge = factory.getOWLDataProperty(URI.create(ontologyURI + "#hasAge"));
+            OWLDataProperty hasAge = factory.getOWLDataProperty(IRI.create(ontologyIRI + "#hasAge"));
             // We create a data property assertion instead of an object property assertion
             OWLAxiom axiom4 = factory.getOWLDataPropertyAssertionAxiom(john, hasAge, 33);
             manager.applyChange(new AddAxiom(ont, axiom4));
@@ -167,9 +167,9 @@ public class OWLPrimer {
 
             // Now specify the genders of John, Mary, Bill and Susan.  To do this we need the male
             // and female individuals and the hasGender object property.
-            OWLIndividual male = factory.getOWLNamedIndividual(URI.create(ontologyURI + "#male"));
-            OWLIndividual female = factory.getOWLNamedIndividual(URI.create(ontologyURI + "#female"));
-            OWLObjectProperty hasGender = factory.getOWLObjectProperty(URI.create(ontologyURI + "#hasGender"));
+            OWLIndividual male = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#male"));
+            OWLIndividual female = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#female"));
+            OWLObjectProperty hasGender = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasGender"));
 
             Set<OWLAxiom> genders = new HashSet<OWLAxiom>();
             genders.add(factory.getOWLObjectPropertyAssertionAxiom(john, hasGender, male));
@@ -193,7 +193,7 @@ public class OWLPrimer {
             // need a reference to the class Person
 
             // First get a reference to the person class
-            OWLClass person = factory.getOWLClass(URI.create(ontologyURI + "#Person"));
+            OWLClass person = factory.getOWLClass(IRI.create(ontologyIRI + "#Person"));
             // Now we add the domain and range axioms that specify the domains and ranges
             // of the various properties that we are interested in.
             Set<OWLAxiom> domainsAndRanges = new HashSet<OWLAxiom>();
@@ -237,7 +237,7 @@ public class OWLPrimer {
 
             // We can specify the inverse property of hasWife as hasHusband
             // We first need a reference to the hasHusband property.
-            OWLObjectProperty hasHusband = factory.getOWLObjectProperty(URI.create(ont.getURI() + "#hasHusband"));
+            OWLObjectProperty hasHusband = factory.getOWLObjectProperty(IRI.create(ont.getOntologyID().getOntologyIRI() + "#hasHusband"));
             // The full URI of the hasHusband property will be http://example.com/owl/families#hasHusband
             // since the URI of our ontology is http://example.com/owl/families
             // Create the inverse object properties axiom and add it
@@ -251,7 +251,7 @@ public class OWLPrimer {
 
             // OWL allows a property hierarchy to be specified.  Here, hasSon and hasDaughter will
             // be specified as hasChild.
-            OWLObjectProperty hasChild = factory.getOWLObjectProperty(URI.create(ont.getURI() + "#hasChild"));
+            OWLObjectProperty hasChild = factory.getOWLObjectProperty(IRI.create(ont.getOntologyID().getOntologyIRI() + "#hasChild"));
             OWLSubObjectPropertyOfAxiom hasSonSubHasChildAx = factory.getOWLSubObjectPropertyOfAxiom(hasSon, hasChild);
             // Add the axiom
             manager.addAxiom(ont, hasSonSubHasChildAx);
@@ -295,9 +295,9 @@ public class OWLPrimer {
             // Man, Woman and Parent.  To say something about these classes, as usual, we need references
             // to them:
 
-            OWLClass man = factory.getOWLClass(URI.create(ontologyURI + "#Man"));
-            OWLClass woman = factory.getOWLClass(URI.create(ontologyURI + "#Woman"));
-            OWLClass parent = factory.getOWLClass(URI.create(ontologyURI + "#Parent"));
+            OWLClass man = factory.getOWLClass(IRI.create(ontologyIRI + "#Man"));
+            OWLClass woman = factory.getOWLClass(IRI.create(ontologyIRI + "#Woman"));
+            OWLClass parent = factory.getOWLClass(IRI.create(ontologyIRI + "#Parent"));
 
             // It is important to realise that simply getting references to a class via the data factory
             // does not add them to an ontology - only axioms can be added to an ontology.
@@ -386,14 +386,14 @@ public class OWLPrimer {
             // First create the class Person and hasAge some int[>=13, <20]
             OWLClassExpression teenagePerson = factory.getOWLObjectIntersectionOf(person, teenagerAgeRestriction);
 
-            OWLClass teenager = factory.getOWLClass(URI.create(ontologyURI + "#Teenager"));
+            OWLClass teenager = factory.getOWLClass(IRI.create(ontologyIRI + "#Teenager"));
             OWLEquivalentClassesAxiom teenagerDefinition = factory.getOWLEquivalentClassesAxiom(teenager, teenagePerson);
             manager.addAxiom(ont, teenagerDefinition);
 
             // Do the same for Adult that has an age greater than 21
             OWLDataRange geq21 = factory.getOWLDatatypeRestriction(integerDatatype,
                     factory.getOWLFacetRestriction(MIN_INCLUSIVE, 21));
-            OWLClass adult = factory.getOWLClass(URI.create(ontologyURI + "#Adult"));
+            OWLClass adult = factory.getOWLClass(IRI.create(ontologyIRI + "#Adult"));
             OWLClassExpression adultAgeRestriction = factory.getOWLDataSomeValuesFrom(hasAge, geq21);
             OWLClassExpression adultPerson = factory.getOWLObjectIntersectionOf(person, adultAgeRestriction);
             OWLAxiom adultDefinition = factory.getOWLEquivalentClassesAxiom(adult, adultPerson);
@@ -401,7 +401,7 @@ public class OWLPrimer {
 
             // And finally Child
             OWLDataRange notGeq21 = factory.getOWLDataComplementOf(geq21);
-            OWLClass child = factory.getOWLClass(URI.create(ontologyURI + "#Child"));
+            OWLClass child = factory.getOWLClass(IRI.create(ontologyIRI + "#Child"));
             OWLClassExpression childAgeRestriction = factory.getOWLDataSomeValuesFrom(hasAge, notGeq21);
             OWLClassExpression childPerson = factory.getOWLObjectIntersectionOf(person, childAgeRestriction);
             OWLAxiom childDefinition = factory.getOWLEquivalentClassesAxiom(child, childPerson);

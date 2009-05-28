@@ -1,9 +1,6 @@
 package org.semanticweb.owl.api.test;
 
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyCreationException;
-import org.semanticweb.owl.model.OWLOntologyID;
-import org.semanticweb.owl.model.SetOntologyURI;
+import org.semanticweb.owl.model.*;
 
 import java.net.URI;
 /*
@@ -37,14 +34,12 @@ import java.net.URI;
 public class OntologyURITestCase extends AbstractOWLAPITestCase {
 
     public void testOntologyID() throws Exception {
-        URI uriA = URI.create("http://www.another.com/ont");
-        URI uriB = URI.create("http://www.another.com/ont/version");
-        OWLOntologyID ontIDBoth = new OWLOntologyID(getFactory().getIRI(uriA),
-                getFactory().getIRI(uriB));
-        OWLOntologyID ontIDBoth2 = new OWLOntologyID(getFactory().getIRI(uriA),
-                getFactory().getIRI(uriB));
+        IRI iriA = IRI.create("http://www.another.com/ont");
+        IRI iriB = IRI.create("http://www.another.com/ont/version");
+        OWLOntologyID ontIDBoth = new OWLOntologyID(iriA, iriB);
+        OWLOntologyID ontIDBoth2 = new OWLOntologyID(iriA, iriB);
         assertEquals(ontIDBoth, ontIDBoth2);
-        OWLOntologyID ontIDURIOnly = new OWLOntologyID(getFactory().getIRI(uriA));
+        OWLOntologyID ontIDURIOnly = new OWLOntologyID(iriA);
         assertFalse(ontIDBoth.equals(ontIDURIOnly));
         OWLOntologyID ontIDNoneA = new OWLOntologyID();
         OWLOntologyID ontIDNoneB = new OWLOntologyID();
@@ -52,17 +47,17 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
     }
 
     public void testOntologyURI() throws Exception {
-        URI uri = URI.create("http://www.another.com/ont");
-        OWLOntology ont = getManager().createOntology(uri);
-        assertEquals(ont.getURI(), uri);
-        assertTrue(getManager().contains(uri));
+        IRI iri = IRI.create("http://www.another.com/ont");
+        OWLOntology ont = getManager().createOntology(iri);
+        assertEquals(ont.getOntologyID().getOntologyIRI(), iri);
+        assertTrue(getManager().contains(iri));
         assertTrue(getManager().getOntologies().contains(ont));
-        OWLOntologyID ontID = new OWLOntologyID(getFactory().getIRI(uri));
+        OWLOntologyID ontID = new OWLOntologyID(iri);
         assertEquals(ont.getOntologyID(), ontID);
     }
 
     public void testDuplicateOntologyURI() throws Exception {
-        URI uri = URI.create("http://www.another.com/ont");
+        IRI uri = IRI.create("http://www.another.com/ont");
         getManager().createOntology(uri);
         try {
             getManager().createOntology(uri);
@@ -73,31 +68,31 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
 
 
     public void testSetOntologyURI() throws Exception {
-        URI uri = URI.create("http://www.another.com/ont");
-        OWLOntology ont = getManager().createOntology(uri);
-        URI newURI = URI.create("http://www.another.com/newont");
-        SetOntologyURI sou = new SetOntologyURI(ont, newURI);
+        IRI iri = IRI.create("http://www.another.com/ont");
+        OWLOntology ont = getManager().createOntology(iri);
+        IRI newIRI = IRI.create("http://www.another.com/newont");
+        SetOntologyID sou = new SetOntologyID(ont, new OWLOntologyID(newIRI));
         getManager().applyChange(sou);
-        assertFalse(getManager().contains(uri));
-        assertTrue(getManager().contains(newURI));
-        assertEquals(ont.getURI(), newURI);
+        assertFalse(getManager().contains(iri));
+        assertTrue(getManager().contains(newIRI));
+        assertEquals(ont.getOntologyID().getOntologyIRI(), newIRI);
     }
 
     public void testVersionURI() throws Exception {
-        URI ontURI = URI.create("http://www.another.com/ont");
-        URI verURI = URI.create("http://www.another.com/ont/versions/1.0.0");
-        OWLOntology ont = getManager().createOntology(ontURI, verURI);
-        assertEquals(ont.getURI(), ontURI);
-        assertEquals(ont.getIRI().toURI(), ontURI);
-        assertEquals(ont.getVersionIRI().toURI(), verURI);
+        IRI ontIRI = IRI.create("http://www.another.com/ont");
+        IRI verIRI = IRI.create("http://www.another.com/ont/versions/1.0.0");
+        OWLOntology ont = getManager().createOntology(ontIRI, verIRI);
+        assertEquals(ont.getOntologyID().getOntologyIRI(), ontIRI);
+        assertEquals(ont.getOntologyID().getVersionIRI(), verIRI);
+        assertEquals(ont.getVersionIRI(), verIRI);
     }
 
     public void testNullVersionURI() throws Exception {
-        URI ontURI = URI.create("http://www.another.com/ont");
-        URI verURI = null;
-        OWLOntology ont = getManager().createOntology(ontURI, verURI);
-        assertEquals(ont.getURI(), ontURI);
-        assertEquals(ont.getIRI().toURI(), ontURI);
+        IRI ontIRI = IRI.create("http://www.another.com/ont");
+        IRI verIRI = null;
+        OWLOntology ont = getManager().createOntology(ontIRI, verIRI);
+        assertEquals(ont.getOntologyID().getOntologyIRI(), ontIRI);
+        assertEquals(ont.getOntologyID().getVersionIRI(), verIRI);
         assertEquals(ont.getVersionIRI(), null);
     }
 }

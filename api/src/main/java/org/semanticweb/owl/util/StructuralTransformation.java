@@ -47,7 +47,7 @@ public class StructuralTransformation {
 
 
     private OWLClass createNewName() {
-        OWLClass cls = df.getOWLClass(URI.create("http://www.semanticweb.org/ontology#X" + nameCounter));
+        OWLClass cls = df.getOWLClass(IRI.create("http://www.semanticweb.org/ontology#X" + nameCounter));
         nameCounter++;
         return cls;
     }

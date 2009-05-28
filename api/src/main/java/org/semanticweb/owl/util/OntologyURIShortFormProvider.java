@@ -1,5 +1,7 @@
 package org.semanticweb.owl.util;
 
+import org.semanticweb.owl.model.OWLOntology;
+
 import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -33,6 +35,14 @@ import java.net.URI;
  */
 public class OntologyURIShortFormProvider implements URIShortFormProvider {
 
+    public String getShortForm(OWLOntology ont) {
+        if(!ont.isAnonymous()) {
+            return getShortForm(ont.getOntologyID().getOntologyIRI().toURI());
+        }
+        else {
+            return ont.getOntologyID().toString();
+        }
+    }
 
     public String getShortForm(URI uri) {
         String shortForm = uri.toString();

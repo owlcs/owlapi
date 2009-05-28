@@ -740,7 +740,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
             OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
 //            long t0 = System.currentTimeMillis();
-//            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("file:/Users/matthewhorridge/ontologies/thesaurus/Thesaurus.owl"));
+//            OWLOntology ont = man.loadOntologyFromPhysicalURI(IRI.create("file:/Users/matthewhorridge/ontologies/thesaurus/Thesaurus.owl"));
 //            long t1 = System.currentTimeMillis();
 //
 //            System.gc();

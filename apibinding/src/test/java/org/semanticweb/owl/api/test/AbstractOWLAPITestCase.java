@@ -8,9 +8,9 @@ import org.semanticweb.owl.io.StringOutputTarget;
 import org.semanticweb.owl.io.UnparsableOntologyException;
 import org.semanticweb.owl.model.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URI;
 import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -44,12 +44,12 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
 
     private OWLOntologyManager manager;
 
-    private URI uriBase;
+    private IRI uriBase;
 
 
     public AbstractOWLAPITestCase() {
         manager = OWLManager.createOWLOntologyManager();
-        uriBase = URI.create("http://www.semanticweb.org/owlapi/test");
+        uriBase = IRI.create("http://www.semanticweb.org/owlapi/test");
     }
 
 
@@ -70,12 +70,12 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
 
     public OWLOntology getOWLOntology(String name) {
         try {
-            URI uri = URI.create(uriBase + "/" + name);
-            if (manager.contains(uri)) {
-                return manager.getOntology(uri);
+            IRI iri = IRI.create(uriBase + "/" + name);
+            if (manager.contains(iri)) {
+                return manager.getOntology(iri);
             }
             else {
-                return manager.createOntology(uri);
+                return manager.createOntology(iri);
             }
         }
         catch (OWLOntologyCreationException e) {
@@ -101,26 +101,26 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
 
 
     public OWLClass getOWLClass(String name) {
-        return getFactory().getOWLClass(URI.create(uriBase + "#" + name));
+        return getFactory().getOWLClass(IRI.create(uriBase + "#" + name));
     }
 
 
     public OWLObjectProperty getOWLObjectProperty(String name) {
-        return getFactory().getOWLObjectProperty(URI.create(uriBase + "#" + name));
+        return getFactory().getOWLObjectProperty(IRI.create(uriBase + "#" + name));
     }
 
 
     public OWLDataProperty getOWLDataProperty(String name) {
-        return getFactory().getOWLDataProperty(URI.create(uriBase + "#" + name));
+        return getFactory().getOWLDataProperty(IRI.create(uriBase + "#" + name));
     }
 
 
     public OWLNamedIndividual getOWLIndividual(String name) {
-        return getFactory().getOWLNamedIndividual(URI.create(uriBase + "#" + name));
+        return getFactory().getOWLNamedIndividual(IRI.create(uriBase + "#" + name));
     }
 
     public OWLDatatype getOWLDatatype(String name) {
-        return getFactory().getOWLDatatype(URI.create(uriBase + "#" + name));
+        return getFactory().getOWLDatatype(IRI.create(uriBase + "#" + name));
     }
 
 

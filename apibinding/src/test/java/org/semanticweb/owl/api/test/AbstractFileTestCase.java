@@ -2,6 +2,7 @@ package org.semanticweb.owl.api.test;
 
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyCreationException;
+import org.semanticweb.owl.model.IRI;
 
 import java.net.URI;
 import java.net.URISyntaxException;/*

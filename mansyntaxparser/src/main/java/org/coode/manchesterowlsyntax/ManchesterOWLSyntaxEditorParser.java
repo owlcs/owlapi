@@ -377,7 +377,7 @@ public class ManchesterOWLSyntaxEditorParser {
     public OWLClass getOWLClass(String name) {
         OWLClass cls = owlEntityChecker.getOWLClass(name);
         if (cls == null && classNames.contains(name)) {
-            cls = getDataFactory().getOWLClass(getURI(name));
+            cls = getDataFactory().getOWLClass(getIRI(name));
         }
         return cls;
     }
@@ -386,7 +386,7 @@ public class ManchesterOWLSyntaxEditorParser {
     public OWLObjectProperty getOWLObjectProperty(String name) {
         OWLObjectProperty prop = owlEntityChecker.getOWLObjectProperty(name);
         if (prop == null && objectPropertyNames.contains(name)) {
-            prop = getDataFactory().getOWLObjectProperty(getURI(name));
+            prop = getDataFactory().getOWLObjectProperty(getIRI(name));
         }
         return prop;
     }
@@ -395,7 +395,7 @@ public class ManchesterOWLSyntaxEditorParser {
     public OWLNamedIndividual getOWLIndividual(String name) {
         OWLNamedIndividual ind = owlEntityChecker.getOWLIndividual(name);
         if (ind == null && individualNames.contains(name)) {
-            ind = getDataFactory().getOWLNamedIndividual(getURI(name));
+            ind = getDataFactory().getOWLNamedIndividual(getIRI(name));
         }
         return ind;
     }
@@ -404,7 +404,7 @@ public class ManchesterOWLSyntaxEditorParser {
     public OWLDataProperty getOWLDataProperty(String name) {
         OWLDataProperty prop = owlEntityChecker.getOWLDataProperty(name);
         if (prop == null && dataPropertyNames.contains(name)) {
-            prop = getDataFactory().getOWLDataProperty(getURI(name));
+            prop = getDataFactory().getOWLDataProperty(getIRI(name));
         }
         return prop;
     }
@@ -413,7 +413,7 @@ public class ManchesterOWLSyntaxEditorParser {
     public OWLDatatype getOWLDatatype(String name) {
         OWLDatatype dt = owlEntityChecker.getOWLDatatype(name);
         if (dt == null && dataTypeNames.contains(name)) {
-            dt = getDataFactory().getOWLDatatype(getURI(name));
+            dt = getDataFactory().getOWLDatatype(getIRI(name));
         }
         return dt;
     }
@@ -422,7 +422,7 @@ public class ManchesterOWLSyntaxEditorParser {
     public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
         OWLAnnotationProperty prop = owlEntityChecker.getOWLAnnotationProperty(name);
         if (prop == null && annotationPropertyNames.contains(name)) {
-            prop = getDataFactory().getOWLAnnotationProperty(getURI(name));
+            prop = getDataFactory().getOWLAnnotationProperty(getIRI(name));
         }
         return prop;
     }
@@ -804,13 +804,13 @@ public class ManchesterOWLSyntaxEditorParser {
                 while (sep.equals(",")) {
                     OWLFacet fv = parseFacet();
                     if (fv == null) {
-                        throwException(OWLFacet.getFacets().toArray(new String[OWLFacet.getFacetURIs().size()]));
+                        throwException(OWLFacet.getFacets().toArray(new String[OWLFacet.getFacetIRIs().size()]));
                     }
                     OWLLiteral con = parseConstant();
                     if (!con.isTyped()) {
                         con = dataFactory.getOWLTypedLiteral(con.getLiteral());
                     }
-                    facetRestrictions.add(dataFactory.getOWLFacetRestriction(fv, con.asOWLTypedLiteral()));
+                    facetRestrictions.add(dataFactory.getOWLFacetRestriction(fv, con.asOWLStringLiteral()));
                     sep = consumeToken();
                 }
                 if (!sep.equals("]")) {
@@ -1108,7 +1108,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public Set<OntologyAxiomPair> parseAnnotations(URI subject) throws ParserException {
+    public Set<OntologyAxiomPair> parseAnnotations(IRI subject) throws ParserException {
         String header = consumeToken();
         if (!header.equals(ANNOTATIONS)) {
             throwException(ANNOTATIONS);
@@ -1118,7 +1118,7 @@ public class ManchesterOWLSyntaxEditorParser {
         Set<OntologyAxiomPair> pairs = new HashSet<OntologyAxiomPair>();
         for (OWLOntology ont : onts) {
             for (OWLAnnotation anno : annos) {
-                OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getIRI(subject), anno);
+                OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
                 pairs.add(new OntologyAxiomPair(ont, ax));
             }
         }
@@ -1148,7 +1148,7 @@ public class ManchesterOWLSyntaxEditorParser {
         String obj = peekToken();
         if (isIndividualName(obj) || isClassName(obj) || isObjectPropertyName(obj) || isDataPropertyName(obj)) {
             consumeToken();
-            URI uri = getURI(obj);
+            IRI iri = getIRI(obj);
             OWLAnnotation anno = dataFactory.getOWLAnnotation(annoProp, getIRI(obj));
             annos.add(anno);
         } else {
@@ -1161,7 +1161,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
 
     public Set<OntologyAxiomPair> parseAnnotations(OWLEntity subject) throws ParserException {
-        return parseAnnotations(subject.getURI());
+        return parseAnnotations(subject.getIRI());
     }
 
 
@@ -1929,7 +1929,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
     public SWRLAtomIVariable parseIVariable() throws ParserException {
         String var = parseVariable();
-        return dataFactory.getSWRLAtomIVariable(getURI(var));
+        return dataFactory.getSWRLAtomIVariable(getIRI(var).toURI());
     }
 
 
@@ -1964,7 +1964,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
     public SWRLAtomDVariable parseDVariable() throws ParserException {
         String var = parseVariable();
-        return dataFactory.getSWRLAtomDVariable(getURI(var));
+        return dataFactory.getSWRLAtomDVariable(getIRI(var).toURI());
     }
 
 
@@ -2365,7 +2365,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public Map<String, URI> parsePrefixDeclaration() throws ParserException {
+    public Map<String, IRI> parsePrefixDeclaration() throws ParserException {
         String nsTok = consumeToken();
         if (!nsTok.equals(PREFIX)) {
             throwException(PREFIX);
@@ -2374,15 +2374,15 @@ public class ManchesterOWLSyntaxEditorParser {
         //  prefix <URI> (legacy prefix '=' <URI>)
         // The prefix might be empty
         String tok = peekToken();
-        Map<String, URI> map = new HashMap<String, URI>(2);
+        Map<String, IRI> map = new HashMap<String, IRI>(2);
         String prefix = consumeToken();
         // Handle legacy = character if necessart
         String delim = peekToken();
         if (delim.equals("=")) {
             consumeToken();
         }
-        URI uri = parseURI();
-        map.put(tok, uri);
+        IRI iri = parseIRI();
+        map.put(tok, iri);
 
         return map;
     }
@@ -2393,12 +2393,12 @@ public class ManchesterOWLSyntaxEditorParser {
         if (!section.equalsIgnoreCase(IMPORT)) {
             throwException(IMPORT);
         }
-        URI importedOntologyURI = parseURI();
+        URI importedOntologyURI = parseIRI().toURI();
         return dataFactory.getOWLImportsDeclaration(importedOntologyURI);
     }
 
 
-    public URI parseURI() throws ParserException {
+    public IRI parseIRI() throws ParserException {
         String open = consumeToken();
         if (!open.equals("<")) {
             throwException("<");
@@ -2408,7 +2408,7 @@ public class ManchesterOWLSyntaxEditorParser {
         if (!close.equals(">")) {
             throwException(">");
         }
-        return URI.create(uri);
+        return IRI.create(uri);
     }
 
 
@@ -2437,11 +2437,11 @@ public class ManchesterOWLSyntaxEditorParser {
                 iris.add(owlEntityChecker.getOWLDatatype(token).getIRI());
                 consumeToken();
             } else if (isOntologyName(token)) {
-                iris.add(getOntology(token).getIRI());
+                iris.add(getOntology(token).getOntologyID().getOntologyIRI());
                 consumeToken();
             } else if (token.equals("<")) {
-                URI uri = parseURI();
-                iris.add(getDataFactory().getIRI(uri));
+                IRI iri = parseIRI();
+                iris.add(iri);
             } else {
                 throwException(true, true, true, true, true, true, "<$URI$>");
             }
@@ -2501,19 +2501,19 @@ public class ManchesterOWLSyntaxEditorParser {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
         Set<AddImport> imports = new HashSet<AddImport>();
         this.defaultOntology = ont;
-        URI ontologyURI = null;
+        IRI ontologyIRI = null;
         processDeclaredEntities();
         while (true) {
             String section = peekToken();
-            if (ontologyURI == null && section.equals(ONTOLOGY)) {
+            if (ontologyIRI == null && section.equals(ONTOLOGY)) {
                 // Consume ontology header token
                 consumeToken();
-                ontologyURI = parseURI();
-                setBase(ontologyURI + "#");
-                pm.setDefaultPrefix(ontologyURI + "#");
+                ontologyIRI = parseIRI();
+                setBase(ontologyIRI + "#");
+                pm.setDefaultPrefix(ontologyIRI + "#");
                 // Annotations?
                 while (peekToken().equals(ANNOTATIONS)) {
-                    axioms.addAll(parseAnnotations(ontologyURI));
+                    axioms.addAll(parseAnnotations(ontologyIRI));
                 }
             } else if (section.equalsIgnoreCase(CLASS)) {
                 axioms.addAll(parseClassFrame());
@@ -2530,7 +2530,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 imports.add(new AddImport(ont, decl));
                 manager.makeLoadImportRequest(decl);
             } else if (section.equalsIgnoreCase(PREFIX)) {
-                Map<String, URI> nsMap = parsePrefixDeclaration();
+                Map<String, IRI> nsMap = parsePrefixDeclaration();
                 for (String ns : nsMap.keySet()) {
                     pm.setPrefix(ns, nsMap.get(ns).toString());
                 }
@@ -2556,7 +2556,7 @@ public class ManchesterOWLSyntaxEditorParser {
         for (OntologyAxiomPair pair : axioms) {
             changes.add(new AddAxiom(ont, pair.getAxiom()));
         }
-        changes.add(new SetOntologyURI(ont, ontologyURI));
+        changes.add(new SetOntologyID(ont, new OWLOntologyID(ontologyIRI)));
         manager.applyChanges(changes);
     }
 
@@ -2566,12 +2566,12 @@ public class ManchesterOWLSyntaxEditorParser {
         if (!tok.equalsIgnoreCase(ONTOLOGY)) {
             throwException(ONTOLOGY);
         }
-        URI ontologyURI = null;
-        URI versionURI = null;
+        IRI ontologyIRI = null;
+        IRI versionIRI = null;
         if (peekToken().equals("<")) {
-            ontologyURI = parseURI();
+            ontologyIRI = parseIRI();
             if (peekToken().equals("<")) {
-                versionURI = parseURI();
+                versionIRI = parseIRI();
             }
         }
         Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
@@ -2586,20 +2586,20 @@ public class ManchesterOWLSyntaxEditorParser {
             if (section.equals(IMPORT)) {
                 consumeToken();
                 tok = peekToken();
-                URI importedURI = null;
+                IRI importedIRI = null;
                 if (tok.equals("<")) {
-                    importedURI = parseURI();
+                    importedIRI = parseIRI();
                 } else if (isOntologyName(tok)) {
                     consumeToken();
                     OWLOntology ont = getOntology(tok);
                     if (ont != null) {
-                        importedURI = ont.getURI();
+                        importedIRI = ont.getOntologyID().getOntologyIRI();
                     }
                 } else {
                     consumeToken();
                     throwOntologyNameOrURIExpectedException();
                 }
-                imports.add(getDataFactory().getOWLImportsDeclaration(importedURI));
+                imports.add(getDataFactory().getOWLImportsDeclaration(importedIRI));
             } else if (section.equals(ANNOTATIONS)) {
                 consumeToken();
                 annotations.addAll(parseAnnotationList());
@@ -2609,7 +2609,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 throwException(IMPORT, ANNOTATIONS);
             }
         }
-        return new ManchesterOWLSyntaxOntologyHeader(getDataFactory().getIRI(ontologyURI), getDataFactory().getIRI(versionURI), annotations, imports);
+        return new ManchesterOWLSyntaxOntologyHeader(ontologyIRI, versionIRI, annotations, imports);
     }
 
 
@@ -2706,7 +2706,7 @@ public class ManchesterOWLSyntaxEditorParser {
             } else if (name.equals("Nothing") || name.equals("owl:Nothing")) {
                 return dataFactory.getOWLNothing();
             } else if (classNames.contains(name)) {
-                return dataFactory.getOWLClass(getURI(name));
+                return dataFactory.getOWLClass(getIRI(name));
             } else {
                 return null;
             }
@@ -2715,7 +2715,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
         public OWLObjectProperty getOWLObjectProperty(String name) {
             if (objectPropertyNames.contains(name)) {
-                return dataFactory.getOWLObjectProperty(getURI(name));
+                return dataFactory.getOWLObjectProperty(getIRI(name));
             } else {
                 return null;
             }
@@ -2724,7 +2724,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
         public OWLDataProperty getOWLDataProperty(String name) {
             if (dataPropertyNames.contains(name)) {
-                return dataFactory.getOWLDataProperty(getURI(name));
+                return dataFactory.getOWLDataProperty(getIRI(name));
             } else {
                 return null;
             }
@@ -2733,7 +2733,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
         public OWLNamedIndividual getOWLIndividual(String name) {
             if (individualNames.contains(name)) {
-                return dataFactory.getOWLNamedIndividual(getURI(name));
+                return dataFactory.getOWLNamedIndividual(getIRI(name));
             } else {
                 return null;
             }
@@ -2747,7 +2747,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
         public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
             if (annotationPropertyNames.contains(name)) {
-                return dataFactory.getOWLAnnotationProperty(getURI(name));
+                return dataFactory.getOWLAnnotationProperty(getIRI(name));
             } else {
                 return null;
             }
@@ -2755,35 +2755,31 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    private Map<String, URI> nameURIMap = new HashMap<String, URI>();
+    private Map<String, IRI> nameIRIMap = new HashMap<String, IRI>();
+
 
 
     public IRI getIRI(String name) {
-        return getDataFactory().getIRI(getURI(name));
-    }
-
-
-    public URI getURI(String name) {
         boolean fullIRI = name.equals("<");
         if(fullIRI) {
             name = consumeToken();
             consumeToken();
         }
-        URI uri = nameURIMap.get(name);
+        IRI uri = nameIRIMap.get(name);
         if (uri != null) {
             return uri;
         }
         if (fullIRI) {
-            uri = URI.create(name);
+            uri = IRI.create(name);
         }
         else {
             int colonIndex = name.indexOf(':');
             if (colonIndex != -1) {
                 name = name + ":";
             }
-            uri = pm.getURI(name);
+            uri = pm.getIRI(name);
         }
-        nameURIMap.put(name, uri);
+        nameIRIMap.put(name, uri);
         return uri;
     }
 

@@ -1,6 +1,7 @@
 package org.semanticweb.owl.io;
 
 import org.semanticweb.owl.model.OWLRuntimeException;
+import org.semanticweb.owl.model.IRI;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,7 +54,7 @@ public class ReaderInputSource implements OWLOntologyInputSource {
      * @param reader The reader that will be used to read an ontology.
      */
     public ReaderInputSource(Reader reader) {
-        this(reader, URI.create("http://org.semanticweb.ontologies/Ontology" + System.nanoTime()));
+        this(reader, IRI.create("http://org.semanticweb.ontologies/Ontology" + System.nanoTime()));
     }
 
 
@@ -61,11 +62,11 @@ public class ReaderInputSource implements OWLOntologyInputSource {
      * Constructs and ontology input source which will read an ontology
      * from a reader.
      * @param reader The reader that will be used to read an ontology.
-     * @param physicalURI The physical URI which will be used as the base
+     * @param physicalURI The physical IRI which will be used as the base
      * of the document if needed.
      */
-    public ReaderInputSource(Reader reader, URI physicalURI) {
-        this.physicalURI = physicalURI;
+    public ReaderInputSource(Reader reader, IRI physicalURI) {
+        this.physicalURI = this.physicalURI;
         fillBuffer(reader);
     }
 
@@ -84,11 +85,9 @@ public class ReaderInputSource implements OWLOntologyInputSource {
         }
     }
 
-
     public URI getPhysicalURI() {
         return physicalURI;
     }
-
 
     public Reader getReader() {
 

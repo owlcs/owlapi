@@ -1,6 +1,7 @@
 package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.OWLEntity;
+import org.semanticweb.owl.model.IRI;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -42,40 +43,40 @@ import java.util.Map;
  */
 public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEntityURIConverterStrategy {
 
-    private Map<URI, URI> uriMap;
+    private Map<IRI, IRI> iriMap;
 
 
     public OWLEntityURIUnderscores2CamelBackConverterStrategy() {
-        uriMap = new HashMap<URI, URI>();
+        iriMap = new HashMap<IRI, IRI>();
     }
 
 
-    public URI getConvertedURI(OWLEntity entity) {
-        URI convURI = uriMap.get(entity.getURI());
-        if(convURI == null) {
-            convURI = convertURI(entity.getURI());
-            uriMap.put(entity.getURI(), convURI);
+    public IRI getConvertedIRI(OWLEntity entity) {
+        IRI convIRI = iriMap.get(entity.getURI());
+        if(convIRI == null) {
+            convIRI = convert(entity.getIRI());
+            iriMap.put(entity.getIRI(), convIRI);
         }
-        return convURI;
+        return convIRI;
     }
 
-    private static URI convertURI(URI uri) {
-        String uriString = uri.toString();
-        String fragment = uri.getFragment();
+    private static IRI convert(IRI iri) {
+        String iriString = iri.toString();
+        String fragment = iri.toURI().getFragment();
         if(fragment != null) {
-            String base = uriString.substring(0, uriString.length() - fragment.length());
+            String base = iriString.substring(0, iriString.length() - fragment.length());
             String camelCaseFragment = toCamelCase(fragment);
-            return URI.create(base + camelCaseFragment);
+            return IRI.create(base + camelCaseFragment);
         }
-        String path = uri.getPath();
+        String path = iri.toURI().getPath();
         if(path.length() > 0) {
             int index = path.lastIndexOf('/');
             String lastPathElement = path.substring(index + 1, path.length());
             String camelCaseElement = toCamelCase(lastPathElement);
-            String base = uriString.substring(0, uriString.lastIndexOf('/') + 1); 
-            return URI.create(base + camelCaseElement);
+            String base = iriString.substring(0, iriString.lastIndexOf('/') + 1);
+            return IRI.create(base + camelCaseElement);
         }
-        return uri;
+        return iri;
     }
 
 
@@ -103,10 +104,4 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEn
     }
 
 
-    public static void main(String[] args) {
-        URI uri = URI.create("http://www.another.co");
-        System.out.println(uri);
-        System.out.println(OWLEntityURIUnderscores2CamelBackConverterStrategy.convertURI(uri));
-
-    }
 }

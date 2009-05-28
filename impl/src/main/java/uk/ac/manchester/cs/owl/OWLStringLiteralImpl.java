@@ -68,7 +68,7 @@ public class OWLStringLiteralImpl extends OWLLiteralImpl implements OWLStringLit
     }
 
 
-    public OWLTypedLiteral asOWLTypedLiteral() {
+    public OWLTypedLiteral asOWLStringLiteral() {
         throw new OWLRuntimeException("Not a typed constant!");
     }
 
@@ -91,6 +91,13 @@ public class OWLStringLiteralImpl extends OWLLiteralImpl implements OWLStringLit
         return false;
     }
 
+    public void accept(OWLAnnotationValueVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 
     public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);

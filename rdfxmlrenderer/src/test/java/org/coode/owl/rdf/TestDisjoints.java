@@ -5,17 +5,13 @@ import org.coode.owl.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owl.io.OWLParserFactoryRegistry;
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
 
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -67,10 +63,10 @@ public class TestDisjoints extends TestCase {
     }
 
     public void testAnonDisjoints() throws Exception {
-        OWLOntology ontA = man.createOntology(TestUtils.createURI());
-        OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
-        OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createURI());
-        OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createURI());
+        OWLOntology ontA = man.createOntology(TestUtils.createIRI());
+        OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());
+        OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());
+        OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createIRI());
         OWLClassExpression descA = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(prop, clsA);
         OWLClassExpression descB = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(prop, clsB);
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();

@@ -2,9 +2,9 @@ package org.semanticweb.owl.vocab;
 
 import org.semanticweb.owl.model.PrefixManager;
 import org.semanticweb.owl.model.OWLOntologyFormat;
+import org.semanticweb.owl.model.IRI;
 import org.semanticweb.owl.util.DefaultPrefixManager;
 
-import java.net.URI;
 import java.util.Map;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -101,11 +101,11 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
     }
 
 
-    public URI getURI(String curi) {       
-        return nsm.getURI(curi);
+    public IRI getIRI(String curi) {       
+        return nsm.getIRI(curi);
     }
 
-    public String getPrefixIRI(URI uri) {
-        return nsm.getPrefixIRI(uri);
+    public String getPrefixIRI(IRI iri) {
+        return nsm.getPrefixIRI(iri);
     }
 }

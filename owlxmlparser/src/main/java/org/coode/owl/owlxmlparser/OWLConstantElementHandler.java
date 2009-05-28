@@ -1,6 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLLiteral;
+import org.semanticweb.owl.model.IRI;
 import org.semanticweb.owl.vocab.OWLXMLVocabulary;
 
 import java.net.URI;
@@ -39,7 +40,7 @@ public class OWLConstantElementHandler extends AbstractOWLElementHandler<OWLLite
 
     private OWLLiteral literal;
 
-    private URI uri;
+    private IRI iri;
 
     private String lang;
 
@@ -53,7 +54,7 @@ public class OWLConstantElementHandler extends AbstractOWLElementHandler<OWLLite
 
     public void attribute(String localName, String value) throws OWLXMLParserException {
         if (localName.equals(OWLXMLVocabulary.DATATYPE_IRI.getShortName())) {
-            uri = getIRI(value);
+            iri = getIRI(value);
         }
         else if(localName.equals("lang")) {
             lang = value;
@@ -61,13 +62,13 @@ public class OWLConstantElementHandler extends AbstractOWLElementHandler<OWLLite
     }
 
     public void endElement() throws OWLXMLParserException {
-        if (uri != null) {
-            literal = getOWLDataFactory().getOWLTypedLiteral(getText(), getOWLDataFactory().getOWLDatatype(uri));
+        if (iri != null) {
+            literal = getOWLDataFactory().getOWLTypedLiteral(getText(), getOWLDataFactory().getOWLDatatype(iri));
         } else {
             literal = getOWLDataFactory().getOWLStringLiteral(getText(), lang);
         }
         lang = null;
-        uri = null;
+        iri = null;
         getParentHandler().handleChild(this);
     }
 

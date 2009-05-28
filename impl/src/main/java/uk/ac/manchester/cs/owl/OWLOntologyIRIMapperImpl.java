@@ -1,13 +1,13 @@
-package org.coode.owl.rdf;
+package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.OWLIndividual;
+import org.semanticweb.owl.model.OWLOntologyIRIMapper;
+import org.semanticweb.owl.model.IRI;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.net.URI;
+import java.util.Map;
+import java.util.TreeMap;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2006, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -34,21 +34,34 @@ import java.util.Set;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 06-Jul-2007<br><br>
+ * Date: 14-Nov-2006<br><br>
  */
-public class TestAnonymousType extends AbstractRendererAndParserTestCase {
+public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
+
+    private Map<IRI, URI> iriMap;
 
 
-    protected Set<OWLAxiom> getAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClassExpression desc = getDataFactory().getOWLObjectComplementOf(getDataFactory().getOWLClass(TestUtils.createIRI()));
-        OWLIndividual ind = getDataFactory().getOWLNamedIndividual(TestUtils.createIRI());
-        axioms.add(getDataFactory().getOWLClassAssertionAxiom(ind, desc));
-        return axioms;
+    public OWLOntologyIRIMapperImpl() {
+        iriMap = new TreeMap<IRI, URI>();
     }
 
 
-    protected String getClassExpression() {
-        return "Anonymous type test case";
+    /**
+     * Gets the physical IRI of an ontology given an ontology IRI.  If no mapping
+     * is found, then the ontology IRI is returned.
+     * @param ontologyIRI
+     */
+    public URI getPhysicalURI(IRI ontologyIRI) {
+        URI uri = iriMap.get(ontologyIRI);
+        if(uri != null) {
+            return uri;
+        }
+        else {
+            return ontologyIRI.toURI();
+        }
+    }
+
+    public void addMapping(IRI ontologyIRI, URI physicalURI) {
+        iriMap.put(ontologyIRI, physicalURI);
     }
 }

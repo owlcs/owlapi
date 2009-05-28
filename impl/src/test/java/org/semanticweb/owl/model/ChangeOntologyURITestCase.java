@@ -37,11 +37,11 @@ public class ChangeOntologyURITestCase extends AbstractOWLTestCase {
 
     public void testChangeURI() throws Exception {
         OWLOntologyManager man = getOWLOntologyManager();
-        URI oldURI = URI.create("http://www.semanticweb.org/ontologies/ontA");
-        URI newURI = URI.create("http://www.semanticweb.org/ontologies/ontB");
+        IRI oldURI = IRI.create("http://www.semanticweb.org/ontologies/ontA");
+        IRI newURI = IRI.create("http://www.semanticweb.org/ontologies/ontB");
         OWLOntology ont = man.createOntology(oldURI);
-        OWLOntology importingOnt = man.createOntology(URI.create("http://www.semanticweb.org/ontologies/ontC"));
-        man.applyChange(new AddImport(importingOnt, man.getOWLDataFactory().getOWLImportsDeclaration(ont.getURI())));
+        OWLOntology importingOnt = man.createOntology(IRI.create("http://www.semanticweb.org/ontologies/ontC"));
+        man.applyChange(new AddImport(importingOnt, man.getOWLDataFactory().getOWLImportsDeclaration(ont.getOntologyID().getOntologyIRI())));
         assertTrue(man.contains(oldURI));
         OWLOntologyURIChanger changer = new OWLOntologyURIChanger(man);
         man.applyChanges(changer.getChanges(ont, newURI));
@@ -51,7 +51,7 @@ public class ChangeOntologyURITestCase extends AbstractOWLTestCase {
         assertTrue(man.getImports(importingOnt).contains(ont));
         assertNotNull(man.getOntology(newURI));
         assertEquals(man.getOntology(newURI), ont);
-        assertEquals(man.getOntology(newURI).getURI(), newURI);
+        assertEquals(man.getOntology(newURI).getOntologyID().getOntologyIRI().toURI(), newURI);
         assertTrue(man.getImportsClosure(importingOnt).contains(ont));
         assertNotNull(man.getPhysicalURIForOntology(ont));
         // Physical URI will still be the same (in this case the old ont URI)

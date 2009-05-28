@@ -2,6 +2,7 @@ package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.PrefixManager;
 import org.semanticweb.owl.model.OWLEntity;
+import org.semanticweb.owl.model.IRI;
 import org.semanticweb.owl.vocab.Namespaces;
 
 import java.net.URI;
@@ -89,14 +90,14 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, U
         setPrefix(":", defaultPrefix);
     }
 
-    public String getPrefixIRI(URI uri) {
-        String uriString = uri.toString();
+    public String getPrefixIRI(IRI iri) {
+        String iriString = iri.toString();
         for(String prefixName : prefix2NamespaceMap.keySet()) {
             String prefix = prefix2NamespaceMap.get(prefixName);
-            if(uriString.startsWith(prefix)) {
+            if(iriString.startsWith(prefix)) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(prefixName);
-                String localName = uriString.substring(prefix.length());
+                String localName = iriString.substring(prefix.length());
                 sb.append(localName);
                 return sb.toString();
             }
@@ -115,21 +116,21 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, U
     }
 
 
-    public URI getURI(String curie) {
+    public IRI getIRI(String curie) {
         if(curie.startsWith("<")) {
-            return URI.create(curie.substring(1, curie.length() - 1));
+            return IRI.create(curie.substring(1, curie.length() - 1));
         }
         int sep = curie.indexOf(':');
         if(sep == -1) {
             if (getDefaultPrefix() != null) {
-                return URI.create(getDefaultPrefix() + curie);
+                return IRI.create(getDefaultPrefix() + curie);
             }
             else {
-                return URI.create(curie);
+                return IRI.create(curie);
             }
         }
         else {
-            return URI.create(getPrefix(curie.substring(0, sep)) + curie.substring(sep + 1));
+            return IRI.create(getPrefix(curie.substring(0, sep)) + curie.substring(sep + 1));
         }
     }
 
@@ -175,7 +176,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, U
     }
 
     public String getShortForm(URI uri) {
-        String sf = getPrefixIRI(uri);
+        String sf = getPrefixIRI(IRI.create(uri));
         if(sf == null) {
             StringBuilder sb = new StringBuilder();
             sb.append("<");

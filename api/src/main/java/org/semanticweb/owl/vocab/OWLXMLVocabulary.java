@@ -1,5 +1,7 @@
 package org.semanticweb.owl.vocab;
 
+import org.semanticweb.owl.model.IRI;
+
 import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
@@ -213,20 +215,20 @@ public enum OWLXMLVocabulary {
 
     CARDINALITY_ATTRIBUTE("cardinality");
 
-    private URI uri;
+    private IRI iri;
 
     private String shortName;
 
 
 
     OWLXMLVocabulary(String name) {
-        this.uri = URI.create(Namespaces.OWL + name);
+        this.iri = IRI.create(Namespaces.OWL + name);
         shortName = name;
     }
 
 
     public URI getURI() {
-        return uri;
+        return iri.toURI();
     }
 
 
@@ -236,7 +238,7 @@ public enum OWLXMLVocabulary {
 
 
     public String toString() {
-        return uri.toString();
+        return iri.toString();
     }
 
 

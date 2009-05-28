@@ -2,6 +2,7 @@ package org.semanticweb.owl.api.test;
 
 import org.semanticweb.owl.model.OWLOntologyFormat;
 import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owl.model.IRI;
 import org.semanticweb.owl.io.StringOutputTarget;
 
 import java.util.Set;
@@ -39,12 +40,12 @@ public class DeclarationsTestCase extends AbstractFileRoundTrippingTestCase {
 
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLClass(URI.create("http://www.semanticweb.org/ontologies/declarations#Cls"))));
-        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLObjectProperty(URI.create("http://www.semanticweb.org/ontologies/declarations#op"))));
-        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLDataProperty(URI.create("http://www.semanticweb.org/ontologies/declarations#dp"))));
-        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLNamedIndividual(URI.create("http://www.semanticweb.org/ontologies/declarations#ni"))));
-        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLAnnotationProperty(URI.create("http://www.semanticweb.org/ontologies/declarations#ap"))));
-        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLDatatype(URI.create("http://www.semanticweb.org/ontologies/declarations#dt"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLClass(IRI.create("http://www.semanticweb.org/ontologies/declarations#Cls"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLObjectProperty(IRI.create("http://www.semanticweb.org/ontologies/declarations#op"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLDataProperty(IRI.create("http://www.semanticweb.org/ontologies/declarations#dp"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLNamedIndividual(IRI.create("http://www.semanticweb.org/ontologies/declarations#ni"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/ontologies/declarations#ap"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLDatatype(IRI.create("http://www.semanticweb.org/ontologies/declarations#dt"))));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

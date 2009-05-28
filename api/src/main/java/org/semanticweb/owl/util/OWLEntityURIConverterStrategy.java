@@ -1,6 +1,7 @@
 package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.OWLEntity;
+import org.semanticweb.owl.model.IRI;
 
 import java.net.URI;
 /*
@@ -37,5 +38,5 @@ import java.net.URI;
  */
 public interface OWLEntityURIConverterStrategy {
 
-    URI getConvertedURI(OWLEntity entity);
+    IRI getConvertedIRI(OWLEntity entity);
 }

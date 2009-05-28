@@ -985,7 +985,7 @@ URI Name():
 //{
 //    (t=<TOP>{ return OWLRDFVocabulary.OWL_THING.getURI();} | t=<BOTTOM> {return OWLRDFVocabulary.OWL_NOTHING.getURI();}
 //    | t=<NCNAME1>) {
-//        return URI.create(t.image);
+//        return IRI.create(t.image);
 //    }
 //
 //}

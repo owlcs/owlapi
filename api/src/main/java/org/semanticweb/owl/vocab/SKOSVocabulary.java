@@ -1,5 +1,7 @@
 package org.semanticweb.owl.vocab;
 
+import org.semanticweb.owl.model.IRI;
+
 import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;

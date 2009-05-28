@@ -146,7 +146,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         Map<OWLParser, Throwable> exceptions = new LinkedHashMap<OWLParser, Throwable>();
         // Call the super method to create the ontology - this is needed, because
         // we throw an exception if someone tries to create an ontology directly
-        OWLOntology existingOntology = getOWLOntologyManager().getOntology(inputSource.getPhysicalURI());
+        OWLOntology existingOntology = getOWLOntologyManager().getOntology(IRI.create(inputSource.getPhysicalURI()));
         OWLOntologyID ontologyID = new OWLOntologyID(getOWLOntologyManager().getOWLDataFactory().getIRI(inputSource.getPhysicalURI()));
         OWLOntology ont = super.createOWLOntology(ontologyID, inputSource.getPhysicalURI(), mediator);
         // Now parse the input into the empty ontology that we created

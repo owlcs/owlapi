@@ -11,10 +11,10 @@ import org.semanticweb.owl.util.InferredOntologyGenerator;
 import org.semanticweb.owl.util.InferredSubClassAxiomGenerator;
 import org.semanticweb.reasonerfactory.pellet.PelletReasonerFactory;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -81,7 +81,7 @@ public class Example11 {
             // Put the inferred axiomns into a fresh empty ontology - note that there
             // is nothing stopping us stuffing them back into the original asserted ontology
             // if we wanted to do this.
-            OWLOntology infOnt = man.createOntology(URI.create(ont.getURI() + "_inferred"));
+            OWLOntology infOnt = man.createOntology();
 
             // Now get the inferred ontology generator to generate some inferred axioms
             // for us (into our fresh ontology).  We specify the reasoner that we want

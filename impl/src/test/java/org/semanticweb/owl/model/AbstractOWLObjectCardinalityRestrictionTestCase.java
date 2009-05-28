@@ -37,23 +37,23 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends Ab
     protected abstract OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop, int cardinality, OWLClassExpression classExpression) throws Exception;
 
     public void testCreation() throws Exception {
-        OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(createURI());
+        OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(createIRI());
         int cardinality = 3;
         OWLObjectCardinalityRestriction restA = createRestriction(prop, cardinality);
         assertNotNull(restA);
-        OWLClassExpression cls = getOWLDataFactory().getOWLClass(createURI());
+        OWLClassExpression cls = getOWLDataFactory().getOWLClass(createIRI());
         OWLObjectCardinalityRestriction restB = createRestriction(prop, cardinality, cls);
         assertNotNull(restB);
     }
 
 
     public void testEqualsPositive() throws Exception {
-        OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(createURI());
+        OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(createIRI());
         int cardinality = 3;
         OWLObjectCardinalityRestriction restA = createRestriction(prop, cardinality);
         OWLObjectCardinalityRestriction restB = createRestriction(prop, cardinality);
         assertEquals(restA, restB);
-        OWLClassExpression cls = getOWLDataFactory().getOWLClass(createURI());
+        OWLClassExpression cls = getOWLDataFactory().getOWLClass(createIRI());
         OWLObjectCardinalityRestriction restC = createRestriction(prop, cardinality, cls);
         OWLObjectCardinalityRestriction restD = createRestriction(prop, cardinality, cls);
         assertEquals(restC, restD);
@@ -61,26 +61,26 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends Ab
 
 
     public void testEqualsNegative() throws Exception {
-        OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(createURI());
+        OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(createIRI());
         // Different cardinality
         OWLObjectCardinalityRestriction restA = createRestriction(prop, 3);
         OWLObjectCardinalityRestriction restB = createRestriction(prop, 4);
         assertNotEquals(restA, restB);
         // Different property
-        OWLObjectCardinalityRestriction restC = createRestriction(getOWLDataFactory().getOWLObjectProperty(createURI()), 3);
-        OWLObjectCardinalityRestriction restD = createRestriction(getOWLDataFactory().getOWLObjectProperty(createURI()), 3);
+        OWLObjectCardinalityRestriction restC = createRestriction(getOWLDataFactory().getOWLObjectProperty(createIRI()), 3);
+        OWLObjectCardinalityRestriction restD = createRestriction(getOWLDataFactory().getOWLObjectProperty(createIRI()), 3);
         assertNotEquals(restC, restD);
         // Different filler
-        OWLObjectCardinalityRestriction restE = createRestriction(prop, 3, getOWLDataFactory().getOWLClass(createURI()));
-        OWLObjectCardinalityRestriction restF = createRestriction(prop, 3, getOWLDataFactory().getOWLClass(createURI()));
+        OWLObjectCardinalityRestriction restE = createRestriction(prop, 3, getOWLDataFactory().getOWLClass(createIRI()));
+        OWLObjectCardinalityRestriction restF = createRestriction(prop, 3, getOWLDataFactory().getOWLClass(createIRI()));
         assertNotEquals(restE, restF);
     }
 
 
     public void testHashCode() throws Exception {
-         OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(createURI());
+         OWLObjectProperty prop = getOWLDataFactory().getOWLObjectProperty(createIRI());
         int cardinality = 3;
-        OWLClassExpression cls = getOWLDataFactory().getOWLClass(createURI());
+        OWLClassExpression cls = getOWLDataFactory().getOWLClass(createIRI());
         OWLObjectCardinalityRestriction restA = createRestriction(prop, cardinality, cls);
         OWLObjectCardinalityRestriction restB = createRestriction(prop, cardinality, cls);
         assertEquals(restA.hashCode(), restB.hashCode());

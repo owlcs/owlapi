@@ -1,5 +1,7 @@
 package org.semanticweb.owl.vocab;
 
+import org.semanticweb.owl.model.IRI;
+
 import java.net.URI;
 import java.util.Collections;
 import java.util.HashSet;
@@ -65,19 +67,19 @@ public enum OWLFacet {
     LANG_PATTERN(Namespaces.RDF, "langPattern", "langPattern");
 
 
-    public final static Set<URI> FACET_URIS;
+    public final static Set<IRI> FACET_IRIS;
 
 
     static {
-        Set<URI> uris = new HashSet<URI>();
+        Set<IRI> iris = new HashSet<IRI>();
         for (OWLFacet v : values()) {
-            uris.add(v.getURI());
+            iris.add(v.getIRI());
         }
-        FACET_URIS = Collections.unmodifiableSet(uris);
+        FACET_IRIS = Collections.unmodifiableSet(iris);
     }
 
 
-    private URI uri;
+    private IRI iri;
 
     private String shortName;
 
@@ -85,14 +87,14 @@ public enum OWLFacet {
 
 
     OWLFacet(Namespaces ns, String shortName, String symbolicForm) {
-        this.uri = URI.create(ns + shortName);
+        this.iri = IRI.create(ns + shortName);
         this.shortName = shortName;
         this.symbolicForm = symbolicForm;
     }
 
 
-    public URI getURI() {
-        return uri;
+    public IRI getIRI() {
+        return iri;
     }
 
     public String getShortName() {
@@ -110,14 +112,14 @@ public enum OWLFacet {
     }
 
 
-    public static Set<URI> getFacetURIs() {
-        return FACET_URIS;
+    public static Set<IRI> getFacetIRIs() {
+        return FACET_IRIS;
     }
 
 
-    public static OWLFacet getFacet(URI uri) {
+    public static OWLFacet getFacet(IRI iri) {
         for (OWLFacet vocabulary : OWLFacet.values()) {
-            if (vocabulary.getURI().equals(uri)) {
+            if (vocabulary.getIRI().equals(iri)) {
                 return vocabulary;
             }
         }

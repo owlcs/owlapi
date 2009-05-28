@@ -54,27 +54,25 @@ public interface OWLOntologyLoaderListener {
     
     public static class LoadingEvent {
 
-        private URI ontologyURI;
+        private OWLOntologyID ontologyID;
 
         private URI physicalURI;
 
         private boolean imported;
 
 
-        public LoadingEvent(URI ontologyURI, URI physicalURI, boolean imported) {
-            this.ontologyURI = ontologyURI;
+        public LoadingEvent(OWLOntologyID ontologyID, URI physicalURI, boolean imported) {
+            this.ontologyID = ontologyID;
             this.physicalURI = physicalURI;
             this.imported = imported;
         }
 
-
         /**
-         * Gets the URI of the ontology being loaded.
-         * @return The ontology URI.  This may be <code>null</code> if the
-         * ontology URI is not known.
+         * Gets the ID of the ontology being loaded.
+         * @return The ontology ID.
          */
-        public URI getOntologyURI() {
-            return ontologyURI;
+        public OWLOntologyID getOntologyID() {
+            return ontologyID;
         }
 
 
@@ -103,8 +101,8 @@ public interface OWLOntologyLoaderListener {
 
     public static class LoadingStartedEvent extends LoadingEvent {
 
-        public LoadingStartedEvent(URI ontologyURI, URI physicalURI, boolean imported) {
-            super(ontologyURI, physicalURI, imported);
+        public LoadingStartedEvent(OWLOntologyID ontologyID, URI physicalURI, boolean imported) {
+            super(ontologyID, physicalURI, imported);
         }
     }
 
@@ -117,8 +115,8 @@ public interface OWLOntologyLoaderListener {
 
         private OWLOntologyCreationException ex;
 
-        public LoadingFinishedEvent(URI ontologyURI, URI physicalURI, boolean imported, OWLOntologyCreationException ex) {
-            super(ontologyURI, physicalURI, imported);
+        public LoadingFinishedEvent(OWLOntologyID ontologyID, URI physicalURI, boolean imported, OWLOntologyCreationException ex) {
+            super(ontologyID, physicalURI, imported);
             this.ex = ex;
         }
 

@@ -48,7 +48,7 @@ public class TestURIsWithNumericFragments extends AbstractRendererAndParserTestC
 //                changes.add(new RemoveAxiom(ont, ax));
 //            }
 //            getManager().applyChanges(changes);
-//            getManager().removeOntology(ont.getURI());
+//            getManager().removeOntology(ont.getIRI());
 //        }
 //        catch(OWLOntologyChangeException e) {
 //            throw new RuntimeException(e);

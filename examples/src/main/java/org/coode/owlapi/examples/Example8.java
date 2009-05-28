@@ -9,8 +9,8 @@ import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.DLExpressivityChecker;
 import org.semanticweb.reasonerfactory.pellet.PelletReasonerFactory;
 
-import java.net.URI;
 import java.util.Set;
+import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -57,7 +57,7 @@ public class Example8 {
 
             // Load a copy of the pizza ontology.  We'll load the ontology from the web.
             OWLOntology ont = manager.loadOntologyFromPhysicalURI(URI.create(PHYSICAL_URI));
-            System.out.println("Loaded " + ont.getURI());
+            System.out.println("Loaded " + ont.getOntologyID());
 
 
             // We need to create an instance of Reasoner.  Reasoner provides the basic
@@ -114,7 +114,7 @@ public class Example8 {
             // Now we want to query the reasoner for all descendants of VegetarianPizza - i.e. all
             // vegetarian pizzas.
             // Get a reference to the vegetarian pizza class
-            OWLClass vegPizza = manager.getOWLDataFactory().getOWLClass(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianPizza"));
+            OWLClass vegPizza = manager.getOWLDataFactory().getOWLClass(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianPizza"));
 
             // Now use the reasoner to obtain the subclasses of vegetarian pizza.  Note the reasoner
             // returns a set of sets.  Each set represents a subclass of vegetarian pizza where the
@@ -135,7 +135,7 @@ public class Example8 {
 
             // We can easily retrieve the instances of a class.  In this example we'll obtain the instances of
             // country.  First we need to get a reference to the country class
-            OWLClass country = manager.getOWLDataFactory().getOWLClass(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl#Country"));
+            OWLClass country = manager.getOWLDataFactory().getOWLClass(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl#Country"));
             System.out.println("Instances of country: ");
             for(OWLIndividual ind : reasoner.getIndividuals(country, true)) {
                 System.out.println("    " + ind);

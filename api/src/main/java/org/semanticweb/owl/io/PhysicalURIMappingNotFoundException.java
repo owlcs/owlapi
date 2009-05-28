@@ -1,6 +1,7 @@
 package org.semanticweb.owl.io;
 
 import org.semanticweb.owl.model.OWLOntologyCreationException;
+import org.semanticweb.owl.model.IRI;
 
 import java.net.URI;
 /*
@@ -35,14 +36,14 @@ import java.net.URI;
  */
 public class PhysicalURIMappingNotFoundException extends OWLOntologyCreationException {
 
-    private URI ontologyURI;
+    private IRI ontologyIRI;
 
-    public PhysicalURIMappingNotFoundException(URI ontologyURI) {
-        super("Physical URI mapping not found for " + ontologyURI);
-        this.ontologyURI = ontologyURI;
+    public PhysicalURIMappingNotFoundException(IRI ontologyIRI) {
+        super("Physical URI mapping not found for " + ontologyIRI);
+        this.ontologyIRI = ontologyIRI;
     }
 
-    public URI getOntologyURI() {
-        return ontologyURI;
+    public IRI getOntologyIRI() {
+        return ontologyIRI;
     }
 }

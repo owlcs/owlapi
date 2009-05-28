@@ -1,6 +1,5 @@
 package org.semanticweb.owl.model;
 
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -34,7 +33,7 @@ import java.net.URI;
 public class OWLObjectPropertyTestCase extends AbstractOWLEntityTestCase {
 
 
-    protected OWLEntity createEntity(URI uri) throws Exception {
-        return getOWLDataFactory().getOWLObjectProperty(uri);
+    protected OWLEntity createEntity(IRI iri) throws Exception {
+        return getOWLDataFactory().getOWLObjectProperty(iri);
     }
 }

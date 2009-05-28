@@ -59,7 +59,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *
      * @return This literal as a typed literal
      */
-    OWLTypedLiteral asOWLTypedLiteral();
+    OWLTypedLiteral asOWLStringLiteral();
 
 
     /**

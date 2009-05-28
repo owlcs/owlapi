@@ -49,7 +49,7 @@ public class IRIElementHandler extends AbstractIRIElementHandler {
 
     public void endElement() throws OWLXMLParserException {
         String iriText = getText().trim();
-        iri = getOWLDataFactory().getIRI(getIRI(iriText));
+        iri = getIRI(iriText);
         getParentHandler().handleChild(this);
     }
 }

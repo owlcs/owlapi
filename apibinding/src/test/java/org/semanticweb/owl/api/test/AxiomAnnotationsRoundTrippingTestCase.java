@@ -52,7 +52,7 @@ public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTripping
                                                        lit));
         }
 
-        OWLEntity entity = factory.getOWLNamedIndividual(URI.create("http://www.another.com/ont#peter"));
+        OWLEntity entity = factory.getOWLNamedIndividual(IRI.create("http://www.another.com/ont#peter"));
         OWLAnnotationAssertionAxiom ax = factory.getOWLAnnotationAssertionAxiom(entity.getIRI(), prop,
                                       getFactory().getOWLStringLiteral("X", "en"), annotations);
         addAxiom(ont, ax);

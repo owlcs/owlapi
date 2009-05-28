@@ -38,7 +38,7 @@ import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
 import org.semanticweb.owl.io.OWLParserFactoryRegistry;
 import org.semanticweb.owl.model.OWLDataFactory;
 import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.util.NonMappingOntologyURIMapper;
+import org.semanticweb.owl.util.NonMappingOntologyIRIMapper;
 import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
@@ -101,7 +101,7 @@ public class OWLManager {
         ontologyManager.addOntologyStorer(new TurtleOntologyStorer());
         ontologyManager.addOntologyStorer(new LatexOntologyStorer());
 
-        ontologyManager.addURIMapper(new NonMappingOntologyURIMapper());
+        ontologyManager.addIRIMapper(new NonMappingOntologyIRIMapper());
 
         ontologyManager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         ontologyManager.addOntologyFactory(new ParsableOWLOntologyFactory());

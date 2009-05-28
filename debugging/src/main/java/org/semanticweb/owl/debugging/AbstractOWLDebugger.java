@@ -55,7 +55,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     private void mergeImportsClosure() {
         OWLOntology originalOntology = ontology;
         try {
-            ontology = owlOntologyManager.createOntology(URI.create("http://debugger.semanticweb.org/ontolog" + System.nanoTime()));
+            ontology = owlOntologyManager.createOntology(IRI.create("http://debugger.semanticweb.org/ontolog" + System.nanoTime()));
         }
         catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);

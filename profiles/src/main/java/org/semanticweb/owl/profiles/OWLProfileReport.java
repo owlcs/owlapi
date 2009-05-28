@@ -1,5 +1,7 @@
 package org.semanticweb.owl.profiles;
 
+import org.semanticweb.owl.model.OWLOntologyID;
+
 import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,14 +39,14 @@ public class OWLProfileReport {
 
     private OWLProfile profile;
 
-    private URI ontologyURI;
+    private OWLOntologyID ontologyID;
 
     private Set<ConstructNotAllowed> disallowedConstructs;
 
 
-    public OWLProfileReport(OWLProfile profile, URI ontologyURI, Set<ConstructNotAllowed> disallowedConstructs) {
+    public OWLProfileReport(OWLProfile profile, OWLOntologyID ontologyID, Set<ConstructNotAllowed> disallowedConstructs) {
         this.profile = profile;
-        this.ontologyURI = ontologyURI;
+        this.ontologyID = ontologyID;
         this.disallowedConstructs = new HashSet<ConstructNotAllowed>(disallowedConstructs);
     }
 
@@ -54,8 +56,8 @@ public class OWLProfileReport {
     }
 
 
-    public URI getOntologyURI() {
-        return ontologyURI;
+    public OWLOntologyID getOntologyID() {
+        return ontologyID;
     }
 
 
@@ -73,7 +75,7 @@ public class OWLProfileReport {
         StringBuilder sb = new StringBuilder();
         sb.append(profile.getName());
         sb.append(" Profile Report: ");
-        sb.append(ontologyURI);
+        sb.append(ontologyID);
         sb.append("\n");
         if(isInProfile()) {
             sb.append("[Ontology and imports closure in profile]\n");

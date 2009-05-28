@@ -110,7 +110,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        return new OWLProfileReport(this, ontology.getURI(), notAllowed);
+        return new OWLProfileReport(this, ontology.getOntologyID(), notAllowed);
     }
 
 

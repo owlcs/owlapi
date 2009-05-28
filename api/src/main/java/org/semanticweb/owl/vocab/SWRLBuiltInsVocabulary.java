@@ -1,5 +1,7 @@
 package org.semanticweb.owl.vocab;
 
+import org.semanticweb.owl.model.IRI;
+
 import java.net.URI;
 
 
@@ -86,14 +88,14 @@ public enum SWRLBuiltInsVocabulary {
 
     private String shortName;
 
-    private URI uri;
+    private IRI iri;
 
     // Arity of the predicate (-1 if infinite)
     private int arity;
 
     SWRLBuiltInsVocabulary(String name, int arity) {
         this.shortName = name;
-        this.uri = URI.create(Namespaces.SWRLB + name);
+        this.iri = IRI.create(Namespaces.SWRLB + name);
         this.arity = arity;
     }
 
@@ -104,7 +106,7 @@ public enum SWRLBuiltInsVocabulary {
 
 
     public URI getURI() {
-        return uri;
+        return iri.toURI();
     }
 
 

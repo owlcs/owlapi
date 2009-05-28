@@ -35,11 +35,7 @@ public class OWLOntologyChangeVisitorAdapter implements OWLOntologyChangeVisitor
 
     public void visit(RemoveAxiom change) {
     }
-
-
-    public void visit(SetOntologyURI change) {
-    }
-
+    
 
     public void visit(SetOntologyID change) {
     }

@@ -1,5 +1,7 @@
 package org.semanticweb.owl.io;
 
+import org.semanticweb.owl.model.IRI;
+
 import java.io.*;
 import java.net.URI;
 /*

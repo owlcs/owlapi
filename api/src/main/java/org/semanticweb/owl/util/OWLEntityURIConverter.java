@@ -117,13 +117,13 @@ public class OWLEntityURIConverter {
             return;
         }
         // Add label?
-        URI rep = getTinyURI(ent);
-        replacementMap.put(ent, rep);
+        IRI rep = getTinyURI(ent);
+        replacementMap.put(ent, rep.toURI());
         processedEntities.add(ent);
     }
 
-    private URI getTinyURI(OWLEntity ent) {
-        return strategy.getConvertedURI(ent);
+    private IRI getTinyURI(OWLEntity ent) {
+        return strategy.getConvertedIRI(ent);
     }
 
 }

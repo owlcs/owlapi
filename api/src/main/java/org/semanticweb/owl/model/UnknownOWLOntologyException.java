@@ -33,7 +33,7 @@ import java.net.URI;
  */
 public class UnknownOWLOntologyException extends OWLRuntimeException {
 
-    public UnknownOWLOntologyException(URI ontologyURI) {
-        super("Unknown ontology: " + ontologyURI);
+    public UnknownOWLOntologyException(OWLOntologyID ontologyID) {
+        super("Unknown ontology: " + ontologyID);
     }
 }

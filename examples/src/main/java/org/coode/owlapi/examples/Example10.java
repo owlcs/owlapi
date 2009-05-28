@@ -49,12 +49,12 @@ public class Example10 {
 
             // Load the pizza ontology
             OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create(PHYSICAL_URI));
-            System.out.println("Loaded: " + ont.getURI());
+            System.out.println("Loaded: " + ont.getOntologyID());
 
             // We want to add a comment to the pizza class.
             // First, we need to obtain a reference to the pizza class
             OWLDataFactory df = man.getOWLDataFactory();
-            OWLClass pizzaCls = df.getOWLClass(URI.create(ont.getURI().toString() + "#Pizza"));
+            OWLClass pizzaCls = df.getOWLClass(IRI.create(ont.getOntologyID().getOntologyIRI().toString() + "#Pizza"));
 
             // Now we create the content of our comment.  In this case we simply want a plain string literal.
             // We'll attach a language to the comment to specify that our comment is written in English (en).
@@ -80,9 +80,8 @@ public class Example10 {
             // we need to create an annotation, which pairs a URI with the constant
             OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO.getURI()), lit);
             // Now we can add this as an ontology annotation
-            OWLAnnotationAxiom annoAx = df.getOWLAnnotationAssertionAxiom(ont.getIRI(), anno);
             // Apply the change in the usual way
-            man.applyChange(new AddAxiom(ont, annoAx));
+            man.applyChange(new AddOntologyAnnotation(ont, anno));
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
 

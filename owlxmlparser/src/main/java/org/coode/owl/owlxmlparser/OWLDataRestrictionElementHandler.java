@@ -3,9 +3,8 @@ package org.coode.owl.owlxmlparser;
 import org.semanticweb.owl.model.OWLDataRange;
 import org.semanticweb.owl.model.OWLDatatype;
 import org.semanticweb.owl.model.OWLTypedLiteral;
+import org.semanticweb.owl.model.IRI;
 import org.semanticweb.owl.vocab.OWLFacet;
-
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -42,7 +41,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
 
     private OWLTypedLiteral constant;
 
-    private URI facetURI;
+    private IRI facetIRI;
 
     public OWLDataRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
@@ -65,7 +64,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
     public void attribute(String localName, String value) throws OWLXMLParserException {
         super.attribute(localName, value);
         if (localName.equals("facet")) {
-            facetURI = getIRI(value);
+            facetIRI = getIRI(value);
         }
     }
 
@@ -77,7 +76,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
         if (constant == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "typed constant element");
         }
-        setDataRange(getOWLDataFactory().getOWLDatatypeRestriction((OWLDatatype) dataRange, OWLFacet.getFacet(facetURI), constant));
+        setDataRange(getOWLDataFactory().getOWLDatatypeRestriction((OWLDatatype) dataRange, OWLFacet.getFacet(facetIRI), constant));
 
 
     }

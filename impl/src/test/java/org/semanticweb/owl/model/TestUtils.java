@@ -35,8 +35,8 @@ public class TestUtils {
 
     private static int uriCounter = 0;
 
-    public static URI createURI() {
+    public static IRI createIRI() {
         uriCounter++;
-        return URI.create("http://org.semanticweb.owl/tests#uri" + uriCounter);
+        return IRI.create("http://org.semanticweb.owl/tests#uri" + uriCounter);
     }
 }

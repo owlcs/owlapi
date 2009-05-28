@@ -35,30 +35,30 @@ public class OWLDatatypeTestCase extends AbstractOWLDataFactoryTest {
 
 
     public void testCreation() throws Exception {
-        OWLDatatype typeA = getOWLDataFactory().getOWLDatatype(createURI());
+        OWLDatatype typeA = getOWLDataFactory().getOWLDatatype(createIRI());
         assertNotNull(typeA);
     }
 
 
     public void testEqualsPositive() throws Exception {
-        URI uri = createURI();
-        OWLDatatype typeA = getOWLDataFactory().getOWLDatatype(uri);
-        OWLDatatype typeB = getOWLDataFactory().getOWLDatatype(uri);
+        IRI iri = createIRI();
+        OWLDatatype typeA = getOWLDataFactory().getOWLDatatype(iri);
+        OWLDatatype typeB = getOWLDataFactory().getOWLDatatype(iri);
         assertEquals(typeA, typeB);
     }
 
 
     public void testEqualsNegative() throws Exception {
-        OWLDatatype typeA = getOWLDataFactory().getOWLDatatype(createURI());
-        OWLDatatype typeB = getOWLDataFactory().getOWLDatatype(createURI());
+        OWLDatatype typeA = getOWLDataFactory().getOWLDatatype(createIRI());
+        OWLDatatype typeB = getOWLDataFactory().getOWLDatatype(createIRI());
         assertNotEquals(typeA, typeB);
     }
 
 
     public void testHashCode() throws Exception {
-        URI uri = createURI();
-        OWLDatatype typeA = getOWLDataFactory().getOWLDatatype(uri);
-        OWLDatatype typeB = getOWLDataFactory().getOWLDatatype(uri);
+        IRI iri = createIRI();
+        OWLDatatype typeA = getOWLDataFactory().getOWLDatatype(iri);
+        OWLDatatype typeB = getOWLDataFactory().getOWLDatatype(iri);
         assertEquals(typeA.hashCode(), typeB.hashCode());
     }
 }

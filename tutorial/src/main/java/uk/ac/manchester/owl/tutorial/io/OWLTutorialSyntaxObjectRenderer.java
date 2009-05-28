@@ -156,7 +156,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLOntology ontology) {
         header();
         write("<h1>");
-        write(ontology.getURI().toString());
+        write(ontology.getOntologyID().toString());
         write("</h1>\n");
         write("<div>");
         write("<div class='box'>\n");
@@ -284,7 +284,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 //        } else {
 //            write("annotation");
 //            writeOpenBracket();
-//            write(annotation.getProperty().getURI());
+//            write(annotation.getProperty().getIRI());
 //            writeSpace();
 //            annotation.getValue().accept(this);
 //            writeCloseBracket();
@@ -294,7 +294,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 //    public void visit(OWLObjectAnnotation annotation) {
 //        write("annotation");
 //        writeOpenBracket();
-//        write(annotation.getProperty().getURI());
+//        write(annotation.getProperty().getIRI());
 //        writeSpace();
 //        annotation.getValue().accept(this);
 //        writeCloseBracket();
@@ -689,7 +689,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(OWLFacetRestriction node) {
-        write(node.getFacet().getURI());
+        write(node.getFacet().getIRI().toURI());
         writeSpace();
         node.getFacetValue().accept(this);
     }

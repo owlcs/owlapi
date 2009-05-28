@@ -1,6 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
 import org.semanticweb.owl.model.OWLNamedIndividual;
+import org.semanticweb.owl.model.IRI;
 
 import java.net.URI;
 /*
@@ -37,7 +38,7 @@ public class OWLIndividualElementHandler extends AbstractOWLElementHandler<OWLNa
 
     private OWLNamedIndividual individual;
 
-    private URI name;
+    private IRI name;
 
     public OWLIndividualElementHandler(OWLXMLParserHandler handler) {
         super(handler);

@@ -27,13 +27,14 @@ package org.semanticweb.owl.model;/*
  * <p/>
  * An object that identifies an ontology.  Since OWL 2, ontologies do not have to have an ontology IRI, or if they
  * have an ontology IRI then they can optionally also have a version IRI.  Instances of this OWLOntologyID class bundle
- * identifying information of an ontology together.
+ * identifying information of an ontology together.  If an ontology doesn't have an ontology IRI then we say that
+ * it is "anonymous".
  */
 public final class OWLOntologyID implements Comparable<OWLOntologyID> {
 
     private static int counter = 0;
 
-    private static String ANON_PREFIX = "Unnamed-";
+    private static String ANON_PREFIX = "Anon-";
 
     private String internalID;
 
@@ -139,6 +140,14 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
         }
     }
 
+    /**
+     * Determines if this ID names an ontology or whether it is an ID for an ontology without an IRI.
+     * @return <code>true</code> if this ID is an ID for an ontology without an IRI, or <code>false</code>
+     * if this ID is an ID for an ontology with an IRI.
+     */
+    public boolean isAnonymous() {
+        return ontologyIRI == null;
+    }
 
     private static int getNextCounter() {
         counter++;

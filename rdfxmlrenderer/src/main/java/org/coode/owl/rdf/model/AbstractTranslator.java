@@ -210,13 +210,13 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     public void visit(OWLAnnotationAssertionAxiom axiom) {
 //        translateAnnotation(axiom, axiom.getOWLAnnotation());
 //        addTriple(axiom.getSubject(),
-//                axiom.getProperty().getURI(),
+//                axiom.getProperty().getIRI(),
 //                axiom.getOWLAnnotation().getValue());
         translateAnnotation(axiom.getSubject(), axiom.getAnnotation());
         addAxiom(axiom, axiom.getSubject(), axiom.getProperty(), axiom.getValue());
 //        addTriple(getResourceNode(axiom.getProperty()),
-//                getPredicateNode(RDF_TYPE.getURI()),
-//                getResourceNode(OWL_ANNOTATION_PROPERTY.getURI()));
+//                getPredicateNode(RDF_TYPE.getIRI()),
+//                getResourceNode(OWL_ANNOTATION_PROPERTY.getIRI()));
 
 //        if (axiom.getOWLAnnotation().getValue().isAnonymousIndividual()) {
 //            OWLIndividual ind = (OWLIndividual) axiom.getOWLAnnotation().getValue().asAnonymousIndividual();
@@ -394,7 +394,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!nodeMap.containsKey(desc)) {
             nodeMap.put(desc, getResourceNode(desc.getURI()));
         }
-//        addTriple(desc, RDF_TYPE.getURI(), OWL_CLASS.getURI());
+//        addTriple(desc, RDF_TYPE.getIRI(), OWL_CLASS.getIRI());
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -591,7 +591,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(OWLFacetRestriction node) {
         translateAnonymousNode(node);
-        addTriple(node, node.getFacet().getURI(), node.getFacetValue());
+        addTriple(node, node.getFacet().getIRI().toURI(), node.getFacetValue());
     }
 
     public void visit(IRI iri) {
@@ -618,7 +618,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getURI()));
         }
-//        addTriple(property, RDF_TYPE.getURI(), OWL_DATA_PROPERTY.getURI());
+//        addTriple(property, RDF_TYPE.getIRI(), OWL_DATA_PROPERTY.getIRI());
     }
 
 
@@ -626,14 +626,14 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getURI()));
         }
-//        addTriple(property, RDF_TYPE.getURI(), OWL_OBJECT_PROPERTY.getURI());
+//        addTriple(property, RDF_TYPE.getIRI(), OWL_OBJECT_PROPERTY.getIRI());
     }
 
     public void visit(OWLAnnotationProperty property) {
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getURI()));
         }
-//        addTriple(property, RDF_TYPE.getURI(), OWL_ANNOTATION_PROPERTY.getURI());
+//        addTriple(property, RDF_TYPE.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI());
     }
 
     public void visit(OWLObjectPropertyInverse property) {
@@ -656,8 +656,13 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     public void visit(OWLOntology ontology) {
-        if (!nodeMap.containsKey(ontology)) {
-            nodeMap.put(ontology, getResourceNode(ontology.getURI()));
+        if(ontology.isAnonymous()) {
+            translateAnonymousNode(ontology);
+        }
+        else {
+            if (!nodeMap.containsKey(ontology)) {
+                nodeMap.put(ontology, getResourceNode(ontology.getOntologyID().getOntologyIRI().toURI()));
+            }
         }
         addTriple(ontology, RDF_TYPE.getURI(), OWL_ONTOLOGY.getURI());
     }
@@ -1059,13 +1064,13 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
         public void visit(OWLDataProperty property) {
             punned = ontology.containsObjectPropertyReference(property.getURI());
-//            punned = ontology.isPunned(property.getURI());
+//            punned = ontology.isPunned(property.getIRI());
         }
 
 
         public void visit(OWLObjectProperty property) {
             punned = ontology.containsDataPropertyReference(property.getURI());
-//            punned = ontology.isPunned(property.getURI());
+//            punned = ontology.isPunned(property.getIRI());
         }
 
 

@@ -67,7 +67,7 @@ public class DIGQueryResponseImpl implements DIGQueryResponse {
             Set<OWLClass> equivalents = new HashSet<OWLClass>();
             for (int j = 0; j < catomList.getLength(); j++) {
                 String name = ((Element) catomList.item(j)).getAttribute("name");
-                final OWLClass aClass = factory.getOWLClass(URI.create(name));
+                final OWLClass aClass = factory.getOWLClass(IRI.create(name));
                 if (aClass != null) {
                     equivalents.add(aClass);
                 }
@@ -90,7 +90,7 @@ public class DIGQueryResponseImpl implements DIGQueryResponse {
             Set<OWLObjectProperty> equivalents = new HashSet<OWLObjectProperty>();
             for (int j = 0; j < catomList.getLength(); j++) {
                 String name = ((Element) catomList.item(j)).getAttribute("name");
-                final OWLObjectProperty prop = factory.getOWLObjectProperty(URI.create(name));
+                final OWLObjectProperty prop = factory.getOWLObjectProperty(IRI.create(name));
                 if (prop != null) {
                     equivalents.add(prop);
                 }
@@ -107,7 +107,7 @@ public class DIGQueryResponseImpl implements DIGQueryResponse {
         NodeList individualElementList = element.getElementsByTagName(Vocab.INDIVIDUAL);
         for (int i = 0; i < individualElementList.getLength(); i++) {
             final Element individualElement = (Element) individualElementList.item(i);
-            final OWLIndividual curInd = factory.getOWLNamedIndividual(URI.create(individualElement.getAttribute("name")));
+            final OWLIndividual curInd = factory.getOWLNamedIndividual(IRI.create(individualElement.getAttribute("name")));
             if (curInd != null) {
                 individuals.add(curInd);
             }

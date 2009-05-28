@@ -33,5 +33,5 @@ public interface OntologySegmenter {
      * @throws OWLOntologyCreationException if the module cannot be created
      */
 
-    public abstract OWLOntology extractAsOntology(Set<OWLEntity> signature, URI uri) throws OWLOntologyCreationException, OWLOntologyChangeException;
+    public abstract OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI uri) throws OWLOntologyCreationException, OWLOntologyChangeException;
 }

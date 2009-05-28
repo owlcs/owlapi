@@ -2,7 +2,7 @@ package org.coode.owlapi.examples;
 
 import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.SimpleURIMapper;
+import org.semanticweb.owl.util.SimpleIRIMapper;
 
 import java.net.URI;
 import java.util.Set;
@@ -58,15 +58,15 @@ public class Example2 {
             // Let's create an ontology and name it "http://www.co-ode.org/ontologies/testont.owl"
             // We need to set up a mapping which points to a concrete file where the ontology will
             // be stored. (It's good practice to do this even if we don't intend to save the ontology).
-            URI ontologyURI = URI.create("http://www.co-ode.org/ontologies/testont.owl");
+            IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/testont.owl");
             // Create a physical URI which can be resolved to point to where our ontology will be saved.
             URI physicalURI = URI.create("file:/tmp/MyOnt.owl");
             // Set up a mapping, which maps the ontology URI to the physical URI
-            SimpleURIMapper mapper = new SimpleURIMapper(ontologyURI, physicalURI);
-            manager.addURIMapper(mapper);
+            SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, physicalURI);
+            manager.addIRIMapper(mapper);
 
             // Now create the ontology - we use the ontology URI (not the physical URI)
-            OWLOntology ontology = manager.createOntology(ontologyURI);
+            OWLOntology ontology = manager.createOntology(ontologyIRI);
             // Now we want to specify that A is a subclass of B.  To do this, we add a subclass
             // axiom.  A subclass axiom is simply an object that specifies that one class is a
             // subclass of another class.
@@ -76,8 +76,8 @@ public class Example2 {
             // Get hold of references to class A and class B.  Note that the ontology does not
             // contain class A or classB, we simply get references to objects from a data factory that represent
             // class A and class B
-            OWLClass clsA = factory.getOWLClass(URI.create(ontologyURI + "#A"));
-            OWLClass clsB = factory.getOWLClass(URI.create(ontologyURI + "#B"));
+            OWLClass clsA = factory.getOWLClass(IRI.create(ontologyIRI + "#A"));
+            OWLClass clsB = factory.getOWLClass(IRI.create(ontologyIRI + "#B"));
             // Now create the axiom
             OWLAxiom axiom = factory.getOWLSubClassOfAxiom(clsA, clsB);
             // We now add the axiom to the ontology, so that the ontology states that

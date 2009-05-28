@@ -7,14 +7,15 @@ import org.semanticweb.owl.inference.OWLSatisfiabilityChecker;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owl.model.IRI;
 import uk.ac.manchester.cs.owl.inference.dig11.DIGReasoner;
 import uk.ac.manchester.owl.tutorial.Debugger;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URI;
 import java.net.URL;
+import java.net.URI;
 
 /*
  * Copyright (C) 2007, University of Manchester
@@ -115,7 +116,7 @@ public class DebuggingExample {
                 System.exit(1);
             }
 
-            /* We load an ontology from a physical URI */
+            /* We load an ontology from a physical IRI */
 
             URI physicalURI = URI.create(inputOntology);
 
@@ -124,7 +125,7 @@ public class DebuggingExample {
                     .loadOntologyFromPhysicalURI(physicalURI);
             System.out.println("Ontology Loaded...");
             System.out.println("Logical URI : " + physicalURI);
-            System.out.println("Physical URI: " + ontology.getURI());
+            System.out.println("Physical URI: " + ontology.getOntologyID().getOntologyIRI());
             System.out.println("Format      : "
                     + manager.getOntologyFormat(ontology));
 
