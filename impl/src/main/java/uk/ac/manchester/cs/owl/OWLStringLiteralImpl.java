@@ -119,27 +119,26 @@ public class OWLStringLiteralImpl extends OWLLiteralImpl implements OWLStringLit
 
     protected int compareObjectOfSameType(OWLObject object) {
         OWLStringLiteral other = (OWLStringLiteral) object;
-        int diff;
-        if(this.getLang() != null) {
-            if(other.getLang() != null) {
-                diff = getLang().compareTo(other.getLang());
+        int diff = getLiteral().compareTo(other.getLiteral());
+        if(diff != 0) {
+            return diff;
+        }
+        // One with out lang comes before one with lang
+        if(this.getLang() == null) {
+            if(other.getLang() == null) {
+                return 0;
             }
             else {
-                return 1;
+                return -1;
             }
         }
         else {
-            if(other.getLang() != null) {
-                return -1;
-            }
-            else {
+            if(other.getLang() == null) {
                 return 1;
             }
+            else {
+                return getLang().compareTo(other.getLang());
+            }
         }
-        if (diff != 0) {
-            return diff;
-        }
-
-        return getLiteral().compareTo(other.getLiteral());
     }
 }
