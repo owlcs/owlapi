@@ -34,4 +34,6 @@ import java.util.Set;
 public interface OWLSymmetricObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
     Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms();
+
+    OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 }

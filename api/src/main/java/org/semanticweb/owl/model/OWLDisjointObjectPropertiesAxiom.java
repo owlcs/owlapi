@@ -31,4 +31,5 @@ package org.semanticweb.owl.model;
  */
 public interface OWLDisjointObjectPropertiesAxiom extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
+    OWLDisjointObjectPropertiesAxiom getAxiomWithoutAnnotations();
 }

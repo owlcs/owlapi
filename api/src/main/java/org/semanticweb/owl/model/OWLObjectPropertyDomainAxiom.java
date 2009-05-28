@@ -31,4 +31,5 @@ package org.semanticweb.owl.model;
  */
 public interface OWLObjectPropertyDomainAxiom extends OWLPropertyDomainAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
+    OWLObjectPropertyDomainAxiom getAxiomWithoutAnnotations();
 }

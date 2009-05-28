@@ -77,4 +77,5 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
      */
     Set<OWLSubClassOfAxiom> asSubClassAxioms();
 
+    OWLEquivalentClassesAxiom getAxiomWithoutAnnotations();
 }

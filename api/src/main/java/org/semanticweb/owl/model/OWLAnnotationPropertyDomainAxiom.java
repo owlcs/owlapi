@@ -33,4 +33,5 @@ public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom {
 
     IRI getDomain();
 
+    OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations();
 }

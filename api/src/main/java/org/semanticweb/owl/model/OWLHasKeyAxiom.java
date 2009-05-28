@@ -37,4 +37,5 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
 
     Set<OWLDataPropertyExpression> getDataPropertyExpressions();
 
+    OWLHasKeyAxiom getAxiomWithoutAnnotations();
 }

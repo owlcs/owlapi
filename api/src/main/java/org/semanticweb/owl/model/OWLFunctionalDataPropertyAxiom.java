@@ -32,4 +32,6 @@ package org.semanticweb.owl.model;
 public interface OWLFunctionalDataPropertyAxiom extends OWLDataPropertyCharacteristicAxiom {
 
     OWLSubClassOfAxiom asOWLSubClassOfAxiom();
+
+    OWLFunctionalDataPropertyAxiom getAxiomWithoutAnnotations();
 }

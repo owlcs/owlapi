@@ -44,4 +44,6 @@ public interface OWLDeclarationAxiom extends OWLAxiom {
      * @return The entity that is declared by this axiom.
      */
     OWLEntity getEntity();
+
+    OWLDeclarationAxiom getAxiomWithoutAnnotations();
 }

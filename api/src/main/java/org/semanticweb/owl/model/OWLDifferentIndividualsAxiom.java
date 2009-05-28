@@ -31,4 +31,5 @@ package org.semanticweb.owl.model;
  */
 public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
 
+    OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations();
 }

@@ -34,4 +34,6 @@ import java.util.Set;
 public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
 
     Set<OWLSubClassOfAxiom> asSubClassOfAxioms();
+
+    OWLDisjointClassesAxiom getAxiomWithoutAnnotations();
 }

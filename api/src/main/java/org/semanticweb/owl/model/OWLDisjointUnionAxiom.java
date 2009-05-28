@@ -47,4 +47,6 @@ public interface OWLDisjointUnionAxiom extends OWLNaryClassAxiom {
      *         to the disjoint union.
      */
     Set<OWLClassExpression> getClassExpressions();
+
+    OWLDisjointUnionAxiom getAxiomWithoutAnnotations();
 }

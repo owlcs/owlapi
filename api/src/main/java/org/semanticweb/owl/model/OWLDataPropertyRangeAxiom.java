@@ -35,4 +35,5 @@ package org.semanticweb.owl.model;
  */
 public interface OWLDataPropertyRangeAxiom extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>, OWLDataPropertyAxiom {
 
+    OWLDataPropertyRangeAxiom getAxiomWithoutAnnotations();
 }

@@ -39,7 +39,7 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
         super(dataFactory, individuals, annotations);
     }
 
-    public OWLAxiom getAxiomWithoutAnnotations() {
+    public OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations() {
         if(!isAnnotated()) {
             return this;
         }

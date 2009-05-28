@@ -44,5 +44,5 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom {
 
     OWLAnnotation getAnnotation();
 
-    // TODO: Add convenience methods
+    OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();
 }

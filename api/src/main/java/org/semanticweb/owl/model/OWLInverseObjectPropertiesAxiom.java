@@ -50,4 +50,6 @@ public interface OWLInverseObjectPropertiesAxiom extends OWLNaryPropertyAxiom<OW
     OWLObjectPropertyExpression getSecondProperty();
 
     Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
+
+    OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();
 }

@@ -44,7 +44,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLNaryClassAxiomImpl implements 
         this.owlClass = owlClass;
     }
 
-    public OWLAxiom getAxiomWithoutAnnotations() {
+    public OWLDisjointUnionAxiom getAxiomWithoutAnnotations() {
         if(!isAnnotated()) {
             return this;
         }

@@ -32,4 +32,6 @@ package org.semanticweb.owl.model;
 public interface OWLInverseFunctionalObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
     OWLSubClassOfAxiom asOWLSubClassOfAxiom();
+
+    OWLInverseFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations();
 }

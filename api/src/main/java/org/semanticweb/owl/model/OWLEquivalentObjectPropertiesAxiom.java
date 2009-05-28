@@ -34,4 +34,6 @@ import java.util.Set;
 public interface OWLEquivalentObjectPropertiesAxiom extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
     Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
+
+    OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations();
 }

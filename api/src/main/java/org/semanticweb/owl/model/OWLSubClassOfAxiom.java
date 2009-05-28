@@ -44,4 +44,6 @@ public interface OWLSubClassOfAxiom extends OWLNaryClassAxiom {
      * @return <code>true</code> if this axiom is a GCI, other wise <code>false</code>.
      */
     boolean isGCI();
+
+    OWLSubClassOfAxiom getAxiomWithoutAnnotations();
 }

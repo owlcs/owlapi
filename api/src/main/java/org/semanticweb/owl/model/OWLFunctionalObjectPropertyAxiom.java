@@ -33,4 +33,5 @@ public interface OWLFunctionalObjectPropertyAxiom extends OWLObjectPropertyChara
 
     OWLSubClassOfAxiom asOWLSubClassOfAxiom();
 
+    OWLFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations();
 }
