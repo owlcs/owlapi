@@ -133,7 +133,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         man.makeLoadImportRequest(decl);
       } else if (jj_2_6(2)) {
         anno = Annotation();
-        
+        applyChange(new AddOntologyAnnotation(ontology, anno));
         currentAnnotations.clear();
       } else {
         jj_consume_token(-1);
@@ -1121,7 +1121,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final public OWLPropertyAxiom FunctionalObjectProperty() throws ParseException {
     OWLObjectPropertyExpression prop;
-    Set<OWLAnnotation> axiomAnnos;
+    Set<OWLAnnotation> axiomAnnos = Collections.emptySet();
     jj_consume_token(FUNCTIONALOBJECTPROPERTY);
     jj_consume_token(OPENPAR);
     axiomAnnos = AxiomAnnotationSet();
@@ -1538,6 +1538,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     Set<OWLAnnotation> annos = null;
     OWLAnnotation anno = null;
     jj_consume_token(ANNOTATION);
+                   annos = new HashSet<OWLAnnotation>();
     jj_consume_token(OPENPAR);
     label_14:
     while (true) {
@@ -1546,9 +1547,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
       } else {
         break label_14;
       }
-                              annos = new HashSet<OWLAnnotation>();
       anno = Annotation();
-                                                                                      if(annos!=null) {annos.add(anno);}
+                                                                                      annos.add(anno);
     }
     prop = AnnotationPropertyURI();
     val = AnnotationValue();
@@ -1590,6 +1590,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   final public Set<OWLAnnotation> AxiomAnnotationSet() throws ParseException {
     Set<OWLAnnotation> annos = Collections.emptySet();
     OWLAnnotation anno;
+     annos = new HashSet<OWLAnnotation>();
     label_15:
     while (true) {
       if (jj_2_102(2)) {
@@ -1597,7 +1598,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
       } else {
         break label_15;
       }
-      annos = new HashSet<OWLAnnotation>();
       anno = Annotation();
         annos.add(anno);
     }
@@ -2612,6 +2612,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
+  final private boolean jj_3_68() {
+    if (jj_3R_76()) return true;
+    return false;
+  }
+
   final private boolean jj_3_7() {
     if (jj_3R_22()) return true;
     return false;
@@ -2634,24 +2639,18 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  final private boolean jj_3_62() {
-    if (jj_3R_70()) return true;
-    return false;
-  }
-
   final private boolean jj_3_6() {
     if (jj_3R_21()) return true;
     return false;
   }
 
-  final private boolean jj_3R_70() {
-    if (jj_scan_token(DISJOINTOBJECTPROPERTIES)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
+  final private boolean jj_3_62() {
+    if (jj_3R_70()) return true;
     return false;
   }
 
-  final private boolean jj_3R_46() {
-    if (jj_scan_token(INVERSEOBJECTPROPERTY)) return true;
+  final private boolean jj_3R_70() {
+    if (jj_scan_token(DISJOINTOBJECTPROPERTIES)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
@@ -2668,6 +2667,12 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final private boolean jj_3_5() {
     if (jj_3R_20()) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_46() {
+    if (jj_scan_token(INVERSEOBJECTPROPERTY)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
@@ -2733,6 +2738,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
+  final private boolean jj_3_1() {
+    if (jj_3R_18()) return true;
+    return false;
+  }
+
   final private boolean jj_3_67() {
     if (jj_3R_75()) return true;
     return false;
@@ -2741,11 +2751,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   final private boolean jj_3R_102() {
     if (jj_scan_token(CLASS)) return true;
     if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  final private boolean jj_3_1() {
-    if (jj_3R_18()) return true;
     return false;
   }
 
@@ -3742,6 +3747,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
+  final private boolean jj_3_102() {
+    if (jj_3R_21()) return true;
+    return false;
+  }
+
   final private boolean jj_3_75() {
     if (jj_3R_82()) return true;
     return false;
@@ -3761,6 +3771,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   final private boolean jj_3R_74() {
     if (jj_scan_token(INVERSEFUNCTIONALOBJECTPROPERTY)) return true;
     if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  final private boolean jj_3_96() {
+    if (jj_3R_21()) return true;
     return false;
   }
 
@@ -3855,11 +3870,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  final private boolean jj_3_102() {
-    if (jj_3R_21()) return true;
-    return false;
-  }
-
   final private boolean jj_3_34() {
     if (jj_3R_45()) return true;
     return false;
@@ -3888,11 +3898,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final private boolean jj_3R_111() {
     if (jj_3R_19()) return true;
-    return false;
-  }
-
-  final private boolean jj_3_96() {
-    if (jj_3R_21()) return true;
     return false;
   }
 
@@ -3925,11 +3930,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final private boolean jj_3_97() {
     if (jj_3R_19()) return true;
-    return false;
-  }
-
-  final private boolean jj_3_68() {
-    if (jj_3R_76()) return true;
     return false;
   }
 

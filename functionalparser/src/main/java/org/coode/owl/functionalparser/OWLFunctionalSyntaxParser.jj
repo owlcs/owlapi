@@ -748,8 +748,7 @@ void Ontology() throws OWLOntologyCreationException :
     })
     |
     (anno=Annotation(){
-        ax = dataFactory.getOWLAnnotationAssertionAxiom(ontology.getIRI(), anno);
-        addAxiom(ax);
+        applyChange(new AddOntologyAnnotation(ontology, anno));
         currentAnnotations.clear();
     }))*
 
@@ -1553,7 +1552,7 @@ OWLPropertyAxiom ObjectPropertyDomain() :
 OWLPropertyAxiom FunctionalObjectProperty() :
 {
     OWLObjectPropertyExpression prop;
-    Set<OWLAnnotation> axiomAnnos;
+    Set<OWLAnnotation> axiomAnnos = Collections.emptySet();
 }
 {
     <FUNCTIONALOBJECTPROPERTY><OPENPAR>axiomAnnos = AxiomAnnotationSet()prop=ObjectPropertyExpression()<CLOSEPAR> {
@@ -1898,7 +1897,7 @@ OWLAnnotation Annotation() :
     OWLAnnotation anno = null;
 }
 {
-    ((<ANNOTATION><OPENPAR>(({annos = new HashSet<OWLAnnotation>();}anno=Annotation(){if(annos!=null) {annos.add(anno);}})*) prop=AnnotationPropertyURI()val=AnnotationValue()<CLOSEPAR>){
+    ((<ANNOTATION>{annos = new HashSet<OWLAnnotation>();}<OPENPAR>((anno=Annotation(){annos.add(anno);})*) prop=AnnotationPropertyURI()val=AnnotationValue()<CLOSEPAR>){
         return dataFactory.getOWLAnnotation(prop, val, annos);
     })
 }
@@ -1929,7 +1928,7 @@ Set<OWLAnnotation> AxiomAnnotationSet() :
     OWLAnnotation anno;
 }
 {
-    ({annos = new HashSet<OWLAnnotation>();}anno=Annotation(){
+    {annos = new HashSet<OWLAnnotation>();}(anno=Annotation(){
         annos.add(anno);
     })*{
         return annos;
