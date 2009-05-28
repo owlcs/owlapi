@@ -34,8 +34,8 @@ import java.util.*;
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br><br>
  * <p/>
- * Renames entities that have a particular URI.  Entities with the specified
- * URI are renamed regardless of whether they are classes, object properties,
+ * Renames entities that have a particular IRI.  Entities with the specified
+ * IRI are renamed regardless of whether they are classes, object properties,
  * data properties, individuals or data types.
  */
 public class OWLEntityRenamer {
@@ -52,17 +52,17 @@ public class OWLEntityRenamer {
 
 
     /**
-     * Changes a URI for another URI.  This creates the appropriate changes to be
-     * applied in order to change a URI.
+     * Changes a IRI for another IRI.  This creates the appropriate changes to be
+     * applied in order to change a IRI.
      *
-     * @param uri    The URI to be changed
-     * @param newURI The URI that the URI should be changed to.
+     * @param uri    The IRI to be changed
+     * @param newIRI The IRI that the IRI should be changed to.
      * @return A list of ontology changes that should be applied to change the
-     *         specified URI.
+     *         specified IRI.
      */
-    public List<OWLOntologyChange> changeURI(URI uri, URI newURI) {
-        Map<URI, URI> uriMap = new HashMap<URI, URI>();
-        uriMap.put(uri, newURI);
+    public List<OWLOntologyChange> changeIRI(IRI uri, IRI newIRI) {
+        Map<IRI, IRI> uriMap = new HashMap<IRI, IRI>();
+        uriMap.put(uri, newIRI);
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         for (OWLOntology ont : ontologies) {
             OWLObjectDuplicator dup = new OWLObjectDuplicator(owlOntologyManager.getOWLDataFactory(), uriMap);
@@ -73,29 +73,29 @@ public class OWLEntityRenamer {
 
 
     /**
-     * Changes the URI of an entity for another URI.
+     * Changes the IRI of an entity for another IRI.
      *
-     * @param entity The entity whose URI is to be changed.
-     * @param newURI The new URI
+     * @param entity The entity whose IRI is to be changed.
+     * @param newIRI The new IRI
      * @return A list of ontology changes that should be applied to change the
-     *         specified entity URI.
+     *         specified entity IRI.
      */
-    public List<OWLOntologyChange> changeURI(OWLEntity entity, URI newURI) {
-        Map<OWLEntity, URI> uriMap = new HashMap<OWLEntity, URI>();
-        uriMap.put(entity, newURI);
+    public List<OWLOntologyChange> changeIRI(OWLEntity entity, IRI newIRI) {
+        Map<OWLEntity, IRI> iriMap = new HashMap<OWLEntity, IRI>();
+        iriMap.put(entity, newIRI);
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         for (OWLOntology ont : ontologies) {
-            OWLObjectDuplicator duplicator = new OWLObjectDuplicator(uriMap, owlOntologyManager.getOWLDataFactory());
+            OWLObjectDuplicator duplicator = new OWLObjectDuplicator(iriMap, owlOntologyManager.getOWLDataFactory());
             fillListWithTransformChanges(changes, getAxioms(ont, entity), ont, duplicator);
         }
         return changes;
     }
 
-    public List<OWLOntologyChange> changeURI(Map<OWLEntity, URI> entity2URIMap) {
+    public List<OWLOntologyChange> changeIRI(Map<OWLEntity, IRI> entity2IRIMap) {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         for (OWLOntology ont : ontologies) {
-            for (OWLEntity ent : entity2URIMap.keySet()) {
-                OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2URIMap, owlOntologyManager.getOWLDataFactory());
+            for (OWLEntity ent : entity2IRIMap.keySet()) {
+                OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap, owlOntologyManager.getOWLDataFactory());
                 fillListWithTransformChanges(changes, getAxioms(ont, ent), ont, duplicator);
             }
         }
@@ -106,7 +106,7 @@ public class OWLEntityRenamer {
         return ont.getReferencingAxioms(entity);
     }
 
-    private Set<OWLAxiom> getAxioms(OWLOntology ont, URI uri) {
+    private Set<OWLAxiom> getAxioms(OWLOntology ont, IRI uri) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory().getOWLClass(uri)));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory().getOWLObjectProperty(uri)));

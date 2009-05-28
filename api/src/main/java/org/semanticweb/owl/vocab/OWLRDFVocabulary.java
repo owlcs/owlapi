@@ -249,9 +249,6 @@ public enum OWLRDFVocabulary {
 
     OWL_ON_CLASS(Namespaces.OWL, "onClass"),
 
-    /**
-     * Legacy vocabulary
-     */
     OWL_ON_DATA_RANGE(Namespaces.OWL, "onDataRange"),
 
     OWL_ON_DATA_TYPE(Namespaces.OWL, "onDatatype"),
@@ -280,7 +277,13 @@ public enum OWLRDFVocabulary {
 
     OWL_BOTTOM_DATA_PROPERTY(Namespaces.OWL, "bottomDataProperty"),
 
-    OWL_HAS_KEY(Namespaces.OWL, "hasKey");
+    OWL_HAS_KEY(Namespaces.OWL, "hasKey"),
+
+    OWL_ANNOTATED_SOURCE(Namespaces.OWL, "annotatedSource"),
+
+    OWL_ANNOTATED_PROPERTY(Namespaces.OWL, "annotatedProperty"),
+
+    OWL_ANNOTATED_TARGET(Namespaces.OWL, "annotatedTarget");
 
 
     URI uri;

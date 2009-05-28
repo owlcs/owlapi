@@ -110,10 +110,16 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     //
     //////////////////////////////////////////////////////////////////////////////////////////////
 
+    protected void processAxiomAnnotations(OWLAxiom ax) {
+        for(OWLAnnotation anno : ax.getAnnotations()) {
+            anno.accept(this);
+        }
+    }
 
     public void visit(OWLSubClassOfAxiom axiom) {
         axiom.getSubClass().accept(this);
         axiom.getSuperClass().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -121,16 +127,19 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -138,22 +147,21 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
         }
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLDataPropertyDomainAxiom axiom) {
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
-    }
-
-
-    public void visit(OWLImportsDeclaration axiom) {
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -161,6 +169,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
         }
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -168,6 +177,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -175,6 +185,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         for (OWLIndividual ind : axiom.getIndividuals()) {
             ind.accept(this);
         }
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -182,6 +193,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         for (OWLDataPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
         }
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -189,12 +201,14 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
         }
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         axiom.getRange().accept(this);
         axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -202,17 +216,20 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -221,27 +238,32 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
         }
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLDeclarationAxiom axiom) {
         axiom.getEntity().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLDataPropertyRangeAxiom axiom) {
         axiom.getProperty().accept(this);
         axiom.getRange().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -249,12 +271,14 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         for (OWLDataPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
         }
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLClassAssertionAxiom axiom) {
         axiom.getClassExpression().accept(this);
         axiom.getIndividual().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -262,6 +286,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
         }
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -269,27 +294,32 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -297,6 +327,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         for (OWLIndividual ind : axiom.getIndividuals()) {
             ind.accept(this);
         }
+        processAxiomAnnotations(axiom);
     }
 
 
@@ -305,12 +336,14 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
             prop.accept(this);
         }
         axiom.getSuperProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         axiom.getFirstProperty().accept(this);
         axiom.getSecondProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
     public void visit(OWLHasKeyAxiom axiom) {
@@ -318,6 +351,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         for (OWLPropertyExpression prop : axiom.getPropertyExpressions()) {
             prop.accept(this);
         }
+        processAxiomAnnotations(axiom);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -546,6 +580,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getValue().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
     public void visit(OWLAnonymousIndividual individual) {
@@ -575,21 +610,25 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
 
     public void visit(OWLDatatypeDefinition axiom) {
         axiom.getDatatype().accept(this);
         axiom.getDataRange().accept(this);
+        processAxiomAnnotations(axiom);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -606,6 +645,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         for (SWRLAtom atom : rule.getHead()) {
             atom.accept(this);
         }
+        processAxiomAnnotations(rule);
     }
 
 

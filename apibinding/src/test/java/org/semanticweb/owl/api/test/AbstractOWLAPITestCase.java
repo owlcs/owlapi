@@ -123,6 +123,10 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
         return getFactory().getOWLDatatype(IRI.create(uriBase + "#" + name));
     }
 
+    public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+        return getFactory().getOWLAnnotationProperty(IRI.create(uriBase + "#" + name));
+    }
+
 
     public void addAxiom(OWLOntology ont, OWLAxiom ax) {
         try {

@@ -844,9 +844,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         // The axiom has annotations and we therefore need to reify the axiom in order to add the annotations
         translateAnonymousNode(ax);
         addTriple(getResourceNode(ax), getPredicateNode(RDF_TYPE.getURI()), getResourceNode(OWL_AXIOM.getURI()));
-        addTriple(getResourceNode(ax), getPredicateNode(OWL_SUBJECT.getURI()), subj);
-        addTriple(getResourceNode(ax), getPredicateNode(OWL_PREDICATE.getURI()), pred);
-        addTriple(getResourceNode(ax), getPredicateNode(OWL_OBJECT.getURI()), obj);
+        addTriple(getResourceNode(ax), getPredicateNode(OWL_ANNOTATED_SOURCE.getURI()), subj);
+        addTriple(getResourceNode(ax), getPredicateNode(OWL_ANNOTATED_PROPERTY.getURI()), pred);
+        addTriple(getResourceNode(ax), getPredicateNode(OWL_ANNOTATED_TARGET.getURI()), obj);
         translateAnnotations(ax);
     }
 
@@ -877,9 +877,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (isAnonymous(subject)) {
             translateAnonymousNode(subject);
         }
-        addTriple(annotation, OWL_SUBJECT.getURI(), subject);
-        addTriple(annotation, OWL_PREDICATE.getURI(), annotation.getProperty().getURI());
-        addTriple(annotation, OWL_OBJECT.getURI(), annotation.getValue());
+        addTriple(annotation, OWL_ANNOTATED_SOURCE.getURI(), subject);
+        addTriple(annotation, OWL_ANNOTATED_PROPERTY.getURI(), annotation.getProperty().getURI());
+        addTriple(annotation, OWL_ANNOTATED_TARGET.getURI(), annotation.getValue());
         for(OWLAnnotation anno : annotation.getAnnotations()) {
             translateAnnotation(annotation, anno);
         }
