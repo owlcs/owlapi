@@ -84,9 +84,6 @@ public class OWLAxiomVisitorAdapter implements OWLAxiomVisitor {
     public void visit(OWLHasKeyAxiom axiom) {
     }
 
-    public void visit(OWLImportsDeclaration axiom) {
-    }
-
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
     }
 
