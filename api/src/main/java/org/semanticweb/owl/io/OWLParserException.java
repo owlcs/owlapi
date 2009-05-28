@@ -35,6 +35,10 @@ public class OWLParserException extends OWLOntologyCreationException {
 
     private int lineNumber;
 
+    public OWLParserException() {
+        this.lineNumber = -1;
+    }
+
     public OWLParserException(String message) {
         super(message);
         lineNumber = -1;

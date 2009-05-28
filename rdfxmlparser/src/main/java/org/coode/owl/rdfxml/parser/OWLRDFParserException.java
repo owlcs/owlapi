@@ -33,6 +33,9 @@ import org.semanticweb.owl.io.OWLParserException;
  */
 public class OWLRDFParserException extends OWLParserException {
 
+    public OWLRDFParserException() {
+    }
+
     public OWLRDFParserException(String message) {
         super(message);
     }

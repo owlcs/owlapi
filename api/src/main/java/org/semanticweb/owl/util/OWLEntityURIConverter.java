@@ -49,7 +49,7 @@ public class OWLEntityURIConverter {
     // entities whose names will be converted
     private Set<OWLOntology> ontologies;
 
-    private Map<OWLEntity, URI> replacementMap;
+    private Map<OWLEntity, IRI> replacementMap;
 
     private List<OWLOntologyChange> changes;
 
@@ -80,7 +80,7 @@ public class OWLEntityURIConverter {
      *         to convert the URI of entities in the specified ontologies.
      */
     public List<OWLOntologyChange> getChanges() {
-        replacementMap = new HashMap<OWLEntity, URI>();
+        replacementMap = new HashMap<OWLEntity, IRI>();
         processedEntities = new HashSet<OWLEntity>();
         changes = new ArrayList<OWLOntologyChange>();
         for (OWLOntology ont : ontologies) {
@@ -118,7 +118,7 @@ public class OWLEntityURIConverter {
         }
         // Add label?
         IRI rep = getTinyURI(ent);
-        replacementMap.put(ent, rep.toURI());
+        replacementMap.put(ent, rep);
         processedEntities.add(ent);
     }
 

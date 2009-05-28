@@ -5,6 +5,7 @@ import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 import static org.semanticweb.owl.vocab.OWLRDFVocabulary.*;
 
 import java.net.URI;
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -37,7 +38,11 @@ import java.net.URI;
  */
 public class ClassExpressionTranslatorSelector {
 
-    private enum RestrictionType{OBJECT, DATA, UNKNOWN};
+    private enum RestrictionType {
+        OBJECT, DATA, UNKNOWN
+    }
+
+    ;
 
     private OWLRDFConsumer consumer;
 
@@ -143,50 +148,41 @@ public class ClassExpressionTranslatorSelector {
 
     private ClassExpressionTranslator getRestrictionTranslator(URI mainNode, RestrictionType type) throws OWLException {
         if (consumer.hasPredicate(mainNode, OWL_SOME_VALUES_FROM.getURI())) {
-            if(type.equals(RestrictionType.OBJECT)) {
+            if (type.equals(RestrictionType.OBJECT)) {
                 return objectSomeValuesFromTranslator;
-            }
-            else if(type.equals(RestrictionType.DATA)) {
+            } else if (type.equals(RestrictionType.DATA)) {
                 return dataSomeValuesFromTranslator;
-            }
-            else {
-                if(consumer.getResourceObject(mainNode, OWL_SOME_VALUES_FROM.getURI(), false) != null) {
+            } else {
+                if (consumer.getResourceObject(mainNode, OWL_SOME_VALUES_FROM.getURI(), false) != null) {
                     return objectSomeValuesFromTranslator;
-                }
-                else {
+                } else {
                     return dataSomeValuesFromTranslator;
                 }
             }
 
         }
         if (consumer.hasPredicate(mainNode, OWL_ALL_VALUES_FROM.getURI())) {
-            if(type.equals(RestrictionType.OBJECT)) {
+            if (type.equals(RestrictionType.OBJECT)) {
                 return objectAllValuesFromTranslator;
-            }
-            else if(type.equals(RestrictionType.DATA)) {
+            } else if (type.equals(RestrictionType.DATA)) {
                 return dataAllValuesFromTranslator;
-            }
-            else {
-                if(consumer.getResourceObject(mainNode, OWL_ALL_VALUES_FROM.getURI(), false) != null) {
+            } else {
+                if (consumer.getResourceObject(mainNode, OWL_ALL_VALUES_FROM.getURI(), false) != null) {
                     return objectAllValuesFromTranslator;
-                }
-                else {
+                } else {
                     return dataAllValuesFromTranslator;
                 }
             }
         }
         if (consumer.hasPredicate(mainNode, OWL_HAS_VALUE.getURI())) {
-            if(type.equals(RestrictionType.OBJECT)) {
+            if (type.equals(RestrictionType.OBJECT)) {
                 return objectHasValueTranslator;
-            }
-            else if(type.equals(RestrictionType.DATA)) {
+            } else if (type.equals(RestrictionType.DATA)) {
                 return dataHasValueTranslator;
-            }
-            else {
-                if(consumer.getResourceObject(mainNode, OWL_HAS_VALUE.getURI(), false) != null) {
+            } else {
+                if (consumer.getResourceObject(mainNode, OWL_HAS_VALUE.getURI(), false) != null) {
                     return objectHasValueTranslator;
-                }
-                else {
+                } else {
                     return dataHasValueTranslator;
                 }
             }
@@ -200,9 +196,39 @@ public class ClassExpressionTranslatorSelector {
         if (consumer.hasPredicate(mainNode, OWL_MAX_CARDINALITY.getURI()) || consumer.hasPredicate(mainNode, OWL_MAX_QUALIFIED_CARDINALITY.getURI())) {
             return type.equals(RestrictionType.DATA) ? dataMaxCardinalityTranslator : objectMaxCardinalityTranslator;
         }
-        if(consumer.isSelfRestriction(mainNode) || consumer.hasPredicate(mainNode, OWL_HAS_SELF.getURI())) {
+        if (consumer.isSelfRestriction(mainNode) || consumer.hasPredicate(mainNode, OWL_HAS_SELF.getURI())) {
             return selfRestrictionTranslator;
         }
-        throw new OWLRDFParserException("Unable to determine the type of restriction!");
+        Set<URI> predicates = consumer.getPredicatesBySubject(mainNode);
+        StringBuilder sb = new StringBuilder();
+        sb.append("Cannot determine the type of restriction from the available triples. Predicates on main node ");
+        for (URI uri : predicates) {
+            sb.append("<");
+            sb.append(uri);
+            sb.append("> ");
+        }
+        sb.append("Expected one of ");
+        sb.append("<");
+        sb.append(OWL_SOME_VALUES_FROM.getURI());
+        sb.append(">");
+        sb.append(" < ");
+        sb.append(OWL_ALL_VALUES_FROM.getURI());
+        sb.append(">");
+        sb.append(" <");
+        sb.append(OWL_HAS_VALUE.getURI());
+        sb.append(">");
+        sb.append(" <");
+        sb.append(OWL_MIN_CARDINALITY.getURI());
+        sb.append(">");
+        sb.append(" <");
+        sb.append(OWL_MAX_CARDINALITY.getURI());
+        sb.append(">");
+        sb.append(" <");
+        sb.append(OWL_CARDINALITY.getURI());
+        sb.append(">");
+        sb.append(" <");
+        sb.append(OWL_HAS_SELF.getURI());
+        sb.append("> ");
+        throw new OWLRDFParserException(sb.toString());
     }
 }

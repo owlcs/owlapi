@@ -1,9 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLAnnotation;
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLLiteral;
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -72,6 +69,8 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         } else {
             getConsumer().handle(annotatedSource, annotatedProperty, annotatedTarget);
         }
+        OWLAxiom ax = getConsumer().getLastAddedAxiom();
+        getConsumer().getOWLOntologyManager().applyChange(new RemoveAxiom(getConsumer().getOntology(), ax.getAxiomWithoutAnnotations()));
 
     }
 

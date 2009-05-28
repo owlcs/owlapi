@@ -35,6 +35,9 @@ package org.semanticweb.owl.model;
  */
 public class OWLOntologyCreationException extends OWLException {
 
+    public OWLOntologyCreationException() {
+    }
+
     public OWLOntologyCreationException(String message) {
         super(message);
     }

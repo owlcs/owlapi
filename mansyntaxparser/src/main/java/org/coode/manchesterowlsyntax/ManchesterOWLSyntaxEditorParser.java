@@ -1013,6 +1013,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 axioms.addAll(parseClassFrame());
                 possible.addAll(Arrays.asList(SUB_CLASS_OF, EQUIVALENT_TO, DISJOINT_WITH, HAS_KEY));
                 possible.add(SUPER_CLASS_OF);
+                possible.add(DISJOINT_CLASSES);
             } else if (tok.equalsIgnoreCase(OBJECT_PROPERTY)) {
                 potentialKeywords.clear();
                 resetPossible(possible);
@@ -1271,6 +1272,14 @@ public class ManchesterOWLSyntaxEditorParser {
                     for (OWLClassExpression desc : descs) {
                         axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLDisjointClassesAxiom(cls, desc)));
                     }
+                }
+            } else if(sect.equalsIgnoreCase(DISJOINT_CLASSES)) {
+                consumeToken();
+                Set<OWLOntology> onts = getOntologies();
+                Set<OWLClassExpression> descs = parseClassExpressionList();
+                for(OWLOntology ont : onts) {
+                    descs.add(cls);
+                    axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLDisjointClassesAxiom(descs)));
                 }
             } else if (sect.equalsIgnoreCase(DISJOINT_UNION_OF)) {
                 consumeToken();

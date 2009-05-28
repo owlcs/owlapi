@@ -33,6 +33,9 @@ package org.semanticweb.owl.model;
  */
 public abstract class OWLException extends Exception {
 
+    protected OWLException() {
+    }
+
     public OWLException(String message) {
         super(message);
     }

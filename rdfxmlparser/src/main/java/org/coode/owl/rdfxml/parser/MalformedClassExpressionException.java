@@ -1,5 +1,9 @@
 package org.coode.owl.rdfxml.parser;
 
+import java.net.URI;
+import java.util.Set;
+import java.util.HashSet;
+
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -32,7 +36,52 @@ package org.coode.owl.rdfxml.parser;
  */
 public class MalformedClassExpressionException extends OWLRDFParserException {
 
+    private Set<URI> foundPredicates;
+
+    private Set<URI> expectedPredicates;
+
+    public MalformedClassExpressionException() {
+    }
+
     public MalformedClassExpressionException(String message) {
         super(message);
+    }
+
+    public MalformedClassExpressionException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public MalformedClassExpressionException(Throwable cause) {
+        super(cause);
+    }
+
+    public MalformedClassExpressionException(Set<URI> foundPredicates, Set<URI> expectedPredicates) {
+        this.foundPredicates = new HashSet<URI>(foundPredicates);
+        this.expectedPredicates = new HashSet<URI>(expectedPredicates);
+    }
+
+    public Set<URI> getFoundPredicates() {
+        return foundPredicates;
+    }
+
+    public Set<URI> getExpectedPredicates() {
+        return expectedPredicates;
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Malformed class expression: Found predicates: ");
+        for(URI uri : foundPredicates) {
+            sb.append("<");
+            sb.append(uri);
+            sb.append("> ");
+        }
+        sb.append("Expected either: ");
+        for(URI uri : expectedPredicates) {
+            sb.append("<");
+            sb.append(uri);
+            sb.append("> ");
+        }
+        return sb.toString();
     }
 }

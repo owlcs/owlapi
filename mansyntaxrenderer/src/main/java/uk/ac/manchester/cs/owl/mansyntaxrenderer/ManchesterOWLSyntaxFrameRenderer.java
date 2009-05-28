@@ -108,37 +108,37 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
 
     public void writeOntology() throws OWLRendererException {
-        if(pm == null) {
-            pm = new DefaultPrefixManager();
-            setShortFormProvider(pm);
-        }
-        writePrefixMap();
         if (ontologies.size() != 1) {
             throw new RuntimeException("Can only render one ontology");
         }
         OWLOntology ontology = getOntologies().iterator().next();
+        if(pm == null) {
+            pm = new DefaultPrefixManager();
+            setShortFormProvider(pm);
+            if (!ontology.isAnonymous()) {
+                pm.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI().toString());
+            }
+        }
+        writePrefixMap();
+
         writeNewLine();
         writeOntologyHeader(ontology);
 
+        for(OWLAnnotationProperty prop : ontology.getReferencedAnnotationProperties()) {
+            write(prop);
+        }
+
         for (OWLObjectProperty prop : ontology.getReferencedObjectProperties()) {
             write(prop);
-            writeNewLine();
-            writeNewLine();
         }
         for (OWLDataProperty prop : ontology.getReferencedDataProperties()) {
             write(prop);
-            writeNewLine();
-            writeNewLine();
         }
         for (OWLClass cls : ontology.getReferencedClasses()) {
             write(cls);
-            writeNewLine();
-            writeNewLine();
         }
         for (OWLNamedIndividual ind : ontology.getReferencedIndividuals()) {
             write(ind);
-            writeNewLine();
-            writeNewLine();
         }
         // Nary disjoint classes axioms
         for (OWLDisjointClassesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_CLASSES)) {
@@ -303,6 +303,16 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 }
                 disjointClasses.remove(cls);
                 writeSection(DISJOINT_WITH, disjointClasses, ", ", false, ontology);
+                Set<OWLClassExpression> naryDisjointClasses = new TreeSet<OWLClassExpression>();
+                for(OWLDisjointClassesAxiom ax : ontology.getDisjointClassesAxioms(cls)) {
+                    if(isDisplayed(ax)) {
+                        if(ax.getClassExpressions().size() > 2) {
+                            naryDisjointClasses.addAll(ax.getClassExpressions());
+                            axioms.add(ax);
+                        }
+                    }
+                }
+                writeSection(DISJOINT_CLASSES, naryDisjointClasses, ", ", false, ontology);
             }
         }
         if(!isFiltered(AxiomType.HAS_KEY)) {
@@ -851,6 +861,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 writeSection(RANGE, iris, ",", true, ont);
             }
         }
+        writeEntitySectionEnd();
         return axioms;
     }
 
