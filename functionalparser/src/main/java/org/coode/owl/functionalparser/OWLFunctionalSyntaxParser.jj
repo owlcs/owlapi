@@ -2106,7 +2106,7 @@ String LangTag() :
         Token t;
 }
 {
-    <LANGIDENTIFIER>((t=<PN_CHARS>){lang += t.image;}) {
+    <LANGIDENTIFIER>((t=<PN_LOCAL>){lang += t.image;})? {
         return lang;
     }
 }

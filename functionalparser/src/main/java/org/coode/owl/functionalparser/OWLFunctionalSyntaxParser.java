@@ -1807,8 +1807,12 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     String lang = "";
         Token t;
     jj_consume_token(LANGIDENTIFIER);
-    t = jj_consume_token(PN_CHARS);
+    if (jj_2_114(2)) {
+      t = jj_consume_token(PN_LOCAL);
                                     lang += t.image;
+    } else {
+      ;
+    }
         {if (true) return lang;}
     throw new Error("Missing return statement in function");
   }
@@ -2604,6 +2608,13 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     finally { jj_save(112, xla); }
   }
 
+  final private boolean jj_2_114(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_114(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(113, xla); }
+  }
+
   final private boolean jj_3_3() {
     if (jj_3R_19()) return true;
     Token xsp;
@@ -3188,6 +3199,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
+  final private boolean jj_3_114() {
+    if (jj_scan_token(PN_LOCAL)) return true;
+    return false;
+  }
+
   final private boolean jj_3_44() {
     if (jj_3R_54()) return true;
     return false;
@@ -3228,7 +3244,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final private boolean jj_3R_110() {
     if (jj_scan_token(LANGIDENTIFIER)) return true;
-    if (jj_scan_token(PN_CHARS)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_114()) jj_scanpos = xsp;
     return false;
   }
 
@@ -3965,7 +3983,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
    private static void jj_la1_3() {
       jj_la1_3 = new int[] {};
    }
-  final private JJCalls[] jj_2_rtns = new JJCalls[113];
+  final private JJCalls[] jj_2_rtns = new JJCalls[114];
   private boolean jj_rescan = false;
   private int jj_gc = 0;
 
@@ -4191,7 +4209,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final private void jj_rescan_token() {
     jj_rescan = true;
-    for (int i = 0; i < 113; i++) {
+    for (int i = 0; i < 114; i++) {
     try {
       JJCalls p = jj_2_rtns[i];
       do {
@@ -4311,6 +4329,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             case 110: jj_3_111(); break;
             case 111: jj_3_112(); break;
             case 112: jj_3_113(); break;
+            case 113: jj_3_114(); break;
           }
         }
         p = p.next;
