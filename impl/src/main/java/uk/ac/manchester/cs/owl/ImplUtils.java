@@ -1,9 +1,6 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLAnnotation;
-import org.semanticweb.owl.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owl.model.OWLEntity;
-import org.semanticweb.owl.model.OWLOntology;
+import org.semanticweb.owl.model.*;
 
 import java.net.URI;
 import java.util.HashSet;
@@ -56,15 +53,15 @@ public class ImplUtils {
         return result;
     }
 
-    public static Set<OWLAnnotation> getAnnotations(OWLEntity entity, URI annotationURI, Set<OWLOntology> ontologies) {
+    public static Set<OWLAnnotation> getAnnotations(OWLEntity entity,
+                                                    OWLAnnotationProperty annotationProperty,
+                                                    Set<OWLOntology> ontologies) {
         Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
         for (OWLAnnotationAssertionAxiom ax : getAnnotationAxioms(entity, ontologies)) {
-            if (ax.getAnnotation().getProperty().getURI().equals(annotationURI)) {
+            if (ax.getAnnotation().getProperty().equals(annotationProperty)) {
                 result.add(ax.getAnnotation());
             }
         }
         return result;
     }
-
-
 }

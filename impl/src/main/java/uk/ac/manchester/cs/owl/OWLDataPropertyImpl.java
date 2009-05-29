@@ -149,8 +149,8 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     }
 
 
-    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology, URI annotationURI) {
-        return ImplUtils.getAnnotations(this, annotationURI, Collections.singleton(ontology));
+    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology, OWLAnnotationProperty annotationProperty) {
+        return ImplUtils.getAnnotations(this, annotationProperty, Collections.singleton(ontology));
     }
 
 

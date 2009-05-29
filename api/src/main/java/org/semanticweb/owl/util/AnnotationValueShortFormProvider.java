@@ -47,29 +47,30 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
 
     private ShortFormProvider alternateShortFormProvider;
 
-    private List<URI> annotationURIs;
+    private List<OWLAnnotationProperty> annotationProperties;
 
-    private Map<URI, List<String>> preferredLanguageMap;
+    private Map<OWLAnnotationProperty, List<String>> preferredLanguageMap;
 
 
     /**
      * Constructs an annotation value short form provider. Using <code>SimpleShortFormProvider</code> as the
      * alternate short form provider (see other constructor for details).
      */
-    public AnnotationValueShortFormProvider(List<URI> annotationURIs, Map<URI, List<String>> preferredLanguageMap,
+    public AnnotationValueShortFormProvider(List<OWLAnnotationProperty> annotationProperties,
+                                            Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
                                             OWLOntologySetProvider ontologySetProvider) {
-        this(annotationURIs, preferredLanguageMap, ontologySetProvider, new SimpleShortFormProvider());
+        this(annotationProperties, preferredLanguageMap, ontologySetProvider, new SimpleShortFormProvider());
     }
 
 
     /**
      * Constructs an annotation short form provider.
      *
-     * @param annotationURIs             A <code>List</code> of preferred annotation URIs.  The list is searched from
-     *                                   start to end, so that annotations that have an annotation URI at the start of the list have a higher
-     *                                   priority and are selected over annotation URIs that appear towards or at the end of the list.
-     * @param preferredLanguageMap       A map which maps annotation URIs to preferred languages.  For any given
-     *                                   annotation URI there may be a list of preferred languages.  Languages at the start of the list
+     * @param annotationProperties       A <code>List</code> of preferred annotation properties.  The list is searched from
+     *                                   start to end, so that annotations that have a property at the start of the list have a higher
+     *                                   priority and are selected over annotations with properties that appear towards or at the end of the list.
+     * @param preferredLanguageMap       A map which maps annotation properties to preferred languages.  For any given
+     *                                   annotation property there may be a list of preferred languages.  Languages at the start of the list
      *                                   have a higher priority over languages at the end of the list.  This parameter may be empty but it
      *                                   must not be <code>null</code>.
      * @param ontologySetProvider        An <code>OWLOntologySetProvider</code> which provides a set of ontology
@@ -79,10 +80,11 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      *                                   for an entity that does not have any annotations.  This provider will also be used in the case where
      *                                   the value of an annotation is an <code>OWLIndividual</code> for providing the short form of the individual.
      */
-    public AnnotationValueShortFormProvider(List<URI> annotationURIs, Map<URI, List<String>> preferredLanguageMap,
+    public AnnotationValueShortFormProvider(List<OWLAnnotationProperty> annotationProperties,
+                                            Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
                                             OWLOntologySetProvider ontologySetProvider,
                                             ShortFormProvider alternateShortFormProvider) {
-        this.annotationURIs = annotationURIs;
+        this.annotationProperties = annotationProperties;
         this.preferredLanguageMap = preferredLanguageMap;
         this.ontologySetProvider = ontologySetProvider;
         this.alternateShortFormProvider = alternateShortFormProvider;
@@ -91,11 +93,11 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
 
     public String getShortForm(OWLEntity entity) {
 
-        for (URI annotationURI : annotationURIs) { // visit the URIs in order of preference
-            AnnotationLanguageFilter checker = new AnnotationLanguageFilter(annotationURI, preferredLanguageMap.get(annotationURI));
+        for (OWLAnnotationProperty prop : annotationProperties) { // visit the properties in order of preference
+            AnnotationLanguageFilter checker = new AnnotationLanguageFilter(prop, preferredLanguageMap.get(prop));
 
             for (OWLOntology ontology : ontologySetProvider.getOntologies()) {
-                for (OWLAnnotation anno : entity.getAnnotations(ontology, annotationURI)) {
+                for (OWLAnnotation anno : entity.getAnnotations(ontology, prop)) {
                     anno.accept(checker);
                 }
             }
@@ -132,12 +134,12 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     /**
      * Gets the annotation URIs that this short form provider uses.
      */
-    public List<URI> getAnnotationURIs() {
-        return annotationURIs;
+    public List<OWLAnnotationProperty> getAnnotationProperties() {
+        return annotationProperties;
     }
 
 
-    public Map<URI, List<String>> getPreferredLanguageMap() {
+    public Map<OWLAnnotationProperty, List<String>> getPreferredLanguageMap() {
         return preferredLanguageMap;
     }
 
@@ -148,7 +150,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
 
     private class AnnotationLanguageFilter extends OWLObjectVisitorAdapter {
 
-        private URI uri;
+        private OWLAnnotationProperty prop;
 
         private List<String> preferredLanguages;
 
@@ -157,8 +159,8 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         int lastLangMatchIndex = Integer.MAX_VALUE;
 
 
-        private AnnotationLanguageFilter(URI uri, List<String> preferredLanguages) {
-            this.uri = uri;
+        private AnnotationLanguageFilter(OWLAnnotationProperty prop, List<String> preferredLanguages) {
+            this.prop = prop;
             this.preferredLanguages = preferredLanguages;
         }
 

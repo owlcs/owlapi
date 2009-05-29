@@ -93,9 +93,13 @@ public class Example10 {
             // For each class in the ontology, we retrieve its annotations and sift through them.  If the
             // annotation annotates the class with a constant which is untyped then we check the language
             // tag to see if it is Portugeuse.
+
+            // Firstly, get the annotation property for rdfs:label
+            OWLAnnotationProperty label = df.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getURI());
+
             for (OWLClass cls : ont.getReferencedClasses()) {
-                // Get the annotations on the class that have a URI corresponding to rdfs:label
-                for (OWLAnnotation annotation : cls.getAnnotations(ont, OWLRDFVocabulary.RDFS_LABEL.getURI())) {
+                // Get the annotations on the class that use the label property
+                for (OWLAnnotation annotation : cls.getAnnotations(ont, label)) {
                     if (annotation.getValue() instanceof OWLLiteral) {
                         OWLLiteral val = (OWLLiteral) annotation.getValue();
                         if (!val.isTyped()) {
