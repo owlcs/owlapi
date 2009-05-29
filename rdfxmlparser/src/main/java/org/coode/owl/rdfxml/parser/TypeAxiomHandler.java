@@ -61,13 +61,14 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         URI annotatedSource = getAnnotatedSource(subject);
         URI annotatedProperty = getAnnotatedProperty(subject);
         URI annotatedTarget = getAnnotatedTarget(subject);
+        OWLLiteral annotatedTargetLiteral = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getURI(), true);
 
         Set<OWLAnnotation> annotations = translatedAxiomAnnotations(subject);
         getConsumer().setPendingAnnotations(annotations);
         if (annotatedTarget != null) {
             getConsumer().handle(annotatedSource, annotatedProperty, annotatedTarget);
         } else {
-            getConsumer().handle(annotatedSource, annotatedProperty, annotatedTarget);
+            getConsumer().handle(annotatedSource, annotatedProperty, annotatedTargetLiteral);
         }
         OWLAxiom ax = getConsumer().getLastAddedAxiom();
         getConsumer().getOWLOntologyManager().applyChange(new RemoveAxiom(getConsumer().getOntology(), ax.getAxiomWithoutAnnotations()));
