@@ -248,18 +248,17 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     /**
-     * Creates a new (empty) ontology that has the specified ontology IRI.
+     * Creates a new (empty) ontology that has the specified ontology ID.
      *
-     * @param ontologyIRI The IRI of the ontology to be created.  The ontology IRI will be mapped to a physical IRI in
+     * @param ontologyID The ID of the ontology to be created.  The ontology IRI will be mapped to a physical IRI in
      *                    order to determine the type of ontology factory that will be used to create the ontology.  If
      *                    this mapping is <code>null</code> then a default (in memory) implementation of the ontology
      *                    will most likely be created.
-     * @param versionIRI  The version IRI of the ontology
      * @return The newly created ontology, or if an ontology with the specified IRI already exists then this existing
      *         ontology will be returned.
      * @throws OWLOntologyCreationException If the ontology could not be created.
      */
-    OWLOntology createOntology(IRI ontologyIRI, IRI versionIRI) throws OWLOntologyCreationException;
+    OWLOntology createOntology(OWLOntologyID ontologyID) throws OWLOntologyCreationException;
 
 
     /**

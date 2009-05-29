@@ -65,7 +65,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     private File currentFile;
 
-    private Map<URI, URI> uriMap;
+    private Map<IRI, URI> ontologyIRI2PhysicalURIMap;
 
     private Map<String, URI> oboFileMap;
 
@@ -83,7 +83,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     public AutoIRIMapper(File rootDirectory, boolean recursive) {
         this.directory = rootDirectory;
         this.recursive = recursive;
-        uriMap = new HashMap<URI, URI>();
+        ontologyIRI2PhysicalURIMap = new HashMap<IRI, URI>();
         oboFileMap = new HashMap<String, URI>();
         fileExtensions = new HashSet<String>();
         fileExtensions.add("owl");
@@ -123,14 +123,14 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
 
     /**
-     * Gets the set of ontology URIs that this mapper has found
+     * Gets the set of ontology IRIs that this mapper has found
      * @return A <code>Set</code> of ontology (logical) URIs
      */
-    public Set<URI> getOntologyURIs() {
+    public Set<IRI> getOntologyIRIs() {
         if (!mapped) {
             mapFiles();
         }
-        return new HashSet<URI>(uriMap.keySet());
+        return new HashSet<IRI>(ontologyIRI2PhysicalURIMap.keySet());
     }
 
 
@@ -154,13 +154,13 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
                 }
             }
         }
-        return uriMap.get(ontologyIRI);
+        return ontologyIRI2PhysicalURIMap.get(ontologyIRI);
     }
 
 
     private void mapFiles() {
         mapped = true;
-        uriMap.clear();
+        ontologyIRI2PhysicalURIMap.clear();
         processFile(directory);
     }
 
@@ -219,18 +219,18 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             // Ontology: <URI>
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
-            URI ontologyURI = null;
+            IRI ontologyIRI = null;
             while((line = br.readLine()) != null) {
                 StringTokenizer tokenizer = new StringTokenizer(line, " \r\n", false);
                 while(tokenizer.hasMoreTokens()) {
                     String tok = tokenizer.nextToken();
                     if(tok.startsWith("<") && tok.endsWith(">")) {
-                        ontologyURI = new URI(tok.substring(1, tok.length() - 1));
-                        uriMap.put(file.toURI(), ontologyURI);
+                        ontologyIRI = IRI.create(tok.substring(1, tok.length() - 1));
+                        ontologyIRI2PhysicalURIMap.put(ontologyIRI, file.toURI());
                         break;
                     }
                 }
-                if(ontologyURI != null) {
+                if(ontologyIRI != null) {
                     break;
                 }
             }
@@ -238,17 +238,14 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         catch (IOException e) {
             // Ignore - don't care
         }
-        catch (URISyntaxException e) {
-            // Ignore - don't care
-        }
     }
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         OntologyRootElementHandler handler = handlerMap.get(uri + localName);
         if (handler != null) {
-            URI ontologyURI = handler.handle(attributes);
-            if (ontologyURI != null) {
-                uriMap.put(ontologyURI, currentFile.toURI());
+            IRI ontologyIRI = handler.handle(attributes);
+            if (ontologyIRI != null) {
+                ontologyIRI2PhysicalURIMap.put(ontologyIRI, currentFile.toURI());
             }
             throw new SAXException();
         }
@@ -258,13 +255,13 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("AutoURIMapper: (");
-        sb.append(uriMap.size());
+        sb.append(ontologyIRI2PhysicalURIMap.size());
         sb.append(" ontologies)\n");
-        for (URI uri : uriMap.keySet()) {
+        for (IRI iri : ontologyIRI2PhysicalURIMap.keySet()) {
             sb.append("    ");
-            sb.append(uri);
+            sb.append(iri.toQuotedString());
             sb.append(" -> ");
-            sb.append(uriMap.get(uri));
+            sb.append(ontologyIRI2PhysicalURIMap.get(iri));
             sb.append("\n");
         }
         return sb.toString();
@@ -284,7 +281,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
          * @return The ontology URI or <code>null</code> if no ontology
          *         URI could be found.
          */
-        URI handle(Attributes attributes);
+        IRI handle(Attributes attributes);
     }
 
 
@@ -294,12 +291,12 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      */
     private class RDFXMLOntologyRootElementHandler implements OntologyRootElementHandler {
 
-        public URI handle(Attributes attributes) {
+        public IRI handle(Attributes attributes) {
             String baseValue = attributes.getValue(Namespaces.XML.toString(), "base");
             if (baseValue == null) {
                 return null;
             }
-            return URI.create(baseValue);
+            return IRI.create(baseValue);
         }
     }
 
@@ -309,7 +306,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      */
     private class OWLXMLOntologyRootElementHandler implements OntologyRootElementHandler {
 
-        public URI handle(Attributes attributes) {
+        public IRI handle(Attributes attributes) {
             String ontURI = attributes.getValue(Namespaces.OWL.toString(), "URI");
             if (ontURI == null) {
                 ontURI = attributes.getValue("URI");
@@ -317,7 +314,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             if (ontURI == null) {
                 return null;
             }
-            return URI.create(ontURI);
+            return IRI.create(ontURI);
         }
     }
 

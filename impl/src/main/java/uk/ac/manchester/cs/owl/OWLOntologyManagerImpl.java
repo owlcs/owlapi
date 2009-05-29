@@ -389,7 +389,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         return createOntology(new OWLOntologyID(ontologyIRI, versionIRI));
     }
 
-    private OWLOntology createOntology(OWLOntologyID ontologyID) throws OWLOntologyCreationException {
+    public OWLOntology createOntology(OWLOntologyID ontologyID) throws OWLOntologyCreationException {
         OWLOntology ontology = ontologiesByID.get(ontologyID);
         if (ontology != null) {
             return ontology;
