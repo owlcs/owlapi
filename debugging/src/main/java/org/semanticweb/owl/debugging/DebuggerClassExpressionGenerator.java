@@ -3,7 +3,6 @@ package org.semanticweb.owl.debugging;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.CollectionFactory;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
@@ -253,6 +252,6 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLDatatypeDefinition axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
     }
 }

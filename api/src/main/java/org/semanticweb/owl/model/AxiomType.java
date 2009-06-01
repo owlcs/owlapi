@@ -350,7 +350,7 @@ public class AxiomType<C extends OWLAxiom> {
             false
     );
 
-    public static final AxiomType<OWLDatatypeDefinition> DATATYPE_DEFINITION = new AxiomType<OWLDatatypeDefinition>(
+    public static final AxiomType<OWLDatatypeDefinitionAxiom> DATATYPE_DEFINITION = new AxiomType<OWLDatatypeDefinitionAxiom>(
             "Datatype definition",
             true,
             true,

@@ -625,7 +625,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLDatatypeDefinition axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
         axiom.getDatatype().accept(this);
         axiom.getDataRange().accept(this);
         processAxiomAnnotations(axiom);

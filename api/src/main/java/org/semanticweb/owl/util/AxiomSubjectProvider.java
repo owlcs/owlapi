@@ -238,7 +238,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLDatatypeDefinition axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
         subject = axiom.getDataRange();
     }
 }

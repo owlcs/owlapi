@@ -736,5 +736,5 @@ public interface OWLOntology extends OWLObject {
 
     Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(OWLIndividual individual);
 
-    Set<OWLDatatypeDefinition> getDatatypeDefinitions(OWLDatatype datatype);
+    Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype datatype);
 }

@@ -512,7 +512,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDatatypeDefinition axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -1081,7 +1081,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 Set<OWLDataRange> drs = parseDataRangeList();
                 for (OWLOntology ont : onts) {
                     for (OWLDataRange dr : drs) {
-                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLDatatypeDefinition(datatype, dr)));
+                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLDatatypeDefinitionAxiom(datatype, dr)));
                     }
                 }
             } else if (sect.equalsIgnoreCase(ANNOTATIONS)) {

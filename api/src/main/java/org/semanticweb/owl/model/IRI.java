@@ -71,6 +71,11 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
      */
     public abstract String toQuotedString();
 
+    /**
+     * Creates an IRI from the specified String.
+     * @param str The String that specifies the IRI
+     * @return The IRI that has the specified string representation.
+     */
     public static IRI create(String str) {
         return new IRIImpl(URI.create(str));
     }
@@ -80,10 +85,6 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
             throw new IllegalArgumentException("URI must not be null");
         }
         return new IRIImpl(uri);
-    }
-
-    public static IRI create(File file) {
-        return new IRIImpl(file.toURI());
     }
 
     public static IRI create(URL url) throws URISyntaxException {

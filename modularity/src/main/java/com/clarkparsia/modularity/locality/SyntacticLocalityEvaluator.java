@@ -74,7 +74,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLDatatypeDefinition axiom) {
+        public void visit(OWLDatatypeDefinitionAxiom axiom) {
             throw new RuntimeException("NOT IMPLEMENTED");   
         }
 

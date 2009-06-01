@@ -810,7 +810,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLDatatypeDefinition axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
         sb.append("DatatypeDefinition(");
         axiom.getDatatype().accept(this);
         sb.append(" ");

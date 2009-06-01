@@ -318,6 +318,29 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         return changes;
     }
 
+    public List<OWLOntologyChange> removeAxiom(OWLOntology ont, OWLAxiom axiom) throws OWLOntologyChangeException {
+        return removeAxioms(ont, Collections.singleton(axiom));
+    }
+
+    public List<OWLOntologyChange> removeAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms) throws OWLOntologyChangeException {
+        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>(axioms.size());
+        // Optimisation - Precheck that the ontology is an immutable ontology.
+        if (ont instanceof OWLMutableOntology) {
+            fireBeginChanges(axioms.size());
+            for (OWLAxiom ax : axioms) {
+                // Further optimisation - precheck that the axiom is in the ontology.
+                if (ont.containsAxiom(ax)) {
+                    RemoveAxiom removeAxiom = new RemoveAxiom(ont, ax);
+                    changes.addAll(enactChangeApplication(removeAxiom));
+                    fireChangeApplied(removeAxiom);
+                }
+            }
+            fireEndChanges();
+        }
+        broadcastChanges(changes);
+        return changes;
+    }
+
     public List<OWLOntologyChange> applyChange(OWLOntologyChange change) throws OWLOntologyChangeException {
         fireBeginChanges(1);
         List<OWLOntologyChange> changes = enactChangeApplication(change);

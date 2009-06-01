@@ -2,7 +2,6 @@ package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.*;
 
-import java.net.URI;
 import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -769,12 +768,12 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
 
-    public void visit(OWLDatatypeDefinition axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
         axiom.getDatatype().accept(this);
         OWLDatatype dt = (OWLDatatype) obj;
         axiom.getDataRange().accept(this);
         OWLDataRange rng = (OWLDataRange) obj;
-        obj = dataFactory.getOWLDatatypeDefinition(dt, rng);
+        obj = dataFactory.getOWLDatatypeDefinitionAxiom(dt, rng);
     }
 
 

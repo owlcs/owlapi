@@ -166,7 +166,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLDatatypeDefinition axiom) {
+        public ConstructNotAllowed visit(OWLDatatypeDefinitionAxiom axiom) {
             return null;
         }
 

@@ -611,7 +611,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLDatatypeDefinition axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
         hashCode = 897;
         hashCode = hashCode * MULT + axiom.getDatatype().hashCode();
         hashCode = hashCode * MULT + axiom.getDataRange().hashCode();

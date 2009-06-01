@@ -657,7 +657,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(OWLDatatypeDefinition axiom) {
+        public void visit(OWLDatatypeDefinitionAxiom axiom) {
             process(axiom);
             axiom.getDatatype().accept(this);
             axiom.getDataRange().accept(this);

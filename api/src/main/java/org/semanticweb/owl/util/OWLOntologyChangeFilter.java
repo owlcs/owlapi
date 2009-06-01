@@ -248,6 +248,6 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor {
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
     }
 
-    public void visit(OWLDatatypeDefinition axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
     }
 }

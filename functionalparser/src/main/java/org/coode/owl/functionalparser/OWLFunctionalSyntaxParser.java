@@ -705,7 +705,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLDatatypeDefinition DatatypeDefinition() throws ParseException {
+  final public OWLDatatypeDefinitionAxiom DatatypeDefinition() throws ParseException {
     OWLDatatype datatype;
     OWLDataRange dr;
     Set<OWLAnnotation> axAnnos;
@@ -715,7 +715,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     datatype = DatatypeURI();
     dr = DataRange();
     jj_consume_token(CLOSEPAR);
-        {if (true) return dataFactory.getOWLDatatypeDefinition(datatype, dr, axAnnos);}
+        {if (true) return dataFactory.getOWLDatatypeDefinitionAxiom(datatype, dr, axAnnos);}
     throw new Error("Missing return statement in function");
   }
 

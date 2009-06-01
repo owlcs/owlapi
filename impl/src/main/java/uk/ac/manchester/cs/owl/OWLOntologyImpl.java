@@ -765,10 +765,10 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLDatatypeDefinition> getDatatypeDefinitions(OWLDatatype datatype) {
-        Set<OWLDatatypeDefinition> result = new HashSet<OWLDatatypeDefinition>();
-        Set<OWLDatatypeDefinition> axioms = getAxiomsInternal(AxiomType.DATATYPE_DEFINITION);
-        for(OWLDatatypeDefinition ax : axioms) {
+    public Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype datatype) {
+        Set<OWLDatatypeDefinitionAxiom> result = new HashSet<OWLDatatypeDefinitionAxiom>();
+        Set<OWLDatatypeDefinitionAxiom> axioms = getAxiomsInternal(AxiomType.DATATYPE_DEFINITION);
+        for(OWLDatatypeDefinitionAxiom ax : axioms) {
             if(ax.getDatatype().equals(datatype)) {
                 result.add(ax);
             }
@@ -2033,7 +2033,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
 
 
-        public void visit(OWLDatatypeDefinition axiom) {
+        public void visit(OWLDatatypeDefinitionAxiom axiom) {
             // Just use general indexing (on the assumption that there won't be many
             // datatype definitions).  This could always be optimised at a later stage.
             if(addAxiom) {

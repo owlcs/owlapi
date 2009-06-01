@@ -33,6 +33,7 @@ public interface OWLCardinalityRestriction<P extends OWLPropertyExpression, F ex
 
     /**
      * Gets the cardinality of this restriction
+     * @return The cardinality of this restriction
      */
     int getCardinality();
 

@@ -165,6 +165,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @param ont    The ontology to which the axioms should be added.
      * @param axioms The axioms to be added.
      * @return A list of ontology changes that represent the changes which took place in order to add the axioms.
+     * @throws OWLOntologyChangeException if there was a problem adding the axioms
      */
     List<OWLOntologyChange> addAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms) throws
             OWLOntologyChangeException;
@@ -177,8 +178,32 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @param ont   The ontology to add the axiom to.
      * @param axiom The axiom to be added
      * @return A list of ontology changes that represent the changes that actually took place.
+     * @throws OWLOntologyChangeException if there was a problem adding the axiom
      */
     List<OWLOntologyChange> addAxiom(OWLOntology ont, OWLAxiom axiom) throws OWLOntologyChangeException;
+
+    /**
+     * A convenience method that removes a single axioms from an ontology. The appropriate RemoveAxiom change object is
+     * automatically generated.
+     *
+     * @param ont   The ontology to remove the axiom from.
+     * @param axiom The axiom to be removed
+     * @return A list of ontology changes that represent the changes that actually took place.
+     * @throws OWLOntologyChangeException if there was a problem removing the axiom
+     */
+    List<OWLOntologyChange> removeAxiom(OWLOntology ont, OWLAxiom axiom) throws OWLOntologyChangeException;
+
+    /**
+     * A convenience method that removes a set of axioms from an ontology.  The appropriate RemoveAxiom change objects are
+     * automatically generated.
+     *
+     * @param ont    The ontology from which the axioms should be removed.
+     * @param axioms The axioms to be removed.
+     * @return A list of ontology changes that represent the changes which took place in order to remove the axioms.
+     * @throws OWLOntologyChangeException if there was a problem removing the axioms
+     */
+    List<OWLOntologyChange> removeAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms) throws
+            OWLOntologyChangeException;
 
 
     /**
@@ -251,9 +276,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * Creates a new (empty) ontology that has the specified ontology ID.
      *
      * @param ontologyID The ID of the ontology to be created.  The ontology IRI will be mapped to a physical IRI in
-     *                    order to determine the type of ontology factory that will be used to create the ontology.  If
-     *                    this mapping is <code>null</code> then a default (in memory) implementation of the ontology
-     *                    will most likely be created.
+     *                   order to determine the type of ontology factory that will be used to create the ontology.  If
+     *                   this mapping is <code>null</code> then a default (in memory) implementation of the ontology
+     *                   will most likely be created.
      * @return The newly created ontology, or if an ontology with the specified IRI already exists then this existing
      *         ontology will be returned.
      * @throws OWLOntologyCreationException If the ontology could not be created.
@@ -331,6 +356,11 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     /**
      * A convenience method that load an ontology from an input source.  If the ontology contains imports then the
      * appropriate mappers should be set up before calling this method.
+     * @param inputSource The input source that describes where the ontology should be loaded from.
+     * @return The ontology that was loaded.  Note that other ontologies may be loaded as a result of the ontology
+     * being loaded, but these are not returned here.
+     * @throws OWLOntologyCreationException if there was a problem loading the ontology from the specified input source,
+     * or if the ontology imports other ontologies the exception is thrown if there was a problem handing imports.
      */
     OWLOntology loadOntology(OWLOntologyInputSource inputSource) throws OWLOntologyCreationException;
 
@@ -503,8 +533,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
     /**
      * Sets the default strategy that is used to broadcast ontology changes.
+     *
      * @param strategy The strategy to be used for broadcasting changes.  This strategy will override any previously
-     * set broadcast strategy.  The strategy should not be <code>null</code>.
+     *                 set broadcast strategy.  The strategy should not be <code>null</code>.
      * @see org.semanticweb.owl.model.DefaultChangeBroadcastStrategy
      * @see org.semanticweb.owl.model.EDTChangeBroadcastStrategy
      */

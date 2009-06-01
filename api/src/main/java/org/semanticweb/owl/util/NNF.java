@@ -572,7 +572,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
     }
 
 
-    public OWLAxiom visit(OWLDatatypeDefinition axiom) {
+    public OWLAxiom visit(OWLDatatypeDefinitionAxiom axiom) {
         return axiom;
     }
 }

@@ -1,6 +1,6 @@
 package org.semanticweb.owl.model;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -22,20 +22,28 @@ package org.semanticweb.owl.model;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 24-Mar-2009
  */
-public interface OWLFunctionalObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
+public interface OWLDatatypeDefinitionAxiom extends OWLAxiom {
 
     /**
-     * Obtains this axiom as a SubClassOf axiom.  That is, an equivalent axiom that is a GCI.
-     * @return This axiom as SubClassOf(owl:Thing, ObjectMaxCardinality(1 R)) where R is the functional property
+     * Gets the datatype that is assigned a definition
+     * @return The datatype
      */
-    OWLSubClassOfAxiom asOWLSubClassOfAxiom();
+    OWLDatatype getDatatype();
 
-    OWLFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations();
+
+    /**
+     * Gets the datarange that defines the datatype
+     * @return The defining datarange
+     */
+    OWLDataRange getDataRange();
+
+    void accept(OWLAxiomVisitor visitor);
+
+    <O> O accept(OWLAxiomVisitorEx<O> visitor);
 }

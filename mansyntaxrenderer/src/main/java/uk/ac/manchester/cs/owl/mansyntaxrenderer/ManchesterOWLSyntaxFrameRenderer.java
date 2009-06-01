@@ -8,7 +8,6 @@ import org.semanticweb.owl.util.*;
 
 import java.io.Writer;
 import java.util.*;
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -790,7 +789,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.DATATYPE_DEFINITION)) {
             for(OWLOntology ontology : getOntologies()) {
                 Set<OWLDataRange> dataRanges = new TreeSet<OWLDataRange>();
-                for(OWLDatatypeDefinition ax : ontology.getDatatypeDefinitions(datatype)) {
+                for(OWLDatatypeDefinitionAxiom ax : ontology.getDatatypeDefinitions(datatype)) {
                     if(isDisplayed(ax)) {
                         axioms.add(ax);
                         dataRanges.add(ax.getDataRange());

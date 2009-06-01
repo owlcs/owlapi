@@ -964,7 +964,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDatatypeDefinition axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
         writeAxiomStart(DATATYPE_DEFINITION, axiom);
         axiom.getDatatype().accept(this);
         writeSpace();

@@ -517,7 +517,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         }
 
 
-        public void visit(OWLDatatypeDefinition axiom) {
+        public void visit(OWLDatatypeDefinitionAxiom axiom) {
         }
     }
 
@@ -762,7 +762,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         }
 
 
-        public void visit(OWLDatatypeDefinition axiom) {
+        public void visit(OWLDatatypeDefinitionAxiom axiom) {
         }
 
 

@@ -2,7 +2,6 @@ package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.model.*;
 
-import java.net.URI;
 import java.util.*;
 /*
  * Copyright (C) 2008, University of Manchester
@@ -547,7 +546,7 @@ public class StructuralTransformation {
         }
 
 
-        public Set<OWLAxiom> visit(OWLDatatypeDefinition axiom) {
+        public Set<OWLAxiom> visit(OWLDatatypeDefinitionAxiom axiom) {
             return toSet(axiom);
         }
     }

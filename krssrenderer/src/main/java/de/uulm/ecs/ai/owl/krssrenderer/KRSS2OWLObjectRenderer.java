@@ -604,7 +604,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLDatatypeDefinition axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
     }
 
 

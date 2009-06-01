@@ -227,7 +227,7 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLDatatypeDefinition axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
         axiomType = DATATYPE_DEFINITION;
     }
 }

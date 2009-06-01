@@ -681,7 +681,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
-    public void visit(OWLDatatypeDefinition axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
     }
 
 

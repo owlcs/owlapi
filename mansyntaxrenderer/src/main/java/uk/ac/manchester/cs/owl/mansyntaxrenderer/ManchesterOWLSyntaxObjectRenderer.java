@@ -975,7 +975,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(OWLDatatypeDefinition axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
         
     }
 
