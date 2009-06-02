@@ -1,4 +1,11 @@
-package org.semanticweb.owl.model;
+package org.semanticweb.owl.api.test;
+
+import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owl.model.OWLObjectProperty;
+import org.semanticweb.owl.model.OWLIndividual;
+
+import java.util.Set;
+import java.util.HashSet;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -26,24 +33,16 @@ package org.semanticweb.owl.model;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 24-Mar-2009
+ * Date: 01-Jun-2009
  */
-public interface OWLDatatypeDefinition extends OWLAxiom {
+public class NegativeObjectPropertyAssertionTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    /**
-     * Gets the datatype that is assigned a definition
-     * @return The datatype
-     */
-    OWLDatatype getDatatype();
-
-
-    /**
-     * Gets the datarange that defines the datatype
-     * @return The defining datarange
-     */
-    OWLDataRange getDataRange();
-
-    void accept(OWLAxiomVisitor visitor);
-
-    <O> O accept(OWLAxiomVisitorEx<O> visitor);
+    protected Set<? extends OWLAxiom> createAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLObjectProperty prop = getOWLObjectProperty("prop");
+        OWLIndividual subject = getOWLIndividual("iA");
+        OWLIndividual object = getOWLIndividual("iB");
+        axioms.add(getFactory().getOWLNegativeObjectPropertyAssertionAxiom(subject, prop, object));
+        return axioms;
+    }
 }

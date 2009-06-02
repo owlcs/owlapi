@@ -51,6 +51,10 @@ public class OWLDisjointUnionAxiomImpl extends OWLNaryClassAxiomImpl implements 
         return getOWLDataFactory().getOWLDisjointUnionAxiom(getOWLClass(), getClassExpressions());
     }
 
+    public OWLDisjointUnionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLDisjointUnionAxiom(getOWLClass(), getClassExpressions(), mergeAnnos(annotations));
+    }
+
     public OWLClass getOWLClass() {
         return owlClass;
     }

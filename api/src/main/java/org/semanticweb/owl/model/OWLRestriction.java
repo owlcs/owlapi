@@ -37,4 +37,16 @@ public interface OWLRestriction<P extends OWLPropertyExpression> extends OWLAnon
      * Gets the property that the restriction acts along.
      */
     public P getProperty();
+
+    /**
+     * Determines if this is an object restriction.
+     * @return <code>true</code> if this is an object restriction, otherwise <code>false</code>
+     */
+    boolean isObjectRestriction();
+
+    /**
+     * Determines if this is a data restriction.
+     * @return <code>true</code> if this is a data restriction, otherwise <code>false</code>
+     */
+    boolean isDataRestriction();
 }

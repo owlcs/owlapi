@@ -53,46 +53,73 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         return false;
     }
 
+    /**
+     * Gets the URI of the predicate of the triple that specifies the target of a reified axiom
+     * @return The URI, by default this is owl:annotatedTarget
+     */
+    protected URI getTargetTriplePredicate() {
+        return OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getURI();
+    }
+
+    /**
+     * Gets the URI of the predicate of the triple that specifies that predicate of a reified axiom
+     * @return The URI, by default this is owl:annotatedProperty
+     */
+    protected URI getPropertyTriplePredicate() {
+        return OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY.getURI();
+    }
+
+    /**
+     * Gets the URI of the predicate of the triple that specifies the source of a reified axiom
+     * @return The URI, by default this is owl:annotatedSource
+     */
+    protected URI getSourceTriplePredicate() {
+        return OWLRDFVocabulary.OWL_ANNOTATED_SOURCE.getURI();
+    }
+
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         consumeTriple(subject, predicate, object);
 
 
-        URI annotatedSource = getAnnotatedSource(subject);
-        URI annotatedProperty = getAnnotatedProperty(subject);
-        URI annotatedTarget = getAnnotatedTarget(subject);
-        OWLLiteral annotatedTargetLiteral = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getURI(), true);
+        URI annotatedSource = getObjectOfSourceTriple(subject);
+        URI annotatedProperty = getObjectOfPropertyTriple(subject);
+        URI annotatedTarget = getObjectOfTargetTriple(subject);
+        OWLLiteral annotatedTargetLiteral = null;
+        if(annotatedTarget == null) {
+            annotatedTargetLiteral = getTargetLiteral(subject);
+        }
 
-        Set<OWLAnnotation> annotations = translatedAxiomAnnotations(subject);
+        Set<OWLAnnotation> annotations = translateAnnotations(subject);
         getConsumer().setPendingAnnotations(annotations);
         if (annotatedTarget != null) {
             getConsumer().handle(annotatedSource, annotatedProperty, annotatedTarget);
         } else {
             getConsumer().handle(annotatedSource, annotatedProperty, annotatedTargetLiteral);
         }
-        OWLAxiom ax = getConsumer().getLastAddedAxiom();
-        getConsumer().getOWLOntologyManager().applyChange(new RemoveAxiom(getConsumer().getOntology(), ax.getAxiomWithoutAnnotations()));
+        if (!annotations.isEmpty()) {
+            OWLAxiom ax = getConsumer().getLastAddedAxiom();
+            getConsumer().getOWLOntologyManager().applyChange(new RemoveAxiom(getConsumer().getOntology(), ax.getAxiomWithoutAnnotations()));
+        }
 
     }
 
-    protected OWLAxiom handleAxiomTriples(URI subjectTriple, URI predicateTriple, URI objectTriple, Set<OWLAnnotation> annotations) throws
-            OWLException {
+    protected OWLAxiom handleAxiomTriples(URI subjectTriple, URI predicateTriple, URI objectTriple, Set<OWLAnnotation> annotations) throws OWLException {
         // Reconstitute the original triple from the reification triples
         return getConsumer().getLastAddedAxiom();
     }
 
 
-    protected OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject, OWLLiteral con, Set<OWLAnnotation> annotations) throws
-            OWLException {
+    protected OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject, OWLLiteral con, Set<OWLAnnotation> annotations) throws OWLException {
         getConsumer().handle(subjectTripleObject, predicateTripleObject, con);
         return getConsumer().getLastAddedAxiom();
     }
 
-    private Set<OWLAnnotation> translatedAxiomAnnotations(URI subject) {
+    private Set<OWLAnnotation> translateAnnotations(URI subject) {
         Set<URI> predicates = getConsumer().getPredicatesBySubject(subject);
-        predicates.remove(OWLRDFVocabulary.OWL_ANNOTATED_SOURCE.getURI());
-        predicates.remove(OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY.getURI());
-        predicates.remove(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getURI());
+        predicates.remove(getSourceTriplePredicate());
+        predicates.remove(getPropertyTriplePredicate());
+        predicates.remove(getTargetTriplePredicate());
         // We don't handle rdf:subject, rdf:predicate and rdf:object as synonymns - they might be genuinely in the
         // ontology.
         predicates.remove(OWLRDFVocabulary.RDF_SUBJECT.getURI());
@@ -108,47 +135,60 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         return annotations;
     }
 
-    private OWLLiteral getAnnotatedTargetLiteral(URI subject) throws OWLRDFXMLParserMalformedNodeException {
-        OWLLiteral con = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getURI(), true);
+    private OWLLiteral getTargetLiteral(URI subject) throws OWLRDFXMLParserMalformedNodeException {
+        OWLLiteral con = getConsumer().getLiteralObject(subject, getTargetTriplePredicate(), true);
         if (con == null) {
             con = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
         }
         if (con == null) {
-            throw new OWLRDFXMLParserMalformedNodeException("missing owl:object triple.");
+            throw new OWLRDFXMLParserMalformedNodeException("missing owl:annotatedTarget triple.");
         }
         return con;
     }
 
-    private URI getAnnotatedTarget(URI subject) {
-        URI objectTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getURI(), true);
+
+    /**
+     * Gets the object of the target triple that has the specified main node
+     * @param mainNode The main node
+     * @return The object of the triple that has the specified mainNode as its subject and the URI returned
+     * by the {@code TypeAxiomHandler#getSourceTriplePredicate()} method.  For backwards compatibility, a
+     * search will also be performed for triples whos subject is the specified mainNode and predicate rdf:object
+     */
+    private URI getObjectOfTargetTriple(URI mainNode) {
+        URI objectTripleObject = getConsumer().getResourceObject(mainNode, getTargetTriplePredicate(), true);
         if (objectTripleObject == null) {
-            objectTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
+            objectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
         }
         return objectTripleObject;
     }
 
-    private URI getAnnotatedProperty(URI subject) throws OWLRDFXMLParserMalformedNodeException {
-        URI predicateTripleObject = getConsumer().getResourceObject(subject,
-                OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY.getURI(),
-                true);
+    private URI getObjectOfPropertyTriple(URI subject) throws OWLRDFXMLParserMalformedNodeException {
+        URI predicateTripleObject = getConsumer().getResourceObject(subject, getPropertyTriplePredicate(), true);
         if (predicateTripleObject == null) {
-            predicateTripleObject = getConsumer().getResourceObject(subject,
-                    OWLRDFVocabulary.RDF_PREDICATE.getURI(),
-                    true);
+            predicateTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_PREDICATE.getURI(), true);
         }
         if (predicateTripleObject == null) {
-            throw new OWLRDFXMLParserMalformedNodeException("missing owl:predicate triple.");
+            throw new OWLRDFXMLParserMalformedNodeException("missing owl:annotatedProperty triple.");
         }
         return predicateTripleObject;
     }
 
-    private URI getAnnotatedSource(URI subject) throws OWLRDFXMLParserMalformedNodeException {
-        URI subjectTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_ANNOTATED_SOURCE.getURI(), true);
+
+    /**
+     * Gets the source URI for an annotated or reified axiom
+     *
+     * @param mainNode The main node of the triple
+     * @return The source object
+     * @throws OWLRDFXMLParserMalformedNodeException
+     *
+     */
+    private URI getObjectOfSourceTriple(URI mainNode) throws OWLRDFXMLParserMalformedNodeException {
+        URI subjectTripleObject = getConsumer().getResourceObject(mainNode, getSourceTriplePredicate(), true);
         if (subjectTripleObject == null) {
-            subjectTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_SUBJECT.getURI(), true);
+            subjectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.RDF_SUBJECT.getURI(), true);
         }
         if (subjectTripleObject == null) {
-            throw new OWLRDFXMLParserMalformedNodeException("missing owl:subject triple.");
+            throw new OWLRDFXMLParserMalformedNodeException("missing owl:annotatedSource triple.");
         }
         return subjectTripleObject;
     }

@@ -50,6 +50,10 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getSubject(), getProperty(), getObject());
     }
 
+    public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getSubject(), getProperty(), getObject(), mergeAnnos(annotations));
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectPropertyAssertionAxiom;
@@ -57,6 +61,20 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         return false;
     }
 
+    public OWLObjectPropertyAssertionAxiom getSimplified() {
+        if(!getProperty().isAnonymous()) {
+            return this;
+        }
+        else {
+            OWLObjectPropertyInverse property = (OWLObjectPropertyInverse) getProperty();
+            OWLObjectPropertyExpression invProp = property.getInverse();
+            return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getObject(), invProp, getSubject());
+        }
+    }
+
+    public boolean isInSimplifiedForm() {
+        return !getProperty().isAnonymous();
+    }
 
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);

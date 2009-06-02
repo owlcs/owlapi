@@ -37,6 +37,13 @@ public class OWLObjectAllValuesFromImpl extends OWLQuantifiedRestrictionImpl<OWL
         super(dataFactory, property, filler);
     }
 
+    public boolean isObjectRestriction() {
+        return true;
+    }
+
+    public boolean isDataRestriction() {
+        return false;
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

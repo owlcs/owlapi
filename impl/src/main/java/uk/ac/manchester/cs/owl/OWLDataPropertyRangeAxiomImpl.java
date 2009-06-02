@@ -46,6 +46,10 @@ public class OWLDataPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWL
         return getOWLDataFactory().getOWLDataPropertyRangeAxiom(getProperty(), getRange());
     }
 
+    public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLDataPropertyRangeAxiom(getProperty(), getRange(), mergeAnnos(annotations));
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataPropertyRangeAxiom;

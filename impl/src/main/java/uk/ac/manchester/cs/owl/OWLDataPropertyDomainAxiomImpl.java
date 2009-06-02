@@ -46,6 +46,11 @@ public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<O
         return getOWLDataFactory().getOWLDataPropertyDomainAxiom(getProperty(), getDomain());
     }
 
+    public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLDataPropertyDomainAxiom(getProperty(), getDomain(), mergeAnnos(annotations));
+    }
+
+ 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataPropertyDomainAxiom;
@@ -80,4 +85,6 @@ public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<O
         OWLClassExpression sub = df.getOWLDataSomeValuesFrom(getProperty(), df.getTopDatatype());
         return df.getOWLSubClassOfAxiom(sub, getDomain());
     }
+
+
 }

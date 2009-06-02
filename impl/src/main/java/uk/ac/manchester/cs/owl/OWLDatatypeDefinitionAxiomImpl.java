@@ -3,6 +3,7 @@ package uk.ac.manchester.cs.owl;
 import org.semanticweb.owl.model.*;
 
 import java.util.Collection;
+import java.util.Set;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -52,6 +53,10 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
             return this;
         }
         return getOWLDataFactory().getOWLDatatypeDefinitionAxiom(getDatatype(), getDataRange());
+    }
+
+    public OWLDatatypeDefinitionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLDatatypeDefinitionAxiom(getDatatype(), getDataRange(), mergeAnnos(annotations));
     }
 
     public OWLDatatype getDatatype() {

@@ -239,6 +239,8 @@ public enum OWLRDFVocabulary {
 
     OWL_DISJOINT_OBJECT_PROPERTIES(Namespaces.OWL, "disjointObjectProperties"),
 
+    OWL_PROPERTY_DISJOINT_WITH(Namespaces.OWL, "propertyDisjointWith"),
+
     OWL_EQUIVALENT_DATA_PROPERTIES(Namespaces.OWL, "equivalentDataProperty"),
 
     OWL_EQUIVALENT_OBJECT_PROPERTIES(Namespaces.OWL, "equivalentObjectProperty"),
@@ -261,11 +263,11 @@ public enum OWLRDFVocabulary {
 
     OWL_PROPERTY_CHAIN(Namespaces.OWL, "propertyChain"),
 
+    OWL_PROPERTY_CHAIN_AXIOM(Namespaces.OWL, "propertyChainAxiom"),
+
     OWL_ALL_DISJOINT_CLASSES(Namespaces.OWL, "AllDisjointClasses"),
 
     OWL_MEMBERS(Namespaces.OWL, "members"),
-
-    OWL_PROPERTY_DISJOINT_WITH(Namespaces.OWL, "propertyDisjointWith"),
 
     OWL_ALL_DISJOINT_PROPERTIES(Namespaces.OWL, "AllDisjointProperties"),
 
@@ -283,7 +285,15 @@ public enum OWLRDFVocabulary {
 
     OWL_ANNOTATED_PROPERTY(Namespaces.OWL, "annotatedProperty"),
 
-    OWL_ANNOTATED_TARGET(Namespaces.OWL, "annotatedTarget");
+    OWL_ANNOTATED_TARGET(Namespaces.OWL, "annotatedTarget"),
+
+    OWL_SOURCE_INDIVIDUAL(Namespaces.OWL, "sourceIndividual"),
+
+    OWL_ASSERTION_PROPERTY(Namespaces.OWL, "assertionProperty"),
+
+    OWL_TARGET_INDIVIDUAL(Namespaces.OWL, "targetIndividual"),
+
+    OWL_TARGET_VALUE(Namespaces.OWL, "targetValue");
 
 
     URI uri;

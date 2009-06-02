@@ -3,6 +3,7 @@ package uk.ac.manchester.cs.owl;
 import org.semanticweb.owl.model.*;
 
 import java.util.Collection;
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -44,6 +45,10 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
             return this;
         }
         return getOWLDataFactory().getOWLReflexiveObjectPropertyAxiom(getProperty());
+    }
+
+    public OWLReflexiveObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLReflexiveObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
     }
 
     public boolean equals(Object obj) {

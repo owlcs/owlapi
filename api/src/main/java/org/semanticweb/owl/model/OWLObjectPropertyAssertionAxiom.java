@@ -32,4 +32,22 @@ package org.semanticweb.owl.model;
 public interface OWLObjectPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual> {
 
     OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
+
+    /**
+     * Gets a simplified version of this object property axiom.  This is defined recursively as follows:
+     * <ul>
+     * <li>ObjectPropertyAssertion(P S O) = ObjectPropertyAssertion(P S O)
+     * <li>ObjectPropertyAssertion(ObjectInverseOf(P) S O) = ObjectPropertyAssertion(P O S)
+     * </ul>
+     * @return
+     */
+    OWLObjectPropertyAssertionAxiom getSimplified();
+
+    /**
+     * Determines if this axiom is in a simplified form, i.e. a form where the property is not a property inverse.
+     * ObjectPropertyAssertion(P S O) is in a simplified form, where as ObjectPropertyAssertion(ObjectInverseOf(P) S O)
+     * is not because it contains an inverse object property.
+     * @return <code>true</code> if this axiom is in a simplified form, otherwise <code>false</code>
+     */
+    boolean isInSimplifiedForm();
 }

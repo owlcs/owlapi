@@ -75,4 +75,5 @@ public abstract class AbstractRoundTrippingTest extends AbstractOWLAPITestCase {
     protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
         super.handleSaved(target, format);
     }
+
 }

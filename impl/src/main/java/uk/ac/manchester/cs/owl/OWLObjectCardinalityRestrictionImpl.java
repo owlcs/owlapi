@@ -46,6 +46,13 @@ public abstract class OWLObjectCardinalityRestrictionImpl extends OWLCardinality
         return getFiller().isAnonymous() || !getFiller().isOWLThing();
     }
 
+    public boolean isObjectRestriction() {
+        return true;
+    }
+
+    public boolean isDataRestriction() {
+        return false;
+    }
 
     public boolean equals(Object obj) {
         if(super.equals(obj)) {

@@ -42,6 +42,8 @@ public class TPInverseOfHandler extends TriplePredicateHandler {
 
 
     public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+        getConsumer().addOWLObjectProperty(subject);
+        getConsumer().addOWLObjectProperty(object);
         return !isSubjectOrObjectAnonymous(subject, object);
     }
 

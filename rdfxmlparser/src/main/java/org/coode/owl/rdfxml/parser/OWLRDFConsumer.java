@@ -568,6 +568,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addPredicateHandler(new TPDeclaredAsHandler(this));
         addPredicateHandler(new TPHasKeyHandler(this));
         addPredicateHandler(new TPVersionIRIHandler(this));
+        addPredicateHandler(new TPPropertyChainAxiomHandler(this));
 
         addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.BROADER));
         addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.NARROWER));
@@ -1652,7 +1653,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         Set<URI> predicates = getPredicatesBySubject(subject);
         for(URI predicate : predicates) {
 //            if(isAnnotationProperty(predicate)) {
-                System.out.println("ANNO PROP: " + subject);
                 URI resVal = getResourceObject(subject, predicate, true);
                 while(resVal != null) {
                     OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(predicate);

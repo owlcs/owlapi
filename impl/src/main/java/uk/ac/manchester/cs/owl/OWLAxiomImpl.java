@@ -61,6 +61,19 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
         return annotations;
     }
 
+    /**
+     * A convenience method for implementation that returns a set containing the annotations on this axiom plus the
+     * annoations in the specified set.
+     * @param annos The annotations to add to the annotations on this axiom
+     * @return The annotations
+     */
+    protected Set<OWLAnnotation> mergeAnnos(Set<OWLAnnotation> annos) {
+        Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(annos);
+        merged.addAll(getAnnotations());
+        return annos;
+    }
+
+
     public boolean equals(Object obj) {
         if (!super.equals(obj)) {
             return false;

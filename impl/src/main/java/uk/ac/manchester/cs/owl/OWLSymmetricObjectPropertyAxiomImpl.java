@@ -49,6 +49,10 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
         return result;
     }
 
+    public OWLSymmetricObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLSymmetricObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
+    }
+
     public OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations() {
         if(!isAnnotated()) {
             return this;

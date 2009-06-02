@@ -47,6 +47,10 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         return getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(getProperties());
     }
 
+    public OWLEquivalentDataPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(getProperties(), mergeAnnos(annotations));
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLEquivalentDataPropertiesAxiom;

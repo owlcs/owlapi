@@ -47,6 +47,10 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
         return getOWLDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(getSubject(), getProperty(), getObject());
     }
 
+    public OWLNegativeObjectPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(getSubject(), getProperty(), getObject(), mergeAnnos(annotations));
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLNegativeObjectPropertyAssertionAxiom;

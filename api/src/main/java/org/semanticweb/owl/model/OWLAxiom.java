@@ -40,7 +40,28 @@ public interface OWLAxiom extends OWLObject {
 
     <O> O accept(OWLAxiomVisitorEx<O> visitor);
 
+    /**
+     * Gets the annotations that are annotate this axiom.
+     * @return A set of annotations that annotate this axiom.
+     */
     Set<OWLAnnotation> getAnnotations();
+
+    /**
+     * Gets an axiom that is structurally equivalent to this axiom without annotations.  This essentially
+     * returns a version of this axiom stripped of any annotations
+     * @return The annotationless version of this axiom
+     */
+    OWLAxiom getAxiomWithoutAnnotations();
+
+    /**
+     * Gets a copy of this axiom that is annotated with the specified annotations.  If this axiom has any annotations
+     * on it they will be merged with the specified set of annotations. 
+     * Note that this axiom will not be modified (or remove from any ontologies).
+     * @param annotations The annotations that will be added to existing annotations to annotate the copy of this axiom
+     * @return A copy of this axiom that has the specified annotations plus any existing annotations returned by the
+     * {@code OWLAxiom#getAnnotations()} method.
+     */
+    OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations);
 
     /**
      * Determines if this axiom is a logical axiom. Logical axioms are defined to be
@@ -57,13 +78,6 @@ public interface OWLAxiom extends OWLObject {
      * @return <code>true</code> if this axiom has annotations on it, otherwise <code>false</code>
      */
     boolean isAnnotated();
-
-    /**
-     * Gets an axiom that is structurally equivalent to this axiom without annotations.  This essentially
-     * returns a version of this axiom stripped of any annotations
-     * @return The annotationless version of this axiom
-     */
-    OWLAxiom getAxiomWithoutAnnotations();
 
 
     /**

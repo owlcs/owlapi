@@ -46,6 +46,13 @@ public abstract class OWLDataCardinalityRestrictionImpl extends OWLCardinalityRe
         return !getFiller().equals(getOWLDataFactory().getTopDatatype());
     }
 
+    public boolean isObjectRestriction() {
+        return false;
+    }
+
+    public boolean isDataRestriction() {
+        return true;
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

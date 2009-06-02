@@ -41,12 +41,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     /**
      * Gets a data factory which can be used to create OWL API objects such as classes, properties, individuals, axioms
      * etc.
+     * @return A reference to a data factory for creating OWL API objects.
      */
     OWLDataFactory getOWLDataFactory();
 
 
     /**
      * Gets all of the ontologies that are managed by this manager.
+     * @return The set of ontologies managed by this manager.
      */
     Set<OWLOntology> getOntologies();
 
@@ -414,7 +416,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @param ontology       The ontology whose format is to be set.
      * @param ontologyFormat The format for the specified ontology.
      */
-    void setOntologyFormat(OWLOntology ontology, OWLOntologyFormat ontologyFormat) throws UnknownOWLOntologyException;
+    void setOntologyFormat(OWLOntology ontology, OWLOntologyFormat ontologyFormat);
 
 
     /**
@@ -434,7 +436,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * Saves the specified ontology, using the specified IRI to determine where/how the ontology should be saved.
      *
      * @param ontology    The ontology to be saved.
-     * @param physicalURI
+     * @param physicalURI The physical URI that specified how and where the ontology should be saved.
      * @throws OWLOntologyStorageException If the ontology cannot be saved.
      */
     void saveOntology(OWLOntology ontology, URI physicalURI) throws OWLOntologyStorageException,

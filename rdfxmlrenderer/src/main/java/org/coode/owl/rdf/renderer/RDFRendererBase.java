@@ -228,7 +228,6 @@ public abstract class RDFRendererBase {
 
         Set<OWLAxiom> generalAxioms = new HashSet<OWLAxiom>();
         generalAxioms.addAll(ontology.getGeneralClassAxioms());
-        generalAxioms.addAll(ontology.getPropertyChainSubPropertyAxioms());
         generalAxioms.addAll(ontology.getAxioms(AxiomType.DIFFERENT_INDIVIDUALS));
         for (OWLDisjointClassesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_CLASSES)) {
             if (ax.getClassExpressions().size() > 2) {
@@ -450,6 +449,11 @@ public abstract class RDFRendererBase {
                         }
                     }
                     axioms.add(ax);
+                }
+                for(OWLSubPropertyChainOfAxiom ax : ontology.getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
+                    if(ax.getSuperProperty().equals(property)) {
+                        axioms.add(ax);
+                    }
                 }
                 axioms.addAll(ontology.getAxioms(manager.getOWLDataFactory().getOWLObjectPropertyInverse(property)));
                 createGraph(axioms);

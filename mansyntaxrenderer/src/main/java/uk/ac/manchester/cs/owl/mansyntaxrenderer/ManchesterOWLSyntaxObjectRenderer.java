@@ -306,7 +306,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     public void visit(OWLDatatype datatype) {
-        write(datatype.getURI().getFragment());
+        write(getShortFormProvider().getShortForm(datatype));
     }
 
     public void visit(OWLAnonymousIndividual individual) {

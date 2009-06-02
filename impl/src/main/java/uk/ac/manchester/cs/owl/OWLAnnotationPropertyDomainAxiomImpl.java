@@ -2,7 +2,8 @@ package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
 
-import java.util.Collection;/*
+import java.util.Collection;
+import java.util.Set;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -46,6 +47,10 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
             return this;
         }
         return getOWLDataFactory().getOWLAnnotationPropertyDomainAxiom(getProperty(), getDomain());
+    }
+
+    public OWLAnnotationPropertyDomainAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLAnnotationPropertyDomainAxiom(getProperty(), getDomain(), mergeAnnos(annotations));
     }
 
     public IRI getDomain() {

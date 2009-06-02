@@ -2,7 +2,8 @@ package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
 
-import java.util.Collection;/*
+import java.util.Collection;
+import java.util.Set;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -46,6 +47,10 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
             return this;
         }
         return getOWLDataFactory().getOWLAnnotationPropertyRangeAxiom(getProperty(), getRange());
+    }
+
+    public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLAnnotationPropertyRangeAxiom(getProperty(), getRange(), mergeAnnos(annotations));
     }
 
     public OWLAnnotationProperty getProperty() {

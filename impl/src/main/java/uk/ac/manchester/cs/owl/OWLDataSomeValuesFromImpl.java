@@ -45,6 +45,14 @@ public class OWLDataSomeValuesFromImpl extends OWLQuantifiedRestrictionImpl<OWLD
         return false;
     }
 
+    public boolean isObjectRestriction() {
+        return false;
+    }
+
+    public boolean isDataRestriction() {
+        return true;
+    }
+
     public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }

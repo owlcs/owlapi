@@ -37,6 +37,13 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLDataProperty
         super(dataFactory, property, value);
     }
 
+    public boolean isObjectRestriction() {
+        return false;
+    }
+
+    public boolean isDataRestriction() {
+        return true;
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

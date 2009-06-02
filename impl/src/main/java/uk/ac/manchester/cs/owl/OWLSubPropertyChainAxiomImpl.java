@@ -2,10 +2,7 @@ package uk.ac.manchester.cs.owl;
 
 import org.semanticweb.owl.model.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Collection;
+import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -51,6 +48,9 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
         this.superProperty = superProperty;
     }
 
+    public OWLSubPropertyChainOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLSubPropertyChainOfAxiom(getPropertyChain(), getSuperProperty(), mergeAnnos(annotations));
+    }
 
     public OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations() {
         if(!isAnnotated()) {

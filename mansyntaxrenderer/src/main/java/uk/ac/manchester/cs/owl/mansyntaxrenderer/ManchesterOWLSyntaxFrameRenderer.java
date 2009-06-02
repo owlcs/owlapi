@@ -126,7 +126,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         for(OWLAnnotationProperty prop : ontology.getReferencedAnnotationProperties()) {
             write(prop);
         }
-
+        for(OWLDatatype datatype : ontology.getReferencedDatatypes()) {
+            write(datatype);
+        }
         for (OWLObjectProperty prop : ontology.getReferencedObjectProperties()) {
             write(prop);
         }
@@ -184,7 +186,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             write(PREFIX.toString());
             write(": ");
             write(prefixName);
-            write(" = ");
+            write(" ");
             writeFullURI(prefix);
             writeNewLine();
         }

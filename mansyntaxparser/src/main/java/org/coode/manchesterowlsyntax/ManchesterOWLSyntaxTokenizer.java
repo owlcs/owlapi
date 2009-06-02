@@ -103,7 +103,7 @@ public class ManchesterOWLSyntaxTokenizer {
         char lastChar = ' ';
         while (pos < bufferLen) {
             char ch = readChar();
-            if(ch == ESCAPE_CHAR) {
+            if (ch == ESCAPE_CHAR) {
                 lastChar = ch;
                 ch = readChar();
             }
@@ -112,6 +112,10 @@ public class ManchesterOWLSyntaxTokenizer {
             }
             else if (ch == '\'' && lastChar != '\\') {
                 readString('\'', false);
+            }
+            else if (ch == '<') {
+                // Potentially the start of an IRI
+                readIRI();
             }
             else if (skip.contains(ch)) {
                 consumeToken();
@@ -144,7 +148,7 @@ public class ManchesterOWLSyntaxTokenizer {
 
 
     private void readString(char terminator, boolean appendTerminator) {
-        if(appendTerminator) {
+        if (appendTerminator) {
             sb.append(terminator);
         }
         while (pos < buffer.length()) {
@@ -166,7 +170,7 @@ public class ManchesterOWLSyntaxTokenizer {
                 }
             }
             else if (ch == terminator) {
-                if(appendTerminator) {
+                if (appendTerminator) {
                     sb.append(ch);
                 }
                 break;
@@ -176,6 +180,30 @@ public class ManchesterOWLSyntaxTokenizer {
             }
         }
         consumeToken();
+    }
+
+    private void readIRI() {
+        sb = new StringBuilder("<");
+        int startPos = pos;
+        while (pos < buffer.length()) {
+            char ch = readChar();
+            if(Character.isWhitespace(ch)) {
+                // Not an IRI -- go back to where we started
+                pos = startPos;
+                sb = new StringBuilder("<");
+                consumeToken();
+                break;
+            }
+            else if(ch == '>') {
+                // End of IRI
+                sb.append(">");
+                consumeToken();
+                break;
+            }
+            else {
+                sb.append(ch);
+            }
+        }
     }
 
 

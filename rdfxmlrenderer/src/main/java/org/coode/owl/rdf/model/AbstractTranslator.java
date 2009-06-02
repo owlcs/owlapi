@@ -1,7 +1,6 @@
 package org.coode.owl.rdf.model;
 
 import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.OWLObjectVisitorAdapter;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 import static org.semanticweb.owl.vocab.OWLRDFVocabulary.*;
 import static org.semanticweb.owl.vocab.SWRLVocabulary.*;
@@ -48,6 +47,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     private OWLOntology ontology;
 
+    private boolean useStrongTyping = false;
+
 
     public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology) {
         this.ontology = ontology;
@@ -55,117 +56,216 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        addAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_ASYMMETRIC_PROPERTY.getURI());
-    }
-
-
-    public void visit(OWLClassAssertionAxiom axiom) {
-        addAxiom(axiom, axiom.getIndividual(), RDF_TYPE.getURI(), axiom.getClassExpression());
-    }
-
-
-    public void visit(OWLDataPropertyAssertionAxiom axiom) {
-        addAxiom(axiom, axiom.getSubject(), axiom.getProperty(), axiom.getObject());
-    }
-
-
-    public void visit(OWLDataPropertyDomainAxiom axiom) {
-        addAxiom(axiom,
-                axiom.getProperty(),
-                RDFS_DOMAIN.getURI(),
-                axiom.getDomain());
-    }
-
-
-    public void visit(OWLDataPropertyRangeAxiom axiom) {
-        addAxiom(axiom,
-                axiom.getProperty(),
-                RDFS_RANGE.getURI(),
-                axiom.getRange());
-    }
-
-
-    public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        addAxiom(axiom,
-                axiom.getSubProperty(),
-                RDFS_SUB_PROPERTY_OF.getURI(),
-                axiom.getSuperProperty());
-    }
-
-
     public void visit(OWLDeclarationAxiom axiom) {
-        if (axiom.getEntity().isOWLClass()) {
-            addAxiom(axiom,
-                    axiom.getEntity(),
-                    OWLRDFVocabulary.RDF_TYPE.getURI(),
-                    OWLRDFVocabulary.OWL_CLASS.getURI());
-        } else if (axiom.getEntity().isOWLDataProperty()) {
-            addAxiom(axiom,
-                    axiom.getEntity(),
-                    OWLRDFVocabulary.RDF_TYPE.getURI(),
-                    OWLRDFVocabulary.OWL_DATA_PROPERTY.getURI());
-        } else if (axiom.getEntity().isOWLObjectProperty()) {
-            addAxiom(axiom,
-                    axiom.getEntity(),
-                    OWLRDFVocabulary.RDF_TYPE.getURI(),
-                    OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI());
-        } else if (axiom.getEntity().isOWLIndividual()) {
-            addAxiom(axiom,
-                    axiom.getEntity(),
-                    OWLRDFVocabulary.RDF_TYPE.getURI(),
-                    OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getURI());
-        } else if (axiom.getEntity().isOWLDatatype()) {
-            addAxiom(axiom,
-                    axiom.getEntity(),
-                    OWLRDFVocabulary.RDF_TYPE.getURI(),
-                    OWLRDFVocabulary.RDFS_DATATYPE.getURI());
-        }
-        else if(axiom.getEntity().isOWLAnnotationProperty()) {
-            addAxiom(axiom,
-                    axiom.getEntity(),
-                    OWLRDFVocabulary.RDF_TYPE.getURI(),
-                    OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI());
-        }
+        addSingleTripleAxiom(axiom, axiom.getEntity(), RDF_TYPE.getURI(), axiom.getEntity().accept(OWLEntityTypeProvider.INSTANCE));
     }
 
 
-    private void addPairwise(OWLAxiom axiom, Collection<? extends OWLObject> objects, URI uri) {
-        List<? extends OWLObject> objectList = new ArrayList<OWLObject>(objects);
-        for (int i = 0; i < objectList.size(); i++) {
-            for (int j = i; j < objectList.size(); j++) {
-                if (i != j) {
-                    addAxiom(axiom, objectList.get(i), uri, objectList.get(j));
-                }
-            }
-        }
+    public void visit(OWLObjectPropertyInverse property) {
+        translateAnonymousNode(property);
+        addTriple(property, OWL_INVERSE_OF.getURI(), property.getInverse());
+    }
+
+    public void visit(OWLDataIntersectionOf node) {
+        translateAnonymousNode(node);
+        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
+        addListTriples(node, OWL_INTERSECTION_OF.getURI(), node.getOperands());
+
+    }
+
+    public void visit(OWLDataUnionOf node) {
+        translateAnonymousNode(node);
+        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
+        addListTriples(node, OWL_UNION_OF.getURI(), node.getOperands());
+    }
+
+    public void visit(OWLDataComplementOf node) {
+        translateAnonymousNode(node);
+        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
+        addTriple(node, OWL_COMPLEMENT_OF.getURI(), node.getDataRange());
+    }
+
+    public void visit(OWLDataOneOf node) {
+        translateAnonymousNode(node);
+        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
+        addListTriples(node, OWL_ONE_OF.getURI(), node.getValues());
+    }
+
+    public void visit(OWLDatatypeRestriction node) {
+        translateAnonymousNode(node);
+        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
+        addTriple(node, OWL_ON_DATA_TYPE.getURI(), node.getDatatype());
+        addListTriples(node, OWL_WITH_RESTRICTIONS.getURI(), node.getFacetRestrictions());
     }
 
 
-    private ClassExpressionComparator classExpressionComparator = new ClassExpressionComparator();
+    public void visit(OWLObjectIntersectionOf desc) {
+        translateAnonymousNode(desc);
+        addListTriples(desc, OWL_INTERSECTION_OF.getURI(), desc.getOperands());
+        addTriple(desc, RDF_TYPE.getURI(), OWL_CLASS.getURI());
+    }
 
+
+    public void visit(OWLObjectUnionOf desc) {
+        translateAnonymousNode(desc);
+        addTriple(desc, RDF_TYPE.getURI(), OWL_CLASS.getURI());
+        addListTriples(desc, OWL_UNION_OF.getURI(), desc.getOperands());
+    }
+
+    public void visit(OWLObjectComplementOf desc) {
+        translateAnonymousNode(desc);
+        addTriple(desc, RDF_TYPE.getURI(), OWL_CLASS.getURI());
+        addTriple(desc, OWL_COMPLEMENT_OF.getURI(), desc.getOperand());
+    }
+
+
+    public void visit(OWLObjectOneOf desc) {
+        translateAnonymousNode(desc);
+        addTriple(desc, RDF_TYPE.getURI(), OWL_CLASS.getURI());
+        addListTriples(desc, OWL_ONE_OF.getURI(), desc.getIndividuals());
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+    ////
+    ////  Translation of restrictions
+    ////
+    ////
+    /////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Renders a set of class expressions in a pairwise manner using the specified URI.  It
-     * is assumed that the relationship described by the URI (e.g. disjointWith) is
-     * symmetric.  The method delegates to the <code>addPairwise</code> method after sorting
-     * the class expressions so that named classes appear first.
+     * Add type triples and the owl:onProperty triples for an OWLRestriction
      *
-     * @param axiom            The axiom which will dictate which axiom annotation get rendered
-     * @param classExpressions The set of class expressions to be rendered.
-     * @param uri              The URI which describes the relationship between pairs of class expressions.
+     * @param desc The restriction
      */
-    private void addPairwiseClassExpressions(OWLAxiom axiom, Set<OWLClassExpression> classExpressions, URI uri) {
-        List<OWLClassExpression> classExpressionList = new ArrayList<OWLClassExpression>(classExpressions);
-        Collections.sort(classExpressionList, classExpressionComparator);
-        addPairwise(axiom, classExpressionList, uri);
+    private void addRestrictionCommonTriples(OWLRestriction desc) {
+        translateAnonymousNode(desc);
+        addTriple(desc, RDF_TYPE.getURI(), OWL_RESTRICTION.getURI());
+        addTriple(desc, OWL_ON_PROPERTY.getURI(), desc.getProperty());
+    }
+
+
+    private void addCardinalityRestrictionTriples(OWLCardinalityRestriction ce, OWLRDFVocabulary cardiPredicate) {
+        addRestrictionCommonTriples(ce);
+        addTriple(ce, cardiPredicate.getURI(), toTypedConstant(ce.getCardinality()));
+        if (ce.isQualified()) {
+            if (ce.isObjectRestriction()) {
+                addTriple(ce, OWL_ON_CLASS.getURI(), ce.getFiller());
+            } else {
+                addTriple(ce, OWL_ON_DATA_RANGE.getURI(), ce.getFiller());
+            }
+        }
 
     }
 
-    public void visit(OWLDifferentIndividualsAxiom axiom) {
-        translateAnonymousNode(axiom);
-        addTriple(axiom, RDF_TYPE.getURI(), OWL_ALL_DIFFERENT.getURI());
-        addTriple(axiom, OWL_DISTINCT_MEMBERS.getURI(), axiom.getIndividuals());
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    public void visit(OWLObjectSomeValuesFrom desc) {
+        addRestrictionCommonTriples(desc);
+        addTriple(desc, OWL_SOME_VALUES_FROM.getURI(), desc.getFiller());
+    }
+
+
+    public void visit(OWLObjectAllValuesFrom desc) {
+        addRestrictionCommonTriples(desc);
+        addTriple(desc, OWL_ALL_VALUES_FROM.getURI(), desc.getFiller());
+    }
+
+
+    public void visit(OWLObjectHasValue desc) {
+        addRestrictionCommonTriples(desc);
+        addTriple(desc, OWL_HAS_VALUE.getURI(), desc.getValue());
+    }
+
+    public void visit(OWLObjectHasSelf desc) {
+        translateAnonymousNode(desc);
+        addTriple(desc, RDF_TYPE.getURI(), OWL_SELF_RESTRICTION.getURI());
+        addTriple(desc, OWL_ON_PROPERTY.getURI(), desc.getProperty());
+    }
+
+
+    public void visit(OWLObjectMinCardinality desc) {
+        if (desc.isQualified()) {
+            addCardinalityRestrictionTriples(desc, OWL_MIN_QUALIFIED_CARDINALITY);
+        } else {
+            addCardinalityRestrictionTriples(desc, OWL_MIN_CARDINALITY);
+        }
+    }
+
+
+    public void visit(OWLObjectMaxCardinality desc) {
+        if (desc.isQualified()) {
+            addCardinalityRestrictionTriples(desc, OWL_MAX_QUALIFIED_CARDINALITY);
+        } else {
+            addCardinalityRestrictionTriples(desc, OWL_MAX_CARDINALITY);
+        }
+    }
+
+    public void visit(OWLObjectExactCardinality desc) {
+        if (desc.isQualified()) {
+            addCardinalityRestrictionTriples(desc, OWL_QUALIFIED_CARDINALITY);
+        } else {
+            addCardinalityRestrictionTriples(desc, OWL_CARDINALITY);
+        }
+    }
+
+
+    public void visit(OWLDataSomeValuesFrom desc) {
+        addRestrictionCommonTriples(desc);
+        addTriple(desc, OWL_SOME_VALUES_FROM.getURI(), desc.getFiller());
+    }
+
+    public void visit(OWLDataAllValuesFrom desc) {
+        addRestrictionCommonTriples(desc);
+        addTriple(desc, OWL_ALL_VALUES_FROM.getURI(), desc.getFiller());
+    }
+
+    public void visit(OWLDataHasValue desc) {
+        addRestrictionCommonTriples(desc);
+        addTriple(desc, OWL_HAS_VALUE.getURI(), desc.getValue());
+    }
+
+    public void visit(OWLDataMinCardinality desc) {
+        if (desc.isQualified()) {
+            addCardinalityRestrictionTriples(desc, OWL_MIN_QUALIFIED_CARDINALITY);
+        } else {
+            addCardinalityRestrictionTriples(desc, OWL_MIN_CARDINALITY);
+        }
+    }
+
+    public void visit(OWLDataMaxCardinality desc) {
+        if (desc.isQualified()) {
+            addCardinalityRestrictionTriples(desc, OWL_MAX_QUALIFIED_CARDINALITY);
+        } else {
+            addCardinalityRestrictionTriples(desc, OWL_MAX_CARDINALITY);
+        }
+
+    }
+
+    public void visit(OWLDataExactCardinality desc) {
+        if (desc.isQualified()) {
+            addCardinalityRestrictionTriples(desc, OWL_QUALIFIED_CARDINALITY);
+        } else {
+            addCardinalityRestrictionTriples(desc, OWL_CARDINALITY);
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////
+    ////
+    ////  Axioms
+    ////
+    //////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////
+
+
+    public void visit(OWLSubClassOfAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getSubClass(), RDFS_SUBCLASS_OF.getURI(), axiom.getSuperClass());
+    }
+
+    public void visit(OWLEquivalentClassesAxiom axiom) {
+        addPairwiseClassExpressions(axiom, axiom.getClassExpressions(), OWL_EQUIVALENT_CLASS.getURI());
     }
 
 
@@ -175,191 +275,132 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         } else {
             translateAnonymousNode(axiom);
             addTriple(axiom, RDF_TYPE.getURI(), OWL_ALL_DISJOINT_CLASSES.getURI());
-            addTriple(axiom, OWL_MEMBERS.getURI(), axiom.getClassExpressions());
-        }
-    }
-
-
-    public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        if (axiom.getProperties().size() == 2) {
-            addPairwise(axiom, axiom.getProperties(), OWL_DISJOINT_DATA_PROPERTIES.getURI());
-        } else {
-            translateAnonymousNode(axiom);
-            addTriple(axiom, RDF_TYPE.getURI(), OWL_ALL_DISJOINT_PROPERTIES.getURI());
-            addTriple(axiom, OWL_MEMBERS.getURI(), axiom.getProperties());
-        }
-    }
-
-
-    public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        if (axiom.getProperties().size() == 2) {
-            addPairwise(axiom, axiom.getProperties(), OWL_DISJOINT_OBJECT_PROPERTIES.getURI());
-        } else {
-            translateAnonymousNode(axiom);
-            addTriple(axiom, RDF_TYPE.getURI(), OWL_ALL_DISJOINT_PROPERTIES.getURI());
-            addTriple(axiom, OWL_MEMBERS.getURI(), axiom.getProperties());
+            addListTriples(axiom, OWL_MEMBERS.getURI(), axiom.getClassExpressions());
         }
     }
 
 
     public void visit(OWLDisjointUnionAxiom axiom) {
-        addAxiom(axiom, axiom.getOWLClass(), OWL_DISJOINT_UNION_OF.getURI(), axiom.getClassExpressions());
-    }
-
-
-    public void visit(OWLAnnotationAssertionAxiom axiom) {
-//        translateAnnotation(axiom, axiom.getOWLAnnotation());
-//        addTriple(axiom.getSubject(),
-//                axiom.getProperty().getIRI(),
-//                axiom.getOWLAnnotation().getValue());
-        translateAnnotation(axiom.getSubject(), axiom.getAnnotation());
-        addAxiom(axiom, axiom.getSubject(), axiom.getProperty(), axiom.getValue());
-//        addTriple(getResourceNode(axiom.getProperty()),
-//                getPredicateNode(RDF_TYPE.getIRI()),
-//                getResourceNode(OWL_ANNOTATION_PROPERTY.getIRI()));
-
-//        if (axiom.getOWLAnnotation().getValue().isAnonymousIndividual()) {
-//            OWLIndividual ind = (OWLIndividual) axiom.getOWLAnnotation().getValue().asAnonymousIndividual();
-//            processAnonymousIndividual(ind);
-//        }
-    }
-
-    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        addAxiom(axiom, axiom.getProperty(), RDFS_DOMAIN.getURI(), axiom.getDomain());
-    }
-
-    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        addAxiom(axiom, axiom.getProperty(), RDFS_RANGE.getURI(), axiom.getRange());
-    }
-
-    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        addAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getURI(), axiom.getSuperProperty());
-    }
-
-    public void visit(OWLEquivalentClassesAxiom axiom) {
-        addPairwiseClassExpressions(axiom, axiom.getClassExpressions(), OWL_EQUIVALENT_CLASS.getURI());
-    }
-
-    public void visit(OWLHasKeyAxiom axiom) {
-        addAxiom(axiom, axiom.getClassExpression(), OWL_HAS_KEY.getURI(), axiom.getPropertyExpressions());
-    }
-
-
-    public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        addAxiom(axiom, axiom.getDatatype(), OWL_EQUIVALENT_CLASS.getURI(), axiom.getDataRange());
-    }
-
-
-    public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        addPairwise(axiom,
-                axiom.getProperties(),
-                isPunned(axiom.getProperties()) ? OWL_EQUIVALENT_DATA_PROPERTIES.getURI() : OWL_EQUIVALENT_PROPERTY.getURI());
-    }
-
-
-    public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        addPairwise(axiom,
-                axiom.getProperties(),
-                isPunned(axiom.getProperties()) ? OWL_EQUIVALENT_OBJECT_PROPERTIES.getURI() : OWL_EQUIVALENT_PROPERTY.getURI());
-    }
-
-
-    public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-        addAxiom(axiom,
-                axiom.getProperty(),
-                RDF_TYPE.getURI(),
-                isPunned(axiom.getProperty()) ? OWL_FUNCTIONAL_DATA_PROPERTY.getURI() : OWL_FUNCTIONAL_PROPERTY.getURI());
-    }
-
-
-    public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        addAxiom(axiom,
-                axiom.getProperty(),
-                RDF_TYPE.getURI(),
-                isPunned(axiom.getProperty()) ? OWL_FUNCTIONAL_OBJECT_PROPERTY.getURI() : OWL_FUNCTIONAL_PROPERTY.getURI());
-    }
-
-
-    public void visit(OWLImportsDeclaration axiom) {
-        addTriple(ontology, OWL_IMPORTS.getURI(), axiom.getURI());
-        addTriple(getResourceNode(axiom.getURI()),
-                getPredicateNode(RDF_TYPE.getURI()),
-                getResourceNode(OWL_ONTOLOGY.getURI()));
-    }
-
-
-    public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        addAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_INVERSE_FUNCTIONAL_PROPERTY.getURI());
-    }
-
-
-    public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        addAxiom(axiom, axiom.getFirstProperty(), OWL_INVERSE_OF.getURI(), axiom.getSecondProperty());
-    }
-
-
-    public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        addAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_IRREFLEXIVE_PROPERTY.getURI());
-    }
-
-
-    public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        translateAnonymousNode(axiom);
-        addTriple(axiom, RDF_TYPE.getURI(), OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getURI());
-        addAxiom(axiom, axiom.getSubject(), axiom.getProperty(), axiom.getObject());
-    }
-
-
-    public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        translateAnonymousNode(axiom);
-        addTriple(axiom, RDF_TYPE.getURI(), OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getURI());
-
-        addAxiom(axiom, axiom.getSubject(), axiom.getProperty(), axiom.getObject());
-        processAnonymousIndividual(axiom.getObject());
-    }
-
-
-    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        addAxiom(axiom, axiom.getSubject(), axiom.getProperty(), axiom.getObject());
-        processAnonymousIndividual(axiom.getObject());
-    }
-
-
-    public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        RESOURCE anonNode = getAnonymousNode(axiom);
-        RESOURCE list = translateList(axiom.getPropertyChain());
-        addTriple(anonNode, getPredicateNode(OWL_PROPERTY_CHAIN.getURI()), list);
-        addAxiom(axiom,
-                anonNode,
-                getPredicateNode(RDFS_SUB_PROPERTY_OF.getURI()),
-                getResourceNode(axiom.getSuperProperty()));
-    }
-
-
-    public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        addAxiom(axiom, axiom.getProperty(), RDFS_DOMAIN.getURI(), axiom.getDomain());
-    }
-
-
-    public void visit(OWLObjectPropertyRangeAxiom axiom) {
-        addAxiom(axiom,
-                axiom.getProperty(),
-                isPunned(axiom.getProperty()) ? OWL_OBJECT_PROPERTY_RANGE.getURI() : RDFS_RANGE.getURI(),
-                axiom.getRange());
+        addSingleTripleAxiom(axiom, axiom.getOWLClass(), OWL_DISJOINT_UNION_OF.getURI(), axiom.getClassExpressions());
     }
 
 
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        addAxiom(axiom,
-                axiom.getSubProperty(),
-                isPunned(axiom.getSubProperty(),
-                        axiom.getSuperProperty()) ? OWL_SUB_OBJECT_PROPERTY_OF.getURI() : RDFS_SUB_PROPERTY_OF.getURI(),
-                axiom.getSuperProperty());
+        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getURI(), axiom.getSuperProperty());
+    }
+
+
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getSuperProperty(), OWL_PROPERTY_CHAIN_AXIOM.getURI(), axiom.getPropertyChain());
+    }
+
+
+    public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        addPairwise(axiom, axiom.getProperties(), OWL_EQUIVALENT_PROPERTY.getURI());
+    }
+
+
+    public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        if (axiom.getProperties().size() == 2) {
+            addPairwise(axiom, axiom.getProperties(), OWL_PROPERTY_DISJOINT_WITH.getURI());
+        } else {
+            translateAnonymousNode(axiom);
+            addTriple(axiom, RDF_TYPE.getURI(), OWL_ALL_DISJOINT_PROPERTIES.getURI());
+            addListTriples(axiom, OWL_MEMBERS.getURI(), axiom.getProperties());
+        }
+    }
+
+    public void visit(OWLObjectPropertyDomainAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDFS_DOMAIN.getURI(), axiom.getDomain());
+    }
+
+
+    public void visit(OWLObjectPropertyRangeAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDFS_RANGE.getURI(), axiom.getRange());
+    }
+
+    public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getFirstProperty(), OWL_INVERSE_OF.getURI(), axiom.getSecondProperty());
+    }
+
+
+    public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_FUNCTIONAL_PROPERTY.getURI());
+    }
+
+
+    public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_INVERSE_FUNCTIONAL_PROPERTY.getURI());
     }
 
 
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        addAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_REFLEXIVE_PROPERTY.getURI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_REFLEXIVE_PROPERTY.getURI());
+    }
+
+
+    public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_IRREFLEXIVE_PROPERTY.getURI());
+    }
+
+
+    public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_SYMMETRIC_PROPERTY.getURI());
+    }
+
+
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_ASYMMETRIC_PROPERTY.getURI());
+    }
+
+
+    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_TRANSITIVE_PROPERTY.getURI());
+    }
+
+
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getURI(), axiom.getSuperProperty());
+    }
+
+
+    public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        addPairwise(axiom, axiom.getProperties(), OWL_EQUIVALENT_PROPERTY.getURI());
+    }
+
+
+    public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+        if (axiom.getProperties().size() == 2) {
+            addPairwise(axiom, axiom.getProperties(), OWL_PROPERTY_DISJOINT_WITH.getURI());
+        } else {
+            translateAnonymousNode(axiom);
+            addTriple(axiom, RDF_TYPE.getURI(), OWL_ALL_DISJOINT_PROPERTIES.getURI());
+            addListTriples(axiom, OWL_MEMBERS.getURI(), axiom.getProperties());
+        }
+    }
+
+
+    public void visit(OWLDataPropertyDomainAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDFS_DOMAIN.getURI(), axiom.getDomain());
+    }
+
+
+    public void visit(OWLDataPropertyRangeAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDFS_RANGE.getURI(), axiom.getRange());
+    }
+
+
+    public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_FUNCTIONAL_PROPERTY.getURI());
+    }
+
+
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getDatatype(), OWL_EQUIVALENT_CLASS.getURI(), axiom.getDataRange());
+    }
+
+    public void visit(OWLHasKeyAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getClassExpression(), OWL_HAS_KEY.getURI(), axiom.getPropertyExpressions());
     }
 
 
@@ -368,224 +409,78 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLSubClassOfAxiom axiom) {
-        addAxiom(axiom, axiom.getSubClass(), RDFS_SUBCLASS_OF.getURI(), axiom.getSuperClass());
+    public void visit(OWLDifferentIndividualsAxiom axiom) {
+        translateAnonymousNode(axiom);
+        addTriple(axiom, RDF_TYPE.getURI(), OWL_ALL_DIFFERENT.getURI());
+        addListTriples(axiom, OWL_DISTINCT_MEMBERS.getURI(), axiom.getIndividuals());
     }
 
 
-    public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        addAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_SYMMETRIC_PROPERTY.getURI());
+    public void visit(OWLClassAssertionAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getIndividual(), RDF_TYPE.getURI(), axiom.getClassExpression());
     }
 
 
-    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        addAxiom(axiom, axiom.getProperty(), RDF_TYPE.getURI(), OWL_TRANSITIVE_PROPERTY.getURI());
+    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+        OWLObjectPropertyAssertionAxiom simplified = axiom.getSimplified();
+        addSingleTripleAxiom(simplified, simplified.getSubject(), simplified.getProperty(), simplified.getObject());
+    }
+
+    public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        translateAnonymousNode(axiom);
+        addTriple(axiom, RDF_TYPE.getURI(), OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getURI());
+        addTriple(axiom, OWL_SOURCE_INDIVIDUAL.getURI(), axiom.getSubject());
+        addTriple(axiom, OWL_ASSERTION_PROPERTY.getURI(), axiom.getProperty());
+        addTriple(axiom, OWL_TARGET_INDIVIDUAL.getURI(), axiom.getObject());
+        translateAnnotations(axiom);
     }
 
 
-    public void visit(OWLObjectIntersectionOf desc) {
-        translateAnonymousNode(desc);
-        addTriple(desc, OWL_INTERSECTION_OF.getURI(), desc.getOperands());
-        addTriple(desc, RDF_TYPE.getURI(), OWL_CLASS.getURI());
+    public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getSubject(), axiom.getProperty(), axiom.getObject());
     }
 
+
+    public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        translateAnonymousNode(axiom);
+        addTriple(axiom, RDF_TYPE.getURI(), OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getURI());
+        addTriple(axiom, OWL_SOURCE_INDIVIDUAL.getURI(), axiom.getSubject());
+        addTriple(axiom, OWL_ASSERTION_PROPERTY.getURI(), axiom.getProperty());
+        addTriple(axiom, OWL_TARGET_VALUE.getURI(), axiom.getObject());
+
+    }
+
+
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getSubject(), axiom.getProperty(), axiom.getValue());
+    }
+
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getURI(), axiom.getSuperProperty());
+    }
+
+
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDFS_DOMAIN.getURI(), axiom.getDomain());
+    }
+
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDFS_RANGE.getURI(), axiom.getRange());
+    }
 
     public void visit(OWLClass desc) {
         if (!nodeMap.containsKey(desc)) {
             nodeMap.put(desc, getResourceNode(desc.getURI()));
         }
-//        addTriple(desc, RDF_TYPE.getIRI(), OWL_CLASS.getIRI());
+        addStrongTyping(desc);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////
-    //// Data restrictions
-    ////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    private void translateDataRestrictionStart(OWLRestriction desc) {
-        translateAnonymousNode(desc);
-        addTriple(desc,
-                RDF_TYPE.getURI(),
-                OWL_RESTRICTION.getURI());
-        addTriple(desc, OWL_ON_PROPERTY.getURI(), desc.getProperty());
-    }
-
-
-    private void translateDataCardinality(OWLDataCardinalityRestriction desc, URI cardinalityURI) {
-        translateDataRestrictionStart(desc);
-        addTriple(desc, cardinalityURI, toTypedConstant(desc.getCardinality()));
-        if (desc.isQualified()) {
-            addTriple(desc, OWL_CLASS.getURI(), desc.getFiller());
-        }
-    }
-
-
-    public void visit(OWLDataAllValuesFrom desc) {
-        translateDataRestrictionStart(desc);
-        addTriple(desc, OWL_ALL_VALUES_FROM.getURI(), desc.getFiller());
-    }
-
-
-    public void visit(OWLDataExactCardinality desc) {
-        translateDataCardinality(desc, OWL_CARDINALITY.getURI());
-    }
-
-
-    public void visit(OWLDataMaxCardinality desc) {
-        translateDataCardinality(desc, OWL_MAX_CARDINALITY.getURI());
-    }
-
-
-    public void visit(OWLDataMinCardinality desc) {
-        translateDataCardinality(desc, OWL_MIN_CARDINALITY.getURI());
-    }
-
-
-    public void visit(OWLDataSomeValuesFrom desc) {
-        translateDataRestrictionStart(desc);
-        addTriple(desc, OWL_SOME_VALUES_FROM.getURI(), desc.getFiller());
-    }
-
-
-    public void visit(OWLDataHasValue desc) {
-        translateDataRestrictionStart(desc);
-        addTriple(desc, OWL_HAS_VALUE.getURI(), desc.getValue());
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    public void visit(OWLObjectComplementOf desc) {
-        translateAnonymousNode(desc);
-        addTriple(desc, RDF_TYPE.getURI(), OWL_CLASS.getURI());
-        addTriple(desc, OWL_COMPLEMENT_OF.getURI(), desc.getOperand());
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////
-    //// Object restrictions
-    ////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    private void translateObjectRestrictionStart(OWLRestriction desc) {
-        translateAnonymousNode(desc);
-        addTriple(desc,
-                RDF_TYPE.getURI(),
-                OWL_RESTRICTION.getURI());
-        addTriple(desc, OWL_ON_PROPERTY.getURI(), desc.getProperty());
-    }
-
-
-    private void translateObjectCardinality(OWLObjectCardinalityRestriction desc, URI cardinalityURI) {
-        translateObjectRestrictionStart(desc);
-        addTriple(desc, cardinalityURI, toTypedConstant(desc.getCardinality()));
-        if (desc.isQualified()) {
-            addTriple(desc, OWL_ON_CLASS.getURI(), desc.getFiller());
-        }
-    }
-
-
-    public void visit(OWLObjectAllValuesFrom desc) {
-        translateObjectRestrictionStart(desc);
-        addTriple(desc, OWL_ALL_VALUES_FROM.getURI(), desc.getFiller());
-    }
-
-
-    public void visit(OWLObjectExactCardinality desc) {
-        translateObjectCardinality(desc, desc.isQualified() ? OWL_QUALIFIED_CARDINALITY.getURI() : OWL_CARDINALITY.getURI());
-    }
-
-
-    public void visit(OWLObjectMaxCardinality desc) {
-        translateObjectCardinality(desc, desc.isQualified() ? OWL_MAX_QUALIFIED_CARDINALITY.getURI() : OWL_MAX_CARDINALITY.getURI());
-    }
-
-
-    public void visit(OWLObjectMinCardinality desc) {
-        translateObjectCardinality(desc, desc.isQualified() ? OWL_MIN_QUALIFIED_CARDINALITY.getURI() : OWL_MIN_CARDINALITY.getURI());
-    }
-
-
-    public void visit(OWLObjectOneOf desc) {
-        translateAnonymousNode(desc);
-        addTriple(desc, OWL_ONE_OF.getURI(), desc.getIndividuals());
-        addTriple(desc, RDF_TYPE.getURI(), OWL_CLASS.getURI());
-    }
-
-
-    public void visit(OWLObjectHasSelf desc) {
-        translateAnonymousNode(desc);
-        addTriple(desc, RDF_TYPE.getURI(), OWL_SELF_RESTRICTION.getURI());
-        addTriple(desc, OWL_ON_PROPERTY.getURI(), desc.getProperty());
-    }
-
-
-    public void visit(OWLObjectSomeValuesFrom desc) {
-        translateObjectRestrictionStart(desc);
-        addTriple(desc, OWL_SOME_VALUES_FROM.getURI(), desc.getFiller());
-    }
-
-
-    public void visit(OWLObjectHasValue desc) {
-        translateObjectRestrictionStart(desc);
-        addTriple(desc, OWL_HAS_VALUE.getURI(), desc.getValue());
-    }
-
-
-    public void visit(OWLObjectUnionOf desc) {
-        translateAnonymousNode(desc);
-        addTriple(desc, OWL_UNION_OF.getURI(), desc.getOperands());
-        addTriple(desc, RDF_TYPE.getURI(), OWL_CLASS.getURI());
-    }
-
-
-    public void visit(OWLDataOneOf node) {
-        translateAnonymousNode(node);
-        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
-        addTriple(node, OWL_ONE_OF.getURI(), node.getValues());
-    }
-
-
-    public void visit(OWLDataComplementOf node) {
-        translateAnonymousNode(node);
-        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
-        addTriple(node, OWL_COMPLEMENT_OF.getURI(), node.getDataRange());
-    }
-
-
-    public void visit(OWLDataIntersectionOf node) {
-        translateAnonymousNode(node);
-        addTriple(node, OWL_INTERSECTION_OF.getURI(), node.getOperands());
-        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
-    }
-
-    public void visit(OWLDataUnionOf node) {
-        translateAnonymousNode(node);
-        addTriple(node, OWL_UNION_OF.getURI(), node.getOperands());
-        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
-    }
 
     public void visit(OWLDatatype node) {
         if (!nodeMap.containsKey(node)) {
             nodeMap.put(node, getResourceNode(node.getURI()));
         }
         addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
-    }
-
-
-    public void visit(OWLDatatypeRestriction node) {
-        translateAnonymousNode(node);
-        addTriple(node, RDF_TYPE.getURI(), RDFS_DATATYPE.getURI());
-        addTriple(node, OWL_ON_DATA_TYPE.getURI(), node.getDatatype());
-        addTriple(node, OWL_WITH_RESTRICTIONS.getURI(), node.getFacetRestrictions());
     }
 
 
@@ -598,10 +493,6 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!nodeMap.containsKey(iri)) {
             nodeMap.put(iri, getResourceNode(iri.toURI()));
         }
-    }
-
-    public void visit(OWLAnnotation node) {
-        
     }
 
     public void visit(OWLTypedLiteral node) {
@@ -618,7 +509,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getURI()));
         }
-//        addTriple(property, RDF_TYPE.getIRI(), OWL_DATA_PROPERTY.getIRI());
+        if (useStrongTyping && !property.isBuiltIn()) {
+            addTriple(property, RDF_TYPE.getURI(), OWL_DATA_PROPERTY.getURI());
+        }
     }
 
 
@@ -626,20 +519,18 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getURI()));
         }
-//        addTriple(property, RDF_TYPE.getIRI(), OWL_OBJECT_PROPERTY.getIRI());
+        if (useStrongTyping && !property.isBuiltIn()) {
+            addTriple(property, RDF_TYPE.getURI(), OWL_OBJECT_PROPERTY.getURI());
+        }
     }
 
     public void visit(OWLAnnotationProperty property) {
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getURI()));
         }
-//        addTriple(property, RDF_TYPE.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI());
-    }
-
-    public void visit(OWLObjectPropertyInverse property) {
-        translateAnonymousNode(property);
-        addTriple(property, OWL_INVERSE_OF.getURI(), property.getInverse());
-        addTriple(property, RDF_TYPE.getURI(), OWL_OBJECT_PROPERTY.getURI());
+        if (useStrongTyping) {
+            addTriple(property, RDF_TYPE.getURI(), OWL_ANNOTATION_PROPERTY.getURI());
+        }
     }
 
 
@@ -656,10 +547,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     public void visit(OWLOntology ontology) {
-        if(ontology.isAnonymous()) {
+        if (ontology.isAnonymous()) {
             translateAnonymousNode(ontology);
-        }
-        else {
+        } else {
             if (!nodeMap.containsKey(ontology)) {
                 nodeMap.put(ontology, getResourceNode(ontology.getOntologyID().getOntologyIRI().toURI()));
             }
@@ -733,12 +623,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getURI(), BUILT_IN_ATOM.getURI());
         addTriple(node, BUILT_IN.getURI(), node.getPredicate().getURI());
-        addTriple(getResourceNode(node.getPredicate().getURI()),
-                getPredicateNode(BUILT_IN_CLASS.getURI()),
-                getResourceNode(BUILT_IN_CLASS.getURI()));
-        addTriple(getResourceNode(node),
-                getPredicateNode(ARGUMENTS.getURI()),
-                translateList(new ArrayList<OWLObject>(node.getArguments())));
+        addTriple(getResourceNode(node.getPredicate().getURI()), getPredicateNode(BUILT_IN_CLASS.getURI()), getResourceNode(BUILT_IN_CLASS.getURI()));
+        addTriple(getResourceNode(node), getPredicateNode(ARGUMENTS.getURI()), translateList(new ArrayList<OWLObject>(node.getArguments())));
     }
 
 
@@ -797,10 +683,6 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         for (OWLAxiom ax : ontology.getAxioms(ind)) {
             ax.accept(this);
         }
-//        for (OWLAxiom ax : ontology.getAnnotationAssertionAxioms(ind)) {
-//            ax.accept(this);
-//        }
-
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -815,44 +697,57 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     private Map<Object, NODE> nodeMap = new IdentityHashMap<Object, NODE>();
 
 
-    private void addAxiom(OWLAxiom ax, OWLObject subject, URI pred, OWLObject obj) {
-        addAxiom(ax, getResourceNode(subject), getPredicateNode(pred), getNode(obj));
+    private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subject, URI pred, OWLObject obj) {
+        addSingleTripleAxiom(ax, getResourceNode(subject), getPredicateNode(pred), getNode(obj));
     }
 
 
-    private void addAxiom(OWLAxiom ax, OWLObject subject, URI pred, URI obj) {
-        addAxiom(ax, getResourceNode(subject), getPredicateNode(pred), getResourceNode(obj));
+    private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subject, URI pred, URI obj) {
+        addSingleTripleAxiom(ax, getResourceNode(subject), getPredicateNode(pred), getResourceNode(obj));
     }
 
 
-    private void addAxiom(OWLAxiom ax, OWLObject subj, URI pred, Set<? extends OWLObject> obj) {
-        addAxiom(ax, getResourceNode(subj), getPredicateNode(pred), translateList(new ArrayList<OWLObject>(obj)));
+    private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj, URI pred, Collection<? extends OWLObject> obj) {
+        addSingleTripleAxiom(ax, getResourceNode(subj), getPredicateNode(pred), translateList(new ArrayList<OWLObject>(obj)));
     }
 
 
-    private void addAxiom(OWLAxiom ax, OWLObject subj, OWLObject pred, OWLObject obj) {
-        addAxiom(ax, getResourceNode(subj), getPredicateNode(pred), getNode(obj));
+    private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj, OWLObject pred, OWLObject obj) {
+        addSingleTripleAxiom(ax, getResourceNode(subj), getPredicateNode(pred), getNode(obj));
     }
 
 
-    private void addAxiom(OWLAxiom ax, RESOURCE subj, PREDICATE pred, NODE obj) {
+    /**
+     * Adds the representation of an axiom to the RDF graph where the axiom has a SINGLE MAIN TRIPLE
+     * (specified by the subject, predicate, object parameters). The triple specified by the subject, predicate and
+     * object parameters will be added to the graph.  If the axiom has any annotations on it then extra triples will
+     * be added.  These will consist of three triples, that "reify" (not in the RDF sense) the specified triple using
+     * the OWL 2 annotation vocabulary: owl:annotatedSource, owl:annotatedProperty, owl:annotatedTarget, and other
+     * triples to encode the annotations.
+     *
+     * @param ax        The axiom that the triple specified as subject, pred, obj represents.
+     * @param subject   The subject of the triple representing the axiom
+     * @param predicate The predicate of the triple representing the axiom
+     * @param object    The object of the triple representing the axiom
+     */
+    private void addSingleTripleAxiom(OWLAxiom ax, RESOURCE subject, PREDICATE predicate, NODE object) {
         // Base triple
-        addTriple(subj, pred, obj);
-        if(ax.getAnnotations().isEmpty()) {
+        addTriple(subject, predicate, object);
+        if (ax.getAnnotations().isEmpty()) {
             return;
         }
         // The axiom has annotations and we therefore need to reify the axiom in order to add the annotations
         translateAnonymousNode(ax);
         addTriple(getResourceNode(ax), getPredicateNode(RDF_TYPE.getURI()), getResourceNode(OWL_AXIOM.getURI()));
-        addTriple(getResourceNode(ax), getPredicateNode(OWL_ANNOTATED_SOURCE.getURI()), subj);
-        addTriple(getResourceNode(ax), getPredicateNode(OWL_ANNOTATED_PROPERTY.getURI()), pred);
-        addTriple(getResourceNode(ax), getPredicateNode(OWL_ANNOTATED_TARGET.getURI()), obj);
+        addTriple(getResourceNode(ax), getPredicateNode(OWL_ANNOTATED_SOURCE.getURI()), subject);
+        addTriple(getResourceNode(ax), getPredicateNode(OWL_ANNOTATED_PROPERTY.getURI()), predicate);
+        addTriple(getResourceNode(ax), getPredicateNode(OWL_ANNOTATED_TARGET.getURI()), object);
         translateAnnotations(ax);
     }
 
     private void translateAnnotations(OWLAxiom ax) {
         translateAnonymousNode(ax);
-        for(OWLAnnotation anno : ax.getAnnotations()) {
+        for (OWLAnnotation anno : ax.getAnnotations()) {
             translateAnnotation(ax, anno);
         }
     }
@@ -860,29 +755,31 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     /**
      * Translates an annotation on a given subject.  This method implements the TANN(ann, y) translation
      * in the spec
-     * @param subject The subject of the annotation
+     *
+     * @param subject    The subject of the annotation
      * @param annotation The annotation
      */
     private void translateAnnotation(OWLObject subject, OWLAnnotation annotation) {
         // We first add the base triple
         addTriple(subject, annotation.getProperty().getURI(), annotation.getValue());
         // If the annotation doesn't have annotations on it then we're done
-        if(annotation.getAnnotations().isEmpty()) {
+        if (annotation.getAnnotations().isEmpty()) {
             return;
         }
         // The annotation has annotations on it so we need to reify the annotation
         // The main node is the annotation, it is typed as an annotation
         translateAnonymousNode(annotation);
         addTriple(annotation, RDF_TYPE.getURI(), OWL_ANNOTATION.getURI());
-        if (isAnonymous(subject)) {
-            translateAnonymousNode(subject);
-        }
         addTriple(annotation, OWL_ANNOTATED_SOURCE.getURI(), subject);
         addTriple(annotation, OWL_ANNOTATED_PROPERTY.getURI(), annotation.getProperty().getURI());
         addTriple(annotation, OWL_ANNOTATED_TARGET.getURI(), annotation.getValue());
-        for(OWLAnnotation anno : annotation.getAnnotations()) {
+        for (OWLAnnotation anno : annotation.getAnnotations()) {
             translateAnnotation(annotation, anno);
         }
+    }
+
+    public void visit(OWLAnnotation node) {
+        throw new OWLRuntimeException("The translator should not be used directly on instances of OWLAnnotation because an annotation cannot be translated without a subject.");
     }
 
     private void translateAnonymousNode(OWLObject object) {
@@ -984,10 +881,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         addTriple(getResourceNode(subject), getPredicateNode(pred), getResourceNode(object));
     }
 
-
-    private void addTriple(URI subj, URI pred, URI obj) {
-        addTriple(getResourceNode(subj), getPredicateNode(pred), getResourceNode(obj));
-    }
+//    private void addTriple(URI subj, URI pred, URI obj) {
+//        addTriple(getResourceNode(subj), getPredicateNode(pred), getResourceNode(obj));
+//    }
 
 
     private void addTriple(OWLObject subject, URI pred, OWLObject object) {
@@ -995,7 +891,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    private void addTriple(OWLObject subject, URI pred, Set<? extends OWLObject> objects) {
+    private void addListTriples(OWLObject subject, URI pred, Set<? extends OWLObject> objects) {
         addTriple(getResourceNode(subject), getPredicateNode(pred), translateList(new ArrayList<OWLObject>(objects)));
     }
 
@@ -1004,105 +900,89 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     private OWLTypedLiteral toTypedConstant(int i) {
-        return manager.getOWLDataFactory().getOWLTypedLiteral(Integer.toString(i),
-                manager.getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getURI()));
+        return manager.getOWLDataFactory().getOWLTypedLiteral(Integer.toString(i), manager.getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getURI()));
     }
 
     private boolean isAnonymous(OWLObject object) {
         return !(object instanceof OWLEntity || object instanceof IRI);
     }
 
-    private boolean isObjectPunned(OWLObject entity) {
-        punningChecker.reset();
-        entity.accept(punningChecker);
-        return punningChecker.isPunned();
-    }
-
-
-    private boolean isPunned(OWLObject... objects) {
-        for (OWLObject obj : objects) {
-            if (!isObjectPunned(obj)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-    private boolean isPunned(Set<? extends OWLObject> objects) {
-        for (OWLObject obj : objects) {
-            if (!isPunned(obj)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-    private PunningChecker punningChecker = new PunningChecker();
-
-
-    private class PunningChecker extends OWLObjectVisitorAdapter {
-
-        private boolean punned;
-
-
-        public void reset() {
-            punned = false;
-        }
-
-
-        public boolean isPunned() {
-            return punned;
-        }
-
-
-        public void visit(OWLClass desc) {
-            punned = ontology.isPunned(desc.getURI());
-        }
-
-
-        public void visit(OWLDataProperty property) {
-            punned = ontology.containsObjectPropertyReference(property.getURI());
-//            punned = ontology.isPunned(property.getIRI());
-        }
-
-
-        public void visit(OWLObjectProperty property) {
-            punned = ontology.containsDataPropertyReference(property.getURI());
-//            punned = ontology.isPunned(property.getIRI());
-        }
-
-
-        public void visit(OWLObjectPropertyInverse property) {
-            property.getInverse().accept(this);
-        }
-
-
-        public void visit(OWLDatatype node) {
-            punned = ontology.isPunned(node.getURI());
-        }
-
-
-        public void visit(OWLNamedIndividual individual) {
-            if (individual.isAnonymous()) {
-                punned = false;
-            } else {
-                punned = ontology.isPunned(individual.getURI());
-            }
-        }
-
-    }
-
-
-    private class ClassExpressionComparator implements Comparator<OWLClassExpression> {
-
-        public int compare(OWLClassExpression o1, OWLClassExpression o2) {
-            if (!o1.isAnonymous()) {
-                return -1;
-            } else {
-                return 1;
+    private void addPairwise(OWLAxiom axiom, Collection<? extends OWLObject> objects, URI uri) {
+        List<? extends OWLObject> objectList = new ArrayList<OWLObject>(objects);
+        for (int i = 0; i < objectList.size(); i++) {
+            for (int j = i; j < objectList.size(); j++) {
+                if (i != j) {
+                    addSingleTripleAxiom(axiom, objectList.get(i), uri, objectList.get(j));
+                }
             }
         }
     }
+
+
+    /**
+     * Renders a set of class expressions in a pairwise manner using the specified URI.  It
+     * is assumed that the relationship described by the URI (e.g. disjointWith) is
+     * symmetric.  The method delegates to the <code>addPairwise</code> method after sorting
+     * the class expressions so that named classes appear first.
+     *
+     * @param axiom            The axiom which will dictate which axiom annotation get rendered
+     * @param classExpressions The set of class expressions to be rendered.
+     * @param uri              The URI which describes the relationship between pairs of class expressions.
+     */
+    private void addPairwiseClassExpressions(OWLAxiom axiom, Set<OWLClassExpression> classExpressions, URI uri) {
+        List<OWLClassExpression> classExpressionList = new ArrayList<OWLClassExpression>(classExpressions);
+        addPairwise(axiom, classExpressionList, uri);
+
+    }
+
+
+    /**
+     * Adds triples to strong type an entity.  Triples are only added if the useStrongTyping flag
+     * is set to <code>true</code> and the entity is not a built in entity.
+     *
+     * @param entity The entity for which strong typing triples should be added.
+     */
+    private void addStrongTyping(OWLEntity entity) {
+        if (!useStrongTyping) {
+            return;
+        }
+        if (entity.isBuiltIn()) {
+            return;
+        }
+        addTriple(entity, RDF_TYPE.getURI(), entity.accept(OWLEntityTypeProvider.INSTANCE));
+    }
+
+
+    /**
+     * Visits entities and returns their RDF type
+     */
+    private static class OWLEntityTypeProvider implements OWLEntityVisitorEx<URI> {
+
+        public static OWLEntityTypeProvider INSTANCE = new OWLEntityTypeProvider();
+
+        public URI visit(OWLClass cls) {
+            return OWL_CLASS.getURI();
+        }
+
+        public URI visit(OWLObjectProperty property) {
+            return OWL_OBJECT_PROPERTY.getURI();
+        }
+
+        public URI visit(OWLDataProperty property) {
+            return OWL_DATA_PROPERTY.getURI();
+        }
+
+        public URI visit(OWLNamedIndividual individual) {
+            return OWL_NAMED_INDIVIDUAL.getURI();
+        }
+
+        public URI visit(OWLDatatype datatype) {
+            return RDFS_DATATYPE.getURI();
+        }
+
+        public URI visit(OWLAnnotationProperty property) {
+            return OWL_ANNOTATION_PROPERTY.getURI();
+        }
+    }
+
 }

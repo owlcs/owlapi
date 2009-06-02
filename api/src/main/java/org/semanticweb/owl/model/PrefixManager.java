@@ -36,7 +36,7 @@ public interface PrefixManager {
     /**
      * Gets the default prefix.  The default prefix is denoted by the prefix name ":"
      *
-     * @return The default prefix, or null if there is no default prefix.
+     * @return The default prefix, or <code>null</code> if there is no default prefix.
      */
     String getDefaultPrefix();
 

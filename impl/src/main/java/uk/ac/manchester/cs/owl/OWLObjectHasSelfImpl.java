@@ -37,6 +37,13 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl<OWLObjectPropertyEx
         super(dataFactory, property);
     }
 
+    public boolean isObjectRestriction() {
+        return true;
+    }
+
+    public boolean isDataRestriction() {
+        return false;
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

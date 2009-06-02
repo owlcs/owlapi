@@ -3,6 +3,7 @@ package uk.ac.manchester.cs.owl;
 import org.semanticweb.owl.model.*;
 
 import java.util.Collection;
+import java.util.Set;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -46,6 +47,10 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
         super(dataFactory, annotations);
         this.subProperty = subProperty;
         this.superProperty = superProperty;
+    }
+
+    public OWLSubAnnotationPropertyOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLSubAnnotationPropertyOfAxiom(getSubProperty(), getSuperProperty(), mergeAnnos(annotations));
     }
 
     public OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations() {

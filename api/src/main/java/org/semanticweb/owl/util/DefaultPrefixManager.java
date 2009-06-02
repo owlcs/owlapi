@@ -78,6 +78,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, U
         setPrefix("rdf:", Namespaces.RDF.toString());
         setPrefix("xsd:", Namespaces.XSD.toString());
         setPrefix("skos:", Namespaces.SKOS.toString());
+        setPrefix("xml:", Namespaces.XML.toString());
     }
 
 
@@ -130,7 +131,13 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, U
             }
         }
         else {
-            return IRI.create(getPrefix(curie.substring(0, sep)) + curie.substring(sep + 1));
+            String prefixName = curie.substring(0, sep + 1);
+            if(!containsPrefixMapping(prefixName)) {
+                throw new RuntimeException("Prefix not registered for prefix name: " + prefixName);
+            }
+            String prefix = getPrefix(prefixName);
+            String localName = curie.substring(sep + 1);
+            return IRI.create(prefix + localName);
         }
     }
 

@@ -3,6 +3,7 @@ package uk.ac.manchester.cs.owl;
 import org.semanticweb.owl.model.*;
 
 import java.util.Collection;
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -51,6 +52,10 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
             return this;
         }
         return getOWLDataFactory().getOWLClassAssertionAxiom(getIndividual(), getClassExpression());
+    }
+
+    public OWLClassAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLClassAssertionAxiom(getIndividual(), getClassExpression(), mergeAnnos(annotations));
     }
 
     public OWLClassExpression getClassExpression() {

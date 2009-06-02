@@ -1,12 +1,15 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLObjectPropertyExpression;
+import org.semanticweb.owl.model.OWLAnnotation;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Set;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -28,17 +31,16 @@ import java.util.Set;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Dec-2006<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 01-Jun-2009
  */
-public class TypeNegativeObjectPropertyAssertionHandler extends BuiltInTypeHandler {
+public class TPPropertyChainAxiomHandler extends TriplePredicateHandler {
 
-    public TypeNegativeObjectPropertyAssertionHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getURI());
+    public TPPropertyChainAxiomHandler(OWLRDFConsumer consumer) {
+        super(consumer, OWLRDFVocabulary.OWL_PROPERTY_CHAIN_AXIOM.getURI());
     }
 
     public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
@@ -46,16 +48,11 @@ public class TypeNegativeObjectPropertyAssertionHandler extends BuiltInTypeHandl
     }
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
-        URI source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SOURCE_INDIVIDUAL.getURI(), true);
-        URI property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_ASSERTION_PROPERTY.getURI(), true);
-        URI target = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_TARGET_INDIVIDUAL.getURI(), true);
-        OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
-        OWLObjectPropertyExpression prop = getConsumer().translateObjectPropertyExpression(property);
-        OWLIndividual targetInd = getConsumer().getOWLIndividual(target);
+        OWLObjectPropertyExpression superProp = getConsumer().translateObjectPropertyExpression(subject);
+        List<OWLObjectPropertyExpression> chain = getConsumer().translateToObjectPropertyList(object);
         consumeTriple(subject, predicate, object);
-        getConsumer().translateAnnotations(subject);
-        Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
-        addAxiom(getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(sourceInd, prop, targetInd, annos));
-
+        Set<OWLAnnotation> annos = getPendingAnnotations();
+        addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(chain, superProp, annos));
     }
+
 }

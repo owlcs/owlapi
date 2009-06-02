@@ -49,6 +49,10 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         return getOWLDataFactory().getOWLDisjointClassesAxiom(getClassExpressions());
     }
 
+    public OWLDisjointClassesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLDisjointClassesAxiom(getClassExpressions(), mergeAnnos(annotations));
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDisjointClassesAxiom;

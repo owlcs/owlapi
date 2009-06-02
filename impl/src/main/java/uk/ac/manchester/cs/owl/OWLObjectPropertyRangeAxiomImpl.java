@@ -54,6 +54,10 @@ public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<O
         return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(getProperty(), getRange());
     }
 
+    public OWLObjectPropertyRangeAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(getProperty(), getRange(), mergeAnnos(annotations));
+    }
+
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }

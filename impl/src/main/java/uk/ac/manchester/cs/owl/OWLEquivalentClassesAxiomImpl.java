@@ -50,6 +50,10 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         return getOWLDataFactory().getOWLEquivalentClassesAxiom(getClassExpressions());
     }
 
+    public OWLEquivalentClassesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLEquivalentClassesAxiom(getClassExpressions(), mergeAnnos(annotations));
+    }
+
     public boolean containsNamedEquivalentClass() {
         return !getNamedClasses().isEmpty();
     }

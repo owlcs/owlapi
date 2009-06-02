@@ -56,6 +56,10 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
         return getOWLDataFactory().getOWLDeclarationAxiom(getEntity());
     }
 
+    public OWLDeclarationAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLDeclarationAxiom(getEntity(), mergeAnnos(annotations));
+    }
+
     public OWLEntity getEntity() {
         return entity;
     }

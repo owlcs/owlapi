@@ -46,6 +46,10 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
         return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(getProperty(), getDomain());
     }
 
+    public OWLObjectPropertyDomainAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(getProperty(), getDomain(), mergeAnnos(annotations));
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectPropertyDomainAxiom;

@@ -51,6 +51,10 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
         return getOWLDataFactory().getOWLHasKeyAxiom(getClassExpression(), getPropertyExpressions());
     }
 
+    public OWLHasKeyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLHasKeyAxiom(getClassExpression(), getPropertyExpressions(), mergeAnnos(annotations));
+    }
+
     public AxiomType getAxiomType() {
         return AxiomType.HAS_KEY;
     }

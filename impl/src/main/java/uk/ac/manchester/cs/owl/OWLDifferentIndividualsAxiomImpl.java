@@ -46,6 +46,10 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
         return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getIndividuals());
     }
 
+    public OWLDifferentIndividualsAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getIndividuals(), mergeAnnos(annotations));
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDifferentIndividualsAxiom;
