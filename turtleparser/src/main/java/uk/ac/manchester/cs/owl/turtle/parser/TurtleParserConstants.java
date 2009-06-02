@@ -32,15 +32,15 @@ public interface TurtleParserConstants {
   int WHERE = 36;
   int FILTER = 37;
   int LETTER = 38;
-  int URITOKEN = 39;
-  int QURI = 40;
-  int QNAME = 41;
-  int BLANK_NODE = 42;
-  int NCNAME1 = 43;
-  int NCNAME2 = 44;
-  int NCCHAR_FULL = 45;
-  int VAR = 46;
-  int NCCHAR1 = 47;
+  int FULLIRI = 39;
+  int PNAME_NS = 40;
+  int PN_LOCAL = 41;
+  int PNAME_LN = 42;
+  int PN_PREFIX = 43;
+  int PN_CHARS_BASE = 44;
+  int PN_CHARS = 45;
+  int PN_CHARS_U = 46;
+  int NODEID = 47;
   int ERROR = 48;
 
   int DEFAULT = 0;
@@ -87,15 +87,15 @@ public interface TurtleParserConstants {
     "\"WHERE\"",
     "\"FILTER\"",
     "<LETTER>",
-    "<URITOKEN>",
-    "<QURI>",
-    "<QNAME>",
-    "<BLANK_NODE>",
-    "<NCNAME1>",
-    "<NCNAME2>",
-    "<NCCHAR_FULL>",
-    "<VAR>",
-    "<NCCHAR1>",
+    "<FULLIRI>",
+    "<PNAME_NS>",
+    "<PN_LOCAL>",
+    "<PNAME_LN>",
+    "<PN_PREFIX>",
+    "<PN_CHARS_BASE>",
+    "<PN_CHARS>",
+    "<PN_CHARS_U>",
+    "<NODEID>",
     "<ERROR>",
   };
 

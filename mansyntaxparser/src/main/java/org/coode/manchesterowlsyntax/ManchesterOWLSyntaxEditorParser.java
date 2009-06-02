@@ -429,7 +429,8 @@ public class ManchesterOWLSyntaxEditorParser {
 
     protected ManchesterOWLSyntaxTokenizer.Token getLastToken() {
         if (tokenIndex - 1 > -1) {
-            return tokenIndex < tokens.size() ? tokens.get(tokenIndex) : tokens.get(tokens.size() - 1);
+            return tokens.get(tokenIndex - 1);
+//            return tokenIndex < tokens.size() ? tokens.get(tokenIndex) : tokens.get(tokens.size() - 1);
         }
         else {
             return tokens.get(0);
@@ -2739,9 +2740,9 @@ public class ManchesterOWLSyntaxEditorParser {
         }
         IRI ontologyIRI = null;
         IRI versionIRI = null;
-        if (peekToken().equals("<")) {
+        if (peekToken().startsWith("<")) {
             ontologyIRI = parseIRI();
-            if (peekToken().equals("<")) {
+            if (peekToken().startsWith("<")) {
                 versionIRI = parseIRI();
             }
         }
@@ -2758,7 +2759,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 consumeToken();
                 tok = peekToken();
                 IRI importedIRI = null;
-                if (tok.equals("<")) {
+                if (tok.startsWith("<")) {
                     importedIRI = parseIRI();
                 }
                 else if (isOntologyName(tok)) {

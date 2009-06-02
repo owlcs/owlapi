@@ -1,6 +1,6 @@
 options {
     STATIC=false;
-    //LOOKAHEAD=2;
+    LOOKAHEAD=2;
     //DEBUG_TOKEN_MANAGER=true;
     //DEBUG_PARSER=true;
 }
@@ -18,6 +18,7 @@ import java.io.Reader;
 import java.io.InputStream;
 import org.coode.owl.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.string.EscapeUtils;
+import org.semanticweb.owl.util.DefaultPrefixManager;
 
 public class TurtleParser implements AnonymousNodeChecker {
 
@@ -27,8 +28,6 @@ public class TurtleParser implements AnonymousNodeChecker {
 
     private Map<String, URI> string2URI;
 
-    private Map<String, String> prefix2NamespaceMap;
-
     private boolean ignoreAnnotationsAndDeclarations = false;
 
     private String base;
@@ -37,6 +36,8 @@ public class TurtleParser implements AnonymousNodeChecker {
 
     private TripleHandler handler;
 
+    private DefaultPrefixManager pm = new DefaultPrefixManager();
+
 
     public TurtleParser(Reader reader, TripleHandler handler, String base) {
         this(reader);
@@ -44,10 +45,7 @@ public class TurtleParser implements AnonymousNodeChecker {
         this.base = base;
         string2URI = new HashMap<String, URI>();
         blankNodeId = 0;
-        prefix2NamespaceMap = new HashMap<String, String>();
-        prefix2NamespaceMap.put("", "");
-        prefix2NamespaceMap.put(null, "");
-        prefix2NamespaceMap.put("_", "");
+        pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
     public TurtleParser(InputStream is, TripleHandler handler, String base) {
@@ -56,9 +54,7 @@ public class TurtleParser implements AnonymousNodeChecker {
         this.base = base;
         string2URI = new HashMap<String, URI>();
         blankNodeId = 0;
-        prefix2NamespaceMap = new HashMap<String, String>();
-        prefix2NamespaceMap.put("", "");
-        prefix2NamespaceMap.put("_", "");
+        pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
     public void setTripleHandler(TripleHandler handler) {
@@ -82,15 +78,8 @@ public class TurtleParser implements AnonymousNodeChecker {
     }
 
     protected URI getURIFromQName(String qname) {
-        int sepIndex = qname.indexOf(':');
-        String prefix = "";
-        String localName = qname;
-        if(sepIndex != -1) {
-            prefix = qname.substring(0, sepIndex);
-            localName = qname.substring(sepIndex + 1, qname.length());
-        }
-        String ns = prefix2NamespaceMap.get(prefix);
-        return getURI(ns + localName);
+        IRI iri = pm.getIRI(qname);
+        return iri.toURI();
     }
 
     protected void addAxiom(OWLAxiom ax) throws TurtleParserException {
@@ -328,10 +317,7 @@ TOKEN:
     <LETTER: ["a"-"z"] | ["A"-"Z"]>
 }
 
-TOKEN:
-{
-    <URITOKEN: "<" (~[">"])* ">">
-}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -339,59 +325,70 @@ TOKEN:
 
 TOKEN:
 {
-    <QURI: "<"(<NCCHAR1> | "#" | "_")(~[">", " "])*">">
-}
-
-//TOKEN:
-//{
-//    <QNAME_NS: (<NCNAME1>)? ":">
-//}
-
-TOKEN:
-{
-    <QNAME: (<NCNAME1>)? ":" (<NCNAME1> | <NCNAME2>)?>
+    <FULLIRI: "<"(~[">", " "])*">">
 }
 
 TOKEN:
 {
-    <BLANK_NODE: "_:" (<NCNAME1> | <NCNAME2>)?>
+    <PNAME_NS: (<PN_PREFIX>)? ":">
+}
+
+
+TOKEN:
+{
+    <PN_LOCAL: ( <PN_CHARS_U> | ["0"-"9"] ) ((<PN_CHARS>|".")* <PN_CHARS>)?>
 }
 
 TOKEN:
 {
-    <NCNAME1: <NCCHAR1> (<NCCHAR_FULL>)*>
+    <PNAME_LN: <PNAME_NS> <PN_LOCAL>>
 }
 
 TOKEN:
 {
-    <NCNAME2: "_" (<NCCHAR_FULL>)*>
+    <PN_PREFIX: <PN_CHARS_BASE>((<PN_CHARS>|".")* <PN_CHARS>)?>
 }
 
 TOKEN:
 {
-    <NCCHAR_FULL: <NCCHAR1> | "_" | "-" | ["0"-"9"] | "\u00B7">
+    <PN_CHARS_BASE:   ["A"-"Z"]
+                    | ["a"-"z"]
+                    | ["\u00C0"-"\u00D6"]
+                    | ["\u00D8"-"\u00F6"]
+                    | ["\u00F8"-"\u02FF"]
+                    | ["\u0370"-"\u037D"]
+                    | ["\u037F"-"\u1FFF"]
+                    | ["\u200C"-"\u200D"]
+                    | ["\u2070"-"\u218F"]
+                    | ["\u2C00"-"\u2FEF"]
+                    | ["\u3001"-"\uD7FF"]
+                    | ["\uF900"-"\uFDCF"]
+                    | ["\uFDF0"-"\uFFFD"]>
+}
+
+
+TOKEN:
+{
+    <PN_CHARS:   <PN_CHARS_U>
+               | "-"
+               | ["0"-"9"]
+               | "\u00B7"
+               | ["\u0300"-"\u036F"]
+               | ["\u203F"-"\u2040"]>
 }
 
 TOKEN:
 {
-    <VAR: "?"(<NCNAME1> | <NCNAME2>)>
+    <PN_CHARS_U: <PN_CHARS_BASE> | "_">
 }
+
+
 
 TOKEN:
 {
-    <NCCHAR1: ["A"-"Z"]
-        | ["a"-"z"]
-        | ["\u00C0" - "\u00D6"]
-        | ["\u00D8"-"\u00F6"]
-        | ["\u00F8"-"\u02FF"]
-        | ["\u0370"-"\u037D"]
-        | ["\u037F"-"\u1FFF"]
-        | ["\u200C"-"\u200D"]
-        | ["\u2070"-"\u218F"]
-        | ["\u2C00"-"\u2FEF"]
-        | ["\u3001"-"\uD7FF"]
-        | ["\uF900"-"\uFFFF"]>
+    <NODEID: "_:"<PN_LOCAL>>
 }
+
 
 TOKEN:
 {
@@ -429,8 +426,8 @@ void parsePrefixDirective() :
     URI ns;
 }
 {
-    <PREFIX> t=<QNAME>{prefix=t.image.substring(0, t.image.indexOf(':'));} ns=parseURIRef() <DOT> {
-        prefix2NamespaceMap.put(prefix, ns.toString());
+    <PREFIX> t=<PNAME_NS>{prefix=t.image;} ns=parseURI() <DOT> {
+        pm.setPrefix(prefix, ns.toString());
         handler.handlePrefixDirective(prefix, ns.toString());
     }
 }
@@ -441,7 +438,7 @@ void parseBaseDirective() :
     Token t;
 }
 {
-    <BASE> t=<URITOKEN> {base = t.image.substring(1, t.image.length() - 1);} <DOT> {
+    <BASE> t=<FULLIRI> {base = t.image.substring(1, t.image.length() - 1);} <DOT> {
         handler.handleBaseDirective(base);
     }
 }
@@ -471,24 +468,24 @@ URI parseSubject() :
     }
 }
 
-URI parseQName() :
+URI parseAbbreviatedURI() :
 {
     URI uri;
     Token t;
 }
 {
-    t=<QNAME> {
+    t=<PNAME_LN> {
         return getURIFromQName(t.image);
     }
 }
 
-URI parseURIRef() :
+URI parseURI() :
 {
     Token t;
     URI uri;
 }
 {
-    t=<URITOKEN> {return getURI(t.image);}
+    t=<FULLIRI> {return getURI(t.image);}
 }
 
 URI parseBlankNode() :
@@ -498,7 +495,7 @@ URI parseBlankNode() :
 {
     (uri=parseNodeID()
     |
-    <EMPTY_BLANK_NODE>{uri = getNextBlankNode();}
+    <NODEID>{uri = getNextBlankNode();}
     |
     <OPEN_SQUARE_BRACKET> {uri = getNextBlankNode();} parsePredicateObjectList(uri) (<DOT>)? <CLOSE_SQUARE_BRACKET>
     |
@@ -512,7 +509,7 @@ URI parseNodeID() :
     Token t;
 }
 {
-    t=<BLANK_NODE> {
+    t=<NODEID> {
         return getURIFromQName(t.image);
     }
 }
@@ -550,20 +547,11 @@ URI parseResource() :
     URI uri;
 }
 {
-    (uri=parseURIRef() | uri=parseQName() | uri=parseVar()) {
+    (uri=parseURI() | uri=parseAbbreviatedURI()) {
         return uri;
     }
 }
 
-URI parseVar() :
-{
-    Token t;
-}
-{
-    t=<VAR> {
-        return getURI(t.image.substring(0, t.image.length()));
-    }
-}
 
 void parseObjectList(URI subject, URI predicate) :
 {
@@ -630,16 +618,6 @@ URI parseItemList() :
     }
 }
 
-String parseName() :
-{
-    Token t;
-}
-{
-    t=<QNAME>{
-        return t.image;
-    }
-}
-
 
 void parseLiteral(URI subject, URI predicate) :
 {
@@ -649,7 +627,7 @@ void parseLiteral(URI subject, URI predicate) :
     Token t;
 }
 {
-    (literal=parseQuotedString() ((<DOUBLE_CARET> datatype=parseResource()) | (("@" (t=<NCNAME1>)+){lang=t.image;}))?
+    (literal=parseQuotedString() ((<DOUBLE_CARET> datatype=parseResource()) | (("@" (t=<PN_LOCAL>)){lang=t.image;}))?
         {
             if(datatype != null) {
                 handler.handleTriple(subject, predicate, literal, datatype);
