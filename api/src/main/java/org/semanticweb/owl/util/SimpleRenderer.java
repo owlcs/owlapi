@@ -42,7 +42,7 @@ import java.util.TreeSet;
  * provide an implementation of the toString method for different
  * implementations.
  */
-public class SimpleRenderer extends DefaultPrefixManager implements OWLObjectVisitor, OWLObjectRenderer {
+public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     private StringBuilder sb;
 
@@ -52,17 +52,38 @@ public class SimpleRenderer extends DefaultPrefixManager implements OWLObjectVis
 
     public SimpleRenderer() {
         sb = new StringBuilder();
-        shortFormProvider = this;
-        uriShortFormProvider = this;
+        resetShortFormProvider();
     }
 
     public void reset() {
         sb = new StringBuilder();
     }
 
+    public boolean isUsingDefaultShortFormProvider() {
+        return shortFormProvider instanceof DefaultPrefixManager;
+    }
+
+    /**
+     * Resets the short form provider to the default short form provider, which is a PrefixManager with the
+     * default set of prefixes.
+     */
+    public void resetShortFormProvider() {
+        DefaultPrefixManager defaultPrefixManager = new DefaultPrefixManager();
+        shortFormProvider = defaultPrefixManager;
+        uriShortFormProvider = defaultPrefixManager;
+    }
+
+    /**
+     * Resets the short form provider and adds prefix name to prefix mappings based on the specified ontology's
+     * format (if it is a prefix format) and possibly the ontologies in the imports closure.
+     * @param ontology The ontology whose format will be used to obtain prefix mappings
+     * @param manager A manager which can be used to obtain the format of the specified ontology (and possibly ontologies
+     * in its imports closure)
+     * @param processImportedOntologies Specifies whether or not the prefix mapping should be obtained from imported
+     * ontologies.
+     */
     public void setPrefixesFromOntologyFormat(OWLOntology ontology, OWLOntologyManager manager, boolean processImportedOntologies) {
-        OWLOntologyFormat format = manager.getOntologyFormat(ontology);
-        copyPrefixes(format);
+        resetShortFormProvider();
         if(processImportedOntologies) {
             for(OWLOntology importedOntology : manager.getImportsClosure(ontology)) {
                 if(!importedOntology.equals(ontology)) {
@@ -70,6 +91,8 @@ public class SimpleRenderer extends DefaultPrefixManager implements OWLObjectVis
                 }
             }
         }
+        OWLOntologyFormat format = manager.getOntologyFormat(ontology);
+        copyPrefixes(format);
     }
 
     private void copyPrefixes(OWLOntologyFormat ontologyFormat) {
@@ -83,13 +106,32 @@ public class SimpleRenderer extends DefaultPrefixManager implements OWLObjectVis
         }
     }
 
+    /**
+     * Sets a prefix name for a given prefix.  Note that prefix names MUST end with a colon.
+     * @param prefixName The prefix name (ending with a colon)
+     * @param prefix The prefix that the prefix name maps to
+     */
+    public void setPrefix(String prefixName, String prefix) {
+        if(!isUsingDefaultShortFormProvider()) {
+            resetShortFormProvider();
+        }
+        ((DefaultPrefixManager) shortFormProvider).setPrefix(prefixName, prefix);
+    }
 
+    /**
+     * Override the short form provider that is used to generate abreviated names for entities
+     * @param shortFormProvider The short form provider to use
+     */
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
     }
 
     protected void append(String s) {
         sb.append(s);
+    }
+
+    public String getShortForm(URI uri) {
+        return uriShortFormProvider.getShortForm(uri);
     }
 
     public String render(OWLObject object) {
