@@ -2,6 +2,7 @@ package org.semanticweb.owl.util;
 
 import org.semanticweb.owl.io.OWLObjectRenderer;
 import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
 
 import java.net.URI;
 import java.util.Iterator;
@@ -41,7 +42,7 @@ import java.util.TreeSet;
  * provide an implementation of the toString method for different
  * implementations.
  */
-public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
+public class SimpleRenderer extends DefaultPrefixManager implements OWLObjectVisitor, OWLObjectRenderer {
 
     private StringBuilder sb;
 
@@ -51,13 +52,35 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public SimpleRenderer() {
         sb = new StringBuilder();
-        shortFormProvider = new DefaultPrefixManager();
-        uriShortFormProvider = new DefaultPrefixManager();
+        shortFormProvider = this;
+        uriShortFormProvider = this;
     }
-
 
     public void reset() {
         sb = new StringBuilder();
+    }
+
+    public void setPrefixesFromOntologyFormat(OWLOntology ontology, OWLOntologyManager manager, boolean processImportedOntologies) {
+        OWLOntologyFormat format = manager.getOntologyFormat(ontology);
+        copyPrefixes(format);
+        if(processImportedOntologies) {
+            for(OWLOntology importedOntology : manager.getImportsClosure(ontology)) {
+                if(!importedOntology.equals(ontology)) {
+                    copyPrefixes(manager.getOntologyFormat(importedOntology));
+                }
+            }
+        }
+    }
+
+    private void copyPrefixes(OWLOntologyFormat ontologyFormat) {
+        if(!(ontologyFormat instanceof PrefixOWLOntologyFormat)) {
+            return;
+        }
+        PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) ontologyFormat;
+        for(String prefixName : prefixFormat.getPrefixName2PrefixMap().keySet()) {
+            String prefix = prefixFormat.getPrefixName2PrefixMap().get(prefixName);
+            this.setPrefix(prefixName, prefix);
+        }
     }
 
 
@@ -828,10 +851,6 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(SWRLAtomIVariable node) {
         sb.append("?");
         sb.append(getShortForm(node.getURI()));
-    }
-
-    private String getShortForm(URI uri) {
-        return uriShortFormProvider.getShortForm(uri);
     }
 
     public void visit(SWRLAtomIndividualObject node) {

@@ -386,9 +386,11 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public void visit(OWLStringLiteral node) {
         pushTab(getIndent());
         writeLiteral(node.getLiteral());
+        if (node.getLang() != null) {
+            write("@");
+            write(node.getLang());
+        }
         popTab();
-        write("@");
-        write(node.getLang());
     }
 
     private void writeLiteral(String literal) {
