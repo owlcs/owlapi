@@ -1,6 +1,12 @@
 package org.semanticweb.owl.reasoner.query;
 
+import org.semanticweb.owl.model.OWLClass;
+import org.semanticweb.owl.model.OWLDataFactory;
+import org.semanticweb.owl.reasoner.OWLReasoner;
+import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
+
 import java.util.Set;
+import java.util.HashSet;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -28,17 +34,24 @@ import java.util.Set;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 17-Mar-2009
+ * Date: 04-Jun-2009
  */
-public interface HierarchyNode<E> extends Iterable<E> {
+public class GetUnsatisfiableClasses implements CompoundQuery<Set<OWLClass>> {
 
-    Set<E> getEquivalentElements();
+    private GetSubClasses internalQuery;
 
-    Set<HierarchyNode<E>> getParentNodes();
+    public GetUnsatisfiableClasses(OWLDataFactory dataFactory) {
+        internalQuery = new GetSubClasses(dataFactory.getOWLNothing(), false);
+    }
 
-    Set<HierarchyNode<E>> getChildNodes();
-
-    Set<HierarchyNode<E>> getAncestorNodes();
-
-    Set<HierarchyNode<E>> getDescendantNodes();
+    public Set<OWLClass> execute(OWLReasoner reasoner) throws UnsupportedQueryTypeException, InterruptedException {
+        Set<OWLClass> result = new HashSet<OWLClass>();
+        Set<HierarchyNode<OWLClass>> nodes = reasoner.answerQuery(internalQuery);
+        for(HierarchyNode<OWLClass> node : nodes) {
+            for(OWLClass cls : node) {
+                result.add(cls);
+            }
+        }
+        return result;
+    }
 }

@@ -1,6 +1,10 @@
 package org.semanticweb.owl.reasoner.query;
 
-import java.util.Set;
+import org.semanticweb.owl.model.OWLClass;
+import org.semanticweb.owl.model.OWLDataFactory;
+import org.semanticweb.owl.model.OWLObjectIntersectionOf;
+import org.semanticweb.owl.reasoner.OWLReasoner;
+import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -28,17 +32,18 @@ import java.util.Set;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 17-Mar-2009
+ * Date: 04-Jun-2009
  */
-public interface HierarchyNode<E> extends Iterable<E> {
+public class IsSubClassOf implements CompoundQuery<Boolean> {
 
-    Set<E> getEquivalentElements();
+    private IsSatisfiable internalQuery;
 
-    Set<HierarchyNode<E>> getParentNodes();
+    public IsSubClassOf(OWLClass clsA, OWLClass clsB, OWLDataFactory dataFactory) {
+        OWLObjectIntersectionOf satTestCls = dataFactory.getOWLObjectIntersectionOf(clsA, dataFactory.getOWLObjectComplementOf(clsB));
+        this.internalQuery = new IsSatisfiable(satTestCls);
+    }
 
-    Set<HierarchyNode<E>> getChildNodes();
-
-    Set<HierarchyNode<E>> getAncestorNodes();
-
-    Set<HierarchyNode<E>> getDescendantNodes();
+    public Boolean execute(OWLReasoner reasoner) throws UnsupportedQueryTypeException, InterruptedException {
+        return reasoner.answerQuery(internalQuery);
+    }
 }

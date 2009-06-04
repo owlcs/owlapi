@@ -38,75 +38,77 @@ import java.util.Set;
  */
 public class StandardQueryHandlerAdapter implements StandardQueryHandler {
 
-    public Hierarchy<OWLClass> answer(GetClassHierarchy query) throws UnsupportedQueryTypeException, InterruptedException {
-        throw new UnsupportedQueryTypeException(query);
-    }
-
-
-    public Hierarchy<OWLDataPropertyExpression> answer(GetDataPropertyHierarchy query) throws UnsupportedQueryTypeException, InterruptedException {
-        throw new UnsupportedQueryTypeException(query);
-    }
-
-
-    public Set<OWLNamedIndividual> answer(GetInstances query) throws UnsupportedQueryTypeException, InterruptedException {
-        throw new UnsupportedQueryTypeException(query);
-    }
-
-
-    public Hierarchy<OWLObjectPropertyExpression> answer(GetObjectPropertyHierarchy query) throws UnsupportedQueryTypeException, InterruptedException {
-        throw new UnsupportedQueryTypeException(query);
-    }
-
-
-    public Set<HierarchyNode<OWLClass>> answer(GetSubClasses query) throws UnsupportedQueryTypeException, InterruptedException {
-        throw new UnsupportedQueryTypeException(query);
-    }
-
-
-    public Set<HierarchyNode<OWLDataProperty>> answer(GetSubDataProperties query) throws UnsupportedQueryTypeException, InterruptedException {
-        throw new UnsupportedQueryTypeException(query);
-    }
-
-
-    public Set<HierarchyNode<OWLObjectPropertyExpression>> answer(GetSubObjectProperties query) throws UnsupportedQueryTypeException, InterruptedException {
-        throw new UnsupportedQueryTypeException(query);
-    }
-
-
-    public Set<HierarchyNode<OWLClass>> answer(GetSuperClasses query) throws UnsupportedQueryTypeException, InterruptedException {
-        throw new UnsupportedQueryTypeException(query);
-    }
-
-
-    public Set<HierarchyNode<OWLDataProperty>> answer(GetSuperDataProperties query) throws UnsupportedQueryTypeException, InterruptedException {
-        throw new UnsupportedQueryTypeException(query);
-    }
-
-
-    public Set<HierarchyNode<OWLObjectPropertyExpression>> answer(GetSuperObjectProperties query) throws UnsupportedQueryTypeException, InterruptedException {
-        throw new UnsupportedQueryTypeException(query);
-    }
-
-
-    public Set<HierarchyNode<OWLClass>> answer(GetTypes query) throws UnsupportedQueryTypeException, InterruptedException {
-        throw new UnsupportedQueryTypeException(query);
-    }
-
-
     public Boolean answer(IsConsistent query) throws UnsupportedQueryTypeException, InterruptedException {
         throw new UnsupportedQueryTypeException(query);
     }
-
-
-    public Boolean answer(IsEntailed query) throws UnsupportedQueryTypeException, InterruptedException {
-        throw new UnsupportedQueryTypeException(query);
-    }
-
 
     public Boolean answer(IsSatisfiable query) throws UnsupportedQueryTypeException, InterruptedException {
         throw new UnsupportedQueryTypeException(query);
     }
 
+    public Boolean answer(IsEntailed query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public Hierarchy<OWLClass> answer(GetClassHierarchy query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public HierarchyNode<OWLClass> answer(GetEquivalentClasses query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public Hierarchy<OWLObjectPropertyExpression> answer(GetObjectPropertyHierarchy query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public HierarchyNode<OWLObjectPropertyExpression> answer(GetEquivalentObjectProperties query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public Hierarchy<OWLDataPropertyExpression> answer(GetDataPropertyHierarchy query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public HierarchyNode<OWLDataPropertyExpression> answer(GetEquivalentDataProperties query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public Set<HierarchyNode<OWLClass>> answer(GetSuperClasses query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public Set<HierarchyNode<OWLClass>> answer(GetSubClasses query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public Set<HierarchyNode<OWLObjectPropertyExpression>> answer(GetSubObjectProperties query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public Set<HierarchyNode<OWLObjectPropertyExpression>> answer(GetSuperObjectProperties query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public HierarchyNode<OWLObjectPropertyExpression> answer(GetInverseProperties query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public Set<HierarchyNode<OWLDataPropertyExpression>> answer(GetSubDataProperties query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public Set<HierarchyNode<OWLDataPropertyExpression>> answer(GetSuperDataProperties query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public Set<HierarchyNode<OWLClass>> answer(GetTypes query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
+
+    public Set<OWLNamedIndividual> answer(GetInstances query) throws UnsupportedQueryTypeException, InterruptedException {
+        throw new UnsupportedQueryTypeException(query);
+    }
 
     public Set<OWLPropertyAssertionAxiom> answer(GetPropertyAssertions query) throws UnsupportedQueryTypeException, InterruptedException {
         throw new UnsupportedQueryTypeException(query);

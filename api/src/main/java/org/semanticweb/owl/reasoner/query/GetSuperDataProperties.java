@@ -1,6 +1,7 @@
 package org.semanticweb.owl.reasoner.query;
 
 import org.semanticweb.owl.model.OWLDataProperty;
+import org.semanticweb.owl.model.OWLDataPropertyExpression;
 import org.semanticweb.owl.reasoner.query.HierarchyNode;
 import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
 
@@ -34,15 +35,15 @@ import java.util.Set;
  * Information Management Group<br>
  * Date: 18-Mar-2009
  */
-public class GetSuperDataProperties extends GetSupersQuery<OWLDataProperty, OWLDataProperty> {
+public class GetSuperDataProperties extends GetSupersQuery<OWLDataPropertyExpression, OWLDataPropertyExpression> {
 
-    public GetSuperDataProperties(OWLDataProperty subject,
+    public GetSuperDataProperties(OWLDataPropertyExpression subject,
                                   boolean direct) {
         super(subject, direct);
     }
 
 
-    public Set<HierarchyNode<OWLDataProperty>> accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+    public Set<HierarchyNode<OWLDataPropertyExpression>> accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
         return handler.answer(this);
     }
 }

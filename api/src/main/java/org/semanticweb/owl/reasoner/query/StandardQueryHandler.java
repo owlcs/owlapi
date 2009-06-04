@@ -36,7 +36,7 @@ import java.util.Set;
  * Date: 21-Jan-2009
  *
  * <p>
- * The BuiltInQueryHandler is essentially part of an implementation of the visitor design patter that allows
+ * The StandardQueryHandler is essentially part of an implementation of the visitor design pattern that allows
  * reasoner to process built in queries without the need for lots of {@link instanceof} checks.
  * </p>
  */
@@ -50,9 +50,15 @@ public interface StandardQueryHandler {
 
     Hierarchy<OWLClass> answer(GetClassHierarchy query) throws UnsupportedQueryTypeException, InterruptedException;
 
+    HierarchyNode<OWLClass> answer(GetEquivalentClasses query) throws UnsupportedQueryTypeException, InterruptedException;
+
     Hierarchy<OWLObjectPropertyExpression> answer(GetObjectPropertyHierarchy query) throws UnsupportedQueryTypeException, InterruptedException;
 
+    HierarchyNode<OWLObjectPropertyExpression> answer(GetEquivalentObjectProperties query) throws UnsupportedQueryTypeException, InterruptedException;
+
     Hierarchy<OWLDataPropertyExpression> answer(GetDataPropertyHierarchy query) throws UnsupportedQueryTypeException, InterruptedException;
+
+    HierarchyNode<OWLDataPropertyExpression> answer(GetEquivalentDataProperties query) throws UnsupportedQueryTypeException, InterruptedException;
 
     Set<HierarchyNode<OWLClass>> answer(GetSuperClasses query) throws UnsupportedQueryTypeException, InterruptedException;
 
@@ -62,9 +68,11 @@ public interface StandardQueryHandler {
 
     Set<HierarchyNode<OWLObjectPropertyExpression>> answer(GetSuperObjectProperties query) throws UnsupportedQueryTypeException, InterruptedException;
 
-    Set<HierarchyNode<OWLDataProperty>> answer(GetSubDataProperties query) throws UnsupportedQueryTypeException, InterruptedException;
+    HierarchyNode<OWLObjectPropertyExpression> answer(GetInverseProperties query) throws UnsupportedQueryTypeException, InterruptedException;
 
-    Set<HierarchyNode<OWLDataProperty>> answer(GetSuperDataProperties query) throws UnsupportedQueryTypeException, InterruptedException;
+    Set<HierarchyNode<OWLDataPropertyExpression>> answer(GetSubDataProperties query) throws UnsupportedQueryTypeException, InterruptedException;
+
+    Set<HierarchyNode<OWLDataPropertyExpression>> answer(GetSuperDataProperties query) throws UnsupportedQueryTypeException, InterruptedException;
 
     Set<HierarchyNode<OWLClass>> answer(GetTypes query) throws UnsupportedQueryTypeException, InterruptedException;
 

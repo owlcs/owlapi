@@ -1,9 +1,13 @@
 package org.semanticweb.owl.reasoner.query;
 
+import org.semanticweb.owl.model.OWLClass;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
-import org.semanticweb.owl.model.OWLObjectProperty;
-import org.semanticweb.owl.reasoner.query.Hierarchy;
+import org.semanticweb.owl.model.OWLDataFactory;
+import org.semanticweb.owl.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owl.reasoner.OWLReasoner;
 import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
+
+import java.util.Set;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -31,11 +35,31 @@ import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 17-Mar-2009
+ * Date: 04-Jun-2009
  */
-public class GetObjectPropertyHierarchy implements StandardQuery<Hierarchy<OWLObjectPropertyExpression>> {
+public class GetObjectPropertyDomains implements CompoundQuery<Set<HierarchyNode<OWLClass>>> {
 
-    public Hierarchy<OWLObjectPropertyExpression> accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
-        return handler.answer(this);
+    private OWLObjectPropertyExpression property;
+
+    private GetSuperClasses internalQuery;
+
+    public GetObjectPropertyDomains(OWLObjectPropertyExpression property, boolean direct, OWLDataFactory dataFactory) {
+        this.property = property;
+        OWLObjectSomeValuesFrom ce = dataFactory.getOWLObjectSomeValuesFrom(property, dataFactory.getOWLThing());
+        internalQuery = new GetSuperClasses(ce, direct);
     }
+
+    public OWLObjectPropertyExpression getProperty() {
+        return property;
+    }
+
+    public boolean isDirect() {
+        return internalQuery.isDirect();
+    }
+
+    public Set<HierarchyNode<OWLClass>> execute(OWLReasoner reasoner) throws UnsupportedQueryTypeException, InterruptedException {
+        return reasoner.answerQuery(internalQuery);
+    }
+
+
 }

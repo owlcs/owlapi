@@ -1,8 +1,10 @@
 package org.semanticweb.owl.reasoner.query;
 
-import org.semanticweb.owl.reasoner.Query;
-import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;/*
- * Copyright (C) 2008, University of Manchester
+import org.semanticweb.owl.model.OWLObjectProperty;
+import org.semanticweb.owl.model.OWLObjectPropertyExpression;
+import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
+/*
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -25,12 +27,23 @@ import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;/*
  */
 
 /**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 21-Jan-2009
- *
- * A marker interface for a built in (standard) query.
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 04-Jun-2009
  */
-public interface BuiltInQuery<Result> extends Query<Result> {
+public class GetInverseProperties implements StandardQuery<HierarchyNode<OWLObjectPropertyExpression>> {
 
-    Result accept(BuiltInQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException;
+    private OWLObjectPropertyExpression property;
+
+    public GetInverseProperties() {
+    }
+
+    public OWLObjectPropertyExpression getProperty() {
+        return property;
+    }
+
+    public HierarchyNode<OWLObjectPropertyExpression> accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+        return handler.answer(this);
+    }
 }

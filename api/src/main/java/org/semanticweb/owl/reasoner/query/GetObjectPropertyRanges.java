@@ -1,5 +1,11 @@
 package org.semanticweb.owl.reasoner.query;
 
+import org.semanticweb.owl.model.OWLClass;
+import org.semanticweb.owl.model.OWLObjectPropertyExpression;
+import org.semanticweb.owl.model.OWLDataFactory;
+import org.semanticweb.owl.reasoner.OWLReasoner;
+import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
+
 import java.util.Set;
 /*
  * Copyright (C) 2009, University of Manchester
@@ -28,17 +34,17 @@ import java.util.Set;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 17-Mar-2009
+ * Date: 04-Jun-2009
  */
-public interface HierarchyNode<E> extends Iterable<E> {
+public class GetObjectPropertyRanges implements CompoundQuery<Set<HierarchyNode<OWLClass>>> {
 
-    Set<E> getEquivalentElements();
+    private GetObjectPropertyDomains internalQuery;
 
-    Set<HierarchyNode<E>> getParentNodes();
+    public GetObjectPropertyRanges(OWLObjectPropertyExpression property, boolean direct, OWLDataFactory dataFactory) {
+        this.internalQuery = new GetObjectPropertyDomains(property.getInverseProperty().getSimplified(), direct, dataFactory);
+    }
 
-    Set<HierarchyNode<E>> getChildNodes();
-
-    Set<HierarchyNode<E>> getAncestorNodes();
-
-    Set<HierarchyNode<E>> getDescendantNodes();
+    public Set<HierarchyNode<OWLClass>> execute(OWLReasoner reasoner) throws UnsupportedQueryTypeException, InterruptedException {
+        return reasoner.answerQuery(internalQuery);
+    }
 }

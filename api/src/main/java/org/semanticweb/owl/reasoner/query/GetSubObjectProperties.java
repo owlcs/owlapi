@@ -1,6 +1,7 @@
 package org.semanticweb.owl.reasoner.query;
 
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
+import org.semanticweb.owl.model.OWLObjectProperty;
 import org.semanticweb.owl.reasoner.query.HierarchyNode;
 import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
 

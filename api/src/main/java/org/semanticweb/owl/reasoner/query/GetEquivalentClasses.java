@@ -1,6 +1,8 @@
 package org.semanticweb.owl.reasoner.query;
 
-import java.util.Set;
+import org.semanticweb.owl.model.OWLClass;
+import org.semanticweb.owl.model.OWLClassExpression;
+import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -28,17 +30,21 @@ import java.util.Set;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 17-Mar-2009
+ * Date: 04-Jun-2009
  */
-public interface HierarchyNode<E> extends Iterable<E> {
+public class GetEquivalentClasses implements StandardQuery<HierarchyNode<OWLClass>> {
 
-    Set<E> getEquivalentElements();
+    private OWLClassExpression classExpression;
 
-    Set<HierarchyNode<E>> getParentNodes();
+    public GetEquivalentClasses(OWLClassExpression classExpression) {
+        this.classExpression = classExpression;
+    }
 
-    Set<HierarchyNode<E>> getChildNodes();
+    public OWLClassExpression getClassExpression() {
+        return classExpression;
+    }
 
-    Set<HierarchyNode<E>> getAncestorNodes();
-
-    Set<HierarchyNode<E>> getDescendantNodes();
+    public HierarchyNode<OWLClass> accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+        return handler.answer(this);
+    }
 }
