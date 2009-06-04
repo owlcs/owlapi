@@ -1,11 +1,12 @@
 package org.semanticweb.owl.reasoner;
 
+import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLOntology;
 
-import java.util.Set;/*
- * Copyright (C) 2008, University of Manchester
+import java.util.Set;
+/*
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -28,11 +29,13 @@ import java.util.Set;/*
  */
 
 /**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 21-Jan-2009
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 04-Jun-2009
  *
  * <p>
- * An OWLReasoner reasons over a set of ontologies.  The set of ontologies is defined at
+ * An BufferedOWLReasoner reasons over a set of ontologies.  The set of ontologies is defined at
  * reasoner creation time and remains fixed from then on.  The set of ontologies can be obtained using the
  * {@link #getOntologies()} method.  When the client responsible for creating the reasoner has finished with the
  * reasoner instance it must call the {@link #dispose()} method to free any resources that are used by the reasoner.
@@ -40,13 +43,13 @@ import java.util.Set;/*
  * {@link org.semanticweb.owl.reasoner.OWLReasonerFactory}.
  * </p>
  * <p>
- * At creation time, an OWLReasoner will attach itself as a listener to the {@link org.semanticweb.owl.model.OWLOntologyManager}
- * that manages the ontologies contained within the reasoner.  The reasoner will listen to any
- * {@link org.semanticweb.owl.model.OWLOntologyChange}s and respond to these so that any queries that are asked after
- * the ontology changes are answered with respect to the changed ontologies.
+ * After the initial set of ontologies have been loaded/processed at reasoner creation time,
+ * a BufferedOWLReasoner listens to changes in the loaded ontologies and stores them in a buffer.  The changes are
+ * only applied to the ontologies within the reasoner and therefore only affect reasoning when the buffer is flushed
+ * manually by a client calling the {@link #flush()} method.
  * </p>
  */
-public interface OWLReasoner {
+public interface BufferedOWLReasoner {
 
     /**
      * Gets the set of ontologies that this reasoner operates on.
@@ -54,6 +57,12 @@ public interface OWLReasoner {
      * the ontology that was specified at the time when the reasoner was created.
      */
     Set<OWLOntology> getOntologies();
+
+    /**
+     * Flushes any changes stored in the buffer so that they are applied to the ontologies within the reasoner and
+     * therefore have an effect on reasoning.
+     */
+    void flush();
 
     /**
      * A convenience method that determines if the set of reasoner ontologies (the set of ontologies returned by
@@ -120,7 +129,4 @@ public interface OWLReasoner {
      * that manages the ontologies contained within the reasoner.
      */
     void dispose();
-
-    
-
 }
