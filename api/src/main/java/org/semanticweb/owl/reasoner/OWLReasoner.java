@@ -56,6 +56,12 @@ public interface OWLReasoner {
     Set<OWLOntology> getOntologies();
 
     /**
+     * Asks the reasoner to interrupt what it is currently doing.  An InterruptedException will be thrown in the
+     * thread that invoked the last reasoner operation.
+     */
+    void interrupt();
+
+    /**
      * A convenience method that determines if the set of reasoner ontologies (the set of ontologies returned by
      * the {@link #getOntologies()} method) is consistent.
      * @return <code>true</code> if the set of reasoner ontologies is consistent,
