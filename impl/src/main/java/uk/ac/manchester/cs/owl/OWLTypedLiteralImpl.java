@@ -102,7 +102,7 @@ public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiter
     protected int compareObjectOfSameType(OWLObject object) {
         OWLTypedLiteral other = (OWLTypedLiteral) object;
         int diff = getLiteral().compareTo(other.getLiteral());
-        if(diff != -1) {
+        if(diff != 0) {
             return diff;
         }
         return  datatype.compareTo(other.getDatatype());
