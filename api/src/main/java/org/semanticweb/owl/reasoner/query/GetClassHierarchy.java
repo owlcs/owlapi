@@ -32,10 +32,10 @@ import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
  * Information Management Group<br>
  * Date: 17-Mar-2009
  */
-public class GetClassHierarchy implements BuiltInQuery<Hierarchy<OWLClass>> {
+public class GetClassHierarchy implements StandardQuery<Hierarchy<OWLClass>> {
 
 
-    public Hierarchy<OWLClass> accept(BuiltInQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+    public Hierarchy<OWLClass> accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
         return handler.answer(this);
     }
 }

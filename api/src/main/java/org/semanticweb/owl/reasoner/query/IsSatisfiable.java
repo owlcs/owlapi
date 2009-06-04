@@ -2,8 +2,8 @@ package org.semanticweb.owl.reasoner.query;
 
 import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
-import org.semanticweb.owl.reasoner.query.BuiltInQuery;
-import org.semanticweb.owl.reasoner.query.BuiltInQueryHandler;/*
+import org.semanticweb.owl.reasoner.query.StandardQuery;
+import org.semanticweb.owl.reasoner.query.StandardQueryHandler;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -34,7 +34,7 @@ import org.semanticweb.owl.reasoner.query.BuiltInQueryHandler;/*
  * Determines whether a given class expression is satisfiable with respect to the reasoner ontologies.
  * </p>
  */
-public class IsSatisfiable implements BuiltInQuery<Boolean> {
+public class IsSatisfiable implements StandardQuery<Boolean> {
 
     private OWLClassExpression expression;
 
@@ -46,7 +46,7 @@ public class IsSatisfiable implements BuiltInQuery<Boolean> {
         return expression;
     }
 
-    public Boolean accept(BuiltInQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+    public Boolean accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
         return handler.answer(this);
     }
 }

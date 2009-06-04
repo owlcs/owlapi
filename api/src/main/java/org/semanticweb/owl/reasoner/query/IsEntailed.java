@@ -31,7 +31,7 @@ import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
  * Information Management Group<br>
  * Date: 18-Mar-2009
  */
-public class IsEntailed implements BuiltInQuery<Boolean> {
+public class IsEntailed implements StandardQuery<Boolean> {
 
     private OWLAxiom axiom;
 
@@ -46,7 +46,7 @@ public class IsEntailed implements BuiltInQuery<Boolean> {
     }
 
 
-    public Boolean accept(BuiltInQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+    public Boolean accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
         return handler.answer(this);
     }
 }

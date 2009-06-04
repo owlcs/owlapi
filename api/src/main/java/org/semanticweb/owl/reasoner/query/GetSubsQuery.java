@@ -32,7 +32,7 @@ import java.util.Set;
  * Information Management Group<br>
  * Date: 18-Mar-2009
  */
-public abstract class GetSubsQuery<S, E> implements BuiltInQuery<Set<HierarchyNode<E>>> {
+public abstract class GetSubsQuery<S, E> implements StandardQuery<Set<HierarchyNode<E>>> {
 
     private S subject;
 

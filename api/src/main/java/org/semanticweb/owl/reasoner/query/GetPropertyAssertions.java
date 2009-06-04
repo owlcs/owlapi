@@ -36,7 +36,7 @@ import java.util.Set;
  * Information Management Group<br>
  * Date: 18-Mar-2009
  */
-public class GetPropertyAssertions implements BuiltInQuery<Set<OWLPropertyAssertionAxiom>> {
+public class GetPropertyAssertions implements StandardQuery<Set<OWLPropertyAssertionAxiom>> {
 
     private OWLIndividual subject;
 
@@ -93,7 +93,7 @@ public class GetPropertyAssertions implements BuiltInQuery<Set<OWLPropertyAssert
     }
 
 
-    public Set<OWLPropertyAssertionAxiom> accept(BuiltInQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+    public Set<OWLPropertyAssertionAxiom> accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
         return null;
     }
 

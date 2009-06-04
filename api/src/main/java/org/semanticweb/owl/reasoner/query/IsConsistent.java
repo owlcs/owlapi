@@ -32,9 +32,9 @@ import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
  * Determines if the set of reasoner ontologies is consistent.
  * </p>
  */
-public class IsConsistent implements BuiltInQuery<Boolean> {
+public class IsConsistent implements StandardQuery<Boolean> {
 
-    public Boolean accept(BuiltInQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+    public Boolean accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
         return handler.answer(this);
     }
 }

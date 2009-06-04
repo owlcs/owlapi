@@ -42,7 +42,7 @@ public class GetSuperObjectProperties extends GetSupersQuery<OWLObjectPropertyEx
     }
 
 
-    public Set<HierarchyNode<OWLObjectPropertyExpression>> accept(BuiltInQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+    public Set<HierarchyNode<OWLObjectPropertyExpression>> accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
         return handler.answer(this);
     }
 }

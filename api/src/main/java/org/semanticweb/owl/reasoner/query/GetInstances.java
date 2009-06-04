@@ -34,7 +34,7 @@ import java.util.Set;
  * Information Management Group<br>
  * Date: 18-Mar-2009
  */
-public class GetInstances implements BuiltInQuery<Set<OWLNamedIndividual>> {
+public class GetInstances implements StandardQuery<Set<OWLNamedIndividual>> {
 
     private OWLClassExpression classExpression;
 
@@ -58,7 +58,7 @@ public class GetInstances implements BuiltInQuery<Set<OWLNamedIndividual>> {
     }
 
 
-    public Set<OWLNamedIndividual> accept(BuiltInQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+    public Set<OWLNamedIndividual> accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
         return handler.answer(this);
     }
 }

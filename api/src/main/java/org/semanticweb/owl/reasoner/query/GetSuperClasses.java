@@ -43,7 +43,7 @@ public class GetSuperClasses extends GetSupersQuery<OWLClassExpression, OWLClass
     }
 
 
-    public Set<HierarchyNode<OWLClass>> accept(BuiltInQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+    public Set<HierarchyNode<OWLClass>> accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
         return handler.answer(this);
     }
 }

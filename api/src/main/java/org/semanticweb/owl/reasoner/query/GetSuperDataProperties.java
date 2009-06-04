@@ -42,7 +42,7 @@ public class GetSuperDataProperties extends GetSupersQuery<OWLDataProperty, OWLD
     }
 
 
-    public Set<HierarchyNode<OWLDataProperty>> accept(BuiltInQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+    public Set<HierarchyNode<OWLDataProperty>> accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
         return handler.answer(this);
     }
 }

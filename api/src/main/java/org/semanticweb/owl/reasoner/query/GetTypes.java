@@ -35,7 +35,7 @@ import java.util.Set;
  * Information Management Group<br>
  * Date: 18-Mar-2009
  */
-public class GetTypes implements BuiltInQuery<Set<HierarchyNode<OWLClass>>> {
+public class GetTypes implements StandardQuery<Set<HierarchyNode<OWLClass>>> {
 
     private OWLIndividual individual;
 
@@ -59,7 +59,7 @@ public class GetTypes implements BuiltInQuery<Set<HierarchyNode<OWLClass>>> {
     }
 
 
-    public Set<HierarchyNode<OWLClass>> accept(BuiltInQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+    public Set<HierarchyNode<OWLClass>> accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
         return handler.answer(this);
     }
 }

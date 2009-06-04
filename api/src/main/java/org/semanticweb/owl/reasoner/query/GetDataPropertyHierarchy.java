@@ -32,9 +32,9 @@ import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
  * Information Management Group<br>
  * Date: 17-Mar-2009
  */
-public class GetDataPropertyHierarchy implements BuiltInQuery<Hierarchy<OWLDataPropertyExpression>> {
+public class GetDataPropertyHierarchy implements StandardQuery<Hierarchy<OWLDataPropertyExpression>> {
 
-    public Hierarchy<OWLDataPropertyExpression> accept(BuiltInQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
+    public Hierarchy<OWLDataPropertyExpression> accept(StandardQueryHandler handler) throws UnsupportedQueryTypeException, InterruptedException {
         return handler.answer(this);
     }
 }
