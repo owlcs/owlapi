@@ -621,7 +621,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
 
     public void visit(OWLDatatype node) {
-        sb.append(node.getURI().getFragment());
+        sb.append(shortFormProvider.getShortForm(node));
     }
 
 

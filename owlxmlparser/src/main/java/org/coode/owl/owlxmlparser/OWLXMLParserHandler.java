@@ -571,6 +571,12 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 return new OWLHasKeyElementHandler(handler);
             }
         });
+
+        addFactory(new AbstractElementHandlerFactory(DATATYPE_DEFINITION) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new OWLDatatypeDefinitionElementHandler(handler);
+            }
+        });
     }
 
 

@@ -45,16 +45,11 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
 
     private boolean builtin;
 
-    private OWLDatatypeVocabulary datatypeVocabulary;
-
     public OWLDatatypeImpl(OWLDataFactory dataFactory, IRI iri) {
         super(dataFactory);
         this.iri = iri;
         top = getURI().equals(OWLRDFVocabulary.RDFS_LITERAL.getURI());
         builtin = OWLDatatypeVocabulary.isBuiltIn(getURI());
-        if (builtin) {
-            datatypeVocabulary = OWLDatatypeVocabulary.getDatatype(getURI());
-        }
     }
 
     public IRI getIRI() {
@@ -73,7 +68,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         if (!isBuiltIn()) {
             throw new OWLRuntimeException("Not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
         } else {
-            return datatypeVocabulary;
+            return OWLDatatypeVocabulary.getDatatype(getURI());
         }
     }
 
