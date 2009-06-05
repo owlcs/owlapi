@@ -67,6 +67,9 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         focusedObject = man.getOWLDataFactory().getOWLThing();
     }
 
+    public void setPrefixManager(DefaultPrefixManager prefixManager) {
+        this.prefixManager = prefixManager;
+    }
 
     public void setFocusedObject(OWLObject focusedObject) {
         this.focusedObject = focusedObject;

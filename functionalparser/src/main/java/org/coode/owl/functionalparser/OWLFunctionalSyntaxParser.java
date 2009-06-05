@@ -34,7 +34,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         if(prefixMap == null) {
             prefixMap = new HashMap<String, String>();
             prefixMap.put("owl:", Namespaces.OWL.toString());
-            prefixMap.put("RDF:", Namespaces.RDF.toString());
+            prefixMap.put("rdf:", Namespaces.RDF.toString());
             prefixMap.put("rdfs:", Namespaces.RDFS.toString());
             prefixMap.put("xml:", Namespaces.XML.toString());
             prefixMap.put("xsd:", Namespaces.XSD.toString());
