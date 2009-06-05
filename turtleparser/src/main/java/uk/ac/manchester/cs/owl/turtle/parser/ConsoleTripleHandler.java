@@ -54,8 +54,8 @@ public class ConsoleTripleHandler implements TripleHandler {
     }
 
 
-    public void handlePrefixDirective(String prefix, String namespace) {
-        System.out.println("PREFIX: " + prefix + " -> " + namespace);
+    public void handlePrefixDirective(String prefixName, String prefix) {
+        System.out.println("PREFIX: " + prefixName + " -> " + prefix);
     }
 
 

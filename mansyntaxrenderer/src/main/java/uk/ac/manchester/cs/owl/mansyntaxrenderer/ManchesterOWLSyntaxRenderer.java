@@ -51,9 +51,9 @@ public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
         OWLOntologyFormat format = getOWLOntologyManager().getOntologyFormat(ontology);
         if(format instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat namespaceFormat = (PrefixOWLOntologyFormat) format;
-            Map<String, String> prefixMap = namespaceFormat.getNamespacesByPrefixMap();
+            Map<String, String> prefixMap = namespaceFormat.getPrefixName2PrefixMap();
             for(String prefix : prefixMap.keySet()) {
-                ren.getNamespaceManager().setPrefix(prefix, prefixMap.get(prefix));
+                ren.getPrefixManager().setPrefix(prefix, prefixMap.get(prefix));
             }
         }
         ren.writeOntology();

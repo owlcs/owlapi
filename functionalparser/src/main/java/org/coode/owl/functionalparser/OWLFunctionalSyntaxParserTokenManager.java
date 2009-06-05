@@ -5,6 +5,7 @@ import org.semanticweb.owl.vocab.*;
 import java.net.*;
 import java.util.*;
 import org.coode.string.EscapeUtils;
+import org.semanticweb.owl.io.OWLFunctionalSyntaxOntologyFormat;
 
 public class OWLFunctionalSyntaxParserTokenManager implements OWLFunctionalSyntaxParserConstants
 {

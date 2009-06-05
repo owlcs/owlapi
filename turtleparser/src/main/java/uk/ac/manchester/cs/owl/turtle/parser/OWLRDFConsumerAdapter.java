@@ -46,7 +46,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     }
 
 
-    public void handlePrefixDirective(String prefix, String namespace) {
+    public void handlePrefixDirective(String prefixName, String prefix) {
         
     }
 

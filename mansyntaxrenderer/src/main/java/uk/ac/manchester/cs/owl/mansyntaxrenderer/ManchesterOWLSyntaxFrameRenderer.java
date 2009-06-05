@@ -101,7 +101,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return ontologies;
     }
 
-    public DefaultPrefixManager getNamespaceManager() {
+    public DefaultPrefixManager getPrefixManager() {
+        if(pm == null) {
+            pm = new DefaultPrefixManager();
+        }
         return pm;
     }
 
@@ -180,8 +183,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     public void writePrefixMap() {
         Map<String, String> prefixMap = new HashMap<String, String>();
-        for (String prefixName : getNamespaceManager().getPrefixName2PrefixMap().keySet()) {
-            String prefix = getNamespaceManager().getPrefix(prefixName);
+        for (String prefixName : getPrefixManager().getPrefixName2PrefixMap().keySet()) {
+            String prefix = getPrefixManager().getPrefix(prefixName);
             prefixMap.put(prefixName, prefix);
             write(PREFIX.toString());
             write(": ");
@@ -206,7 +209,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     protected void write(IRI uri) {
         String qname = null;
         if(pm != null) {
-            qname = getNamespaceManager().getPrefixIRI(uri);
+            qname = getPrefixManager().getPrefixIRI(uri);
         }
         if (qname != null) {
             super.write(qname);

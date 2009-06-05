@@ -42,7 +42,7 @@ public class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
 
 
     public void handle(String id, String value) {
-        // Set the base to be the default base + default namespace
+        // Set the base to be the default base + default prefix
         String uri = OBOVocabulary.ONTOLOGY_URI_BASE + "/" + value.toLowerCase();
         getConsumer().setDefaultNamespace(uri + "#");
         applyChange(new SetOntologyID(getOntology(), new OWLOntologyID(IRI.create(uri))));

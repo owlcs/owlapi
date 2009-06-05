@@ -7,6 +7,7 @@ import org.semanticweb.owl.io.StringInputSource;
 import org.semanticweb.owl.io.StringOutputTarget;
 import org.semanticweb.owl.io.UnparsableOntologyException;
 import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
 
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -155,6 +156,12 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
         try {
             UnparsableOntologyException.setIncludeStackTraceInMessage(true);
             StringOutputTarget target = new StringOutputTarget();
+            OWLOntologyFormat fromFormat = manager.getOntologyFormat(ont);
+            if(fromFormat instanceof PrefixOWLOntologyFormat && format instanceof PrefixOWLOntologyFormat) {
+                PrefixOWLOntologyFormat fromPrefixFormat = (PrefixOWLOntologyFormat) fromFormat;
+                PrefixOWLOntologyFormat toPrefixFormat = (PrefixOWLOntologyFormat) format;
+                toPrefixFormat.copyPrefixesFrom(fromPrefixFormat);
+            }
             manager.saveOntology(ont, format, target);
             handleSaved(target, format);
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();

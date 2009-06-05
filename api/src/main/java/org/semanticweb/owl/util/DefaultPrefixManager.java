@@ -162,7 +162,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, U
             throw new NullPointerException("Prefix name must not be null");
         }
         if(!prefixName.endsWith(":")) {
-            Thread.dumpStack();
             throw new IllegalArgumentException("Prefix names must end with a colon (:)");
         }
         prefix2NamespaceMap.put(prefixName, prefix);

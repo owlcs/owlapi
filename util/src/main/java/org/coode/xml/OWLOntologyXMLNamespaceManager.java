@@ -83,7 +83,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         namespaceUtil = new NamespaceUtil();
         if (ontologyFormat instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat namespaceFormat = (PrefixOWLOntologyFormat) ontologyFormat;
-            Map<String, String> namespacesByPrefix = namespaceFormat.getNamespacesByPrefixMap();
+            Map<String, String> namespacesByPrefix = namespaceFormat.getPrefixName2PrefixMap();
             for (String prefixName : namespacesByPrefix.keySet()) {
                     String xmlnsPrefixName = prefixName.substring(0, prefixName.length() - 1);
                     String xmlnsPrefix = namespacesByPrefix.get(prefixName);

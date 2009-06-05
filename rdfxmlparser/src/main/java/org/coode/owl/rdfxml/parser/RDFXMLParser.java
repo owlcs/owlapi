@@ -58,7 +58,7 @@ public class RDFXMLParser extends AbstractOWLParser {
             final RDFParser parser = new RDFParser() {
                 public void startPrefixMapping(String prefix, String uri) throws SAXException {
                     super.startPrefixMapping(prefix, uri);
-                    format.addPrefixNamespaceMapping(prefix, uri);
+                    format.setPrefix(prefix, uri);
                 }
 
 

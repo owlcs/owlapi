@@ -50,39 +50,41 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
 
 
     /**
-     * A convenience method to add a namespace mapping
-     * @param prefix    The prefix which maps to a namespace
-     * @param namespace The namespace
+     * A convenience method to add a prefix name to prefix mapping
+     * @param prefixName   The prefix name which maps to a prefix
+     * @param prefix The prefix
      */
-    public void addPrefixNamespaceMapping(String prefix, String namespace) {
-        if(!prefix.endsWith(":")) {
-            prefix = prefix + ":";
+    public void setPrefix(String prefixName, String prefix) {
+        if(!prefixName.endsWith(":")) {
+            prefixName = prefixName + ":";
         }
-        nsm.setPrefix(prefix, namespace);
+        nsm.setPrefix(prefixName, prefix);
     }
 
+    /**
+     * Copies the prefix from another ontology format into this format
+     * @param fromFormat The format that the prefixes should be copied from
+     */
+    public void copyPrefixesFrom(PrefixOWLOntologyFormat fromFormat) {
+        Map<String, String> map = fromFormat.getPrefixName2PrefixMap();
+        for(String pn : map.keySet()) {
+            String prefix = map.get(pn);
+            nsm.setPrefix(pn, prefix);
+        }
+    }
 
     /**
      * Sets the default namespace. This is equivalent to adding mapping from the empty string prefix to a
      * namespace.
      * @param namespace The namespace to be set.
      */
-    public void setDefaultNamespace(String namespace) {
+    public void setDefaultPrefix(String namespace) {
         nsm.setDefaultPrefix(namespace);
     }
 
 
     public boolean containsPrefixMapping(String prefix) {
         return nsm.containsPrefixMapping(prefix);
-    }
-
-
-    /**
-     * Gets a map that maps namespace prefixes to namespaces
-     * @return Gets a map that maps namespace prefixes to namespaces.
-     */
-    public Map<String, String> getNamespacesByPrefixMap() {
-        return nsm.getPrefixName2PrefixMap();
     }
 
 

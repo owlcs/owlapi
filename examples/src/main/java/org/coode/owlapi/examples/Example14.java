@@ -48,7 +48,7 @@ public class Example14 {
 
             // For this particular ontology, we know that all class, properties names etc. have
             // URIs that is made up of the ontology IRI plus # plus the local name
-            String namespace = ont.getOntologyID().getOntologyIRI() + "#";
+            String prefix = ont.getOntologyID().getOntologyIRI() + "#";
 
             // Create a reasoner.  We will use Pellet in this case.  Make sure that the latest
             // version of the Pellet libraries are on the runtime class path
@@ -58,16 +58,16 @@ public class Example14 {
 
             // Now we can query the reasoner, suppose we want to determine the properties that
             // instances of Marghertia pizza must have
-            OWLClass margheritaPizza = man.getOWLDataFactory().getOWLClass(IRI.create(namespace + "Margherita"));
+            OWLClass margheritaPizza = man.getOWLDataFactory().getOWLClass(IRI.create(prefix + "Margherita"));
             printProperties(man, ont, reasoner, margheritaPizza);
 
             // Let's do the same for JalapenoPepperTopping
-            OWLClass vegTopping = man.getOWLDataFactory().getOWLClass(IRI.create(namespace + "JalapenoPepperTopping"));
+            OWLClass vegTopping = man.getOWLDataFactory().getOWLClass(IRI.create(prefix + "JalapenoPepperTopping"));
             printProperties(man, ont, reasoner, vegTopping);
 
             // We can also ask if the instances of a class must have a property
-            OWLClass mozzarellaTopping = man.getOWLDataFactory().getOWLClass(IRI.create(namespace + "MozzarellaTopping"));
-            OWLObjectProperty hasOrigin = man.getOWLDataFactory().getOWLObjectProperty(IRI.create(namespace + "hasCountryOfOrigin"));
+            OWLClass mozzarellaTopping = man.getOWLDataFactory().getOWLClass(IRI.create(prefix + "MozzarellaTopping"));
+            OWLObjectProperty hasOrigin = man.getOWLDataFactory().getOWLObjectProperty(IRI.create(prefix + "hasCountryOfOrigin"));
             if (hasProperty(man, reasoner, mozzarellaTopping, hasOrigin)) {
                 System.out.println("Instances of " + mozzarellaTopping + " have a country of origin");
             }

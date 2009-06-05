@@ -867,6 +867,12 @@ public class ManchesterOWLSyntaxEditorParser {
         else if (tok.equals("{")) {
             return parseDataOneOf();
         }
+        else if (tok.equals("(")) {
+            consumeToken();
+            OWLDataRange rng = parseDataRange(allowLookahead);
+            consumeToken(")");
+            return rng;
+        }
         else if (!tok.equals(ManchesterOWLSyntaxTokenizer.EOF) || !allowLookahead) {
             consumeToken();
             throwException(false, false, false, false, true, false, NOT, "{");
@@ -913,15 +919,7 @@ public class ManchesterOWLSyntaxEditorParser {
         if (!not.equalsIgnoreCase(NOT)) {
             throwException(NOT);
         }
-        String open = consumeToken();
-        if (!open.equals("(")) {
-            throwException("(");
-        }
         OWLDataRange complementedDataRange = parseDataRange(false);
-        String close = consumeToken();
-        if (!close.equals(")")) {
-            throwException(")");
-        }
         return dataFactory.getOWLDataComplementOf(complementedDataRange);
     }
 
@@ -2651,18 +2649,27 @@ public class ManchesterOWLSyntaxEditorParser {
         Set<AddImport> imports = new HashSet<AddImport>();
         this.defaultOntology = ont;
         IRI ontologyIRI = null;
+        IRI versionIRI = null;
         processDeclaredEntities();
         while (true) {
             String section = peekToken();
             if (ontologyIRI == null && section.equals(ONTOLOGY)) {
                 // Consume ontology header token
                 consumeToken();
-                ontologyIRI = parseIRI();
-                setBase(ontologyIRI + "#");
-                if (pm.getDefaultPrefix() == null) {
-                    // Shoule we even do this?
-                    pm.setDefaultPrefix(ontologyIRI + "#");
+                String next = peekToken();
+                if(next.startsWith("<")) {
+                    ontologyIRI = parseIRI();
+                    setBase(ontologyIRI + "#");
+                    if (pm.getDefaultPrefix() == null) {
+                        // Should we even do this?
+                        pm.setDefaultPrefix(ontologyIRI + "#");
+                    }
+                    String possVersionIRI = peekToken();
+                    if(possVersionIRI.startsWith("<")) {
+                        versionIRI = parseIRI();
+                    }
                 }
+
                 // Annotations?
                 while (peekToken().equals(ANNOTATIONS)) {
                     axioms.addAll(parseAnnotations(ontologyIRI));
@@ -2728,7 +2735,15 @@ public class ManchesterOWLSyntaxEditorParser {
         for (OntologyAxiomPair pair : axioms) {
             changes.add(new AddAxiom(ont, pair.getAxiom()));
         }
-        changes.add(new SetOntologyID(ont, new OWLOntologyID(ontologyIRI)));
+
+        OWLOntologyID ontologyID = null;
+        if(ontologyIRI != null) {
+            ontologyID = new OWLOntologyID();
+        }
+        else {
+            new OWLOntologyID(ontologyIRI, versionIRI);
+        }
+        changes.add(new SetOntologyID(ont, ontologyID));
         manager.applyChanges(changes);
     }
 

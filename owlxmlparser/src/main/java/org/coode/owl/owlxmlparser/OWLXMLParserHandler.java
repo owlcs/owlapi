@@ -56,13 +56,13 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     private Map<String, OWLElementHandlerFactory> handlerMap;
 
-    private Map<String, String> prefix2NamespaceMap;
+    private Map<String, String> prefixName2PrefixMap = new HashMap<String, String>();
 
     private Locator locator;
 
     private Stack<URI> bases;
 
-    private Map<String, String> prefixName2IRIMap = new HashMap<String, String>();
+//    private Map<String, String> prefixName2IRIMap = new HashMap<String, String>();
 
 
     /**
@@ -111,7 +111,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         this.ontology = ontology;
         this.bases = new Stack<URI>();
         handlerStack = new ArrayList<OWLElementHandler>();
-        prefix2NamespaceMap = new HashMap<String, String>();
+        prefixName2PrefixMap = new HashMap<String, String>();
         if (topHandler != null) {
             handlerStack.add(0, topHandler);
         }
@@ -612,14 +612,21 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
-    public IRI getAbbreviatedIRI(String abbreviatedIRI) throws OWLXMLParserException {
-        int sepIndex = abbreviatedIRI.indexOf(':');
-        if(sepIndex == -1) {
-            throw new OWLXMLParserException(getLineNumber(), abbreviatedIRI + " is not an abbreviated IRI");
+    private String getNormalisedAbbreviatedIRI(String input) {
+        if(input.indexOf(':') != -1) {
+            return input;
         }
-        String prefixName = abbreviatedIRI.substring(0, sepIndex);
-        String localName = abbreviatedIRI.substring(sepIndex + 1);
-        String base = prefixName2IRIMap.get(prefixName);
+        else {
+            return ":" + input;
+        }
+    }
+
+    public IRI getAbbreviatedIRI(String abbreviatedIRI) throws OWLXMLParserException {
+        String normalisedAbbreviatedIRI = getNormalisedAbbreviatedIRI(abbreviatedIRI);
+        int sepIndex = normalisedAbbreviatedIRI.indexOf(':');
+        String prefixName = normalisedAbbreviatedIRI.substring(0, sepIndex + 1);
+        String localName = normalisedAbbreviatedIRI.substring(sepIndex + 1);
+        String base = prefixName2PrefixMap.get(prefixName);
         if(base == null) {
             throw new OWLXMLParserException(getLineNumber(), "Prefix name not defined: " + prefixName);
         }
@@ -650,8 +657,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
 //    }
 
 
-    public Map<String, String> getPrefix2NamespaceMap() {
-        return prefix2NamespaceMap;
+    public Map<String, String> getPrefixName2PrefixMap() {
+        return prefixName2PrefixMap;
     }
 
 
@@ -707,7 +714,12 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 String name = attributes.getValue(OWLXMLVocabulary.NAME_ATTRIBUTE.getShortName());
                 String iriString = attributes.getValue(OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName());
                 if (name != null && iriString != null) {
-                    prefixName2IRIMap.put(name, iriString);
+                    if (name.endsWith(":")) {
+                        prefixName2PrefixMap.put(name, iriString);
+                    }
+                    else {
+                        prefixName2PrefixMap.put(name + ":", iriString);
+                    }
                 }
                 return;
             }
@@ -767,7 +779,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
 
     public void startPrefixMapping(String prefix, String uri) throws SAXException {
-        prefix2NamespaceMap.put(prefix, uri);
+        prefixName2PrefixMap.put(prefix, uri);
     }
 
 

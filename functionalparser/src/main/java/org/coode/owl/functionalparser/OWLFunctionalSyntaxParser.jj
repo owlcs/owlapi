@@ -13,6 +13,7 @@ import org.semanticweb.owl.vocab.*;
 import java.net.*;
 import java.util.*;
 import org.coode.string.EscapeUtils;
+import org.semanticweb.owl.io.OWLFunctionalSyntaxOntologyFormat;
 
 public class OWLFunctionalSyntaxParser {
 
@@ -721,11 +722,17 @@ TOKEN:
     <ERROR: ~[]>
 }
 
-public void parse() throws OWLOntologyCreationException :
+public OWLFunctionalSyntaxOntologyFormat parse() throws OWLOntologyCreationException :
 {
 }
 {
-    (Prefix())*Ontology()<EOF>
+    (Prefix())*Ontology()<EOF> {
+        OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
+        for(String pn : prefixMap.keySet()) {
+            format.addPrefixMapping(pn, prefixMap.get(pn));
+        }
+        return format;
+    }
 }
 
 void Ontology() throws OWLOntologyCreationException :
@@ -1257,7 +1264,7 @@ int Integer()  :
     }
 }
 
-OWLDatatypeDefinition DatatypeDefinition() :
+OWLDatatypeDefinitionAxiom DatatypeDefinitionAxiom() :
 {
     OWLDatatype datatype;
     OWLDataRange dr;
@@ -1265,7 +1272,7 @@ OWLDatatypeDefinition DatatypeDefinition() :
 }
 {
     <DATATYPEDEFINITION><OPENPAR>(axAnnos = AxiomAnnotationSet() datatype=DatatypeURI() dr=DataRange()<CLOSEPAR>) {
-        return dataFactory.getOWLDatatypeDefinition(datatype, dr, axAnnos);
+        return dataFactory.getOWLDatatypeDefinitionAxiom(datatype, dr, axAnnos);
     }
 }
 
@@ -1371,7 +1378,7 @@ OWLAxiom Axiom() :
     | ax=IndividualAxiom()
     | ax=Declaration()
     | ax=HasKey()
-    | ax=DatatypeDefinition()
+    | ax=DatatypeDefinitionAxiom()
     | ax=AnnotationAxiom()) {
         return ax;
     }

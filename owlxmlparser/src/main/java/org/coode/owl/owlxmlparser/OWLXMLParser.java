@@ -54,9 +54,9 @@ public class OWLXMLParser extends AbstractOWLParser {
             InputSource isrc = getInputSource(inputSource);
             OWLXMLParserHandler handler = new OWLXMLParserHandler(getOWLOntologyManager(), ontology);
             parser.parse(isrc, handler);
-            Map<String, String> prefix2NamespaceMap = handler.getPrefix2NamespaceMap();
+            Map<String, String> prefix2NamespaceMap = handler.getPrefixName2PrefixMap();
             for(String prefix : prefix2NamespaceMap.keySet()) {
-                format.addPrefixNamespaceMapping(prefix, prefix2NamespaceMap.get(prefix));
+                format.setPrefix(prefix, prefix2NamespaceMap.get(prefix));
             }
             return format;
         }

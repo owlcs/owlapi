@@ -34,7 +34,7 @@ import java.net.URI;
 public class NullTripleHandler implements TripleHandler {
 
 
-    public void handlePrefixDirective(String prefix, String namespace) {
+    public void handlePrefixDirective(String prefixName, String prefix) {
     }
 
 

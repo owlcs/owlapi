@@ -1,6 +1,7 @@
 package org.semanticweb.owl.io;
 
 import org.semanticweb.owl.model.OWLOntologyFormat;
+import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -31,7 +32,7 @@ import org.semanticweb.owl.model.OWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 02-Jan-2007<br><br>
  */
-public class OWLFunctionalSyntaxOntologyFormat extends OWLOntologyFormat {
+public class OWLFunctionalSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
 
     public String toString() {
         return "OWL Functional Syntax";

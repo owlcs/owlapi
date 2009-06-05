@@ -40,7 +40,6 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
     public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLOntologyCreationException {
         try {
-            OWLOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
             OWLFunctionalSyntaxParser parser;
             if(inputSource.isReaderAvailable()) {
                 parser = new OWLFunctionalSyntaxParser(inputSource.getReader());
@@ -52,8 +51,7 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
                 parser = new OWLFunctionalSyntaxParser(getInputStream(inputSource.getPhysicalURI()));
             }
             parser.setUp(getOWLOntologyManager(), ontology);
-            parser.parse();
-            return format;
+            return parser.parse();
         }
         catch (ParseException e) {
             throw new OWLFunctionalSyntaxParserException(e);

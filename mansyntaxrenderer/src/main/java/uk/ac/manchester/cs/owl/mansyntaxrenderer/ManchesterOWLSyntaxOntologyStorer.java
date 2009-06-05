@@ -6,8 +6,11 @@ import org.semanticweb.owl.model.OWLOntologyFormat;
 import org.semanticweb.owl.model.OWLOntologyManager;
 import org.semanticweb.owl.model.OWLOntologyStorageException;
 import org.semanticweb.owl.util.AbstractOWLOntologyStorer;
+import org.semanticweb.owl.util.DefaultPrefixManager;
+import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
 
 import java.io.Writer;
+import java.util.Map;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -48,6 +51,15 @@ public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
                                                                                                                             OWLOntologyStorageException {
         ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(manager, ontology, writer);
+        if(format instanceof PrefixOWLOntologyFormat) {
+            PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
+            DefaultPrefixManager prefixMan = ren.getPrefixManager();
+            Map<String, String> map = prefixFormat.getPrefixName2PrefixMap();
+            for(String pn : map.keySet()) {
+                String prefix = map.get(pn);
+                prefixMan.setPrefix(pn, prefix);
+            }
+        }
         ren.writeOntology();
     }
 }

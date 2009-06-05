@@ -69,6 +69,7 @@ public class OWLXMLWriter {
         XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(Namespaces.OWL.toString());
         nsm.setPrefix("xsd", Namespaces.XSD.toString());
         nsm.setPrefix("rdf", Namespaces.RDF.toString());
+        nsm.setPrefix("rdfs", Namespaces.RDFS.toString());
         nsm.setPrefix("xml", Namespaces.XML.toString());
         String base = Namespaces.OWL.toString();
         if(!ontology.isAnonymous()) {
@@ -80,15 +81,21 @@ public class OWLXMLWriter {
 
     /**
      * A convenience method to write a prefix.
-     * @param name The name of the prefix (e.g.  owl is the prefix name for the OWL prefix)
+     * @param prefixName The name of the prefix (e.g.  owl: is the prefix name for the OWL prefix)
      * @param iri The prefix iri
      */
-    public void writePrefix(String name, String iri) throws IOException {
+    public void writePrefix(String prefixName, String iri) throws IOException {
         writer.writeStartElement(OWLXMLVocabulary.PREFIX.getURI().toString());
-        writer.writeAttribute(OWLXMLVocabulary.NAME_ATTRIBUTE.getURI().toString(), name);
+        if (prefixName.endsWith(":")) {
+            String attName = prefixName.substring(0, prefixName.length() - 1);
+            writer.writeAttribute(OWLXMLVocabulary.NAME_ATTRIBUTE.getURI().toString(), attName);
+        }
+        else {
+            writer.writeAttribute(OWLXMLVocabulary.NAME_ATTRIBUTE.getURI().toString(), prefixName);
+        }
         writer.writeAttribute(OWLXMLVocabulary.IRI_ATTRIBUTE.getURI().toString(), iri);
         writer.writeEndElement();
-        iriPrefixMap.put(iri, name);
+        iriPrefixMap.put(iri, prefixName);
     }
 
     /**
@@ -99,12 +106,11 @@ public class OWLXMLWriter {
      */
     public String getIRIString(URI iri) {
         String fullIRI = iri.toString();
-        for(String prefix : iriPrefixMap.keySet()) {
-            if(fullIRI.startsWith(prefix)) {
+        for(String prefixName : iriPrefixMap.keySet()) {
+            if(fullIRI.startsWith(prefixName)) {
                 StringBuilder sb = new StringBuilder();
-                sb.append(iriPrefixMap.get(prefix));
-                sb.append(":");
-                sb.append(fullIRI.substring(prefix.length()));
+                sb.append(iriPrefixMap.get(prefixName));
+                sb.append(fullIRI.substring(prefixName.length()));
                 return sb.toString();
             }
         }

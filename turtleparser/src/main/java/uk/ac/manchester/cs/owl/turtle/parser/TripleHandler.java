@@ -33,7 +33,7 @@ import java.net.URI;
  */
 public interface TripleHandler {
 
-    void handlePrefixDirective(String prefix, String namespace);
+    void handlePrefixDirective(String prefixName, String prefix);
 
     void handleBaseDirective(String base);
 
