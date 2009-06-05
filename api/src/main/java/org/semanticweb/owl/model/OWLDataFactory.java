@@ -892,7 +892,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     
 
     OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
-                                     Set<? extends OWLPropertyExpression> objectProperties);
+                                     Set<? extends OWLPropertyExpression> properties);
 
 
     OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
