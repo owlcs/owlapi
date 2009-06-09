@@ -28,4 +28,10 @@ package org.semanticweb.owl.model;/*
  * Represents the Node ID for anonymous individuals
  */
 public interface NodeID extends Comparable<NodeID> {
+
+    /**
+     * Gets the string representation of the node ID.  This will begin with _:
+     * @return The string representation of the node ID.
+     */
+    public String getID();
 }

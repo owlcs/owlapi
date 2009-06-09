@@ -499,7 +499,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
 
     public OWLAxiom visit(OWLClassAssertionAxiom axiom) {
         if (axiom.getClassExpression().isAnonymous()) {
-            return dataFactory.getOWLClassAssertionAxiom(axiom.getIndividual(), axiom.getClassExpression().accept(this));
+            return dataFactory.getOWLClassAssertionAxiom(axiom.getClassExpression().accept(this), axiom.getIndividual());
         } else {
             return axiom;
         }

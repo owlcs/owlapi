@@ -249,7 +249,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
                 throw new ParseException();
             }
             {
-                if (true) return factory.getOWLClassAssertionAxiom(ind, desc);
+                if (true) return factory.getOWLClassAssertionAxiom(desc, ind);
             }
         } else {
             jj_consume_token(-1);

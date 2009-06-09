@@ -945,7 +945,6 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(OWLAnonymousIndividual individual) {
-        write("_:");
         write(individual.getID().toString());
     }
 

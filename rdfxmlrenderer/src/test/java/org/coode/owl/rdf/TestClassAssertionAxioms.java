@@ -46,7 +46,7 @@ public class TestClassAssertionAxioms extends AbstractRendererAndParserTestCase 
     protected Set<OWLAxiom> getAxioms() {
         OWLIndividual ind = createIndividual();
         OWLClass cls = createClass();
-        OWLAxiom ax = getDataFactory().getOWLClassAssertionAxiom(ind, cls);
+        OWLAxiom ax = getDataFactory().getOWLClassAssertionAxiom(cls, ind);
         return Collections.singleton(ax);
     }
 }

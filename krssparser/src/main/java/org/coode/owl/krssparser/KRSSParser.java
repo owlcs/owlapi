@@ -403,7 +403,7 @@ public class KRSSParser implements KRSSParserConstants {
         type = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLClassAssertionAxiom(ind, type);
+            if (true) return dataFactory.getOWLClassAssertionAxiom(type, ind);
         }
         throw new Error("Missing return statement in function");
     }

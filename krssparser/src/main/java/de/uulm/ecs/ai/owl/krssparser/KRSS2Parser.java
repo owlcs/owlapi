@@ -711,7 +711,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         ind = IndividualName();
         type = ConceptExpression();
         jj_consume_token(CLOSEPAR);
-        addAxiom(dataFactory.getOWLClassAssertionAxiom(ind, type));
+        addAxiom(dataFactory.getOWLClassAssertionAxiom(type, ind));
     }
 
     final public void Related() throws ParseException, KRSS2OWLParserException {

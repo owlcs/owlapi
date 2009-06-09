@@ -125,7 +125,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLIndividual ind = (OWLIndividual) obj;
         axiom.getClassExpression().accept(this);
         OWLClassExpression type = (OWLClassExpression) obj;
-        obj = dataFactory.getOWLClassAssertionAxiom(ind, type);
+        obj = dataFactory.getOWLClassAssertionAxiom(type, ind);
     }
 
 

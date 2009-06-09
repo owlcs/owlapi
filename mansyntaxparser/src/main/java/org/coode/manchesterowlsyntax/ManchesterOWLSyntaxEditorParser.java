@@ -1381,7 +1381,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 Set<OWLIndividual> inds = parseIndividualList();
                 for (OWLOntology ont : onts) {
                     for (OWLIndividual ind : inds) {
-                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLClassAssertionAxiom(ind, cls)));
+                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLClassAssertionAxiom(cls, ind)));
                     }
                 }
             }
@@ -1714,7 +1714,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 Set<OWLClassExpression> descs = parseClassExpressionList();
                 for (OWLOntology ont : onts) {
                     for (OWLClassExpression desc : descs) {
-                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLClassAssertionAxiom(ind, desc)));
+                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLClassAssertionAxiom(desc, ind)));
                     }
                 }
             }

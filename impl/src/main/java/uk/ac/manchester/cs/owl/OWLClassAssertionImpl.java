@@ -51,11 +51,11 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
         if(!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLClassAssertionAxiom(getIndividual(), getClassExpression());
+        return getOWLDataFactory().getOWLClassAssertionAxiom(getClassExpression(), getIndividual());
     }
 
     public OWLClassAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLClassAssertionAxiom(getIndividual(), getClassExpression(), mergeAnnos(annotations));
+        return getOWLDataFactory().getOWLClassAssertionAxiom(getClassExpression(), getIndividual(), mergeAnnos(annotations));
     }
 
     public OWLClassExpression getClassExpression() {

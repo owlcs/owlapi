@@ -1,13 +1,13 @@
-package org.coode.owl.rdf;
+package org.semanticweb.owl.api.test;
 
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLIndividual;
+import org.semanticweb.owl.model.OWLClass;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.HashSet;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -29,26 +29,20 @@ import java.util.Set;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Jul-2007<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 09-Jun-2009
  */
-public class TestAnonymousType extends AbstractRendererAndParserTestCase {
+public class ClassAssertionWithAnonymousIndividualTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-
-    protected Set<OWLAxiom> getAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClassExpression desc = getDataFactory().getOWLObjectComplementOf(getDataFactory().getOWLClass(TestUtils.createIRI()));
-        OWLIndividual ind = getDataFactory().getOWLNamedIndividual(TestUtils.createIRI());
-        axioms.add(getDataFactory().getOWLClassAssertionAxiom(desc, ind));
+        OWLIndividual ind = getFactory().getOWLAnonymousIndividual("a");
+        OWLClass cls = getOWLClass("A");
+        axioms.add(getFactory().getOWLClassAssertionAxiom(cls, ind));
+        axioms.add(getFactory().getOWLDeclarationAxiom(cls));
         return axioms;
-    }
-
-
-    protected String getClassExpression() {
-        return "Anonymous type test case";
     }
 }

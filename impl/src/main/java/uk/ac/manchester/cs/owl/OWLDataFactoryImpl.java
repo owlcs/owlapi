@@ -222,6 +222,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return new OWLAnonymousIndividualImpl(this, new NodeIDImpl(id));
     }
 
+    /**
+     * Gets an anonymous individual.  The node ID for the individual will be generated automatically
+     * @return The anonymous individual
+     */
+    public OWLAnonymousIndividual getOWLAnonymousIndividual() {
+        return new OWLAnonymousIndividualImpl(this, new NodeIDImpl());
+    }
 
     public OWLDatatype getOWLDatatype(URI uri) {
         OWLDatatype dt = datatypesByURI.get(uri);
@@ -852,15 +859,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLIndividual individual,
-                                                    OWLClassExpression classExpression) {
-        return getOWLClassAssertionAxiom(individual, classExpression, EMPTY_ANNOTATIONS_SET);
+    public OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLClassExpression classExpression, OWLIndividual individual) {
+        return getOWLClassAssertionAxiom(classExpression, individual, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLIndividual individual,
-                                                    OWLClassExpression classExpression,
-                                                    Set<? extends OWLAnnotation> annotations) {
+    public OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLClassExpression classExpression, OWLIndividual individual, Set<? extends OWLAnnotation> annotations) {
         return new OWLClassAssertionImpl(this, individual, classExpression, annotations);
     }
 

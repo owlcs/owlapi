@@ -211,8 +211,19 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                              PrefixManager prefixManager);
 
 
+    /**
+     * Gets an anonymous individual that has a specific ID.
+     * @param id The node ID.  Note that the ID will be preixed with _: if it is not specifed with
+     * _: as a prefix
+     * @return An anonymous individual.
+     */
     OWLAnonymousIndividual getOWLAnonymousIndividual(String id);
 
+    /**
+     * Gets an anonymous individual.  The node ID for the individual will be generated automatically
+     * @return The anonymous individual
+     */
+    OWLAnonymousIndividual getOWLAnonymousIndividual();
 
     OWLAnnotationProperty getOWLAnnotationProperty(URI uri);
 
@@ -942,13 +953,10 @@ public interface OWLDataFactory extends SWRLDataFactory {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLIndividual individual,
-                                                     OWLClassExpression classExpression);
+    OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLClassExpression classExpression, OWLIndividual individual);
 
 
-    OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLIndividual individual,
-                                                     OWLClassExpression classExpression,
-                                                     Set<? extends OWLAnnotation> annotations);
+    OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLClassExpression classExpression, OWLIndividual individual, Set<? extends OWLAnnotation> annotations);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

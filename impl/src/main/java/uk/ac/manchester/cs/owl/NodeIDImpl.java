@@ -29,17 +29,51 @@ import org.semanticweb.owl.model.NodeID;/*
  */
 public class NodeIDImpl implements NodeID {
 
+    private static long counter = System.nanoTime();
+
     private String id;
 
     public NodeIDImpl(String id) {
-        this.id = id;
+        if (id.startsWith("_:")) {
+            this.id = id;
+        }
+        else {
+            this.id = "_:" + id;
+        }
+    }
+
+    public NodeIDImpl() {
+        this(Long.toString(++counter));
     }
 
     public String toString() {
-        return "_:" + id;
+        return id;
     }
 
     public int compareTo(NodeID o) {
         return toString().compareTo(o.toString());
+    }
+
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof NodeID)) {
+            return false;
+        }
+        NodeID other = (NodeID) obj;
+        return id.equals(other.getID());
+    }
+
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    /**
+     * Gets the string representation of the node ID.  This will begin with _:
+     * @return The string representation of the node ID.
+     */
+    public String getID() {
+        return id;
     }
 }

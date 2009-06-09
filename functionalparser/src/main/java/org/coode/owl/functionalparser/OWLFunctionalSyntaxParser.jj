@@ -1801,8 +1801,8 @@ OWLIndividualAxiom ClassAssertion() :
     Set<OWLAnnotation> axiomAnnos;
 }
 {
-    <CLASSASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet() desc=ClassExpression() ind=IndividualURI()  <CLOSEPAR> {
-        return dataFactory.getOWLClassAssertionAxiom(ind, desc, axiomAnnos);
+    <CLASSASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet() desc=ClassExpression() ind=Individual()  <CLOSEPAR> {
+        return dataFactory.getOWLClassAssertionAxiom(desc, ind, axiomAnnos);
     }
 }
 
@@ -1867,6 +1867,17 @@ OWLNamedIndividual IndividualURI() :
 {
     iri=IRI() {return dataFactory.getOWLNamedIndividual(iri);}
 }
+
+OWLIndividual Individual() :
+{
+    OWLIndividual ind;
+}
+{
+    (ind=IndividualURI() | ind=AnonymousIndividual()) {
+        return ind;
+    }
+}
+
 
 OWLObjectProperty ObjectPropertyURI() :
 {

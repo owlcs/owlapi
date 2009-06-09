@@ -10,7 +10,6 @@ import static org.semanticweb.owl.vocab.OWLFacet.MAX_EXCLUSIVE;
 import static org.semanticweb.owl.vocab.OWLFacet.MIN_INCLUSIVE;
 import org.semanticweb.owl.vocab.XSDVocabulary;
 
-import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 /*
@@ -225,7 +224,7 @@ public class OWLPrimer {
 
             // We can also explicitly say than an individual is an instance of a given class.
             // To do this we use a Class assertion axiom.
-            OWLClassAssertionAxiom classAssertionAx = factory.getOWLClassAssertionAxiom(john, person);
+            OWLClassAssertionAxiom classAssertionAx = factory.getOWLClassAssertionAxiom(person, john);
             // Add the axiom directly using the addAxiom convenience method on OWLOntologyManager
             manager.addAxiom(ont, classAssertionAx);
 
