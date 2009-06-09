@@ -66,7 +66,7 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
             return this;
         }
         else {
-            OWLObjectPropertyInverse property = (OWLObjectPropertyInverse) getProperty();
+            OWLObjectInverseOf property = (OWLObjectInverseOf) getProperty();
             OWLObjectPropertyExpression invProp = property.getInverse();
             return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getObject(), invProp, getSubject());
         }

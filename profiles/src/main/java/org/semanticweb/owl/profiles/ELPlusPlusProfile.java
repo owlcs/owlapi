@@ -367,7 +367,7 @@ public class ELPlusPlusProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLObjectPropertyInverse property) {
+        public ConstructNotAllowed visit(OWLObjectInverseOf property) {
             return new InversePropertiesNotAllowed(property);
         }
 

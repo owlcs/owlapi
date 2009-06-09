@@ -98,7 +98,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyInverse property) {
+    public void visit(OWLObjectInverseOf property) {
         handleObject(property);
         property.getInverse().accept(this);
     }

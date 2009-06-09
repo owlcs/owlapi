@@ -584,7 +584,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(OWLObjectPropertyInverse property) {
+        public ConstructNotAllowed visit(OWLObjectInverseOf property) {
             return new PropertyInversesNotAllowed(property);
         }
 
@@ -773,7 +773,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public PropertyInversesNotAllowed(OWLObjectPropertyInverse construct) {
+        public PropertyInversesNotAllowed(OWLObjectInverseOf construct) {
             super(construct);
         }
     }

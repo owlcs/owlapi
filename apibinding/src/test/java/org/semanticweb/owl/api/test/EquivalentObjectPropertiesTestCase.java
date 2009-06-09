@@ -1,6 +1,12 @@
-package org.semanticweb.owl.model;
+package org.semanticweb.owl.api.test;
+
+import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owl.model.OWLObjectProperty;
+
+import java.util.Set;
+import java.util.HashSet;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -22,23 +28,21 @@ package org.semanticweb.owl.model;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- *
- * Represents the inverse of a property expression.  This can be used to refer to
- * the inverse of a property, without actually naming the property. For example, consider
- * the property hasPart, the inverse property of hasPart (isPartOf) can be referred to using
- * this interface inverseOf(hasPart), which can be used in restrictions e.g.
- * inverseOf(hasPart) some Car refers to the set of things that are part of at least one car.
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 09-Jun-2009
  */
-public interface OWLObjectPropertyInverse extends OWLObjectPropertyExpression {
+public class EquivalentObjectPropertiesTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    /**
-     * Gets the property expression that this is the inverse of.
-     */
-    OWLObjectPropertyExpression getInverse();
+    protected Set<? extends OWLAxiom> createAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLObjectProperty propA = getOWLObjectProperty("propA");
+        OWLObjectProperty propB = getOWLObjectProperty("propB");
+        axioms.add(getFactory().getOWLInverseObjectPropertiesAxiom(propA, propB));
+        axioms.add(getFactory().getOWLDeclarationAxiom(propA));
+        axioms.add(getFactory().getOWLDeclarationAxiom(propB));
+        return axioms;
+    }
 }

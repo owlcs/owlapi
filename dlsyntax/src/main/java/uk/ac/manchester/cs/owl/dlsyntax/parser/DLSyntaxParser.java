@@ -356,8 +356,8 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             } else if (jj_2_21(5)) {
                 jj_consume_token(EQUIVALENTTO);
                 rhs = parseObjectPropertyId();
-                if (rhs instanceof OWLObjectPropertyInverse) {
-                    OWLObjectPropertyInverse inv = (OWLObjectPropertyInverse) rhs;
+                if (rhs instanceof OWLObjectInverseOf) {
+                    OWLObjectInverseOf inv = (OWLObjectInverseOf) rhs;
                     {
                         if (true) return factory.getOWLInverseObjectPropertiesAxiom(lhs, inv.getInverse());
                     }
@@ -484,7 +484,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         if (inverse) {
             OWLObjectProperty prop = factory.getOWLObjectProperty(uri);
             {
-                if (true) return factory.getOWLObjectPropertyInverse(prop);
+                if (true) return factory.getOWLObjectInverseOf(prop);
             }
         } else {
             {

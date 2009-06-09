@@ -1637,7 +1637,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                         "Attempting to translate inverse property (anon property), but inverseOf triple is missing (" + mainNode + ")");
             }
             OWLObjectPropertyExpression otherProperty = translateObjectPropertyExpression(inverseOfObject);
-            prop = getDataFactory().getOWLObjectPropertyInverse(otherProperty);
+            prop = getDataFactory().getOWLObjectInverseOf(otherProperty);
             translatedProperties.put(mainNode, prop);
             return prop;
         }

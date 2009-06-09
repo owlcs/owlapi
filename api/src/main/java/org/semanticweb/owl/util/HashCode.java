@@ -460,7 +460,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyInverse property) {
+    public void visit(OWLObjectInverseOf property) {
         hashCode = 307;
         hashCode = hashCode * MULT + property.getInverse().hashCode();
     }

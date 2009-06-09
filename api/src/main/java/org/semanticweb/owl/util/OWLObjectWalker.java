@@ -566,7 +566,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(OWLObjectPropertyInverse property) {
+        public void visit(OWLObjectInverseOf property) {
             process(property);
             property.getInverse().accept(this);
         }

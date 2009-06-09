@@ -530,7 +530,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public void visit(OWLObjectPropertyInverse expression) {
+    public void visit(OWLObjectInverseOf expression) {
         expression.getInverse().accept(this);
     }
 

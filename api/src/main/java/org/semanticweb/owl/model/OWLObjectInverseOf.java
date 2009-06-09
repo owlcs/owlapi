@@ -1,6 +1,6 @@
 package org.semanticweb.owl.model;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2006, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -26,14 +26,19 @@ package org.semanticweb.owl.model;
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008<br><br>
+ * Bio-Health Informatics Group
+ * Date: 24-Oct-2006
+ *
+ * Represents the inverse of a property expression.  This can be used to refer to
+ * the inverse of a property, without actually naming the property. For example, consider
+ * the property hasPart, the inverse property of hasPart (isPartOf) can be referred to using
+ * this interface inverseOf(hasPart), which can be used in restrictions e.g.
+ * inverseOf(hasPart) some Car refers to the set of things that are part of at least one car.
  */
-public interface OWLPropertyExpressionVisitorEx<O> {
+public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
 
-    O visit(OWLObjectProperty property);
-
-    O visit(OWLObjectInverseOf property);
-
-    O visit(OWLDataProperty property);
+    /**
+     * Gets the property expression that this is the inverse of.
+     */
+    OWLObjectPropertyExpression getInverse();
 }

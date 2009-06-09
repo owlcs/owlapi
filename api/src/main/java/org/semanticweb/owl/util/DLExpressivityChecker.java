@@ -199,7 +199,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyInverse property) {
+    public void visit(OWLObjectInverseOf property) {
         constructs.add(I);
     }
 

@@ -228,7 +228,7 @@ public class OWLObjectVisitorAdapter implements OWLObjectVisitor {
     public void visit(OWLObjectProperty property) {
     }
 
-    public void visit(OWLObjectPropertyInverse property) {
+    public void visit(OWLObjectInverseOf property) {
     }
 
     public void visit(OWLNamedIndividual individual) {

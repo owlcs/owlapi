@@ -579,10 +579,10 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
 
-    public void visit(OWLObjectPropertyInverse property) {
+    public void visit(OWLObjectInverseOf property) {
         property.getInverse().accept(this);
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
-        obj = dataFactory.getOWLObjectPropertyInverse(prop);
+        obj = dataFactory.getOWLObjectInverseOf(prop);
     }
 
     public void visit(OWLNamedIndividual individual) {

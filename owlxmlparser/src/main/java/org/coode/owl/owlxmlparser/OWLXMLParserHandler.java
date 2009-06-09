@@ -161,7 +161,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
         });
 
-        addFactory(new AbstractElementHandlerFactory(INVERSE_OBJECT_PROPERTY) {
+        addFactory(new AbstractElementHandlerFactory(OBJECT_INVERSE_OF) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLInverseObjectPropertyElementHandler(handler);
             }

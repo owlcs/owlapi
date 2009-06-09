@@ -352,7 +352,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLObjectPropertyInverse property) {
+    public O visit(OWLObjectInverseOf property) {
         return delegate.visit(property);
     }
 

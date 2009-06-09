@@ -994,8 +994,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLObjectPropertyInverse getOWLObjectPropertyInverse(OWLObjectPropertyExpression property) {
-        return new OWLObjectPropertyInverseImpl(this, property);
+    public OWLObjectInverseOf getOWLObjectInverseOf(OWLObjectPropertyExpression property) {
+        return new OWLObjectInverseOfImpl(this, property);
     }
 
 

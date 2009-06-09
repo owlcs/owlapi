@@ -665,7 +665,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
-    public void visit(OWLObjectPropertyInverse property) {
+    public void visit(OWLObjectInverseOf property) {
         property.getInverse().accept(this);
         write(INVERSE);
     }

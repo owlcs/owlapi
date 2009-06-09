@@ -220,7 +220,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
     public OWLObjectPropertyExpression getInverseProperty() {
         if (inverse == null) {
-            inverse = getOWLDataFactory().getOWLObjectPropertyInverse(this);
+            inverse = getOWLDataFactory().getOWLObjectInverseOf(this);
         }
         return inverse;
     }
@@ -229,7 +229,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     public OWLObjectProperty getNamedProperty() {
         OWLObjectPropertyExpression simp = getSimplified();
         if (simp.isAnonymous()) {
-            return ((OWLObjectPropertyInverse) simp).getInverse().asOWLObjectProperty();
+            return ((OWLObjectInverseOf) simp).getInverse().asOWLObjectProperty();
         } else {
             return simp.asOWLObjectProperty();
         }

@@ -683,7 +683,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(OWLObjectPropertyInverse property) {
+    public void visit(OWLObjectInverseOf property) {
         sb.append("InverseOf(");
         property.getInverse().accept(this);
         sb.append(")");

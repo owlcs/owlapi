@@ -61,7 +61,7 @@ public class ObjectPropertySimplifier {
         simplifier.reset();
         prop.accept(simplifier);
         if(simplifier.isInverse()) {
-            return dataFactory.getOWLObjectPropertyInverse(simplifier.getProperty());
+            return dataFactory.getOWLObjectInverseOf(simplifier.getProperty());
         }
         else {
             return simplifier.getProperty();
@@ -98,7 +98,7 @@ public class ObjectPropertySimplifier {
         }
 
 
-        public void visit(OWLObjectPropertyInverse property) {
+        public void visit(OWLObjectInverseOf property) {
             depth++;
             property.getInverse().accept(this);
         }

@@ -1,6 +1,5 @@
 package org.semanticweb.owl.model;
 
-import java.net.URI;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -41,24 +40,24 @@ public class ObjectPropertySimplifierTestCase extends AbstractOWLTestCase {
 
     public void testInverseSimplification() {
         OWLObjectProperty p = getOWLDataFactory().getOWLObjectProperty(IRI.create("p"));
-        OWLObjectPropertyExpression inv = getOWLDataFactory().getOWLObjectPropertyInverse(p);
+        OWLObjectPropertyExpression inv = getOWLDataFactory().getOWLObjectInverseOf(p);
         OWLObjectPropertyExpression exp = inv.getSimplified();
         assertEquals(inv, exp);
     }
 
     public void testInverseInverseSimplification() {
         OWLObjectProperty p = getOWLDataFactory().getOWLObjectProperty(IRI.create("p"));
-        OWLObjectPropertyExpression inv = getOWLDataFactory().getOWLObjectPropertyInverse(p);
-        OWLObjectPropertyExpression inv2 = getOWLDataFactory().getOWLObjectPropertyInverse(inv);
+        OWLObjectPropertyExpression inv = getOWLDataFactory().getOWLObjectInverseOf(p);
+        OWLObjectPropertyExpression inv2 = getOWLDataFactory().getOWLObjectInverseOf(inv);
         OWLObjectPropertyExpression exp = inv2.getSimplified();
         assertEquals(p, exp);
     }
 
     public void testInverseInverseInverseSimplification() {
         OWLObjectProperty p = getOWLDataFactory().getOWLObjectProperty(IRI.create("p"));
-        OWLObjectPropertyExpression inv = getOWLDataFactory().getOWLObjectPropertyInverse(p);
-        OWLObjectPropertyExpression inv2 = getOWLDataFactory().getOWLObjectPropertyInverse(inv);
-        OWLObjectPropertyExpression inv3 = getOWLDataFactory().getOWLObjectPropertyInverse(inv2);
+        OWLObjectPropertyExpression inv = getOWLDataFactory().getOWLObjectInverseOf(p);
+        OWLObjectPropertyExpression inv2 = getOWLDataFactory().getOWLObjectInverseOf(inv);
+        OWLObjectPropertyExpression inv3 = getOWLDataFactory().getOWLObjectInverseOf(inv2);
         OWLObjectPropertyExpression exp = inv3.getSimplified();
         assertEquals(inv, exp);
     }

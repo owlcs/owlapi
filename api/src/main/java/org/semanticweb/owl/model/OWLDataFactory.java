@@ -151,7 +151,12 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLObjectProperty getOWLObjectProperty(IRI iri);
 
-    OWLObjectPropertyInverse getOWLObjectPropertyInverse(OWLObjectPropertyExpression property);
+    /**
+     * Gets the inverse of an object property.
+     * @param property The property of which the inverse will be returned
+     * @return The inverse of the specified object property
+     */
+    OWLObjectInverseOf getOWLObjectInverseOf(OWLObjectPropertyExpression property);
 
 
     /**

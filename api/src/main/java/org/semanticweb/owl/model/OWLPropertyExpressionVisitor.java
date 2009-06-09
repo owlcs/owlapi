@@ -33,7 +33,7 @@ public interface OWLPropertyExpressionVisitor {
 
     void visit(OWLObjectProperty property);
 
-    void visit(OWLObjectPropertyInverse property);
+    void visit(OWLObjectInverseOf property);
 
     void visit(OWLDataProperty property);
 }

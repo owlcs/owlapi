@@ -38,7 +38,7 @@ public interface OWLFunctionalSyntaxParserConstants {
   int OBJECTONEOF = 40;
   int OBJECTUNIONOF = 41;
   int OBJECTHASVALUE = 42;
-  int INVERSEOBJECTPROPERTY = 43;
+  int OBJECTINVERSEOF = 43;
   int INVERSEOBJECTPROPERTIES = 44;
   int DATACOMPLEMENTOF = 45;
   int DATATYPERESTRICTION = 46;
@@ -155,7 +155,7 @@ public interface OWLFunctionalSyntaxParserConstants {
     "\"ObjectOneOf\"",
     "\"ObjectUnionOf\"",
     "\"ObjectHasValue\"",
-    "\"InverseObjectProperty\"",
+    "\"ObjectInverseOf\"",
     "\"InverseObjectProperties\"",
     "\"DataComplementOf\"",
     "\"DatatypeRestriction\"",

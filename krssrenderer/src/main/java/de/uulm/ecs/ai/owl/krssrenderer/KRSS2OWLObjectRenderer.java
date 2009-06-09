@@ -581,7 +581,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         write(property.getURI());
     }
 
-    public final void visit(OWLObjectPropertyInverse property) {
+    public final void visit(OWLObjectInverseOf property) {
         writeOpenBracket();
         write(INVERSE);
         writeSpace();

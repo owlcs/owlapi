@@ -539,7 +539,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        OWLObjectPropertyExpression prop = df.getOWLObjectPropertyInverse(axiom.getProperty());
+        OWLObjectPropertyExpression prop = df.getOWLObjectInverseOf(axiom.getProperty());
         df.getOWLObjectMaxCardinality(prop, 1).accept(this);
     }
 
@@ -703,7 +703,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyInverse property) {
+    public void visit(OWLObjectInverseOf property) {
         property.getInverse().accept(this);
         write("\\ensuremath{^-}");
     }

@@ -48,8 +48,8 @@ public class OWLInverseObjectPropertyElementHandler extends AbstractOWLObjectPro
 
     protected void endObjectPropertyElement() throws OWLXMLParserException {
         if(inverse == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), OWLXMLVocabulary.INVERSE_OBJECT_PROPERTY.getShortName());
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), OWLXMLVocabulary.OBJECT_INVERSE_OF.getShortName());
         }
-        setOWLObjectPropertyExpression(getOWLDataFactory().getOWLObjectPropertyInverse(inverse));
+        setOWLObjectPropertyExpression(getOWLDataFactory().getOWLObjectInverseOf(inverse));
     }
 }

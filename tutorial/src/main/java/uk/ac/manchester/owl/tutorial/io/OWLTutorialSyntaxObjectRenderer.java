@@ -718,7 +718,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write("<span class='pr'>" + labelFor(property) + "</span>");
     }
 
-    public void visit(OWLObjectPropertyInverse property) {
+    public void visit(OWLObjectInverseOf property) {
         write("inv");
         writeOpenBracket();
         property.getInverse().accept(this);

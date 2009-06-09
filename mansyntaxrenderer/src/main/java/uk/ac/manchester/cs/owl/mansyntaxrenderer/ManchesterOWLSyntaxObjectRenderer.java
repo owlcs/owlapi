@@ -431,7 +431,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public void visit(OWLObjectPropertyInverse property) {
+    public void visit(OWLObjectInverseOf property) {
         write(INVERSE);
         write("(");
         property.getInverse().accept(this);

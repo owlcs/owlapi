@@ -33,12 +33,12 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLObjectPropertyInverseImpl extends OWLObjectPropertyExpressionImpl implements OWLObjectPropertyInverse {
+public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl implements OWLObjectInverseOf {
 
     private OWLObjectPropertyExpression inverseProperty;
 
 
-    public OWLObjectPropertyInverseImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression inverseProperty) {
+    public OWLObjectInverseOfImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression inverseProperty) {
         super(dataFactory);
         this.inverseProperty = inverseProperty;
     }
@@ -52,10 +52,10 @@ public class OWLObjectPropertyInverseImpl extends OWLObjectPropertyExpressionImp
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
-            if (!(obj instanceof OWLObjectPropertyInverse)) {
+            if (!(obj instanceof OWLObjectInverseOf)) {
                 return false;
             }
-            return ((OWLObjectPropertyInverse) obj).getInverse().equals(inverseProperty);
+            return ((OWLObjectInverseOf) obj).getInverse().equals(inverseProperty);
         }
         return false;
     }
@@ -95,7 +95,7 @@ public class OWLObjectPropertyInverseImpl extends OWLObjectPropertyExpressionImp
 
 
     protected int compareObjectOfSameType(OWLObject object) {
-        return inverseProperty.compareTo(((OWLObjectPropertyInverse) object).getInverse());
+        return inverseProperty.compareTo(((OWLObjectInverseOf) object).getInverse());
     }
 
     /**

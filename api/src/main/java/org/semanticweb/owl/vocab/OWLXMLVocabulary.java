@@ -69,7 +69,7 @@ public enum OWLXMLVocabulary {
 
     LITERAL("Literal"),
 
-    INVERSE_OBJECT_PROPERTY("InverseObjectProperty"),
+    OBJECT_INVERSE_OF("ObjectInverseOf"),
 
     DATA_COMPLEMENT_OF("DataComplementOf"),
 

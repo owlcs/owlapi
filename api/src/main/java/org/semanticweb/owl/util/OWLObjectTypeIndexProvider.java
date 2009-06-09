@@ -90,7 +90,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyInverse property) {
+    public void visit(OWLObjectInverseOf property) {
         type = OBJECT_PROPERTY_INVERSE;
     }
 

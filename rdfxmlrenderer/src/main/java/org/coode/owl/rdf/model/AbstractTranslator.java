@@ -61,7 +61,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(OWLObjectPropertyInverse property) {
+    public void visit(OWLObjectInverseOf property) {
         translateAnonymousNode(property);
         addTriple(property, OWL_INVERSE_OF.getURI(), property.getInverse());
     }

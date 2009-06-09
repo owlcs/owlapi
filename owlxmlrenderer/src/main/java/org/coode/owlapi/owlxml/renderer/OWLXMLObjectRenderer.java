@@ -597,8 +597,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyInverse property) {
-        writer.writeStartElement(INVERSE_OBJECT_PROPERTY);
+    public void visit(OWLObjectInverseOf property) {
+        writer.writeStartElement(OBJECT_INVERSE_OF);
         property.getInverse().accept(this);
         writer.writeEndElement();
     }

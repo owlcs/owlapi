@@ -331,7 +331,7 @@ TOKEN:
 
 TOKEN:
 {
-    <INVERSEOBJECTPROPERTY: "InverseObjectProperty">
+    <OBJECTINVERSEOF: "ObjectInverseOf">
 }
 
 TOKEN:
@@ -1125,7 +1125,7 @@ OWLObjectPropertyExpression ObjectPropertyExpression()  :
     OWLObjectPropertyExpression prop;
 }
 {
-    prop=InverseObjectProperty(){return prop;} | prop=ObjectPropertyURI(){return prop;}
+    (prop=InverseObjectProperty() | prop=ObjectPropertyURI()){return prop;}
 }
 
 OWLObjectPropertyExpression InverseObjectProperty()  :
@@ -1133,8 +1133,8 @@ OWLObjectPropertyExpression InverseObjectProperty()  :
     OWLObjectPropertyExpression prop;
 }
 {
-    <INVERSEOBJECTPROPERTY><OPENPAR>prop=ObjectPropertyExpression()<CLOSEPAR> {
-        return prop;
+    <OBJECTINVERSEOF><OPENPAR>prop=ObjectPropertyExpression()<CLOSEPAR> {
+        return dataFactory.getOWLObjectInverseOf(prop);
     }
 }
 

@@ -852,8 +852,8 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLObjectPropertyInverse property) {
-        write(INVERSE_OBJECT_PROPERTY);
+    public void visit(OWLObjectInverseOf property) {
+        write(OBJECT_INVERSE_OF);
         writeOpenBracket();
         property.getInverse().accept(this);
         writeCloseBracket();

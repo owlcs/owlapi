@@ -563,7 +563,7 @@ public class ManchesterOWLSyntaxEditorParser {
             if (!close.equals(")")) {
                 throwException(")");
             }
-            return dataFactory.getOWLObjectPropertyInverse(prop);
+            return dataFactory.getOWLObjectInverseOf(prop);
         }
         else {
             if (!allowUndeclared && !isObjectPropertyName(tok)) {

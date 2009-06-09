@@ -300,7 +300,7 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
         return defaultReturnValue;
     }
 
-    public O visit(OWLObjectPropertyInverse property) {
+    public O visit(OWLObjectInverseOf property) {
         return defaultReturnValue;
     }
 

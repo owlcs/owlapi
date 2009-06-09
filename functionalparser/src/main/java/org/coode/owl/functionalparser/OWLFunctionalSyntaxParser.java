@@ -590,24 +590,23 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     OWLObjectPropertyExpression prop;
     if (jj_2_36(2)) {
       prop = InverseObjectProperty();
-                                 {if (true) return prop;}
     } else if (jj_2_37(2)) {
       prop = ObjectPropertyURI();
-                                                                          {if (true) return prop;}
     } else {
       jj_consume_token(-1);
       throw new ParseException();
     }
+                                                              {if (true) return prop;}
     throw new Error("Missing return statement in function");
   }
 
   final public OWLObjectPropertyExpression InverseObjectProperty() throws ParseException {
     OWLObjectPropertyExpression prop;
-    jj_consume_token(INVERSEOBJECTPROPERTY);
+    jj_consume_token(OBJECTINVERSEOF);
     jj_consume_token(OPENPAR);
     prop = ObjectPropertyExpression();
     jj_consume_token(CLOSEPAR);
-        {if (true) return prop;}
+        {if (true) return dataFactory.getOWLObjectInverseOf(prop);}
     throw new Error("Missing return statement in function");
   }
 
@@ -2703,7 +2702,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   final private boolean jj_3R_46() {
-    if (jj_scan_token(INVERSEOBJECTPROPERTY)) return true;
+    if (jj_scan_token(OBJECTINVERSEOF)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
@@ -2733,6 +2732,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
+  final private boolean jj_3_36() {
+    if (jj_3R_46()) return true;
+    return false;
+  }
+
   final private boolean jj_3R_81() {
     Token xsp;
     xsp = jj_scanpos;
@@ -2740,11 +2744,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_scanpos = xsp;
     if (jj_3_37()) return true;
     }
-    return false;
-  }
-
-  final private boolean jj_3_36() {
-    if (jj_3R_46()) return true;
     return false;
   }
 
@@ -3898,11 +3897,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  final private boolean jj_3_37() {
-    if (jj_3R_47()) return true;
-    return false;
-  }
-
   final private boolean jj_3_101() {
     if (jj_3R_19()) return true;
     return false;
@@ -3936,6 +3930,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final private boolean jj_3_99() {
     if (jj_3R_19()) return true;
+    return false;
+  }
+
+  final private boolean jj_3_37() {
+    if (jj_3R_47()) return true;
     return false;
   }
 

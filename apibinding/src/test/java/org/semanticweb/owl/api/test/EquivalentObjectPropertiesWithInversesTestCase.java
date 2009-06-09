@@ -1,6 +1,12 @@
-package org.semanticweb.owl.model;
+package org.semanticweb.owl.api.test;
+
+import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owl.model.OWLObjectProperty;
+
+import java.util.Set;
+import java.util.HashSet;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -22,18 +28,21 @@ package org.semanticweb.owl.model;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 09-Jun-2009
  */
-public interface OWLPropertyExpressionVisitorEx<O> {
+public class EquivalentObjectPropertiesWithInversesTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    O visit(OWLObjectProperty property);
-
-    O visit(OWLObjectInverseOf property);
-
-    O visit(OWLDataProperty property);
+    protected Set<? extends OWLAxiom> createAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLObjectProperty propA = getOWLObjectProperty("propA");
+        OWLObjectProperty propB = getOWLObjectProperty("propB");
+        axioms.add(getFactory().getOWLInverseObjectPropertiesAxiom(propA.getInverseProperty(), propB.getInverseProperty()));
+        axioms.add(getFactory().getOWLDeclarationAxiom(propA));
+        axioms.add(getFactory().getOWLDeclarationAxiom(propB));
+        return axioms;
+    }
 }
