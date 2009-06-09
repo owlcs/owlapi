@@ -696,6 +696,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return result;
     }
 
+    public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype) {
+        return getDatatypeDefinitions(datatype);
+    }
 
     public Set<OWLNamedObject> getReferencedObjects() {
         Set<OWLNamedObject> result = new HashSet<OWLNamedObject>();

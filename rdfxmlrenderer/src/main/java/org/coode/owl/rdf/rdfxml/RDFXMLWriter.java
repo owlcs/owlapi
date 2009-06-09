@@ -104,21 +104,17 @@ public class RDFXMLWriter {
     }
 
     public void writeAboutAttribute(URI value) {
-            writeAttribute(Namespaces.RDF + "about", value.toString());
+            writeAttribute(Namespaces.RDF + "about", value);
     }
 
     public void writeNodeIDAttribute(RDFResourceNode node) {
-        writeAttribute(Namespaces.RDF + "nodeID", node.toString());
+        writeAttribute(Namespaces.RDF + "nodeID", URI.create(node.toString()));
     }
 
-    private void writeAttribute(String attributeName, String value) {
+    private void writeAttribute(String attributeName, URI value) {
         try {
-            if(value.startsWith(writer.getXMLBase())) {
-                    writer.writeAttribute(attributeName, value.substring(writer.getXMLBase().length(), value.length()));
-                }
-                else {
-                    writer.writeAttribute(attributeName, value);
-                }
+            URI s = writer.getXMLBaseAsURI().relativize(value);
+            writer.writeAttribute(attributeName, s.toString());
         }
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -131,7 +127,7 @@ public class RDFXMLWriter {
 
 
     public void writeResourceAttribute(URI value) {
-        writeAttribute(Namespaces.RDF + "resource", value.toString());
+        writeAttribute(Namespaces.RDF + "resource", value);
     }
 
 

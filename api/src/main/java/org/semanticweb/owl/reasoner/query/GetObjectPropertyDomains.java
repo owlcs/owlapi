@@ -37,7 +37,7 @@ import java.util.Set;
  * Information Management Group<br>
  * Date: 04-Jun-2009
  */
-public class GetObjectPropertyDomains implements CompoundQuery<Set<HierarchyNode<OWLClass>>> {
+public class GetObjectPropertyDomains implements DerivableQuery<Set<HierarchyNode<OWLClass>>> {
 
     private OWLObjectPropertyExpression property;
 

@@ -36,7 +36,7 @@ import org.semanticweb.owl.reasoner.OWLReasoner;
  * Represents a (complex) query that is answered using a custom answering procedure.
  * </p>
  */
-public interface CompoundQuery<R> extends Query<R> {
+public interface DerivableQuery<R> extends Query<R> {
 
     /**
      * This method will be called by an OWLReasoner and in general should not be called directly since the reasoner

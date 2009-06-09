@@ -298,6 +298,8 @@ public enum OWLRDFVocabulary {
 
     URI uri;
 
+    IRI iri;
+
     Namespaces namespace;
 
     String shortName;
@@ -307,12 +309,16 @@ public enum OWLRDFVocabulary {
         this.namespace = namespace;
         this.shortName = shortName;
         this.uri = URI.create(namespace.toString() + shortName);
+        this.iri = IRI.create(namespace.toString() + shortName);
     }
 
     public URI getURI() {
         return uri;
     }
 
+    public IRI getIRI() {
+        return iri;
+    }
 
     public Namespaces getNamespace() {
         return namespace;

@@ -36,7 +36,7 @@ import java.util.HashSet;
  * Information Management Group<br>
  * Date: 04-Jun-2009
  */
-public class GetUnsatisfiableClasses implements CompoundQuery<Set<OWLClass>> {
+public class GetUnsatisfiableClasses implements DerivableQuery<Set<OWLClass>> {
 
     private GetSubClasses internalQuery;
 

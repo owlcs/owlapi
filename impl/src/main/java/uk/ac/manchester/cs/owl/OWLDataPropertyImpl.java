@@ -243,6 +243,38 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
         return false;
     }
 
+    /**
+     * Determines if this is the owl:topObjectProperty
+     * @return <code>true</code> if this property is the owl:topObjectProperty otherwise <code>false</code>
+     */
+    public boolean isOWLTopObjectProperty() {
+        return false;
+    }
+
+    /**
+     * Determines if this is the owl:bottomObjectProperty
+     * @return <code>true</code> if this property is the owl:bottomObjectProperty otherwise <code>false</code>
+     */
+    public boolean isOWLBottomObjectProperty() {
+        return false;
+    }
+
+    /**
+     * Determines if this is the owl:topDataProperty
+     * @return <code>true</code> if this property is the owl:topDataProperty otherwise <code>false</code>
+     */
+    public boolean isOWLTopDataProperty() {
+        return getIRI().equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI());
+    }
+
+    /**
+     * Determines if this is the owl:bottomDataProperty
+     * @return <code>true</code> if this property is the owl:bottomDataProperty otherwise <code>false</code>
+     */
+    public boolean isOWLBottomDataProperty() {
+        return getIRI().equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+    }
+
     public OWLAnnotationProperty asOWLAnnotationProperty() {
         throw new OWLRuntimeException("Not an annotation property");
     }

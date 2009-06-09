@@ -28,6 +28,7 @@ import org.coode.string.EscapeUtils;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
+import java.net.URI;
 
 /**
  * Author: Matthew Horridge<br>
@@ -52,6 +53,8 @@ public class XMLWriterImpl implements XMLWriter {
 
     private String xmlBase;
 
+    private URI xmlBaseURI;
+
     private XMLWriterNamespaceManager xmlWriterNamespaceManager;
 
     private Map<String, String> entities;
@@ -72,6 +75,7 @@ public class XMLWriterImpl implements XMLWriter {
         this.writer = writer;
         this.xmlWriterNamespaceManager = xmlWriterNamespaceManager;
         this.xmlBase = xmlBase;
+        this.xmlBaseURI = URI.create(xmlBase);
         this.encoding = "";
         elementStack = new Stack<XMLElement>();
         setupEntities();
@@ -128,6 +132,9 @@ public class XMLWriterImpl implements XMLWriter {
         return xmlBase;
     }
 
+    public URI getXMLBaseAsURI() {
+        return xmlBaseURI;
+    }
 
     public XMLWriterNamespaceManager getNamespacePrefixes() {
         return xmlWriterNamespaceManager;

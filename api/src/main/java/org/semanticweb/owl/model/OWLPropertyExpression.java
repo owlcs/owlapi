@@ -30,7 +30,6 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- * <p/>
  * Represents a property or possibly the inverse of a property.
  */
 public interface OWLPropertyExpression<P extends OWLPropertyExpression, R extends OWLPropertyRange> extends OWLObject {
@@ -179,4 +178,29 @@ public interface OWLPropertyExpression<P extends OWLPropertyExpression, R extend
     boolean isDataPropertyExpression();
 
     boolean isObjectPropertyExpression();
+
+    /**
+     * Determines if this is the owl:topObjectProperty
+     * @return <code>true</code> if this property is the owl:topObjectProperty otherwise <code>false</code>
+     */
+    boolean isOWLTopObjectProperty();
+
+    /**
+     * Determines if this is the owl:bottomObjectProperty
+     * @return <code>true</code> if this property is the owl:bottomObjectProperty otherwise <code>false</code>
+     */
+    boolean isOWLBottomObjectProperty();
+
+    /**
+     * Determines if this is the owl:topDataProperty
+     * @return <code>true</code> if this property is the owl:topDataProperty otherwise <code>false</code>
+     */
+    boolean isOWLTopDataProperty();
+
+
+    /**
+     * Determines if this is the owl:bottomDataProperty
+     * @return <code>true</code> if this property is the owl:bottomDataProperty otherwise <code>false</code>
+     */
+    boolean isOWLBottomDataProperty();
 }

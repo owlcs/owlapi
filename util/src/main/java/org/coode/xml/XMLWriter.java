@@ -24,6 +24,7 @@ package org.coode.xml;
  */
 
 import java.io.IOException;
+import java.net.URI;
 
 /**
  * User: matthewhorridge<br>
@@ -60,6 +61,8 @@ public interface XMLWriter {
 
 
     public String getXMLBase();
+
+    public URI getXMLBaseAsURI();
 
 
     /**

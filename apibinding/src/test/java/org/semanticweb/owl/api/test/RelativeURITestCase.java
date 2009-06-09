@@ -1,10 +1,12 @@
-package org.semanticweb.owl.reasoner.query;
+package org.semanticweb.owl.api.test;
 
+import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLObjectIntersectionOf;
-import org.semanticweb.owl.reasoner.OWLReasoner;
-import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
+import org.semanticweb.owl.model.OWLOntology;
+
+import java.util.Set;
+import java.util.HashSet;
+import java.net.URI;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -32,18 +34,16 @@ import org.semanticweb.owl.reasoner.UnsupportedQueryTypeException;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 04-Jun-2009
+ * Date: 08-Jun-2009
  */
-public class IsSubClassOf implements DerivableQuery<Boolean> {
+public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    private IsSatisfiable internalQuery;
+    protected Set<? extends OWLAxiom> createAxioms() {
+        OWLOntology ont = getOWLOntology("Ont");
+        OWLClass cls = getFactory().getOWLClass(URI.create(ont.getOntologyID().getOntologyIRI() + "/Office"));
+        Set<OWLAxiom> axs = new HashSet<OWLAxiom>();
+        axs.add(getFactory().getOWLDeclarationAxiom(cls));
+        return axs;
 
-    public IsSubClassOf(OWLClass clsA, OWLClass clsB, OWLDataFactory dataFactory) {
-        OWLObjectIntersectionOf satTestCls = dataFactory.getOWLObjectIntersectionOf(clsA, dataFactory.getOWLObjectComplementOf(clsB));
-        this.internalQuery = new IsSatisfiable(satTestCls);
-    }
-
-    public Boolean execute(OWLReasoner reasoner) throws UnsupportedQueryTypeException, InterruptedException {
-        return reasoner.answerQuery(internalQuery);
     }
 }

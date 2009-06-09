@@ -440,7 +440,21 @@ public interface OWLOntology extends OWLObject {
      */
     Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual);
 
+    /**
+     * Gets the axioms that form the definition/description of an annotation property.
+     * @param property The property whose definition axioms are to be retrieved
+     * @return A set of axioms that includes <ul><li>Annotation subpropertyOf axioms where the specified property is
+     * the sub property</li><li>Annotation property domain axioms that specify a domain for the specified property</li>
+     * <li>Annotation property range axioms that specify a range for the specified property</li></ul>
+     */
     Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property);
+
+    /**
+     * Gets the datatype definition axioms for the specified datatype
+     * @param datatype The datatype
+     * @return The set of datatype definition axioms for the specified datatype
+     */
+    Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype);
     
 
 

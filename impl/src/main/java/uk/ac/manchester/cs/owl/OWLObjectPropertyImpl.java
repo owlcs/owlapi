@@ -201,4 +201,35 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
         return getURI().compareTo(((OWLObjectProperty) object).getURI());
     }
 
+    /**
+     * Determines if this is the owl:topObjectProperty
+     * @return <code>true</code> if this property is the owl:topObjectProperty otherwise <code>false</code>
+     */
+    public boolean isOWLTopObjectProperty() {
+        return getIRI().equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI());
+    }
+
+    /**
+     * Determines if this is the owl:bottomObjectProperty
+     * @return <code>true</code> if this property is the owl:bottomObjectProperty otherwise <code>false</code>
+     */
+    public boolean isOWLBottomObjectProperty() {
+        return getIRI().equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
+    }
+
+    /**
+     * Determines if this is the owl:topDataProperty
+     * @return <code>true</code> if this property is the owl:topDataProperty otherwise <code>false</code>
+     */
+    public boolean isOWLTopDataProperty() {
+        return false;
+    }
+
+    /**
+     * Determines if this is the owl:bottomDataProperty
+     * @return <code>true</code> if this property is the owl:bottomDataProperty otherwise <code>false</code>
+     */
+    public boolean isOWLBottomDataProperty() {
+        return false;
+    }
 }
