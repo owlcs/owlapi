@@ -1447,8 +1447,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(OPENPAR);
     axiomAnnos = AxiomAnnotationSet();
     prop = ObjectPropertyExpression();
-    subj = IndividualURI();
-    obj = IndividualURI();
+    subj = Individual();
+    obj = Individual();
     jj_consume_token(CLOSEPAR);
         {if (true) return dataFactory.getOWLObjectPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);}
     throw new Error("Missing return statement in function");
@@ -1463,8 +1463,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(OPENPAR);
     axiomAnnos = AxiomAnnotationSet();
     prop = ObjectPropertyExpression();
-    subj = IndividualURI();
-    obj = IndividualURI();
+    subj = Individual();
+    obj = Individual();
     jj_consume_token(CLOSEPAR);
         {if (true) return dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);}
     throw new Error("Missing return statement in function");
@@ -1479,7 +1479,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(OPENPAR);
     axiomAnnos = AxiomAnnotationSet();
     prop = DataPropertyExpression();
-    subj = IndividualURI();
+    subj = Individual();
     obj = Literal();
     jj_consume_token(CLOSEPAR);
         {if (true) return dataFactory.getOWLDataPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);}
@@ -1495,7 +1495,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(OPENPAR);
     axiomAnnos = AxiomAnnotationSet();
     prop = DataPropertyExpression();
-    subj = IndividualURI();
+    subj = Individual();
     obj = Literal();
     jj_consume_token(CLOSEPAR);
         {if (true) return dataFactory.getOWLNegativeDataPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);}

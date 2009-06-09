@@ -1814,7 +1814,7 @@ OWLIndividualAxiom ObjectPropertyAssertion() :
     Set<OWLAnnotation> axiomAnnos;
 }
 {
-    <OBJECTPROPERTYASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet()prop=ObjectPropertyExpression() subj=IndividualURI() obj=IndividualURI()<CLOSEPAR> {
+    <OBJECTPROPERTYASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet()prop=ObjectPropertyExpression() subj=Individual() obj=Individual()<CLOSEPAR> {
         return dataFactory.getOWLObjectPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);
     }
 }
@@ -1827,7 +1827,7 @@ OWLIndividualAxiom NegativeObjectPropertyAssertion() :
     Set<OWLAnnotation> axiomAnnos;
 }
 {
-    <NEGATIVEOBJECTPROPERTYASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet()prop=ObjectPropertyExpression() subj=IndividualURI() obj=IndividualURI()<CLOSEPAR> {
+    <NEGATIVEOBJECTPROPERTYASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet()prop=ObjectPropertyExpression() subj=Individual() obj=Individual()<CLOSEPAR> {
         return dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);
     }
 }
@@ -1840,7 +1840,7 @@ OWLIndividualAxiom DataPropertyAssertion() :
     Set<OWLAnnotation> axiomAnnos;
 }
 {
-    <DATAPROPERTYASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet()prop=DataPropertyExpression() subj=IndividualURI() obj=Literal()<CLOSEPAR> {
+    <DATAPROPERTYASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet()prop=DataPropertyExpression() subj=Individual() obj=Literal()<CLOSEPAR> {
         return dataFactory.getOWLDataPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);
     }
 }
@@ -1853,7 +1853,7 @@ OWLIndividualAxiom NegativeDataPropertyAssertion() :
     Set<OWLAnnotation> axiomAnnos;
 }
 {
-    <NEGATIVEDATAPROPERTYASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet()prop=DataPropertyExpression() subj=IndividualURI() obj=Literal()<CLOSEPAR> {
+    <NEGATIVEDATAPROPERTYASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet()prop=DataPropertyExpression() subj=Individual() obj=Literal()<CLOSEPAR> {
         return dataFactory.getOWLNegativeDataPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);
     }
 }

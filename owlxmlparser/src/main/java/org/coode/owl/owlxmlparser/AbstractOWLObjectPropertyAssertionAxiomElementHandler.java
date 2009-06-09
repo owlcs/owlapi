@@ -39,6 +39,17 @@ public abstract class AbstractOWLObjectPropertyAssertionAxiomElementHandler exte
         super(handler);
     }
 
+    public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException {
+        if (getSubject() == null) {
+            setSubject(handler.getOWLObject());
+        }
+        else if (getObject() == null) {
+            setObject(handler.getOWLObject());
+        }
+        else {
+            throw new OWLXMLParserException(getLineNumber(), "Only two individual elements expected");
+        }
+    }
 
     public void handleChild(OWLIndividualElementHandler handler) throws OWLXMLParserException {
         if (getSubject() == null) {

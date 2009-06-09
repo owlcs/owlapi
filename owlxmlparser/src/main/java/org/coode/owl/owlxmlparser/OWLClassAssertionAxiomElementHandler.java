@@ -53,6 +53,9 @@ public class OWLClassAssertionAxiomElementHandler extends AbstractOWLAxiomElemen
         individual = handler.getOWLObject();
     }
 
+    public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException {
+        individual = handler.getOWLObject();
+    }
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
         if (individual == null) {

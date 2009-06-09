@@ -38,6 +38,9 @@ public abstract class AbstractOWLDataPropertyAssertionAxiomElementHandler extend
         super(handler);
     }
 
+    public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException {
+        setSubject(handler.getOWLObject());
+    }
 
     public void handleChild(OWLIndividualElementHandler handler) {
         setSubject(handler.getOWLObject());
