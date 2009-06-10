@@ -1,9 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLLiteral;
-import org.semanticweb.owl.model.OWLAnnotation;
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -38,27 +35,45 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br><br>
  */
-public class TypeNegativeDataPropertyAssertionHandler extends TypeAxiomHandler {
+public class TypeNegativeDataPropertyAssertionHandler extends BuiltInTypeHandler {
 
     public TypeNegativeDataPropertyAssertionHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getURI());
     }
 
-
-    protected OWLAxiom handleAxiomTriples(URI subjectTripleObject,
-                                          URI predicateTripleObject,
-                                          OWLLiteral objectTripleObject, Set<OWLAnnotation> annotationSet) throws
-            OWLException {
-        return getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(
-                translateIndividual(subjectTripleObject),
-                translateDataProperty(predicateTripleObject),
-                objectTripleObject
-        );
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+        return false;
     }
 
+    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+        URI source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SOURCE_INDIVIDUAL.getURI(), true);
+        if (source == null) {
+            source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SUBJECT.getURI(), true);
+        }
+        if (source == null) {
+            source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_SUBJECT.getURI(), true);
+        }
 
-    protected OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject,
-                                          URI objectTripleObject, Set<OWLAnnotation> annotationSet) throws OWLException {
-        throw new OWLRDFXMLParserMalformedNodeException("Encountered a resource as the object triple of a negative data property assertion.  Expected a literal");
+        URI property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_ASSERTION_PROPERTY.getURI(), true);
+        if (property == null) {
+            property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PREDICATE.getURI(), true);
+        }
+        if (property == null) {
+            property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_PREDICATE.getURI(), true);
+        }
+        OWLLiteral target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_TARGET_VALUE.getURI(), true);
+        if (target == null) {
+            target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_OBJECT.getURI(), true);
+        }
+        if (target == null) {
+            target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
+        }
+        OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
+        OWLDataPropertyExpression prop = getConsumer().translateDataPropertyExpression(property);
+        consumeTriple(subject, predicate, object);
+        getConsumer().translateAnnotations(subject);
+        Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
+        addAxiom(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(sourceInd, prop, target, annos));
+
     }
 }
