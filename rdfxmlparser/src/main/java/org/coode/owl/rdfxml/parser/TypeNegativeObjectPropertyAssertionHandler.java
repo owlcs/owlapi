@@ -1,6 +1,9 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.OWLAnnotation;
+import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.OWLIndividual;
+import org.semanticweb.owl.model.OWLObjectPropertyExpression;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -47,8 +50,27 @@ public class TypeNegativeObjectPropertyAssertionHandler extends BuiltInTypeHandl
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         URI source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SOURCE_INDIVIDUAL.getURI(), true);
+        if (source == null) {
+            source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SUBJECT.getURI(), true);
+        }
+        if (source == null) {
+            source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_SUBJECT.getURI(), true);
+        }
+
         URI property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_ASSERTION_PROPERTY.getURI(), true);
+        if (property == null) {
+            property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PREDICATE.getURI(), true);
+        }
+        if (property == null) {
+            property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_PREDICATE.getURI(), true);
+        }
         URI target = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_TARGET_INDIVIDUAL.getURI(), true);
+        if (target == null) {
+            target = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_OBJECT.getURI(), true);
+        }
+        if (target == null) {
+            target = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
+        }
         OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
         OWLObjectPropertyExpression prop = getConsumer().translateObjectPropertyExpression(property);
         OWLIndividual targetInd = getConsumer().getOWLIndividual(target);
