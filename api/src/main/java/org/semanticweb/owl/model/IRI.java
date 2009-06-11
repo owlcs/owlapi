@@ -4,11 +4,10 @@ import org.semanticweb.owl.vocab.Namespaces;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
-import java.net.URL;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Collections;
-import java.util.Set;
-import java.io.File;/*
+import java.util.Set;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -34,7 +33,6 @@ import java.io.File;/*
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 14-Jan-2009
- * <p/>
  * Represents International Resource Identifiers
  */
 public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
@@ -42,7 +40,6 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
     /**
      * Obtains this IRI as a URI.  Note that Java URIs handle unicode characters,
      * so there is no loss during this translation.
-     *
      * @return The URI
      */
     public abstract URI toURI();
@@ -52,7 +49,6 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
      * Determines if this IRI is in the reserved vocabulary.  An IRI is in the reserved vocabulary if it starts with
      * <http://www.w3.org/1999/02/22-rdf-syntax-ns#> or <http://www.w3.org/2000/01/rdf-schema#>
      * or <http://www.w3.org/2001/XMLSchema#> or <http://www.w3.org/2002/07/owl#>
-     *
      * @return <code>true</code> if the IRI is in the reserved vocabulary, otherwise <code>false</code>.
      */
     public abstract boolean isReservedVocabulary();
@@ -66,7 +62,6 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
 
     /**
      * Obtained this IRI surrounded by angled brackets
-     *
      * @return This IRI surrounded by &lt; and &gt;
      */
     public abstract String toQuotedString();
@@ -77,17 +72,23 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
      * @return The IRI that has the specified string representation.
      */
     public static IRI create(String str) {
+        if (str == null) {
+            throw new NullPointerException("String must not be null");
+        }
         return new IRIImpl(URI.create(str));
     }
 
     public static IRI create(URI uri) {
         if (uri == null) {
-            throw new IllegalArgumentException("URI must not be null");
+            throw new NullPointerException("URI must not be null");
         }
         return new IRIImpl(uri);
     }
 
     public static IRI create(URL url) throws URISyntaxException {
+        if (url == null) {
+            throw new NullPointerException("URL must not be null");
+        }
         return new IRIImpl(url.toURI());
     }
 
@@ -97,9 +98,6 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
         private URI uri;
 
         public IRIImpl(URI uri) {
-            if (uri == null) {
-                throw new IllegalArgumentException("URI must not be null");
-            }
             this.uri = uri;
         }
 
@@ -117,10 +115,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
         }
 
         public boolean isReservedVocabulary() {
-            return uri.toString().startsWith(Namespaces.OWL.toString()) ||
-                    uri.toString().startsWith(Namespaces.RDF.toString()) ||
-                    uri.toString().startsWith(Namespaces.RDFS.toString()) ||
-                    uri.toString().startsWith(Namespaces.XML.toString());
+            return uri.toString().startsWith(Namespaces.OWL.toString()) || uri.toString().startsWith(Namespaces.RDF.toString()) || uri.toString().startsWith(Namespaces.RDFS.toString()) || uri.toString().startsWith(Namespaces.XML.toString());
         }
 
         public boolean isThing() {
