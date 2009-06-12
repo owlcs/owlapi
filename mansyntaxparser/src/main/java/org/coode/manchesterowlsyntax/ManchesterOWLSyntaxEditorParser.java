@@ -2646,34 +2646,44 @@ public class ManchesterOWLSyntaxEditorParser {
 
     public void parseOntology(OWLOntologyManager manager, OWLOntology ont) throws ParserException, OWLOntologyCreationException, OWLOntologyChangeException {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
+        OWLOntologyID ontologyID = new OWLOntologyID();
         Set<AddImport> imports = new HashSet<AddImport>();
+        Set<AddOntologyAnnotation> ontologyAnnotations = new HashSet<AddOntologyAnnotation>();
         this.defaultOntology = ont;
-        IRI ontologyIRI = null;
-        IRI versionIRI = null;
         processDeclaredEntities();
         while (true) {
             String section = peekToken();
-            if (ontologyIRI == null && section.equals(ONTOLOGY)) {
-                // Consume ontology header token
-                consumeToken();
-                String next = peekToken();
-                if(next.startsWith("<")) {
-                    ontologyIRI = parseIRI();
-                    setBase(ontologyIRI + "#");
-                    if (pm.getDefaultPrefix() == null) {
-                        // Should we even do this?
-                        pm.setDefaultPrefix(ontologyIRI + "#");
-                    }
-                    String possVersionIRI = peekToken();
-                    if(possVersionIRI.startsWith("<")) {
-                        versionIRI = parseIRI();
-                    }
+            if (section.equals(ONTOLOGY)) {
+                ManchesterOWLSyntaxOntologyHeader header = parseOntologyHeader(false);
+                for(OWLImportsDeclaration decl : header.getImportsDeclarations()) {
+                    manager.makeLoadImportRequest(decl);
+                    imports.add(new AddImport(ont, decl));
                 }
+                for(OWLAnnotation anno : header.getAnnotations()) {
+                    ontologyAnnotations.add(new AddOntologyAnnotation(ont, anno));
+                }
+                ontologyID = header.getOntologyID();
 
-                // Annotations?
-                while (peekToken().equals(ANNOTATIONS)) {
-                    axioms.addAll(parseAnnotations(ontologyIRI));
-                }
+//                // Consume ontology header token
+//                consumeToken();
+//                String next = peekToken();
+//                if(next.startsWith("<")) {
+//                    ontologyIRI = parseIRI();
+//                    setBase(ontologyIRI + "#");
+//                    if (pm.getDefaultPrefix() == null) {
+//                        // Should we even do this?
+//                        pm.setDefaultPrefix(ontologyIRI + "#");
+//                    }
+//                    String possVersionIRI = peekToken();
+//                    if(possVersionIRI.startsWith("<")) {
+//                        versionIRI = parseIRI();
+//                    }
+//                }
+//
+//                // Annotations?
+//                while (peekToken().equals(ANNOTATIONS)) {
+//                    axioms.addAll(parseAnnotations(ontologyIRI));
+//                }
             }
             else if (section.equalsIgnoreCase(CLASS)) {
                 axioms.addAll(parseClassFrame());
@@ -2732,23 +2742,17 @@ public class ManchesterOWLSyntaxEditorParser {
         }
 
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>(axioms.size());
+        changes.addAll(imports);
+        changes.addAll(ontologyAnnotations);
         for (OntologyAxiomPair pair : axioms) {
             changes.add(new AddAxiom(ont, pair.getAxiom()));
-        }
-
-        OWLOntologyID ontologyID = null;
-        if(ontologyIRI != null) {
-            ontologyID = new OWLOntologyID();
-        }
-        else {
-            new OWLOntologyID(ontologyIRI, versionIRI);
         }
         changes.add(new SetOntologyID(ont, ontologyID));
         manager.applyChanges(changes);
     }
 
 
-    public ManchesterOWLSyntaxOntologyHeader parseOntologyHeader() throws ParserException {
+    public ManchesterOWLSyntaxOntologyHeader parseOntologyHeader(boolean toEOF) throws ParserException {
         String tok = consumeToken();
         if (!tok.equalsIgnoreCase(ONTOLOGY)) {
             throwException(ONTOLOGY);
@@ -2763,11 +2767,6 @@ public class ManchesterOWLSyntaxEditorParser {
         }
         Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
         Set<OWLImportsDeclaration> imports = new HashSet<OWLImportsDeclaration>();
-        tok = peekToken();
-        if (!tok.equalsIgnoreCase(ManchesterOWLSyntaxTokenizer.EOF) && !tok.equals("<") && !tok.equals(IMPORT) && !tok.equals(ANNOTATIONS)) {
-            throwException("<$URI$>", IMPORT, ANNOTATIONS, ManchesterOWLSyntaxTokenizer.EOF);
-        }
-
         while (true) {
             String section = peekToken();
             if (section.equals(IMPORT)) {
@@ -2797,8 +2796,11 @@ public class ManchesterOWLSyntaxEditorParser {
             else if (section.equalsIgnoreCase(ManchesterOWLSyntaxTokenizer.EOF)) {
                 break;
             }
-            else {
+            else if(toEOF) {
                 throwException(IMPORT, ANNOTATIONS);
+            }
+            else {
+                break;
             }
         }
         return new ManchesterOWLSyntaxOntologyHeader(ontologyIRI, versionIRI, annotations, imports);
