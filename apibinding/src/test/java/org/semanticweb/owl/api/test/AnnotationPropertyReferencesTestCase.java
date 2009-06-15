@@ -59,5 +59,15 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
         assertTrue(ont.getReferencedAnnotationProperties().contains(anno.getProperty()));
     }
 
+    public void testContainsReferenceForOntologyAnnotation() throws Exception {
+        OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
+        OWLLiteral val = getFactory().getOWLStringLiteral("Test", null);
+        OWLAnnotation anno = getFactory().getOWLAnnotation(ap, val);
+        OWLOntology ont = getOWLOntology("Ont");
+        getManager().applyChange(new AddOntologyAnnotation(ont, anno));
+        assertTrue(ont.containsAnnotationPropertyReference(anno.getProperty().getURI()));
+        assertTrue(ont.getReferencedAnnotationProperties().contains(anno.getProperty()));
+    }
+
 
 }

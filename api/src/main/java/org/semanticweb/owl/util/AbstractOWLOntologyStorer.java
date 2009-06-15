@@ -43,24 +43,47 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     public void storeOntology(OWLOntologyManager manager, OWLOntology ontology, URI physicalURI, OWLOntologyFormat ontologyFormat) throws
             OWLOntologyStorageException {
         try {
-            OutputStream os;
             if (!physicalURI.isAbsolute()) {
                 throw new OWLOntologyStorageException("Physical URI must be absolute: " + physicalURI);
             }
-            if (physicalURI.getScheme().equals("file")) {
-                File file = new File(physicalURI);
-                // Ensure that the necessary directories exist.
-                file.getParentFile().mkdirs();
-                os = new FileOutputStream(file);
-            } else {
-                URL url = physicalURI.toURL();
-                URLConnection conn = url.openConnection();
-                os = conn.getOutputStream();
+
+
+            File tempFile = File.createTempFile("owlapi", ".owl");
+            try {
+                BufferedWriter tempWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempFile), "UTF-8"));
+                storeOntology(manager, ontology, tempWriter, ontologyFormat);
+                tempWriter.flush();
+                tempWriter.close();
+
+                // Now copy across
+                OutputStream os;
+                if (physicalURI.getScheme().equals("file")) {
+                    File file = new File(physicalURI);
+                    // Ensure that the necessary directories exist.
+                    file.getParentFile().mkdirs();
+                    os = new FileOutputStream(file);
+                } else {
+                    URL url = physicalURI.toURL();
+                    URLConnection conn = url.openConnection();
+                    os = conn.getOutputStream();
+                }
+
+
+
+                BufferedReader br = new BufferedReader(new FileReader(tempFile));
+                BufferedWriter w = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                String line;
+                while((line = br.readLine()) != null) {
+                    w.write(line);
+                    w.write("\n");
+                }
+                br.close();
+                w.close();
+            }
+            finally {
+                tempFile.delete();
             }
 
-            Writer w = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            storeOntology(manager, ontology, w, ontologyFormat);
-            w.close();
         }
         catch (IOException e) {
             throw new OWLOntologyStorageException(e);

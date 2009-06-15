@@ -27,6 +27,7 @@ import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.NamespaceUtil;
 import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
 import org.semanticweb.owl.vocab.Namespaces;
+import org.semanticweb.owl.vocab.DublinCoreVocabulary;
 
 import java.net.URI;
 import java.util.HashSet;
@@ -70,6 +71,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         this.ontology = ontology;
         namespaceUtil = new NamespaceUtil();
         ontologyFormat = format;
+        addWellKnownNamespace("skos", Namespaces.SKOS.toString());
+        addWellKnownNamespace("dc", DublinCoreVocabulary.NAME_SPACE);
         processOntology();
     }
 

@@ -43,15 +43,21 @@ public class XMLWriterNamespaceManager {
 
     private Map<String, String> namespacePrefixMap;
 
+    private Map<String, String> wellknownNamespaces;
+
     private String defaultNamespace;
 
 
     public XMLWriterNamespaceManager(String defaultNamespace) {
         prefixNamespaceMap = new HashMap<String, String>();
         namespacePrefixMap = new HashMap<String, String>();
+        wellknownNamespaces = new HashMap<String, String>();
         this.defaultNamespace = defaultNamespace;
     }
 
+    public void addWellKnownNamespace(String prefix, String namespace) {
+        wellknownNamespaces.put(prefix, namespace);
+    }
 
     public void setPrefix(String prefix, String namespace) {
         prefixNamespaceMap.put(prefix, namespace);
@@ -89,6 +95,9 @@ public class XMLWriterNamespaceManager {
     public void createPrefixForNamespace(String namespace) {
         if (namespace.equals(defaultNamespace)) {
             return;
+        }
+        if(wellknownNamespaces.containsKey(namespace)) {
+            setPrefix(wellknownNamespaces.get(namespace), namespace);
         }
         if (!namespacePrefixMap.containsKey(namespace)) {
             int counter = 1;

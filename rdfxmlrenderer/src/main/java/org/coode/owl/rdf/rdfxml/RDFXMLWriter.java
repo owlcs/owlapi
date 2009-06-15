@@ -47,78 +47,43 @@ public class RDFXMLWriter {
         this.writer = writer;
     }
 
-    public void writeStartElement(URI elementName) {
-        try {
+    public void writeStartElement(URI elementName) throws IOException {
             // Sort out with namespace
             writer.writeStartElement(elementName.toString());
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    public void writeParseTypeAttribute() {
-        try {
+    public void writeParseTypeAttribute()  throws IOException  {
             writer.writeAttribute(Namespaces.RDF + "parseType", "Collection");
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    public void writeDatatypeAttribute(URI datatypeURI) {
-        try {
+    public void writeDatatypeAttribute(URI datatypeURI) throws IOException  {
             writer.writeAttribute(Namespaces.RDF + "datatype", datatypeURI.toString());
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    public void writeTextContent(String text) {
-        try {
+    public void writeTextContent(String text) throws IOException  {
             writer.writeTextContent(text);
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    public void writeLangAttribute(String lang) {
-        try {
+    public void writeLangAttribute(String lang) throws IOException {
             writer.writeAttribute("xml:lang", lang);
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 
-    public void writeEndElement() {
-        try {
+    public void writeEndElement() throws IOException  {
             writer.writeEndElement();
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    public void writeAboutAttribute(URI value) {
+    public void writeAboutAttribute(URI value) throws IOException  {
             writeAttribute(Namespaces.RDF + "about", value);
     }
 
-    public void writeNodeIDAttribute(RDFResourceNode node) {
+    public void writeNodeIDAttribute(RDFResourceNode node) throws IOException  {
         writeAttribute(Namespaces.RDF + "nodeID", URI.create(node.toString()));
     }
 
-    private void writeAttribute(String attributeName, URI value) {
-        try {
+    private void writeAttribute(String attributeName, URI value) throws IOException  {
             URI s = writer.getXMLBaseAsURI().relativize(value);
             writer.writeAttribute(attributeName, s.toString());
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void writeOWLObject(OWLObject owlObject) {
@@ -126,36 +91,21 @@ public class RDFXMLWriter {
     }
 
 
-    public void writeResourceAttribute(URI value) {
+    public void writeResourceAttribute(URI value) throws IOException  {
         writeAttribute(Namespaces.RDF + "resource", value);
     }
 
 
-    public void startDocument() {
-        try {
+    public void startDocument() throws IOException  {
             writer.startDocument(Namespaces.RDF + "RDF");
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    public void endDocument() {
-        try {
+    public void endDocument() throws IOException  {
             writer.endDocument();
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 
-    public void writeComment(String comment) {
-        try {
+    public void writeComment(String comment) throws IOException  {
             writer.writeComment(comment);
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

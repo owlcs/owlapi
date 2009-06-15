@@ -59,6 +59,11 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
 
     public abstract boolean isNothing();
 
+    /**
+     * Gets the fragment of the IRI.
+     * @return The IRI fragment, or <code>null</code> if the IRI does not have a fragment
+     */
+    public abstract String getFragment();
 
     /**
      * Obtained this IRI surrounded by angled brackets
@@ -105,6 +110,13 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
             return uri;
         }
 
+        /**
+         * Gets the fragment of the IRI.
+         * @return The IRI fragment, or <code>null</code> if the IRI does not have a fragment
+         */
+        public String getFragment() {
+            return uri.getFragment();
+        }
 
         public boolean isReservedVocabularyWithSpecialTreatment() {
             return false;

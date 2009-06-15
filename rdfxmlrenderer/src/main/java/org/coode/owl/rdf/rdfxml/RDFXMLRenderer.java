@@ -14,6 +14,7 @@ import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 import static org.semanticweb.owl.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
 
 import java.io.Writer;
+import java.io.IOException;
 import java.net.URI;
 import java.util.*;
 /*
@@ -95,51 +96,51 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
 
-    protected void beginDocument() {
+    protected void beginDocument() throws IOException  {
         writer.startDocument();
     }
 
 
-    protected void endDocument() {
+    protected void endDocument() throws IOException  {
         writer.endDocument();
         writer.writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
     }
 
 
-    protected void writeIndividualComments(OWLNamedIndividual ind) {
+    protected void writeIndividualComments(OWLNamedIndividual ind) throws IOException  {
         writer.writeComment(EscapeUtils.escapeXML(ind.getURI().toString()));
     }
 
 
-    protected void writeClassComment(OWLClass cls) {
+    protected void writeClassComment(OWLClass cls) throws IOException  {
         writer.writeComment(EscapeUtils.escapeXML(cls.getURI().toString()));
     }
 
 
-    protected void writeDataPropertyComment(OWLDataProperty prop) {
+    protected void writeDataPropertyComment(OWLDataProperty prop) throws IOException  {
         writer.writeComment(EscapeUtils.escapeXML(prop.getURI().toString()));
     }
 
 
-    protected void writeObjectPropertyComment(OWLObjectProperty prop) {
+    protected void writeObjectPropertyComment(OWLObjectProperty prop) throws IOException  {
         writer.writeComment(EscapeUtils.escapeXML(prop.getURI().toString()));
     }
 
-    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
+    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) throws IOException  {
         writer.writeComment(EscapeUtils.escapeXML(prop.getURI().toString()));
     }
 
-    protected void writeDatatypeComment(OWLDatatype datatype) {
+    protected void writeDatatypeComment(OWLDatatype datatype) throws IOException  {
         writer.writeComment(EscapeUtils.escapeXML(datatype.getURI().toString()));
     }
 
-    protected void writeBanner(String name) {
+    protected void writeBanner(String name) throws IOException  {
         writer.writeComment(
                 "\n///////////////////////////////////////////////////////////////////////////////////////\n" + "//\n" + "// " + name + "\n" + "//\n" + "///////////////////////////////////////////////////////////////////////////////////////\n");
     }
 
 
-    public void render(RDFResourceNode node) {
+    public void render(RDFResourceNode node) throws IOException {
         if (pending.contains(node)) {
             // We essentially remove all structure sharing during parsing - any cycles therefore indicate a bug!
 //            throw new IllegalStateException("Rendering cycle!  This indicates structure sharing and should not happen! (Node: " + node.toString() + ")");

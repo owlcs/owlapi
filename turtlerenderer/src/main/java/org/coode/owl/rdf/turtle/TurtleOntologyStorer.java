@@ -7,6 +7,7 @@ import org.semanticweb.owl.model.OWLOntologyStorageException;
 import org.semanticweb.owl.util.AbstractOWLOntologyStorer;
 
 import java.io.Writer;
+import java.io.IOException;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -42,8 +43,13 @@ public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
 
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
                                                                                                                             OWLOntologyStorageException {
-        TurtleRenderer ren = new TurtleRenderer(ontology, manager, writer);
-        ren.render();
+        try {
+            TurtleRenderer ren = new TurtleRenderer(ontology, manager, writer);
+            ren.render();
+        }
+        catch (IOException e) {
+            throw new OWLOntologyStorageException(e);
+        }
     }
 
 

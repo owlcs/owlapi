@@ -159,7 +159,7 @@ public class XMLWriterImpl implements XMLWriter {
         if(qName == null) {
             // Could not generate a valid QName, therefore, we cannot
             // write valid XML - just throw an exception!
-            throw new RuntimeException("Could not generate legal element name (qname) for " + name);
+            throw new IOException("Could not generate legal element name (qname) for " + name);
         }
         XMLElement element = new XMLElement(qName, elementStack.size());
         if (elementStack.size() > 0) {

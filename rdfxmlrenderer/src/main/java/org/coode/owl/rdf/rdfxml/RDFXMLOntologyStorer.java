@@ -8,6 +8,7 @@ import org.semanticweb.owl.model.OWLOntologyStorageException;
 import org.semanticweb.owl.util.AbstractOWLOntologyStorer;
 
 import java.io.Writer;
+import java.io.IOException;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -50,7 +51,12 @@ public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
 
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
                                                                                                                             OWLOntologyStorageException {
-        RDFXMLRenderer renderer = new RDFXMLRenderer(manager, ontology, writer, format);
-        renderer.render();
+        try {
+            RDFXMLRenderer renderer = new RDFXMLRenderer(manager, ontology, writer, format);
+            renderer.render();
+        }
+        catch (IOException e) {
+            throw new OWLOntologyStorageException(e);
+        }
     }
 }

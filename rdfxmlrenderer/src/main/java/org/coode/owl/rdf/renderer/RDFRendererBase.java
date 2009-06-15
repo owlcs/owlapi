@@ -7,6 +7,7 @@ import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
 import java.util.*;
+import java.io.IOException;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -81,10 +82,10 @@ public abstract class RDFRendererBase {
     }
 
 
-    protected abstract void beginDocument();
+    protected abstract void beginDocument() throws IOException ;
 
 
-    public void render() {
+    public void render() throws IOException {
         beginDocument();
 
         // Put imports at the top of the rendering
@@ -286,7 +287,7 @@ public abstract class RDFRendererBase {
         endDocument();
     }
 
-    private void renderOntologyHeader() {
+    private void renderOntologyHeader() throws IOException {
         graph = new RDFGraph();
         OWLOntologyID ontID = ontology.getOntologyID();
         RDFResourceNode ontologyNode = null;
@@ -344,33 +345,33 @@ public abstract class RDFRendererBase {
     }
 
 
-    protected abstract void endDocument();
+    protected abstract void endDocument() throws IOException;
 
 
-    protected abstract void writeIndividualComments(OWLNamedIndividual ind);
+    protected abstract void writeIndividualComments(OWLNamedIndividual ind) throws IOException ;
 
 
-    protected abstract void writeClassComment(OWLClass cls);
+    protected abstract void writeClassComment(OWLClass cls) throws IOException ;
 
 
-    protected abstract void writeDataPropertyComment(OWLDataProperty prop);
+    protected abstract void writeDataPropertyComment(OWLDataProperty prop) throws IOException ;
 
 
-    protected abstract void writeObjectPropertyComment(OWLObjectProperty prop);
+    protected abstract void writeObjectPropertyComment(OWLObjectProperty prop) throws IOException ;
 
 
-    protected abstract void writeDatatypeComment(OWLDatatype datatype);
+    protected abstract void writeDatatypeComment(OWLDatatype datatype) throws IOException ;
 
 
-    protected abstract void writeAnnotationPropertyComment(OWLAnnotationProperty prop);
+    protected abstract void writeAnnotationPropertyComment(OWLAnnotationProperty prop) throws IOException ;
 
 
-    protected void beginObject() {
+    protected void beginObject() throws IOException  {
 
     }
 
 
-    protected void endObject() {
+    protected void endObject() throws IOException  {
 
     }
 
@@ -534,7 +535,7 @@ public abstract class RDFRendererBase {
     }
 
 
-    protected abstract void writeBanner(String name);
+    protected abstract void writeBanner(String name) throws IOException ;
 
 
     private static <N extends OWLEntity> Set<N> toSortedSet(Set<N> entities) {
@@ -548,14 +549,14 @@ public abstract class RDFRendererBase {
     }
 
 
-    public void renderAnonRoots() {
+    public void renderAnonRoots() throws IOException {
         for (RDFResourceNode node : graph.getRootAnonymousNodes()) {
             render(node);
         }
     }
 
 
-    public abstract void render(RDFResourceNode node);
+    public abstract void render(RDFResourceNode node) throws IOException;
 
 
     protected boolean isObjectList(RDFResourceNode node) {

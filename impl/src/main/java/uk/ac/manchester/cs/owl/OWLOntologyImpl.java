@@ -490,7 +490,18 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public boolean containsAnnotationPropertyReference(URI propURI) {
-        return owlAnnotationPropertyReferences.containsKey(getOWLDataFactory().getOWLAnnotationProperty(propURI));
+        boolean b = owlAnnotationPropertyReferences.containsKey(getOWLDataFactory().getOWLAnnotationProperty(propURI));
+        if(b) {
+            return true;
+        }
+        else {
+            for(OWLAnnotation anno : ontologyAnnotations) {
+                if(anno.getProperty().getURI().equals(propURI)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 
@@ -755,7 +766,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public Set<OWLAnnotationProperty> getReferencedAnnotationProperties() {
-        return getReturnSet(owlAnnotationPropertyReferences.keySet());
+        Set<OWLAnnotationProperty> props = new HashSet<OWLAnnotationProperty>(owlAnnotationPropertyReferences.keySet());
+        for(OWLAnnotation anno : ontologyAnnotations) {
+            props.add(anno.getProperty());
+        }
+        return getReturnSet(props);
     }
 
     public Set<OWLImportsDeclaration> getImportsDeclarations() {
