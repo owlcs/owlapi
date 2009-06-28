@@ -37,31 +37,31 @@ import java.util.Set;
 public interface OWLIndividualReasoner extends OWLReasonerBase {
 
 
-    Set<Set<OWLClass>> getTypes(OWLIndividual individual, boolean direct) throws OWLReasonerException;
+    Set<Set<OWLClass>> getTypes(OWLNamedIndividual individual, boolean direct) throws OWLReasonerException;
 
 
-    Set<OWLIndividual> getIndividuals(OWLClassExpression clsC, boolean direct) throws OWLReasonerException;
+    Set<OWLNamedIndividual> getIndividuals(OWLClassExpression clsC, boolean direct) throws OWLReasonerException;
 
 
-    Map<OWLObjectProperty, Set<OWLIndividual>> getObjectPropertyRelationships(OWLIndividual individual) throws OWLReasonerException;
+    Map<OWLObjectProperty, Set<OWLNamedIndividual>> getObjectPropertyRelationships(OWLNamedIndividual individual) throws OWLReasonerException;
 
 
-    Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLIndividual individual) throws OWLReasonerException;
+    Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLNamedIndividual individual) throws OWLReasonerException;
 
     
-    boolean hasType(OWLIndividual individual, OWLClassExpression type, boolean direct) throws OWLReasonerException;
+    boolean hasType(OWLNamedIndividual individual, OWLClassExpression type, boolean direct) throws OWLReasonerException;
 
 
-    boolean hasObjectPropertyRelationship(OWLIndividual subject, OWLObjectPropertyExpression property, OWLIndividual object) throws OWLReasonerException;
+    boolean hasObjectPropertyRelationship(OWLNamedIndividual subject, OWLObjectPropertyExpression property, OWLNamedIndividual object) throws OWLReasonerException;
 
 
-    boolean hasDataPropertyRelationship(OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral object) throws OWLReasonerException;
+    boolean hasDataPropertyRelationship(OWLNamedIndividual subject, OWLDataPropertyExpression property, OWLLiteral object) throws OWLReasonerException;
 
 
-    Set<OWLIndividual> getRelatedIndividuals(OWLIndividual subject, OWLObjectPropertyExpression property) throws OWLReasonerException;
+    Set<OWLNamedIndividual> getRelatedIndividuals(OWLNamedIndividual subject, OWLObjectPropertyExpression property) throws OWLReasonerException;
 
 
-    Set<OWLLiteral> getRelatedValues(OWLIndividual subject, OWLDataPropertyExpression property) throws OWLReasonerException;
+    Set<OWLLiteral> getRelatedValues(OWLNamedIndividual subject, OWLDataPropertyExpression property) throws OWLReasonerException;
 
 
 }

@@ -364,8 +364,8 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<OWLClass> getInconsistentClasses() throws OWLReasonerException {
-        return kernel.getInconsistentClasses();
+    public Set<OWLClass> getUnsatisfiableClasses() throws OWLReasonerException {
+        return kernel.getUnsatisfiableClasses();
     }
 
 
@@ -377,7 +377,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<Set<OWLClass>> getTypes(OWLIndividual individual, boolean direct) throws OWLReasonerException {
+    public Set<Set<OWLClass>> getTypes(OWLNamedIndividual individual, boolean direct) throws OWLReasonerException {
         if (!checkDefined(individual)) {
             return Collections.emptySet();
         }
@@ -385,7 +385,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<OWLIndividual> getIndividuals(OWLClassExpression clsC, boolean direct) throws OWLReasonerException {
+    public Set<OWLNamedIndividual> getIndividuals(OWLClassExpression clsC, boolean direct) throws OWLReasonerException {
         if (!checkDefined(clsC)) {
             return Collections.emptySet();
         }
@@ -393,7 +393,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Map<OWLObjectProperty, Set<OWLIndividual>> getObjectPropertyRelationships(OWLIndividual individual) throws
+    public Map<OWLObjectProperty, Set<OWLNamedIndividual>> getObjectPropertyRelationships(OWLNamedIndividual individual) throws
             OWLReasonerException {
         if (!checkDefined(individual)) {
             return Collections.emptyMap();
@@ -402,7 +402,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLIndividual individual) throws
+    public Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLNamedIndividual individual) throws
             OWLReasonerException {
         if (!checkDefined(individual)) {
             return Collections.emptyMap();
@@ -411,7 +411,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public boolean hasType(OWLIndividual individual, OWLClassExpression type, boolean direct) throws OWLReasonerException {
+    public boolean hasType(OWLNamedIndividual individual, OWLClassExpression type, boolean direct) throws OWLReasonerException {
         if (!checkDefined(individual)) {
             return false;
         }
@@ -422,8 +422,8 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public boolean hasObjectPropertyRelationship(OWLIndividual subject, OWLObjectPropertyExpression property,
-                                                 OWLIndividual object) throws OWLReasonerException {
+    public boolean hasObjectPropertyRelationship(OWLNamedIndividual subject, OWLObjectPropertyExpression property,
+                                                 OWLNamedIndividual object) throws OWLReasonerException {
         if (!checkDefined(subject)) {
             return false;
         }
@@ -437,7 +437,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public boolean hasDataPropertyRelationship(OWLIndividual subject, OWLDataPropertyExpression property,
+    public boolean hasDataPropertyRelationship(OWLNamedIndividual subject, OWLDataPropertyExpression property,
                                                OWLLiteral object) throws OWLReasonerException {
         if (!checkDefined(subject)) {
             return false;
@@ -449,7 +449,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<OWLIndividual> getRelatedIndividuals(OWLIndividual subject, OWLObjectPropertyExpression property) throws
+    public Set<OWLNamedIndividual> getRelatedIndividuals(OWLNamedIndividual subject, OWLObjectPropertyExpression property) throws
             OWLReasonerException {
         if (!checkDefined(subject)) {
             return Collections.emptySet();
@@ -461,7 +461,7 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public Set<OWLLiteral> getRelatedValues(OWLIndividual subject, OWLDataPropertyExpression property) throws
+    public Set<OWLLiteral> getRelatedValues(OWLNamedIndividual subject, OWLDataPropertyExpression property) throws
             OWLReasonerException {
         if (!checkDefined(subject)) {
             return Collections.emptySet();

@@ -1,10 +1,10 @@
 package org.semanticweb.owl.api.test;
 
-import org.semanticweb.owl.io.StringOutputTarget;
 import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.vocab.OWLFacet;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -32,27 +32,21 @@ import java.util.Set;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 23-Apr-2009
+ * Date: 28-Jun-2009
  */
-public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
+public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
 
-    public void testCorrectAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = getOWLClass("A");
-        OWLLiteral literal = getFactory().getOWLTypedLiteral(3);
-        OWLLiteral untypedLiteral = getFactory().getOWLStringLiteral("A");
-        OWLDataProperty propP = getOWLDataProperty("p");
-        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataHasValue(propP, literal)));
-        axioms.add(getFactory().getOWLDeclarationAxiom(propP));
-        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataHasValue(propP, untypedLiteral)));
-        assertEquals(getOnt().getAxioms(), axioms);
-    }
-
-    protected String getFileName() {
-        return "DataHasValue.rdf";
-    }
-
-    protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
-        System.out.println(target);
+    protected Set<? extends OWLAxiom> createAxioms() {
+        OWLDataFactory factory = getFactory();
+        OWLDatatype dt = factory.getOWLDatatype(IRI.create("file:/c/test.owl#SSN"));
+        OWLFacetRestriction fr = factory.getOWLFacetRestriction(OWLFacet.PATTERN, factory.getOWLTypedLiteral("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
+        OWLDataRange dr = factory.getOWLDatatypeRestriction(factory.getOWLDatatype(IRI.create("http://www.w3.org/2001/XMLSchema#string")), fr);
+        OWLDataIntersectionOf disj1 = factory.getOWLDataIntersectionOf(factory.getOWLDataComplementOf(dr), dt); // here I negate dr
+        OWLDataIntersectionOf disj2 = factory.getOWLDataIntersectionOf(factory.getOWLDataComplementOf(dt), dr); // here I negate dt
+        OWLDataUnionOf union = factory.getOWLDataUnionOf(disj1, disj2);
+        System.out.println(union.toString());
+        OWLDataProperty prop = getOWLDataProperty("prop");
+        OWLDataPropertyRangeAxiom ax = factory.getOWLDataPropertyRangeAxiom(prop, union);
+        return Collections.singleton(ax);
     }
 }

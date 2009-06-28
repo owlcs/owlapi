@@ -96,6 +96,21 @@ public interface OWLAxiom extends OWLObject {
      */
     AxiomType getAxiomType();
 
+    /**
+     * Determines if this axiom is one of the specified types
+     * @param axiomTypes The axiom types to check for
+     * @return <code>true</code> if this axiom is one of the specified types, otherwise <code>false</code>
+     * @since 3.0
+     */
+    boolean isOfType(AxiomType ... axiomTypes);
+
+    /**
+     * Determines if this axiom is one of the specified types
+     * @param types The axiom types to check for
+     * @return <code>true</code> if this axioms is one of the specified types, otherwise <code>false</code>
+     * @since 3.0
+     */
+    boolean isOfType(Set<AxiomType> types);
 
     /**
      * Gets this axioms in negation normal form.  i.e. any class expressions involved in this

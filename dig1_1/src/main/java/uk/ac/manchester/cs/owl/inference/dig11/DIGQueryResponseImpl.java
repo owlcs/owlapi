@@ -102,12 +102,12 @@ public class DIGQueryResponseImpl implements DIGQueryResponse {
     }
 
 
-    public Set<OWLIndividual> getIndividuals() throws DIGReasonerException {
-        Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
+    public Set<OWLNamedIndividual> getIndividuals() throws DIGReasonerException {
+        Set<OWLNamedIndividual> individuals = new HashSet<OWLNamedIndividual>();
         NodeList individualElementList = element.getElementsByTagName(Vocab.INDIVIDUAL);
         for (int i = 0; i < individualElementList.getLength(); i++) {
             final Element individualElement = (Element) individualElementList.item(i);
-            final OWLIndividual curInd = factory.getOWLNamedIndividual(IRI.create(individualElement.getAttribute("name")));
+            final OWLNamedIndividual curInd = factory.getOWLNamedIndividual(IRI.create(individualElement.getAttribute("name")));
             if (curInd != null) {
                 individuals.add(curInd);
             }

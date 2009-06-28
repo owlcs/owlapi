@@ -213,7 +213,7 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns an empty set in this implementation.
      * @throws OWLReasonerException
      */
-    public Set<OWLClass> getInconsistentClasses() throws OWLReasonerException {
+    public Set<OWLClass> getUnsatisfiableClasses() throws OWLReasonerException {
         return Collections.emptySet();
     }
 
@@ -230,7 +230,7 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns an empty set in this implementation.
      * @throws OWLReasonerException
      */
-    public Set<Set<OWLClass>> getTypes(OWLIndividual individual, boolean direct) throws OWLReasonerException {
+    public Set<Set<OWLClass>> getTypes(OWLNamedIndividual individual, boolean direct) throws OWLReasonerException {
         return Collections.emptySet();
     }
 
@@ -238,7 +238,7 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns an empty set in this implementation.
      * @throws OWLReasonerException
      */
-    public Set<OWLIndividual> getIndividuals(OWLClassExpression clsC, boolean direct) throws OWLReasonerException {
+    public Set<OWLNamedIndividual> getIndividuals(OWLClassExpression clsC, boolean direct) throws OWLReasonerException {
         return Collections.emptySet();
     }
 
@@ -246,7 +246,7 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns an empty map in this implementation.
      * @throws OWLReasonerException
      */
-    public Map<OWLObjectProperty, Set<OWLIndividual>> getObjectPropertyRelationships(OWLIndividual individual) throws
+    public Map<OWLObjectProperty, Set<OWLNamedIndividual>> getObjectPropertyRelationships(OWLNamedIndividual individual) throws
                                                                                                                OWLReasonerException {
         return Collections.emptyMap();
     }
@@ -255,7 +255,7 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns an empty map in this implementation.
      * @throws OWLReasonerException
      */
-    public Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLIndividual individual) throws
+    public Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLNamedIndividual individual) throws
                                                                                                          OWLReasonerException {
         return Collections.emptyMap();
     }
@@ -265,7 +265,7 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns <code>false</code> in this implementation.
      * @throws OWLReasonerException
      */
-    public boolean hasType(OWLIndividual individual, OWLClassExpression type, boolean direct) throws OWLReasonerException {
+    public boolean hasType(OWLNamedIndividual individual, OWLClassExpression type, boolean direct) throws OWLReasonerException {
         return false;
     }
 
@@ -273,8 +273,8 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns <code>false</code> in this implementation.
      * @throws OWLReasonerException
      */
-    public boolean hasObjectPropertyRelationship(OWLIndividual subject, OWLObjectPropertyExpression property,
-                                                 OWLIndividual object) throws OWLReasonerException {
+    public boolean hasObjectPropertyRelationship(OWLNamedIndividual subject, OWLObjectPropertyExpression property,
+                                                 OWLNamedIndividual object) throws OWLReasonerException {
         return false;
     }
 
@@ -282,7 +282,7 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns <code>false</code> in this implementation.
      * @throws OWLReasonerException
      */
-    public boolean hasDataPropertyRelationship(OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral object) throws
+    public boolean hasDataPropertyRelationship(OWLNamedIndividual subject, OWLDataPropertyExpression property, OWLLiteral object) throws
                                                                                                                               OWLReasonerException {
         return false;
     }
@@ -291,7 +291,7 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns an empty set in this implementation.
      * @throws OWLReasonerException
      */
-    public Set<OWLIndividual> getRelatedIndividuals(OWLIndividual subject, OWLObjectPropertyExpression property) throws
+    public Set<OWLNamedIndividual> getRelatedIndividuals(OWLNamedIndividual subject, OWLObjectPropertyExpression property) throws
                                                                                                                  OWLReasonerException {
         return Collections.emptySet();
     }
@@ -300,7 +300,7 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns an empty set in this implementation.
      * @throws OWLReasonerException
      */
-    public Set<OWLLiteral> getRelatedValues(OWLIndividual subject, OWLDataPropertyExpression property) throws
+    public Set<OWLLiteral> getRelatedValues(OWLNamedIndividual subject, OWLDataPropertyExpression property) throws
                                                                                                         OWLReasonerException {
         return Collections.emptySet();
     }

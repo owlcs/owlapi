@@ -296,14 +296,24 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
 
     /**
-     * Gets an OWLStringLiteral.  That is, a string possibly with a language tag
+     * Gets an OWLStringLiteral with a language tag.
      *
-     * @param literal The quoted string
-     * @param lang    The language.
-     * @return The OWLStringLiteral that represent the string possibly with a language tag
+     * @param literal The string literal
+     * @param lang    The language tag.  The tag is formed according to <a href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP47</a>
+     * but the OWL API will not check that the tag conforms to this specification - it is up to the caller to ensure this.  For backwards
+     * compatibility, if the value of lang is <code>null</code> then this is equivalent to calling the getOWLStringLiteral(String literal)
+     * method.
+     * @return The OWLStringLiteral that represents the string literal with a language tag.
      */
     OWLStringLiteral getOWLStringLiteral(String literal,
                                          String lang);
+
+    /**
+     * Gets a string literal without a language tag.
+     * @param literal The string literal
+     * @return The string literal for the specfied string
+     */
+    OWLStringLiteral getOWLStringLiteral(String literal);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //

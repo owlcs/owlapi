@@ -104,6 +104,9 @@ public enum SWRLBuiltInsVocabulary {
         return shortName;
     }
 
+    public IRI getIRI() {
+        return iri;
+    }
 
     public URI getURI() {
         return iri.toURI();

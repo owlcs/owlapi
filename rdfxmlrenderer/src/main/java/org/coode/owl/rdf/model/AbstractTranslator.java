@@ -417,6 +417,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     public void visit(OWLClassAssertionAxiom axiom) {
+        axiom.getIndividual().accept(this);
         addSingleTripleAxiom(axiom, axiom.getIndividual(), RDF_TYPE.getURI(), axiom.getClassExpression());
     }
 

@@ -345,7 +345,7 @@ public class DIGReasoner extends OWLReasonerAdapter {
      * A convenience methods for obtaining all classes which are inconsistent.
      * @return A set of classes which are inconsistent.
      */
-    public Set<OWLClass> getInconsistentClasses()throws OWLReasonerException {
+    public Set<OWLClass> getUnsatisfiableClasses()throws OWLReasonerException {
         // No need to sync - the getOWLEquivalentClassesAxiom method will do this
         return getEquivalentClasses(getOWLOntologyManager().getOWLDataFactory().getOWLNothing());
     }
@@ -356,7 +356,7 @@ public class DIGReasoner extends OWLReasonerAdapter {
     //
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public Set<Set<OWLClass>> getTypes(OWLIndividual individual, boolean direct)throws OWLReasonerException {
+    public Set<Set<OWLClass>> getTypes(OWLNamedIndividual individual, boolean direct)throws OWLReasonerException {
         synchroniseReasoner();
         Document doc = createAsksDocument();
         translator.createIndividualTypesQuery(doc, "q0", individual);
@@ -364,7 +364,7 @@ public class DIGReasoner extends OWLReasonerAdapter {
     }
 
 
-    public Set<OWLIndividual> getIndividuals(OWLClassExpression clsC, boolean direct)throws OWLReasonerException {
+    public Set<OWLNamedIndividual> getIndividuals(OWLClassExpression clsC, boolean direct)throws OWLReasonerException {
         synchroniseReasoner();
         Document doc = createAsksDocument();
         translator.createInstancesOfConceptQuery(doc, "q0", clsC);
@@ -372,39 +372,39 @@ public class DIGReasoner extends OWLReasonerAdapter {
     }
 
 
-    public Map<OWLObjectProperty, Set<OWLIndividual>> getObjectPropertyRelationships(OWLIndividual individual)throws OWLReasonerException {
+    public Map<OWLObjectProperty, Set<OWLNamedIndividual>> getObjectPropertyRelationships(OWLNamedIndividual individual)throws OWLReasonerException {
         throw new UnsupportedReasonerOperationException();
     }
 
 
-    public Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLIndividual individual)throws OWLReasonerException {
+    public Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(OWLNamedIndividual individual)throws OWLReasonerException {
         throw new UnsupportedReasonerOperationException();
     }
 
 
-    public Set<OWLIndividual> getRelatedIndividuals(OWLIndividual subject, OWLObjectPropertyExpression property) throws OWLReasonerException {
+    public Set<OWLNamedIndividual> getRelatedIndividuals(OWLNamedIndividual subject, OWLObjectPropertyExpression property) throws OWLReasonerException {
         throw new UnsupportedReasonerOperationException();
     }
 
 
-    public Set<OWLLiteral> getRelatedValues(OWLIndividual subject, OWLDataPropertyExpression property) throws OWLReasonerException {
+    public Set<OWLLiteral> getRelatedValues(OWLNamedIndividual subject, OWLDataPropertyExpression property) throws OWLReasonerException {
         throw new UnsupportedReasonerOperationException();
     }
 
 
-    public boolean hasDataPropertyRelationship(OWLIndividual subject, OWLDataPropertyExpression property,
+    public boolean hasDataPropertyRelationship(OWLNamedIndividual subject, OWLDataPropertyExpression property,
                                                OWLLiteral object)throws OWLReasonerException {
         throw new UnsupportedReasonerOperationException();
     }
 
 
-    public boolean hasObjectPropertyRelationship(OWLIndividual subject, OWLObjectPropertyExpression property,
-                                                 OWLIndividual object)throws OWLReasonerException {
+    public boolean hasObjectPropertyRelationship(OWLNamedIndividual subject, OWLObjectPropertyExpression property,
+                                                 OWLNamedIndividual object)throws OWLReasonerException {
         throw new UnsupportedReasonerOperationException();
     }
 
 
-    public boolean hasType(OWLIndividual individual, OWLClassExpression type, boolean direct)throws OWLReasonerException {
+    public boolean hasType(OWLNamedIndividual individual, OWLClassExpression type, boolean direct)throws OWLReasonerException {
         return flattenSetOfSets(getTypes(individual, direct)).contains(type);
     }
 

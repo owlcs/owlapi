@@ -44,6 +44,17 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
         return compareSets(getOperands(), other.getOperands());
     }
 
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OWLDataUnionOf)) {
+            return false;
+        }
+        OWLDataUnionOf other = (OWLDataUnionOf) obj;
+        return this.getOperands().equals(other.getOperands());
+    }
+
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

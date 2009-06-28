@@ -1,5 +1,7 @@
 package org.semanticweb.owl.vocab;
 
+import org.semanticweb.owl.model.IRI;
+
 import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,7 +57,7 @@ public enum DublinCoreVocabulary {
 
     private String qname;
 
-    private URI uri;
+    private IRI iri;
 
     public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";
 
@@ -63,7 +65,7 @@ public enum DublinCoreVocabulary {
     DublinCoreVocabulary(String name) {
         shortName = name;
         qname = "dc:" + name;
-        uri = URI.create(NAME_SPACE + name);
+        iri = IRI.create(NAME_SPACE + name);
     }
 
     public String getShortName() {
@@ -75,9 +77,12 @@ public enum DublinCoreVocabulary {
     }
 
     public URI getURI() {
-        return uri;
+        return iri.toURI();
     }
 
+    public IRI getIRI() {
+        return iri;
+    }
 
     public static Set<URI> ALL_URIS;
 
@@ -91,6 +96,6 @@ public enum DublinCoreVocabulary {
 
 
     public String toString() {
-        return uri.toString();
+        return iri.toString();
     }
 }

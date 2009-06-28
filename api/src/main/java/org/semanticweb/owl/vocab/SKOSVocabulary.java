@@ -90,11 +90,11 @@ public enum SKOSVocabulary {
 
     private String localName;
 
-    private URI uri;
+    private IRI iri;
 
     SKOSVocabulary(String localname) {
         this.localName = localname;
-        this.uri = URI.create(Namespaces.SKOS.toString() + localname);
+        this.iri = IRI.create(Namespaces.SKOS.toString() + localname);
     }
 
 
@@ -102,9 +102,12 @@ public enum SKOSVocabulary {
         return localName;
     }
 
+    public IRI getIRI() {
+        return iri;
+    }
 
     public URI getURI() {
-        return uri;
+        return iri.toURI();
     }
 
 }

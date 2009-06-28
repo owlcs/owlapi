@@ -99,9 +99,9 @@ public interface OWLClassReasoner extends OWLSatisfiabilityChecker {
 
 
     /**
-     * A convenience methods for obtaining all classes which are inconsistent.
+     * A convenience methods for obtaining all classes which are unsatisfiable.
      * @return A set of classes which are inconsistent.
      */
-    public Set<OWLClass> getInconsistentClasses() throws OWLReasonerException;
+    public Set<OWLClass> getUnsatisfiableClasses() throws OWLReasonerException;
 
 }

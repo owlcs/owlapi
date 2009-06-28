@@ -401,7 +401,7 @@ public class ToldClassHierarchyReasoner implements OWLClassReasoner {
      *
      * @return A set of classes which are inconsistent.
      */
-    public Set<OWLClass> getInconsistentClasses() {
+    public Set<OWLClass> getUnsatisfiableClasses() {
         return Collections.emptySet();
     }
 

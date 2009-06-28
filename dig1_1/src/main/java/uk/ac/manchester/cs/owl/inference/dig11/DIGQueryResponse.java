@@ -1,9 +1,6 @@
 package uk.ac.manchester.cs.owl.inference.dig11;
 
-import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLIndividual;
-import org.semanticweb.owl.model.OWLObjectProperty;
+import org.semanticweb.owl.model.*;
 
 import java.util.Set;
 /*
@@ -68,7 +65,7 @@ public interface DIGQueryResponse {
      * in the response.
      * @return A <code>Set</code> of <code>OWLIndividual</code>s
      */
-    public Set<OWLIndividual> getIndividuals() throws DIGReasonerException;
+    public Set<OWLNamedIndividual> getIndividuals() throws DIGReasonerException;
 
 
     /**

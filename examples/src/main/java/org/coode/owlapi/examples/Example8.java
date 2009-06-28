@@ -96,10 +96,10 @@ public class Example8 {
             System.out.println("\n");
 
             // We can easily get a list of inconsistent classes.  (A class is inconsistent if it
-            // can't possibly have any instances).  Note that the getInconsistentClasses method
+            // can't possibly have any instances).  Note that the getUnsatisfiableClasses method
             // is really just a convenience method for obtaining the classes that are equivalent
             // to owl:Nothing.
-            Set<OWLClass> inconsistentClasses = reasoner.getInconsistentClasses();
+            Set<OWLClass> inconsistentClasses = reasoner.getUnsatisfiableClasses();
             if (!inconsistentClasses.isEmpty()) {
                 System.out.println("The following classes are inconsistent: ");
                 for(OWLClass cls : inconsistentClasses) {

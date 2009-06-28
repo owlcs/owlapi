@@ -1,5 +1,7 @@
 package org.semanticweb.owl.vocab;
 
+import org.semanticweb.owl.model.IRI;
+
 import java.net.URI;
 
 
@@ -37,11 +39,11 @@ public enum SWRLVocabulary {
 
     private String shortName;
 
-    private URI uri;
+    private IRI iri;
 
     SWRLVocabulary(String name) {
         this.shortName = name;
-        this.uri = URI.create(Namespaces.SWRL + name);
+        this.iri = IRI.create(Namespaces.SWRL + name);
     }
 
 
@@ -49,9 +51,12 @@ public enum SWRLVocabulary {
         return shortName;
     }
 
+    public IRI getIRI() {
+        return iri;
+    }
 
     public URI getURI() {
-        return uri;
+        return iri.toURI();
     }
     
 }

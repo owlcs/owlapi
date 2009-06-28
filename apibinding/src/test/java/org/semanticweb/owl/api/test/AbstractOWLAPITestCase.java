@@ -11,7 +11,6 @@ import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
 
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URI;
 import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -167,8 +166,16 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
             OWLOntology ont2 = man.loadOntology(new StringInputSource(target.toString()));
             assertEquals(ont, ont2);
-            Set<OWLAxiom> axioms1 = ont.getAxioms();
-            Set<OWLAxiom> axioms2 = ont2.getAxioms();
+            Set<OWLAxiom> axioms1;
+            Set<OWLAxiom> axioms2;
+            if(!isIgnoreDeclarationAxioms(format)) {
+                axioms1 = ont.getAxioms();
+                axioms2 = ont2.getAxioms();
+            }
+            else {
+                axioms1 = AxiomType.getAxiomsWithoutTypes(ont.getAxioms(), AxiomType.DECLARATION);
+                axioms2 = AxiomType.getAxiomsWithoutTypes(ont2.getAxioms(), AxiomType.DECLARATION);
+            }
             if(!axioms1.equals(axioms2)) {
                 StringBuilder sb = new StringBuilder();
                 for(OWLAxiom ax : axioms1) {
@@ -196,6 +203,9 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
         }
     }
 
+    protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
+        return false;
+    }
 
     protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
         System.out.println("Saved: ");

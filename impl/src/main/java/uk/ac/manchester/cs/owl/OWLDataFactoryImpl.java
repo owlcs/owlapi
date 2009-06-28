@@ -279,6 +279,14 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return new OWLStringLiteralImpl(this, literal, lang);
     }
 
+    /**
+     * Gets a string literal without a language tag.
+     * @param literal The string literal
+     * @return The string literal for the specfied string
+     */
+    public OWLStringLiteral getOWLStringLiteral(String literal) {
+        return new OWLStringLiteralImpl(this, literal, null);
+    }
 
     public OWLDataOneOf getOWLDataOneOf(Set<? extends OWLLiteral> values) {
         return new OWLDataOneOfImpl(this, values);

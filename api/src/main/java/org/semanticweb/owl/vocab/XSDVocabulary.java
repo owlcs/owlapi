@@ -1,5 +1,7 @@
 package org.semanticweb.owl.vocab;
 
+import org.semanticweb.owl.model.IRI;
+
 import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
@@ -85,11 +87,11 @@ public enum XSDVocabulary {
 
     private String shortName;
 
-    private URI uri;
+    private IRI iri;
 
     XSDVocabulary(String name) {
         this.shortName = name;
-        uri = URI.create(Namespaces.XSD + name);
+        iri = IRI.create(Namespaces.XSD + name);
     }
 
 
@@ -99,10 +101,12 @@ public enum XSDVocabulary {
 
 
     public URI getURI() {
-        return uri;
+        return iri.toURI();
     }
 
-
+    public IRI getIRI() {
+        return iri;
+    }
 
     public static Set<URI> ALL_DATATYPES;
 
@@ -115,6 +119,6 @@ public enum XSDVocabulary {
 
 
     public String toString() {
-        return uri.toString();
+        return iri.toString();
     }
 }

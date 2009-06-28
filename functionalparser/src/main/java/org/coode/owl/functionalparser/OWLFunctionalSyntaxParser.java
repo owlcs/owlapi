@@ -497,13 +497,13 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final public OWLClassExpression DataHasValue() throws ParseException {
     OWLDataPropertyExpression prop = null;
-    OWLTypedLiteral typedLiteral = null;
+    OWLLiteral literal = null;
     jj_consume_token(DATAHASVALUE);
     jj_consume_token(OPENPAR);
     prop = DataPropertyExpression();
-    typedLiteral = TypedLiteral();
+    literal = Literal();
     jj_consume_token(CLOSEPAR);
-        {if (true) return dataFactory.getOWLDataHasValue(prop, typedLiteral);}
+        {if (true) return dataFactory.getOWLDataHasValue(prop, literal);}
     throw new Error("Missing return statement in function");
   }
 

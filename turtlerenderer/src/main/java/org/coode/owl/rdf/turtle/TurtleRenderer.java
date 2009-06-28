@@ -245,13 +245,6 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
 
-    private void writeType(RDFResourceNode subject, RDFResourceNode object) {
-        write(subject);
-        write(" a ");
-        write(object);
-    }
-
-
     protected void beginDocument() {
         // Namespaces
         writeNamespaces();

@@ -1050,11 +1050,11 @@ OWLClassExpression DataSomeValuesFrom()  :
 OWLClassExpression DataHasValue()  :
 {
     OWLDataPropertyExpression prop = null;
-    OWLTypedLiteral typedLiteral = null;
+    OWLLiteral literal = null;
 }
 {
-    <DATAHASVALUE><OPENPAR>prop=DataPropertyExpression() typedLiteral=TypedLiteral()<CLOSEPAR> {
-        return dataFactory.getOWLDataHasValue(prop, typedLiteral);
+    <DATAHASVALUE><OPENPAR>prop=DataPropertyExpression() literal=Literal()<CLOSEPAR> {
+        return dataFactory.getOWLDataHasValue(prop, literal);
     }
 }
 
@@ -1815,7 +1815,7 @@ OWLIndividualAxiom ObjectPropertyAssertion() :
 }
 {
     <OBJECTPROPERTYASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet()prop=ObjectPropertyExpression() subj=Individual() obj=Individual()<CLOSEPAR> {
-        return dataFactory.getOWLObjectPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);
+        return dataFactory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);
     }
 }
 
@@ -1828,7 +1828,7 @@ OWLIndividualAxiom NegativeObjectPropertyAssertion() :
 }
 {
     <NEGATIVEOBJECTPROPERTYASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet()prop=ObjectPropertyExpression() subj=Individual() obj=Individual()<CLOSEPAR> {
-        return dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);
+        return dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);
     }
 }
 
@@ -1841,7 +1841,7 @@ OWLIndividualAxiom DataPropertyAssertion() :
 }
 {
     <DATAPROPERTYASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet()prop=DataPropertyExpression() subj=Individual() obj=Literal()<CLOSEPAR> {
-        return dataFactory.getOWLDataPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);
+        return dataFactory.getOWLDataPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);
     }
 }
 
@@ -1854,7 +1854,7 @@ OWLIndividualAxiom NegativeDataPropertyAssertion() :
 }
 {
     <NEGATIVEDATAPROPERTYASSERTION><OPENPAR>axiomAnnos = AxiomAnnotationSet()prop=DataPropertyExpression() subj=Individual() obj=Literal()<CLOSEPAR> {
-        return dataFactory.getOWLNegativeDataPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);
+        return dataFactory.getOWLNegativeDataPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);
     }
 }
 
@@ -1975,7 +1975,7 @@ OWLAnnotationAssertionAxiom AnnotationAssertion() :
 }
 {
     <ANNOTATIONASSERTION><OPENPAR>axiomAnnos=AxiomAnnotationSet() prop=AnnotationPropertyURI() subj=AnnotationSubject() val=AnnotationValue()  <CLOSEPAR> {
-        return dataFactory.getOWLAnnotationAssertionAxiom(subj, prop, val, axiomAnnos);
+        return dataFactory.getOWLAnnotationAssertionAxiom(prop, subj, val, axiomAnnos);
     }
 }
 

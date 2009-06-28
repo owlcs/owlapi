@@ -117,11 +117,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
         public String getFragment() {
             return uri.getFragment();
         }
-
-        public boolean isReservedVocabularyWithSpecialTreatment() {
-            return false;
-        }
-
+        
         public boolean isNothing() {
             return uri.equals(OWLRDFVocabulary.OWL_NOTHING.getURI());
         }

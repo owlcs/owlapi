@@ -3,7 +3,6 @@ package org.semanticweb.owl.metrics;
 import org.semanticweb.owl.model.OWLOntologyManager;
 import org.semanticweb.owl.model.OWLOntologyChange;
 import org.semanticweb.owl.model.OWLRuntimeException;
-import org.semanticweb.owl.inference.OWLSatisfiabilityChecker;
 import org.semanticweb.owl.inference.OWLReasoner;
 import org.semanticweb.owl.inference.OWLReasonerException;
 
@@ -55,7 +54,7 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
 
     protected Integer recomputeMetric() {
         try {
-            return reasoner.getInconsistentClasses().size();
+            return reasoner.getUnsatisfiableClasses().size();
         }
         catch (OWLReasonerException e) {
             throw new OWLRuntimeException(e);

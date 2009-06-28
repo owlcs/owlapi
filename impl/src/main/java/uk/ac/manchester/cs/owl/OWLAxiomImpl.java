@@ -1,9 +1,6 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLAnnotation;
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLEntity;
+import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.NNF;
 import org.semanticweb.owl.util.OWLEntityCollector;
 
@@ -59,6 +56,31 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
     public Set<OWLAnnotation> getAnnotations() {
         return annotations;
+    }
+
+    /**
+     * Determines if this axiom is one of the specified types
+     * @param axiomTypes The axiom types to check for
+     * @return <code>true</code> if this axiom is one of the specified types, otherwise <code>false</code>
+     * @since 3.0
+     */
+    public boolean isOfType(AxiomType... axiomTypes) {
+        for(AxiomType type : axiomTypes) {
+            if(getAxiomType().equals(type)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Determines if this axiom is one of the specified types
+     * @param types The axiom types to check for
+     * @return <code>true</code> if this axioms is one of the specified types, otherwise <code>false</code>
+     * @since 3.0
+     */
+    public boolean isOfType(Set<AxiomType> types) {
+        return types.contains(getAxiomType());
     }
 
     /**

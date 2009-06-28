@@ -1,6 +1,7 @@
 package org.semanticweb.owl.vocab;
 
 import org.semanticweb.owl.model.OWLRuntimeException;
+import org.semanticweb.owl.model.IRI;
 
 import java.net.URI;
 import java.util.*;
@@ -152,21 +153,21 @@ public enum OWLDatatypeVocabulary {
 
     private String shortName;
 
-    private URI uri;
+    private IRI iri;
 
     private Category category;
 
     private boolean finite;
 
     OWLDatatypeVocabulary(Namespaces namespace, String shortName, Category category, boolean finite) {
-        this.uri = URI.create(namespace + shortName);
+        this.iri = IRI.create(namespace + shortName);
         this.shortName = shortName;
         this.category = category;
         this.finite = finite;
     }
 
     OWLDatatypeVocabulary(XSDVocabulary xsd, Category category, boolean finite) {
-        this.uri = xsd.getURI();
+        this.iri = xsd.getIRI();
         this.shortName = xsd.getShortName();
         this.category = category;
         this.finite = finite;
@@ -189,7 +190,7 @@ public enum OWLDatatypeVocabulary {
      * @return The URI that identifies the datatype
      */
     public URI getURI() {
-        return uri;
+        return iri.toURI();
     }
 
 

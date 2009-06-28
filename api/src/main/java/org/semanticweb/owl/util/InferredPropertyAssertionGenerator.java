@@ -41,7 +41,7 @@ public class InferredPropertyAssertionGenerator extends InferredIndividualAxiomG
 
     protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLPropertyAssertionAxiom> result) throws
             OWLReasonerException {
-        Map<OWLObjectProperty, Set<OWLIndividual>> objectPropertyRels = reasoner.getObjectPropertyRelationships(entity);
+        Map<OWLObjectProperty, Set<OWLNamedIndividual>> objectPropertyRels = reasoner.getObjectPropertyRelationships(entity);
         for (OWLObjectProperty prop : objectPropertyRels.keySet()) {
             for (OWLIndividual obj : objectPropertyRels.get(prop)) {
                 result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(prop, entity, obj));

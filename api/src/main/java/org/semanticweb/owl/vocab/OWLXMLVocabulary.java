@@ -226,6 +226,9 @@ public enum OWLXMLVocabulary {
         shortName = name;
     }
 
+    public IRI getIRI() {
+        return iri;
+    }
 
     public URI getURI() {
         return iri.toURI();

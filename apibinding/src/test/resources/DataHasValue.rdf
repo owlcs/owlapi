@@ -14,6 +14,12 @@
                <owl:onProperty rdf:resource="#p"/>
            </owl:Restriction>
        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+           <owl:Restriction>
+               <owl:hasValue>A</owl:hasValue>
+               <owl:onProperty rdf:resource="#p"/>
+           </owl:Restriction>
+       </rdfs:subClassOf>
     </rdf:Description>
 
 </rdf:RDF>
