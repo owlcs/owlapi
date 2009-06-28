@@ -475,31 +475,22 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                                  OWLDataRange dataRange);
 
 
-    OWLDataExactCardinality getOWLDataExactCardinality(OWLDataPropertyExpression property,
-                                                       int cardinality);
+    OWLDataExactCardinality getOWLDataExactCardinality(int cardinality, OWLDataPropertyExpression property);
 
 
-    OWLDataExactCardinality getOWLDataExactCardinality(OWLDataPropertyExpression property,
-                                                       int cardinality,
-                                                       OWLDataRange dataRange);
+    OWLDataExactCardinality getOWLDataExactCardinality(int cardinality, OWLDataPropertyExpression property, OWLDataRange dataRange);
 
 
-    OWLDataMaxCardinality getOWLDataMaxCardinality(OWLDataPropertyExpression property,
-                                                   int cardinality);
+    OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality, OWLDataPropertyExpression property);
 
 
-    OWLDataMaxCardinality getOWLDataMaxCardinality(OWLDataPropertyExpression property,
-                                                   int cardinality,
-                                                   OWLDataRange dataRange);
+    OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality, OWLDataPropertyExpression property, OWLDataRange dataRange);
 
 
-    OWLDataMinCardinality getOWLDataMinCardinality(OWLDataPropertyExpression property,
-                                                   int cardinality);
+    OWLDataMinCardinality getOWLDataMinCardinality(int cardinality, OWLDataPropertyExpression property);
 
 
-    OWLDataMinCardinality getOWLDataMinCardinality(OWLDataPropertyExpression property,
-                                                   int cardinality,
-                                                   OWLDataRange dataRange);
+    OWLDataMinCardinality getOWLDataMinCardinality(int cardinality, OWLDataPropertyExpression property, OWLDataRange dataRange);
 
 
     OWLDataHasValue getOWLDataHasValue(OWLDataPropertyExpression property,
@@ -536,31 +527,22 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                                        OWLClassExpression classExpression);
 
 
-    OWLObjectExactCardinality getOWLObjectExactCardinality(OWLObjectPropertyExpression property,
-                                                           int cardinality);
+    OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality, OWLObjectPropertyExpression property);
 
 
-    OWLObjectExactCardinality getOWLObjectExactCardinality(OWLObjectPropertyExpression property,
-                                                           int cardinality,
-                                                           OWLClassExpression classExpression);
+    OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality, OWLObjectPropertyExpression property, OWLClassExpression classExpression);
 
 
-    OWLObjectMinCardinality getOWLObjectMinCardinality(OWLObjectPropertyExpression property,
-                                                       int cardinality);
+    OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality, OWLObjectPropertyExpression property);
 
 
-    OWLObjectMinCardinality getOWLObjectMinCardinality(OWLObjectPropertyExpression property,
-                                                       int cardinality,
-                                                       OWLClassExpression classExpression);
+    OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality, OWLObjectPropertyExpression property, OWLClassExpression classExpression);
 
 
-    OWLObjectMaxCardinality getOWLObjectMaxCardinality(OWLObjectPropertyExpression property,
-                                                       int cardinality);
+    OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality, OWLObjectPropertyExpression property);
 
 
-    OWLObjectMaxCardinality getOWLObjectMaxCardinality(OWLObjectPropertyExpression property,
-                                                       int cardinality,
-                                                       OWLClassExpression classExpression);
+    OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality, OWLObjectPropertyExpression property, OWLClassExpression classExpression);
 
 
     OWLObjectHasSelf getOWLObjectHasSelf(OWLObjectPropertyExpression property);

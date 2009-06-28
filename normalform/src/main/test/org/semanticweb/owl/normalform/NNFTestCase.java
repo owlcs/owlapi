@@ -4,8 +4,6 @@ import junit.framework.TestCase;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.NNF;
 import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
-
-import java.net.URI;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -123,17 +121,17 @@ public class NNFTestCase extends TestCase {
     }
 
     public void testObjectMin() {
-        OWLClassExpression desc = df.getOWLObjectMinCardinality(propP, 3, clsA);
+        OWLClassExpression desc = df.getOWLObjectMinCardinality(3, propP, clsA);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = df.getOWLObjectMaxCardinality(propP, 2, clsA);
+        OWLClassExpression nnf = df.getOWLObjectMaxCardinality(2, propP, clsA);
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }
 
     public void testObjectMax() {
-        OWLClassExpression desc = df.getOWLObjectMaxCardinality(propP, 3, clsA);
+        OWLClassExpression desc = df.getOWLObjectMaxCardinality(3, propP, clsA);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = df.getOWLObjectMinCardinality(propP, 4, clsA);
+        OWLClassExpression nnf = df.getOWLObjectMinCardinality(4, propP, clsA);
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }

@@ -49,8 +49,8 @@ public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestricti
 
     public OWLClassExpression asIntersectionOfMinMax() {
         OWLDataFactory df = getOWLDataFactory();
-        return df.getOWLObjectIntersectionOf(df.getOWLObjectMinCardinality(getProperty(), getCardinality(), getFiller()),
-                df.getOWLObjectMaxCardinality(getProperty(), getCardinality(), getFiller()));
+        return df.getOWLObjectIntersectionOf(df.getOWLObjectMinCardinality(getCardinality(), getProperty(), getFiller()),
+                df.getOWLObjectMaxCardinality(getCardinality(), getProperty(), getFiller()));
     }
 
 

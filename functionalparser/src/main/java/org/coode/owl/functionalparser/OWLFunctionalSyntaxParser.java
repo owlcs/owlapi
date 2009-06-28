@@ -417,10 +417,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
     jj_consume_token(CLOSEPAR);
         if(filler == null) {
-            {if (true) return dataFactory.getOWLObjectMinCardinality(prop, cardinality);}
+            {if (true) return dataFactory.getOWLObjectMinCardinality(cardinality, prop);}
         }
         else {
-            {if (true) return dataFactory.getOWLObjectMinCardinality(prop, cardinality, filler);}
+            {if (true) return dataFactory.getOWLObjectMinCardinality(cardinality, prop, filler);}
         }
     throw new Error("Missing return statement in function");
   }
@@ -440,10 +440,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
     jj_consume_token(CLOSEPAR);
         if(filler == null) {
-            {if (true) return dataFactory.getOWLObjectExactCardinality(prop, cardinality);}
+            {if (true) return dataFactory.getOWLObjectExactCardinality(cardinality, prop);}
         }
         else {
-            {if (true) return dataFactory.getOWLObjectExactCardinality(prop, cardinality, filler);}
+            {if (true) return dataFactory.getOWLObjectExactCardinality(cardinality, prop, filler);}
         }
     throw new Error("Missing return statement in function");
   }
@@ -463,10 +463,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
     jj_consume_token(CLOSEPAR);
         if(filler == null) {
-            {if (true) return dataFactory.getOWLObjectMaxCardinality(prop, cardinality);}
+            {if (true) return dataFactory.getOWLObjectMaxCardinality(cardinality, prop);}
         }
         else {
-            {if (true) return dataFactory.getOWLObjectMaxCardinality(prop, cardinality, filler);}
+            {if (true) return dataFactory.getOWLObjectMaxCardinality(cardinality, prop, filler);}
         }
     throw new Error("Missing return statement in function");
   }
@@ -522,10 +522,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
     jj_consume_token(CLOSEPAR);
         if(rng == null) {
-            {if (true) return dataFactory.getOWLDataMinCardinality(prop, cardinality);}
+            {if (true) return dataFactory.getOWLDataMinCardinality(cardinality, prop);}
         }
         else {
-            {if (true) return dataFactory.getOWLDataMinCardinality(prop, cardinality, rng);}
+            {if (true) return dataFactory.getOWLDataMinCardinality(cardinality, prop, rng);}
         }
     throw new Error("Missing return statement in function");
   }
@@ -545,10 +545,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
     jj_consume_token(CLOSEPAR);
         if(rng == null) {
-            {if (true) return dataFactory.getOWLDataExactCardinality(prop, cardinality);}
+            {if (true) return dataFactory.getOWLDataExactCardinality(cardinality, prop);}
         }
         else {
-            {if (true) return dataFactory.getOWLDataExactCardinality(prop, cardinality, rng);}
+            {if (true) return dataFactory.getOWLDataExactCardinality(cardinality, prop, rng);}
         }
     throw new Error("Missing return statement in function");
   }
@@ -568,10 +568,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
     jj_consume_token(CLOSEPAR);
          if(rng == null) {
-            {if (true) return dataFactory.getOWLDataMaxCardinality(prop, cardinality);}
+            {if (true) return dataFactory.getOWLDataMaxCardinality(cardinality, prop);}
         }
         else {
-            {if (true) return dataFactory.getOWLDataMaxCardinality(prop, cardinality, rng);}
+            {if (true) return dataFactory.getOWLDataMaxCardinality(cardinality, prop, rng);}
         }
     throw new Error("Missing return statement in function");
   }

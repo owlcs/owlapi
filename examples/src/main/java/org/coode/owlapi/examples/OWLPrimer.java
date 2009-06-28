@@ -318,9 +318,9 @@ public class OWLPrimer {
             // extend OWLClassExpression.
 
             // First, hasAge exactly 1
-            OWLDataExactCardinality hasAgeRestriction = factory.getOWLDataExactCardinality(hasAge, 1);
+            OWLDataExactCardinality hasAgeRestriction = factory.getOWLDataExactCardinality(1, hasAge);
             // Now the hasGender exactly 1
-            OWLObjectExactCardinality hasGenderRestriction = factory.getOWLObjectExactCardinality(hasGender, 1);
+            OWLObjectExactCardinality hasGenderRestriction = factory.getOWLObjectExactCardinality(1, hasGender);
             // And finally, the hasGender only {male female}
             // To create this restriction, we need an OWLObjectOneOf class expression since male and female are individuals
             // We can just list as many individuals as we need as the argument of the method.

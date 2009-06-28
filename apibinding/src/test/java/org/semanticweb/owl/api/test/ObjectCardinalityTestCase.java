@@ -41,7 +41,7 @@ public class ObjectCardinalityTestCase extends AbstractFileRoundTrippingTestCase
          OWLClass clsA = getOWLClass("A");
          OWLClass clsB = getOWLClass("B");
          OWLObjectProperty prop = getOWLObjectProperty("p");
-         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectExactCardinality(prop, 3)));
+         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectExactCardinality(3, prop)));
          assertEquals(getOnt().getAxioms(), axioms);
     }
 

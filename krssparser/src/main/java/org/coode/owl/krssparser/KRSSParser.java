@@ -328,7 +328,7 @@ public class KRSSParser implements KRSSParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectMinCardinality(prop, card, filler);
+            if (true) return dataFactory.getOWLObjectMinCardinality(card, prop, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -344,7 +344,7 @@ public class KRSSParser implements KRSSParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectMaxCardinality(prop, card, filler);
+            if (true) return dataFactory.getOWLObjectMaxCardinality(card, prop, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -360,7 +360,7 @@ public class KRSSParser implements KRSSParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectExactCardinality(prop, card, filler);
+            if (true) return dataFactory.getOWLObjectExactCardinality(card, prop, filler);
         }
         throw new Error("Missing return statement in function");
     }

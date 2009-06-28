@@ -664,30 +664,30 @@ public class ManchesterOWLSyntaxEditorParser {
             int card = parseInteger();
             OWLClassExpression filler = parseNestedClassExpression(true);
             if (filler != null) {
-                return dataFactory.getOWLObjectMinCardinality(prop, card, filler);
+                return dataFactory.getOWLObjectMinCardinality(card, prop, filler);
             }
             else {
-                return dataFactory.getOWLObjectMinCardinality(prop, card);
+                return dataFactory.getOWLObjectMinCardinality(card, prop);
             }
         }
         else if (kw.equalsIgnoreCase(MAX)) {
             int card = parseInteger();
             OWLClassExpression filler = parseNestedClassExpression(true);
             if (filler != null) {
-                return dataFactory.getOWLObjectMaxCardinality(prop, card, filler);
+                return dataFactory.getOWLObjectMaxCardinality(card, prop, filler);
             }
             else {
-                return dataFactory.getOWLObjectMaxCardinality(prop, card);
+                return dataFactory.getOWLObjectMaxCardinality(card, prop);
             }
         }
         else if (kw.equalsIgnoreCase(EXACTLY)) {
             int card = parseInteger();
             OWLClassExpression filler = parseNestedClassExpression(true);
             if (filler != null) {
-                return dataFactory.getOWLObjectExactCardinality(prop, card, filler);
+                return dataFactory.getOWLObjectExactCardinality(card, prop, filler);
             }
             else {
-                return dataFactory.getOWLObjectExactCardinality(prop, card);
+                return dataFactory.getOWLObjectExactCardinality(card, prop);
             }
         }
         else if (kw.equalsIgnoreCase(ONLYSOME)) {
@@ -739,30 +739,30 @@ public class ManchesterOWLSyntaxEditorParser {
             int card = parseInteger();
             OWLDataRange rng = parseDataRange();
             if (rng != null) {
-                return dataFactory.getOWLDataMinCardinality(prop, card, rng);
+                return dataFactory.getOWLDataMinCardinality(card, prop, rng);
             }
             else {
-                return dataFactory.getOWLDataMinCardinality(prop, card);
+                return dataFactory.getOWLDataMinCardinality(card, prop);
             }
         }
         else if (kw.equalsIgnoreCase(EXACTLY)) {
             int card = parseInteger();
             OWLDataRange rng = parseDataRange();
             if (rng != null) {
-                return dataFactory.getOWLDataExactCardinality(prop, card, rng);
+                return dataFactory.getOWLDataExactCardinality(card, prop, rng);
             }
             else {
-                return dataFactory.getOWLDataExactCardinality(prop, card);
+                return dataFactory.getOWLDataExactCardinality(card, prop);
             }
         }
         else if (kw.equalsIgnoreCase(MAX)) {
             int card = parseInteger();
             OWLDataRange rng = parseDataRange();
             if (rng != null) {
-                return dataFactory.getOWLDataMaxCardinality(prop, card, rng);
+                return dataFactory.getOWLDataMaxCardinality(card, prop, rng);
             }
             else {
-                return dataFactory.getOWLDataMaxCardinality(prop, card);
+                return dataFactory.getOWLDataMaxCardinality(card, prop);
             }
         }
         throw createException(SOME, ONLY, VALUE, MIN, EXACTLY, MAX);
@@ -3073,19 +3073,19 @@ public class ManchesterOWLSyntaxEditorParser {
         else if (kw.equalsIgnoreCase(MIN)) {
             int cardi = parseInteger();
             OWLClassExpression filler = parseIntersection();
-            return parseClassAxiomRemainder(getDataFactory().getOWLObjectMinCardinality(prop, cardi, filler));
+            return parseClassAxiomRemainder(getDataFactory().getOWLObjectMinCardinality(cardi, prop, filler));
 
         }
         else if (kw.equalsIgnoreCase(MAX)) {
             int cardi = parseInteger();
             OWLClassExpression filler = parseIntersection();
-            return parseClassAxiomRemainder(getDataFactory().getOWLObjectMaxCardinality(prop, cardi, filler));
+            return parseClassAxiomRemainder(getDataFactory().getOWLObjectMaxCardinality(cardi, prop, filler));
 
         }
         else if (kw.equalsIgnoreCase(EXACTLY)) {
             int cardi = parseInteger();
             OWLClassExpression filler = parseIntersection();
-            return parseClassAxiomRemainder(getDataFactory().getOWLObjectExactCardinality(prop, cardi, filler));
+            return parseClassAxiomRemainder(getDataFactory().getOWLObjectExactCardinality(cardi, prop, filler));
         }
         else if (kw.equalsIgnoreCase(SUB_PROPERTY_OF)) {
             OWLObjectPropertyExpression superProperty = parseObjectPropertyExpression();

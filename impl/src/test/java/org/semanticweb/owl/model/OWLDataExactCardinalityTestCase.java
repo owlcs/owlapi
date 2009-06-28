@@ -33,12 +33,12 @@ public class OWLDataExactCardinalityTestCase extends AbstractOWLDataCardinalityR
 
 
     protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality) throws Exception {
-        return getOWLDataFactory().getOWLDataExactCardinality(prop, cardinality);
+        return getOWLDataFactory().getOWLDataExactCardinality(cardinality, prop);
     }
 
 
     protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality,
                                                               OWLDataRange dataRange) throws Exception {
-        return getOWLDataFactory().getOWLDataExactCardinality(prop, cardinality, dataRange);
+        return getOWLDataFactory().getOWLDataExactCardinality(cardinality, prop, dataRange);
     }
 }

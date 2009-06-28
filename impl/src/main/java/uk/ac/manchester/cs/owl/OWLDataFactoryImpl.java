@@ -382,41 +382,32 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLDataExactCardinality getOWLDataExactCardinality(OWLDataPropertyExpression property,
-                                                           int cardinality) {
+    public OWLDataExactCardinality getOWLDataExactCardinality(int cardinality, OWLDataPropertyExpression property) {
         return new OWLDataExactCardinalityImpl(this, property, cardinality, getTopDatatype());
     }
 
 
-    public OWLDataExactCardinality getOWLDataExactCardinality(OWLDataPropertyExpression property,
-                                                           int cardinality,
-                                                           OWLDataRange dataRange) {
+    public OWLDataExactCardinality getOWLDataExactCardinality(int cardinality, OWLDataPropertyExpression property, OWLDataRange dataRange) {
         return new OWLDataExactCardinalityImpl(this, property, cardinality, dataRange);
     }
 
 
-    public OWLDataMaxCardinality getOWLDataMaxCardinality(OWLDataPropertyExpression property,
-                                                       int cardinality) {
+    public OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality, OWLDataPropertyExpression property) {
         return new OWLDataMaxCardinalityImpl(this, property, cardinality, getTopDatatype());
     }
 
 
-    public OWLDataMaxCardinality getOWLDataMaxCardinality(OWLDataPropertyExpression property,
-                                                       int cardinality,
-                                                       OWLDataRange dataRange) {
+    public OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality, OWLDataPropertyExpression property, OWLDataRange dataRange) {
         return new OWLDataMaxCardinalityImpl(this, property, cardinality, dataRange);
     }
 
 
-    public OWLDataMinCardinality getOWLDataMinCardinality(OWLDataPropertyExpression property,
-                                                       int cardinality) {
+    public OWLDataMinCardinality getOWLDataMinCardinality(int cardinality, OWLDataPropertyExpression property) {
         return new OWLDataMinCardinalityImpl(this, property, cardinality, getTopDatatype());
     }
 
 
-    public OWLDataMinCardinality getOWLDataMinCardinality(OWLDataPropertyExpression property,
-                                                       int cardinality,
-                                                       OWLDataRange dataRange) {
+    public OWLDataMinCardinality getOWLDataMinCardinality(int cardinality, OWLDataPropertyExpression property, OWLDataRange dataRange) {
         return new OWLDataMinCardinalityImpl(this, property, cardinality, dataRange);
     }
 
@@ -454,41 +445,32 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLObjectExactCardinality getOWLObjectExactCardinality(OWLObjectPropertyExpression property,
-                                                               int cardinality) {
+    public OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality, OWLObjectPropertyExpression property) {
         return new OWLObjectExactCardinalityImpl(this, property, cardinality, getOWLThing());
     }
 
 
-    public OWLObjectExactCardinality getOWLObjectExactCardinality(OWLObjectPropertyExpression property,
-                                                               int cardinality,
-                                                               OWLClassExpression classExpression) {
+    public OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality, OWLObjectPropertyExpression property, OWLClassExpression classExpression) {
         return new OWLObjectExactCardinalityImpl(this, property, cardinality, classExpression);
     }
 
 
-    public OWLObjectMinCardinality getOWLObjectMinCardinality(OWLObjectPropertyExpression property,
-                                                           int cardinality) {
+    public OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality, OWLObjectPropertyExpression property) {
         return new OWLObjectMinCardinalityImpl(this, property, cardinality, getOWLThing());
     }
 
 
-    public OWLObjectMinCardinality getOWLObjectMinCardinality(OWLObjectPropertyExpression property,
-                                                           int cardinality,
-                                                           OWLClassExpression classExpression) {
+    public OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality, OWLObjectPropertyExpression property, OWLClassExpression classExpression) {
         return new OWLObjectMinCardinalityImpl(this, property, cardinality, classExpression);
     }
 
 
-    public OWLObjectMaxCardinality getOWLObjectMaxCardinality(OWLObjectPropertyExpression property,
-                                                           int cardinality) {
+    public OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality, OWLObjectPropertyExpression property) {
         return new OWLObjectMaxCardinalityImpl(this, property, cardinality, getOWLThing());
     }
 
 
-    public OWLObjectMaxCardinality getOWLObjectMaxCardinality(OWLObjectPropertyExpression property,
-                                                           int cardinality,
-                                                           OWLClassExpression classExpression) {
+    public OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality, OWLObjectPropertyExpression property, OWLClassExpression classExpression) {
         return new OWLObjectMaxCardinalityImpl(this, property, cardinality, classExpression);
     }
 

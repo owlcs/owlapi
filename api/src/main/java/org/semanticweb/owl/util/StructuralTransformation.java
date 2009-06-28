@@ -169,7 +169,7 @@ public class StructuralTransformation {
                 OWLClass name = createNewName();
                 OWLClassExpression rhs = desc.getFiller().accept(this);
                 axioms.add(getSCA(name, rhs));
-                return df.getOWLObjectExactCardinality(desc.getProperty(), desc.getCardinality(), name);
+                return df.getOWLObjectExactCardinality(desc.getCardinality(), desc.getProperty(), name);
             } else {
                 return desc;
             }
@@ -191,7 +191,7 @@ public class StructuralTransformation {
                 OWLClass name = createNewName();
                 OWLClassExpression rhs = desc.getFiller().accept(this);
                 axioms.add(getSCA(name, rhs));
-                return df.getOWLObjectMaxCardinality(desc.getProperty(), desc.getCardinality(), name);
+                return df.getOWLObjectMaxCardinality(desc.getCardinality(), desc.getProperty(), name);
             } else {
                 return desc;
             }
@@ -203,7 +203,7 @@ public class StructuralTransformation {
                 OWLClass name = createNewName();
                 OWLClassExpression rhs = desc.getFiller().accept(this);
                 axioms.add(getSCA(name, rhs));
-                return df.getOWLObjectMinCardinality(desc.getProperty(), desc.getCardinality(), name);
+                return df.getOWLObjectMinCardinality(desc.getCardinality(), desc.getProperty(), name);
             } else {
                 return desc;
             }
@@ -428,20 +428,19 @@ public class StructuralTransformation {
 
         public Set<OWLAxiom> visit(OWLFunctionalDataPropertyAxiom axiom) {
             return toSet(df.getOWLSubClassOfAxiom(df.getOWLThing(),
-                    df.getOWLDataMaxCardinality(axiom.getProperty(), 1)));
+                    df.getOWLDataMaxCardinality(1, axiom.getProperty())));
         }
 
 
         public Set<OWLAxiom> visit(OWLFunctionalObjectPropertyAxiom axiom) {
             return toSet(df.getOWLSubClassOfAxiom(df.getOWLThing(),
-                    df.getOWLObjectMaxCardinality(axiom.getProperty(), 1)));
+                    df.getOWLObjectMaxCardinality(1, axiom.getProperty())));
         }
 
 
         public Set<OWLAxiom> visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
             return toSet(df.getOWLSubClassOfAxiom(df.getOWLThing(),
-                    df.getOWLObjectMaxCardinality(axiom.getProperty().getInverseProperty(),
-                            1)));
+                    df.getOWLObjectMaxCardinality(1, axiom.getProperty().getInverseProperty())));
         }
 
 

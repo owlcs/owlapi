@@ -391,7 +391,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLDataPropertyExpression prop = (OWLDataPropertyExpression) obj;
         desc.getFiller().accept(this);
         OWLDataRange filler = (OWLDataRange) obj;
-        obj = dataFactory.getOWLDataExactCardinality(prop, desc.getCardinality(), filler);
+        obj = dataFactory.getOWLDataExactCardinality(desc.getCardinality(), prop, filler);
     }
 
 
@@ -400,7 +400,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLDataPropertyExpression prop = (OWLDataPropertyExpression) obj;
         desc.getFiller().accept(this);
         OWLDataRange filler = (OWLDataRange) obj;
-        obj = dataFactory.getOWLDataMaxCardinality(prop, desc.getCardinality(), filler);
+        obj = dataFactory.getOWLDataMaxCardinality(desc.getCardinality(), prop, filler);
     }
 
 
@@ -409,7 +409,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLDataPropertyExpression prop = (OWLDataPropertyExpression) obj;
         desc.getFiller().accept(this);
         OWLDataRange filler = (OWLDataRange) obj;
-        obj = dataFactory.getOWLDataMinCardinality(prop, desc.getCardinality(), filler);
+        obj = dataFactory.getOWLDataMinCardinality(desc.getCardinality(), prop, filler);
     }
 
 
@@ -452,7 +452,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
         desc.getFiller().accept(this);
         OWLClassExpression filler = (OWLClassExpression) obj;
-        obj = dataFactory.getOWLObjectExactCardinality(prop, desc.getCardinality(), filler);
+        obj = dataFactory.getOWLObjectExactCardinality(desc.getCardinality(), prop, filler);
     }
 
 
@@ -467,7 +467,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
         desc.getFiller().accept(this);
         OWLClassExpression filler = (OWLClassExpression) obj;
-        obj = dataFactory.getOWLObjectMaxCardinality(prop, desc.getCardinality(), filler);
+        obj = dataFactory.getOWLObjectMaxCardinality(desc.getCardinality(), prop, filler);
     }
 
 
@@ -476,7 +476,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
         desc.getFiller().accept(this);
         OWLClassExpression filler = (OWLClassExpression) obj;
-        obj = dataFactory.getOWLObjectMinCardinality(prop, desc.getCardinality(), filler);
+        obj = dataFactory.getOWLObjectMinCardinality(desc.getCardinality(), prop, filler);
     }
 
 

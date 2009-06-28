@@ -33,12 +33,12 @@ public class OWLObjectMaxCardinalityRestrictionTestCase extends AbstractOWLObjec
 
 
     protected OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop, int cardinality) throws Exception {
-        return getOWLDataFactory().getOWLObjectMaxCardinality(prop, cardinality);
+        return getOWLDataFactory().getOWLObjectMaxCardinality(cardinality, prop);
     }
 
 
     protected OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop, int cardinality,
                                                                 OWLClassExpression classExpression) throws Exception {
-        return getOWLDataFactory().getOWLObjectMaxCardinality(prop, cardinality, classExpression);
+        return getOWLDataFactory().getOWLObjectMaxCardinality(cardinality, prop, classExpression);
     }
 }

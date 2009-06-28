@@ -613,15 +613,15 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
         if (min) {
             {
-                if (true) return factory.getOWLObjectMinCardinality(prop, card, filler);
+                if (true) return factory.getOWLObjectMinCardinality(card, prop, filler);
             }
         } else if (exactly) {
             {
-                if (true) return factory.getOWLObjectExactCardinality(prop, card, filler);
+                if (true) return factory.getOWLObjectExactCardinality(card, prop, filler);
             }
         } else {
             {
-                if (true) return factory.getOWLObjectMaxCardinality(prop, card, filler);
+                if (true) return factory.getOWLObjectMaxCardinality(card, prop, filler);
             }
         }
         throw new Error("Missing return statement in function");

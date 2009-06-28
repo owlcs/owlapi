@@ -44,7 +44,7 @@ public class DataMaxCardinalityTestCase extends AbstractFileRoundTrippingTestCas
          Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
          OWLClass clsA = getOWLClass("A");
          OWLDataProperty prop = getOWLDataProperty("p");
-         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataMaxCardinality(prop, 3)));
+         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataMaxCardinality(3, prop)));
          axioms.add(getFactory().getOWLDeclarationAxiom(prop));
          assertEquals(getOnt().getAxioms(), axioms);
     }

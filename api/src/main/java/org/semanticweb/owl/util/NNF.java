@@ -148,9 +148,9 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
         OWLClassExpression filler = desc.getFiller().accept(this);
         OWLClassExpression nnf = null;
         if (neg) {
-            nnf = dataFactory.getOWLObjectMaxCardinality(desc.getProperty(), card, filler);
+            nnf = dataFactory.getOWLObjectMaxCardinality(card, desc.getProperty(), filler);
         } else {
-            nnf = dataFactory.getOWLObjectMinCardinality(desc.getProperty(), card, filler);
+            nnf = dataFactory.getOWLObjectMinCardinality(card, desc.getProperty(), filler);
         }
         negated = neg;
         return nnf;
@@ -172,9 +172,9 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
         OWLClassExpression filler = desc.getFiller().accept(this);
         OWLClassExpression nnf = null;
         if (neg) {
-            nnf = dataFactory.getOWLObjectMinCardinality(desc.getProperty(), card, filler);
+            nnf = dataFactory.getOWLObjectMinCardinality(card, desc.getProperty(), filler);
         } else {
-            nnf = dataFactory.getOWLObjectMaxCardinality(desc.getProperty(), card, filler);
+            nnf = dataFactory.getOWLObjectMaxCardinality(card, desc.getProperty(), filler);
         }
         negated = neg;
         return nnf;
@@ -242,9 +242,9 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
         OWLDataRange filler = desc.getFiller().accept(this);
         OWLClassExpression nnf = null;
         if (neg) {
-            nnf = dataFactory.getOWLDataMinCardinality(desc.getProperty(), card, filler);
+            nnf = dataFactory.getOWLDataMinCardinality(card, desc.getProperty(), filler);
         } else {
-            nnf = dataFactory.getOWLDataMaxCardinality(desc.getProperty(), card, filler);
+            nnf = dataFactory.getOWLDataMaxCardinality(card, desc.getProperty(), filler);
         }
         negated = neg;
         return nnf;
@@ -264,9 +264,9 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
         OWLDataRange filler = desc.getFiller().accept(this);
         OWLClassExpression nnf = null;
         if (neg) {
-            nnf = dataFactory.getOWLDataMaxCardinality(desc.getProperty(), card, filler);
+            nnf = dataFactory.getOWLDataMaxCardinality(card, desc.getProperty(), filler);
         } else {
-            nnf = dataFactory.getOWLDataMinCardinality(desc.getProperty(), card, filler);
+            nnf = dataFactory.getOWLDataMinCardinality(card, desc.getProperty(), filler);
         }
         negated = neg;
         return nnf;

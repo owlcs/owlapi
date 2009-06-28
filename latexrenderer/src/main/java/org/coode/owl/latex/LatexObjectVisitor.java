@@ -517,7 +517,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        df.getOWLDataMaxCardinality(axiom.getProperty(), 1).accept(this);
+        df.getOWLDataMaxCardinality(1, axiom.getProperty()).accept(this);
     }
 
 
@@ -526,7 +526,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        df.getOWLObjectMaxCardinality(axiom.getProperty(), 1).accept(this);
+        df.getOWLObjectMaxCardinality(1, axiom.getProperty()).accept(this);
     }
 
 
@@ -540,7 +540,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         write(SUBCLASS);
         writeSpace();
         OWLObjectPropertyExpression prop = df.getOWLObjectInverseOf(axiom.getProperty());
-        df.getOWLObjectMaxCardinality(prop, 1).accept(this);
+        df.getOWLObjectMaxCardinality(1, prop).accept(this);
     }
 
 

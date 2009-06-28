@@ -33,12 +33,12 @@ public class OWLDataMinCardinalityTestCase extends AbstractOWLDataCardinalityRes
 
 
     protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality) throws Exception {
-        return getOWLDataFactory().getOWLDataMinCardinality(prop, cardinality);
+        return getOWLDataFactory().getOWLDataMinCardinality(cardinality, prop);
     }
 
 
     protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality,
                                                               OWLDataRange dataRange) throws Exception {
-        return getOWLDataFactory().getOWLDataMinCardinality(prop, cardinality, dataRange);
+        return getOWLDataFactory().getOWLDataMinCardinality(cardinality, prop, dataRange);
     }
 }

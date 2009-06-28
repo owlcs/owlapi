@@ -40,7 +40,7 @@ public class DataMinCardinalityTestCase extends AbstractFileRoundTrippingTestCas
          Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
          OWLClass clsA = getOWLClass("A");
          OWLDataProperty prop = getOWLDataProperty("p");
-         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataMinCardinality(prop, 3)));
+         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataMinCardinality(3, prop)));
          axioms.add(getFactory().getOWLDeclarationAxiom(prop));
          assertEquals(getOnt().getAxioms(), axioms);
     }

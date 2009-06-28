@@ -112,9 +112,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         public void visit(OWLDataMinCardinality desc) {
             super.visit(desc);
             if (desc instanceof OWLDataOneOf) {
-                setLastObject(getDataFactory().getOWLDataMinCardinality(desc.getProperty(),
-                        desc.getCardinality(),
-                        process(desc.getProperty(), (OWLDataOneOf) desc.getFiller())));
+                setLastObject(getDataFactory().getOWLDataMinCardinality(desc.getCardinality(), desc.getProperty(), process(desc.getProperty(), (OWLDataOneOf) desc.getFiller())));
             }
 
         }
@@ -123,9 +121,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         public void visit(OWLDataMaxCardinality desc) {
             super.visit(desc);
             if (desc instanceof OWLDataOneOf) {
-                setLastObject(getDataFactory().getOWLDataMaxCardinality(desc.getProperty(),
-                        desc.getCardinality(),
-                        process(desc.getProperty(), (OWLDataOneOf) desc.getFiller())));
+                setLastObject(getDataFactory().getOWLDataMaxCardinality(desc.getCardinality(), desc.getProperty(), process(desc.getProperty(), (OWLDataOneOf) desc.getFiller())));
             }
         }
 
@@ -133,9 +129,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         public void visit(OWLDataExactCardinality desc) {
             super.visit(desc);
             if (desc instanceof OWLDataOneOf) {
-                setLastObject(getDataFactory().getOWLDataExactCardinality(desc.getProperty(),
-                        desc.getCardinality(),
-                        process(desc.getProperty(), (OWLDataOneOf) desc.getFiller())));
+                setLastObject(getDataFactory().getOWLDataExactCardinality(desc.getCardinality(), desc.getProperty(), process(desc.getProperty(), (OWLDataOneOf) desc.getFiller())));
             }
         }
 

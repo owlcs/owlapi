@@ -82,6 +82,6 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyChara
 
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
-        return df.getOWLSubClassOfAxiom(df.getOWLThing(), df.getOWLObjectMaxCardinality(getProperty(), 1));
+        return df.getOWLSubClassOfAxiom(df.getOWLThing(), df.getOWLObjectMaxCardinality(1, getProperty()));
     }
 }

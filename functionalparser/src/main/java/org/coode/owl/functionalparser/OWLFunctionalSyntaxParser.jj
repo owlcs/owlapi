@@ -983,10 +983,10 @@ OWLClassExpression ObjectMinCardinality()  :
 {
     (<OBJECTMINCARDINALITY><OPENPAR>cardinality=Cardinality()prop=ObjectPropertyExpression()(filler=ClassExpression())?<CLOSEPAR>) {
         if(filler == null) {
-            return dataFactory.getOWLObjectMinCardinality(prop, cardinality);
+            return dataFactory.getOWLObjectMinCardinality(cardinality, prop);
         }
         else {
-            return dataFactory.getOWLObjectMinCardinality(prop, cardinality, filler);
+            return dataFactory.getOWLObjectMinCardinality(cardinality, prop, filler);
         }
     }
 }
@@ -1000,10 +1000,10 @@ OWLClassExpression ObjectExactCardinality()  :
 {
     (<OBJECTEXACTCARDINALITY><OPENPAR>cardinality=Cardinality()prop=ObjectPropertyExpression()(filler=ClassExpression())?<CLOSEPAR>) {
         if(filler == null) {
-            return dataFactory.getOWLObjectExactCardinality(prop, cardinality);
+            return dataFactory.getOWLObjectExactCardinality(cardinality, prop);
         }
         else {
-            return dataFactory.getOWLObjectExactCardinality(prop, cardinality, filler);
+            return dataFactory.getOWLObjectExactCardinality(cardinality, prop, filler);
         }
     }
 }
@@ -1017,10 +1017,10 @@ OWLClassExpression ObjectMaxCardinality()  :
 {
     (<OBJECTMAXCARDINALITY><OPENPAR>cardinality=Cardinality()prop=ObjectPropertyExpression()(filler=ClassExpression())?<CLOSEPAR>) {
         if(filler == null) {
-            return dataFactory.getOWLObjectMaxCardinality(prop, cardinality);
+            return dataFactory.getOWLObjectMaxCardinality(cardinality, prop);
         }
         else {
-            return dataFactory.getOWLObjectMaxCardinality(prop, cardinality, filler);
+            return dataFactory.getOWLObjectMaxCardinality(cardinality, prop, filler);
         }
     }
 }
@@ -1067,10 +1067,10 @@ OWLClassExpression DataMinCardinality()  :
 {
     <DATAMINCARDINALITY><OPENPAR>cardinality=Cardinality()prop=DataPropertyExpression()((rng=DataRange())?)<CLOSEPAR> {
         if(rng == null) {
-            return dataFactory.getOWLDataMinCardinality(prop, cardinality);
+            return dataFactory.getOWLDataMinCardinality(cardinality, prop);
         }
         else {
-            return dataFactory.getOWLDataMinCardinality(prop, cardinality, rng);
+            return dataFactory.getOWLDataMinCardinality(cardinality, prop, rng);
         }
     }
 }
@@ -1084,10 +1084,10 @@ OWLClassExpression DataExactCardinality()  :
 {
     <DATAEXACTCARDINALITY><OPENPAR>cardinality=Cardinality()prop=DataPropertyExpression()((rng=DataRange())?)<CLOSEPAR> {
         if(rng == null) {
-            return dataFactory.getOWLDataExactCardinality(prop, cardinality);
+            return dataFactory.getOWLDataExactCardinality(cardinality, prop);
         }
         else {
-            return dataFactory.getOWLDataExactCardinality(prop, cardinality, rng);
+            return dataFactory.getOWLDataExactCardinality(cardinality, prop, rng);
         }
     }
 }
@@ -1101,10 +1101,10 @@ OWLClassExpression DataMaxCardinality()  :
 {
     <DATAMAXCARDINALITY><OPENPAR>cardinality=Cardinality()prop=DataPropertyExpression()((rng=DataRange())?)<CLOSEPAR> {
          if(rng == null) {
-            return dataFactory.getOWLDataMaxCardinality(prop, cardinality);
+            return dataFactory.getOWLDataMaxCardinality(cardinality, prop);
         }
         else {
-            return dataFactory.getOWLDataMaxCardinality(prop, cardinality, rng);
+            return dataFactory.getOWLDataMaxCardinality(cardinality, prop, rng);
         }
     }
 }

@@ -39,10 +39,7 @@ public class OWLDataMinCardinalityElementHandler extends AbstractDataCardinality
 
 
     protected OWLClassExpression createRestriction() {
-        return getOWLDataFactory().getOWLDataMinCardinality(
-                getProperty(),
-                getCardinality(),
-                getFiller()
+        return getOWLDataFactory().getOWLDataMinCardinality(getCardinality(), getProperty(), getFiller()
         );
     }
 }

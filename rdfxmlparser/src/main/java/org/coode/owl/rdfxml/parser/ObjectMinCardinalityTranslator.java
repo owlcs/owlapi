@@ -45,13 +45,13 @@ public class ObjectMinCardinalityTranslator extends AbstractObjectCardinalityTra
 
 
     protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi) throws OWLException {
-        return getDataFactory().getOWLObjectMinCardinality(prop, cardi);
+        return getDataFactory().getOWLObjectMinCardinality(cardi, prop);
     }
 
 
     protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi,
                                                    OWLClassExpression filler) throws OWLException {
-        return getDataFactory().getOWLObjectMinCardinality(prop, cardi, filler);
+        return getDataFactory().getOWLObjectMinCardinality(cardi, prop, filler);
     }
 
 

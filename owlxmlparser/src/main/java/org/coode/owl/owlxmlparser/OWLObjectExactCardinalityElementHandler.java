@@ -39,10 +39,7 @@ public class OWLObjectExactCardinalityElementHandler extends AbstractOWLObjectCa
 
 
     protected OWLClassExpression createCardinalityRestriction() {
-        return getOWLDataFactory().getOWLObjectExactCardinality(
-                getProperty(),
-                getCardinality(),
-                getFiller()
+        return getOWLDataFactory().getOWLObjectExactCardinality(getCardinality(), getProperty(), getFiller()
         );
     }
 }
