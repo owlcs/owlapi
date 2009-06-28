@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.util.List;
+import java.io.Serializable;
 
 /*
  * Copyright (C) 2007, University of Manchester
@@ -737,7 +738,8 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
     }
 
 
-    private class NullHyperLinkListener implements HyperlinkListener {
+    private class NullHyperLinkListener implements HyperlinkListener, Serializable {
+        
         public void hyperlinkClicked(OWLEntity entity) {
 
         }

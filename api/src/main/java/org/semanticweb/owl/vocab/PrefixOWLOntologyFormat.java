@@ -6,6 +6,8 @@ import org.semanticweb.owl.model.IRI;
 import org.semanticweb.owl.util.DefaultPrefixManager;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -71,6 +73,14 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
             String prefix = map.get(pn);
             nsm.setPrefix(pn, prefix);
         }
+    }
+
+    /**
+     * Gets the prefix names that have a mapping in this prefix manager
+     * @return
+     */
+    public Set<String> getPrefixNames() {
+        return nsm.getPrefixNames();
     }
 
     /**

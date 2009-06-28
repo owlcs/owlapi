@@ -36,7 +36,8 @@ public class GetInverseProperties implements StandardQuery<HierarchyNode<OWLObje
 
     private OWLObjectPropertyExpression property;
 
-    public GetInverseProperties() {
+    public GetInverseProperties(OWLObjectPropertyExpression property) {
+        this.property = property;
     }
 
     public OWLObjectPropertyExpression getProperty() {

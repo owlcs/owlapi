@@ -66,7 +66,7 @@ public class ReaderInputSource implements OWLOntologyInputSource {
      * of the document if needed.
      */
     public ReaderInputSource(Reader reader, IRI physicalURI) {
-        this.physicalURI = this.physicalURI;
+        this.physicalURI = physicalURI.toURI();
         fillBuffer(reader);
     }
 

@@ -84,7 +84,7 @@ public enum DublinCoreVocabulary {
         return iri;
     }
 
-    public static Set<URI> ALL_URIS;
+    public static final Set<URI> ALL_URIS;
 
 
     static {

@@ -44,7 +44,16 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, U
      * Creates a namespace manager that does not have a default namespace.
      */
     public DefaultPrefixManager() {
-        this(null);
+        prefix2NamespaceMap = new HashMap<String, String>();
+        setupDefaultPrefixes();
+    }
+
+    public DefaultPrefixManager(PrefixManager pm) {
+        prefix2NamespaceMap = new HashMap<String, String>();
+        for(String prefixName : pm.getPrefixNames()) {
+            prefix2NamespaceMap.put(prefixName, pm.getPrefix(prefixName));
+        }
+        setupDefaultPrefixes();
     }
 
     public void clear() {
@@ -52,6 +61,12 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, U
         prefix2NamespaceMap.clear();
     }
 
+    /**
+     * Gets the prefix names that have a mapping in this prefix manager
+     */
+    public Set<String> getPrefixNames() {
+        return new HashSet<String>(prefix2NamespaceMap.keySet());
+    }
 
     /**
      * Creates a namespace manager that has the specified default namespace.
@@ -73,6 +88,10 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, U
         if (defaultPrefix != null) {
             setDefaultPrefix(defaultPrefix);
         }
+        setupDefaultPrefixes();
+    }
+
+    private void setupDefaultPrefixes() {
         setPrefix("owl:", Namespaces.OWL.toString());
         setPrefix("rdfs:", Namespaces.RDFS.toString());
         setPrefix("rdf:", Namespaces.RDF.toString());

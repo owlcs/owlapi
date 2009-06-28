@@ -1,6 +1,7 @@
 package org.semanticweb.owl.model;
 
 import java.util.Map;
+import java.util.Set;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -92,5 +93,10 @@ public interface PrefixManager {
      * @return The prefix IRI for this IRI, or <code>null</code> if a prefix IRI cannot be generated.
      */
     String getPrefixIRI(IRI iri);
-    
+
+    /**
+     * Gets the prefix names that have a mapping in this prefix manager
+     * @return
+     */
+    Set<String> getPrefixNames();
 }

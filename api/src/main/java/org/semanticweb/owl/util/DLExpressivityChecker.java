@@ -89,11 +89,11 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     public String getDescriptionLogicName() {
         List<Construct> orderedConstructs = getOrderedConstructs();
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (Construct c : orderedConstructs) {
-            s += c.toString();
+            s.append(c);
         }
-        return s;
+        return s.toString();
     }
 
 

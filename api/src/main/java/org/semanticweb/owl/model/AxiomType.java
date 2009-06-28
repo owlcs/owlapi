@@ -46,7 +46,7 @@ public class AxiomType<C extends OWLAxiom> {
 
     final public int index;
 
-    public static Set<AxiomType> AXIOM_TYPES;
+    public static final Set<AxiomType> AXIOM_TYPES;
 
     private static int count = 0;
 

@@ -196,21 +196,26 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     private void parseFile(File file) {
         try {
-            currentFile = file;
-            SAXParser parser = parserFactory.newSAXParser();
             InputStream is = new BufferedInputStream(new FileInputStream(file));
-            parser.parse(is, this);
+            try {
+                currentFile = file;
+                SAXParser parser = parserFactory.newSAXParser();
+                parser.parse(is, this);
+            }
+            catch (ParserConfigurationException e) {
+                throw new OWLRuntimeException(e);
+            }
+            catch (SAXException e) {
+                // We simply aren't interested in any parsing problems - if
+                // we can't parse a file, then we can't map it and we don't
+                // care!
+            }
+            catch (IOException e) {
+                // Again - these kinds of exceptions are of no interest to us!
+            }
         }
-        catch (ParserConfigurationException e) {
-            throw new OWLRuntimeException(e);
-        }
-        catch (SAXException e) {
-            // We simply aren't interested in any parsing problems - if
-            // we can't parse a file, then we can't map it and we don't
-            // care!
-        }
-        catch (IOException e) {
-            // Again - these kinds of exceptions are of no interest to us!
+        catch (FileNotFoundException e) {
+            // Don't care?
         }
     }
 

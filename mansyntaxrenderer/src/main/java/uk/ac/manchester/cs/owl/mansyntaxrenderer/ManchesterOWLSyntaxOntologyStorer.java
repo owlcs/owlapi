@@ -50,16 +50,8 @@ public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer
 
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
                                                                                                                             OWLOntologyStorageException {
-        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(manager, ontology, writer);
-        if(format instanceof PrefixOWLOntologyFormat) {
-            PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
-            DefaultPrefixManager prefixMan = ren.getPrefixManager();
-            Map<String, String> map = prefixFormat.getPrefixName2PrefixMap();
-            for(String pn : map.keySet()) {
-                String prefix = map.get(pn);
-                prefixMan.setPrefix(pn, prefix);
-            }
-        }
+
+        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(manager, ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(format));
         ren.writeOntology();
     }
 }

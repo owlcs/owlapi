@@ -44,9 +44,11 @@ public class HermiTReasonerFactory implements OWLReasonerFactory {
 
     private Constructor constructor;
 
+    private static final String REASONER_CLASS_NAME = "org.semanticweb.HermiT.Reasoner";
+
     public HermiTReasonerFactory() {
         try {
-            Class clsHermitReasoner = Class.forName("org.semanticweb.HermiT.HermitReasoner");
+            Class clsHermitReasoner = Class.forName(REASONER_CLASS_NAME);
             constructor = clsHermitReasoner.getDeclaredConstructor(OWLOntologyManager.class);
             constructor.setAccessible(true);
 

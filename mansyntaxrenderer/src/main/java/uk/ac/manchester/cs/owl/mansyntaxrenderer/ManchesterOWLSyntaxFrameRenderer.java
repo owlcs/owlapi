@@ -40,10 +40,6 @@ import java.util.*;
  */
 public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectRenderer implements OWLEntityVisitor {
 
-    private OWLOntologyManager man;
-
-    private DefaultPrefixManager pm;
-
     private OWLOntology defaultOntology;
 
     private Set<OWLOntology> ontologies;
@@ -61,16 +57,15 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     };
 
     public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
-                                            Writer writer) {
-        this(owlOntologyManager, Collections.singleton(ontology), ontology, writer);
+                                            Writer writer, ShortFormProvider entityShortFormProvider) {
+        this(owlOntologyManager, Collections.singleton(ontology), ontology, writer, entityShortFormProvider);
     }
 
     public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager,
                                             Set<OWLOntology> ontologies,
                                             OWLOntology defaultOntology,
-                                            Writer writer) {
-        super(writer);
-        this.man = owlOntologyManager;
+                                            Writer writer, ShortFormProvider entityShortFormProvider) {
+        super(writer, entityShortFormProvider);
         this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);
         this.defaultOntology = defaultOntology;
 
@@ -101,28 +96,12 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return ontologies;
     }
 
-    public DefaultPrefixManager getPrefixManager() {
-        if(pm == null) {
-            pm = new DefaultPrefixManager();
-        }
-        return pm;
-    }
-
-
     public void writeOntology() throws OWLRendererException {
         if (ontologies.size() != 1) {
             throw new RuntimeException("Can only render one ontology");
         }
         OWLOntology ontology = getOntologies().iterator().next();
-        if(pm == null) {
-            pm = new DefaultPrefixManager();
-            setShortFormProvider(pm);
-            if (!ontology.isAnonymous()) {
-                pm.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI().toString());
-            }
-        }
         writePrefixMap();
-
         writeNewLine();
         writeOntologyHeader(ontology);
 
@@ -182,9 +161,14 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
 
     public void writePrefixMap() {
+        ShortFormProvider sfp = getShortFormProvider();
+        if(!(sfp instanceof ManchesterOWLSyntaxPrefixNameShortFormProvider)) {
+            return;
+        }
+        ManchesterOWLSyntaxPrefixNameShortFormProvider prov = (ManchesterOWLSyntaxPrefixNameShortFormProvider) sfp;
         Map<String, String> prefixMap = new HashMap<String, String>();
-        for (String prefixName : getPrefixManager().getPrefixName2PrefixMap().keySet()) {
-            String prefix = getPrefixManager().getPrefix(prefixName);
+        for (String prefixName : prov.getPrefixManager().getPrefixName2PrefixMap().keySet()) {
+            String prefix = prov.getPrefixManager().getPrefix(prefixName);
             prefixMap.put(prefixName, prefix);
             write(PREFIX.toString());
             write(": ");
@@ -206,17 +190,18 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         write(">");
     }
 
-    protected void write(IRI uri) {
-        String qname = null;
-        if(pm != null) {
-            qname = getPrefixManager().getPrefixIRI(uri);
-        }
-        if (qname != null) {
-            super.write(qname);
-        } else {
-            writeFullURI(uri.toString());
-        }
-    }
+//    protected void write(IRI uri) {
+//        String qname = null;
+//        ShortFormProvider shortFormProvider = getShortFormProvider();
+//        if(pm != null) {
+//            qname = getPrefixManager().getPrefixIRI(uri);
+//        }
+//        if (qname != null) {
+//            super.write(qname);
+//        } else {
+//            writeFullURI(uri.toString());
+//        }
+//    }
 
     public boolean isFiltered(AxiomType axiomType) {
         return filteredAxiomTypes.contains(axiomType);
@@ -338,8 +323,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 Set<OWLIndividual> individuals = new TreeSet<OWLIndividual>();
                 for(OWLClassAssertionAxiom ax : ontology.getClassAssertionAxioms(cls)) {
                     if(isDisplayed(ax)) {
-                        individuals.add(ax.getIndividual());
-                        axioms.add(ax);
+                        if (renderExtensions || ax.getIndividual().isAnonymous()) {
+                            individuals.add(ax.getIndividual());
+                            axioms.add(ax);
+                        }
                     }
                 }
                 writeSection(INDIVIDUALS, individuals, ",", true, ontology);

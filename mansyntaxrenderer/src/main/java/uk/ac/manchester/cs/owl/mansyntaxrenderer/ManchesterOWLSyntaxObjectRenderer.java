@@ -3,6 +3,7 @@ package uk.ac.manchester.cs.owl.mansyntaxrenderer;
 import org.coode.manchesterowlsyntax.ManchesterOWLSyntax;
 import static org.coode.manchesterowlsyntax.ManchesterOWLSyntax.*;
 import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.util.ShortFormProvider;
 
 import java.io.Writer;
 import java.util.*;
@@ -41,8 +42,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public static final int LINE_LENGTH = 70;
 
 
-    public ManchesterOWLSyntaxObjectRenderer(Writer writer) {
-        super(writer);
+    public ManchesterOWLSyntaxObjectRenderer(Writer writer, ShortFormProvider entityShortFormProvider) {
+        super(writer, entityShortFormProvider);
     }
 
     protected List<? extends OWLObject> sort(Collection<? extends OWLObject> objects) {
@@ -86,12 +87,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
                 if (newline && isUseWrapping()) {
                     writeNewLine();
                 }
-//                if (lastWasNamed && desc instanceof OWLRestriction) {
-//                    write("", THAT, " ");
-//                }
-//                else {
                 write(" ", AND, " ");
-//                }
             }
 
             first = false;
@@ -332,7 +328,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLDataComplementOf node) {
         write(NOT);
-        node.getDataRange().accept(this);
+        if(node.getDataRange().isDatatype()) {
+            node.getDataRange().accept(this);
+        }
+        else {
+            write("(");
+            node.getDataRange().accept(this);
+            write(")");
+        }
+
     }
 
 
@@ -344,11 +348,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
 
     public void visit(OWLDataIntersectionOf node) {
-        write(node.getOperands(), ONE_OF_DELIMETER, false);
+        write("(");
+        write(node.getOperands(), AND, false);
+        write(")");
     }
 
     public void visit(OWLDataUnionOf node) {
-        write(node.getOperands(), ONE_OF_DELIMETER, false);
+        write("(");
+        write(node.getOperands(), OR, false);
+        write(")");
     }
 
     public void visit(OWLDatatypeRestriction node) {
@@ -505,7 +513,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         setAxiomWriting();
         writeFrameType(axiom.getProperty());
-        writePropertyCharacteristic(ANTI_SYMMETRIC);
+        writePropertyCharacteristic(ASYMMETRIC);
         restore();
     }
 

@@ -59,9 +59,9 @@ public class AbstractRenderer {
 
     private boolean useWrapping = true;
     
-    public AbstractRenderer(Writer writer) {
+    public AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
         this.writer = writer;
-        shortFormProvider = new SimpleShortFormProvider();
+        this.shortFormProvider = shortFormProvider;
         tabs = new ArrayList<Integer>();
         pushTab(0);
     }
@@ -87,9 +87,9 @@ public class AbstractRenderer {
     }
 
 
-    public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = shortFormProvider;
-    }
+//    public void setShortFormProvider(ShortFormProvider shortFormProvider) {
+//        this.shortFormProvider = shortFormProvider;
+//    }
 
 
     public void flush() throws OWLRendererException {

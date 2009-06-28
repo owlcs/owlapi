@@ -14,8 +14,6 @@ import org.semanticweb.owl.util.DefaultPrefixManager;
 
 public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants {
 
-    private OWLOntology ontology;
-
     private OWLDataFactory dataFactory;
 
     private Map<String, URI> string2URI;
@@ -72,15 +70,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     protected URI getURIFromQName(String qname) {
         IRI iri = pm.getIRI(qname);
         return iri.toURI();
-    }
-
-    protected void addAxiom(OWLAxiom ax) throws TurtleParserException {
-        try {
-            ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology, ax));
-        }
-        catch(OWLOntologyChangeException e) {
-            throw new TurtleParserException(e);
-        }
     }
 
     public URI getURI(String s) {
@@ -774,6 +763,87 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     finally { jj_save(37, xla); }
   }
 
+  final private boolean jj_3_20() {
+    if (jj_3R_10()) return true;
+    return false;
+  }
+
+  final private boolean jj_3_21() {
+    if (jj_3R_11()) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_17() {
+    if (jj_scan_token(PNAME_LN)) return true;
+    return false;
+  }
+
+  final private boolean jj_3_23() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_20()) {
+    jj_scanpos = xsp;
+    if (jj_3_21()) return true;
+    }
+    return false;
+  }
+
+  final private boolean jj_3_22() {
+    if (jj_3R_19()) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_18() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_22()) {
+    jj_scanpos = xsp;
+    if (jj_3_23()) return true;
+    }
+    return false;
+  }
+
+  final private boolean jj_3_34() {
+    if (jj_scan_token(DIGIT)) return true;
+    return false;
+  }
+
+  final private boolean jj_3_18() {
+    if (jj_3R_17()) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_21() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_33()) {
+    jj_scanpos = xsp;
+    if (jj_3_34()) return true;
+    }
+    return false;
+  }
+
+  final private boolean jj_3_25() {
+    if (jj_scan_token(DOUBLE_CARET)) return true;
+    if (jj_3R_10()) return true;
+    return false;
+  }
+
+  final private boolean jj_3_27() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_25()) {
+    jj_scanpos = xsp;
+    if (jj_3_26()) return true;
+    }
+    return false;
+  }
+
+  final private boolean jj_3_33() {
+    if (jj_scan_token(INTEGER)) return true;
+    return false;
+  }
+
   final private boolean jj_3_7() {
     if (jj_3R_10()) return true;
     return false;
@@ -1106,87 +1176,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
 
   final private boolean jj_3_6() {
     if (jj_3R_9()) return true;
-    return false;
-  }
-
-  final private boolean jj_3_20() {
-    if (jj_3R_10()) return true;
-    return false;
-  }
-
-  final private boolean jj_3_21() {
-    if (jj_3R_11()) return true;
-    return false;
-  }
-
-  final private boolean jj_3R_17() {
-    if (jj_scan_token(PNAME_LN)) return true;
-    return false;
-  }
-
-  final private boolean jj_3_23() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_20()) {
-    jj_scanpos = xsp;
-    if (jj_3_21()) return true;
-    }
-    return false;
-  }
-
-  final private boolean jj_3_22() {
-    if (jj_3R_19()) return true;
-    return false;
-  }
-
-  final private boolean jj_3R_18() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_22()) {
-    jj_scanpos = xsp;
-    if (jj_3_23()) return true;
-    }
-    return false;
-  }
-
-  final private boolean jj_3_34() {
-    if (jj_scan_token(DIGIT)) return true;
-    return false;
-  }
-
-  final private boolean jj_3_18() {
-    if (jj_3R_17()) return true;
-    return false;
-  }
-
-  final private boolean jj_3R_21() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_33()) {
-    jj_scanpos = xsp;
-    if (jj_3_34()) return true;
-    }
-    return false;
-  }
-
-  final private boolean jj_3_25() {
-    if (jj_scan_token(DOUBLE_CARET)) return true;
-    if (jj_3R_10()) return true;
-    return false;
-  }
-
-  final private boolean jj_3_27() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_25()) {
-    jj_scanpos = xsp;
-    if (jj_3_26()) return true;
-    }
-    return false;
-  }
-
-  final private boolean jj_3_33() {
-    if (jj_scan_token(INTEGER)) return true;
     return false;
   }
 

@@ -108,7 +108,7 @@ public enum XSDVocabulary {
         return iri;
     }
 
-    public static Set<URI> ALL_DATATYPES;
+    public static final Set<URI> ALL_DATATYPES;
 
     static {
         ALL_DATATYPES = new HashSet<URI>();

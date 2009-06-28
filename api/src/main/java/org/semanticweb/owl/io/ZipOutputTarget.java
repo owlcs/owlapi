@@ -40,7 +40,6 @@ public class ZipOutputTarget implements OWLOntologyOutputTarget {
 
     public ZipOutputTarget(File file) {
         this.file = file;
-        file.getParentFile().mkdirs();
     }
 
 
@@ -60,10 +59,14 @@ public class ZipOutputTarget implements OWLOntologyOutputTarget {
 
 
     public OutputStream getOutputStream() throws IOException {
-        file.getParentFile().mkdirs();
-        ZipOutputStream os = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
-        os.putNextEntry(new ZipEntry("ontology.txt"));
-        return os;
+        if(file.getParentFile().mkdirs()) {
+            ZipOutputStream os = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+            os.putNextEntry(new ZipEntry("ontology.txt"));
+            return os;
+        }
+        else {
+            throw new IOException("Could not create directories: " + file.getParentFile());
+        }
     }
 
 

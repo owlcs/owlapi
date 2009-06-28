@@ -3,6 +3,7 @@ package uk.ac.manchester.cs.owl.mansyntaxrenderer;
 import org.semanticweb.owl.io.OWLObjectRenderer;
 import org.semanticweb.owl.model.OWLObject;
 import org.semanticweb.owl.util.ShortFormProvider;
+import org.semanticweb.owl.util.SimpleShortFormProvider;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -46,9 +47,10 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
 
     private WriterDelegate writerDelegate;
 
+
     public ManchesterOWLSyntaxOWLObjectRendererImpl() {
         writerDelegate = new WriterDelegate();
-        ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate);
+        ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate, new SimpleShortFormProvider());
     }
 
 
@@ -60,7 +62,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
 
 
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        ren.setShortFormProvider(shortFormProvider);
+        ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate, shortFormProvider);
     }
 
     private class WriterDelegate extends Writer {

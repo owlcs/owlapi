@@ -48,38 +48,42 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
 
     public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException {
         try {
-            BufferedReader br;
+            BufferedReader br = null;
+            try {
+                if(inputSource.isReaderAvailable()) {
+                    br = new BufferedReader(inputSource.getReader());
+                }
+                else if(inputSource.isInputStreamAvailable()) {
+                    br = new BufferedReader(new InputStreamReader(inputSource.getInputStream()));
+                }
+                else {
+                    br = new BufferedReader(new InputStreamReader(getInputStream(inputSource.getPhysicalURI())));
+                }
+                StringBuilder sb = new StringBuilder();
+                String line;
+                boolean foundOntology = false;
+                while((line = br.readLine()) != null) {
+                        sb.append(line);
+                    sb.append("\n");
+                    if(!foundOntology  && line.trim().length() > 0 && !line.trim().startsWith("//")) {
 
-            if(inputSource.isReaderAvailable()) {
-                br = new BufferedReader(inputSource.getReader());
-            }
-            else if(inputSource.isInputStreamAvailable()) {
-                br = new BufferedReader(new InputStreamReader(inputSource.getInputStream()));
-            }
-            else {
-                br = new BufferedReader(new InputStreamReader(getInputStream(inputSource.getPhysicalURI())));
-            }
-            StringBuilder sb = new StringBuilder();
-            String line;
-            boolean foundOntology = false;
-            while((line = br.readLine()) != null) {
-                    sb.append(line);
-                sb.append("\n");
-                if(!foundOntology  && line.trim().length() > 0 && !line.trim().startsWith("//")) {
-
-                    // Should contain an ontology or a namespace
-                    if(line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) >= 0) {
-                        foundOntology = true;
-                    }
-                    else if(line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) == -1) {
-                        throw new ManchesterOWLSyntaxParserException("Expected 'Ontology:' <URI>");
+                        // Should contain an ontology or a namespace
+                        if(line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) >= 0) {
+                            foundOntology = true;
+                        }
+                        else if(line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) == -1) {
+                            throw new ManchesterOWLSyntaxParserException("Expected 'Ontology:'");
+                        }
                     }
                 }
+                String s = sb.toString();
+                ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(getOWLOntologyManager().getOWLDataFactory(),
+                                                                                             s);
+                parser.parseOntology(getOWLOntologyManager(), ontology);
             }
-            String s = sb.toString();
-            ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(getOWLOntologyManager().getOWLDataFactory(),
-                                                                                         s);
-            parser.parseOntology(getOWLOntologyManager(), ontology);
+            finally {
+                br.close();
+            }
             return new ManchesterOWLSyntaxOntologyFormat();
         }
         catch (IOException e) {

@@ -330,7 +330,7 @@ public enum OWLRDFVocabulary {
     }
 
 
-    public static Set<URI> BUILT_IN_VOCABULARY;
+    public static final Set<URI> BUILT_IN_VOCABULARY;
 
     static {
         BUILT_IN_VOCABULARY = new HashSet<URI>();
@@ -339,7 +339,7 @@ public enum OWLRDFVocabulary {
         }
     }
 
-    public static Set<URI> BUILT_IN_ANNOTATION_PROPERTIES;
+    public static final Set<URI> BUILT_IN_ANNOTATION_PROPERTIES;
 
     static {
         BUILT_IN_ANNOTATION_PROPERTIES = new HashSet<URI>();

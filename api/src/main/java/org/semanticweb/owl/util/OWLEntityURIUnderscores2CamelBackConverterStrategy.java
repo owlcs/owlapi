@@ -3,7 +3,6 @@ package org.semanticweb.owl.util;
 import org.semanticweb.owl.model.OWLEntity;
 import org.semanticweb.owl.model.IRI;
 
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 /*
@@ -52,7 +51,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEn
 
 
     public IRI getConvertedIRI(OWLEntity entity) {
-        IRI convIRI = iriMap.get(entity.getURI());
+        IRI convIRI = iriMap.get(entity.getIRI());
         if(convIRI == null) {
             convIRI = convert(entity.getIRI());
             iriMap.put(entity.getIRI(), convIRI);

@@ -22,8 +22,6 @@ import org.semanticweb.owl.util.DefaultPrefixManager;
 
 public class TurtleParser implements AnonymousNodeChecker {
 
-    private OWLOntology ontology;
-
     private OWLDataFactory dataFactory;
 
     private Map<String, URI> string2URI;
@@ -80,15 +78,6 @@ public class TurtleParser implements AnonymousNodeChecker {
     protected URI getURIFromQName(String qname) {
         IRI iri = pm.getIRI(qname);
         return iri.toURI();
-    }
-
-    protected void addAxiom(OWLAxiom ax) throws TurtleParserException {
-        try {
-            ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology, ax));
-        }
-        catch(OWLOntologyChangeException e) {
-            throw new TurtleParserException(e);
-        }
     }
 
     public URI getURI(String s) {

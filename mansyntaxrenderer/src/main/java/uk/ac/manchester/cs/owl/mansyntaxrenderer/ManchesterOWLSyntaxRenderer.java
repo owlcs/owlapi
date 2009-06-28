@@ -47,15 +47,7 @@ public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
 
 
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
-        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(getOWLOntologyManager(), ontology, writer);
-        OWLOntologyFormat format = getOWLOntologyManager().getOntologyFormat(ontology);
-        if(format instanceof PrefixOWLOntologyFormat) {
-            PrefixOWLOntologyFormat namespaceFormat = (PrefixOWLOntologyFormat) format;
-            Map<String, String> prefixMap = namespaceFormat.getPrefixName2PrefixMap();
-            for(String prefix : prefixMap.keySet()) {
-                ren.getPrefixManager().setPrefix(prefix, prefixMap.get(prefix));
-            }
-        }
+        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(getOWLOntologyManager(), ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(getOWLOntologyManager(), ontology));
         ren.writeOntology();
         ren.flush();
     }

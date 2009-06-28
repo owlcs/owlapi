@@ -527,7 +527,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         tvpList.addPair(OBOVocabulary.ID, getID(entity));
         Set<OWLAnnotation> potentialNames = new HashSet<OWLAnnotation>();
         for (OWLAnnotation annotation : entity.getAnnotations(ontology)) {
-            if (annotation.getProperty().equals(OWLRDFVocabulary.RDFS_LABEL.getURI())) {
+            if (annotation.getProperty().getIRI().equals(OWLRDFVocabulary.RDFS_LABEL.getIRI())) {
                 potentialNames.add(annotation);
             } else if (annotation.getProperty().isComment()) {
                 tvpList.addPair(OBOVocabulary.COMMENT, ((OWLLiteral) annotation.getValue()).getLiteral());
