@@ -815,7 +815,7 @@ public class OWLDLProfile implements OWLProfile {
                     sb.append("an object property URI");
                 } else if (ent.isOWLDataProperty()) {
                     sb.append("a data property URI");
-                } else if (ent.isOWLIndividual()) {
+                } else if (ent.isOWLNamedIndividual()) {
                     sb.append("an individual URI");
                 }
                 if (it.hasNext()) {
@@ -848,7 +848,7 @@ public class OWLDLProfile implements OWLProfile {
                     sb.append("an object property URI");
                 } else if (ent.isOWLDataProperty()) {
                     sb.append("a data property URI");
-                } else if (ent.isOWLIndividual()) {
+                } else if (ent.isOWLNamedIndividual()) {
                     sb.append("an individual URI");
                 }
                 if (it.hasNext()) {

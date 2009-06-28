@@ -137,7 +137,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLAnnotationSubje
      *
      * @return <code>true</code> if this entity is an OWLNamedIndividual, otherwise <code>false</code>
      */
-    boolean isOWLIndividual();
+    boolean isOWLNamedIndividual();
 
     /**
      * A convenience method that obtains this entity as an OWLNamedIndividual (in order to
@@ -147,7 +147,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLAnnotationSubje
      * @throws OWLRuntimeException if this entity is not an OWLIndividual (check with the
      *                             isOWLIndividual method first).
      */
-    OWLNamedIndividual asOWLIndividual();
+    OWLNamedIndividual asOWLNamedIndividual();
 
     /**
      * A convenience method that determines if this entity is an OWLDatatype

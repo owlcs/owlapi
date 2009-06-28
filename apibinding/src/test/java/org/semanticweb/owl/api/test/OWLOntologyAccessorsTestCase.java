@@ -51,7 +51,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         logicalAxioms.add(df.getOWLDisjointObjectPropertiesAxiom(propP, getOWLObjectProperty("q")));
         logicalAxioms.add(df.getOWLObjectPropertyDomainAxiom(propP, getOWLClass("A")));
         logicalAxioms.add(df.getOWLObjectPropertyRangeAxiom(propP, getOWLClass("A")));
-        logicalAxioms.add(df.getOWLObjectPropertyAssertionAxiom(getOWLIndividual("a"), propP, getOWLIndividual("b")));
+        logicalAxioms.add(df.getOWLObjectPropertyAssertionAxiom(propP, getOWLIndividual("a"), getOWLIndividual("b")));
         logicalAxioms.add(df.getOWLFunctionalObjectPropertyAxiom(propP));
         logicalAxioms.add(df.getOWLInverseFunctionalObjectPropertyAxiom(propP));
         logicalAxioms.add(df.getOWLSymmetricObjectPropertyAxiom(propP));
@@ -67,7 +67,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         logicalAxioms.add(df.getOWLDisjointDataPropertiesAxiom(propD, getOWLDataProperty("q")));
         logicalAxioms.add(df.getOWLDataPropertyDomainAxiom(propD, getOWLClass("A")));
         logicalAxioms.add(df.getOWLDataPropertyRangeAxiom(propD, df.getIntegerOWLDatatype()));
-        logicalAxioms.add(df.getOWLDataPropertyAssertionAxiom(getOWLIndividual("a"), propD, df.getOWLTypedLiteral(3)));
+        logicalAxioms.add(df.getOWLDataPropertyAssertionAxiom(propD, getOWLIndividual("a"), df.getOWLTypedLiteral(3)));
         logicalAxioms.add(df.getOWLFunctionalDataPropertyAxiom(propD));
 
 

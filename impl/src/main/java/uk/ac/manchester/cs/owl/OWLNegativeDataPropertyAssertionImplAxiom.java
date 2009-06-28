@@ -44,11 +44,11 @@ public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRela
         if(!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(getSubject(), getProperty(), getObject());
+        return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(), getObject());
     }
 
     public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(getSubject(), getProperty(), getObject(), mergeAnnos(annotations));
+        return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
     }
 
     public boolean equals(Object obj) {

@@ -104,7 +104,7 @@ public class OWLPrimer {
             // Now we need to create the assertion that John hasWife Mary. To do this we need
             // an axiom, in this case an object property assertion axiom. This can be thought of
             // as a "triple" that has a subject, john, a predicate, hasWife and an object Mary
-            OWLObjectPropertyAssertionAxiom axiom1 = factory.getOWLObjectPropertyAssertionAxiom(john, hasWife, mary);
+            OWLObjectPropertyAssertionAxiom axiom1 = factory.getOWLObjectPropertyAssertionAxiom(hasWife, john, mary);
 
             // We now need to add this assertion to our ontology.  To do this, we apply an ontology change
             // to the ontology via the OWLOntologyManager.
@@ -122,20 +122,20 @@ public class OWLPrimer {
             // Get a refernece to the hasSon property
             OWLObjectProperty hasSon = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasSon"));
             // Create the assertion,  John hasSon Bill
-            OWLAxiom axiom2 = factory.getOWLObjectPropertyAssertionAxiom(john, hasSon, bill);
+            OWLAxiom axiom2 = factory.getOWLObjectPropertyAssertionAxiom(hasSon, john, bill);
             // Apply the change
             manager.applyChange(new AddAxiom(ont, axiom2));
 
             // John hasDaughter Susan
             OWLObjectProperty hasDaughter = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasDaughter"));
-            OWLAxiom axiom3 = factory.getOWLObjectPropertyAssertionAxiom(john, hasDaughter, susan);
+            OWLAxiom axiom3 = factory.getOWLObjectPropertyAssertionAxiom(hasDaughter, john, susan);
             manager.applyChange(new AddAxiom(ont, axiom3));
 
             // John hasAge 33
             // In this case, hasAge is a data property, which we need a reference to
             OWLDataProperty hasAge = factory.getOWLDataProperty(IRI.create(ontologyIRI + "#hasAge"));
             // We create a data property assertion instead of an object property assertion
-            OWLAxiom axiom4 = factory.getOWLDataPropertyAssertionAxiom(john, hasAge, 33);
+            OWLAxiom axiom4 = factory.getOWLDataPropertyAssertionAxiom(hasAge, john, 33);
             manager.applyChange(new AddAxiom(ont, axiom4));
 
             // In the above code, 33 is an integer, so we can just pass 33 into the data factory method.
@@ -144,20 +144,20 @@ public class OWLPrimer {
             OWLDatatype intDatatype = factory.getOWLDatatype(XSDVocabulary.INT.getURI());
             OWLTypedLiteral thirtyThree = factory.getOWLTypedLiteral("33", intDatatype);
             // We would then create the axiom as follows:
-            factory.getOWLDataPropertyAssertionAxiom(john, hasAge, thirtyThree);
+            factory.getOWLDataPropertyAssertionAxiom(hasAge, john, thirtyThree);
             // However, the convenice method is much shorter!
 
             // We can now create the other facts/assertion for Mary.  The OWL API uses a change
             // object model, which means we can stack up changes (or sets of axioms) and apply the
             // changes (or add the axioms) in one go.  We will do this for Mary
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            axioms.add(factory.getOWLObjectPropertyAssertionAxiom(mary, hasSon, bill));
-            axioms.add(factory.getOWLObjectPropertyAssertionAxiom(mary, hasDaughter, susan));
-            axioms.add(factory.getOWLDataPropertyAssertionAxiom(mary, hasAge, 31));
+            axioms.add(factory.getOWLObjectPropertyAssertionAxiom(hasSon, mary, bill));
+            axioms.add(factory.getOWLObjectPropertyAssertionAxiom(hasDaughter, mary, susan));
+            axioms.add(factory.getOWLDataPropertyAssertionAxiom(hasAge, mary, 31));
 
             // Add facts/assertions for Bill and Susan
-            axioms.add(factory.getOWLDataPropertyAssertionAxiom(bill, hasAge, 13));
-            axioms.add(factory.getOWLDataPropertyAssertionAxiom(mary, hasAge, 8));
+            axioms.add(factory.getOWLDataPropertyAssertionAxiom(hasAge, bill, 13));
+            axioms.add(factory.getOWLDataPropertyAssertionAxiom(hasAge, mary, 8));
 
             // Now add all the axioms in one go - there is a convenience method on OWLOntologyManager
             // that will automatically generate the AddAxiom change objects for us.  We need to
@@ -171,10 +171,10 @@ public class OWLPrimer {
             OWLObjectProperty hasGender = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasGender"));
 
             Set<OWLAxiom> genders = new HashSet<OWLAxiom>();
-            genders.add(factory.getOWLObjectPropertyAssertionAxiom(john, hasGender, male));
-            genders.add(factory.getOWLObjectPropertyAssertionAxiom(mary, hasGender, female));
-            genders.add(factory.getOWLObjectPropertyAssertionAxiom(bill, hasGender, male));
-            genders.add(factory.getOWLObjectPropertyAssertionAxiom(susan, hasGender, female));
+            genders.add(factory.getOWLObjectPropertyAssertionAxiom(hasGender, john, male));
+            genders.add(factory.getOWLObjectPropertyAssertionAxiom(hasGender, mary, female));
+            genders.add(factory.getOWLObjectPropertyAssertionAxiom(hasGender, bill, male));
+            genders.add(factory.getOWLObjectPropertyAssertionAxiom(hasGender, susan, female));
 
             // Add the facts about the genders
             manager.addAxioms(ont, genders);

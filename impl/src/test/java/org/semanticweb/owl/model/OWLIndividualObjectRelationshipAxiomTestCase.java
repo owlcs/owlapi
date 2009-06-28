@@ -44,6 +44,6 @@ public class OWLIndividualObjectRelationshipAxiomTestCase extends AbstractOWLInd
 
     protected OWLIndividualAxiom createAxiom(OWLIndividual subject, OWLObjectProperty property,
                                              OWLIndividual object) throws OWLException {
-        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(subject, property, object);
+        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(property, subject, object);
     }
 }

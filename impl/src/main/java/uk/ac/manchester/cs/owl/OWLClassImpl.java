@@ -269,7 +269,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public OWLNamedIndividual asOWLIndividual() {
+    public OWLNamedIndividual asOWLNamedIndividual() {
         throw new OWLRuntimeException("Not an individual!");
     }
 
@@ -294,7 +294,7 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
 
-    public boolean isOWLIndividual() {
+    public boolean isOWLNamedIndividual() {
         return false;
     }
 

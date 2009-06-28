@@ -90,7 +90,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         throw new OWLRuntimeException("Not OWLDatatype");
     }
 
-    public OWLNamedIndividual asOWLIndividual() {
+    public OWLNamedIndividual asOWLNamedIndividual() {
         throw new OWLRuntimeException("Not OWLIndividual");
     }
 
@@ -126,7 +126,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         return false;
     }
 
-    public boolean isOWLIndividual() {
+    public boolean isOWLNamedIndividual() {
         return false;
     }
 

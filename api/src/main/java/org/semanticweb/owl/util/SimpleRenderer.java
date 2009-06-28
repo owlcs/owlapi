@@ -37,7 +37,6 @@ import java.util.TreeSet;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 26-Nov-2006<br><br>
- * <p/>
  * A simple renderer that can be used for debugging purposes and
  * provide an implementation of the toString method for different
  * implementations.
@@ -76,17 +75,17 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     /**
      * Resets the short form provider and adds prefix name to prefix mappings based on the specified ontology's
      * format (if it is a prefix format) and possibly the ontologies in the imports closure.
-     * @param ontology The ontology whose format will be used to obtain prefix mappings
-     * @param manager A manager which can be used to obtain the format of the specified ontology (and possibly ontologies
-     * in its imports closure)
+     * @param ontology                  The ontology whose format will be used to obtain prefix mappings
+     * @param manager                   A manager which can be used to obtain the format of the specified ontology (and possibly ontologies
+     *                                  in its imports closure)
      * @param processImportedOntologies Specifies whether or not the prefix mapping should be obtained from imported
-     * ontologies.
+     *                                  ontologies.
      */
     public void setPrefixesFromOntologyFormat(OWLOntology ontology, OWLOntologyManager manager, boolean processImportedOntologies) {
         resetShortFormProvider();
-        if(processImportedOntologies) {
-            for(OWLOntology importedOntology : manager.getImportsClosure(ontology)) {
-                if(!importedOntology.equals(ontology)) {
+        if (processImportedOntologies) {
+            for (OWLOntology importedOntology : manager.getImportsClosure(ontology)) {
+                if (!importedOntology.equals(ontology)) {
                     copyPrefixes(manager.getOntologyFormat(importedOntology));
                 }
             }
@@ -96,11 +95,11 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     private void copyPrefixes(OWLOntologyFormat ontologyFormat) {
-        if(!(ontologyFormat instanceof PrefixOWLOntologyFormat)) {
+        if (!(ontologyFormat instanceof PrefixOWLOntologyFormat)) {
             return;
         }
         PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) ontologyFormat;
-        for(String prefixName : prefixFormat.getPrefixName2PrefixMap().keySet()) {
+        for (String prefixName : prefixFormat.getPrefixName2PrefixMap().keySet()) {
             String prefix = prefixFormat.getPrefixName2PrefixMap().get(prefixName);
             this.setPrefix(prefixName, prefix);
         }
@@ -109,10 +108,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     /**
      * Sets a prefix name for a given prefix.  Note that prefix names MUST end with a colon.
      * @param prefixName The prefix name (ending with a colon)
-     * @param prefix The prefix that the prefix name maps to
+     * @param prefix     The prefix that the prefix name maps to
      */
     public void setPrefix(String prefixName, String prefix) {
-        if(!isUsingDefaultShortFormProvider()) {
+        if (!isUsingDefaultShortFormProvider()) {
             resetShortFormProvider();
         }
         ((DefaultPrefixManager) shortFormProvider).setPrefix(prefixName, prefix);
@@ -159,7 +158,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     public void writeAnnotations(OWLAxiom axiom) {
-        for(OWLAnnotation anno : axiom.getAnnotations()) {
+        for (OWLAnnotation anno : axiom.getAnnotations()) {
             anno.accept(this);
             insertSpace();
         }
@@ -326,14 +325,21 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         OWLEntity entity = axiom.getEntity();
         if (entity.isOWLClass()) {
             sb.append("OWLClass(");
-        } else if (entity.isOWLObjectProperty()) {
+        }
+        else if (entity.isOWLObjectProperty()) {
             sb.append("ObjectProperty(");
-        } else if (entity.isOWLDataProperty()) {
+        }
+        else if (entity.isOWLDataProperty()) {
             sb.append("DataProperty(");
-        } else if (entity.isOWLIndividual()) {
-            sb.append("Individual(");
-        } else if (entity.isOWLDatatype()) {
+        }
+        else if (entity.isOWLNamedIndividual()) {
+            sb.append("NamedIndividual(");
+        }
+        else if (entity.isOWLDatatype()) {
             sb.append("Datatype(");
+        }
+        else if (entity.isOWLAnnotationProperty()) {
+            sb.append("AnnotationProperty(");
         }
         axiom.getEntity().accept(this);
         sb.append("))");
@@ -671,7 +677,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("\"");
         sb.append(node.getLiteral());
         sb.append("\"");
-            sb.append("@");
+        sb.append("@");
         if (node.getLang() != null) {
             sb.append(node.getLang());
         }
@@ -784,7 +790,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLAnnotation node) {
         sb.append("Annotation(");
         Set<OWLAnnotation> annos = node.getAnnotations();
-        for(OWLAnnotation anno : annos) {
+        for (OWLAnnotation anno : annos) {
             anno.accept(this);
             sb.append(" ");
         }

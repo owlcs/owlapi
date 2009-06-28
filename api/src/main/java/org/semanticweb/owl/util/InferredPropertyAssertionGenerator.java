@@ -44,14 +44,14 @@ public class InferredPropertyAssertionGenerator extends InferredIndividualAxiomG
         Map<OWLObjectProperty, Set<OWLIndividual>> objectPropertyRels = reasoner.getObjectPropertyRelationships(entity);
         for (OWLObjectProperty prop : objectPropertyRels.keySet()) {
             for (OWLIndividual obj : objectPropertyRels.get(prop)) {
-                result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(entity, prop, obj));
+                result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(prop, entity, obj));
             }
         }
 
         Map<OWLDataProperty, Set<OWLLiteral>> dataPropertyRels = reasoner.getDataPropertyRelationships(entity);
         for (OWLDataProperty prop : dataPropertyRels.keySet()) {
             for (OWLLiteral con : dataPropertyRels.get(prop)) {
-                result.add(dataFactory.getOWLDataPropertyAssertionAxiom(entity, prop, con));
+                result.add(dataFactory.getOWLDataPropertyAssertionAxiom(prop, entity, con));
             }
         }
     }

@@ -1735,12 +1735,12 @@ public class ManchesterOWLSyntaxEditorParser {
                         OWLLiteral con = parseConstant();
                         if (!negative) {
                             for (OWLOntology ont : onts) {
-                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLDataPropertyAssertionAxiom(ind, p, con)));
+                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLDataPropertyAssertionAxiom(p, ind, con)));
                             }
                         }
                         else {
                             for (OWLOntology ont : onts) {
-                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLNegativeDataPropertyAssertionAxiom(ind, p, con)));
+                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLNegativeDataPropertyAssertionAxiom(p, ind, con)));
                             }
                         }
                     }
@@ -1749,10 +1749,10 @@ public class ManchesterOWLSyntaxEditorParser {
                         OWLIndividual obj = parseIndividual();
                         for (OWLOntology ont : onts) {
                             if (!negative) {
-                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLObjectPropertyAssertionAxiom(ind, p, obj)));
+                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLObjectPropertyAssertionAxiom(p, ind, obj)));
                             }
                             else {
-                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(ind, p, obj)));
+                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(p, ind, obj)));
                             }
                         }
                     }

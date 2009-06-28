@@ -47,11 +47,11 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         if(!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getSubject(), getProperty(), getObject());
+        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject());
     }
 
     public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getSubject(), getProperty(), getObject(), mergeAnnos(annotations));
+        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
     }
 
     public boolean equals(Object obj) {
@@ -68,7 +68,7 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         else {
             OWLObjectInverseOf property = (OWLObjectInverseOf) getProperty();
             OWLObjectPropertyExpression invProp = property.getInverse();
-            return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getObject(), invProp, getSubject());
+            return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(invProp, getObject(), getSubject());
         }
     }
 

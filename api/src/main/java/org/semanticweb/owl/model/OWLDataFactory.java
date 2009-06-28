@@ -966,79 +966,49 @@ public interface OWLDataFactory extends SWRLDataFactory {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLIndividual individual,
-                                                                       OWLObjectPropertyExpression property,
-                                                                       OWLIndividual object);
+    OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLObjectPropertyExpression property, OWLIndividual individual, OWLIndividual object);
 
 
-    OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLIndividual individual,
-                                                                       OWLObjectPropertyExpression property,
-                                                                       OWLIndividual object,
-                                                                       Set<? extends OWLAnnotation> annotations);
+    OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLObjectPropertyExpression property, OWLIndividual individual, OWLIndividual object, Set<? extends OWLAnnotation> annotations);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(OWLIndividual subject,
-                                                                                       OWLObjectPropertyExpression property,
-                                                                                       OWLIndividual object);
+    OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(OWLObjectPropertyExpression property, OWLIndividual subject, OWLIndividual object);
 
 
-    OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(OWLIndividual subject,
-                                                                                       OWLObjectPropertyExpression property,
-                                                                                       OWLIndividual object,
-                                                                                       Set<? extends OWLAnnotation> annotations);
+    OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(OWLObjectPropertyExpression property, OWLIndividual subject, OWLIndividual object, Set<? extends OWLAnnotation> annotations);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                   OWLDataPropertyExpression property,
-                                                                   OWLLiteral object);
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object);
 
 
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                   OWLDataPropertyExpression property,
-                                                                   OWLLiteral object,
-                                                                   Set<? extends OWLAnnotation> annotations);
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object, Set<? extends OWLAnnotation> annotations);
 
 
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                   OWLDataPropertyExpression property,
-                                                                   int value);
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, int value);
 
 
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                   OWLDataPropertyExpression property,
-                                                                   double value);
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, double value);
 
 
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                   OWLDataPropertyExpression property,
-                                                                   float value);
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, float value);
 
 
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                   OWLDataPropertyExpression property,
-                                                                   boolean value);
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, boolean value);
 
 
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                   OWLDataPropertyExpression property,
-                                                                   String value);
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, String value);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                                   OWLDataPropertyExpression property,
-                                                                                   OWLLiteral object);
+    OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object);
 
 
-    OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                                   OWLDataPropertyExpression property,
-                                                                                   OWLLiteral object,
-                                                                                   Set<? extends OWLAnnotation> annotations);
+    OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object, Set<? extends OWLAnnotation> annotations);
 
     /****************************************************************************************************************/
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1085,19 +1055,14 @@ public interface OWLDataFactory extends SWRLDataFactory {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
-                                                               OWLAnnotationProperty property,
-                                                               OWLAnnotationValue value);
+    OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationProperty property, OWLAnnotationSubject subject, OWLAnnotationValue value);
 
 
     OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
                                                                OWLAnnotation annotation);
 
 
-    OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
-                                                               OWLAnnotationProperty property,
-                                                               OWLAnnotationValue value,
-                                                               Set<? extends OWLAnnotation> annotations);
+    OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationProperty property, OWLAnnotationSubject subject, OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations);
 
 
     OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,

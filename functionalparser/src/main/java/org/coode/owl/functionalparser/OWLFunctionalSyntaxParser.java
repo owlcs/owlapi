@@ -1449,7 +1449,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     subj = Individual();
     obj = Individual();
     jj_consume_token(CLOSEPAR);
-        {if (true) return dataFactory.getOWLObjectPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);}
+        {if (true) return dataFactory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);}
     throw new Error("Missing return statement in function");
   }
 
@@ -1465,7 +1465,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     subj = Individual();
     obj = Individual();
     jj_consume_token(CLOSEPAR);
-        {if (true) return dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);}
+        {if (true) return dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);}
     throw new Error("Missing return statement in function");
   }
 
@@ -1481,7 +1481,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     subj = Individual();
     obj = Literal();
     jj_consume_token(CLOSEPAR);
-        {if (true) return dataFactory.getOWLDataPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);}
+        {if (true) return dataFactory.getOWLDataPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);}
     throw new Error("Missing return statement in function");
   }
 
@@ -1497,7 +1497,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     subj = Individual();
     obj = Literal();
     jj_consume_token(CLOSEPAR);
-        {if (true) return dataFactory.getOWLNegativeDataPropertyAssertionAxiom(subj, prop, obj, axiomAnnos);}
+        {if (true) return dataFactory.getOWLNegativeDataPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);}
     throw new Error("Missing return statement in function");
   }
 
@@ -1648,7 +1648,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     subj = AnnotationSubject();
     val = AnnotationValue();
     jj_consume_token(CLOSEPAR);
-        {if (true) return dataFactory.getOWLAnnotationAssertionAxiom(subj, prop, val, axiomAnnos);}
+        {if (true) return dataFactory.getOWLAnnotationAssertionAxiom(prop, subj, val, axiomAnnos);}
     throw new Error("Missing return statement in function");
   }
 

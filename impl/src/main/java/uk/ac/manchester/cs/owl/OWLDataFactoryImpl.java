@@ -772,90 +772,63 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return getOWLImportsDeclaration(importedOntologyIRI.toURI());
     }
 
-    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                  OWLDataPropertyExpression property,
-                                                                  OWLLiteral object,
-                                                                  Set<? extends OWLAnnotation> annotations) {
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object, Set<? extends OWLAnnotation> annotations) {
         return new OWLDataPropertyAssertionAxiomImpl(this, subject, property, object, annotations);
     }
 
 
-    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                  OWLDataPropertyExpression property,
-                                                                  OWLLiteral object) {
-        return getOWLDataPropertyAssertionAxiom(subject, property, object, EMPTY_ANNOTATIONS_SET);
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object) {
+        return getOWLDataPropertyAssertionAxiom(property, subject, object, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                  OWLDataPropertyExpression property,
-                                                                  int value) {
-        return getOWLDataPropertyAssertionAxiom(subject, property, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, int value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                  OWLDataPropertyExpression property,
-                                                                  double value) {
-        return getOWLDataPropertyAssertionAxiom(subject, property, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, double value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                  OWLDataPropertyExpression property,
-                                                                  float value) {
-        return getOWLDataPropertyAssertionAxiom(subject, property, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, float value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                  OWLDataPropertyExpression property,
-                                                                  boolean value) {
-        return getOWLDataPropertyAssertionAxiom(subject, property, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, boolean value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                  OWLDataPropertyExpression property,
-                                                                  String value) {
-        return getOWLDataPropertyAssertionAxiom(subject, property, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, String value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                                  OWLDataPropertyExpression property,
-                                                                                  OWLLiteral object) {
-        return getOWLNegativeDataPropertyAssertionAxiom(subject, property, object, EMPTY_ANNOTATIONS_SET);
+    public OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object) {
+        return getOWLNegativeDataPropertyAssertionAxiom(property, subject, object, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLIndividual subject,
-                                                                                  OWLDataPropertyExpression property,
-                                                                                  OWLLiteral object,
-                                                                                  Set<? extends OWLAnnotation> annotations) {
+    public OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object, Set<? extends OWLAnnotation> annotations) {
         return new OWLNegativeDataPropertyAssertionImplAxiom(this, subject, property, object, annotations);
     }
 
 
-    public OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(OWLIndividual subject,
-                                                                                      OWLObjectPropertyExpression property,
-                                                                                      OWLIndividual object) {
-        return getOWLNegativeObjectPropertyAssertionAxiom(subject, property, object, EMPTY_ANNOTATIONS_SET);
+    public OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(OWLObjectPropertyExpression property, OWLIndividual subject, OWLIndividual object) {
+        return getOWLNegativeObjectPropertyAssertionAxiom(property, subject, object, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(OWLIndividual subject,
-                                                                                      OWLObjectPropertyExpression property,
-                                                                                      OWLIndividual object,
-                                                                                      Set<? extends OWLAnnotation> annotations) {
+    public OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(OWLObjectPropertyExpression property, OWLIndividual subject, OWLIndividual object, Set<? extends OWLAnnotation> annotations) {
         return new OWLNegativeObjectPropertyAssertionAxiomImpl(this, subject, property, object, annotations);
     }
 
 
-    public OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLIndividual individual,
-                                                                      OWLObjectPropertyExpression property,
-                                                                      OWLIndividual object) {
-        return getOWLObjectPropertyAssertionAxiom(individual, property, object, EMPTY_ANNOTATIONS_SET);
+    public OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLObjectPropertyExpression property, OWLIndividual individual, OWLIndividual object) {
+        return getOWLObjectPropertyAssertionAxiom(property, individual, object, EMPTY_ANNOTATIONS_SET);
     }
 
 
@@ -1063,10 +1036,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLIndividual individual,
-                                                                      OWLObjectPropertyExpression property,
-                                                                      OWLIndividual object,
-                                                                      Set<? extends OWLAnnotation> annotations) {
+    public OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLObjectPropertyExpression property, OWLIndividual individual, OWLIndividual object, Set<? extends OWLAnnotation> annotations) {
         return new OWLObjectPropertyAssertionAxiomImpl(this, individual, property, object, annotations);
     }
 
@@ -1126,28 +1096,23 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
                                                               OWLAnnotation annotation) {
-        return getOWLAnnotationAssertionAxiom(subject, annotation.getProperty(), annotation.getValue());
+        return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue());
     }
 
 
     public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
                                                               OWLAnnotation annotation,
                                                               Set<? extends OWLAnnotation> annotations) {
-        return getOWLAnnotationAssertionAxiom(subject, annotation.getProperty(), annotation.getValue(), annotations);
+        return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue(), annotations);
     }
 
 
-    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
-                                                              OWLAnnotationProperty property,
-                                                              OWLAnnotationValue value) {
-        return getOWLAnnotationAssertionAxiom(subject, property, value, EMPTY_ANNOTATIONS_SET);
+    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationProperty property, OWLAnnotationSubject subject, OWLAnnotationValue value) {
+        return getOWLAnnotationAssertionAxiom(property, subject, value, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
-                                                              OWLAnnotationProperty property,
-                                                              OWLAnnotationValue value,
-                                                              Set<? extends OWLAnnotation> annotations) {
+    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationProperty property, OWLAnnotationSubject subject, OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations) {
 
         return new OWLAnnotationAssertionAxiomImpl(this, subject, property, value, annotations);
     }

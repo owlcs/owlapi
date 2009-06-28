@@ -42,7 +42,7 @@ public class ObjectPropertyAssertionWithAnonymousIndividualsTestCase extends Abs
         OWLIndividual object = getFactory().getOWLAnonymousIndividual();
         OWLObjectProperty prop = getOWLObjectProperty("prop");
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLObjectPropertyAssertionAxiom(subject, prop, object));
+        axioms.add(getFactory().getOWLObjectPropertyAssertionAxiom(prop, subject, object));
         axioms.add(getFactory().getOWLDeclarationAxiom(prop));
         return axioms;
     }

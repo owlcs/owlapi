@@ -56,10 +56,7 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
 
 
     public void handleTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
-        addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(
-                translateIndividual(subject),
-                translateDataProperty(predicate),
-                object, getPendingAnnotations()
+        addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(translateDataProperty(predicate), translateIndividual(subject), object, getPendingAnnotations()
         ));
         consumeTriple(subject, predicate, object);
     }

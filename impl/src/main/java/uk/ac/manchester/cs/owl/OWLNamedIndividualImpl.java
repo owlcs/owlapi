@@ -40,7 +40,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         this.iri = iri;
     }
 
-    public boolean isOWLIndividual() {
+    public boolean isOWLNamedIndividual() {
         return true;
     }
 
@@ -60,7 +60,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         return this;
     }
 
-    public OWLNamedIndividual asOWLIndividual() {
+    public OWLNamedIndividual asOWLNamedIndividual() {
         return this;
     }
 

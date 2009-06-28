@@ -136,7 +136,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLDataPropertyExpression prop = (OWLDataPropertyExpression) obj;
         axiom.getObject().accept(this);
         OWLLiteral con = (OWLLiteral) obj;
-        obj = dataFactory.getOWLDataPropertyAssertionAxiom(subj, prop, con);
+        obj = dataFactory.getOWLDataPropertyAssertionAxiom(prop, subj, con);
     }
 
 
@@ -273,7 +273,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLDataPropertyExpression prop = (OWLDataPropertyExpression) obj;
         axiom.getObject().accept(this);
         OWLLiteral con = (OWLLiteral) obj;
-        obj = dataFactory.getOWLNegativeDataPropertyAssertionAxiom(ind, prop, con);
+        obj = dataFactory.getOWLNegativeDataPropertyAssertionAxiom(prop, ind, con);
     }
 
 
@@ -284,7 +284,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
         axiom.getObject().accept(this);
         OWLIndividual ind2 = (OWLIndividual) obj;
-        obj = dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(ind, prop, ind2);
+        obj = dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(prop, ind, ind2);
     }
 
 
@@ -295,7 +295,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
         axiom.getObject().accept(this);
         OWLIndividual ind2 = (OWLIndividual) obj;
-        obj = dataFactory.getOWLObjectPropertyAssertionAxiom(ind, prop, ind2);
+        obj = dataFactory.getOWLObjectPropertyAssertionAxiom(prop, ind, ind2);
     }
 
 

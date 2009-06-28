@@ -84,8 +84,8 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
 
     public OWLNamedIndividual getOWLIndividual(String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(name)) {
-            if (ent.isOWLIndividual()) {
-                return ent.asOWLIndividual();
+            if (ent.isOWLNamedIndividual()) {
+                return ent.asOWLNamedIndividual();
             }
         }
         return null;

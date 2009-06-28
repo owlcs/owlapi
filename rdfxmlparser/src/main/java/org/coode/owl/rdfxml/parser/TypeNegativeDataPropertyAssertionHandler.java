@@ -73,7 +73,7 @@ public class TypeNegativeDataPropertyAssertionHandler extends BuiltInTypeHandler
         consumeTriple(subject, predicate, object);
         getConsumer().translateAnnotations(subject);
         Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
-        addAxiom(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(sourceInd, prop, target, annos));
+        addAxiom(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(prop, sourceInd, target, annos));
 
     }
 }

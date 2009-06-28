@@ -419,7 +419,7 @@ public class KRSSParser implements KRSSParserConstants {
         obj = IndividualName();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectPropertyAssertionAxiom(subj, prop, obj);
+            if (true) return dataFactory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj);
         }
         throw new Error("Missing return statement in function");
     }

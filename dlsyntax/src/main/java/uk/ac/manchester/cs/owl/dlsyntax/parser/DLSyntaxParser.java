@@ -194,7 +194,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         obj = parseIndividualId();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return factory.getOWLObjectPropertyAssertionAxiom(subj, prop, obj);
+            if (true) return factory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj);
         }
         throw new Error("Missing return statement in function");
     }
@@ -210,7 +210,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         obj = parseConstant();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return factory.getOWLDataPropertyAssertionAxiom(subj, prop, obj);
+            if (true) return factory.getOWLDataPropertyAssertionAxiom(prop, subj, obj);
         }
         throw new Error("Missing return statement in function");
     }

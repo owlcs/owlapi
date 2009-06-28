@@ -121,8 +121,8 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
                 targetAxioms.addAll(ont.getAxioms(currentTarget.asOWLDataProperty()));
             }
 
-            if (currentTarget.isOWLIndividual()) {
-                targetAxioms.addAll(ont.getAxioms(currentTarget.asOWLIndividual()));
+            if (currentTarget.isOWLNamedIndividual()) {
+                targetAxioms.addAll(ont.getAxioms(currentTarget.asOWLNamedIndividual()));
             }
         }
         List<OWLAxiom> rootAxioms = new ArrayList<OWLAxiom>();
@@ -183,8 +183,8 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
             axioms = ont.getAxioms(entity.asOWLObjectProperty());
         } else if (entity.isOWLDataProperty()) {
             axioms = ont.getAxioms(entity.asOWLDataProperty());
-        } else if (entity.isOWLIndividual()) {
-            axioms = ont.getAxioms(entity.asOWLIndividual());
+        } else if (entity.isOWLNamedIndividual()) {
+            axioms = ont.getAxioms(entity.asOWLNamedIndividual());
         }
         for (OWLAxiom ax : axioms) {
             if (passTypes.contains(ax.getAxiomType())) {

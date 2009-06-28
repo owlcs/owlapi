@@ -618,7 +618,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             return getAxioms(owlEntity.asOWLDataProperty(), owlDataPropertyReferences, false);
         }
         if (owlEntity instanceof OWLNamedIndividual) {
-            return getAxioms(owlEntity.asOWLIndividual(), owlIndividualReferences, false);
+            return getAxioms(owlEntity.asOWLNamedIndividual(), owlIndividualReferences, false);
         }
         if (owlEntity instanceof OWLDatatype) {
             return getAxioms(owlEntity.asOWLDatatype(), owlDatatypeReferences, false);

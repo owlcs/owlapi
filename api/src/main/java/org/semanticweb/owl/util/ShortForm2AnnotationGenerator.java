@@ -83,9 +83,7 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
                 }
                 if (ontology.containsEntityReference(ent)) {
                     OWLOntologyChange chg = new AddAxiom(ont,
-                            ontologyManager.getOWLDataFactory().getOWLAnnotationAssertionAxiom(ent.getIRI(),
-                                    ontologyManager.getOWLDataFactory().getOWLAnnotationProperty(annotationURI),
-                                    con));
+                            ontologyManager.getOWLDataFactory().getOWLAnnotationAssertionAxiom(ontologyManager.getOWLDataFactory().getOWLAnnotationProperty(annotationURI), ent.getIRI(), con));
                     changes.add(chg);
                 }
             }

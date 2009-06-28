@@ -56,10 +56,7 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
 
     public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
         consumeTriple(subject, predicate, object);
-        addAxiom(getDataFactory().getOWLObjectPropertyAssertionAxiom(
-                translateIndividual(subject),
-                translateObjectProperty(predicate),
-                translateIndividual(object),
+        addAxiom(getDataFactory().getOWLObjectPropertyAssertionAxiom(translateObjectProperty(predicate), translateIndividual(subject), translateIndividual(object),
                 getPendingAnnotations()
         ));
     }

@@ -155,7 +155,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     }
 
 
-    public OWLNamedIndividual asOWLIndividual() {
+    public OWLNamedIndividual asOWLNamedIndividual() {
         throw new OWLRuntimeException("Not an individual!");
     }
 
@@ -180,7 +180,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     }
 
 
-    public boolean isOWLIndividual() {
+    public boolean isOWLNamedIndividual() {
         return false;
     }
 

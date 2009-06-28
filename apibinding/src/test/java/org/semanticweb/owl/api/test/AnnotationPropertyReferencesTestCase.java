@@ -39,7 +39,7 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
         OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
         OWLLiteral val = getFactory().getOWLStringLiteral("Test", null);
         OWLAnnotationSubject subject = getOWLClass("A");
-        OWLAnnotationAssertionAxiom ax = getFactory().getOWLAnnotationAssertionAxiom(subject, ap, val);
+        OWLAnnotationAssertionAxiom ax = getFactory().getOWLAnnotationAssertionAxiom(ap, subject, val);
         OWLOntology ont = getOWLOntology("Ont");
         getManager().addAxiom(ont, ax);
         assertTrue(ont.containsAnnotationPropertyReference(ap.getURI()));

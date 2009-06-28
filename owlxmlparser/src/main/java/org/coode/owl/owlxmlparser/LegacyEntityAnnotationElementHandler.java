@@ -46,7 +46,7 @@ public class LegacyEntityAnnotationElementHandler extends AbstractOWLAxiomElemen
         OWLAnnotation anno = annotation;
         annotation = null;
         entity = null;
-        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(entity, anno.getProperty(), anno.getValue());
+        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(anno.getProperty(), entity, anno.getValue());
     }
 
     public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException {

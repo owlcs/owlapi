@@ -6,7 +6,6 @@ import org.semanticweb.owl.io.StringOutputTarget;
 
 import java.util.Set;
 import java.util.HashSet;
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -54,8 +53,7 @@ public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTripping
         }
 
         OWLEntity entity = factory.getOWLNamedIndividual(IRI.create("http://www.another.com/ont#peter"));
-        OWLAnnotationAssertionAxiom ax = factory.getOWLAnnotationAssertionAxiom(entity.getIRI(), prop,
-                                      getFactory().getOWLStringLiteral("X", "en"), annotations);
+        OWLAnnotationAssertionAxiom ax = factory.getOWLAnnotationAssertionAxiom(prop, entity.getIRI(), getFactory().getOWLStringLiteral("X", "en"), annotations);
         addAxiom(ont, ax);
 
         return ont;

@@ -1,15 +1,10 @@
 package org.coode.mansyntax.editor;
 
 import org.coode.manchesterowlsyntax.ManchesterOWLSyntax;
-import org.coode.manchesterowlsyntax.ManchesterOWLSyntaxClassFrameParser;
-import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.expression.OWLExpressionParser;
 import org.semanticweb.owl.expression.ParserException;
-import org.semanticweb.owl.expression.ShortFormEntityChecker;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.BidirectionalShortFormProvider;
-import org.semanticweb.owl.util.BidirectionalShortFormProviderAdapter;
-import org.semanticweb.owl.util.SimpleShortFormProvider;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -22,7 +17,6 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.URI;
 import java.util.*;
 import java.util.List;
 
@@ -387,8 +381,8 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
 
     public OWLIndividual getOWLIndividual(String name) {
         for (OWLEntity entity : provider.getEntities(name)) {
-            if (entity.isOWLIndividual()) {
-                return entity.asOWLIndividual();
+            if (entity.isOWLNamedIndividual()) {
+                return entity.asOWLNamedIndividual();
             }
         }
         return null;
@@ -501,7 +495,7 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
                             result.add(ent);
                         } else if (ent.isOWLDataProperty() && e.isDataPropertyNameExpected()) {
                             result.add(ent);
-                        } else if (ent.isOWLIndividual() && e.isIndividualNameExpected()) {
+                        } else if (ent.isOWLNamedIndividual() && e.isIndividualNameExpected()) {
                             result.add(ent);
                         }
                     }

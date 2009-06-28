@@ -209,7 +209,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     }
 
 
-    public OWLNamedIndividual asOWLIndividual() {
+    public OWLNamedIndividual asOWLNamedIndividual() {
         throw new OWLRuntimeException("Not an OWLIndividual!");
     }
 
@@ -234,7 +234,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     }
 
 
-    public boolean isOWLIndividual() {
+    public boolean isOWLNamedIndividual() {
         return false;
     }
 

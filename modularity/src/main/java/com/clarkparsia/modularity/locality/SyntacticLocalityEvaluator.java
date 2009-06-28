@@ -157,7 +157,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         //              They need to be added to the module after the locality checks have been performed. 
         public void visit(OWLDeclarationAxiom axiom) {
             isLocal = true;
-//            isLocal = !(axiom.getEntity().isOWLIndividual());
+//            isLocal = !(axiom.getEntity().isOWLNamedIndividual());
         }
 
 

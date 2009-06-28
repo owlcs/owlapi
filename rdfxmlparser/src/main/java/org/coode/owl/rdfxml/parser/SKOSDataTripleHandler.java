@@ -47,7 +47,7 @@ public class SKOSDataTripleHandler extends AbstractLiteralTripleHandler {
     public void handleTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
         OWLIndividual subj = getDataFactory().getOWLNamedIndividual(subject);
         OWLDataProperty prop = getDataFactory().getOWLDataProperty(predicate);
-        addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(subj, prop, object));
+        addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(prop, subj, object));
     }
 
 

@@ -108,8 +108,8 @@ public abstract class OWLObjectImpl implements OWLObject {
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
         for (OWLEntity ent : getSignature()) {
-            if (ent.isOWLIndividual()) {
-                result.add(ent.asOWLIndividual());
+            if (ent.isOWLNamedIndividual()) {
+                result.add(ent.asOWLNamedIndividual());
             }
         }
         return result;

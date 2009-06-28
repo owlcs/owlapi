@@ -239,8 +239,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if(entity.isOWLDataProperty()) {
             return write(entity.asOWLDataProperty());
         }
-        if(entity.isOWLIndividual()) {
-            return write(entity.asOWLIndividual());
+        if(entity.isOWLNamedIndividual()) {
+            return write(entity.asOWLNamedIndividual());
         }
         if(entity.isOWLAnnotationProperty()) {
             return write(entity.asOWLAnnotationProperty());

@@ -62,7 +62,7 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
             getConsumer().addOntologyAnnotation(getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), object));
         }
         else {
-            OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getIRI(subject), getDataFactory().getOWLAnnotationProperty(predicate), object, getPendingAnnotations());
+            OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getOWLAnnotationProperty(predicate), getDataFactory().getIRI(subject), object, getPendingAnnotations());
             addAxiom(ax);
         }
     }

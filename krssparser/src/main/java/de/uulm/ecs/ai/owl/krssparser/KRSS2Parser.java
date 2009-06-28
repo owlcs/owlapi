@@ -724,7 +724,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         prop = RoleName();
         obj = IndividualName();
         jj_consume_token(CLOSEPAR);
-        addAxiom(dataFactory.getOWLObjectPropertyAssertionAxiom(subj, prop, obj));
+        addAxiom(dataFactory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj));
     }
 
     final public void Equal() throws ParseException, KRSS2OWLParserException {

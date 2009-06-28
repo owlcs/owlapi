@@ -42,7 +42,7 @@ public class NegativeObjectPropertyAssertionTestCase extends AbstractAxiomsRound
         OWLObjectProperty prop = getOWLObjectProperty("prop");
         OWLIndividual subject = getOWLIndividual("iA");
         OWLIndividual object = getOWLIndividual("iB");
-        axioms.add(getFactory().getOWLNegativeObjectPropertyAssertionAxiom(subject, prop, object));
+        axioms.add(getFactory().getOWLNegativeObjectPropertyAssertionAxiom(prop, subject, object));
         return axioms;
     }
 }
