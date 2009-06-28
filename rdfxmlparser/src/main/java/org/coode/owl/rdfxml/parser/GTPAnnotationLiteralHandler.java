@@ -46,17 +46,17 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) {
         return !isAnonymous(subject) && getConsumer().isAnnotationProperty(predicate);
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) throws OWLException {
+    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) {
         return getConsumer().isAnnotationProperty(predicate);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, OWLLiteral object) {
         consumeTriple(subject, predicate, object);
         if(getConsumer().isOntology(subject)) {
             getConsumer().addOntologyAnnotation(getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), object));

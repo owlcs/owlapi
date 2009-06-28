@@ -45,7 +45,7 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
 
     public boolean canHandleStreaming(URI subject,
                                       URI predicate,
-                                      URI object) throws OWLException {
+                                      URI object) {
         // Need to parse everything to make sure
 
 //        if (!isAnonymous(object)) {
@@ -61,7 +61,7 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
 
     public void handleTriple(URI subject,
                              URI predicate,
-                             URI object) throws OWLException {
+                             URI object) {
         if (getConsumer().isObjectPropertyOnly(subject)) {
             translateObjectPropertyDomain(subject, predicate, object);
         }
@@ -89,7 +89,7 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
 
     private void translateDataPropertyDomain(URI subject,
                                              URI predicate,
-                                             URI object) throws OWLException {
+                                             URI object) {
         addAxiom(getDataFactory().getOWLDataPropertyDomainAxiom(translateDataProperty(subject), translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
@@ -97,7 +97,7 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
 
     private void translateObjectPropertyDomain(URI subject,
                                                URI predicate,
-                                               URI object) throws OWLException {
+                                               URI object) {
         addAxiom(getDataFactory().getOWLObjectPropertyDomainAxiom(translateObjectProperty(subject), translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }

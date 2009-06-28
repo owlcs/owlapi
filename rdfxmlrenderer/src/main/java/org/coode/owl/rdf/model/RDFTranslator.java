@@ -38,8 +38,8 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResourceNode, 
 
     private RDFGraph graph;
 
-    public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology) {
-        super(manager, ontology);
+    public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping) {
+        super(manager, ontology, useStrongTyping);
         graph = new RDFGraph();
     }
 

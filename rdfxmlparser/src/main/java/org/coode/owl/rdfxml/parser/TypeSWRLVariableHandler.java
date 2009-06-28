@@ -41,7 +41,7 @@ public class TypeSWRLVariableHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         getConsumer().addSWRLVariable(subject);
         consumeTriple(subject, predicate, object);
     }

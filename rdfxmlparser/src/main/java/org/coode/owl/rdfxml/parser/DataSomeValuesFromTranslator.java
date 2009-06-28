@@ -44,13 +44,12 @@ public class DataSomeValuesFromTranslator extends AbstractDataQuantifiedRestrict
     }
 
 
-    protected OWLClassExpression createRestriction(OWLDataPropertyExpression prop, OWLDataRange filler) throws
-            OWLException {
+    protected OWLClassExpression createRestriction(OWLDataPropertyExpression prop, OWLDataRange filler) {
         return getDataFactory().getOWLDataSomeValuesFrom(prop, filler);
     }
 
 
-    protected URI getFillerTriplePredicate() throws OWLException {
+    protected URI getFillerTriplePredicate() {
         return OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getURI();
     }
 }

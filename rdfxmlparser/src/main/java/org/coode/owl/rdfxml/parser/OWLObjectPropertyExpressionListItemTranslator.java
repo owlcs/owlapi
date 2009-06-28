@@ -49,12 +49,12 @@ public class OWLObjectPropertyExpressionListItemTranslator implements ListItemTr
     }
 
 
-    public OWLObjectPropertyExpression translate(URI uri) throws OWLException {
+    public OWLObjectPropertyExpression translate(URI uri) {
         return consumer.translateObjectPropertyExpression(uri);
     }
 
 
-    public OWLObjectPropertyExpression translate(OWLLiteral firstObject) throws OWLException {
+    public OWLObjectPropertyExpression translate(OWLLiteral firstObject) {
         logger.info("Cannot translate list item as an object property, because rdf:first triple is a literal triple");
         return null;
     }

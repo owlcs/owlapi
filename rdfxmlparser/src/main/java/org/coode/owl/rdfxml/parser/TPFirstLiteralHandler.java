@@ -42,17 +42,17 @@ public class TPFirstLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) throws OWLException {
+    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) {
         return predicate.equals(OWLRDFVocabulary.RDF_FIRST.getURI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) {
         return predicate.equals(OWLRDFVocabulary.RDF_FIRST.getURI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, OWLLiteral object) {
         getConsumer().addFirst(subject, object);
         consumeTriple(subject, predicate, object);
     }

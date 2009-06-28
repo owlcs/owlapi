@@ -44,11 +44,8 @@ public class DataHasValueTranslator extends AbstractDataRestrictionTranslator {
     }
 
 
-    protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
+    protected OWLClassExpression translateRestriction(URI mainNode) {
         OWLLiteral con = getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getURI(), true);
-        if (con == null) {
-            throw new MalformedClassExpressionException(OWLRDFVocabulary.OWL_HAS_VALUE.getURI() + " triple is not present");
-        }
         return getDataFactory().getOWLDataHasValue(translateOnProperty(mainNode), con);
     }
 }

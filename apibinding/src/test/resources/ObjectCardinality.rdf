@@ -6,6 +6,8 @@
      xmlns:owl="http://www.w3.org/2002/07/owl#">
 
 
+    <owl:ObjectProperty rdf:about="#p"/>
+
     <rdf:Description rdf:about="#A">
        <rdfs:subClassOf>
            <owl:Restriction>

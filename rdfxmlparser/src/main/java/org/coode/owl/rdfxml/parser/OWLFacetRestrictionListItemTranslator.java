@@ -40,11 +40,11 @@ public class OWLFacetRestrictionListItemTranslator implements ListItemTranslator
         this.consumer = consumer;
     }
 
-    public OWLFacetRestriction translate(OWLLiteral firstObject) throws OWLException {
+    public OWLFacetRestriction translate(OWLLiteral firstObject) {
         return null;
     }
 
-    public OWLFacetRestriction translate(URI firstObject) throws OWLException {
+    public OWLFacetRestriction translate(URI firstObject) {
         for(OWLFacet facet : OWLFacet.values()) {
             OWLLiteral lit = consumer.getLiteralObject(firstObject, facet.getIRI().toURI(), true);
             if(lit != null) {

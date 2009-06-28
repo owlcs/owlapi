@@ -71,10 +71,6 @@ public abstract class AbstractRoundTrippingTest extends AbstractOWLAPITestCase {
         roundTripOntology(ont, new ManchesterOWLSyntaxOntologyFormat());
     }
 
-    protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
-        return format.getClass().equals(ManchesterOWLSyntaxOntologyFormat.class);
-    }
-
     protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
         super.handleSaved(target, format);
     }

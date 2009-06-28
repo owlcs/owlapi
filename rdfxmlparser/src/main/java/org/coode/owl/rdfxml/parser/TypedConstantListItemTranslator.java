@@ -45,13 +45,13 @@ public class TypedConstantListItemTranslator implements ListItemTranslator<OWLLi
     }
 
 
-    public OWLTypedLiteral translate(URI firstObject) throws OWLException {
+    public OWLTypedLiteral translate(URI firstObject) {
         logger.info("Cannot translate list item to a constant because rdf:first triple is a resource triple");
         return null;
     }
 
 
-    public OWLLiteral translate(OWLLiteral firstObject) throws OWLException {
+    public OWLLiteral translate(OWLLiteral firstObject) {
         return firstObject;
     }
 }

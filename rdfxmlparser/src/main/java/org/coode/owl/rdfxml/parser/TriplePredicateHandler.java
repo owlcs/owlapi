@@ -43,7 +43,7 @@ public abstract class TriplePredicateHandler extends AbstractResourceTripleHandl
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandle(URI subject, URI predicate, URI object) {
         return predicate.equals(predicateURI);
     }
 

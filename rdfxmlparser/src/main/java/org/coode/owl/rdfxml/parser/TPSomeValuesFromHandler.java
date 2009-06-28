@@ -47,7 +47,7 @@ public class TPSomeValuesFromHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         eagerConsume = false;
         count++;
         // We either need to know that
@@ -77,6 +77,6 @@ public class TPSomeValuesFromHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
     }
 }

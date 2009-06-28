@@ -43,12 +43,12 @@ public class TPRestHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return true;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         if (!object.equals(OWLRDFVocabulary.RDF_NIL.getURI())) {
             getConsumer().addRest(subject, object);
         }

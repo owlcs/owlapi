@@ -46,12 +46,12 @@ public class UnionOfTranslator extends AbstractNaryBooleanClassExpressionTransla
     }
 
 
-    protected OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) throws OWLException {
+    protected OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) {
         return getDataFactory().getOWLObjectUnionOf(operands);
     }
 
 
-    protected URI getPredicateURI() throws OWLException {
+    protected URI getPredicateURI() {
         return OWLRDFVocabulary.OWL_UNION_OF.getURI();
     }
 

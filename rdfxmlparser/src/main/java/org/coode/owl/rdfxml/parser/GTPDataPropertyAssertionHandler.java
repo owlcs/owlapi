@@ -42,7 +42,7 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) throws OWLException {
+    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) {
         if (getConsumer().isAnnotationProperty(predicate)) {
             return false;
         }
@@ -50,12 +50,12 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) {
         return false;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, OWLLiteral object) {
         addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(translateDataProperty(predicate), translateIndividual(subject), object, getPendingAnnotations()
         ));
         consumeTriple(subject, predicate, object);

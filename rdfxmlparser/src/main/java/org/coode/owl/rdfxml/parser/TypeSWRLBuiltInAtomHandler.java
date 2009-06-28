@@ -41,7 +41,7 @@ public class TypeSWRLBuiltInAtomHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         getConsumer().addSWRLBuiltInAtom(subject);
         consumeTriple(subject, predicate, object);
     }

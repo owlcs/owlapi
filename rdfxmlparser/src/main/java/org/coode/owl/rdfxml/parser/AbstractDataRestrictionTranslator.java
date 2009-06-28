@@ -48,11 +48,8 @@ public abstract class AbstractDataRestrictionTranslator extends AbstractRestrict
      * @param mainNode The subject of the triple (the main node of the restriction)
      * @throws OWLException If the on property triple doesn't exist.
      */
-    protected OWLDataPropertyExpression translateOnProperty(URI mainNode) throws OWLException {
+    protected OWLDataPropertyExpression translateOnProperty(URI mainNode) {
         URI onPropertyObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY.getURI(), true);
-        if(onPropertyObject == null) {
-            throw new MalformedClassExpressionException(OWLRDFVocabulary.OWL_ON_PROPERTY + " not present");
-        }
         return getDataFactory().getOWLDataProperty(onPropertyObject);
     }
 

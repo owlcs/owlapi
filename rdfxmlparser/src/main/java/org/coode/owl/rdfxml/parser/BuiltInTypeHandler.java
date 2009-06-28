@@ -44,7 +44,7 @@ public abstract class BuiltInTypeHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return true;
     }
 

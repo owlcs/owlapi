@@ -42,7 +42,7 @@ public class SKOSObjectTripleHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         OWLIndividual subj = getDataFactory().getOWLNamedIndividual(subject);
         OWLIndividual obj = getDataFactory().getOWLNamedIndividual(object);
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(predicate);
@@ -50,7 +50,7 @@ public class SKOSObjectTripleHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return getPredicateURI().equals(predicate);
     }
 }

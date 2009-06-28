@@ -44,13 +44,12 @@ public class DataCardinalityTranslator extends AbstractDataCardinalityTranslator
     }
 
 
-    protected OWLClassExpression createRestriction(OWLDataPropertyExpression prop, int cardi, OWLDataRange filler) throws
-            OWLException {
+    protected OWLClassExpression createRestriction(OWLDataPropertyExpression prop, int cardi, OWLDataRange filler) {
         return getDataFactory().getOWLDataExactCardinality(cardi, prop, filler);
     }
 
 
-    protected URI getCardinalityTriplePredicate() throws OWLException {
+    protected URI getCardinalityTriplePredicate() {
         return OWLRDFVocabulary.OWL_CARDINALITY.getURI();
     }
 }

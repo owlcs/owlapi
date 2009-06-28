@@ -40,7 +40,7 @@ public class TypeObjectPropertyHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI());
     }
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         if (!isAnonymous(subject)) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLObjectProperty(subject), getPendingAnnotations()));
         }

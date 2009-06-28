@@ -48,35 +48,35 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
         return consumer;
     }
 
-//    protected <T extends Triple> T getFirstTripleWithPredicate(URI mainNode, URI predicate) throws OWLException {
+//    protected <T extends Triple> T getFirstTripleWithPredicate(URI mainNode, URI predicate) {
 //        return (T) consumer.getFirstTripleWithPredicate(mainNode, predicate);
 //    }
 
-    protected URI getResourceObject(URI subject, URI predicate, boolean consume) throws OWLException {
+    protected URI getResourceObject(URI subject, URI predicate, boolean consume) {
         return consumer.getResourceObject(subject, predicate, consume);
     }
 
-    protected OWLLiteral getLiteralObject(URI subject, URI predicate, boolean consume) throws OWLException {
+    protected OWLLiteral getLiteralObject(URI subject, URI predicate, boolean consume) {
         return consumer.getLiteralObject(subject, predicate, consume);
     }
 
-    protected boolean isTriplePresent(URI mainNode, URI predicate, URI value, boolean consume) throws OWLException {
+    protected boolean isTriplePresent(URI mainNode, URI predicate, URI value, boolean consume) {
         return consumer.isTriplePresent(mainNode, predicate, value, true);
     }
 
-    protected Set<OWLClassExpression> translateToClassExpressionSet(URI mainNode) throws OWLException {
+    protected Set<OWLClassExpression> translateToClassExpressionSet(URI mainNode) {
         return consumer.translateToClassExpressionSet(mainNode);
     }
 
-    protected Set<OWLIndividual> translateToIndividualSet(URI mainNode) throws OWLException {
+    protected Set<OWLIndividual> translateToIndividualSet(URI mainNode) {
         return consumer.translateToIndividualSet(mainNode);
     }
 
-    protected OWLDataFactory getDataFactory() throws OWLException {
+    protected OWLDataFactory getDataFactory() {
         return consumer.getDataFactory();
     }
 
-    protected OWLClassExpression translateToClassExpression(URI mainNode) throws OWLException {
+    protected OWLClassExpression translateToClassExpression(URI mainNode) {
         return consumer.translateClassExpression(mainNode);
     }
 

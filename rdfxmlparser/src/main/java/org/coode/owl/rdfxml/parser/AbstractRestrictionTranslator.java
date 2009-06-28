@@ -43,32 +43,9 @@ public abstract class AbstractRestrictionTranslator extends AbstractClassExpress
 
 
 
-    final public OWLClassExpression translate(URI mainNode) throws OWLException {
-        consumeTypeTriples(mainNode);
+    final public OWLClassExpression translate(URI mainNode) {
         return translateRestriction(mainNode);
     }
 
-    protected abstract OWLClassExpression translateRestriction(URI mainNode) throws OWLException;
-
-
-    /**
-     * Consumes any triples that type the main node as either a restriction, or
-     * an object restriction.
-     * @param mainNode The main node in the set of triples that represent the object restriction
-     */
-    private void consumeTypeTriples(URI mainNode) throws OWLException {
-        // Commented out, because these triples get thrown away anyway
-//        Triple objectRestrictionTriple = getFirstTripleWithPredicate(mainNode, OWLVocabulary.getObjectRestriction());
-//        if(objectRestrictionTriple != null) {
-//            consumeTriple(objectRestrictionTriple);
-//        }
-//        Triple restrictionTriple = getFirstTripleWithPredicate(mainNode, OWLVocabulary.getRestriction());
-//        if(restrictionTriple != null) {
-//            consumeTriple(restrictionTriple);
-//        }
-//        Triple dataRestrictionTriple = getFirstTripleWithPredicate(mainNode, OWLVocabulary.getDataRestriction());
-//        if(dataRestrictionTriple != null) {
-//            consumeTriple(dataRestrictionTriple);
-//        }
-    }
+    protected abstract OWLClassExpression translateRestriction(URI mainNode);
 }

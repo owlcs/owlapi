@@ -51,11 +51,11 @@ public class AbstractTripleHandler {
         return consumer.getPendingAnnotations();
     }
 
-    protected void consumeTriple(URI subject, URI predicate, URI object) throws OWLException {
+    protected void consumeTriple(URI subject, URI predicate, URI object) {
         consumer.consumeTriple(subject, predicate, object);
     }
 
-    protected void consumeTriple(URI subject, URI predicate, OWLLiteral object) throws OWLException {
+    protected void consumeTriple(URI subject, URI predicate, OWLLiteral object) {
         consumer.consumeTriple(subject, predicate, object);
     }
 
@@ -65,37 +65,37 @@ public class AbstractTripleHandler {
     }
 
 
-    protected void addAxiom(OWLAxiom axiom) throws OWLException {
+    protected void addAxiom(OWLAxiom axiom) {
         consumer.addAxiom(axiom);
     }
 
 
-    protected OWLDataFactory getDataFactory() throws OWLException {
+    protected OWLDataFactory getDataFactory() {
         return consumer.getDataFactory();
     }
 
 
-    protected OWLClassExpression translateClassExpression(URI uri) throws OWLException {
+    protected OWLClassExpression translateClassExpression(URI uri) {
         return consumer.translateClassExpression(uri);
     }
 
 
-    protected OWLObjectPropertyExpression translateObjectProperty(URI uri) throws OWLException {
+    protected OWLObjectPropertyExpression translateObjectProperty(URI uri) {
         return consumer.translateObjectPropertyExpression(uri);
     }
 
 
-    protected OWLDataPropertyExpression translateDataProperty(URI uri) throws OWLException {
+    protected OWLDataPropertyExpression translateDataProperty(URI uri) {
         return consumer.translateDataPropertyExpression(uri);
     }
 
 
-    protected OWLDataRange translateDataRange(URI uri) throws OWLException {
+    protected OWLDataRange translateDataRange(URI uri) {
         return consumer.translateDataRange(uri);
     }
 
 
-    protected OWLIndividual translateIndividual(URI uri) throws OWLException {
+    protected OWLIndividual translateIndividual(URI uri) {
         return consumer.translateIndividual(uri);
     }
 }

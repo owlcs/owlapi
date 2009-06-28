@@ -41,11 +41,9 @@ public class SelfRestrictionTranslator extends AbstractObjectRestrictionTranslat
     }
 
 
-    protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
+    protected OWLClassExpression translateRestriction(URI mainNode) {
+        // Consume the triple that specifies the description is a has self
         OWLLiteral lit = getConsumer().getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_SELF.getURI(), true);
-        if(lit == null) {
-            throw new OWLRuntimeException("No hasSelf triple");
-        }
         OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
         return getDataFactory().getOWLObjectHasSelf(prop);
     }

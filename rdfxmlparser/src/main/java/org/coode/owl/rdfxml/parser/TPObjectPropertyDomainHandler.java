@@ -43,14 +43,14 @@ public class TPObjectPropertyDomainHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         // Can only handle when domain is named if we are streaming
         // prop rdfs:domain desc
         return !isAnonymous(object);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         OWLObjectPropertyExpression prop = translateObjectProperty(subject);
         OWLClassExpression domain = translateClassExpression(subject);
         addAxiom(getDataFactory().getOWLObjectPropertyDomainAxiom(prop, domain, getPendingAnnotations()));

@@ -39,11 +39,11 @@ public class DataRangeListItemTranslator implements ListItemTranslator<OWLDataRa
         this.consumer = consumer;
     }
 
-    public OWLDataRange translate(OWLLiteral firstObject) throws OWLException {
+    public OWLDataRange translate(OWLLiteral firstObject) {
         return null;
     }
 
-    public OWLDataRange translate(URI firstObject) throws OWLException {
+    public OWLDataRange translate(URI firstObject) {
         return consumer.translateDataRange(firstObject);
     }
 }

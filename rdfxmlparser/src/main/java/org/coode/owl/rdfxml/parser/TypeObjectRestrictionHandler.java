@@ -41,8 +41,8 @@ public class TypeObjectRestrictionHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         consumeTriple(subject, predicate, object);
-        getConsumer().addObjectRestriction(subject);
+        getConsumer().addRestriction(subject);
     }
 }

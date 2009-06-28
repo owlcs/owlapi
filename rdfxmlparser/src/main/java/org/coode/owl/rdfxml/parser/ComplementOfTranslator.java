@@ -46,15 +46,9 @@ public class ComplementOfTranslator extends AbstractClassExpressionTranslator {
     }
 
 
-    public OWLClassExpression translate(URI mainNode) throws OWLException {
+    public OWLClassExpression translate(URI mainNode) {
         URI complementOfObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF.getURI(), true);
-        if (complementOfObject == null) {
-            throw new MalformedClassExpressionException(OWLRDFVocabulary.OWL_COMPLEMENT_OF + " triple not present");
-        }
         OWLClassExpression operand = translateToClassExpression(complementOfObject);
-        if (operand == null) {
-            throw new MalformedClassExpressionException("Could not translate complement of operand");
-        }
         return getDataFactory().getOWLObjectComplementOf(operand);
     }
 }

@@ -1,6 +1,7 @@
 package org.coode.owl.rdf.turtle;
 
 import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
+import org.semanticweb.owl.io.RDFOntologyFormat;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -31,7 +32,7 @@ import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 26-Jan-2008<br><br>
  */
-public class TurtleOntologyFormat extends PrefixOWLOntologyFormat {
+public class TurtleOntologyFormat extends RDFOntologyFormat {
 
 
     public String toString() {

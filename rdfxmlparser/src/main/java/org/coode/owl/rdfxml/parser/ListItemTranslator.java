@@ -46,8 +46,8 @@ public interface ListItemTranslator<O extends OWLObject> {
      * @param firstObject The rdf:first triple that points to the item to be translated.
      * @return The translated item.
      */
-    O translate(URI firstObject) throws OWLException;
+    O translate(URI firstObject);
 
 
-    O translate(OWLLiteral firstObject) throws OWLException;
+    O translate(OWLLiteral firstObject);
 }

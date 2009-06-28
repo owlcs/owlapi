@@ -44,19 +44,17 @@ public class TypeAllDisjointClassesHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         consumeTriple(subject, predicate, object);
         URI listNode = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS.getURI(), true);
         if (listNode != null) {
             Set<OWLClassExpression> desc = getConsumer().translateToClassExpressionSet(listNode);
             addAxiom(getDataFactory().getOWLDisjointClassesAxiom(desc, getPendingAnnotations()));
-        } else {
-            throw new OWLRDFXMLParserMalformedNodeException("Malformed AllDisjointClasses -  members triple not present");
         }
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return false;
     }
 }

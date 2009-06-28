@@ -36,7 +36,7 @@ public class TypeAnnotationHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_ANNOTATION.getURI());
     }
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         getConsumer().addAnnotationURI(subject);
     }
 }

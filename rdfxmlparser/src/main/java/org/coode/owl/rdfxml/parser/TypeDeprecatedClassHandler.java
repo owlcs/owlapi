@@ -41,7 +41,7 @@ public class TypeDeprecatedClassHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         getConsumer().addOWLClass(subject);
         consumeTriple(subject, predicate, object);
     }

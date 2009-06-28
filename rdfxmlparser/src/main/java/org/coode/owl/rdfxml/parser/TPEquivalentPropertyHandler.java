@@ -48,7 +48,7 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return (getConsumer().isObjectPropertyOnly(subject) &&
                 getConsumer().isObjectPropertyOnly(object)) ||
                 (getConsumer().isDataPropertyOnly(subject) &&
@@ -56,7 +56,7 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         // If either is an object property then translate as object properties
         if (getConsumer().isObjectPropertyOnly(subject) ||
                 getConsumer().isObjectPropertyOnly(object)) {
@@ -77,7 +77,7 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
     }
 
 
-    private void translateEquivalentObjectProperties(URI subject, URI predicate, URI object) throws OWLException {
+    private void translateEquivalentObjectProperties(URI subject, URI predicate, URI object) {
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
         props.add(translateObjectProperty(subject));
         props.add(translateObjectProperty(object));

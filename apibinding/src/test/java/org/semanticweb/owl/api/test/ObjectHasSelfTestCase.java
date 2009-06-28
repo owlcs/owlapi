@@ -41,6 +41,7 @@ public class ObjectHasSelfTestCase extends AbstractFileRoundTrippingTestCase {
          OWLClass clsA = getOWLClass("A");
          OWLObjectProperty propP = getOWLObjectProperty("p");
          axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectHasSelf(propP)));
+        axioms.add(getFactory().getOWLDeclarationAxiom(propP));
          assertEquals(getOnt().getAxioms(), axioms);
     }
 

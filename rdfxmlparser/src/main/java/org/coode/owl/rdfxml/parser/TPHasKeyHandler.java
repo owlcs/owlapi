@@ -42,11 +42,11 @@ public class TPHasKeyHandler extends TriplePredicateHandler {
         this.listTranslator = new OptimisedListTranslator<OWLPropertyExpression>(getConsumer(), new HasKeyListItemTranslator(getConsumer()));
     }
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return false;
     }
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         consumeTriple(subject, predicate, object);
         OWLClassExpression ce = translateClassExpression(subject);
         Set<OWLPropertyExpression> props = listTranslator.translateToSet(object);

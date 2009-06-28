@@ -1,11 +1,11 @@
 package org.coode.owl.rdfxml.parser;
 
+import org.semanticweb.owl.model.OWLClassExpression;
 import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
 /*
- * Copyright (C) 2008, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -27,26 +27,31 @@ import java.net.URI;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 07-Sep-2008<br><br>
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 28-Jun-2009
  */
-public class TypeAsymmetricPropertyHandler extends BuiltInTypeHandler {
+public class NamedClassTranslator implements ClassExpressionTranslator {
 
-    public TypeAsymmetricPropertyHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY.getURI());
+    private OWLRDFConsumer consumer;
+
+    public NamedClassTranslator(OWLRDFConsumer consumer) {
+        this.consumer = consumer;
     }
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
-        return !isAnonymous(subject);
+    /**
+     * Translates the specified main node into an <code>OWLClassExpression</code>.
+     * All triples used in the translation are consumed.
+     * @param mainNode The main node of the set of triples that represent the
+     *                 class expression.
+     * @return The class expression that represents the translation.
+     * @throws org.semanticweb.owl.model.OWLException
+     *          If the translation could not take place, possibly because the
+     *          class expression (set of triples) was malformed.
+     */
+    public OWLClassExpression translate(URI mainNode) {
+        return consumer.getOWLClass(mainNode);
     }
-
-
-    public void handleTriple(URI subject, URI predicate, URI object) {
-        getConsumer().addOWLObjectProperty(subject);
-        addAxiom(getDataFactory().getOWLAsymmetricObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
-        consumeTriple(subject, predicate, object);
-    }
-
 }

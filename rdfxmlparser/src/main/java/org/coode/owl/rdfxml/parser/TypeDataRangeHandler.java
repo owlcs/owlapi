@@ -41,7 +41,7 @@ public class TypeDataRangeHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         if (!isAnonymous(subject)) {
             getConsumer().addOWLDataRange(subject);
             consumeTriple(subject, predicate, object);

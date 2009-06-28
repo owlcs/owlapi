@@ -40,12 +40,13 @@ public class TypeTransitivePropertyHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_TRANSITIVE_PROPERTY.getURI());
     }
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+        getConsumer().addOWLObjectProperty(subject);
         return !isAnonymous(subject);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         getConsumer().addOWLObjectProperty(subject);
         addAxiom(getDataFactory().getOWLTransitiveObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

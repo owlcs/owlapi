@@ -41,7 +41,7 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandle(URI subject, URI predicate, URI object) {
         if (getConsumer().isAnnotationProperty(predicate)) {
             return false;
         }
@@ -49,12 +49,12 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return false;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         consumeTriple(subject, predicate, object);
         addAxiom(getDataFactory().getOWLObjectPropertyAssertionAxiom(translateObjectProperty(predicate), translateIndividual(subject), translateIndividual(object),
                 getPendingAnnotations()

@@ -45,12 +45,12 @@ public class TPEquivalentObjectPropertyHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return true;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
         properties.add(translateObjectProperty(subject));
         properties.add(translateObjectProperty(object));

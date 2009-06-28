@@ -46,14 +46,14 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
 
     public boolean canHandleStreaming(URI subject,
                                       URI predicate,
-                                      URI object) throws OWLException {
+                                      URI object) {
         return false;
     }
 
 
     public void handleTriple(URI subject,
                              URI predicate,
-                             URI object) throws OWLException {
+                             URI object) {
 
         // First check for object property chain
         if (getConsumer().hasPredicate(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getURI())) {
@@ -117,7 +117,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
 
     private void translateSubObjectProperty(URI subject,
                                             URI predicate,
-                                            URI object) throws OWLException {
+                                            URI object) {
         // Object - object
         addAxiom(getDataFactory().getOWLSubObjectPropertyOfAxiom(translateObjectProperty(subject), translateObjectProperty(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
@@ -126,7 +126,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
 
     private void translateSubDataProperty(URI subject,
                                           URI predicate,
-                                          URI object) throws OWLException {
+                                          URI object) {
         // Data - Data
         addAxiom(getDataFactory().getOWLSubDataPropertyOfAxiom(translateDataProperty(subject), translateDataProperty(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

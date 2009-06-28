@@ -47,9 +47,9 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
     }
 
 
-    public abstract void handleTriple(URI subject, URI predicate, URI object) throws OWLException;
+    public abstract void handleTriple(URI subject, URI predicate, URI object);
 
-    public abstract boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException;
+    public abstract boolean canHandleStreaming(URI subject, URI predicate, URI object);
 
-    public abstract boolean canHandle(URI subject, URI predicate, URI object) throws OWLException;
+    public abstract boolean canHandle(URI subject, URI predicate, URI object);
 }

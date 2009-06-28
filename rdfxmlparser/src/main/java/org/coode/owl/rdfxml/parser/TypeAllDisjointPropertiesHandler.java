@@ -47,7 +47,7 @@ public class TypeAllDisjointPropertiesHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         consumeTriple(subject, predicate, object);
         URI listNode = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS.getURI(), true);
         if (getConsumer().isObjectPropertyOnly(getConsumer().getFirstResource(listNode, false))) {
@@ -61,7 +61,7 @@ public class TypeAllDisjointPropertiesHandler extends BuiltInTypeHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return false;
     }
 }

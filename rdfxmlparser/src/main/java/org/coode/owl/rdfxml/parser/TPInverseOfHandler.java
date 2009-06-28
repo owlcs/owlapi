@@ -41,19 +41,19 @@ public class TPInverseOfHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         getConsumer().addOWLObjectProperty(subject);
         getConsumer().addOWLObjectProperty(object);
         return !isSubjectOrObjectAnonymous(subject, object);
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandle(URI subject, URI predicate, URI object) {
         return !isSubjectOrObjectAnonymous(subject, object);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         addAxiom(getDataFactory().getOWLInverseObjectPropertiesAxiom(
                 translateObjectProperty(subject),
                 translateObjectProperty(object), getPendingAnnotations()

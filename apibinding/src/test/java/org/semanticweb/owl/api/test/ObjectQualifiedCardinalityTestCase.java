@@ -1,13 +1,13 @@
 package org.semanticweb.owl.api.test;
 
+import org.semanticweb.owl.io.StringOutputTarget;
 import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLClass;
 import org.semanticweb.owl.model.OWLObjectProperty;
 import org.semanticweb.owl.model.OWLOntologyFormat;
-import org.semanticweb.owl.io.StringOutputTarget;
 
-import java.util.Set;
-import java.util.HashSet;/*
+import java.util.HashSet;
+import java.util.Set;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -37,12 +37,13 @@ import java.util.HashSet;/*
 public class ObjectQualifiedCardinalityTestCase extends AbstractFileRoundTrippingTestCase {
 
     public void testCorrectAxioms() {
-         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-         OWLClass clsA = getOWLClass("A");
-         OWLClass clsB = getOWLClass("B");
-         OWLObjectProperty prop = getOWLObjectProperty("p");
-         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectExactCardinality(3, prop, clsB)));
-         assertEquals(getOnt().getAxioms(), axioms);
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLClass clsA = getOWLClass("A");
+        OWLClass clsB = getOWLClass("B");
+        OWLObjectProperty prop = getOWLObjectProperty("p");
+        axioms.add(getFactory().getOWLDeclarationAxiom(prop));
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectExactCardinality(3, prop, clsB)));
+        assertEquals(getOnt().getAxioms(), axioms);
     }
 
     protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {

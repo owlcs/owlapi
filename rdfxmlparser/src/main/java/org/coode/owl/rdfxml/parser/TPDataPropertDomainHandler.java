@@ -41,12 +41,12 @@ public class TPDataPropertDomainHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return !isAnonymous(object);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         addAxiom(getDataFactory().getOWLDataPropertyDomainAxiom(
                 translateDataProperty(subject),
                 translateClassExpression(object),

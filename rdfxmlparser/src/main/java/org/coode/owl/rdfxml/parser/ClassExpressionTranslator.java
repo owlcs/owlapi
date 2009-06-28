@@ -51,6 +51,6 @@ public interface ClassExpressionTranslator {
      * @throws OWLException If the translation could not take place, possibly because the
      * class expression (set of triples) was malformed.
      */
-    OWLClassExpression translate(URI mainNode) throws OWLException;
+    OWLClassExpression translate(URI mainNode);
     
 }

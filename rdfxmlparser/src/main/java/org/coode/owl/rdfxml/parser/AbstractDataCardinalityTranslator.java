@@ -49,7 +49,7 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
      * @return The URI corresponding to the predicate of the triple that identifies
      *         the cardinality of the restriction.
      */
-    protected abstract URI getCardinalityTriplePredicate() throws OWLException;
+    protected abstract URI getCardinalityTriplePredicate();
 
 
     /**
@@ -58,11 +58,8 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
      * @param mainNode The main node of the restriction.
      * @return The cardinality of the restriction.
      */
-    private int translateCardinality(URI mainNode) throws OWLException {
+    private int translateCardinality(URI mainNode) {
         OWLLiteral cardiObject = getLiteralObject(mainNode, getCardinalityTriplePredicate(), true);
-        if (cardiObject == null) {
-            throw new MalformedClassExpressionException(getCardinalityTriplePredicate() + " not present");
-        }
         return Integer.parseInt(cardiObject.getLiteral());
     }
 
@@ -70,12 +67,12 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
     /**
      * Translates and consumes the triple that identifies the filler/quantifier for the
      * restriction (the onClass triple at the time of writing). If there is no filler
-     * triple then owl:Thing is returned.
+     * triple then the top datatype is returned.
      *
      * @param mainNode The main node of the restriction
      * @return The class expression corresponding to the filler (not <code>null</code>)
      */
-    private OWLDataRange translateFiller(URI mainNode) throws OWLException {
+    private OWLDataRange translateFiller(URI mainNode) {
         URI onDataRangeObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_DATA_RANGE.getURI(), true);
         if (onDataRangeObject == null) {
             return getDataFactory().getTopDatatype();
@@ -84,10 +81,16 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
     }
 
 
-    protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
-        return createRestriction(translateOnProperty(mainNode),
-                translateCardinality(mainNode),
-                translateFiller(mainNode));
+    protected OWLClassExpression translateRestriction(URI mainNode) {
+        int cardinality = translateCardinality(mainNode);
+        if(cardinality < 0) {
+            return getConsumer().getOWLClass(mainNode);
+        }
+        OWLDataPropertyExpression prop = translateOnProperty(mainNode);
+        if(prop == null) {
+            return getConsumer().getOWLClass(mainNode);
+        }
+        return createRestriction(prop, cardinality, translateFiller(mainNode));
     }
 
 
@@ -96,5 +99,5 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
      * OWLAPI object
      */
     protected abstract OWLClassExpression createRestriction(OWLDataPropertyExpression prop, int cardi,
-                                                            OWLDataRange filler) throws OWLException;
+                                                            OWLDataRange filler);
 }

@@ -44,7 +44,7 @@ public class TPDisjointWithHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         // We can only handle disjoint axioms if we don't have to do
         // any translation of the subject or object - i.e. only if the
         // subject or object are named classes
@@ -52,7 +52,7 @@ public class TPDisjointWithHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateClassExpression(subject));
         operands.add(translateClassExpression(object));

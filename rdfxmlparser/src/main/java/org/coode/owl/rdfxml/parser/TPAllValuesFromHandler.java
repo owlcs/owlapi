@@ -41,13 +41,10 @@ public class TPAllValuesFromHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         OWLRDFConsumer consumer = getConsumer();
         URI propURI = consumer.getResourceObject(subject, OWLRDFVocabulary.OWL_ON_PROPERTY.getURI(), false);
-        if(propURI == null) {
-            return false;
-        }
-        if(!consumer.isAnonymousNode(object) || consumer.getClassExpressionIfTranslated(object) != null) {
+        if(propURI != null && !consumer.isAnonymousNode(object) || consumer.getClassExpressionIfTranslated(object) != null) {
             // The filler is either a datatype or named class
             if(consumer.isObjectPropertyOnly(propURI)) {
                 consumer.addOWLClass(object);
@@ -64,6 +61,6 @@ public class TPAllValuesFromHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
     }
 }

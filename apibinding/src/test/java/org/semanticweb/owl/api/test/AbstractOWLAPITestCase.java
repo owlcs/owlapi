@@ -203,8 +203,8 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
         }
     }
 
-    protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
-        return false;
+    protected final boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
+        return true;
     }
 
     protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {

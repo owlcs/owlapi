@@ -45,7 +45,7 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
 
     public void handleTriple(URI subject,
                              URI predicate,
-                             URI object) throws OWLException {
+                             URI object) {
         OWLOntology ontology = getConsumer().getOntology();
         OWLOntologyID ontologyID = new OWLOntologyID(ontology.getOntologyID().getOntologyIRI(), getDataFactory().getIRI(object));
         getConsumer().setOntologyID(ontologyID);
@@ -54,7 +54,7 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
 
     public boolean canHandleStreaming(URI subject,
                                       URI predicate,
-                                      URI object) throws OWLException {
+                                      URI object) {
         // Always apply at the end
         return false;
     }
@@ -62,7 +62,7 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
 
     public boolean canHandle(URI subject,
                              URI predicate,
-                             URI object) throws OWLException {
+                             URI object) {
         return subject.equals(getConsumer().getOntology().getOntologyID().getOntologyIRI().toURI());
     }
 }

@@ -45,13 +45,13 @@ public class DataPropertyListItemTranslator implements ListItemTranslator<OWLDat
     }
 
 
-    public OWLDataPropertyExpression translate(URI firstObject) throws OWLException {
+    public OWLDataPropertyExpression translate(URI firstObject) {
         consumer.addOWLDataProperty(firstObject);
         return consumer.getOWLDataProperty(firstObject);
     }
 
 
-    public OWLDataPropertyExpression translate(OWLLiteral firstObject) throws OWLException {
+    public OWLDataPropertyExpression translate(OWLLiteral firstObject) {
         return null;
     }
 }

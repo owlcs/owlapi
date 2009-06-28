@@ -41,6 +41,7 @@ public class ObjectMinQualifiedCardinalityTestCase extends AbstractFileRoundTrip
          OWLClass clsA = getOWLClass("A");
          OWLClass clsB = getOWLClass("B");
          OWLObjectProperty prop = getOWLObjectProperty("p");
+         axioms.add(getFactory().getOWLDeclarationAxiom(prop));
          axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectMinCardinality(3, prop, clsB)));
          assertEquals(getOnt().getAxioms(), axioms);
     }

@@ -42,12 +42,12 @@ public class TPOnPropertyHandler extends TriplePredicateHandler {
         super(consumer, OWLRDFVocabulary.OWL_ON_PROPERTY.getURI());
     }
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         getConsumer().addRestriction(subject);
         count++;
         return false;
     }
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
     }
 }

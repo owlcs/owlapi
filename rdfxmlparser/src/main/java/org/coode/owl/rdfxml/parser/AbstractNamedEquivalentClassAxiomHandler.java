@@ -47,17 +47,17 @@ public abstract class AbstractNamedEquivalentClassAxiomHandler extends TriplePre
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return false;
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandle(URI subject, URI predicate, URI object) {
         return super.canHandle(subject, predicate, object) && !isAnonymous(subject);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         consumeTriple(subject, predicate, object);
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateClassExpression(subject));
@@ -65,6 +65,6 @@ public abstract class AbstractNamedEquivalentClassAxiomHandler extends TriplePre
         addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands));
     }
 
-    protected abstract OWLClassExpression translateEquivalentClass(URI mainNode) throws OWLException;
+    protected abstract OWLClassExpression translateEquivalentClass(URI mainNode);
 
 }

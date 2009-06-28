@@ -47,12 +47,13 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     private OWLOntology ontology;
 
-    private boolean useStrongTyping = false;
+    private boolean useStrongTyping = true;
 
 
-    public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology) {
+    public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping) {
         this.ontology = ontology;
         this.manager = manager;
+        this.useStrongTyping = useStrongTyping;
     }
 
 
@@ -510,9 +511,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getURI()));
         }
-        if (useStrongTyping && !property.isBuiltIn()) {
-            addTriple(property, RDF_TYPE.getURI(), OWL_DATA_PROPERTY.getURI());
-        }
+        addStrongTyping(property);
     }
 
 
@@ -520,18 +519,14 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getURI()));
         }
-        if (useStrongTyping && !property.isBuiltIn()) {
-            addTriple(property, RDF_TYPE.getURI(), OWL_OBJECT_PROPERTY.getURI());
-        }
+        addStrongTyping(property);
     }
 
     public void visit(OWLAnnotationProperty property) {
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getURI()));
         }
-        if (useStrongTyping) {
-            addTriple(property, RDF_TYPE.getURI(), OWL_ANNOTATION_PROPERTY.getURI());
-        }
+        addStrongTyping(property);
     }
 
 

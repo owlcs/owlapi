@@ -41,7 +41,7 @@ public class TypeAnnotationPropertyHandler extends BuiltInTypeHandler{
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLAnnotationProperty(subject)));
         getConsumer().addAnnotationProperty(subject);
         consumeTriple(subject, predicate, object);

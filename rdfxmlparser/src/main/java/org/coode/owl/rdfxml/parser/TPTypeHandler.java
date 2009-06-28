@@ -44,7 +44,7 @@ public class TPTypeHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         // Can handle if object isn;t anonymous and either the object
         // URI is owl:Thing, or it is not part of the build in vocabulary
         return !isAnonymous(object) &&
@@ -53,7 +53,7 @@ public class TPTypeHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         if (OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(object)) {
             if (!object.equals(OWLRDFVocabulary.OWL_THING.getURI())) {
                 // Can't have instance of built in vocabulary!

@@ -49,12 +49,12 @@ public class IndividualListItemTranslator implements ListItemTranslator<OWLIndiv
     }
 
 
-    public OWLIndividual translate(URI uri) throws OWLException {
+    public OWLIndividual translate(URI uri) {
         return consumer.translateIndividual(uri);
     }
 
 
-    public OWLIndividual translate(OWLLiteral firstObject) throws OWLException {
+    public OWLIndividual translate(OWLLiteral firstObject) {
         logger.info("Cannot translate list item to individual, because rdf:first triple is a literal triple");
         return null;
     }

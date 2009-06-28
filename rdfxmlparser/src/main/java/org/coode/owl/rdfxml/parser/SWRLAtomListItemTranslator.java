@@ -53,7 +53,7 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
     }
 
 
-    public SWRLAtom translate(URI firstObject) throws OWLException {
+    public SWRLAtom translate(URI firstObject) {
         if (consumer.isSWRLBuiltInAtom(firstObject)) {
             URI builtInURI = consumer.getResourceObject(firstObject, BUILT_IN.getURI(), true);
             URI mainURI = consumer.getResourceObject(firstObject, ARGUMENTS.getURI(), true);
@@ -101,16 +101,16 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
             SWRLAtomIObject arg2 = translateSWRLAtomIObject(firstObject, ARGUMENT_2.getURI());
             return dataFactory.getSWRLDifferentFromAtom(arg1, arg2);
         }
-        throw new OWLRDFXMLParserMalformedNodeException("Don't know how to translate SWRL Atom: " + firstObject);
+        throw new RuntimeException("Don't know how to translate SWRL Atom: " + firstObject);
     }
 
 
-    public SWRLAtom translate(OWLLiteral firstObject) throws OWLException {
-        throw new OWLRDFXMLParserMalformedNodeException("Unexprected literal in atom list: " + firstObject);
+    public SWRLAtom translate(OWLLiteral firstObject) {
+        throw new RuntimeException("Unexpected literal in atom list: " + firstObject);
     }
 
 
-    private SWRLAtomIObject translateSWRLAtomIObject(URI mainURI, URI argPredicateURI) throws OWLException {
+    private SWRLAtomIObject translateSWRLAtomIObject(URI mainURI, URI argPredicateURI) {
         URI argURI = consumer.getResourceObject(mainURI, argPredicateURI, true);
         if (argURI != null) {
             if (consumer.isSWRLVariable(argURI)) {
@@ -121,12 +121,12 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
             }
         }
         else {
-            throw new OWLRDFXMLParserMalformedNodeException("Cannot translate SWRL Atom I-Object for " + argPredicateURI + " Triple not found.");
+            throw new RuntimeException("Cannot translate SWRL Atom I-Object for " + argPredicateURI + " Triple not found.");
         }
     }
 
 
-    private SWRLAtomDObject translateSWRLAtomDObject(URI mainURI, URI argPredicateURI) throws OWLException {
+    private SWRLAtomDObject translateSWRLAtomDObject(URI mainURI, URI argPredicateURI) {
         URI argURI = consumer.getResourceObject(mainURI, argPredicateURI, true);
         if (argURI != null) {
             // Must be a variable -- double check
@@ -142,18 +142,18 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
                 return dataFactory.getSWRLAtomConstantObject(con);
             }
         }
-        throw new OWLRDFXMLParserMalformedNodeException("Cannot translate SWRL Atom D-Object for " + argPredicateURI + ". Triple not found.");
+        throw new IllegalStateException("Could not translate SWRL Atom D-Object");
     }
 
 
     private class SWRLAtomDObjectListItemTranslator implements ListItemTranslator<SWRLAtomDObject> {
 
-        public SWRLAtomDObject translate(URI firstObject) throws OWLException {
+        public SWRLAtomDObject translate(URI firstObject) {
             return dataFactory.getSWRLAtomDVariable(firstObject);
         }
 
 
-        public SWRLAtomDObject translate(OWLLiteral firstObject) throws OWLException {
+        public SWRLAtomDObject translate(OWLLiteral firstObject) {
             return dataFactory.getSWRLAtomConstantObject(firstObject);
         }
     }

@@ -44,14 +44,14 @@ public class TPDisjointDataPropertiesHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         // We can always handle disjoint data properties in a streaming
         // manner, because they are either named, or inverses of properties.
         return true;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         Set<OWLDataPropertyExpression> properties = new HashSet<OWLDataPropertyExpression>();
         properties.add(translateDataProperty(subject));
         properties.add(translateDataProperty(object));

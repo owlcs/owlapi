@@ -1,9 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLDataPropertyExpression;
-import org.semanticweb.owl.model.OWLDataRange;
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owl.model.*;
 
 import java.net.URI;
 /*
@@ -44,20 +41,27 @@ public abstract class AbstractDataQuantifiedRestrictionTranslator extends Abstra
     }
 
 
-    final protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
-        URI fillerObject = getResourceObject(mainNode, getFillerTriplePredicate(), true);
-        if(fillerObject == null) {
-            throw new MalformedClassExpressionException(getFillerTriplePredicate() + " is not present");
+    final protected OWLClassExpression translateRestriction(URI mainNode) {
+        OWLDataPropertyExpression prop = translateOnProperty(mainNode);
+        if(prop == null) {
+            return getConsumer().getOWLClass(mainNode);
         }
-        OWLDataRange dataRange = getConsumer().translateDataRange(fillerObject);
-        return createRestriction(translateOnProperty(mainNode), dataRange);
+        URI fillerObject = getResourceObject(mainNode, getFillerTriplePredicate(), true);
+        OWLDataRange dataRange;
+        if(fillerObject != null) {
+            dataRange = getConsumer().translateDataRange(fillerObject);
+        }
+        else {
+            dataRange = getConsumer().getDataFactory().getTopDatatype();
+        }
+        return createRestriction(prop, dataRange);
     }
 
 
     /**
      * Gets the filler triple predicate URI (e.g. owl:someValuesFrom)
      */
-    protected abstract URI getFillerTriplePredicate() throws OWLException;
+    protected abstract URI getFillerTriplePredicate();
 
-    protected abstract OWLClassExpression createRestriction(OWLDataPropertyExpression prop, OWLDataRange filler) throws OWLException;
+    protected abstract OWLClassExpression createRestriction(OWLDataPropertyExpression prop, OWLDataRange filler);
 }

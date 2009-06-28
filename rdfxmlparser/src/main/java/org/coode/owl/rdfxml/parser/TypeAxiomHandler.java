@@ -47,7 +47,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         super(consumer, typeURI);
     }
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         // We can't handle this is a streaming fashion, because we can't
         // be sure that the subject, predicate, object triples have been parsed.
         return false;
@@ -78,7 +78,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         consumeTriple(subject, predicate, object);
 
 
@@ -99,18 +99,18 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         }
         if (!annotations.isEmpty()) {
             OWLAxiom ax = getConsumer().getLastAddedAxiom();
-            getConsumer().getOWLOntologyManager().applyChange(new RemoveAxiom(getConsumer().getOntology(), ax.getAxiomWithoutAnnotations()));
+            getConsumer().applyChange(new RemoveAxiom(getConsumer().getOntology(), ax.getAxiomWithoutAnnotations()));
         }
 
     }
 
-    protected OWLAxiom handleAxiomTriples(URI subjectTriple, URI predicateTriple, URI objectTriple, Set<OWLAnnotation> annotations) throws OWLException {
+    protected OWLAxiom handleAxiomTriples(URI subjectTriple, URI predicateTriple, URI objectTriple, Set<OWLAnnotation> annotations) {
         // Reconstitute the original triple from the reification triples
         return getConsumer().getLastAddedAxiom();
     }
 
 
-    protected OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject, OWLLiteral con, Set<OWLAnnotation> annotations) throws OWLException {
+    protected OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject, OWLLiteral con, Set<OWLAnnotation> annotations) {
         getConsumer().handle(subjectTripleObject, predicateTripleObject, con);
         return getConsumer().getLastAddedAxiom();
     }
@@ -135,13 +135,10 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         return annotations;
     }
 
-    private OWLLiteral getTargetLiteral(URI subject) throws OWLRDFXMLParserMalformedNodeException {
+    private OWLLiteral getTargetLiteral(URI subject) {
         OWLLiteral con = getConsumer().getLiteralObject(subject, getTargetTriplePredicate(), true);
         if (con == null) {
             con = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
-        }
-        if (con == null) {
-            throw new OWLRDFXMLParserMalformedNodeException("missing owl:annotatedTarget triple.");
         }
         return con;
     }
@@ -162,13 +159,10 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         return objectTripleObject;
     }
 
-    private URI getObjectOfPropertyTriple(URI subject) throws OWLRDFXMLParserMalformedNodeException {
+    private URI getObjectOfPropertyTriple(URI subject) {
         URI predicateTripleObject = getConsumer().getResourceObject(subject, getPropertyTriplePredicate(), true);
         if (predicateTripleObject == null) {
             predicateTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_PREDICATE.getURI(), true);
-        }
-        if (predicateTripleObject == null) {
-            throw new OWLRDFXMLParserMalformedNodeException("missing owl:annotatedProperty triple.");
         }
         return predicateTripleObject;
     }
@@ -182,13 +176,10 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
      * @throws OWLRDFXMLParserMalformedNodeException
      *
      */
-    private URI getObjectOfSourceTriple(URI mainNode) throws OWLRDFXMLParserMalformedNodeException {
+    private URI getObjectOfSourceTriple(URI mainNode) {
         URI subjectTripleObject = getConsumer().getResourceObject(mainNode, getSourceTriplePredicate(), true);
         if (subjectTripleObject == null) {
             subjectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.RDF_SUBJECT.getURI(), true);
-        }
-        if (subjectTripleObject == null) {
-            throw new OWLRDFXMLParserMalformedNodeException("missing owl:annotatedSource triple.");
         }
         return subjectTripleObject;
     }

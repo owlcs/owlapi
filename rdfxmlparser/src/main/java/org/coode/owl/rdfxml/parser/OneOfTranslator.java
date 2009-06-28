@@ -49,11 +49,8 @@ public class OneOfTranslator extends AbstractClassExpressionTranslator {
     }
 
 
-    public OWLClassExpression translate(URI mainNode) throws OWLException {
+    public OWLClassExpression translate(URI mainNode) {
         URI oneOfObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getURI(), true);
-        if (oneOfObject == null) {
-            throw new MalformedClassExpressionException(OWLRDFVocabulary.OWL_ONE_OF + " triple not present when translating oneOf");
-        }
         Set<OWLIndividual> individuals = translateToIndividualSet(oneOfObject);
         for (OWLIndividual ind : individuals) {
             if (!ind.isAnonymous()) {

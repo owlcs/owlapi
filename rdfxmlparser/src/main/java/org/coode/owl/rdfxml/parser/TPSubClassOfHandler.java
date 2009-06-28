@@ -47,7 +47,7 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         if (!getConsumer().isAnonymousNode(subject)) {
             if (getConsumer().isAnonymousNode(object)) {
                 OWLClassExpression superClass = getConsumer().getClassExpressionIfTranslated(object);
@@ -57,11 +57,13 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
                 }
             }
         }
+        getConsumer().addOWLClass(subject);
+        getConsumer().addOWLClass(object);
         return !isSubjectOrObjectAnonymous(subject, object);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         OWLClassExpression subClass = translateClassExpression(subject);
         OWLClassExpression supClass = translateClassExpression(object);
         Set<OWLAnnotation> pendingAnnotations = getConsumer().getPendingAnnotations();

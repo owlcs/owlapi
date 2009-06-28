@@ -46,13 +46,15 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         // Can handle when streaming if the subject or object are named
+        getConsumer().addOWLClass(subject);
+        getConsumer().addOWLClass(object);
         return !isSubjectOrObjectAnonymous(subject, object) && (getConsumer().isClass(subject) || getConsumer().isDataRange(subject));
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         // Can handle because the uris can easily be translated to classes
         if(getConsumer().isDataRange(object) || getConsumer().isDataRange(subject)) {
             OWLDatatype datatype = getDataFactory().getOWLDatatype(subject);

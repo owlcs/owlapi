@@ -65,7 +65,7 @@ public class OptimisedListTranslator<O extends OWLObject> {
     }
 
 
-    private void translateList(URI mainNode, List<O> list) throws OWLException {
+    private void translateList(URI mainNode, List<O> list) {
         if (!consumer.isList(mainNode, true)) {
             // I originally threw an exception here, but some ontologies
             // seem to have missing type triples for lists where it's obvious
@@ -99,14 +99,14 @@ public class OptimisedListTranslator<O extends OWLObject> {
     }
 
 
-    public List<O> translateList(URI mainNode) throws OWLException {
+    public List<O> translateList(URI mainNode) {
         List<O> list = new ArrayList<O>();
         translateList(mainNode, list);
         return list;
     }
 
 
-    public Set<O> translateToSet(URI mainNode) throws OWLException {
+    public Set<O> translateToSet(URI mainNode) {
         return new HashSet<O>(translateList(mainNode));
     }
 }

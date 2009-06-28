@@ -51,7 +51,7 @@ public class SWRLRuleTranslator {
     }
 
 
-    public void translateRule(URI mainNode) throws OWLException {
+    public void translateRule(URI mainNode) {
         Set<SWRLAtom> consequent = Collections.emptySet();
         URI ruleHeadURI = consumer.getResourceObject(mainNode, SWRLVocabulary.HEAD.getURI(), true);
         if (ruleHeadURI != null) {

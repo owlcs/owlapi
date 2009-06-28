@@ -48,11 +48,8 @@ public abstract class AbstractNaryBooleanClassExpressionTranslator extends Abstr
     }
 
 
-    public OWLClassExpression translate(URI mainNode) throws OWLException {
+    public OWLClassExpression translate(URI mainNode) {
         URI object = getResourceObject(mainNode, getPredicateURI(), true);
-        if(object == null) {
-            throw new MalformedClassExpressionException("Triple with " + getPredicateURI() + " not present");
-        }
         Set<OWLClassExpression> operands = translateToClassExpressionSet(object);
         if(operands.size() < 2) {
             logger.fine("Number of operands is less than 2");
@@ -68,7 +65,7 @@ public abstract class AbstractNaryBooleanClassExpressionTranslator extends Abstr
         return createClassExpression(operands);
     }
 
-    protected abstract OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) throws OWLException;
+    protected abstract OWLClassExpression createClassExpression(Set<OWLClassExpression> operands);
 
-    protected abstract URI getPredicateURI() throws OWLException;
+    protected abstract URI getPredicateURI();
 }

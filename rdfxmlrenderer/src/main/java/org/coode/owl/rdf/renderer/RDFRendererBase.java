@@ -4,6 +4,7 @@ import org.coode.owl.rdf.model.*;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.SWRLVariableExtractor;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owl.io.RDFOntologyFormat;
 
 import java.io.IOException;
 import java.net.URI;
@@ -49,11 +50,9 @@ public abstract class RDFRendererBase {
 
     private RDFGraph graph;
 
-    protected Set<URI> annotationURIs;
-
     protected Set<URI> prettyPrintedTypes;
 
-    private boolean renderDeclarationAxioms;
+    private boolean insertDeclarationAxioms;
 
     private OWLOntologyFormat format;
 
@@ -65,10 +64,9 @@ public abstract class RDFRendererBase {
 
     protected RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager, OWLOntologyFormat format) {
         this.ontology = ontology;
-        annotationURIs = ontology.getAnnotationURIs();
         this.manager = manager;
         this.format = format;
-        renderDeclarationAxioms = (Boolean) format.getParameter(RENDER_DECLARATION_AXIOMS_KEY, false);
+        insertDeclarationAxioms = !(format instanceof RDFOntologyFormat) || ((RDFOntologyFormat) format).isAddMissingTypes();
     }
 
 
@@ -376,6 +374,9 @@ public abstract class RDFRendererBase {
 
     private boolean createGraph(OWLEntity entity) {
         final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        if (insertDeclarationAxioms) {
+            axioms.add(manager.getOWLDataFactory().getOWLDeclarationAxiom(entity));
+        }
         axioms.addAll(entity.getAnnotationAssertionAxioms(ontology));
         axioms.addAll(ontology.getDeclarationAxioms(entity));
 
@@ -453,13 +454,13 @@ public abstract class RDFRendererBase {
                 createGraph(axioms);
             }
         });
-//        addTypeTriple(entity);
+        addTypeTriple(entity);
         return !axioms.isEmpty();
     }
 
 
     private void createGraph(Set<? extends OWLObject> objects) {
-        RDFTranslator translator = new RDFTranslator(manager, ontology);
+        RDFTranslator translator = new RDFTranslator(manager, ontology, insertDeclarationAxioms);
         for (OWLObject obj : objects) {
             obj.accept(translator);
         }
@@ -468,7 +469,7 @@ public abstract class RDFRendererBase {
 
 
     private void addTypeTriple(OWLEntity entity) {
-        graph = new RDFGraph();
+//        graph = new RDFGraph();
         entity.accept(new OWLEntityVisitor() {
             public void visit(OWLClass cls) {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(cls.getURI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()), new RDFResourceNode(OWLRDFVocabulary.OWL_CLASS.getURI())));
@@ -487,21 +488,11 @@ public abstract class RDFRendererBase {
 
             public void visit(OWLDataProperty property) {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()), new RDFResourceNode(OWLRDFVocabulary.OWL_DATA_PROPERTY.getURI())));
-//                if (annotationURIs.contains(property.getIRI())) {
-//                    graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()),
-//                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()),
-//                            new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI())));
-//                }
             }
 
 
             public void visit(OWLObjectProperty property) {
                 graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()), new RDFResourceNode(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI())));
-//                if (annotationURIs.contains(property.getIRI())) {
-//                    graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()),
-//                            new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()),
-//                            new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI())));
-//                }
             }
 
             public void visit(OWLAnnotationProperty property) {

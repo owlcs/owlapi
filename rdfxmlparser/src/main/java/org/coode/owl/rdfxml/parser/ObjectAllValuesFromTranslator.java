@@ -44,13 +44,12 @@ public class ObjectAllValuesFromTranslator extends AbstractObjectQuantifiedRestr
     }
 
 
-    protected OWLClassExpression createRestriction(OWLObjectPropertyExpression property, OWLClassExpression filler) throws
-            OWLException {
+    protected OWLClassExpression createRestriction(OWLObjectPropertyExpression property, OWLClassExpression filler) {
         return getDataFactory().getOWLObjectAllValuesFrom(property, filler);
     }
 
 
-    protected URI getFillerTriplePredicate() throws OWLException {
+    protected URI getFillerTriplePredicate() {
         return OWLRDFVocabulary.OWL_ALL_VALUES_FROM.getURI();
     }
 }

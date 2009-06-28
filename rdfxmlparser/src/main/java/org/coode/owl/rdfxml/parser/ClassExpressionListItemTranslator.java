@@ -45,13 +45,12 @@ public class ClassExpressionListItemTranslator implements ListItemTranslator<OWL
     }
 
 
-    public OWLClassExpression translate(URI uri) throws OWLException {
+    public OWLClassExpression translate(URI uri) {
         return consumer.translateClassExpression(uri);
     }
 
 
-    public OWLClassExpression translate(OWLLiteral firstObject) throws OWLException {
-        throw new OWLRDFParserException(
-                "Cannot translate list item to class expression, because rdf:first triple is a literal triple.");
+    public OWLClassExpression translate(OWLLiteral firstObject) {
+        return consumer.getDataFactory().getOWLThing();
     }
 }

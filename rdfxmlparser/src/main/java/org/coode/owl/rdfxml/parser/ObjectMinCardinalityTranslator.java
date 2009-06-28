@@ -44,22 +44,22 @@ public class ObjectMinCardinalityTranslator extends AbstractObjectCardinalityTra
     }
 
 
-    protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi) throws OWLException {
+    protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi) {
         return getDataFactory().getOWLObjectMinCardinality(cardi, prop);
     }
 
 
     protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi,
-                                                   OWLClassExpression filler) throws OWLException {
+                                                   OWLClassExpression filler) {
         return getDataFactory().getOWLObjectMinCardinality(cardi, prop, filler);
     }
 
 
-    protected URI getCardinalityTriplePredicate() throws OWLException {
+    protected URI getCardinalityTriplePredicate() {
         return OWLRDFVocabulary.OWL_MIN_CARDINALITY.getURI();
     }
 
-    protected URI getQualifiedCardinalityTriplePredicate() throws OWLException {
+    protected URI getQualifiedCardinalityTriplePredicate() {
         return OWLRDFVocabulary.OWL_MIN_QUALIFIED_CARDINALITY.getURI();
     }
 }

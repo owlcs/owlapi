@@ -42,17 +42,17 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return !isAnonymous(subject) && getConsumer().isAnnotationProperty(predicate);
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandle(URI subject, URI predicate, URI object) {
         return getConsumer().isAnnotationProperty(predicate);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
 
         OWLAnnotation anno = getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate),
                                                             getConsumer().getDataFactory().getIRI(object));

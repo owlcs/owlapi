@@ -3,6 +3,7 @@ package org.coode.owl.rdfxml.parser;
 import org.semanticweb.owl.model.OWLException;
 import org.semanticweb.owl.model.OWLImportsDeclaration;
 import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owl.model.OWLOntologyCreationException;
 import org.semanticweb.owl.vocab.Namespaces;
 import org.semanticweb.owl.vocab.OWLRDFVocabulary;
 
@@ -56,12 +57,12 @@ public class TPImportsHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return true;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         consumeTriple(subject, predicate, object);
         getConsumer().addOntology(subject);
         getConsumer().addOntology(object);
@@ -69,7 +70,12 @@ public class TPImportsHandler extends TriplePredicateHandler {
             OWLImportsDeclaration importsDeclaration = getDataFactory().getOWLImportsDeclaration(object);
             getConsumer().addImport(importsDeclaration);
             OWLOntologyManager man = getConsumer().getOWLOntologyManager();
-            man.makeLoadImportRequest(importsDeclaration);
+            try {
+                man.makeLoadImportRequest(importsDeclaration);
+            }
+            catch (OWLOntologyCreationException e) {
+                OWLRDFConsumer.logger.severe(e.getMessage());
+            }
             getConsumer().importsClosureChanged();
         }
         // We need to think about what we should do when the subject of the imports statement doesn't

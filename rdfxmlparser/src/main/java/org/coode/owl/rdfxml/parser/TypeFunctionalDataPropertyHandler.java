@@ -41,7 +41,7 @@ public class TypeFunctionalDataPropertyHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         getConsumer().addOWLDataProperty(subject);
         addAxiom(getDataFactory().getOWLFunctionalDataPropertyAxiom(translateDataProperty(subject), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

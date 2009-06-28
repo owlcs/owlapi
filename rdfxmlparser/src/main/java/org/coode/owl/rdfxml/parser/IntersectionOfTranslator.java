@@ -47,12 +47,12 @@ public class IntersectionOfTranslator extends AbstractNaryBooleanClassExpression
         super(consumer);
     }
 
-    protected OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) throws OWLException {
+    protected OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) {
         return getDataFactory().getOWLObjectIntersectionOf(operands);
     }
 
 
-    protected URI getPredicateURI() throws OWLException {
+    protected URI getPredicateURI() {
         return OWLRDFVocabulary.OWL_INTERSECTION_OF.getURI();
     }
 }

@@ -35,7 +35,7 @@ import java.util.*;
  * Bio-Health Informatics Group<br>
  * Date: 02-Jan-2007<br><br>
  */
-public class RDFXMLOntologyFormat extends PrefixOWLOntologyFormat {
+public class RDFXMLOntologyFormat extends RDFOntologyFormat {
 
     private Map<URI, Set<OWLAnnotation>> annotationURI2Annotation;
 

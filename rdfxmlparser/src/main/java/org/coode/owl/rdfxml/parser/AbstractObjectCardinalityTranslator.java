@@ -51,23 +51,23 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
      * @return The URI corresponding to the predicate of the triple that identifies
      * the cardinality of the restriction.
      */
-    protected abstract URI getCardinalityTriplePredicate() throws OWLException;
+    protected abstract URI getCardinalityTriplePredicate();
 
-    protected abstract URI getQualifiedCardinalityTriplePredicate() throws OWLException;
+    protected abstract URI getQualifiedCardinalityTriplePredicate();
 
     /**
      * Translates and consumes the cardinality triple.
      * @param mainNode The main node of the restriction.
-     * @return The cardinality of the restriction.
+     * @return The cardinality of the restriction or -1 if the cardinality triple was not found
      * @throws OWLException
      */
-    private int translateCardinality(URI mainNode) throws OWLException {
+    private int translateCardinality(URI mainNode) {
         OWLLiteral con = getLiteralObject(mainNode, getCardinalityTriplePredicate(), true);
         if(con == null) {
             con = getLiteralObject(mainNode, getQualifiedCardinalityTriplePredicate(), true);
         }
         if(con == null) {
-            throw new MalformedClassExpressionException(getCardinalityTriplePredicate() + " not present");
+            return -1;
         }
         return Integer.parseInt(con.getLiteral());
     }
@@ -81,7 +81,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
      * @return The class expression corresponding to the filler (not <code>null</code>)
      * @throws OWLException
      */
-    private OWLClassExpression translateFiller(URI mainNode) throws OWLException {
+    private OWLClassExpression translateFiller(URI mainNode) {
         URI onClassObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_CLASS.getURI(), true);
         if(onClassObject == null) {
             return getDataFactory().getOWLThing();
@@ -90,10 +90,14 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
     }
 
 
-    protected OWLClassExpression translateRestriction(URI mainNode) throws OWLException {
-            return createRestriction(translateOnProperty(mainNode),
-                                     translateCardinality(mainNode),
-                                     translateFiller(mainNode));
+    protected OWLClassExpression translateRestriction(URI mainNode) {
+        OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
+        if(prop == null) {
+            return getConsumer().getOWLClass(mainNode);
+        }
+        int cardi = translateCardinality(mainNode);
+        OWLClassExpression filler = translateFiller(mainNode);
+        return createRestriction(prop, cardi, filler);
     }
 
 
@@ -101,5 +105,5 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
      * Given a property expression, cardinality and filler, this method creates the appropriate
      * OWLAPI object
      */
-    protected abstract OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi, OWLClassExpression filler) throws OWLException;
+    protected abstract OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi, OWLClassExpression filler);
 }

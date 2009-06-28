@@ -41,7 +41,7 @@ public class TypeSWRLBuiltInHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         // Just consume - I don't care about this
         consumeTriple(subject, predicate, object);
     }

@@ -41,13 +41,13 @@ public class TypeFunctionalPropertyHandler extends BuiltInTypeHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         return getConsumer().isObjectPropertyOnly(subject) ||
                 getConsumer().isDataPropertyOnly(subject);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         if (getConsumer().isObjectPropertyOnly(subject)) {
             getConsumer().addOWLObjectProperty(subject);
             addAxiom(getDataFactory().getOWLFunctionalObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));

@@ -48,7 +48,7 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
 
     public boolean canHandleStreaming(URI subject,
                                       URI predicate,
-                                      URI object) throws OWLException {
+                                      URI object) {
         if (!isAnonymous(object)) {
             if (getConsumer().isObjectPropertyOnly(subject)) {
                 return true;
@@ -63,7 +63,7 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
 
     public void handleTriple(URI subject,
                              URI predicate,
-                             URI object) throws OWLException {
+                             URI object) {
         if (getConsumer().isObjectPropertyOnly(subject)) {
             translateObjectPropertyRange(subject, object, predicate);
         }
@@ -99,7 +99,7 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
 
     private void translateObjectPropertyRange(URI subject,
                                               URI object,
-                                              URI predicate) throws OWLException {
+                                              URI predicate) {
         addAxiom(getDataFactory().getOWLObjectPropertyRangeAxiom(translateObjectProperty(subject), translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }

@@ -44,14 +44,14 @@ public class TPDisjointUnionHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         // The list might contain anonymous classes - better not handle it
         // whilst streaming triples!
         return false;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         OWLClass cls = (OWLClass) translateClassExpression(subject);
         Set<OWLClassExpression> classExpressions = getConsumer().translateToClassExpressionSet(object);
         addAxiom(getDataFactory().getOWLDisjointUnionAxiom(cls, classExpressions, getPendingAnnotations()));

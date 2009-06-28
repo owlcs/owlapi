@@ -45,7 +45,7 @@ public class TypePropertyHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         // We need to consume this triple
         consumeTriple(subject, predicate, object);
         if (logger.isLoggable(Level.FINE)) {

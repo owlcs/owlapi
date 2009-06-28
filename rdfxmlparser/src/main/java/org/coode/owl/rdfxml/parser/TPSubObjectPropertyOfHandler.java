@@ -43,14 +43,14 @@ public class TPSubObjectPropertyOfHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) throws OWLException {
+    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         // If the subject is anonymous, it *might* be a property chain - we
         // can't handle these in a streaming manner really
         return !isAnonymous(subject);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) throws OWLException {
+    public void handleTriple(URI subject, URI predicate, URI object) {
         if (isAnonymous(subject) && getConsumer().hasPredicateObject(subject,
                 OWLRDFVocabulary.RDF_TYPE.getURI(),
                 OWLRDFVocabulary.RDF_LIST.getURI())) {
