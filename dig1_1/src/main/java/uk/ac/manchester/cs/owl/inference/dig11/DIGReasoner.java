@@ -1,9 +1,9 @@
 package uk.ac.manchester.cs.owl.inference.dig11;
 
-import org.semanticweb.owl.inference.OWLReasonerAdapter;
-import org.semanticweb.owl.inference.UnsupportedReasonerOperationException;
-import org.semanticweb.owl.inference.OWLReasonerException;
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.inference.OWLReasonerAdapter;
+import org.semanticweb.owlapi.inference.UnsupportedReasonerOperationException;
+import org.semanticweb.owlapi.inference.OWLReasonerException;
+import org.semanticweb.owlapi.model.*;
 import org.w3c.dom.Document;
 
 import java.util.*;

@@ -1,10 +1,9 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLIndividual;
-import org.semanticweb.owl.model.OWLNamedIndividual;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
 import java.util.Set;
@@ -58,7 +57,7 @@ public class OneOfTranslator extends AbstractClassExpressionTranslator {
             }
         }
         if (individuals.isEmpty()) {
-            logger.info("Empty set in owl:oneOf class expression - converting to owl:Nothing");
+            logger.info("Empty set in owlapi:oneOf class expression - converting to owlapi:Nothing");
             return getDataFactory().getOWLNothing();
         }
         return getDataFactory().getOWLObjectOneOf(individuals);

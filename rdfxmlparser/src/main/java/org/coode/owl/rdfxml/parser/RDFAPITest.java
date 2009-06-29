@@ -2,7 +2,7 @@ package org.coode.owl.rdfxml.parser;
 
 import edu.unika.aifb.rdf.api.syntax.RDFConsumer;
 import edu.unika.aifb.rdf.api.syntax.RDFParser;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -64,8 +64,8 @@ public class RDFAPITest implements RDFConsumer {
             RDFParser parser = new RDFParser();
 
 
-            URI uri = URI.create("http://www.co-ode.org/ontologies/pizza/2006/07/18/pizza.owl");
-            File file = new File("/Users/matthewhorridge/Desktop/Thesaurus.owl");
+            URI uri = URI.create("http://www.co-ode.org/ontologies/pizza/2006/07/18/pizza.owlapi");
+            File file = new File("/Users/matthewhorridge/Desktop/Thesaurus.owlapi");
             uri = file.toURI();
             BufferedInputStream inputStream = new BufferedInputStream(uri.toURL().openStream());
 

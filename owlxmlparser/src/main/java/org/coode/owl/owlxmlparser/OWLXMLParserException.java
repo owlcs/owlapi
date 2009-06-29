@@ -1,6 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.io.OWLParserException;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2007, University of Manchester
  *

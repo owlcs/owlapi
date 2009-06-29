@@ -12,22 +12,22 @@ Tests parsing of data restriction.
 
 
 
-    <!--<owl:DatatypeProperty rdf:about="#p">-->
+    <!--<owlapi:DatatypeProperty rdf:about="#p">-->
         <!--<rdfs:range>-->
             <!--<rdf:Description>-->
-                <!--<rdf:type rdf:resource="&owl;Datatype"/>-->
-                <!--<owl:onDatatype rdf:resource="&xsd;integer"/>-->
-                <!--<owl:withRestrictions rdf:parseType="Collection">-->
+                <!--<rdf:type rdf:resource="&owlapi;Datatype"/>-->
+                <!--<owlapi:onDatatype rdf:resource="&xsd;integer"/>-->
+                <!--<owlapi:withRestrictions rdf:parseType="Collection">-->
                     <!--<rdf:Description>-->
                         <!--<xsd:maxInclusive rdf:datatype="&xsd;integer">30</xsd:maxInclusive>-->
                     <!--</rdf:Description>-->
                     <!--<rdf:Description>-->
                         <!--<xsd:minInclusive rdf:datatype="&xsd;integer">18</xsd:minInclusive>-->
                     <!--</rdf:Description>-->
-                <!--</owl:withRestrictions>-->
+                <!--</owlapi:withRestrictions>-->
             <!--</rdf:Description>-->
         <!--</rdfs:range>-->
-    <!--</owl:DatatypeProperty>-->
+    <!--</owlapi:DatatypeProperty>-->
 
 
     <owl:DatatypeProperty rdf:about="#p">

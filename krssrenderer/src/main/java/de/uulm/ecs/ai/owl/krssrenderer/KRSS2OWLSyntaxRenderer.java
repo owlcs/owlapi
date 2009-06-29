@@ -1,11 +1,11 @@
 package de.uulm.ecs.ai.owl.krssrenderer;
 
-import org.semanticweb.owl.io.AbstractOWLRenderer;
-import org.semanticweb.owl.io.OWLRendererException;
-import org.semanticweb.owl.io.OWLRendererIOException;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.model.OWLRuntimeException;
+import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.io.OWLRendererIOException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 import java.io.IOException;
 import java.io.Writer;

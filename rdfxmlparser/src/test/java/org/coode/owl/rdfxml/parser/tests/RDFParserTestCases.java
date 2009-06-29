@@ -2,9 +2,9 @@ package org.coode.owl.rdfxml.parser.tests;
 
 import junit.framework.TestCase;
 import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
-import org.semanticweb.owl.io.OWLParserFactoryRegistry;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
 
@@ -67,7 +67,7 @@ public class RDFParserTestCases extends TestCase {
         for (File testSuiteFolder : file.listFiles()) {
             if (testSuiteFolder.isDirectory()) {
                 for (File ontologyFile : testSuiteFolder.listFiles()) {
-                    if (ontologyFile.getName().endsWith(".rdf") || ontologyFile.getName().endsWith(".owl")) {
+                    if (ontologyFile.getName().endsWith(".rdf") || ontologyFile.getName().endsWith(".owlapi")) {
                         OWLOntology ont = man.loadOntologyFromPhysicalURI(ontologyFile.toURI());
                         System.out.println("Loaded: " + ont);
                         man.removeOntology(ont);

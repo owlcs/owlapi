@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.owl.turtle.parser;
 
-import org.semanticweb.owl.io.OWLParserException;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2007, University of Manchester
  *

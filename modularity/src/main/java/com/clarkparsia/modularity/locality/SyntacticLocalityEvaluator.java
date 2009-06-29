@@ -1,6 +1,6 @@
 package com.clarkparsia.modularity.locality;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.model.*;
 
 import java.util.Collection;
 import java.util.EnumSet;

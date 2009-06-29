@@ -1,8 +1,8 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.NNF;
-import org.semanticweb.owl.util.OWLEntityCollector;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.NNF;
+import org.semanticweb.owlapi.util.OWLEntityCollector;
 
 import java.util.*;
 /*

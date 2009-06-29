@@ -25,7 +25,7 @@
 
 
 
-    <!-- http://www.w3.org/2002/07/owl#Thing -->
+    <!-- http://www.w3.org/2002/07/owlapi#Thing -->
 
     <owl:Class rdf:about="&owl;Thing"/>
 
@@ -42,7 +42,7 @@
 
 
 
-    <!-- http://www.semanticweb.org/ontologies/2007/6/ObjectAnnotationTest.owl#a -->
+    <!-- http://www.semanticweb.org/ontologies/2007/6/ObjectAnnotationTest.owlapi#a -->
 
     <rdf:Description rdf:about="#a">
         <rdfs:seeAlso
@@ -51,7 +51,7 @@
 
 
 
-    <!-- http://www.semanticweb.org/ontologies/2007/6/ObjectAnnotationTest.owl#b -->
+    <!-- http://www.semanticweb.org/ontologies/2007/6/ObjectAnnotationTest.owlapi#b -->
 
     <rdf:Description rdf:about="#b"/>
 </rdf:RDF>

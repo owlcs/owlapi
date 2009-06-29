@@ -1,12 +1,10 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLFacetRestriction;
-import org.semanticweb.owl.model.OWLLiteral;
-import org.semanticweb.owl.model.OWLTypedLiteral;
-import org.semanticweb.owl.model.IRI;
-import org.semanticweb.owl.vocab.OWLFacet;
-
-import java.net.URI;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLTypedLiteral;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.vocab.OWLFacet;
 /*
  * Copyright (C) 2007, University of Manchester
  *

@@ -1,7 +1,6 @@
 package org.coode.owl.rdf.turtle;
 
-import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
-import org.semanticweb.owl.io.RDFOntologyFormat;
+import org.semanticweb.owlapi.io.RDFOntologyFormat;
 /*
  * Copyright (C) 2007, University of Manchester
  *

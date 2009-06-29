@@ -1,9 +1,9 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLObject;
-import org.semanticweb.owl.model.SWRLAtomObject;
-import org.semanticweb.owl.model.SWRLBinaryAtom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.SWRLAtomObject;
+import org.semanticweb.owlapi.model.SWRLBinaryAtom;
 
 import java.util.ArrayList;
 import java.util.Collection;

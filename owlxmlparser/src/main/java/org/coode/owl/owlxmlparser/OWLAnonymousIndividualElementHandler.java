@@ -1,7 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLAnonymousIndividual;
-import org.semanticweb.owl.vocab.OWLXMLVocabulary;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 /*
  * Copyright (C) 2009, University of Manchester
  *

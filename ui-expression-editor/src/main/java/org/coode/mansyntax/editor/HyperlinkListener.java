@@ -1,6 +1,6 @@
 package org.coode.mansyntax.editor;
 
-import org.semanticweb.owl.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEntity;
 /*
  * Copyright (C) 2007, University of Manchester
  *

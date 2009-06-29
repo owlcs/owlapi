@@ -1,10 +1,10 @@
 package org.coode.owl.functionalrenderer;
 
 import org.coode.string.EscapeUtils;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.OWLXMLVocabulary;
-import static org.semanticweb.owl.vocab.OWLXMLVocabulary.*;
-import org.semanticweb.owl.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 import java.io.IOException;
 import java.io.Writer;

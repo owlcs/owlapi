@@ -3,8 +3,8 @@ package org.coode.owl.rdf;
 import junit.framework.TestCase;
 import org.coode.owl.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
-import org.semanticweb.owl.io.OWLParserFactoryRegistry;
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
+import org.semanticweb.owlapi.model.*;
 import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
@@ -89,7 +89,7 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
         }
 //        OWLOntologyAnnotationAxiom anno = getDataFactory().getOWLOntologyAnnotationAxiom(ontA, getDataFactory().getCommentAnnotation(getClassExpression()));
 //        man.applyChange(new AddAxiom(ontA, anno));
-        File tempFile = File.createTempFile("Ontology", ".owl");
+        File tempFile = File.createTempFile("Ontology", ".owlapi");
         man.saveOntology(ontA, tempFile.toURI());
         man.removeOntology(ontA);
         OWLOntology ontB = man.loadOntologyFromPhysicalURI(tempFile.toURI());

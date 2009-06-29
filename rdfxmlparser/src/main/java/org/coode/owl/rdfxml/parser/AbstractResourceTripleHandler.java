@@ -1,7 +1,5 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLException;
-
 import java.net.URI;
 
 /*

@@ -2,10 +2,10 @@ package org.coode.owl.rdfxml.parser.tests;
 
 import junit.framework.TestCase;
 import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
-import org.semanticweb.owl.io.OWLParserFactoryRegistry;
-import org.semanticweb.owl.model.OWLIndividual;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
 
@@ -56,7 +56,7 @@ public class SWRLTestCase extends TestCase {
     }
 
     public void testSWRLParser() throws Exception {
-        URI uri = getClass().getResource("/owlapi/SWRLTest.owl").toURI();
+        URI uri = getClass().getResource("/owlapi/SWRLTest.owlapi").toURI();
         OWLOntology ont = man.loadOntologyFromPhysicalURI(uri);
         for(OWLIndividual i : ont.getReferencedIndividuals()) {
             System.out.println(i);

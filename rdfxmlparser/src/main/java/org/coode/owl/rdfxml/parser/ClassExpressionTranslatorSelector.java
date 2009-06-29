@@ -1,11 +1,10 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
-import static org.semanticweb.owl.vocab.OWLRDFVocabulary.*;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.net.URI;
-import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *

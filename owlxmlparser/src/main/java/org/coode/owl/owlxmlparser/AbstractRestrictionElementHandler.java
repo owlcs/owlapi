@@ -1,8 +1,8 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.OWLObject;
-import org.semanticweb.owl.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
 /*
  * Copyright (C) 2006, University of Manchester
  *

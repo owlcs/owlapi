@@ -1,10 +1,10 @@
 package org.coode.mansyntax.editor;
 
 import org.coode.manchesterowlsyntax.ManchesterOWLSyntax;
-import org.semanticweb.owl.expression.OWLExpressionParser;
-import org.semanticweb.owl.expression.ParserException;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.BidirectionalShortFormProvider;
+import org.semanticweb.owlapi.expression.OWLExpressionParser;
+import org.semanticweb.owlapi.expression.ParserException;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 
 import javax.swing.*;
 import javax.swing.Timer;

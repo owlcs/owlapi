@@ -8,12 +8,12 @@ PARSER_BEGIN(OWLFunctionalSyntaxParser)
 
 package org.coode.owl.functionalparser;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.*;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.*;
 import java.net.*;
 import java.util.*;
 import org.coode.string.EscapeUtils;
-import org.semanticweb.owl.io.OWLFunctionalSyntaxOntologyFormat;
+import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 
 public class OWLFunctionalSyntaxParser {
 

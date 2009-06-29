@@ -1,9 +1,8 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLLiteral;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLFacetRestriction;
-import org.semanticweb.owl.vocab.OWLFacet;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.vocab.OWLFacet;
 
 import java.net.URI;/*
  * Copyright (C) 2008, University of Manchester

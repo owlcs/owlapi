@@ -1,6 +1,6 @@
 package de.uulm.ecs.ai.owl.krssparser;
 
-import org.semanticweb.owl.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 /*
  * Copyright (C) 2007, Ulm University
  *

@@ -1,8 +1,7 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLObjectPropertyExpression;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
 import java.util.List;

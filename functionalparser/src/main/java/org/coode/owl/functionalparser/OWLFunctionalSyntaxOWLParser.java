@@ -1,11 +1,10 @@
 package org.coode.owl.functionalparser;
 
-import org.semanticweb.owl.io.AbstractOWLParser;
-import org.semanticweb.owl.io.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owl.io.OWLOntologyInputSource;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyCreationException;
-import org.semanticweb.owl.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLOntologyInputSource;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 /*
  * Copyright (C) 2006, University of Manchester
  *

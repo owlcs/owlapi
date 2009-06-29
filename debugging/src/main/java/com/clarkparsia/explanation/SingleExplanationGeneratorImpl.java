@@ -2,10 +2,10 @@ package com.clarkparsia.explanation;
 
 import java.util.Set;
 
-import org.semanticweb.owl.inference.OWLClassReasoner;
-import org.semanticweb.owl.inference.OWLReasonerFactory;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owlapi.inference.OWLClassReasoner;
+import org.semanticweb.owlapi.inference.OWLReasonerFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import com.clarkparsia.explanation.util.DefinitionTracker;
 

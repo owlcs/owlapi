@@ -1,10 +1,9 @@
 package com.clarkparsia.explanation;
 
 import com.clarkparsia.explanation.util.ExplanationProgressMonitor;
-import org.semanticweb.owl.inference.OWLReasoner;
-import org.semanticweb.owl.inference.OWLReasonerException;
-import org.semanticweb.owl.inference.OWLReasonerFactory;
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.inference.OWLReasoner;
+import org.semanticweb.owlapi.inference.OWLReasonerFactory;
+import org.semanticweb.owlapi.model.*;
 
 import java.util.Set;
 /*

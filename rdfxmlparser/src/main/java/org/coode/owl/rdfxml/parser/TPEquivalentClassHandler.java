@@ -1,10 +1,9 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLDatatype;
-import org.semanticweb.owl.model.OWLDataRange;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
 import java.util.HashSet;

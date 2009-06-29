@@ -1,9 +1,8 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.model.*;
 
 import java.net.URI;
-import java.util.ArrayList;
 /*
  * Copyright (C) 2006, University of Manchester
  *

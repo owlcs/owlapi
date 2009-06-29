@@ -23,11 +23,11 @@ package org.coode.xml;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.NamespaceUtil;
-import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
-import org.semanticweb.owl.vocab.Namespaces;
-import org.semanticweb.owl.vocab.DublinCoreVocabulary;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.NamespaceUtil;
+import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 
 import java.net.URI;
 import java.util.HashSet;

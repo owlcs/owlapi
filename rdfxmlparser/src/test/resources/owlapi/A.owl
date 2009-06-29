@@ -36,7 +36,7 @@
 
 
 
-    <!-- http://www.semanticweb.org/ontologies/2007/7/A.owl#Class1186574909930821000 -->
+    <!-- http://www.semanticweb.org/ontologies/2007/7/A.owlapi#Class1186574909930821000 -->
 
     <owl:Class rdf:about="#Class1186574909930821000">
         <rdfs:label>A_class1</rdfs:label>
@@ -45,7 +45,7 @@
 
 
 
-    <!-- http://www.semanticweb.org/ontologies/2007/7/A.owl#Class1186574918251108000 -->
+    <!-- http://www.semanticweb.org/ontologies/2007/7/A.owlapi#Class1186574918251108000 -->
 
     <owl:Class rdf:about="#Class1186574918251108000">
         <rdfs:label>A_sub1</rdfs:label>
@@ -54,7 +54,7 @@
 
 
 
-    <!-- http://www.w3.org/2002/07/owl#Thing -->
+    <!-- http://www.w3.org/2002/07/owlapi#Thing -->
 
     <owl:Class rdf:about="&owl;Thing"/>
 </rdf:RDF>

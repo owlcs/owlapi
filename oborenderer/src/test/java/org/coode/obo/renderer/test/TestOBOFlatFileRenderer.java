@@ -2,11 +2,11 @@ package org.coode.obo.renderer.test;
 
 import junit.framework.TestCase;
 import org.coode.obo.parser.OBOOntologyFormat;
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.io.OWLOntologyInputSource;
-import org.semanticweb.owl.io.StreamInputSource;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.OWLOntologyInputSource;
+import org.semanticweb.owlapi.io.StreamInputSource;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import java.io.File;
 import java.io.InputStream;
@@ -46,7 +46,7 @@ public class TestOBOFlatFileRenderer extends TestCase {
     public void testSavePizza(){
         OWLOntologyManager mngr = OWLManager.createOWLOntologyManager();
         try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream("pizza.owl");
+            InputStream is = getClass().getClassLoader().getResourceAsStream("pizza.owlapi");
             OWLOntologyInputSource ontInputSource = new StreamInputSource(is);
             OWLOntology ont = mngr.loadOntology(ontInputSource);
 

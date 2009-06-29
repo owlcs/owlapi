@@ -10,9 +10,9 @@ PARSER_BEGIN(KRSS2Parser)
 
 package de.uulm.ecs.ai.owl.krssparser;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
-import org.semanticweb.owl.util.*;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.util.*;
 import java.net.*;
 import java.util.*;
 

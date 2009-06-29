@@ -1,8 +1,7 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.SWRLAtom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.SWRLAtom;
 /*
  * Copyright (C) 2007, University of Manchester
  *

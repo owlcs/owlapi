@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.OWLEntityCollector;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.OWLEntityCollector;
 
 /*
 * Copyright (C) 2007, Clark & Parsia

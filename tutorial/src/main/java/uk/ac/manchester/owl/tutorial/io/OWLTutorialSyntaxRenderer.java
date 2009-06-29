@@ -1,9 +1,9 @@
 package uk.ac.manchester.owl.tutorial.io;
 
-import org.semanticweb.owl.io.AbstractOWLRenderer;
-import org.semanticweb.owl.io.OWLRendererIOException;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRendererIOException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import java.io.IOException;
 import java.io.Writer;

@@ -2,12 +2,12 @@ package org.coode.owl.rdfxml.parser.tests;
 
 import junit.framework.TestCase;
 import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
-import org.semanticweb.owl.io.OWLParserFactoryRegistry;
-import org.semanticweb.owl.model.OWLIndividual;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.model.IRI;
-import org.semanticweb.owl.util.SimpleIRIMapper;
+import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.util.SimpleIRIMapper;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
 
@@ -58,15 +58,15 @@ public class ImportedAnnotationPropertiesTestCase extends TestCase {
     }
 
     public void testImportedAnnotationProperties() throws Exception {
-        IRI ontURI = IRI.create("http://www.semanticweb.org/ontologies/importAnnotationProperties.owl");
-        man.addIRIMapper(new SimpleIRIMapper(URI.create("http://www.semanticweb.org/ontologies/annotationProperties.owl"),
-                getClass().getResource("/owlapi/AnnotationURIsTest.owl").toURI()));
+        IRI ontURI = IRI.create("http://www.semanticweb.org/ontologies/importAnnotationProperties.owlapi");
+        man.addIRIMapper(new SimpleIRIMapper(URI.create("http://www.semanticweb.org/ontologies/annotationProperties.owlapi"),
+                getClass().getResource("/owlapi/AnnotationURIsTest.owlapi").toURI()));
         man.addIRIMapper(new SimpleIRIMapper(ontURI,
-                getClass().getResource("/owlapi/ImportAnnotationPropertiesTest.owl").toURI()));
+                getClass().getResource("/owlapi/ImportAnnotationPropertiesTest.owlapi").toURI()));
 
         OWLOntology ontA = man.loadOntology(ontURI);
-        OWLIndividual ind = man.getOWLDataFactory().getOWLNamedIndividual(IRI.create("http://www.semanticweb.org/ontologies/importAnnotationProperties.owl#A"));
+        OWLIndividual ind = man.getOWLDataFactory().getOWLNamedIndividual(IRI.create("http://www.semanticweb.org/ontologies/importAnnotationProperties.owlapi#A"));
         assertTrue(ontA.getReferencedIndividuals().contains(ind));
-        assertTrue(ontA.getAnnotationURIs().contains(URI.create("http://www.semanticweb.org/owl/annotationprops#myProp")));
+        assertTrue(ontA.getAnnotationURIs().contains(URI.create("http://www.semanticweb.org/owlapi/annotationprops#myProp")));
     }
 }

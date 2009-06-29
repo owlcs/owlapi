@@ -2,9 +2,9 @@ package uk.ac.manchester.cs.owl.turtle.parser;
 
 import org.coode.owl.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.owl.rdfxml.parser.OWLRDFConsumer;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.xml.sax.SAXException;
 
 import java.net.URI;

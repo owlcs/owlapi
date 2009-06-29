@@ -1,14 +1,11 @@
 package uk.ac.manchester.cs.owl.mansyntaxrenderer;
 
-import org.semanticweb.owl.io.AbstractOWLRenderer;
-import org.semanticweb.owl.io.OWLRendererException;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.model.OWLOntologyFormat;
-import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import java.io.Writer;
-import java.util.Map;
 /*
  * Copyright (C) 2007, University of Manchester
  *

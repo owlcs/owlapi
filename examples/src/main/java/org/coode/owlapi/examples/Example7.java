@@ -1,11 +1,9 @@
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.OWLFacet;
-import org.semanticweb.owl.vocab.XSDVocabulary;
-
-import java.net.URI;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWLFacet;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 /*
  * Copyright (C) 2007, University of Manchester
  *

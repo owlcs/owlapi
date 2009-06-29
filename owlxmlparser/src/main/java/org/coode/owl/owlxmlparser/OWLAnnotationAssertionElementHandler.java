@@ -1,6 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.model.*;
 /*
  * Copyright (C) 2007, University of Manchester
  *

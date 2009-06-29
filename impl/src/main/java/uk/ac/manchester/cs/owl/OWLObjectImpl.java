@@ -1,11 +1,11 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.io.ToStringRenderer;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.AxiomSubjectProvider;
-import org.semanticweb.owl.util.HashCode;
-import org.semanticweb.owl.util.OWLEntityCollector;
-import org.semanticweb.owl.util.OWLObjectTypeIndexProvider;
+import org.semanticweb.owlapi.io.ToStringRenderer;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.AxiomSubjectProvider;
+import org.semanticweb.owlapi.util.HashCode;
+import org.semanticweb.owlapi.util.OWLEntityCollector;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import java.util.*;
 /*

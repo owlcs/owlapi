@@ -1,9 +1,9 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.Namespaces;
-import org.semanticweb.owl.vocab.OWLXMLVocabulary;
-import static org.semanticweb.owl.vocab.OWLXMLVocabulary.*;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;

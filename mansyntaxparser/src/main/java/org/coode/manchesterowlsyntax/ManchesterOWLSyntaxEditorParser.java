@@ -1,13 +1,13 @@
 package org.coode.manchesterowlsyntax;
 
-import org.semanticweb.owl.expression.OWLEntityChecker;
-import org.semanticweb.owl.expression.OWLOntologyChecker;
-import org.semanticweb.owl.expression.ParserException;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.CollectionFactory;
-import org.semanticweb.owl.util.DefaultPrefixManager;
-import org.semanticweb.owl.util.NamespaceUtil;
-import org.semanticweb.owl.vocab.*;
+import org.semanticweb.owlapi.expression.OWLEntityChecker;
+import org.semanticweb.owlapi.expression.OWLOntologyChecker;
+import org.semanticweb.owlapi.expression.ParserException;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.NamespaceUtil;
+import org.semanticweb.owlapi.vocab.*;
 
 import java.net.URI;
 import java.util.*;
@@ -220,7 +220,7 @@ public class ManchesterOWLSyntaxEditorParser {
         annotationPropertyNames = new HashSet<String>();
         pm.setPrefix("rdf:", Namespaces.RDF.toString());
         pm.setPrefix("rdfs:", Namespaces.RDFS.toString());
-        pm.setPrefix("owl:", Namespaces.OWL.toString());
+        pm.setPrefix("owlapi:", Namespaces.OWL.toString());
         pm.setPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
         NamespaceUtil u = new NamespaceUtil();
 
@@ -2866,10 +2866,10 @@ public class ManchesterOWLSyntaxEditorParser {
 
 
         public OWLClass getOWLClass(String name) {
-            if (name.equals("Thing") || name.equals("owl:Thing")) {
+            if (name.equals("Thing") || name.equals("owlapi:Thing")) {
                 return dataFactory.getOWLThing();
             }
-            else if (name.equals("Nothing") || name.equals("owl:Nothing")) {
+            else if (name.equals("Nothing") || name.equals("owlapi:Nothing")) {
                 return dataFactory.getOWLNothing();
             }
             else if (classNames.contains(name)) {

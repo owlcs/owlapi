@@ -1,11 +1,10 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLImportsDeclaration;
-import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.model.OWLOntologyCreationException;
-import org.semanticweb.owl.vocab.Namespaces;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
 import java.util.HashSet;
@@ -52,8 +51,8 @@ public class TPImportsHandler extends TriplePredicateHandler {
             String ns = n.toString();
             schemaImportsURIs.add(URI.create(ns.substring(0, ns.length() - 1)));
         }
-        schemaImportsURIs.add(URI.create("http://www.daml.org/rules/proposal/swrlb.owl"));
-        schemaImportsURIs.add(URI.create("http://www.daml.org/rules/proposal/swrl.owl"));
+        schemaImportsURIs.add(URI.create("http://www.daml.org/rules/proposal/swrlb.owlapi"));
+        schemaImportsURIs.add(URI.create("http://www.daml.org/rules/proposal/swrl.owlapi"));
     }
 
 

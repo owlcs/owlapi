@@ -1,7 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDataPropertyExpression;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 /*
  * Copyright (C) 2006, University of Manchester
  *

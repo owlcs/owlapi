@@ -1,8 +1,8 @@
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
 /*
@@ -39,7 +39,7 @@ import java.net.URI;
  */
 public class Example10 {
 
-    public static final String PHYSICAL_URI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owl";
+    public static final String PHYSICAL_URI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owlapi";
 
 
     public static void main(String[] args) {

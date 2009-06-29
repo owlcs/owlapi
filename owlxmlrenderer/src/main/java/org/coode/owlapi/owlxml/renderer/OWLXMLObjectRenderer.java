@@ -1,9 +1,9 @@
 package org.coode.owlapi.owlxml.renderer;
 
-import org.semanticweb.owl.model.*;
-import static org.semanticweb.owl.vocab.OWLXMLVocabulary.*;
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.io.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.model.*;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -740,9 +740,9 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public static void main(String[] args) {
         try {
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
+            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi"));
 //            long t0 = System.currentTimeMillis();
-//            OWLOntology ont = man.loadOntologyFromPhysicalURI(IRI.create("file:/Users/matthewhorridge/ontologies/thesaurus/Thesaurus.owl"));
+//            OWLOntology ont = man.loadOntologyFromPhysicalURI(IRI.create("file:/Users/matthewhorridge/ontologies/thesaurus/Thesaurus.owlapi"));
 //            long t1 = System.currentTimeMillis();
 //
 //            System.gc();

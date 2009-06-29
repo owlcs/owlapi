@@ -1,12 +1,12 @@
 package uk.ac.manchester.cs.owl.turtle.parser;
 
 import org.coode.owl.rdf.turtle.TurtleOntologyFormat;
-import org.semanticweb.owl.io.AbstractOWLParser;
-import org.semanticweb.owl.io.OWLOntologyInputSource;
-import org.semanticweb.owl.io.OWLParserException;
-import org.semanticweb.owl.io.OWLParserIOException;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLOntologyInputSource;
+import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.io.OWLParserIOException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

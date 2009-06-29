@@ -1,10 +1,10 @@
 package org.coode.obo.renderer;
 
 import org.coode.obo.parser.OBOVocabulary;
-import org.semanticweb.owl.model.OWLAnnotation;
-import org.semanticweb.owl.model.OWLLiteral;
-import org.semanticweb.owl.util.SimpleURIShortFormProvider;
-import org.semanticweb.owl.util.URIShortFormProvider;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.util.SimpleURIShortFormProvider;
+import org.semanticweb.owlapi.util.URIShortFormProvider;
 
 import java.io.IOException;
 import java.io.Writer;

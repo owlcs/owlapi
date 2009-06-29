@@ -1,10 +1,8 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.SetOntologyID;
-import org.semanticweb.owl.model.OWLOntologyID;
-import org.semanticweb.owl.model.OWLOntology;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 import java.net.URI;
 /*

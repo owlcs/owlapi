@@ -1,7 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLAnnotationProperty;
-import org.semanticweb.owl.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.IRI;
 /*
  * Copyright (C) 2009, University of Manchester
  *

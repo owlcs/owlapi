@@ -1,13 +1,13 @@
 package org.coode.obo.renderer;
 
 import org.coode.obo.parser.OBOVocabulary;
-import org.semanticweb.owl.io.AbstractOWLRenderer;
-import org.semanticweb.owl.io.OWLRendererException;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.NamespaceUtil;
-import org.semanticweb.owl.util.SimpleShortFormProvider;
-import org.semanticweb.owl.util.VersionInfo;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.NamespaceUtil;
+import org.semanticweb.owlapi.util.SimpleShortFormProvider;
+import org.semanticweb.owlapi.util.VersionInfo;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -257,7 +257,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
         final OWLClass owlThing = getOWLOntologyManager().getOWLDataFactory().getOWLThing();
 
-        // if no named superclass is specified, then this must be asserted to be a subclass of owl:Thing
+        // if no named superclass is specified, then this must be asserted to be a subclass of owlapi:Thing
         if (!cls.equals(owlThing) && tvpList.getValues(OBOVocabulary.IS_A).isEmpty()) {
             tvpList.addPair(OBOVocabulary.IS_A, getID(owlThing));
         }
@@ -269,7 +269,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
                 handleUnion(cls, (OWLObjectUnionOf) equiv, tvpList);
             } else if (equiv instanceof OWLRestriction) {
                 /* OBO equivalence must be of the form "A and p some B and ..."
-                 * if this class is equiv to a restriction, put this into an intersection with owl:Thing as the named class
+                 * if this class is equiv to a restriction, put this into an intersection with owlapi:Thing as the named class
                  */
                 OWLObjectIntersectionOf intersection = getOWLOntologyManager().getOWLDataFactory().getOWLObjectIntersectionOf(owlThing, equiv);
                 handleIntersection(cls, intersection, tvpList);

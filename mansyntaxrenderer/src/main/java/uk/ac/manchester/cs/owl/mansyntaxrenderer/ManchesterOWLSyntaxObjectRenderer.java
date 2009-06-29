@@ -2,8 +2,8 @@ package uk.ac.manchester.cs.owl.mansyntaxrenderer;
 
 import org.coode.manchesterowlsyntax.ManchesterOWLSyntax;
 import static org.coode.manchesterowlsyntax.ManchesterOWLSyntax.*;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.ShortFormProvider;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.ShortFormProvider;
 
 import java.io.Writer;
 import java.util.*;

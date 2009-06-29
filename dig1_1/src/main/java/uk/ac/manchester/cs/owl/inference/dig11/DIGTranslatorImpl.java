@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.owl.inference.dig11;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.model.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

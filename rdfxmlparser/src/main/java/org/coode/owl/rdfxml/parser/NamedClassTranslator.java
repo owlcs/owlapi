@@ -1,7 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 
 import java.net.URI;
 /*
@@ -47,7 +46,7 @@ public class NamedClassTranslator implements ClassExpressionTranslator {
      * @param mainNode The main node of the set of triples that represent the
      *                 class expression.
      * @return The class expression that represents the translation.
-     * @throws org.semanticweb.owl.model.OWLException
+     * @throws org.semanticweb.owlapi.model.OWLException
      *          If the translation could not take place, possibly because the
      *          class expression (set of triples) was malformed.
      */

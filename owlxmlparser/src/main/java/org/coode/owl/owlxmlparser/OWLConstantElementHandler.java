@@ -1,10 +1,8 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLLiteral;
-import org.semanticweb.owl.model.IRI;
-import org.semanticweb.owl.vocab.OWLXMLVocabulary;
-
-import java.net.URI;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /*
  * Copyright (C) 2006, University of Manchester

@@ -1,7 +1,7 @@
 package org.coode.obo.renderer;
 
-import org.semanticweb.owl.model.OWLObject;
-import org.semanticweb.owl.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 /*
 * Copyright (C) 2008, University of Manchester
 *

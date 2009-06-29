@@ -2,10 +2,10 @@ package uk.ac.manchester.owl.tutorial.examples;
 
 import gnu.getopt.Getopt;
 import gnu.getopt.LongOpt;
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import uk.ac.manchester.owl.tutorial.io.OWLTutorialSyntaxOntologyFormat;
 import uk.ac.manchester.owl.tutorial.io.OWLTutorialSyntaxOntologyStorer;
 

@@ -1,11 +1,11 @@
 package org.coode.owl.rdfxml.parser;
 
 import edu.unika.aifb.rdf.api.syntax.RDFConsumer;
-import org.semanticweb.owl.io.RDFXMLOntologyFormat;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.CollectionFactory;
-import org.semanticweb.owl.vocab.*;
-import static org.semanticweb.owl.vocab.OWLRDFVocabulary.*;
+import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.vocab.*;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import org.xml.sax.SAXException;
 
 import java.io.PrintWriter;
@@ -74,9 +74,9 @@ public class OWLRDFConsumer implements RDFConsumer {
     private AnonymousNodeChecker anonymousNodeChecker;
 
     // The set of URIs that are either explicitly typed
-    // an an owl:Class, or are inferred to be an owl:Class
+    // an an owlapi:Class, or are inferred to be an owlapi:Class
     // because they are used in some triple whose predicate
-    // has the domain or range of owl:Class
+    // has the domain or range of owlapi:Class
     private Set<URI> owlClassURIs;
 
     // Same as owlClassURIs but for object properties
@@ -91,7 +91,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     // Set of URIs that are typed by non-system types and
-    // also owl:Thing
+    // also owlapi:Thing
     private Set<URI> individualURIs;
 
 
@@ -112,10 +112,10 @@ public class OWLRDFConsumer implements RDFConsumer {
     // The URI of the first reource that is typed as an ontology
     private URI firstOntologyURI;
 
-    // URIs that had a type triple to owl:Ontology
+    // URIs that had a type triple to owlapi:Ontology
     private Set<URI> ontologyURIs;
 
-    // URIs that had a type triple to owl:Restriction
+    // URIs that had a type triple to owlapi:Restriction
     private Set<URI> restrictionURIs;
 
     // URIs that had a type triple to rdf:List
@@ -344,7 +344,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         // where the vocabulary has simply changed (e.g. DAML+OIL -> OWL)
 
         synonymMap = CollectionFactory.createMap();
-        // Legacy protege-owl representation of QCRs
+        // Legacy protege-owlapi representation of QCRs
         synonymMap.put(URI.create(Namespaces.OWL + "valuesFrom"), OWL_ON_CLASS.getURI());
 
         // Intermediate OWL 2 spec

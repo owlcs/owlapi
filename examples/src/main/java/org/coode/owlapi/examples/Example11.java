@@ -1,14 +1,14 @@
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.inference.OWLReasoner;
-import org.semanticweb.owl.inference.OWLReasonerException;
-import org.semanticweb.owl.inference.OWLReasonerFactory;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.InferredAxiomGenerator;
-import org.semanticweb.owl.util.InferredAxiomGeneratorException;
-import org.semanticweb.owl.util.InferredOntologyGenerator;
-import org.semanticweb.owl.util.InferredSubClassAxiomGenerator;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.inference.OWLReasoner;
+import org.semanticweb.owlapi.inference.OWLReasonerException;
+import org.semanticweb.owlapi.inference.OWLReasonerFactory;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.InferredAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredAxiomGeneratorException;
+import org.semanticweb.owlapi.util.InferredOntologyGenerator;
+import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
 import org.semanticweb.reasonerfactory.pellet.PelletReasonerFactory;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class Example11 {
             // Load an example ontology - for the purposes of the example, we will just load
             // the pizza ontology.
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
+            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi"));
 
             // Create the reasoner and classify the ontology
             OWLReasoner reasoner = reasonerFactory.createReasoner(man, Collections.singleton(ont));
@@ -72,7 +72,7 @@ public class Example11 {
 
             // To generate an inferred ontology we use implementations of inferred axiom generators
             // to generate the parts of the ontology we want (e.g. subclass axioms, equivalent classes
-            // axioms, class assertion axiom etc. - see the org.semanticweb.owl.util package for more
+            // axioms, class assertion axiom etc. - see the org.semanticweb.owlapi.util package for more
             // implementations).  
             // Set up our list of inferred axiom generators
             List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();
@@ -90,7 +90,7 @@ public class Example11 {
             iog.fillOntology(man, infOnt);
 
             // Save the inferred ontology. (Replace the URI with one that is appropriate for your setup)
-            man.saveOntology(infOnt, URI.create("file:///tmp/inferredont.owl"));
+            man.saveOntology(infOnt, URI.create("file:///tmp/inferredont.owlapi"));
         }
         catch(InferredAxiomGeneratorException e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
 package uk.ac.manchester.owl.tutorial.io;
 
-import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /*
  * Copyright (C) 2006, University of Manchester

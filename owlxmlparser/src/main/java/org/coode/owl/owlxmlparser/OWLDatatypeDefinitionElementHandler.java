@@ -1,8 +1,8 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDatatype;
-import org.semanticweb.owl.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDataRange;
 /*
  * Copyright (C) 2009, University of Manchester
  *

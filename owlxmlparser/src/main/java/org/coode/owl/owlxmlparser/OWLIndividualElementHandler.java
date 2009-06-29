@@ -1,9 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLNamedIndividual;
-import org.semanticweb.owl.model.IRI;
-
-import java.net.URI;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.IRI;
 /*
  * Copyright (C) 2006, University of Manchester
  *

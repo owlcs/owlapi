@@ -1,8 +1,8 @@
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.SimpleIRIMapper;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
 import java.net.URI;
 import java.util.Set;
@@ -55,12 +55,12 @@ public class Example2 {
             // In order to have a concrete representation of an ontology (e.g. an RDF/XML
             // file), we MAP the ontology URI to a PHYSICAL URI.  We do this using a URIMapper
 
-            // Let's create an ontology and name it "http://www.co-ode.org/ontologies/testont.owl"
+            // Let's create an ontology and name it "http://www.co-ode.org/ontologies/testont.owlapi"
             // We need to set up a mapping which points to a concrete file where the ontology will
             // be stored. (It's good practice to do this even if we don't intend to save the ontology).
-            IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/testont.owl");
+            IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/testont.owlapi");
             // Create a physical URI which can be resolved to point to where our ontology will be saved.
-            URI physicalURI = URI.create("file:/tmp/MyOnt.owl");
+            URI physicalURI = URI.create("file:/tmp/MyOnt.owlapi");
             // Set up a mapping, which maps the ontology URI to the physical URI
             SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, physicalURI);
             manager.addIRIMapper(mapper);

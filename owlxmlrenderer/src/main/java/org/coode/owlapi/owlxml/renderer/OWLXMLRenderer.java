@@ -1,15 +1,13 @@
 package org.coode.owlapi.owlxml.renderer;
 
-import org.coode.xml.OWLOntologyXMLNamespaceManager;
-import org.semanticweb.owl.io.AbstractOWLRenderer;
-import org.semanticweb.owl.io.OWLRendererException;
-import org.semanticweb.owl.io.OWLRendererIOException;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyFormat;
-import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
-import org.semanticweb.owl.vocab.Namespaces;
-import org.semanticweb.owl.util.OntologyURIShortFormProvider;
+import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.io.OWLRendererIOException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.vocab.Namespaces;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -74,15 +72,15 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
                 if(!map.containsKey("xsd:")) {
                     w.writePrefix("xsd:", Namespaces.XSD.toString());
                 }
-                if(!map.containsKey("owl:")) {
-                    w.writePrefix("owl:", Namespaces.OWL.toString());
+                if(!map.containsKey("owlapi:")) {
+                    w.writePrefix("owlapi:", Namespaces.OWL.toString());
                 }
             }
             else {
                 w.writePrefix("rdf:", Namespaces.RDF.toString());
                 w.writePrefix("rdfs:", Namespaces.RDFS.toString());
                 w.writePrefix("xsd:", Namespaces.XSD.toString());
-                w.writePrefix("owl:", Namespaces.OWL.toString());
+                w.writePrefix("owlapi:", Namespaces.OWL.toString());
             }
 
 

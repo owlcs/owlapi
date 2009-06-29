@@ -1,7 +1,6 @@
 package uk.ac.manchester.cs.owl.inference.dig11;
 
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.inference.OWLReasonerException;
+import org.semanticweb.owlapi.inference.OWLReasonerException;
 /*
  * Copyright (C) 2006, University of Manchester
  *

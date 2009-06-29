@@ -1,6 +1,6 @@
 package com.clarkparsia.explanation;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.model.*;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -179,7 +179,7 @@ public class SatisfiabilityConverter {
             if (classes.hasNext())
                 logger.warning("EquivalentClassesAxiom with more than two elements not supported!");
 
-            // apply simplification for the cases where either concept is owl:Thing or owl:Nothin
+            // apply simplification for the cases where either concept is owlapi:Thing or owlapi:Nothin
             if (c1.isOWLNothing())
                 result = c2;
             else if (c2.isOWLNothing())

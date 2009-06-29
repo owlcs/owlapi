@@ -1,12 +1,12 @@
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyCreationException;
-import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.util.OWLOntologyWalker;
-import org.semanticweb.owl.util.OWLOntologyWalkerVisitor;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.util.OWLOntologyWalker;
+import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 
 import java.net.URI;
 import java.util.Collections;
@@ -50,7 +50,7 @@ public class Example13 {
             // we can use the walker to do this.
 
             // We'll use the pizza ontology as an example.  Load the ontology from the web:
-            URI physicalURI = URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
+            URI physicalURI = URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi");
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
             OWLOntology ont = man.loadOntologyFromPhysicalURI(physicalURI);
 

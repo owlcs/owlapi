@@ -8,10 +8,10 @@ import org.coode.owl.rdf.renderer.RDFRendererBase;
 import org.coode.string.EscapeUtils;
 import org.coode.xml.OWLOntologyXMLNamespaceManager;
 import org.coode.xml.XMLWriterFactory;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.VersionInfo;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
-import static org.semanticweb.owl.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.VersionInfo;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
 
 import java.io.Writer;
 import java.io.IOException;

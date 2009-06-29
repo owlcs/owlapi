@@ -1,7 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
 import java.util.logging.Logger;
@@ -46,7 +45,7 @@ public class TPTypeHandler extends TriplePredicateHandler {
 
     public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         // Can handle if object isn;t anonymous and either the object
-        // URI is owl:Thing, or it is not part of the build in vocabulary
+        // URI is owlapi:Thing, or it is not part of the build in vocabulary
         return !isAnonymous(object) &&
                 (object.equals(OWLRDFVocabulary.OWL_THING.getURI()) ||
                         !OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(object));

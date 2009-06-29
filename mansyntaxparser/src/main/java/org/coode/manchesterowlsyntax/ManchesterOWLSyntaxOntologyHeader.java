@@ -1,9 +1,9 @@
 package org.coode.manchesterowlsyntax;
 
-import org.semanticweb.owl.model.IRI;
-import org.semanticweb.owl.model.OWLAnnotation;
-import org.semanticweb.owl.model.OWLImportsDeclaration;
-import org.semanticweb.owl.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 
 import java.util.Set;
 import java.util.HashSet;

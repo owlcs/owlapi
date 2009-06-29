@@ -1,9 +1,9 @@
 package org.coode.owl.latex;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.CollectionFactory;
-import org.semanticweb.owl.util.ShortFormProvider;
-import org.semanticweb.owl.util.SimpleShortFormProvider;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
 import java.util.HashSet;
 import java.util.Iterator;

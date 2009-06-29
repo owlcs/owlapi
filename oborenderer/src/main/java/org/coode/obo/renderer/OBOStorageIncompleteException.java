@@ -1,6 +1,6 @@
 package org.coode.obo.renderer;
 
-import org.semanticweb.owl.io.OWLRendererException;
+import org.semanticweb.owlapi.io.OWLRendererException;
 
 import java.util.List;
 import java.util.ArrayList;

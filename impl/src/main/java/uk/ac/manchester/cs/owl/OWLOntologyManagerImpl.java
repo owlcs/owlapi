@@ -1,11 +1,11 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.io.OWLOntologyInputSource;
-import org.semanticweb.owl.io.OWLOntologyOutputTarget;
-import org.semanticweb.owl.io.PhysicalURIInputSource;
-import org.semanticweb.owl.io.PhysicalURIMappingNotFoundException;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.NonMappingOntologyIRIMapper;
+import org.semanticweb.owlapi.io.OWLOntologyInputSource;
+import org.semanticweb.owlapi.io.OWLOntologyOutputTarget;
+import org.semanticweb.owlapi.io.PhysicalURIInputSource;
+import org.semanticweb.owlapi.io.PhysicalURIMappingNotFoundException;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
 import java.net.URI;
 import java.util.*;

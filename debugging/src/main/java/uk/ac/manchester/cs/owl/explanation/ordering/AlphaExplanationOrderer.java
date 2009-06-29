@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
-import org.semanticweb.owl.io.OWLObjectRenderer;
-import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owlapi.io.OWLObjectRenderer;
+import org.semanticweb.owlapi.model.OWLAxiom;
 
 import java.util.*;
 /*

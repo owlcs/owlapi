@@ -1,7 +1,7 @@
 package org.semanticweb.reasonerfactory;
 
-import org.semanticweb.owl.inference.OWLReasonerFactory;
-import org.semanticweb.owl.model.OWLRuntimeException;
+import org.semanticweb.owlapi.inference.OWLReasonerFactory;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 /*
  * Copyright (C) 2008, University of Manchester
  *

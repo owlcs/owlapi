@@ -1,8 +1,8 @@
 package uk.ac.manchester.owl.tutorial;
 
-import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLSubClassOfAxiom;
-import org.semanticweb.owl.util.OWLAxiomVisitorAdapter;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 import java.util.HashSet;
 import java.util.Set;

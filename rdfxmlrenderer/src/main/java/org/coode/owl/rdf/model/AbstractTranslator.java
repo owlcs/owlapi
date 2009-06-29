@@ -1,10 +1,10 @@
 package org.coode.owl.rdf.model;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
-import static org.semanticweb.owl.vocab.OWLRDFVocabulary.*;
-import static org.semanticweb.owl.vocab.SWRLVocabulary.*;
-import org.semanticweb.owl.vocab.XSDVocabulary;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 import java.net.URI;
 import java.util.*;

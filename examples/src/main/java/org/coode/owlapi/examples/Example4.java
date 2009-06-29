@@ -1,7 +1,7 @@
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.*;
 
 import java.net.URI;
 /*
@@ -66,7 +66,7 @@ public class Example4 {
             AddAxiom addAxiomChange = new AddAxiom(ont, assertion);
             man.applyChange(addAxiomChange);
 
-            man.saveOntology(ont, URI.create("file:/tmp/example.owl"));
+            man.saveOntology(ont, URI.create("file:/tmp/example.owlapi"));
         }
         catch (OWLOntologyCreationException e) {
             System.out.println("Could not create ontology: " + e.getMessage());

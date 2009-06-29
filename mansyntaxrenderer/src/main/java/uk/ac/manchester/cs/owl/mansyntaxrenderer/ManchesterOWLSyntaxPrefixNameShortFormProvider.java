@@ -1,10 +1,9 @@
 package uk.ac.manchester.cs.owl.mansyntaxrenderer;
 
-import org.semanticweb.owl.util.ShortFormProvider;
-import org.semanticweb.owl.util.QNameShortFormProvider;
-import org.semanticweb.owl.util.DefaultPrefixManager;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 /*
  * Copyright (C) 2009, University of Manchester
  *

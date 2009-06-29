@@ -1,6 +1,6 @@
 package org.semanticweb.reasonerfactory.factpp;
 
-import org.semanticweb.owl.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 /*
  * Copyright (C) 2008, University of Manchester
  *

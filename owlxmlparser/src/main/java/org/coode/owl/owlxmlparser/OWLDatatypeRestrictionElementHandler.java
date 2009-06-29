@@ -1,8 +1,8 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDataRange;
-import org.semanticweb.owl.model.OWLDatatype;
-import org.semanticweb.owl.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
 
 import java.util.HashSet;
 import java.util.Set;

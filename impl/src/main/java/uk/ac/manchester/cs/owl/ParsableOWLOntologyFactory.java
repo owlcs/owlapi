@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.io.*;
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.model.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

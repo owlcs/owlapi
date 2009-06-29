@@ -1,9 +1,8 @@
 package org.coode.owl.krssparser;
 
-import org.semanticweb.owl.io.OWLParser;
-import org.semanticweb.owl.io.OWLParserFactory;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserFactory;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 /*
  * Copyright (C) 2006, University of Manchester
  *

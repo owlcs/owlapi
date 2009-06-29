@@ -3,10 +3,10 @@ package com.clarkparsia.explanation;
 import com.clarkparsia.explanation.util.ExplanationProgressMonitor;
 import com.clarkparsia.explanation.util.OntologyUtils;
 import com.clarkparsia.explanation.util.SilentExplanationProgressMonitor;
-import org.semanticweb.owl.inference.OWLClassReasoner;
-import org.semanticweb.owl.inference.OWLReasonerFactory;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.OWLEntityCollector;
+import org.semanticweb.owlapi.inference.OWLClassReasoner;
+import org.semanticweb.owlapi.inference.OWLReasonerFactory;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.OWLEntityCollector;
 
 import java.util.*;
 import java.util.logging.Level;

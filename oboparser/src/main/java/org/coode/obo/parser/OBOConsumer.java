@@ -1,7 +1,7 @@
 package org.coode.obo.parser;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.CollectionFactory;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 import java.net.URI;
 import java.net.URISyntaxException;

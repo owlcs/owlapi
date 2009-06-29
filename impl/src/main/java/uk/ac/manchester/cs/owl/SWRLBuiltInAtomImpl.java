@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.SWRLBuiltInsVocabulary;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 
 import java.util.ArrayList;
 import java.util.Collection;

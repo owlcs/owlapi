@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
-import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
 /*
  * Copyright (C) 2007, University of Manchester
  *

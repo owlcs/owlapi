@@ -1,10 +1,9 @@
 package uk.ac.manchester.cs.owl.mansyntaxrenderer;
 
 import org.coode.manchesterowlsyntax.ManchesterOWLSyntax;
-import org.semanticweb.owl.io.OWLRendererException;
-import org.semanticweb.owl.io.OWLRendererIOException;
-import org.semanticweb.owl.util.ShortFormProvider;
-import org.semanticweb.owl.util.SimpleShortFormProvider;
+import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.io.OWLRendererIOException;
+import org.semanticweb.owlapi.util.ShortFormProvider;
 
 import java.io.IOException;
 import java.io.Writer;

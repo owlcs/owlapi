@@ -43,13 +43,13 @@ It also subclasses A_class1</rdfs:comment>
 
 
 
-    <!-- http://www.semanticweb.org/ontologies/2007/7/A.owl#Class1186574909930821000 -->
+    <!-- http://www.semanticweb.org/ontologies/2007/7/A.owlapi#Class1186574909930821000 -->
 
     <owl:Class rdf:about="&A;Class1186574909930821000"/>
 
 
 
-    <!-- http://www.semanticweb.org/ontologies/2007/7/B.owl#Class1186574997702627000 -->
+    <!-- http://www.semanticweb.org/ontologies/2007/7/B.owlapi#Class1186574997702627000 -->
 
     <owl:Class rdf:about="#Class1186574997702627000">
         <rdfs:label>B_sub1</rdfs:label>

@@ -2,8 +2,8 @@ package uk.ac.manchester.owl.tutorial.examples;
 
 import gnu.getopt.Getopt;
 import gnu.getopt.LongOpt;
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.*;
 import uk.ac.manchester.owl.tutorial.ClosureAxioms;
 
 import java.net.URI;

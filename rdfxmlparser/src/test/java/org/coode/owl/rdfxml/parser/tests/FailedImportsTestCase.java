@@ -2,8 +2,8 @@ package org.coode.owl.rdfxml.parser.tests;
 
 import junit.framework.TestCase;
 import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
-import org.semanticweb.owl.io.OWLParserFactoryRegistry;
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
+import org.semanticweb.owlapi.model.*;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
 
@@ -45,12 +45,12 @@ public class FailedImportsTestCase extends TestCase {
         OWLOntologyManager manager = new OWLOntologyManagerImpl();
         OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
         manager.addOntologyFactory(new ParsableOWLOntologyFactory());
-        URL a = getClass().getResource("/owlapi/A.owl");
-        final URI b = getClass().getResource("/owlapi/B.owl").toURI();
+        URL a = getClass().getResource("/owlapi/A.owlapi");
+        final URI b = getClass().getResource("/owlapi/B.owlapi").toURI();
 
         manager.addIRIMapper(new OWLOntologyIRIMapper() {
 
-            private IRI ontBURI = IRI.create("http://www.semanticweb.org/ontologies/2007/7/A.owl");
+            private IRI ontBURI = IRI.create("http://www.semanticweb.org/ontologies/2007/7/A.owlapi");
 
             public URI getPhysicalURI(IRI ontologyIRI) {
                 if (ontologyIRI.equals(ontBURI)) {

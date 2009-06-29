@@ -1,8 +1,8 @@
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.OWLEntityRemover;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.OWLEntityRemover;
 
 import java.util.Collections;
 import java.net.URI;
@@ -48,7 +48,7 @@ public class Example5 {
             // and ingredients.  In this example we will delete them all.
             // First off, we start by loading the pizza ontology.
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owl"));
+            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owlapi"));
 
             // We can't directly delete individuals, properties or classes from an ontology because
             // ontologies don't directly contain entities -- they are merely referenced by the

@@ -1,10 +1,10 @@
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.inference.OWLReasoner;
-import org.semanticweb.owl.inference.OWLReasonerException;
-import org.semanticweb.owl.inference.OWLReasonerFactory;
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.inference.OWLReasoner;
+import org.semanticweb.owlapi.inference.OWLReasonerException;
+import org.semanticweb.owlapi.inference.OWLReasonerFactory;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.reasonerfactory.pellet.PelletReasonerFactory;
 
 import java.net.URI;
@@ -42,7 +42,7 @@ public class Example14 {
     public static void main(String[] args) {
         try {
             // We will load the pizza ontology and query it using a reasoner
-            URI physicalURI = URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
+            URI physicalURI = URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi");
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
             OWLOntology ont = man.loadOntologyFromPhysicalURI(physicalURI);
 

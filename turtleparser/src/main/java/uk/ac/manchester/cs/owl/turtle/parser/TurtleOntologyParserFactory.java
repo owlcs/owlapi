@@ -1,8 +1,8 @@
 package uk.ac.manchester.cs.owl.turtle.parser;
 
-import org.semanticweb.owl.io.OWLParser;
-import org.semanticweb.owl.io.OWLParserFactory;
-import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserFactory;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 /*
  * Copyright (C) 2007, University of Manchester
  *

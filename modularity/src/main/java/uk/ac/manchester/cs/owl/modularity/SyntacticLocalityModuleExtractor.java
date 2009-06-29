@@ -2,11 +2,10 @@ package uk.ac.manchester.cs.owl.modularity;
 
 import com.clarkparsia.modularity.locality.LocalityClass;
 import com.clarkparsia.modularity.locality.SyntacticLocalityEvaluator;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.modularity.OntologySegmenter;
-import org.semanticweb.owl.util.OWLEntityCollector;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.modularity.OntologySegmenter;
+import org.semanticweb.owlapi.util.OWLEntityCollector;
 
-import java.net.URI;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;

@@ -1,6 +1,6 @@
 package org.coode.owl.latex;
 
-import org.semanticweb.owl.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 /*
  * Copyright (C) 2008, University of Manchester
  *

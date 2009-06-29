@@ -1,6 +1,6 @@
 package com.clarkparsia.explanation.util;
 
-import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
 
 import java.util.Set;
 /*

@@ -1,7 +1,7 @@
 package org.coode.owl.rdf;
 
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 import java.util.Set;
 /*

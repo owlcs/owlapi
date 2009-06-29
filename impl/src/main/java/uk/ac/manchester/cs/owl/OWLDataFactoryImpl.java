@@ -1,11 +1,11 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.CollectionFactory;
-import org.semanticweb.owl.vocab.OWLFacet;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
-import org.semanticweb.owl.vocab.SWRLBuiltInsVocabulary;
-import org.semanticweb.owl.vocab.XSDVocabulary;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.vocab.OWLFacet;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 import java.net.URI;
 import java.util.*;

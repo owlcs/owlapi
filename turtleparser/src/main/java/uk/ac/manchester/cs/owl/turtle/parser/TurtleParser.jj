@@ -9,16 +9,16 @@ PARSER_BEGIN(TurtleParser)
 
 package uk.ac.manchester.cs.owl.turtle.parser;
 
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
-import org.semanticweb.owl.vocab.XSDVocabulary;
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
+import org.semanticweb.owlapi.model.*;
 import java.net.*;
 import java.util.*;
 import java.io.Reader;
 import java.io.InputStream;
 import org.coode.owl.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.string.EscapeUtils;
-import org.semanticweb.owl.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 public class TurtleParser implements AnonymousNodeChecker {
 

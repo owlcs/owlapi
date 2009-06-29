@@ -21,7 +21,7 @@
      xmlns:owl="http://www.w3.org/2002/07/owl#">
     <owl:Ontology rdf:about=""/>
 
-    <!-- http://www.co-ode.org/ontologies/test/convertMin1ToSomeValusFrom.owl#A -->
+    <!-- http://www.co-ode.org/ontologies/test/convertMin1ToSomeValusFrom.owlapi#A -->
 
     <owl:ObjectProperty rdf:about="#p"/>
 

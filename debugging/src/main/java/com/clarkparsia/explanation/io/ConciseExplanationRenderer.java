@@ -1,8 +1,8 @@
 package com.clarkparsia.explanation.io;
 
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.util.SimpleRenderer;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.util.SimpleRenderer;
 
 import java.io.IOException;
 import java.io.PrintWriter;

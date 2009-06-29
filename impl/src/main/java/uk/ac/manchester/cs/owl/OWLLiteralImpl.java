@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLLiteral;
-import org.semanticweb.owl.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 /*
  * Copyright (C) 2006, University of Manchester
  *

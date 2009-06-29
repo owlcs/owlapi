@@ -1,10 +1,10 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.*;
-import static org.semanticweb.owl.model.AxiomType.*;
-import static org.semanticweb.owl.util.CollectionFactory.createMap;
-import static org.semanticweb.owl.util.CollectionFactory.createSet;
-import org.semanticweb.owl.util.OWLEntityCollector;
+import org.semanticweb.owlapi.model.*;
+import static org.semanticweb.owlapi.model.AxiomType.*;
+import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
+import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
+import org.semanticweb.owlapi.util.OWLEntityCollector;
 
 import java.net.URI;
 import java.util.*;

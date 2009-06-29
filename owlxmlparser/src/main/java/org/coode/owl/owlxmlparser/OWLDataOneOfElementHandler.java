@@ -1,8 +1,8 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLLiteral;
-import org.semanticweb.owl.model.OWLTypedLiteral;
-import org.semanticweb.owl.vocab.XSDVocabulary;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLTypedLiteral;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 import java.util.HashSet;
 import java.util.Set;

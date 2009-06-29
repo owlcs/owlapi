@@ -98,7 +98,7 @@ public enum OBOVocabulary {
     IS_ANONYMOUS("is_anonymous");
 
 
-    public static final String ONTOLOGY_URI_BASE = "http://purl.org/obo/owl";
+    public static final String ONTOLOGY_URI_BASE = "http://purl.org/obo/owlapi";
 
     
     public static final String ANNOTATION_URI_BASE = "http://www.geneontology.org/formats/oboInOwl";

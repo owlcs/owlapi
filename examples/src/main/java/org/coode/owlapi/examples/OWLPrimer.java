@@ -2,13 +2,13 @@ package org.coode.owlapi.examples;
 
 import org.coode.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.coode.owl.rdf.turtle.TurtleOntologyFormat;
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.io.OWLXMLOntologyFormat;
-import org.semanticweb.owl.io.StreamOutputTarget;
-import org.semanticweb.owl.model.*;
-import static org.semanticweb.owl.vocab.OWLFacet.MAX_EXCLUSIVE;
-import static org.semanticweb.owl.vocab.OWLFacet.MIN_INCLUSIVE;
-import org.semanticweb.owl.vocab.XSDVocabulary;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.io.StreamOutputTarget;
+import org.semanticweb.owlapi.model.*;
+import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
+import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -65,7 +65,7 @@ public class OWLPrimer {
             // URI is essentially a name for the ontology.  Note that the URI doesn't necessarily
             // point to a location on the web - in this example, we won't publish the ontology at
             // the URL corresponding to the ontology URI below.
-            IRI ontologyIRI = IRI.create("http://example.com/owl/families");
+            IRI ontologyIRI = IRI.create("http://example.com/owlapi/families");
 
             // Now that we have a URI for out ontology, we can create the actual ontology.
             // Note that the create ontology method throws an OWLOntologyCreationException if
@@ -237,8 +237,8 @@ public class OWLPrimer {
             // We can specify the inverse property of hasWife as hasHusband
             // We first need a reference to the hasHusband property.
             OWLObjectProperty hasHusband = factory.getOWLObjectProperty(IRI.create(ont.getOntologyID().getOntologyIRI() + "#hasHusband"));
-            // The full URI of the hasHusband property will be http://example.com/owl/families#hasHusband
-            // since the URI of our ontology is http://example.com/owl/families
+            // The full URI of the hasHusband property will be http://example.com/owlapi/families#hasHusband
+            // since the URI of our ontology is http://example.com/owlapi/families
             // Create the inverse object properties axiom and add it
             manager.addAxiom(ont, factory.getOWLInverseObjectPropertiesAxiom(hasWife, hasHusband));
 

@@ -1,6 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataRange;
 /*
  * Copyright (C) 2006, University of Manchester
  *

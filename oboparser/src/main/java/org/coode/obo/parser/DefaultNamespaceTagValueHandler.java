@@ -1,10 +1,8 @@
 package org.coode.obo.parser;
 
-import org.semanticweb.owl.model.SetOntologyID;
-import org.semanticweb.owl.model.OWLOntologyID;
-import org.semanticweb.owl.model.IRI;
-
-import java.net.URI;
+import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.IRI;
 /*
  * Copyright (C) 2008, University of Manchester
  *

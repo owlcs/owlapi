@@ -1,6 +1,6 @@
 package org.coode.owl.latex;
 
-import org.semanticweb.owl.io.OWLRendererException;
+import org.semanticweb.owlapi.io.OWLRendererException;
 /*
  * Copyright (C) 2007, University of Manchester
  *

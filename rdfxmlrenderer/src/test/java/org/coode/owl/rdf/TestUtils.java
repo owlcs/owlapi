@@ -1,8 +1,6 @@
 package org.coode.owl.rdf;
 
-import org.semanticweb.owl.model.IRI;
-
-import java.net.URI;
+import org.semanticweb.owlapi.model.IRI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -39,6 +37,6 @@ public class TestUtils {
 
     public static IRI createIRI() {
         uriCounter++;
-        return IRI.create("http://org.semanticweb.owl/tests#uri" + uriCounter);
+        return IRI.create("http://org.semanticweb.owlapi/tests#uri" + uriCounter);
     }
 }

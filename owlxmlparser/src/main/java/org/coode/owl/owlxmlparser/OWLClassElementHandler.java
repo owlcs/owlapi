@@ -1,6 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.IRI;
+import org.semanticweb.owlapi.model.IRI;
 /*
  * Copyright (C) 2006, University of Manchester
  *

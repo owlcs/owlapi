@@ -1,10 +1,10 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDataRange;
-import org.semanticweb.owl.model.OWLDatatype;
-import org.semanticweb.owl.model.OWLTypedLiteral;
-import org.semanticweb.owl.model.IRI;
-import org.semanticweb.owl.vocab.OWLFacet;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLTypedLiteral;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.vocab.OWLFacet;
 /*
  * Copyright (C) 2006, University of Manchester
  *

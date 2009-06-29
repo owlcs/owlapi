@@ -1,7 +1,7 @@
 package com.clarkparsia.explanation.io;
 
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLException;
 
 import java.io.IOException;
 import java.io.Writer;

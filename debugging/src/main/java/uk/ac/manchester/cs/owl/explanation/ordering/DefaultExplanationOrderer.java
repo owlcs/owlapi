@@ -1,8 +1,8 @@
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.OWLEntityCollector;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.OWLEntityCollector;
 import uk.ac.manchester.cs.bhig.util.Tree;
 
 import java.net.URI;

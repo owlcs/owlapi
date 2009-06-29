@@ -1,9 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.*;
-
-import java.net.URI;
-import java.util.Set;
+import org.semanticweb.owlapi.model.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *

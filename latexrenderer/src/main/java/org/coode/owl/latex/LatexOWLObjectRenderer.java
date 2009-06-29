@@ -1,9 +1,9 @@
 package org.coode.owl.latex;
 
-import org.semanticweb.owl.io.OWLObjectRenderer;
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLObject;
-import org.semanticweb.owl.util.ShortFormProvider;
+import org.semanticweb.owlapi.io.OWLObjectRenderer;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.util.ShortFormProvider;
 
 import java.io.StringWriter;
 /*

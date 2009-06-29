@@ -2,10 +2,8 @@ package org.coode.owl.rdf.rdfxml;
 
 import org.coode.xml.XMLWriter;
 import org.coode.owl.rdf.model.RDFResourceNode;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLObject;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
-import org.semanticweb.owl.vocab.Namespaces;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.vocab.Namespaces;
 
 import java.io.IOException;
 import java.net.URI;

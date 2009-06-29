@@ -1,6 +1,6 @@
 package org.coode.manchesterowlsyntax;
 
-import org.semanticweb.owl.vocab.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 /*
  * Copyright (C) 2007, University of Manchester
  *

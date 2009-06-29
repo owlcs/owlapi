@@ -1,6 +1,6 @@
 package org.coode.owlapi.owlxml.renderer;
 
-import org.semanticweb.owl.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 /*
  * Copyright (C) 2007, University of Manchester
  *

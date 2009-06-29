@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl.dlsyntax;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.AbstractOWLOntologyStorer;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 import java.io.PrintWriter;
 import java.io.Writer;

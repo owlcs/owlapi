@@ -1,12 +1,12 @@
 package org.coode.owl.latex;
 
-import org.semanticweb.owl.io.AbstractOWLRenderer;
-import org.semanticweb.owl.io.OWLRendererException;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.AxiomTypeProvider;
-import org.semanticweb.owl.util.OWLEntityComparator;
-import org.semanticweb.owl.util.ShortFormProvider;
-import org.semanticweb.owl.util.SimpleShortFormProvider;
+import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.AxiomTypeProvider;
+import org.semanticweb.owlapi.util.OWLEntityComparator;
+import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
 import java.io.IOException;
 import java.io.Writer;

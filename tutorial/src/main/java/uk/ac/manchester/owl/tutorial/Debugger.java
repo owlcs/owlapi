@@ -1,10 +1,10 @@
 package uk.ac.manchester.owl.tutorial;
 
-import org.semanticweb.owl.debugging.BlackBoxOWLDebugger;
-import org.semanticweb.owl.debugging.OWLDebugger;
-import org.semanticweb.owl.inference.OWLSatisfiabilityChecker;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger;
+import org.semanticweb.owlapi.debugging.OWLDebugger;
+import org.semanticweb.owlapi.inference.OWLSatisfiabilityChecker;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import uk.ac.manchester.owl.tutorial.io.OWLTutorialSyntaxObjectRenderer;
 
 import java.io.PrintWriter;

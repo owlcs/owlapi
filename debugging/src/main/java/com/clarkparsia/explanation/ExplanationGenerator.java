@@ -2,8 +2,8 @@ package com.clarkparsia.explanation;
 
 import java.util.Set;
 
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /*
 * Copyright (C) 2007, Clark & Parsia

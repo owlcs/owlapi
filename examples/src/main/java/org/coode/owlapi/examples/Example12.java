@@ -1,9 +1,9 @@
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.io.RDFXMLOntologyFormat;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.OWLOntologyMerger;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.OWLOntologyMerger;
 
 import java.net.URI;
 /*
@@ -45,8 +45,8 @@ public class Example12 {
         try {
             // Just load two arbitrary ontologies for the purposes of this example
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
-            man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/amino-acid/2006/05/18/amino-acid.owl"));
+            man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi"));
+            man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/amino-acid/2006/05/18/amino-acid.owlapi"));
             // Create our ontology merger
             OWLOntologyMerger merger = new OWLOntologyMerger(man);
             // We merge all of the loaded ontologies.  Since an OWLOntologyManager is an OWLOntologySetProvider we
@@ -58,7 +58,7 @@ public class Example12 {
                 System.out.println(ax);
             }
             // Save to RDF/XML
-            man.saveOntology(merged, new RDFXMLOntologyFormat(), URI.create("file:/tmp/mergedont.owl"));
+            man.saveOntology(merged, new RDFXMLOntologyFormat(), URI.create("file:/tmp/mergedont.owlapi"));
         }
         catch (OWLOntologyCreationException e) {
             System.out.println("Coult not load ontology: " + e.getMessage());

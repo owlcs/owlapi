@@ -1,8 +1,8 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.SWRLBuiltInsVocabulary;
-import static org.semanticweb.owl.vocab.SWRLVocabulary.*;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
 
 import java.net.URI;
 import java.util.List;

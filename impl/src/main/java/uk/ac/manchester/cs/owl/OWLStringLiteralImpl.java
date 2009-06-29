@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.model.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *

@@ -1,6 +1,5 @@
 package uk.ac.manchester.cs.owl.inference.dig11;
 
-import org.semanticweb.owl.model.OWLException;
 import org.w3c.dom.Document;
 
 import java.net.URL;

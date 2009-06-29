@@ -1,6 +1,6 @@
 package org.coode.owl.krssparser;
 
-import org.semanticweb.owl.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 /*
  * Copyright (C) 2006, University of Manchester
  *

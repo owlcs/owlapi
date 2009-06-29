@@ -2,11 +2,10 @@ package org.coode.owl.rdfxml.parser.tests;
 
 import junit.framework.TestCase;
 import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
-import org.semanticweb.owl.io.OWLParserFactoryRegistry;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyCreationException;
-import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.model.IRI;
+import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
 
@@ -47,12 +46,12 @@ public class CardinalityTest extends TestCase {
         OWLOntologyManager manager = new OWLOntologyManagerImpl();
         OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
         manager.addOntologyFactory(new ParsableOWLOntologyFactory());
-        URI a = getClass().getResource("/owlapi/cardinality.owl").toURI();
+        URI a = getClass().getResource("/owlapi/cardinality.owlapi").toURI();
 
         OWLOntology o;
         try {
             o = manager.loadOntologyFromPhysicalURI(a);
-            assertTrue(o.containsObjectPropertyReference(URI.create("http://www.co-ode.org/ontologies/test/convertMin1ToSomeValusFrom.owl#p")));
+            assertTrue(o.containsObjectPropertyReference(URI.create("http://www.co-ode.org/ontologies/test/convertMin1ToSomeValusFrom.owlapi#p")));
         }
         catch (OWLOntologyCreationException e) {
             System.out.println("Failed to load ontology");

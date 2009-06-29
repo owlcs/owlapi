@@ -2,9 +2,9 @@ package uk.ac.manchester.cs.owl.mansyntaxrenderer;
 
 import org.coode.manchesterowlsyntax.ManchesterOWLSyntax;
 import static org.coode.manchesterowlsyntax.ManchesterOWLSyntax.*;
-import org.semanticweb.owl.io.OWLRendererException;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.*;
+import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.*;
 
 import java.io.Writer;
 import java.util.*;

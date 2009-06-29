@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.SWRLVariableExtractor;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 import java.net.URI;
 import java.util.*;

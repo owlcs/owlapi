@@ -1,7 +1,6 @@
 package org.coode.owl.rdfxml.parser;
 
-import org.semanticweb.owl.model.OWLClassExpression;
-import org.semanticweb.owl.model.OWLException;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 
 import java.net.URI;
 import java.util.Set;
@@ -58,7 +57,7 @@ public abstract class AbstractNaryBooleanClassExpressionTranslator extends Abstr
             }
             else {
                 // Zero - just return thing
-                logger.fine("Number of operands is zero! Translating as owl:Thing");
+                logger.fine("Number of operands is zero! Translating as owlapi:Thing");
                 return getDataFactory().getOWLThing();
             }
         }

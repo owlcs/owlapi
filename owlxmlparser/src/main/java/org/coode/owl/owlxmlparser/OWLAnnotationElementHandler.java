@@ -1,9 +1,7 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.vocab.OWLXMLVocabulary;
+import org.semanticweb.owlapi.model.*;
 
-import java.net.URI;
 import java.util.Set;
 import java.util.HashSet;
 

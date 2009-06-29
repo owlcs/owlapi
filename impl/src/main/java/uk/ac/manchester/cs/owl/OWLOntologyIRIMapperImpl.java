@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLOntologyIRIMapper;
-import org.semanticweb.owl.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 import java.util.Map;

@@ -1,9 +1,9 @@
 package uk.ac.manchester.cs.owl;
 
-import org.semanticweb.owl.model.OWLAnnotation;
-import org.semanticweb.owl.model.OWLDataFactory;
-import org.semanticweb.owl.model.OWLDataPropertyCharacteristicAxiom;
-import org.semanticweb.owl.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 
 import java.util.Collection;
 /*

@@ -1,8 +1,8 @@
 package org.coode.obo.parser;
 
-import org.semanticweb.owl.model.AddAxiom;
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.util.CollectionFactory;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 /*
  * Copyright (C) 2007, University of Manchester
  *

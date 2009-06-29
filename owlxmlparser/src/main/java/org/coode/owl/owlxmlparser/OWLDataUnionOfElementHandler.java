@@ -1,6 +1,6 @@
 package org.coode.owl.owlxmlparser;
 
-import org.semanticweb.owl.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataRange;
 
 import java.util.Set;
 import java.util.HashSet;

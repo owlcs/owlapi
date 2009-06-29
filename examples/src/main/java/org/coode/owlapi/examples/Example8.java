@@ -1,12 +1,12 @@
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.inference.OWLReasoner;
-import org.semanticweb.owl.inference.OWLReasonerAdapter;
-import org.semanticweb.owl.inference.OWLReasonerException;
-import org.semanticweb.owl.inference.OWLReasonerFactory;
-import org.semanticweb.owl.model.*;
-import org.semanticweb.owl.util.DLExpressivityChecker;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.inference.OWLReasoner;
+import org.semanticweb.owlapi.inference.OWLReasonerAdapter;
+import org.semanticweb.owlapi.inference.OWLReasonerException;
+import org.semanticweb.owlapi.inference.OWLReasonerFactory;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.DLExpressivityChecker;
 import org.semanticweb.reasonerfactory.pellet.PelletReasonerFactory;
 
 import java.util.Set;
@@ -47,7 +47,7 @@ import java.net.URI;
  */
 public class Example8 {
 
-    public static final String PHYSICAL_URI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owl";
+    public static final String PHYSICAL_URI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owlapi";
 
     public static void main(String[] args) {
 
@@ -89,7 +89,7 @@ public class Example8 {
             System.out.println("Expressivity: " + checker.getDescriptionLogicName());
 
             // We can determine if the pizza ontology is actually consistent.  (If an ontology is
-            // inconsistent then owl:Thing is equivalent to owl:Nothing - i.e. there can't be any
+            // inconsistent then owlapi:Thing is equivalent to owlapi:Nothing - i.e. there can't be any
             // models of the ontology)
             boolean consistent = reasoner.isConsistent(ont);
             System.out.println("Consistent: " + consistent);
@@ -98,7 +98,7 @@ public class Example8 {
             // We can easily get a list of inconsistent classes.  (A class is inconsistent if it
             // can't possibly have any instances).  Note that the getUnsatisfiableClasses method
             // is really just a convenience method for obtaining the classes that are equivalent
-            // to owl:Nothing.
+            // to owlapi:Nothing.
             Set<OWLClass> inconsistentClasses = reasoner.getUnsatisfiableClasses();
             if (!inconsistentClasses.isEmpty()) {
                 System.out.println("The following classes are inconsistent: ");
@@ -114,7 +114,7 @@ public class Example8 {
             // Now we want to query the reasoner for all descendants of VegetarianPizza - i.e. all
             // vegetarian pizzas.
             // Get a reference to the vegetarian pizza class
-            OWLClass vegPizza = manager.getOWLDataFactory().getOWLClass(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianPizza"));
+            OWLClass vegPizza = manager.getOWLDataFactory().getOWLClass(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi#VegetarianPizza"));
 
             // Now use the reasoner to obtain the subclasses of vegetarian pizza.  Note the reasoner
             // returns a set of sets.  Each set represents a subclass of vegetarian pizza where the
@@ -135,7 +135,7 @@ public class Example8 {
 
             // We can easily retrieve the instances of a class.  In this example we'll obtain the instances of
             // country.  First we need to get a reference to the country class
-            OWLClass country = manager.getOWLDataFactory().getOWLClass(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl#Country"));
+            OWLClass country = manager.getOWLDataFactory().getOWLClass(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi#Country"));
             System.out.println("Instances of country: ");
             for(OWLIndividual ind : reasoner.getIndividuals(country, true)) {
                 System.out.println("    " + ind);

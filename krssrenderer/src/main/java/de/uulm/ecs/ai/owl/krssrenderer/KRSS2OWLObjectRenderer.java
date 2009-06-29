@@ -1,7 +1,7 @@
 package de.uulm.ecs.ai.owl.krssrenderer;
 
 import static de.uulm.ecs.ai.owl.krssrenderer.KRSS2Vocabulary.*;
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owlapi.model.*;
 
 import java.io.IOException;
 import java.io.Writer;

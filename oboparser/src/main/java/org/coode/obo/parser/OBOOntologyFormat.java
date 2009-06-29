@@ -1,6 +1,6 @@
 package org.coode.obo.parser;
 
-import org.semanticweb.owl.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 /*
  * Copyright (C) 2007, University of Manchester
  *
