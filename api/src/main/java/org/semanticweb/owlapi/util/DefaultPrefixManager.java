@@ -92,7 +92,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, U
     }
 
     private void setupDefaultPrefixes() {
-        setPrefix("owlapi:", Namespaces.OWL.toString());
+        setPrefix("owl:", Namespaces.OWL.toString());
         setPrefix("rdfs:", Namespaces.RDFS.toString());
         setPrefix("rdf:", Namespaces.RDF.toString());
         setPrefix("xsd:", Namespaces.XSD.toString());
