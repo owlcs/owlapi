@@ -1,6 +1,6 @@
 package org.coode.mansyntax.editor;
 
-import org.coode.manchesterowlsyntax.ManchesterOWLSyntax;
+import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.model.*;

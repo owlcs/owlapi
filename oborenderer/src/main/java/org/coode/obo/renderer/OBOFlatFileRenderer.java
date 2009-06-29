@@ -1,6 +1,6 @@
 package org.coode.obo.renderer;
 
-import org.coode.obo.parser.OBOVocabulary;
+import org.coode.owlapi.obo.parser.OBOVocabulary;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.*;

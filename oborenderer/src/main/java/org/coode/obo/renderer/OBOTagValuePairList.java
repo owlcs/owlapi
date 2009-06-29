@@ -1,6 +1,6 @@
 package org.coode.obo.renderer;
 
-import org.coode.obo.parser.OBOVocabulary;
+import org.coode.owlapi.obo.parser.OBOVocabulary;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.util.SimpleURIShortFormProvider;

@@ -1,6 +1,6 @@
 package org.coode.obo.renderer;
 
-import org.coode.obo.parser.OBOOntologyFormat;
+import org.coode.owlapi.obo.parser.OBOOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;

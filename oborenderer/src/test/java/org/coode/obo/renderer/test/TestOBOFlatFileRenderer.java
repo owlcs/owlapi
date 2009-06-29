@@ -1,7 +1,7 @@
 package org.coode.obo.renderer.test;
 
 import junit.framework.TestCase;
-import org.coode.obo.parser.OBOOntologyFormat;
+import org.coode.owlapi.obo.parser.OBOOntologyFormat;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLOntologyInputSource;
 import org.semanticweb.owlapi.io.StreamInputSource;

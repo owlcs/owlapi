@@ -1,13 +1,8 @@
-package uk.ac.manchester.cs.owl.mansyntaxrenderer;
+package org.coode.owlapi.manchesterowlsyntax;
 
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
-
-import java.io.Writer;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -36,19 +31,13 @@ import java.io.Writer;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 22-May-2007<br><br>
+ * Date: 13-Aug-2007<br><br>
  */
-public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
-
-    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return ontologyFormat.equals(new ManchesterOWLSyntaxOntologyFormat());
-    }
+public class ManchesterOWLSyntaxParserFactory implements OWLParserFactory {
 
 
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
-                                                                                                                            OWLOntologyStorageException {
-
-        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(manager, ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(format));
-        ren.writeOntology();
+    public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
+        ManchesterOWLSyntaxOntologyParser parser = new ManchesterOWLSyntaxOntologyParser();
+        return parser;
     }
 }

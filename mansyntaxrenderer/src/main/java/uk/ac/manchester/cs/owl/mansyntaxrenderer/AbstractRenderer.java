@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.owl.mansyntaxrenderer;
 
-import org.coode.manchesterowlsyntax.ManchesterOWLSyntax;
+import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.util.ShortFormProvider;
