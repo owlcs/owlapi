@@ -39,10 +39,10 @@ import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
-import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
+import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.mansyntaxrenderer.ManchesterOWLSyntaxOntologyStorer;
 import uk.ac.manchester.cs.owl.turtle.parser.TurtleOntologyParserFactory;
 

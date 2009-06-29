@@ -5,9 +5,9 @@ import org.coode.owl.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.*;
-import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
+import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
 import java.io.File;
 import java.util.Set;

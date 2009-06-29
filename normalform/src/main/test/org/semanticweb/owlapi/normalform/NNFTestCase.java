@@ -3,7 +3,7 @@ package org.semanticweb.owlapi.normalform;
 import junit.framework.TestCase;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.NNF;
-import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 /*
  * Copyright (C) 2008, University of Manchester
  *

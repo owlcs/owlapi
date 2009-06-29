@@ -1,9 +1,9 @@
 package org.semanticweb.owlapi.model;
 
 import junit.framework.TestCase;
-import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
+import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 /*
  * Copyright (C) 2007, University of Manchester
  *

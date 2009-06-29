@@ -1,8 +1,8 @@
 package org.semanticweb.owlapi.model;
 
 import junit.framework.TestCase;
-import uk.ac.manchester.cs.owl.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
+import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 /*
  * Copyright (C) 2006, University of Manchester

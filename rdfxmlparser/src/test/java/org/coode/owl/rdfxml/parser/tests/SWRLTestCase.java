@@ -6,8 +6,8 @@ import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import uk.ac.manchester.cs.owl.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.ParsableOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
+import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
 import java.net.URI;
 /*

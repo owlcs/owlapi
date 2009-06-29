@@ -2,7 +2,7 @@ package org.semanticweb.owlapi.model;
 
 import junit.framework.TestCase;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 /*
  * Copyright (C) 2007, University of Manchester
  *
