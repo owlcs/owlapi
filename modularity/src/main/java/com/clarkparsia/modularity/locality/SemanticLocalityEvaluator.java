@@ -5,7 +5,7 @@ import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
-import org.semanticweb.reasonerfactory.OWLReasonerSetupException;
+import org.semanticweb.owlapi.reasonerfactory.OWLReasonerSetupException;
 
 import java.util.HashSet;
 import java.util.Iterator;

@@ -7,7 +7,7 @@ import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.DLExpressivityChecker;
-import org.semanticweb.reasonerfactory.pellet.PelletReasonerFactory;
+import org.semanticweb.owlapi.reasonerfactory.pellet.PelletReasonerFactory;
 
 import java.util.Set;
 import java.net.URI;

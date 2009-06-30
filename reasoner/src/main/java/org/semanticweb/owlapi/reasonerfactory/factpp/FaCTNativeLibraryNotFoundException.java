@@ -1,6 +1,5 @@
-package org.semanticweb.reasonerfactory;
+package org.semanticweb.owlapi.reasonerfactory.factpp;
 
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 /*
  * Copyright (C) 2008, University of Manchester
@@ -30,14 +29,10 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 08-Sep-2008<br><br>
  */
-public class OWLReasonerSetupException extends OWLRuntimeException {
+public class FaCTNativeLibraryNotFoundException extends OWLRuntimeException {
 
-    public OWLReasonerSetupException(OWLReasonerFactory factory, Throwable cause) {
-        super(getErrorMessage(factory), cause);
-    }
 
-    private static String getErrorMessage(OWLReasonerFactory factory) {
-        return "There was a problem setting up the reasoner (" + factory.getReasonerName() +
-        ").  Please ensure that you have the appropriate classes (jar files) are in your class path";
+    public FaCTNativeLibraryNotFoundException() {
+        super("The FaCT++ native library could not be found.  Please ensure that the library is in your java.library.path. (Add '-Djava.library.path=\"<Path_to_directory_containing_library>\"' to the Java Virtual Machine arguments)");
     }
 }

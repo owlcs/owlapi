@@ -1,11 +1,11 @@
-package org.semanticweb.reasonerfactory.pellet;
+package org.semanticweb.owlapi.reasonerfactory.pellet;
 
 import org.semanticweb.owlapi.inference.OWLReasoner;
 import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.reasonerfactory.OWLReasonerSetupException;
+import org.semanticweb.owlapi.reasonerfactory.OWLReasonerSetupException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

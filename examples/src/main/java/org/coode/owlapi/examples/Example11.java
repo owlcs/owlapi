@@ -9,7 +9,7 @@ import org.semanticweb.owlapi.util.InferredAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredAxiomGeneratorException;
 import org.semanticweb.owlapi.util.InferredOntologyGenerator;
 import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
-import org.semanticweb.reasonerfactory.pellet.PelletReasonerFactory;
+import org.semanticweb.owlapi.reasonerfactory.pellet.PelletReasonerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;

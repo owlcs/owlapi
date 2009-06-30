@@ -5,7 +5,7 @@ import org.semanticweb.owlapi.inference.OWLReasoner;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.reasonerfactory.pellet.PelletReasonerFactory;
+import org.semanticweb.owlapi.reasonerfactory.pellet.PelletReasonerFactory;
 
 import java.net.URI;
 import java.util.Collections;

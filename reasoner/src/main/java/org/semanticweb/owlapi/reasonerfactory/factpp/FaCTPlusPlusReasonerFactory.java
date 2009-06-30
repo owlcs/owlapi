@@ -1,14 +1,15 @@
-package org.semanticweb.reasonerfactory.hermit;
+package org.semanticweb.owlapi.reasonerfactory.factpp;
 
 import org.semanticweb.owlapi.inference.OWLReasoner;
 import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.reasonerfactory.OWLReasonerSetupException;
+import org.semanticweb.owlapi.reasonerfactory.OWLReasonerSetupException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Set;
 
 /*
@@ -34,51 +35,59 @@ import java.util.Set;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
 /**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 06-Dec-2008
- *
- * A reasoner factory for creating an instance of the HermiT reasoner.
+ * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
+ * 08-Sep-2008<br><br>
  */
-public class HermiTReasonerFactory implements OWLReasonerFactory {
+public class FaCTPlusPlusReasonerFactory implements OWLReasonerFactory {
 
-    private Constructor constructor;
+    private Constructor factPPConstructor;
 
-    private static final String REASONER_CLASS_NAME = "org.semanticweb.HermiT.Reasoner";
+    private Method setSynchronisingMethod;
 
-    public HermiTReasonerFactory() {
+
+    public FaCTPlusPlusReasonerFactory() {
         try {
-            Class clsHermitReasoner = Class.forName(REASONER_CLASS_NAME);
-            constructor = clsHermitReasoner.getDeclaredConstructor(OWLOntologyManager.class);
-            constructor.setAccessible(true);
-
-        } catch (ClassNotFoundException e) {
+            Class faCTPPClass = Class.forName("uk.ac.manchester.cs.factplusplus.owlapi.Reasoner");
+            factPPConstructor = faCTPPClass.getConstructor(OWLOntologyManager.class);
+            setSynchronisingMethod = faCTPPClass.getMethod("setSychroniseOnlyOnClassify", Boolean.TYPE);
+        }
+        catch (ClassNotFoundException e) {
             throw new OWLReasonerSetupException(this, e);
-        } catch (NoSuchMethodException e) {
+        }
+        catch (NoSuchMethodException e) {
             throw new OWLReasonerSetupException(this, e);
         }
     }
 
+
     public String getReasonerName() {
-        return "HermiT";
+        return "FaCT++";
     }
 
 
-
-    public OWLReasoner createReasoner(OWLOntologyManager manager, Set<OWLOntology> ontologies) throws OWLReasonerSetupException{
+    public OWLReasoner createReasoner(OWLOntologyManager manager, Set<OWLOntology> ontologies) throws OWLReasonerSetupException {
         try {
-            OWLReasoner reasoner = (OWLReasoner) constructor.newInstance(manager);
+            OWLReasoner reasoner = (OWLReasoner) factPPConstructor.newInstance(manager);
+            setSynchronisingMethod.invoke(reasoner, Boolean.FALSE);
             reasoner.loadOntologies(ontologies);
             return reasoner;
-
-        } catch (InstantiationException e) {
+        }
+        catch (InstantiationException e) {
             throw new OWLReasonerSetupException(this, e);
-        } catch (IllegalAccessException e) {
+        }
+        catch (IllegalAccessException e) {
             throw new OWLReasonerSetupException(this, e);
-        } catch (InvocationTargetException e) {
+        }
+        catch (InvocationTargetException e) {
             throw new OWLReasonerSetupException(this, e);
+        }
+        catch(UnsatisfiedLinkError e) {
+            throw new FaCTNativeLibraryNotFoundException();
         } catch (OWLReasonerException e) {
             throw new OWLReasonerSetupException(this, e);
         }
     }
+
 }
