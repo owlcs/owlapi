@@ -1,19 +1,11 @@
-package uk.ac.manchester.owl.tutorial.examples;
+package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
 import gnu.getopt.Getopt;
 import gnu.getopt.LongOpt;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.inference.OWLSatisfiabilityChecker;
-import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import uk.ac.manchester.cs.owl.inference.dig11.DIGReasoner;
-import uk.ac.manchester.owl.tutorial.Debugger;
+import org.semanticweb.owlapi.model.*;
+import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URL;
 import java.net.URI;
 
 /*
@@ -45,13 +37,14 @@ import java.net.URI;
  * <ol>
  * <li>The URI of an ontology</li>
  * <p/>
- * <li>The URI of a reasoner</li>
+ * <li>The URI of destination</li>
  * <p/>
- * <li>A location to place the results.</li>
+ * <li>The URI of a class</li>
  * </ol>
- * <p>When executed, the class will find all inconsistent classes. For each
- * inconsistent class, the set of support for the inconsistency will be
- * determined. A report will then be produced in the output file.</p>
+ * <p>When executed, the class will find all subclass axioms that form part of the
+ * definition of the given class. For each of these, if the superclass is a
+ * conjunction of existential restrictions, then an additional subclass axiom
+ * will be added to the ontology, "closing" the restrictions.</p>
  * <p/>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
@@ -59,39 +52,38 @@ import java.net.URI;
  * Date: 24-April-2007<br>
  * <br>
  */
-public class DebuggingExample {
+public class ClosureAxiomsExample {
 
     public static void usage() {
         System.out
-                .println("Usage: DebuggingExample --input=URL --reasoner=URL --output=filename");
+                .println("Usage: ClosureAxiomsExample --input=URL --output=URL --class=URL");
     }
 
     public static void main(String[] args) {
-        /* An example illustrating use of the debugger */
+        /* An example illustrating the addition of closure axioms. */
+
 
         try {
             LongOpt[] longopts = new LongOpt[11];
             String inputOntology = null;
-            String output = null;
-            String reasoner = null;
+            String outputOntology = null;
+            String classToClose = null;
 
-            /* Set up options */
             longopts[0] = new LongOpt("help", LongOpt.NO_ARGUMENT, null, '?');
             longopts[1] = new LongOpt("input", LongOpt.REQUIRED_ARGUMENT, null,
                     'i');
             longopts[2] = new LongOpt("output", LongOpt.REQUIRED_ARGUMENT,
                     null, 'o');
-            longopts[3] = new LongOpt("reasoner", LongOpt.REQUIRED_ARGUMENT,
-                    null, 'r');
+            longopts[3] = new LongOpt("class", LongOpt.REQUIRED_ARGUMENT, null,
+                    'c');
 
-            Getopt g = new Getopt("", args, "?:i:o:r", longopts);
+            Getopt g = new Getopt("", args, "?:i:o:c", longopts);
             int c;
 
             while ((c = g.getopt()) != -1) {
                 switch (c) {
                     case '?':
                         usage();
-                        System.out.println("Usage Message!");
                         System.exit(0);
                     case 'i':
                         /* input */
@@ -99,57 +91,58 @@ public class DebuggingExample {
                         break;
                     case 'o':
                         /* output */
-                        output = g.getOptarg();
+                        outputOntology = g.getOptarg();
                         break;
-                    case 'r':
-                        /* reasoner */
-                        reasoner = g.getOptarg();
+                    case 'c':
+                        /* class */
+                        classToClose = g.getOptarg();
                         break;
                 }
             }
 
-            /* Get an OWLManager */
+            /* Create and Ontology Manager */
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-            if (inputOntology == null || output == null || reasoner == null) {
+
+            if (inputOntology == null || outputOntology == null
+                    || classToClose == null) {
                 usage();
                 System.exit(1);
             }
 
-            /* We load an ontology from a physical IRI */
-
             URI physicalURI = URI.create(inputOntology);
+            IRI classIRI = IRI.create(classToClose);
+            URI outputURI = URI.create(outputOntology);
 
+            /* Load an ontology */
             System.out.println("Loading: " + physicalURI);
             OWLOntology ontology = manager
                     .loadOntologyFromPhysicalURI(physicalURI);
             System.out.println("Ontology Loaded...");
             System.out.println("Logical URI : " + physicalURI);
-            System.out.println("Physical URI: " + ontology.getOntologyID().getOntologyIRI());
+            System.out.println("Physical URI: " + ontology.getOntologyID());
             System.out.println("Format      : "
                     + manager.getOntologyFormat(ontology));
 
-            /* Create a satisfiability checker */
-            OWLSatisfiabilityChecker checker = new DIGReasoner(manager);
-            URL rURL = new URL(reasoner);
-            ((DIGReasoner) checker).getReasoner().setReasonerURL(rURL);
+            ClosureAxioms closureAxioms = new ClosureAxioms(manager, ontology);
 
-            System.out.println("Debugging...");
+            OWLClass clazz = manager.getOWLDataFactory().getOWLClass(classIRI);
+            System.out.println("Class URI   : " + classIRI);
+            System.out.println(clazz);
 
-            /* Create a debugger */
-            Debugger debugger = new Debugger(manager, ontology, checker);
+            /* Add the closure axioms */
+            closureAxioms.addClosureAxioms(clazz);
 
-            PrintWriter pw = new PrintWriter(new FileWriter(output));
+            /* Now save a copy to another location */
+            System.out.println("Saving: " + outputURI);
 
-            /* Report about debugging */
-            debugger.report(pw);
-            pw.close();
+            manager.saveOntology(ontology, outputURI);
+            System.out.println("Ontology Saved...");
+            System.out.println("Physical URI : " + outputURI);
 
             /* Remove the ontology from the manager */
             manager.removeOntology(ontology);
             System.out.println("Done");
         } catch (OWLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }

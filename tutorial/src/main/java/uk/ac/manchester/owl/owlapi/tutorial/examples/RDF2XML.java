@@ -1,4 +1,4 @@
-package uk.ac.manchester.owl.tutorial.examples;
+package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;

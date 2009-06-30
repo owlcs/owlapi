@@ -1,14 +1,19 @@
-package uk.ac.manchester.owl.tutorial.examples;
+package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
 import gnu.getopt.Getopt;
 import gnu.getopt.LongOpt;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.inference.OWLSatisfiabilityChecker;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import uk.ac.manchester.owl.tutorial.io.OWLTutorialSyntaxOntologyFormat;
-import uk.ac.manchester.owl.tutorial.io.OWLTutorialSyntaxOntologyStorer;
+import uk.ac.manchester.cs.owl.inference.dig11.DIGReasoner;
+import uk.ac.manchester.owl.owlapi.tutorial.Debugger;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URL;
 import java.net.URI;
 
 /*
@@ -35,7 +40,18 @@ import java.net.URI;
  */
 
 /**
- * <p>Simple Rendering Example. Reads an ontology and then renders it.</p>
+ * <p>This class demonstrates some aspects of the OWL API. It expects three
+ * arguments:</p>
+ * <ol>
+ * <li>The URI of an ontology</li>
+ * <p/>
+ * <li>The URI of a reasoner</li>
+ * <p/>
+ * <li>A location to place the results.</li>
+ * </ol>
+ * <p>When executed, the class will find all inconsistent classes. For each
+ * inconsistent class, the set of support for the inconsistency will be
+ * determined. A report will then be produced in the output file.</p>
  * <p/>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
@@ -43,77 +59,97 @@ import java.net.URI;
  * Date: 24-April-2007<br>
  * <br>
  */
-public class RenderingExample {
+public class DebuggingExample {
+
+    public static void usage() {
+        System.out
+                .println("Usage: DebuggingExample --input=URL --reasoner=URL --output=filename");
+    }
 
     public static void main(String[] args) {
-        // A simple example of how to load and save an ontology
-        try {
+        /* An example illustrating use of the debugger */
 
-            /* Command line arguments */
+        try {
             LongOpt[] longopts = new LongOpt[11];
             String inputOntology = null;
-            String outputOntology = null;
+            String output = null;
+            String reasoner = null;
 
+            /* Set up options */
             longopts[0] = new LongOpt("help", LongOpt.NO_ARGUMENT, null, '?');
             longopts[1] = new LongOpt("input", LongOpt.REQUIRED_ARGUMENT, null,
                     'i');
             longopts[2] = new LongOpt("output", LongOpt.REQUIRED_ARGUMENT,
                     null, 'o');
+            longopts[3] = new LongOpt("reasoner", LongOpt.REQUIRED_ARGUMENT,
+                    null, 'r');
 
-            Getopt g = new Getopt("", args, "?:i:o", longopts);
+            Getopt g = new Getopt("", args, "?:i:o:r", longopts);
             int c;
 
             while ((c = g.getopt()) != -1) {
                 switch (c) {
                     case '?':
-                        System.out.println("RenderingExample --input=URL --output=URL");
+                        usage();
+                        System.out.println("Usage Message!");
                         System.exit(0);
                     case 'i':
                         /* input */
                         inputOntology = g.getOptarg();
                         break;
                     case 'o':
-                        /* input */
-                        outputOntology = g.getOptarg();
+                        /* output */
+                        output = g.getOptarg();
+                        break;
+                    case 'r':
+                        /* reasoner */
+                        reasoner = g.getOptarg();
                         break;
                 }
             }
 
-            /* Get an Ontology Manager */
+            /* Get an OWLManager */
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-            if (inputOntology == null || outputOntology == null) {
-                System.out.println("RenderingExample --input=URL --output=URL");
-
+            if (inputOntology == null || output == null || reasoner == null) {
+                usage();
                 System.exit(1);
             }
 
+            /* We load an ontology from a physical IRI */
+
             URI physicalURI = URI.create(inputOntology);
-            URI outputURI = URI.create(outputOntology);
 
-            /* Load an ontology from a physical URI */
-
+            System.out.println("Loading: " + physicalURI);
             OWLOntology ontology = manager
                     .loadOntologyFromPhysicalURI(physicalURI);
-            /* Report information about the ontology */
             System.out.println("Ontology Loaded...");
-            System.out.println("Physical URI: " + physicalURI);
-            System.out.println("Logical URI : " + ontology.getOntologyID());
+            System.out.println("Logical URI : " + physicalURI);
+            System.out.println("Physical URI: " + ontology.getOntologyID().getOntologyIRI());
             System.out.println("Format      : "
                     + manager.getOntologyFormat(ontology));
 
-            /* Register the ontology storer with the manager */
-            manager.addOntologyStorer(new OWLTutorialSyntaxOntologyStorer());
+            /* Create a satisfiability checker */
+            OWLSatisfiabilityChecker checker = new DIGReasoner(manager);
+            URL rURL = new URL(reasoner);
+            ((DIGReasoner) checker).getReasoner().setReasonerURL(rURL);
 
-            /* Save using a different format */
+            System.out.println("Debugging...");
 
-            System.out.println("Storing     : " + outputURI);
-            manager.saveOntology(ontology,
-                    new OWLTutorialSyntaxOntologyFormat(), outputURI);
+            /* Create a debugger */
+            Debugger debugger = new Debugger(manager, ontology, checker);
+
+            PrintWriter pw = new PrintWriter(new FileWriter(output));
+
+            /* Report about debugging */
+            debugger.report(pw);
+            pw.close();
+
             /* Remove the ontology from the manager */
             manager.removeOntology(ontology);
             System.out.println("Done");
-
         } catch (OWLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

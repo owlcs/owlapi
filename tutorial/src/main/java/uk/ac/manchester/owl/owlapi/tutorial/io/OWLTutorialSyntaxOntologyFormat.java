@@ -1,12 +1,6 @@
-package uk.ac.manchester.owl.tutorial.io;
+package uk.ac.manchester.owl.owlapi.tutorial.io;
 
-import org.semanticweb.owlapi.io.AbstractOWLRenderer;
-import org.semanticweb.owlapi.io.OWLRendererIOException;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-import java.io.IOException;
-import java.io.Writer;
+import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -38,22 +32,10 @@ import java.io.Writer;
  * Date: 24-April-2007<br>
  * <br>
  */
-public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
-
-    public OWLTutorialSyntaxRenderer(OWLOntologyManager manager) {
-        super(manager);
-    }
+public class OWLTutorialSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
 
     @Override
-    public void render(OWLOntology ontology, Writer writer)
-            throws OWLRendererIOException {
-        try {
-            OWLTutorialSyntaxObjectRenderer ren = new OWLTutorialSyntaxObjectRenderer(
-                    ontology, writer);
-            ontology.accept(ren);
-            writer.flush();
-        } catch (IOException ex) {
-            throw new OWLRendererIOException(ex);
-        }
+    public String toString() {
+        return "OWL Tutorial Syntax";
     }
 }

@@ -1,4 +1,4 @@
-package uk.ac.manchester.owl.tutorial;
+package uk.ac.manchester.owl.owlapi.tutorial;
 
 import org.semanticweb.owlapi.model.*;
 

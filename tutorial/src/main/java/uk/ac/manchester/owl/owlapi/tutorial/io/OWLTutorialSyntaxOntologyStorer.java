@@ -1,4 +1,4 @@
-package uk.ac.manchester.owl.tutorial.io;
+package uk.ac.manchester.owl.owlapi.tutorial.io;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;

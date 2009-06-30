@@ -1,14 +1,15 @@
-package uk.ac.manchester.owl.tutorial;
+package uk.ac.manchester.owl.owlapi.tutorial.io;
 
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
+import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRendererIOException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.IOException;
+import java.io.Writer;
 
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2006, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -31,35 +32,28 @@ import java.util.Set;
  */
 
 /**
- * <p>A visitor that simply collects any subclass axioms that have the given class
- * as the subclass.</p>
- * <p/>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
  * Date: 24-April-2007<br>
  * <br>
  */
-public class SubClassCollector extends OWLAxiomVisitorAdapter {
-    /* Collected axioms */
-    private Set<OWLSubClassOfAxiom> axioms;
+public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
 
-    /* Class to look for */
-    private OWLClass clazz;
-
-    public SubClassCollector(OWLClass clazz) {
-        axioms = new HashSet<OWLSubClassOfAxiom>();
-        this.clazz = clazz;
+    public OWLTutorialSyntaxRenderer(OWLOntologyManager manager) {
+        super(manager);
     }
 
     @Override
-    public void visit(OWLSubClassOfAxiom axiom) {
-        if (axiom.getSubClass().equals(clazz)) {
-            axioms.add(axiom);
+    public void render(OWLOntology ontology, Writer writer)
+            throws OWLRendererIOException {
+        try {
+            OWLTutorialSyntaxObjectRenderer ren = new OWLTutorialSyntaxObjectRenderer(
+                    ontology, writer);
+            ontology.accept(ren);
+            writer.flush();
+        } catch (IOException ex) {
+            throw new OWLRendererIOException(ex);
         }
-    }
-
-    public Set<OWLSubClassOfAxiom> getAxioms() {
-        return axioms;
     }
 }

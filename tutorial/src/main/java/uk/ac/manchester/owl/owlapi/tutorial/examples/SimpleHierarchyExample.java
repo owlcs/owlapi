@@ -1,4 +1,4 @@
-package uk.ac.manchester.owl.tutorial.examples;
+package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
 import java.io.PrintStream;
 import java.net.MalformedURLException;
@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.util.ToldClassHierarchyReasoner;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import uk.ac.manchester.cs.owl.inference.dig11.DIGReasoner;
-import uk.ac.manchester.owl.tutorial.LabelExtractor;
+import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
 
 import gnu.getopt.LongOpt;
 import gnu.getopt.Getopt;

@@ -1,9 +1,14 @@
-package uk.ac.manchester.owl.tutorial.io;
+package uk.ac.manchester.owl.owlapi.tutorial;
 
-import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2007, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -26,16 +31,35 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  */
 
 /**
+ * <p>A visitor that simply collects any subclass axioms that have the given class
+ * as the subclass.</p>
+ * <p/>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
  * Date: 24-April-2007<br>
  * <br>
  */
-public class OWLTutorialSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
+public class SubClassCollector extends OWLAxiomVisitorAdapter {
+    /* Collected axioms */
+    private Set<OWLSubClassOfAxiom> axioms;
+
+    /* Class to look for */
+    private OWLClass clazz;
+
+    public SubClassCollector(OWLClass clazz) {
+        axioms = new HashSet<OWLSubClassOfAxiom>();
+        this.clazz = clazz;
+    }
 
     @Override
-    public String toString() {
-        return "OWL Tutorial Syntax";
+    public void visit(OWLSubClassOfAxiom axiom) {
+        if (axiom.getSubClass().equals(clazz)) {
+            axioms.add(axiom);
+        }
+    }
+
+    public Set<OWLSubClassOfAxiom> getAxioms() {
+        return axioms;
     }
 }
