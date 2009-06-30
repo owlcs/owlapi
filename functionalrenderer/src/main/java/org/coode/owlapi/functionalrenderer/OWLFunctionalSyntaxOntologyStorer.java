@@ -1,4 +1,4 @@
-package org.coode.owl.functionalrenderer;
+package org.coode.owlapi.functionalrenderer;
 
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;

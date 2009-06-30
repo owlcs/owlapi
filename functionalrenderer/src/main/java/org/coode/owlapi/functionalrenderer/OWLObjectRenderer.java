@@ -1,4 +1,4 @@
-package org.coode.owl.functionalrenderer;
+package org.coode.owlapi.functionalrenderer;
 
 import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.model.*;

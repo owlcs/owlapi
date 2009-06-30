@@ -1,4 +1,4 @@
-package org.coode.owl.functionalrenderer;
+package org.coode.owlapi.functionalrenderer;
 
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;

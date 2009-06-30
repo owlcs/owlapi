@@ -28,7 +28,7 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxParserFactory;
 import org.coode.owlapi.obo.parser.OBOParserFactory;
 import org.coode.obo.renderer.OBOFlatFileOntologyStorer;
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParserFactory;
-import org.coode.owl.functionalrenderer.OWLFunctionalSyntaxOntologyStorer;
+import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxOntologyStorer;
 import org.coode.owl.latex.LatexOntologyStorer;
 import org.coode.owl.owlxmlparser.OWLXMLParserFactory;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
