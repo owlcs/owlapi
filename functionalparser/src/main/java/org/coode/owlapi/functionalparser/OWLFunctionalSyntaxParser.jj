@@ -6,7 +6,7 @@ options {
 
 PARSER_BEGIN(OWLFunctionalSyntaxParser)
 
-package org.coode.owl.functionalparser;
+package org.coode.owlapi.functionalparser;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.*;

@@ -1,4 +1,4 @@
-package org.coode.owl.functionalparser;
+package org.coode.owlapi.functionalparser;
 
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyInputSource;

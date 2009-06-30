@@ -1,10 +1,8 @@
-package org.coode.owl.functionalparser;
+package org.coode.owlapi.functionalparser;
 
-import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.OWLParserFactory;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2007, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -31,11 +29,12 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Nov-2006<br><br>
+ * Date: 13-Apr-2007<br><br>
  */
-public class OWLFunctionalSyntaxParserFactory implements OWLParserFactory {
+public class OWLFunctionalSyntaxParserException extends OWLParserException {
 
-    public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
-        return new OWLFunctionalSyntaxOWLParser();
+    public OWLFunctionalSyntaxParserException(ParseException cause) {
+        super(cause);
+        setLineNumber(cause.currentToken.beginLine);
     }
 }
