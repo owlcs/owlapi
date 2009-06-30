@@ -1,4 +1,4 @@
-package org.coode.owl.latex;
+package org.coode.owlapi.latex;
 
 import java.io.PrintWriter;
 import java.io.Writer;

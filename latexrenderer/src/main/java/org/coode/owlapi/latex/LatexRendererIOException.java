@@ -1,8 +1,8 @@
-package org.coode.owl.latex;
+package org.coode.owlapi.latex;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import java.io.IOException;
 /*
- * Copyright (C) 2008, University of Manchester
+ * Copyright (C) 2007, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -26,17 +26,14 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 
 /**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 03-Aug-2008<br><br>
+ * Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 15-Jun-2007<br><br>
  */
-public class LatexAxiomsListOntologyFormat extends OWLOntologyFormat {
+public class LatexRendererIOException extends LatexRendererException {
 
-
-    public LatexAxiomsListOntologyFormat() {
-    }
-
-
-    public String toString() {
-        return "Latex Axiom List";
+    public LatexRendererIOException(IOException cause) {
+        super(cause);
     }
 }

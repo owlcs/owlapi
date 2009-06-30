@@ -1,6 +1,11 @@
-package org.coode.owl.latex;
+package org.coode.owlapi.latex;
 
-import java.io.IOException;
+import org.semanticweb.owlapi.io.OWLObjectRenderer;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.util.ShortFormProvider;
+
+import java.io.StringWriter;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -29,11 +34,31 @@ import java.io.IOException;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Jun-2007<br><br>
+ * Date: 25-Nov-2007<br><br>
  */
-public class LatexRendererIOException extends LatexRendererException {
+public class LatexOWLObjectRenderer implements OWLObjectRenderer {
 
-    public LatexRendererIOException(IOException cause) {
-        super(cause);
+    private OWLDataFactory dataFactory;
+
+    private ShortFormProvider shortFormProvider;
+
+    public LatexOWLObjectRenderer(OWLDataFactory dataFactory) {
+        this.dataFactory = dataFactory;
     }
+
+
+    public String render(OWLObject object) {
+        StringWriter writer = new StringWriter();
+        LatexWriter latexWriter = new LatexWriter(writer);
+        LatexObjectVisitor visitor = new LatexObjectVisitor(latexWriter, dataFactory);
+
+        object.accept(visitor);
+        return writer.getBuffer().toString();
+    }
+
+
+    public void setShortFormProvider(ShortFormProvider shortFormProvider) {
+        this.shortFormProvider = shortFormProvider;
+    }
+
 }

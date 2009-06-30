@@ -1,11 +1,13 @@
-package org.coode.owl.latex;
+package org.coode.owlapi.latex;
 
-import org.semanticweb.owlapi.io.OWLObjectRenderer;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-import java.io.StringWriter;
+import java.io.IOException;
+import java.io.Writer;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -34,31 +36,25 @@ import java.io.StringWriter;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2007<br><br>
+ * Date: 26-Jan-2008<br><br>
  */
-public class LatexOWLObjectRenderer implements OWLObjectRenderer {
+public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
 
-    private OWLDataFactory dataFactory;
 
-    private ShortFormProvider shortFormProvider;
-
-    public LatexOWLObjectRenderer(OWLDataFactory dataFactory) {
-        this.dataFactory = dataFactory;
+    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
+                                                                                                                            OWLOntologyStorageException {
+        try {
+            LatexRenderer ren = new LatexRenderer(manager);
+            ren.render(ontology, writer);
+            writer.flush();
+        }
+        catch (IOException e) {
+            throw new LatexRendererIOException(e);
+        }
     }
 
 
-    public String render(OWLObject object) {
-        StringWriter writer = new StringWriter();
-        LatexWriter latexWriter = new LatexWriter(writer);
-        LatexObjectVisitor visitor = new LatexObjectVisitor(latexWriter, dataFactory);
-
-        object.accept(visitor);
-        return writer.getBuffer().toString();
+    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+        return ontologyFormat.equals(new LatexOntologyFormat());
     }
-
-
-    public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = shortFormProvider;
-    }
-
 }

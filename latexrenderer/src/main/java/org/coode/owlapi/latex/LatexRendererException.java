@@ -1,4 +1,4 @@
-package org.coode.owl.latex;
+package org.coode.owlapi.latex;
 
 import org.semanticweb.owlapi.io.OWLRendererException;
 /*
