@@ -1,17 +1,15 @@
-package org.coode.obo.renderer.test;
+package org.coode.owlapi.obo.renderer;
 
-import junit.framework.TestCase;
 import org.coode.owlapi.obo.parser.OBOOntologyFormat;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.OWLOntologyInputSource;
-import org.semanticweb.owlapi.io.StreamInputSource;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-import java.io.File;
-import java.io.InputStream;
+import java.io.Writer;
 /*
-* Copyright (C) 2007, University of Manchester
+* Copyright (C) 2008, University of Manchester
 *
 * Modifications to the initial code base are copyright of their
 * respective authors, or their employers as appropriate.  Authorship
@@ -34,28 +32,21 @@ import java.io.InputStream;
 */
 
 /**
- * Author: drummond<br>
- * http://www.cs.man.ac.uk/~drummond/<br><br>
- * <p/>
+ * Author: Nick Drummond<br>
  * The University Of Manchester<br>
  * Bio Health Informatics Group<br>
- * Date: Dec 18, 2008<br><br>
+ * Date: Dec 17, 2008<br><br>
  */
-public class TestOBOFlatFileRenderer extends TestCase {
+public class OBOFlatFileOntologyStorer extends AbstractOWLOntologyStorer {
 
-    public void testSavePizza(){
-        OWLOntologyManager mngr = OWLManager.createOWLOntologyManager();
-        try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream("pizza.owlapi");
-            OWLOntologyInputSource ontInputSource = new StreamInputSource(is);
-            OWLOntology ont = mngr.loadOntology(ontInputSource);
+    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+        return ontologyFormat.equals(new OBOOntologyFormat());
+    }
 
-            mngr.saveOntology(ont, new OBOOntologyFormat(), new File("pizza.obo").toURI());
-            System.out.println("done!");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+
+    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
+            OWLOntologyStorageException {
+        OBOFlatFileRenderer renderer = new OBOFlatFileRenderer(manager);
+        renderer.render(ontology, writer);
     }
 }

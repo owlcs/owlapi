@@ -1,4 +1,4 @@
-package org.coode.obo.renderer;
+package org.coode.owlapi.obo.renderer;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;

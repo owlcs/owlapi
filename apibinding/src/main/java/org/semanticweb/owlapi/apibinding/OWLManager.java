@@ -26,7 +26,7 @@ import de.uulm.ecs.ai.owl.krssparser.KRSS2OWLParserFactory;
 import de.uulm.ecs.ai.owl.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxParserFactory;
 import org.coode.owlapi.obo.parser.OBOParserFactory;
-import org.coode.obo.renderer.OBOFlatFileOntologyStorer;
+import org.coode.owlapi.obo.renderer.OBOFlatFileOntologyStorer;
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParserFactory;
 import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxOntologyStorer;
 import org.coode.owlapi.latex.LatexOntologyStorer;

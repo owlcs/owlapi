@@ -1,11 +1,8 @@
-package org.coode.obo.renderer;
-
-import org.semanticweb.owlapi.io.OWLRendererException;
+package org.coode.owlapi.obo.renderer;
 
 import java.util.List;
-import java.util.ArrayList;
 /*
-* Copyright (C) 2007, University of Manchester
+* Copyright (C) 2008, University of Manchester
 *
 * Modifications to the initial code base are copyright of their
 * respective authors, or their employers as appropriate.  Authorship
@@ -28,35 +25,15 @@ import java.util.ArrayList;
 */
 
 /**
- * Author: drummond<br>
- * http://www.cs.man.ac.uk/~drummond/<br><br>
- * <p/>
+ * Author: Nick Drummond<br>
  * The University Of Manchester<br>
  * Bio Health Informatics Group<br>
- * Date: Apr 9, 2009<br><br>
+ * Date: Dec 19, 2008<br><br>
  */
-public class OBOStorageIncompleteException extends OWLRendererException {
+public interface OBOExceptionHandler {
 
-    private List<OBOStorageException> exceptions;
+    public void addException(OBOStorageException exception);
 
+    public List<OBOStorageException> getExceptions();
 
-    public OBOStorageIncompleteException(List<OBOStorageException> exceptions) {
-        super("Warning: OBO storage incomplete (" + exceptions.size() + " errors)");
-        this.exceptions = exceptions;
-    }
-
-
-    public String getMessage() {
-        StringBuilder sb = new StringBuilder(super.getMessage());
-            for (OBOStorageException e : exceptions){
-                sb.append("\n");
-                sb.append(e.getMessage());
-            }
-        return sb.toString();
-    }
-
-
-    public List<OBOStorageException> getCauses(){
-        return new ArrayList<OBOStorageException>(exceptions);
-    }
 }
