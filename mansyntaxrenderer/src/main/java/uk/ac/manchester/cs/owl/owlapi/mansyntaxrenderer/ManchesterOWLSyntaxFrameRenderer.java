@@ -1,4 +1,4 @@
-package uk.ac.manchester.cs.owl.mansyntaxrenderer;
+package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
 import static org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax.*;

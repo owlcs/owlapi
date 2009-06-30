@@ -43,7 +43,7 @@ import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.mansyntaxrenderer.ManchesterOWLSyntaxOntologyStorer;
+import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOntologyStorer;
 import uk.ac.manchester.cs.owl.turtle.parser.TurtleOntologyParserFactory;
 
 /**

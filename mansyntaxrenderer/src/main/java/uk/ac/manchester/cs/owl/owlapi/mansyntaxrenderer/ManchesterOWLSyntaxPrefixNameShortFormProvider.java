@@ -1,4 +1,4 @@
-package uk.ac.manchester.cs.owl.mansyntaxrenderer;
+package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;

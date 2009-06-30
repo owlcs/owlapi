@@ -1,4 +1,4 @@
-package uk.ac.manchester.cs.owl.mansyntaxrenderer;
+package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;

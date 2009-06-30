@@ -1,11 +1,6 @@
-package uk.ac.manchester.cs.owl.mansyntaxrenderer;
+package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
-import org.semanticweb.owlapi.io.AbstractOWLRenderer;
-import org.semanticweb.owlapi.io.OWLRendererException;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-import java.io.Writer;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -34,18 +29,21 @@ import java.io.Writer;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-May-2007<br><br>
+ * Date: 22-May-2007<br><br>
  */
-public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
+public class ManchesterOWLSyntaxOntologyStorerException extends OWLOntologyStorageException {
 
-    public ManchesterOWLSyntaxRenderer(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    public ManchesterOWLSyntaxOntologyStorerException(String message) {
+        super(message);
     }
 
 
-    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
-        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(getOWLOntologyManager(), ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(getOWLOntologyManager(), ontology));
-        ren.writeOntology();
-        ren.flush();
+    public ManchesterOWLSyntaxOntologyStorerException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+
+    public ManchesterOWLSyntaxOntologyStorerException(Throwable cause) {
+        super(cause);
     }
 }
