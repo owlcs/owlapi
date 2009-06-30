@@ -53,7 +53,7 @@ public class NamespaceUtil {
         standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE, "dc");
         standardNamespacePrefixMappings.put(Namespaces.SKOS.toString(), "skos");
         namespace2PrefixMap = new HashMap<String, String>();
-        namespace2PrefixMap.put(Namespaces.OWL.toString(), "owlapi");
+        namespace2PrefixMap.put(Namespaces.OWL.toString(), "owl");
         namespace2PrefixMap.put(Namespaces.RDFS.toString(), "rdfs");
         namespace2PrefixMap.put(Namespaces.RDF.toString(), "rdf");
         namespace2PrefixMap.put(Namespaces.XSD.toString(), "xsd");

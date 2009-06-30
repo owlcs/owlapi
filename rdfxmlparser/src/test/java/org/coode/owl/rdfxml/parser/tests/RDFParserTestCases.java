@@ -1,7 +1,7 @@
 package org.coode.owl.rdfxml.parser.tests;
 
 import junit.framework.TestCase;
-import org.coode.owl.rdfxml.parser.RDFXMLParserFactory;
+import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;

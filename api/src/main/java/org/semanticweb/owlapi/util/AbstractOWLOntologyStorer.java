@@ -48,7 +48,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             }
 
 
-            File tempFile = File.createTempFile("owlapi", ".owlapi");
+            File tempFile = File.createTempFile("owlapi", ".owl");
             try {
                 BufferedWriter tempWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempFile), "UTF-8"));
                 storeOntology(manager, ontology, tempWriter, ontologyFormat);

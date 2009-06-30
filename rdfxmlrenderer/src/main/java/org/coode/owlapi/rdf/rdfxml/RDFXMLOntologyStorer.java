@@ -1,15 +1,14 @@
-package org.coode.owl.rdfxml.parser.tests;
+package org.coode.owlapi.rdf.rdfxml;
 
-import junit.framework.TestCase;
-import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
-import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
-import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-import java.net.URI;
+import java.io.Writer;
+import java.io.IOException;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -38,29 +37,26 @@ import java.net.URI;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 03-Aug-2007<br><br>
+ * Date: 03-Jan-2007<br><br>
  */
-public class SWRLTestCase extends TestCase {
+public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
 
-    private OWLOntologyManager man;
-
-
-    protected void setUp() throws Exception {
-        super.setUp();
-        // Use the reference implementation
-        man = new OWLOntologyManagerImpl();
-        OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
-        ParsableOWLOntologyFactory factory = new ParsableOWLOntologyFactory();
-        man.addOntologyFactory(factory);
-
+    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+        if(ontologyFormat instanceof RDFXMLOntologyFormat) {
+            return true;
+        }
+        return false;
     }
 
-    public void testSWRLParser() throws Exception {
-        URI uri = getClass().getResource("/owlapi/SWRLTest.owlapi").toURI();
-        OWLOntology ont = man.loadOntologyFromPhysicalURI(uri);
-        for(OWLIndividual i : ont.getReferencedIndividuals()) {
-            System.out.println(i);
+
+    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
+                                                                                                                            OWLOntologyStorageException {
+        try {
+            RDFXMLRenderer renderer = new RDFXMLRenderer(manager, ontology, writer, format);
+            renderer.render();
         }
-        assertTrue(ont.getReferencedIndividuals().isEmpty());
+        catch (IOException e) {
+            throw new OWLOntologyStorageException(e);
+        }
     }
 }

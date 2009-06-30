@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl.turtle.parser;
 
-import org.coode.owl.rdfxml.parser.AnonymousNodeChecker;
-import org.coode.owl.rdfxml.parser.OWLRDFConsumer;
+import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
+import org.coode.owlapi.rdfxml.parser.OWLRDFConsumer;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;

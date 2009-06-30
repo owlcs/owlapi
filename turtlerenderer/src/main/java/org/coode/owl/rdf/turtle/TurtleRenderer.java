@@ -1,10 +1,10 @@
 package org.coode.owl.rdf.turtle;
 
-import org.coode.owl.rdf.model.RDFLiteralNode;
-import org.coode.owl.rdf.model.RDFNode;
-import org.coode.owl.rdf.model.RDFResourceNode;
-import org.coode.owl.rdf.model.RDFTriple;
-import org.coode.owl.rdf.renderer.RDFRendererBase;
+import org.coode.owlapi.rdf.model.RDFLiteralNode;
+import org.coode.owlapi.rdf.model.RDFNode;
+import org.coode.owlapi.rdf.model.RDFResourceNode;
+import org.coode.owlapi.rdf.model.RDFTriple;
+import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;

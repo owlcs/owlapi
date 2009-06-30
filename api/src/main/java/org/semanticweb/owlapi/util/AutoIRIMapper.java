@@ -85,7 +85,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         ontologyIRI2PhysicalURIMap = new HashMap<IRI, URI>();
         oboFileMap = new HashMap<String, URI>();
         fileExtensions = new HashSet<String>();
-        fileExtensions.add("owlapi");
+        fileExtensions.add("owl");
         fileExtensions.add("xml");
         fileExtensions.add("rdf");
         fileExtensions.add("omn");
