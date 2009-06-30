@@ -540,6 +540,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(OWLAnonymousIndividual individual) {
         translateAnonymousNode(individual);
+            for(OWLAxiom ax : ontology.getAxioms(individual)) {
+                ax.accept(this);
+            }
     }
 
     public void visit(OWLOntology ontology) {
