@@ -1,8 +1,6 @@
-package uk.ac.manchester.cs.owl.turtle.parser;
+package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
-import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.OWLParserFactory;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -33,12 +31,21 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Bio-Health Informatics Group<br>
  * Date: 24-Feb-2008<br><br>
  */
-public class TurtleOntologyParserFactory implements OWLParserFactory {
+public interface TripleHandler {
 
+    void handlePrefixDirective(String prefixName, String prefix);
 
-    public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
-        TurtleOntologyParser parser = new TurtleOntologyParser();
-        parser.setOWLOntologyManager(owlOntologyManager);
-        return parser;
-    }
+    void handleBaseDirective(String base);
+
+    void handleComment(String comment);
+
+    void handleTriple(URI subject, URI predicate, URI object);
+
+    void handleTriple(URI subject, URI predicate, String object);
+
+    void handleTriple(URI subject, URI predicate, String object, String lang);
+
+    void handleTriple(URI subject, URI predicate, String object, URI datatype);
+
+    void handleEnd();
 }

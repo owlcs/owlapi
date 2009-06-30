@@ -1,4 +1,4 @@
-package uk.ac.manchester.cs.owl.turtle.parser;
+package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.owlapi.rdfxml.parser.OWLRDFConsumer;

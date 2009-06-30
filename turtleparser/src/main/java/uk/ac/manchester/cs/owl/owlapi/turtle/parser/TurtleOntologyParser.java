@@ -1,4 +1,4 @@
-package uk.ac.manchester.cs.owl.turtle.parser;
+package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.coode.owl.rdf.turtle.TurtleOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
