@@ -1,17 +1,18 @@
-package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
+package org.coode.owlapi.owlxmlparser;
 
-import org.coode.owlapi.turtle.TurtleOntologyFormat;
-import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.io.OWLOntologyInputSource;
-import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.io.OWLParserIOException;
+import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
-import java.io.BufferedInputStream;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
+import java.util.Map;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2006, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -38,31 +39,32 @@ import java.io.IOException;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 23-Feb-2008<br><br>
+ * Date: 13-Dec-2006<br><br>
  */
-public class TurtleOntologyParser extends AbstractOWLParser {
+public class OWLXMLParser extends AbstractOWLParser {
+
 
     public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException {
         try {
-            TurtleParser parser;
-            if(inputSource.isReaderAvailable()) {
-                parser = new TurtleParser(inputSource.getReader(), new ConsoleTripleHandler(), inputSource.getPhysicalURI().toString());
+            System.setProperty("entityExpansionLimit", "100000000");
+            OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            factory.setNamespaceAware(true);
+            SAXParser parser = factory.newSAXParser();
+            InputSource isrc = getInputSource(inputSource);
+            OWLXMLParserHandler handler = new OWLXMLParserHandler(getOWLOntologyManager(), ontology);
+            parser.parse(isrc, handler);
+            Map<String, String> prefix2NamespaceMap = handler.getPrefixName2PrefixMap();
+            for(String prefix : prefix2NamespaceMap.keySet()) {
+                format.setPrefix(prefix, prefix2NamespaceMap.get(prefix));
             }
-            else if(inputSource.isInputStreamAvailable()) {
-                parser = new TurtleParser(inputSource.getInputStream(), new ConsoleTripleHandler(), inputSource.getPhysicalURI().toString());
-            }
-            else {
-                parser = new TurtleParser(new BufferedInputStream(inputSource.getPhysicalURI().toURL().openStream()), new ConsoleTripleHandler(), inputSource.getPhysicalURI().toString());
-            }
-
-            OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(getOWLOntologyManager(), ontology, parser);
-            parser.setTripleHandler(consumer);
-            parser.parseDocument();
-            return new TurtleOntologyFormat();
-
+            return format;
         }
-        catch(ParseException e) {
-            throw new TurtleParserException(e);
+        catch (ParserConfigurationException e) {
+            throw new OWLXMLParserConfigurationException(e);
+        }
+        catch (SAXException e) {
+            throw new OWLXMLParserSAXException(-1, e);
         }
         catch (IOException e) {
             throw new OWLParserIOException(e);

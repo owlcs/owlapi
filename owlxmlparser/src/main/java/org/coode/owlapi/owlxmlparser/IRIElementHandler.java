@@ -1,8 +1,8 @@
-package org.coode.owl.rdf.turtle;
+package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.RDFOntologyFormat;
+import org.semanticweb.owlapi.model.IRI;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -24,17 +24,32 @@ import org.semanticweb.owlapi.io.RDFOntologyFormat;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Jan-2008<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 17-May-2009
  */
-public class TurtleOntologyFormat extends RDFOntologyFormat {
+public class IRIElementHandler extends AbstractIRIElementHandler {
+
+    public IRIElementHandler(OWLXMLParserHandler handler) {
+        super(handler);
+    }
+
+    private IRI iri;
+
+    public boolean isTextContentPossible() {
+        return true;
+    }
 
 
-    public String toString() {
-        return "Turtle";
+    public IRI getOWLObject() throws OWLXMLParserException {
+        return iri;
+    }
+
+    public void endElement() throws OWLXMLParserException {
+        String iriText = getText().trim();
+        iri = getIRI(iriText);
+        getParentHandler().handleChild(this);
     }
 }

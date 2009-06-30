@@ -1,13 +1,4 @@
-package org.coode.owl.rdf.turtle;
-
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
-
-import java.io.Writer;
-import java.io.IOException;
+package org.coode.owlapi.owlxmlparser;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -36,24 +27,20 @@ import java.io.IOException;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Jan-2008<br><br>
+ * Date: 13-Apr-2007<br><br>
  */
-public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
+public class OWLXMLParserUnexpectedElementException extends OWLXMLParserException {
 
+    private String name;
 
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
-                                                                                                                            OWLOntologyStorageException {
-        try {
-            TurtleRenderer ren = new TurtleRenderer(ontology, manager, writer);
-            ren.render();
-        }
-        catch (IOException e) {
-            throw new OWLOntologyStorageException(e);
-        }
+    public OWLXMLParserUnexpectedElementException(int lineNumber, String name) {
+        super(lineNumber, "Unexpected element: " + name);
+        setLineNumber(lineNumber);
+        this.name = name;
     }
 
 
-    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return ontologyFormat.equals(new TurtleOntologyFormat());
+    public String getName() {
+        return name;
     }
 }

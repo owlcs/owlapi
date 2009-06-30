@@ -1,4 +1,4 @@
-package org.coode.owl.rdf.turtle;
+package org.coode.owlapi.turtle;
 
 import org.coode.owlapi.rdf.model.RDFLiteralNode;
 import org.coode.owlapi.rdf.model.RDFNode;

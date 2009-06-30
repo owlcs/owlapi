@@ -30,9 +30,9 @@ import org.coode.owlapi.obo.renderer.OBOFlatFileOntologyStorer;
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParserFactory;
 import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxOntologyStorer;
 import org.coode.owlapi.latex.LatexOntologyStorer;
-import org.coode.owl.owlxmlparser.OWLXMLParserFactory;
+import org.coode.owlapi.owlxmlparser.OWLXMLParserFactory;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
-import org.coode.owl.rdf.turtle.TurtleOntologyStorer;
+import org.coode.owlapi.turtle.TurtleOntologyStorer;
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
 import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
@@ -44,7 +44,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOntologyStorer;
-import uk.ac.manchester.cs.owl.turtle.parser.TurtleOntologyParserFactory;
+import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleOntologyParserFactory;
 
 /**
  * Author: Matthew Horridge<br>
