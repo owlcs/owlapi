@@ -78,7 +78,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
-            if (!(obj instanceof OWLIndividual)) {
+            if (!(obj instanceof OWLNamedIndividual)) {
                 return false;
             }
             URI otherURI = ((OWLNamedIndividual) obj).getURI();
