@@ -113,6 +113,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         for (OWLObjectProperty prop : ontology.getReferencedObjectProperties()) {
             write(prop);
+            OWLObjectPropertyExpression invProp = prop.getInverseProperty();
+            if(!ontology.getAxioms(invProp).isEmpty()) {
+                write(invProp);
+            }
         }
         for (OWLDataProperty prop : ontology.getReferencedDataProperties()) {
             write(prop);
@@ -142,6 +146,12 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         for (OWLDisjointDataPropertiesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_DATA_PROPERTIES)) {
             if (ax.getProperties().size() > 2) {
                 writeSection(DISJOINT_DATA_PROPERTIES, ax.getProperties(), ",", false);
+            }
+        }
+        // Nary different individuals
+        for (OWLDifferentIndividualsAxiom ax : ontology.getAxioms(AxiomType.DIFFERENT_INDIVIDUALS)) {
+            if (ax.getIndividuals().size() > 2) {
+                writeSection(DIFFERENT_INDIVIDUALS, ax.getIndividuals(), ",", false);
             }
         }
         flush();
@@ -374,7 +384,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
 
-    public Set<OWLAxiom> write(OWLObjectProperty property) {
+    public Set<OWLAxiom> write(OWLObjectPropertyExpression property) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(OBJECT_PROPERTY, property));
         if (!isFiltered(AxiomType.SUB_OBJECT_PROPERTY)) {
@@ -782,7 +792,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             for (OWLOntology ontology : getOntologies()) {
                 Set<OWLIndividual> inds = new TreeSet<OWLIndividual>();
                 for(OWLDifferentIndividualsAxiom ax : ontology.getDifferentIndividualAxioms(individual)) {
-                    if(isDisplayed(ax)) {
+                    if(ax.getIndividuals().size() == 2 && isDisplayed(ax)) {
                         inds.addAll(ax.getIndividuals());
                         axioms.add(ax);
                     }

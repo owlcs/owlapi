@@ -202,14 +202,16 @@ public abstract class RDFRendererBase {
             boolean anonRoot = true;
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
             for(OWLAxiom ax : ontology.getReferencingAxioms(anonInd)) {
-                AxiomSubjectProvider subjectProvider = new AxiomSubjectProvider();
-                OWLObject obj = subjectProvider.getSubject(ax);
-                if(!obj.equals(anonInd)) {
-                    anonRoot = false;
-                    break;
-                }
-                else {
-                    axioms.add(ax);
+                if (!(ax instanceof OWLDifferentIndividualsAxiom)) {
+                    AxiomSubjectProvider subjectProvider = new AxiomSubjectProvider();
+                    OWLObject obj = subjectProvider.getSubject(ax);
+                    if(!obj.equals(anonInd)) {
+                        anonRoot = false;
+                        break;
+                    }
+                    else {
+                        axioms.add(ax);
+                    }
                 }
             }
             if(anonRoot) {

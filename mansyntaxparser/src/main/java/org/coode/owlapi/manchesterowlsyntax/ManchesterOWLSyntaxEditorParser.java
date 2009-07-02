@@ -1803,10 +1803,11 @@ public class ManchesterOWLSyntaxEditorParser {
                 consumeToken();
                 Set<OWLOntology> onts = getOntologies();
                 Set<OWLIndividual> inds = parseIndividualList();
-                inds.add(ind);
-                OWLAxiom ax = dataFactory.getOWLDifferentIndividualsAxiom(inds);
                 for (OWLOntology ont : onts) {
-                    axioms.add(new OntologyAxiomPair(ont, ax));
+                    for(OWLIndividual i : inds) {
+                        OWLAxiom ax = dataFactory.getOWLDifferentIndividualsAxiom(ind, i);
+                        axioms.add(new OntologyAxiomPair(ont, ax));
+                    }
                 }
             }
             else if (sect.equalsIgnoreCase(ANNOTATIONS)) {

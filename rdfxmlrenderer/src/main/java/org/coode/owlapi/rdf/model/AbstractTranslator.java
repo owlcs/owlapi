@@ -123,6 +123,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getURI(), OWL_CLASS.getURI());
         addListTriples(desc, OWL_ONE_OF.getURI(), desc.getIndividuals());
+        processIfAnonymous(desc.getIndividuals(), null);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -176,6 +177,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     public void visit(OWLObjectHasValue desc) {
         addRestrictionCommonTriples(desc);
         addTriple(desc, OWL_HAS_VALUE.getURI(), desc.getValue());
+        processIfAnonymous(desc.getValue(), null);
     }
 
     public void visit(OWLObjectHasSelf desc) {
@@ -415,6 +417,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(OWLSameIndividualAxiom axiom) {
         addPairwise(axiom, axiom.getIndividuals(), OWL_SAME_AS.getURI());
+        processIfAnonymous(axiom.getIndividuals(), axiom);
     }
 
 
@@ -422,18 +425,22 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         translateAnonymousNode(axiom);
         addTriple(axiom, RDF_TYPE.getURI(), OWL_ALL_DIFFERENT.getURI());
         addListTriples(axiom, OWL_DISTINCT_MEMBERS.getURI(), axiom.getIndividuals());
+        processIfAnonymous(axiom.getIndividuals(), axiom);
     }
 
 
     public void visit(OWLClassAssertionAxiom axiom) {
         axiom.getIndividual().accept(this);
         addSingleTripleAxiom(axiom, axiom.getIndividual(), RDF_TYPE.getURI(), axiom.getClassExpression());
+        processIfAnonymous(axiom.getIndividual(), axiom);
     }
 
 
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         OWLObjectPropertyAssertionAxiom simplified = axiom.getSimplified();
         addSingleTripleAxiom(simplified, simplified.getSubject(), simplified.getProperty(), simplified.getObject());
+        processIfAnonymous(simplified.getObject(), axiom);
+        processIfAnonymous(simplified.getSubject(), axiom);
     }
 
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
@@ -443,6 +450,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         addTriple(axiom, OWL_ASSERTION_PROPERTY.getURI(), axiom.getProperty());
         addTriple(axiom, OWL_TARGET_INDIVIDUAL.getURI(), axiom.getObject());
         translateAnnotations(axiom);
+        processIfAnonymous(axiom.getSubject(), axiom);
+        processIfAnonymous(axiom.getObject(), axiom);
     }
 
 
@@ -457,7 +466,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         addTriple(axiom, OWL_SOURCE_INDIVIDUAL.getURI(), axiom.getSubject());
         addTriple(axiom, OWL_ASSERTION_PROPERTY.getURI(), axiom.getProperty());
         addTriple(axiom, OWL_TARGET_VALUE.getURI(), axiom.getObject());
-
+        processIfAnonymous(axiom.getSubject(), axiom);
     }
 
 
@@ -549,13 +558,13 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(OWLAnonymousIndividual individual) {
         translateAnonymousNode(individual);
-        if(!processing.contains(individual)) {
-            processing.add(individual);
-            for (OWLAxiom ax : ontology.getAxioms(individual)) {
-                ax.accept(this);
-            }
-            processing.remove(individual);
-        }
+//        if(!processing.contains(individual)) {
+//            processing.add(individual);
+//            for (OWLAxiom ax : ontology.getAxioms(individual)) {
+//                ax.accept(this);
+//            }
+//            processing.remove(individual);
+//        }
 
     }
 
@@ -911,6 +920,22 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     private OWLTypedLiteral toTypedConstant(int i) {
         return manager.getOWLDataFactory().getOWLTypedLiteral(Integer.toString(i), manager.getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getURI()));
+    }
+
+    private void processIfAnonymous(Set<OWLIndividual> inds, OWLAxiom root) {
+        for(OWLIndividual ind : inds) {
+            processIfAnonymous(ind, root);
+        }
+    }
+
+    private void processIfAnonymous(OWLIndividual ind, OWLAxiom root) {
+        if(ind.isAnonymous()) {
+            for(OWLAxiom ax : ontology.getAxioms(ind)) {
+                if (root == null || !root.equals(ax)) {
+                    ax.accept(this);
+                }
+            }
+        }
     }
 
     private boolean isAnonymous(OWLObject object) {

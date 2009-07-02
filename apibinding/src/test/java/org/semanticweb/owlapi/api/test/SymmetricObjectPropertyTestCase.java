@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -32,17 +31,13 @@ import java.util.HashSet;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 09-Jun-2009
+ * Date: 02-Jul-2009
  */
-public class EquivalentObjectPropertiesTestCase extends AbstractAxiomsRoundTrippingTestCase {
+public class SymmetricObjectPropertyTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLObjectProperty propA = getOWLObjectProperty("propA");
-        OWLObjectProperty propB = getOWLObjectProperty("propB");
-        axioms.add(getFactory().getOWLEquivalentObjectPropertiesAxiom(propA, propB));
-        axioms.add(getFactory().getOWLDeclarationAxiom(propA));
-        axioms.add(getFactory().getOWLDeclarationAxiom(propB));
+        axioms.add(getFactory().getOWLSymmetricObjectPropertyAxiom(getOWLObjectProperty("p")));
         return axioms;
     }
 }

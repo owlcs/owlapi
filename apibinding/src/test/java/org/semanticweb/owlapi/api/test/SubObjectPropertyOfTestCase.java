@@ -32,17 +32,15 @@ import java.util.HashSet;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 09-Jun-2009
+ * Date: 02-Jul-2009
  */
-public class EquivalentObjectPropertiesTestCase extends AbstractAxiomsRoundTrippingTestCase {
+public class SubObjectPropertyOfTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLObjectProperty propA = getOWLObjectProperty("propA");
-        OWLObjectProperty propB = getOWLObjectProperty("propB");
-        axioms.add(getFactory().getOWLEquivalentObjectPropertiesAxiom(propA, propB));
-        axioms.add(getFactory().getOWLDeclarationAxiom(propA));
-        axioms.add(getFactory().getOWLDeclarationAxiom(propB));
+        OWLObjectProperty propA = getOWLObjectProperty("p");
+        OWLObjectProperty propB = getOWLObjectProperty("q");
+        axioms.add(getFactory().getOWLSubObjectPropertyOfAxiom(propA, propB));
         return axioms;
     }
 }
