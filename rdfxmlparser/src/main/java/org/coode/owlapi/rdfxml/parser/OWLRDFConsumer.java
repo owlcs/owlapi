@@ -173,6 +173,8 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private Set<OWLAnnotation> pendingAnnotations = new HashSet<OWLAnnotation>();
 
+    private Map<URI, Set<URI>> annotatedAnonSource2AnnotationMap = new HashMap<URI, Set<URI>>();
+
     /**
      * The ontology that the RDF will be parsed into
      */
@@ -555,6 +557,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addPredicateHandler(new TPHasKeyHandler(this));
         addPredicateHandler(new TPVersionIRIHandler(this));
         addPredicateHandler(new TPPropertyChainAxiomHandler(this));
+        addPredicateHandler(new TPAnnotatedSourceHandler(this));
 
         addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.BROADER));
         addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.NARROWER));
@@ -754,7 +757,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     protected boolean isObjectPropertyOnly(URI uri) {
-        if(uri == null) {
+        if (uri == null) {
             return false;
         }
         if (dataPropertyURIs.contains(uri)) {
@@ -845,6 +848,36 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     public OWLOntologyManager getOWLOntologyManager() {
         return owlOntologyManager;
+    }
+
+    /**
+     * Records an annotation of an anonymous node (either an annotation of an annotation, or an annotation
+     * of an axiom for example)
+     * @param annotatedAnonSource The source that the annotation annotates
+     * @param annotationMainNode  The annotations
+     */
+    public void addAnnotatedSource(URI annotatedAnonSource, URI annotationMainNode) {
+        Set<URI> annotationMainNodes = annotatedAnonSource2AnnotationMap.get(annotatedAnonSource);
+        if (annotationMainNodes == null) {
+            annotationMainNodes = new HashSet<URI>();
+            annotatedAnonSource2AnnotationMap.put(annotatedAnonSource, annotationMainNodes);
+        }
+        annotationMainNodes.add(annotationMainNode);
+    }
+
+    /**
+     * Gets the main nodes of annotations that annotated the specified source
+     * @param source The source (axiom or annotation main node)
+     * @return The set of main nodes that annotate the specified source
+     */
+    public Set<URI> getAnnotatedSourceAnnotationMainNodes(URI source) {
+        Set<URI> mainNodes = annotatedAnonSource2AnnotationMap.get(source);
+        if (mainNodes != null) {
+            return mainNodes;
+        }
+        else {
+            return Collections.emptySet();
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1156,9 +1189,6 @@ public class OWLRDFConsumer implements RDFConsumer {
             translator.translateRule(ruleURI);
         }
 
-        // Now deal with annotationURIs - what a bloody pain
-
-        translateAnnotations();
 
         // We need to mop up all remaining triples.  These triples will be in the
         // triples by subject map.  Other triples which reside in the triples by
@@ -1230,18 +1260,6 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    private void translateAnnotations() {
-        // Construct an ordering on annotations
-
-        for (URI annotationURI : annotationURIs) {
-            translateAnnotation(annotationURI);
-        }
-        for (OWLAnnotation annos : annotationURI2Annotation.values()) {
-            System.out.println(annos);
-        }
-    }
-
-
     private Set<URI> getAnnotationsForSubject(URI subject) {
         Set<URI> result = new HashSet<URI>();
         for (URI annoURI : annotationURIs) {
@@ -1253,39 +1271,39 @@ public class OWLRDFConsumer implements RDFConsumer {
         return result;
     }
 
-    private OWLAnnotation translateAnnotation(URI node) {
-        OWLAnnotation anno = annotationURI2Annotation.get(node);
-        if (anno != null) {
-            return anno;
-        }
-        URI subject = getResourceObject(node, OWL_SUBJECT.getURI(), true);
-        URI predicate = getResourceObject(node, OWL_PREDICATE.getURI(), true);
-        Object object = getResourceObject(node, OWL_OBJECT.getURI(), true);
-        if (object == null) {
-            object = getLiteralObject(node, OWL_OBJECT.getURI(), true);
-        }
-        getResourceObject(node, predicate, true);
-        // We now have to get any annotations on this annotation
-        Set<OWLAnnotation> translatedAnnotations = new HashSet<OWLAnnotation>();
-        for (URI annotationURI : getAnnotationsForSubject(node)) {
-            OWLAnnotation annotation = translateAnnotation(annotationURI);
-            translatedAnnotations.add(annotation);
-        }
-
-
-        if (object == null) {
-            System.out.println("NULL");
-            return null;
-        }
-        else {
-            OWLAnnotationValue value = translateAnnotationValue(object);
-            OWLAnnotation annotation = getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), value, translatedAnnotations);
-            System.out.println("Translated annotation: " + annotation);
-            return annotation;
-        }
-
-
-    }
+//    private OWLAnnotation translateAnnotation(URI node) {
+//        OWLAnnotation anno = annotationURI2Annotation.get(node);
+//        if (anno != null) {
+//            return anno;
+//        }
+//        URI subject = getResourceObject(node, OWL_SUBJECT.getURI(), true);
+//        URI predicate = getResourceObject(node, OWL_PREDICATE.getURI(), true);
+//        Object object = getResourceObject(node, OWL_OBJECT.getURI(), true);
+//        if (object == null) {
+//            object = getLiteralObject(node, OWL_OBJECT.getURI(), true);
+//        }
+//        getResourceObject(node, predicate, true);
+//        // We now have to get any annotations on this annotation
+//        Set<OWLAnnotation> translatedAnnotations = new HashSet<OWLAnnotation>();
+//        for (URI annotationURI : getAnnotationsForSubject(node)) {
+//            OWLAnnotation annotation = translateAnnotation(annotationURI);
+//            translatedAnnotations.add(annotation);
+//        }
+//
+//
+//        if (object == null) {
+//            System.out.println("NULL");
+//            return null;
+//        }
+//        else {
+//            OWLAnnotationValue value = translateAnnotationValue(object);
+//            OWLAnnotation annotation = getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), value, translatedAnnotations);
+//            System.out.println("Translated annotation: " + annotation);
+//            return annotation;
+//        }
+//
+//
+//    }
 
 
     private OWLAnnotationValue translateAnnotationValue(Object object) {
@@ -1602,33 +1620,50 @@ public class OWLRDFConsumer implements RDFConsumer {
         return getOWLIndividual(node);
     }
 
-    public Set<OWLAnnotation> translateAnnotations(URI subject) {
-        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
-        Set<URI> predicates = getPredicatesBySubject(subject);
-        for (URI predicate : predicates) {
-//            if(isAnnotationProperty(predicate)) {
-            URI resVal = getResourceObject(subject, predicate, true);
-            while (resVal != null) {
-                OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(predicate);
-                OWLAnnotationValue val;
-                if (isAnonymousNode(resVal)) {
-                    val = getDataFactory().getOWLAnonymousIndividual(resVal.toString());
-                }
-                else {
-                    val = IRI.create(resVal);
-                }
-                annos.add(getDataFactory().getOWLAnnotation(prop, val));
-                resVal = getResourceObject(subject, predicate, true);
+    /**
+     * Translates the annotation on a main node.  Triples whose subject is the specified main node and whose subject
+     * is typed an an annotation property (or is a built in annotation property) will be translated to annotation on
+     * this main node.
+     * @param mainNode The main node
+     * @return The set of annotations on the main node
+     */
+    public Set<OWLAnnotation> translateAnnotations(URI mainNode) {
+        // Are we the subject of an annotation?  If so, we need to ensure that the annotations annotate us.  This
+        // will only happen if we are an annotation!
+        Set<OWLAnnotation> annosOnMainNodeAnnotations = new HashSet<OWLAnnotation>();
+        Set<URI> annotationMainNodes = getAnnotatedSourceAnnotationMainNodes(mainNode);
+        if(!annotationMainNodes.isEmpty()) {
+            for(URI annotationMainNode : annotationMainNodes) {
+                annosOnMainNodeAnnotations.addAll(translateAnnotations(annotationMainNode));
             }
-            OWLLiteral litVal = getLiteralObject(subject, predicate, true);
-            while (litVal != null) {
-                OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(predicate);
-                annos.add(getDataFactory().getOWLAnnotation(prop, litVal));
-                litVal = getLiteralObject(subject, predicate, true);
-            }
-//            }
         }
-        return annos;
+
+        Set<OWLAnnotation> mainNodeAnnotations = new HashSet<OWLAnnotation>();
+        Set<URI> predicates = getPredicatesBySubject(mainNode);
+        for (URI predicate : predicates) {
+            if (isAnnotationProperty(predicate)) {
+                URI resVal = getResourceObject(mainNode, predicate, true);
+                while (resVal != null) {
+                    OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(predicate);
+                    OWLAnnotationValue val;
+                    if (isAnonymousNode(resVal)) {
+                        val = getDataFactory().getOWLAnonymousIndividual(resVal.toString());
+                    }
+                    else {
+                        val = IRI.create(resVal);
+                    }
+                    mainNodeAnnotations.add(getDataFactory().getOWLAnnotation(prop, val, annosOnMainNodeAnnotations));
+                    resVal = getResourceObject(mainNode, predicate, true);
+                }
+                OWLLiteral litVal = getLiteralObject(mainNode, predicate, true);
+                while (litVal != null) {
+                    OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(predicate);
+                    mainNodeAnnotations.add(getDataFactory().getOWLAnnotation(prop, litVal, annosOnMainNodeAnnotations));
+                    litVal = getLiteralObject(mainNode, predicate, true);
+                }
+            }
+        }
+        return mainNodeAnnotations;
     }
 
     private Map<URI, OWLClassExpression> translatedClassExpression = new HashMap<URI, OWLClassExpression>();

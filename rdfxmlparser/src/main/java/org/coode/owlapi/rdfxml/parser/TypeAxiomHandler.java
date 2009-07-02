@@ -82,6 +82,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         consumeTriple(subject, predicate, object);
 
 
+
         URI annotatedSource = getObjectOfSourceTriple(subject);
         URI annotatedProperty = getObjectOfPropertyTriple(subject);
         URI annotatedTarget = getObjectOfTargetTriple(subject);
@@ -90,7 +91,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
             annotatedTargetLiteral = getTargetLiteral(subject);
         }
 
-        Set<OWLAnnotation> annotations = translateAnnotations(subject);
+        Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
         getConsumer().setPendingAnnotations(annotations);
         if (annotatedTarget != null) {
             getConsumer().handle(annotatedSource, annotatedProperty, annotatedTarget);
@@ -115,25 +116,25 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         return getConsumer().getLastAddedAxiom();
     }
 
-    private Set<OWLAnnotation> translateAnnotations(URI subject) {
-        Set<URI> predicates = getConsumer().getPredicatesBySubject(subject);
-        predicates.remove(getSourceTriplePredicate());
-        predicates.remove(getPropertyTriplePredicate());
-        predicates.remove(getTargetTriplePredicate());
-        // We don't handle rdf:subject, rdf:predicate and rdf:object as synonymns - they might be genuinely in the
-        // ontology.
-        predicates.remove(OWLRDFVocabulary.RDF_SUBJECT.getURI());
-        predicates.remove(OWLRDFVocabulary.RDF_PREDICATE.getURI());
-        predicates.remove(OWLRDFVocabulary.RDF_OBJECT.getURI());
-        predicates.remove(OWLRDFVocabulary.RDF_TYPE.getURI());
-
-        Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
-        for (URI candidatePredicate : predicates) {
-            getConsumer().isAnnotationProperty(candidatePredicate);
-            annotations.addAll(getConsumer().translateAnnotations(subject));
-        }
-        return annotations;
-    }
+//    private Set<OWLAnnotation> translateAnnotations(URI subject) {
+//        Set<URI> predicates = getConsumer().getPredicatesBySubject(subject);
+//        predicates.remove(getSourceTriplePredicate());
+//        predicates.remove(getPropertyTriplePredicate());
+//        predicates.remove(getTargetTriplePredicate());
+//        // We don't handle rdf:subject, rdf:predicate and rdf:object as synonymns - they might be genuinely in the
+//        // ontology.
+//        predicates.remove(OWLRDFVocabulary.RDF_SUBJECT.getURI());
+//        predicates.remove(OWLRDFVocabulary.RDF_PREDICATE.getURI());
+//        predicates.remove(OWLRDFVocabulary.RDF_OBJECT.getURI());
+//        predicates.remove(OWLRDFVocabulary.RDF_TYPE.getURI());
+//
+//        Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
+//        for (URI candidatePredicate : predicates) {
+//            getConsumer().isAnnotationProperty(candidatePredicate);
+//            annotations.addAll(getConsumer().translateAnnotations(subject));
+//        }
+//        return annotations;
+//    }
 
     private OWLLiteral getTargetLiteral(URI subject) {
         OWLLiteral con = getConsumer().getLiteralObject(subject, getTargetTriplePredicate(), true);
