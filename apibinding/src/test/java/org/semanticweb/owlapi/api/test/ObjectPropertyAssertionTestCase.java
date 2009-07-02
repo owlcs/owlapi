@@ -1,9 +1,11 @@
-package org.semanticweb.owlapi.model;
+package org.semanticweb.owlapi.api.test;
 
-import org.semanticweb.owlapi.vocab.OWLDatatypeVocabulary;
+import org.semanticweb.owlapi.model.OWLAxiom;
 
+import java.util.Set;
+import java.util.HashSet;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -25,35 +27,20 @@ import org.semanticweb.owlapi.vocab.OWLDatatypeVocabulary;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <p/>
- * Represents a named data range.
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 02-Jul-2009
  */
-public interface OWLDatatype extends OWLDataRange, OWLEntity, OWLNamedObject {
+public class ObjectPropertyAssertionTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    /**
-     * Gets the built in datatype information if this datatype is a built in
-     * datatype.  This method should only be called if the isBuiltIn() method
-     * returns <code>true</code>
-     *
-     * @return The OWLDatatypeVocabulary that describes this built in datatype
-     * @throws OWLRuntimeException if this datatype is not a built in datatype.
-     */
-    OWLDatatypeVocabulary getBuiltInDatatype();
-
-    boolean isString();
-
-    boolean isInteger();
-
-    boolean isFloat();
-
-    boolean isDouble();
-
-    boolean isBoolean();
-
+    protected Set<? extends OWLAxiom> createAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        axioms.add(getFactory().getOWLObjectPropertyAssertionAxiom(
+                getOWLObjectProperty("p"),
+                getOWLIndividual("i"),
+                getOWLIndividual("j")));
+        return axioms;
+    }
 }

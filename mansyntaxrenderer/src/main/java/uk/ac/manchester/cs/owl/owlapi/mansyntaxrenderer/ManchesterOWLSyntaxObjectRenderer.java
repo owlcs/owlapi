@@ -381,12 +381,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         else if (node.getDatatype().isString()) {
             writeLiteral(node.getLiteral());
         }
+        else if (node.getDatatype().isBoolean()) {
+            write(node.getLiteral());
+        }
         else {
             pushTab(getIndent());
             writeLiteral(node.getLiteral());
             popTab();
             write("^^");
-            write(node.getDatatype().getURI());
+            node.getDatatype().accept(this);
         }
     }
 

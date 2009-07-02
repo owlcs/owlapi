@@ -88,6 +88,10 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         return iri.toURI().equals(OWLDatatypeVocabulary.XSD_STRING.getURI());
     }
 
+    public boolean isBoolean() {
+        return iri.toURI().equals(OWLDatatypeVocabulary.XSD_BOOLEAN.getURI());
+    }
+
     public boolean isDatatype() {
         return true;
     }
