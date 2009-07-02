@@ -44,7 +44,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     private Set<OWLOntology> ontologies;
 
-    private OntologyURIShortFormProvider shortFormProvider = new OntologyURIShortFormProvider();
+    private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
 
     private Set<AxiomType> filteredAxiomTypes = new HashSet<AxiomType>();
 
