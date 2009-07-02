@@ -2,7 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.SWRLAtomObject;
+import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLUnaryAtom;
 
 import java.util.Collection;
@@ -37,7 +37,7 @@ import java.util.Collections;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public abstract class SWRLUnaryAtomImpl<P, A extends SWRLAtomObject> extends SWRLAtomImpl<P> implements SWRLUnaryAtom<P, A> {
+public abstract class SWRLUnaryAtomImpl<P, A extends SWRLArgument> extends SWRLAtomImpl<P> implements SWRLUnaryAtom<P, A> {
 
     private A arg;
 
@@ -52,7 +52,7 @@ public abstract class SWRLUnaryAtomImpl<P, A extends SWRLAtomObject> extends SWR
     }
 
 
-    public Collection<? extends SWRLAtomObject> getAllArguments() {
+    public Collection<? extends SWRLArgument> getAllArguments() {
         return Collections.singleton(arg);
     }
 

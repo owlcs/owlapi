@@ -31,9 +31,9 @@ import org.semanticweb.owlapi.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<OWLDataRange, SWRLAtomDObject> implements SWRLDataRangeAtom {
+public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<OWLDataRange, SWRLDArgument> implements SWRLDataRangeAtom {
 
-    public SWRLDataRangeAtomImpl(OWLDataFactory dataFactory, OWLDataRange predicate, SWRLAtomDObject arg) {
+    public SWRLDataRangeAtomImpl(OWLDataFactory dataFactory, OWLDataRange predicate, SWRLDArgument arg) {
         super(dataFactory, predicate, arg);
     }
 

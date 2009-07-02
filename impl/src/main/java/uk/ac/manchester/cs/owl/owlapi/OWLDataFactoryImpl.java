@@ -1188,7 +1188,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      */
 
     public SWRLClassAtom getSWRLClassAtom(OWLClassExpression desc,
-                                          SWRLAtomIObject arg) {
+                                          SWRLIArgument arg) {
         return new SWRLClassAtomImpl(this, desc, arg);
     }
 
@@ -1201,7 +1201,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      */
 
     public SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange rng,
-                                                  SWRLAtomDObject arg) {
+                                                  SWRLDArgument arg) {
         return new SWRLDataRangeAtomImpl(this, rng, arg);
     }
 
@@ -1216,8 +1216,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      */
 
     public SWRLObjectPropertyAtom getSWRLObjectPropertyAtom(OWLObjectPropertyExpression property,
-                                                            SWRLAtomIObject arg0,
-                                                            SWRLAtomIObject arg1) {
+                                                            SWRLIArgument arg0,
+                                                            SWRLIArgument arg1) {
         return new SWRLObjectPropertyAtomImpl(this, property, arg0, arg1);
     }
 
@@ -1231,9 +1231,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @param arg1 The second argument (y)
      */
 
-    public SWRLDataValuedPropertyAtom getSWRLDataValuedPropertyAtom(OWLDataPropertyExpression property,
-                                                                    SWRLAtomIObject arg0,
-                                                                    SWRLAtomDObject arg1) {
+    public SWRLDataValuedPropertyAtom getSWRLDataPropertyAtom(OWLDataPropertyExpression property,
+                                                                    SWRLIArgument arg0,
+                                                                    SWRLDArgument arg1) {
         return new SWRLDataValuedPropertyAtomImpl(this, property, arg0, arg1);
     }
 
@@ -1245,7 +1245,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      */
 
     public SWRLBuiltInAtom getSWRLBuiltInAtom(SWRLBuiltInsVocabulary builtIn,
-                                              List<SWRLAtomDObject> args) {
+                                              List<SWRLDArgument> args) {
         return new SWRLBuiltInAtomImpl(this, builtIn, args);
     }
 
@@ -1256,8 +1256,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @param var The id (URI) of the variable
      */
 
-    public SWRLAtomIVariable getSWRLAtomIVariable(URI var) {
-        return new SWRLAtomIVariableImpl(this, var);
+    public SWRLIndividualVariable getSWRLIndividualVariable(IRI var) {
+        return new SWRLIndividualVariableImpl(this, var);
     }
 
 
@@ -1267,8 +1267,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @param var The id (URI) of the variable
      */
 
-    public SWRLAtomDVariable getSWRLAtomDVariable(URI var) {
-        return new SWRLAtomDVariableImpl(this, var);
+    public SWRLLiteralVariable getSWRLLiteralVariable(IRI var) {
+        return new SWRLLiteralVariableImpl(this, var);
     }
 
 
@@ -1277,8 +1277,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @param individual The individual that is the object argument
      */
 
-    public SWRLAtomIndividualObject getSWRLAtomIndividualObject(OWLIndividual individual) {
-        return new SWRLAtomIndividualObjectImpl(this, individual);
+    public SWRLIndividualArgument getSWRLIndividualArgument(OWLIndividual individual) {
+        return new SWRLIndividualArgumentImpl(this, individual);
     }
 
 
@@ -1287,19 +1287,19 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @param literal The constant that is the object argument
      */
 
-    public SWRLAtomConstantObject getSWRLAtomConstantObject(OWLLiteral literal) {
-        return new SWRLAtomConstantObjectImpl(this, literal);
+    public SWRLLiteralArgument getSWRLLiteralArgument(OWLLiteral literal) {
+        return new SWRLLiteralArgumentImpl(this, literal);
     }
 
 
-    public SWRLDifferentFromAtom getSWRLDifferentFromAtom(SWRLAtomIObject arg0,
-                                                          SWRLAtomIObject arg1) {
+    public SWRLDifferentFromAtom getSWRLDifferentFromAtom(SWRLIArgument arg0,
+                                                          SWRLIArgument arg1) {
         return new SWRLDifferentFromAtomImpl(this, arg0, arg1);
     }
 
 
-    public SWRLSameAsAtom getSWRLSameAsAtom(SWRLAtomIObject arg0,
-                                            SWRLAtomIObject arg1) {
+    public SWRLSameAsAtom getSWRLSameAsAtom(SWRLIArgument arg0,
+                                            SWRLIArgument arg1) {
         return new SWRLSameAsAtomImpl(this, arg0, arg1);
     }
 

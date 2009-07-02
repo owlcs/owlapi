@@ -81,6 +81,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private Map<OWLNamedIndividual, Set<OWLAxiom>> owlIndividualReferences = createMap();
 
+    private Map<OWLAnonymousIndividual, Set<OWLAxiom>> owlAnonymousIndividualReferences = createMap();
+
     private Map<OWLDatatype, Set<OWLAxiom>> owlDatatypeReferences = createMap();
 
     private Map<OWLAnnotationProperty, Set<OWLAxiom>> owlAnnotationPropertyReferences = createMap();
@@ -441,10 +443,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLEntity entity) {
+    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLAnnotationSubject subject) {
         Set<OWLAnnotationAssertionAxiom> axioms = new HashSet<OWLAnnotationAssertionAxiom>();
-        axioms.addAll(getAnnotationAssertionAxiomsBySubject(entity));
-        axioms.addAll(getAnnotationAssertionAxiomsBySubject(entity.getIRI()));
+        axioms.addAll(getAnnotationAssertionAxiomsBySubject(subject));
         return axioms;
     }
 
@@ -629,6 +630,14 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return Collections.emptySet();
     }
 
+    /**
+     * Gets the axioms that reference the specified anonymous individual
+     * @param individual The individual
+     * @return The axioms that reference the specified anonymous individual
+     */
+    public Set<OWLAxiom> getReferencingAxioms(OWLAnonymousIndividual individual) {
+        return getAxioms(individual, owlAnonymousIndividualReferences, false);
+    }
 
     public Set<OWLClassAxiom> getAxioms(final OWLClass cls) {
         if (classAxiomsByClass == null) {
@@ -760,6 +769,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return getReturnSet(owlIndividualReferences.keySet());
     }
 
+    /**
+     * Gets the referenced anonymous individuals
+     * @return The set of referenced anonymous individuals
+     */
+    public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals() {
+        return getReturnSet(owlAnonymousIndividualReferences.keySet());
+    }
 
     public Set<OWLDatatype> getReferencedDatatypes() {
         return getReturnSet(owlDatatypeReferences.keySet());
@@ -1345,6 +1361,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             referenceAdder.setAxiom(axiom);
             object.accept(referenceAdder);
         }
+        for(OWLAnonymousIndividual ind : entityCollector.getAnonymousIndividuals()) {
+            addToIndexedSet(ind, owlAnonymousIndividualReferences, axiom);
+        }
     }
 
 
@@ -1357,6 +1376,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         for (OWLEntity object : entityCollector.getObjects()) {
             referenceRemover.setAxiom(axiom);
             object.accept(referenceRemover);
+        }
+        for(OWLAnonymousIndividual ind : entityCollector.getAnonymousIndividuals()) {
+            removeAxiomFromSet(ind, owlAnonymousIndividualReferences, axiom, true);
         }
     }
 

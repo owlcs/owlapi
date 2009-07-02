@@ -256,7 +256,20 @@ public interface OWLOntology extends OWLObject {
      */
     Set<OWLNamedIndividual> getReferencedIndividuals();
 
+    /**
+     * Gets the referenced anonymous individuals
+     * @return The set of referenced anonymous individuals
+     */
+    Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals();
+
+    /**
+     * Gets the datatypes that are referenced by this ontology
+     * @return The set of referenced datatypes
+     */
     Set<OWLDatatype> getReferencedDatatypes();
+
+
+
 
     Set<OWLAnnotationProperty> getReferencedAnnotationProperties();
 
@@ -279,6 +292,12 @@ public interface OWLOntology extends OWLObject {
      */
     Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity);
 
+    /**
+     * Gets the axioms that reference the specified anonymous individual
+     * @param individual The individual
+     * @return The axioms that reference the specified anonymous individual
+     */
+    Set<OWLAxiom> getReferencingAxioms(OWLAnonymousIndividual individual);
 
     /**
      * Determines if the ontology contains a reference to the specified entity.
@@ -555,9 +574,9 @@ public interface OWLOntology extends OWLObject {
      * @return The set of entity annotation axioms. Note that this set will be a copy and will not be updated if the
      *         ontology changes.  It is therefore safe to iterate over this set while making changes to the ontology.
      */
-    Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLEntity entity);
+    Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLAnnotationSubject entity);
 
-    Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(IRI subject);
+//    Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(IRI subject);
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////

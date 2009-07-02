@@ -51,6 +51,15 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
         return getOWLDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
     }
 
+    /**
+     * Determines whether this axiom contains anonymous individuals.  Anonymous individuals are not allowed in
+     * negative object property assertions.
+     * @return <code>true</code> if this axioms contains anonymous individual axioms
+     */
+    public boolean containsAnonymousIndividuals() {
+        return getSubject().isAnonymous() || getObject().isAnonymous();
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLNegativeObjectPropertyAssertionAxiom;

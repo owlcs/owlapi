@@ -237,8 +237,12 @@ public class OWLExpressionEditor<O extends Object> extends JTextPane implements 
         StyleConstants.setForeground(hyperlinkStyle, Color.BLUE);
         StyleConstants.setUnderline(hyperlinkStyle, true);
 
-        AutoCompleter completer = new AutoCompleter(this, this);
+        AutoCompleter completer = new AutoCompleter(this, this, provider);
         setFont(new Font("monospaced", Font.PLAIN, 14));
+    }
+
+    public BidirectionalShortFormProvider getProvider() {
+        return provider;
     }
 
     public void clearKeywords() {

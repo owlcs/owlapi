@@ -1381,10 +1381,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   final public Set<OWLIndividual> IndividualSet() throws ParseException {
     OWLIndividual ind;
     Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
-    ind = IndividualURI();
-                         individuals.add(ind);
-    ind = IndividualURI();
-                                                                    individuals.add(ind);
+    ind = Individual();
+                      individuals.add(ind);
+    ind = Individual();
+                                                              individuals.add(ind);
     label_13:
     while (true) {
       if (jj_2_91(2)) {
@@ -1392,8 +1392,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
       } else {
         break label_13;
       }
-      ind = IndividualURI();
-                                                                                                                individuals.add(ind);
+      ind = Individual();
+                                                                                                       individuals.add(ind);
     }
         {if (true) return individuals;}
     throw new Error("Missing return statement in function");
@@ -2655,7 +2655,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_97() {
-    if (jj_3R_101()) return true;
+    if (jj_3R_102()) return true;
     return false;
   }
 
@@ -2665,17 +2665,17 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_96() {
-    if (jj_3R_100()) return true;
+    if (jj_3R_101()) return true;
     return false;
   }
 
   private boolean jj_3_95() {
-    if (jj_3R_99()) return true;
+    if (jj_3R_100()) return true;
     return false;
   }
 
   private boolean jj_3_94() {
-    if (jj_3R_98()) return true;
+    if (jj_3R_99()) return true;
     return false;
   }
 
@@ -2728,7 +2728,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_93() {
-    if (jj_3R_97()) return true;
+    if (jj_3R_98()) return true;
     return false;
   }
 
@@ -2763,7 +2763,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_102() {
+  private boolean jj_3R_103() {
     if (jj_scan_token(CLASS)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
@@ -2781,6 +2781,16 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   private boolean jj_3_92() {
     if (jj_3R_44()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_97() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_92()) {
+    jj_scanpos = xsp;
+    if (jj_3_93()) return true;
+    }
     return false;
   }
 
@@ -2827,14 +2837,14 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3_91() {
-    if (jj_3R_44()) return true;
-    return false;
-  }
-
   private boolean jj_3R_96() {
     if (jj_scan_token(NEGATIVEDATAPROPERTYASSERTION)) return true;
     if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_91() {
+    if (jj_3R_97()) return true;
     return false;
   }
 
@@ -3020,7 +3030,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_112() {
-    if (jj_3R_107()) return true;
+    if (jj_3R_108()) return true;
     return false;
   }
 
@@ -3084,7 +3094,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_111() {
-    if (jj_3R_106()) return true;
+    if (jj_3R_107()) return true;
     return false;
   }
 
@@ -3214,16 +3224,16 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_115() {
-    if (jj_3R_110()) return true;
+    if (jj_3R_111()) return true;
     return false;
   }
 
   private boolean jj_3_110() {
-    if (jj_3R_105()) return true;
+    if (jj_3R_106()) return true;
     return false;
   }
 
-  private boolean jj_3R_110() {
+  private boolean jj_3R_111() {
     if (jj_scan_token(LANGIDENTIFIER)) return true;
     Token xsp;
     xsp = jj_scanpos;
@@ -3259,7 +3269,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_112() {
+  private boolean jj_3R_113() {
     if (jj_scan_token(STRINGLITERAL)) return true;
     return false;
   }
@@ -3281,8 +3291,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_109() {
-    if (jj_3R_112()) return true;
+  private boolean jj_3R_110() {
+    if (jj_3R_113()) return true;
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3_115()) jj_scanpos = xsp;
@@ -3301,7 +3311,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_109() {
-    if (jj_3R_104()) return true;
+    if (jj_3R_105()) return true;
     return false;
   }
 
@@ -3323,7 +3333,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_114() {
-    if (jj_3R_109()) return true;
+    if (jj_3R_110()) return true;
     return false;
   }
 
@@ -3343,8 +3353,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_108() {
-    if (jj_3R_112()) return true;
+  private boolean jj_3R_109() {
+    if (jj_3R_113()) return true;
     if (jj_scan_token(111)) return true;
     return false;
   }
@@ -3372,12 +3382,12 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_108() {
-    if (jj_3R_103()) return true;
+    if (jj_3R_104()) return true;
     return false;
   }
 
   private boolean jj_3_113() {
-    if (jj_3R_108()) return true;
+    if (jj_3R_109()) return true;
     return false;
   }
 
@@ -3452,7 +3462,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_107() {
-    if (jj_3R_102()) return true;
+    if (jj_3R_103()) return true;
     return false;
   }
 
@@ -3634,7 +3644,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_100() {
+  private boolean jj_3R_101() {
     if (jj_scan_token(ANNOTATIONPROPERTYRANGE)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
@@ -3656,7 +3666,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_99() {
+  private boolean jj_3R_100() {
     if (jj_scan_token(ANNOTATIONPROPERTYDOMAIN)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
@@ -3745,7 +3755,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_106() {
+  private boolean jj_3R_107() {
     if (jj_scan_token(DATATYPE)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
@@ -3757,7 +3767,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_101() {
+  private boolean jj_3R_102() {
     if (jj_scan_token(SUBANNOTATIONPROPERTYOF)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
@@ -3773,7 +3783,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_97() {
+  private boolean jj_3R_98() {
     if (jj_scan_token(NODEID)) return true;
     return false;
   }
@@ -3789,7 +3799,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_98() {
+  private boolean jj_3R_99() {
     if (jj_scan_token(ANNOTATIONASSERTION)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
@@ -3800,7 +3810,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_105() {
+  private boolean jj_3R_106() {
     if (jj_scan_token(NAMEDINDIVIDUAL)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
@@ -3835,7 +3845,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_102() {
-    if (jj_3R_97()) return true;
+    if (jj_3R_98()) return true;
     return false;
   }
 
@@ -3844,7 +3854,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_107() {
+  private boolean jj_3R_108() {
     if (jj_scan_token(ANNOTATIONPROPERTY)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
@@ -3867,7 +3877,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_100() {
-    if (jj_3R_97()) return true;
+    if (jj_3R_98()) return true;
     return false;
   }
 
@@ -3876,7 +3886,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_104() {
+  private boolean jj_3R_105() {
     if (jj_scan_token(DATAPROP)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
@@ -3923,7 +3933,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_111() {
+  private boolean jj_3R_112() {
     if (jj_3R_19()) return true;
     return false;
   }
@@ -3951,7 +3961,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3R_89() {
-    if (jj_3R_111()) return true;
+    if (jj_3R_112()) return true;
     return false;
   }
 
@@ -3984,7 +3994,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_103() {
+  private boolean jj_3R_104() {
     if (jj_scan_token(OBJECTPROP)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;

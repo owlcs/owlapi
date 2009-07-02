@@ -123,10 +123,25 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         for (OWLNamedIndividual ind : ontology.getReferencedIndividuals()) {
             write(ind);
         }
+        for(OWLAnonymousIndividual ind : ontology.getReferencedAnonymousIndividuals()) {
+            write(ind);
+        }
         // Nary disjoint classes axioms
         for (OWLDisjointClassesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_CLASSES)) {
             if (ax.getClassExpressions().size() > 2) {
                 writeSection(DISJOINT_CLASSES, ax.getClassExpressions(), ",", false);
+            }
+        }
+        // Nary disjoint properties
+        for (OWLDisjointObjectPropertiesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_OBJECT_PROPERTIES)) {
+            if (ax.getProperties().size() > 2) {
+                writeSection(DISJOINT_OBJECT_PROPERTIES, ax.getProperties(), ",", false);
+            }
+        }
+        // Nary disjoint properties
+        for (OWLDisjointDataPropertiesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_DATA_PROPERTIES)) {
+            if (ax.getProperties().size() > 2) {
+                writeSection(DISJOINT_DATA_PROPERTIES, ax.getProperties(), ",", false);
             }
         }
         flush();
@@ -403,7 +418,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             for (OWLOntology ontology : getOntologies()) {
                 Set<OWLObjectPropertyExpression> properties = new TreeSet<OWLObjectPropertyExpression>();
                 for(OWLDisjointObjectPropertiesAxiom ax : ontology.getDisjointObjectPropertiesAxioms(property)) {
-                    if(isDisplayed(ax)) {
+                    if(ax.getProperties().size() == 2 && isDisplayed(ax)) {
                         properties.addAll(ax.getProperties());
                         axioms.add(ax);
                     }
@@ -617,7 +632,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             for (OWLOntology ontology : getOntologies()) {
                 Set<OWLDataPropertyExpression> props = new TreeSet<OWLDataPropertyExpression>();
                 for(OWLDisjointDataPropertiesAxiom ax : ontology.getDisjointDataPropertiesAxioms(property)) {
-                    if(isDisplayed(ax)) {
+                    if(ax.getProperties().size() == 2 && isDisplayed(ax)) {
                         props.addAll(ax.getProperties());
                         axioms.add(ax);
                     }
@@ -647,7 +662,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
 
-    public Set<OWLAxiom> write(OWLNamedIndividual individual) {
+    public Set<OWLAxiom> write(OWLIndividual individual) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(INDIVIDUAL, individual));
         if (!isFiltered(AxiomType.CLASS_ASSERTION)) {
@@ -889,17 +904,23 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
 
-    private Set<OWLAnnotationAssertionAxiom> writeEntityStart(ManchesterOWLSyntax keyword, OWLEntity entity) {
+    private Set<OWLAnnotationAssertionAxiom> writeEntityStart(ManchesterOWLSyntax keyword, OWLObject entity) {
         writeSection(keyword);
         entity.accept(this);
         writeNewLine();
         incrementTab(4);
         writeNewLine();
-        return writeAnnotations(entity);
+        if (entity instanceof OWLEntity) {
+            return writeAnnotations((OWLEntity) entity);
+        }
+        else if(entity instanceof OWLAnonymousIndividual) {
+            return writeAnnotations((OWLAnonymousIndividual) entity);
+        }
+        return Collections.emptySet();
     }
 
 
-    public Set<OWLAnnotationAssertionAxiom> writeAnnotations(OWLEntity entity) {
+    public Set<OWLAnnotationAssertionAxiom> writeAnnotations(OWLAnnotationSubject entity) {
         Set<OWLAnnotationAssertionAxiom> axioms = new HashSet<OWLAnnotationAssertionAxiom>();
         if (!isFiltered(AxiomType.ANNOTATION_ASSERTION)) {
             for (OWLOntology ontology : getOntologies()) {

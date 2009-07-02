@@ -41,4 +41,8 @@ public abstract class AbstractOWLIndividualOperandAxiomElementHandler extends Ab
     public void handleChild(OWLIndividualElementHandler handler) {
         addOperand(handler.getOWLObject());
     }
+
+    public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException {
+        addOperand(handler.getOWLObject());
+    }
 }

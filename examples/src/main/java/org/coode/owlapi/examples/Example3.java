@@ -80,7 +80,7 @@ public class Example3 {
             // class A and class B
             OWLClass clsA = factory.getOWLClass(IRI.create(ontologyIRI + "#A"));
             OWLClass clsB = factory.getOWLClass(IRI.create(ontologyIRI + "#B"));
-            SWRLAtomIVariable var = factory.getSWRLAtomIVariable(URI.create(ontologyIRI + "#x"));
+            SWRLIndividualVariable var = factory.getSWRLIndividualVariable(IRI.create(ontologyIRI + "#x"));
             SWRLRule rule = factory.getSWRLRule(
                     Collections.singleton(
                             factory.getSWRLClassAtom(clsA, var)

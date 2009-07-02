@@ -8,10 +8,20 @@ package org.semanticweb.owlapi.model;
  * <p/>
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
+ *
+ * Represents an atom with two ordered arguments
  */
-public interface SWRLBinaryAtom<P, A extends SWRLAtomObject, B extends SWRLAtomObject> extends SWRLAtom<P> {
+public interface SWRLBinaryAtom<P, A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtom<P> {
 
+    /**
+     * Gets the first argument
+     * @return The second argument
+     */
     A getFirstArgument();
 
+    /**
+     * Gets the second argument
+     * @return The second argument
+     */
     B getSecondArgument();
 }

@@ -933,7 +933,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public void visit(SWRLBuiltInAtom node) {
         write(node.getPredicate().getShortName());
         write("(");
-        for (Iterator<SWRLAtomDObject> it = node.getArguments().iterator(); it.hasNext();) {
+        for (Iterator<SWRLDArgument> it = node.getArguments().iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");
@@ -943,24 +943,24 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(SWRLAtomDVariable node) {
+    public void visit(SWRLLiteralVariable node) {
         write("?");
-        write(node.getURI().getFragment());
+        write(node.getIRI().getFragment());
     }
 
 
-    public void visit(SWRLAtomIVariable node) {
+    public void visit(SWRLIndividualVariable node) {
         write("?");
-        write(node.getURI().getFragment());
+        write(node.getIRI().getFragment());
     }
 
 
-    public void visit(SWRLAtomIndividualObject node) {
+    public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
     }
 
 
-    public void visit(SWRLAtomConstantObject node) {
+    public void visit(SWRLLiteralArgument node) {
         node.getConstant().accept(this);
     }
 

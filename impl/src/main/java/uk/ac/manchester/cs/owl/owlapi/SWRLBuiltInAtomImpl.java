@@ -39,22 +39,22 @@ import java.util.List;
  */
 public class SWRLBuiltInAtomImpl extends SWRLAtomImpl<SWRLBuiltInsVocabulary> implements SWRLBuiltInAtom {
 
-    private List<SWRLAtomDObject> args;
+    private List<SWRLDArgument> args;
 
 
     public SWRLBuiltInAtomImpl(OWLDataFactory dataFactory, SWRLBuiltInsVocabulary predicate,
-                               List<SWRLAtomDObject> args) {
+                               List<SWRLDArgument> args) {
         super(dataFactory, predicate);
-        this.args = new ArrayList<SWRLAtomDObject>(args);
+        this.args = new ArrayList<SWRLDArgument>(args);
     }
 
 
-    public List<SWRLAtomDObject> getArguments() {
+    public List<SWRLDArgument> getArguments() {
         return Collections.unmodifiableList(args);
     }
 
 
-    public Collection<? extends SWRLAtomObject> getAllArguments() {
+    public Collection<? extends SWRLArgument> getAllArguments() {
         return Collections.unmodifiableList(args);
     }
 
@@ -93,7 +93,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl<SWRLBuiltInsVocabulary> im
         if(diff != 0) {
             return diff;
         }
-        List<SWRLAtomDObject> otherArgs = other.getArguments();
+        List<SWRLDArgument> otherArgs = other.getArguments();
         int i = 0;
         while(i < args.size() && i < otherArgs.size()) {
             diff = args.get(i).compareTo(otherArgs.get(i));

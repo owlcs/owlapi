@@ -27,7 +27,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      */
     public boolean isAnonymous();
 
-    public URI getURI();
+    public URI getIRI();
 
     /**
      * Gets the atoms in the body
@@ -49,21 +49,21 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * Gets the variables that appear in this rule.
      * @return A set of variables.
      */
-    Set<SWRLAtomVariable> getVariables();
+    Set<SWRLVariable> getVariables();
 
 
     /**
      * Gets the object variables that appear in this rule
      * @return A set of object variables
      */
-    Set<SWRLAtomIVariable> getIVariables();
+    Set<SWRLIndividualVariable> getIVariables();
 
 
     /**
      * Gets the data variables that appear in this rule
      * @return A set of data variables
      */
-    Set<SWRLAtomDVariable> getDVariables();
+    Set<SWRLLiteralVariable> getDVariables();
 
 
     /**

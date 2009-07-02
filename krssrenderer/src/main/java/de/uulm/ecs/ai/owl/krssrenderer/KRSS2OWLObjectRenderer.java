@@ -391,16 +391,16 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(SWRLBuiltInAtom node) {
     }
 
-    public void visit(SWRLAtomDVariable node) {
+    public void visit(SWRLLiteralVariable node) {
     }
 
-    public void visit(SWRLAtomIVariable node) {
+    public void visit(SWRLIndividualVariable node) {
     }
 
-    public void visit(SWRLAtomIndividualObject node) {
+    public void visit(SWRLIndividualArgument node) {
     }
 
-    public void visit(SWRLAtomConstantObject node) {
+    public void visit(SWRLLiteralArgument node) {
     }
 
     public void visit(SWRLSameAsAtom node) {

@@ -1767,7 +1767,7 @@ Set<OWLIndividual> IndividualSet() :
     Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
 }
 {
-    (ind=IndividualURI(){individuals.add(ind);} ind=IndividualURI(){individuals.add(ind);} (ind=IndividualURI(){individuals.add(ind);})*) {
+    (ind=Individual(){individuals.add(ind);} ind=Individual(){individuals.add(ind);} (ind=Individual(){individuals.add(ind);})*) {
         return individuals;
     }
 }

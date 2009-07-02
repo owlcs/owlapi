@@ -32,4 +32,11 @@ package org.semanticweb.owlapi.model;
 public interface OWLNegativeObjectPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual> {
 
     OWLNegativeObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
+
+    /**
+     * Determines whether this axiom contains anonymous individuals.  Anonymous individuals are not allowed in
+     * negative object property assertions.
+     * @return <code>true</code> if this axioms contains anonymous individual axioms
+     */
+    boolean containsAnonymousIndividuals();
 }

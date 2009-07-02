@@ -43,11 +43,11 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
 
     private Set<SWRLAtom> antecedent;
 
-    private Set<SWRLAtomVariable> variables;
+    private Set<SWRLVariable> variables;
 
-    private Set<SWRLAtomDVariable> dVariables;
+    private Set<SWRLLiteralVariable> dVariables;
 
-    private Set<SWRLAtomIVariable> iVariables;
+    private Set<SWRLIndividualVariable> iVariables;
 
     private boolean anon;
 
@@ -78,11 +78,11 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
         if(!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getSWRLRule(getURI(), isAnonymous(), getBody(), getHead());
+        return getOWLDataFactory().getSWRLRule(getIRI(), isAnonymous(), getBody(), getHead());
     }
 
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getSWRLRule(getURI(), isAnonymous(), getBody(), getHead());
+        return getOWLDataFactory().getSWRLRule(getIRI(), isAnonymous(), getBody(), getHead());
     }
 
     public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> antecedent, Set<? extends SWRLAtom> consequent) {
@@ -90,38 +90,38 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
     }
 
 
-    public Set<SWRLAtomVariable> getVariables() {
+    public Set<SWRLVariable> getVariables() {
         if(variables == null) {
-            Set<SWRLAtomVariable> vars = new HashSet<SWRLAtomVariable>();
+            Set<SWRLVariable> vars = new HashSet<SWRLVariable>();
             SWRLVariableExtractor extractor = new SWRLVariableExtractor();
             accept(extractor);
             vars.addAll(extractor.getIVariables());
             vars.addAll(extractor.getDVariables());
-            variables = new HashSet<SWRLAtomVariable>(vars);
+            variables = new HashSet<SWRLVariable>(vars);
         }
         return variables;
     }
 
 
-    public Set<SWRLAtomDVariable> getDVariables() {
+    public Set<SWRLLiteralVariable> getDVariables() {
         if(dVariables == null) {
-            Set<SWRLAtomDVariable> vars = new HashSet<SWRLAtomDVariable>();
+            Set<SWRLLiteralVariable> vars = new HashSet<SWRLLiteralVariable>();
             SWRLVariableExtractor extractor = new SWRLVariableExtractor();
             accept(extractor);
             vars.addAll(extractor.getDVariables());
-            dVariables = new HashSet<SWRLAtomDVariable>(vars);
+            dVariables = new HashSet<SWRLLiteralVariable>(vars);
         }
         return dVariables;
     }
 
 
-    public Set<SWRLAtomIVariable> getIVariables() {
+    public Set<SWRLIndividualVariable> getIVariables() {
          if(iVariables == null) {
-            Set<SWRLAtomIVariable> vars = new HashSet<SWRLAtomIVariable>();
+            Set<SWRLIndividualVariable> vars = new HashSet<SWRLIndividualVariable>();
             SWRLVariableExtractor extractor = new SWRLVariableExtractor();
             accept(extractor);
             vars.addAll(extractor.getIVariables());
-            iVariables = new HashSet<SWRLAtomIVariable>(vars);
+            iVariables = new HashSet<SWRLIndividualVariable>(vars);
         }
         return iVariables;
     }
@@ -252,7 +252,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
      * @return A <code>URI</code> that represents the name
      *         of the object
      */
-    public URI getURI() {
+    public URI getIRI() {
         return uri;
     }
 
@@ -262,7 +262,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
                 return false;
             }
             SWRLRule other = (SWRLRule) obj;
-            return (other.getURI().equals(uri) || isAnonymous() && other.isAnonymous()) &&
+            return (other.getIRI().equals(uri) || isAnonymous() && other.isAnonymous()) &&
                     other.getBody().equals(antecedent) &&
                     other.getHead().equals(consequent);
     }
@@ -280,7 +280,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
         if(!isAnonymous()) {
             if(!other.isAnonymous()) {
                 // Both named - compare by URI
-                diff = getURI().compareTo(other.getURI());
+                diff = getIRI().compareTo(other.getIRI());
             }
             else {
                 // We are named, but other is anonymous

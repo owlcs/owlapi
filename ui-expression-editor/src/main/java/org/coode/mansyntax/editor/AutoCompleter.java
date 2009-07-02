@@ -1,5 +1,8 @@
 package org.coode.mansyntax.editor;
 
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.util.ShortFormProvider;
+
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.JTextComponent;
@@ -127,8 +130,9 @@ public class AutoCompleter {
 
     private Set<Character> delims;
 
+    private ShortFormProvider shortFormProvider;
 
-    public AutoCompleter(JTextComponent textComponent, WordMatcher matcher) {
+    public AutoCompleter(JTextComponent textComponent, WordMatcher matcher, ShortFormProvider shortFormProvider) {
         this.textComponent = textComponent;
         this.matcher = matcher;
         textComponent.addKeyListener(listener);
@@ -144,12 +148,12 @@ public class AutoCompleter {
         delims.add(')');
         delims.add('{');
         delims.add('}');
+        this.shortFormProvider = shortFormProvider;
     }
 
 
     private void createPopupWindow() {
         list = new JList();
-
         window = new JWindow((Frame) SwingUtilities.getAncestorOfClass(Frame.class, textComponent));
         JScrollPane sp = new JScrollPane(list);
         sp.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY));
@@ -166,6 +170,15 @@ public class AutoCompleter {
                 if (e.getClickCount() == 2) {
                     finishAutoComplete();
                 }
+            }
+        });
+        list.setCellRenderer(new DefaultListCellRenderer() {
+            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if(value instanceof OWLEntity) {
+                    label.setText(shortFormProvider.getShortForm((OWLEntity) value));
+                }
+                return label;
             }
         });
     }

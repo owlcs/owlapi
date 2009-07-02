@@ -581,29 +581,29 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     public void visit(SWRLBuiltInAtom node) {
         handleObject(node);
-        for (SWRLAtomDObject obj : node.getArguments()) {
+        for (SWRLDArgument obj : node.getArguments()) {
             obj.accept(this);
         }
     }
 
 
-    public void visit(SWRLAtomDVariable node) {
+    public void visit(SWRLLiteralVariable node) {
         handleObject(node);
     }
 
 
-    public void visit(SWRLAtomIVariable node) {
+    public void visit(SWRLIndividualVariable node) {
         handleObject(node);
     }
 
 
-    public void visit(SWRLAtomIndividualObject node) {
+    public void visit(SWRLIndividualArgument node) {
         handleObject(node);
         node.getIndividual().accept(this);
     }
 
 
-    public void visit(SWRLAtomConstantObject node) {
+    public void visit(SWRLLiteralArgument node) {
         handleObject(node);
         node.getConstant().accept(this);
     }

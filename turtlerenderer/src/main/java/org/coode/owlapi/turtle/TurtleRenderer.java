@@ -399,7 +399,12 @@ public class TurtleRenderer extends RDFRendererBase {
         if (node.isAnonymous()) {
             popTab();
             popTab();
-            writeNewLine();
+            if(triples.isEmpty()) {
+                write("[ ");
+            }
+            else {
+                writeNewLine();
+            }
             write("]");
             popTab();
         } else {

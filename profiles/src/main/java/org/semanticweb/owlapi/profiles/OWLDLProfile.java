@@ -593,22 +593,22 @@ public class OWLDLProfile implements OWLProfile {
             return null;
         }
 
-        public ConstructNotAllowed visit(SWRLAtomConstantObject node) {
+        public ConstructNotAllowed visit(SWRLLiteralArgument node) {
             return null;
         }
 
 
-        public ConstructNotAllowed visit(SWRLAtomDVariable node) {
+        public ConstructNotAllowed visit(SWRLLiteralVariable node) {
             return null;
         }
 
 
-        public ConstructNotAllowed visit(SWRLAtomIndividualObject node) {
+        public ConstructNotAllowed visit(SWRLIndividualArgument node) {
             return null;
         }
 
 
-        public ConstructNotAllowed visit(SWRLAtomIVariable node) {
+        public ConstructNotAllowed visit(SWRLIndividualVariable node) {
             return null;
         }
 

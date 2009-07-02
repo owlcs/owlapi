@@ -30,6 +30,6 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group<br>
  * Date: 18-Feb-2007<br><br>
  */
-public interface SWRLSameAsAtom extends SWRLBinaryAtom<OWLObjectProperty, SWRLAtomIObject, SWRLAtomIObject> {
+public interface SWRLSameAsAtom extends SWRLBinaryAtom<OWLObjectProperty, SWRLIArgument, SWRLIArgument> {
 
 }

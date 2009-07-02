@@ -2,7 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.SWRLAtomObject;
+import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ import java.util.List;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public abstract class SWRLBinaryAtomImpl<P extends OWLObject, A extends SWRLAtomObject, B extends SWRLAtomObject> extends SWRLAtomImpl<P> implements SWRLBinaryAtom<P, A, B> {
+public abstract class SWRLBinaryAtomImpl<P extends OWLObject, A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtomImpl<P> implements SWRLBinaryAtom<P, A, B> {
 
     private A arg0;
 
@@ -51,8 +51,8 @@ public abstract class SWRLBinaryAtomImpl<P extends OWLObject, A extends SWRLAtom
     }
 
 
-    public Collection<SWRLAtomObject> getAllArguments() {
-        List<SWRLAtomObject> objs = new ArrayList<SWRLAtomObject>();
+    public Collection<SWRLArgument> getAllArguments() {
+        List<SWRLArgument> objs = new ArrayList<SWRLArgument>();
         objs.add(arg0);
         objs.add(arg1);
         return objs;

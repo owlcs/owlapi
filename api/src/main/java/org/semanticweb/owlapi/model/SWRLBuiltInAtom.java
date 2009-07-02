@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface SWRLBuiltInAtom extends SWRLAtom<SWRLBuiltInsVocabulary> {
 
-    List<SWRLAtomDObject> getArguments();
+    List<SWRLDArgument> getArguments();
 }

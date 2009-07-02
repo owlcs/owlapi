@@ -31,10 +31,10 @@ import org.semanticweb.owlapi.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<OWLObjectPropertyExpression, SWRLAtomIObject, SWRLAtomIObject> implements SWRLObjectPropertyAtom {
+public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<OWLObjectPropertyExpression, SWRLIArgument, SWRLIArgument> implements SWRLObjectPropertyAtom {
 
-    public SWRLObjectPropertyAtomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression predicate, SWRLAtomIObject arg0,
-                                      SWRLAtomIObject arg1) {
+    public SWRLObjectPropertyAtomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression predicate, SWRLIArgument arg0,
+                                      SWRLIArgument arg1) {
         super(dataFactory, predicate, arg0, arg1);
     }
 

@@ -32,10 +32,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 18-Feb-2007<br><br>
  */
-public class SWRLDifferentFromAtomImpl extends SWRLBinaryAtomImpl<OWLObjectProperty, SWRLAtomIObject, SWRLAtomIObject> implements SWRLDifferentFromAtom {
+public class SWRLDifferentFromAtomImpl extends SWRLBinaryAtomImpl<OWLObjectProperty, SWRLIArgument, SWRLIArgument> implements SWRLDifferentFromAtom {
 
-    public SWRLDifferentFromAtomImpl(OWLDataFactory dataFactory, SWRLAtomIObject arg0,
-                                     SWRLAtomIObject arg1) {
+    public SWRLDifferentFromAtomImpl(OWLDataFactory dataFactory, SWRLIArgument arg0,
+                                     SWRLIArgument arg1) {
         super(dataFactory, dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM.getURI()), arg0, arg1);
     }
 

@@ -18,7 +18,11 @@ import java.util.Collection;
  */
 public interface SWRLAtom<P> extends SWRLObject {
 
+    /**
+     * Gets the predicate
+     * @return The atom predicate
+     */
     P getPredicate();
 
-    Collection<? extends SWRLAtomObject> getAllArguments();
+    Collection<? extends SWRLArgument> getAllArguments();
 }

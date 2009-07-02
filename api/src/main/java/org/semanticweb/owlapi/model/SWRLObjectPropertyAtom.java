@@ -9,6 +9,6 @@ package org.semanticweb.owlapi.model;
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
  */
-public interface SWRLObjectPropertyAtom extends SWRLBinaryAtom<OWLObjectPropertyExpression, SWRLAtomIObject, SWRLAtomIObject> {
+public interface SWRLObjectPropertyAtom extends SWRLBinaryAtom<OWLObjectPropertyExpression, SWRLIArgument, SWRLIArgument> {
 
 }

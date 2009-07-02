@@ -2,7 +2,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.SWRLAtomVariable;
+import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -35,22 +36,22 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public abstract class SWRLVariableImpl extends OWLObjectImpl implements SWRLAtomVariable {
+public abstract class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
 
-    private URI uri;
+    private IRI iri;
 
 
-    protected SWRLVariableImpl(OWLDataFactory dataFactory, URI uri) {
+    protected SWRLVariableImpl(OWLDataFactory dataFactory, IRI iri) {
         super(dataFactory);
-        this.uri = uri;
+        this.iri = iri;
     }
 
-    public URI getURI() {
-        return uri;
+    public IRI getIRI() {
+        return iri;
     }
 
 
     final protected int compareObjectOfSameType(OWLObject object) {
-        return uri.compareTo(((SWRLAtomVariable) object).getURI());
+        return iri.compareTo(((SWRLVariable) object).getIRI());
     }
 }

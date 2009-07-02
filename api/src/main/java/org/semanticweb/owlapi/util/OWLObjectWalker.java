@@ -581,31 +581,31 @@ public class OWLObjectWalker<O extends OWLObject> {
             process(individual);
         }
 
-        public void visit(SWRLAtomConstantObject node) {
+        public void visit(SWRLLiteralArgument node) {
             process(node);
             node.getConstant().accept(this);
         }
 
 
-        public void visit(SWRLAtomDVariable node) {
+        public void visit(SWRLLiteralVariable node) {
             process(node);
         }
 
 
-        public void visit(SWRLAtomIndividualObject node) {
+        public void visit(SWRLIndividualArgument node) {
             process(node);
             node.getIndividual().accept(this);
         }
 
 
-        public void visit(SWRLAtomIVariable node) {
+        public void visit(SWRLIndividualVariable node) {
             process(node);
         }
 
 
         public void visit(SWRLBuiltInAtom node) {
             process(node);
-            for (SWRLAtomDObject at : node.getArguments()) {
+            for (SWRLDArgument at : node.getArguments()) {
                 at.accept(this);
             }
         }

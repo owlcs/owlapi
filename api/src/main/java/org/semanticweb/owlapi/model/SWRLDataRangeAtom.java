@@ -9,6 +9,6 @@ package org.semanticweb.owlapi.model;
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
  */
-public interface SWRLDataRangeAtom extends SWRLUnaryAtom<OWLDataRange, SWRLAtomDObject> {
+public interface SWRLDataRangeAtom extends SWRLUnaryAtom<OWLDataRange, SWRLDArgument> {
 
 }

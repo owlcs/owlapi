@@ -701,22 +701,22 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLAtomDVariable node) {
+    public void visit(SWRLLiteralVariable node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
 
-    public void visit(SWRLAtomIVariable node) {
+    public void visit(SWRLIndividualVariable node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
 
-    public void visit(SWRLAtomIndividualObject node) {
+    public void visit(SWRLIndividualArgument node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
 
-    public void visit(SWRLAtomConstantObject node) {
+    public void visit(SWRLLiteralArgument node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 

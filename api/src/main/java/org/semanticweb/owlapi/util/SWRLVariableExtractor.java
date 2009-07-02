@@ -39,23 +39,23 @@ import java.util.Set;
  */
 public class SWRLVariableExtractor implements SWRLObjectVisitor {
 
-    private Set<SWRLAtomDVariable> dvariables;
+    private Set<SWRLLiteralVariable> dvariables;
 
-    private Set<SWRLAtomIVariable> ivariables;
+    private Set<SWRLIndividualVariable> ivariables;
 
 
     public SWRLVariableExtractor() {
-        dvariables = new HashSet<SWRLAtomDVariable>();
-        ivariables = new HashSet<SWRLAtomIVariable>();
+        dvariables = new HashSet<SWRLLiteralVariable>();
+        ivariables = new HashSet<SWRLIndividualVariable>();
     }
 
 
-    public Set<SWRLAtomDVariable> getDVariables() {
+    public Set<SWRLLiteralVariable> getDVariables() {
         return Collections.unmodifiableSet(dvariables);
     }
 
 
-    public Set<SWRLAtomIVariable> getIVariables() {
+    public Set<SWRLIndividualVariable> getIVariables() {
         return Collections.unmodifiableSet(ivariables);
     }
 
@@ -104,22 +104,22 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
     }
 
 
-    public void visit(SWRLAtomDVariable node) {
+    public void visit(SWRLLiteralVariable node) {
         dvariables.add(node);
     }
 
 
-    public void visit(SWRLAtomIVariable node) {
+    public void visit(SWRLIndividualVariable node) {
         ivariables.add(node);
     }
 
 
-    public void visit(SWRLAtomIndividualObject node) {
+    public void visit(SWRLIndividualArgument node) {
 
     }
 
 
-    public void visit(SWRLAtomConstantObject node) {
+    public void visit(SWRLLiteralArgument node) {
     }
 
 

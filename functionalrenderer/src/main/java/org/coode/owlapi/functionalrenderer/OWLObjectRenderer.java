@@ -980,7 +980,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLAtomIndividualObject node) {
+    public void visit(SWRLIndividualArgument node) {
         throw new RuntimeException("NOT IMPLEMENTED!");
     }
 
@@ -1010,17 +1010,17 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLAtomDVariable node) {
+    public void visit(SWRLLiteralVariable node) {
         throw new RuntimeException("NOT IMPLEMENTED!");
     }
 
 
-    public void visit(SWRLAtomIVariable node) {
+    public void visit(SWRLIndividualVariable node) {
         throw new RuntimeException("NOT IMPLEMENTED!");
     }
 
 
-    public void visit(SWRLAtomConstantObject node) {
+    public void visit(SWRLLiteralArgument node) {
         throw new RuntimeException("NOT IMPLEMENTED!");
     }
 

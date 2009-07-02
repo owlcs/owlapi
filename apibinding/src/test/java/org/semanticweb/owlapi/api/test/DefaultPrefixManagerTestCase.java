@@ -38,7 +38,7 @@ public class DefaultPrefixManagerTestCase extends TestCase {
 
     public void testContainsDefaultPrefixNames() {
         PrefixManager pm = new DefaultPrefixManager();
-        assertTrue(pm.containsPrefixMapping("owlapi:"));
+        assertTrue(pm.containsPrefixMapping("owl:"));
         assertTrue(pm.containsPrefixMapping("rdf:"));
         assertTrue(pm.containsPrefixMapping("rdfs:"));
         assertTrue(pm.containsPrefixMapping("xml:"));

@@ -357,22 +357,22 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(SWRLAtomConstantObject node) {
+    public O visit(SWRLLiteralArgument node) {
         return delegate.visit(node);
     }
 
 
-    public O visit(SWRLAtomDVariable node) {
+    public O visit(SWRLLiteralVariable node) {
         return delegate.visit(node);
     }
 
 
-    public O visit(SWRLAtomIndividualObject node) {
+    public O visit(SWRLIndividualArgument node) {
         return delegate.visit(node);
     }
 
 
-    public O visit(SWRLAtomIVariable node) {
+    public O visit(SWRLIndividualVariable node) {
         return delegate.visit(node);
     }
 

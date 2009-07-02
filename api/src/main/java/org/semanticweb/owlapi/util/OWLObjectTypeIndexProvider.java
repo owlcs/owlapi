@@ -493,21 +493,21 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 5;
     }
 
-    public void visit(SWRLAtomIVariable node) {
+    public void visit(SWRLIndividualVariable node) {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 6;
     }
 
-    public void visit(SWRLAtomDVariable node) {
+    public void visit(SWRLLiteralVariable node) {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 7;
     }
 
 
-    public void visit(SWRLAtomIndividualObject node) {
+    public void visit(SWRLIndividualArgument node) {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 8;
     }
 
 
-    public void visit(SWRLAtomConstantObject node) {
+    public void visit(SWRLLiteralArgument node) {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 9;
     }
 

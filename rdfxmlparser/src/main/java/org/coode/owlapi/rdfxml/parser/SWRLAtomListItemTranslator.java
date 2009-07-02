@@ -57,48 +57,48 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
         if (consumer.isSWRLBuiltInAtom(firstObject)) {
             URI builtInURI = consumer.getResourceObject(firstObject, BUILT_IN.getURI(), true);
             URI mainURI = consumer.getResourceObject(firstObject, ARGUMENTS.getURI(), true);
-            OptimisedListTranslator<SWRLAtomDObject> listTranslator = new OptimisedListTranslator<SWRLAtomDObject>(
+            OptimisedListTranslator<SWRLDArgument> listTranslator = new OptimisedListTranslator<SWRLDArgument>(
                     consumer,
                     new SWRLAtomDObjectListItemTranslator());
-            List<SWRLAtomDObject> args = listTranslator.translateList(mainURI);
+            List<SWRLDArgument> args = listTranslator.translateList(mainURI);
             return dataFactory.getSWRLBuiltInAtom(SWRLBuiltInsVocabulary.getBuiltIn(builtInURI), args);
         }
         else if (consumer.isSWRLClassAtom(firstObject)) {
             // C(?x) or C(ind)
-            SWRLAtomIObject iObject = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getURI());
+            SWRLIArgument iObject = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getURI());
             URI classURI = consumer.getResourceObject(firstObject, CLASS_PREDICATE.getURI(), true);
             OWLClassExpression desc = consumer.translateClassExpression(classURI);
             return dataFactory.getSWRLClassAtom(desc, iObject);
         }
         else if (consumer.isSWRLDataRangeAtom(firstObject)) {
             // DR(?x) or DR(val)
-            SWRLAtomDObject dObject = translateSWRLAtomDObject(firstObject, ARGUMENT_1.getURI());
+            SWRLDArgument dObject = translateSWRLAtomDObject(firstObject, ARGUMENT_1.getURI());
             URI dataRangeURI = consumer.getResourceObject(firstObject, DATA_RANGE.getURI(), true);
             OWLDataRange dataRange = consumer.translateDataRange(dataRangeURI);
             return dataFactory.getSWRLDataRangeAtom(dataRange, dObject);
         }
         else if (consumer.isSWRLDataValuedPropertyAtom(firstObject)) {
-            SWRLAtomIObject arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getURI());
-            SWRLAtomDObject arg2 = translateSWRLAtomDObject(firstObject, ARGUMENT_2.getURI());
+            SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getURI());
+            SWRLDArgument arg2 = translateSWRLAtomDObject(firstObject, ARGUMENT_2.getURI());
             URI dataPropertyURI = consumer.getResourceObject(firstObject, PROPERTY_PREDICATE.getURI(), true);
             OWLDataPropertyExpression prop = consumer.translateDataPropertyExpression(dataPropertyURI);
-            return dataFactory.getSWRLDataValuedPropertyAtom(prop, arg1, arg2);
+            return dataFactory.getSWRLDataPropertyAtom(prop, arg1, arg2);
         }
         else if (consumer.isSWRLIndividualPropertyAtom(firstObject)) {
-            SWRLAtomIObject arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getURI());
-            SWRLAtomIObject arg2 = translateSWRLAtomIObject(firstObject, ARGUMENT_2.getURI());
+            SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getURI());
+            SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject, ARGUMENT_2.getURI());
             URI objectPropertyURI = consumer.getResourceObject(firstObject, PROPERTY_PREDICATE.getURI(), true);
             OWLObjectPropertyExpression prop = consumer.translateObjectPropertyExpression(objectPropertyURI);
             return dataFactory.getSWRLObjectPropertyAtom(prop, arg1, arg2);
         }
         else if (consumer.isSWRLSameAsAtom(firstObject)) {
-            SWRLAtomIObject arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getURI());
-            SWRLAtomIObject arg2 = translateSWRLAtomIObject(firstObject, ARGUMENT_2.getURI());
+            SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getURI());
+            SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject, ARGUMENT_2.getURI());
             return dataFactory.getSWRLSameAsAtom(arg1, arg2);
         }
         else if (consumer.isSWRLDifferentFromAtom(firstObject)) {
-            SWRLAtomIObject arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getURI());
-            SWRLAtomIObject arg2 = translateSWRLAtomIObject(firstObject, ARGUMENT_2.getURI());
+            SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getURI());
+            SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject, ARGUMENT_2.getURI());
             return dataFactory.getSWRLDifferentFromAtom(arg1, arg2);
         }
         throw new RuntimeException("Don't know how to translate SWRL Atom: " + firstObject);
@@ -110,14 +110,14 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
     }
 
 
-    private SWRLAtomIObject translateSWRLAtomIObject(URI mainURI, URI argPredicateURI) {
+    private SWRLIArgument translateSWRLAtomIObject(URI mainURI, URI argPredicateURI) {
         URI argURI = consumer.getResourceObject(mainURI, argPredicateURI, true);
         if (argURI != null) {
             if (consumer.isSWRLVariable(argURI)) {
-                return dataFactory.getSWRLAtomIVariable(argURI);
+                return dataFactory.getSWRLIndividualVariable(IRI.create(argURI));
             }
             else {
-                return dataFactory.getSWRLAtomIndividualObject(consumer.getOWLIndividual(argURI));
+                return dataFactory.getSWRLIndividualArgument(consumer.getOWLIndividual(argURI));
             }
         }
         else {
@@ -126,35 +126,35 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
     }
 
 
-    private SWRLAtomDObject translateSWRLAtomDObject(URI mainURI, URI argPredicateURI) {
+    private SWRLDArgument translateSWRLAtomDObject(URI mainURI, URI argPredicateURI) {
         URI argURI = consumer.getResourceObject(mainURI, argPredicateURI, true);
         if (argURI != null) {
             // Must be a variable -- double check
             if (!consumer.isSWRLVariable(argURI)) {
                 logger.info("Expected SWRL variable for SWRL Data Object: " + argURI + "(possibly untyped)");
             }
-            return dataFactory.getSWRLAtomDVariable(argURI);
+            return dataFactory.getSWRLLiteralVariable(IRI.create(argURI));
         }
         else {
             // Must be a literal
             OWLLiteral con = consumer.getLiteralObject(mainURI, argPredicateURI, true);
             if (con != null) {
-                return dataFactory.getSWRLAtomConstantObject(con);
+                return dataFactory.getSWRLLiteralArgument(con);
             }
         }
         throw new IllegalStateException("Could not translate SWRL Atom D-Object");
     }
 
 
-    private class SWRLAtomDObjectListItemTranslator implements ListItemTranslator<SWRLAtomDObject> {
+    private class SWRLAtomDObjectListItemTranslator implements ListItemTranslator<SWRLDArgument> {
 
-        public SWRLAtomDObject translate(URI firstObject) {
-            return dataFactory.getSWRLAtomDVariable(firstObject);
+        public SWRLDArgument translate(URI firstObject) {
+            return dataFactory.getSWRLLiteralVariable(IRI.create(firstObject));
         }
 
 
-        public SWRLAtomDObject translate(OWLLiteral firstObject) {
-            return dataFactory.getSWRLAtomConstantObject(firstObject);
+        public SWRLDArgument translate(OWLLiteral firstObject) {
+            return dataFactory.getSWRLLiteralArgument(firstObject);
         }
     }
 }

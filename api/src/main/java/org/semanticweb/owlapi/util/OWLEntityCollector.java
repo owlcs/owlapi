@@ -44,6 +44,8 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
     private Set<OWLEntity> objects;
 
+    private Set<OWLAnonymousIndividual> anonymousIndividuals = new HashSet<OWLAnonymousIndividual>();
+
     private boolean collectClasses = true;
 
     private boolean collectObjectProperties = true;
@@ -66,6 +68,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
      */
     public void reset() {
         objects.clear();
+        anonymousIndividuals.clear();
     }
 
 
@@ -98,10 +101,19 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
      * Gets the objects that are used by all axioms, class expressions etc. that this
      * collector has visited since it was constructed or reset.
      *
-     * @return An unmodifiable set of objects.
+     * @return A set of entities
      */
     public Set<OWLEntity> getObjects() {
-        return Collections.unmodifiableSet(objects);
+        return new HashSet<OWLEntity>(objects);
+    }
+
+    /**
+     * A convenience method.  Although anonymous individuals are not entities they are collected by this
+     * collector and stored in a separate set.  This method returns collected individuals.
+     * @return The set of anonymous individuals that were collected by the collector
+     */
+    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
+        return new HashSet<OWLAnonymousIndividual>(anonymousIndividuals);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -585,6 +597,8 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
     public void visit(OWLAnonymousIndividual individual) {
         // Anon individuals aren't entities
+        // But store them in a set anyway for utility
+        anonymousIndividuals.add(individual);
     }
 
     public void visit(IRI iri) {
@@ -676,26 +690,26 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
 
     public void visit(SWRLBuiltInAtom node) {
-        for (SWRLAtomObject atomObj : node.getAllArguments()) {
-            atomObj.accept(this);
+        for (SWRLArgument obj : node.getAllArguments()) {
+            obj.accept(this);
         }
     }
 
 
-    public void visit(SWRLAtomDVariable node) {
+    public void visit(SWRLLiteralVariable node) {
     }
 
 
-    public void visit(SWRLAtomIVariable node) {
+    public void visit(SWRLIndividualVariable node) {
     }
 
 
-    public void visit(SWRLAtomIndividualObject node) {
+    public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
     }
 
 
-    public void visit(SWRLAtomConstantObject node) {
+    public void visit(SWRLLiteralArgument node) {
         node.getConstant().accept(this);
     }
 

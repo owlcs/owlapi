@@ -3,6 +3,7 @@ package org.coode.owlapi.rdf.renderer;
 import org.coode.owlapi.rdf.model.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
+import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 
@@ -179,7 +180,7 @@ public abstract class RDFRendererBase {
         }
 
 
-        Set<? extends OWLIndividual> individuals = ontology.getReferencedIndividuals();
+        Set<OWLNamedIndividual> individuals = ontology.getReferencedIndividuals();
         if (!individuals.isEmpty()) {
             first = true;
             for (OWLNamedIndividual ind : toSortedSet(ontology.getReferencedIndividuals())) {
@@ -192,10 +193,28 @@ public abstract class RDFRendererBase {
                     writeIndividualComments(ind);
                     render(new RDFResourceNode(ind.getURI()));
                     renderAnonRoots();
-
-
                     endObject();
                 }
+            }
+        }
+
+        for(OWLAnonymousIndividual anonInd : ontology.getReferencedAnonymousIndividuals()) {
+            boolean anonRoot = true;
+            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+            for(OWLAxiom ax : ontology.getReferencingAxioms(anonInd)) {
+                AxiomSubjectProvider subjectProvider = new AxiomSubjectProvider();
+                OWLObject obj = subjectProvider.getSubject(ax);
+                if(!obj.equals(anonInd)) {
+                    anonRoot = false;
+                    break;
+                }
+                else {
+                    axioms.add(ax);
+                }
+            }
+            if(anonRoot) {
+                createGraph(axioms);
+                renderAnonRoots();
             }
         }
 
@@ -263,17 +282,17 @@ public abstract class RDFRendererBase {
             for (SWRLRule rule : ruleAxioms) {
                 beginObject();
                 if (!rule.isAnonymous()) {
-                    render(new RDFResourceNode(rule.getURI()));
+                    render(new RDFResourceNode(rule.getIRI()));
                 }
                 rule.accept(variableExtractor);
                 endObject();
             }
-            for (SWRLAtomVariable var : variableExtractor.getIVariables()) {
-                render(new RDFResourceNode(var.getURI()));
+            for (SWRLVariable var : variableExtractor.getIVariables()) {
+                render(new RDFResourceNode(var.getIRI().toURI()));
             }
 
-            for (SWRLAtomVariable var : variableExtractor.getDVariables()) {
-                render(new RDFResourceNode(var.getURI()));
+            for (SWRLVariable var : variableExtractor.getDVariables()) {
+                render(new RDFResourceNode(var.getIRI().toURI()));
             }
             renderAnonRoots();
         }

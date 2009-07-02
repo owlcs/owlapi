@@ -40,7 +40,7 @@ public class EquivalentObjectPropertiesWithInversesTestCase extends AbstractAxio
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLObjectProperty propA = getOWLObjectProperty("propA");
         OWLObjectProperty propB = getOWLObjectProperty("propB");
-        axioms.add(getFactory().getOWLInverseObjectPropertiesAxiom(propA.getInverseProperty(), propB.getInverseProperty()));
+        axioms.add(getFactory().getOWLEquivalentObjectPropertiesAxiom(propA.getInverseProperty(), propB.getInverseProperty()));
         axioms.add(getFactory().getOWLDeclarationAxiom(propA));
         axioms.add(getFactory().getOWLDeclarationAxiom(propB));
         return axioms;

@@ -82,4 +82,14 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
     public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OWLAnonymousIndividual)) {
+            return false;
+        }
+        return getID().equals(((OWLAnonymousIndividual) obj).getID());
+    }
 }

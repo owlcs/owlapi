@@ -608,7 +608,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
             atom.accept(this);
             consequents.add((SWRLAtom) obj);
         }
-        obj = dataFactory.getSWRLRule(rule.getURI(), antecedents, consequents);
+        obj = dataFactory.getSWRLRule(rule.getIRI(), antecedents, consequents);
     }
 
 
@@ -616,7 +616,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         node.getPredicate().accept(this);
         OWLClassExpression desc = (OWLClassExpression) obj;
         node.getArgument().accept(this);
-        SWRLAtomIObject atom = (SWRLAtomIObject) obj;
+        SWRLIArgument atom = (SWRLIArgument) obj;
         obj = dataFactory.getSWRLClassAtom(desc, atom);
     }
 
@@ -625,7 +625,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         node.getPredicate().accept(this);
         OWLDataRange rng = (OWLDataRange) obj;
         node.getArgument().accept(this);
-        SWRLAtomDObject atom = (SWRLAtomDObject) obj;
+        SWRLDArgument atom = (SWRLDArgument) obj;
         obj = dataFactory.getSWRLDataRangeAtom(rng, atom);
     }
 
@@ -634,9 +634,9 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         node.getPredicate().accept(this);
         OWLObjectPropertyExpression exp = (OWLObjectPropertyExpression) obj;
         node.getFirstArgument().accept(this);
-        SWRLAtomIObject arg0 = (SWRLAtomIObject) obj;
+        SWRLIArgument arg0 = (SWRLIArgument) obj;
         node.getSecondArgument().accept(this);
-        SWRLAtomIObject arg1 = (SWRLAtomIObject) obj;
+        SWRLIArgument arg1 = (SWRLIArgument) obj;
         obj = dataFactory.getSWRLObjectPropertyAtom(exp, arg0, arg1);
     }
 
@@ -645,18 +645,18 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         node.getPredicate().accept(this);
         OWLDataPropertyExpression exp = (OWLDataPropertyExpression) obj;
         node.getFirstArgument().accept(this);
-        SWRLAtomIObject arg0 = (SWRLAtomIObject) obj;
+        SWRLIArgument arg0 = (SWRLIArgument) obj;
         node.getSecondArgument().accept(this);
-        SWRLAtomDObject arg1 = (SWRLAtomDObject) obj;
-        obj = dataFactory.getSWRLDataValuedPropertyAtom(exp, arg0, arg1);
+        SWRLDArgument arg1 = (SWRLDArgument) obj;
+        obj = dataFactory.getSWRLDataPropertyAtom(exp, arg0, arg1);
     }
 
 
     public void visit(SWRLBuiltInAtom node) {
-        List<SWRLAtomDObject> atomObjects = new ArrayList<SWRLAtomDObject>();
-        for (SWRLAtomDObject atomObject : node.getArguments()) {
+        List<SWRLDArgument> atomObjects = new ArrayList<SWRLDArgument>();
+        for (SWRLDArgument atomObject : node.getArguments()) {
             atomObject.accept(this);
-            atomObjects.add((SWRLAtomDObject) obj);
+            atomObjects.add((SWRLDArgument) obj);
         }
         obj = dataFactory.getSWRLBuiltInAtom(node.getPredicate(), atomObjects);
     }
@@ -664,43 +664,43 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     public void visit(SWRLDifferentFromAtom node) {
         node.getFirstArgument().accept(this);
-        SWRLAtomIObject arg0 = (SWRLAtomIObject) obj;
+        SWRLIArgument arg0 = (SWRLIArgument) obj;
         node.getSecondArgument().accept(this);
-        SWRLAtomIObject arg1 = (SWRLAtomIObject) obj;
+        SWRLIArgument arg1 = (SWRLIArgument) obj;
         obj = dataFactory.getSWRLDifferentFromAtom(arg0, arg1);
     }
 
 
     public void visit(SWRLSameAsAtom node) {
         node.getFirstArgument().accept(this);
-        SWRLAtomIObject arg0 = (SWRLAtomIObject) obj;
+        SWRLIArgument arg0 = (SWRLIArgument) obj;
         node.getSecondArgument().accept(this);
-        SWRLAtomIObject arg1 = (SWRLAtomIObject) obj;
+        SWRLIArgument arg1 = (SWRLIArgument) obj;
         obj = dataFactory.getSWRLSameAsAtom(arg0, arg1);
     }
 
 
-    public void visit(SWRLAtomDVariable node) {
-        obj = dataFactory.getSWRLAtomDVariable(node.getURI());
+    public void visit(SWRLLiteralVariable node) {
+        obj = dataFactory.getSWRLLiteralVariable(node.getIRI());
     }
 
 
-    public void visit(SWRLAtomIVariable node) {
-        obj = dataFactory.getSWRLAtomIVariable(node.getURI());
+    public void visit(SWRLIndividualVariable node) {
+        obj = dataFactory.getSWRLIndividualVariable(node.getIRI());
     }
 
 
-    public void visit(SWRLAtomIndividualObject node) {
+    public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
         OWLIndividual ind = (OWLIndividual) obj;
-        obj = dataFactory.getSWRLAtomIndividualObject(ind);
+        obj = dataFactory.getSWRLIndividualArgument(ind);
     }
 
 
-    public void visit(SWRLAtomConstantObject node) {
+    public void visit(SWRLLiteralArgument node) {
         node.getConstant().accept(this);
         OWLLiteral con = (OWLLiteral) obj;
-        obj = dataFactory.getSWRLAtomConstantObject(con);
+        obj = dataFactory.getSWRLLiteralArgument(con);
     }
 
     public void visit(OWLHasKeyAxiom axiom) {

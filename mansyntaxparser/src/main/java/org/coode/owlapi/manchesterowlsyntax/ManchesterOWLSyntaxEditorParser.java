@@ -1177,7 +1177,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public Set<OntologyAxiomPair> parseAnnotations(IRI subject) throws ParserException {
+    public Set<OntologyAxiomPair> parseAnnotations(OWLAnnotationSubject subject) throws ParserException {
         String header = consumeToken();
         if (!header.equals(ANNOTATIONS)) {
             throw createException(ANNOTATIONS);
@@ -1227,12 +1227,6 @@ public class ManchesterOWLSyntaxEditorParser {
         }
         return annos;
     }
-
-
-    public Set<OntologyAxiomPair> parseAnnotations(OWLEntity subject) throws ParserException {
-        return parseAnnotations(subject.getIRI());
-    }
-
 
     public Set<OntologyAxiomPair> parseClassFrame() throws ParserException {
         return parseClassFrame(false);
@@ -1696,11 +1690,13 @@ public class ManchesterOWLSyntaxEditorParser {
             throw createException(INDIVIDUAL);
         }
         String subj = consumeToken();
-        OWLNamedIndividual ind = getOWLNamedIndividual(subj);
+        OWLIndividual ind = getOWLIndividual(subj);
         if (ind == null) {
             throw createException(false, false, false, true);
         }
-        axioms.add(new OntologyAxiomPair(getOntology(null), getDataFactory().getOWLDeclarationAxiom(ind)));
+        if (!ind.isAnonymous()) {
+            axioms.add(new OntologyAxiomPair(getOntology(null), getDataFactory().getOWLDeclarationAxiom(ind.asNamedIndividual())));
+        }
         while (true) {
             String sect = peekToken();
             if (sect.equalsIgnoreCase(TYPES)) {
@@ -1773,7 +1769,12 @@ public class ManchesterOWLSyntaxEditorParser {
                             annotation = dataFactory.getOWLAnnotation(annotationProp, con);
                         }
                         for (OWLOntology ont : onts) {
-                            axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationAssertionAxiom(ind.getIRI(), annotation)));
+                            if (ind.isAnonymous()) {
+                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationAssertionAxiom(ind.asAnonymousIndividual(), annotation)));
+                            }
+                            else {
+                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationAssertionAxiom(ind.asNamedIndividual(), annotation)));
+                            }
                         }
                     }
                     else {
@@ -1810,7 +1811,12 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
                 potentialKeywords.clear();
-                axioms.addAll(parseAnnotations(ind));
+                if (ind.isAnonymous()) {
+                    axioms.addAll(parseAnnotations(ind.asAnonymousIndividual()));
+                }
+                else {
+                    axioms.addAll(parseAnnotations(ind.asNamedIndividual()));
+                }
             }
             else {
 //                // If force EOF then we need EOF or else everything is o.k.
@@ -1964,11 +1970,11 @@ public class ManchesterOWLSyntaxEditorParser {
             throw createException(false, false, true, false);
         }
         consumeToken("(");
-        SWRLAtomIObject obj1 = parseIObject();
+        SWRLIArgument obj1 = parseIObject();
         consumeToken(",");
-        SWRLAtomDObject obj2 = parseDObject();
+        SWRLDArgument obj2 = parseDObject();
         consumeToken(")");
-        return dataFactory.getSWRLDataValuedPropertyAtom(getOWLDataProperty(predicate), obj1, obj2);
+        return dataFactory.getSWRLDataPropertyAtom(getOWLDataProperty(predicate), obj1, obj2);
     }
 
 
@@ -1978,9 +1984,9 @@ public class ManchesterOWLSyntaxEditorParser {
             throw createException(false, true, false, false);
         }
         consumeToken("(");
-        SWRLAtomIObject obj1 = parseIObject();
+        SWRLIArgument obj1 = parseIObject();
         consumeToken(",");
-        SWRLAtomIObject obj2 = parseIObject();
+        SWRLIArgument obj2 = parseIObject();
         consumeToken(")");
         return dataFactory.getSWRLObjectPropertyAtom(getOWLObjectProperty(predicate), obj1, obj2);
     }
@@ -1992,7 +1998,7 @@ public class ManchesterOWLSyntaxEditorParser {
             throw createException(true, false, false, false);
         }
         consumeToken("(");
-        SWRLAtomIObject obj = parseIObject();
+        SWRLIArgument obj = parseIObject();
         consumeToken(")");
         return dataFactory.getSWRLClassAtom(getOWLClass(predicate), obj);
     }
@@ -2001,9 +2007,9 @@ public class ManchesterOWLSyntaxEditorParser {
     public SWRLDifferentFromAtom parseDifferentFromAtom() throws ParserException {
         consumeToken(ManchesterOWLSyntax.DIFFERENT_FROM.toString());
         consumeToken("(");
-        SWRLAtomIObject obj1 = parseIObject();
+        SWRLIArgument obj1 = parseIObject();
         consumeToken(",");
-        SWRLAtomIObject obj2 = parseIObject();
+        SWRLIArgument obj2 = parseIObject();
         consumeToken(")");
         return dataFactory.getSWRLDifferentFromAtom(obj1, obj2);
     }
@@ -2012,15 +2018,15 @@ public class ManchesterOWLSyntaxEditorParser {
     public SWRLSameAsAtom parseSameAsAtom() throws ParserException {
         consumeToken(ManchesterOWLSyntax.SAME_AS.toString());
         consumeToken("(");
-        SWRLAtomIObject obj1 = parseIObject();
+        SWRLIArgument obj1 = parseIObject();
         consumeToken(",");
-        SWRLAtomIObject obj2 = parseIObject();
+        SWRLIArgument obj2 = parseIObject();
         consumeToken(")");
         return dataFactory.getSWRLSameAsAtom(obj1, obj2);
     }
 
 
-    public SWRLAtomIObject parseIObject() throws ParserException {
+    public SWRLIArgument parseIObject() throws ParserException {
         String s = peekToken();
         if (isIndividualName(s)) {
             return parseIIndividualObject();
@@ -2035,15 +2041,15 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public SWRLAtomIVariable parseIVariable() throws ParserException {
+    public SWRLIndividualVariable parseIVariable() throws ParserException {
         String var = parseVariable();
-        return dataFactory.getSWRLAtomIVariable(getIRI(var).toURI());
+        return dataFactory.getSWRLIndividualVariable(getIRI(var));
     }
 
 
-    public SWRLAtomIndividualObject parseIIndividualObject() throws ParserException {
+    public SWRLIndividualArgument parseIIndividualObject() throws ParserException {
         OWLIndividual ind = parseIndividual();
-        return dataFactory.getSWRLAtomIndividualObject(ind);
+        return dataFactory.getSWRLIndividualArgument(ind);
     }
 
 
@@ -2053,7 +2059,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public SWRLAtomDObject parseDObject() throws ParserException {
+    public SWRLDArgument parseDObject() throws ParserException {
         String s = peekToken();
         if (s.equals("?")) {
             return parseDVariable();
@@ -2071,15 +2077,15 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public SWRLAtomDVariable parseDVariable() throws ParserException {
+    public SWRLLiteralVariable parseDVariable() throws ParserException {
         String var = parseVariable();
-        return dataFactory.getSWRLAtomDVariable(getIRI(var).toURI());
+        return dataFactory.getSWRLLiteralVariable(getIRI(var));
     }
 
 
-    public SWRLAtomConstantObject parseLiteralObject() throws ParserException {
+    public SWRLLiteralArgument parseLiteralObject() throws ParserException {
         OWLLiteral lit = parseConstant();
-        return dataFactory.getSWRLAtomConstantObject(lit);
+        return dataFactory.getSWRLLiteralArgument(lit);
     }
 
 
@@ -2090,9 +2096,9 @@ public class ManchesterOWLSyntaxEditorParser {
             throw createException(ruleBuiltIns.keySet().toArray(new String[ruleBuiltIns.size()]));
         }
         SWRLBuiltInsVocabulary v = ruleBuiltIns.get(predicate);
-        List<SWRLAtomDObject> args = new ArrayList<SWRLAtomDObject>();
+        List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
         for (int i = 0; i < v.getArity(); i++) {
-            SWRLAtomDObject obj = parseDObject();
+            SWRLDArgument obj = parseDObject();
             args.add(obj);
             if (i != v.getArity() - 1) {
                 consumeToken(",");
@@ -2236,9 +2242,9 @@ public class ManchesterOWLSyntaxEditorParser {
         Set<OWLDataProperty> props = new HashSet<OWLDataProperty>();
         String sep = ",";
         while (sep.equals(",")) {
-            sep = peekToken();
             OWLDataProperty prop = parseDataProperty();
             props.add(prop);
+            sep = peekToken();
             if (sep.equals(",")) {
                 consumeToken();
             }

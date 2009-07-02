@@ -50,6 +50,20 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
         return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getIndividuals(), mergeAnnos(annotations));
     }
 
+    /**
+     * Determines whether this axiom contains anonymous individuals.  Anonymous individuals are not allowed in
+     * different individuals axioms.
+     * @return <code>true</code> if this axioms contains anonymous individual axioms
+     */
+    public boolean containsAnonymousIndividuals() {
+        for(OWLIndividual ind : getIndividuals()) {
+            if(ind.isAnonymous()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDifferentIndividualsAxiom;

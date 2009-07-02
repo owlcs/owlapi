@@ -32,4 +32,12 @@ package org.semanticweb.owlapi.model;
 public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
 
     OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations();
+
+
+    /**
+     * Determines whether this axiom contains anonymous individuals.  Anonymous individuals are not allowed in
+     * different individuals axioms.
+     * @return <code>true</code> if this axioms contains anonymous individual axioms
+     */
+    boolean containsAnonymousIndividuals();
 }

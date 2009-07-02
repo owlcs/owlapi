@@ -30,9 +30,7 @@ package org.semanticweb.owlapi.model;
  * Date: 25-Nov-2006<br><br>
  * <p/>
  * An annotation that annotates the <b>entity</b> in an entity declaration.  Such
- * annotations could be used to provide labels for entities etc.  This is different
- * from an <code>OWLAxiomAnnotionAxiom</code> on a declaration, which annotates the
- * actual declaration axiom.
+ * annotations could be used to provide labels for entities etc.
  */
 public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom {
 

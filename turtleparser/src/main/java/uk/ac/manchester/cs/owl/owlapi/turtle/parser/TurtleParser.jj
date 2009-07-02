@@ -7,7 +7,7 @@ options {
 
 PARSER_BEGIN(TurtleParser)
 
-package uk.ac.manchester.cs.owl.turtle.parser;
+package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -210,6 +210,17 @@ TOKEN:
     <CLOSEPAR: ")">
 }
 
+TOKEN:
+{
+    <OPEN_SQUARE_BRACKET: "[">
+}
+
+TOKEN:
+{
+    <CLOSE_SQUARE_BRACKET: "]">
+}
+
+
 
 TOKEN:
 {
@@ -255,21 +266,8 @@ TOKEN:
 
 TOKEN:
 {
-    <EMPTY_BLANK_NODE: "[]">
+    <EMPTY_BLANK_NODE: <OPEN_SQUARE_BRACKET><CLOSE_SQUARE_BRACKET>>
 }
-
-
-
-TOKEN:
-{
-    <OPEN_SQUARE_BRACKET: "[">
-}
-
-TOKEN:
-{
-    <CLOSE_SQUARE_BRACKET: "]">
-}
-
 
 TOKEN:
 {
@@ -479,14 +477,14 @@ URI parseURI() :
 
 URI parseBlankNode() :
 {
-    URI uri;
+    URI uri = null;
 }
 {
     (uri=parseNodeID()
     |
     <NODEID>{uri = getNextBlankNode();}
     |
-    <OPEN_SQUARE_BRACKET> {uri = getNextBlankNode();} parsePredicateObjectList(uri) (<DOT>)? <CLOSE_SQUARE_BRACKET>
+    <OPEN_SQUARE_BRACKET> ({uri = getNextBlankNode();} parsePredicateObjectList(uri) (<DOT>)?)? <CLOSE_SQUARE_BRACKET> {if (uri == null) {uri = getNextBlankNode(); }}
     |
     uri = parseCollection()) {
         return uri;
@@ -508,7 +506,7 @@ void parsePredicateObjectList(URI subject) :
     URI predicate;
 }
 {
-    predicate=parseVerb() parseObjectList(subject, predicate) (<SEMICOLON> predicate=parseVerb() parseObjectList(subject, predicate) )*
+    (predicate=parseVerb() parseObjectList(subject, predicate) (<SEMICOLON> predicate=parseVerb() parseObjectList(subject, predicate) )*)
 }
 
 URI parseVerb() :

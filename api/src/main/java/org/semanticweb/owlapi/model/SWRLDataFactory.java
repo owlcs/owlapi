@@ -53,7 +53,7 @@ public interface SWRLDataFactory {
      * @param desc The class expression
      * @param arg  The argument (x)
      */
-    SWRLClassAtom getSWRLClassAtom(OWLClassExpression desc, SWRLAtomIObject arg);
+    SWRLClassAtom getSWRLClassAtom(OWLClassExpression desc, SWRLIArgument arg);
 
 
     /**
@@ -63,7 +63,7 @@ public interface SWRLDataFactory {
      * @param rng The class expression
      * @param arg The argument (x)
      */
-    SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange rng, SWRLAtomDObject arg);
+    SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange rng, SWRLDArgument arg);
 
 
     /**
@@ -75,8 +75,8 @@ public interface SWRLDataFactory {
      * @param arg1 The second argument (y)
      */
     SWRLObjectPropertyAtom getSWRLObjectPropertyAtom(OWLObjectPropertyExpression property,
-                                                     SWRLAtomIObject arg0,
-                                                     SWRLAtomIObject arg1);
+                                                     SWRLIArgument arg0,
+                                                     SWRLIArgument arg1);
 
 
      /**
@@ -87,9 +87,9 @@ public interface SWRLDataFactory {
      * @param arg0 The first argument (x)
      * @param arg1 The second argument (y)
      */
-    SWRLDataValuedPropertyAtom getSWRLDataValuedPropertyAtom(OWLDataPropertyExpression property,
-                                                       SWRLAtomIObject arg0,
-                                                       SWRLAtomDObject arg1);
+    SWRLDataValuedPropertyAtom getSWRLDataPropertyAtom(OWLDataPropertyExpression property,
+                                                       SWRLIArgument arg0,
+                                                       SWRLDArgument arg1);
 
 
     /**
@@ -99,37 +99,37 @@ public interface SWRLDataFactory {
      * @param args       A non-empty set of SWRL D-Objects
      */
     SWRLBuiltInAtom getSWRLBuiltInAtom(SWRLBuiltInsVocabulary builtIn,
-                                       List<SWRLAtomDObject> args);
+                                       List<SWRLDArgument> args);
 
 
     /**
      * Gets a SWRL i-variable.  This is used in rule atoms where a SWRL
      * I object can be used.
-     * @param var The id (URI) of the variable
+     * @param var The id (IRI) of the variable
      */
-    SWRLAtomIVariable getSWRLAtomIVariable(URI var);
+    SWRLIndividualVariable getSWRLIndividualVariable(IRI var);
 
     /**
      * Gets a SWRL d-variable.  This is used in rule atoms where a SWRL
      * D object can be used.
      * @param var The id (URI) of the variable
      */
-    SWRLAtomDVariable getSWRLAtomDVariable(URI var);
+    SWRLLiteralVariable getSWRLLiteralVariable(IRI var);
 
 
     /**
      * Gets a SWRL individual object.
      * @param individual The individual that is the object argument
      */
-    SWRLAtomIndividualObject getSWRLAtomIndividualObject(OWLIndividual individual);
+    SWRLIndividualArgument getSWRLIndividualArgument(OWLIndividual individual);
 
     /**
      * Gets a SWRL constant object.
      * @param literal The constant that is the object argument
      */
-    SWRLAtomConstantObject getSWRLAtomConstantObject(OWLLiteral literal);
+    SWRLLiteralArgument getSWRLLiteralArgument(OWLLiteral literal);
 
-    SWRLSameAsAtom getSWRLSameAsAtom(SWRLAtomIObject arg0, SWRLAtomIObject arg1);
+    SWRLSameAsAtom getSWRLSameAsAtom(SWRLIArgument arg0, SWRLIArgument arg1);
 
-    SWRLDifferentFromAtom getSWRLDifferentFromAtom(SWRLAtomIObject arg0, SWRLAtomIObject arg1);
+    SWRLDifferentFromAtom getSWRLDifferentFromAtom(SWRLIArgument arg0, SWRLIArgument arg1);
 }

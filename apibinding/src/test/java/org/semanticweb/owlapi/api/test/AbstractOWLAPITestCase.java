@@ -176,6 +176,12 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
                 axioms1 = AxiomType.getAxiomsWithoutTypes(ont.getAxioms(), AxiomType.DECLARATION);
                 axioms2 = AxiomType.getAxiomsWithoutTypes(ont2.getAxioms(), AxiomType.DECLARATION);
             }
+            // This isn't great - we normalise axioms by changing the ids of individuals.  This relies on the fact that
+            // we iterate over objects in the same order for the same set of axioms!
+            AnonymousIndividualsNormaliser normaliser1 = new AnonymousIndividualsNormaliser(manager.getOWLDataFactory());
+            axioms1 = normaliser1.getNormalisedAxioms(axioms1);
+            AnonymousIndividualsNormaliser normaliser2 = new AnonymousIndividualsNormaliser(manager.getOWLDataFactory());
+            axioms2 = normaliser2.getNormalisedAxioms(axioms2);
             if(!axioms1.equals(axioms2)) {
                 StringBuilder sb = new StringBuilder();
                 for(OWLAxiom ax : axioms1) {
