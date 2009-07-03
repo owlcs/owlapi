@@ -40,6 +40,15 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
         return id;
     }
 
+    /**
+     * Returns a string representation that can be used as the ID of this individual.  This is the toString
+     * representation of the node ID of this individual
+     * @return A string representing the toString of the node ID of this entity.
+     */
+    public String toStringID() {
+        return id.getID();
+    }
+
     public boolean isAnonymous() {
         return true;
     }

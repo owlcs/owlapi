@@ -181,6 +181,13 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLAnnotationSubje
      */
     OWLAnnotationProperty asOWLAnnotationProperty();
 
+    /**
+     * Returns a string representation that can be used as the ID of this entity.  This is the toString
+     * representation of the IRI
+     * @return A string representing the toString of the IRI of this entity.
+     */
+    String toStringID();
+
     void accept(OWLEntityVisitor visitor);
 
     <O> O accept(OWLEntityVisitorEx<O> visitor);

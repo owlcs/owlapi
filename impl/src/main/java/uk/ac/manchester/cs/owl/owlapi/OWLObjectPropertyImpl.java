@@ -49,6 +49,15 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
                 getURI().equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getURI());
     }
 
+    /**
+     * Returns a string representation that can be used as the ID of this entity.  This is the toString
+     * representation of the IRI
+     * @return A string representing the toString of the IRI of this entity.
+     */
+    public String toStringID() {
+        return iri.toString();
+    }
+
     public IRI getIRI() {
         return iri;
     }
