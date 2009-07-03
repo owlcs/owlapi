@@ -91,6 +91,13 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      */
     public Map<OWLObjectPropertyExpression, Set<OWLIndividual>> getObjectPropertyValues(OWLOntology ontology);
 
+    /**
+     * Gets the asserted object property values for this individual and the specified property.
+     * @param ontology The ontology to be examined for axioms that assert property values for this individual
+     * @return The set of individuals that are the values of this property.  More precisely, the set of individuals
+     * such that for each individual i in the set, is in a property assertion axiom property(this, i) is in the specified ontology.
+     */
+    public Set<OWLIndividual> getObjectPropertyValues(OWLObjectPropertyExpression property, OWLOntology ontology);
 
     /**
      * Gets the object property values that are explicitly asserted NOT to hold

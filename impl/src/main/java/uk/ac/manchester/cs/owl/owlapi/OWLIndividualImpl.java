@@ -80,6 +80,23 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
         return results;
     }
 
+    /**
+     * Gets the asserted object property values for this individual and the specified property.
+     * @param ontology The ontology to be examined for axioms that assert property values for this individual
+     * @return The set of individuals that are the values of this property.  More precisely, the set of individuals
+     *         such that for each individual i in the set, is in a property assertion axiom property(this, i) is in the specified ontology.
+     */
+    public Set<OWLIndividual> getObjectPropertyValues(OWLObjectPropertyExpression property, OWLOntology ontology) {
+        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> map = getObjectPropertyValues(ontology);
+        Set<OWLIndividual> vals = map.get(property);
+        if(vals == null) {
+            return Collections.emptySet();
+        }
+        else {
+            return new HashSet<OWLIndividual>(vals);
+        }
+    }
+
     public Map<OWLProperty, Set<OWLObject>> getNPropertyValues(OWLOntology ontology) {
         Map<OWLProperty, Set<OWLObject>> results = new HashMap<OWLProperty, Set<OWLObject>>();
         Map<OWLObjectPropertyExpression, Set<OWLIndividual>> opMap = getObjectPropertyValues(ontology);
