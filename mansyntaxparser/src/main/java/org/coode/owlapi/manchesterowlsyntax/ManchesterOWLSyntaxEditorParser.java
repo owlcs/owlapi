@@ -2005,7 +2005,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public SWRLDifferentFromAtom parseDifferentFromAtom() throws ParserException {
+    public SWRLDifferentIndividualsAtom parseDifferentFromAtom() throws ParserException {
         consumeToken(ManchesterOWLSyntax.DIFFERENT_FROM.toString());
         consumeToken("(");
         SWRLIArgument obj1 = parseIObject();
@@ -2016,7 +2016,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public SWRLSameAsAtom parseSameAsAtom() throws ParserException {
+    public SWRLSameIndividualAtom parseSameAsAtom() throws ParserException {
         consumeToken(ManchesterOWLSyntax.SAME_AS.toString());
         consumeToken("(");
         SWRLIArgument obj1 = parseIObject();
@@ -2097,16 +2097,34 @@ public class ManchesterOWLSyntaxEditorParser {
             throw createException(ruleBuiltIns.keySet().toArray(new String[ruleBuiltIns.size()]));
         }
         SWRLBuiltInsVocabulary v = ruleBuiltIns.get(predicate);
+
         List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
-        for (int i = 0; i < v.getArity(); i++) {
-            SWRLDArgument obj = parseDObject();
-            args.add(obj);
-            if (i != v.getArity() - 1) {
-                consumeToken(",");
+
+        if(v != null) {
+            // We know the arity!
+            for (int i = 0; i < v.getArity(); i++) {
+                SWRLDArgument obj = parseDObject();
+                args.add(obj);
+                if (i != v.getArity() - 1) {
+                    consumeToken(",");
+                }
             }
         }
+        else {
+            // Unknown arity so just parse as many arguments as we can
+            String sep = ",";
+            while(sep.equals(",")) {
+                SWRLDArgument arg = parseDObject();
+                args.add(arg);
+                sep = peekToken();
+                if(sep.equals(",")) {
+                    consumeToken();
+                }
+            }
+        }
+
         consumeToken(")");
-        return dataFactory.getSWRLBuiltInAtom(v, args);
+        return dataFactory.getSWRLBuiltInAtom(v.getIRI(), args);
     }
 
 

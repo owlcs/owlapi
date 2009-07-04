@@ -11,5 +11,9 @@ package org.semanticweb.owlapi.model;
  */
 public interface SWRLLiteralArgument extends SWRLDArgument {
 
-    OWLLiteral getConstant();
+    /**
+     * Gets the literal for this argument
+     * @return The literal
+     */
+    OWLLiteral getLiteral();
 }

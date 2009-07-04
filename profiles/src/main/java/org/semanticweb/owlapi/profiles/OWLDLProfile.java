@@ -628,12 +628,12 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(SWRLDataValuedPropertyAtom node) {
+        public ConstructNotAllowed visit(SWRLDataPropertyAtom node) {
             return null;
         }
 
 
-        public ConstructNotAllowed visit(SWRLDifferentFromAtom node) {
+        public ConstructNotAllowed visit(SWRLDifferentIndividualsAtom node) {
             return null;
         }
 
@@ -643,7 +643,7 @@ public class OWLDLProfile implements OWLProfile {
         }
 
 
-        public ConstructNotAllowed visit(SWRLSameAsAtom node) {
+        public ConstructNotAllowed visit(SWRLSameIndividualAtom node) {
             return null;
         }
 

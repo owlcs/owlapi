@@ -1,4 +1,5 @@
 package org.semanticweb.owlapi.model;
+
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -27,31 +28,8 @@ package org.semanticweb.owlapi.model;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008<br><br>
+ * Date: 18-Feb-2007<br><br>
  */
-public interface SWRLObjectVisitorEx<O> {
+public interface SWRLSameIndividualAtom extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument> {
 
-    O visit(SWRLRule node);
-
-    O visit(SWRLClassAtom node);
-
-    O visit(SWRLDataRangeAtom node);
-
-    O visit(SWRLObjectPropertyAtom node);
-
-    O visit(SWRLDataPropertyAtom node);
-
-    O visit(SWRLBuiltInAtom node);
-
-    O visit(SWRLLiteralVariable node);
-
-    O visit(SWRLIndividualVariable node);
-
-    O visit(SWRLIndividualArgument node);
-
-    O visit(SWRLLiteralArgument node);
-
-    O visit(SWRLSameIndividualAtom node);
-
-    O visit(SWRLDifferentIndividualsAtom node);
 }

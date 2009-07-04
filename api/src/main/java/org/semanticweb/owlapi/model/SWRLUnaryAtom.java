@@ -9,7 +9,7 @@ package org.semanticweb.owlapi.model;
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
  */
-public interface SWRLUnaryAtom<P, A extends SWRLArgument> extends SWRLAtom<P> {
+public interface SWRLUnaryAtom<A extends SWRLArgument> extends SWRLAtom {
 
     A getArgument();
 }

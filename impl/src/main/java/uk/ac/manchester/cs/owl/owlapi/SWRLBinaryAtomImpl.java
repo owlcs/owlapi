@@ -1,9 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.SWRLArgument;
-import org.semanticweb.owlapi.model.SWRLBinaryAtom;
+import org.semanticweb.owlapi.model.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,13 +35,13 @@ import java.util.List;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public abstract class SWRLBinaryAtomImpl<P extends OWLObject, A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtomImpl<P> implements SWRLBinaryAtom<P, A, B> {
+public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtomImpl implements SWRLBinaryAtom<A, B> {
 
     private A arg0;
 
     private B arg1;
 
-    protected SWRLBinaryAtomImpl(OWLDataFactory dataFactory, P predicate, A arg0, B arg1) {
+    protected SWRLBinaryAtomImpl(OWLDataFactory dataFactory, SWRLPredicate predicate, A arg0, B arg1) {
         super(dataFactory, predicate);
         this.arg0 = arg0;
         this.arg1 = arg1;

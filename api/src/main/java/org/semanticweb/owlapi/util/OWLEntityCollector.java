@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.*;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 /*
@@ -682,7 +681,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         node.getPredicate().accept(this);
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
@@ -710,16 +709,16 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
 
     public void visit(SWRLLiteralArgument node) {
-        node.getConstant().accept(this);
+        node.getLiteral().accept(this);
     }
 
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         node.getFirstArgument().accept(this);
     }
 
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         node.getSecondArgument().accept(this);
     }
 }

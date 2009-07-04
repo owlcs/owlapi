@@ -1000,7 +1000,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         throw new RuntimeException("NOT IMPLEMENTED!");
     }
 
@@ -1025,12 +1025,12 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         throw new RuntimeException("NOT IMPLEMENTED!");
     }
 
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         throw new RuntimeException("NOT IMPLEMENTED!");
     }
 }

@@ -31,12 +31,15 @@ import org.semanticweb.owlapi.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<OWLClassExpression, SWRLIArgument> implements SWRLClassAtom {
+public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument> implements SWRLClassAtom {
 
     public SWRLClassAtomImpl(OWLDataFactory dataFactory, OWLClassExpression predicate, SWRLIArgument arg) {
         super(dataFactory, predicate, arg);
     }
 
+    public OWLClassExpression getPredicate() {
+        return (OWLClassExpression) super.getPredicate();
+    }
 
     public void accept(SWRLObjectVisitor visitor) {
         visitor.visit(this);

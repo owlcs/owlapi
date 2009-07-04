@@ -571,7 +571,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         handleObject(node);
         node.getPredicate().accept(this);
         node.getFirstArgument().accept(this);
@@ -605,18 +605,18 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     public void visit(SWRLLiteralArgument node) {
         handleObject(node);
-        node.getConstant().accept(this);
+        node.getLiteral().accept(this);
     }
 
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         handleObject(node);
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         handleObject(node);
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);

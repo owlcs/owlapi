@@ -11,7 +11,7 @@ package org.semanticweb.owlapi.model;
  *
  * Represents an atom with two ordered arguments
  */
-public interface SWRLBinaryAtom<P, A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtom<P> {
+public interface SWRLBinaryAtom<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtom {
 
     /**
      * Gets the first argument

@@ -631,7 +631,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getURI(), DATAVALUED_PROPERTY_ATOM.getURI());
         node.getPredicate().accept(this);
@@ -646,13 +646,13 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     public void visit(SWRLBuiltInAtom node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getURI(), BUILT_IN_ATOM.getURI());
-        addTriple(node, BUILT_IN.getURI(), node.getPredicate().getURI());
-        addTriple(getResourceNode(node.getPredicate().getURI()), getPredicateNode(BUILT_IN_CLASS.getURI()), getResourceNode(BUILT_IN_CLASS.getURI()));
+        addTriple(node, BUILT_IN.getURI(), node.getPredicate().toURI());
+        addTriple(getResourceNode(node.getPredicate().toURI()), getPredicateNode(BUILT_IN_CLASS.getURI()), getResourceNode(BUILT_IN_CLASS.getURI()));
         addTriple(getResourceNode(node), getPredicateNode(ARGUMENTS.getURI()), translateList(new ArrayList<OWLObject>(node.getArguments())));
     }
 
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getURI(), DIFFERENT_INDIVIDUALS_ATOM.getURI());
         node.getFirstArgument().accept((SWRLObjectVisitor) this);
@@ -662,7 +662,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getURI(), SAME_INDIVIDUAL_ATOM.getURI());
         node.getFirstArgument().accept((SWRLObjectVisitor) this);
@@ -695,8 +695,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     public void visit(SWRLLiteralArgument node) {
-        node.getConstant().accept(this);
-        nodeMap.put(node, nodeMap.get(node.getConstant()));
+        node.getLiteral().accept(this);
+        nodeMap.put(node, nodeMap.get(node.getLiteral()));
     }
 
 

@@ -803,7 +803,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(SWRLRule rule) {
         sb.append("Rule(");
         if (!rule.isAnonymous()) {
-            sb.append(getShortForm(rule.getIRI()));
+            sb.append(getShortForm(rule.getIRI().toURI()));
             sb.append(" ");
         }
         sb.append(" antecedent(");
@@ -832,7 +832,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         sb.append("differentFromAtom(");
         node.getFirstArgument().accept(this);
         sb.append(" ");
@@ -841,7 +841,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         sb.append("sameAsAtom(");
         node.getFirstArgument().accept(this);
         sb.append(" ");
@@ -860,7 +860,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         node.getPredicate().accept(this);
         sb.append("(");
         node.getFirstArgument().accept(this);
@@ -871,7 +871,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
 
     public void visit(SWRLBuiltInAtom node) {
-        sb.append(getShortForm(node.getPredicate().getURI()));
+        sb.append(getShortForm(node.getPredicate().toURI()));
         sb.append("(");
         for (SWRLArgument arg : node.getArguments()) {
             arg.accept(this);
@@ -907,7 +907,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
 
     public void visit(SWRLLiteralArgument node) {
-        node.getConstant().accept(this);
+        node.getLiteral().accept(this);
     }
 
 

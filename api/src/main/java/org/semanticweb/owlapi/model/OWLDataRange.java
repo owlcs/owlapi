@@ -34,7 +34,7 @@ package org.semanticweb.owlapi.model;
  * complements of data ranges (e.g. not(int)), data enumerations (data oneOfs),
  * datatype restrictions (e.g. int > 3).
  */
-public interface OWLDataRange extends OWLObject, OWLPropertyRange {
+public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate {
 
     /**
      * Determines if this data range is a datatype (int, float, ...)

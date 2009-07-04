@@ -1,7 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
 
 import java.net.URI;
@@ -61,7 +60,7 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
                     consumer,
                     new SWRLAtomDObjectListItemTranslator());
             List<SWRLDArgument> args = listTranslator.translateList(mainURI);
-            return dataFactory.getSWRLBuiltInAtom(SWRLBuiltInsVocabulary.getBuiltIn(builtInURI), args);
+            return dataFactory.getSWRLBuiltInAtom(IRI.create(builtInURI), args);
         }
         else if (consumer.isSWRLClassAtom(firstObject)) {
             // C(?x) or C(ind)

@@ -923,7 +923,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         node.getPredicate().accept(this);
         write("(");
         node.getFirstArgument().accept(this);
@@ -934,7 +934,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
 
     public void visit(SWRLBuiltInAtom node) {
-        write(node.getPredicate().getShortName());
+        write(node.getPredicate().toURI());
         write("(");
         for (Iterator<SWRLDArgument> it = node.getArguments().iterator(); it.hasNext();) {
             it.next().accept(this);
@@ -964,11 +964,11 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
 
     public void visit(SWRLLiteralArgument node) {
-        node.getConstant().accept(this);
+        node.getLiteral().accept(this);
     }
 
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         write(SAME_AS);
         write("(");
         node.getFirstArgument().accept(this);
@@ -978,7 +978,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         write(DIFFERENT_FROM);
         write("(");
         node.getFirstArgument().accept(this);

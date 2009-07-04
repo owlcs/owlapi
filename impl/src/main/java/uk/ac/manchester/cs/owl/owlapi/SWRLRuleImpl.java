@@ -3,7 +3,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
-import java.net.URI;
 import java.util.*;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -37,11 +36,13 @@ import java.util.*;
  */
 public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
 
-    private URI uri;
+    private IRI iri;
 
-    private Set<SWRLAtom> consequent;
+    private NodeID nodeID;
 
-    private Set<SWRLAtom> antecedent;
+    private Set<SWRLAtom> head;
+
+    private Set<SWRLAtom> body;
 
     private Set<SWRLVariable> variables;
 
@@ -49,44 +50,40 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
 
     private Set<SWRLIndividualVariable> iVariables;
 
-    private boolean anon;
-
     private Boolean containsAnonymousClassExpressions = null;
 
     private Set<OWLClassExpression> classAtomsPredicates;
 
 
-    public SWRLRuleImpl(OWLDataFactory dataFactory, URI uri, Set<? extends SWRLAtom> antecedent, Set<? extends SWRLAtom> consequent, Collection<? extends OWLAnnotation> annotations) {
+    public SWRLRuleImpl(OWLDataFactory dataFactory, IRI iri, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
-        this.uri = uri;
-        anon = false;
-        this.consequent = new TreeSet<SWRLAtom>(consequent);
-        this.antecedent = new TreeSet<SWRLAtom>(antecedent);
+        this.iri = iri;
+        this.head = new TreeSet<SWRLAtom>(head);
+        this.body = new TreeSet<SWRLAtom>(body);
     }
 
 
-    public SWRLRuleImpl(OWLDataFactory dataFactory, boolean anon, URI uri, Set<? extends SWRLAtom> antecedent,
-                        Set<? extends SWRLAtom> consequent, Collection<? extends OWLAnnotation> annotations) {
+    public SWRLRuleImpl(OWLDataFactory dataFactory, NodeID nodeID, Set<? extends SWRLAtom> body,
+                        Set<? extends SWRLAtom> head, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
-        this.anon = anon;
-        this.uri = uri;
-        this.antecedent = new TreeSet<SWRLAtom>(antecedent);
-        this.consequent = new TreeSet<SWRLAtom>(consequent);
+        this.nodeID = nodeID;
+        this.body = new TreeSet<SWRLAtom>(body);
+        this.head = new TreeSet<SWRLAtom>(head);
     }
 
     public SWRLRule getAxiomWithoutAnnotations() {
         if(!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getSWRLRule(getIRI(), isAnonymous(), getBody(), getHead());
+        return getOWLDataFactory().getSWRLRule(getIRI(), getBody(), getHead());
     }
 
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getSWRLRule(getIRI(), isAnonymous(), getBody(), getHead());
+        return getOWLDataFactory().getSWRLRule(getIRI(), getBody(), getHead());
     }
 
-    public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> antecedent, Set<? extends SWRLAtom> consequent) {
-        this(dataFactory, true, URI.create("http://www.semanticweb.org/swrl#" + System.nanoTime()), antecedent, consequent, new ArrayList<OWLAnnotation>(0));
+    public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
+        this(dataFactory, NodeID.getNodeID(), body, head, new ArrayList<OWLAnnotation>(0));
     }
 
 
@@ -129,7 +126,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
 
     public boolean containsAnonymousClassExpressions() {
         if (containsAnonymousClassExpressions == null) {
-            for(SWRLAtom atom : consequent) {
+            for(SWRLAtom atom : head) {
                 if(atom instanceof SWRLClassAtom) {
                     if(((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
                         containsAnonymousClassExpressions = true;
@@ -138,7 +135,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
                 }
             }
             if(containsAnonymousClassExpressions == null) {
-                for(SWRLAtom atom : antecedent) {
+                for(SWRLAtom atom : body) {
                     if(atom instanceof SWRLClassAtom) {
                         if(((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
                             containsAnonymousClassExpressions = true;
@@ -158,12 +155,12 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
     public Set<OWLClassExpression> getClassAtomPredicates() {
         if(classAtomsPredicates == null) {
             Set<OWLClassExpression> predicates = new HashSet<OWLClassExpression>();
-            for(SWRLAtom atom : consequent){
+            for(SWRLAtom atom : head){
                 if(atom instanceof SWRLClassAtom) {
                     predicates.add(((SWRLClassAtom) atom).getPredicate());
                 }
             }
-            for(SWRLAtom atom : antecedent){
+            for(SWRLAtom atom : body){
                 if(atom instanceof SWRLClassAtom) {
                     predicates.add(((SWRLClassAtom) atom).getPredicate());
                 }
@@ -195,13 +192,12 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
 
 
     /**
-     * Determines if this rule is anonymous.  Rules may be named
-     * using URIs.
+     * Determines if this rule is anonymous.
      * @return <code>true</code> if this rule is anonymous and therefore
-     *         doesn't have a URI.
+     *         doesn't have an IRI, or <code>false</code> if this rule is anon
      */
     public boolean isAnonymous() {
-        return anon;
+        return nodeID != null;
     }
 
 
@@ -211,7 +207,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
      *         in the antecedent of the rule.
      */
     public Set<SWRLAtom> getBody() {
-        return Collections.unmodifiableSet(antecedent);
+        return Collections.unmodifiableSet(body);
     }
 
 
@@ -221,7 +217,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
      *         in the consequent of the rule
      */
     public Set<SWRLAtom> getHead() {
-        return Collections.unmodifiableSet(consequent);
+        return Collections.unmodifiableSet(head);
     }
 
 
@@ -234,6 +230,15 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
         return visitor.visit(this);
     }
 
+    /**
+     * If this rule contains atoms that have predicates that are inverse object properties, then this method
+     * creates and returns a rule where the arguments of these atoms are fliped over and the predicate is the
+     * inverse (simplified) property
+     * @return The rule such that any atoms of the form  inverseOf(p)(x, y) are transformed to p(x, y).
+     */
+    public SWRLRule getSimplified() {
+        return (SWRLRule) this.accept(ATOM_SIMPLIFIER);
+    }
 
     /**
      * Determines if this axiom is a logical axiom. Logical axioms are defined to be
@@ -252,19 +257,59 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
      * @return A <code>URI</code> that represents the name
      *         of the object
      */
-    public URI getIRI() {
-        return uri;
+    public IRI getIRI() {
+        if(isAnonymous()) {
+            throw new NullPointerException("Rule is anonymous and therefore does not have an IRI.  Use the isAnonymous method to check.");
+        }
+        return iri;
     }
 
+    /**
+     * Gets the node ID if this rule is anonymous
+     * @return The NodeID
+     * @throws NullPointerException if this rule is not anonymous
+     */
+    public NodeID getNodeID() {
+        if(!isAnonymous()) {
+            throw new NullPointerException("Rule is not anonymous and therefore does not have a node ID.  Use the isAnonymous method to check.");
+        }
+        return nodeID;
+    }
+
+    /**
+     * Gets a String representation of the identity of this rule.  If the rule is anonymous then this will be
+     * a string representation of the anonymous ID, otherwise, it will be a string represetation of the IRI.
+     * @return A string representation of the identity of this rule.
+     */
+    public String toStringID() {
+        if(isAnonymous()) {
+            return nodeID.toString();
+        }
+        else {
+            return iri.toString();
+        }
+    }
+
+    /**
+     * Gets a flattened version of this rule.  This simplifies the rule (see {@link #getSimplified()} and then introduces
+     * fresh class names and subclass axioms in order to rename atoms that have complex class expressions.  If the head
+     * of the rule contains multiple atoms then this are split and multiple rules are returned - one for each atom in
+     * the head of this rule.
+     * @return A set of axioms that represents the flattened rule.
+     */
+    public Set<OWLAxiom> getFlattened() {
+
+        return null;
+    }
 
     public boolean equals(Object obj) {
             if(!(obj instanceof SWRLRule)) {
                 return false;
             }
             SWRLRule other = (SWRLRule) obj;
-            return (other.getIRI().equals(uri) || isAnonymous() && other.isAnonymous()) &&
-                    other.getBody().equals(antecedent) &&
-                    other.getHead().equals(consequent);
+            return (other.getIRI().equals(iri) || isAnonymous() && other.isAnonymous()) &&
+                    other.getBody().equals(body) &&
+                    other.getHead().equals(head);
     }
 
 
@@ -300,5 +345,71 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
         }
         return diff;
        
+    }
+
+    protected AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
+
+    protected class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
+
+        public SWRLRule visit(SWRLRule node) {
+            Set<SWRLAtom> body = new HashSet<SWRLAtom>();
+            for(SWRLAtom atom : node.getBody()) {
+                body.add((SWRLAtom) atom.accept(this));
+            }
+            Set<SWRLAtom> head = new HashSet<SWRLAtom>();
+            for(SWRLAtom atom : node.getHead()) {
+                head.add((SWRLAtom) atom.accept(this));
+            }
+            if(node.isAnonymous()) {
+                return getOWLDataFactory().getSWRLRule(node.getNodeID(), body, head);
+            }
+            else {
+                return getOWLDataFactory().getSWRLRule(node.getIRI(), body, head);
+            }
+        }
+
+        public SWRLClassAtom visit(SWRLClassAtom node) {
+            return node;
+        }
+
+        public SWRLDataRangeAtom visit(SWRLDataRangeAtom node) {
+            return node;
+        }
+
+        public SWRLObjectPropertyAtom visit(SWRLObjectPropertyAtom node) {
+            return node.getSimplified();
+        }
+
+        public SWRLDataPropertyAtom visit(SWRLDataPropertyAtom node) {
+            return node;
+        }
+
+        public SWRLBuiltInAtom visit(SWRLBuiltInAtom node) {
+            return node;
+        }
+
+        public SWRLLiteralVariable visit(SWRLLiteralVariable node) {
+            return node;
+        }
+
+        public SWRLIndividualVariable visit(SWRLIndividualVariable node) {
+            return node;
+        }
+
+        public SWRLIndividualArgument visit(SWRLIndividualArgument node) {
+            return node;
+        }
+
+        public SWRLLiteralArgument visit(SWRLLiteralArgument node) {
+            return node;
+        }
+
+        public SWRLSameIndividualAtom visit(SWRLSameIndividualAtom node) {
+            return node;
+        }
+
+        public SWRLDifferentIndividualsAtom visit(SWRLDifferentIndividualsAtom node) {
+            return node;
+        }
     }
 }

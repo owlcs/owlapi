@@ -385,7 +385,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(SWRLObjectPropertyAtom node) {
     }
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
     }
 
     public void visit(SWRLBuiltInAtom node) {
@@ -403,10 +403,10 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(SWRLLiteralArgument node) {
     }
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
     }
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
     }
 
     public final void visit(OWLClass desc) {

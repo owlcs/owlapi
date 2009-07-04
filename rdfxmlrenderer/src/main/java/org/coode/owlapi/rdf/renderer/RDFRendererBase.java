@@ -284,7 +284,7 @@ public abstract class RDFRendererBase {
             for (SWRLRule rule : ruleAxioms) {
                 beginObject();
                 if (!rule.isAnonymous()) {
-                    render(new RDFResourceNode(rule.getIRI()));
+                    render(new RDFResourceNode(rule.getIRI().toURI()));
                 }
                 rule.accept(variableExtractor);
                 endObject();

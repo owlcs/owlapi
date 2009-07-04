@@ -31,14 +31,15 @@ import org.semanticweb.owlapi.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> implements SWRLDataRangeAtom {
+public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLDArgument> implements SWRLDataPropertyAtom {
 
-    public SWRLDataRangeAtomImpl(OWLDataFactory dataFactory, OWLDataRange predicate, SWRLDArgument arg) {
-        super(dataFactory, predicate, arg);
+    public SWRLDataPropertyAtomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression predicate, SWRLIArgument arg0,
+                                          SWRLDArgument arg1) {
+        super(dataFactory, predicate, arg0, arg1);
     }
 
-    public OWLDataRange getPredicate() {
-        return (OWLDataRange) super.getPredicate();
+    public OWLDataPropertyExpression getPredicate() {
+        return (OWLDataPropertyExpression) super.getPredicate();
     }
 
     public void accept(OWLObjectVisitor visitor) {
@@ -54,16 +55,18 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> impl
         return visitor.visit(this);
     }
 
-    public boolean equals(Object obj) {
-        if (!(obj instanceof SWRLDataRangeAtom)) {
-            return false;
-        }
-        SWRLDataRangeAtom other = (SWRLDataRangeAtom) obj;
-        return other.getArgument().equals(getArgument()) && other.getPredicate().equals(getPredicate());
-    }
-
 
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    public boolean equals(Object obj) {
+            if(!(obj instanceof SWRLDataPropertyAtom)) {
+                return false;
+            }
+            SWRLDataPropertyAtom other = (SWRLDataPropertyAtom) obj;
+            return other.getPredicate().equals(getPredicate()) &&
+                    other.getFirstArgument().equals(getFirstArgument()) &&
+                    other.getSecondArgument().equals(getSecondArgument());
     }
 }

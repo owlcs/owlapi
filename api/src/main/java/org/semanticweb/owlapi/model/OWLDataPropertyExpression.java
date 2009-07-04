@@ -34,7 +34,7 @@ package org.semanticweb.owlapi.model;
  * OWL 1.1 spec only allows straight forward named data properties, it doesn't for
  * example allow inverse data properties.
  */
-public interface OWLDataPropertyExpression extends OWLPropertyExpression<OWLDataPropertyExpression, OWLDataRange> {
+public interface OWLDataPropertyExpression extends OWLPropertyExpression<OWLDataPropertyExpression, OWLDataRange>, SWRLPredicate {
 
     /**
      * If the property is a named data property then this method will

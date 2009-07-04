@@ -484,7 +484,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 4;
     }
 
@@ -512,12 +512,12 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 10;
     }
 
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 11;
     }
 }

@@ -2,6 +2,8 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 
 import java.net.URI;
@@ -64,10 +66,10 @@ public class SWRLRuleTranslator {
         }
         SWRLRule rule = null;
         if (!consumer.isAnonymousNode(mainNode)) {
-            rule = consumer.getDataFactory().getSWRLRule(mainNode, antecedent, consequent);
+            rule = consumer.getDataFactory().getSWRLRule(IRI.create(mainNode), antecedent, consequent);
         }
         else {
-            rule = consumer.getDataFactory().getSWRLRule(mainNode, true, antecedent, consequent);
+            rule = consumer.getDataFactory().getSWRLRule(NodeID.getNodeID(mainNode.toString()), antecedent, consequent);
         }
         consumer.addAxiom(rule);
     }

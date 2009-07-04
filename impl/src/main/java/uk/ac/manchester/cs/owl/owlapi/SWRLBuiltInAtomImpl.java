@@ -37,25 +37,36 @@ import java.util.List;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public class SWRLBuiltInAtomImpl extends SWRLAtomImpl<SWRLBuiltInsVocabulary> implements SWRLBuiltInAtom {
+public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom {
 
     private List<SWRLDArgument> args;
 
 
-    public SWRLBuiltInAtomImpl(OWLDataFactory dataFactory, SWRLBuiltInsVocabulary predicate,
+    public SWRLBuiltInAtomImpl(OWLDataFactory dataFactory, IRI predicate,
                                List<SWRLDArgument> args) {
         super(dataFactory, predicate);
         this.args = new ArrayList<SWRLDArgument>(args);
     }
 
+    public IRI getPredicate() {
+        return (IRI) super.getPredicate();
+    }
+
+    /**
+     * Determines if the predicate of this atom is is a core builtin.
+     * @return <code>true</code> if this is a core builtin, otherwise <code>false</code>
+     */
+    public boolean isCoreBuiltIn() {
+        return SWRLBuiltInsVocabulary.getBuiltIn(getPredicate().toURI()) != null;
+    }
 
     public List<SWRLDArgument> getArguments() {
         return Collections.unmodifiableList(args);
     }
 
 
-    public Collection<? extends SWRLArgument> getAllArguments() {
-        return Collections.unmodifiableList(args);
+    public Collection<SWRLArgument> getAllArguments() {
+        return new ArrayList<SWRLArgument>(args);
     }
 
 

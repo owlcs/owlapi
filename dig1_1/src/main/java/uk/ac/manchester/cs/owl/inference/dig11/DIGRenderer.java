@@ -560,7 +560,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
     }
 
 
@@ -584,11 +584,11 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
     }
 
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
     }
 
     public void visit(OWLHasKeyAxiom axiom) {

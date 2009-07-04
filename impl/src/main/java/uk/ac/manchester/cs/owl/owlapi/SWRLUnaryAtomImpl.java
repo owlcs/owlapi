@@ -1,9 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.SWRLArgument;
-import org.semanticweb.owlapi.model.SWRLUnaryAtom;
+import org.semanticweb.owlapi.model.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -37,11 +34,11 @@ import java.util.Collections;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public abstract class SWRLUnaryAtomImpl<P, A extends SWRLArgument> extends SWRLAtomImpl<P> implements SWRLUnaryAtom<P, A> {
+public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtomImpl implements SWRLUnaryAtom<A> {
 
     private A arg;
 
-    public SWRLUnaryAtomImpl(OWLDataFactory dataFactory, P predicate, A arg) {
+    public SWRLUnaryAtomImpl(OWLDataFactory dataFactory, SWRLPredicate predicate, A arg) {
         super(dataFactory, predicate);
         this.arg = arg;
     }
@@ -52,8 +49,8 @@ public abstract class SWRLUnaryAtomImpl<P, A extends SWRLArgument> extends SWRLA
     }
 
 
-    public Collection<? extends SWRLArgument> getAllArguments() {
-        return Collections.singleton(arg);
+    public Collection<SWRLArgument> getAllArguments() {
+        return Collections.singleton((SWRLArgument) arg);
     }
 
 

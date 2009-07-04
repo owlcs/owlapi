@@ -279,16 +279,16 @@ public class OWLObjectVisitorAdapter implements OWLObjectVisitor {
     public void visit(SWRLDataRangeAtom node) {
     }
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
     }
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
     }
 
     public void visit(SWRLObjectPropertyAtom node) {
     }
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
     }
 
 

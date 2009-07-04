@@ -748,7 +748,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
@@ -768,11 +768,11 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 

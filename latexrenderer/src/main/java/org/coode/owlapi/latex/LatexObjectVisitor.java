@@ -769,11 +769,11 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
     }
 
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
     }
 
 
@@ -781,7 +781,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
     }
 
     public void visit(OWLAnnotationProperty property) {

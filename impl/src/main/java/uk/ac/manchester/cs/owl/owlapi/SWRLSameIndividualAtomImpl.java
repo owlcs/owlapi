@@ -1,6 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -29,17 +30,15 @@ import org.semanticweb.owlapi.model.*;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007<br><br>
+ * Date: 18-Feb-2007<br><br>
  */
-public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> implements SWRLDataRangeAtom {
+public class SWRLSameIndividualAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements SWRLSameIndividualAtom {
 
-    public SWRLDataRangeAtomImpl(OWLDataFactory dataFactory, OWLDataRange predicate, SWRLDArgument arg) {
-        super(dataFactory, predicate, arg);
+    public SWRLSameIndividualAtomImpl(OWLDataFactory dataFactory, SWRLIArgument arg0,
+                              SWRLIArgument arg1) {
+        super(dataFactory, dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS.getURI()), arg0, arg1);
     }
 
-    public OWLDataRange getPredicate() {
-        return (OWLDataRange) super.getPredicate();
-    }
 
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
@@ -52,14 +51,6 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> impl
 
     public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
-    }
-
-    public boolean equals(Object obj) {
-        if (!(obj instanceof SWRLDataRangeAtom)) {
-            return false;
-        }
-        SWRLDataRangeAtom other = (SWRLDataRangeAtom) obj;
-        return other.getArgument().equals(getArgument()) && other.getPredicate().equals(getPredicate());
     }
 
 

@@ -741,7 +741,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         node.getPredicate().accept(this);
         write("(");
         node.getFirstArgument().accept(this);
@@ -752,7 +752,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
 
     public void visit(SWRLBuiltInAtom node) {
-        write(node.getPredicate().getShortName());
+        write(node.getPredicate().toString());
         write("(");
         write(node.getArguments(), COMMA, true);
         write(")");
@@ -777,11 +777,11 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
 
     public void visit(SWRLLiteralArgument node) {
-        node.getConstant().accept(this);
+        node.getLiteral().accept(this);
     }
 
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         write("sameAs(");
         node.getFirstArgument().accept(this);
         write(", ");
@@ -791,7 +791,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         write("differentFrom(");
         node.getFirstArgument().accept(this);
         write(", ");

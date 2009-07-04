@@ -41,7 +41,7 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLitera
     }
 
 
-    public OWLLiteral getConstant() {
+    public OWLLiteral getLiteral() {
         return literal;
     }
 
@@ -69,11 +69,11 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLitera
                 return false;
             }
             SWRLLiteralArgument other = (SWRLLiteralArgument) obj;
-            return other.getConstant().equals(getConstant());
+            return other.getLiteral().equals(getLiteral());
     }
 
 
     protected int compareObjectOfSameType(OWLObject object) {
-        return literal.compareTo(((SWRLLiteralArgument) object).getConstant());
+        return literal.compareTo(((SWRLLiteralArgument) object).getLiteral());
     }
 }

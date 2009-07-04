@@ -9,7 +9,11 @@ package org.semanticweb.owlapi.model;
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
  */
-public interface SWRLClassAtom extends SWRLUnaryAtom<OWLClassExpression, SWRLIArgument> {
+public interface SWRLClassAtom extends SWRLUnaryAtom<SWRLIArgument> {
 
-
+    /**
+     * Gets the predicate of this atom
+     * @return The atom predicate
+     */
+    OWLClassExpression getPredicate();
 }

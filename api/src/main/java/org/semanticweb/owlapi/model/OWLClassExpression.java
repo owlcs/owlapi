@@ -30,7 +30,7 @@ import java.util.Set;
  * <p/>
  * Represents a class expression in OWL.  This interface covers named and anonymous classes.
  */
-public interface OWLClassExpression extends OWLObject, OWLPropertyRange {
+public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPredicate {
 
     /**
      * Determines whether or not this expression represents an anonymous class expression.

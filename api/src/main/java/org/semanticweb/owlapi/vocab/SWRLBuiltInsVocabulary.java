@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.vocab;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import java.net.URI;
 
@@ -14,7 +15,7 @@ import java.net.URI;
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
  */
-public enum SWRLBuiltInsVocabulary {
+public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
 
     EQUAL("equal", 2),
     NOT_EQUAL("notEqual", 2),
@@ -117,6 +118,28 @@ public enum SWRLBuiltInsVocabulary {
         return arity;
     }
 
+
+    /**
+     * Gets a builtin vocabulary value for a given IRI
+     * @param iri The IRI
+     * @return The builtin vocabulary having the specified IRI, or <code>null</code> if there is no builtin
+     * vocabulary with the specified IRI
+     */
+    public static SWRLBuiltInsVocabulary getBuiltIn(IRI iri) {
+        for(SWRLBuiltInsVocabulary v : values()) {
+            if(v.getIRI().equals(iri)) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets a builtin vocabulary value for a given URI
+     * @param uri The URI
+     * @return The builtin vocabulary having the specified URI, or <code>null</code> if there is no builtin
+     * vocabulary with the specified URI
+     */
     public static SWRLBuiltInsVocabulary getBuiltIn(URI uri) {
         for(SWRLBuiltInsVocabulary v : values()) {
             if(v.getURI().equals(uri)) {

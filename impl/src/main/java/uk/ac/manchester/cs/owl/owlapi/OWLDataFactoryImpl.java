@@ -4,7 +4,6 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 import java.net.URI;
@@ -219,7 +218,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLAnonymousIndividual getOWLAnonymousIndividual(String id) {
-        return new OWLAnonymousIndividualImpl(this, new NodeIDImpl(id));
+        return new OWLAnonymousIndividualImpl(this, NodeID.getNodeID(id));
     }
 
     /**
@@ -227,7 +226,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @return The anonymous individual
      */
     public OWLAnonymousIndividual getOWLAnonymousIndividual() {
-        return new OWLAnonymousIndividualImpl(this, new NodeIDImpl());
+        return new OWLAnonymousIndividualImpl(this, NodeID.getNodeID());
     }
 
     public OWLDatatype getOWLDatatype(URI uri) {
@@ -1140,31 +1139,28 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRL rule which is named with a URI
-     * @param uri The rule URI (the "name" of the rule)
-     * @param antecendent The atoms that make up the antecedent
-     * @param consequent The atoms that make up the consequent
+     * @param iri
+     * @param body
+     * @param head
      */
 
-    public SWRLRule getSWRLRule(URI uri,
-                                Set<? extends SWRLAtom> antecendent,
-                                Set<? extends SWRLAtom> consequent) {
+    public SWRLRule getSWRLRule(IRI iri,
+                                Set<? extends SWRLAtom> body,
+                                Set<? extends SWRLAtom> head) {
 
-        return new SWRLRuleImpl(this, uri, antecendent, consequent, EMPTY_ANNOTATIONS_SET);
+        return new SWRLRuleImpl(this, iri, body, head, EMPTY_ANNOTATIONS_SET);
     }
 
 
     /**
      * Gets a SWRL rule which is not named with a URI - i.e. that is anonymous.
-     * @param uri The anonymous id
-     * @param antededent The atoms that make up the antecedent
-     * @param consequent The atoms that make up the consequent
+     * @param nodeID
+     * @param body
+     * @param head
      */
 
-    public SWRLRule getSWRLRule(URI uri,
-                                boolean anonymous,
-                                Set<? extends SWRLAtom> antededent,
-                                Set<? extends SWRLAtom> consequent) {
-        return new SWRLRuleImpl(this, anonymous, uri, antededent, consequent, EMPTY_ANNOTATIONS_SET);
+    public SWRLRule getSWRLRule(NodeID nodeID, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
+        return new SWRLRuleImpl(this, nodeID, body, head, EMPTY_ANNOTATIONS_SET);
     }
 
 
@@ -1183,26 +1179,26 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     /**
      * Gets a SWRL class atom, i.e.  C(x) where C is a class expression and
      * x is either an individual id or an i-variable
-     * @param desc The class expression
+     * @param predicate
      * @param arg The argument (x)
      */
 
-    public SWRLClassAtom getSWRLClassAtom(OWLClassExpression desc,
+    public SWRLClassAtom getSWRLClassAtom(OWLClassExpression predicate,
                                           SWRLIArgument arg) {
-        return new SWRLClassAtomImpl(this, desc, arg);
+        return new SWRLClassAtomImpl(this, predicate, arg);
     }
 
 
     /**
      * Gets a SWRL data range atom, i.e.  D(x) where D is an OWL data range and
      * x is either a constant or a d-variable
-     * @param rng The class expression
+     * @param predicate
      * @param arg The argument (x)
      */
 
-    public SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange rng,
+    public SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange predicate,
                                                   SWRLDArgument arg) {
-        return new SWRLDataRangeAtomImpl(this, rng, arg);
+        return new SWRLDataRangeAtomImpl(this, predicate, arg);
     }
 
 
@@ -1231,10 +1227,10 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @param arg1 The second argument (y)
      */
 
-    public SWRLDataValuedPropertyAtom getSWRLDataPropertyAtom(OWLDataPropertyExpression property,
+    public SWRLDataPropertyAtom getSWRLDataPropertyAtom(OWLDataPropertyExpression property,
                                                                     SWRLIArgument arg0,
                                                                     SWRLDArgument arg1) {
-        return new SWRLDataValuedPropertyAtomImpl(this, property, arg0, arg1);
+        return new SWRLDataPropertyAtomImpl(this, property, arg0, arg1);
     }
 
 
@@ -1244,9 +1240,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @param args A non-empty set of SWRL D-Objects
      */
 
-    public SWRLBuiltInAtom getSWRLBuiltInAtom(SWRLBuiltInsVocabulary builtIn,
+    public SWRLBuiltInAtom getSWRLBuiltInAtom(IRI builtInIRI,
                                               List<SWRLDArgument> args) {
-        return new SWRLBuiltInAtomImpl(this, builtIn, args);
+        return new SWRLBuiltInAtomImpl(this, builtInIRI, args);
     }
 
 
@@ -1292,15 +1288,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public SWRLDifferentFromAtom getSWRLDifferentFromAtom(SWRLIArgument arg0,
+    public SWRLDifferentIndividualsAtom getSWRLDifferentFromAtom(SWRLIArgument arg0,
                                                           SWRLIArgument arg1) {
-        return new SWRLDifferentFromAtomImpl(this, arg0, arg1);
+        return new SWRLDifferentIndividualsAtomImpl(this, arg0, arg1);
     }
 
 
-    public SWRLSameAsAtom getSWRLSameAsAtom(SWRLIArgument arg0,
+    public SWRLSameIndividualAtom getSWRLSameAsAtom(SWRLIArgument arg0,
                                             SWRLIArgument arg1) {
-        return new SWRLSameAsAtomImpl(this, arg0, arg1);
+        return new SWRLSameIndividualAtomImpl(this, arg0, arg1);
     }
 
 

@@ -503,7 +503,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         hashCode = 653;
         hashCode = hashCode * MULT + node.getFirstArgument().hashCode();
         hashCode = hashCode * MULT + node.getSecondArgument().hashCode();
@@ -538,18 +538,18 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
 
     public void visit(SWRLLiteralArgument node) {
         hashCode = 683;
-        hashCode = hashCode * MULT + node.getConstant().hashCode();
+        hashCode = hashCode * MULT + node.getLiteral().hashCode();
     }
 
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         hashCode = 797;
         hashCode = hashCode * MULT + node.getFirstArgument().hashCode();
         hashCode = hashCode * MULT + node.getSecondArgument().hashCode();
     }
 
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         hashCode = 811;
         hashCode = hashCode * MULT + node.getFirstArgument().hashCode();
         hashCode = hashCode * MULT + node.getSecondArgument().hashCode();

@@ -583,7 +583,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(SWRLLiteralArgument node) {
             process(node);
-            node.getConstant().accept(this);
+            node.getLiteral().accept(this);
         }
 
 
@@ -625,7 +625,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(SWRLDataValuedPropertyAtom node) {
+        public void visit(SWRLDataPropertyAtom node) {
             process(node);
             node.getPredicate().accept(this);
             node.getFirstArgument().accept(this);
@@ -633,9 +633,9 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(SWRLDifferentFromAtom node) {
+        public void visit(SWRLDifferentIndividualsAtom node) {
             process(node);
-            node.getPredicate().accept(this);
+//            node.getPredicate().accept(this);
             node.getFirstArgument().accept(this);
             node.getSecondArgument().accept(this);
         }
@@ -649,9 +649,9 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(SWRLSameAsAtom node) {
+        public void visit(SWRLSameIndividualAtom node) {
             process(node);
-            node.getPredicate().accept(this);
+//            node.getPredicate().accept(this);
             node.getFirstArgument().accept(this);
             node.getSecondArgument().accept(this);
         }

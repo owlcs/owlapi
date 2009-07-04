@@ -35,7 +35,7 @@ import java.util.Set;/*
  * Date: 14-Jan-2009
  * Represents International Resource Identifiers
  */
-public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue {
+public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate {
 
     /**
      * Obtains this IRI as a URI.  Note that Java URIs handle unicode characters,

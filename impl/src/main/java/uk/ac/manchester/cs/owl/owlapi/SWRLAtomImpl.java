@@ -2,6 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLPredicate;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -32,17 +33,18 @@ import org.semanticweb.owlapi.model.SWRLAtom;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public abstract class SWRLAtomImpl<P> extends OWLObjectImpl implements SWRLAtom<P> {
+public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
 
-    P predicate;
+    SWRLPredicate predicate;
 
-    protected SWRLAtomImpl(OWLDataFactory dataFactory, P predicate) {
+    protected SWRLAtomImpl(OWLDataFactory dataFactory, SWRLPredicate predicate) {
         super(dataFactory);
         this.predicate = predicate;
     }
 
 
-    public P getPredicate() {
+    public SWRLPredicate getPredicate() {
         return predicate;
     }
+
 }

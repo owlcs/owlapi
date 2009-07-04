@@ -20,17 +20,35 @@ import java.util.Set;
 public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
-     * Determines if this rule is anonymous.  Rules may be named
-     * using URIs.
-     * @return <code>true</code> if this rule is anonymous and therefore
-     * doesn't have a URI.
+     * Determines if this rule is anonymous.  If the rule is anonymous it does not have an IRI, instead, it has a
+     * node ID to identify it.
+     * @return <code>true</code> if this rule is anonymous, <code>false</code> if this rule is not anonymous
      */
-    public boolean isAnonymous();
-
-    public URI getIRI();
+    boolean isAnonymous();
 
     /**
-     * Gets the atoms in the body
+     * Gets the node ID if this rule is anonymous
+     * @return The NodeID
+     * @throws NullPointerException if this rule is not anonymous
+     */
+    NodeID getNodeID();
+
+    /**
+     * Gets the rule IRI if this rule is not anonymous.
+     * @return The IRI of the rule if it is not anonymous.
+     * @throws NullPointerException If this rule is anonymous.
+     */
+    IRI getIRI();
+
+    /**
+     * Gets a String representation of the identity of this rule.  If the rule is anonymous then this will be
+     * a string representation of the anonymous ID, otherwise, it will be a string represetation of the IRI.
+     * @return A string representation of the identity of this rule.
+     */
+    String toStringID();
+
+    /**
+     * Gets the atoms in the body of the rule
      * @return A set of <code>SWRLAtom</code>s, which represent the atoms
      * in the body of the rule.
      */
@@ -38,12 +56,19 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
 
     /**
-     * Gets the atoms in the head.
+     * Gets the atoms in the head of the rule
      * @return A set of <code>SWRLAtom</code>s, which represent the atoms
      * in the head of the rule
      */
     Set<SWRLAtom> getHead();
 
+    /**
+     * If this rule contains atoms that have predicates that are inverse object properties, then this method
+     * creates and returns a rule where the arguments of these atoms are fliped over and the predicate is the
+     * inverse (simplified) property
+     * @return The rule such that any atoms of the form  inverseOf(p)(x, y) are transformed to p(x, y).
+     */
+    SWRLRule getSimplified();
 
     /**
      * Gets the variables that appear in this rule.

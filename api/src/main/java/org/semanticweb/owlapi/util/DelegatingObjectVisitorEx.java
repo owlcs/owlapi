@@ -392,12 +392,12 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(SWRLDataValuedPropertyAtom node) {
+    public O visit(SWRLDataPropertyAtom node) {
         return delegate.visit(node);
     }
 
 
-    public O visit(SWRLDifferentFromAtom node) {
+    public O visit(SWRLDifferentIndividualsAtom node) {
         return delegate.visit(node);
     }
 
@@ -407,7 +407,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(SWRLSameAsAtom node) {
+    public O visit(SWRLSameIndividualAtom node) {
         return delegate.visit(node);
     }
 

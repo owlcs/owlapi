@@ -19,7 +19,7 @@ public interface SWRLObjectVisitor {
 
     void visit(SWRLObjectPropertyAtom node);
 
-    void visit(SWRLDataValuedPropertyAtom node);
+    void visit(SWRLDataPropertyAtom node);
 
     void visit(SWRLBuiltInAtom node);
 
@@ -31,7 +31,7 @@ public interface SWRLObjectVisitor {
 
     void visit(SWRLLiteralArgument node);
 
-    void visit(SWRLSameAsAtom node);
+    void visit(SWRLSameIndividualAtom node);
 
-    void visit(SWRLDifferentFromAtom node);
+    void visit(SWRLDifferentIndividualsAtom node);
 }

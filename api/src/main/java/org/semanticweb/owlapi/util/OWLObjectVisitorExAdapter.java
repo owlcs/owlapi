@@ -368,11 +368,11 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
         return defaultReturnValue;
     }
 
-    public O visit(SWRLDataValuedPropertyAtom node) {
+    public O visit(SWRLDataPropertyAtom node) {
         return defaultReturnValue;
     }
 
-    public O visit(SWRLDifferentFromAtom node) {
+    public O visit(SWRLDifferentIndividualsAtom node) {
         return defaultReturnValue;
     }
 
@@ -380,7 +380,7 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
         return defaultReturnValue;
     }
 
-    public O visit(SWRLSameAsAtom node) {
+    public O visit(SWRLSameIndividualAtom node) {
         return defaultReturnValue;
     }
 

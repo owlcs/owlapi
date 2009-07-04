@@ -1,6 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -29,13 +30,13 @@ import org.semanticweb.owlapi.model.*;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007<br><br>
+ * Date: 18-Feb-2007<br><br>
  */
-public class SWRLDataValuedPropertyAtomImpl extends SWRLBinaryAtomImpl<OWLDataPropertyExpression, SWRLIArgument, SWRLDArgument> implements SWRLDataValuedPropertyAtom {
+public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements SWRLDifferentIndividualsAtom {
 
-    public SWRLDataValuedPropertyAtomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression predicate, SWRLIArgument arg0,
-                                          SWRLDArgument arg1) {
-        super(dataFactory, predicate, arg0, arg1);
+    public SWRLDifferentIndividualsAtomImpl(OWLDataFactory dataFactory, SWRLIArgument arg0,
+                                     SWRLIArgument arg1) {
+        super(dataFactory, dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM.getURI()), arg0, arg1);
     }
 
 
@@ -55,15 +56,5 @@ public class SWRLDataValuedPropertyAtomImpl extends SWRLBinaryAtomImpl<OWLDataPr
 
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
-    }
-
-    public boolean equals(Object obj) {
-            if(!(obj instanceof SWRLDataValuedPropertyAtom)) {
-                return false;
-            }
-            SWRLDataValuedPropertyAtom other = (SWRLDataValuedPropertyAtom) obj;
-            return other.getPredicate().equals(getPredicate()) &&
-                    other.getFirstArgument().equals(getFirstArgument()) &&
-                    other.getSecondArgument().equals(getSecondArgument());
     }
 }

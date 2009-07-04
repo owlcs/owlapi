@@ -31,13 +31,26 @@ import org.semanticweb.owlapi.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<OWLObjectPropertyExpression, SWRLIArgument, SWRLIArgument> implements SWRLObjectPropertyAtom {
+public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements SWRLObjectPropertyAtom {
 
     public SWRLObjectPropertyAtomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression predicate, SWRLIArgument arg0,
                                       SWRLIArgument arg1) {
         super(dataFactory, predicate, arg0, arg1);
     }
 
+    public OWLObjectPropertyExpression getPredicate() {
+        return (OWLObjectPropertyExpression) super.getPredicate();
+    }
+
+    /**
+     * Gets a simplified form of this atom.  This basically creates and returns a new atom where the predicate is not
+     * an inverse object property.  If the atom is of the form P(x, y) then P(x, y) is returned.  If the atom is of the
+     * form inverseOf(P)(x, y) then P(y, x) is returned.
+     * @return This atom in a simplified form
+     */
+    public SWRLObjectPropertyAtom getSimplified() {
+        return null;
+    }
 
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);

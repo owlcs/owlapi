@@ -641,7 +641,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         node.getPredicate().accept(this);
         OWLDataPropertyExpression exp = (OWLDataPropertyExpression) obj;
         node.getFirstArgument().accept(this);
@@ -662,7 +662,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         node.getFirstArgument().accept(this);
         SWRLIArgument arg0 = (SWRLIArgument) obj;
         node.getSecondArgument().accept(this);
@@ -671,7 +671,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         node.getFirstArgument().accept(this);
         SWRLIArgument arg0 = (SWRLIArgument) obj;
         node.getSecondArgument().accept(this);
@@ -698,7 +698,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
 
     public void visit(SWRLLiteralArgument node) {
-        node.getConstant().accept(this);
+        node.getLiteral().accept(this);
         OWLLiteral con = (OWLLiteral) obj;
         obj = dataFactory.getSWRLLiteralArgument(con);
     }

@@ -91,7 +91,7 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
     }
 
 
-    public void visit(SWRLDataValuedPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
@@ -123,13 +123,13 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
     }
 
 
-    public void visit(SWRLSameAsAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
 
-    public void visit(SWRLDifferentFromAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
