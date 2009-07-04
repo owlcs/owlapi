@@ -1,7 +1,8 @@
-package org.semanticweb.owlapi.model;
+package org.semanticweb.owlapi.reasoner;
 
+import java.util.Set;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -23,19 +24,17 @@ package org.semanticweb.owlapi.model;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 03-Jul-2009
  */
-public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValue, OWLAnnotationSubject {
+public interface HierarchyNode<E> {
 
     /**
-     * Gets the ID of this individual
-     *
-     * @return The node ID of this individual.
+     * Gets the elements contained in this hierarchy node.  The elements are equivalent to each other.
+     * @return The set of elements
      */
-    NodeID getID();
+    Set<E> getEquivalentElements();
 }
