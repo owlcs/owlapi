@@ -49,7 +49,18 @@ public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
      * @return This atom in a simplified form
      */
     public SWRLObjectPropertyAtom getSimplified() {
-        return null;
+        OWLObjectPropertyExpression prop = getPredicate().getSimplified();
+        if(prop.equals(getPredicate())) {
+            return this;
+        }
+        else if(prop.isAnonymous()) {
+            // Flip
+            return getOWLDataFactory().getSWRLObjectPropertyAtom(prop.getInverseProperty().getSimplified(), getSecondArgument(), getFirstArgument());
+        }
+        else {
+            // No need to flip
+            return getOWLDataFactory().getSWRLObjectPropertyAtom(prop, getFirstArgument(), getSecondArgument());
+        }
     }
 
     public void accept(OWLObjectVisitor visitor) {
