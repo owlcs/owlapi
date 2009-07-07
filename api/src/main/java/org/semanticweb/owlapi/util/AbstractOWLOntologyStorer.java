@@ -60,13 +60,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                 if (physicalURI.getScheme().equals("file")) {
                     File file = new File(physicalURI);
                     // Ensure that the necessary directories exist.
-                    if(file.getParentFile().mkdirs()) {
-                        os = new FileOutputStream(file);
-                    }
-                    else {
-                        throw new IOException("Could not create directories: " + file.getParentFile());
-                    }
-
+                    file.getParentFile().mkdirs();
+                    os = new FileOutputStream(file);
                 } else {
                     URL url = physicalURI.toURL();
                     URLConnection conn = url.openConnection();
