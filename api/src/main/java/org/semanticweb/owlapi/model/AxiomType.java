@@ -1,8 +1,6 @@
 package org.semanticweb.owlapi.model;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -40,7 +38,7 @@ public class AxiomType<C extends OWLAxiom> {
 
     private boolean owl2Axiom;
 
-    private boolean nonSyntacticOWL11Axiom;
+    private boolean nonSyntacticOWL2Axiom;
 
     private boolean isLogical;
 
@@ -48,13 +46,15 @@ public class AxiomType<C extends OWLAxiom> {
 
     public static final Set<AxiomType> AXIOM_TYPES;
 
+    private static final Map<String, AxiomType> NAME_TYPE_MAP;
+
     private static int count = 0;
 
 
-    private AxiomType(String name, boolean owl2Axiom, boolean nonSyntacticOWL11Axiom, boolean isLogical) {
+    private AxiomType(String name, boolean owl2Axiom, boolean nonSyntacticOWL2Axiom, boolean isLogical) {
         this.name = name;
         this.owl2Axiom = owl2Axiom;
-        this.nonSyntacticOWL11Axiom = nonSyntacticOWL11Axiom;
+        this.nonSyntacticOWL2Axiom = nonSyntacticOWL2Axiom;
         this.isLogical = isLogical;
         index = count;
         count++;
@@ -71,8 +71,8 @@ public class AxiomType<C extends OWLAxiom> {
     }
 
 
-    public boolean isNonSyntacticOWL11Axiom() {
-        return nonSyntacticOWL11Axiom;
+    public boolean isNonSyntacticOWL2Axiom() {
+        return nonSyntacticOWL2Axiom;
     }
 
 
@@ -121,6 +121,26 @@ public class AxiomType<C extends OWLAxiom> {
             }
         }
         return result;
+    }
+
+    /**
+     * Gets an axiom type by its name
+     * @param name The name of the axiom type
+     * @return The axiom type with the specified name, or <code>null</code> if there is no such axiom type with the
+     * specified name
+     */
+    public static AxiomType getAxiomType(String name) {
+        return NAME_TYPE_MAP.get(name);
+    }
+
+    /**
+     * Determines if there is an axiom type with the specified name
+     * @param name The name to test for
+     * @return <code>true</code> if there is an axiom type with the specified name, or <code>false</code> if there
+     * is no axiom type with the specified name.
+     */
+    public boolean isAxiomType(String name) {
+        return NAME_TYPE_MAP.containsKey(name);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -268,6 +288,10 @@ public class AxiomType<C extends OWLAxiom> {
         AXIOM_TYPES.add(ANNOTATION_PROPERTY_RANGE);
         AXIOM_TYPES.add(HAS_KEY);
 
+        NAME_TYPE_MAP = new HashMap<String, AxiomType>();
+        for(AxiomType type : AXIOM_TYPES) {
+            NAME_TYPE_MAP.put(type.getName(), type);
+        }
     }
 
 
