@@ -219,7 +219,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
                 write(DISJOINT_WITH);
                 writeSpace();
                 descs.get(j).accept(this);
-                if (j < descs.size()) {
+                if (j < descs.size() - 1) {
                     write("\n");
                 }
             }
@@ -378,7 +378,13 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
 
     public void visit(OWLClassAssertionAxiom axiom) {
+        if(axiom.getClassExpression().isAnonymous()) {
+            write("(");
+        }
         axiom.getClassExpression().accept(this);
+        if(axiom.getClassExpression().isAnonymous()) {
+            write(")");
+        }
         write("(");
         axiom.getIndividual().accept(this);
         write(")");

@@ -135,7 +135,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLClassAssertionAxiom axiom) {
             ConstructNotAllowed descNA = axiom.getClassExpression().accept(this);
             if (descNA != null) {
-                return new AxiomNotAllowed(descNA, axiom);
+                return new AxiomNotInProfile(descNA, axiom);
             } else {
                 return null;
             }
@@ -150,7 +150,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLDataPropertyDomainAxiom axiom) {
             ConstructNotAllowed na = axiom.getDomain().accept(this);
             if (na != null) {
-                return new AxiomNotAllowed(na, axiom);
+                return new AxiomNotInProfile(na, axiom);
             }
             return null;
         }
@@ -159,7 +159,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLDataPropertyRangeAxiom axiom) {
             ConstructNotAllowed na = axiom.getRange().accept(this);
             if (na != null) {
-                return new AxiomNotAllowed(na, axiom);
+                return new AxiomNotInProfile(na, axiom);
             } else {
                 return null;
             }
@@ -193,7 +193,7 @@ public class OWLDLProfile implements OWLProfile {
             for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 ConstructNotAllowed na = desc.accept(this);
                 if (na != null) {
-                    return new AxiomNotAllowed(na, axiom);
+                    return new AxiomNotInProfile(na, axiom);
                 }
             }
             return null;
@@ -218,7 +218,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLAnnotationAssertionAxiom axiom) {
             ConstructNotAllowed na = axiom.getAnnotation().accept(this);
             if (na != null) {
-                return new AxiomNotAllowed(na, axiom);
+                return new AxiomNotInProfile(na, axiom);
             } else {
                 return null;
             }
@@ -229,7 +229,7 @@ public class OWLDLProfile implements OWLProfile {
             for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 ConstructNotAllowed na = desc.accept(this);
                 if (na != null) {
-                    return new AxiomNotAllowed(na, axiom);
+                    return new AxiomNotInProfile(na, axiom);
                 }
             }
             return null;
@@ -303,7 +303,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLObjectPropertyDomainAxiom axiom) {
             ConstructNotAllowed na = axiom.getDomain().accept(this);
             if (na != null) {
-                return new AxiomNotAllowed(na, axiom);
+                return new AxiomNotInProfile(na, axiom);
             } else {
                 return null;
             }
@@ -313,7 +313,7 @@ public class OWLDLProfile implements OWLProfile {
         public ConstructNotAllowed visit(OWLObjectPropertyRangeAxiom axiom) {
             ConstructNotAllowed na = axiom.getRange().accept(this);
             if (na != null) {
-                return new AxiomNotAllowed(na, axiom);
+                return new AxiomNotInProfile(na, axiom);
             } else {
                 return null;
             }
@@ -698,7 +698,7 @@ public class OWLDLProfile implements OWLProfile {
     }
 
 
-    private class OWL2AxiomNotAllowed extends AxiomNotAllowed {
+    private class OWL2AxiomNotAllowed extends AxiomNotInProfile {
 
         private boolean canBeRewritten;
 
@@ -714,7 +714,7 @@ public class OWLDLProfile implements OWLProfile {
     }
 
 
-    private class DisjointClassAxiomNotAllowed extends AxiomNotAllowed {
+    private class DisjointClassAxiomNotAllowed extends AxiomNotInProfile {
 
 
         public DisjointClassAxiomNotAllowed(OWLDisjointClassesAxiom axiom) {
@@ -779,7 +779,7 @@ public class OWLDLProfile implements OWLProfile {
     }
 
 
-    private class NonSimplePropertiesNotAllowedInFunctionalPropertyAxioms extends AxiomNotAllowed {
+    private class NonSimplePropertiesNotAllowedInFunctionalPropertyAxioms extends AxiomNotInProfile {
 
         public NonSimplePropertiesNotAllowedInFunctionalPropertyAxioms(OWLAxiom construct) {
             super(construct);

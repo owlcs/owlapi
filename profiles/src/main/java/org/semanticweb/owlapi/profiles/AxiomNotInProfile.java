@@ -33,19 +33,19 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 16-Apr-2008<br><br>
  */
-public class AxiomNotAllowed<A extends OWLAxiom> extends ConstructNotAllowed<A> {
+public class AxiomNotInProfile<A extends OWLAxiom> extends ConstructNotAllowed<A> {
 
 
-    public AxiomNotAllowed(A construct) {
+    public AxiomNotInProfile(A construct) {
         super(construct);
     }
 
 
-    public AxiomNotAllowed(ConstructNotAllowed cause, A construct) {
+    public AxiomNotInProfile(ConstructNotAllowed cause, A construct) {
         super(cause, construct);
     }
 
-    public AxiomNotAllowed(Set<ConstructNotAllowed> cause, A axiom) {
+    public AxiomNotInProfile(Set<ConstructNotAllowed> cause, A axiom) {
         super(cause, axiom);
     }
 }

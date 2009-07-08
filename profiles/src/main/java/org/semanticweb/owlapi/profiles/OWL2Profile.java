@@ -31,14 +31,19 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * The University Of Manchester<br>
  * Information Management Group<br>
  * Date: 21-Jun-2008<br><br>
+ *
+ * Checks to see if an ontology and its imports closure fall into the OWL 2 DL profile.
+ * An ontology is OWL Full if any of the global structural restrictions are violated, if there is punning between
+ * object and data properties
  */
 public class OWL2Profile implements OWLProfile {
+
     public OWLProfileReport checkOntology(OWLOntology ontology, OWLOntologyManager manager) {
         return null;
     }
 
     public String getName() {
-        return null;
+        return "OWL 2 DL";
     }
 
     //
@@ -86,12 +91,12 @@ public class OWL2Profile implements OWLProfile {
 //// following conditions:
 ////OP1 < OP2 if and only if INV(OP1) < OP2 for all object properties OP1 and OP2 occurring in AllOPE(Ax).
 ////If OPE1 < OPE2 holds, then OPE2 ?* OPE1 does not hold;
-////Each axiom in Ax of the form SubPropertyOf( PropertyChain( OPE1 ... OPEn ) OPE ) with n ³ 2 fulfills the following conditions:
+////Each axiom in Ax of the form SubPropertyOf( PropertyChain( OPE1 ... OPEn ) OPE ) with n ï¿½ 2 fulfills the following conditions:
 ////OPE is equal to owlapi:topObjectProperty, or
 ////n = 2 and OPE1 = OPE2 = OPE, or
-////OPEi < OPE for each 1 ² i ² n, or
-////OPE1 = OPE and OPEi < OPE for each 2 ² i ² n, or
-////OPEn = OPE and OPEi < OPE for each 1 ² i ² n-1.
+////OPEi < OPE for each 1 ï¿½ i ï¿½ n, or
+////OPE1 = OPE and OPEi < OPE for each 2 ï¿½ i ï¿½ n, or
+////OPEn = OPE and OPEi < OPE for each 1 ï¿½ i ï¿½ n-1.
 //
 //
 //        Set<OWLObjectProperty> props = new HashSet<OWLObjectProperty>();

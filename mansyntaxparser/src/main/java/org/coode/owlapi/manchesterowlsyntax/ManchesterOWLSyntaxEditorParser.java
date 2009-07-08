@@ -2041,10 +2041,13 @@ public class ManchesterOWLSyntaxEditorParser {
         }
     }
 
+    public IRI getVariableIRI(String var) {
+        return IRI.create(base + var);
+    }
 
     public SWRLIndividualVariable parseIVariable() throws ParserException {
         String var = parseVariable();
-        return dataFactory.getSWRLIndividualVariable(getIRI(var));
+        return dataFactory.getSWRLIndividualVariable(getVariableIRI(var));
     }
 
 
@@ -2080,7 +2083,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
     public SWRLLiteralVariable parseDVariable() throws ParserException {
         String var = parseVariable();
-        return dataFactory.getSWRLLiteralVariable(getIRI(var));
+        return dataFactory.getSWRLLiteralVariable(getVariableIRI(var));
     }
 
 
