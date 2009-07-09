@@ -1,8 +1,9 @@
-package edu.unika.aifb.rdf.api.util;
+package org.semanticweb.owlapi.rdf.util;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  * Original code by Boris Motik.  The original code formed part of KAON
- * which is licensed under the Lesser General Public License
+ * which is licensed under the Lesser General Public License. The original package
+ * name was edu.unika.aifb.rdf.api
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
