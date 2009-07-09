@@ -1,4 +1,4 @@
-package de.uulm.ecs.ai.owl.krssparser;
+package de.uulm.ecs.ai.owlapi.krssparser;
 
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyInputSource;

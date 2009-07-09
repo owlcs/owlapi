@@ -1,6 +1,7 @@
-package de.uulm.ecs.ai.owl.krssparser;
+package de.uulm.ecs.ai.owlapi.krssparser;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.coode.owl.krssparser.KRSSOWLParserException;
+
 /*
  * Copyright (C) 2007, Ulm University
  *
@@ -29,18 +30,12 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Ulm University
  * Institute of Artificial Intelligence
  */
-public class KRSS2OntologyFormat extends OWLOntologyFormat {
-    public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
-
-    public String toString() {
-        return "KRSS2 Syntax";
+public class KRSS2OWLParserException extends KRSSOWLParserException {
+    public KRSS2OWLParserException(org.coode.owl.krssparser.ParseException e) {
+        super(e);
     }
 
-    public boolean isIgnoreOntologyURI() {
-        return (Boolean) getParameter(IGNORE_ONTOLOGYURI, false);
-    }
-
-    public void setIgnoreOntologyURI(boolean ignore) {
-        setParameter(IGNORE_ONTOLOGYURI, ignore);
+    public KRSS2OWLParserException(Throwable cause) {
+        super(cause);
     }
 }

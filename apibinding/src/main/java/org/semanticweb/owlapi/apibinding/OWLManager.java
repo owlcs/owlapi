@@ -22,8 +22,8 @@ package org.semanticweb.owlapi.apibinding;/*
  */
 
 
-import de.uulm.ecs.ai.owl.krssparser.KRSS2OWLParserFactory;
-import de.uulm.ecs.ai.owl.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
+import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OWLParserFactory;
+import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxParserFactory;
 import org.coode.owlapi.obo.parser.OBOParserFactory;
 import org.coode.owlapi.obo.renderer.OBOFlatFileOntologyStorer;

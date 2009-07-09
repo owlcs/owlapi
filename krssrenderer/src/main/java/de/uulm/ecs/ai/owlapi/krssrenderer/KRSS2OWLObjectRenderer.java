@@ -1,6 +1,6 @@
-package de.uulm.ecs.ai.owl.krssrenderer;
+package de.uulm.ecs.ai.owlapi.krssrenderer;
 
-import static de.uulm.ecs.ai.owl.krssrenderer.KRSS2Vocabulary.*;
+import static de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2Vocabulary.*;
 import org.semanticweb.owlapi.model.*;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package de.uulm.ecs.ai.owl.krssrenderer;
+package de.uulm.ecs.ai.owlapi.krssrenderer;
 
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;

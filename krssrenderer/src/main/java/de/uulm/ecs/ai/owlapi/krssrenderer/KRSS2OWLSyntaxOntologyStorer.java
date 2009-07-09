@@ -1,6 +1,6 @@
-package de.uulm.ecs.ai.owl.krssrenderer;
+package de.uulm.ecs.ai.owlapi.krssrenderer;
 
-import de.uulm.ecs.ai.owl.krssparser.KRSS2OntologyFormat;
+import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;

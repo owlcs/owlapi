@@ -1,4 +1,9 @@
-package de.uulm.ecs.ai.owl.krssrenderer;
+package de.uulm.ecs.ai.owlapi.krssparser;
+
+import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserFactory;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+
 /*
  * Copyright (C) 2007, Ulm University
  *
@@ -23,50 +28,13 @@ package de.uulm.ecs.ai.owl.krssrenderer;
  */
 
 /**
- * Vocabulary of KRSS2 syntax.
- *
- * @author Olaf Noppens
+ * @author Olaf Noppens<br>
+ * Ulm University
+ * Institute of Artificial Intelligence
  */
-public enum KRSS2Vocabulary {
+public class KRSS2OWLParserFactory implements OWLParserFactory {
 
-    ALL("all"),
-    AND("and"),
-    AT_LEAST("at-least"),
-    AT_MOST("at-most"),
-    DEFINE_CONCEPT("define-concept"),
-    DEFINE_PRIMITIVE_CONCEPT("define-primitive-concept"),
-    DEFINE_PRIMITIVE_ROLE("define-primitive-role"),
-    DISJOINT("disjoint"),
-    DOMAIN("domain"),
-    DESTINCT("destinct"),
-    EQUIVALENT("equivalent"),
-    EXACTLY("exactly"),
-    IMPLIES("implies"),
-    INSTANCE("instace"),
-    INVERSE("inv"),
-    NIL("nil"),
-    NOT("not"),
-    OR("or"),
-    PARENTS("parents"),
-    RANGE("range"),
-    RELATED("related"),
-    SOME("some"),
-    SUBROLE("subrole"),
-    SYMMETRIC("symmetric"),
-    TRUE("t"),
-    TRANSITIVE("transitive");
-
-    private String shortName;
-
-    KRSS2Vocabulary(String name) {
-        shortName = name;
-    }
-
-    public String getShortName() {
-        return shortName;
-    }
-
-    public String toString() {
-        return shortName;
+    public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
+        return new KRSS2OWLParser();
     }
 }
