@@ -1,7 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import edu.unika.aifb.rdf.api.syntax.RDFConsumer;
-import edu.unika.aifb.rdf.api.syntax.RDFParser;
+import org.semanticweb.owlapi.rdf.syntax.RDFConsumer;
+import org.semanticweb.owlapi.rdf.syntax.RDFParser;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;

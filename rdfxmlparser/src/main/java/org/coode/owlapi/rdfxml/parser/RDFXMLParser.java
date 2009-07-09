@@ -1,6 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import edu.unika.aifb.rdf.api.syntax.RDFParser;
+import org.semanticweb.owlapi.rdf.syntax.RDFParser;
 import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;

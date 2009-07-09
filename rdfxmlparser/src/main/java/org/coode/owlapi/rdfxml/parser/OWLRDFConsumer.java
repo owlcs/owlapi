@@ -1,6 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import edu.unika.aifb.rdf.api.syntax.RDFConsumer;
+import org.semanticweb.owlapi.rdf.syntax.RDFConsumer;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
