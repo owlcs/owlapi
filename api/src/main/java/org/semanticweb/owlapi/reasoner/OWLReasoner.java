@@ -35,7 +35,7 @@ import java.util.Set;/*
  * <p>
  * An OWLReasoner reasons over a set of ontologies.  The set of ontologies is defined at
  * reasoner creation time and remains fixed from then on.  The set of ontologies can be obtained using the
- * {@link #getOntologies()} method.  When the client responsible for creating the reasoner has finished with the
+ * {@link #getAxioms()} method.  When the client responsible for creating the reasoner has finished with the
  * reasoner instance it must call the {@link #dispose()} method to free any resources that are used by the reasoner.
  * In general, reasoners should not be instantiated directly, but should be created using the appropriate
  * {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}.
@@ -58,7 +58,9 @@ public interface OWLReasoner {
 
     /**
      * Asks the reasoner to interrupt what it is currently doing.  An InterruptedException will be thrown in the
-     * thread that invoked the last reasoner operation.
+     * thread that invoked the last reasoner operation.  The OWL API is not thread safe in general, but it is likely
+     * that this method will be called from another thread than the event dispatch thread or the thread in which
+     * reasoning takes place.
      */
     void interrupt();
 

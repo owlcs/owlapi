@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.reasoner;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
 
 import java.util.Set;
 /*
@@ -37,7 +38,7 @@ import java.util.Set;
  * <p>
  * An BufferedOWLReasoner reasons over a set of ontologies.  The set of ontologies is defined at
  * reasoner creation time and remains fixed from then on.  The set of ontologies can be obtained using the
- * {@link #getOntologies()} method.  When the client responsible for creating the reasoner has finished with the
+ * {@link #getAxioms()} method.  When the client responsible for creating the reasoner has finished with the
  * reasoner instance it must call the {@link #dispose()} method to free any resources that are used by the reasoner.
  * In general, reasoners should not be instantiated directly, but should be created using the appropriate
  * {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}.
@@ -52,11 +53,11 @@ import java.util.Set;
 public interface BufferedOWLReasoner {
 
     /**
-     * Gets the set of ontologies that this reasoner operates on.
-     * @return The set of ontologies that the reasoner operates on.  This corresponds to the imports closure of
+     * Gets the set of axioms that this reasoner operates on.
+     * @return The set of axioms that the reasoner operates on.  This corresponds to the imports closure of
      * the ontology that was specified at the time when the reasoner was created.
      */
-    Set<OWLOntology> getOntologies();
+    Set<OWLAxiom> getAxioms();
 
     /**
      * Flushes any changes stored in the buffer so that they are applied to the ontologies within the reasoner and
@@ -65,12 +66,18 @@ public interface BufferedOWLReasoner {
     void flush();
 
     /**
-     * A convenience method that determines if the set of reasoner ontologies (the set of ontologies returned by
-     * the {@link #getOntologies()} method) is consistent.
-     * @return <code>true</code> if the set of reasoner ontologies is consistent,
-     * or <code>false</code> if the set of reasoner ontologies is inconsistent.
-     * @throws ExpressivenessOutOfScopeException If the set of reasoner ontologies contains axioms that are
-     * out of the scope of expressiveness that is supported by this reasoner
+     * Asks the reasoner to interrupt what it is currently doing.  An InterruptedException will be thrown in the
+     * thread that invoked the last reasoner operation.  The OWL API is not thread safe in general, but it is likely
+     * that this method will be called from another thread than the event dispatch thread or the thread in which
+     * reasoning takes place.
+     */
+    void interrupt();
+
+    /**
+     * A convenience method that determines if the set of reasoner axioms (the set of axioms returned by
+     * the {@link #getAxioms()} method) is consistent.
+     * @return <code>true</code> if the set of axioms is consistent,
+     * or <code>false</code> if the set of axioms is inconsistent.
      * @throws InterruptedException if the reasoning process was interrupted for any particular reason (for example if
      * reasoning was cancelled by a client process)
      */
@@ -78,16 +85,15 @@ public interface BufferedOWLReasoner {
 
     /**
      * A convenience method that determines if the specified class expression is satisfiable with respect to the
-     * set of reasoner ontologies (the set of ontologies returned by the {@link #getOntologies()} method)
+     * set of reasoner axioms (the set of axioms returned by the {@link #getAxioms()} method)
      * @param classExpression The class expression
-     * @return <code>true</code> if classExpression is satisfiable with respect to the set of reasoner ontologies, or
-     * <code>false</code> if classExpression is unsatisfiable with respect to the set of reasoner ontologies.
+     * @return <code>true</code> if classExpression is satisfiable with respect to the set of axioms, or
+     * <code>false</code> if classExpression is unsatisfiable with respect to the axioms.
      * @throws InconsistentOntologiesException if the reasoner's axiom set is inconsistent
      * @throws EntitiesNotInSignatureException if the signature of the classExpression is not contained within the signature
      * of the reasoner's axiom set.
      * @throws ExpressivenessOutOfScopeException If the class expression contains constructs that are out of the scope
-     * of expressiveness that is supported by this reasoner, or if the reasoner's axiom set contains axioms that are
-     * out of the scope of expressiveness that is supported by this reasoner
+     * of expressiveness that is supported by this reasoner.
      * @throws InterruptedException if the reasoning process was interrupted for any particular reason (for example if
      * reasoning was cancelled by a client process)
      */
@@ -95,17 +101,29 @@ public interface BufferedOWLReasoner {
 
 
     /**
-     * A convenience method that determines if the specified axiom is entailed by the set of reasoner ontologies
-     * (the set of ontologies returned by the {@link #getOntologies()} method)
+     * A convenience method that determines if the specified axiom is entailed by the set of reasoner axioms
+     * (the set of axioms returned by the {@link #getAxioms()} method)
      * @param axiom The axiom
-     * @return <code>true</code> if {@code axiom} is entailed by the reasoner ontologies or <code>false</code> if
-     * {@code axiom} is not entailed by the reasoner ontologies.
+     * @return <code>true</code> if {@code axiom} is entailed by the reasoner axioms or <code>false</code> if
+     * {@code axiom} is not entailed by the reasoner axioms.
      * @throws InterruptedException if the reasoning process was interupped for any particular reason (for example if
      * reasoning was cancelled by a client process).
      * @throws UnsupportedEntailmentTypeException if the reasoner cannot perform a check to see if the specified
      * axiom is entailed
      */
     boolean isEntailed(OWLAxiom axiom) throws InterruptedException, UnsupportedEntailmentTypeException;
+
+    /**
+     * Gets the subclasses of the specified class expression.
+     * @param classExpression The class expression whose subclasses are to be retrieved.
+     * @param direct Determines if the direct subclasses should be retrived or if the descendant classes should be
+     * retrieved.  uch that
+     * "B" is entailed to be a subclass of "D" and "A" is entailed to be a subclass of "B".
+     * @return If direct is <code>true</code>, the set of classes such that any class "A" in the set is entailed to
+     * be a subclass of classExpression and there is no class "B" that is entailed to be a subclass of classExpression
+     * for which "A" is entailed to be a subclass of "B".
+     */
+    Set<HierarchyNode<OWLClass>> getSubClasses(OWLClassExpression classExpression, boolean direct);
 
     /**
      * Asks the reasoner to answer a query.
