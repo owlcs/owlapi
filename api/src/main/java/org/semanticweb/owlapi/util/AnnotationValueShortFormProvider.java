@@ -96,8 +96,8 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             AnnotationLanguageFilter checker = new AnnotationLanguageFilter(prop, preferredLanguageMap.get(prop));
 
             for (OWLOntology ontology : ontologySetProvider.getOntologies()) {
-                for (OWLAnnotation anno : entity.getAnnotations(ontology, prop)) {
-                    anno.accept(checker);
+                for (OWLAnnotationAssertionAxiom ax : entity.getAnnotationAssertionAxioms(ontology)) {
+                    ax.accept(checker);
                 }
             }
             if (checker.getMatch() != null) {
@@ -168,12 +168,12 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             return candidateValue;
         }
 
-//        public void visit(OWLConstantAnnotation anno) {
-//            if (lastLangMatchIndex > 0 && // a perfect match - no need to carry on search
-//                anno.getProperty().equals(uri)){
-//                anno.getValue().accept(this);
-//            }
-//        }
+        public void visit(OWLAnnotationAssertionAxiom anno) {
+            if (lastLangMatchIndex > 0 && // a perfect match - no need to carry on search
+                anno.getProperty().equals(prop)){
+                anno.getValue().accept(this);
+            }
+        }
 
 
         public void visit(OWLStringLiteral untypedConstantVal) {

@@ -39,7 +39,7 @@ public class ImplUtils {
     public static Set<OWLAnnotationAssertionAxiom> getAnnotationAxioms(OWLEntity entity, Set<OWLOntology> ontologies) {
         Set<OWLAnnotationAssertionAxiom> result = new HashSet<OWLAnnotationAssertionAxiom>();
         for (OWLOntology ont : ontologies) {
-            result.addAll(ont.getAnnotationAssertionAxioms(entity));
+            result.addAll(ont.getAnnotationAssertionAxioms(entity.getIRI()));
         }
         return result;
     }

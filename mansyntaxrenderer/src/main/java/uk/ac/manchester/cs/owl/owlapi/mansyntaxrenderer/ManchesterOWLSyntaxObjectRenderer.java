@@ -158,7 +158,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
 
     public void visit(OWLClass desc) {
-        write(getShortFormProvider().getShortForm(desc));
+        write((getShortFormProvider().getShortForm(desc)));
     }
 
 
@@ -284,25 +284,25 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
 
     public void visit(OWLObjectProperty property) {
-        write(getShortFormProvider().getShortForm(property));
+        write((getShortFormProvider().getShortForm(property)));
     }
 
 
     public void visit(OWLDataProperty property) {
-        write(getShortFormProvider().getShortForm(property));
+        write((getShortFormProvider().getShortForm(property)));
     }
 
 
     public void visit(OWLNamedIndividual individual) {
-        write(getShortFormProvider().getShortForm(individual));
+        write((getShortFormProvider().getShortForm(individual)));
     }
 
     public void visit(OWLAnnotationProperty property) {
-        write(getShortFormProvider().getShortForm(property));
+        write((getShortFormProvider().getShortForm(property)));
     }
 
     public void visit(OWLDatatype datatype) {
-        write(getShortFormProvider().getShortForm(datatype));
+        write((getShortFormProvider().getShortForm(datatype)));
     }
 
     public void visit(OWLAnonymousIndividual individual) {
@@ -318,6 +318,23 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         writeSpace();
         node.getValue().accept(this);
     }
+
+//    private String escape(String s) {
+//        for(int i = 0; i < s.length(); i++) {
+//            char ch = s.charAt(i);
+//            if(i == 0 && ch == '\'') {
+//                return s;
+//            }
+//            if(" [](){},^<>?@".indexOf(ch) != -1) {
+//                StringBuilder sb = new StringBuilder();
+//                sb.append("'");
+//                sb.append(s);
+//                sb.append("'");
+//                return sb.toString();
+//            }
+//        }
+//        return s;
+//    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //

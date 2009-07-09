@@ -66,7 +66,7 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
 
 
     public Set<OWLAnnotationAssertionAxiom> getEntityAnnotations(OWLOntology ontology) {
-        return ontology.getAnnotationAssertionAxioms(getEntity());
+        return ontology.getAnnotationAssertionAxioms(getEntity().getIRI());
     }
 
 

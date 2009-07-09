@@ -145,7 +145,6 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
 
 
     protected void addAnnotation(String id, String uriID, OWLLiteral value) {
-        throw new OWLRuntimeException("TODO");
 //        OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getURIFromValue(uriID), value);
 //        OWLEntity ent = null;
 //        if (getConsumer().isTerm()) {

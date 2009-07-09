@@ -37,7 +37,7 @@ import java.util.Set;
  * may have the same URI as an OWLIndividual (or other entity) but will still be considered to
  * be a separate object.
  */
-public interface OWLEntity extends OWLObject, OWLNamedObject, OWLAnnotationSubject {
+public interface OWLEntity extends OWLObject, OWLNamedObject {
 
     /**
      * Gets the annotations for this entity.  These are deemed to be annotations in annotation assertion

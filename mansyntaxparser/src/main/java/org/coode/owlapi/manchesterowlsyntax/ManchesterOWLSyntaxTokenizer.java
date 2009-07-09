@@ -111,7 +111,7 @@ public class ManchesterOWLSyntaxTokenizer {
                 readString('\"', true);
             }
             else if (ch == '\'' && lastChar != '\\') {
-                readString('\'', false);
+                readString('\'', true);
             }
             else if (ch == '<') {
                 // Potentially the start of an IRI

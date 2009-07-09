@@ -558,6 +558,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addPredicateHandler(new TPVersionIRIHandler(this));
         addPredicateHandler(new TPPropertyChainAxiomHandler(this));
         addPredicateHandler(new TPAnnotatedSourceHandler(this));
+        addPredicateHandler(new TPPropertyDisjointWithHandler(this));
 
         addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.BROADER));
         addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.NARROWER));

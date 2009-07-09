@@ -1153,7 +1153,7 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
                 potentialKeywords.clear();
-                axioms.addAll(parseAnnotations(datatype));
+                axioms.addAll(parseAnnotations(datatype.getIRI()));
             }
             else {
                 break;
@@ -1382,7 +1382,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 }
             }
             else if (sect.equals(ANNOTATIONS)) {
-                axioms.addAll(parseAnnotations(cls));
+                axioms.addAll(parseAnnotations(cls.getIRI()));
             }
             else {
                 // If force EOF then we need EOF or else everything is o.k.
@@ -1506,7 +1506,7 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
                 potentialKeywords.clear();
-                axioms.addAll(parseAnnotations(prop.asOWLObjectProperty()));
+                axioms.addAll(parseAnnotations(prop.asOWLObjectProperty().getIRI()));
             }
             else if (sect.equalsIgnoreCase(SUB_PROPERTY_CHAIN)) {
                 potentialKeywords.clear();
@@ -1615,7 +1615,7 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
                 potentialKeywords.clear();
-                axioms.addAll(parseAnnotations(prop));
+                axioms.addAll(parseAnnotations(prop.getIRI()));
             }
             else {
                 break;
@@ -1673,7 +1673,7 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
                 potentialKeywords.clear();
-                axioms.addAll(parseAnnotations(prop));
+                axioms.addAll(parseAnnotations(prop.getIRI()));
             }
             else {
                 break;
@@ -1773,7 +1773,7 @@ public class ManchesterOWLSyntaxEditorParser {
                                 axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationAssertionAxiom(ind.asAnonymousIndividual(), annotation)));
                             }
                             else {
-                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationAssertionAxiom(ind.asNamedIndividual(), annotation)));
+                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationAssertionAxiom(ind.asNamedIndividual().getIRI(), annotation)));
                             }
                         }
                     }
@@ -1816,7 +1816,7 @@ public class ManchesterOWLSyntaxEditorParser {
                     axioms.addAll(parseAnnotations(ind.asAnonymousIndividual()));
                 }
                 else {
-                    axioms.addAll(parseAnnotations(ind.asNamedIndividual()));
+                    axioms.addAll(parseAnnotations(ind.asNamedIndividual().getIRI()));
                 }
             }
             else {

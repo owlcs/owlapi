@@ -277,7 +277,6 @@ public class OBOConsumer implements OBOParserHandler {
                     }
                 } else {
                     // Ontology annotations
-                    throw new OWLRuntimeException("TODO");
 //                        OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
 //                        OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getIRI(tag), con);
 //                        OWLOntologyAnnotationAxiom ax = getDataFactory().getOWLOntologyAnnotationAxiom(ontology, anno);
@@ -285,7 +284,6 @@ public class OBOConsumer implements OBOParserHandler {
                 }
             } else if (currentId != null) {
                 // Add as annotation
-                throw new OWLRuntimeException("TODO");
 //                    OWLEntity entity = getCurrentEntity();
 //                    OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
 //                    OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getIRI(tag), con);

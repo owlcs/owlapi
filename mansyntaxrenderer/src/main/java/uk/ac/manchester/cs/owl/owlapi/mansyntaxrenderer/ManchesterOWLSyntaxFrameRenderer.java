@@ -844,7 +844,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if(!isFiltered(AxiomType.ANNOTATION_ASSERTION)) {
             for(OWLOntology ont : getOntologies()) {
                 Set<OWLAnnotation> annos = new TreeSet<OWLAnnotation>();
-                for(OWLAnnotationAssertionAxiom ax : ont.getAnnotationAssertionAxioms(property)) {
+                for(OWLAnnotationAssertionAxiom ax : ont.getAnnotationAssertionAxioms(property.getIRI())) {
                     if (isDisplayed(ax)) {
                         annos.add(ax.getAnnotation());
                     }
@@ -924,7 +924,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         incrementTab(4);
         writeNewLine();
         if (entity instanceof OWLEntity) {
-            return writeAnnotations((OWLEntity) entity);
+            return writeAnnotations(((OWLEntity) entity).getIRI());
         }
         else if(entity instanceof OWLAnonymousIndividual) {
             return writeAnnotations((OWLAnonymousIndividual) entity);
@@ -933,12 +933,12 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
 
-    public Set<OWLAnnotationAssertionAxiom> writeAnnotations(OWLAnnotationSubject entity) {
+    public Set<OWLAnnotationAssertionAxiom> writeAnnotations(OWLAnnotationSubject subject) {
         Set<OWLAnnotationAssertionAxiom> axioms = new HashSet<OWLAnnotationAssertionAxiom>();
         if (!isFiltered(AxiomType.ANNOTATION_ASSERTION)) {
             for (OWLOntology ontology : getOntologies()) {
                 Set<OWLAnnotation> annos = new TreeSet<OWLAnnotation>();
-                for(OWLAnnotationAssertionAxiom ax : ontology.getAnnotationAssertionAxioms(entity)) {
+                for(OWLAnnotationAssertionAxiom ax : ontology.getAnnotationAssertionAxioms(subject)) {
                     if(isDisplayed(ax)) {
                         axioms.add(ax);
                         annos.add(ax.getAnnotation());
