@@ -154,6 +154,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 writeSection(DIFFERENT_INDIVIDUALS, ax.getIndividuals(), ",", false);
             }
         }
+        for(SWRLRule rule : ontology.getRules()) {
+            writeSection(RULE, Collections.singleton(rule), ", ", false);
+        }
         flush();
     }
 
@@ -364,7 +367,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     if (isDisplayed(rule)) {
                         for(SWRLAtom atom : rule.getHead()) {
                             if(atom.getPredicate().equals(cls)) {
-                                writeSection(RULE, rules, "¤", true, ontology);
+                                writeSection(RULE, rules, ", ", true, ontology);
                                 break;
                             }
                         }
@@ -558,7 +561,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                         for(SWRLAtom atom : rule.getHead()) {
                             if(atom.getPredicate().equals(property)) {
                                 rules.add(rule);
-                                writeSection(RULE, rules, "¤", true, ontology);
+                                writeSection(RULE, rules, "ï¿½", true, ontology);
                                 break;
                             }
                         }
@@ -658,7 +661,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     if (isDisplayed(rule)) {
                         for(SWRLAtom atom : rule.getHead()) {
                             if(atom.getPredicate().equals(property)) {
-                                writeSection(RULE, rules, "¤", true, ontology);
+                                writeSection(RULE, rules, "ï¿½", true, ontology);
                                 break;
                             }
                         }
@@ -828,7 +831,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(1);
         for (OWLOntology ontology : getOntologies()) {
             if (ontology.containsAxiom(rule)) {
-                writeSection(RULE, Collections.singleton(rule), "¤", true, ontology);
+                writeSection(RULE, Collections.singleton(rule), "ï¿½", true, ontology);
                 axioms.add(rule);
             }
         }

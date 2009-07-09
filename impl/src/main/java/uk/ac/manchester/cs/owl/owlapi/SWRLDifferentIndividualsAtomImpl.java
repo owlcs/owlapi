@@ -57,4 +57,15 @@ public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIAr
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof SWRLDifferentIndividualsAtom)) {
+            return false;
+        }
+        SWRLDifferentIndividualsAtom other = (SWRLDifferentIndividualsAtom) obj;
+        return other.getAllArguments().equals(getAllArguments());
+    }
 }

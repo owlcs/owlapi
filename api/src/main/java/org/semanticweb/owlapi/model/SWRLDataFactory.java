@@ -39,11 +39,11 @@ public interface SWRLDataFactory {
 
     /**
      * Gets an anonymous SWRL Rule
-     * @param antecendent The atoms that make up the antecedent
-     * @param consequent The atoms that make up the consequent
+     * @param body The atoms that make up the body
+     * @param head The atoms that make up the head
      * @return An anonymous rule with the specified body and head
      */
-    SWRLRule getSWRLRule(Set<? extends SWRLAtom> antecendent, Set<? extends SWRLAtom> consequent);
+    SWRLRule getSWRLRule(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head);
 
 
     /**

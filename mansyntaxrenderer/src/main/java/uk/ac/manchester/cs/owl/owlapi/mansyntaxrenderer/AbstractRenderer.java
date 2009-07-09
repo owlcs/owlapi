@@ -191,15 +191,6 @@ public class AbstractRenderer {
         write(suffix);
     }
 
-    protected void write(URI uri) {
-        if (uri.getFragment() != null) {
-            write(uri.getFragment());
-        }
-        else {
-            write(uri.toString());
-        }
-    }
-
     protected ShortFormProvider getShortFormProvider() {
         return shortFormProvider;
     }

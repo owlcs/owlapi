@@ -65,11 +65,14 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLitera
     }
 
     public boolean equals(Object obj) {
-            if(!(obj instanceof SWRLLiteralArgumentImpl)) {
-                return false;
-            }
-            SWRLLiteralArgument other = (SWRLLiteralArgument) obj;
-            return other.getLiteral().equals(getLiteral());
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof SWRLLiteralArgumentImpl)) {
+            return false;
+        }
+        SWRLLiteralArgument other = (SWRLLiteralArgument) obj;
+        return other.getLiteral().equals(getLiteral());
     }
 
 

@@ -52,9 +52,4 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtom
     public Collection<SWRLArgument> getAllArguments() {
         return Collections.singleton((SWRLArgument) arg);
     }
-
-
-    final protected int compareObjectOfSameType(OWLObject object) {
-        return arg.compareTo(((SWRLUnaryAtom) object).getArgument());
-    }
 }

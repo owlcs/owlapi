@@ -608,7 +608,12 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
             atom.accept(this);
             consequents.add((SWRLAtom) obj);
         }
-        obj = dataFactory.getSWRLRule(rule.getIRI(), antecedents, consequents);
+        if (!rule.isAnonymous()) {
+            obj = dataFactory.getSWRLRule(rule.getIRI(), antecedents, consequents);
+        }
+        else {
+            obj = dataFactory.getSWRLRule(antecedents, consequents);
+        }
     }
 
 

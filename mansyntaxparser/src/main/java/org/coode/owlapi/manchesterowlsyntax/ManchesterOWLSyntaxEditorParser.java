@@ -2042,7 +2042,13 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     public IRI getVariableIRI(String var) {
-        return IRI.create(base + var);
+        if(var.startsWith("<") || var.endsWith(">")) {
+            return IRI.create(var.substring(1, var.length() - 1));
+        }
+        else {
+            return IRI.create(base + var);
+        }
+
     }
 
     public SWRLIndividualVariable parseIVariable() throws ParserException {
@@ -2738,6 +2744,9 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             else if (section.equalsIgnoreCase(SAME_INDIVIDUAL)) {
                 axioms.add(new OntologyAxiomPair(ont, parseSameIndividual()));
+            }
+            else if (section.equalsIgnoreCase(RULE)) {
+                axioms.addAll(parseRuleFrame());
             }
             else if (section.equals(ManchesterOWLSyntaxTokenizer.EOF)) {
                 break;

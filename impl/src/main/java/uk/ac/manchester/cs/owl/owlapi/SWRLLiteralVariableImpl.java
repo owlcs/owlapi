@@ -60,6 +60,9 @@ public class SWRLLiteralVariableImpl extends SWRLVariableImpl implements SWRLLit
 
 
     public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
         if (!(obj instanceof SWRLLiteralVariable)) {
             return false;
         }

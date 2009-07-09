@@ -310,7 +310,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     public void visit(IRI iri) {
-        write(iri.toURI());
+        write(iri.toQuotedString());
     }
 
     public void visit(OWLAnnotation node) {
@@ -934,7 +934,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
 
     public void visit(SWRLBuiltInAtom node) {
-        write(node.getPredicate().toURI());
+        write(node.getPredicate().toQuotedString());
         write("(");
         for (Iterator<SWRLDArgument> it = node.getArguments().iterator(); it.hasNext();) {
             it.next().accept(this);
@@ -948,13 +948,13 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(SWRLLiteralVariable node) {
         write("?");
-        write(node.getIRI().getFragment());
+        write(getShortFormProvider().getShortForm(node.getIRI()));
     }
 
 
     public void visit(SWRLIndividualVariable node) {
         write("?");
-        write(node.getIRI().getFragment());
+        write(getShortFormProvider().getShortForm(node.getIRI()));
     }
 
 

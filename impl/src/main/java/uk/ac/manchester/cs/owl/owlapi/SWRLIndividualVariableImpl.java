@@ -59,6 +59,9 @@ public class SWRLIndividualVariableImpl extends SWRLVariableImpl implements SWRL
     }
 
     public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
         if (!(obj instanceof SWRLIndividualVariable)) {
             return false;
         }

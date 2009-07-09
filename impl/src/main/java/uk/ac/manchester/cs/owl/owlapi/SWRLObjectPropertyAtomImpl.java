@@ -33,8 +33,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements SWRLObjectPropertyAtom {
 
-    public SWRLObjectPropertyAtomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression predicate, SWRLIArgument arg0,
-                                      SWRLIArgument arg1) {
+    public SWRLObjectPropertyAtomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression predicate, SWRLIArgument arg0, SWRLIArgument arg1) {
         super(dataFactory, predicate, arg0, arg1);
     }
 
@@ -50,10 +49,10 @@ public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
      */
     public SWRLObjectPropertyAtom getSimplified() {
         OWLObjectPropertyExpression prop = getPredicate().getSimplified();
-        if(prop.equals(getPredicate())) {
+        if (prop.equals(getPredicate())) {
             return this;
         }
-        else if(prop.isAnonymous()) {
+        else if (prop.isAnonymous()) {
             // Flip
             return getOWLDataFactory().getSWRLObjectPropertyAtom(prop.getInverseProperty().getSimplified(), getSecondArgument(), getFirstArgument());
         }
@@ -82,12 +81,13 @@ public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
     }
 
     public boolean equals(Object obj) {
-            if(!(obj instanceof SWRLObjectPropertyAtom)) {
-                return false;
-            }
-            SWRLObjectPropertyAtom other = (SWRLObjectPropertyAtom) obj;
-            return other.getPredicate().equals(getPredicate()) &&
-                    other.getFirstArgument().equals(getFirstArgument()) &&
-                    other.getSecondArgument().equals(getSecondArgument());
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof SWRLObjectPropertyAtom)) {
+            return false;
+        }
+        SWRLObjectPropertyAtom other = (SWRLObjectPropertyAtom) obj;
+        return other.getPredicate().equals(getPredicate()) && other.getFirstArgument().equals(getFirstArgument()) && other.getSecondArgument().equals(getSecondArgument());
     }
 }

@@ -95,6 +95,15 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
     }
 
     /**
+     * Gets the short form for an IRI
+     * @param iri The IRI
+     * @return The short form for the specified IRI
+     */
+    public String getShortForm(IRI iri) {
+        return iri.toQuotedString();
+    }
+
+    /**
      * Disposes of the short form proivider.  This frees any
      * resources and clears any caches.
      */

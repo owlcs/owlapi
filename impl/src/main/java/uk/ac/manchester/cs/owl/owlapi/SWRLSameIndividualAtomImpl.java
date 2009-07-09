@@ -57,4 +57,15 @@ public class SWRLSameIndividualAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof SWRLSameIndividualAtom)) {
+            return false;
+        }
+        SWRLSameIndividualAtom other = (SWRLSameIndividualAtom) obj;
+        return other.getAllArguments().equals(getAllArguments());
+    }
 }
