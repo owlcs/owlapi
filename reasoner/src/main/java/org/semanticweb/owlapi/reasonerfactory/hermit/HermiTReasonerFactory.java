@@ -5,6 +5,7 @@ import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.reasonerfactory.OWLReasonerSetupException;
 
 import java.lang.reflect.Constructor;
@@ -46,10 +47,15 @@ public class HermiTReasonerFactory implements OWLReasonerFactory {
 
     private static final String REASONER_CLASS_NAME = "org.semanticweb.HermiT.Reasoner";
 
+    private static final String CONFIGURATION_CLASS_NAME = "org.semanticweb.HermiT.Configuration";
+
+    private Class configurationClass;
+
     public HermiTReasonerFactory() {
         try {
             Class clsHermitReasoner = Class.forName(REASONER_CLASS_NAME);
-            constructor = clsHermitReasoner.getDeclaredConstructor(OWLOntologyManager.class);
+            configurationClass = Class.forName(CONFIGURATION_CLASS_NAME);
+            constructor = clsHermitReasoner.getDeclaredConstructor(configurationClass, OWLDataFactory.class, Set.class);
             constructor.setAccessible(true);
 
         } catch (ClassNotFoundException e) {
@@ -67,17 +73,13 @@ public class HermiTReasonerFactory implements OWLReasonerFactory {
 
     public OWLReasoner createReasoner(OWLOntologyManager manager, Set<OWLOntology> ontologies) throws OWLReasonerSetupException{
         try {
-            OWLReasoner reasoner = (OWLReasoner) constructor.newInstance(manager);
-            reasoner.loadOntologies(ontologies);
-            return reasoner;
+            return (OWLReasoner) constructor.newInstance(configurationClass.newInstance(), manager.getOWLDataFactory(), ontologies);
 
         } catch (InstantiationException e) {
             throw new OWLReasonerSetupException(this, e);
         } catch (IllegalAccessException e) {
             throw new OWLReasonerSetupException(this, e);
         } catch (InvocationTargetException e) {
-            throw new OWLReasonerSetupException(this, e);
-        } catch (OWLReasonerException e) {
             throw new OWLReasonerSetupException(this, e);
         }
     }

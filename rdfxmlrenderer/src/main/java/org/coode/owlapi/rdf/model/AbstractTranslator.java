@@ -445,7 +445,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         translateAnonymousNode(axiom);
-        addTriple(axiom, RDF_TYPE.getURI(), OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getURI());
+        addTriple(axiom, RDF_TYPE.getURI(), OWL_NEGATIVE_PROPERTY_ASSERTION.getURI());
         addTriple(axiom, OWL_SOURCE_INDIVIDUAL.getURI(), axiom.getSubject());
         addTriple(axiom, OWL_ASSERTION_PROPERTY.getURI(), axiom.getProperty());
         addTriple(axiom, OWL_TARGET_INDIVIDUAL.getURI(), axiom.getObject());
@@ -462,7 +462,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         translateAnonymousNode(axiom);
-        addTriple(axiom, RDF_TYPE.getURI(), OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getURI());
+        addTriple(axiom, RDF_TYPE.getURI(), OWL_NEGATIVE_PROPERTY_ASSERTION.getURI());
         addTriple(axiom, OWL_SOURCE_INDIVIDUAL.getURI(), axiom.getSubject());
         addTriple(axiom, OWL_ASSERTION_PROPERTY.getURI(), axiom.getProperty());
         addTriple(axiom, OWL_TARGET_VALUE.getURI(), axiom.getObject());

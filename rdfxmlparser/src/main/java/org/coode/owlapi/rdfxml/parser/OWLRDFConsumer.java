@@ -414,6 +414,8 @@ public class OWLRDFConsumer implements RDFConsumer {
             synonymMap.put(URI.create(Namespaces.OWL2.toString() + v.getShortName()), v.getIRI().toURI());
         }
 
+        synonymMap.put(OWLRDFVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getURI(), OWLRDFVocabulary.OWL_NEGATIVE_PROPERTY_ASSERTION.getURI());
+        synonymMap.put(OWLRDFVocabulary.OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getURI(), OWLRDFVocabulary.OWL_NEGATIVE_PROPERTY_ASSERTION.getURI());
     }
 
 
@@ -485,7 +487,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addBuiltInTypeTripleHandler(new TypeDataRangeHandler(this));
         addBuiltInTypeTripleHandler(new TypeAllDifferentHandler(this));
         addBuiltInTypeTripleHandler(new TypeOntologyHandler(this));
-        addBuiltInTypeTripleHandler(new TypeNegativeObjectPropertyAssertionHandler(this));
+        addBuiltInTypeTripleHandler(new TypeNegativePropertyAssertionHandler(this));
         addBuiltInTypeTripleHandler(new TypeNegativeDataPropertyAssertionHandler(this));
         addBuiltInTypeTripleHandler(new TypeAxiomHandler(this));
         addBuiltInTypeTripleHandler(new TypeRDFPropertyHandler(this));

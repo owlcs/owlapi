@@ -67,9 +67,7 @@ public enum OWLRDFVocabulary {
 
     OWL_INVERSE_FUNCTIONAL_PROPERTY(Namespaces.OWL, "InverseFunctionalProperty"),
 
-    /**
-     * Note that this is not OWL 2 Vocabulary.  It is here for legacy reasons.
-     */
+    /** @deprecated For backwards compatibility only */
     OWL_ANTI_SYMMETRIC_PROPERTY(Namespaces.OWL, "AntisymmetricProperty"),
 
     OWL_ASYMMETRIC_PROPERTY(Namespaces.OWL, "AsymmetricProperty"),
@@ -142,11 +140,16 @@ public enum OWLRDFVocabulary {
 
     OWL_MAX_QUALIFIED_CARDINALITY(Namespaces.OWL, "maxQualifiedCardinality"),
 
+    /** @deprecated For backwards compatibility only */
     OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION(
             Namespaces.OWL, "NegativeObjectPropertyAssertion"),
 
+    /** @deprecated For backwards compatibility only */
     OWL_NEGATIVE_DATA_PROPERTY_ASSERTION(
             Namespaces.OWL, "NegativeDataPropertyAssertion"),
+
+
+    OWL_NEGATIVE_PROPERTY_ASSERTION(Namespaces.OWL, "NegativePropertyAssertion"),
 
     RDFS_LABEL(Namespaces.RDFS, "label"),
 
