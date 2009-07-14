@@ -96,6 +96,9 @@ public enum OWLRDFVocabulary {
 
     OWL_ONE_OF(Namespaces.OWL, "oneOf"),
 
+    /**
+     * @deprecated For backwards compatibility only
+     */
     OWL_SELF_RESTRICTION(Namespaces.OWL, "SelfRestriction"),
 
     OWL_HAS_SELF(Namespaces.OWL, "hasSelf"),

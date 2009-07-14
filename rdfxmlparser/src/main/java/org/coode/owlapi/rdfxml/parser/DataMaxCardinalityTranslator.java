@@ -52,4 +52,12 @@ public class DataMaxCardinalityTranslator extends AbstractDataCardinalityTransla
     protected URI getCardinalityTriplePredicate() {
         return OWLRDFVocabulary.OWL_MAX_CARDINALITY.getURI();
     }
+
+    /**
+     * Gets the predicate of the qualified cardinality triple.
+     * @return The predicate URI
+     */
+    protected URI getQualifiedCardinalityTriplePredicate() {
+        return OWLRDFVocabulary.OWL_MAX_QUALIFIED_CARDINALITY.getURI();
+    }
 }

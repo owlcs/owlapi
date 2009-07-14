@@ -75,6 +75,7 @@ public enum XSDVocabulary {
     ENTITIES("ENTITIES"),
     DURATION("duration"),
     DATE_TIME("dateTime"),
+    DATE_TIME_STAMP("dateTimeStamp"),
     TIME("time"),
     DATE("date"),
     G_YEAR_MONTH("gYearMonth"),

@@ -51,4 +51,12 @@ public class DataCardinalityTranslator extends AbstractDataCardinalityTranslator
     protected URI getCardinalityTriplePredicate() {
         return OWLRDFVocabulary.OWL_CARDINALITY.getURI();
     }
+
+    /**
+     * Gets the predicate of the qualified cardinality triple.
+     * @return The predicate URI
+     */
+    protected URI getQualifiedCardinalityTriplePredicate() {
+        return OWLRDFVocabulary.OWL_QUALIFIED_CARDINALITY.getURI();
+    }
 }

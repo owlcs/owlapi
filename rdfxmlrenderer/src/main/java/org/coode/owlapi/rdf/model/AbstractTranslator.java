@@ -182,8 +182,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(OWLObjectHasSelf desc) {
         translateAnonymousNode(desc);
-        addTriple(desc, RDF_TYPE.getURI(), OWL_SELF_RESTRICTION.getURI());
+        addTriple(desc, RDF_TYPE.getURI(), OWL_RESTRICTION.getURI());
         addTriple(desc, OWL_ON_PROPERTY.getURI(), desc.getProperty());
+        addTriple(desc, OWL_HAS_SELF.getURI(), manager.getOWLDataFactory().getOWLTypedLiteral(true));
     }
 
 

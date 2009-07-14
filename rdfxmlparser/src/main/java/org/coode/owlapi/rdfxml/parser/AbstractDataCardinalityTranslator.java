@@ -53,6 +53,12 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
 
 
     /**
+     * Gets the predicate of the qualified cardinality triple.
+     * @return The predicate URI
+     */
+    protected abstract URI getQualifiedCardinalityTriplePredicate();
+
+    /**
      * Translates and consumes the cardinality triple.
      *
      * @param mainNode The main node of the restriction.
@@ -60,8 +66,16 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
      */
     private int translateCardinality(URI mainNode) {
         OWLLiteral cardiObject = getLiteralObject(mainNode, getCardinalityTriplePredicate(), true);
+        if(cardiObject == null) {
+            cardiObject = getLiteralObject(mainNode, getQualifiedCardinalityTriplePredicate(), true);
+        }
+        if(cardiObject == null) {
+            return -1;
+        }
         return Integer.parseInt(cardiObject.getLiteral());
     }
+
+
 
 
     /**
