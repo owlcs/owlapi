@@ -52,5 +52,7 @@ public interface OWLFacetRestriction extends OWLObject {
      */
     OWLLiteral getFacetValue();
 
+    void accept(OWLDataVisitor visitor);
+
     <O> O accept(OWLDataVisitorEx<O> visitor);
 }

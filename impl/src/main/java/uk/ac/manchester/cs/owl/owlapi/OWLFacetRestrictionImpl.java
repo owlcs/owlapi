@@ -71,6 +71,9 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
         return visitor.visit(this);
     }
 
+    public void accept(OWLDataVisitor visitor) {
+        visitor.visit(this);
+    }
 
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
