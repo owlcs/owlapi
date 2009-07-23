@@ -47,9 +47,7 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
 
     public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         // Can handle when streaming if the subject or object are named
-        getConsumer().addOWLClass(subject);
-        getConsumer().addOWLClass(object);
-        return !isSubjectOrObjectAnonymous(subject, object) && (getConsumer().isClass(subject) || getConsumer().isDataRange(subject));
+        return !isSubjectOrObjectAnonymous(subject, object) && (getConsumer().isClass(subject));
     }
 
 
