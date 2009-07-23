@@ -28,7 +28,7 @@ package org.semanticweb.owlapi.model;
  * Information Management Group<br>
  * Date: 24-Mar-2009
  */
-public interface OWLDatatypeDefinitionAxiom extends OWLAxiom {
+public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
 
     /**
      * Gets the datatype that is assigned a definition
