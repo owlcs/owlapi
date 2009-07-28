@@ -128,10 +128,6 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         }
     }
 
-//    protected OWLLiteral getUntypedConstant(String literal) throws OWLException {
-//        return getDataFactory().getOWLStringLiteral(literal);
-//    }
-
 
     protected OWLLiteral getBooleanConstant(Boolean b) {
         if (b) {
@@ -145,16 +141,9 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
 
 
     protected void addAnnotation(String id, String uriID, OWLLiteral value) {
-//        OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getURIFromValue(uriID), value);
-//        OWLEntity ent = null;
-//        if (getConsumer().isTerm()) {
-//            ent = getDataFactory().getOWLClass(getURIFromValue(id));
-//        } else if (getConsumer().isTypedef()) {
-//            ent = getDataFactory().getOWLObjectProperty(getURIFromValue(id));
-//        } else {
-//            ent = getDataFactory().getOWLNamedIndividual(getURIFromValue(id));
-//        }
-//        OWLAxiom ax = getDataFactory().getOWLEntityAnnotationAxiom(ent, anno);
-//        applyChange(new AddAxiom(getOntology(), ax));
+        IRI subject = IRI.create(getURIFromValue(id));
+        OWLAnnotationProperty annotationProperty = getDataFactory().getOWLAnnotationProperty(getURIFromValue(uriID));
+        OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(annotationProperty, subject, value);
+        applyChange(new AddAxiom(getOntology(), ax));
     }
 }

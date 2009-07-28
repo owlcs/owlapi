@@ -249,7 +249,7 @@ public class OBOConsumer implements OBOParserHandler {
 
     private void createEquivalentClass(OWLClassExpression classExpression) {
         OWLAxiom ax = getDataFactory().getOWLEquivalentClassesAxiom(CollectionFactory.createSet(getCurrentClass(),
-                classExpression));
+                                                                                                classExpression));
         try {
             getOWLOntologyManager().applyChange(new AddAxiom(ontology, ax));
         }
@@ -277,18 +277,19 @@ public class OBOConsumer implements OBOParserHandler {
                     }
                 } else {
                     // Ontology annotations
-//                        OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
-//                        OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getIRI(tag), con);
-//                        OWLOntologyAnnotationAxiom ax = getDataFactory().getOWLOntologyAnnotationAxiom(ontology, anno);
-//                        owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
+                    OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
+                    OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getURI(tag));
+                    OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
+                    owlOntologyManager.applyChange(new AddOntologyAnnotation(ontology, anno));
                 }
             } else if (currentId != null) {
                 // Add as annotation
-//                    OWLEntity entity = getCurrentEntity();
-//                    OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
-//                    OWLAnnotation anno = getDataFactory().getOWLConstantAnnotation(getIRI(tag), con);
-//                    OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLEntityAnnotationAxiom(entity, anno);
-//                    owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
+                IRI subject = IRI.create(getURI(currentId));
+                OWLLiteral con = getDataFactory().getOWLStringLiteral(value);
+                OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getURI(tag));
+                OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
+                OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
+                owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
             }
 
         }
