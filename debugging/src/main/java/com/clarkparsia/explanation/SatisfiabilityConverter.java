@@ -179,7 +179,7 @@ public class SatisfiabilityConverter {
             if (classes.hasNext())
                 logger.warning("EquivalentClassesAxiom with more than two elements not supported!");
 
-            // apply simplification for the cases where either concept is owlapi:Thing or owlapi:Nothin
+            // apply simplification for the cases where either concept is owl:Thing or owlapi:Nothin
             if (c1.isOWLNothing())
                 result = c2;
             else if (c2.isOWLNothing())

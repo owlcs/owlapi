@@ -72,15 +72,15 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
                 if(!map.containsKey("xsd:")) {
                     w.writePrefix("xsd:", Namespaces.XSD.toString());
                 }
-                if(!map.containsKey("owlapi:")) {
-                    w.writePrefix("owlapi:", Namespaces.OWL.toString());
+                if(!map.containsKey("owl:")) {
+                    w.writePrefix("owl:", Namespaces.OWL.toString());
                 }
             }
             else {
                 w.writePrefix("rdf:", Namespaces.RDF.toString());
                 w.writePrefix("rdfs:", Namespaces.RDFS.toString());
                 w.writePrefix("xsd:", Namespaces.XSD.toString());
-                w.writePrefix("owlapi:", Namespaces.OWL.toString());
+                w.writePrefix("owl:", Namespaces.OWL.toString());
             }
 
 

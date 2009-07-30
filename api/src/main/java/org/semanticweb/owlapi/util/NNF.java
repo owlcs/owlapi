@@ -56,7 +56,16 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
 
     public OWLClassExpression visit(OWLClass desc) {
         if (negated) {
-            return getNegation(desc);
+            if(desc.isOWLNothing()) {
+                return dataFactory.getOWLThing();
+            }
+            else if(desc.isOWLThing()) {
+                return dataFactory.getOWLNothing();
+            }
+            else {
+                return getNegation(desc);    
+            }
+
         } else {
             return desc;
         }

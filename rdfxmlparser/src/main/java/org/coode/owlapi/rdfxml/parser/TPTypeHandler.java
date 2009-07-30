@@ -45,7 +45,7 @@ public class TPTypeHandler extends TriplePredicateHandler {
 
     public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
         // Can handle if object isn;t anonymous and either the object
-        // URI is owlapi:Thing, or it is not part of the build in vocabulary
+        // URI is owl:Thing, or it is not part of the build in vocabulary
         return !isAnonymous(object) &&
                 (object.equals(OWLRDFVocabulary.OWL_THING.getURI()) ||
                         !OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(object));

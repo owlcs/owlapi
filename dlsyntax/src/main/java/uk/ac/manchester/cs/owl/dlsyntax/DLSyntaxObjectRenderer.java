@@ -220,7 +220,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
                 writeSpace();
                 descs.get(j).accept(this);
                 if (j < descs.size() - 1) {
-                    write("\n");
+                    write(", ");
                 }
             }
         }

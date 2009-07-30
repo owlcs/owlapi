@@ -220,7 +220,7 @@ public class ManchesterOWLSyntaxEditorParser {
         annotationPropertyNames = new HashSet<String>();
         pm.setPrefix("rdf:", Namespaces.RDF.toString());
         pm.setPrefix("rdfs:", Namespaces.RDFS.toString());
-        pm.setPrefix("owlapi:", Namespaces.OWL.toString());
+        pm.setPrefix("owl:", Namespaces.OWL.toString());
         pm.setPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
         NamespaceUtil u = new NamespaceUtil();
 
@@ -1810,6 +1810,15 @@ public class ManchesterOWLSyntaxEditorParser {
                     }
                 }
             }
+            else if (sect.equalsIgnoreCase(DIFFERENT_INDIVIDUALS)) {
+                potentialKeywords.clear();
+                consumeToken();
+                Set<OWLOntology> onts = getOntologies();
+                Set<OWLIndividual> inds = parseIndividualList();
+                for(OWLOntology ont : onts) {
+                    axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLDifferentIndividualsAxiom(inds)));
+                }
+            }
             else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
                 potentialKeywords.clear();
                 if (ind.isAnonymous()) {
@@ -2903,10 +2912,10 @@ public class ManchesterOWLSyntaxEditorParser {
 
 
         public OWLClass getOWLClass(String name) {
-            if (name.equals("Thing") || name.equals("owlapi:Thing")) {
+            if (name.equals("Thing") || name.equals("owl:Thing")) {
                 return dataFactory.getOWLThing();
             }
-            else if (name.equals("Nothing") || name.equals("owlapi:Nothing")) {
+            else if (name.equals("Nothing") || name.equals("owl:Nothing")) {
                 return dataFactory.getOWLNothing();
             }
             else if (classNames.contains(name)) {

@@ -40,6 +40,8 @@ public class ManchesterOWLSyntaxTokenizer {
 
     protected Set<Character> skip = new HashSet<Character>();
 
+    protected Set<Character> commentDelimiters = new HashSet<Character>();
+
     protected Set<Character> delims = new HashSet<Character>();
 
     private String buffer;
@@ -69,6 +71,8 @@ public class ManchesterOWLSyntaxTokenizer {
         skip.add('\n');
         skip.add('\r');
         skip.add('\t');
+        commentDelimiters.add('#');
+        commentDelimiters.add('*');
         delims.add('(');
         delims.add(')');
         delims.add('[');
@@ -120,6 +124,10 @@ public class ManchesterOWLSyntaxTokenizer {
             else if (skip.contains(ch)) {
                 consumeToken();
             }
+            else if (commentDelimiters.contains(ch)) {
+                consumeToken();
+                readComment();
+            }
             else if (delims.contains(ch)) {
                 consumeToken();
                 sb.append(ch);
@@ -146,6 +154,13 @@ public class ManchesterOWLSyntaxTokenizer {
         startRow = row;
     }
 
+    private void readComment() {
+        char ch = '#';
+        while(ch != '\n' && pos < buffer.length()) {
+            ch = readChar();
+        }
+        consumeToken();
+    }
 
     private void readString(char terminator, boolean appendTerminator) {
         if (appendTerminator) {

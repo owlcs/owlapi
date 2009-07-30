@@ -89,7 +89,7 @@ public class Example8 {
             System.out.println("Expressivity: " + checker.getDescriptionLogicName());
 
             // We can determine if the pizza ontology is actually consistent.  (If an ontology is
-            // inconsistent then owlapi:Thing is equivalent to owlapi:Nothing - i.e. there can't be any
+            // inconsistent then owl:Thing is equivalent to owlapi:Nothing - i.e. there can't be any
             // models of the ontology)
             boolean consistent = reasoner.isConsistent(ont);
             System.out.println("Consistent: " + consistent);
@@ -98,7 +98,7 @@ public class Example8 {
             // We can easily get a list of inconsistent classes.  (A class is inconsistent if it
             // can't possibly have any instances).  Note that the getUnsatisfiableClasses method
             // is really just a convenience method for obtaining the classes that are equivalent
-            // to owlapi:Nothing.
+            // to owl:Nothing.
             Set<OWLClass> inconsistentClasses = reasoner.getUnsatisfiableClasses();
             if (!inconsistentClasses.isEmpty()) {
                 System.out.println("The following classes are inconsistent: ");

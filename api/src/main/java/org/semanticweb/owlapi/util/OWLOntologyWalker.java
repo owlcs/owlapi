@@ -33,11 +33,13 @@ import java.util.Set;
  */
 public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
 
+
     private OWLAxiom currentAxiom;
 
     public OWLOntologyWalker(Set<OWLOntology> objects) {
         super(objects);
     }
+
 
     public <E> void walkStructure(OWLObjectVisitorEx<E> visitor) {
         super.walkStructure(new DelegatingObjectVisitorEx<E>(visitor) {
@@ -240,6 +242,78 @@ public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
             public E visit(SWRLRule rule) {
                 currentAxiom = rule;
                 return super.visit(rule);
+            }
+
+            public E visit(OWLClass desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLDataAllValuesFrom desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLDataExactCardinality desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLDataMaxCardinality desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLDataMinCardinality desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLDataSomeValuesFrom desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLDataHasValue desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLObjectAllValuesFrom desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLObjectComplementOf desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLObjectExactCardinality desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLObjectIntersectionOf desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLObjectMaxCardinality desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLObjectMinCardinality desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLObjectOneOf desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLObjectHasSelf desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLObjectSomeValuesFrom desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLObjectUnionOf desc) {
+                return super.visit(desc);
+            }
+
+            public E visit(OWLObjectHasValue desc) {
+                return super.visit(desc);
             }
         });
     }

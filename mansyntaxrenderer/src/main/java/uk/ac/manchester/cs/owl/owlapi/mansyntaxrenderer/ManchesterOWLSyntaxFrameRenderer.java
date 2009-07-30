@@ -50,6 +50,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     private boolean renderExtensions = false;
 
+    private List<RendererListener> listeners = new ArrayList<RendererListener>();
+
     private OWLAxiomFilter axiomFilter = new OWLAxiomFilter() {
         public boolean passes(OWLAxiom axiom) {
             return true;
@@ -71,6 +73,15 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     }
 
+    public void addRendererListener(RendererListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeRendererListener(RendererListener listener) {
+        listeners.remove(listener);
+    }
+
+
     public void setAxiomFilter(OWLAxiomFilter axiomFilter) {
         this.axiomFilter = axiomFilter;
     }
@@ -87,12 +98,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         this.renderExtensions = renderExtensions;
     }
 
-    //    private OWLOntology getOntology() {
-//        return this.ontology;
-//    }
-
-
-    Set<OWLOntology> getOntologies() {
+    public Set<OWLOntology> getOntologies() {
         return ontologies;
     }
 
@@ -131,6 +137,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             write(ind);
         }
         // Nary disjoint classes axioms
+        event = new RendererEvent(this, ontology);
         for (OWLDisjointClassesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_CLASSES)) {
             if (ax.getClassExpressions().size() > 2) {
                 writeSection(DISJOINT_CLASSES, ax.getClassExpressions(), ",", false);
@@ -162,6 +169,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
 
     public void writeOntologyHeader(OWLOntology ontology) {
+        event = new RendererEvent(this, ontology);
+        fireFrameRenderingPrepared(ONTOLOGY.toString());
         write(ONTOLOGY.toString());
         write(":");
         writeSpace();
@@ -175,16 +184,21 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             }
             popTab();
         }
+        fireFrameRenderingStarted(ONTOLOGY.toString());
         writeNewLine();
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
+            fireSectionItemPrepared(IMPORT.toString());
             write(IMPORT.toString());
             write(":");
             writeSpace();
+            fireSectionRenderingStarted(IMPORT.toString());
             writeFullURI(decl.getURI().toString());
             writeNewLine();
+            fireSectionRenderingFinished(IMPORT.toString());
         }
         writeNewLine();
         writeSection(ANNOTATIONS, ontology.getAnnotations(), ",", true);
+        fireFrameRenderingFinished(ONTOLOGY.toString());
     }
 
 
@@ -267,6 +281,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     public Set<OWLAxiom> write(OWLClass cls) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(CLASS, cls));
+
         if (!isFiltered(AxiomType.EQUIVALENT_CLASSES)) {
             for (OWLOntology ontology : getOntologies()) {
                 Set<OWLClassExpression> equivalentClasses = new TreeSet<OWLClassExpression>();
@@ -376,12 +391,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             }
 
         }
-        writeEntitySectionEnd();
+        writeEntitySectionEnd(CLASS.toString());
         return axioms;
     }
 
 
-    protected void writeEntitySectionEnd() {
+    protected void writeEntitySectionEnd(String type) {
+        fireFrameRenderingFinished(type);
         popTab();
         writeNewLine();
     }
@@ -571,7 +587,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             }
 
         }
-        writeEntitySectionEnd();
+        writeEntitySectionEnd(OBJECT_PROPERTY.toString());
         return axioms;
     }
 
@@ -661,7 +677,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     if (isDisplayed(rule)) {
                         for(SWRLAtom atom : rule.getHead()) {
                             if(atom.getPredicate().equals(property)) {
-                                writeSection(RULE, rules, "�", true, ontology);
+                                writeSection(RULE, rules, "", true, ontology);
                                 break;
                             }
                         }
@@ -670,7 +686,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             }
 
         }
-        writeEntitySectionEnd();
+        writeEntitySectionEnd(DATA_PROPERTY.toString());
         return axioms;
     }
 
@@ -794,17 +810,26 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.DIFFERENT_INDIVIDUALS)) {
             for (OWLOntology ontology : getOntologies()) {
                 Set<OWLIndividual> inds = new TreeSet<OWLIndividual>();
+                Set<OWLDifferentIndividualsAxiom> nary = new TreeSet<OWLDifferentIndividualsAxiom>();
                 for(OWLDifferentIndividualsAxiom ax : ontology.getDifferentIndividualAxioms(individual)) {
                     if(ax.getIndividuals().size() == 2 && isDisplayed(ax)) {
                         inds.addAll(ax.getIndividuals());
                         axioms.add(ax);
                     }
+                    else {
+                        nary.add(ax);
+                    }
                 }
                 inds.remove(individual);
                 writeSection(DIFFERENT_FROM, inds, ",", true, ontology);
+                if(renderExtensions) {
+                    for(OWLDifferentIndividualsAxiom ax : nary) {
+                        writeSection(DIFFERENT_INDIVIDUALS, ax.getIndividuals(), ", ", false, ontology);
+                    }
+                }
             }
         }
-        writeEntitySectionEnd();
+        writeEntitySectionEnd(INDIVIDUAL.toString());
         return axioms;
     }
 
@@ -823,7 +848,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 writeSection(EQUIVALENT_TO, dataRanges, ",", true, ontology);
             }
         }
-        writeEntitySectionEnd();
+        writeEntitySectionEnd(DATATYPE.toString());
         return axioms;
     }
 
@@ -831,7 +856,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(1);
         for (OWLOntology ontology : getOntologies()) {
             if (ontology.containsAxiom(rule)) {
-                writeSection(RULE, Collections.singleton(rule), "�", true, ontology);
+                writeSection(RULE, Collections.singleton(rule), "", true, ontology);
                 axioms.add(rule);
             }
         }
@@ -885,7 +910,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 writeSection(RANGE, iris, ",", true, ont);
             }
         }
-        writeEntitySectionEnd();
+        writeEntitySectionEnd(ANNOTATION_PROPERTY.toString());
         return axioms;
     }
 
@@ -918,8 +943,12 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
 
     private Set<OWLAnnotationAssertionAxiom> writeEntityStart(ManchesterOWLSyntax keyword, OWLObject entity) {
+        event = new RendererEvent(this,entity);
+        String kw = keyword.toString();
+        fireFrameRenderingPrepared(kw);
         writeSection(keyword);
         entity.accept(this);
+        fireFrameRenderingStarted(kw);
         writeNewLine();
         incrementTab(4);
         writeNewLine();
@@ -958,16 +987,21 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
 
+
     public void writeSection(ManchesterOWLSyntax keyword, Set<? extends Object> content, String delimeter,
                              boolean newline, OWLOntology... ontologies) {
 
+        String sec = keyword.toString();
         if (!content.isEmpty()) {
+            fireSectionRenderingPrepared(sec);
             writeSection(keyword);
             writeOntologiesList(ontologies);
             incrementTab(4);
             writeNewLine();
+            fireSectionRenderingStarted(sec);
             for (Iterator<? extends Object> it = content.iterator(); it.hasNext();) {
                 Object obj = it.next();
+                fireSectionItemPrepared(sec);
                 if (obj instanceof OWLObject) {
                     ((OWLObject) obj).accept(this);
                 } else {
@@ -975,15 +1009,34 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 }
                 if (it.hasNext()) {
                     write(delimeter);
+                    fireSectionItemFinished(sec);
                     if (newline) {
                         writeNewLine();
                     }
                 }
+                else {
+                    fireSectionItemFinished(sec);
+                }
             }
+            fireSectionRenderingFinished(sec);
             popTab();
             writeNewLine();
             writeNewLine();
         }
+    }
+
+    public void writeComment(String comment, boolean placeOnNewline) {
+        writeComment("#", comment, placeOnNewline);
+    }
+
+
+    public void writeComment(String commentDelim, String comment, boolean placeOnNewline) {
+        if(placeOnNewline) {
+            writeNewLine();
+        }
+        write(commentDelim);
+        write(comment);
+        writeNewLine();
     }
 
     private void writeOntologiesList(OWLOntology... ontologies) {
@@ -1009,5 +1062,79 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         write("]");
     }
 
+    private RendererEvent event;
+
+    private void fireFrameRenderingPrepared(String section) {
+        if(listeners.isEmpty()) {
+            return;
+        }
+        for(RendererListener listener : listeners) {
+            listener.frameRenderingPrepared(section, event);
+        }
+    }
+
+    private void fireFrameRenderingStarted(String section) {
+        if(listeners.isEmpty()) {
+            return;
+        }
+        for(RendererListener listener : listeners) {
+            listener.frameRenderingStarted(section, event);
+        }
+    }
+
+    private void fireFrameRenderingFinished(String section) {
+        if(listeners.isEmpty()) {
+            return;
+        }
+        for(RendererListener listener : listeners) {
+            listener.frameRenderingFinished(section, event);
+        }
+    }
+
+    private void fireSectionRenderingPrepared(String section) {
+        if(listeners.isEmpty()) {
+            return;
+        }
+        for(RendererListener listener : listeners) {
+            listener.sectionRenderingPrepared(section, event);
+        }
+    }
+
+
+    private void fireSectionRenderingStarted(String section) {
+        if(listeners.isEmpty()) {
+            return;
+        }
+        for(RendererListener listener : listeners) {
+            listener.sectionRenderingStarted(section, event);
+        }
+    }
+
+    private void fireSectionRenderingFinished(String section) {
+        if(listeners.isEmpty()) {
+            return;
+        }
+        for(RendererListener listener : listeners) {
+            listener.sectionRenderingFinished(section, event);
+        }
+    }
+
+    private void fireSectionItemPrepared(String section) {
+        if(listeners.isEmpty()) {
+            return;
+        }
+        for(RendererListener listener : listeners) {
+            listener.sectionItemPrepared(section, event);
+        }
+    }
+
+    private void fireSectionItemFinished(String section) {
+        if(listeners.isEmpty()) {
+            return;
+        }
+        for(RendererListener listener : listeners) {
+            listener.sectionItemFinished(section, event);
+        }
+    }
 
 }
