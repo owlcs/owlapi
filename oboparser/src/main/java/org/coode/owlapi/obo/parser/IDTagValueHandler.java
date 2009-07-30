@@ -1,5 +1,10 @@
 package org.coode.owlapi.obo.parser;
 
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -39,6 +44,9 @@ public class IDTagValueHandler extends AbstractTagValueHandler {
 
     public void handle(String id, String value) {
         getConsumer().setCurrentId(value);
-        getConsumer().createEntityDeclaration();
+        final OWLEntity entity = getConsumer().getCurrentEntity();
+        if (entity != null){
+            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLDeclarationAxiom(entity)));
+        }
     }
 }

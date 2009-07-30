@@ -225,20 +225,6 @@ public class OBOConsumer implements OBOParserHandler {
     }
 
 
-    public void createEntityDeclaration() {
-        final OWLEntity entity = getCurrentEntity();
-        if (entity != null){
-            try {
-                OWLAxiom ax = getDataFactory().getOWLDeclarationAxiom(entity);
-                getOWLOntologyManager().applyChange(new AddAxiom(ontology, ax));
-            }
-            catch (OWLOntologyChangeException e) {
-                logger.severe(e.getMessage());
-            }
-        }
-    }
-
-
     private void createUnionEquivalentClass() {
         OWLClassExpression equivalentClass;
         if (unionOfOperands.size() == 1) {
