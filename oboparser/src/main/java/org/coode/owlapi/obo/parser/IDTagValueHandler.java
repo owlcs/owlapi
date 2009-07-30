@@ -39,5 +39,6 @@ public class IDTagValueHandler extends AbstractTagValueHandler {
 
     public void handle(String id, String value) {
         getConsumer().setCurrentId(value);
+        getConsumer().createEntityDeclaration();
     }
 }
