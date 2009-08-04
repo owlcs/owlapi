@@ -60,7 +60,7 @@ public class ClosureAxioms {
 
     public void addClosureAxioms(OWLClass clazz) throws OWLException {
         /* Get the class axioms */
-        Set<OWLClassAxiom> axioms = ontology.getClassAxioms();
+        Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
 
         /* Collect those that assert superclasses of the class */
         SubClassCollector collector = new SubClassCollector(clazz);

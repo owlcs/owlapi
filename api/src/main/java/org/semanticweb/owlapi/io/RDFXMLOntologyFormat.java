@@ -1,6 +1,9 @@
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
 
 import java.net.URI;
 import java.util.*;
@@ -36,104 +39,105 @@ import java.util.*;
  */
 public class RDFXMLOntologyFormat extends RDFOntologyFormat {
 
-    private Map<URI, Set<OWLAnnotation>> annotationURI2Annotation;
-
-    private Set<URI> annotationURIs;
-
-    private long numberOfTriplesProcessedDuringLoading;
+    private ParserMetaData parserMetaData;
 
     public RDFXMLOntologyFormat() {
-        annotationURI2Annotation = new HashMap<URI, Set<OWLAnnotation>>();
-        annotationURIs = new HashSet<URI>();
+        parserMetaData = new ParserMetaData(-1, new HashSet<Triple>(0));
     }
 
-
-    /**
-     * Returns the number of triples that where processed when the
-     * ontology was loaded.
-     * @return The number of triples parsed when loading from a file,
-     * If the ontology hasn't been loaded from
-     * a file (because it was created programmatically) then the return
-     * value will be zero.
-     */
-    public long getNumberOfTriplesProcessedDuringLoading() {
-        return numberOfTriplesProcessedDuringLoading;
+    public ParserMetaData getParserMetaData() {
+        return parserMetaData;
     }
 
-
-    public void setNumberOfTriplesProcessedDuringLoading(long numberOfTriplesProcessedDuringLoading) {
-        this.numberOfTriplesProcessedDuringLoading = numberOfTriplesProcessedDuringLoading;
+    public void setParserMetaData(ParserMetaData parserMetaData) {
+        this.parserMetaData = parserMetaData;
     }
-
 
     public String toString() {
         return "RDF/XML";
     }
 
+    public interface Triple {
 
-    public Set<URI> getAnnotationURIs() {
-        return Collections.unmodifiableSet(annotationURIs);
+        public IRI getSubject();
+
+        public IRI getPredicate();
+
+        public OWLObject getObject();
     }
 
-    /**
-     * This method and the functionality that it provides are merely a stopgap
-     * until the OWL 1.1 specification is fixed.  Use at your own risk! It will
-     * be removed when the spec is fixed!
-     */
-    public void addAnnotationURI(URI uri) {
-        annotationURIs.add(uri);
-        if(annotationURI2Annotation.get(uri) == null) {
-            annotationURI2Annotation.put(uri, new HashSet<OWLAnnotation>());
+    public class ResourceTriple implements Triple {
+
+        private IRI subject;
+
+        private IRI predicate;
+
+        private IRI object;
+
+        public ResourceTriple(IRI subject, IRI predicate, IRI object) {
+            this.subject = subject;
+            this.predicate = predicate;
+            this.object = object;
+        }
+
+        public IRI getSubject() {
+            return subject;
+        }
+
+        public IRI getPredicate() {
+            return predicate;
+        }
+
+        public IRI getObject() {
+            return object;
         }
     }
 
+    public class LiteralTriple implements Triple {
 
-    /**
-     * This method and the functionality that it provides are merely a stopgap
-     * until the OWL 1.1 specification is fixed.  Use at your own risk! It will
-     * be removed when the spec is fixed!
-     */
-    public void addAnnotationURIAnnotation(URI uri, OWLAnnotation anno) {
-        addAnnotationURI(uri);
-        Set<OWLAnnotation> annos = annotationURI2Annotation.get(uri);
-        if(annos == null) {
-            annos = new HashSet<OWLAnnotation>();
-            annotationURI2Annotation.put(uri, annos);
+        private IRI subject;
+
+        private IRI predicate;
+
+        private OWLLiteral object;
+
+        public LiteralTriple(IRI subject, IRI predicate, OWLLiteral object) {
+            this.subject = subject;
+            this.predicate = predicate;
+            this.object = object;
         }
-        annos.add(anno);
-    }
 
+        public IRI getSubject() {
+            return subject;
+        }
 
-    /**
-     * This method and the functionality that it provides are merely a stopgap
-     * until the OWL 1.1 specification is fixed.  Use at your own risk! It will
-     * be removed when the spec is fixed!
-     */
-    public void removeAnnotationURIAnnotation(URI uri, OWLAnnotation anno) {
-        Set<OWLAnnotation> annos = annotationURI2Annotation.get(uri);
-        if(annos != null) {
-            annos.remove(anno);
+        public IRI getPredicate() {
+            return predicate;
+        }
+
+        public OWLLiteral getObject() {
+            return object;
         }
     }
 
+    public class ParserMetaData {
 
-    /**
-     * This method and the functionality that it provides are merely a stopgap
-     * until the OWL 1.1 specification is fixed.  Use at your own risk! It will
-     * be removed when the spec is fixed!
-     */
-    public void clearAnnotationURIAnnotations() {
-        annotationURI2Annotation.clear();
+        private int tripleCount;
+
+        private Set<Triple> unconsumedTriples = new HashSet<Triple>();
+
+        public ParserMetaData(int tripleCount, Set<Triple> unconsumedTriples) {
+            this.tripleCount = tripleCount;
+            this.unconsumedTriples = new HashSet<Triple>(unconsumedTriples);
+        }
+
+        public int getNumberOfTripleParsed() {
+            return tripleCount;
+        }
+
+        public Set<Triple> getUnconsumedTriples() {
+            return Collections.unmodifiableSet(unconsumedTriples);
+        }
     }
 
-
-    /**
-     *
-     * This method and the functionality that it provides are merely a stopgap
-     * until the OWL 1.1 specification is fixed.  Use at your own risk! It will
-     * be removed when the spec is fixed!
-     */
-    public Map<URI, Set<OWLAnnotation>> getAnnotationURIAnnotations() {
-        return Collections.unmodifiableMap(annotationURI2Annotation);
-    }
 }

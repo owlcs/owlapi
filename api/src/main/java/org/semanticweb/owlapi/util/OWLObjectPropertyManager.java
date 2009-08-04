@@ -137,7 +137,7 @@ public class OWLObjectPropertyManager {
                         markComposite(namedInv);
                     }
                 }
-                for (OWLSubPropertyChainOfAxiom ax : ont.getPropertyChainSubPropertyAxioms()) {
+                for (OWLSubPropertyChainOfAxiom ax : ont.getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
                     markComposite(ax.getSuperProperty());
                     for (OWLObjectPropertyExpression namedInv : ax.getSuperProperty().getInverses(ontology)) {
                         markComposite(namedInv);
@@ -295,7 +295,7 @@ public class OWLObjectPropertyManager {
             partialOrdering.clear();
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>(getPropertyHierarchy());
             for (OWLOntology ont : getOntologies()) {
-                for (OWLSubPropertyChainOfAxiom ax : ont.getPropertyChainSubPropertyAxioms()) {
+                for (OWLSubPropertyChainOfAxiom ax : ont.getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
                     for (OWLObjectPropertyExpression prop : ax.getPropertyChain()) {
                         Set<OWLObjectPropertyExpression> sups = map.get(prop.getSimplified());
                         if (sups == null) {

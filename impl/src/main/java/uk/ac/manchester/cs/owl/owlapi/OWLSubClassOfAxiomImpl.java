@@ -106,7 +106,7 @@ public class OWLSubClassOfAxiomImpl extends OWLNaryClassAxiomImpl implements OWL
     }
 
     public AxiomType getAxiomType() {
-        return AxiomType.SUBCLASS;
+        return AxiomType.SUBCLASS_OF;
     }
 
 

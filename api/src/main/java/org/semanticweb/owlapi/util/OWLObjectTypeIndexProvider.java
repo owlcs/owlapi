@@ -60,7 +60,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
     public static final int AXIOM_TYPE_INDEX_BASE = 2000;
 
-    public static final int SUBCLASS_AXIOM = AXIOM_TYPE_INDEX_BASE + AxiomType.SUBCLASS.index;
+    public static final int SUBCLASS_AXIOM = AXIOM_TYPE_INDEX_BASE + AxiomType.SUBCLASS_OF.index;
 
     public static final int NEGATIVE_OBJECT_PROPERTY_ASSERTION = AXIOM_TYPE_INDEX_BASE + AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIndex();
 

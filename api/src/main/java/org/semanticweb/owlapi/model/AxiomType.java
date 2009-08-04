@@ -154,7 +154,7 @@ public class AxiomType<C extends OWLAxiom> {
 
     public static final AxiomType<OWLEquivalentClassesAxiom> EQUIVALENT_CLASSES = new AxiomType<OWLEquivalentClassesAxiom>("EquivalentClasses", false, false, true);
 
-    public static final AxiomType<OWLSubClassOfAxiom> SUBCLASS = new AxiomType<OWLSubClassOfAxiom>("SubClassOf", false, false, true);
+    public static final AxiomType<OWLSubClassOfAxiom> SUBCLASS_OF = new AxiomType<OWLSubClassOfAxiom>("SubClassOf", false, false, true);
 
     public static final AxiomType<OWLDisjointClassesAxiom> DISJOINT_CLASSES = new AxiomType<OWLDisjointClassesAxiom>("DisjointClasses", false, false, true);
 
@@ -246,7 +246,7 @@ public class AxiomType<C extends OWLAxiom> {
 
     static {
         AXIOM_TYPES = new HashSet<AxiomType>();
-        AXIOM_TYPES.add(SUBCLASS);
+        AXIOM_TYPES.add(SUBCLASS_OF);
         AXIOM_TYPES.add(EQUIVALENT_CLASSES);
         AXIOM_TYPES.add(DISJOINT_CLASSES);
         AXIOM_TYPES.add(CLASS_ASSERTION);

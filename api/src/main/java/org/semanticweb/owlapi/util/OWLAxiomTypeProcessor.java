@@ -37,7 +37,7 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
     protected abstract void process(OWLAxiom axiom, AxiomType type);
 
     public void visit(OWLSubClassOfAxiom axiom) {
-        process(axiom, SUBCLASS);
+        process(axiom, SUBCLASS_OF);
     }
 
 

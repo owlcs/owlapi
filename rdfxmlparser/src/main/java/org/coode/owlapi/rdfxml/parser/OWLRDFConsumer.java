@@ -635,7 +635,9 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     public void importsClosureChanged() {
         for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
-            annotationPropertyURIs.addAll(ont.getAnnotationURIs());
+            for(OWLAnnotationProperty prop : ont.getReferencedAnnotationProperties()) {
+                annotationPropertyURIs.add(prop.getURI());
+            }
         }
     }
 

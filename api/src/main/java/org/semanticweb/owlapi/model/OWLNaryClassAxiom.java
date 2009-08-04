@@ -34,7 +34,7 @@ import java.util.Set;
 public interface OWLNaryClassAxiom extends OWLClassAxiom {
 
     /**
-     * Gets all of the class expressions that appear in this
+     * Gets all of the top level class expressions that appear in this
      * axiom.
      * @return A <code>Set</code> of class expressions that appear in the
      * axiom.

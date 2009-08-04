@@ -34,7 +34,6 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 24-Jul-2007<br><br>
- *
  * Given a set of ontologies, this composite change will remove all disjoint
  * classes axioms from these ontologies.
  */
@@ -52,11 +51,9 @@ public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
 
     private void generateChanges() {
         changes = new ArrayList<OWLOntologyChange>();
-        for(OWLOntology ont : ontologies) {
-            for(OWLClassAxiom ax : ont.getClassAxioms()) {
-                if(ax instanceof OWLDisjointClassesAxiom) {
-                    changes.add(new RemoveAxiom(ont, ax));
-                }
+        for (OWLOntology ont : ontologies) {
+            for (OWLClassAxiom ax : ont.getAxioms(AxiomType.DISJOINT_CLASSES)) {
+                changes.add(new RemoveAxiom(ont, ax));
             }
         }
     }

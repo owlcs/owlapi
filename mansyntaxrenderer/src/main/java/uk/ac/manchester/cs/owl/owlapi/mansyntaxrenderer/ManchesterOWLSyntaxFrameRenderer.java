@@ -296,7 +296,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             }
         }
 
-        if (!isFiltered(AxiomType.SUBCLASS)) {
+        if (!isFiltered(AxiomType.SUBCLASS_OF)) {
             for (OWLOntology ontology : getOntologies()) {
                 Set<OWLClassExpression> superclasses = new TreeSet<OWLClassExpression>();
                 for (OWLSubClassOfAxiom ax : ontology.getSubClassAxiomsForSubClass(cls)) {
@@ -458,7 +458,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         if (!isFiltered(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
             for (OWLOntology ontology : getOntologies()) {
-                for (OWLSubPropertyChainOfAxiom ax : ontology.getPropertyChainSubPropertyAxioms()) {
+                for (OWLSubPropertyChainOfAxiom ax : ontology.getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
                     if (ax.getSuperProperty().equals(property)) {
                         if (isDisplayed(ax)) {
                             writeSection(SUB_PROPERTY_CHAIN, new LinkedHashSet<OWLObjectPropertyExpression>(ax.getPropertyChain()), " o ", false, ontology);

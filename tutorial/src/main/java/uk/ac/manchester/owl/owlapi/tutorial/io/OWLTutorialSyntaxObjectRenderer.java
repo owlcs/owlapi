@@ -194,35 +194,12 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write("<h2>Axioms</h2>\n");
         writeListStart();
 
-        for (OWLAxiom ax : ontology.getClassAxioms()) {
-            writeListItemStart();
-
-            ax.accept(this);
-            writeListItemEnd();
-
-        }
-
-        for (OWLAxiom ax : ontology.getObjectPropertyAxioms()) {
+        for(OWLAxiom ax : ontology.getAxioms()) {
             writeListItemStart();
             ax.accept(this);
-            writeListItemEnd();
-
+            writeListEnd();
         }
-
-        for (OWLAxiom ax : ontology.getDataPropertyAxioms()) {
-            writeListItemStart();
-            ax.accept(this);
-            writeListItemEnd();
-
-        }
-
-        for (OWLAxiom ax : ontology.getIndividualAxioms()) {
-            writeListItemStart();
-            ax.accept(this);
-            writeListItemEnd();
-
-        }
-
+         
         writeListEnd();
         write("</div>");
 

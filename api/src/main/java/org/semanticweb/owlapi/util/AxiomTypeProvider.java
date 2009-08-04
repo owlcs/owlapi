@@ -37,7 +37,7 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
     private AxiomType axiomType;
 
     public void visit(OWLSubClassOfAxiom axiom) {
-        axiomType = SUBCLASS;
+        axiomType = SUBCLASS_OF;
     }
 
 

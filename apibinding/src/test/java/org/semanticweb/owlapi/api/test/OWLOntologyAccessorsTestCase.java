@@ -76,12 +76,6 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         // Test that none of the accessors throw null pointer exceptions
         assertNotNull(ont.getAxioms());
         assertNotNull(ont.getLogicalAxioms());
-        assertNotNull(ont.getAnnotationAxioms());
-
-        assertNotNull(ont.getClassAxioms());
-        assertNotNull(ont.getObjectPropertyAxioms());
-        assertNotNull(ont.getDataPropertyAxioms());
-        assertNotNull(ont.getIndividualAxioms());
 
         for (AxiomType type : AxiomType.AXIOM_TYPES) {
             assertNotNull(ont.getAxioms(type));

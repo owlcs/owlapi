@@ -65,7 +65,7 @@ public class FailedImportsTestCase extends TestCase {
         OWLOntology o;
         try {
             o = manager.loadOntologyFromPhysicalURI(b);
-            assertTrue(o.getImports(manager).isEmpty());
+            assertTrue(o.getImports().isEmpty());
         }
         catch (OWLOntologyCreationException e) {
             System.out.println("Failed to load ontology");
