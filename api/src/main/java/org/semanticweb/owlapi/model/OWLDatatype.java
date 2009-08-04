@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.vocab.OWLDatatypeVocabulary;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -44,7 +44,7 @@ public interface OWLDatatype extends OWLDataRange, OWLEntity, OWLNamedObject {
      * @return The OWLDatatypeVocabulary that describes this built in datatype
      * @throws OWLRuntimeException if this datatype is not a built in datatype.
      */
-    OWLDatatypeVocabulary getBuiltInDatatype();
+    OWL2Datatype getBuiltInDatatype();
 
     boolean isString();
 

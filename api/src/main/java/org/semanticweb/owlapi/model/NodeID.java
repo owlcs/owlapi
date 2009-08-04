@@ -57,7 +57,7 @@ public abstract class NodeID implements Comparable<NodeID> {
 
     public static class NodeIDImpl extends NodeID {
 
-        private static long counter = System.nanoTime();
+        private static long counter = 0;
 
         private String id;
 
@@ -71,7 +71,7 @@ public abstract class NodeID implements Comparable<NodeID> {
         }
 
         public NodeIDImpl() {
-            this(Long.toString(++counter));
+            this("genid" + Long.toString(++counter));
         }
 
         public String toString() {

@@ -4,6 +4,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -38,15 +40,12 @@ public class OWLProfileReport {
 
     private OWLProfile profile;
 
-    private OWLOntologyID ontologyID;
-
-    private Set<ConstructNotAllowed> disallowedConstructs;
+    private Set<OWLProfileViolation> violations;
 
 
-    public OWLProfileReport(OWLProfile profile, OWLOntologyID ontologyID, Set<ConstructNotAllowed> disallowedConstructs) {
+    public OWLProfileReport(OWLProfile profile, Set<OWLProfileViolation> violations) {
         this.profile = profile;
-        this.ontologyID = ontologyID;
-        this.disallowedConstructs = new HashSet<ConstructNotAllowed>(disallowedConstructs);
+        this.violations = Collections.unmodifiableSet(new LinkedHashSet<OWLProfileViolation>(violations));
     }
 
 
@@ -54,19 +53,13 @@ public class OWLProfileReport {
         return profile;
     }
 
-
-    public OWLOntologyID getOntologyID() {
-        return ontologyID;
-    }
-
-
     public boolean isInProfile() {
-        return disallowedConstructs.isEmpty();
+        return violations.isEmpty();
     }
 
 
-    public Set<ConstructNotAllowed> getDisallowedConstructs() {
-        return disallowedConstructs;
+    public Set<OWLProfileViolation> getViolations() {
+        return violations;
     }
 
 
@@ -74,20 +67,16 @@ public class OWLProfileReport {
         StringBuilder sb = new StringBuilder();
         sb.append(profile.getName());
         sb.append(" Profile Report: ");
-        sb.append(ontologyID);
-        sb.append("\n");
         if(isInProfile()) {
             sb.append("[Ontology and imports closure in profile]\n");
         }
         else {
             sb.append("Ontology and imports closure NOT in profile. ");
-            sb.append("The following are not allowed in ");
-            sb.append(getProfile().getName());
+            sb.append("The following violations are present: ");
             sb.append(":\n");
-
         }
 
-        for(ConstructNotAllowed na : disallowedConstructs) {
+        for(OWLProfileViolation na : violations) {
             sb.append(na);
             sb.append("\n");
         }

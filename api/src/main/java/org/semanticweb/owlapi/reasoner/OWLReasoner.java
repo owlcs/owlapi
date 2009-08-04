@@ -1,9 +1,6 @@
 package org.semanticweb.owlapi.reasoner;
 
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.*;
 
 import java.util.Set;/*
  * Copyright (C) 2008, University of Manchester
@@ -33,8 +30,7 @@ import java.util.Set;/*
  * Date: 21-Jan-2009
  *
  * <p>
- * An OWLReasoner reasons over a set of ontologies.  The set of ontologies is defined at
- * reasoner creation time and remains fixed from then on.  The set of ontologies can be obtained using the
+ * An OWLReasoner reasons over a set of axioms.  The set of axioms can be obtained using the
  * {@link #getAxioms()} method.  When the client responsible for creating the reasoner has finished with the
  * reasoner instance it must call the {@link #dispose()} method to free any resources that are used by the reasoner.
  * In general, reasoners should not be instantiated directly, but should be created using the appropriate
@@ -101,20 +97,67 @@ public interface OWLReasoner {
      * reasoning was cancelled by a client process).
      * @throws UnsupportedEntailmentTypeException if the reasoner cannot perform a check to see if the specified
      * axiom is entailed
+     * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType) 
      */
     boolean isEntailed(OWLAxiom axiom) throws InterruptedException, UnsupportedEntailmentTypeException;
+
+    /**
+     * Determines if entailment checking for the specified axiom type is supported.
+     * @param axiomType The axiom type
+     * @return <code>true</code> if entailment checking for the specified axiom type is supported, otherwise
+     * <code>false</code>. If <code>true</code> then asking {@link #isEntailed(org.semanticweb.owlapi.model.OWLAxiom)}
+     * will <em>not</em> throw an exception of {@link org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException}.
+     * If <code>false</code> then asking {@link #isEntailed(org.semanticweb.owlapi.model.OWLAxiom)} <em>will</em> throw
+     * an {@link org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException}.
+     */
+    boolean isEntailmentCheckingSupported(AxiomType axiomType);
 
     /**
      * Gets the subclasses of the specified class expression.
      * @param classExpression The class expression whose subclasses are to be retrieved.
      * @param direct Determines if the direct subclasses should be retrived or if the descendant classes should be
-     * retrieved.  uch that
-     * "B" is entailed to be a subclass of "D" and "A" is entailed to be a subclass of "B".
+     * retrieved.
      * @return If direct is <code>true</code>, the set of classes such that any class "A" in the set is entailed to
      * be a subclass of classExpression and there is no class "B" that is entailed to be a subclass of classExpression
      * for which "A" is entailed to be a subclass of "B".  
      */
-    Set<HierarchyNode<OWLClass>> getSubClasses(OWLClassExpression classExpression, boolean direct);
+    HierarchyNodeSet<OWLClass> getSubClasses(OWLClassExpression classExpression, boolean direct);
+
+    HierarchyNodeSet<OWLClass> getSuperClasses(OWLClassExpression classExpression, boolean direct);
+
+    HierarchyNode<OWLClass> getEquivalentClasses(OWLClassExpression classExpression);
+
+
+
+    HierarchyNodeSet<OWLObjectProperty> getSuperProperties(OWLObjectPropertyExpression property, boolean direct);
+
+    HierarchyNodeSet<OWLObjectProperty> getSubProperties(OWLObjectPropertyExpression property, boolean direct);
+
+    HierarchyNode<OWLObjectProperty> getEquivalentProperties(OWLObjectPropertyExpression property);
+
+    HierarchyNodeSet<OWLObjectProperty> getInverseProperties(OWLObjectPropertyExpression property);
+
+    HierarchyNodeSet<OWLClass> getDomains(OWLObjectPropertyExpression property, boolean direct);
+
+    HierarchyNodeSet<OWLClass> getRanges(OWLObjectPropertyExpression property, boolean direct);
+
+
+    HierarchyNodeSet<OWLDataProperty> getSuperProperties(OWLDataPropertyExpression property, boolean direct);
+
+    HierarchyNodeSet<OWLDataProperty> getSubProperties(OWLDataPropertyExpression property, boolean direct);
+
+    HierarchyNode<OWLDataProperty> getEquivalentProperties(OWLDataProperty property);
+
+    HierarchyNodeSet<OWLClass> getDomains(OWLDataPropertyExpression property, boolean direct);
+
+
+    HierarchyNodeSet<OWLClass> getTypes(OWLNamedIndividual individual, boolean direct);
+
+    IndividualSynonymsSet getInstances(OWLClassExpression classExpression, boolean direct);
+
+    IndividualSynonymsSet getPropertyValues(OWLNamedIndividual individual, OWLObjectPropertyExpression property);
+
+    Set<OWLLiteral> getPropertyValues(OWLNamedIndividual individual, OWLDataPropertyExpression property);
 
     /**
      * Asks the reasoner to answer a query.

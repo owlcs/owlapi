@@ -39,6 +39,14 @@ public class OWLObjectMinCardinalityImpl extends OWLObjectCardinalityRestriction
     }
 
 
+    /**
+     * Gets the class expression type for this class expression
+     * @return The class expression type
+     */
+    public ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OBJECT_MIN_CARDINALITY;
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectMinCardinality;

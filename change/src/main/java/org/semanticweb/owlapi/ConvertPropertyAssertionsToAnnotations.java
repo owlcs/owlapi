@@ -71,7 +71,7 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
         for (OWLNamedIndividual ind : individuals) {
             boolean punned = false;
             for (OWLOntology ont : ontologies) {
-                if (ont.containsClassReference(ind.getURI())) {
+                if (ont.containsClassReference(ind.getIRI())) {
                     punned = true;
                     break;
                 }

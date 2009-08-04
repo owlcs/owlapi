@@ -115,6 +115,21 @@ public abstract class OWLObjectImpl implements OWLObject {
         return result;
     }
 
+    /**
+     * A convenience method that obtains the datatypes
+     * that are in the signature of this object
+     * @return A set containing the datatypes that are in the signature
+     *         of this object.
+     */
+    public Set<OWLDatatype> getDatatypesInSignature() {
+        Set<OWLDatatype> result = new HashSet<OWLDatatype>();
+        for(OWLEntity ent : getSignature()) {
+            if(ent.isOWLDatatype()) {
+                result.add(ent.asOWLDatatype());
+            }
+        }
+        return result;
+    }
 
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -136,14 +151,14 @@ public abstract class OWLObjectImpl implements OWLObject {
 
 
     final public int compareTo(OWLObject o) {
-        if (o instanceof OWLAxiom && this instanceof OWLAxiom) {
-            OWLObject thisSubj = subjectProvider.getSubject((OWLAxiom) this);
-            OWLObject otherSubj = subjectProvider.getSubject((OWLAxiom) o);
-            int axDiff = thisSubj.compareTo(otherSubj);
-            if (axDiff != 0) {
-                return axDiff;
-            }
-        }
+//        if (o instanceof OWLAxiom && this instanceof OWLAxiom) {
+//            OWLObject thisSubj = subjectProvider.getSubject((OWLAxiom) this);
+//            OWLObject otherSubj = subjectProvider.getSubject((OWLAxiom) o);
+//            int axDiff = thisSubj.compareTo(otherSubj);
+//            if (axDiff != 0) {
+//                return axDiff;
+//            }
+//        }
         int thisTypeIndex = typeIndexProvider.getTypeIndex(this);
         int otherTypeIndex = typeIndexProvider.getTypeIndex(o);
         int diff = thisTypeIndex - otherTypeIndex;

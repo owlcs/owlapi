@@ -80,6 +80,13 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
         return false;
     }
 
+    public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
+        return getOWLDataFactory().getOWLSubClassOfAxiom(
+                getOWLDataFactory().getOWLObjectOneOf(getIndividual()),
+                getClassExpression()
+        );
+    }
+
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }

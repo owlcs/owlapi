@@ -49,6 +49,7 @@ public class OWLObjectWalker<O extends OWLObject> {
     private List<OWLClassExpression> classExpressionPath = new ArrayList<OWLClassExpression>();
 
     private List<OWLDataRange> dataRangePath = new ArrayList<OWLDataRange>();
+    
 
     public OWLObjectWalker(Set<O> objects) {
         this(objects, true);
@@ -59,7 +60,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         this.visitDuplicates = visitDuplicates;
     }
 
-    public <E> void walkStructure(OWLObjectVisitorEx<E> visitor) {
+    public void walkStructure(OWLObjectVisitorEx visitor) {
         this.visitor = visitor;
         StructureWalker walker = new StructureWalker();
         for (O o : objects) {
@@ -94,6 +95,21 @@ public class OWLObjectWalker<O extends OWLObject> {
      */
     public List<OWLClassExpression> getClassExpressionPath() {
         return new ArrayList<OWLClassExpression>(classExpressionPath);
+    }
+
+    /**
+     * Determines if a particular class expression is the first (or root) class expression in the
+     * current class expression path
+     * @param classExpression The class expression
+     * @return <code>true</code> if the specified class expression is the first class expression
+     * in the current class expression path, otherwise <code>false</code> (<code>false</code> if the
+     * path is empty)
+     */
+    public boolean isFirstClassExpressionInPath(OWLClassExpression classExpression) {
+        if(classExpressionPath.isEmpty()) {
+            return false;
+        }
+        return classExpressionPath.get(0).equals(classExpression);
     }
 
     /**
@@ -455,7 +471,9 @@ public class OWLObjectWalker<O extends OWLObject> {
         public void visit(OWLSubClassOfAxiom axiom) {
             process(axiom);
             OWLObjectWalker.this.axiom = axiom;
+            // -ve polarity
             axiom.getSubClass().accept(this);
+            // +ve polarity
             axiom.getSuperClass().accept(this);
         }
 

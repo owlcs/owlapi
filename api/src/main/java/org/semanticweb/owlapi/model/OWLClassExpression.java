@@ -27,14 +27,18 @@ import java.util.Set;
 
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group Date: 24-Oct-2006
- * <p/>
  * Represents a class expression in OWL.  This interface covers named and anonymous classes.
  */
 public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPredicate {
 
     /**
+     * Gets the class expression type for this class expression
+     * @return The class expression type
+     */
+    public ClassExpressionType getClassExpressionType();
+
+    /**
      * Determines whether or not this expression represents an anonymous class expression.
-     *
      * @return <code>true</code> if this is an anonymous class expression, or <code>false</code> if this is a named
      *         class (<code>OWLClass</code>)
      */
@@ -44,7 +48,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /**
      * Determines if this class is a literal.  A literal being either a named class or the negation of a named class
      * (i.e. A or not(A)).
-     *
      * @return <code>true</code> if this is a literal, or false if this is not a literal.
      */
     public boolean isClassExpressionLiteral();
@@ -54,7 +57,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * If this class expression is in fact a named class then this method may be used to obtain the expression as an
      * <code>OWLClass</code> without the need for casting.  The general pattern of use is to use the
      * <code>isAnonymous</code> to first check
-     *
      * @return This class expression as an <code>OWLClass</code>.
      * @throws OWLRuntimeException if this class expression is not an <code>OWLClass</code>.
      */
@@ -64,7 +66,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /**
      * Determines if this expression is the built in class owl:Thing. This method does not determine if the class is
      * equivalent to owl:Thing.
-     *
      * @return <code>true</code> if this expression is owl:Thing, or <code>false</code> if this expression is not
      *         owl:Thing
      */
@@ -74,7 +75,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /**
      * Determines if this expression is the built in class owl:Nothing. This method does not determine if the class is
      * equivalent to owl:Nothing.
-     *
      * @return <code>true</code> if this expression is owl:Nothing, or <code>false</code> if this expression is not
      *         owl:Nothing.
      */
@@ -83,7 +83,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
 
     /**
      * Gets this expression in negation normal form.
-     *
      * @return The expression in negation normal form.
      */
     public OWLClassExpression getNNF();
@@ -91,7 +90,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
 
     /**
      * Gets the negation normal form of the complement of this expression.
-     *
      * @return A expression that represents the NNF of the complement of this expression.
      */
     public OWLClassExpression getComplementNNF();
@@ -100,7 +98,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /**
      * Interprets this expression as a conjunction and returns the conjuncts. This method does not normalise the
      * expression (full CNF is not computed).
-     *
      * @return The conjucts of this expression if it is a conjunction (object intersection of), or otherwise a
      *         singleton set containing this expression. Note that nested conjunctions will be flattened, for example,
      *         calling this method on (A and B) and C will return the set {A, B, C}
@@ -111,7 +108,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /**
      * Interprets this expression as a disjunction and returns the disjuncts. This method does not normalise the
      * expression (full DNF is not computed).
-     *
      * @return The disjuncts of this expression if it is a disjunction (object union of), or otherwise a
      *         singleton set containing this expression. Note that nested disjunctions will be flattened, for example,
      *         calling this method on (A or B) or C will return the set {A, B, C}
@@ -121,7 +117,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
 
     /**
      * Accepts a visit from an <code>OWLExpressionVisitor</code>
-     *
      * @param visitor The visitor that wants to visit
      */
     public void accept(OWLClassExpressionVisitor visitor);

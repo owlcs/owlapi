@@ -1,10 +1,11 @@
 package org.semanticweb.owlapi.profiles;
 
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 import java.util.Set;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -26,26 +27,25 @@ import java.util.Set;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 03-Aug-2009
  */
-public class AxiomNotInProfile<A extends OWLAxiom> extends ConstructNotAllowed<A> {
+public class UseOfDefinedDatatypeInDatatypeRestriction extends OWLProfileViolation implements OWL2ProfileViolation {
 
-
-    public AxiomNotInProfile(A construct) {
-        super(construct);
+    public UseOfDefinedDatatypeInDatatypeRestriction(OWLOntology ontology, Set<OWLAxiom> axioms) {
+        super(ontology, axioms);
     }
 
-
-    public AxiomNotInProfile(ConstructNotAllowed cause, A construct) {
-        super(cause, construct);
-    }
-
-    public AxiomNotInProfile(Set<ConstructNotAllowed> cause, A axiom) {
-        super(cause, axiom);
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Use of defined datatype in datatype restriction: ");
+        sb.append(getAxiom());
+        sb.append(" [in ");
+        sb.append(getOntologyID());
+        sb.append("]");
+        return sb.toString();
     }
 }

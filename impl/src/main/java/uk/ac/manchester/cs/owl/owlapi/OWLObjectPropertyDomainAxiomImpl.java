@@ -79,7 +79,7 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
     }
 
 
-    public OWLSubClassOfAxiom asSubClassOfAxiom() {
+    public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
         OWLClassExpression sub = df.getOWLObjectSomeValuesFrom(getProperty(), df.getOWLThing());
         return df.getOWLSubClassOfAxiom(sub, getDomain());

@@ -5,8 +5,7 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -68,7 +67,9 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             writer.writeTextContent(decl.getURI().toString());
             writer.writeEndElement();
         }
-        for (OWLAxiom ax : new TreeSet<OWLAxiom>(ontology.getAxioms())) {
+        List<OWLAxiom> axioms = new ArrayList<OWLAxiom>(ontology.getAxioms());
+        Collections.sort(axioms);
+        for (OWLAxiom ax : axioms) {
             ax.accept(this);
         }
     }
@@ -735,32 +736,5 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         for (OWLObject obj : objects) {
             obj.accept(this);
         }
-    }
-
-    public static void main(String[] args) {
-        try {
-            OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi"));
-//            long t0 = System.currentTimeMillis();
-//            OWLOntology ont = man.loadOntologyFromPhysicalURI(IRI.create("file:/Users/matthewhorridge/ontologies/thesaurus/Thesaurus.owlapi"));
-//            long t1 = System.currentTimeMillis();
-//
-//            System.gc();
-//            System.gc();
-//            System.gc();
-//            Runtime r = Runtime.getRuntime();
-//            long total = r.totalMemory();
-//            long free = r.freeMemory();
-//            System.out.println((total - free) / (1024 * 1024));
-//            System.out.println("Loaded in " + (t1 - t0));
-            man.saveOntology(ont, new OWLXMLOntologyFormat(), URI.create("file:/tmp/out.txt"));
-        }
-        catch (OWLOntologyCreationException e) {
-            e.printStackTrace();
-        }
-        catch (OWLOntologyStorageException e) {
-            e.printStackTrace();
-        }
-
     }
 }

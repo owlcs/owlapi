@@ -6,6 +6,7 @@ import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.IRI;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
@@ -51,7 +52,7 @@ public class CardinalityTest extends TestCase {
         OWLOntology o;
         try {
             o = manager.loadOntologyFromPhysicalURI(a);
-            assertTrue(o.containsObjectPropertyReference(URI.create("http://www.co-ode.org/ontologies/test/convertMin1ToSomeValusFrom.owlapi#p")));
+            assertTrue(o.containsObjectPropertyReference(IRI.create("http://www.co-ode.org/ontologies/test/convertMin1ToSomeValusFrom.owlapi#p")));
         }
         catch (OWLOntologyCreationException e) {
             System.out.println("Failed to load ontology");

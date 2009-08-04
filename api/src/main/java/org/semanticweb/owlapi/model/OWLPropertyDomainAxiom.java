@@ -33,5 +33,5 @@ public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression> extends
 
     OWLClassExpression getDomain();
 
-    OWLSubClassOfAxiom asSubClassOfAxiom();
+    OWLSubClassOfAxiom asOWLSubClassOfAxiom();
 }

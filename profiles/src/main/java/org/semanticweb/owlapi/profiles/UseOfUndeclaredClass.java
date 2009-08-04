@@ -1,10 +1,13 @@
 package org.semanticweb.owlapi.profiles;
 
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
 
 import java.util.Set;
+import java.util.Collections;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -26,27 +29,38 @@ import java.util.Set;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 03-Aug-2009
  */
-public class AxiomsNotAllowed extends ConstructNotAllowed<Set<OWLAxiom>> {
+public class UseOfUndeclaredClass extends OWLProfileViolation implements OWL2DLProfileViolation {
 
+    private OWLClass cls;
 
-    public AxiomsNotAllowed(Set<OWLAxiom> construct) {
-        super(construct);
+    public UseOfUndeclaredClass(OWLOntology ontology, OWLAxiom axiom, OWLClass cls) {
+        super(ontology, Collections.singleton(axiom));
+        this.cls =  cls;
     }
 
-
-    public AxiomsNotAllowed(ConstructNotAllowed cause, Set<OWLAxiom> construct) {
-        super(cause, construct);
+    public void visit(OWL2DLProfileViolationVisitor visitor) {
+        visitor.accept(this);
     }
 
+    public OWLClass getOWLClass() {
+        return cls;
+    }
 
     public String toString() {
-        return "Axioms not allowed: " + getConstruct();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Use of undeclared class: ");
+        sb.append(cls);
+        sb.append(" [");
+        sb.append(getAxiom());
+        sb.append(" in ");
+        sb.append(getOntologyID());
+        sb.append("]");
+        return sb.toString();
     }
 }

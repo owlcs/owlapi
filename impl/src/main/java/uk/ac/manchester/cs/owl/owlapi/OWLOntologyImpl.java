@@ -38,6 +38,8 @@ import java.util.*;
  */
 public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology {
 
+    private OWLOntologyManager manager;
+
     private OWLOntologyID ontologyID;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -197,8 +199,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
 
-    public OWLOntologyImpl(OWLDataFactory dataFactory, OWLOntologyID ontologyID) {
-        super(dataFactory);
+    public OWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
+        super(manager.getOWLDataFactory());
+        this.manager = manager;
         this.ontologyID = ontologyID;
 
         if(owlClassReferences == null) {
@@ -221,6 +224,10 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if(owlAnnotationPropertyReferences == null) {
             throw new OWLRuntimeException("Internal Error: Annotation property reference index is null after init");
         }
+    }
+
+    public OWLOntologyManager getOWLOntologyManager() {
+        return manager;
     }
 
     public OWLOntologyID getOntologyID() {
@@ -297,6 +304,25 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return (Set<T>) getAxioms(axiomType, axiomsByType, false);
     }
 
+    /**
+     * Gets the axioms which are of the specified type, possibly from the imports closure of this ontology
+     * @param axiomType             The type of axioms to be retrived.
+     * @param includeImportsClosure if <code>true</code> then axioms of the specified type will also be retrieved from
+     *                              the imports closure of this ontology, if <code>false</code> then axioms of the specified type will only
+     *                              be retrieved from this ontology.
+     * @return A set containing the axioms which are of the specified type. The set that is returned is a copy of the
+     *         axioms in the ontology (and its imports closure) - it will not be updated if the ontology changes.
+     */
+    public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, boolean includeImportsClosure) {
+        if(!includeImportsClosure) {
+            return getAxioms(axiomType);
+        }
+        Set<T> result = new HashSet<T>();
+        for(OWLOntology ont : getImportsClosure()) {
+            result.addAll(getAxioms(axiomType));
+        }
+        return result;
+    }
 
     private <T extends OWLAxiom> Set<T> getAxiomsInternal(AxiomType<T> axiomType) {
         return (Set<T>) getAxioms(axiomType, axiomsByType, false);
@@ -475,29 +501,53 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public boolean containsClassReference(URI owlClassURI) {
-        return owlClassReferences.containsKey(getOWLDataFactory().getOWLClass(owlClassURI));
+    public boolean containsClassReference(IRI owlClassIRI) {
+        return owlClassReferences.containsKey(getOWLDataFactory().getOWLClass(owlClassIRI));
     }
 
-
-    public boolean containsObjectPropertyReference(URI propURI) {
-        return owlObjectPropertyReferences.containsKey(getOWLDataFactory().getOWLObjectProperty(propURI));
+    public boolean containsClassReference(IRI owlClassIRI, boolean includeImportsClosure) {
+        for(OWLOntology ont : manager.getImportsClosure(this)) {
+            if(ont.containsClassReference(owlClassIRI)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-
-    public boolean containsDataPropertyReference(URI propURI) {
-        return owlDataPropertyReferences.containsKey(getOWLDataFactory().getOWLDataProperty(propURI));
+    public boolean containsObjectPropertyReference(IRI propIRI) {
+        return owlObjectPropertyReferences.containsKey(getOWLDataFactory().getOWLObjectProperty(propIRI));
     }
 
+    public boolean containsObjectPropertyReference(IRI propIRI, boolean includeImportsClosure) {
+        for(OWLOntology ont : manager.getImportsClosure(this)) {
+            if(ont.containsObjectPropertyReference(propIRI)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    public boolean containsAnnotationPropertyReference(URI propURI) {
-        boolean b = owlAnnotationPropertyReferences.containsKey(getOWLDataFactory().getOWLAnnotationProperty(propURI));
+    public boolean containsDataPropertyReference(IRI propIRI) {
+        return owlDataPropertyReferences.containsKey(getOWLDataFactory().getOWLDataProperty(propIRI));
+    }
+
+    public boolean containsDataPropertyReference(IRI propIRI, boolean includeImportsClosure) {
+        for(OWLOntology ont : manager.getImportsClosure(this)) {
+            if(ont.containsDataPropertyReference(propIRI)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean containsAnnotationPropertyReference(IRI propIRI) {
+        boolean b = owlAnnotationPropertyReferences.containsKey(getOWLDataFactory().getOWLAnnotationProperty(propIRI));
         if(b) {
             return true;
         }
         else {
             for(OWLAnnotation anno : ontologyAnnotations) {
-                if(anno.getProperty().getURI().equals(propURI)) {
+                if(anno.getProperty().getIRI().equals(propIRI)) {
                     return true;
                 }
             }
@@ -505,49 +555,40 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return false;
     }
 
-
-    public boolean containsIndividualReference(URI individualURI) {
-        return owlIndividualReferences.containsKey(getOWLDataFactory().getOWLNamedIndividual(individualURI));
-    }
-
-
-    public boolean containsDatatypeReference(URI datatypeURI) {
-        return owlDatatypeReferences.containsKey(getOWLDataFactory().getOWLDatatype(datatypeURI));
-    }
-
-
-    public boolean isPunned(URI uri) {
-        int count = 0;
-        if (containsClassReference(uri)) {
-            count++;
-        }
-        if (containsObjectPropertyReference(uri)) {
-            count++;
-            if (count > 1) {
-                return true;
-            }
-        }
-        if (containsDataPropertyReference(uri)) {
-            count++;
-            if (count > 1) {
-                return true;
-            }
-        }
-        if (containsIndividualReference(uri)) {
-            count++;
-            if (count > 1) {
-                return true;
-            }
-        }
-        if (containsDatatypeReference(uri)) {
-            count++;
-            if (count > 1) {
+    public boolean containsAnnotationPropertyReference(IRI propIRI, boolean includeImportsClosure) {
+        for(OWLOntology ont : manager.getImportsClosure(this)) {
+            if(ont.containsAnnotationPropertyReference(propIRI)) {
                 return true;
             }
         }
         return false;
     }
 
+    public boolean containsIndividualReference(IRI individualIRI) {
+        return owlIndividualReferences.containsKey(getOWLDataFactory().getOWLNamedIndividual(individualIRI));
+    }
+
+    public boolean containsIndividualReference(IRI individualIRI, boolean includeImportsClosure) {
+        for(OWLOntology ont : manager.getImportsClosure(this)) {
+            if(ont.containsIndividualReference(individualIRI)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean containsDatatypeReference(IRI datatypeIRI) {
+        return owlDatatypeReferences.containsKey(getOWLDataFactory().getOWLDatatype(datatypeIRI));
+    }
+
+    public boolean containsDatatypeReference(IRI datatypeIRI, boolean includeImportsClosure) {
+        for(OWLOntology ont : manager.getImportsClosure(this)) {
+            if(ont.containsDatatypeReference(datatypeIRI)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public boolean containsReference(OWLClass owlClass) {
         return owlClassReferences.containsKey(owlClass);
@@ -579,30 +620,43 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public boolean containsEntityDeclaration(OWLEntity owlEntity) {
+    public boolean isDeclared(OWLEntity owlEntity) {
         OWLDeclarationAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(owlEntity);
         return getAxiomsInternal(DECLARATION).contains(ax);
     }
 
+    public boolean isDeclared(OWLEntity owlEntity, boolean includeImportsClosure) {
+        if(isDeclared(owlEntity)) {
+            return true;
+        }
+        for(OWLOntology ont : manager.getImportsClosure(this)) {
+            if(!ont.equals(this)) {
+                if(ont.isDeclared(owlEntity)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public boolean containsEntityReference(OWLEntity owlEntity) {
         return entityReferenceChecker.containsReference(owlEntity);
     }
 
-    public boolean containsEntityReference(URI uri) {
-        if(containsClassReference(uri)) {
+    public boolean containsEntityReference(IRI entityIRI) {
+        if(containsClassReference(entityIRI)) {
             return true;
         }
-        if(containsObjectPropertyReference(uri)) {
+        if(containsObjectPropertyReference(entityIRI)) {
             return true;
         }
-        if(containsDataPropertyReference(uri)) {
+        if(containsDataPropertyReference(entityIRI)) {
             return true;
         }
-        if(containsIndividualReference(uri)) {
+        if(containsIndividualReference(entityIRI)) {
             return true;
         }
-        if(containsDatatypeReference(uri)) {
+        if(containsDatatypeReference(entityIRI)) {
             return true;
         }
         return false;
@@ -798,6 +852,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return ontologyManager.getImports(this);
     }
 
+    public Set<OWLOntology> getImportsClosure() throws UnknownOWLOntologyException {
+        return getOWLOntologyManager().getImportsClosure(this);
+    }
 
     public Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype datatype) {
         Set<OWLDatatypeDefinitionAxiom> result = new HashSet<OWLDatatypeDefinitionAxiom>();

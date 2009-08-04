@@ -52,6 +52,14 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
     /**
+     * Gets the class expression type for this class expression
+     * @return The class expression type
+     */
+    public ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OWL_CLASS;
+    }
+
+    /**
      * Returns a string representation that can be used as the ID of this entity.  This is the toString
      * representation of the IRI
      * @return A string representing the toString of the IRI of this entity.

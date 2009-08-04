@@ -37,6 +37,14 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLDataProperty
         super(dataFactory, property, value);
     }
 
+    /**
+     * Gets the class expression type for this class expression
+     * @return The class expression type
+     */
+    public ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.DATA_HAS_VALUE;
+    }
+
     public boolean isObjectRestriction() {
         return false;
     }

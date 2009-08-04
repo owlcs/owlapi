@@ -55,14 +55,14 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
                              URI object) {
 
         // First check for object property chain
-        if (getConsumer().hasPredicate(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getURI())) {
+        if (!getConsumer().isStrict() && getConsumer().hasPredicate(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getURI())) {
             // Property chain
             URI chainList = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getURI(), true);
             List<OWLObjectPropertyExpression> properties = getConsumer().translateToObjectPropertyList(chainList);
             addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(properties, translateObjectProperty(object), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
-        else if (getConsumer().isList(subject, false)) {
+        else if (!getConsumer().isStrict() && getConsumer().isList(subject, false)) {
             // Legacy object property chain representation
             List<OWLObjectPropertyExpression> properties = getConsumer().translateToObjectPropertyList(subject);
             addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(properties, translateObjectProperty(object), getPendingAnnotations()));
@@ -76,7 +76,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
         else if (getConsumer().isDataPropertyOnly(subject) && getConsumer().isDataPropertyOnly(object)) {
             translateSubDataProperty(subject, predicate, object);
         }
-        else if (getConsumer().isAnnotationProperty(subject)) {
+        else if (!getConsumer().isStrict() && getConsumer().isAnnotationProperty(subject)) {
             OWLAnnotationProperty subAnnoProp = getDataFactory().getOWLAnnotationProperty(subject);
             OWLAnnotationProperty superAnnoProp = getDataFactory().getOWLAnnotationProperty(object);
             addAxiom(getDataFactory().getOWLSubAnnotationPropertyOfAxiom(subAnnoProp, superAnnoProp, getPendingAnnotations()));

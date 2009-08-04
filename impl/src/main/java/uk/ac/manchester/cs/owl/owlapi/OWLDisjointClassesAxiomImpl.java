@@ -82,7 +82,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
     }
 
 
-    public Set<OWLSubClassOfAxiom> asSubClassOfAxioms() {
+    public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
         List<OWLClassExpression> list = new ArrayList<OWLClassExpression>(getClassExpressions());
         for(int i = 0; i < list.size() - 1; i++) {

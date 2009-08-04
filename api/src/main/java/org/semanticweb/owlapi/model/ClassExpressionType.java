@@ -31,9 +31,9 @@ public enum ClassExpressionType {
 
     OWL_CLASS("OWLClass"),
 
-    OBJECT_SOME("ObjectSomeValuesFrom"),
+    OBJECT_SOME_VALUES_FROM("ObjectSomeValuesFrom"),
 
-    OBJECT_ALL("ObjectAllValuesFrom"),
+    OBJECT_ALL_VALUES_FROM("ObjectAllValuesFrom"),
 
     OBJECT_MIN_CARDINALITY("ObjectMinCardinality"),
 
@@ -45,9 +45,9 @@ public enum ClassExpressionType {
 
     OBJECT_HAS_SELF("ObjectHasSelf"),
 
-    DATA_SOME("DataSomeValuesFrom"),
+    DATA_SOME_VALUES_FROM("DataSomeValuesFrom"),
 
-    DATA_ALL("DataAllValuesFrom"),
+    DATA_ALL_VALUES_FROM("DataAllValuesFrom"),
 
     DATA_MIN_CARDINALITY("DataMinCardinality"),
 

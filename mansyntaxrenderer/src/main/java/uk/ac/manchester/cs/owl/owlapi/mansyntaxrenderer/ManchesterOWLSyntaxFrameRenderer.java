@@ -161,7 +161,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 writeSection(DIFFERENT_INDIVIDUALS, ax.getIndividuals(), ",", false);
             }
         }
-        for(SWRLRule rule : ontology.getRules()) {
+        for(SWRLRule rule : ontology.getAxioms(AxiomType.SWRL_RULE)) {
             writeSection(RULE, Collections.singleton(rule), ", ", false);
         }
         flush();
@@ -378,7 +378,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if(!isFiltered(AxiomType.SWRL_RULE)) {
             for(OWLOntology ontology : getOntologies()) {
                 Set<OWLAxiom> rules = new HashSet<OWLAxiom>();
-                for(SWRLRule rule : ontology.getRules()) {
+                for(SWRLRule rule : ontology.getAxioms(AxiomType.SWRL_RULE)) {
                     if (isDisplayed(rule)) {
                         for(SWRLAtom atom : rule.getHead()) {
                             if(atom.getPredicate().equals(cls)) {
@@ -572,7 +572,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if(!isFiltered(AxiomType.SWRL_RULE)) {
             for(OWLOntology ontology : getOntologies()) {
                 Set<OWLAxiom> rules = new HashSet<OWLAxiom>();
-                for(SWRLRule rule : ontology.getRules()) {
+                for(SWRLRule rule : ontology.getAxioms(AxiomType.SWRL_RULE)) {
                     if (isDisplayed(rule)) {
                         for(SWRLAtom atom : rule.getHead()) {
                             if(atom.getPredicate().equals(property)) {
@@ -673,7 +673,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if(!isFiltered(AxiomType.SWRL_RULE)) {
             for(OWLOntology ontology : getOntologies()) {
                 Set<OWLAxiom> rules = new HashSet<OWLAxiom>();
-                for(SWRLRule rule : ontology.getRules()) {
+                for(SWRLRule rule : ontology.getAxioms(AxiomType.SWRL_RULE)) {
                     if (isDisplayed(rule)) {
                         for(SWRLAtom atom : rule.getHead()) {
                             if(atom.getPredicate().equals(property)) {

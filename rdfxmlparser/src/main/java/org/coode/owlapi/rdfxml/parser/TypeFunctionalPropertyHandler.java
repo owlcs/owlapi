@@ -48,11 +48,9 @@ public class TypeFunctionalPropertyHandler extends BuiltInTypeHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) {
         if (getConsumer().isObjectPropertyOnly(subject)) {
-            getConsumer().addOWLObjectProperty(subject);
             addAxiom(getDataFactory().getOWLFunctionalObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         } else if (getConsumer().isDataPropertyOnly(subject)) {
-            getConsumer().addOWLDataProperty(subject);
             addAxiom(getDataFactory().getOWLFunctionalDataPropertyAxiom(translateDataProperty(subject), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         } else {

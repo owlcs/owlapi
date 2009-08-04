@@ -79,7 +79,7 @@ public class OWLDataPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWL
     }
 
 
-    public OWLSubClassOfAxiom asSubClassOfAxiom() {
+    public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
         OWLClassExpression sup = df.getOWLDataAllValuesFrom(getProperty(), getRange());
         return df.getOWLSubClassOfAxiom(df.getOWLThing(), sup);

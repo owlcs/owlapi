@@ -29,8 +29,27 @@ import java.util.Set;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 03-Jul-2009
+ *
+ * Represents a node in a hierarchy, such as a class hierarchy, which contains elements that are synonyms.
+ * Hierarchy nodes are immutable.
  */
-public interface HierarchyNode<E> {
+public interface HierarchyNode<E> extends SynonymSet<E> {
+
+    /**
+     * Determines if this node represents the top node in the hierarchy.  For a class hierarchy this corresponds
+     * to the node that represents owl:Thing.
+     * @return <code>true</code> if this node is the top node in the hierarchy, or <code>false</code> if this node
+     * is not the top node in the hierarchy.
+     */
+    boolean isTopNode();
+
+    /**
+     * Determines if this node represents the bottom node in the hierarchy.  For a class hierarchy this corresponds to
+     * the node that represents owl:Nothing
+     * @return <code>true</code> if this node is the bottom node in the hierarchy, or <code>false</code> if this node
+     * is not the bottom node in the hierarchy
+     */
+    boolean isBottomNode();
 
     /**
      * Gets the elements contained in this hierarchy node.  The elements are equivalent to each other.

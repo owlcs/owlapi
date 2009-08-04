@@ -31,29 +31,17 @@ package org.semanticweb.owlapi.util;
  */
 public class NullProgressMonitor implements ProgressMonitor {
 
-    public void setFinished() {
-    }
-
-
-    public void setMessage(String message) {
-    }
-
-
-    public void setProgress(long progress) {
-    }
-
-
-    public void setSize(long size) {
-    }
-
-
     public void setStarted() {
     }
 
+    public void setProgress(String message, long progress, long total) {
+    }
 
     public void setIndeterminate(boolean b) {
     }
 
+    public void setFinished() {
+    }
 
     public boolean isCancelled() {
         return false;

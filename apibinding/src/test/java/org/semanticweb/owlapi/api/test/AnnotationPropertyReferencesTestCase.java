@@ -42,7 +42,7 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
         OWLAnnotationAssertionAxiom ax = getFactory().getOWLAnnotationAssertionAxiom(ap, subject, val);
         OWLOntology ont = getOWLOntology("Ont");
         getManager().addAxiom(ont, ax);
-        assertTrue(ont.containsAnnotationPropertyReference(ap.getURI()));
+        assertTrue(ont.containsAnnotationPropertyReference(ap.getIRI()));
         assertTrue(ont.getReferencedAnnotationProperties().contains(ap));
     }
     
@@ -55,17 +55,17 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
         OWLSubClassOfAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getOWLClass("B"), annos);
         OWLOntology ont = getOWLOntology("Ont");
         getManager().addAxiom(ont, ax);
-        assertTrue(ont.containsAnnotationPropertyReference(anno.getProperty().getURI()));
+        assertTrue(ont.containsAnnotationPropertyReference(anno.getProperty().getIRI()));
         assertTrue(ont.getReferencedAnnotationProperties().contains(anno.getProperty()));
     }
 
     public void testContainsReferenceForOntologyAnnotation() throws Exception {
         OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
-        OWLLiteral val = getFactory().getOWLStringLiteral("Test", null);
+        OWLLiteral val = getFactory().getOWLStringLiteral("Test");
         OWLAnnotation anno = getFactory().getOWLAnnotation(ap, val);
         OWLOntology ont = getOWLOntology("Ont");
         getManager().applyChange(new AddOntologyAnnotation(ont, anno));
-        assertTrue(ont.containsAnnotationPropertyReference(anno.getProperty().getURI()));
+        assertTrue(ont.containsAnnotationPropertyReference(anno.getProperty().getIRI()));
         assertTrue(ont.getReferencedAnnotationProperties().contains(anno.getProperty()));
     }
 

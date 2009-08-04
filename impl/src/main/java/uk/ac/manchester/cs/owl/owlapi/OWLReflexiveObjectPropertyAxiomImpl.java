@@ -47,6 +47,13 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
         return getOWLDataFactory().getOWLReflexiveObjectPropertyAxiom(getProperty());
     }
 
+    public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
+        return getOWLDataFactory().getOWLSubClassOfAxiom(
+                getOWLDataFactory().getOWLThing(),
+                getOWLDataFactory().getOWLObjectHasSelf(getProperty())
+        );
+    }
+
     public OWLReflexiveObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLReflexiveObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
     }

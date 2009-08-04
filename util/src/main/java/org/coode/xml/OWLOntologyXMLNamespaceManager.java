@@ -93,7 +93,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
                     namespaceUtil.setPrefix(xmlnsPrefix, xmlnsPrefixName);
             }
         }
-        if (!ontology.getRules().isEmpty()) {
+        if (ontology.getAxiomCount(AxiomType.SWRL_RULE) != 0) {
             namespaceUtil.setPrefix(Namespaces.SWRL.toString(), "swrl");
             namespaceUtil.setPrefix(Namespaces.SWRLB.toString(), "swrlb");
         }

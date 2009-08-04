@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -39,6 +40,12 @@ public class OWLOntologyWalkerVisitor<E> extends OWLObjectVisitorExAdapter<E> {
     }
 
     public OWLAxiom getCurrentAxiom() {
-        return walker.getCurrentAxiom();
+        return walker.getAxiom();
     }
+
+    public OWLOntology getCurrentOntology() {
+        return walker.getOntology();
+    }
+
+
 }

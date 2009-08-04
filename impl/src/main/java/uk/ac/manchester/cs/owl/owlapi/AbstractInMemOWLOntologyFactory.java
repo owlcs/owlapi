@@ -35,8 +35,6 @@ import java.net.URI;
  */
 public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFactory {
 
-    private static OWLDataFactory dataFactory = OWLDataFactoryImpl.getInstance();
-
     private OWLOntologyManager ontologyManager;
 
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
@@ -61,7 +59,10 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
      * @param
      */
     public OWLOntology createOWLOntology(OWLOntologyID ontologyID, URI physicalURI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
-        OWLOntology ont = new OWLOntologyImpl(dataFactory, ontologyID);
+        if(ontologyManager == null) {
+            throw new NullPointerException();
+        }
+        OWLOntology ont = new OWLOntologyImpl(ontologyManager, ontologyID);
         handler.ontologyCreated(ont);
         return ont;
     }

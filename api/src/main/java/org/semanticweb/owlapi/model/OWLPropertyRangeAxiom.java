@@ -33,5 +33,5 @@ public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression, R extend
 
     public R getRange();
 
-    OWLSubClassOfAxiom asSubClassOfAxiom();
+    OWLSubClassOfAxiom asOWLSubClassOfAxiom();
 }

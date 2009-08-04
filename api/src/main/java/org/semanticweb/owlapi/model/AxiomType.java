@@ -62,7 +62,7 @@ public class AxiomType<C extends OWLAxiom> {
 
 
     public String toString() {
-        return name + " axiom";
+        return name;
     }
 
 
@@ -143,6 +143,9 @@ public class AxiomType<C extends OWLAxiom> {
         return NAME_TYPE_MAP.containsKey(name);
     }
 
+
+    public static final AxiomType<OWLDeclarationAxiom> DECLARATION = new AxiomType<OWLDeclarationAxiom>("Declaration", true, true, false);
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Class axioms
@@ -154,7 +157,6 @@ public class AxiomType<C extends OWLAxiom> {
     public static final AxiomType<OWLSubClassOfAxiom> SUBCLASS = new AxiomType<OWLSubClassOfAxiom>("SubClassOf", false, false, true);
 
     public static final AxiomType<OWLDisjointClassesAxiom> DISJOINT_CLASSES = new AxiomType<OWLDisjointClassesAxiom>("DisjointClasses", false, false, true);
-
 
     public static final AxiomType<OWLDisjointUnionAxiom> DISJOINT_UNION = new AxiomType<OWLDisjointUnionAxiom>("DisjointUnion", true, false, true);
 
@@ -226,11 +228,7 @@ public class AxiomType<C extends OWLAxiom> {
 
     public static final AxiomType<OWLDisjointDataPropertiesAxiom> DISJOINT_DATA_PROPERTIES = new AxiomType<OWLDisjointDataPropertiesAxiom>("DisjointDataProperties", true, true, true);
 
-
     public static final AxiomType<OWLHasKeyAxiom> HAS_KEY = new AxiomType<OWLHasKeyAxiom>("HasKey", true, true, true);
-
-
-    public static final AxiomType<OWLDeclarationAxiom> DECLARATION = new AxiomType<OWLDeclarationAxiom>("Declaration", true, true, false);
 
     public static final AxiomType<SWRLRule> SWRL_RULE = new AxiomType<SWRLRule>("Rule", false, false, true);
 

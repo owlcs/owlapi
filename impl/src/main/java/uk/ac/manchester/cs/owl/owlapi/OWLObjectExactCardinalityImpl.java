@@ -39,6 +39,14 @@ public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestricti
     }
 
 
+    /**
+     * Gets the class expression type for this class expression
+     * @return The class expression type
+     */
+    public ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OBJECT_EXACT_CARDINALITY;
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectExactCardinality;

@@ -37,6 +37,15 @@ public class OWLObjectAllValuesFromImpl extends OWLQuantifiedRestrictionImpl<OWL
         super(dataFactory, property, filler);
     }
 
+
+    /**
+     * Gets the class expression type for this class expression
+     * @return The class expression type
+     */
+    public ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OBJECT_ALL_VALUES_FROM;
+    }
+
     public boolean isObjectRestriction() {
         return true;
     }

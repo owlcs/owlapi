@@ -41,6 +41,14 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
     }
 
 
+    /**
+     * Gets the class expression type for this class expression
+     * @return The class expression type
+     */
+    public ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OBJECT_INTERSETION_OF;
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectIntersectionOf;

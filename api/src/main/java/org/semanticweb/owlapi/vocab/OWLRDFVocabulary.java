@@ -117,6 +117,9 @@ public enum OWLRDFVocabulary {
 
     OWL_ANNOTATION(Namespaces.OWL, "Annotation"),
 
+    /**
+     * @deprecated For backwards compatibility only
+     */
     OWL_DECLARED_AS(Namespaces.OWL, "declaredAs"),
 
     OWL_INDIVIDUAL(Namespaces.OWL, "Individual"),
@@ -165,6 +168,8 @@ public enum OWLRDFVocabulary {
     RDFS_RESOURCE(Namespaces.RDFS, "Resource"),
 
     RDFS_LITERAL(Namespaces.RDFS, "Literal"),
+
+    RDF_PLAIN_LITERAL(Namespaces.RDF, "PlainLiteral"),
 
     RDFS_DATATYPE(Namespaces.RDFS, "Datatype"),
 
@@ -266,6 +271,9 @@ public enum OWLRDFVocabulary {
 
     OWL_AXIOM(Namespaces.OWL, "Axiom"),
 
+    /**
+     * @Deprecated
+     */
     OWL_PROPERTY_CHAIN(Namespaces.OWL, "propertyChain"),
 
     OWL_PROPERTY_CHAIN_AXIOM(Namespaces.OWL, "propertyChainAxiom"),

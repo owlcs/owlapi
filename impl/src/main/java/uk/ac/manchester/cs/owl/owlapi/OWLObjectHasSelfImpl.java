@@ -37,6 +37,14 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl<OWLObjectPropertyEx
         super(dataFactory, property);
     }
 
+    /**
+     * Gets the class expression type for this class expression
+     * @return The class expression type
+     */
+    public ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OBJECT_HAS_SELF;
+    }
+
     public boolean isObjectRestriction() {
         return true;
     }

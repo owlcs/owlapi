@@ -46,6 +46,15 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     }
 
 
+    /**
+     * Gets the class expression type for this class expression
+     * @return The class expression type
+     */
+    public ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OBJECT_ONE_OF;
+    }
+
+
     public Set<OWLIndividual> getIndividuals() {
         return Collections.unmodifiableSet(values);
     }

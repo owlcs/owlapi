@@ -33,13 +33,11 @@ package org.semanticweb.owlapi.util;
  */
 public interface ProgressMonitor {
 
-    void setSize(long size);
-
 
     void setStarted();
 
 
-    void setProgress(long progress);
+    void setProgress(String message, long progress, long total);
 
 
     void setIndeterminate(boolean b);
@@ -47,9 +45,6 @@ public interface ProgressMonitor {
 
     void setFinished();
 
-
-    void setMessage(String message);
-
-
+    
     boolean isCancelled();
 }

@@ -31,6 +31,8 @@ package org.semanticweb.owlapi.model;
  */
 public interface OWLNegativeDataPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral> {
 
+    OWLSubClassOfAxiom asOWLSubClassOfAxiom();
+
     OWLNegativeDataPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
     /**

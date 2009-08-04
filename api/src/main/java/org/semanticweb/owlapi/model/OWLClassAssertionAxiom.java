@@ -36,4 +36,6 @@ public interface OWLClassAssertionAxiom extends OWLIndividualAxiom {
     OWLClassExpression getClassExpression();
 
     OWLClassAssertionAxiom getAxiomWithoutAnnotations();
+
+    OWLSubClassOfAxiom asOWLSubClassOfAxiom();
 }

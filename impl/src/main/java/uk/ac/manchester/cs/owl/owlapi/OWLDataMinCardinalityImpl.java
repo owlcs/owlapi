@@ -38,6 +38,13 @@ public class OWLDataMinCardinalityImpl extends OWLDataCardinalityRestrictionImpl
         super(dataFactory, property, cardinality, filler);
     }
 
+    /**
+     * Gets the class expression type for this class expression
+     * @return The class expression type
+     */
+    public ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.DATA_MIN_CARDINALITY;
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

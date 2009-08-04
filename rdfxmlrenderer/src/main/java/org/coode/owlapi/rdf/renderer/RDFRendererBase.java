@@ -225,7 +225,7 @@ public abstract class RDFRendererBase {
             OWLAnnotationSubject subject = ax.getSubject();
             if (subject instanceof IRI) {
                 IRI iri = (IRI) subject;
-                if (!ontology.containsEntityReference(iri.toURI())) {
+                if (!ontology.containsEntityReference(iri)) {
                     annotatedIRIs.add(iri);
                 }
             }
@@ -276,7 +276,7 @@ public abstract class RDFRendererBase {
             endObject();
         }
 
-        Set<SWRLRule> ruleAxioms = ontology.getRules();
+        Set<SWRLRule> ruleAxioms = ontology.getAxioms(AxiomType.SWRL_RULE);
         createGraph(ruleAxioms);
         if (!ruleAxioms.isEmpty()) {
             writeBanner("Rules");

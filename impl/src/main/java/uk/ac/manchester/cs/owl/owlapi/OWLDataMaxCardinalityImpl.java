@@ -39,6 +39,14 @@ public class OWLDataMaxCardinalityImpl extends OWLDataCardinalityRestrictionImpl
     }
 
 
+    /**
+     * Gets the class expression type for this class expression
+     * @return The class expression type
+     */
+    public ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.DATA_MAX_CARDINALITY;
+    }
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataMaxCardinality;

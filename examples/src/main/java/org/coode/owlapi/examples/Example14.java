@@ -89,7 +89,7 @@ public class Example14 {
      * @throws OWLReasonerException If there was a problem during reasoning
      */
     private static void printProperties(OWLOntologyManager man, OWLOntology ont, OWLReasoner reasoner, OWLClass cls) throws OWLReasonerException {
-        if (!ont.containsClassReference(cls.getURI())) {
+        if (!ont.containsClassReference(cls.getIRI())) {
             throw new RuntimeException("Class not in signature of the ontology");
         }
         // Note that the following code could be optimised... if we find that instances of the specified class

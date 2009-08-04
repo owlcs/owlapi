@@ -222,7 +222,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
             }
         }
 
-        for (SWRLRule r : ontology.getRules()) {
+        for (SWRLRule r : ontology.getAxioms(AxiomType.SWRL_RULE)) {
             exceptions.add(new OBOStorageException(r, null, "SWRL rules cannot be translated to OBO"));
         }
 

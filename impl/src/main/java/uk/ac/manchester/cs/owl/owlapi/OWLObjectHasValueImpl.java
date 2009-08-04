@@ -37,6 +37,13 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLObjectProp
         super(dataFactory, property, value);
     }
 
+    /**
+     * Gets the class expression type for this class expression
+     * @return The class expression type
+     */
+    public ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OBJECT_HAS_VALUE;
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

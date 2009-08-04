@@ -44,6 +44,12 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
      */
     public abstract URI toURI();
 
+    /**
+     * Determines if this IRI is absolute
+     * @return <code>true</code> if this IRI is absolute or <code>false</code> if this IRI is not absolute
+     */
+    public abstract boolean isAbsolute();
+
 
     /**
      * Determines if this IRI is in the reserved vocabulary.  An IRI is in the reserved vocabulary if it starts with
@@ -111,6 +117,14 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         }
 
         /**
+         * Determines if this IRI is absolute
+         * @return <code>true</code> if this IRI is absolute or <code>false</code> if this IRI is not absolute
+         */
+        public boolean isAbsolute() {
+            return uri.isAbsolute();
+        }
+
+        /**
          * Gets the fragment of the IRI.
          * @return The IRI fragment, or <code>null</code> if the IRI does not have a fragment
          */
@@ -123,7 +137,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         }
 
         public boolean isReservedVocabulary() {
-            return uri.toString().startsWith(Namespaces.OWL.toString()) || uri.toString().startsWith(Namespaces.RDF.toString()) || uri.toString().startsWith(Namespaces.RDFS.toString()) || uri.toString().startsWith(Namespaces.XML.toString());
+            String s = uri.toString();
+            return s.startsWith(Namespaces.OWL.toString()) || s.startsWith(Namespaces.RDF.toString()) || s.startsWith(Namespaces.RDFS.toString()) || s.startsWith(Namespaces.XSD.toString());
         }
 
         public boolean isThing() {
@@ -155,6 +170,10 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         }
 
         public Set<OWLEntity> getSignature() {
+            return Collections.emptySet();
+        }
+        
+        public Set<OWLDatatype> getDatatypesInSignature() {
             return Collections.emptySet();
         }
 

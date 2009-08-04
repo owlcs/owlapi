@@ -50,6 +50,13 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject());
     }
 
+    public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
+        return getOWLDataFactory().getOWLSubClassOfAxiom(
+                getOWLDataFactory().getOWLObjectOneOf(getSubject()),
+                getOWLDataFactory().getOWLObjectHasValue(getProperty(), getObject())
+        );
+    }
+
     public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
     }

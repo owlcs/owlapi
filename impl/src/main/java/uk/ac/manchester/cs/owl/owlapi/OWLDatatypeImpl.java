@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.vocab.OWLDatatypeVocabulary;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -49,7 +49,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         super(dataFactory);
         this.iri = iri;
         top = getURI().equals(OWLRDFVocabulary.RDFS_LITERAL.getURI());
-        builtin = OWLDatatypeVocabulary.isBuiltIn(getURI());
+        builtin = OWL2Datatype.isBuiltIn(getIRI());
     }
 
     /**
@@ -73,32 +73,32 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         return DataRangeType.DATATYPE;
     }
 
-    public OWLDatatypeVocabulary getBuiltInDatatype() {
+    public OWL2Datatype getBuiltInDatatype() {
         if (!isBuiltIn()) {
             throw new OWLRuntimeException("Not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
         } else {
-            return OWLDatatypeVocabulary.getDatatype(getURI());
+            return OWL2Datatype.getDatatype(getIRI());
         }
     }
 
     public boolean isDouble() {
-        return iri.toURI().equals(OWLDatatypeVocabulary.XSD_DOUBLE.getURI());
+        return iri.toURI().equals(OWL2Datatype.XSD_DOUBLE.getURI());
     }
 
     public boolean isFloat() {
-        return iri.toURI().equals(OWLDatatypeVocabulary.XSD_FLOAT.getURI());
+        return iri.toURI().equals(OWL2Datatype.XSD_FLOAT.getURI());
     }
 
     public boolean isInteger() {
-        return iri.toURI().equals(OWLDatatypeVocabulary.XSD_INTEGER.getURI());
+        return iri.toURI().equals(OWL2Datatype.XSD_INTEGER.getURI());
     }
 
     public boolean isString() {
-        return iri.toURI().equals(OWLDatatypeVocabulary.XSD_STRING.getURI());
+        return iri.toURI().equals(OWL2Datatype.XSD_STRING.getURI());
     }
 
     public boolean isBoolean() {
-        return iri.toURI().equals(OWLDatatypeVocabulary.XSD_BOOLEAN.getURI());
+        return iri.toURI().equals(OWL2Datatype.XSD_BOOLEAN.getURI());
     }
 
     public boolean isDatatype() {

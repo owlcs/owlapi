@@ -41,6 +41,8 @@ public class OWLObjectPropertyManager {
 
     private OWLOntology ontology;
 
+    private Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
+
     private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy;
 
     private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure;
@@ -87,8 +89,14 @@ public class OWLObjectPropertyManager {
     }
 
 
-    public void setOntology(OWLOntology ontology) {
+    private void setOntology(OWLOntology ontology) {
         this.ontology = ontology;
+        for(OWLOntology ont : man.getImportsClosure(ontology)) {
+            for(OWLObjectProperty prop : ont.getReferencedObjectProperties()) {
+                properties.add(prop);
+                properties.add(prop.getInverseProperty());
+            }
+        }
         reset();
     }
 
@@ -117,8 +125,8 @@ public class OWLObjectPropertyManager {
     public Set<OWLObjectPropertyExpression> getCompositeProperties() {
         if (compositeDirty) {
             compositeProperties.clear();
-            compositeProperties.add(man.getOWLDataFactory().getOWLObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI()));
-            compositeProperties.add(man.getOWLDataFactory().getOWLObjectProperty(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getURI()));
+            compositeProperties.add(man.getOWLDataFactory().getOWLTopObjectProperty());
+            compositeProperties.add(man.getOWLDataFactory().getOWLBottomObjectProperty());
             // We only depend on:
             //   1) Property chain axioms
             //   2) Transitive property axioms
