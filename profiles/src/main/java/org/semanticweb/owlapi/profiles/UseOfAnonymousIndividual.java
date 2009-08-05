@@ -3,9 +3,6 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -40,8 +37,16 @@ public class UseOfAnonymousIndividual extends OWLProfileViolation implements OWL
     private OWLAnonymousIndividual individual;
 
     public UseOfAnonymousIndividual(OWLOntology ontology, OWLAxiom axiom, OWLAnonymousIndividual individual) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.individual = individual;
+    }
+
+    public void accept(OWL2ELProfileViolationVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void accept(OWL2QLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public OWLAnonymousIndividual getOWLAnonymousIndividual() {

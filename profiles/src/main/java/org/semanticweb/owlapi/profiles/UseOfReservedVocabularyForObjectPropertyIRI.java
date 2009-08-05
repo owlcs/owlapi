@@ -3,9 +3,6 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -40,7 +37,7 @@ public class UseOfReservedVocabularyForObjectPropertyIRI extends OWLProfileViola
     private OWLObjectProperty property;
 
     public UseOfReservedVocabularyForObjectPropertyIRI(OWLOntology ontology, OWLAxiom axiom, OWLObjectProperty property) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.property = property;
     }
 
@@ -48,8 +45,8 @@ public class UseOfReservedVocabularyForObjectPropertyIRI extends OWLProfileViola
         return property;
     }
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String toString() {

@@ -498,10 +498,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLSubClassOfAxiom axiom) {
         setAxiomWriting();
-        setUseTabbing(false);
-//        writeFrameKeyword(CLASS);
         axiom.getSubClass().accept(this);
-        writeSectionKeyword(SUBCLASS_OF);
+        write(SUBCLASS_OF);
         axiom.getSuperClass().accept(this);
         restore();
     }
@@ -509,8 +507,6 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getSubject());
-        writeSectionKeyword(FACTS);
         write(NOT);
         write("(");
         axiom.getSubject().accept(this);
@@ -524,6 +520,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
 
     private void writePropertyCharacteristic(ManchesterOWLSyntax characteristic) {
+        setAxiomWriting();
         writeSectionKeyword(CHARACTERISTICS);
         write(characteristic);
         restore();
@@ -532,55 +529,51 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writePropertyCharacteristic(ASYMMETRIC);
+        writeSectionKeyword(ASYMMETRIC);
+        axiom.getProperty().accept(this);
         restore();
     }
 
 
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writePropertyCharacteristic(REFLEXIVE);
+        writeSectionKeyword(REFLEXIVE);
+        axiom.getProperty().accept(this);
         restore();
     }
 
+    private void writeBinaryOrNaryList(ManchesterOWLSyntax binaryKeyword, Set<? extends OWLObject> objects, ManchesterOWLSyntax naryKeyword) {
+        if(objects.size() == 2) {
+            Iterator<? extends OWLObject> it = objects.iterator();
+            it.next().accept(this);
+            write(binaryKeyword);
+            it.next().accept(this);
+        }
+        else {
+            writeSectionKeyword(naryKeyword);
+            writeCommaSeparatedList(objects);
+        }
+    }
 
     public void visit(OWLDisjointClassesAxiom axiom) {
         setAxiomWriting();
-        writeFrameKeyword(DISJOINT_CLASSES);
-        writeCommaSeparatedList(axiom.getClassExpressions());
+        writeBinaryOrNaryList(DISJOINT_WITH, axiom.getClassExpressions(), DISJOINT_CLASSES);
         restore();
     }
 
 
     public void visit(OWLDataPropertyDomainAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writeSectionKeyword(DOMAIN);
+        axiom.getProperty().accept(this);
+        write(DOMAIN);
         axiom.getDomain().accept(this);
         restore();
     }
 
-
-//    public void visit(OWLImportsDeclaration axiom) {
-//        setAxiomWriting();
-//        writeFrameKeyword(ONTOLOGY);
-//        write("<");
-//        write(axiom.getSubject().getIRI().toString());
-//        write(">");
-//        writeSectionKeyword(IMPORT);
-//        write("<");
-//        write(axiom.getIRI().toString());
-//        write(">");
-//        restore();
-//    }
-
-
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writeSectionKeyword(DOMAIN);
+        axiom.getProperty().accept(this);
+        write(DOMAIN);
         axiom.getDomain().accept(this);
         restore();
     }
@@ -588,16 +581,13 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeFrameKeyword(EQUIVALENT_OBJECT_PROPERTIES);
-        writeCommaSeparatedList(axiom.getProperties());
+        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.getProperties(), EQUIVALENT_OBJECT_PROPERTIES);
         restore();
     }
 
 
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writeSectionKeyword(FACTS);
         write(NOT);
         write("(");
         axiom.getSubject().accept(this);
@@ -612,32 +602,29 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         setAxiomWriting();
-        writeFrameKeyword(DIFFERENT_INDIVIDUALS);
-        writeCommaSeparatedList(axiom.getIndividuals());
+        writeBinaryOrNaryList(DIFFERENT_FROM, axiom.getIndividuals(), DIFFERENT_INDIVIDUALS);
         restore();
     }
 
 
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeFrameKeyword(DISJOINT_DATA_PROPERTIES);
-        writeCommaSeparatedList(axiom.getProperties());
+        writeBinaryOrNaryList(DISJOINT_WITH, axiom.getProperties(), DISJOINT_DATA_PROPERTIES);
         restore();
     }
 
 
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeFrameKeyword(DISJOINT_OBJECT_PROPERTIES);
-        writeCommaSeparatedList(axiom.getProperties());
+        writeBinaryOrNaryList(DISJOINT_WITH, axiom.getProperties(), DISJOINT_OBJECT_PROPERTIES);
         restore();
     }
 
 
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writeSectionKeyword(RANGE);
+        axiom.getProperty().accept(this);
+        write(RANGE);
         axiom.getRange().accept(this);
         restore();
     }
@@ -645,8 +632,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writeSectionKeyword(FACTS);
+        axiom.getProperty().accept(this);
+        write(" ");
         axiom.getProperty().accept(this);
         write(" ");
         axiom.getObject().accept(this);
@@ -656,16 +643,16 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writePropertyCharacteristic(FUNCTIONAL);
+        writeSectionKeyword(FUNCTIONAL);
+        axiom.getProperty().accept(this);
         restore();
     }
 
 
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getSubProperty());
-        writeSectionKeyword(SUB_PROPERTY_OF);
+        axiom.getSubProperty().accept(this);
+        write(SUB_PROPERTY_OF);
         axiom.getSuperProperty().accept(this);
         restore();
     }
@@ -673,8 +660,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLDisjointUnionAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getOWLClass());
-        writeSectionKeyword(DISJOINT_UNION_OF);
+        axiom.getOWLClass().accept(this);
+        write(DISJOINT_UNION_OF);
         writeCommaSeparatedList(axiom.getClassExpressions());
         restore();
     }
@@ -719,44 +706,44 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLAnnotationAssertionAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getSubject());
-        writeSectionKeyword(ANNOTATIONS);
+        axiom.getSubject().accept(this);
+        write(" ");
         axiom.getAnnotation().accept(this);
         restore();
     }
 
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writeSectionKeyword(DOMAIN);
+        axiom.getProperty().accept(this);
+        write(DOMAIN);
         axiom.getDomain().accept(this);
     }
 
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writeSectionKeyword(RANGE);
+        axiom.getProperty().accept(this);
+        write(RANGE);
         axiom.getRange().accept(this);
     }
 
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getSubProperty());
-        writeFrameKeyword(SUB_PROPERTY_OF);
+        axiom.getSubProperty().accept(this);
+        write(SUB_PROPERTY_OF);
         axiom.getSuperProperty().accept(this);
     }
 
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writePropertyCharacteristic(SYMMETRIC);
+        writeSectionKeyword(SYMMETRIC);
+        axiom.getProperty().accept(this);
         restore();
     }
 
 
     public void visit(OWLDataPropertyRangeAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
+        axiom.getProperty().accept(this);
         writeSectionKeyword(RANGE);
         axiom.getRange().accept(this);
         restore();
@@ -765,8 +752,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writePropertyCharacteristic(FUNCTIONAL);
+        writeSectionKeyword(FUNCTIONAL);
+        axiom.getProperty().accept(this);
         restore();
     }
 
@@ -781,8 +768,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLClassAssertionAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getIndividual());
-        writeSectionKeyword(TYPES);
+        axiom.getIndividual().accept(this);
+        write(TYPE);
         axiom.getClassExpression().accept(this);
         restore();
     }
@@ -790,26 +777,13 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
         setAxiomWriting();
-        if (axiom.getClassExpressions().size() == 2) {
-            OWLClassExpression[] ces = axiom.getClassExpressions().toArray(new OWLClassExpression[2]);
-            ces[0].accept(this);
-            writeSpace();
-            writeFrameKeyword(EQUIVALENT_CLASSES);
-            writeSpace();
-            ces[1].accept(this);
-        }
-        else {
-            writeFrameKeyword(EQUIVALENT_CLASSES);
-            writeCommaSeparatedList(axiom.getClassExpressions());
-        }
+        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.getClassExpressions(), EQUIVALENT_CLASSES);
         restore();
     }
 
 
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getSubject());
-        writeSectionKeyword(FACTS);
         axiom.getProperty().accept(this);
         write(" ");
         axiom.getObject().accept(this);
@@ -819,23 +793,23 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writePropertyCharacteristic(TRANSITIVE);
+        writeSectionKeyword(TRANSITIVE);
+        axiom.getProperty().accept(this);
         restore();
     }
 
 
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writePropertyCharacteristic(IRREFLEXIVE);
+        writeSectionKeyword(IRREFLEXIVE);
+        axiom.getProperty().accept(this);
         restore();
     }
 
 
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getSubProperty());
+        axiom.getSubProperty().accept(this);
         writeSectionKeyword(SUB_PROPERTY_OF);
         axiom.getSuperProperty().accept(this);
         restore();
@@ -844,38 +818,37 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getProperty());
-        writePropertyCharacteristic(INVERSE_FUNCTIONAL);
+        writeSectionKeyword(INVERSE_FUNCTIONAL);
+        axiom.getProperty().accept(this);
         restore();
     }
 
 
     public void visit(OWLSameIndividualAxiom axiom) {
         setAxiomWriting();
-        writeFrameKeyword(SAME_INDIVIDUAL);
-        writeCommaSeparatedList(axiom.getIndividuals());
+        writeBinaryOrNaryList(SAME_AS, axiom.getIndividuals(), SAME_INDIVIDUAL);
         restore();
     }
 
 
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getSuperProperty());
-        writeSectionKeyword(SUB_PROPERTY_CHAIN);
         for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(" o ");
             }
         }
+        write(SUB_PROPERTY_OF);
+        axiom.getSuperProperty().accept(this);
         restore();
     }
 
 
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getFirstProperty());
-        writeSectionKeyword(INVERSE_OF);
+        axiom.getFirstProperty().accept(this);
+        write(INVERSE_OF);
         axiom.getSecondProperty().accept(this);
         restore();
     }
@@ -901,7 +874,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLHasKeyAxiom axiom) {
         setAxiomWriting();
-        writeFrameType(axiom.getClassExpression());
+        axiom.getClassExpression().accept(this);
         write(HAS_KEY);
         write(axiom.getObjectPropertyExpressions(), COMMA, false);
         write(axiom.getDataPropertyExpressions(), COMMA, false);

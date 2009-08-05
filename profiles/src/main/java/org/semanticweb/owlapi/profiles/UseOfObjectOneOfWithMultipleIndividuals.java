@@ -3,9 +3,6 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -42,6 +39,10 @@ public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassEx
     public UseOfObjectOneOfWithMultipleIndividuals(OWLOntology ontology, OWLAxiom axiom, OWLObjectOneOf oneOf) {
         super(ontology, axiom, oneOf);
         this.oneOf = oneOf;
+    }
+
+    public void accept(OWL2ELProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public OWLObjectOneOf getOWLObjectOneOf() {

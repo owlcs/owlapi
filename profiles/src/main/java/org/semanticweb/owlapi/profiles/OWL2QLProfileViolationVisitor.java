@@ -30,17 +30,17 @@ package org.semanticweb.owlapi.profiles;
  */
 public interface OWL2QLProfileViolationVisitor {
 
-    void accept(UseOfAnonymousIndividual individual);
+    void visit(UseOfAnonymousIndividual individual);
 
-    void accept(UseOfDataOneOfWithMultipleLiterals individual);
+    void visit(UseOfDataOneOfWithMultipleLiterals individual);
 
-    void accept(UseOfIllegalAxiom individual);
+    void visit(UseOfIllegalAxiom individual);
 
-    void accept(UseOfIllegalDataRange individual);
+    void visit(UseOfIllegalDataRange individual);
 
-    void accept(UseOfNonAtomicClassExpression individual);
+    void visit(UseOfNonAtomicClassExpression individual);
 
-    void accept(UseOfNonSubClassExpression individual);
+    void visit(UseOfNonSubClassExpression individual);
 
-    void accept(UseOfNonSuperClassExpression individual);
+    void visit(UseOfNonSuperClassExpression individual);
 }

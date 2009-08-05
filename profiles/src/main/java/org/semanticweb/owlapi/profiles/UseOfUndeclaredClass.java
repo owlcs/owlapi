@@ -3,9 +3,6 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -40,12 +37,12 @@ public class UseOfUndeclaredClass extends OWLProfileViolation implements OWL2DLP
     private OWLClass cls;
 
     public UseOfUndeclaredClass(OWLOntology ontology, OWLAxiom axiom, OWLClass cls) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.cls =  cls;
     }
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public OWLClass getOWLClass() {

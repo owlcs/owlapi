@@ -3,9 +3,6 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -42,8 +39,12 @@ public class UseOfIllegalClassExpression extends OWLProfileViolation implements 
     private OWLClassExpression classExpression;
 
     public UseOfIllegalClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.classExpression = classExpression;
+    }
+
+    public void accept(OWL2ELProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public OWLClassExpression getOWLClassExpression() {
@@ -53,10 +54,10 @@ public class UseOfIllegalClassExpression extends OWLProfileViolation implements 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(classExpression.getClassExpressionType().getName());
-        sb.append(" class expressions are not allowed in profile. ");
+        sb.append(" class expressions are not allowed in profile: ");
         sb.append(classExpression);
         sb.append("  [");
-        sb.append(getAxioms().iterator().next());
+        sb.append(getAxiom());
         sb.append(" in  ");
         sb.append(getOntologyID());
         sb.append("]");

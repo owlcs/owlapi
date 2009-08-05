@@ -30,5 +30,5 @@ package org.semanticweb.owlapi.profiles;
  */
 public interface OWL2DLProfileViolation {
 
-    void visit(OWL2DLProfileViolationVisitor visitor);
+    void accept(OWL2DLProfileViolationVisitor visitor);
 }

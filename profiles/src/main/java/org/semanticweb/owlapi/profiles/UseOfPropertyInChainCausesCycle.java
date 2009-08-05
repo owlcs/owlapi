@@ -2,11 +2,7 @@ package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -41,7 +37,7 @@ public class UseOfPropertyInChainCausesCycle extends OWLProfileViolation impleme
     private OWLObjectPropertyExpression property;
 
     public UseOfPropertyInChainCausesCycle(OWLOntology ontology, OWLSubPropertyChainOfAxiom axiom, OWLObjectPropertyExpression property) {
-        super(ontology, Collections.singleton((OWLAxiom) property));
+        super(ontology, axiom);
         this.property = property;
     }
 
@@ -49,7 +45,7 @@ public class UseOfPropertyInChainCausesCycle extends OWLProfileViolation impleme
         return property;
     }
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 }

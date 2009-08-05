@@ -3,8 +3,7 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-
-import java.util.Collections;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -39,17 +38,29 @@ public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation imple
 
     private OWLAnnotationProperty property;
 
-    public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, OWLAxiom axiom, OWLAnnotationProperty prop) {
-        super(ontology, Collections.singleton(axiom));
+    private OWLAnnotation annotation;
+
+    public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, OWLAxiom axiom, OWLAnnotation annotation, OWLAnnotationProperty prop) {
+        super(ontology, axiom);
         this.property = prop;
+        this.annotation = annotation;
     }
 
     public OWLAnnotationProperty getOWLAnnotationProperty() {
         return property;
     }
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public OWLAnnotation getOWLAnnotation() {
+        return annotation;
+    }
+
+    public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, OWLAxiom axiom, OWLAnnotation annotation) {
+        super(ontology, axiom);
+        this.annotation = annotation;
+    }
+
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
     
     public String toString() {

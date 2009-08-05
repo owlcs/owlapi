@@ -106,30 +106,6 @@ public class OWL2Profile implements OWLProfile {
             return null;
         }
 
-        public Object visit(OWLDatatype datatype) {
-            // Each datatype MUST statisfy the following:
-            // An IRI used to identify a datatype MUST
-            //     - Identify a datatype in the OWL 2 datatype map (Section 4.1 lists them), or
-            //     - Have the xsd: prefix, or
-            //     - Be rdfs:Literal, or
-            //     - Not be in the reserved vocabulary of OWL 2
-            if (!OWL2Datatype.isBuiltIn(datatype.getIRI())) {
-                if (!datatype.getIRI().toString().startsWith(Namespaces.XSD.toString())) {
-                    if (!datatype.isTopDatatype()) {
-                        if (datatype.getIRI().isReservedVocabulary()) {
-                            profileViolations.add(new UseOfUnknownDatatype(getCurrentOntology(), getCurrentAxiom(), datatype));
-                        }
-                    }
-                }
-                // We also have to declare datatypes that are not built in
-                if (!datatype.isBuiltIn() && getCurrentOntology().isDeclared(datatype, true)) {
-                    profileViolations.add(new UseOfUndeclaredDatatype(getCurrentOntology(), getCurrentAxiom(), datatype));
-                    System.out.println("Datatype is not declared: " + datatype);
-                }
-            }
-            return null;
-        }
-
         public Object visit(OWLTypedLiteral node) {
             // Check that the lexical value of the literal is in the lexical space of the
             // literal datatype
@@ -147,10 +123,7 @@ public class OWL2Profile implements OWLProfile {
             for(OWLOntology ont : man.getImportsClosure(getCurrentOntology())) {
                 for(OWLDatatypeDefinitionAxiom ax : ont.getAxioms(AxiomType.DATATYPE_DEFINITION)) {
                     if(node.getDatatype().equals(ax.getDatatype())) {
-                        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-                        axioms.add(getCurrentAxiom());
-                        axioms.add(ax);
-                        profileViolations.add(new UseOfDefinedDatatypeInDatatypeRestriction(getCurrentOntology(), axioms));
+                        profileViolations.add(new UseOfDefinedDatatypeInDatatypeRestriction(getCurrentOntology(), getCurrentAxiom(), node));
                     }
                 }
             }

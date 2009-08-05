@@ -1,11 +1,7 @@
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -38,15 +34,15 @@ import java.util.Collections;
 public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends OWLProfileViolation implements OWL2DLProfileViolation {
 
     public UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom(OWLOntology ontology, OWLAsymmetricObjectPropertyAxiom axiom) {
-        super(ontology, Collections.singleton((OWLAxiom) axiom));
+        super(ontology, axiom);
     }
 
     public OWLAsymmetricObjectPropertyAxiom getAxiom() {
         return (OWLAsymmetricObjectPropertyAxiom) super.getAxiom();
     }
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String toString() {

@@ -3,9 +3,6 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -40,12 +37,24 @@ public class UseOfIllegalDataRange extends OWLProfileViolation implements OWL2EL
     private OWLDataRange dataRange;
 
     public UseOfIllegalDataRange(OWLOntology ontology, OWLAxiom axiom, OWLDataRange dataRange) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.dataRange = dataRange;
     }
 
     public OWLDataRange getOWLDataRange() {
         return dataRange;
+    }
+
+    public void accept(OWL2RLProfileViolationVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void accept(OWL2QLProfileViolationVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void accept(OWL2ELProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String toString() {

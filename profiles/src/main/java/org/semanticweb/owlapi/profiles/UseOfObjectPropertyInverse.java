@@ -3,9 +3,6 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -40,8 +37,12 @@ public class UseOfObjectPropertyInverse extends OWLProfileViolation implements  
     private OWLObjectPropertyExpression propertyExpression;
 
     public UseOfObjectPropertyInverse(OWLOntology ontology, OWLAxiom axiom, OWLObjectPropertyExpression propertyExpression) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.propertyExpression = propertyExpression;
+    }
+
+    public void accept(OWL2ELProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public OWLObjectPropertyExpression getOWLPropertyExpression() {

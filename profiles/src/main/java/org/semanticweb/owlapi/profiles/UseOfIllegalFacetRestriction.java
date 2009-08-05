@@ -43,9 +43,13 @@ public class UseOfIllegalFacetRestriction extends OWLProfileViolation implements
     private OWLFacet facet;
 
     public UseOfIllegalFacetRestriction(OWLOntology ontology, OWLAxiom axiom, OWLDatatypeRestriction dtr, OWLFacet facet) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.datatypeRestriction = dtr;
         this.facet = facet;
+    }
+
+    public void accept(OWL2ProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public OWLDatatypeRestriction getDatatypeRestriction() {

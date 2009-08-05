@@ -3,9 +3,6 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -40,12 +37,16 @@ public class UseOfNonAtomicClassExpression extends OWLProfileViolation implement
     private OWLClassExpression classExpression;
 
     public UseOfNonAtomicClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.classExpression = classExpression;
     }
 
     public OWLClassExpression getOWLClassExpression() {
         return classExpression;
+    }
+
+    public void accept(OWL2QLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String toString() {

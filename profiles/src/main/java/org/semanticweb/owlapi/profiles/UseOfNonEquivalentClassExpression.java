@@ -40,12 +40,16 @@ public class UseOfNonEquivalentClassExpression extends OWLProfileViolation imple
     private OWLClassExpression classExpression;
 
     public UseOfNonEquivalentClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.classExpression = classExpression;
     }
 
     public OWLClassExpression getOWLClassExpression() {
         return classExpression;
+    }
+
+    public void accept(OWL2RLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String toString() {

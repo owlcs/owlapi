@@ -3,12 +3,6 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLAxiom;
-
-import java.util.Set;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -45,9 +39,13 @@ public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation im
     private OWLObjectPropertyRangeAxiom rangeAxiom;
 
     public LastPropertyInChainNotInImposedRange(OWLOntology ontology, OWLSubPropertyChainOfAxiom axiom, OWLObjectPropertyRangeAxiom rangeAxiom) {
-        super(ontology, Collections.singleton((OWLAxiom) axiom));
+        super(ontology, axiom);
         this.axiom = axiom;
         this.rangeAxiom = rangeAxiom;
+    }
+    
+    public void accept(OWL2ELProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom() {

@@ -201,12 +201,19 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
 
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
     }
 
 
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED");
+        write(TOP);
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        write(EXISTS);
+        writeSpace();
+        axiom.getProperty().accept(this);
+        write(" .");
+        write(SELF);
     }
 
 
@@ -412,6 +419,16 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
 
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        write(TOP);
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        write(NOT);
+        write(EXISTS);
+        writeSpace();
+        axiom.getProperty().accept(this);
+        write(" .");
+        write(SELF);
     }
 
 

@@ -30,14 +30,14 @@ package org.semanticweb.owlapi.profiles;
  */
 public interface OWL2RLProfileViolationVisitor {
 
-    void accept(UseOfIllegalAxiom violation);
+    void visit(UseOfIllegalAxiom violation);
 
-    void accept(UseOfIllegalDataRange violation);
+    void visit(UseOfIllegalDataRange violation);
 
-    void accept(UseOfNonEquivalentClassExpression violation);
+    void visit(UseOfNonEquivalentClassExpression violation);
 
-    void accept(UseOfNonSubClassExpression violation);
+    void visit(UseOfNonSubClassExpression violation);
 
-    void accept(UseOfNonSuperClassExpression violation);
+    void visit(UseOfNonSuperClassExpression violation);
 
 }

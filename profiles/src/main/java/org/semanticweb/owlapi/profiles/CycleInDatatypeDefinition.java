@@ -2,8 +2,6 @@ package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
-
-import java.util.Set;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -35,21 +33,21 @@ import java.util.Set;
  */
 public class CycleInDatatypeDefinition extends OWLProfileViolation implements OWL2DLProfileViolation {
 
-    public CycleInDatatypeDefinition(OWLOntology ontology, Set<OWLAxiom> axioms) {
-        super(ontology, axioms);
+    public CycleInDatatypeDefinition(OWLOntology ontology, OWLAxiom axiom) {
+        super(ontology, axiom);
     }
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Cycle in datatype definition.  Caused by ");
-        for(OWLAxiom ax : getAxioms()) {
-            sb.append(ax);
-            sb.append("    ");
-        }
+        sb.append("Cycle in datatype definition");
+        sb.append(" [");
+        sb.append(getAxiom());
+        sb.append(" in ");
+        sb.append("]");
         return sb.toString();
     }
 }

@@ -4,6 +4,8 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.*;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.Namespaces;
 
 import java.net.URI;
 import java.util.HashSet;
@@ -125,30 +127,34 @@ public class OWL2DLProfile implements OWLProfile {
                 profileViolations.add(new UseOfUndeclaredClass(getCurrentOntology(), getCurrentAxiom(), desc));
             }
             if (getCurrentOntology().containsDatatypeReference(desc.getIRI())) {
-                profileViolations.add(new UseOfDatatypeIRIForClassIRI(getCurrentOntology(), getCurrentAxiom(), desc.getIRI()));
+                profileViolations.add(new DatatypeIRIAlsoUsedAsClassIRI(getCurrentOntology(), getCurrentAxiom(), desc.getIRI()));
             }
             return null;
         }
 
-        public Object visit(OWLDatatype node) {
-            if (!node.isBuiltIn()) {
-                boolean defined = false;
-                for (OWLOntology ont : getCurrentOntology().getOWLOntologyManager().getImportsClosure(getCurrentOntology())) {
-                    if (ont.getDatatypeDefinitions(node).isEmpty()) {
-                        defined = true;
-                        break;
+        public Object visit(OWLDatatype datatype) {
+            // Each datatype MUST statisfy the following:
+            // An IRI used to identify a datatype MUST
+            //     - Identify a datatype in the OWL 2 datatype map (Section 4.1 lists them), or
+            //     - Have the xsd: prefix, or
+            //     - Be rdfs:Literal, or
+            //     - Not be in the reserved vocabulary of OWL 2
+            if (!OWL2Datatype.isBuiltIn(datatype.getIRI())) {
+                if (!datatype.getIRI().toString().startsWith(Namespaces.XSD.toString())) {
+                    if (!datatype.isTopDatatype()) {
+                        if (datatype.getIRI().isReservedVocabulary()) {
+                            profileViolations.add(new UseOfUnknownDatatype(getCurrentOntology(), getCurrentAxiom(), datatype));
+                        }
                     }
                 }
-//                if(!defined) {
-//                    profileViolations.add(new UndeclaredDefinedDatatype(getCurrentOntology(), getCurrentAxiom(), node))
-//                }
+                // We also have to declare datatypes that are not built in
+                if (!datatype.isTopDatatype() && datatype.isBuiltIn() && getCurrentOntology().isDeclared(datatype, true)) {
+                    profileViolations.add(new UseOfUndeclaredDatatype(getCurrentOntology(), getCurrentAxiom(), datatype));
+                }
             }
-            if (!node.isBuiltIn() && !getCurrentOntology().isDeclared(node, true)) {
-                profileViolations.add(new UseOfUndeclaredDatatype(getCurrentOntology(), getCurrentAxiom(), node));
 
-            }
-            if (getCurrentOntology().containsClassReference(node.getIRI(), true)) {
-                profileViolations.add(new UseOfDatatypeIRIForClassIRI(getCurrentOntology(), getCurrentAxiom(), node.getIRI()));
+            if (getCurrentOntology().containsClassReference(datatype.getIRI(), true)) {
+                profileViolations.add(new DatatypeIRIAlsoUsedAsClassIRI(getCurrentOntology(), getCurrentAxiom(), datatype.getIRI()));
             }
             return null;
         }
@@ -163,7 +169,7 @@ public class OWL2DLProfile implements OWLProfile {
             axioms.add(axiom);
             getDatatypesInSignature(datatypes, axiom.getDataRange(), axioms);
             if (datatypes.contains(axiom.getDatatype())) {
-                profileViolations.add(new CycleInDatatypeDefinition(getCurrentOntology(), axioms));
+                profileViolations.add(new CycleInDatatypeDefinition(getCurrentOntology(), axiom));
             }
             return null;
         }
@@ -192,11 +198,9 @@ public class OWL2DLProfile implements OWLProfile {
             }
             if (getCurrentOntology().containsDataPropertyReference(property.getIRI(), true)) {
                 // TODO: Error
-                System.out.println("Object property IRI is also used as a data property IRI");
             }
             if (getCurrentOntology().containsAnnotationPropertyReference(property.getIRI(), true)) {
                 // TODO: Error
-                System.out.println("Object property IRI is used as an annotation property IRI");
             }
 
             return null;
@@ -214,12 +218,10 @@ public class OWL2DLProfile implements OWLProfile {
 
             if (getCurrentOntology().containsObjectPropertyReference(property.getIRI(), true)) {
                 // TODO: Error
-                System.out.println("Data property IRI is also used an an object property IRI");
             }
 
             if (getCurrentOntology().containsAnnotationPropertyReference(property.getIRI(), true)) {
                 // TODO: Error
-                System.out.println("Data property IRI is also used as an annotation property IRI");
             }
             return null;
         }
@@ -231,7 +233,7 @@ public class OWL2DLProfile implements OWLProfile {
                 }
             }
             if (!property.isBuiltIn() && !getCurrentOntology().isDeclared(property)) {
-                profileViolations.add(new UseOfUndeclaredAnnotationProperty(getCurrentOntology(), getCurrentAxiom(), property));
+                profileViolations.add(new UseOfUndeclaredAnnotationProperty(getCurrentOntology(), getCurrentAxiom(), getCurrentAnnotation(), property));
             }
 
             if (getCurrentOntology().containsObjectPropertyReference(property.getIRI(), true)) {

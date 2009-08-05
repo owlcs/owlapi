@@ -3,9 +3,6 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -40,7 +37,7 @@ public class UseOfReservedVocabularyForIndividualIRI extends OWLProfileViolation
     private OWLNamedIndividual ind;
 
     public UseOfReservedVocabularyForIndividualIRI(OWLOntology ontology, OWLAxiom axiom, OWLNamedIndividual ind) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.ind = ind;
     }
 
@@ -48,8 +45,8 @@ public class UseOfReservedVocabularyForIndividualIRI extends OWLProfileViolation
         return ind;
     }
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String toString() {

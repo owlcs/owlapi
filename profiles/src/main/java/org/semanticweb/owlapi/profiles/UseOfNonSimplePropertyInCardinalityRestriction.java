@@ -3,9 +3,6 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -40,12 +37,12 @@ public class UseOfNonSimplePropertyInCardinalityRestriction extends OWLProfileVi
     private OWLObjectCardinalityRestriction restriction;
 
     public UseOfNonSimplePropertyInCardinalityRestriction(OWLOntology ontology, OWLAxiom axiom, OWLObjectCardinalityRestriction restriction) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.restriction = restriction;
     }
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public OWLObjectCardinalityRestriction getOWLCardinalityRestriction() {

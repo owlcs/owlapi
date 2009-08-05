@@ -125,6 +125,8 @@ public enum ManchesterOWLSyntax {
 
     TYPES("Types", true, true, false, false),
 
+    TYPE("Type", true, true, false, false),
+
     ANNOTATIONS("Annotations", true, false, false, false),
 
     COMMA(",", false, false, false, false),

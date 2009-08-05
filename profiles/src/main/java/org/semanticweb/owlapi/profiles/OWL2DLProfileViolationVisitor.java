@@ -30,51 +30,51 @@ package org.semanticweb.owlapi.profiles;
  */
 public interface OWL2DLProfileViolationVisitor {
 
-    void accept(CycleInDatatypeDefinition violation);
+    void visit(CycleInDatatypeDefinition violation);
 
-    void accept(UseOfBuiltInDatatypeInDatatypeDefinition violation);
+    void visit(UseOfBuiltInDatatypeInDatatypeDefinition violation);
 
-    void accept(UseOfDatatypeIRIForClassIRI violation);
+    void visit(DatatypeIRIAlsoUsedAsClassIRI violation);
 
-    void accept(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom violation);
+    void visit(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom violation);
 
-    void accept(UseOfNonSimplePropertyInCardinalityRestriction violation);
+    void visit(UseOfNonSimplePropertyInCardinalityRestriction violation);
 
-    void accept(UseOfNonSimplePropertyInDisjointPropertiesAxiom violation);
+    void visit(UseOfNonSimplePropertyInDisjointPropertiesAxiom violation);
 
-    void accept(UseOfNonSimplePropertyInFunctionalPropertyAxiom violation);
+    void visit(UseOfNonSimplePropertyInFunctionalPropertyAxiom violation);
 
-    void accept(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom violation);
+    void visit(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom violation);
 
-    void accept(UseOfNonSimplePropertyInIrreflexivePropertyAxiom violation);
+    void visit(UseOfNonSimplePropertyInIrreflexivePropertyAxiom violation);
 
-    void accept(UseOfNonSimplePropertyInObjectHasSelf violation);
+    void visit(UseOfNonSimplePropertyInObjectHasSelf violation);
 
-    void accept(UseOfPropertyInChainCausesCycle violation);
+    void visit(UseOfPropertyInChainCausesCycle violation);
 
-    void accept(UseOfReservedVocabularyForAnnotationPropertyIRI violation);
+    void visit(UseOfReservedVocabularyForAnnotationPropertyIRI violation);
 
-    void accept(UseOfReservedVocabularyForClassIRI violation);
+    void visit(UseOfReservedVocabularyForClassIRI violation);
 
-    void accept(UseOfReservedVocabularyForDataPropertyIRI violation);
+    void visit(UseOfReservedVocabularyForDataPropertyIRI violation);
 
-    void accept(UseOfReservedVocabularyForIndividualIRI violation);
+    void visit(UseOfReservedVocabularyForIndividualIRI violation);
 
-    void accept(UseOfReservedVocabularyForObjectPropertyIRI violation);
+    void visit(UseOfReservedVocabularyForObjectPropertyIRI violation);
 
-    void accept(UseOfReservedVocabularyForOntologyIRI violation);
+    void visit(UseOfReservedVocabularyForOntologyIRI violation);
 
-    void accept(UseOfReservedVocabularyForVersionIRI violation);
+    void visit(UseOfReservedVocabularyForVersionIRI violation);
 
-    void accept(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom violation);
+    void visit(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom violation);
 
-    void accept(UseOfUndeclaredAnnotationProperty violation);
+    void visit(UseOfUndeclaredAnnotationProperty violation);
 
-    void accept(UseOfUndeclaredClass violation);
+    void visit(UseOfUndeclaredClass violation);
 
-    void accept(UseOfUndeclaredDataProperty violation);
+    void visit(UseOfUndeclaredDataProperty violation);
 
-    void accept(UseOfUndeclaredDatatype violation);
+    void visit(UseOfUndeclaredDatatype violation);
 
-    void accept(UseOfUndeclaredObjectProperty violation);
+    void visit(UseOfUndeclaredObjectProperty violation);
 }

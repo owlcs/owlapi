@@ -29,4 +29,6 @@ package org.semanticweb.owlapi.profiles;
  * Date: 03-Aug-2009
  */
 public interface OWL2ProfileViolation {
+
+    void accept(OWL2ProfileViolationVisitor visitor);
 }

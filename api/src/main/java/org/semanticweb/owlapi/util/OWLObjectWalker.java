@@ -46,6 +46,8 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     private OWLAxiom axiom;
 
+    private OWLAnnotation annotation;
+
     private List<OWLClassExpression> classExpressionPath = new ArrayList<OWLClassExpression>();
 
     private List<OWLDataRange> dataRangePath = new ArrayList<OWLDataRange>();
@@ -82,6 +84,14 @@ public class OWLObjectWalker<O extends OWLObject> {
      */
     public OWLAxiom getAxiom() {
         return axiom;
+    }
+
+    /**
+     * Gets the last annotation to be visited.
+     * @return The last annotation to be visited (may be <code>null</code>)
+     */
+    public OWLAnnotation getAnnotation() {
+        return annotation;
     }
 
     /**
@@ -184,12 +194,13 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLOntology ontology) {
             OWLObjectWalker.this.ontology = ontology;
+            OWLObjectWalker.this.axiom = null;
             process(ontology);
-            for (OWLAxiom ax : ontology.getAxioms()) {
-                ax.accept(this);
-            }
             for(OWLAnnotation anno : ontology.getAnnotations()) {
                 anno.accept(this);
+            }
+            for (OWLAxiom ax : ontology.getAxioms()) {
+                ax.accept(this);
             }
         }
 
@@ -325,6 +336,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLAnnotation node) {
             process(node);
+            annotation = node;
             node.getProperty().accept(this);
             node.getValue().accept(this);
         }

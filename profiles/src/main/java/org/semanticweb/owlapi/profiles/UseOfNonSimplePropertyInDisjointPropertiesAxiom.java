@@ -1,12 +1,8 @@
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -41,7 +37,7 @@ public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends OWLProfileV
     private OWLObjectPropertyExpression prop;
 
     public UseOfNonSimplePropertyInDisjointPropertiesAxiom(OWLOntology ontology, OWLDisjointObjectPropertiesAxiom axiom, OWLObjectPropertyExpression prop) {
-        super(ontology, Collections.singleton((OWLAxiom) axiom));
+        super(ontology, axiom);
         this.prop = prop;
     }
 
@@ -49,8 +45,8 @@ public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends OWLProfileV
         return prop;
     }
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String toString() {

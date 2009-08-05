@@ -1,11 +1,4 @@
 package org.semanticweb.owlapi.profiles;
-
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.IRI;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -34,23 +27,24 @@ import java.util.Collections;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 03-Aug-2009
- *
- * Specifies that an IRI that is used for a datatype is also used for a class IRI
  */
-public class UseOfDatatypeIRIForClassIRI extends OWLProfileViolation implements OWL2DLProfileViolation {
+public interface OWL2ProfileViolationVisitor {
 
-    private IRI iri;
+    void visit(UseOfNonAbsoluteIRI violation);
 
-    public UseOfDatatypeIRIForClassIRI(OWLOntology ontology, OWLAxiom axiom, IRI iri) {
-        super(ontology, Collections.singleton(axiom));
-        this.iri = iri;
-    }
+    void visit(UseOfIllegalFacetRestriction violation);
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
-    }
+    void visit(LexicalNotInLexicalSpace violation);
 
-    public IRI getIRI() {
-        return iri;
-    }
+    void visit(OntologyIRINotAbsolute violation);
+
+    void visit(OntologyVersionIRINotAbsolute violation);
+
+    void visit(UseOfDefinedDatatypeInDatatypeRestriction violation);
+
+    void visit(UseOfUndeclaredDatatype violation);
+
+    void visit(UseOfUnknownDatatype violation);
+    
+
 }

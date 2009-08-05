@@ -38,7 +38,11 @@ import java.util.HashSet;
 public class OntologyIRINotAbsolute extends OWLProfileViolation implements OWL2ProfileViolation {
 
     public OntologyIRINotAbsolute(OWLOntology ontology) {
-        super(ontology, new HashSet<OWLAxiom>());
+        super(ontology, null);
+    }
+
+    public void accept(OWL2ProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String toString() {

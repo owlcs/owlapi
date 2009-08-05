@@ -38,6 +38,10 @@ import java.util.Collections;
 public class UseOfNonAbsoluteIRI extends OWLProfileViolation implements OWL2ProfileViolation {
 
     public UseOfNonAbsoluteIRI(OWLOntology ontology, OWLAxiom axiom) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
+    }
+
+    public void accept(OWL2ProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 }

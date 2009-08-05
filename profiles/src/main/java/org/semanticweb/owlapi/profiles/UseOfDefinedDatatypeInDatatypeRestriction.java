@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 
 import java.util.Set;
 /*
@@ -35,8 +36,19 @@ import java.util.Set;
  */
 public class UseOfDefinedDatatypeInDatatypeRestriction extends OWLProfileViolation implements OWL2ProfileViolation {
 
-    public UseOfDefinedDatatypeInDatatypeRestriction(OWLOntology ontology, Set<OWLAxiom> axioms) {
-        super(ontology, axioms);
+    private OWLDatatypeRestriction restriction;
+
+    public UseOfDefinedDatatypeInDatatypeRestriction(OWLOntology ontology, OWLAxiom axiom, OWLDatatypeRestriction restriction) {
+        super(ontology, axiom);
+        this.restriction = restriction;
+    }
+
+    public void accept(OWL2ProfileViolationVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public OWLDatatypeRestriction getOWLDatatypeRestriction() {
+        return restriction;
     }
 
     public String toString() {

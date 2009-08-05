@@ -1,11 +1,7 @@
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-
-import java.util.Set;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -38,11 +34,11 @@ import java.util.Collections;
 public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends OWLProfileViolation implements OWL2DLProfileViolation {
 
     public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(OWLOntology ontology, OWLSubDataPropertyOfAxiom axiom) {
-        super(ontology, Collections.singleton((OWLAxiom) axiom));
+        super(ontology, axiom);
     }
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String toString() {

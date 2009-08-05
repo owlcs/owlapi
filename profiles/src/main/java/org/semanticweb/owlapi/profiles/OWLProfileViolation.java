@@ -45,10 +45,10 @@ public class OWLProfileViolation {
 
     private Map<OWLOntologyID, URI> importsClosureMap = new HashMap<OWLOntologyID, URI>();
 
-    private Set<OWLAxiom> axioms;
+    private OWLAxiom axiom;
 
-    public OWLProfileViolation(OWLOntology ontology, Set<OWLAxiom> axioms) {
-        this.axioms = Collections.unmodifiableSet(new LinkedHashSet<OWLAxiom>(axioms));
+    public OWLProfileViolation(OWLOntology ontology, OWLAxiom axiom) {
+        this.axiom = axiom;
         this.ontologyID = ontology.getOntologyID();
         for(OWLOntology ont : ontology.getImportsClosure()) {
             importsClosureMap.put(ont.getOntologyID(), ont.getOWLOntologyManager().getPhysicalURIForOntology(ont));
@@ -56,12 +56,7 @@ public class OWLProfileViolation {
     }
 
     public OWLAxiom getAxiom() {
-        if(axioms.isEmpty()) {
-            return null;
-        }
-        else {
-            return axioms.iterator().next();
-        }
+        return axiom;
     }
 
     public OWLOntologyID getOntologyID() {
@@ -76,7 +71,4 @@ public class OWLProfileViolation {
         return importsClosureMap.keySet();
     }
 
-    public Set<OWLAxiom> getAxioms() {
-        return axioms;
-    }
 }

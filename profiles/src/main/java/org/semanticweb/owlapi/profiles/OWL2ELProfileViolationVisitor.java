@@ -30,19 +30,19 @@ package org.semanticweb.owlapi.profiles;
  */
 public interface OWL2ELProfileViolationVisitor {
 
-    void accept(LastPropertyInChainNotInImposedRange violation);
+    void visit(LastPropertyInChainNotInImposedRange violation);
 
-    void accept(UseOfAnonymousIndividual violation);
+    void visit(UseOfAnonymousIndividual violation);
 
-    void accept(UseOfDataOneOfWithMultipleLiterals violation);
+    void visit(UseOfDataOneOfWithMultipleLiterals violation);
 
-    void accept(UseOfIllegalAxiom violation);
+    void visit(UseOfIllegalAxiom violation);
 
-    void accept(UseOfIllegalClassExpression violation);
+    void visit(UseOfIllegalClassExpression violation);
 
-    void accept(UseOfIllegalDataRange violation);
+    void visit(UseOfIllegalDataRange violation);
 
-    void accept(UseOfObjectPropertyInverse violation);
+    void visit(UseOfObjectPropertyInverse violation);
 
-    void accept(UseOfObjectOneOfWithMultipleIndividuals violation);
+    void visit(UseOfObjectOneOfWithMultipleIndividuals violation);
 }

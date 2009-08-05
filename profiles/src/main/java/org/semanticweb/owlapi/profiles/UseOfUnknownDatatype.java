@@ -44,8 +44,12 @@ public class UseOfUnknownDatatype extends OWLProfileViolation implements OWL2Pro
     private OWLDatatype datatype;
 
     public UseOfUnknownDatatype(OWLOntology ontology, OWLAxiom axiom, OWLDatatype datatype) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.datatype = datatype;
+    }
+
+    public void accept(OWL2ProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     /**

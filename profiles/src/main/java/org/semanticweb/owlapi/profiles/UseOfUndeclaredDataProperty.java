@@ -1,11 +1,8 @@
 package org.semanticweb.owlapi.profiles;
 
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -40,12 +37,12 @@ public class UseOfUndeclaredDataProperty extends OWLProfileViolation implements 
     private OWLDataProperty property;
 
     public UseOfUndeclaredDataProperty(OWLOntology ontology, OWLAxiom axiom, OWLDataProperty prop) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.property = prop;
     }
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public OWLDataProperty getOWLDataProperty() {

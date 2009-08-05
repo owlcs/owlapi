@@ -4,10 +4,6 @@ import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.ClassExpressionType;
-
-import java.util.Set;
-import java.util.Collection;
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -42,7 +38,7 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation i
     private OWLObjectHasSelf hasSelf;
 
     public UseOfNonSimplePropertyInObjectHasSelf(OWLOntology ontology, OWLAxiom axiom, OWLObjectHasSelf hasSelf) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.hasSelf = hasSelf;
     }
 
@@ -50,8 +46,8 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation i
         return hasSelf;
     }
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String toString() {

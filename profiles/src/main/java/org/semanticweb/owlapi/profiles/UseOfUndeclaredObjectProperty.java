@@ -1,11 +1,8 @@
 package org.semanticweb.owlapi.profiles;
 
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-
-import java.util.Collections;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -41,7 +38,7 @@ public class UseOfUndeclaredObjectProperty extends OWLProfileViolation implement
     private OWLObjectProperty property;
 
     public UseOfUndeclaredObjectProperty(OWLOntology ontology, OWLAxiom axiom, OWLObjectProperty prop) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.property = prop;
     }
 
@@ -49,8 +46,8 @@ public class UseOfUndeclaredObjectProperty extends OWLProfileViolation implement
         return property;
     }
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String toString() {

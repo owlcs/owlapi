@@ -40,8 +40,12 @@ public class LexicalNotInLexicalSpace extends OWLProfileViolation implements OWL
     private OWLTypedLiteral literal;
 
     public LexicalNotInLexicalSpace(OWLOntology ontology, OWLAxiom axiom, OWLTypedLiteral literal) {
-        super(ontology, Collections.singleton(axiom));
+        super(ontology, axiom);
         this.literal = literal;
+    }
+
+    public void accept(OWL2ProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public OWLTypedLiteral getLiteral() {

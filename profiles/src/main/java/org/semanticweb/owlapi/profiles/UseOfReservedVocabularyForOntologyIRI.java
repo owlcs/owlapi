@@ -1,10 +1,6 @@
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLAxiom;
-
-import java.util.Set;
-import java.util.HashSet;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -37,12 +33,12 @@ import java.util.HashSet;
 public class UseOfReservedVocabularyForOntologyIRI extends OWLProfileViolation implements OWL2DLProfileViolation {
 
     public UseOfReservedVocabularyForOntologyIRI(OWLOntology ontology) {
-        super(ontology, new HashSet<OWLAxiom>(0));
+        super(ontology, null);
     }
 
 
-    public void visit(OWL2DLProfileViolationVisitor visitor) {
-        visitor.accept(this);
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String toString() {
