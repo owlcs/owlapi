@@ -140,7 +140,7 @@ public class OWL2Profile implements OWLProfile {
 
         public Object visit(OWLDatatypeDefinitionAxiom axiom) {
             // The datatype MUST be declared
-            if (getCurrentOntology().isDeclared(axiom.getDatatype(), true)) {
+            if (!getCurrentOntology().isDeclared(axiom.getDatatype(), true)) {
                 profileViolations.add(new UseOfUndeclaredDatatype(getCurrentOntology(), axiom, axiom.getDatatype()));
             }
             return null;

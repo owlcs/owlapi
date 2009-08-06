@@ -579,7 +579,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
 
     public void setPhysicalURIForOntology(OWLOntology ontology, URI physicalURI) throws UnknownOWLOntologyException {
-        if (!ontologiesByID.containsValue(ontology)) {
+        if (!ontologiesByID.containsKey(ontology.getOntologyID())) {
             throw new UnknownOWLOntologyException(ontology.getOntologyID());
         }
         physicalURIsByID.put(ontology.getOntologyID(), physicalURI);

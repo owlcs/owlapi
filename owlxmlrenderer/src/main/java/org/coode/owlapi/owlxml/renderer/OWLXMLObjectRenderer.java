@@ -2,11 +2,8 @@ package org.coode.owlapi.owlxml.renderer;
 
 import org.semanticweb.owlapi.model.*;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 
 import java.util.*;
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *

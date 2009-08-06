@@ -268,7 +268,7 @@ public enum OWL2Datatype {
     public enum Category {
 
         NUMBER("Number",
-                OWLFacet.MAX_INCLUSIVE,
+                OWLFacet.MIN_INCLUSIVE,
                 OWLFacet.MAX_INCLUSIVE,
                 OWLFacet.MIN_EXCLUSIVE,
                 OWLFacet.MAX_EXCLUSIVE),
@@ -306,16 +306,14 @@ public enum OWL2Datatype {
 
         private String name;
 
-        private List<OWLFacet> facets;
+        private Set<OWLFacet> facets;
 
 
         Category(String name, OWLFacet... facets) {
             this.name = name;
-            List<OWLFacet> f = new ArrayList<OWLFacet>(facets.length);
-            for (OWLFacet facet : facets) {
-                f.add(facet);
-            }
-            this.facets = Collections.unmodifiableList(new ArrayList<OWLFacet>(f));
+            Set<OWLFacet> f = new HashSet<OWLFacet>(facets.length);
+            f.addAll(Arrays.asList(facets));
+            this.facets = Collections.unmodifiableSet(f);
         }
 
 
@@ -324,7 +322,7 @@ public enum OWL2Datatype {
         }
 
 
-        public List<OWLFacet> getFacets() {
+        public Set<OWLFacet> getFacets() {
             return facets;
         }
     }
