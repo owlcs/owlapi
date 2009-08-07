@@ -570,11 +570,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
 
     public URI getPhysicalURIForOntology(OWLOntology ontology) throws UnknownOWLOntologyException {
-        URI physicalURI = physicalURIsByID.get(ontology.getOntologyID());
-        if (physicalURI == null) {
+        if (!contains(ontology)) {
             throw new UnknownOWLOntologyException(ontology.getOntologyID());
         }
-        return physicalURI;
+        return physicalURIsByID.get(ontology.getOntologyID());
     }
 
 

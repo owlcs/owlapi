@@ -1171,7 +1171,9 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
         // Do we need to change the ontology URI?
-        if (!ontologyURIs.contains(ontology.getOntologyID().getOntologyIRI().toURI())) {
+        OWLOntologyID id = ontology.getOntologyID();
+
+        if (id.isAnonymous() || !ontologyURIs.contains(id.getOntologyIRI().toURI())) {
             if (ontologyURIs.size() == 1) {
                 applyChange(new SetOntologyID(ontology, new OWLOntologyID(IRI.create(firstOntologyURI))));
             }

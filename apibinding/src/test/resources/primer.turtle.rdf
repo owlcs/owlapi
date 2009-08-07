@@ -1,0 +1,242 @@
+@prefix : <http://example.com/owl/families/> .
+@prefix otherOnt: <http://example.org/otherOntologies/families/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.com/owl/families>
+     rdf:type owl:Ontology ;
+     owl:imports <http://example.org/otherOntologies/families.owl> .
+
+
+:Mary rdf:type :Person .
+:Mary rdf:type :Woman .
+:Woman rdfs:subClassOf :Person .
+:Mother rdfs:subClassOf :Woman .
+:Person owl:equivalentClass :Human .
+[]  rdf:type     owl:AllDisjointClasses ;
+    owl:members  ( :Woman  :Man ) .
+:John :hasWife :Mary .
+[]  rdf:type               owl:NegativePropertyAssertion ;
+    owl:sourceIndividual   :Bill ;
+    owl:assertionProperty  :hasWife ;
+    owl:targetIndividual   :Mary .
+:hasWife rdfs:subPropertyOf :hasSpouse .
+:hasWife rdfs:domain :Man ;
+         rdfs:range  :Woman .
+:John  owl:differentFrom :Bill .
+:James owl:sameAs :Jim .
+:John  :hasAge  51 .
+[]  rdf:type               owl:NegativePropertyAssertion ;
+    owl:sourceIndividual   :Jack ;
+    owl:assertionProperty  :hasAge ;
+    owl:targetValue        53 .
+:hasAge  rdfs:domain  :Person ;
+         rdfs:range   xsd:NonNegativeInteger .
+:Mother  owl:equivalentClass  [
+  rdf:type            owl:Class ;
+  owl:intersectionOf  ( :Woman :Parent )
+] .
+:Parent  owl:equivalentClass  [
+  rdf:type     owl:Class ;
+  owl:unionOf  ( :Mother :Father )
+] .
+:ChildlessPerson  owl:equivalentClass  [
+  rdf:type            owl:Class ;
+  owl:intersectionOf  ( :Person  [ owl:complementOf  :Parent ] )
+] .
+:Grandfather  rdfs:subClassOf  [
+  rdf:type            owl:Class ;
+  owl:intersectionOf  ( :Man  :Parent )
+] .
+:John  rdf:type  [
+  rdf:type            owl:Class ;
+  owl:intersectionOf  ( :Person
+                        [ rdf:type          owl:Class ;
+                          owl:complementOf  :Parent     ]
+                      )
+] .
+:Parent  owl:equivalentClass  [
+  rdf:type            owl:Restriction ;
+  owl:onProperty      :hasChild ;
+  owl:someValuesFrom  :Person
+] .
+:HappyPerson
+    owl:equivalentClass  [
+      rdf:type           owl:Restriction ;
+      owl:onProperty     :hasChild ;
+      owl:allValuesFrom  :HappyPerson
+    ] .
+:HappyPerson
+    owl:equivalentClass  [
+      rdf:type            owl:Class ;
+      owl:intersectionOf  ( [ rdf:type            owl:Restriction ;
+                              owl:onProperty      :hasChild ;
+                              owl:allValuesFrom   :HappyPerson      ]
+                            [ rdf:type            owl:Restriction ;
+                              owl:onProperty      :hasChild ;
+                              owl:someValuesFrom  :HappyPerson      ]
+                          )
+    ] .
+:JohnsChildren  owl:equivalentClass  [
+  rdf:type        owl:Restriction ;
+  owl:onProperty  :hasParent ;
+  owl:hasValue    :John
+] .
+:NarcisticPerson owl:equivalentClass  [
+  rdf:type        owl:Restriction ;
+  owl:onProperty  :loves ;
+  owl:hasSelf     "true"^^xsd:boolean .
+] .
+:John  rdf:type  [
+  rdf:type                     owl:Restriction ;
+  owl:maxQualifiedCardinality  "4"^^xsd:nonNegativeInteger ;
+  owl:onProperty               :hasChild ;
+  owl:onClass                  :Parent
+] .
+:John  rdf:type  [
+  rdf:type                     owl:Restriction ;
+  owl:minQualifiedCardinality  "2"^^xsd:nonNegativeInteger ;
+  owl:onProperty               :hasChild ;
+  owl:onClass                  :Parent
+] .
+:John  rdf:type  [
+  rdf:type                  owl:Restriction ;
+  owl:qualifiedCardinality  "3"^^xsd:nonNegativeInteger ;
+  owl:onProperty            :hasChild ;
+  owl:onClass               :Parent
+] .
+:John  rdf:type  [
+  rdf:type         owl:Restriction ;
+  owl:cardinality  "5"^^xsd:nonNegativeInteger ;
+  owl:onProperty   :hasChild
+] .
+:MyBirthdayGuests  owl:equivalentClass  [
+  rdf:type   owl:Class ;
+  owl:oneOf  ( :Bill  :John  :Mary )
+] .
+:hasParent owl:inverseOf :hasChild .
+:Orphan  owl:equivalentClass  [
+  rdf:type           owl:Restriction ;
+  owl:onProperty     [ owl:inverseOf  :hasChild ] ;
+  owl:allValuesFrom  :Dead
+] .
+:hasSpouse  rdf:type  owl:SymmetricProperty .
+:hasChild  rdf:type  owl:AsymmetricProperty .
+:hasParent  owl:propertyDisjointWith  :hasSpouse .
+:hasRelative  rdf:type  owl:ReflexiveProperty .
+:parentOf  rdf:type  owl:IrreflexiveProperty .
+:hasHusband  rdf:type  owl:FunctionalProperty .
+:hasHusband  rdf:type  owl:InverseFunctionalProperty .
+:hasAncestor  rdf:type  owl:TransitiveProperty .
+:hasGrandparent  owl:propertyChainAxiom  ( :hasParent  :hasParent ) .
+:Person owl:hasKey ( :hasSSN ) .
+:personAge  owl:equivalentClass
+ [ rdf:type rdfs:Datatype;
+   owl:onDatatype xsd:Integer;
+   owl:withRestrictions (
+      [ xsd:minInclusive "0"^^xsd:integer ]
+      [ xsd:maxInclusive "150"^^xsd:integer ]
+   )
+ ] .
+:majorAge  owl:equivalentClass
+  [ rdf:type rdfs:Datatype;
+    owl:intersectionOf (
+       :personAge
+       [ rdf:type rdfs:Datatype;
+         owl:datatypeComplementOf :minorAge ]
+    )
+  ] .
+:toddlerAge  owl:equivalentClass
+  [ rdf:type rdfs:Datatype;
+    owl:oneOf (  "1"^^xsd:integer  "2"^^xsd:integer )
+  ] .
+:hasAge  rdf:type  owl:FunctionalProperty .
+:Teenager  rdfs:subClassOf
+      [ rdf:type             owl:Restriction ;
+        owl:onProperty       :hasAge ;
+        owl:someValuesFrom
+         [ rdf:type             rdfs:Datatype ;
+           owl:onDatatype       xsd:integer ;
+           owl:withRestrictions (  [ xsd:minInclusive     "13"^^xsd:integer ]
+                                   [ xsd:maxInclusive     "19"^^xsd:integer ]
+           )
+         ]
+      ] .
+:Person  rdfs:comment  "Represents the set of all people."^^xsd:string .
+:Man rdfs:subClassOf :Person .
+[]  rdf:type       owl:Axiom ;
+    owl:annotatedSource    :Man ;
+    owl:annotatedProperty  rdfs:subClassOf ;
+    owl:annotatedTarget    :Person ;
+    rdfs:comment     "States that every man is a person."^^xsd:string .
+
+:Mary      owl:sameAs              otherOnt:MaryBrown .
+:John      owl:sameAs              otherOnt:JohnBrown .
+:Adult     owl:equivalentClass     otherOnt:Grownup .
+:hasChild  owl:equivalentProperty  otherOnt:child .
+:hasAge    owl:equivalentProperty  otherOnt:age .
+:John    rdf:type owl:NamedIndividual .
+:Person  rdf:type owl:Class .
+:hasWife rdf:type owl:ObjectProperty .
+:hasAge  rdf:type owl:DatatypeProperty .
+:John rdf:type :Father .
+:Father rdf:type :SocialRole .
+:Father  rdfs:subClassOf  [
+  rdf:type            owl:Class ;
+  owl:intersectionOf  ( :Man  :Parent )
+] .
+
+:Parent  owl:equivalentClass  [
+  rdf:type            owl:Restriction ;
+  owl:onProperty      :hasChild ;
+  owl:someValuesFrom  :Person
+] .
+
+:NarcisticPerson  owl:equivalentClass  [
+  rdf:type        owl:Restriction ;
+  owl:onProperty  :loves ;
+  owl:hasSelf     true
+] .
+
+[] rdf:type     owl:AllDisjointClasses ;
+   owl:members  ( :Mother  :Father  :YoungChild ) .
+
+:hasUncle  owl:propertyChainAxiom  ( :hasFather  :hasBrother ) .
+
+[]  rdf:type               owl:NegativePropertyAssertion ;
+    owl:sourceIndividual   :Bill ;
+    owl:assertionProperty  :hasDaughter ;
+    owl:targetIndividual   :Susan .
+:ChildlessPerson  owl:subClassOf  [
+  rdf:type            owl:Class ;
+  owl:intersectionOf  ( :Person
+                        [ owl:complementOf  [
+                            rdf:type            owl:Restriction ;
+                            owl:onProperty      [ owl:inverseOf  :hasParent ] ;
+                            owl:someValuesFrom  owl:Thing
+                          ]
+                        ]
+                      )
+] .
+
+:hasSon  owl:propertyDisjointWith  :hasDaughter.
+
+:hasFather  rdfs:subPropertyOf  :hasParent.
+[]  rdf:type            owl:Class ;
+    owl:intersectionOf  ( [ rdf:type   owl:Class ;
+                            owl:oneOf  ( :Mary  :Bill  :Meg ) ]
+                          :Female
+                        ) ;
+    rdfs:subClassOf     [
+      rdf:type            owl:Class ;
+      owl:intersectionOf  ( :Parent
+                            [ rdf:type            owl:Restriction ;
+                              owl:maxCardinality  "1"^^xsd:nonNegativeInteger ;
+                              owl:onProperty      :hasChild ]
+                            [ rdf:type           owl:Restriction ;
+                              owl:onProperty     :hasChild ;
+                              owl:allValuesFrom  :Female ]
+                          )
+    ] .
