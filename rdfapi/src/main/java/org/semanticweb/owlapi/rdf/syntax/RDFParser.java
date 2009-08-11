@@ -437,8 +437,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * Returns an abolute URI from a nodeID attribute.
      */
     protected String getURIFromNodeID(String nodeID) throws SAXException {
-        return nodeID;
-//        return resolveURI("#genid-" + nodeID);
+//        return nodeID;
+        return resolveURI("#genid-" + nodeID);
     }
 
 
