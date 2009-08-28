@@ -116,8 +116,8 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
 
     protected int compareObjectOfSameType(OWLObject object) {
         OWLSubPropertyChainOfAxiom other = (OWLSubPropertyChainOfAxiom) object;
-        int i = 0;
-        while (i < propertyChain.size() && i < other.getPropertyChain().size()) {
+
+        for (int i = 0; i < propertyChain.size() && i < other.getPropertyChain().size(); i++) {
             int diff = propertyChain.get(i).compareTo(other.getPropertyChain().get(i));
             if (diff != 0) {
                 return diff;
