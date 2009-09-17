@@ -677,8 +677,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("\"");
         sb.append(node.getLiteral());
         sb.append("\"");
-        sb.append("@");
         if (node.getLang() != null) {
+            sb.append("@");
             sb.append(node.getLang());
         }
     }
