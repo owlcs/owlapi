@@ -65,7 +65,8 @@ public class SynonymSetImpl<E> implements SynonymSet<E> {
             delegate = Collections.emptySet();
         }
         else if(c.size() == 1) {
-            delegate = Collections.singleton(c.iterator().next());
+            E e = c.iterator().next();
+            delegate = Collections.singleton(e);
         }
         else {
             delegate = Collections.unmodifiableSet(new HashSet<E>(c));
