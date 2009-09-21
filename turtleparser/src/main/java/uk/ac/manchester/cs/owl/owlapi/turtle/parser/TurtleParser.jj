@@ -137,13 +137,7 @@ MORE : {
 
 <IN_STRING> MORE :
 {
-    <  ~["\"" , "\\"] >
-}
-
-
-<IN_LONG_STRING> MORE :
-{
-    < "\\"~[] >
+    <  ("\\\"")|~["\""] >
 }
 
 <IN_STRING> TOKEN:
@@ -157,13 +151,9 @@ MORE : {
 
 <IN_LONG_STRING> MORE :
 {
-    <  ~["\\"] >
+    <  ~[] >
 }
 
-<IN_LONG_STRING> MORE :
-{
-    < "\\"~[] >
-}
 
 <IN_LONG_STRING> TOKEN :
 {
@@ -709,3 +699,4 @@ String parseString() :
         return EscapeUtils.unescapeString(rawString);
      }
 }
+

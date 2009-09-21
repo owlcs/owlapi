@@ -13,79 +13,79 @@ public interface TurtleParserConstants {
   /** RegularExpression Id. */
   int COMMENT = 5;
   /** RegularExpression Id. */
-  int STRING = 9;
+  int STRING = 8;
   /** RegularExpression Id. */
-  int LONG_STRING = 13;
+  int LONG_STRING = 11;
   /** RegularExpression Id. */
-  int DIGIT = 14;
+  int DIGIT = 12;
   /** RegularExpression Id. */
-  int INTEGER = 15;
+  int INTEGER = 13;
   /** RegularExpression Id. */
-  int DOUBLE = 16;
+  int DOUBLE = 14;
   /** RegularExpression Id. */
-  int DECIMAL = 17;
+  int DECIMAL = 15;
   /** RegularExpression Id. */
-  int EXPONENT = 18;
+  int EXPONENT = 16;
   /** RegularExpression Id. */
-  int OPENPAR = 19;
+  int OPENPAR = 17;
   /** RegularExpression Id. */
-  int CLOSEPAR = 20;
+  int CLOSEPAR = 18;
   /** RegularExpression Id. */
-  int OPEN_SQUARE_BRACKET = 21;
+  int OPEN_SQUARE_BRACKET = 19;
   /** RegularExpression Id. */
-  int CLOSE_SQUARE_BRACKET = 22;
+  int CLOSE_SQUARE_BRACKET = 20;
   /** RegularExpression Id. */
-  int COMMA = 23;
+  int COMMA = 21;
   /** RegularExpression Id. */
-  int DOT = 24;
+  int DOT = 22;
   /** RegularExpression Id. */
-  int SEMICOLON = 25;
+  int SEMICOLON = 23;
   /** RegularExpression Id. */
-  int PREFIX = 26;
+  int PREFIX = 24;
   /** RegularExpression Id. */
-  int DOUBLE_CARET = 27;
+  int DOUBLE_CARET = 25;
   /** RegularExpression Id. */
-  int BASE = 28;
+  int BASE = 26;
   /** RegularExpression Id. */
-  int AT = 29;
+  int AT = 27;
   /** RegularExpression Id. */
-  int A = 30;
+  int A = 28;
   /** RegularExpression Id. */
-  int EMPTY_BLANK_NODE = 31;
+  int EMPTY_BLANK_NODE = 29;
   /** RegularExpression Id. */
-  int NODE_ID_START = 32;
+  int NODE_ID_START = 30;
   /** RegularExpression Id. */
-  int TRUE = 33;
+  int TRUE = 31;
   /** RegularExpression Id. */
-  int FALSE = 34;
+  int FALSE = 32;
   /** RegularExpression Id. */
-  int SELECT = 35;
+  int SELECT = 33;
   /** RegularExpression Id. */
-  int WHERE = 36;
+  int WHERE = 34;
   /** RegularExpression Id. */
-  int FILTER = 37;
+  int FILTER = 35;
   /** RegularExpression Id. */
-  int LETTER = 38;
+  int LETTER = 36;
   /** RegularExpression Id. */
-  int FULLIRI = 39;
+  int FULLIRI = 37;
   /** RegularExpression Id. */
-  int PNAME_NS = 40;
+  int PNAME_NS = 38;
   /** RegularExpression Id. */
-  int PN_LOCAL = 41;
+  int PN_LOCAL = 39;
   /** RegularExpression Id. */
-  int PNAME_LN = 42;
+  int PNAME_LN = 40;
   /** RegularExpression Id. */
-  int PN_PREFIX = 43;
+  int PN_PREFIX = 41;
   /** RegularExpression Id. */
-  int PN_CHARS_BASE = 44;
+  int PN_CHARS_BASE = 42;
   /** RegularExpression Id. */
-  int PN_CHARS = 45;
+  int PN_CHARS = 43;
   /** RegularExpression Id. */
-  int PN_CHARS_U = 46;
+  int PN_CHARS_U = 44;
   /** RegularExpression Id. */
-  int NODEID = 47;
+  int NODEID = 45;
   /** RegularExpression Id. */
-  int ERROR = 48;
+  int ERROR = 46;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -104,11 +104,9 @@ public interface TurtleParserConstants {
     "<COMMENT>",
     "\"\\\"\"",
     "<token of kind 7>",
-    "<token of kind 8>",
     "\"\\\"\"",
     "\"\\\"\\\"\\\"\"",
-    "<token of kind 11>",
-    "<token of kind 12>",
+    "<token of kind 10>",
     "\"\\\"\\\"\\\"\"",
     "<DIGIT>",
     "<INTEGER>",

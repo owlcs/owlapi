@@ -775,6 +775,49 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     finally { jj_save(38, xla); }
   }
 
+  private boolean jj_3_8() {
+    if (jj_3R_11()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_16() {
+    if (jj_scan_token(FULLIRI)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_13() {
+    if (jj_scan_token(OPENPAR)) return true;
+    if (jj_3R_27()) return true;
+    if (jj_scan_token(CLOSEPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_15() {
+    if (jj_scan_token(SEMICOLON)) return true;
+    if (jj_3R_14()) return true;
+    return false;
+  }
+
+  private boolean jj_3_9() {
+    if (jj_scan_token(DOT)) return true;
+    return false;
+  }
+
+  private boolean jj_3_17() {
+    if (jj_3R_15()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_22() {
+    if (jj_scan_token(DOUBLE)) return true;
+    return false;
+  }
+
+  private boolean jj_3_6() {
+    if (jj_3R_9()) return true;
+    return false;
+  }
+
   private boolean jj_3_21() {
     if (jj_3R_10()) return true;
     return false;
@@ -1156,49 +1199,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3_8() {
-    if (jj_3R_11()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_16() {
-    if (jj_scan_token(FULLIRI)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_13() {
-    if (jj_scan_token(OPENPAR)) return true;
-    if (jj_3R_27()) return true;
-    if (jj_scan_token(CLOSEPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_15() {
-    if (jj_scan_token(SEMICOLON)) return true;
-    if (jj_3R_14()) return true;
-    return false;
-  }
-
-  private boolean jj_3_9() {
-    if (jj_scan_token(DOT)) return true;
-    return false;
-  }
-
-  private boolean jj_3_17() {
-    if (jj_3R_15()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_22() {
-    if (jj_scan_token(DOUBLE)) return true;
-    return false;
-  }
-
-  private boolean jj_3_6() {
-    if (jj_3R_9()) return true;
-    return false;
-  }
-
   /** Generated Token Manager. */
   public TurtleParserTokenManager token_source;
   SimpleCharStream jj_input_stream;
@@ -1407,7 +1407,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[49];
+    boolean[] la1tokens = new boolean[47];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -1424,7 +1424,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         }
       }
     }
-    for (int i = 0; i < 49; i++) {
+    for (int i = 0; i < 47; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

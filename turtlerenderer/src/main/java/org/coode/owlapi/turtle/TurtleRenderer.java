@@ -201,13 +201,30 @@ public class TurtleRenderer extends RDFRendererBase {
 
 
     private void writeStringLiteral(String literal) {
-        if (literal.indexOf('\n') != -1) {
+        String escapedLiteral;
+        if(literal.indexOf("\"") != -1) {
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0; i < literal.length(); i++) {
+                char ch = literal.charAt(i);
+                if(ch == '\"') {
+                    sb.append("\\\"");
+                }
+                else {
+                    sb.append(ch);
+                }
+            }
+            escapedLiteral = sb.toString();
+        }
+        else {
+            escapedLiteral = literal;
+        }
+        if (escapedLiteral.indexOf('\n') != -1) {
             write("\"\"\"");
-            write(literal);
+            write(escapedLiteral);
             write("\"\"\"");
         } else {
             write("\"");
-            write(literal);
+            write(escapedLiteral);
             write("\"");
         }
     }
