@@ -938,7 +938,10 @@ public class ManchesterOWLSyntaxEditorParser {
     public OWLLiteral parseConstant() throws ParserException {
         String tok = consumeToken();
         if (tok.startsWith("\"")) {
-            String lit = tok.substring(1, tok.length() - 1).trim();
+            String lit = "";
+            if (tok.length() > 2) {
+                lit = tok.substring(1, tok.length() - 1).trim();
+            }
             if (peekToken().equals("^")) {
                 consumeToken();
                 if (!peekToken().equals("^")) {
