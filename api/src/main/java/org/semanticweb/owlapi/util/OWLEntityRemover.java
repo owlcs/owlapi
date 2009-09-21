@@ -86,6 +86,9 @@ public class OWLEntityRemover implements OWLEntityVisitor {
             for (OWLAxiom ax : ont.getReferencingAxioms(entity)) {
                 changes.add(new RemoveAxiom(ont, ax));
             }
+            for(OWLAnnotationAssertionAxiom ax : ont.getAnnotationAssertionAxioms(entity.getIRI())) {
+                changes.add(new RemoveAxiom(ont, ax));
+            }
         }
     }
 

@@ -1,6 +1,9 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -42,6 +45,12 @@ public class TypeOntologyHandler extends BuiltInTypeHandler {
 
     public void handleTriple(URI subject, URI predicate, URI object) {
         consumeTriple(subject, predicate, object);
+        if(!isAnonymous(subject) && getConsumer().getOntologies().isEmpty()) {
+            // Set URI?
+            System.out.println("SETTING: " + subject);
+            OWLOntologyID id = new OWLOntologyID(IRI.create(subject));
+            getConsumer().applyChange(new SetOntologyID(getConsumer().getOntology(), id));
+        }
         getConsumer().addOntology(subject);
     }
 }

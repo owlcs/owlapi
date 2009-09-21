@@ -91,14 +91,12 @@ public class OWL2RLProfile implements OWLProfile {
      * Checks an ontology and its import closure to see if it is within
      * this profile.
      * @param ontology The ontology to be checked.
-     * @param manager  A manager which can be used to obtain the imports closure
-     *                 of the ontology
      * @return An <code>OWLProfileReport</code> that describes whether or not the
      *         ontology is within this profile.
      */
-    public OWLProfileReport checkOntology(OWLOntology ontology, OWLOntologyManager manager) {
+    public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWL2DLProfile profile = new OWL2DLProfile();
-        OWLProfileReport report = profile.checkOntology(ontology, manager);
+        OWLProfileReport report = profile.checkOntology(ontology);
         Set<OWLProfileViolation> violations = new HashSet<OWLProfileViolation>();
         violations.addAll(report.getViolations());
 
@@ -516,34 +514,6 @@ public class OWL2RLProfile implements OWLProfile {
 
     public boolean isOWL2RLEquivalentClassExpression(OWLClassExpression ce) {
         return ce.accept(equivalentClassExpressionChecker);
-    }
-
-
-    public static void main(String[] args) {
-
-        try {
-            OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
-//            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://protege.cim3.net/file/pub/ontologies/koala/koala.owl"));
-//            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://protege.cim3.net/file/pub/ontologies/tambis/tambis-full.owl"));
-
-            DefaultPrefixManager pm = new DefaultPrefixManager("http://owl.cs.manchester.ac.uk/repository/download?ontology=http://ontology.dumontierlab.com/chemistry-complex&format=RDF/XML");
-//            DefaultPrefixManager pm = new DefaultPrefixManager("http://owl.cs.manchester.ac.uk/repository/download?ontology=http://ontology.dumontierlab.com/periodic-table-complex&format=RDF/XML");
-            SimpleRenderer ren = new SimpleRenderer();
-            ren.setShortFormProvider(pm);
-            ToStringRenderer.getInstance().setRenderer(ren);
-//            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("file:/Users/matthewhorridge/ontologies/thesaurus/thesaurus.owl"));
-            System.out.println("Loaded ont");
-            OWL2RLProfile profile = new OWL2RLProfile();
-            long t0 = System.currentTimeMillis();
-            profile.checkOntology(ont, man);
-            long t1 = System.currentTimeMillis();
-            System.out.println("Time: " + (t1 - t0));
-        }
-        catch (OWLOntologyCreationException e) {
-            e.printStackTrace();
-        }
-
     }
 
 

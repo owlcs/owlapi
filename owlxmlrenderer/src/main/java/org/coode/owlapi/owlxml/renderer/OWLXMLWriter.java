@@ -72,7 +72,7 @@ public class OWLXMLWriter {
         nsm.setPrefix("rdfs", Namespaces.RDFS.toString());
         nsm.setPrefix("xml", Namespaces.XML.toString());
         String base = Namespaces.OWL.toString();
-        if(!ontology.isAnonymous()) {
+        if(ontology != null && !ontology.isAnonymous()) {
             base = ontology.getOntologyID().getOntologyIRI().toString();
         }
         this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer, nsm, base);
@@ -123,8 +123,8 @@ public class OWLXMLWriter {
             writer.startDocument(OWLXMLVocabulary.ONTOLOGY.toString());
             if (!ontology.isAnonymous()) {
                 writer.writeAttribute(Namespaces.OWL + "ontologyIRI", ontology.getOntologyID().getOntologyIRI().toString());
-                if(ontology.getVersionIRI() != null) {
-                    writer.writeAttribute(Namespaces.OWL + "versionIRI", ontology.getOntologyID().getOntologyIRI().toString());
+                if(ontology.getOntologyID().getVersionIRI() != null) {
+                    writer.writeAttribute(Namespaces.OWL + "versionIRI", ontology.getOntologyID().getVersionIRI().toString());
                 }
             }
         }

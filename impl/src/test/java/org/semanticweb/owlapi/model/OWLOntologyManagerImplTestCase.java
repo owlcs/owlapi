@@ -61,9 +61,9 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
         OWLOntology ontB = manager.createOntology(TestUtils.createIRI());
         OWLImportsDeclaration decl = manager.getOWLDataFactory().getOWLImportsDeclaration(ontB.getOntologyID().getOntologyIRI());
         manager.applyChange(new AddImport(ontA, decl));
-        assertTrue(manager.getImports(ontA).contains(ontB));
+        assertTrue(manager.getDirectImports(ontA).contains(ontB));
         manager.removeOntology(ontB);
-        assertFalse(manager.getImports(ontA).contains(ontB));
+        assertFalse(manager.getDirectImports(ontA).contains(ontB));
     }
 
     public void testImportsClosure() throws OWLException {

@@ -110,6 +110,43 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
         return results;
     }
 
+    /**
+     * Gets the values that this individual has for a specific data property
+     * @param ontology The ontology to examine for property assertions
+     * @return The values that this individual has for the specified property in the specified ontology.  This is
+     *         the set of values such that each value LV in the set is in an axiom of the form
+     *         DataPropertyAssertion(property, thisIndividual, LV) in the ontology specified by the ontology parameter.
+     */
+    public Set<OWLLiteral> getDataPropertyValues(OWLDataPropertyExpression property, OWLOntology ontology) {
+        Set<OWLLiteral> result = new HashSet<OWLLiteral>();
+        for(OWLDataPropertyAssertionAxiom ax : ontology.getDataPropertyAssertionAxioms(this)) {
+            if(ax.getProperty().equals(property)) {
+                result.add(ax.getObject());
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Test whether a specific value for a specific object property on this individual has been asserted.
+     * @param property   The property whose values will be examined
+     * @param individual The individual value of the property that will be tested for
+     * @param ontology   The ontology to search for the property value
+     * @return <code>true</code> if the individual has the specified property value, that is, <code>true</code>
+     *         if the specified ontology contains an object property assertion ObjectPropertyAssertion(property, this, individual),
+     *         otherwise <code>false</code>
+     */
+    public boolean hasObjectPropertyValue(OWLObjectPropertyExpression property, OWLIndividual individual, OWLOntology ontology) {
+        for(OWLObjectPropertyAssertionAxiom ax : ontology.getObjectPropertyAssertionAxioms(this)) {
+            if(ax.getProperty().equals(property)) {
+                if(ax.getObject().equals(individual)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public Map<OWLObjectPropertyExpression, Set<OWLIndividual>> getObjectPropertyValues(OWLOntology ontology) {
         Map<OWLObjectPropertyExpression, Set<OWLIndividual>> result = new HashMap<OWLObjectPropertyExpression, Set<OWLIndividual>>();
         for (OWLObjectPropertyAssertionAxiom ax : ontology.getObjectPropertyAssertionAxioms(this)) {
@@ -137,6 +174,25 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
         return result;
     }
 
+    /**
+     * Test whether a specific value for a specific object property has been asserted not to hold for this individual.
+     * @param property   The property to test for
+     * @param individual The value to test for
+     * @param ontology   The ontology to search for the assertion
+     * @return <code>true</code> if the specified property value has explicitly been asserted not to hold, that is,
+     *         <code>true</code> if the specified ontology contains a negative object property assertion
+     *         NegativeObjectPropertyAssertion(property, this, individual), otherwise <code>false</code>
+     */
+    public boolean hasNegativeObjectPropertyValue(OWLObjectPropertyExpression property, OWLIndividual individual, OWLOntology ontology) {
+        for(OWLNegativeObjectPropertyAssertionAxiom ax : ontology.getNegativeObjectPropertyAssertionAxioms(this)) {
+            if(ax.getProperty().equals(property)) {
+                if(ax.getObject().equals(individual)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public Map<OWLDataPropertyExpression, Set<OWLLiteral>> getDataPropertyValues(OWLOntology ontology) {
         Map<OWLDataPropertyExpression, Set<OWLLiteral>> result = new HashMap<OWLDataPropertyExpression, Set<OWLLiteral>>();
@@ -152,6 +208,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
 
+
     public Map<OWLDataPropertyExpression, Set<OWLLiteral>> getNegativeDataPropertyValues(OWLOntology ontology) {
         Map<OWLDataPropertyExpression, Set<OWLLiteral>> result = new HashMap<OWLDataPropertyExpression, Set<OWLLiteral>>();
         for (OWLNegativeDataPropertyAssertionAxiom ax : ontology.getNegativeDataPropertyAssertionAxioms(this)) {
@@ -164,6 +221,27 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
         }
         return result;
     }
+
+    /**
+     * Test whether a specific value for a specific data property has been asserted not to hold for this individual.
+     * @param property The property to test for
+     * @param literal  The value to test for
+     * @param ontology The ontology to search for the assertion
+     * @return <code>true</code> if the specified property value has explicitly been asserted not to hold, that is,
+     *         <code>true</code> if the specified ontology contains a negative data property assertion
+     *         NegativeDataPropertyAssertion(property, this, literal), otherwise <code>false</code>
+     */
+    public boolean hasNegativeDataPropertyValue(OWLDataPropertyExpression property, OWLLiteral literal, OWLOntology ontology) {
+        for(OWLNegativeDataPropertyAssertionAxiom ax : ontology.getNegativeDataPropertyAssertionAxioms(this)) {
+            if(ax.getProperty().equals(property)) {
+                if(ax.getObject().equals(literal)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
 
     public Set<OWLClassAssertionAxiom> getIndividualTypeAxioms(OWLOntology ontology) {

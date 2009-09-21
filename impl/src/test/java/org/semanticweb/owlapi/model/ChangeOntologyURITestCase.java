@@ -46,7 +46,7 @@ public class ChangeOntologyURITestCase extends AbstractOWLTestCase {
         assertFalse(man.contains(oldURI));
         assertTrue(man.contains(newURI));
         assertTrue(man.getOntologies().contains(ont));
-        assertTrue(man.getImports(importingOnt).contains(ont));
+        assertTrue(man.getDirectImports(importingOnt).contains(ont));
         assertNotNull(man.getOntology(newURI));
         assertEquals(man.getOntology(newURI), ont);
         assertEquals(man.getOntology(newURI).getOntologyID().getOntologyIRI().toURI(), newURI);

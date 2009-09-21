@@ -672,7 +672,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         SWRLIArgument arg0 = (SWRLIArgument) obj;
         node.getSecondArgument().accept(this);
         SWRLIArgument arg1 = (SWRLIArgument) obj;
-        obj = dataFactory.getSWRLDifferentFromAtom(arg0, arg1);
+        obj = dataFactory.getSWRLDifferentIndividualsAtom(arg0, arg1);
     }
 
 
@@ -681,7 +681,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         SWRLIArgument arg0 = (SWRLIArgument) obj;
         node.getSecondArgument().accept(this);
         SWRLIArgument arg1 = (SWRLIArgument) obj;
-        obj = dataFactory.getSWRLSameAsAtom(arg0, arg1);
+        obj = dataFactory.getSWRLSameIndividualAtom(arg0, arg1);
     }
 
 
@@ -770,6 +770,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     public void visit(IRI iri) {
         obj = iri;
+
     }
 
 

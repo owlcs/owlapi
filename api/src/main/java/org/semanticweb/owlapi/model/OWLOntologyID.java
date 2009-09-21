@@ -34,7 +34,7 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
 
     private static int counter = 0;
 
-    private static String ANON_PREFIX = "Anon-";
+    private static String ANON_PREFIX = "Anonymous-";
 
     private String internalID;
 

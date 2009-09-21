@@ -82,7 +82,6 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
         OWLOntology ont = getManager().createOntology(new OWLOntologyID(ontIRI, verIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI(), ontIRI);
         assertEquals(ont.getOntologyID().getVersionIRI(), verIRI);
-        assertEquals(ont.getVersionIRI(), verIRI);
     }
 
     public void testNullVersionURI() throws Exception {
@@ -91,6 +90,5 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
         OWLOntology ont = getManager().createOntology(new OWLOntologyID(ontIRI, verIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI(), ontIRI);
         assertEquals(ont.getOntologyID().getVersionIRI(), verIRI);
-        assertEquals(ont.getVersionIRI(), null);
     }
 }

@@ -1076,7 +1076,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 potentialKeywords.clear();
                 resetPossible(possible);
                 axioms.addAll(parseObjectPropertyFrame());
-                possible.addAll(Arrays.asList(SUB_PROPERTY_OF, EQUIVALENT_TO, DISJOINT_WITH, INVERSES, CHARACTERISTICS, DOMAIN, RANGE));
+                possible.addAll(Arrays.asList(SUB_PROPERTY_OF, SUB_PROPERTY_CHAIN, EQUIVALENT_TO, DISJOINT_WITH, INVERSES, CHARACTERISTICS, DOMAIN, RANGE));
             }
             else if (tok.equalsIgnoreCase(DATA_PROPERTY)) {
                 potentialKeywords.clear();
@@ -2021,7 +2021,7 @@ public class ManchesterOWLSyntaxEditorParser {
         consumeToken(",");
         SWRLIArgument obj2 = parseIObject();
         consumeToken(")");
-        return dataFactory.getSWRLDifferentFromAtom(obj1, obj2);
+        return dataFactory.getSWRLDifferentIndividualsAtom(obj1, obj2);
     }
 
 
@@ -2032,7 +2032,7 @@ public class ManchesterOWLSyntaxEditorParser {
         consumeToken(",");
         SWRLIArgument obj2 = parseIObject();
         consumeToken(")");
-        return dataFactory.getSWRLSameAsAtom(obj1, obj2);
+        return dataFactory.getSWRLSameIndividualAtom(obj1, obj2);
     }
 
 

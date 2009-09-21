@@ -77,14 +77,14 @@ public class OWL2ELProfile implements OWLProfile {
     }
 
 
-    public OWLProfileReport checkOntology(OWLOntology ontology, OWLOntologyManager manager) {
+    public OWLProfileReport checkOntology(OWLOntology ontology) {
         this.ont = ontology;
         OWL2DLProfile profile = new OWL2DLProfile();
-        OWLProfileReport report = profile.checkOntology(ontology, manager);
+        OWLProfileReport report = profile.checkOntology(ontology);
         Set<OWLProfileViolation> violations = new HashSet<OWLProfileViolation>();
         violations.addAll(report.getViolations());
-        OWLOntologyWalker ontologyWalker = new OWLOntologyWalker(manager.getImportsClosure(ontology));
-        OWL2ELProfileObjectVisitor visitor = new OWL2ELProfileObjectVisitor(ontologyWalker, manager);
+        OWLOntologyWalker ontologyWalker = new OWLOntologyWalker(ontology.getImportsClosure());
+        OWL2ELProfileObjectVisitor visitor = new OWL2ELProfileObjectVisitor(ontologyWalker, ontology.getOWLOntologyManager());
         ontologyWalker.walkStructure(visitor);
         violations.addAll(visitor.getProfileViolations());
         return new OWLProfileReport(this, violations);
@@ -308,23 +308,5 @@ public class OWL2ELProfile implements OWLProfile {
     }
 
 
-    public static void main(String[] args) {
-        try {
-
-            DefaultPrefixManager pm = new DefaultPrefixManager("http://www.co-ode.org/ontologies/pizza/pizza.owl#");
-            SimpleRenderer ren = new SimpleRenderer();
-            ren.setShortFormProvider(pm);
-            ToStringRenderer.getInstance().setRenderer(ren);
-            OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
-            OWL2ELProfile owl2ELProfile = new OWL2ELProfile();
-            owl2ELProfile.checkOntology(ont, man);
-
-        }
-        catch (OWLOntologyCreationException e) {
-            e.printStackTrace();
-        }
-
-    }
-
+   
 }

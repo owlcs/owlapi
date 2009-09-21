@@ -34,7 +34,13 @@ public class NullProgressMonitor implements ProgressMonitor {
     public void setStarted() {
     }
 
-    public void setProgress(String message, long progress, long total) {
+    public void setSize(long size) {
+    }
+
+    public void setProgress(long progress) {
+    }
+
+    public void setMessage(String message) {
     }
 
     public void setIndeterminate(boolean b) {

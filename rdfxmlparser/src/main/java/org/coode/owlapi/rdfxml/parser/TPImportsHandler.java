@@ -1,10 +1,9 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.io.RDFOntologyFormat;
 
 import java.net.URI;
 import java.util.HashSet;
@@ -60,8 +59,17 @@ public class TPImportsHandler extends TriplePredicateHandler {
         return true;
     }
 
-
     public void handleTriple(URI subject, URI predicate, URI object) {
+
+       // NOTE:
+       // For backwards compatibility with OWL 1 DL, if G contains an owl:imports triple pointing to an RDF
+       // document encoding an RDF graph G' where G' does not have an ontology header, this owl:imports triple
+       // is interpreted as an include rather than an import — that is, the triples of G' are included into G and are
+       // not parsed into a separate ontology.
+       // WHAT A LOAD OF RUBBISH!!
+
+
+
         consumeTriple(subject, predicate, object);
         getConsumer().addOntology(subject);
         getConsumer().addOntology(object);
@@ -75,11 +83,43 @@ public class TPImportsHandler extends TriplePredicateHandler {
             catch (OWLOntologyCreationException e) {
                 OWLRDFConsumer.logger.severe(e.getMessage());
             }
+
+
+
+            OWLOntology importedOntology = man.getImportedOntology(importsDeclaration);
+            if (importedOntology != null) {
+                OWLOntologyFormat importedOntologyFormat = man.getOntologyFormat(importedOntology);
+                if(importedOntologyFormat instanceof RDFOntologyFormat) {
+                    if(importedOntology.isAnonymous()) {
+                        // We should have just included the triples rather than imported them. So,
+                        // we remove the imports statement, add the axioms from the imported ontology to
+                        // out importing ontology and remove the imported ontology.
+                        // WHO EVER THOUGHT THAT THIS WAS A GOOD IDEA?
+                        try {
+                            man.applyChange(new RemoveImport(getConsumer().getOntology(), importsDeclaration));
+
+                            for(OWLImportsDeclaration decl : importedOntology.getImportsDeclarations()) {
+                                man.applyChange(new AddImport(getConsumer().getOntology(), decl));
+                            }
+                            for(OWLAnnotation anno : importedOntology.getAnnotations()) {
+                                man.applyChange(new AddOntologyAnnotation(getConsumer().getOntology(), anno));
+                            }
+                            for(OWLAxiom ax : importedOntology.getAxioms()) {
+                                getConsumer().addAxiom(ax);
+                            }
+                            man.removeOntology(importedOntology);
+                        }
+                        catch (OWLOntologyChangeException e) {
+                            throw new OWLRuntimeException(e);
+                        }
+
+                    }
+                }
+            }
+            
             getConsumer().importsClosureChanged();
+
         }
-        // We need to think about what we should do when the subject of the imports statement doesn't
-        // match the ontology being parsed
-//        OWLOntology importing = getConsumer().getOWLOntologyManager().getOntology(subject);
 
     }
 }

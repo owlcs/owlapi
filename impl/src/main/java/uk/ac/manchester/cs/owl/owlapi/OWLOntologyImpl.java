@@ -228,30 +228,6 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return getOntologyID().isAnonymous();
     }
 
-    public IRI getIRI() {
-        return getOntologyID().getOntologyIRI();
-    }
-
-    public IRI getVersionIRI() {
-        return getOntologyID().getVersionIRI();
-    }
-
-    public String toString() {
-        return super.toString();
-    }
-
-//    /**
-//     * Gets the URI of the ontology.
-//     */
-//    public URI getURI() {
-//        if (getIRI() != null) {
-//            return getIRI().toURI();
-//        } else {
-//            return null;
-//        }
-//    }
-
-
     protected int compareObjectOfSameType(OWLObject object) {
         if (object == this) {
             return 0;
@@ -262,7 +238,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public boolean isEmpty() {
-        return false;
+        for(AxiomType type : axiomsByType.keySet()) {
+            Set<OWLAxiom> axiomSet = axiomsByType.get(type);
+            if(axiomSet != null && !axiomSet.isEmpty()) {
+                return false;
+            }
+        }
+        return ontologyAnnotations.isEmpty();
     }
 
 
@@ -539,6 +521,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return owlIndividualReferences.containsKey(getOWLDataFactory().getOWLNamedIndividual(individualIRI));
     }
 
+
+
     public boolean containsIndividualReference(IRI individualIRI, boolean includeImportsClosure) {
         for(OWLOntology ont : manager.getImportsClosure(this)) {
             if(ont.containsIndividualReference(individualIRI)) {
@@ -614,6 +598,27 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return entityReferenceChecker.containsReference(owlEntity);
     }
 
+    /**
+     * Determines if the ontology, and possibly its imports closure, contains a reference to the specified entity.
+     * @param owlEntity             The entity
+     * @param includeImportsClosure Specifies whether the imports closure should be examined for the entity reference
+     *                              or not.
+     * @return <code>true</code> if the ontology contains a reference to the specified entity, otherwise
+     *         <code>false</code> The set that is returned is a copy - it will not be updated if the ontology changes.
+     *         It is therefore safe to apply changes to this ontology while iterating over this set.
+     */
+    public boolean containsEntityReference(OWLEntity owlEntity, boolean includeImportsClosure) {
+        if(!includeImportsClosure) {
+            return containsEntityReference(owlEntity);
+        }
+        for(OWLOntology ont : getImportsClosure()) {
+            if(ont.containsEntityReference(owlEntity)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean containsEntityReference(IRI entityIRI) {
         if(containsClassReference(entityIRI)) {
             return true;
@@ -629,6 +634,21 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
         if(containsDatatypeReference(entityIRI)) {
             return true;
+        }
+        if(containsAnnotationPropertyReference(entityIRI)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean containsEntityReference(IRI entityIRI, boolean includeImportsClosure) {
+        if(!includeImportsClosure) {
+            return containsEntityReference(entityIRI);
+        }
+        for(OWLOntology ont : getImportsClosure()) {
+            if(ont.containsEntityReference(entityIRI)) {
+                return true;
+            }
         }
         return false;
     }
@@ -653,6 +673,27 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             return getAxioms(owlEntity.asOWLAnnotationProperty(), owlAnnotationPropertyReferences, false);
         }
         return Collections.emptySet();
+    }
+
+    /**
+     * Gets the axioms where the specified entity appears in the signature of the axiom. The set that is returned,
+     * contains all axioms that directly reference the specified entity.
+     * @param owlEntity             The entity that should be directly referred to by an axiom that appears in the results set.
+     * @param includeImportsClosure Specifies if the axioms returned should just be from this ontology, or from the
+     *                              imports closure of this ontology.  If <code>true</code> the axioms returned will be from the imports closure
+     *                              of this ontology, if <code>false</code> the axioms returned will just be from this ontology.
+     * @return The set that is returned is a copy - it will not be updated if the ontology changes.  It is therefore
+     *         safe to apply changes to this ontology while iterating over this set.
+     */
+    public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity, boolean includeImportsClosure) {
+        if(!includeImportsClosure) {
+            return getReferencingAxioms(owlEntity);
+        }
+        Set<OWLAxiom> result = new HashSet<OWLAxiom>();
+        for(OWLOntology ont : getImportsClosure()) {
+            result.addAll(ont.getReferencingAxioms(owlEntity));
+        }
+        return result;
     }
 
     /**
@@ -779,19 +820,100 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return getReturnSet(owlClassReferences.keySet());
     }
 
+    /**
+     * Gets the classes that are referenced by axioms in this ontology, and possibly the imports closure of this
+     * ontology.
+     * @param includeImportsClosure Specifies whether referenced classes should be drawn from this ontology or the imports
+     *                              closure.  If <code>true</code> then the set of referenced classes will be from the imports closure of this
+     *                              ontology, if <code>false</code> then the set of referenced classes will just be from this ontology.
+     * @return A set of named classes, which are referenced by any axiom in this ontology. The set that is returned is a
+     *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
+     *         ontology while iterating over this set.
+     */
+    public Set<OWLClass> getReferencedClasses(boolean includeImportsClosure) {
+        if(!includeImportsClosure) {
+            return getReferencedClasses();
+        }
+        Set<OWLClass> results = new HashSet<OWLClass>();
+        for(OWLOntology ont : getImportsClosure()) {
+            results.addAll(ont.getReferencedClasses());
+        }
+        return results;
+    }
 
     public Set<OWLObjectProperty> getReferencedObjectProperties() {
         return getReturnSet(owlObjectPropertyReferences.keySet());
     }
 
+    /**
+     * Gets the object properties that are referenced by axioms in this ontology, and possibly the imports closure of this
+     * ontology.
+     * @param includeImportsClosure Specifies whether referenced object properties should be drawn from this ontology or the imports
+     *                              closure.  If <code>true</code> then the set of referenced object properties will be from the imports closure of this
+     *                              ontology, if <code>false</code> then the set of referenced object properties will just be from this ontology.
+     * @return A set of object properties, which are referenced by any axiom in this ontology. The set that is returned is a
+     *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
+     *         ontology while iterating over this set.
+     */
+    public Set<OWLObjectProperty> getReferencedObjectProperties(boolean includeImportsClosure) {
+        if(!includeImportsClosure) {
+            return getReferencedObjectProperties();
+        }
+        Set<OWLObjectProperty> results = new HashSet<OWLObjectProperty>();
+        for(OWLOntology ont : getImportsClosure()) {
+            results.addAll(ont.getReferencedObjectProperties());
+        }
+        return results;
+    }
 
     public Set<OWLDataProperty> getReferencedDataProperties() {
         return getReturnSet(owlDataPropertyReferences.keySet());
     }
 
+    /**
+     * Gets the data properties that are referenced by axioms in this ontology, and possibly the imports closure of this
+     * ontology.
+     * @param includeImportsClosure Specifies whether referenced data properties should be drawn from this ontology or the imports
+     *                              closure.  If <code>true</code> then the set of referenced data properties will be from the imports closure of this
+     *                              ontology, if <code>false</code> then the set of referenced data properties will just be from this ontology.
+     * @return A set of data properties, which are referenced by any axiom in this ontology. The set that is returned is a
+     *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
+     *         ontology while iterating over this set.
+     */
+    public Set<OWLDataProperty> getReferencedDataProperties(boolean includeImportsClosure) {
+        if(!includeImportsClosure) {
+            return getReferencedDataProperties();
+        }
+        Set<OWLDataProperty> results = new HashSet<OWLDataProperty>();
+        for(OWLOntology ont : getImportsClosure()) {
+            results.addAll(ont.getReferencedDataProperties());
+        }
+        return results;
+    }
 
     public Set<OWLNamedIndividual> getReferencedIndividuals() {
         return getReturnSet(owlIndividualReferences.keySet());
+    }
+
+    /**
+     * Gets the named individuals that are referenced by axioms in this ontology, and possibly the imports closure of this
+     * ontology.
+     * @param includeImportsClosure Specifies whether referenced named individuals should be drawn from this ontology or the imports
+     *                              closure.  If <code>true</code> then the set of referenced named individuals will be from the imports closure of this
+     *                              ontology, if <code>false</code> then the set of referenced named individuals will just be from this ontology.
+     * @return A set of named individuals, which are referenced by any axiom in this ontology. The set that is returned is a
+     *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
+     *         ontology while iterating over this set.
+     */
+    public Set<OWLNamedIndividual> getReferencedIndividuals(boolean includeImportsClosure) {
+        if(!includeImportsClosure) {
+            return getReferencedIndividuals();
+        }
+        Set<OWLNamedIndividual> results = new HashSet<OWLNamedIndividual>();
+        for(OWLOntology ont : getImportsClosure()) {
+            results.addAll(ont.getReferencedIndividuals());
+        }
+        return results;
     }
 
     /**
@@ -806,6 +928,25 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return getReturnSet(owlDatatypeReferences.keySet());
     }
 
+    /**
+     * Gets the datatypes that are referenced by this ontology and possibly its imports closure
+     * @param includeImportsClosure Specifies whether referenced named individuals should be drawn from this ontology or the imports
+     *                              closure of this ontology.  If <code>true</code> then the set of referenced named individuals will be from the
+     *                              imports closure of this ontology, if <code>false</code> then the set of referenced named individuals will just
+     *                              be from this ontology.
+     * @return The set of datatypes that are referenced by axioms in this ontology and possibly its imports closure
+     */
+    public Set<OWLDatatype> getReferencedDatatypes(boolean includeImportsClosure) {
+        if(!includeImportsClosure) {
+            return getReferencedDatatypes();
+        }
+        Set<OWLDatatype> results = new HashSet<OWLDatatype>();
+        for(OWLOntology ont : getImportsClosure()) {
+            results.addAll(ont.getReferencedDatatypes());
+        }
+        return results;
+    }
+
     public Set<OWLAnnotationProperty> getReferencedAnnotationProperties() {
         Set<OWLAnnotationProperty> props = new HashSet<OWLAnnotationProperty>(owlAnnotationPropertyReferences.keySet());
         for(OWLAnnotation anno : ontologyAnnotations) {
@@ -814,13 +955,57 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return getReturnSet(props);
     }
 
+    public Set<OWLAnnotationProperty> getReferencedAnnotationProperties(boolean includeImportsClosure) {
+        if(!includeImportsClosure) {
+            return getReferencedAnnotationProperties();
+        }
+        Set<OWLAnnotationProperty> results = new HashSet<OWLAnnotationProperty>();
+        for(OWLOntology ont : getImportsClosure()) {
+            results.addAll(ont.getReferencedAnnotationProperties());
+        }
+        return results;
+    }
+
     public Set<OWLImportsDeclaration> getImportsDeclarations() {
         return getReturnSet(importsDeclarations);
     }
 
+    /**
+     * Gets the set of IRIs corresponding to the IRIs of the ontology documents that are directly imported by this ontology.
+     * This corresponds to the IRIs defined by the directlyImportsDocuments relation as discussed in Section 3 of the
+     * OWL 2 Structural specification.
+     * @return A set of IRIs where each IRI represents the IRI of an ontology document that was directly imported by this
+     *         ontology.
+     * @throws org.semanticweb.owlapi.model.UnknownOWLOntologyException
+     *          If this ontology is no longer managed by its manager because it was
+     *          removed from the manager.
+     */
+    public Set<IRI> getDirectImportsDocuments() throws UnknownOWLOntologyException {
+        Set<IRI> result = new HashSet<IRI>();
+        for(OWLImportsDeclaration importsDeclaration : importsDeclarations) {
+            result.add(importsDeclaration.getIRI());
+        }
+        return result;
+    }
 
     public Set<OWLOntology> getImports() throws UnknownOWLOntologyException {
         return manager.getImports(this);
+    }
+
+    /**
+     * Gets the ontologies that are directly imported by this ontology.  This corresponds to the notion of logical
+     * direct imports as discussed in Section 3.4 of the OWL 2 Structural Specification.  The direct imports are
+     * obtained by accessing the directly imported ontology documents and converting (parsing) them into OWL 2 ontologies.
+     * Note that there may be fewer ontologies in the set returned by this method than there are IRIs in the set returned by the
+     * getDirectImportsDocuments method.  This will be the case if some of the ontologies that are directly imported by this ontology
+     * are not loaded for whatever reason.
+     * @return The set of ontologies that are <em>logically directly imported</em> by this ontology
+     * @throws org.semanticweb.owlapi.model.UnknownOWLOntologyException
+     *          If this ontology is no longer managed by its manager because it was removed
+     *          from the manager.
+     */
+    public Set<OWLOntology> getDirectImports() throws UnknownOWLOntologyException {
+        return manager.getDirectImports(this);
     }
 
     public Set<OWLOntology> getImportsClosure() throws UnknownOWLOntologyException {

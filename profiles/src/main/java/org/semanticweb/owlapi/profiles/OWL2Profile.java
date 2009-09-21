@@ -58,9 +58,9 @@ public class OWL2Profile implements OWLProfile {
      * @return An <code>OWLProfileReport</code> that describes whether or not the
      *         ontology is within this profile.
      */
-    public OWLProfileReport checkOntology(OWLOntology ontology, OWLOntologyManager manager) {
-        OWLOntologyWalker walker = new OWLOntologyWalker(manager.getImportsClosure(ontology));
-        OWL2ProfileObjectWalker visitor = new OWL2ProfileObjectWalker(walker, manager);
+    public OWLProfileReport checkOntology(OWLOntology ontology) {
+        OWLOntologyWalker walker = new OWLOntologyWalker(ontology.getImportsClosure());
+        OWL2ProfileObjectWalker visitor = new OWL2ProfileObjectWalker(walker, ontology.getOWLOntologyManager());
         walker.walkStructure(visitor);
         Set<OWLProfileViolation> pv = visitor.getProfileViolations();
         return new OWLProfileReport(this, pv);

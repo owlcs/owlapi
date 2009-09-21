@@ -1090,9 +1090,9 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    private Set<RDFXMLOntologyFormat.Triple> dumpRemainingTriples() {
+    private void dumpRemainingTriples() {
         if (!logger.isLoggable(Level.FINE)) {
-            return Collections.emptySet();
+            return;
         }
         StringWriter sw = new StringWriter();
         PrintWriter w = new PrintWriter(sw);
@@ -1133,7 +1133,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         w.flush();
         logger.fine(sw.getBuffer().toString());
-        return null;
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1173,8 +1172,8 @@ public class OWLRDFConsumer implements RDFConsumer {
         // Do we need to change the ontology URI?
         OWLOntologyID id = ontology.getOntologyID();
 
-        if (id.isAnonymous() || !ontologyURIs.contains(id.getOntologyIRI().toURI())) {
-            if (ontologyURIs.size() == 1) {
+//        if (id.isAnonymous() || !ontologyURIs.contains(id.getOntologyIRI().toURI())) {
+            if (ontologyURIs.size() == 1 && !isAnonymousNode(firstOntologyURI)) {
                 applyChange(new SetOntologyID(ontology, new OWLOntologyID(IRI.create(firstOntologyURI))));
             }
             else {
@@ -1187,12 +1186,12 @@ public class OWLRDFConsumer implements RDFConsumer {
                         applyChange(new SetOntologyID(ontology, new OWLOntologyID(IRI.create(xmlBase))));
                     }
                 }
-                else {
+                else if(!isAnonymousNode(firstOntologyURI)) {
                     logger.fine("There are multiple resources which are typed as ontologies.  Using the first encountered ontology URI.");
                     applyChange(new SetOntologyID(ontology, new OWLOntologyID(IRI.create(firstOntologyURI))));
                 }
             }
-        }
+//        }
 
 
         if (tripleProcessor.isLoggable(Level.FINE)) {
@@ -1991,6 +1990,9 @@ public class OWLRDFConsumer implements RDFConsumer {
         ontologyURIs.add(uri);
     }
 
+    public Set<URI> getOntologies() {
+        return ontologyURIs;
+    }
 
     public void addReifiedAxiom(URI axiomURI, OWLAxiom axiom) {
         reifiedAxiomsMap.put(axiomURI, axiom);

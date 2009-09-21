@@ -155,9 +155,9 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         write("(");
         if (!ontology.isAnonymous()) {
             writeFullIRI(ontology.getOntologyID().getOntologyIRI());
-            if(ontology.getVersionIRI() != null) {
+            if(ontology.getOntologyID().getVersionIRI() != null) {
                 write("\n");
-                writeFullIRI(ontology.getVersionIRI());
+                writeFullIRI(ontology.getOntologyID().getVersionIRI());
             }
         }
         for(OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {

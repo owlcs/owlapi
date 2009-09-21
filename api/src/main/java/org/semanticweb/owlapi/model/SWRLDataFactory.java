@@ -136,7 +136,7 @@ public interface SWRLDataFactory {
      */
     SWRLLiteralArgument getSWRLLiteralArgument(OWLLiteral literal);
 
-    SWRLSameIndividualAtom getSWRLSameAsAtom(SWRLIArgument arg0, SWRLIArgument arg1);
+    SWRLSameIndividualAtom getSWRLSameIndividualAtom(SWRLIArgument arg0, SWRLIArgument arg1);
 
-    SWRLDifferentIndividualsAtom getSWRLDifferentFromAtom(SWRLIArgument arg0, SWRLIArgument arg1);
+    SWRLDifferentIndividualsAtom getSWRLDifferentIndividualsAtom(SWRLIArgument arg0, SWRLIArgument arg1);
 }

@@ -93,12 +93,12 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
         else if (consumer.isSWRLSameAsAtom(firstObject)) {
             SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getURI());
             SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject, ARGUMENT_2.getURI());
-            return dataFactory.getSWRLSameAsAtom(arg1, arg2);
+            return dataFactory.getSWRLSameIndividualAtom(arg1, arg2);
         }
         else if (consumer.isSWRLDifferentFromAtom(firstObject)) {
             SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getURI());
             SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject, ARGUMENT_2.getURI());
-            return dataFactory.getSWRLDifferentFromAtom(arg1, arg2);
+            return dataFactory.getSWRLDifferentIndividualsAtom(arg1, arg2);
         }
         throw new RuntimeException("Don't know how to translate SWRL Atom: " + firstObject);
     }

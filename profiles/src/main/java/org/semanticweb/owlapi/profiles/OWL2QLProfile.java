@@ -75,14 +75,12 @@ public class OWL2QLProfile implements OWLProfile {
      * Checks an ontology and its import closure to see if it is within
      * this profile.
      * @param ontology The ontology to be checked.
-     * @param manager  A manager which can be used to obtain the imports closure
-     *                 of the ontology
      * @return An <code>OWLProfileReport</code> that describes whether or not the
      *         ontology is within this profile.
      */
-    public OWLProfileReport checkOntology(OWLOntology ontology, OWLOntologyManager manager) {
+    public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWL2DLProfile profile = new OWL2DLProfile();
-        OWLProfileReport report = profile.checkOntology(ontology, manager);
+        OWLProfileReport report = profile.checkOntology(ontology);
         Set<OWLProfileViolation> violations = new HashSet<OWLProfileViolation>();
         violations.addAll(report.getViolations());
 

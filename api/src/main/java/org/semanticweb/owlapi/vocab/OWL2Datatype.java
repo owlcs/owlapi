@@ -38,6 +38,8 @@ import java.util.regex.Pattern;
  */
 public enum OWL2Datatype {
 
+    RDF_XML_LITERAL(Namespaces.RDF, "XMLLiteral", Category.STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
+
     OWL_REAL(Namespaces.OWL, "real", Category.NUMBER, false, ".*"),
 
     OWL_RATIONAL(Namespaces.OWL, "rational", Category.NUMBER, false, "(\\+|-)?([0-9]+)(\\s)*(/)(\\s)*([0-9]+)"),

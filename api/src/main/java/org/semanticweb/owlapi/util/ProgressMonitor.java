@@ -36,8 +36,12 @@ public interface ProgressMonitor {
 
     void setStarted();
 
+    void setSize(long size);
 
-    void setProgress(String message, long progress, long total);
+
+    void setProgress(long progress);
+
+    void setMessage(String message);
 
 
     void setIndeterminate(boolean b);

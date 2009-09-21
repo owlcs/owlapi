@@ -1288,13 +1288,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public SWRLDifferentIndividualsAtom getSWRLDifferentFromAtom(SWRLIArgument arg0,
+    public SWRLDifferentIndividualsAtom getSWRLDifferentIndividualsAtom(SWRLIArgument arg0,
                                                           SWRLIArgument arg1) {
         return new SWRLDifferentIndividualsAtomImpl(this, arg0, arg1);
     }
 
 
-    public SWRLSameIndividualAtom getSWRLSameAsAtom(SWRLIArgument arg0,
+    public SWRLSameIndividualAtom getSWRLSameIndividualAtom(SWRLIArgument arg0,
                                             SWRLIArgument arg1) {
         return new SWRLSameIndividualAtomImpl(this, arg0, arg1);
     }

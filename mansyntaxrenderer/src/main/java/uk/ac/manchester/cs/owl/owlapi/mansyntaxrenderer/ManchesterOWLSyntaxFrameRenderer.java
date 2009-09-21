@@ -179,8 +179,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             writeFullURI(ontology.getOntologyID().getOntologyIRI().toString());
             writeNewLine();
             pushTab(indent);
-            if(ontology.getVersionIRI() != null) {
-               writeFullURI(ontology.getVersionIRI().toURI().toString());
+            if(ontology.getOntologyID().getVersionIRI() != null) {
+               writeFullURI(ontology.getOntologyID().getVersionIRI().toString());
             }
             popTab();
         }
@@ -461,7 +461,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 for (OWLSubPropertyChainOfAxiom ax : ontology.getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
                     if (ax.getSuperProperty().equals(property)) {
                         if (isDisplayed(ax)) {
-                            writeSection(SUB_PROPERTY_CHAIN, new LinkedHashSet<OWLObjectPropertyExpression>(ax.getPropertyChain()), " o ", false, ontology);
+                            writeSection(SUB_PROPERTY_CHAIN, ax.getPropertyChain(), " o ", false, ontology);
                             axioms.add(ax);
                         }
                     }
@@ -988,7 +988,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
 
 
-    public void writeSection(ManchesterOWLSyntax keyword, Set<? extends Object> content, String delimeter,
+    public void writeSection(ManchesterOWLSyntax keyword, Collection<? extends Object> content, String delimeter,
                              boolean newline, OWLOntology... ontologies) {
 
         String sec = keyword.toString();

@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 import java.net.URI;
 /*
@@ -49,5 +50,6 @@ public class TypeInverseFunctionalPropertyHandler extends BuiltInTypeHandler {
         getConsumer().addOWLObjectProperty(subject);
         addAxiom(getDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
+        getConsumer().handle(subject, OWLRDFVocabulary.RDF_TYPE.getURI(), OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI());
     }
 }

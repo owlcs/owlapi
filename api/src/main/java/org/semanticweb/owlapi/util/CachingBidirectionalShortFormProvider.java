@@ -157,7 +157,13 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
 
 
     public String getShortForm(OWLEntity entity) {
-        return entity2ShortFormMap.get(entity);
+        String sf = entity2ShortFormMap.get(entity);
+        if(sf != null) {
+            return sf;
+        }
+        else {
+            return generateShortForm(entity);
+        }
     }
 
 

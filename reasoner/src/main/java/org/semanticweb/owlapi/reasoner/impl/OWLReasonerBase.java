@@ -47,7 +47,6 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         this.manager = manager;
         this.longTaskExecutor = longTaskExecutor;
         ProgressMonitor progressMonitor = config.getProgressMonitor();
-        progressMonitor.setProgress("Classifying", 4, 5);
     }
 
     private void classify() throws InterruptedException {
