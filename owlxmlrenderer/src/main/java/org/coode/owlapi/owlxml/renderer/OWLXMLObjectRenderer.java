@@ -109,8 +109,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-        writeAnnotations(axiom);
         writer.writeStartElement(DATA_PROPERTY_DOMAIN);
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         axiom.getDomain().accept(this);
         writer.writeEndElement();
@@ -118,8 +118,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLDataPropertyRangeAxiom axiom) {
-        writeAnnotations(axiom);
         writer.writeStartElement(DATA_PROPERTY_RANGE);
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         axiom.getRange().accept(this);
         writer.writeEndElement();
@@ -127,8 +127,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        writeAnnotations(axiom);
         writer.writeStartElement(SUB_DATA_PROPERTY_OF);
+        writeAnnotations(axiom);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         writer.writeEndElement();
