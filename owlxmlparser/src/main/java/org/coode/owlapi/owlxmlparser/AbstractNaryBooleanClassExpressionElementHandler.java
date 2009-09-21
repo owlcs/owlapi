@@ -50,10 +50,15 @@ public abstract class AbstractNaryBooleanClassExpressionElementHandler extends A
 
 
     protected void endClassExpressionElement() throws OWLXMLParserException {
-        if(operands.size() < 2) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "At least 2 class expression elements are required as child elements of " + getElementName() + " elements");
+        if (operands.size() > 2) {
+            setClassExpression(createClassExpression(operands));
         }
-        setClassExpression(createClassExpression(operands));
+        else if(operands.size() == 1) {
+            setClassExpression(operands.iterator().next());
+        }
+        else {
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Found zero child elements of an " + getElementName() + " element. At least 2 class expression elements are required as child elements of " + getElementName() + " elements");
+        }
     }
 
     protected abstract OWLClassExpression createClassExpression(Set<OWLClassExpression> operands);
