@@ -236,6 +236,12 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
             }
         }));
         for (OWLAxiom ax : axs) {
+            if(ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)) {
+                continue;
+            }
+            if(ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES) && ((OWLDisjointClassesAxiom) ax).getClassExpressions().size() > 2) {
+                continue;
+            }
             ax.accept(this);
             writtenAxioms.add(ax);
             write("\n");
