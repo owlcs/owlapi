@@ -889,11 +889,17 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (list.isEmpty()) {
             return getResourceNode(RDF_NIL.getURI());
         }
-        RESOURCE main = getAnonymousNode(list);
-        addTriple(main, getPredicateNode(RDF_TYPE.getURI()), getResourceNode(listType));
-        addTriple(main, getPredicateNode(RDF_FIRST.getURI()), getNode(list.get(0)));
-        addTriple(main, getPredicateNode(RDF_REST.getURI()), translateList(list.subList(1, list.size()), listType));
+        RESOURCE main = getResourceNode(RDF_NIL.getURI());
+        int listSize = list.size() - 1;
+        for ( int i = listSize; i >= 0; i-- ) {
+            RESOURCE anonNode = getAnonymousNode(list.subList(i, listSize));
+            addTriple(anonNode, getPredicateNode(RDF_TYPE.getURI()), getResourceNode(listType));
+            addTriple(anonNode, getPredicateNode(RDF_FIRST.getURI()), getNode(list.get(i)));
+            addTriple(anonNode, getPredicateNode(RDF_REST.getURI()), main);
+            main = anonNode;
+        }
         return main;
+
     }
 
 
