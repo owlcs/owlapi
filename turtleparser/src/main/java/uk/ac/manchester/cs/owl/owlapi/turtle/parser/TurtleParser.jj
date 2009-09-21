@@ -386,7 +386,7 @@ void parseDocument() :
 }
 {
     
-    (parseDirective() | parseStatement())+<EOF> {handler.handleEnd();}
+    (parseDirective()<DOT> | parseStatement()<DOT>)+<EOF> {handler.handleEnd();}
 }
 
 void parseDirective() :
@@ -403,7 +403,7 @@ void parsePrefixDirective() :
     URI ns;
 }
 {
-    <PREFIX> t=<PNAME_NS>{prefix=t.image;} ns=parseURI() <DOT> {
+    <PREFIX> t=<PNAME_NS>{prefix=t.image;} ns=parseURI() {
         pm.setPrefix(prefix, ns.toString());
         handler.handlePrefixDirective(prefix, ns.toString());
     }
@@ -415,7 +415,7 @@ void parseBaseDirective() :
     Token t;
 }
 {
-    <BASE> t=<FULLIRI> {base = t.image.substring(1, t.image.length() - 1);} <DOT> {
+    <BASE> t=<FULLIRI> {base = t.image.substring(1, t.image.length() - 1);} {
         handler.handleBaseDirective(base);
     }
 }
@@ -432,7 +432,7 @@ void parseTriples() :
     URI subject;
 }
 {
-    subject = parseSubject() (parsePredicateObjectList(subject))? (<DOT>)
+    subject = parseSubject() (parsePredicateObjectList(subject))?
 }
 
 URI parseSubject() :
@@ -496,7 +496,7 @@ void parsePredicateObjectList(URI subject) :
     URI predicate;
 }
 {
-    (predicate=parseVerb() parseObjectList(subject, predicate) (<SEMICOLON> predicate=parseVerb() parseObjectList(subject, predicate) )*)
+    (predicate=parseVerb() parseObjectList(subject, predicate) (<SEMICOLON> predicate=parseVerb() parseObjectList(subject, predicate) )*) (<SEMICOLON>)?
 }
 
 URI parseVerb() :

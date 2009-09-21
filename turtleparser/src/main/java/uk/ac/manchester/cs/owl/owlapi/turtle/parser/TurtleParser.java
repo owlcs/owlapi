@@ -121,8 +121,10 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     while (true) {
       if (jj_2_1(2)) {
         parseDirective();
+        jj_consume_token(DOT);
       } else if (jj_2_2(2)) {
         parseStatement();
+        jj_consume_token(DOT);
       } else {
         jj_consume_token(-1);
         throw new ParseException();
@@ -134,7 +136,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
       }
     }
     jj_consume_token(0);
-                                                 handler.handleEnd();
+                                                           handler.handleEnd();
   }
 
   final public void parseDirective() throws ParseException {
@@ -156,7 +158,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     t = jj_consume_token(PNAME_NS);
                           prefix=t.image;
     ns = parseURI();
-    jj_consume_token(DOT);
         pm.setPrefix(prefix, ns.toString());
         handler.handlePrefixDirective(prefix, ns.toString());
   }
@@ -167,7 +168,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     jj_consume_token(BASE);
     t = jj_consume_token(FULLIRI);
                         base = t.image.substring(1, t.image.length() - 1);
-    jj_consume_token(DOT);
         handler.handleBaseDirective(base);
   }
 
@@ -183,7 +183,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     } else {
       ;
     }
-    jj_consume_token(DOT);
   }
 
   final public URI parseSubject() throws ParseException {
@@ -270,14 +269,19 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
       predicate = parseVerb();
       parseObjectList(subject, predicate);
     }
+    if (jj_2_16(2)) {
+      jj_consume_token(SEMICOLON);
+    } else {
+      ;
+    }
   }
 
   final public URI parseVerb() throws ParseException {
     URI uri;
-    if (jj_2_16(2)) {
+    if (jj_2_17(2)) {
       jj_consume_token(A);
          uri = OWLRDFVocabulary.RDF_TYPE.getURI();
-    } else if (jj_2_17(2)) {
+    } else if (jj_2_18(2)) {
       uri = parsePredicate();
     } else {
       jj_consume_token(-1);
@@ -296,9 +300,9 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
 
   final public URI parseResource() throws ParseException {
     URI uri;
-    if (jj_2_18(2)) {
+    if (jj_2_19(2)) {
       uri = parseURI();
-    } else if (jj_2_19(2)) {
+    } else if (jj_2_20(2)) {
       uri = parseAbbreviatedURI();
     } else {
       jj_consume_token(-1);
@@ -312,7 +316,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     parseObject(subject, predicate);
     label_3:
     while (true) {
-      if (jj_2_20(2)) {
+      if (jj_2_21(2)) {
         ;
       } else {
         break label_3;
@@ -324,12 +328,12 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
 
   final public void parseObject(URI subject, URI predicate) throws ParseException {
     URI resObject;
-    if (jj_2_23(2)) {
+    if (jj_2_24(2)) {
       parseLiteral(subject, predicate);
-    } else if (jj_2_24(2)) {
-      if (jj_2_21(2)) {
+    } else if (jj_2_25(2)) {
+      if (jj_2_22(2)) {
         resObject = parseResource();
-      } else if (jj_2_22(2)) {
+      } else if (jj_2_23(2)) {
         resObject = parseBlankNode();
       } else {
         jj_consume_token(-1);
@@ -364,7 +368,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     URI nil = OWLRDFVocabulary.RDF_NIL.getURI();
     label_4:
     while (true) {
-      if (jj_2_25(2)) {
+      if (jj_2_26(2)) {
         ;
       } else {
         break label_4;
@@ -391,13 +395,13 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     String lang = null;
     URI datatype = null;
     Token t;
-    if (jj_2_29(2)) {
+    if (jj_2_30(2)) {
       literal = parseQuotedString();
-      if (jj_2_28(2)) {
-        if (jj_2_26(2)) {
+      if (jj_2_29(2)) {
+        if (jj_2_27(2)) {
           jj_consume_token(DOUBLE_CARET);
           datatype = parseResource();
-        } else if (jj_2_27(2)) {
+        } else if (jj_2_28(2)) {
           jj_consume_token(AT);
           t = jj_consume_token(PN_LOCAL);
                                                                                                     lang=t.image;
@@ -417,16 +421,16 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
             else {
                 handler.handleTriple(subject, predicate, literal);
             }
-    } else if (jj_2_30(2)) {
+    } else if (jj_2_31(2)) {
       literal = parseInteger();
                             handler.handleTriple(subject, predicate, literal, XSDVocabulary.INTEGER.getURI());
-    } else if (jj_2_31(2)) {
+    } else if (jj_2_32(2)) {
       literal = parseDouble();
                            handler.handleTriple(subject, predicate, literal, XSDVocabulary.DOUBLE.getURI());
-    } else if (jj_2_32(2)) {
+    } else if (jj_2_33(2)) {
       literal = parseDecimal();
                             handler.handleTriple(subject, predicate, literal, XSDVocabulary.DECIMAL.getURI());
-    } else if (jj_2_33(2)) {
+    } else if (jj_2_34(2)) {
       literal = parseBoolean();
                             handler.handleTriple(subject, predicate, literal, XSDVocabulary.BOOLEAN.getURI());
     } else {
@@ -437,10 +441,10 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
 
   final public String parseInteger() throws ParseException {
     Token t;
-    if (jj_2_34(2)) {
+    if (jj_2_35(2)) {
       t = jj_consume_token(INTEGER);
         {if (true) return t.image;}
-    } else if (jj_2_35(2)) {
+    } else if (jj_2_36(2)) {
       t = jj_consume_token(DIGIT);
         {if (true) return t.image;}
     } else {
@@ -466,9 +470,9 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
 
   final public String parseBoolean() throws ParseException {
     Token t;
-    if (jj_2_36(2)) {
+    if (jj_2_37(2)) {
       t = jj_consume_token(TRUE);
-    } else if (jj_2_37(2)) {
+    } else if (jj_2_38(2)) {
       t = jj_consume_token(FALSE);
     } else {
       jj_consume_token(-1);
@@ -488,10 +492,10 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
   final public String parseString() throws ParseException {
     Token t;
     String rawString = "";
-    if (jj_2_38(2)) {
+    if (jj_2_39(2)) {
       t = jj_consume_token(STRING);
         rawString = t.image.substring(1, t.image.length() - 1);
-    } else if (jj_2_39(2)) {
+    } else if (jj_2_40(2)) {
       t = jj_consume_token(LONG_STRING);
         rawString = t.image.substring(3, t.image.length() - 3);
     } else {
@@ -775,6 +779,13 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     finally { jj_save(38, xla); }
   }
 
+  private boolean jj_2_40(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_40(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(39, xla); }
+  }
+
   private boolean jj_3_8() {
     if (jj_3R_11()) return true;
     return false;
@@ -803,7 +814,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3_17() {
+  private boolean jj_3_18() {
     if (jj_3R_15()) return true;
     return false;
   }
@@ -818,12 +829,12 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3_21() {
+  private boolean jj_3_22() {
     if (jj_3R_10()) return true;
     return false;
   }
 
-  private boolean jj_3_22() {
+  private boolean jj_3_23() {
     if (jj_3R_11()) return true;
     return false;
   }
@@ -833,17 +844,17 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3_24() {
+  private boolean jj_3_25() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_21()) {
+    if (jj_3_22()) {
     jj_scanpos = xsp;
-    if (jj_3_22()) return true;
+    if (jj_3_23()) return true;
     }
     return false;
   }
 
-  private boolean jj_3_23() {
+  private boolean jj_3_24() {
     if (jj_3R_19()) return true;
     return false;
   }
@@ -851,19 +862,19 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
   private boolean jj_3R_18() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_23()) {
+    if (jj_3_24()) {
     jj_scanpos = xsp;
-    if (jj_3_24()) return true;
+    if (jj_3_25()) return true;
     }
     return false;
   }
 
-  private boolean jj_3_35() {
+  private boolean jj_3_36() {
     if (jj_scan_token(DIGIT)) return true;
     return false;
   }
 
-  private boolean jj_3_19() {
+  private boolean jj_3_20() {
     if (jj_3R_17()) return true;
     return false;
   }
@@ -871,36 +882,41 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
   private boolean jj_3R_21() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_34()) {
+    if (jj_3_35()) {
     jj_scanpos = xsp;
-    if (jj_3_35()) return true;
+    if (jj_3_36()) return true;
     }
     return false;
   }
 
-  private boolean jj_3_26() {
+  private boolean jj_3_27() {
     if (jj_scan_token(DOUBLE_CARET)) return true;
     if (jj_3R_10()) return true;
     return false;
   }
 
-  private boolean jj_3_28() {
+  private boolean jj_3_29() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_26()) {
+    if (jj_3_27()) {
     jj_scanpos = xsp;
-    if (jj_3_27()) return true;
+    if (jj_3_28()) return true;
     }
     return false;
   }
 
-  private boolean jj_3_34() {
+  private boolean jj_3_35() {
     if (jj_scan_token(INTEGER)) return true;
     return false;
   }
 
   private boolean jj_3_7() {
     if (jj_3R_10()) return true;
+    return false;
+  }
+
+  private boolean jj_3_16() {
+    if (jj_scan_token(SEMICOLON)) return true;
     return false;
   }
 
@@ -919,12 +935,12 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3_33() {
+  private boolean jj_3_34() {
     if (jj_3R_24()) return true;
     return false;
   }
 
-  private boolean jj_3_32() {
+  private boolean jj_3_33() {
     if (jj_3R_23()) return true;
     return false;
   }
@@ -934,16 +950,15 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3_6()) jj_scanpos = xsp;
-    if (jj_scan_token(DOT)) return true;
     return false;
   }
 
-  private boolean jj_3_31() {
+  private boolean jj_3_32() {
     if (jj_3R_22()) return true;
     return false;
   }
 
-  private boolean jj_3_18() {
+  private boolean jj_3_19() {
     if (jj_3R_16()) return true;
     return false;
   }
@@ -951,14 +966,14 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
   private boolean jj_3R_10() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_18()) {
+    if (jj_3_19()) {
     jj_scanpos = xsp;
-    if (jj_3_19()) return true;
+    if (jj_3_20()) return true;
     }
     return false;
   }
 
-  private boolean jj_3_30() {
+  private boolean jj_3_31() {
     if (jj_3R_21()) return true;
     return false;
   }
@@ -987,15 +1002,15 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
   private boolean jj_3R_19() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_29()) {
-    jj_scanpos = xsp;
     if (jj_3_30()) {
     jj_scanpos = xsp;
     if (jj_3_31()) {
     jj_scanpos = xsp;
     if (jj_3_32()) {
     jj_scanpos = xsp;
-    if (jj_3_33()) return true;
+    if (jj_3_33()) {
+    jj_scanpos = xsp;
+    if (jj_3_34()) return true;
     }
     }
     }
@@ -1003,20 +1018,26 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3_29() {
+  private boolean jj_3_30() {
     if (jj_3R_20()) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_28()) jj_scanpos = xsp;
+    if (jj_3_29()) jj_scanpos = xsp;
     return false;
   }
 
-  private boolean jj_3_39() {
+  private boolean jj_3_2() {
+    if (jj_3R_6()) return true;
+    if (jj_scan_token(DOT)) return true;
+    return false;
+  }
+
+  private boolean jj_3_40() {
     if (jj_scan_token(LONG_STRING)) return true;
     return false;
   }
 
-  private boolean jj_3_16() {
+  private boolean jj_3_17() {
     if (jj_scan_token(A)) return true;
     return false;
   }
@@ -1024,29 +1045,24 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
   private boolean jj_3R_14() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_16()) {
+    if (jj_3_17()) {
     jj_scanpos = xsp;
-    if (jj_3_17()) return true;
+    if (jj_3_18()) return true;
     }
     return false;
   }
 
-  private boolean jj_3_38() {
+  private boolean jj_3_39() {
     if (jj_scan_token(STRING)) return true;
-    return false;
-  }
-
-  private boolean jj_3_2() {
-    if (jj_3R_6()) return true;
     return false;
   }
 
   private boolean jj_3R_28() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_38()) {
+    if (jj_3_39()) {
     jj_scanpos = xsp;
-    if (jj_3_39()) return true;
+    if (jj_3_40()) return true;
     }
     return false;
   }
@@ -1068,7 +1084,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3_37() {
+  private boolean jj_3_38() {
     if (jj_scan_token(FALSE)) return true;
     return false;
   }
@@ -1093,7 +1109,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3_27() {
+  private boolean jj_3_28() {
     if (jj_scan_token(AT)) return true;
     if (jj_scan_token(PN_LOCAL)) return true;
     return false;
@@ -1119,7 +1135,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3_25() {
+  private boolean jj_3_26() {
     if (jj_3R_18()) return true;
     return false;
   }
@@ -1128,12 +1144,12 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     Token xsp;
     while (true) {
       xsp = jj_scanpos;
-      if (jj_3_25()) { jj_scanpos = xsp; break; }
+      if (jj_3_26()) { jj_scanpos = xsp; break; }
     }
     return false;
   }
 
-  private boolean jj_3_36() {
+  private boolean jj_3_37() {
     if (jj_scan_token(TRUE)) return true;
     return false;
   }
@@ -1141,9 +1157,9 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
   private boolean jj_3R_24() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_36()) {
+    if (jj_3_37()) {
     jj_scanpos = xsp;
-    if (jj_3_37()) return true;
+    if (jj_3_38()) return true;
     }
     return false;
   }
@@ -1162,7 +1178,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3_20() {
+  private boolean jj_3_21() {
     if (jj_scan_token(COMMA)) return true;
     if (jj_3R_18()) return true;
     return false;
@@ -1223,7 +1239,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
    private static void jj_la1_init_1() {
       jj_la1_1 = new int[] {};
    }
-  final private JJCalls[] jj_2_rtns = new JJCalls[39];
+  final private JJCalls[] jj_2_rtns = new JJCalls[40];
   private boolean jj_rescan = false;
   private int jj_gc = 0;
 
@@ -1451,7 +1467,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
 
   private void jj_rescan_token() {
     jj_rescan = true;
-    for (int i = 0; i < 39; i++) {
+    for (int i = 0; i < 40; i++) {
     try {
       JJCalls p = jj_2_rtns[i];
       do {
@@ -1497,6 +1513,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
             case 36: jj_3_37(); break;
             case 37: jj_3_38(); break;
             case 38: jj_3_39(); break;
+            case 39: jj_3_40(); break;
           }
         }
         p = p.next;
