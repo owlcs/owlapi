@@ -421,7 +421,7 @@ public class NullReasoner implements OWLReasoner {
      * @return Always returns <code>false</code> in this implementation.
      * @throws OWLReasonerException
      */
-    public boolean isAntiSymmetric(OWLObjectProperty property) throws OWLReasonerException {
+    public boolean isAsymmetric(OWLObjectProperty property) throws OWLReasonerException {
         return false;
     }
 

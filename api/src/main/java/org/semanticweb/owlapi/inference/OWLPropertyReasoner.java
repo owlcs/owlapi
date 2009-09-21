@@ -94,7 +94,7 @@ public interface OWLPropertyReasoner extends OWLReasonerBase {
     public boolean isIrreflexive(OWLObjectProperty property) throws OWLReasonerException;
 
 
-    public boolean isAntiSymmetric(OWLObjectProperty property) throws OWLReasonerException;
+    public boolean isAsymmetric(OWLObjectProperty property) throws OWLReasonerException;
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////

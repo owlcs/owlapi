@@ -198,7 +198,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
 
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        sb.append("AntiSymmetricObjectProperty(");
+        sb.append("AsymmetricObjectProperty(");
         axiom.getProperty().accept(this);
         sb.append(")");
     }

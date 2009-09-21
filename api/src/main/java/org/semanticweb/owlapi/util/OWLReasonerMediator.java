@@ -586,11 +586,11 @@ public class OWLReasonerMediator implements OWLReasoner {
     }
 
 
-    public boolean isAntiSymmetric(OWLObjectProperty property) throws OWLReasonerException {
+    public boolean isAsymmetric(OWLObjectProperty property) throws OWLReasonerException {
         if (!checkDefined(property)) {
             return false;
         }
-        return kernel.isAntiSymmetric(property);
+        return kernel.isAsymmetric(property);
     }
 
 

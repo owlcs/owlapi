@@ -1460,7 +1460,7 @@ OWLPropertyAxiom ObjectPropertyAxiom() :
 {
     (ax=SubObjectPropertyOf() | ax=EquivalentObjectProperties() | ax=DisjointObjectProperties() |
     ax=ObjectPropertyRange() | ax=ObjectPropertyDomain() | ax=FunctionalObjectProperty() |
-    ax=InverseFunctionalObjectProperty() | ax=SymmetricObjectProperty() | ax=AntiSymmetricObjectProperty() |
+    ax=InverseFunctionalObjectProperty() | ax=SymmetricObjectProperty() | ax=AsymmetricObjectProperty() |
     ax=ReflexiveObjectProperty() | ax=IrreflexiveObjectProperty() | ax=TransitiveObjectProperty() | ax=InverseObjectProperties()) {
         return ax;
     }
@@ -1601,7 +1601,7 @@ OWLPropertyAxiom SymmetricObjectProperty() :
     }
 }
 
-OWLPropertyAxiom AntiSymmetricObjectProperty() :
+OWLPropertyAxiom AsymmetricObjectProperty() :
 {
     OWLObjectPropertyExpression prop;
     Set<OWLAnnotation> axiomAnnos;

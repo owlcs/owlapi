@@ -67,6 +67,13 @@ public abstract class OWLAnonymousClassExpressionImpl extends OWLObjectImpl impl
         return getOWLDataFactory().getOWLObjectComplementOf(this).accept(nnf);
     }
 
+    /**
+     * Gets the object complement of this class expression.
+     * @return A class expression that is the complement of this class expression.
+     */
+    public OWLClassExpression getObjectComplementOf() {
+        return getOWLDataFactory().getOWLObjectComplementOf(this);
+    }
 
     public OWLClass asOWLClass() {
         throw new OWLRuntimeException("Not an OWLClass.  This method should only be called if the isAnonymous method returns false!");

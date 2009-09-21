@@ -500,7 +500,7 @@ public class DIGReasoner extends OWLReasonerAdapter {
     }
 
 
-    public boolean isAntiSymmetric(OWLObjectProperty property)throws OWLReasonerException {
+    public boolean isAsymmetric(OWLObjectProperty property)throws OWLReasonerException {
         throw new UnsupportedReasonerOperationException();
     }
 

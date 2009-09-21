@@ -149,6 +149,9 @@ public enum ManchesterOWLSyntax {
 
     IRREFLEXIVE("Irreflexive", false, true, false, false),
 
+    /**
+     * For legacy reasons
+     */
     ANTI_SYMMETRIC("AntiSymmetric", false, true, false, false),
 
     ASYMMETRIC("Asymmetric", false, true, false, false),

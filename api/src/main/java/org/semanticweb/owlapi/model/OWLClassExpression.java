@@ -94,6 +94,11 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      */
     public OWLClassExpression getComplementNNF();
 
+    /**
+     * Gets the object complement of this class expression.
+     * @return A class expression that is the complement of this class expression.
+     */
+    public OWLClassExpression getObjectComplementOf();
 
     /**
      * Interprets this expression as a conjunction and returns the conjuncts. This method does not normalise the

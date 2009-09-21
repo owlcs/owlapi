@@ -60,7 +60,7 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator extends Inferred
         if (reasoner.isIrreflexive(entity)) {
             result.add(dataFactory.getOWLIrreflexiveObjectPropertyAxiom(entity));
         }
-        if (reasoner.isAntiSymmetric(entity)) {
+        if (reasoner.isAsymmetric(entity)) {
             result.add(dataFactory.getOWLAsymmetricObjectPropertyAxiom(entity));
         }
     }

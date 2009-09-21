@@ -325,7 +325,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        writePropertyCharacteristic("antisymmetric", axiom, axiom.getProperty());
+        writePropertyCharacteristic("asymmetric", axiom, axiom.getProperty());
     }
 
     public void visit(OWLClassAssertionAxiom axiom) {
