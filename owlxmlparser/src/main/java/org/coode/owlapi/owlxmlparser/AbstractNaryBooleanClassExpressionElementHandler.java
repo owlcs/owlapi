@@ -50,7 +50,7 @@ public abstract class AbstractNaryBooleanClassExpressionElementHandler extends A
 
 
     protected void endClassExpressionElement() throws OWLXMLParserException {
-        if (operands.size() > 2) {
+        if (operands.size() >= 2) {
             setClassExpression(createClassExpression(operands));
         }
         else if(operands.size() == 1) {
