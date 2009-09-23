@@ -632,7 +632,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         setAxiomWriting();
-        axiom.getProperty().accept(this);
+        axiom.getSubject().accept(this);
         write(" ");
         axiom.getProperty().accept(this);
         write(" ");
@@ -784,6 +784,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
         setAxiomWriting();
+        axiom.getSubject().accept(this);
+        write(" ");
         axiom.getProperty().accept(this);
         write(" ");
         axiom.getObject().accept(this);
