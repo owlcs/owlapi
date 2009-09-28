@@ -47,7 +47,6 @@ public class TypeOntologyHandler extends BuiltInTypeHandler {
         consumeTriple(subject, predicate, object);
         if(!isAnonymous(subject) && getConsumer().getOntologies().isEmpty()) {
             // Set URI?
-            System.out.println("SETTING: " + subject);
             OWLOntologyID id = new OWLOntologyID(IRI.create(subject));
             getConsumer().applyChange(new SetOntologyID(getConsumer().getOntology(), id));
         }
