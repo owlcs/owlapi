@@ -473,9 +473,6 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
 
     public void visit(SWRLRule rule) {
         hashCode = 631;
-        if (!rule.isAnonymous()) {
-            hashCode = hashCode * MULT + rule.getIRI().hashCode();
-        }
         hashCode = hashCode * MULT + rule.getBody().hashCode();
         hashCode = hashCode * MULT + rule.getHead().hashCode();
     }

@@ -33,142 +33,144 @@ package org.coode.owlapi.manchesterowlsyntax;
  */
 public enum ManchesterOWLSyntax {
 
-    ONTOLOGY("Ontology", false, false, false, false),
+    ONTOLOGY("Ontology", false, false, false, false, false),
 
-    IMPORT("Import", true, true, false, false),
+    IMPORT("Import", false, true, true, false, false),
 
-    PREFIX("Prefix", false, false, false, false),
+    PREFIX("Prefix", false, false, false, false, false),
 
-    CLASS("Class", true, false, false, false),
+    CLASS("Class", true, true, false, false, false),
 
-    OBJECT_PROPERTY("ObjectProperty", true, false, false, false),
+    OBJECT_PROPERTY("ObjectProperty", true, true, false, false, false),
 
-    DATA_PROPERTY("DataProperty", true, false, false, false),
+    DATA_PROPERTY("DataProperty", true, true, false, false, false),
 
-    INDIVIDUAL("Individual", true, false, false, false),
+    INDIVIDUAL("Individual", true, true, false, false, false),
 
-    DATATYPE("Datatype", true, false, false, false),
+    DATATYPE("Datatype", true, true, false, false, false),
 
-    ANNOTATION_PROPERTY("AnnotationProperty", true, false, false, false),
+    ANNOTATION_PROPERTY("AnnotationProperty", true, true, false, false, false),
 
-    SOME("some", false, false, true, false),
+    SOME("some", false, false, false, true, false),
 
-    ONLY("only", false, false, true, false),
+    ONLY("only", false, false, false, true, false),
 
-    ONLYSOME("onlysome", false, false, true, false),
+    ONLYSOME("onlysome", false, false, false, true, false),
 
-    MIN("min", false, false, true, false),
+    MIN("min", false, false, false, true, false),
 
-    MAX("max", false, false, true, false),
+    MAX("max", false, false, false, true, false),
 
-    EXACTLY("exactly", false, false, true, false),
+    EXACTLY("exactly", false, false, false, true, false),
 
-    VALUE("value", false, false, true, false),
+    VALUE("value", false, false, false, true, false),
 
-    AND("and", false, false, false, true),
+    AND("and", false, false, false, false, true),
 
-    THAT("that", false, false, false, true),
+    THAT("that", false, false, false, false, true),
 
-    OR("or", false, false, false, true),
+    OR("or", false, false, false, false, true),
 
-    NOT("not", false, false, false, true),
+    NOT("not", false, false, false, false, true),
 
-    INVERSE("inv", false, true, false, false),
+    INVERSE("inv", false, false, true, false, false),
 
-    SELF("Self", false, false, true, false),
+    SELF("Self", false, false, false, true, false),
 
-    FACET_RESTRICTION_SEPARATOR(",", false, false, false, false),
+    FACET_RESTRICTION_SEPARATOR(",", false, false, false, false, false),
 
-    SUBCLASS_OF("SubClassOf", true, true, false, false),
+    SUBCLASS_OF("SubClassOf", false, true, true, false, false),
 
-    SUPERCLASS_OF("SuperClassOf", true, true, false, false),
+    SUPERCLASS_OF("SuperClassOf", false, true, true, false, false),
 
-    EQUIVALENT_TO("EquivalentTo", true, true, false, false),
+    EQUIVALENT_TO("EquivalentTo", false, true, true, false, false),
 
-    EQUIVALENT_CLASSES("EquivalentClasses", true, true, false, false),
+    EQUIVALENT_CLASSES("EquivalentClasses", false, true, true, false, false),
 
-    EQUIVALENT_OBJECT_PROPERTIES("EquivalentObjectProperties", true, true, false, false),
+    EQUIVALENT_OBJECT_PROPERTIES("EquivalentObjectProperties", false, true, true, false, false),
 
-    EQUIVALENT_DATA_PROPERTIES("EquivalentDataProperties", true, true, false, false),
+    EQUIVALENT_DATA_PROPERTIES("EquivalentDataProperties", false, true, true, false, false),
 
-    DISJOINT_WITH("DisjointWith", true, true, false, false),
+    DISJOINT_WITH("DisjointWith", false, true, true, false, false),
 
-    INDIVIDUALS("Individuals", true, true, false, false),
+    INDIVIDUALS("Individuals", false, true, true, false, false),
 
-    DISJOINT_CLASSES("DisjointClasses", true, true, false, false),
+    DISJOINT_CLASSES("DisjointClasses", true, true, true, false, false),
 
-    DISJOINT_OBJECT_PROPERTIES("DisjointObjectProperties", true, true, false, false),
+    DISJOINT_OBJECT_PROPERTIES("DisjointObjectProperties", false, true, true, false, false),
 
-    DISJOINT_DATA_PROPERTIES("DisjointDataProperties", true, true, false, false),
+    DISJOINT_DATA_PROPERTIES("DisjointDataProperties", false, true, true, false, false),
 
-    DISJOINT_UNION_OF("DisjointUnionOf", true, true, false, false),
+    DISJOINT_UNION_OF("DisjointUnionOf", false, true, true, false, false),
 
-    FACTS("Facts", true, false, false, false),
+    FACTS("Facts", false, true, false, false, false),
 
-    SAME_AS("SameAs", true, true, false, false),
+    SAME_AS("SameAs", false, true, true, false, false),
 
-    SAME_INDIVIDUAL("SameIndividual", true, true, false, false),
+    SAME_INDIVIDUAL("SameIndividual", false, true, true, false, false),
 
-    DIFFERENT_FROM("DifferentFrom", true, true, false, false),
+    DIFFERENT_FROM("DifferentFrom", false, true, true, false, false),
 
-    DIFFERENT_INDIVIDUALS("DifferentIndividuals", true, true, false, false),
+    DIFFERENT_INDIVIDUALS("DifferentIndividuals", true, true, true, false, false),
 
-    MIN_INCLUSIVE_FACET(">=", false, false, false, false),
+    MIN_INCLUSIVE_FACET(">=", false, false, false, false, false),
 
-    MAX_INCLUSIVE_FACET("<=", false, false, false, false),
+    MAX_INCLUSIVE_FACET("<=", false, false, false, false, false),
 
-    MIN_EXCLUSIVE_FACET(">", false, false, false, false),
+    MIN_EXCLUSIVE_FACET(">", false, false, false, false, false),
 
-    MAX_EXCLUSIVE_FACET("<", false, false, false, false),
+    MAX_EXCLUSIVE_FACET("<", false, false, false, false, false),
 
-    ONE_OF_DELIMETER(",", false, false, false, false),
+    ONE_OF_DELIMETER(",", false, false, false, false, false),
 
-    TYPES("Types", true, true, false, false),
+    TYPES("Types", false, true, true, false, false),
 
-    TYPE("Type", true, true, false, false),
+    TYPE("Type", false, true, true, false, false),
 
-    ANNOTATIONS("Annotations", true, false, false, false),
+    ANNOTATIONS("Annotations", false, true, false, false, false),
 
-    COMMA(",", false, false, false, false),
+    COMMA(",", false, false, false, false, false),
 
-    DOMAIN("Domain", true, true, false, false),
+    DOMAIN("Domain", false, true, true, false, false),
 
-    RANGE("Range", true, true, false, false),
+    RANGE("Range", false, true, true, false, false),
 
-    CHARACTERISTICS("Characteristics", true, false, false, false),
+    CHARACTERISTICS("Characteristics", false, true, false, false, false),
 
-    FUNCTIONAL("Functional", false, true, false, false),
+    FUNCTIONAL("Functional", false, false, true, false, false),
 
-    INVERSE_FUNCTIONAL("InverseFunctional", false, true, false, false),
+    INVERSE_FUNCTIONAL("InverseFunctional", false, false, true, false, false),
 
-    SYMMETRIC("Symmetric", false, true, false, false),
+    SYMMETRIC("Symmetric", false, false, true, false, false),
 
-    TRANSITIVE("Transitive", false, true, false, false),
+    TRANSITIVE("Transitive", false, false, true, false, false),
 
-    REFLEXIVE("Reflexive", false, true, false, false),
+    REFLEXIVE("Reflexive", false, false, true, false, false),
 
-    IRREFLEXIVE("Irreflexive", false, true, false, false),
+    IRREFLEXIVE("Irreflexive", false, false, true, false, false),
 
     /**
      * For legacy reasons
      */
-    ANTI_SYMMETRIC("AntiSymmetric", false, true, false, false),
+    ANTI_SYMMETRIC("AntiSymmetric", false, false, true, false, false),
 
-    ASYMMETRIC("Asymmetric", false, true, false, false),
+    ASYMMETRIC("Asymmetric", false, false, true, false, false),
 
-    INVERSE_OF("InverseOf", true, true, false, false),
+    INVERSE_OF("InverseOf", false, true, true, false, false),
 
-    INVERSES("Inverses", true, false, false, false),
+    INVERSES("Inverses", false, true, false, false, false),
 
-    SUB_PROPERTY_OF("SubPropertyOf", true, true, false, false),
+    SUB_PROPERTY_OF("SubPropertyOf", false, true, true, false, false),
 
-    SUPER_PROPERTY_OF("SuperPropertyOf", true, true, false, false),
+    SUPER_PROPERTY_OF("SuperPropertyOf", false, true, true, false, false),
 
-    SUB_PROPERTY_CHAIN("SubPropertyChain", true, true, false, false),
+    SUB_PROPERTY_CHAIN("SubPropertyChain", false, true, true, false, false),
 
-    HAS_KEY("HasKey", true, false, false, false),
+    HAS_KEY("HasKey", false, true, false, false, false),
 
-    RULE("Rule", true, false, false, false);
+    RULE("Rule", true, true, false, false, false);
+
+    private boolean frameKeyword;
 
     private boolean sectionKeyword;
 
@@ -180,12 +182,17 @@ public enum ManchesterOWLSyntax {
 
     private String rendering;
 
-    private ManchesterOWLSyntax(String rendering, boolean sectionKeyword, boolean axiomKeyword, boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword) {
+    private ManchesterOWLSyntax(String rendering, boolean frameKeyword, boolean sectionKeyword, boolean axiomKeyword, boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword) {
         this.rendering = rendering;
+        this.frameKeyword = frameKeyword;
         this.sectionKeyword = sectionKeyword;
         this.axiomKeyword = axiomKeyword;
         this.classExpressionConnectiveKeyword = classExpressionConnectiveKeyword;
         this.classExpressionQuantiferKeyword = classExpressionQuantifierKeyword;
+    }
+
+    public boolean isFrameKeyword() {
+        return frameKeyword;
     }
 
 

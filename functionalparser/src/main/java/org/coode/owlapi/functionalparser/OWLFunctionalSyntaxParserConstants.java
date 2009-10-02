@@ -191,29 +191,67 @@ public interface OWLFunctionalSyntaxParserConstants {
   /** RegularExpression Id. */
   int FRACTIONDIGITS = 98;
   /** RegularExpression Id. */
-  int EQUALS = 99;
+  int DLSAFERULE = 99;
   /** RegularExpression Id. */
-  int INT = 100;
+  int BODY = 100;
   /** RegularExpression Id. */
-  int FULLIRI = 101;
+  int HEAD = 101;
   /** RegularExpression Id. */
-  int PNAME_NS = 102;
+  int CLASSATOM = 102;
   /** RegularExpression Id. */
-  int PN_LOCAL = 103;
+  int DATARANGEATOM = 103;
   /** RegularExpression Id. */
-  int PNAME_LN = 104;
+  int OBJECTPROPERTYATOM = 104;
   /** RegularExpression Id. */
-  int PN_PREFIX = 105;
+  int DATAPROPERTYATOM = 105;
   /** RegularExpression Id. */
-  int PN_CHARS_BASE = 106;
+  int BUILTINATOM = 106;
   /** RegularExpression Id. */
-  int PN_CHARS = 107;
+  int SAMEINDIVIDUALATOM = 107;
   /** RegularExpression Id. */
-  int PN_CHARS_U = 108;
+  int DIFFERENTINDIVIDUALSATOM = 108;
   /** RegularExpression Id. */
-  int NODEID = 109;
+  int INDIVIDUALVARIABLE = 109;
   /** RegularExpression Id. */
-  int ERROR = 110;
+  int LITERALVARIABLE = 110;
+  /** RegularExpression Id. */
+  int DGRULE = 111;
+  /** RegularExpression Id. */
+  int DESCRIPTIONGRAPH = 112;
+  /** RegularExpression Id. */
+  int NODES = 113;
+  /** RegularExpression Id. */
+  int NODEASSERTION = 114;
+  /** RegularExpression Id. */
+  int EDGES = 115;
+  /** RegularExpression Id. */
+  int EDGEASSERTION = 116;
+  /** RegularExpression Id. */
+  int MAINCLASSES = 117;
+  /** RegularExpression Id. */
+  int EQUALS = 118;
+  /** RegularExpression Id. */
+  int INT = 119;
+  /** RegularExpression Id. */
+  int FULLIRI = 120;
+  /** RegularExpression Id. */
+  int PNAME_NS = 121;
+  /** RegularExpression Id. */
+  int PN_LOCAL = 122;
+  /** RegularExpression Id. */
+  int PNAME_LN = 123;
+  /** RegularExpression Id. */
+  int PN_PREFIX = 124;
+  /** RegularExpression Id. */
+  int PN_CHARS_BASE = 125;
+  /** RegularExpression Id. */
+  int PN_CHARS = 126;
+  /** RegularExpression Id. */
+  int PN_CHARS_U = 127;
+  /** RegularExpression Id. */
+  int NODEID = 128;
+  /** RegularExpression Id. */
+  int ERROR = 129;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -323,6 +361,25 @@ public interface OWLFunctionalSyntaxParserConstants {
     "\"maxExclusive\"",
     "\"totalDigits\"",
     "\"fractionDigits\"",
+    "\"DLSafeRule\"",
+    "\"Body\"",
+    "\"Head\"",
+    "\"ClassAtom\"",
+    "\"DataRangeAtom\"",
+    "\"ObjectPropertyAtom\"",
+    "\"DataPropertyAtom\"",
+    "\"BuiltInAtom\"",
+    "\"SameIndividualAtom\"",
+    "\"DifferentIndividualsAtom\"",
+    "\"IndividualVariable\"",
+    "\"LiteralVariable\"",
+    "\"DescriptionGraphRule\"",
+    "\"DescriptionGraph\"",
+    "\"Nodes\"",
+    "\"NodeAssertion\"",
+    "\"Edges\"",
+    "\"EdgeAssertion\"",
+    "\"MainClasses\"",
     "\"=\"",
     "<INT>",
     "<FULLIRI>",

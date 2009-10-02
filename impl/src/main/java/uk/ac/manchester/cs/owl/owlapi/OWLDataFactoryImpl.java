@@ -1148,7 +1148,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
                                 Set<? extends SWRLAtom> body,
                                 Set<? extends SWRLAtom> head) {
 
-        return new SWRLRuleImpl(this, iri, body, head, EMPTY_ANNOTATIONS_SET);
+        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>(2);
+        annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/owlapi#iri")), getOWLStringLiteral(iri.toQuotedString())));
+        return new SWRLRuleImpl(this, body, head, annos);
     }
 
 
@@ -1160,9 +1162,21 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      */
 
     public SWRLRule getSWRLRule(NodeID nodeID, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
-        return new SWRLRuleImpl(this, nodeID, body, head, EMPTY_ANNOTATIONS_SET);
+        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>(2);
+        annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/owlapi#nodeID")), getOWLStringLiteral(nodeID.toString())));
+        return new SWRLRuleImpl(this, body, head, annos);
     }
 
+    /**
+     * Gets an anonymous SWRL Rule
+     * @param body        The atoms that make up the body
+     * @param head        The atoms that make up the head
+     * @param annotations The annotations for the rule (may be an empty set)
+     * @return An anonymous rule with the specified body and head
+     */
+    public SWRLRule getSWRLRule(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Set<OWLAnnotation> annotations) {
+        return new SWRLRuleImpl(this, body, head, annotations);
+    }
 
     /**
      * Gets a SWRL rule which is anonymous - i.e. isn't named with a URI
@@ -1236,7 +1250,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Creates a SWRL Built-In atom.
-     * @param builtIn The SWRL builtIn (see SWRL W3 member submission)
+     * @param builtInIRI The SWRL builtIn (see SWRL W3 member submission)
      * @param args A non-empty set of SWRL D-Objects
      */
 

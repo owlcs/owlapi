@@ -876,6 +876,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
       ax = DatatypeDefinitionAxiom();
     } else if (jj_2_55(2)) {
       ax = AnnotationAxiom();
+    } else if (jj_2_56(2)) {
+      ax = DLSafeRule();
     } else {
       jj_consume_token(-1);
       throw new ParseException();
@@ -891,13 +893,13 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   final public OWLClassAxiom ClassAxiom() throws ParseException {
     OWLClassAxiom ax;
-    if (jj_2_56(2)) {
+    if (jj_2_57(2)) {
       ax = SubClassOf();
-    } else if (jj_2_57(2)) {
-      ax = EquivalentClasses();
     } else if (jj_2_58(2)) {
-      ax = DisjointClasses();
+      ax = EquivalentClasses();
     } else if (jj_2_59(2)) {
+      ax = DisjointClasses();
+    } else if (jj_2_60(2)) {
       ax = DisjointUnion();
     } else {
       jj_consume_token(-1);
@@ -966,31 +968,31 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   final public OWLPropertyAxiom ObjectPropertyAxiom() throws ParseException {
     OWLPropertyAxiom ax;
-    if (jj_2_60(2)) {
+    if (jj_2_61(2)) {
       ax = SubObjectPropertyOf();
-    } else if (jj_2_61(2)) {
-      ax = EquivalentObjectProperties();
     } else if (jj_2_62(2)) {
-      ax = DisjointObjectProperties();
+      ax = EquivalentObjectProperties();
     } else if (jj_2_63(2)) {
-      ax = ObjectPropertyRange();
+      ax = DisjointObjectProperties();
     } else if (jj_2_64(2)) {
-      ax = ObjectPropertyDomain();
+      ax = ObjectPropertyRange();
     } else if (jj_2_65(2)) {
-      ax = FunctionalObjectProperty();
+      ax = ObjectPropertyDomain();
     } else if (jj_2_66(2)) {
-      ax = InverseFunctionalObjectProperty();
+      ax = FunctionalObjectProperty();
     } else if (jj_2_67(2)) {
-      ax = SymmetricObjectProperty();
+      ax = InverseFunctionalObjectProperty();
     } else if (jj_2_68(2)) {
-      ax = AntiSymmetricObjectProperty();
+      ax = SymmetricObjectProperty();
     } else if (jj_2_69(2)) {
-      ax = ReflexiveObjectProperty();
+      ax = AsymmetricObjectProperty();
     } else if (jj_2_70(2)) {
-      ax = IrreflexiveObjectProperty();
+      ax = ReflexiveObjectProperty();
     } else if (jj_2_71(2)) {
-      ax = TransitiveObjectProperty();
+      ax = IrreflexiveObjectProperty();
     } else if (jj_2_72(2)) {
+      ax = TransitiveObjectProperty();
+    } else if (jj_2_73(2)) {
       ax = InverseObjectProperties();
     } else {
       jj_consume_token(-1);
@@ -1009,7 +1011,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                                                                        props.add(prop);
     label_10:
     while (true) {
-      if (jj_2_73(2)) {
+      if (jj_2_74(2)) {
         ;
       } else {
         break label_10;
@@ -1030,9 +1032,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(SUBOBJECTPROPERTYOF);
     jj_consume_token(OPENPAR);
     axiomAnnos = AxiomAnnotationSet();
-    if (jj_2_74(2)) {
+    if (jj_2_75(2)) {
       subProperty = ObjectPropertyExpression();
-    } else if (jj_2_75(2)) {
+    } else if (jj_2_76(2)) {
       chain = SubObjectPropertyChain();
     } else {
       jj_consume_token(-1);
@@ -1085,7 +1087,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                                                                                        props.add(prop);
     label_11:
     while (true) {
-      if (jj_2_76(2)) {
+      if (jj_2_77(2)) {
         ;
       } else {
         break label_11;
@@ -1175,7 +1177,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     throw new Error("Missing return statement in function");
   }
 
-  final public OWLPropertyAxiom AntiSymmetricObjectProperty() throws ParseException {
+  final public OWLPropertyAxiom AsymmetricObjectProperty() throws ParseException {
     OWLObjectPropertyExpression prop;
     Set<OWLAnnotation> axiomAnnos;
     jj_consume_token(ASYMMETRICOBJECTPROPERTY);
@@ -1230,17 +1232,17 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   final public OWLPropertyAxiom DataPropertyAxiom() throws ParseException {
     OWLPropertyAxiom ax;
-    if (jj_2_77(2)) {
+    if (jj_2_78(2)) {
       ax = SubDataPropertyOf();
-    } else if (jj_2_78(2)) {
-      ax = EquivalentDataProperties();
     } else if (jj_2_79(2)) {
-      ax = DisjointDataProperties();
+      ax = EquivalentDataProperties();
     } else if (jj_2_80(2)) {
-      ax = DataPropertyRange();
+      ax = DisjointDataProperties();
     } else if (jj_2_81(2)) {
-      ax = DataPropertyDomain();
+      ax = DataPropertyRange();
     } else if (jj_2_82(2)) {
+      ax = DataPropertyDomain();
+    } else if (jj_2_83(2)) {
       ax = FunctionalDataProperty();
     } else {
       jj_consume_token(-1);
@@ -1297,7 +1299,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                                                                                    props.add(prop);
     label_12:
     while (true) {
-      if (jj_2_83(2)) {
+      if (jj_2_84(2)) {
         ;
       } else {
         break label_12;
@@ -1356,19 +1358,19 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   final public OWLIndividualAxiom IndividualAxiom() throws ParseException {
     OWLIndividualAxiom ax;
-    if (jj_2_84(2)) {
+    if (jj_2_85(2)) {
       ax = SameIndividuals();
-    } else if (jj_2_85(2)) {
-      ax = DifferentIndividuals();
     } else if (jj_2_86(2)) {
-      ax = ClassAssertion();
+      ax = DifferentIndividuals();
     } else if (jj_2_87(2)) {
-      ax = ObjectPropertyAssertion();
+      ax = ClassAssertion();
     } else if (jj_2_88(2)) {
-      ax = DataPropertyAssertion();
+      ax = ObjectPropertyAssertion();
     } else if (jj_2_89(2)) {
-      ax = NegativeObjectPropertyAssertion();
+      ax = DataPropertyAssertion();
     } else if (jj_2_90(2)) {
+      ax = NegativeObjectPropertyAssertion();
+    } else if (jj_2_91(2)) {
       ax = NegativeDataPropertyAssertion();
     } else {
       jj_consume_token(-1);
@@ -1387,7 +1389,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                                                               individuals.add(ind);
     label_13:
     while (true) {
-      if (jj_2_91(2)) {
+      if (jj_2_92(2)) {
         ;
       } else {
         break label_13;
@@ -1510,9 +1512,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final public OWLIndividual Individual() throws ParseException {
     OWLIndividual ind;
-    if (jj_2_92(2)) {
+    if (jj_2_93(2)) {
       ind = IndividualURI();
-    } else if (jj_2_93(2)) {
+    } else if (jj_2_94(2)) {
       ind = AnonymousIndividual();
     } else {
       jj_consume_token(-1);
@@ -1536,13 +1538,13 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   final public OWLAxiom AnnotationAxiom() throws ParseException {
     OWLAxiom axiom;
-    if (jj_2_94(2)) {
+    if (jj_2_95(2)) {
       axiom = AnnotationAssertion();
-    } else if (jj_2_95(2)) {
-      axiom = AnnotationPropertyDomain();
     } else if (jj_2_96(2)) {
-      axiom = AnnotationPropertyRange();
+      axiom = AnnotationPropertyDomain();
     } else if (jj_2_97(2)) {
+      axiom = AnnotationPropertyRange();
+    } else if (jj_2_98(2)) {
       axiom = SubAnnotationPropertyOf();
     } else {
       jj_consume_token(-1);
@@ -1562,7 +1564,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(OPENPAR);
     label_14:
     while (true) {
-      if (jj_2_98(2)) {
+      if (jj_2_99(2)) {
         ;
       } else {
         break label_14;
@@ -1579,9 +1581,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final public OWLAnnotationSubject AnnotationSubject() throws ParseException {
     OWLAnnotationSubject subj;
-    if (jj_2_99(2)) {
+    if (jj_2_100(2)) {
       subj = IRI();
-    } else if (jj_2_100(2)) {
+    } else if (jj_2_101(2)) {
       subj = AnonymousIndividual();
     } else {
       jj_consume_token(-1);
@@ -1593,11 +1595,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final public OWLAnnotationValue AnnotationValue() throws ParseException {
     OWLAnnotationValue value;
-    if (jj_2_101(2)) {
+    if (jj_2_102(2)) {
       value = IRI();
-    } else if (jj_2_102(2)) {
-      value = AnonymousIndividual();
     } else if (jj_2_103(2)) {
+      value = AnonymousIndividual();
+    } else if (jj_2_104(2)) {
       value = Literal();
     } else {
       jj_consume_token(-1);
@@ -1610,15 +1612,17 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   final public Set<OWLAnnotation> AxiomAnnotationSet() throws ParseException {
     Set<OWLAnnotation> annos = Collections.emptySet();
     OWLAnnotation anno;
-     annos = new HashSet<OWLAnnotation>();
     label_15:
     while (true) {
-      if (jj_2_104(2)) {
+      if (jj_2_105(2)) {
         ;
       } else {
         break label_15;
       }
       anno = Annotation();
+        if(annos == null) {
+            annos = new HashSet<OWLAnnotation>();
+        }
         annos.add(anno);
     }
         {if (true) return annos;}
@@ -1706,7 +1710,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(OPENPAR);
     label_16:
     while (true) {
-      if (jj_2_105(2)) {
+      if (jj_2_106(2)) {
         ;
       } else {
         break label_16;
@@ -1718,7 +1722,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_consume_token(OPENPAR);
     label_17:
     while (true) {
-      if (jj_2_106(2)) {
+      if (jj_2_107(2)) {
         ;
       } else {
         break label_17;
@@ -1753,17 +1757,17 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   final public OWLEntity Entity() throws ParseException {
     OWLEntity entity;
-    if (jj_2_107(2)) {
+    if (jj_2_108(2)) {
       entity = Class();
-    } else if (jj_2_108(2)) {
-      entity = ObjectProperty();
     } else if (jj_2_109(2)) {
-      entity = DataProperty();
+      entity = ObjectProperty();
     } else if (jj_2_110(2)) {
-      entity = NamedIndividual();
+      entity = DataProperty();
     } else if (jj_2_111(2)) {
-      entity = Datatype();
+      entity = NamedIndividual();
     } else if (jj_2_112(2)) {
+      entity = Datatype();
+    } else if (jj_2_113(2)) {
       entity = AnnotationProperty();
     } else {
       jj_consume_token(-1);
@@ -1780,9 +1784,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   final public OWLLiteral Literal() throws ParseException {
     OWLLiteral con;
-    if (jj_2_113(2)) {
+    if (jj_2_114(2)) {
       con = TypedLiteral();
-    } else if (jj_2_114(2)) {
+    } else if (jj_2_115(2)) {
       con = StringLiteral();
     } else {
       jj_consume_token(-1);
@@ -1796,7 +1800,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     String literal;
     OWLDatatype datatype=null;
     literal = QuotedString();
-    jj_consume_token(111);
+    jj_consume_token(130);
     datatype = DatatypeURI();
             {if (true) return dataFactory.getOWLTypedLiteral(literal, datatype);}
     throw new Error("Missing return statement in function");
@@ -1806,7 +1810,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     String literal;
     String lang = null;
     literal = QuotedString();
-    if (jj_2_115(2)) {
+    if (jj_2_116(2)) {
       lang = LangTag();
     } else {
       ;
@@ -1827,13 +1831,223 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     String lang = "";
         Token t;
     jj_consume_token(LANGIDENTIFIER);
-    if (jj_2_116(2)) {
+    if (jj_2_117(2)) {
       t = jj_consume_token(PN_LOCAL);
                                     lang += t.image;
     } else {
       ;
     }
         {if (true) return lang;}
+    throw new Error("Missing return statement in function");
+  }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Rules
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  final public SWRLRule DLSafeRule() throws ParseException {
+    Set<OWLAnnotation> annos;
+    SWRLAtom atom;
+    Set<SWRLAtom> body;
+    Set<SWRLAtom> head;
+    jj_consume_token(DLSAFERULE);
+    jj_consume_token(OPENPAR);
+    annos = AxiomAnnotationSet();
+    jj_consume_token(BODY);
+                                                                body=new HashSet<SWRLAtom>();
+    jj_consume_token(OPENPAR);
+    label_18:
+    while (true) {
+      if (jj_2_118(2)) {
+        ;
+      } else {
+        break label_18;
+      }
+      atom = Atom();
+                                                                                                                      body.add(atom);
+    }
+    jj_consume_token(CLOSEPAR);
+    jj_consume_token(HEAD);
+                                                                                                                                                            head= new HashSet<SWRLAtom>();
+    jj_consume_token(OPENPAR);
+    label_19:
+    while (true) {
+      if (jj_2_119(2)) {
+        ;
+      } else {
+        break label_19;
+      }
+      atom = Atom();
+                                                                                                                                                                                                                   head.add(atom);
+    }
+    jj_consume_token(CLOSEPAR);
+    jj_consume_token(CLOSEPAR);
+        {if (true) return dataFactory.getSWRLRule(body, head, annos);}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public SWRLAtom Atom() throws ParseException {
+    SWRLAtom atom;
+    if (jj_2_120(2)) {
+      atom = ClassAtom();
+    } else if (jj_2_121(2)) {
+      atom = DataRangeAtom();
+    } else if (jj_2_122(2)) {
+      atom = ObjectPropertyAtom();
+    } else if (jj_2_123(2)) {
+      atom = DataPropertyAtom();
+    } else if (jj_2_124(2)) {
+      atom = BuiltInAtom();
+    } else if (jj_2_125(2)) {
+      atom = SameIndividualAtom();
+    } else if (jj_2_126(2)) {
+      atom = DifferentIndividualsAtom();
+    } else {
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+       {if (true) return atom;}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public SWRLClassAtom ClassAtom() throws ParseException {
+    OWLClassExpression ce;
+    SWRLIArgument arg0;
+    jj_consume_token(CLASSATOM);
+    jj_consume_token(OPENPAR);
+    ce = ClassExpression();
+    arg0 = IArg();
+    jj_consume_token(CLOSEPAR);
+                                                                       {if (true) return dataFactory.getSWRLClassAtom(ce, arg0);}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public SWRLDataRangeAtom DataRangeAtom() throws ParseException {
+    OWLDataRange rng;
+    SWRLDArgument arg0;
+    jj_consume_token(DATARANGEATOM);
+    jj_consume_token(OPENPAR);
+    rng = DataRange();
+    arg0 = DArg();
+    jj_consume_token(CLOSEPAR);
+                                                                      {if (true) return dataFactory.getSWRLDataRangeAtom(rng, arg0);}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public SWRLObjectPropertyAtom ObjectPropertyAtom() throws ParseException {
+    OWLObjectPropertyExpression prop;
+    SWRLIArgument arg0;
+    SWRLIArgument arg1;
+    jj_consume_token(OBJECTPROPERTYATOM);
+    jj_consume_token(OPENPAR);
+    prop = ObjectPropertyExpression();
+    arg0 = IArg();
+    arg1 = IArg();
+    jj_consume_token(CLOSEPAR);
+                                                                                                      {if (true) return dataFactory.getSWRLObjectPropertyAtom(prop, arg0, arg1);}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public SWRLDataPropertyAtom DataPropertyAtom() throws ParseException {
+    OWLDataProperty prop;
+    SWRLIArgument arg0;
+    SWRLDArgument arg1;
+    jj_consume_token(DATAPROPERTYATOM);
+    jj_consume_token(OPENPAR);
+    prop = DataProperty();
+    arg0 = IArg();
+    arg1 = DArg();
+    jj_consume_token(CLOSEPAR);
+                                                                                         {if (true) return dataFactory.getSWRLDataPropertyAtom(prop, arg0, arg1);}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public SWRLBuiltInAtom BuiltInAtom() throws ParseException {
+    IRI iri;
+    List<SWRLDArgument> args;;
+    SWRLDArgument arg;
+    jj_consume_token(BUILTINATOM);
+    jj_consume_token(OPENPAR);
+                             args=new ArrayList<SWRLDArgument>();
+    iri = IRI();
+    arg = DArg();
+                                                                                        args.add(arg);
+    label_20:
+    while (true) {
+      if (jj_2_127(2)) {
+        ;
+      } else {
+        break label_20;
+      }
+      arg = DArg();
+                                                                                                                    args.add(arg);
+    }
+    jj_consume_token(CLOSEPAR);
+                                                                                                                                                  {if (true) return dataFactory.getSWRLBuiltInAtom(iri, args);}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public SWRLSameIndividualAtom SameIndividualAtom() throws ParseException {
+    SWRLIArgument arg0;
+    SWRLIArgument arg1;
+    jj_consume_token(SAMEINDIVIDUALATOM);
+    jj_consume_token(OPENPAR);
+    arg0 = IArg();
+    arg1 = IArg();
+    jj_consume_token(CLOSEPAR);
+                                                                      {if (true) return dataFactory.getSWRLSameIndividualAtom(arg0, arg1);}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public SWRLDifferentIndividualsAtom DifferentIndividualsAtom() throws ParseException {
+    SWRLIArgument arg0;
+    SWRLIArgument arg1;
+    jj_consume_token(DIFFERENTINDIVIDUALSATOM);
+    jj_consume_token(OPENPAR);
+    arg0 = IArg();
+    arg1 = IArg();
+    jj_consume_token(CLOSEPAR);
+                                                                             {if (true) return dataFactory.getSWRLDifferentIndividualsAtom(arg0, arg1);}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public SWRLIArgument IArg() throws ParseException {
+    OWLNamedIndividual ind;
+    SWRLIArgument arg;
+    IRI iri;
+    if (jj_2_128(2)) {
+      ind = NamedIndividual();
+                              {if (true) return dataFactory.getSWRLIndividualArgument(ind);}
+    } else if (jj_2_129(2)) {
+      jj_consume_token(INDIVIDUALVARIABLE);
+      jj_consume_token(OPENPAR);
+      iri = IRI();
+      jj_consume_token(CLOSEPAR);
+                                                              {if (true) return dataFactory.getSWRLIndividualVariable(iri);}
+    } else {
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    throw new Error("Missing return statement in function");
+  }
+
+  final public SWRLDArgument DArg() throws ParseException {
+    OWLLiteral literal;
+    IRI iri;
+    if (jj_2_130(2)) {
+      literal = Literal();
+                        {if (true) return dataFactory.getSWRLLiteralArgument(literal);}
+    } else if (jj_2_131(2)) {
+      jj_consume_token(LITERALVARIABLE);
+      jj_consume_token(OPENPAR);
+      iri = IRI();
+      jj_consume_token(CLOSEPAR);
+                                                                                                                                 {if (true) return dataFactory.getSWRLLiteralVariable(iri);}
+    } else {
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
     throw new Error("Missing return statement in function");
   }
 
@@ -2649,526 +2863,361 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     finally { jj_save(115, xla); }
   }
 
-  private boolean jj_3_62() {
-    if (jj_3R_70()) return true;
-    return false;
+  private boolean jj_2_117(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_117(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(116, xla); }
   }
 
-  private boolean jj_3_97() {
-    if (jj_3R_102()) return true;
-    return false;
+  private boolean jj_2_118(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_118(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(117, xla); }
   }
 
-  private boolean jj_3_6() {
-    if (jj_3R_21()) return true;
-    return false;
+  private boolean jj_2_119(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_119(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(118, xla); }
   }
 
-  private boolean jj_3_96() {
-    if (jj_3R_101()) return true;
-    return false;
+  private boolean jj_2_120(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_120(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(119, xla); }
   }
 
-  private boolean jj_3_95() {
-    if (jj_3R_100()) return true;
-    return false;
+  private boolean jj_2_121(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_121(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(120, xla); }
   }
 
-  private boolean jj_3_94() {
-    if (jj_3R_99()) return true;
-    return false;
+  private boolean jj_2_122(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_122(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(121, xla); }
   }
 
-  private boolean jj_3R_70() {
-    if (jj_scan_token(DISJOINTOBJECTPROPERTIES)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
+  private boolean jj_2_123(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_123(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(122, xla); }
   }
 
-  private boolean jj_3R_63() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_94()) {
-    jj_scanpos = xsp;
-    if (jj_3_95()) {
-    jj_scanpos = xsp;
-    if (jj_3_96()) {
-    jj_scanpos = xsp;
-    if (jj_3_97()) return true;
-    }
-    }
-    }
-    return false;
+  private boolean jj_2_124(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_124(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(123, xla); }
   }
 
-  private boolean jj_3R_46() {
-    if (jj_scan_token(OBJECTINVERSEOF)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
+  private boolean jj_2_125(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_125(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(124, xla); }
   }
 
-  private boolean jj_3_4() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_5()) {
-    jj_scanpos = xsp;
-    if (jj_3_6()) return true;
-    }
-    return false;
+  private boolean jj_2_126(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_126(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(125, xla); }
   }
 
-  private boolean jj_3_5() {
-    if (jj_3R_20()) return true;
-    return false;
+  private boolean jj_2_127(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_127(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(126, xla); }
   }
 
-  private boolean jj_3_65() {
-    if (jj_3R_73()) return true;
-    return false;
+  private boolean jj_2_128(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_128(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(127, xla); }
   }
 
-  private boolean jj_3_93() {
-    if (jj_3R_98()) return true;
-    return false;
+  private boolean jj_2_129(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_129(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(128, xla); }
   }
 
-  private boolean jj_3_36() {
-    if (jj_3R_46()) return true;
-    return false;
+  private boolean jj_2_130(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_130(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(129, xla); }
   }
 
-  private boolean jj_3R_81() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_36()) {
-    jj_scanpos = xsp;
-    if (jj_3_37()) return true;
-    }
-    return false;
-  }
-
-  private boolean jj_3R_69() {
-    if (jj_scan_token(EQUIVALENTOBJECTPROPERTIES)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_47() {
-    if (jj_3R_19()) return true;
-    return false;
-  }
-
-  private boolean jj_3_67() {
-    if (jj_3R_75()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_103() {
-    if (jj_scan_token(CLASS)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_1() {
-    if (jj_3R_18()) return true;
-    return false;
-  }
-
-  private boolean jj_3_70() {
-    if (jj_3R_78()) return true;
-    return false;
-  }
-
-  private boolean jj_3_92() {
-    if (jj_3R_44()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_97() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_92()) {
-    jj_scanpos = xsp;
-    if (jj_3_93()) return true;
-    }
-    return false;
-  }
-
-  private boolean jj_3_32() {
-    if (jj_3R_43()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_68() {
-    if (jj_scan_token(SUBOBJECTPROPERTYOF)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_64() {
-    if (jj_3R_72()) return true;
-    return false;
-  }
-
-  private boolean jj_3_61() {
-    if (jj_3R_69()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_42() {
-    if (jj_scan_token(DATAMAXCARDINALITY)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_44() {
-    if (jj_3R_19()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_82() {
-    if (jj_scan_token(SUBOBJECTPROPERTYCHAIN)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_31() {
-    if (jj_3R_43()) return true;
-    return false;
+  private boolean jj_2_131(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_131(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(130, xla); }
   }
 
   private boolean jj_3R_96() {
-    if (jj_scan_token(NEGATIVEDATAPROPERTYASSERTION)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_91() {
-    if (jj_3R_97()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_41() {
-    if (jj_scan_token(DATAEXACTCARDINALITY)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_59() {
-    if (jj_3R_67()) return true;
-    return false;
-  }
-
-  private boolean jj_3_69() {
-    if (jj_3R_77()) return true;
-    return false;
-  }
-
-  private boolean jj_3_66() {
-    if (jj_3R_74()) return true;
-    return false;
-  }
-
-  private boolean jj_3_63() {
-    if (jj_3R_71()) return true;
-    return false;
-  }
-
-  private boolean jj_3_60() {
-    if (jj_3R_68()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_57() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_60()) {
-    jj_scanpos = xsp;
-    if (jj_3_61()) {
-    jj_scanpos = xsp;
-    if (jj_3_62()) {
-    jj_scanpos = xsp;
-    if (jj_3_63()) {
-    jj_scanpos = xsp;
-    if (jj_3_64()) {
-    jj_scanpos = xsp;
-    if (jj_3_65()) {
-    jj_scanpos = xsp;
-    if (jj_3_66()) {
-    jj_scanpos = xsp;
-    if (jj_3_67()) {
-    jj_scanpos = xsp;
-    if (jj_3_68()) {
-    jj_scanpos = xsp;
-    if (jj_3_69()) {
-    jj_scanpos = xsp;
-    if (jj_3_70()) {
-    jj_scanpos = xsp;
-    if (jj_3_71()) {
-    jj_scanpos = xsp;
-    if (jj_3_72()) return true;
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    return false;
-  }
-
-  private boolean jj_3R_94() {
-    if (jj_scan_token(DATAPROPERTYASSERTION)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_30() {
-    if (jj_3R_43()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_40() {
-    if (jj_scan_token(DATAMINCARDINALITY)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_87() {
-    if (jj_3R_93()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_95() {
-    if (jj_scan_token(NEGATIVEOBJECTPROPERTYASSERTION)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_67() {
-    if (jj_scan_token(DISJOINTUNION)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_90() {
-    if (jj_3R_96()) return true;
-    return false;
-  }
-
-  private boolean jj_3_58() {
-    if (jj_3R_66()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_39() {
-    if (jj_scan_token(DATAHASVALUE)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_93() {
-    if (jj_scan_token(OBJECTPROPERTYASSERTION)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_66() {
-    if (jj_scan_token(DISJOINTCLASSES)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_37() {
-    if (jj_scan_token(DATASOMEVALUESFROM)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_86() {
-    if (jj_3R_92()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_92() {
     if (jj_scan_token(CLASSASSERTION)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_65() {
+  private boolean jj_3R_69() {
     if (jj_scan_token(EQUIVALENTCLASSES)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_83() {
-    if (jj_3R_89()) return true;
+  private boolean jj_3_84() {
+    if (jj_3R_93()) return true;
     return false;
   }
 
-  private boolean jj_3R_38() {
+  private boolean jj_3R_118() {
+    if (jj_scan_token(DATARANGEATOM)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_58() {
+    if (jj_3R_69()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_41() {
     if (jj_scan_token(DATAALLVALUESFROM)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_57() {
-    if (jj_3R_65()) return true;
+  private boolean jj_3_113() {
+    if (jj_3R_112()) return true;
     return false;
   }
 
-  private boolean jj_3R_64() {
+  private boolean jj_3R_117() {
+    if (jj_scan_token(CLASSATOM)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_68() {
     if (jj_scan_token(SUBCLASSOF)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_112() {
-    if (jj_3R_108()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_91() {
+  private boolean jj_3R_95() {
     if (jj_scan_token(DIFFERENTINDIVIDUALS)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_89() {
-    if (jj_3R_95()) return true;
+  private boolean jj_3_90() {
+    if (jj_3R_99()) return true;
     return false;
   }
 
   private boolean jj_3_43() {
-    if (jj_3R_53()) return true;
+    if (jj_3R_56()) return true;
     return false;
   }
 
-  private boolean jj_3R_36() {
+  private boolean jj_3_126() {
+    if (jj_3R_123()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_39() {
     if (jj_scan_token(OBJECTMAXCARDINALITY)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_56() {
-    if (jj_3R_64()) return true;
+  private boolean jj_3_125() {
+    if (jj_3R_122()) return true;
     return false;
   }
 
-  private boolean jj_3_85() {
-    if (jj_3R_91()) return true;
+  private boolean jj_3_57() {
+    if (jj_3R_68()) return true;
     return false;
   }
 
-  private boolean jj_3R_90() {
+  private boolean jj_3_86() {
+    if (jj_3R_95()) return true;
+    return false;
+  }
+
+  private boolean jj_3_124() {
+    if (jj_3R_121()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_94() {
     if (jj_scan_token(SAMEINDIVIDUAL)) return true;
     if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_56() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_56()) {
-    jj_scanpos = xsp;
-    if (jj_3_57()) {
-    jj_scanpos = xsp;
-    if (jj_3_58()) {
-    jj_scanpos = xsp;
-    if (jj_3_59()) return true;
-    }
-    }
-    }
-    return false;
-  }
-
-  private boolean jj_3_47() {
-    if (jj_3R_55()) return true;
-    return false;
-  }
-
-  private boolean jj_3_111() {
-    if (jj_3R_107()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_35() {
-    if (jj_scan_token(OBJECTEXACTCARDINALITY)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_55() {
-    if (jj_3R_63()) return true;
-    return false;
-  }
-
-  private boolean jj_3_54() {
-    if (jj_3R_62()) return true;
-    return false;
-  }
-
-  private boolean jj_3_53() {
-    if (jj_3R_61()) return true;
-    return false;
-  }
-
-  private boolean jj_3_52() {
-    if (jj_3R_60()) return true;
-    return false;
-  }
-
-  private boolean jj_3_51() {
-    if (jj_3R_59()) return true;
-    return false;
-  }
-
-  private boolean jj_3_50() {
-    if (jj_3R_58()) return true;
-    return false;
-  }
-
-  private boolean jj_3_49() {
-    if (jj_3R_57()) return true;
-    return false;
-  }
-
-  private boolean jj_3_116() {
-    if (jj_scan_token(PN_LOCAL)) return true;
-    return false;
-  }
-
-  private boolean jj_3_42() {
-    if (jj_3R_52()) return true;
-    return false;
-  }
-
-  private boolean jj_3_48() {
-    if (jj_3R_56()) return true;
-    return false;
-  }
-
-  private boolean jj_3_84() {
-    if (jj_3R_90()) return true;
-    return false;
-  }
-
-  private boolean jj_3_88() {
-    if (jj_3R_94()) return true;
     return false;
   }
 
   private boolean jj_3R_59() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_84()) {
+    if (jj_3_57()) {
     jj_scanpos = xsp;
+    if (jj_3_58()) {
+    jj_scanpos = xsp;
+    if (jj_3_59()) {
+    jj_scanpos = xsp;
+    if (jj_3_60()) return true;
+    }
+    }
+    }
+    return false;
+  }
+
+  private boolean jj_3_123() {
+    if (jj_3R_120()) return true;
+    return false;
+  }
+
+  private boolean jj_3_122() {
+    if (jj_3R_119()) return true;
+    return false;
+  }
+
+  private boolean jj_3_121() {
+    if (jj_3R_118()) return true;
+    return false;
+  }
+
+  private boolean jj_3_120() {
+    if (jj_3R_117()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_116() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_120()) {
+    jj_scanpos = xsp;
+    if (jj_3_121()) {
+    jj_scanpos = xsp;
+    if (jj_3_122()) {
+    jj_scanpos = xsp;
+    if (jj_3_123()) {
+    jj_scanpos = xsp;
+    if (jj_3_124()) {
+    jj_scanpos = xsp;
+    if (jj_3_125()) {
+    jj_scanpos = xsp;
+    if (jj_3_126()) return true;
+    }
+    }
+    }
+    }
+    }
+    }
+    return false;
+  }
+
+  private boolean jj_3_112() {
+    if (jj_3R_111()) return true;
+    return false;
+  }
+
+  private boolean jj_3_47() {
+    if (jj_3R_58()) return true;
+    return false;
+  }
+
+  private boolean jj_3_56() {
+    if (jj_3R_67()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_67() {
+    if (jj_scan_token(DLSAFERULE)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_38() {
+    if (jj_scan_token(OBJECTEXACTCARDINALITY)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_55() {
+    if (jj_3R_66()) return true;
+    return false;
+  }
+
+  private boolean jj_3_54() {
+    if (jj_3R_65()) return true;
+    return false;
+  }
+
+  private boolean jj_3_53() {
+    if (jj_3R_64()) return true;
+    return false;
+  }
+
+  private boolean jj_3_117() {
+    if (jj_scan_token(PN_LOCAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3_52() {
+    if (jj_3R_63()) return true;
+    return false;
+  }
+
+  private boolean jj_3_51() {
+    if (jj_3R_62()) return true;
+    return false;
+  }
+
+  private boolean jj_3_50() {
+    if (jj_3R_61()) return true;
+    return false;
+  }
+
+  private boolean jj_3_49() {
+    if (jj_3R_60()) return true;
+    return false;
+  }
+
+  private boolean jj_3_42() {
+    if (jj_3R_55()) return true;
+    return false;
+  }
+
+  private boolean jj_3_85() {
+    if (jj_3R_94()) return true;
+    return false;
+  }
+
+  private boolean jj_3_89() {
+    if (jj_3R_98()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_62() {
+    Token xsp;
+    xsp = jj_scanpos;
     if (jj_3_85()) {
     jj_scanpos = xsp;
     if (jj_3_86()) {
@@ -3179,7 +3228,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_scanpos = xsp;
     if (jj_3_89()) {
     jj_scanpos = xsp;
-    if (jj_3_90()) return true;
+    if (jj_3_90()) {
+    jj_scanpos = xsp;
+    if (jj_3_91()) return true;
     }
     }
     }
@@ -3189,7 +3240,12 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_22() {
+  private boolean jj_3_48() {
+    if (jj_3R_59()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_25() {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3_48()) {
@@ -3206,7 +3262,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_scanpos = xsp;
     if (jj_3_54()) {
     jj_scanpos = xsp;
-    if (jj_3_55()) return true;
+    if (jj_3_55()) {
+    jj_scanpos = xsp;
+    if (jj_3_56()) return true;
+    }
     }
     }
     }
@@ -3217,289 +3276,289 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_34() {
+  private boolean jj_3_116() {
+    if (jj_3R_115()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_37() {
     if (jj_scan_token(OBJECTMINCARDINALITY)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_115() {
-    if (jj_3R_111()) return true;
+  private boolean jj_3_111() {
+    if (jj_3R_110()) return true;
     return false;
   }
 
-  private boolean jj_3_110() {
-    if (jj_3R_106()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_111() {
+  private boolean jj_3R_115() {
     if (jj_scan_token(LANGIDENTIFIER)) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_116()) jj_scanpos = xsp;
+    if (jj_3_117()) jj_scanpos = xsp;
     return false;
   }
 
   private boolean jj_3_44() {
-    if (jj_3R_54()) return true;
+    if (jj_3R_57()) return true;
     return false;
   }
 
-  private boolean jj_3R_88() {
+  private boolean jj_3R_92() {
     if (jj_scan_token(FUNCTIONALDATAPROPERTY)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
   private boolean jj_3_46() {
-    if (jj_3R_45()) return true;
+    if (jj_3R_48()) return true;
     return false;
   }
 
-  private boolean jj_3R_33() {
+  private boolean jj_3R_36() {
     if (jj_scan_token(OBJECTHASSELF)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_55() {
-    if (jj_3R_19()) return true;
-    if (jj_3R_54()) return true;
+  private boolean jj_3R_58() {
+    if (jj_3R_22()) return true;
+    if (jj_3R_57()) return true;
     return false;
   }
 
-  private boolean jj_3R_113() {
+  private boolean jj_3R_126() {
     if (jj_scan_token(STRINGLITERAL)) return true;
     return false;
   }
 
-  private boolean jj_3_41() {
-    if (jj_3R_51()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_86() {
+  private boolean jj_3R_90() {
     if (jj_scan_token(DATAPROPERTYRANGE)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_32() {
+  private boolean jj_3_41() {
+    if (jj_3R_54()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_114() {
+    if (jj_3R_126()) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_116()) jj_scanpos = xsp;
+    return false;
+  }
+
+  private boolean jj_3R_35() {
     if (jj_scan_token(OBJECTHASVALUE)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_110() {
-    if (jj_3R_113()) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_115()) jj_scanpos = xsp;
+  private boolean jj_3_110() {
+    if (jj_3R_109()) return true;
     return false;
   }
 
-  private boolean jj_3R_51() {
+  private boolean jj_3R_54() {
     if (jj_scan_token(DATATYPERESTRICTION)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
   private boolean jj_3_45() {
-    if (jj_3R_45()) return true;
+    if (jj_3R_48()) return true;
     return false;
   }
 
-  private boolean jj_3_109() {
-    if (jj_3R_105()) return true;
+  private boolean jj_3_115() {
+    if (jj_3R_114()) return true;
     return false;
   }
 
-  private boolean jj_3R_87() {
+  private boolean jj_3R_91() {
     if (jj_scan_token(DATAPROPERTYDOMAIN)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_30() {
+  private boolean jj_3_80() {
+    if (jj_3R_89()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_33() {
     if (jj_scan_token(OBJECTSOMEVALUESFROM)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_79() {
-    if (jj_3R_85()) return true;
-    return false;
-  }
-
-  private boolean jj_3_114() {
-    if (jj_3R_110()) return true;
-    return false;
-  }
-
   private boolean jj_3_14() {
-    if (jj_3R_29()) return true;
+    if (jj_3R_32()) return true;
     return false;
   }
 
-  private boolean jj_3R_52() {
+  private boolean jj_3_83() {
+    if (jj_3R_92()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_113() {
+    if (jj_3R_126()) return true;
+    if (jj_scan_token(130)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_55() {
     if (jj_scan_token(DATAINTERSECTIONOF)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_82() {
-    if (jj_3R_88()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_109() {
-    if (jj_3R_113()) return true;
-    if (jj_scan_token(111)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_31() {
+  private boolean jj_3R_34() {
     if (jj_scan_token(OBJECTALLVALUESFROM)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
   private boolean jj_3_40() {
-    if (jj_3R_50()) return true;
+    if (jj_3R_53()) return true;
     return false;
   }
 
-  private boolean jj_3R_53() {
+  private boolean jj_3R_56() {
     if (jj_scan_token(DATAUNIONOF)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_18() {
-    if (jj_3R_33()) return true;
+  private boolean jj_3_109() {
+    if (jj_3R_108()) return true;
     return false;
   }
 
-  private boolean jj_3_108() {
-    if (jj_3R_104()) return true;
+  private boolean jj_3_114() {
+    if (jj_3R_113()) return true;
     return false;
   }
 
-  private boolean jj_3_113() {
-    if (jj_3R_109()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_54() {
+  private boolean jj_3R_57() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_113()) {
+    if (jj_3_114()) {
     jj_scanpos = xsp;
-    if (jj_3_114()) return true;
+    if (jj_3_115()) return true;
     }
     return false;
   }
 
-  private boolean jj_3_25() {
-    if (jj_3R_40()) return true;
+  private boolean jj_3_18() {
+    if (jj_3R_36()) return true;
     return false;
   }
 
-  private boolean jj_3R_29() {
-    if (jj_scan_token(OBJECTONEOF)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_85() {
+  private boolean jj_3R_89() {
     if (jj_scan_token(DISJOINTDATAPROPERTIES)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_49() {
+  private boolean jj_3_25() {
+    if (jj_3R_43()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_32() {
+    if (jj_scan_token(OBJECTONEOF)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_52() {
     if (jj_scan_token(DATAONEOF)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
   private boolean jj_3_39() {
-    if (jj_3R_49()) return true;
+    if (jj_3R_52()) return true;
     return false;
   }
 
   private boolean jj_3_13() {
-    if (jj_3R_28()) return true;
+    if (jj_3R_31()) return true;
     return false;
   }
 
-  private boolean jj_3R_28() {
+  private boolean jj_3_79() {
+    if (jj_3R_88()) return true;
+    return false;
+  }
+
+  private boolean jj_3_82() {
+    if (jj_3R_91()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_31() {
     if (jj_scan_token(OBJECTCOMPLEMENTOF)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_78() {
-    if (jj_3R_84()) return true;
-    return false;
-  }
-
-  private boolean jj_3_81() {
-    if (jj_3R_87()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_84() {
+  private boolean jj_3R_88() {
     if (jj_scan_token(EQUIVALENTDATAPROPERTIES)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
+  private boolean jj_3_108() {
+    if (jj_3R_107()) return true;
+    return false;
+  }
+
   private boolean jj_3_21() {
-    if (jj_3R_36()) return true;
+    if (jj_3R_39()) return true;
     return false;
   }
 
-  private boolean jj_3_107() {
-    if (jj_3R_103()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_50() {
+  private boolean jj_3R_53() {
     if (jj_scan_token(DATACOMPLEMENTOF)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
   private boolean jj_3_17() {
-    if (jj_3R_32()) return true;
+    if (jj_3R_35()) return true;
     return false;
   }
 
-  private boolean jj_3R_27() {
+  private boolean jj_3R_30() {
     if (jj_scan_token(OBJECTINTERSECTIONOF)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_24() {
-    if (jj_3R_39()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_83() {
+  private boolean jj_3R_87() {
     if (jj_scan_token(SUBDATAPROPERTYOF)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_38() {
-    if (jj_3R_48()) return true;
+  private boolean jj_3_24() {
+    if (jj_3R_42()) return true;
     return false;
   }
 
-  private boolean jj_3R_45() {
+  private boolean jj_3_38() {
+    if (jj_3R_51()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_48() {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3_38()) {
@@ -3521,33 +3580,41 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_26() {
-    if (jj_scan_token(OBJECTUNIONOF)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_60() {
+  private boolean jj_3R_63() {
     if (jj_scan_token(DECLARATION)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_77() {
-    if (jj_3R_83()) return true;
+  private boolean jj_3R_29() {
+    if (jj_scan_token(OBJECTUNIONOF)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_80() {
-    if (jj_3R_86()) return true;
+  private boolean jj_3_107() {
+    if (jj_3R_93()) return true;
     return false;
   }
 
-  private boolean jj_3R_58() {
+  private boolean jj_3_106() {
+    if (jj_3R_85()) return true;
+    return false;
+  }
+
+  private boolean jj_3_78() {
+    if (jj_3R_87()) return true;
+    return false;
+  }
+
+  private boolean jj_3_81() {
+    if (jj_3R_90()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_61() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_77()) {
-    jj_scanpos = xsp;
     if (jj_3_78()) {
     jj_scanpos = xsp;
     if (jj_3_79()) {
@@ -3556,7 +3623,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     jj_scanpos = xsp;
     if (jj_3_81()) {
     jj_scanpos = xsp;
-    if (jj_3_82()) return true;
+    if (jj_3_82()) {
+    jj_scanpos = xsp;
+    if (jj_3_83()) return true;
     }
     }
     }
@@ -3565,139 +3634,129 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3_106() {
-    if (jj_3R_89()) return true;
-    return false;
-  }
-
-  private boolean jj_3_105() {
-    if (jj_3R_81()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_62() {
+  private boolean jj_3R_65() {
     if (jj_scan_token(DATATYPEDEFINITION)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
   private boolean jj_3_12() {
-    if (jj_3R_27()) return true;
+    if (jj_3R_30()) return true;
     return false;
   }
 
   private boolean jj_3_29() {
-    if (jj_3R_44()) return true;
+    if (jj_3R_47()) return true;
     return false;
   }
 
-  private boolean jj_3_27() {
-    if (jj_3R_42()) return true;
-    return false;
-  }
-
-  private boolean jj_3_20() {
-    if (jj_3R_35()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_61() {
+  private boolean jj_3R_64() {
     if (jj_scan_token(HASKEY)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_16() {
-    if (jj_3R_31()) return true;
+  private boolean jj_3_27() {
+    if (jj_3R_45()) return true;
     return false;
   }
 
-  private boolean jj_3_23() {
+  private boolean jj_3_20() {
     if (jj_3R_38()) return true;
     return false;
   }
 
-  private boolean jj_3R_79() {
+  private boolean jj_3_16() {
+    if (jj_3R_34()) return true;
+    return false;
+  }
+
+  private boolean jj_3_23() {
+    if (jj_3R_41()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_83() {
     if (jj_scan_token(TRANSITIVEOBJECTPROPERTY)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
   private boolean jj_3_28() {
-    if (jj_3R_43()) return true;
+    if (jj_3R_46()) return true;
     return false;
   }
 
-  private boolean jj_3_11() {
-    if (jj_3R_26()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_78() {
-    if (jj_scan_token(IRREFLEXIVEOBJECTPROPERTY)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_76() {
-    if (jj_3R_81()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_101() {
+  private boolean jj_3R_105() {
     if (jj_scan_token(ANNOTATIONPROPERTYRANGE)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_25() {
-    if (jj_3R_19()) return true;
+  private boolean jj_3_11() {
+    if (jj_3R_29()) return true;
     return false;
   }
 
-  private boolean jj_3R_48() {
-    if (jj_3R_19()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_77() {
-    if (jj_scan_token(REFLEXIVEOBJECTPROPERTY)) return true;
+  private boolean jj_3R_82() {
+    if (jj_scan_token(IRREFLEXIVEOBJECTPROPERTY)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_100() {
+  private boolean jj_3_77() {
+    if (jj_3R_85()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_28() {
+    if (jj_3R_22()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_104() {
     if (jj_scan_token(ANNOTATIONPROPERTYDOMAIN)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
+  private boolean jj_3R_81() {
+    if (jj_scan_token(REFLEXIVEOBJECTPROPERTY)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_51() {
+    if (jj_3R_22()) return true;
+    return false;
+  }
+
   private boolean jj_3_26() {
-    if (jj_3R_41()) return true;
+    if (jj_3R_44()) return true;
     return false;
   }
 
   private boolean jj_3_22() {
-    if (jj_3R_37()) return true;
+    if (jj_3R_40()) return true;
     return false;
   }
 
   private boolean jj_3_19() {
-    if (jj_3R_34()) return true;
+    if (jj_3R_37()) return true;
     return false;
   }
 
   private boolean jj_3_15() {
-    if (jj_3R_30()) return true;
+    if (jj_3R_33()) return true;
     return false;
   }
 
   private boolean jj_3_10() {
-    if (jj_3R_25()) return true;
+    if (jj_3R_28()) return true;
     return false;
   }
 
-  private boolean jj_3R_43() {
+  private boolean jj_3R_46() {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3_10()) {
@@ -3755,149 +3814,160 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3R_107() {
+  private boolean jj_3R_111() {
     if (jj_scan_token(DATATYPE)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_76() {
+  private boolean jj_3R_80() {
     if (jj_scan_token(ASYMMETRICOBJECTPROPERTY)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_102() {
+  private boolean jj_3R_106() {
     if (jj_scan_token(SUBANNOTATIONPROPERTYOF)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
   private boolean jj_3_104() {
-    if (jj_3R_21()) return true;
+    if (jj_3R_57()) return true;
     return false;
   }
 
-  private boolean jj_3_103() {
-    if (jj_3R_54()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_98() {
+  private boolean jj_3R_102() {
     if (jj_scan_token(NODEID)) return true;
     return false;
   }
 
-  private boolean jj_3R_75() {
+  private boolean jj_3R_79() {
     if (jj_scan_token(SYMMETRICOBJECTPROPERTY)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_98() {
-    if (jj_3R_21()) return true;
+  private boolean jj_3_99() {
+    if (jj_3R_24()) return true;
     return false;
   }
 
-  private boolean jj_3R_99() {
+  private boolean jj_3R_103() {
     if (jj_scan_token(ANNOTATIONASSERTION)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_75() {
-    if (jj_3R_82()) return true;
+  private boolean jj_3_76() {
+    if (jj_3R_86()) return true;
     return false;
   }
 
-  private boolean jj_3R_106() {
+  private boolean jj_3R_110() {
     if (jj_scan_token(NAMEDINDIVIDUAL)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_74() {
+  private boolean jj_3R_78() {
     if (jj_scan_token(INVERSEFUNCTIONALOBJECTPROPERTY)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_24() {
-    if (jj_scan_token(PNAME_LN)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_20() {
+  private boolean jj_3R_23() {
     if (jj_scan_token(IMPORT)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_80() {
+  private boolean jj_3R_27() {
+    if (jj_scan_token(PNAME_LN)) return true;
+    return false;
+  }
+
+  private boolean jj_3_119() {
+    if (jj_3R_116()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_84() {
     if (jj_scan_token(INVERSEOBJECTPROPERTIES)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
   private boolean jj_3_9() {
-    if (jj_3R_24()) return true;
+    if (jj_3R_27()) return true;
     return false;
   }
 
-  private boolean jj_3_102() {
-    if (jj_3R_98()) return true;
+  private boolean jj_3_103() {
+    if (jj_3R_102()) return true;
     return false;
   }
 
   private boolean jj_3_35() {
-    if (jj_3R_45()) return true;
+    if (jj_3R_48()) return true;
     return false;
   }
 
-  private boolean jj_3R_108() {
+  private boolean jj_3R_112() {
     if (jj_scan_token(ANNOTATIONPROPERTY)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_23() {
+  private boolean jj_3_105() {
+    if (jj_3R_24()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_26() {
     if (jj_scan_token(FULLIRI)) return true;
     return false;
   }
 
-  private boolean jj_3R_73() {
+  private boolean jj_3R_77() {
     if (jj_scan_token(FUNCTIONALOBJECTPROPERTY)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
+  private boolean jj_3_131() {
+    if (jj_scan_token(LITERALVARIABLE)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_74() {
+    if (jj_3R_85()) return true;
+    return false;
+  }
+
+  private boolean jj_3_101() {
+    if (jj_3R_102()) return true;
+    return false;
+  }
+
   private boolean jj_3_73() {
-    if (jj_3R_81()) return true;
+    if (jj_3R_84()) return true;
     return false;
   }
 
-  private boolean jj_3_100() {
-    if (jj_3R_98()) return true;
-    return false;
-  }
-
-  private boolean jj_3_72() {
-    if (jj_3R_80()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_105() {
+  private boolean jj_3R_109() {
     if (jj_scan_token(DATAPROP)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
   private boolean jj_3_8() {
-    if (jj_3R_23()) return true;
+    if (jj_3R_26()) return true;
     return false;
   }
 
-  private boolean jj_3R_19() {
+  private boolean jj_3R_22() {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3_8()) {
@@ -3907,101 +3977,513 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     return false;
   }
 
-  private boolean jj_3_101() {
-    if (jj_3R_19()) return true;
+  private boolean jj_3_102() {
+    if (jj_3R_22()) return true;
     return false;
   }
 
-  private boolean jj_3_34() {
-    if (jj_3R_45()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_72() {
+  private boolean jj_3R_76() {
     if (jj_scan_token(OBJECTPROPERTYDOMAIN)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_74() {
-    if (jj_3R_81()) return true;
+  private boolean jj_3_34() {
+    if (jj_3R_48()) return true;
+    return false;
+  }
+
+  private boolean jj_3_75() {
+    if (jj_3R_85()) return true;
+    return false;
+  }
+
+  private boolean jj_3_127() {
+    if (jj_3R_124()) return true;
     return false;
   }
 
   private boolean jj_3_2() {
-    if (jj_3R_19()) return true;
+    if (jj_3R_22()) return true;
     return false;
   }
 
-  private boolean jj_3R_112() {
-    if (jj_3R_19()) return true;
+  private boolean jj_3R_125() {
+    if (jj_3R_22()) return true;
     return false;
   }
 
-  private boolean jj_3_99() {
-    if (jj_3R_19()) return true;
+  private boolean jj_3_100() {
+    if (jj_3R_22()) return true;
     return false;
   }
 
-  private boolean jj_3_37() {
-    if (jj_3R_47()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_71() {
+  private boolean jj_3R_75() {
     if (jj_scan_token(OBJECTPROPERTYRANGE)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_18() {
+  private boolean jj_3_37() {
+    if (jj_3R_50()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_21() {
     if (jj_scan_token(PREFIX)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3R_89() {
-    if (jj_3R_112()) return true;
+  private boolean jj_3R_93() {
+    if (jj_3R_125()) return true;
     return false;
   }
 
   private boolean jj_3_33() {
-    if (jj_3R_45()) return true;
+    if (jj_3R_48()) return true;
     return false;
   }
 
-  private boolean jj_3R_21() {
+  private boolean jj_3R_24() {
     if (jj_scan_token(ANNOTATION)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
+  private boolean jj_3_69() {
+    if (jj_3R_80()) return true;
+    return false;
+  }
+
   private boolean jj_3_3() {
-    if (jj_3R_19()) return true;
+    if (jj_3R_22()) return true;
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3_2()) jj_scanpos = xsp;
     return false;
   }
 
-  private boolean jj_3_68() {
-    if (jj_3R_76()) return true;
-    return false;
-  }
-
   private boolean jj_3_7() {
-    if (jj_3R_22()) return true;
+    if (jj_3R_25()) return true;
     return false;
   }
 
-  private boolean jj_3R_104() {
+  private boolean jj_3R_108() {
     if (jj_scan_token(OBJECTPROP)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
 
-  private boolean jj_3_71() {
+  private boolean jj_3_72() {
+    if (jj_3R_83()) return true;
+    return false;
+  }
+
+  private boolean jj_3_63() {
+    if (jj_3R_74()) return true;
+    return false;
+  }
+
+  private boolean jj_3_98() {
+    if (jj_3R_106()) return true;
+    return false;
+  }
+
+  private boolean jj_3_6() {
+    if (jj_3R_24()) return true;
+    return false;
+  }
+
+  private boolean jj_3_97() {
+    if (jj_3R_105()) return true;
+    return false;
+  }
+
+  private boolean jj_3_96() {
+    if (jj_3R_104()) return true;
+    return false;
+  }
+
+  private boolean jj_3_95() {
+    if (jj_3R_103()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_74() {
+    if (jj_scan_token(DISJOINTOBJECTPROPERTIES)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_66() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_95()) {
+    jj_scanpos = xsp;
+    if (jj_3_96()) {
+    jj_scanpos = xsp;
+    if (jj_3_97()) {
+    jj_scanpos = xsp;
+    if (jj_3_98()) return true;
+    }
+    }
+    }
+    return false;
+  }
+
+  private boolean jj_3R_49() {
+    if (jj_scan_token(OBJECTINVERSEOF)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_4() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_5()) {
+    jj_scanpos = xsp;
+    if (jj_3_6()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3_5() {
+    if (jj_3R_23()) return true;
+    return false;
+  }
+
+  private boolean jj_3_66() {
+    if (jj_3R_77()) return true;
+    return false;
+  }
+
+  private boolean jj_3_94() {
+    if (jj_3R_102()) return true;
+    return false;
+  }
+
+  private boolean jj_3_36() {
+    if (jj_3R_49()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_85() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_36()) {
+    jj_scanpos = xsp;
+    if (jj_3_37()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3R_73() {
+    if (jj_scan_token(EQUIVALENTOBJECTPROPERTIES)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_50() {
+    if (jj_3R_22()) return true;
+    return false;
+  }
+
+  private boolean jj_3_68() {
     if (jj_3R_79()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_107() {
+    if (jj_scan_token(CLASS)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_1() {
+    if (jj_3R_21()) return true;
+    return false;
+  }
+
+  private boolean jj_3_71() {
+    if (jj_3R_82()) return true;
+    return false;
+  }
+
+  private boolean jj_3_93() {
+    if (jj_3R_47()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_101() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_93()) {
+    jj_scanpos = xsp;
+    if (jj_3_94()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3R_124() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_130()) {
+    jj_scanpos = xsp;
+    if (jj_3_131()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3_130() {
+    if (jj_3R_57()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_72() {
+    if (jj_scan_token(SUBOBJECTPROPERTYOF)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_32() {
+    if (jj_3R_46()) return true;
+    return false;
+  }
+
+  private boolean jj_3_65() {
+    if (jj_3R_76()) return true;
+    return false;
+  }
+
+  private boolean jj_3_62() {
+    if (jj_3R_73()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_47() {
+    if (jj_3R_22()) return true;
+    return false;
+  }
+
+  private boolean jj_3_118() {
+    if (jj_3R_116()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_45() {
+    if (jj_scan_token(DATAMAXCARDINALITY)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_129() {
+    if (jj_scan_token(INDIVIDUALVARIABLE)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_128() {
+    if (jj_3R_110()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_86() {
+    if (jj_scan_token(SUBOBJECTPROPERTYCHAIN)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_31() {
+    if (jj_3R_46()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_100() {
+    if (jj_scan_token(NEGATIVEDATAPROPERTYASSERTION)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_123() {
+    if (jj_scan_token(DIFFERENTINDIVIDUALSATOM)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_92() {
+    if (jj_3R_101()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_44() {
+    if (jj_scan_token(DATAEXACTCARDINALITY)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_60() {
+    if (jj_3R_71()) return true;
+    return false;
+  }
+
+  private boolean jj_3_70() {
+    if (jj_3R_81()) return true;
+    return false;
+  }
+
+  private boolean jj_3_67() {
+    if (jj_3R_78()) return true;
+    return false;
+  }
+
+  private boolean jj_3_64() {
+    if (jj_3R_75()) return true;
+    return false;
+  }
+
+  private boolean jj_3_61() {
+    if (jj_3R_72()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_60() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_61()) {
+    jj_scanpos = xsp;
+    if (jj_3_62()) {
+    jj_scanpos = xsp;
+    if (jj_3_63()) {
+    jj_scanpos = xsp;
+    if (jj_3_64()) {
+    jj_scanpos = xsp;
+    if (jj_3_65()) {
+    jj_scanpos = xsp;
+    if (jj_3_66()) {
+    jj_scanpos = xsp;
+    if (jj_3_67()) {
+    jj_scanpos = xsp;
+    if (jj_3_68()) {
+    jj_scanpos = xsp;
+    if (jj_3_69()) {
+    jj_scanpos = xsp;
+    if (jj_3_70()) {
+    jj_scanpos = xsp;
+    if (jj_3_71()) {
+    jj_scanpos = xsp;
+    if (jj_3_72()) {
+    jj_scanpos = xsp;
+    if (jj_3_73()) return true;
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    return false;
+  }
+
+  private boolean jj_3R_122() {
+    if (jj_scan_token(SAMEINDIVIDUALATOM)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_98() {
+    if (jj_scan_token(DATAPROPERTYASSERTION)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_30() {
+    if (jj_3R_46()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_121() {
+    if (jj_scan_token(BUILTINATOM)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_43() {
+    if (jj_scan_token(DATAMINCARDINALITY)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_88() {
+    if (jj_3R_97()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_99() {
+    if (jj_scan_token(NEGATIVEOBJECTPROPERTYASSERTION)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_71() {
+    if (jj_scan_token(DISJOINTUNION)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_91() {
+    if (jj_3R_100()) return true;
+    return false;
+  }
+
+  private boolean jj_3_59() {
+    if (jj_3R_70()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_120() {
+    if (jj_scan_token(DATAPROPERTYATOM)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_42() {
+    if (jj_scan_token(DATAHASVALUE)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_97() {
+    if (jj_scan_token(OBJECTPROPERTYASSERTION)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_70() {
+    if (jj_scan_token(DISJOINTCLASSES)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_119() {
+    if (jj_scan_token(OBJECTPROPERTYATOM)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_40() {
+    if (jj_scan_token(DATASOMEVALUESFROM)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_87() {
+    if (jj_3R_96()) return true;
     return false;
   }
 
@@ -4021,11 +4503,13 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   static private int[] jj_la1_1;
   static private int[] jj_la1_2;
   static private int[] jj_la1_3;
+  static private int[] jj_la1_4;
   static {
       jj_la1_init_0();
       jj_la1_init_1();
       jj_la1_init_2();
       jj_la1_init_3();
+      jj_la1_init_4();
    }
    private static void jj_la1_init_0() {
       jj_la1_0 = new int[] {};
@@ -4039,7 +4523,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
    private static void jj_la1_init_3() {
       jj_la1_3 = new int[] {};
    }
-  final private JJCalls[] jj_2_rtns = new JJCalls[116];
+   private static void jj_la1_init_4() {
+      jj_la1_4 = new int[] {};
+   }
+  final private JJCalls[] jj_2_rtns = new JJCalls[131];
   private boolean jj_rescan = false;
   private int jj_gc = 0;
 
@@ -4223,7 +4710,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[112];
+    boolean[] la1tokens = new boolean[131];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -4243,10 +4730,13 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
           if ((jj_la1_3[i] & (1<<j)) != 0) {
             la1tokens[96+j] = true;
           }
+          if ((jj_la1_4[i] & (1<<j)) != 0) {
+            la1tokens[128+j] = true;
+          }
         }
       }
     }
-    for (int i = 0; i < 112; i++) {
+    for (int i = 0; i < 131; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
@@ -4273,7 +4763,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   private void jj_rescan_token() {
     jj_rescan = true;
-    for (int i = 0; i < 116; i++) {
+    for (int i = 0; i < 131; i++) {
     try {
       JJCalls p = jj_2_rtns[i];
       do {
@@ -4396,6 +4886,21 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             case 113: jj_3_114(); break;
             case 114: jj_3_115(); break;
             case 115: jj_3_116(); break;
+            case 116: jj_3_117(); break;
+            case 117: jj_3_118(); break;
+            case 118: jj_3_119(); break;
+            case 119: jj_3_120(); break;
+            case 120: jj_3_121(); break;
+            case 121: jj_3_122(); break;
+            case 122: jj_3_123(); break;
+            case 123: jj_3_124(); break;
+            case 124: jj_3_125(); break;
+            case 125: jj_3_126(); break;
+            case 126: jj_3_127(); break;
+            case 127: jj_3_128(); break;
+            case 128: jj_3_129(); break;
+            case 129: jj_3_130(); break;
+            case 130: jj_3_131(); break;
           }
         }
         p = p.next;

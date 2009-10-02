@@ -676,56 +676,104 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(SWRLRule rule) {
+        writer.writeStartElement(DL_SAFE_RULE);
+        writeAnnotations(rule);
+        writer.writeStartElement(BODY);
+        for(SWRLAtom atom : rule.getBody()) {
+            atom.accept(this);
+        }
+        writer.writeEndElement();
+        writer.writeStartElement(HEAD);
+        for(SWRLAtom atom : rule.getHead()) {
+            atom.accept(this);
+        }
+        writer.writeEndElement();
+        writer.writeEndElement();
     }
 
 
     public void visit(SWRLClassAtom node) {
+        writer.writeStartElement(CLASS_ATOM);
+        node.getPredicate().accept(this);
+        node.getArgument().accept(this);
+        writer.writeEndElement();
     }
 
 
+
     public void visit(SWRLDataRangeAtom node) {
+        writer.writeStartElement(DATA_RANGE_ATOM);
+        node.getPredicate().accept(this);
+        node.getArgument().accept(this);
+        writer.writeEndElement();
     }
 
 
     public void visit(SWRLObjectPropertyAtom node) {
+        writer.writeStartElement(OBJECT_PROPERTY_ATOM);
+        node.getPredicate().accept(this);
+        node.getFirstArgument().accept(this);
+        node.getSecondArgument().accept(this);
+        writer.writeEndElement();
     }
 
 
     public void visit(SWRLDataPropertyAtom node) {
+        writer.writeStartElement(DATA_PROPERTY_ATOM);
+        node.getPredicate().accept(this);
+        node.getFirstArgument().accept(this);
+        node.getSecondArgument().accept(this);
+        writer.writeEndElement();
     }
 
 
     public void visit(SWRLBuiltInAtom node) {
+        writer.writeStartElement(BUILT_IN_ATOM);
+        node.getPredicate().accept(this);
+        for(SWRLDArgument arg : node.getArguments()) {
+            arg.accept(this);
+        }
+        writer.writeEndElement();
     }
 
 
     public void visit(SWRLLiteralVariable node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+        writer.writeStartElement(LITERAL_VARIABLE);
+        node.getIRI().accept(this);
+        writer.writeEndElement();
     }
 
 
     public void visit(SWRLIndividualVariable node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+        writer.writeStartElement(INDIVIDUAL_VARIABLE);
+        node.getIRI().accept(this);
+        writer.writeEndElement();
     }
 
 
     public void visit(SWRLIndividualArgument node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+        node.getIndividual().accept(this);
     }
 
 
     public void visit(SWRLLiteralArgument node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+        node.getLiteral().accept(this);
     }
 
 
     public void visit(SWRLDifferentIndividualsAtom node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+        writer.writeStartElement(DIFFERENT_INDIVIDUALS_ATOM);
+        node.getFirstArgument().accept(this);
+        node.getSecondArgument().accept(this);
+        writer.writeEndElement();
     }
 
 
     public void visit(SWRLSameIndividualAtom node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+        writer.writeStartElement(SAME_INDIVIDUAL_ATOM);
+        node.getFirstArgument().accept(this);
+        node.getSecondArgument().accept(this);
+        writer.writeEndElement();
     }
 
 

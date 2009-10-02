@@ -560,11 +560,15 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 Set<OWLObjectPropertyExpression> properties = new TreeSet<OWLObjectPropertyExpression>();
                 for(OWLInverseObjectPropertiesAxiom ax : ontology.getInverseObjectPropertyAxioms(property)) {
                     if(isDisplayed(ax)) {
-                        properties.addAll(ax.getProperties());
+                        if (ax.getFirstProperty().equals(property)) {
+                            properties.add(ax.getSecondProperty());
+                        }
+                        else {
+                            properties.add(ax.getFirstProperty());
+                        }
                         axioms.add(ax);
                     }
                 }
-                properties.remove(property);
                 writeSection(INVERSE_OF, properties, ",", true, ontology);
             }
         }

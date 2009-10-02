@@ -18,34 +18,7 @@ import java.util.Set;
  * atoms.
  */
 public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
-
-    /**
-     * Determines if this rule is anonymous.  If the rule is anonymous it does not have an IRI, instead, it has a
-     * node ID to identify it.
-     * @return <code>true</code> if this rule is anonymous, <code>false</code> if this rule is not anonymous
-     */
-    boolean isAnonymous();
-
-    /**
-     * Gets the node ID if this rule is anonymous
-     * @return The NodeID
-     * @throws NullPointerException if this rule is not anonymous
-     */
-    NodeID getNodeID();
-
-    /**
-     * Gets the rule IRI if this rule is not anonymous.
-     * @return The IRI of the rule if it is not anonymous.
-     * @throws NullPointerException If this rule is anonymous.
-     */
-    IRI getIRI();
-
-    /**
-     * Gets a String representation of the identity of this rule.  If the rule is anonymous then this will be
-     * a string representation of the anonymous ID, otherwise, it will be a string represetation of the IRI.
-     * @return A string representation of the identity of this rule.
-     */
-    String toStringID();
+    
 
     /**
      * Gets the atoms in the body of the rule

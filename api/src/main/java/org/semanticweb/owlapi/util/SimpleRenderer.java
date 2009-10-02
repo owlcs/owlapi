@@ -801,15 +801,11 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     public void visit(SWRLRule rule) {
-        sb.append("Rule(");
-        if (!rule.isAnonymous()) {
-            sb.append(getShortForm(rule.getIRI().toURI()));
-            sb.append(" ");
-        }
-        sb.append(" antecedent(");
+        sb.append("DLSafeRule(");
+        sb.append(" Body(");
         render(rule.getBody());
         sb.append(")");
-        sb.append(" consequent(");
+        sb.append(" Head(");
         render(rule.getHead());
         sb.append(")");
         sb.append(" )");

@@ -583,14 +583,14 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     public void visit(SWRLRule rule) {
-        if (!rule.isAnonymous()) {
-            if (!nodeMap.containsKey(rule)) {
-                nodeMap.put(rule, getResourceNode(rule.getIRI()));
-            }
-        }
-        else {
+//        if (!rule.isAnonymous()) {
+//            if (!nodeMap.containsKey(rule)) {
+//                nodeMap.put(rule, getResourceNode(rule.getIRI()));
+//            }
+//        }
+//        else {
             translateAnonymousNode(rule);
-        }
+//        }
         addTriple(rule, RDF_TYPE.getURI(), IMP.getURI());
 
         Set<SWRLAtom> antecedent = rule.getBody();

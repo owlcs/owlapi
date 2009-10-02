@@ -45,6 +45,15 @@ public interface SWRLDataFactory {
      */
     SWRLRule getSWRLRule(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head);
 
+     /**
+     * Gets an anonymous SWRL Rule
+     * @param body The atoms that make up the body
+     * @param head The atoms that make up the head
+     * @param annotations The annotations for the rule (may be an empty set)
+     * @return An anonymous rule with the specified body and head
+     */
+    SWRLRule getSWRLRule(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Set<OWLAnnotation> annotations);
+
 
     /**
      * Gets a SWRL atom where the predicate is a class expression i.e.  C(x) where C is a class expression and

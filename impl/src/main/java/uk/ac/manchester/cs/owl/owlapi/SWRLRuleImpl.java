@@ -55,20 +55,13 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
     private Set<OWLClassExpression> classAtomsPredicates;
 
 
-    public SWRLRuleImpl(OWLDataFactory dataFactory, IRI iri, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Collection<? extends OWLAnnotation> annotations) {
+    public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.iri = iri;
         this.head = new TreeSet<SWRLAtom>(head);
         this.body = new TreeSet<SWRLAtom>(body);
     }
 
-
-    public SWRLRuleImpl(OWLDataFactory dataFactory, NodeID nodeID, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
-        this.nodeID = nodeID;
-        this.body = new TreeSet<SWRLAtom>(body);
-        this.head = new TreeSet<SWRLAtom>(head);
-    }
 
     public SWRLRule getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -82,7 +75,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
     }
 
     public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
-        this(dataFactory, NodeID.getNodeID(), body, head, new ArrayList<OWLAnnotation>(0));
+        this(dataFactory, body, head, new ArrayList<OWLAnnotation>(0));
     }
 
 
@@ -293,12 +286,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
             return false;
         }
         SWRLRule other = (SWRLRule) obj;
-        if (isAnonymous()) {
-            return other.isAnonymous() && other.getBody().equals(body) && other.getHead().equals(head);
-        }
-        else {
-            return !other.isAnonymous() && (getIRI().equals(other.getIRI())) && other.getBody().equals(body) && other.getHead().equals(head);
-        }
+        return other.getBody().equals(body) && other.getHead().equals(head);
     }
 
 
@@ -310,27 +298,9 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
     protected int compareObjectOfSameType(OWLObject object) {
         SWRLRule other = (SWRLRule) object;
 
-        int diff;
-        if (!isAnonymous()) {
-            if (!other.isAnonymous()) {
-                // Both named - compare by URI
-                diff = getIRI().compareTo(other.getIRI());
-            }
-            else {
-                // We are named, but other is anonymous
-                diff = -1;
-            }
-        }
-        else {
-            if (!other.isAnonymous()) {
-                diff = 1;
-            }
-            else {
-                diff = compareSets(getBody(), other.getBody());
-                if (diff == 0) {
-                    diff = compareSets(getHead(), other.getHead());
-                }
-            }
+        int diff = compareSets(getBody(), other.getBody());
+        if (diff == 0) {
+            diff = compareSets(getHead(), other.getHead());
         }
         return diff;
 
@@ -349,12 +319,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
             for (SWRLAtom atom : node.getHead()) {
                 head.add((SWRLAtom) atom.accept(this));
             }
-            if (node.isAnonymous()) {
-                return getOWLDataFactory().getSWRLRule(node.getNodeID(), body, head);
-            }
-            else {
-                return getOWLDataFactory().getSWRLRule(node.getIRI(), body, head);
-            }
+            return getOWLDataFactory().getSWRLRule(body, head);
         }
 
         public SWRLClassAtom visit(SWRLClassAtom node) {

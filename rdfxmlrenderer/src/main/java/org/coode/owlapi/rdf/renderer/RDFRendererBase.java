@@ -282,12 +282,12 @@ public abstract class RDFRendererBase {
             writeBanner("Rules");
             SWRLVariableExtractor variableExtractor = new SWRLVariableExtractor();
             for (SWRLRule rule : ruleAxioms) {
-                beginObject();
-                if (!rule.isAnonymous()) {
-                    render(new RDFResourceNode(rule.getIRI().toURI()));
-                }
+//                beginObject();
+//                if (!rule.isAnonymous()) {
+//                    render(new RDFResourceNode(rule.getIRI().toURI()));
+//                }
                 rule.accept(variableExtractor);
-                endObject();
+//                endObject();
             }
             for (SWRLVariable var : variableExtractor.getIVariables()) {
                 render(new RDFResourceNode(var.getIRI().toURI()));

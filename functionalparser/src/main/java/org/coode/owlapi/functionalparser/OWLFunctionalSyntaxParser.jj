@@ -633,6 +633,110 @@ TOKEN:
     <FRACTIONDIGITS: "fractionDigits">
 }
 
+
+TOKEN:
+{
+    <DLSAFERULE: "DLSafeRule">
+}
+
+TOKEN:
+{
+    <BODY: "Body">
+}
+
+TOKEN:
+{
+    <HEAD: "Head">
+}
+
+TOKEN:
+{
+    <CLASSATOM: "ClassAtom">
+}
+
+TOKEN:
+{
+    <DATARANGEATOM: "DataRangeAtom">
+}
+
+TOKEN:
+{
+    <OBJECTPROPERTYATOM: "ObjectPropertyAtom">
+}
+
+TOKEN:
+{
+    <DATAPROPERTYATOM: "DataPropertyAtom">
+}
+
+TOKEN:
+{
+    <BUILTINATOM: "BuiltInAtom">
+}
+
+TOKEN:
+{
+    <SAMEINDIVIDUALATOM: "SameIndividualAtom">
+}
+
+TOKEN:
+{
+    <DIFFERENTINDIVIDUALSATOM: "DifferentIndividualsAtom">
+}
+
+
+TOKEN:
+{
+    <INDIVIDUALVARIABLE: "IndividualVariable">
+}
+
+TOKEN:
+{
+    <LITERALVARIABLE: "LiteralVariable">
+}
+
+
+TOKEN:
+{
+    <DGRULE: "DescriptionGraphRule">
+}
+
+
+TOKEN:
+{
+    <DESCRIPTIONGRAPH: "DescriptionGraph">
+}
+
+
+TOKEN:
+{
+    <NODES: "Nodes">
+}
+
+
+TOKEN:
+{
+    <NODEASSERTION: "NodeAssertion">
+}
+
+
+TOKEN:
+{
+    <EDGES: "Edges">
+}
+
+
+TOKEN:
+{
+    <EDGEASSERTION: "EdgeAssertion">
+}
+
+
+TOKEN:
+{
+    <MAINCLASSES: "MainClasses">
+}
+
 TOKEN:
 {
     <EQUALS: "=">
@@ -1379,7 +1483,8 @@ OWLAxiom Axiom() :
     | ax=Declaration()
     | ax=HasKey()
     | ax=DatatypeDefinitionAxiom()
-    | ax=AnnotationAxiom()) {
+    | ax=AnnotationAxiom()
+    | ax=DLSafeRule()) {
         return ax;
     }
 }
@@ -1946,7 +2051,10 @@ Set<OWLAnnotation> AxiomAnnotationSet() :
     OWLAnnotation anno;
 }
 {
-    {annos = new HashSet<OWLAnnotation>();}(anno=Annotation(){
+    (anno=Annotation(){
+        if(annos == null) {
+            annos = new HashSet<OWLAnnotation>();
+        }
         annos.add(anno);
     })*{
         return annos;
@@ -2131,6 +2239,133 @@ String LangTag() :
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// OWLAPI
+// Rules
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+SWRLRule DLSafeRule() :
+{
+    Set<OWLAnnotation> annos;
+    SWRLAtom atom;
+    Set<SWRLAtom> body;
+    Set<SWRLAtom> head;
+}
+{
+    <DLSAFERULE> <OPENPAR> annos = AxiomAnnotationSet() <BODY> {body=new HashSet<SWRLAtom>();} <OPENPAR> (atom=Atom(){body.add(atom);})* <CLOSEPAR> <HEAD> {head= new HashSet<SWRLAtom>();} <OPENPAR> (atom=Atom(){head.add(atom);})* <CLOSEPAR><CLOSEPAR> {
+        return dataFactory.getSWRLRule(body, head, annos);
+    }
+}
+
+SWRLAtom Atom() :
+{
+    SWRLAtom atom;
+}
+{
+    ( atom=ClassAtom()
+    | atom=DataRangeAtom()
+    | atom=ObjectPropertyAtom()
+    | atom=DataPropertyAtom()
+    | atom=BuiltInAtom()
+    | atom=SameIndividualAtom()
+    | atom=DifferentIndividualsAtom()
+    ) {return atom;}
+}
+
+
+SWRLClassAtom ClassAtom() :
+{
+    OWLClassExpression ce;
+    SWRLIArgument arg0;
+}
+{
+    <CLASSATOM> <OPENPAR> ce=ClassExpression() arg0=IArg() <CLOSEPAR> {return dataFactory.getSWRLClassAtom(ce, arg0);}
+}
+
+SWRLDataRangeAtom DataRangeAtom() :
+{
+    OWLDataRange rng;
+    SWRLDArgument arg0;
+}
+{
+    <DATARANGEATOM> <OPENPAR> rng=DataRange() arg0=DArg() <CLOSEPAR> {return dataFactory.getSWRLDataRangeAtom(rng, arg0);}
+}
+
+SWRLObjectPropertyAtom ObjectPropertyAtom() :
+{
+    OWLObjectPropertyExpression prop;
+    SWRLIArgument arg0;
+    SWRLIArgument arg1;
+}
+{
+    <OBJECTPROPERTYATOM> <OPENPAR> prop=ObjectPropertyExpression() arg0=IArg() arg1=IArg() <CLOSEPAR>{return dataFactory.getSWRLObjectPropertyAtom(prop, arg0, arg1);}
+}
+
+SWRLDataPropertyAtom DataPropertyAtom() :
+{
+    OWLDataProperty prop;
+    SWRLIArgument arg0;
+    SWRLDArgument arg1;
+}
+{
+    <DATAPROPERTYATOM> <OPENPAR> prop=DataProperty() arg0=IArg() arg1=DArg() <CLOSEPAR> {return dataFactory.getSWRLDataPropertyAtom(prop, arg0, arg1);}
+}
+
+
+SWRLBuiltInAtom BuiltInAtom() :
+{
+    IRI iri;
+    List<SWRLDArgument> args;;
+    SWRLDArgument arg;
+}
+{
+    <BUILTINATOM> <OPENPAR> {args=new ArrayList<SWRLDArgument>();} iri=IRI() arg=DArg(){args.add(arg);} (arg=DArg(){args.add(arg);})* <CLOSEPAR> {return dataFactory.getSWRLBuiltInAtom(iri, args);}
+}
+
+
+SWRLSameIndividualAtom SameIndividualAtom() :
+{
+    SWRLIArgument arg0;
+    SWRLIArgument arg1;
+}
+{
+    <SAMEINDIVIDUALATOM> <OPENPAR> arg0=IArg() arg1=IArg() <CLOSEPAR>{return dataFactory.getSWRLSameIndividualAtom(arg0, arg1);}
+}
+
+SWRLDifferentIndividualsAtom DifferentIndividualsAtom() :
+{
+    SWRLIArgument arg0;
+    SWRLIArgument arg1;
+}
+{
+    <DIFFERENTINDIVIDUALSATOM> <OPENPAR> arg0=IArg() arg1=IArg() <CLOSEPAR> {return dataFactory.getSWRLDifferentIndividualsAtom(arg0, arg1);}
+}
+
+SWRLIArgument IArg() :
+{
+    OWLNamedIndividual ind;
+    SWRLIArgument arg;
+    IRI iri;
+}
+{
+     ind = NamedIndividual() {return dataFactory.getSWRLIndividualArgument(ind);}
+    | (<INDIVIDUALVARIABLE> <OPENPAR> iri = IRI() <CLOSEPAR>{ return dataFactory.getSWRLIndividualVariable(iri);})
+}
+
+
+SWRLDArgument DArg() :
+{
+    OWLLiteral literal;
+    IRI iri;
+}
+{
+    literal = Literal(){return dataFactory.getSWRLLiteralArgument(literal);} | (<LITERALVARIABLE> <OPENPAR> iri=IRI() <CLOSEPAR>{return dataFactory.getSWRLLiteralVariable(iri);})
+}
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Description Graphs
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -373,7 +373,19 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
 
         public void visit(OWLDisjointClassesAxiom axiom) {
-
+            for(OWLClassExpression ce : axiom.getClassExpressions()) {
+                if(!ce.isAnonymous()) {
+                    if(source == null) {
+                        source = ce.asOWLClass();
+                    }
+                    else if(target == null) {
+                        target = ce.asOWLClass();
+                    }
+                    else {
+                        break;
+                    }
+                }
+            }
         }
 
 
@@ -463,9 +475,17 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            Iterator<OWLClassExpression> it = axiom.getClassExpressions().iterator();
-            source = it.next().asOWLClass();
-            target = it.next().asOWLClass();
+            for(OWLClass cls : axiom.getNamedClasses()) {
+                if(source == null) {
+                    source = cls;
+                }
+                else if(target == null) {
+                    target = cls;
+                }
+                else {
+                    break;
+                }
+            }
         }
 
 

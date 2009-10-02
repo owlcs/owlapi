@@ -213,7 +213,35 @@ public enum OWLXMLVocabulary {
 
     ABBREVIATED_IRI_ELEMENT("AbbreviatedIRI"),
 
-    CARDINALITY_ATTRIBUTE("cardinality");
+    CARDINALITY_ATTRIBUTE("cardinality"),
+
+    // Rules Extensions
+    DL_SAFE_RULE("DLSafeRule"),
+
+    BODY("Body"),
+
+    HEAD("Head"),
+
+    CLASS_ATOM("ClassAtom"),
+
+    DATA_RANGE_ATOM("DataRangeAtom"),
+
+    OBJECT_PROPERTY_ATOM("ObjectPropertyAtom"),
+
+    DATA_PROPERTY_ATOM("DataPropertyAtom"),
+
+    BUILT_IN_ATOM("BuiltInAtom"),
+
+    SAME_INDIVIDUAL_ATOM("SameIndividualAtom"),
+
+    DIFFERENT_INDIVIDUALS_ATOM("DifferentIndividualsAtom"),
+
+    INDIVIDUAL_VARIABLE("IndividualVariable"),
+
+    LITERAL_VARIABLE("LiteralVariable"),
+
+    DESCRIPTION_GRAPH_RULE("DescriptionGraphRule")
+    ;
 
     private IRI iri;
 

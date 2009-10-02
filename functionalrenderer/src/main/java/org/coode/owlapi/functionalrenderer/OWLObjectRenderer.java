@@ -133,7 +133,8 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         String qname = prefixManager.getPrefixIRI(iri);
         if (qname != null && !qname.equals(iriString)) {
             write(qname);
-        } else {
+        }
+        else {
             write("<");
             write(iriString);
             write(">");
@@ -155,19 +156,19 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         write("(");
         if (!ontology.isAnonymous()) {
             writeFullIRI(ontology.getOntologyID().getOntologyIRI());
-            if(ontology.getOntologyID().getVersionIRI() != null) {
+            if (ontology.getOntologyID().getVersionIRI() != null) {
                 write("\n");
                 writeFullIRI(ontology.getOntologyID().getVersionIRI());
             }
         }
-        for(OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
+        for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
             write(IMPORT);
             write("(");
             writeFullIRI(decl.getIRI());
             write(")\n");
         }
 
-        for(OWLAnnotation ontologyAnnotation : ontology.getAnnotations()) {
+        for (OWLAnnotation ontologyAnnotation : ontology.getAnnotations()) {
             ontologyAnnotation.accept(this);
             write("\n");
         }
@@ -182,7 +183,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         Set<OWLAxiom> remainingAxioms = new TreeSet<OWLAxiom>(ontology.getAxioms());
         remainingAxioms.removeAll(writtenAxioms);
 
-        for(OWLAxiom ax : remainingAxioms) {
+        for (OWLAxiom ax : remainingAxioms) {
             ax.accept(this);
             write("\n");
         }
@@ -236,10 +237,10 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
             }
         }));
         for (OWLAxiom ax : axs) {
-            if(ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)) {
+            if (ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)) {
                 continue;
             }
-            if(ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES) && ((OWLDisjointClassesAxiom) ax).getClassExpressions().size() > 2) {
+            if (ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES) && ((OWLDisjointClassesAxiom) ax).getClassExpressions().size() > 2) {
                 continue;
             }
             ax.accept(this);
@@ -300,7 +301,8 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 //                    writeIndent(indent);
                 }
             }
-        } else if (objects.size() == 2) {
+        }
+        else if (objects.size() == 2) {
             Iterator<? extends OWLObject> it = objects.iterator();
             OWLObject objA = it.next();
             OWLObject objB = it.next();
@@ -308,13 +310,17 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
             if (objA.equals(focusedObject)) {
                 lhs = objA;
                 rhs = objB;
-            } else {
+            }
+            else {
                 lhs = objB;
                 rhs = objA;
             }
             lhs.accept(this);
             writeSpace();
             rhs.accept(this);
+        }
+        else if(objects.size() == 1) {
+            objects.iterator().next().accept(this);
         }
     }
 
@@ -339,7 +345,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
     public void writeAnnotations(OWLAxiom ax) {
-        for(OWLAnnotation anno : ax.getAnnotations()) {
+        for (OWLAnnotation anno : ax.getAnnotations()) {
             anno.accept(this);
             write(" ");
         }
@@ -503,9 +509,6 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         writePropertyCharacteristic(FUNCTIONAL_OBJECT_PROPERTY, axiom, axiom.getProperty());
     }
-
-
-   
 
 
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
@@ -784,12 +787,12 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(OWLDatatype node) {
-        if(!writeEnitiesAsURIs) {
+        if (!writeEnitiesAsURIs) {
             write(DATATYPE);
             writeOpenBracket();
         }
         node.getIRI().accept(this);
-        if(!writeEnitiesAsURIs) {
+        if (!writeEnitiesAsURIs) {
             writeCloseBracket();
         }
     }
@@ -882,18 +885,18 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         axiom.getClassExpression().accept(this);
         write(" ");
         write("(");
-        for(Iterator<? extends OWLPropertyExpression>  it = axiom.getObjectPropertyExpressions().iterator(); it.hasNext(); ) {
+        for (Iterator<? extends OWLPropertyExpression> it = axiom.getObjectPropertyExpressions().iterator(); it.hasNext();) {
             OWLPropertyExpression prop = it.next();
             prop.accept(this);
-            if(it.hasNext()) {
+            if (it.hasNext()) {
                 write(" ");
             }
         }
         write(") (");
-        for(Iterator<? extends OWLPropertyExpression>  it = axiom.getDataPropertyExpressions().iterator(); it.hasNext(); ) {
+        for (Iterator<? extends OWLPropertyExpression> it = axiom.getDataPropertyExpressions().iterator(); it.hasNext();) {
             OWLPropertyExpression prop = it.next();
             prop.accept(this);
-            if(it.hasNext()) {
+            if (it.hasNext()) {
                 write(" ");
             }
         }
@@ -940,12 +943,12 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(OWLAnnotationProperty property) {
-        if(!writeEnitiesAsURIs) {
+        if (!writeEnitiesAsURIs) {
             write(ANNOTATION_PROPERTY);
             writeOpenBracket();
         }
         property.getIRI().accept(this);
-        if(!writeEnitiesAsURIs) {
+        if (!writeEnitiesAsURIs) {
             writeCloseBracket();
         }
     }
@@ -961,7 +964,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLAnnotation node) {
         write(ANNOTATION);
         write("(");
-        for(OWLAnnotation anno : node.getAnnotations()) {
+        for (OWLAnnotation anno : node.getAnnotations()) {
             anno.accept(this);
             write(" ");
         }
@@ -982,61 +985,114 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(SWRLRule rule) {
-        // TODO:
+        writeAxiomStart(DL_SAFE_RULE, rule);
+        write(BODY);
+        writeOpenBracket();
+        write(rule.getBody());
+        writeCloseBracket();
+        write(HEAD);
+        writeOpenBracket();
+        write(rule.getHead());
+        writeCloseBracket();
+        writeAxiomEnd();
     }
 
 
     public void visit(SWRLIndividualArgument node) {
-        throw new RuntimeException("NOT IMPLEMENTED!");
+        node.getIndividual().accept(this);
     }
 
-
     public void visit(SWRLClassAtom node) {
-        throw new RuntimeException("NOT IMPLEMENTED!");
+        write(CLASS_ATOM);
+        writeOpenBracket();
+        node.getPredicate().accept(this);
+        writeSpace();
+        node.getArgument().accept(this);
+        writeCloseBracket();
     }
 
 
     public void visit(SWRLDataRangeAtom node) {
-        throw new RuntimeException("NOT IMPLEMENTED!");
+        write(DATA_RANGE_ATOM);
+        writeOpenBracket();
+        node.getPredicate().accept(this);
+        writeSpace();
+        node.getArgument().accept(this);
+        writeCloseBracket();
     }
 
 
     public void visit(SWRLObjectPropertyAtom node) {
-        throw new RuntimeException("NOT IMPLEMENTED!");
+        write(OBJECT_PROPERTY_ATOM);
+        writeOpenBracket();
+        node.getPredicate().accept(this);
+        writeSpace();
+        node.getFirstArgument().accept(this);
+        writeSpace();
+        node.getSecondArgument().accept(this);
+        writeCloseBracket();
     }
 
 
     public void visit(SWRLDataPropertyAtom node) {
-        throw new RuntimeException("NOT IMPLEMENTED!");
+        write(DATA_PROPERTY_ATOM);
+        writeOpenBracket();
+        node.getPredicate().accept(this);
+        writeSpace();
+        node.getFirstArgument().accept(this);
+        writeSpace();
+        node.getSecondArgument().accept(this);
+        writeCloseBracket();
     }
 
 
     public void visit(SWRLBuiltInAtom node) {
-        throw new RuntimeException("NOT IMPLEMENTED!");
+        write(BUILT_IN_ATOM);
+        writeOpenBracket();
+        node.getPredicate().accept(this);
+        writeSpace();
+        write(node.getArguments());
+        writeCloseBracket();
     }
 
 
     public void visit(SWRLLiteralVariable node) {
-        throw new RuntimeException("NOT IMPLEMENTED!");
+        write(LITERAL_VARIABLE);
+        writeOpenBracket();
+        node.getIRI().accept(this);
+        writeCloseBracket();
     }
 
 
     public void visit(SWRLIndividualVariable node) {
-        throw new RuntimeException("NOT IMPLEMENTED!");
+        write(INDIVIDUAL_VARIABLE);
+        writeOpenBracket();
+        node.getIRI().accept(this);
+        writeCloseBracket();
     }
 
 
     public void visit(SWRLLiteralArgument node) {
-        throw new RuntimeException("NOT IMPLEMENTED!");
+        node.getLiteral().accept(this);
     }
 
 
     public void visit(SWRLDifferentIndividualsAtom node) {
-        throw new RuntimeException("NOT IMPLEMENTED!");
+        write(DIFFERENT_INDIVIDUALS);
+        writeOpenBracket();
+        node.getFirstArgument().accept(this);
+        writeSpace();
+        node.getSecondArgument().accept(this);
+        writeCloseBracket();
     }
 
 
     public void visit(SWRLSameIndividualAtom node) {
-        throw new RuntimeException("NOT IMPLEMENTED!");
+        write(SAME_INDIVIDUAL);
+        writeOpenBracket();
+        node.getFirstArgument().accept(this);
+        writeSpace();
+        node.getSecondArgument().accept(this);
+        writeCloseBracket();
     }
 }

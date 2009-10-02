@@ -45,6 +45,7 @@ import java.util.Set;/*
  */
 public interface OWLReasoner {
 
+
     /**
      * Gets the set of axioms that this reasoner answers queries with respect to.  These are "asserted axioms", that is
      * they are the axioms that were loaded into the reasoner.
@@ -121,43 +122,43 @@ public interface OWLReasoner {
      * be a subclass of classExpression and there is no class "B" that is entailed to be a subclass of classExpression
      * for which "A" is entailed to be a subclass of "B".  
      */
-    HierarchyNodeSet<OWLClass> getSubClasses(OWLClassExpression classExpression, boolean direct);
+    HierarchyNodeSet<OWLClass> getSubClasses(OWLClassExpression classExpression, boolean direct) throws InterruptedException;
 
-    HierarchyNodeSet<OWLClass> getSuperClasses(OWLClassExpression classExpression, boolean direct);
+    HierarchyNodeSet<OWLClass> getSuperClasses(OWLClassExpression classExpression, boolean direct) throws InterruptedException;
 
-    HierarchyNode<OWLClass> getEquivalentClasses(OWLClassExpression classExpression);
-
-
-
-    HierarchyNodeSet<OWLObjectProperty> getSuperProperties(OWLObjectPropertyExpression property, boolean direct);
-
-    HierarchyNodeSet<OWLObjectProperty> getSubProperties(OWLObjectPropertyExpression property, boolean direct);
-
-    HierarchyNode<OWLObjectProperty> getEquivalentProperties(OWLObjectPropertyExpression property);
-
-    HierarchyNodeSet<OWLObjectProperty> getInverseProperties(OWLObjectPropertyExpression property);
-
-    HierarchyNodeSet<OWLClass> getDomains(OWLObjectPropertyExpression property, boolean direct);
-
-    HierarchyNodeSet<OWLClass> getRanges(OWLObjectPropertyExpression property, boolean direct);
+    HierarchyNode<OWLClass> getEquivalentClasses(OWLClassExpression classExpression) throws InterruptedException;
 
 
-    HierarchyNodeSet<OWLDataProperty> getSuperProperties(OWLDataPropertyExpression property, boolean direct);
 
-    HierarchyNodeSet<OWLDataProperty> getSubProperties(OWLDataPropertyExpression property, boolean direct);
+    HierarchyNodeSet<OWLObjectProperty> getSuperProperties(OWLObjectPropertyExpression property, boolean direct) throws InterruptedException;
 
-    HierarchyNode<OWLDataProperty> getEquivalentProperties(OWLDataProperty property);
+    HierarchyNodeSet<OWLObjectProperty> getSubProperties(OWLObjectPropertyExpression property, boolean direct) throws InterruptedException;
 
-    HierarchyNodeSet<OWLClass> getDomains(OWLDataPropertyExpression property, boolean direct);
+    HierarchyNode<OWLObjectProperty> getEquivalentProperties(OWLObjectPropertyExpression property) throws InterruptedException;
+
+    HierarchyNodeSet<OWLObjectProperty> getInverseProperties(OWLObjectPropertyExpression property) throws InterruptedException;
+
+    HierarchyNodeSet<OWLClass> getDomains(OWLObjectPropertyExpression property, boolean direct) throws InterruptedException;
+
+    HierarchyNodeSet<OWLClass> getRanges(OWLObjectPropertyExpression property, boolean direct) throws InterruptedException;
 
 
-    HierarchyNodeSet<OWLClass> getTypes(OWLNamedIndividual individual, boolean direct);
+    HierarchyNodeSet<OWLDataProperty> getSuperProperties(OWLDataPropertyExpression property, boolean direct) throws InterruptedException;
 
-    IndividualSynonymsSet getInstances(OWLClassExpression classExpression, boolean direct);
+    HierarchyNodeSet<OWLDataProperty> getSubProperties(OWLDataPropertyExpression property, boolean direct) throws InterruptedException;
 
-    IndividualSynonymsSet getPropertyValues(OWLNamedIndividual individual, OWLObjectPropertyExpression property);
+    HierarchyNode<OWLDataProperty> getEquivalentProperties(OWLDataProperty property) throws InterruptedException;
 
-    Set<OWLLiteral> getPropertyValues(OWLNamedIndividual individual, OWLDataPropertyExpression property);
+    HierarchyNodeSet<OWLClass> getDomains(OWLDataPropertyExpression property, boolean direct) throws InterruptedException;
+
+
+    HierarchyNodeSet<OWLClass> getTypes(OWLNamedIndividual individual, boolean direct) throws InterruptedException;
+
+    IndividualSynonymsSet getInstances(OWLClassExpression classExpression, boolean direct) throws InterruptedException;
+
+    IndividualSynonymsSet getPropertyValues(OWLNamedIndividual individual, OWLObjectPropertyExpression property) throws InterruptedException;
+
+    Set<OWLLiteral> getPropertyValues(OWLNamedIndividual individual, OWLDataPropertyExpression property) throws InterruptedException;
 
     /**
      * Asks the reasoner to answer a query.
@@ -174,6 +175,35 @@ public interface OWLReasoner {
      * reasoning was cancelled by a client process)
      */
     <R> R answerQuery(Query<R> query) throws UnsupportedQueryTypeException, InterruptedException;
+
+    /**
+     * Determines if this reasoner supports satisfiability checking time out.
+     * @return <code>true</code> if timeout is supported, or <code>false</code> if timeout is not supported.
+     */
+    boolean isTimeOutSupported();
+
+    /**
+     * Sets a time out for satisfiability checking.  If timeout is supported by this reasoner then satisfiability
+     * checks will timeout after the specified time.  This will not have an effect if this reasoner does not support satisfiability
+     * checking timeouts.
+     * @param ms The timeout in milliseconds.  Satisfiability checks will time out as soon as possible after the
+     * elapsed time.
+     */
+    void setTimeOut(long ms);
+
+    /**
+     * Clears any previously set timeout.  This will not have an effect if this reasoner does not support satisfiability
+     * checking timeouts.
+     */
+    void clearTimeOut();
+
+
+    /**
+     * Gets the timeout for satisfiability checking.
+     * @return The timeout for satisfiability checking.  A value of zero indicates there is no timeout.
+     */
+    long getTimeOut();
+
 
     /**
      * Disposes of this reasoner.  This frees up any resources used by the reasoner and detaches the reasoner
