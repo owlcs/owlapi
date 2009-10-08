@@ -42,12 +42,12 @@ public class ObjectHasValueTranslator extends AbstractObjectRestrictionTranslato
     }
 
 
-    protected OWLClassExpression translateRestriction(URI mainNode) {
-        URI hasValueObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getURI(), true);
+    protected OWLClassExpression translateRestriction(IRI mainNode) {
+        IRI hasValueObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getIRI(), true);
         OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
         OWLIndividual ind = getConsumer().getOWLIndividual(hasValueObject);
         if (!ind.isAnonymous()) {
-            getConsumer().addIndividual(((OWLNamedIndividual) ind).getURI());
+            getConsumer().addIndividual(((OWLNamedIndividual) ind).getIRI());
         }
         return getDataFactory().getOWLObjectHasValue(prop, ind);
     }

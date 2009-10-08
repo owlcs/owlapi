@@ -41,12 +41,12 @@ public abstract class AbstractDataQuantifiedRestrictionTranslator extends Abstra
     }
 
 
-    final protected OWLClassExpression translateRestriction(URI mainNode) {
+    final protected OWLClassExpression translateRestriction(IRI mainNode) {
         OWLDataPropertyExpression prop = translateOnProperty(mainNode);
         if(prop == null) {
             return getConsumer().getOWLClass(mainNode);
         }
-        URI fillerObject = getResourceObject(mainNode, getFillerTriplePredicate(), true);
+        IRI fillerObject = getResourceObject(mainNode, getFillerTriplePredicate(), true);
         OWLDataRange dataRange;
         if(fillerObject != null) {
             dataRange = getConsumer().translateDataRange(fillerObject);
@@ -59,9 +59,9 @@ public abstract class AbstractDataQuantifiedRestrictionTranslator extends Abstra
 
 
     /**
-     * Gets the filler triple predicate URI (e.g. owl:someValuesFrom)
+     * Gets the filler triple predicate IRI (e.g. owl:someValuesFrom)
      */
-    protected abstract URI getFillerTriplePredicate();
+    protected abstract IRI getFillerTriplePredicate();
 
     protected abstract OWLClassExpression createRestriction(OWLDataPropertyExpression prop, OWLDataRange filler);
 }

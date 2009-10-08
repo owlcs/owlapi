@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -36,16 +37,16 @@ import java.net.URI;
 public class TPObjectPropertyRangeHandler extends TriplePredicateHandler {
 
     public TPObjectPropertyRangeHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_OBJECT_PROPERTY_RANGE.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_OBJECT_PROPERTY_RANGE.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return !isAnonymous(object);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         addAxiom(getDataFactory().getOWLObjectPropertyRangeAxiom(
                 translateObjectProperty(subject),
                 translateClassExpression(object), getPendingAnnotations()

@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -36,10 +37,10 @@ import java.net.URI;
 public class TypeClassHandler extends BuiltInTypeHandler {
 
     public TypeClassHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_CLASS.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_CLASS.getIRI());
     }
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         if (!isAnonymous(subject)) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLClass(subject)));
             getConsumer().addOWLClass(subject);

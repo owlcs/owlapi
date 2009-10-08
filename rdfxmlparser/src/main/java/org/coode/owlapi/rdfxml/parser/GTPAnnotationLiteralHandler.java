@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 import java.util.logging.Logger;
@@ -45,23 +46,23 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
         return !isAnonymous(subject) && getConsumer().isAnnotationProperty(predicate);
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) {
+    public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
         return getConsumer().isAnnotationProperty(predicate);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, OWLLiteral object) {
+    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
         consumeTriple(subject, predicate, object);
         if(getConsumer().isOntology(subject)) {
             getConsumer().addOntologyAnnotation(getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), object));
         }
         else {
-            OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getOWLAnnotationProperty(predicate), getDataFactory().getIRI(subject), object, getPendingAnnotations());
+            OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getOWLAnnotationProperty(predicate), subject, object, getPendingAnnotations());
             addAxiom(ax);
         }
     }

@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 import java.util.logging.Level;
@@ -40,11 +41,11 @@ public class TypePropertyHandler extends BuiltInTypeHandler {
     private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
 
     public TypePropertyHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.RDF_PROPERTY.getURI());
+        super(consumer, OWLRDFVocabulary.RDF_PROPERTY.getIRI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         // We need to consume this triple
         consumeTriple(subject, predicate, object);
         if (logger.isLoggable(Level.FINE)) {

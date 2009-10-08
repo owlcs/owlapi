@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -37,19 +38,19 @@ import java.net.URI;
 public class TypeInverseFunctionalPropertyHandler extends BuiltInTypeHandler {
 
     public TypeInverseFunctionalPropertyHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI());
     }
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         getConsumer().addOWLObjectProperty(subject);
         return !isAnonymous(subject);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         getConsumer().addOWLObjectProperty(subject);
         addAxiom(getDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
-        getConsumer().handle(subject, OWLRDFVocabulary.RDF_TYPE.getURI(), OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI());
+        getConsumer().handle(subject, OWLRDFVocabulary.RDF_TYPE.getIRI(), OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
     }
 }

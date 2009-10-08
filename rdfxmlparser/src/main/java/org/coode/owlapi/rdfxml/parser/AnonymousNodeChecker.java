@@ -1,5 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -33,8 +35,8 @@ import java.net.URI;
  */
 public interface AnonymousNodeChecker {
 
-    public boolean isAnonymousNode(URI uri);
+    public boolean isAnonymousNode(IRI iri);
 
 
-    public boolean isAnonymousNode(String uri);
+    public boolean isAnonymousNode(String iri);
 }

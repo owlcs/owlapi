@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -35,27 +36,27 @@ import java.net.URI;
  */
 public abstract class BuiltInTypeHandler extends TriplePredicateHandler {
 
-    private URI typeURI;
+    private IRI typeIRI;
 
-    public BuiltInTypeHandler(OWLRDFConsumer consumer, URI typeURI) {
-        super(consumer, OWLRDFVocabulary.RDF_TYPE.getURI());
-        this.typeURI = typeURI;
+    public BuiltInTypeHandler(OWLRDFConsumer consumer, IRI typeIRI) {
+        super(consumer, OWLRDFVocabulary.RDF_TYPE.getIRI());
+        this.typeIRI = typeIRI;
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return true;
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, URI object) {
-        return predicate.equals(OWLRDFVocabulary.RDF_TYPE.getURI()) &&
-                object.equals(typeURI);
+    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+        return predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) &&
+                object.equals(typeIRI);
     }
 
 
-    public URI getTypeURI() {
-        return typeURI;
+    public IRI getTypeIRI() {
+        return typeIRI;
     }
 
 }

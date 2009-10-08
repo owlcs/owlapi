@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -36,11 +37,11 @@ import java.net.URI;
 public class TypeRDFSClassHandler extends BuiltInTypeHandler {
 
     public TypeRDFSClassHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.RDFS_CLASS.getURI());
+        super(consumer, OWLRDFVocabulary.RDFS_CLASS.getIRI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         getConsumer().addOWLClass(subject);
         consumeTriple(subject, predicate, object);
     }

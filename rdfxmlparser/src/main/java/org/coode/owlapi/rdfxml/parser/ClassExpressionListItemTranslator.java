@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -44,8 +45,8 @@ public class ClassExpressionListItemTranslator implements ListItemTranslator<OWL
     }
 
 
-    public OWLClassExpression translate(URI uri) {
-        return consumer.translateClassExpression(uri);
+    public OWLClassExpression translate(IRI IRI) {
+        return consumer.translateClassExpression(IRI);
     }
 
 

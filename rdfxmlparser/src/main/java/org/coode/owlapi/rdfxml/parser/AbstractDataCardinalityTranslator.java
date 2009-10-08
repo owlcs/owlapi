@@ -46,17 +46,17 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
      * Gets the predicate of the cardinality triple (e.g. minCardinality, cardinality,
      * maxCardinality)
      *
-     * @return The URI corresponding to the predicate of the triple that identifies
+     * @return The IRI corresponding to the predicate of the triple that identifies
      *         the cardinality of the restriction.
      */
-    protected abstract URI getCardinalityTriplePredicate();
+    protected abstract IRI getCardinalityTriplePredicate();
 
 
     /**
      * Gets the predicate of the qualified cardinality triple.
-     * @return The predicate URI
+     * @return The predicate IRI
      */
-    protected abstract URI getQualifiedCardinalityTriplePredicate();
+    protected abstract IRI getQualifiedCardinalityTriplePredicate();
 
     /**
      * Translates and consumes the cardinality triple.
@@ -64,7 +64,7 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
      * @param mainNode The main node of the restriction.
      * @return The cardinality of the restriction.
      */
-    private int translateCardinality(URI mainNode) {
+    private int translateCardinality(IRI mainNode) {
         OWLLiteral cardiObject = getLiteralObject(mainNode, getCardinalityTriplePredicate(), true);
         if(cardiObject == null) {
             cardiObject = getLiteralObject(mainNode, getQualifiedCardinalityTriplePredicate(), true);
@@ -86,8 +86,8 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
      * @param mainNode The main node of the restriction
      * @return The class expression corresponding to the filler (not <code>null</code>)
      */
-    private OWLDataRange translateFiller(URI mainNode) {
-        URI onDataRangeObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_DATA_RANGE.getURI(), true);
+    private OWLDataRange translateFiller(IRI mainNode) {
+        IRI onDataRangeObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_DATA_RANGE.getIRI(), true);
         if (onDataRangeObject == null) {
             return getDataFactory().getTopDatatype();
         }
@@ -95,7 +95,7 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
     }
 
 
-    protected OWLClassExpression translateRestriction(URI mainNode) {
+    protected OWLClassExpression translateRestriction(IRI mainNode) {
         int cardinality = translateCardinality(mainNode);
         if(cardinality < 0) {
             return getConsumer().getOWLClass(mainNode);

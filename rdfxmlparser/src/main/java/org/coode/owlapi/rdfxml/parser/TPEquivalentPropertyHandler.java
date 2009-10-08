@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -43,11 +44,11 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
     private static final Logger logger = Logger.getLogger(TPEquivalentPropertyHandler.class.getName());
 
     public TPEquivalentPropertyHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_EQUIVALENT_PROPERTY.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_EQUIVALENT_PROPERTY.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return (getConsumer().isObjectPropertyOnly(subject) &&
                 getConsumer().isObjectPropertyOnly(object)) ||
                 (getConsumer().isDataPropertyOnly(subject) &&
@@ -55,7 +56,7 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         // If either is an object property then translate as object properties
         if (getConsumer().isObjectPropertyOnly(subject) ||
                 getConsumer().isObjectPropertyOnly(object)) {
@@ -76,7 +77,7 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
     }
 
 
-    private void translateEquivalentObjectProperties(URI subject, URI predicate, URI object) {
+    private void translateEquivalentObjectProperties(IRI subject, IRI predicate, IRI object) {
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
         props.add(translateObjectProperty(subject));
         props.add(translateObjectProperty(object));

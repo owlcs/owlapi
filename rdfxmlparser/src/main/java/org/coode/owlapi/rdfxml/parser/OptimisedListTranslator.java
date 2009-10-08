@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class OptimisedListTranslator<O extends OWLObject> {
     }
 
 
-    private void translateList(URI mainNode, List<O> list) {
+    private void translateList(IRI mainNode, List<O> list) {
         if (!consumer.isList(mainNode, true)) {
             // I originally threw an exception here, but some ontologies
             // seem to have missing type triples for lists where it's obvious
@@ -75,7 +76,7 @@ public class OptimisedListTranslator<O extends OWLObject> {
         }
 
 
-        URI firstResource = getConsumer().getFirstResource(mainNode, true);
+        IRI firstResource = getConsumer().getFirstResource(mainNode, true);
         if (firstResource != null) {
             list.add(translator.translate(firstResource));
         }
@@ -91,21 +92,21 @@ public class OptimisedListTranslator<O extends OWLObject> {
                 }
             }
         }
-        URI rest = getConsumer().getRest(mainNode, true);
+        IRI rest = getConsumer().getRest(mainNode, true);
         if (rest != null) {
             translateList(rest, list);
         }
     }
 
 
-    public List<O> translateList(URI mainNode) {
+    public List<O> translateList(IRI mainNode) {
         List<O> list = new ArrayList<O>();
         translateList(mainNode, list);
         return list;
     }
 
 
-    public Set<O> translateToSet(URI mainNode) {
+    public Set<O> translateToSet(IRI mainNode) {
         return new HashSet<O>(translateList(mainNode));
     }
 }

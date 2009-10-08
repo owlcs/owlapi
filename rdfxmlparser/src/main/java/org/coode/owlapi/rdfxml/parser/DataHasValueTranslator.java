@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -43,8 +44,8 @@ public class DataHasValueTranslator extends AbstractDataRestrictionTranslator {
     }
 
 
-    protected OWLClassExpression translateRestriction(URI mainNode) {
-        OWLLiteral con = getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getURI(), true);
+    protected OWLClassExpression translateRestriction(IRI mainNode) {
+        OWLLiteral con = getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getIRI(), true);
         return getDataFactory().getOWLDataHasValue(translateOnProperty(mainNode), con);
     }
 }

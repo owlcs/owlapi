@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -51,6 +52,6 @@ public interface ClassExpressionTranslator {
      * @throws OWLException If the translation could not take place, possibly because the
      * class expression (set of triples) was malformed.
      */
-    OWLClassExpression translate(URI mainNode);
+    OWLClassExpression translate(IRI mainNode);
     
 }

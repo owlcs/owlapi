@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -50,7 +51,7 @@ public class NamedClassTranslator implements ClassExpressionTranslator {
      *          If the translation could not take place, possibly because the
      *          class expression (set of triples) was malformed.
      */
-    public OWLClassExpression translate(URI mainNode) {
+    public OWLClassExpression translate(IRI mainNode) {
         return consumer.getOWLClass(mainNode);
     }
 }

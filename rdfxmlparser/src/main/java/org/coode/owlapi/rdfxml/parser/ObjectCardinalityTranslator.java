@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -54,11 +55,11 @@ public class ObjectCardinalityTranslator extends AbstractObjectCardinalityTransl
     }
 
 
-    protected URI getCardinalityTriplePredicate() {
-        return OWLRDFVocabulary.OWL_CARDINALITY.getURI();
+    protected IRI getCardinalityTriplePredicate() {
+        return OWLRDFVocabulary.OWL_CARDINALITY.getIRI();
     }
 
-    protected URI getQualifiedCardinalityTriplePredicate() {
-        return OWLRDFVocabulary.OWL_QUALIFIED_CARDINALITY.getURI();
+    protected IRI getQualifiedCardinalityTriplePredicate() {
+        return OWLRDFVocabulary.OWL_QUALIFIED_CARDINALITY.getIRI();
     }
 }

@@ -1,9 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -48,12 +45,12 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
     /**
      * Gets the predicate of the cardinality triple (e.g. minCardinality, cardinality,
      * maxCardinality)
-     * @return The URI corresponding to the predicate of the triple that identifies
+     * @return The IRI corresponding to the predicate of the triple that identifies
      * the cardinality of the restriction.
      */
-    protected abstract URI getCardinalityTriplePredicate();
+    protected abstract IRI getCardinalityTriplePredicate();
 
-    protected abstract URI getQualifiedCardinalityTriplePredicate();
+    protected abstract IRI getQualifiedCardinalityTriplePredicate();
 
     /**
      * Translates and consumes the cardinality triple.
@@ -61,7 +58,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
      * @return The cardinality of the restriction or -1 if the cardinality triple was not found
      * @throws OWLException
      */
-    private int translateCardinality(URI mainNode) {
+    private int translateCardinality(IRI mainNode) {
         OWLLiteral con = getLiteralObject(mainNode, getCardinalityTriplePredicate(), true);
         if(con == null) {
             con = getLiteralObject(mainNode, getQualifiedCardinalityTriplePredicate(), true);
@@ -81,8 +78,8 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
      * @return The class expression corresponding to the filler (not <code>null</code>)
      * @throws OWLException
      */
-    private OWLClassExpression translateFiller(URI mainNode) {
-        URI onClassObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_CLASS.getURI(), true);
+    private OWLClassExpression translateFiller(IRI mainNode) {
+        IRI onClassObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_CLASS.getIRI(), true);
         if(onClassObject == null) {
             return getDataFactory().getOWLThing();
         }
@@ -90,7 +87,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
     }
 
 
-    protected OWLClassExpression translateRestriction(URI mainNode) {
+    protected OWLClassExpression translateRestriction(IRI mainNode) {
         OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
         if(prop == null) {
             return getConsumer().getOWLClass(mainNode);

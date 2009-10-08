@@ -530,6 +530,24 @@ public interface OWLOntology extends OWLObject {
 
     boolean containsDatatypeReference(IRI datatypeIRI, boolean includeImportsClosure);
 
+    /**
+     * Gets the entities in the signature of this ontology that have the specified IRI
+     * @param iri The IRI
+     * @return A set of entities that are in the signature of this ontology that have the specified IRI.  The
+     * set will be empty if there are no entities in the signature of this ontology with the specified IRI.
+     */
+    Set<OWLEntity> getEntitiesWithIRI(IRI iri);
+
+    /**
+     * Gets the entities in the signature of this ontology, and possibly its imports closure, that have the specified IRI
+     * @param iri The IRI
+     * @param includeImportsClosure Specifies if the imports closure signature should be taken into account
+     * @return A set of entities that are in the signature of this ontology and possibly its imports closure
+     * that have the specified IRI.  The set will be empty if there are no entities in the signature of this ontology
+     * and possibly its imports closure with the specified IRI.
+     */
+    Set<OWLEntity> getEntitiesWithIRI(IRI iri, boolean includeImportsClosure);
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Axioms that form part of a description of a named entity

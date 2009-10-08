@@ -3,6 +3,7 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -48,7 +49,7 @@ public class DataSomeValuesFromTranslator extends AbstractDataQuantifiedRestrict
     }
 
 
-    protected URI getFillerTriplePredicate() {
-        return OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getURI();
+    protected IRI getFillerTriplePredicate() {
+        return OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getIRI();
     }
 }

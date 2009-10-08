@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -39,11 +40,11 @@ import java.util.Set;
 public class TPDisjointWithHandler extends TriplePredicateHandler {
 
     public TPDisjointWithHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_DISJOINT_WITH.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_DISJOINT_WITH.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         // We can only handle disjoint axioms if we don't have to do
         // any translation of the subject or object - i.e. only if the
         // subject or object are named classes
@@ -51,7 +52,7 @@ public class TPDisjointWithHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateClassExpression(subject));
         operands.add(translateClassExpression(object));

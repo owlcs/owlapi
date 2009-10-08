@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -51,7 +52,7 @@ public class IntersectionOfTranslator extends AbstractNaryBooleanClassExpression
     }
 
 
-    protected URI getPredicateURI() {
-        return OWLRDFVocabulary.OWL_INTERSECTION_OF.getURI();
+    protected IRI getPredicateIRI() {
+        return OWLRDFVocabulary.OWL_INTERSECTION_OF.getIRI();
     }
 }

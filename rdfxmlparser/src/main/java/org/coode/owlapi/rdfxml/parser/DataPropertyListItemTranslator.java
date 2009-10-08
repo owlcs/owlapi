@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -44,7 +45,7 @@ public class DataPropertyListItemTranslator implements ListItemTranslator<OWLDat
     }
 
 
-    public OWLDataPropertyExpression translate(URI firstObject) {
+    public OWLDataPropertyExpression translate(IRI firstObject) {
         consumer.addOWLDataProperty(firstObject);
         return consumer.getOWLDataProperty(firstObject);
     }

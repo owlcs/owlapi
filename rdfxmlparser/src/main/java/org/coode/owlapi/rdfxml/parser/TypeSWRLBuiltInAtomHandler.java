@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -36,11 +37,11 @@ import java.net.URI;
 public class TypeSWRLBuiltInAtomHandler extends BuiltInTypeHandler {
 
     public TypeSWRLBuiltInAtomHandler(OWLRDFConsumer consumer) {
-        super(consumer, SWRLVocabulary.BUILT_IN_ATOM.getURI());
+        super(consumer, SWRLVocabulary.BUILT_IN_ATOM.getIRI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         getConsumer().addSWRLBuiltInAtom(subject);
         consumeTriple(subject, predicate, object);
     }

@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 import java.util.logging.Logger;
@@ -48,8 +49,8 @@ public class IndividualListItemTranslator implements ListItemTranslator<OWLIndiv
     }
 
 
-    public OWLIndividual translate(URI uri) {
-        return consumer.translateIndividual(uri);
+    public OWLIndividual translate(IRI IRI) {
+        return consumer.translateIndividual(IRI);
     }
 
 

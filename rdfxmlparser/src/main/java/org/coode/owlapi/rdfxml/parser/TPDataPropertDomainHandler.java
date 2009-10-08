@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -36,16 +37,16 @@ import java.net.URI;
 public class TPDataPropertDomainHandler extends TriplePredicateHandler {
 
     public TPDataPropertDomainHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_DATA_PROPERTY_DOMAIN.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_DATA_PROPERTY_DOMAIN.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return !isAnonymous(object);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         addAxiom(getDataFactory().getOWLDataPropertyDomainAxiom(
                 translateDataProperty(subject),
                 translateClassExpression(object),

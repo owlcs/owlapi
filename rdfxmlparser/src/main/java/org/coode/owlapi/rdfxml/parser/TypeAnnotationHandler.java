@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;/*
  * Copyright (C) 2008, University of Manchester
@@ -32,10 +33,10 @@ import java.net.URI;/*
 public class TypeAnnotationHandler extends BuiltInTypeHandler {
 
     public TypeAnnotationHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_ANNOTATION.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_ANNOTATION.getIRI());
     }
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
-        getConsumer().addAnnotationURI(subject);
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+        getConsumer().addAnnotationIRI(subject);
     }
 }

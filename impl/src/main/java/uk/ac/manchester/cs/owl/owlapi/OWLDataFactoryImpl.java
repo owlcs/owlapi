@@ -42,26 +42,26 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     private static OWLDataFactory instance = new OWLDataFactoryImpl();
 
-    private Map<URI, OWLClass> classesByURI;
+    private Map<IRI, OWLClass> classesByURI;
 
-    private Map<URI, OWLObjectProperty> objectPropertiesByURI;
+    private Map<IRI, OWLObjectProperty> objectPropertiesByURI;
 
-    private Map<URI, OWLDataProperty> dataPropertiesByURI;
+    private Map<IRI, OWLDataProperty> dataPropertiesByURI;
 
-    private Map<URI, OWLDatatype> datatypesByURI;
+    private Map<IRI, OWLDatatype> datatypesByURI;
 
-    private Map<URI, OWLNamedIndividual> individualsByURI;
+    private Map<IRI, OWLNamedIndividual> individualsByURI;
 
-    private Map<URI, OWLAnnotationProperty> annotationPropertiesByURI;
+    private Map<IRI, OWLAnnotationProperty> annotationPropertiesByURI;
 
 
     public OWLDataFactoryImpl() {
-        classesByURI = new WeakHashMap<URI, OWLClass>();
-        objectPropertiesByURI = new HashMap<URI, OWLObjectProperty>();
-        dataPropertiesByURI = new HashMap<URI, OWLDataProperty>();
-        datatypesByURI = new HashMap<URI, OWLDatatype>();
-        individualsByURI = new HashMap<URI, OWLNamedIndividual>();
-        annotationPropertiesByURI = new HashMap<URI, OWLAnnotationProperty>();
+        classesByURI = new WeakHashMap<IRI, OWLClass>();
+        objectPropertiesByURI = new HashMap<IRI, OWLObjectProperty>();
+        dataPropertiesByURI = new HashMap<IRI, OWLDataProperty>();
+        datatypesByURI = new HashMap<IRI, OWLDatatype>();
+        individualsByURI = new HashMap<IRI, OWLNamedIndividual>();
+        annotationPropertiesByURI = new HashMap<IRI, OWLAnnotationProperty>();
     }
 
     public static OWLDataFactory getInstance() {
@@ -87,16 +87,17 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLClass getOWLClass(URI uri) {
-        OWLClass cls = classesByURI.get(uri);
-        if (cls == null) {
-            cls = new OWLClassImpl(this, getIRI(uri));
-            classesByURI.put(uri, cls);
-        }
-        return cls;
+        IRI iri = IRI.create(uri);
+        return getOWLClass(iri);
     }
 
     public OWLClass getOWLClass(IRI iri) {
-        return getOWLClass(iri.toURI());
+        OWLClass cls = classesByURI.get(iri);
+        if (cls == null) {
+            cls = new OWLClassImpl(this, iri);
+            classesByURI.put(iri, cls);
+        }
+        return cls;
     }
 
     public OWLClass getOWLClass(String curi,
@@ -161,42 +162,45 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectProperty getOWLObjectProperty(URI uri) {
-        OWLObjectProperty prop = objectPropertiesByURI.get(uri);
-        if (prop == null) {
-            prop = new OWLObjectPropertyImpl(this, getIRI(uri));
-            objectPropertiesByURI.put(uri, prop);
-        }
-        return prop;
+        IRI iri = IRI.create(uri);
+        return getOWLObjectProperty(iri);
     }
 
     public OWLObjectProperty getOWLObjectProperty(IRI iri) {
-        return getOWLObjectProperty(iri.toURI());
-    }
-
-    public OWLDataProperty getOWLDataProperty(URI uri) {
-        OWLDataProperty prop = dataPropertiesByURI.get(uri);
+        OWLObjectProperty prop = objectPropertiesByURI.get(iri);
         if (prop == null) {
-            prop = new OWLDataPropertyImpl(this, getIRI(uri));
-            dataPropertiesByURI.put(uri, prop);
+            prop = new OWLObjectPropertyImpl(this, iri);
+            objectPropertiesByURI.put(iri, prop);
         }
         return prop;
     }
 
+    public OWLDataProperty getOWLDataProperty(URI uri) {
+        IRI iri = IRI.create(uri);
+        return getOWLDataProperty(iri);
+    }
+
     public OWLDataProperty getOWLDataProperty(IRI iri) {
-        return getOWLDataProperty(iri.toURI());
+        OWLDataProperty prop = dataPropertiesByURI.get(iri);
+        if (prop == null) {
+            prop = new OWLDataPropertyImpl(this, iri);
+            dataPropertiesByURI.put(iri, prop);
+        }
+        return prop;
     }
 
     public OWLNamedIndividual getOWLNamedIndividual(URI uri) {
-        OWLNamedIndividual ind = individualsByURI.get(uri);
-        if (ind == null) {
-            ind = new OWLNamedIndividualImpl(this, getIRI(uri));
-            individualsByURI.put(uri, ind);
-        }
-        return ind;
+        IRI iri = IRI.create(uri);
+        return getOWLNamedIndividual(iri);
     }
 
     public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
-        return getOWLNamedIndividual(iri.toURI());
+        OWLNamedIndividual ind = individualsByURI.get(iri);
+        if (ind == null) {
+            ind = new OWLNamedIndividualImpl(this, iri);
+            individualsByURI.put(iri, ind);
+        }
+        return ind;
     }
 
     public OWLDataProperty getOWLDataProperty(String curi,
@@ -230,16 +234,16 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
     public OWLDatatype getOWLDatatype(URI uri) {
-        OWLDatatype dt = datatypesByURI.get(uri);
-        if (dt == null) {
-            dt = new OWLDatatypeImpl(this, getIRI(uri));
-            datatypesByURI.put(uri, dt);
-        }
-        return dt;
+        return getOWLDatatype(IRI.create(uri));
     }
 
     public OWLDatatype getOWLDatatype(IRI iri) {
-        return getOWLDatatype(iri.toURI());
+        OWLDatatype dt = datatypesByURI.get(iri);
+        if (dt == null) {
+            dt = new OWLDatatypeImpl(this, iri);
+            datatypesByURI.put(iri, dt);
+        }
+        return dt;
     }
 
     public OWLTypedLiteral getOWLTypedLiteral(String literal,
@@ -1045,16 +1049,16 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLAnnotationProperty getOWLAnnotationProperty(URI uri) {
-        OWLAnnotationProperty prop = annotationPropertiesByURI.get(uri);
-        if (prop == null) {
-            prop = new OWLAnnotationPropertyImpl(this, getIRI(uri));
-            annotationPropertiesByURI.put(uri, prop);
-        }
-        return prop;
+        return getOWLAnnotationProperty(IRI.create(uri));
     }
 
     public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
-        return getOWLAnnotationProperty(iri.toURI());
+        OWLAnnotationProperty prop = annotationPropertiesByURI.get(iri);
+        if (prop == null) {
+            prop = new OWLAnnotationPropertyImpl(this, iri);
+            annotationPropertiesByURI.put(iri, prop);
+        }
+        return prop;
     }
 
     /**

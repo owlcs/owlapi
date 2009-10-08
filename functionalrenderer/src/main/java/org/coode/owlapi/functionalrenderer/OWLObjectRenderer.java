@@ -1078,7 +1078,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(SWRLDifferentIndividualsAtom node) {
-        write(DIFFERENT_INDIVIDUALS);
+        write(DIFFERENT_INDIVIDUALS_ATOM);
         writeOpenBracket();
         node.getFirstArgument().accept(this);
         writeSpace();
@@ -1088,7 +1088,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
 
     public void visit(SWRLSameIndividualAtom node) {
-        write(SAME_INDIVIDUAL);
+        write(SAME_INDIVIDUAL_ATOM);
         writeOpenBracket();
         node.getFirstArgument().accept(this);
         writeSpace();

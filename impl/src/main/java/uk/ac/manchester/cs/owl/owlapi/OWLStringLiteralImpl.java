@@ -38,7 +38,12 @@ public class OWLStringLiteralImpl extends OWLLiteralImpl implements OWLStringLit
 
     public OWLStringLiteralImpl(OWLDataFactory dataFactory, String literal, String lang) {
         super(dataFactory, literal);
-        this.lang = lang;
+        if (lang != null && lang.length() > 0) {
+            this.lang = lang;
+        }
+        else {
+            this.lang = null;
+        }
     }
 
 

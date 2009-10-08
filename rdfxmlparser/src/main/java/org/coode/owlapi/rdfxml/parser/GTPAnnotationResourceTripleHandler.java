@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -41,26 +42,26 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return !isAnonymous(subject) && getConsumer().isAnnotationProperty(predicate);
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, URI object) {
+    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         return getConsumer().isAnnotationProperty(predicate);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
 
         OWLAnnotation anno = getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate),
-                                                            getConsumer().getDataFactory().getIRI(object));
+                                                            object);
         if(getConsumer().isOntology(subject)) {
             // Assume we annotation our ontology?
             getConsumer().addOntologyAnnotation(anno);
         }
         else {
-            OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(getConsumer().getDataFactory().getIRI(subject), anno, getPendingAnnotations());
+            OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno, getPendingAnnotations());
             addAxiom(decAx);
         }
     }

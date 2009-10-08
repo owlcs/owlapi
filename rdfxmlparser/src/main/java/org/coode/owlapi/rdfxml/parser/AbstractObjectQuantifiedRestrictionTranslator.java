@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -41,15 +42,15 @@ public abstract class AbstractObjectQuantifiedRestrictionTranslator extends Abst
     }
 
 
-    final protected OWLClassExpression translateRestriction(URI mainNode) {
-        URI fillerObject = getResourceObject(mainNode, getFillerTriplePredicate(), true);
+    final protected OWLClassExpression translateRestriction(IRI mainNode) {
+        IRI fillerObject = getResourceObject(mainNode, getFillerTriplePredicate(), true);
         OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
         OWLClassExpression desc = translateToClassExpression(fillerObject);
         return createRestriction(prop, desc);
     }
 
 
-    protected abstract URI getFillerTriplePredicate();
+    protected abstract IRI getFillerTriplePredicate();
 
 
     protected abstract OWLClassExpression createRestriction(OWLObjectPropertyExpression property,

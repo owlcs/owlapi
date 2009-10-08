@@ -112,6 +112,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
         this.bases = new Stack<URI>();
         handlerStack = new ArrayList<OWLElementHandler>();
         prefixName2PrefixMap = new HashMap<String, String>();
+        prefixName2PrefixMap.put("owl:", Namespaces.OWL.toString());
+        prefixName2PrefixMap.put("xsd:", Namespaces.XSD.toString());
         if (topHandler != null) {
             handlerStack.add(0, topHandler);
         }
@@ -375,6 +377,12 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
         }, "SubObjectPropertyChain");
 
+        addFactory(new AbstractElementHandlerFactory(OBJECT_PROPERTY_CHAIN) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new OWLSubObjectPropertyChainElementHandler(handler);
+            }
+        });
+
         addFactory(new AbstractElementHandlerFactory(EQUIVALENT_OBJECT_PROPERTIES) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLEquivalentObjectPropertiesAxiomElementHandler(handler);
@@ -577,6 +585,74 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 return new OWLDatatypeDefinitionElementHandler(handler);
             }
         });
+
+        addFactory(new AbstractElementHandlerFactory(DL_SAFE_RULE) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new SWRLRuleElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(BODY) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new SWRLAtomListElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(HEAD) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new SWRLAtomListElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(INDIVIDUAL_VARIABLE) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new SWRLIndividualVariableElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(LITERAL_VARIABLE) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new SWRLLiteralVariableElementHandler(handler);
+            }
+        });
+
+
+        addFactory(new AbstractElementHandlerFactory(CLASS_ATOM) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new SWRLClassAtomElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(OBJECT_PROPERTY_ATOM) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new SWRLObjectPropertyAtomElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(DATA_PROPERTY_ATOM) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new SWRLDataPropertyAtomElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(BUILT_IN_ATOM) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new SWRLBuiltInAtomElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(DIFFERENT_INDIVIDUALS_ATOM) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new SWRLDifferentIndividualsAtomElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(SAME_INDIVIDUAL_ATOM) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new SWRLSameIndividualAtomElementHandler(handler);
+            }
+        });
+
     }
 
 
@@ -605,7 +681,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
                     URI base = getBase();
                     if (base == null)
                         throw new OWLXMLParserException(getLineNumber(), "Unable to resolve relative URI");
-                    iri = IRI.create(getBase().resolve(uri));
+//                    iri = IRI.create(getBase().resolve(uri));
+                    iri = IRI.create(base + iriStr);
                 }
                 else {
                     iri = IRI.create(uri);

@@ -114,6 +114,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
             if(diff != 0) {
                 return diff;
             }
+            i++;
         }
         return args.size() - otherArgs.size();
     }

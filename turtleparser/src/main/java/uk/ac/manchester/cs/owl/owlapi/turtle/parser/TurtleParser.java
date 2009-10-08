@@ -56,8 +56,8 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     }
 
 
-    public boolean isAnonymousNode(URI uri) {
-        String frag = uri.getFragment();
+    public boolean isAnonymousNode(IRI iri) {
+        String frag = iri.getFragment();
         return frag != null && frag.indexOf("genid") != -1;
     }
 

@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -37,15 +38,15 @@ public class TPHasKeyHandler extends TriplePredicateHandler {
     private OptimisedListTranslator<OWLPropertyExpression> listTranslator;
 
     public TPHasKeyHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_HAS_KEY.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_HAS_KEY.getIRI());
         this.listTranslator = new OptimisedListTranslator<OWLPropertyExpression>(getConsumer(), new HasKeyListItemTranslator(getConsumer()));
     }
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return false;
     }
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         consumeTriple(subject, predicate, object);
         OWLClassExpression ce = translateClassExpression(subject);
         Set<OWLPropertyExpression> props = listTranslator.translateToSet(object);

@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 import java.net.URI;/*
@@ -43,9 +44,9 @@ public class OWLFacetRestrictionListItemTranslator implements ListItemTranslator
         return null;
     }
 
-    public OWLFacetRestriction translate(URI firstObject) {
+    public OWLFacetRestriction translate(IRI firstObject) {
         for(OWLFacet facet : OWLFacet.values()) {
-            OWLLiteral lit = consumer.getLiteralObject(firstObject, facet.getIRI().toURI(), true);
+            OWLLiteral lit = consumer.getLiteralObject(firstObject, facet.getIRI(), true);
             if(lit != null) {
                 return consumer.getDataFactory().getOWLFacetRestriction(facet, lit);
             }

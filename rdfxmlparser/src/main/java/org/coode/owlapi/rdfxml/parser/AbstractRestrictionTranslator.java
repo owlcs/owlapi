@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 
@@ -42,9 +43,9 @@ public abstract class AbstractRestrictionTranslator extends AbstractClassExpress
 
 
 
-    final public OWLClassExpression translate(URI mainNode) {
+    final public OWLClassExpression translate(IRI mainNode) {
         return translateRestriction(mainNode);
     }
 
-    protected abstract OWLClassExpression translateRestriction(URI mainNode);
+    protected abstract OWLClassExpression translateRestriction(IRI mainNode);
 }

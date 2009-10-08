@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -41,13 +42,13 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
 
 
     public TPPropertyRangeHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.RDFS_RANGE.getURI());
+        super(consumer, OWLRDFVocabulary.RDFS_RANGE.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject,
-                                      URI predicate,
-                                      URI object) {
+    public boolean canHandleStreaming(IRI subject,
+                                      IRI predicate,
+                                      IRI object) {
         if (!isAnonymous(object)) {
             if (getConsumer().isObjectPropertyOnly(subject)) {
                 return true;
@@ -60,9 +61,9 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(URI subject,
-                             URI predicate,
-                             URI object) {
+    public void handleTriple(IRI subject,
+                             IRI predicate,
+                             IRI object) {
         if (getConsumer().isObjectPropertyOnly(subject)) {
             translateObjectPropertyRange(subject, object, predicate);
         }
@@ -72,7 +73,7 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
         }
         else if(getConsumer().isAnnotationProperty(subject)) {
             OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(subject);
-            addAxiom(getDataFactory().getOWLAnnotationPropertyRangeAxiom(prop, getDataFactory().getIRI(object), getPendingAnnotations()));
+            addAxiom(getDataFactory().getOWLAnnotationPropertyRangeAxiom(prop, object, getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
         else {
@@ -96,9 +97,9 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
     }
 
 
-    private void translateObjectPropertyRange(URI subject,
-                                              URI object,
-                                              URI predicate) {
+    private void translateObjectPropertyRange(IRI subject,
+                                              IRI object,
+                                              IRI predicate) {
         addAxiom(getDataFactory().getOWLObjectPropertyRangeAxiom(translateObjectProperty(subject), translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }

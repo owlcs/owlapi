@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;/*
  * Copyright (C) 2008, University of Manchester
@@ -32,10 +33,10 @@ import java.net.URI;/*
 public class TypeNamedIndividualHandler extends BuiltInTypeHandler {
 
     public TypeNamedIndividualHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI());
     }
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLNamedIndividual(subject)));
         getConsumer().addIndividual(subject);
     }

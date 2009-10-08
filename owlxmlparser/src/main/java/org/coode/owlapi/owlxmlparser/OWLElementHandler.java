@@ -89,10 +89,10 @@ public interface OWLElementHandler<O> {
     public void handleChars(char[] chars, int start, int length) throws OWLXMLParserException;
 
 
-    public void handleChild(SWRLIArgumentElementHandler handler) throws OWLXMLParserException;
+    public void handleChild(SWRLIndividualVariableElementHandler handler) throws OWLXMLParserException;
 
 
-    public void handleChild(SWRLDArgumentElementHandler handler) throws OWLXMLParserException;
+    public void handleChild(SWRLLiteralVariableElementHandler handler) throws OWLXMLParserException;
 
 
     public void handleChild(SWRLAtomElementHandler handler) throws OWLXMLParserException;

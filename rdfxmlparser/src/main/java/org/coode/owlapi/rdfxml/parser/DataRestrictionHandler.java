@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -36,11 +37,11 @@ import java.net.URI;
 public class DataRestrictionHandler extends BuiltInTypeHandler {
 
     public DataRestrictionHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_DATA_RESTRICTION.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_DATA_RESTRICTION.getIRI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         consumeTriple(subject, predicate, object);
         getConsumer().addRestriction(subject);
     }

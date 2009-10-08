@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;/*
  * Copyright (C) 2008, University of Manchester
@@ -42,7 +43,7 @@ public class HasKeyListItemTranslator implements ListItemTranslator<OWLPropertyE
         return null;
     }
 
-    public OWLPropertyExpression translate(URI firstObject) {
+    public OWLPropertyExpression translate(IRI firstObject) {
         if(consumer.isObjectPropertyOnly(firstObject)) {
             return consumer.getDataFactory().getOWLObjectProperty(firstObject);
         }

@@ -41,9 +41,9 @@ public class SelfRestrictionTranslator extends AbstractObjectRestrictionTranslat
     }
 
 
-    protected OWLClassExpression translateRestriction(URI mainNode) {
+    protected OWLClassExpression translateRestriction(IRI mainNode) {
         // Consume the triple that specifies the description is a has self
-        OWLLiteral lit = getConsumer().getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_SELF.getURI(), true);
+        OWLLiteral lit = getConsumer().getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_SELF.getIRI(), true);
         OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
         return getDataFactory().getOWLObjectHasSelf(prop);
     }

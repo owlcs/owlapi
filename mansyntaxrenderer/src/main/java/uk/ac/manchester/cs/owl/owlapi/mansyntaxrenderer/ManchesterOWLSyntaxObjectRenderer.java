@@ -414,8 +414,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public void visit(OWLStringLiteral node) {
         pushTab(getIndent());
         writeLiteral(node.getLiteral());
-        if (node.getLang() != null) {
             write("@");
+        if (node.getLang() != null) {
             write(node.getLang());
         }
         popTab();
@@ -940,13 +940,13 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(SWRLLiteralVariable node) {
         write("?");
-        write(node.getIRI().getFragment());
+        write(node.getIRI().toQuotedString());
     }
 
 
     public void visit(SWRLIndividualVariable node) {
         write("?");
-        write(node.getIRI().getFragment());
+        write(node.getIRI().toQuotedString());
     }
 
 

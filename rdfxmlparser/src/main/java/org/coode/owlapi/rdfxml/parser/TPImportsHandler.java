@@ -40,26 +40,26 @@ import java.util.Set;
  */
 public class TPImportsHandler extends TriplePredicateHandler {
 
-    private Set<URI> schemaImportsURIs;
+    private Set<IRI> schemaImportsIRIs;
 
 
     public TPImportsHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_IMPORTS.getURI());
-        schemaImportsURIs = new HashSet<URI>();
+        super(consumer, OWLRDFVocabulary.OWL_IMPORTS.getIRI());
+        schemaImportsIRIs = new HashSet<IRI>();
         for (Namespaces n : Namespaces.values()) {
             String ns = n.toString();
-            schemaImportsURIs.add(URI.create(ns.substring(0, ns.length() - 1)));
+            schemaImportsIRIs.add(IRI.create(ns.substring(0, ns.length() - 1)));
         }
-        schemaImportsURIs.add(URI.create("http://www.daml.org/rules/proposal/swrlb.owlapi"));
-        schemaImportsURIs.add(URI.create("http://www.daml.org/rules/proposal/swrl.owlapi"));
+        schemaImportsIRIs.add(IRI.create("http://www.daml.org/rules/proposal/swrlb.owlapi"));
+        schemaImportsIRIs.add(IRI.create("http://www.daml.org/rules/proposal/swrl.owlapi"));
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return true;
     }
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
 
        // NOTE:
        // For backwards compatibility with OWL 1 DL, if G contains an owl:imports triple pointing to an RDF
@@ -73,7 +73,7 @@ public class TPImportsHandler extends TriplePredicateHandler {
         consumeTriple(subject, predicate, object);
         getConsumer().addOntology(subject);
         getConsumer().addOntology(object);
-        if (!schemaImportsURIs.contains(object)) {
+        if (!schemaImportsIRIs.contains(object)) {
             OWLImportsDeclaration importsDeclaration = getDataFactory().getOWLImportsDeclaration(object);
             getConsumer().addImport(importsDeclaration);
             OWLOntologyManager man = getConsumer().getOWLOntologyManager();

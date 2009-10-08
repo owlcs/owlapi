@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -36,23 +37,23 @@ import java.net.URI;
 public class TPDeclaredAsHandler extends TriplePredicateHandler {
 
     public TPDeclaredAsHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_DECLARED_AS.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_DECLARED_AS.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return true;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
-        if (object.equals(OWLRDFVocabulary.OWL_CLASS.getURI())) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+        if (object.equals(OWLRDFVocabulary.OWL_CLASS.getIRI())) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLClass(subject), getPendingAnnotations()));
-        } else if (object.equals(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI())) {
+        } else if (object.equals(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI())) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLObjectProperty(subject), getPendingAnnotations()));
-        } else if (object.equals(OWLRDFVocabulary.OWL_DATA_PROPERTY.getURI())) {
+        } else if (object.equals(OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI())) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDataProperty(subject), getPendingAnnotations()));
-        } else if (object.equals(OWLRDFVocabulary.OWL_DATATYPE.getURI())) {
+        } else if (object.equals(OWLRDFVocabulary.OWL_DATATYPE.getIRI())) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDatatype(subject), getPendingAnnotations()));
         }
     }

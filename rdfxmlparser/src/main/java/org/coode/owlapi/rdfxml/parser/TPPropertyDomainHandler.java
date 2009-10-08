@@ -38,13 +38,13 @@ import java.net.URI;
 public class TPPropertyDomainHandler extends TriplePredicateHandler {
 
     public TPPropertyDomainHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.RDFS_DOMAIN.getURI());
+        super(consumer, OWLRDFVocabulary.RDFS_DOMAIN.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject,
-                                      URI predicate,
-                                      URI object) {
+    public boolean canHandleStreaming(IRI subject,
+                                      IRI predicate,
+                                      IRI object) {
         // Need to parse everything to make sure
 
 //        if (!isAnonymous(object)) {
@@ -58,9 +58,9 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(URI subject,
-                             URI predicate,
-                             URI object) {
+    public void handleTriple(IRI subject,
+                             IRI predicate,
+                             IRI object) {
         if (getConsumer().isObjectPropertyOnly(subject)) {
             translateObjectPropertyDomain(subject, predicate, object);
         }
@@ -69,13 +69,13 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
         }
         else if (getConsumer().isAnnotationProperty(subject)) {
             OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(subject);
-            addAxiom(getDataFactory().getOWLAnnotationPropertyDomainAxiom(prop, IRI.create(object), getPendingAnnotations()));
+            addAxiom(getDataFactory().getOWLAnnotationPropertyDomainAxiom(prop, object, getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
         else {
             // See if there are any range triples that we can peek at
-            URI rangeURI = getConsumer().getResourceObject(subject, predicate, false);
-            if (getConsumer().isDataRange(rangeURI)) {
+            IRI rangeIRI = getConsumer().getResourceObject(subject, predicate, false);
+            if (getConsumer().isDataRange(rangeIRI)) {
                 translateDataPropertyDomain(subject, predicate, object);
             }
             else {
@@ -86,17 +86,17 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
     }
 
 
-    private void translateDataPropertyDomain(URI subject,
-                                             URI predicate,
-                                             URI object) {
+    private void translateDataPropertyDomain(IRI subject,
+                                             IRI predicate,
+                                             IRI object) {
         addAxiom(getDataFactory().getOWLDataPropertyDomainAxiom(translateDataProperty(subject), translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 
 
-    private void translateObjectPropertyDomain(URI subject,
-                                               URI predicate,
-                                               URI object) {
+    private void translateObjectPropertyDomain(IRI subject,
+                                               IRI predicate,
+                                               IRI object) {
         addAxiom(getDataFactory().getOWLObjectPropertyDomainAxiom(translateObjectProperty(subject), translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }

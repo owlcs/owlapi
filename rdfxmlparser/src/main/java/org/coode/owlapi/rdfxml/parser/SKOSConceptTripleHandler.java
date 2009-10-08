@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.SKOSVocabulary;
 
 import java.net.URI;
@@ -37,13 +38,13 @@ public class SKOSConceptTripleHandler extends BuiltInTypeHandler {
 
 
     public SKOSConceptTripleHandler(OWLRDFConsumer consumer) {
-        super(consumer, SKOSVocabulary.CONCPET.getURI());
+        super(consumer, SKOSVocabulary.CONCPET.getIRI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         OWLIndividual ind = getDataFactory().getOWLNamedIndividual(subject);
-        OWLClass skosConcept = getDataFactory().getOWLClass(SKOSVocabulary.CONCPET.getURI());
+        OWLClass skosConcept = getDataFactory().getOWLClass(SKOSVocabulary.CONCPET.getIRI());
         addAxiom(getDataFactory().getOWLClassAssertionAxiom(skosConcept, ind));
     }
 }

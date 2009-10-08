@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -39,18 +40,18 @@ import java.util.Set;
 public class TPDisjointUnionHandler extends TriplePredicateHandler {
 
     public TPDisjointUnionHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_DISJOINT_UNION_OF.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_DISJOINT_UNION_OF.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         // The list might contain anonymous classes - better not handle it
         // whilst streaming triples!
         return false;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         OWLClass cls = (OWLClass) translateClassExpression(subject);
         Set<OWLClassExpression> classExpressions = getConsumer().translateToClassExpressionSet(object);
         addAxiom(getDataFactory().getOWLDisjointUnionAxiom(cls, classExpressions, getPendingAnnotations()));

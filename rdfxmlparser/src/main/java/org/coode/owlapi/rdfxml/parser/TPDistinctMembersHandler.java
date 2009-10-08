@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -38,17 +39,17 @@ import java.util.Set;
 public class TPDistinctMembersHandler extends TriplePredicateHandler {
 
     public TPDistinctMembersHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_DISTINCT_MEMBERS.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_DISTINCT_MEMBERS.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         // We need all of the list triples to be loaded :(
         return false;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         Set<OWLIndividual> inds = getConsumer().translateToIndividualSet(object);
         addAxiom(getDataFactory().getOWLDifferentIndividualsAxiom(inds, getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

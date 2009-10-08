@@ -40,52 +40,52 @@ import java.util.Set;
 public class TypeAxiomHandler extends BuiltInTypeHandler {
 
     public TypeAxiomHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_AXIOM.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_AXIOM.getIRI());
     }
 
-    public TypeAxiomHandler(OWLRDFConsumer consumer, URI typeURI) {
-        super(consumer, typeURI);
+    public TypeAxiomHandler(OWLRDFConsumer consumer, IRI typeIRI) {
+        super(consumer, typeIRI);
     }
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         // We can't handle this is a streaming fashion, because we can't
         // be sure that the subject, predicate, object triples have been parsed.
         return false;
     }
 
     /**
-     * Gets the URI of the predicate of the triple that specifies the target of a reified axiom
-     * @return The URI, by default this is owl:annotatedTarget
+     * Gets the IRI of the predicate of the triple that specifies the target of a reified axiom
+     * @return The IRI, by default this is owl:annotatedTarget
      */
-    protected URI getTargetTriplePredicate() {
-        return OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getURI();
+    protected IRI getTargetTriplePredicate() {
+        return OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI();
     }
 
     /**
-     * Gets the URI of the predicate of the triple that specifies that predicate of a reified axiom
-     * @return The URI, by default this is owl:annotatedProperty
+     * Gets the IRI of the predicate of the triple that specifies that predicate of a reified axiom
+     * @return The IRI, by default this is owl:annotatedProperty
      */
-    protected URI getPropertyTriplePredicate() {
-        return OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY.getURI();
+    protected IRI getPropertyTriplePredicate() {
+        return OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY.getIRI();
     }
 
     /**
-     * Gets the URI of the predicate of the triple that specifies the source of a reified axiom
-     * @return The URI, by default this is owl:annotatedSource
+     * Gets the IRI of the predicate of the triple that specifies the source of a reified axiom
+     * @return The IRI, by default this is owl:annotatedSource
      */
-    protected URI getSourceTriplePredicate() {
-        return OWLRDFVocabulary.OWL_ANNOTATED_SOURCE.getURI();
+    protected IRI getSourceTriplePredicate() {
+        return OWLRDFVocabulary.OWL_ANNOTATED_SOURCE.getIRI();
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         consumeTriple(subject, predicate, object);
 
 
 
-        URI annotatedSource = getObjectOfSourceTriple(subject);
-        URI annotatedProperty = getObjectOfPropertyTriple(subject);
-        URI annotatedTarget = getObjectOfTargetTriple(subject);
+        IRI annotatedSource = getObjectOfSourceTriple(subject);
+        IRI annotatedProperty = getObjectOfPropertyTriple(subject);
+        IRI annotatedTarget = getObjectOfTargetTriple(subject);
         OWLLiteral annotatedTargetLiteral = null;
         if(annotatedTarget == null) {
             annotatedTargetLiteral = getTargetLiteral(subject);
@@ -105,41 +105,41 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
 
     }
 
-    protected OWLAxiom handleAxiomTriples(URI subjectTriple, URI predicateTriple, URI objectTriple, Set<OWLAnnotation> annotations) {
+    protected OWLAxiom handleAxiomTriples(IRI subjectTriple, IRI predicateTriple, IRI objectTriple, Set<OWLAnnotation> annotations) {
         // Reconstitute the original triple from the reification triples
         return getConsumer().getLastAddedAxiom();
     }
 
 
-    protected OWLAxiom handleAxiomTriples(URI subjectTripleObject, URI predicateTripleObject, OWLLiteral con, Set<OWLAnnotation> annotations) {
+    protected OWLAxiom handleAxiomTriples(IRI subjectTripleObject, IRI predicateTripleObject, OWLLiteral con, Set<OWLAnnotation> annotations) {
         getConsumer().handle(subjectTripleObject, predicateTripleObject, con);
         return getConsumer().getLastAddedAxiom();
     }
 
-//    private Set<OWLAnnotation> translateAnnotations(URI subject) {
-//        Set<URI> predicates = getConsumer().getPredicatesBySubject(subject);
+//    private Set<OWLAnnotation> translateAnnotations(IRI subject) {
+//        Set<IRI> predicates = getConsumer().getPredicatesBySubject(subject);
 //        predicates.remove(getSourceTriplePredicate());
 //        predicates.remove(getPropertyTriplePredicate());
 //        predicates.remove(getTargetTriplePredicate());
 //        // We don't handle rdf:subject, rdf:predicate and rdf:object as synonymns - they might be genuinely in the
 //        // ontology.
-//        predicates.remove(OWLRDFVocabulary.RDF_SUBJECT.getURI());
-//        predicates.remove(OWLRDFVocabulary.RDF_PREDICATE.getURI());
-//        predicates.remove(OWLRDFVocabulary.RDF_OBJECT.getURI());
-//        predicates.remove(OWLRDFVocabulary.RDF_TYPE.getURI());
+//        predicates.remove(OWLRDFVocabulary.RDF_SUBJECT.getIRI());
+//        predicates.remove(OWLRDFVocabulary.RDF_PREDICATE.getIRI());
+//        predicates.remove(OWLRDFVocabulary.RDF_OBJECT.getIRI());
+//        predicates.remove(OWLRDFVocabulary.RDF_TYPE.getIRI());
 //
 //        Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
-//        for (URI candidatePredicate : predicates) {
+//        for (IRI candidatePredicate : predicates) {
 //            getConsumer().isAnnotationProperty(candidatePredicate);
 //            annotations.addAll(getConsumer().translateAnnotations(subject));
 //        }
 //        return annotations;
 //    }
 
-    private OWLLiteral getTargetLiteral(URI subject) {
+    private OWLLiteral getTargetLiteral(IRI subject) {
         OWLLiteral con = getConsumer().getLiteralObject(subject, getTargetTriplePredicate(), true);
         if (con == null) {
-            con = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
+            con = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
         }
         return con;
     }
@@ -148,39 +148,39 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
     /**
      * Gets the object of the target triple that has the specified main node
      * @param mainNode The main node
-     * @return The object of the triple that has the specified mainNode as its subject and the URI returned
+     * @return The object of the triple that has the specified mainNode as its subject and the IRI returned
      * by the {@code TypeAxiomHandler#getSourceTriplePredicate()} method.  For backwards compatibility, a
      * search will also be performed for triples whos subject is the specified mainNode and predicate rdf:object
      */
-    private URI getObjectOfTargetTriple(URI mainNode) {
-        URI objectTripleObject = getConsumer().getResourceObject(mainNode, getTargetTriplePredicate(), true);
+    private IRI getObjectOfTargetTriple(IRI mainNode) {
+        IRI objectTripleObject = getConsumer().getResourceObject(mainNode, getTargetTriplePredicate(), true);
         if (objectTripleObject == null) {
-            objectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
+            objectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
         }
         return objectTripleObject;
     }
 
-    private URI getObjectOfPropertyTriple(URI subject) {
-        URI predicateTripleObject = getConsumer().getResourceObject(subject, getPropertyTriplePredicate(), true);
+    private IRI getObjectOfPropertyTriple(IRI subject) {
+        IRI predicateTripleObject = getConsumer().getResourceObject(subject, getPropertyTriplePredicate(), true);
         if (predicateTripleObject == null) {
-            predicateTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_PREDICATE.getURI(), true);
+            predicateTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_PREDICATE.getIRI(), true);
         }
         return predicateTripleObject;
     }
 
 
     /**
-     * Gets the source URI for an annotated or reified axiom
+     * Gets the source IRI for an annotated or reified axiom
      *
      * @param mainNode The main node of the triple
      * @return The source object
      * @throws OWLRDFXMLParserMalformedNodeException
      *
      */
-    private URI getObjectOfSourceTriple(URI mainNode) {
-        URI subjectTripleObject = getConsumer().getResourceObject(mainNode, getSourceTriplePredicate(), true);
+    private IRI getObjectOfSourceTriple(IRI mainNode) {
+        IRI subjectTripleObject = getConsumer().getResourceObject(mainNode, getSourceTriplePredicate(), true);
         if (subjectTripleObject == null) {
-            subjectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.RDF_SUBJECT.getURI(), true);
+            subjectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.RDF_SUBJECT.getIRI(), true);
         }
         return subjectTripleObject;
     }

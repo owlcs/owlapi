@@ -131,7 +131,9 @@ public class ManchesterOWLSyntaxTokenizer {
             else if (delims.contains(ch)) {
                 consumeToken();
                 sb.append(ch);
-                consumeToken();
+                if (ch != '@') {
+                    consumeToken();
+                }
             }
             else {
                 sb.append(ch);

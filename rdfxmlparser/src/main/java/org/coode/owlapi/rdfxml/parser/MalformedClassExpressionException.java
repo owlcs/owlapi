@@ -1,5 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.net.URI;
 import java.util.Set;
 import java.util.HashSet;
@@ -36,9 +38,9 @@ import java.util.HashSet;
  */
 public class MalformedClassExpressionException extends OWLRDFParserException {
 
-    private Set<URI> foundPredicates;
+    private Set<IRI> foundPredicates;
 
-    private Set<URI> expectedPredicates;
+    private Set<IRI> expectedPredicates;
 
     public MalformedClassExpressionException() {
     }
@@ -55,31 +57,31 @@ public class MalformedClassExpressionException extends OWLRDFParserException {
         super(cause);
     }
 
-    public MalformedClassExpressionException(Set<URI> foundPredicates, Set<URI> expectedPredicates) {
-        this.foundPredicates = new HashSet<URI>(foundPredicates);
-        this.expectedPredicates = new HashSet<URI>(expectedPredicates);
+    public MalformedClassExpressionException(Set<IRI> foundPredicates, Set<IRI> expectedPredicates) {
+        this.foundPredicates = new HashSet<IRI>(foundPredicates);
+        this.expectedPredicates = new HashSet<IRI>(expectedPredicates);
     }
 
-    public Set<URI> getFoundPredicates() {
+    public Set<IRI> getFoundPredicates() {
         return foundPredicates;
     }
 
-    public Set<URI> getExpectedPredicates() {
+    public Set<IRI> getExpectedPredicates() {
         return expectedPredicates;
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Malformed class expression: Found predicates: ");
-        for(URI uri : foundPredicates) {
+        for(IRI IRI : foundPredicates) {
             sb.append("<");
-            sb.append(uri);
+            sb.append(IRI);
             sb.append("> ");
         }
         sb.append("Expected either: ");
-        for(URI uri : expectedPredicates) {
+        for(IRI IRI : expectedPredicates) {
             sb.append("<");
-            sb.append(uri);
+            sb.append(IRI);
             sb.append("> ");
         }
         return sb.toString();

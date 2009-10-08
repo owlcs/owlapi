@@ -3,6 +3,7 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -35,27 +36,27 @@ import java.net.URI;
  */
 public class SKOSDataTripleHandler extends AbstractLiteralTripleHandler {
 
-    private URI predicate;
+    private IRI predicate;
 
 
-    public SKOSDataTripleHandler(OWLRDFConsumer consumer, URI predicate) {
+    public SKOSDataTripleHandler(OWLRDFConsumer consumer, IRI predicate) {
         super(consumer);
         this.predicate = predicate;
     }
 
-    public void handleTriple(URI subject, URI predicate, OWLLiteral object) {
+    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
         OWLIndividual subj = getDataFactory().getOWLNamedIndividual(subject);
         OWLDataProperty prop = getDataFactory().getOWLDataProperty(predicate);
         addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(prop, subj, object));
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) {
+    public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
         return predicate.equals(this.predicate);
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
         return predicate.equals(this.predicate);
     }
 }

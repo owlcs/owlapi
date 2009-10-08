@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -47,12 +48,12 @@ public abstract class AbstractObjectRestrictionTranslator extends AbstractRestri
      * @param mainNode The subject of the triple (the main node of the restriction)
      * @throws OWLException If the on property triple doesn't exist.
      */
-    protected OWLObjectPropertyExpression translateOnProperty(URI mainNode) {
-        URI onPropertyURI = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY.getURI(), true);
-        if(onPropertyURI == null) {
+    protected OWLObjectPropertyExpression translateOnProperty(IRI mainNode) {
+        IRI onPropertyIRI = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), true);
+        if(onPropertyIRI == null) {
             return null;
         }
-        return getConsumer().translateObjectPropertyExpression(onPropertyURI);
+        return getConsumer().translateObjectPropertyExpression(onPropertyIRI);
     }
 
 }

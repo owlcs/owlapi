@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -39,16 +40,16 @@ import java.util.Set;
 public class TPDifferentFromHandler extends TriplePredicateHandler {
 
     public TPDifferentFromHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_DIFFERENT_FROM.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_DIFFERENT_FROM.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return true;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         inds.add(translateIndividual(subject));
         inds.add(translateIndividual(object));

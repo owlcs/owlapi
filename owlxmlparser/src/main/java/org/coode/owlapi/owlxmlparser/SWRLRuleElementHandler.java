@@ -56,7 +56,7 @@ public class SWRLRuleElementHandler extends AbstractOWLAxiomElementHandler {
         if(body == null) {
             body = new HashSet<SWRLAtom>(handler.getOWLObject());
         }
-        if(head == null) {
+        else if(head == null) {
             head = new HashSet<SWRLAtom>(handler.getOWLObject());
         }
     }

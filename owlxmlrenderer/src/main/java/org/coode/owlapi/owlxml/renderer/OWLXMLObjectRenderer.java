@@ -729,7 +729,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(SWRLBuiltInAtom node) {
         writer.writeStartElement(BUILT_IN_ATOM);
-        node.getPredicate().accept(this);
+        writer.writeIRIAttribute(node.getPredicate());
         for(SWRLDArgument arg : node.getArguments()) {
             arg.accept(this);
         }
@@ -739,14 +739,14 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(SWRLLiteralVariable node) {
         writer.writeStartElement(LITERAL_VARIABLE);
-        node.getIRI().accept(this);
+        writer.writeIRIAttribute(node.getIRI());
         writer.writeEndElement();
     }
 
 
     public void visit(SWRLIndividualVariable node) {
         writer.writeStartElement(INDIVIDUAL_VARIABLE);
-        node.getIRI().accept(this);
+        writer.writeIRIAttribute(node.getIRI());
         writer.writeEndElement();
     }
 

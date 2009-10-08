@@ -39,15 +39,15 @@ import java.net.URI;
 public class TypeOntologyHandler extends BuiltInTypeHandler {
 
     public TypeOntologyHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_ONTOLOGY.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_ONTOLOGY.getIRI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         consumeTriple(subject, predicate, object);
         if(!isAnonymous(subject) && getConsumer().getOntologies().isEmpty()) {
-            // Set URI?
-            OWLOntologyID id = new OWLOntologyID(IRI.create(subject));
+            // Set IRI?
+            OWLOntologyID id = new OWLOntologyID(subject);
             getConsumer().applyChange(new SetOntologyID(getConsumer().getOntology(), id));
         }
         getConsumer().addOntology(subject);

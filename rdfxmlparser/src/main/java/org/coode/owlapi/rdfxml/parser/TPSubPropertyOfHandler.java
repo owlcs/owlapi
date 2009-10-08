@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -39,25 +40,25 @@ import java.util.List;
 public class TPSubPropertyOfHandler extends TriplePredicateHandler {
 
     public TPSubPropertyOfHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.RDFS_SUB_PROPERTY_OF.getURI());
+        super(consumer, OWLRDFVocabulary.RDFS_SUB_PROPERTY_OF.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject,
-                                      URI predicate,
-                                      URI object) {
+    public boolean canHandleStreaming(IRI subject,
+                                      IRI predicate,
+                                      IRI object) {
         return false;
     }
 
 
-    public void handleTriple(URI subject,
-                             URI predicate,
-                             URI object) {
+    public void handleTriple(IRI subject,
+                             IRI predicate,
+                             IRI object) {
 
         // First check for object property chain
-        if (!getConsumer().isStrict() && getConsumer().hasPredicate(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getURI())) {
+        if (!getConsumer().isStrict() && getConsumer().hasPredicate(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getIRI())) {
             // Property chain
-            URI chainList = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getURI(), true);
+            IRI chainList = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getIRI(), true);
             List<OWLObjectPropertyExpression> properties = getConsumer().translateToObjectPropertyList(chainList);
             addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(properties, translateObjectProperty(object), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
@@ -84,7 +85,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
         }
         else {
             // Check for range statements
-            URI subPropRange = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDFS_RANGE.getURI(), false);
+            IRI subPropRange = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDFS_RANGE.getIRI(), false);
             if (subPropRange != null) {
                 if (getConsumer().isDataRange(subPropRange)) {
                     // Data - Data
@@ -96,7 +97,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
                 return;
             }
 
-            URI supPropRange = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDFS_RANGE.getURI(), false);
+            IRI supPropRange = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDFS_RANGE.getIRI(), false);
             if (supPropRange != null) {
                 if (getConsumer().isDataRange(supPropRange)) {
                     // Data - Data
@@ -114,18 +115,18 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
     }
 
 
-    private void translateSubObjectProperty(URI subject,
-                                            URI predicate,
-                                            URI object) {
+    private void translateSubObjectProperty(IRI subject,
+                                            IRI predicate,
+                                            IRI object) {
         // Object - object
         addAxiom(getDataFactory().getOWLSubObjectPropertyOfAxiom(translateObjectProperty(subject), translateObjectProperty(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 
 
-    private void translateSubDataProperty(URI subject,
-                                          URI predicate,
-                                          URI object) {
+    private void translateSubDataProperty(IRI subject,
+                                          IRI predicate,
+                                          IRI object) {
         // Data - Data
         addAxiom(getDataFactory().getOWLSubDataPropertyOfAxiom(translateDataProperty(subject), translateDataProperty(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

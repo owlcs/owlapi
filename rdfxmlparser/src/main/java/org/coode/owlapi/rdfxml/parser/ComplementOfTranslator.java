@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -45,8 +46,8 @@ public class ComplementOfTranslator extends AbstractClassExpressionTranslator {
     }
 
 
-    public OWLClassExpression translate(URI mainNode) {
-        URI complementOfObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF.getURI(), true);
+    public OWLClassExpression translate(IRI mainNode) {
+        IRI complementOfObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF.getIRI(), true);
         OWLClassExpression operand = translateToClassExpression(complementOfObject);
         return getDataFactory().getOWLObjectComplementOf(operand);
     }

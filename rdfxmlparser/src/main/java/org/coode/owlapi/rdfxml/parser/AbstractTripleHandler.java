@@ -51,17 +51,17 @@ public class AbstractTripleHandler {
         return consumer.getPendingAnnotations();
     }
 
-    protected void consumeTriple(URI subject, URI predicate, URI object) {
+    protected void consumeTriple(IRI subject, IRI predicate, IRI object) {
         consumer.consumeTriple(subject, predicate, object);
     }
 
-    protected void consumeTriple(URI subject, URI predicate, OWLLiteral object) {
+    protected void consumeTriple(IRI subject, IRI predicate, OWLLiteral object) {
         consumer.consumeTriple(subject, predicate, object);
     }
 
 
-    protected boolean isAnonymous(URI uri) {
-        return getConsumer().isAnonymousNode(uri);
+    protected boolean isAnonymous(IRI IRI) {
+        return getConsumer().isAnonymousNode(IRI);
     }
 
 
@@ -75,27 +75,27 @@ public class AbstractTripleHandler {
     }
 
 
-    protected OWLClassExpression translateClassExpression(URI uri) {
-        return consumer.translateClassExpression(uri);
+    protected OWLClassExpression translateClassExpression(IRI IRI) {
+        return consumer.translateClassExpression(IRI);
     }
 
 
-    protected OWLObjectPropertyExpression translateObjectProperty(URI uri) {
-        return consumer.translateObjectPropertyExpression(uri);
+    protected OWLObjectPropertyExpression translateObjectProperty(IRI IRI) {
+        return consumer.translateObjectPropertyExpression(IRI);
     }
 
 
-    protected OWLDataPropertyExpression translateDataProperty(URI uri) {
-        return consumer.translateDataPropertyExpression(uri);
+    protected OWLDataPropertyExpression translateDataProperty(IRI IRI) {
+        return consumer.translateDataPropertyExpression(IRI);
     }
 
 
-    protected OWLDataRange translateDataRange(URI uri) {
-        return consumer.translateDataRange(uri);
+    protected OWLDataRange translateDataRange(IRI IRI) {
+        return consumer.translateDataRange(IRI);
     }
 
 
-    protected OWLIndividual translateIndividual(URI uri) {
-        return consumer.translateIndividual(uri);
+    protected OWLIndividual translateIndividual(IRI IRI) {
+        return consumer.translateIndividual(IRI);
     }
 }

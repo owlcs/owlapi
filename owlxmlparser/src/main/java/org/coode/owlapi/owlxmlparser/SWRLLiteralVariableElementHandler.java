@@ -1,6 +1,8 @@
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.model.SWRLIArgument;
+import org.semanticweb.owlapi.model.SWRLDArgument;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLLiteral;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -30,9 +32,30 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
  * Information Management Group<br>
  * Date: 02-Oct-2009
  */
-public abstract class SWRLIArgumentElementHandler extends AbstractOWLElementHandler<SWRLIArgument> {
+public class SWRLLiteralVariableElementHandler extends AbstractOWLElementHandler<SWRLDArgument> {
 
-    protected SWRLIArgumentElementHandler(OWLXMLParserHandler handler) {
+    public SWRLLiteralVariableElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
+
+     private IRI iri;
+
+
+    public void endElement() throws OWLXMLParserException {
+        getParentHandler().handleChild(this);
+    }
+
+    @Override
+    public void attribute(String localName, String value) throws OWLXMLParserException {
+        iri = getIRIFromAttribute(localName, value);
+    }
+
+    public SWRLDArgument getOWLObject() throws OWLXMLParserException {
+        if(iri != null) {
+            return getOWLDataFactory().getSWRLLiteralVariable(iri);
+        }
+        return null;
+    }
+
+    
 }

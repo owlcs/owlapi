@@ -142,7 +142,7 @@ public abstract class OWLObjectImpl implements OWLObject {
     }
 
 
-    final public int hashCode() {
+    public int hashCode() {
         if (hashCode == 0) {
             hashCode = HashCode.hashCode(this);
         }

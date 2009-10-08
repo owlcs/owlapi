@@ -3,6 +3,7 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -37,30 +38,30 @@ import java.net.URI;
 public class TPVersionIRIHandler extends TriplePredicateHandler {
 
     public TPVersionIRIHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_VERSION_IRI.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_VERSION_IRI.getIRI());
     }
 
 
-    public void handleTriple(URI subject,
-                             URI predicate,
-                             URI object) {
+    public void handleTriple(IRI subject,
+                             IRI predicate,
+                             IRI object) {
         OWLOntology ontology = getConsumer().getOntology();
-        OWLOntologyID ontologyID = new OWLOntologyID(ontology.getOntologyID().getOntologyIRI(), getDataFactory().getIRI(object));
+        OWLOntologyID ontologyID = new OWLOntologyID(ontology.getOntologyID().getOntologyIRI(), object);
         getConsumer().setOntologyID(ontologyID);
     }
 
 
-    public boolean canHandleStreaming(URI subject,
-                                      URI predicate,
-                                      URI object) {
+    public boolean canHandleStreaming(IRI subject,
+                                      IRI predicate,
+                                      IRI object) {
         // Always apply at the end
         return false;
     }
 
 
-    public boolean canHandle(URI subject,
-                             URI predicate,
-                             URI object) {
-        return subject.equals(getConsumer().getOntology().getOntologyID().getOntologyIRI().toURI());
+    public boolean canHandle(IRI subject,
+                             IRI predicate,
+                             IRI object) {
+        return subject.equals(getConsumer().getOntology().getOntologyID().getOntologyIRI());
     }
 }

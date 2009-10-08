@@ -48,27 +48,27 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
         return consumer;
     }
 
-//    protected <T extends Triple> T getFirstTripleWithPredicate(URI mainNode, URI predicate) {
+//    protected <T extends Triple> T getFirstTripleWithPredicate(IRI mainNode, IRI predicate) {
 //        return (T) consumer.getFirstTripleWithPredicate(mainNode, predicate);
 //    }
 
-    protected URI getResourceObject(URI subject, URI predicate, boolean consume) {
+    protected IRI getResourceObject(IRI subject, IRI predicate, boolean consume) {
         return consumer.getResourceObject(subject, predicate, consume);
     }
 
-    protected OWLLiteral getLiteralObject(URI subject, URI predicate, boolean consume) {
+    protected OWLLiteral getLiteralObject(IRI subject, IRI predicate, boolean consume) {
         return consumer.getLiteralObject(subject, predicate, consume);
     }
 
-    protected boolean isTriplePresent(URI mainNode, URI predicate, URI value, boolean consume) {
+    protected boolean isTriplePresent(IRI mainNode, IRI predicate, IRI value, boolean consume) {
         return consumer.isTriplePresent(mainNode, predicate, value, true);
     }
 
-    protected Set<OWLClassExpression> translateToClassExpressionSet(URI mainNode) {
+    protected Set<OWLClassExpression> translateToClassExpressionSet(IRI mainNode) {
         return consumer.translateToClassExpressionSet(mainNode);
     }
 
-    protected Set<OWLIndividual> translateToIndividualSet(URI mainNode) {
+    protected Set<OWLIndividual> translateToIndividualSet(IRI mainNode) {
         return consumer.translateToIndividualSet(mainNode);
     }
 
@@ -76,7 +76,7 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
         return consumer.getDataFactory();
     }
 
-    protected OWLClassExpression translateToClassExpression(URI mainNode) {
+    protected OWLClassExpression translateToClassExpression(IRI mainNode) {
         return consumer.translateClassExpression(mainNode);
     }
 

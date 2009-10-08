@@ -3,6 +3,7 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -48,12 +49,12 @@ public class OneOfTranslator extends AbstractClassExpressionTranslator {
     }
 
 
-    public OWLClassExpression translate(URI mainNode) {
-        URI oneOfObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getURI(), true);
+    public OWLClassExpression translate(IRI mainNode) {
+        IRI oneOfObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getIRI(), true);
         Set<OWLIndividual> individuals = translateToIndividualSet(oneOfObject);
         for (OWLIndividual ind : individuals) {
             if (!ind.isAnonymous()) {
-                getConsumer().addIndividual(((OWLNamedIndividual) ind).getURI());
+                getConsumer().addIndividual(((OWLNamedIndividual) ind).getIRI());
             }
         }
         if (individuals.isEmpty()) {

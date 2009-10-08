@@ -233,8 +233,8 @@ public class ManchesterOWLSyntaxEditorParser {
 
         dataTypeNames.add(dataFactory.getTopDatatype().getURI().getFragment());
 
-        for (URI uri : OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTIES) {
-            String[] res = u.split(uri.toString(), null);
+        for (IRI iri : OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS) {
+            String[] res = u.split(iri.toString(), null);
             annotationPropertyNames.add(u.getPrefix(res[0]) + ":" + res[1]);
         }
         for (DublinCoreVocabulary v : DublinCoreVocabulary.values()) {
@@ -950,9 +950,8 @@ public class ManchesterOWLSyntaxEditorParser {
                 consumeToken();
                 return dataFactory.getOWLTypedLiteral(lit, parseDatatype());
             }
-            else if (peekToken().equals("@")) {
-                consumeToken();
-                String lang = consumeToken();
+            else if (peekToken().startsWith("@")) {
+                String lang = consumeToken().substring(1);
                 return dataFactory.getOWLStringLiteral(lit, lang);
             }
             else {
@@ -1955,16 +1954,15 @@ public class ManchesterOWLSyntaxEditorParser {
         }
         else if (isDataPropertyName(predicate)) {
             return parseDataPropertyAtom();
-
-        }
-        else if (isSWRLBuiltin(predicate)) {
-            return parseBuiltInAtom();
         }
         else if (predicate.equals(ManchesterOWLSyntax.DIFFERENT_FROM.toString())) {
             return parseDifferentFromAtom();
         }
         else if (predicate.equals(ManchesterOWLSyntax.SAME_AS.toString())) {
             return parseSameAsAtom();
+        }
+        else if (isSWRLBuiltin(predicate) || predicate.startsWith("<")) {
+            return parseBuiltInAtom();
         }
         else {
             consumeToken();
@@ -2064,8 +2062,8 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     public SWRLIndividualVariable parseIVariable() throws ParserException {
-        String var = parseVariable();
-        return dataFactory.getSWRLIndividualVariable(getVariableIRI(var));
+        IRI var = parseVariable();
+        return dataFactory.getSWRLIndividualVariable(var);
     }
 
 
@@ -2075,9 +2073,9 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public String parseVariable() throws ParserException {
+    public IRI parseVariable() throws ParserException {
         consumeToken("?");
-        return consumeToken();
+        return parseIRI();
     }
 
 
@@ -2100,8 +2098,8 @@ public class ManchesterOWLSyntaxEditorParser {
 
 
     public SWRLLiteralVariable parseDVariable() throws ParserException {
-        String var = parseVariable();
-        return dataFactory.getSWRLLiteralVariable(getVariableIRI(var));
+        IRI var = parseVariable();
+        return dataFactory.getSWRLLiteralVariable(var);
     }
 
 
@@ -2114,10 +2112,15 @@ public class ManchesterOWLSyntaxEditorParser {
     public SWRLBuiltInAtom parseBuiltInAtom() throws ParserException {
         String predicate = consumeToken();
         consumeToken("(");
+        SWRLBuiltInsVocabulary v = null;
+        IRI iri = null;
         if (!ruleBuiltIns.containsKey(predicate)) {
-            throw createException(ruleBuiltIns.keySet().toArray(new String[ruleBuiltIns.size()]));
+            iri = getIRI(predicate);
         }
-        SWRLBuiltInsVocabulary v = ruleBuiltIns.get(predicate);
+        else {
+            v = ruleBuiltIns.get(predicate);
+            iri = v.getIRI();
+        }
 
         List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
 
@@ -2145,7 +2148,7 @@ public class ManchesterOWLSyntaxEditorParser {
         }
 
         consumeToken(")");
-        return dataFactory.getSWRLBuiltInAtom(v.getIRI(), args);
+        return dataFactory.getSWRLBuiltInAtom(iri, args);
     }
 
 

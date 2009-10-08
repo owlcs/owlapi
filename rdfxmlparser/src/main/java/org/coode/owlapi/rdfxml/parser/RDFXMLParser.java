@@ -2,10 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.rdf.syntax.RDFParser;
 import org.semanticweb.owlapi.io.*;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -56,37 +53,37 @@ public class RDFXMLParser extends AbstractOWLParser {
                 throw new OWLRuntimeException("Cannot parse because OWLOntologyManager is null!");
             }
             final RDFParser parser = new RDFParser() {
-                public void startPrefixMapping(String prefix, String uri) throws SAXException {
-                    super.startPrefixMapping(prefix, uri);
-                    format.setPrefix(prefix, uri);
+                public void startPrefixMapping(String prefix, String IRI) throws SAXException {
+                    super.startPrefixMapping(prefix, IRI);
+                    format.setPrefix(prefix, IRI);
                 }
 
 
-                public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws
+                public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
                                                                                                                SAXException {
-                    super.startElement(namespaceURI, localName, qName, atts);
+                    super.startElement(namespaceIRI, localName, qName, atts);
                     String value = atts.getValue(XMLNS, "base");
                     if (value != null) {
                         consumer.setXMLBase(value);
                     }
                 }
             };
-            URIProvider prov = new URIProvider() {
-                public URI getURI(String s) {
-                    return parser.getURI(s);
+            IRIProvider prov = new IRIProvider() {
+                public IRI getIRI(String s) {
+                    return parser.getIRI(s);
                 }
             };
             consumer = new OWLRDFConsumer(owlOntologyManager, ontology, new AnonymousNodeChecker() {
-                public boolean isAnonymousNode(URI uri) {
-                    return parser.isAnonymousNodeURI(uri.toString());
+                public boolean isAnonymousNode(IRI IRI) {
+                    return parser.isAnonymousNodeIRI(IRI.toString());
                 }
 
 
-                public boolean isAnonymousNode(String uri) {
-                    return parser.isAnonymousNodeURI(uri);
+                public boolean isAnonymousNode(String IRI) {
+                    return parser.isAnonymousNodeIRI(IRI);
                 }
             });
-            consumer.setURIProvider(prov);
+            consumer.setIRIProvider(prov);
             consumer.setOntologyFormat(format);
             InputSource is = getInputSource(inputSource);
             parser.parse(is, consumer);

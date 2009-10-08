@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -41,20 +42,20 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) {
+    public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
         if (getConsumer().isAnnotationProperty(predicate)) {
             return false;
         }
-        return !OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(predicate);
+        return !OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(predicate);
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
         return false;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, OWLLiteral object) {
+    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
         addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(translateDataProperty(predicate), translateIndividual(subject), object, getPendingAnnotations()
         ));
         consumeTriple(subject, predicate, object);

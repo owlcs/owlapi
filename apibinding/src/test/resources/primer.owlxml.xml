@@ -10,7 +10,7 @@
    xmlns:g="http://example.org/otherOntologies/families/"
    ontologyIRI="http://example.com/owl/families">
    <Prefix name="otherOnt" IRI="http://example.org/otherOntologies/families/"/>
-   <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+   <!--<Import>http://example.org/otherOntologies/families.owl</Import>-->
 
    <Declaration>
      <NamedIndividual IRI="John"/>

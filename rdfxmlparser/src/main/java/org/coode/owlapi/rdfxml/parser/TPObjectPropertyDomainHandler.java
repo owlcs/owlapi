@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -38,18 +39,18 @@ import java.net.URI;
 public class TPObjectPropertyDomainHandler extends TriplePredicateHandler {
 
     public TPObjectPropertyDomainHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_OBJECT_PROPERTY_DOMAIN.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_OBJECT_PROPERTY_DOMAIN.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         // Can only handle when domain is named if we are streaming
         // prop rdfs:domain desc
         return !isAnonymous(object);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         OWLObjectPropertyExpression prop = translateObjectProperty(subject);
         OWLClassExpression domain = translateClassExpression(subject);
         addAxiom(getDataFactory().getOWLObjectPropertyDomainAxiom(prop, domain, getPendingAnnotations()));

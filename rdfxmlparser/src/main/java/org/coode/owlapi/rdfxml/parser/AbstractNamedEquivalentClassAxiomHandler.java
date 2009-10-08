@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 import java.util.HashSet;
@@ -41,22 +42,22 @@ import java.util.Set;
  */
 public abstract class AbstractNamedEquivalentClassAxiomHandler extends TriplePredicateHandler {
 
-    public AbstractNamedEquivalentClassAxiomHandler(OWLRDFConsumer consumer, URI predicateURI) {
-        super(consumer, predicateURI);
+    public AbstractNamedEquivalentClassAxiomHandler(OWLRDFConsumer consumer, IRI predicateIRI) {
+        super(consumer, predicateIRI);
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return false;
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, URI object) {
+    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         return super.canHandle(subject, predicate, object) && !isAnonymous(subject);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         consumeTriple(subject, predicate, object);
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateClassExpression(subject));
@@ -64,6 +65,6 @@ public abstract class AbstractNamedEquivalentClassAxiomHandler extends TriplePre
         addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands));
     }
 
-    protected abstract OWLClassExpression translateEquivalentClass(URI mainNode);
+    protected abstract OWLClassExpression translateEquivalentClass(IRI mainNode);
 
 }

@@ -2047,7 +2047,7 @@ OWLAnnotationValue AnnotationValue() :
 
 Set<OWLAnnotation> AxiomAnnotationSet() :
 {
-    Set<OWLAnnotation> annos = Collections.emptySet();
+    Set<OWLAnnotation> annos = null;
     OWLAnnotation anno;
 }
 {
@@ -2057,6 +2057,9 @@ Set<OWLAnnotation> AxiomAnnotationSet() :
         }
         annos.add(anno);
     })*{
+        if(annos  == null) {
+            annos = Collections.emptySet();
+        }
         return annos;
     }
 
@@ -2307,7 +2310,7 @@ SWRLDataPropertyAtom DataPropertyAtom() :
     SWRLDArgument arg1;
 }
 {
-    <DATAPROPERTYATOM> <OPENPAR> prop=DataProperty() arg0=IArg() arg1=DArg() <CLOSEPAR> {return dataFactory.getSWRLDataPropertyAtom(prop, arg0, arg1);}
+    <DATAPROPERTYATOM> <OPENPAR> prop=DataPropertyURI() arg0=IArg() arg1=DArg() <CLOSEPAR> {return dataFactory.getSWRLDataPropertyAtom(prop, arg0, arg1);}
 }
 
 
@@ -2347,8 +2350,11 @@ SWRLIArgument IArg() :
     IRI iri;
 }
 {
-     ind = NamedIndividual() {return dataFactory.getSWRLIndividualArgument(ind);}
-    | (<INDIVIDUALVARIABLE> <OPENPAR> iri = IRI() <CLOSEPAR>{ return dataFactory.getSWRLIndividualVariable(iri);})
+    (<INDIVIDUALVARIABLE> <OPENPAR> iri = IRI() <CLOSEPAR>{ return dataFactory.getSWRLIndividualVariable(iri);})
+    |
+    (ind = IndividualURI() {return dataFactory.getSWRLIndividualArgument(ind);})
+
+
 }
 
 
@@ -2358,7 +2364,9 @@ SWRLDArgument DArg() :
     IRI iri;
 }
 {
-    literal = Literal(){return dataFactory.getSWRLLiteralArgument(literal);} | (<LITERALVARIABLE> <OPENPAR> iri=IRI() <CLOSEPAR>{return dataFactory.getSWRLLiteralVariable(iri);})
+    (<LITERALVARIABLE> <OPENPAR> iri=IRI() <CLOSEPAR>{return dataFactory.getSWRLLiteralVariable(iri);})
+    |
+    (literal = Literal(){return dataFactory.getSWRLLiteralArgument(literal);})
 }
 
 

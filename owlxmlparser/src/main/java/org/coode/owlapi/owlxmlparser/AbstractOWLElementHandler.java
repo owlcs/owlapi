@@ -194,11 +194,11 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
         throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
-    public void handleChild(SWRLIArgumentElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(SWRLIndividualVariableElementHandler handler) throws OWLXMLParserException {
         throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
-    public void handleChild(SWRLDArgumentElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(SWRLLiteralVariableElementHandler handler) throws OWLXMLParserException {
         throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 

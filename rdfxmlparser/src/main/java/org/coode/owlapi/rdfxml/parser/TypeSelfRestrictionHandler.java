@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -36,14 +37,14 @@ import java.net.URI;
 public class TypeSelfRestrictionHandler extends BuiltInTypeHandler {
 
     public TypeSelfRestrictionHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_SELF_RESTRICTION.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_SELF_RESTRICTION.getIRI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         consumeTriple(subject, predicate, object);
         getConsumer().addRestriction(subject);
         // Patch to new OWL syntax
-        getConsumer().addTriple(subject, OWLRDFVocabulary.OWL_HAS_SELF.getURI(), getDataFactory().getOWLTypedLiteral(true));
+        getConsumer().addTriple(subject, OWLRDFVocabulary.OWL_HAS_SELF.getIRI(), getDataFactory().getOWLTypedLiteral(true));
     }
 }

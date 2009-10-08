@@ -545,6 +545,56 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return false;
     }
 
+    /**
+     * Gets the entities in the signature of this ontology that have the specified IRI
+     * @param iri The IRI
+     * @return A set of entities that are in the signature of this ontology that have the specified IRI.  The
+     *         set will be empty if there are no entities in the signature of this ontology with the specified IRI.
+     */
+    public Set<OWLEntity> getEntitiesWithIRI(IRI iri) {
+        Set<OWLEntity> result = new HashSet<OWLEntity>(6);
+        if(containsClassReference(iri)) {
+            result.add(manager.getOWLDataFactory().getOWLClass(iri));
+        }
+        if(containsObjectPropertyReference(iri)) {
+            result.add(manager.getOWLDataFactory().getOWLObjectProperty(iri));
+        }
+        if(containsDataPropertyReference(iri)) {
+            result.add(manager.getOWLDataFactory().getOWLDataProperty(iri));
+        }
+        if(containsIndividualReference(iri)) {
+            result.add(manager.getOWLDataFactory().getOWLNamedIndividual(iri));
+        }
+        if(containsDatatypeReference(iri)) {
+            result.add(manager.getOWLDataFactory().getOWLDatatype(iri));
+        }
+        if(containsAnnotationPropertyReference(iri)) {
+            result.add(manager.getOWLDataFactory().getOWLAnnotationProperty(iri));
+        }
+        return result;
+    }
+
+    /**
+     * Gets the entities in the signature of this ontology, and possibly its imports closure, that have the specified IRI
+     * @param iri                   The IRI
+     * @param includeImportsClosure Specifies if the imports closure signature should be taken into account
+     * @return A set of entities that are in the signature of this ontology and possibly its imports closure
+     *         that have the specified IRI.  The set will be empty if there are no entities in the signature of this ontology
+     *         and possibly its imports closure with the specified IRI.
+     */
+    public Set<OWLEntity> getEntitiesWithIRI(IRI iri, boolean includeImportsClosure) {
+        if(!includeImportsClosure) {
+            return getEntitiesWithIRI(iri);
+        }
+        else {
+            Set<OWLEntity> result = new HashSet<OWLEntity>(6);
+            for(OWLOntology ont : getImportsClosure()) {
+                result.addAll(ont.getEntitiesWithIRI(iri));
+            }
+            return result;
+        }
+    }
+
     public boolean containsReference(OWLClass owlClass) {
         return owlClassReferences.containsKey(owlClass);
     }

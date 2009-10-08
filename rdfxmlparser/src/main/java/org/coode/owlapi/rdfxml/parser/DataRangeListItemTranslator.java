@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;/*
  * Copyright (C) 2008, University of Manchester
@@ -42,7 +43,7 @@ public class DataRangeListItemTranslator implements ListItemTranslator<OWLDataRa
         return null;
     }
 
-    public OWLDataRange translate(URI firstObject) {
+    public OWLDataRange translate(IRI firstObject) {
         return consumer.translateDataRange(firstObject);
     }
 }

@@ -3,6 +3,7 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -41,18 +42,19 @@ import java.util.Set;
 public class TPEquivalentClassHandler extends TriplePredicateHandler {
 
     public TPEquivalentClassHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_EQUIVALENT_CLASS.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_EQUIVALENT_CLASS.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         // Can handle when streaming if the subject or object are named
-        return !isSubjectOrObjectAnonymous(subject, object) && (getConsumer().isClass(subject));
+        boolean named = (getConsumer().isClass(subject)) && !isSubjectOrObjectAnonymous(subject, object);
+        return named || getConsumer().getClassExpressionIfTranslated(subject) != null && getConsumer().getClassExpressionIfTranslated(object) != null;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
-        // Can handle because the uris can easily be translated to classes
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+        // Can handle because the IRIs can easily be translated to classes
         if(getConsumer().isDataRange(object) || getConsumer().isDataRange(subject)) {
             OWLDatatype datatype = getDataFactory().getOWLDatatype(subject);
             OWLDataRange dataRange = getConsumer().translateDataRange(object);

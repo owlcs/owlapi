@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -39,13 +40,13 @@ public class TypeAllDisjointClassesHandler extends BuiltInTypeHandler {
 
 
     public TypeAllDisjointClassesHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         consumeTriple(subject, predicate, object);
-        URI listNode = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS.getURI(), true);
+        IRI listNode = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS.getIRI(), true);
         if (listNode != null) {
             Set<OWLClassExpression> desc = getConsumer().translateToClassExpressionSet(listNode);
             addAxiom(getDataFactory().getOWLDisjointClassesAxiom(desc, getPendingAnnotations()));
@@ -53,7 +54,7 @@ public class TypeAllDisjointClassesHandler extends BuiltInTypeHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return false;
     }
 }

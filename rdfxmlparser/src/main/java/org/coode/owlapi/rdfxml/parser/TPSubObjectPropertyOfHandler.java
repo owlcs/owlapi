@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -38,21 +39,21 @@ import java.util.List;
 public class TPSubObjectPropertyOfHandler extends TriplePredicateHandler {
 
     public TPSubObjectPropertyOfHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_SUB_OBJECT_PROPERTY_OF.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_SUB_OBJECT_PROPERTY_OF.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         // If the subject is anonymous, it *might* be a property chain - we
         // can't handle these in a streaming manner really
         return !isAnonymous(subject);
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         if (isAnonymous(subject) && getConsumer().hasPredicateObject(subject,
-                OWLRDFVocabulary.RDF_TYPE.getURI(),
-                OWLRDFVocabulary.RDF_LIST.getURI())) {
+                OWLRDFVocabulary.RDF_TYPE.getIRI(),
+                OWLRDFVocabulary.RDF_LIST.getIRI())) {
             // Property chain!
             OptimisedListTranslator<OWLObjectPropertyExpression> translator = new OptimisedListTranslator<OWLObjectPropertyExpression>(
                     getConsumer(),

@@ -691,7 +691,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
-        nodeMap.put(node, nodeMap.get(node));
+        nodeMap.put(node, nodeMap.get(node.getIndividual()));
     }
 
 

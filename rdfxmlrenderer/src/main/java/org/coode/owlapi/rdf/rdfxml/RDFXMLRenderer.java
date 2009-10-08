@@ -157,7 +157,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         for (RDFTriple triple : triples) {
             URI propertyURI = triple.getProperty().getURI();
             if (propertyURI.equals(OWLRDFVocabulary.RDF_TYPE.getURI()) && !triple.getObject().isAnonymous()) {
-                if (OWLRDFVocabulary.BUILT_IN_VOCABULARY.contains(triple.getObject().getURI())) {
+                if (OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getURI())) {
                     if (prettyPrintedTypes.contains(triple.getObject().getURI())) {
                         candidatePrettyPrintTypeTriple = triple;
                     }

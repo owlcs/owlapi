@@ -33,7 +33,7 @@ import java.util.ArrayList;
  * Information Management Group<br>
  * Date: 02-Oct-2009
  */
-public abstract class SWRLAtomListElementHandler extends AbstractOWLElementHandler<List<SWRLAtom>> {
+public class SWRLAtomListElementHandler extends AbstractOWLElementHandler<List<SWRLAtom>> {
 
     private List<SWRLAtom> atoms = new ArrayList<SWRLAtom>();
 
@@ -51,5 +51,6 @@ public abstract class SWRLAtomListElementHandler extends AbstractOWLElementHandl
     }
 
     public void endElement() throws OWLXMLParserException {
+        getParentHandler().handleChild(this);
     }
 }

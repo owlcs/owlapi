@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -37,11 +38,11 @@ import java.net.URI;
 public class TypeDatatypeHandler extends BuiltInTypeHandler {
 
     public TypeDatatypeHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.RDFS_DATATYPE.getURI());
+        super(consumer, OWLRDFVocabulary.RDFS_DATATYPE.getIRI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         if (!getConsumer().isAnonymousNode(subject)) {
             OWLDatatype dt = getDataFactory().getOWLDatatype(subject);
             if (!dt.isBuiltIn()) {

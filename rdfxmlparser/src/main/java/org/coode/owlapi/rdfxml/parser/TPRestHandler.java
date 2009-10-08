@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -38,17 +39,17 @@ public class TPRestHandler extends TriplePredicateHandler {
     protected  static int count = 0;
 
     public TPRestHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.RDF_REST.getURI());
+        super(consumer, OWLRDFVocabulary.RDF_REST.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return true;
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
-        if (!object.equals(OWLRDFVocabulary.RDF_NIL.getURI())) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+        if (!object.equals(OWLRDFVocabulary.RDF_NIL.getIRI())) {
             getConsumer().addRest(subject, object);
         }
         else {

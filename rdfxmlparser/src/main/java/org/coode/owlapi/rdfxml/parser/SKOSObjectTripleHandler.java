@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.SKOSVocabulary;
 
 import java.net.URI;
@@ -37,11 +38,11 @@ public class SKOSObjectTripleHandler extends TriplePredicateHandler {
 
 
     public SKOSObjectTripleHandler(OWLRDFConsumer consumer, SKOSVocabulary predicate) {
-        super(consumer, predicate.getURI());
+        super(consumer, predicate.getIRI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         OWLIndividual subj = getDataFactory().getOWLNamedIndividual(subject);
         OWLIndividual obj = getDataFactory().getOWLNamedIndividual(object);
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(predicate);
@@ -49,7 +50,7 @@ public class SKOSObjectTripleHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
-        return getPredicateURI().equals(predicate);
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+        return getPredicateIRI().equals(predicate);
     }
 }

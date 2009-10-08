@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
@@ -99,64 +100,64 @@ public class ClassExpressionTranslatorSelector {
         namedClassTranslator = new NamedClassTranslator(con);
     }
 
-    public boolean isObjectRestriction(URI mainNode, URI property) {
+    public boolean isObjectRestriction(IRI mainNode, IRI property) {
         if(consumer.isObjectPropertyOnly(property)) {
             return true;
         }
-        if(isClassExpressionObject(mainNode, OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getURI())) {
+        if(isClassExpressionObject(mainNode, OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getIRI())) {
             return true;
         }
-        if(isClassExpressionObject(mainNode, OWLRDFVocabulary.OWL_ALL_VALUES_FROM.getURI())) {
+        if(isClassExpressionObject(mainNode, OWLRDFVocabulary.OWL_ALL_VALUES_FROM.getIRI())) {
             return true;
         }
-        if(isClassExpressionObject(mainNode, OWLRDFVocabulary.OWL_MAX_QUALIFIED_CARDINALITY.getURI())) {
+        if(isClassExpressionObject(mainNode, OWLRDFVocabulary.OWL_MAX_QUALIFIED_CARDINALITY.getIRI())) {
             return true;
         }
-        if(isClassExpressionObject(mainNode, OWLRDFVocabulary.OWL_MAX_QUALIFIED_CARDINALITY.getURI())) {
+        if(isClassExpressionObject(mainNode, OWLRDFVocabulary.OWL_MAX_QUALIFIED_CARDINALITY.getIRI())) {
             return true;
         }
-        if(isClassExpressionObject(mainNode, OWLRDFVocabulary.OWL_QUALIFIED_CARDINALITY.getURI())) {
+        if(isClassExpressionObject(mainNode, OWLRDFVocabulary.OWL_QUALIFIED_CARDINALITY.getIRI())) {
             return true;
         }
-        if(consumer.getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getURI(), false) != null) {
+        if(consumer.getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getIRI(), false) != null) {
             return true;
         }
         return false;
 
     }
 
-    private boolean isClassExpressionObject(URI mainNode, URI predicate) {
-        URI object = consumer.getResourceObject(mainNode, predicate, false);
+    private boolean isClassExpressionObject(IRI mainNode, IRI predicate) {
+        IRI object = consumer.getResourceObject(mainNode, predicate, false);
         return object != null && consumer.isClass(object);
     }
 
-    public boolean isDataRestriction(URI mainNode, URI property) {
+    public boolean isDataRestriction(IRI mainNode, IRI property) {
         if(consumer.isDataPropertyOnly(property)) {
             return true;
         }
-        if(isDataRangeObject(mainNode, OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getURI())) {
+        if(isDataRangeObject(mainNode, OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getIRI())) {
             return true;
         }
-        if(isDataRangeObject(mainNode, OWLRDFVocabulary.OWL_ALL_VALUES_FROM.getURI())) {
+        if(isDataRangeObject(mainNode, OWLRDFVocabulary.OWL_ALL_VALUES_FROM.getIRI())) {
             return true;
         }
-        if(isDataRangeObject(mainNode, OWLRDFVocabulary.OWL_MIN_QUALIFIED_CARDINALITY.getURI())) {
+        if(isDataRangeObject(mainNode, OWLRDFVocabulary.OWL_MIN_QUALIFIED_CARDINALITY.getIRI())) {
             return true;
         }
-        if(isDataRangeObject(mainNode, OWLRDFVocabulary.OWL_MAX_QUALIFIED_CARDINALITY.getURI())) {
+        if(isDataRangeObject(mainNode, OWLRDFVocabulary.OWL_MAX_QUALIFIED_CARDINALITY.getIRI())) {
             return true;
         }
-        if(isDataRangeObject(mainNode, OWLRDFVocabulary.OWL_QUALIFIED_CARDINALITY.getURI())) {
+        if(isDataRangeObject(mainNode, OWLRDFVocabulary.OWL_QUALIFIED_CARDINALITY.getIRI())) {
             return true;
         }
-        if(consumer.getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getURI(), false) != null) {
+        if(consumer.getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getIRI(), false) != null) {
             return true;
         }
         return false;
     }
 
-    private boolean isDataRangeObject(URI mainNode, URI predicate) {
-        URI object = consumer.getResourceObject(mainNode, predicate, false);
+    private boolean isDataRangeObject(IRI mainNode, IRI predicate) {
+        IRI object = consumer.getResourceObject(mainNode, predicate, false);
         return object != null && consumer.isDataRange(object);
     }
 
@@ -166,83 +167,83 @@ public class ClassExpressionTranslatorSelector {
      * @return The translator that should be used to translate the class expression
      * @throws OWLException
      */
-    public ClassExpressionTranslator getClassExpressionTranslator(URI mainNode) {
+    public ClassExpressionTranslator getClassExpressionTranslator(IRI mainNode) {
 
 
         if (consumer.isRestriction(mainNode)) {
             // Check that the necessary triples are there
-            URI onPropertyURI = consumer.getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY.getURI(), false);
-            if (onPropertyURI == null) {
+            IRI onPropertyIRI = consumer.getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), false);
+            if (onPropertyIRI == null) {
                 // Can't do anything
                 return namedClassTranslator;
             }
-            if (isObjectRestriction(mainNode, onPropertyURI)) {
+            if (isObjectRestriction(mainNode, onPropertyIRI)) {
                 return getObjectRestrictionTranslator(mainNode);
             }
-            if (isDataRestriction(mainNode, onPropertyURI)) {
+            if (isDataRestriction(mainNode, onPropertyIRI)) {
                 return getDataRestrictionTranslator(mainNode);
             }
             // Don't do any repair?
             return namedClassTranslator;
         }
 
-        if (consumer.hasPredicate(mainNode, OWL_INTERSECTION_OF.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_INTERSECTION_OF.getIRI())) {
             return intersectionOfTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_UNION_OF.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_UNION_OF.getIRI())) {
             return unionOfTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_COMPLEMENT_OF.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_COMPLEMENT_OF.getIRI())) {
             return complementOfTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_ONE_OF.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_ONE_OF.getIRI())) {
             return oneOfTranslator;
         }
         return namedClassTranslator;
     }
 
-    private ClassExpressionTranslator getObjectRestrictionTranslator(URI mainNode) {
-        if (consumer.hasPredicate(mainNode, OWL_SOME_VALUES_FROM.getURI())) {
+    private ClassExpressionTranslator getObjectRestrictionTranslator(IRI mainNode) {
+        if (consumer.hasPredicate(mainNode, OWL_SOME_VALUES_FROM.getIRI())) {
             return objectSomeValuesFromTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_ALL_VALUES_FROM.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_ALL_VALUES_FROM.getIRI())) {
             return objectAllValuesFromTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_HAS_VALUE.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_HAS_VALUE.getIRI())) {
             return objectHasValueTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_MIN_CARDINALITY.getURI()) || consumer.hasPredicate(mainNode, OWL_MIN_QUALIFIED_CARDINALITY.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_MIN_CARDINALITY.getIRI()) || consumer.hasPredicate(mainNode, OWL_MIN_QUALIFIED_CARDINALITY.getIRI())) {
             return objectMinCardinalityTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_CARDINALITY.getURI()) || consumer.hasPredicate(mainNode, OWL_QUALIFIED_CARDINALITY.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_CARDINALITY.getIRI()) || consumer.hasPredicate(mainNode, OWL_QUALIFIED_CARDINALITY.getIRI())) {
             return objectCardinalityTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_MAX_CARDINALITY.getURI()) || consumer.hasPredicate(mainNode, OWL_MAX_QUALIFIED_CARDINALITY.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_MAX_CARDINALITY.getIRI()) || consumer.hasPredicate(mainNode, OWL_MAX_QUALIFIED_CARDINALITY.getIRI())) {
             return objectMaxCardinalityTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_HAS_SELF.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_HAS_SELF.getIRI())) {
             return selfRestrictionTranslator;
         }
         return namedClassTranslator;
     }
 
-    private ClassExpressionTranslator getDataRestrictionTranslator(URI mainNode) {
-        if (consumer.hasPredicate(mainNode, OWL_SOME_VALUES_FROM.getURI())) {
+    private ClassExpressionTranslator getDataRestrictionTranslator(IRI mainNode) {
+        if (consumer.hasPredicate(mainNode, OWL_SOME_VALUES_FROM.getIRI())) {
             return dataSomeValuesFromTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_ALL_VALUES_FROM.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_ALL_VALUES_FROM.getIRI())) {
             return dataAllValuesFromTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_HAS_VALUE.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_HAS_VALUE.getIRI())) {
             return dataHasValueTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_MIN_CARDINALITY.getURI()) || consumer.hasPredicate(mainNode, OWL_MIN_QUALIFIED_CARDINALITY.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_MIN_CARDINALITY.getIRI()) || consumer.hasPredicate(mainNode, OWL_MIN_QUALIFIED_CARDINALITY.getIRI())) {
             return dataMinCardinalityTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_CARDINALITY.getURI()) || consumer.hasPredicate(mainNode, OWL_QUALIFIED_CARDINALITY.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_CARDINALITY.getIRI()) || consumer.hasPredicate(mainNode, OWL_QUALIFIED_CARDINALITY.getIRI())) {
             return dataCardinalityTranslator;
         }
-        if (consumer.hasPredicate(mainNode, OWL_MAX_CARDINALITY.getURI()) || consumer.hasPredicate(mainNode, OWL_MAX_QUALIFIED_CARDINALITY.getURI())) {
+        if (consumer.hasPredicate(mainNode, OWL_MAX_CARDINALITY.getIRI()) || consumer.hasPredicate(mainNode, OWL_MAX_QUALIFIED_CARDINALITY.getIRI())) {
             return dataMaxCardinalityTranslator;
         }
         return namedClassTranslator;

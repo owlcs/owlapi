@@ -25,6 +25,7 @@ package org.semanticweb.owlapi.rdf.syntax;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 import org.semanticweb.owlapi.rdf.util.RDFConstants;
+import org.semanticweb.owlapi.model.IRI;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.LocatorImpl;
@@ -48,9 +49,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     protected static final SAXParserFactory s_parserFactory = SAXParserFactory.newInstance();
 
-    private Map<String, String> resolvedURIs = new HashMap<String, String>();
+    private Map<String, String> resolvedIRIs = new HashMap<String, String>();
 
-    protected Map<String, URI> uriCache = new HashMap<String, URI>();
+    protected Map<String, IRI> uriCache = new HashMap<String, IRI>();
 
     static {
         s_parserFactory.setNamespaceAware(true);
@@ -63,14 +64,14 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     protected ErrorHandler m_errorHandler;
 
     /**
-     * Stack of base URIs.
+     * Stack of base IRIs.
      */
-    protected Stack m_baseURIs;
+    protected Stack m_baseIRIs;
 
     /**
-     * URI of the document being parsed.
+     * IRI of the document being parsed.
      */
-    protected URI m_baseURI;
+    protected IRI m_baseIRI;
 
     /**
      * The stack of languages.
@@ -98,9 +99,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     protected List m_states;
 
     /**
-     * Number of the last generated URI.
+     * Number of the last generated IRI.
      */
-    protected int m_generatedURIIndex;
+    protected int m_generatedIRIIndex;
 
     /**
      * Document locator.
@@ -113,7 +114,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     public RDFParser() {
         m_states = new ArrayList();
-        m_baseURIs = new Stack();
+        m_baseIRIs = new Stack();
         m_languages = new Stack();
     }
 
@@ -128,12 +129,12 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         try {
             m_documentLocator = s_nullDocumentLocator;
             if (systemID != null)
-                m_baseURI = new URI(source.getSystemId());
+                m_baseIRI = IRI.create(new URI(source.getSystemId()));
             else
                 throw new SAXException(
-                        "Supplied InputSource object myst have systemId property set, which is needed for URI resolution.");
+                        "Supplied InputSource object myst have systemId property set, which is needed for IRI resolution.");
             m_consumer = consumer;
-            m_consumer.startModel(m_baseURI.toString());
+            m_consumer.startModel(m_baseIRI.toString());
             SAXParser parser = s_parserFactory.newSAXParser();
             parser.parse(source, this);
             m_consumer.endModel();
@@ -148,7 +149,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             m_state = null;
             m_states.clear();
             m_documentLocator = null;
-            m_baseURIs.clear();
+            m_baseIRIs.clear();
         }
     }
 
@@ -211,7 +212,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * Called when document parsing is started.
      */
     public void startDocument() {
-        m_generatedURIIndex = 0;
+        m_generatedIRIIndex = 0;
         m_states.clear();
         pushState(new StartRDF());
     }
@@ -228,27 +229,27 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     /**
      * Called when an element is started.
-     * @param namespaceURI the URI of the namespace
+     * @param namespaceIRI the IRI of the namespace
      * @param localName    the local name of the element
      * @param qName        the Q-name of the element
      * @param atts         the attributes
      */
-    public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
+    public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
         processXMLBase(atts);
         processXMLLanguage(atts);
-        m_state.startElement(namespaceURI, localName, qName, atts);
+        m_state.startElement(namespaceIRI, localName, qName, atts);
     }
 
 
     /**
      * Called when element parsing is ended.
-     * @param namespaceURI the URI of the namespace
+     * @param namespaceIRI the IRI of the namespace
      * @param localName    the local name of the element
      * @param qName        the Q-name of the element
      */
-    public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
-        m_state.endElement(namespaceURI, localName, qName);
-        m_baseURI = (URI) m_baseURIs.pop();
+    public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+        m_state.endElement(namespaceIRI, localName, qName);
+        m_baseIRI = (IRI) m_baseIRIs.pop();
         m_language = (String) m_languages.pop();
     }
 
@@ -275,11 +276,11 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             if (arguments.size() > 2)
                 throw new RDFParserException("Incorrect number of arguments for 'include-rdf' processing instruction.",
                                              m_documentLocator);
-            String logicalURI = (String) arguments.get("logicalURI");
-            String physicalURI = (String) arguments.get("physicalURI");
-            if (physicalURI != null)
-                physicalURI = resolveURI(physicalURI);
-            m_consumer.includeModel(logicalURI, physicalURI);
+            String logicalIRI = (String) arguments.get("logicalIRI");
+            String physicalIRI = (String) arguments.get("physicalIRI");
+            if (physicalIRI != null)
+                physicalIRI = resolveIRI(physicalIRI);
+            m_consumer.includeModel(logicalIRI, physicalIRI);
         }
         else if ("model-attribute".equals(target)) {
             Map arguments = parseStringArguments(data);
@@ -342,15 +343,15 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param atts the attributes potentially containing xml:base declaration
      */
     protected void processXMLBase(Attributes atts) throws SAXException {
-        m_baseURIs.push(m_baseURI);
+        m_baseIRIs.push(m_baseIRI);
         String value = atts.getValue(XMLNS, "base");
         if (value != null) {
             try {
-                m_baseURI = m_baseURI.resolve(value);
-                resolvedURIs.clear();
+                m_baseIRI = m_baseIRI.resolve(value);
+                resolvedIRIs.clear();
             }
             catch (IllegalArgumentException e) {
-                RDFParserException exception = new RDFParserException("New base URI '" + value + "' cannot be resolved against curent base URI " + m_baseURI.toString(),
+                RDFParserException exception = new RDFParserException("New base IRI '" + value + "' cannot be resolved against curent base IRI " + m_baseIRI.toString(),
                                                                       m_documentLocator);
                 exception.initCause(e);
                 throw exception;
@@ -373,14 +374,14 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     private int cacheHits = 0;
 
     /**
-     * Resolves an URI with the current base.
-     * @param uri the URI being resolved
-     * @return the resolved URI
+     * Resolves an IRI with the current base.
+     * @param uri the IRI being resolved
+     * @return the resolved IRI
      */
-    protected String resolveURI(String uri) throws SAXException {
+    protected String resolveIRI(String uri) throws SAXException {
         if (uri.length() == 0) {
-            // MH - Fix for resolving a "This document" reference against base URIs.
-            String base = m_baseURI.toString();
+            // MH - Fix for resolving a "This document" reference against base IRIs.
+            String base = m_baseIRI.toString();
             int hashIndex = base.indexOf("#");
             if (hashIndex != -1) {
                 return base.substring(0, hashIndex);
@@ -391,7 +392,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
         else {
             try {
-                String resolved = resolvedURIs.get(uri);
+                String resolved = resolvedIRIs.get(uri);
                 if(resolved != null) {
 //                    cacheHits++;
 //                    if((cacheHits % 10000) == 0) {
@@ -400,15 +401,15 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
                     return resolved;
                 }
                 else {
-                    URI theURI = m_baseURI.resolve(uri);
-                    String u = theURI.toString();
-                    uriCache.put(u, theURI);
-                    resolvedURIs.put(uri, u);
+                    IRI theIRI = m_baseIRI.resolve(uri);
+                    String u = theIRI.toString();
+                    uriCache.put(u, theIRI);
+                    resolvedIRIs.put(uri, u);
                     return u;  
                 }
             }
             catch (IllegalArgumentException e) {
-                RDFParserException exception = new RDFParserException("URI '" + uri + "' cannot be resolved against curent base URI " + m_baseURI.toString(),
+                RDFParserException exception = new RDFParserException("IRI '" + uri + "' cannot be resolved against curent base IRI " + m_baseIRI.toString(),
                                                                       m_documentLocator);
                 exception.initCause(e);
                 throw exception;
@@ -418,61 +419,61 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
     /**
-     * Returns an absolute URI from an ID.
+     * Returns an absolute IRI from an ID.
      */
-    protected String getURIFromID(String id) throws SAXException {
-        return resolveURI("#" + id);
+    protected String getIRIFromID(String id) throws SAXException {
+        return resolveIRI("#" + id);
     }
 
 
     /**
-     * Returns an absolute URI from an about attribute.
+     * Returns an absolute IRI from an about attribute.
      */
-    protected String getURIFromAbout(String about) throws SAXException {
-        return resolveURI(about);
+    protected String getIRIFromAbout(String about) throws SAXException {
+        return resolveIRI(about);
     }
 
 
     /**
-     * Returns an abolute URI from a nodeID attribute.
+     * Returns an abolute IRI from a nodeID attribute.
      */
-    protected String getURIFromNodeID(String nodeID) throws SAXException {
+    protected String getIRIFromNodeID(String nodeID) throws SAXException {
 //        return nodeID;
-        return resolveURI("#genid-" + nodeID);
+        return resolveIRI("#genid-" + nodeID);
     }
 
 
     /**
-     * Returns an absolute URI from a resource attribute.
+     * Returns an absolute IRI from a resource attribute.
      */
-    protected String getURIFromResource(String resource) throws SAXException {
-        return resolveURI(resource);
+    protected String getIRIFromResource(String resource) throws SAXException {
+        return resolveIRI(resource);
     }
 
 
     /**
-     * Generates next anonymous URI.
+     * Generates next anonymous IRI.
      */
-    protected String nextAnonymousURI() throws SAXException {
-        return getURIFromID("genid" + (++m_generatedURIIndex));
+    protected String nextAnonymousIRI() throws SAXException {
+        return getIRIFromID("genid" + (++m_generatedIRIIndex));
     }
 
 
     /**
-     * Extracts the URI of the resource from rdf:ID, rdf:nodeID or rdf:about attribute. If no attribute is found,
-     * an URI is generated.
+     * Extracts the IRI of the resource from rdf:ID, rdf:nodeID or rdf:about attribute. If no attribute is found,
+     * an IRI is generated.
      */
-    protected String getIDNodeIDAboutResourceURI(Attributes atts) throws SAXException {
+    protected String getIDNodeIDAboutResourceIRI(Attributes atts) throws SAXException {
         String result = null;
         String value = atts.getValue(RDFNS, ATTR_ID);
         if (value != null)
-            result = getURIFromID(value);
+            result = getIRIFromID(value);
         value = atts.getValue(RDFNS, ATTR_ABOUT);
         if (value != null) {
             if (result != null)
                 throw new RDFParserException("Element cannot specify both rdf:ID and rdf:about attributes.",
                                              m_documentLocator);
-            result = getURIFromAbout(value);
+            result = getIRIFromAbout(value);
         }
         value = atts.getValue(RDFNS, ATTR_NODE_ID);
         if (value != null) {
@@ -480,27 +481,27 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
                 throw new RDFParserException(
                         "Element cannot specify both rdf:nodeID and rdf:ID or rdf:about attributes.",
                         m_documentLocator);
-            result = getURIFromNodeID(value);
+            result = getIRIFromNodeID(value);
         }
         if (result == null)
-            result = nextAnonymousURI();
+            result = nextAnonymousIRI();
         return result;
     }
 
 
     /**
-     * Extracts the URI of the resource from rdf:resource or rdf:nodeID attribute. If no attribute is found, <code>null</code> is returned.
+     * Extracts the IRI of the resource from rdf:resource or rdf:nodeID attribute. If no attribute is found, <code>null</code> is returned.
      * @param atts the attributes
-     * @return the URI of the resource or <code>null</code>
+     * @return the IRI of the resource or <code>null</code>
      */
-    protected String getNodeIDResourceResourceURI(Attributes atts) throws SAXException {
+    protected String getNodeIDResourceResourceIRI(Attributes atts) throws SAXException {
         String value = atts.getValue(RDFNS, ATTR_RESOURCE);
         if (value != null)
-            return getURIFromResource(value);
+            return getIRIFromResource(value);
         else {
             value = atts.getValue(RDFNS, ATTR_NODE_ID);
             if (value != null)
-                return getURIFromNodeID(value);
+                return getIRIFromNodeID(value);
             else
                 return null;
         }
@@ -509,10 +510,10 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     /**
      * Called when a statement with resource value is added to the model.
-     * @param subject       URI of the subject resource
-     * @param predicate     URI of the predicate resource
-     * @param object        URI of the object resource
-     * @param reificationID if not <code>null</code>, contains URI of the resource that will wold the reified statement
+     * @param subject       IRI of the subject resource
+     * @param predicate     IRI of the predicate resource
+     * @param object        IRI of the object resource
+     * @param reificationID if not <code>null</code>, contains IRI of the resource that will wold the reified statement
      */
     protected void statementWithResourceValue(String subject, String predicate, String object,
                                               String reificationID) throws SAXException {
@@ -528,11 +529,11 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     /**
      * Called when a statement with literal value is added to the model.
-     * @param subject       URI of the subject resource
-     * @param predicate     URI of the predicate resource
+     * @param subject       IRI of the subject resource
+     * @param predicate     IRI of the predicate resource
      * @param object        literal object value
-     * @param dataType      the URI of the literal's datatype (may be <code>null</code>)
-     * @param reificationID if not <code>null</code>, contains URI of the resource that will wold the reified statement
+     * @param dataType      the IRI of the literal's datatype (may be <code>null</code>)
+     * @param reificationID if not <code>null</code>, contains IRI of the resource that will wold the reified statement
      */
     protected void statementWithLiteralValue(String subject, String predicate, String object, String dataType,
                                              String reificationID) throws SAXException {
@@ -548,28 +549,28 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     /**
      * Parses the propertyAttributes production.
-     * @param subjectURI         URI of the resource whose properties are being parsed
+     * @param subjectIRI         IRI of the resource whose properties are being parsed
      * @param atts               attributes
      * @param reificationManager the reification manager
      */
-    protected void propertyAttributes(String subjectURI, Attributes atts, ReificationManager reificationManager) throws
+    protected void propertyAttributes(String subjectIRI, Attributes atts, ReificationManager reificationManager) throws
                                                                                                                  SAXException {
         int length = atts.getLength();
         for (int i = 0; i < length; i++) {
-            String nsURI = atts.getURI(i);
+            String nsIRI = atts.getURI(i);
             String localName = atts.getLocalName(i);
-            if (!XMLNS.equals(nsURI) && !XMLLANG.equals(localName) && !(RDFNS.equals(nsURI) && (ATTR_ID.equals(localName) || ATTR_NODE_ID.equals(
+            if (!XMLNS.equals(nsIRI) && !XMLLANG.equals(localName) && !(RDFNS.equals(nsIRI) && (ATTR_ID.equals(localName) || ATTR_NODE_ID.equals(
                     localName) || ATTR_ABOUT.equals(localName) || ELT_TYPE.equals(localName) || ATTR_RESOURCE.equals(
                     localName) || ATTR_PARSE_TYPE.equals(localName) || ATTR_ABOUT_EACH.equals(localName) || ATTR_ABOUT_EACH_PREFIX.equals(
                     localName) || ATTR_BAG_ID.equals(localName)))) {
                 String value = atts.getValue(i);
                 String reificationID = reificationManager.getReificationID(null);
-                statementWithLiteralValue(subjectURI, nsURI + localName, value, null, reificationID);
+                statementWithLiteralValue(subjectIRI, nsIRI + localName, value, null, reificationID);
             }
-            else if (RDFNS.equals(nsURI) && ELT_TYPE.equals(localName)) {
-                String value = resolveURI(atts.getValue(i));
+            else if (RDFNS.equals(nsIRI) && ELT_TYPE.equals(localName)) {
+                String value = resolveIRI(atts.getValue(i));
                 String reificationID = reificationManager.getReificationID(null);
-                statementWithResourceValue(subjectURI, nsURI + localName, value, reificationID);
+                statementWithResourceValue(subjectIRI, nsIRI + localName, value, reificationID);
             }
         }
     }
@@ -619,7 +620,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         if (bagIDAttr == null)
             return ReificationManager.INSTANCE;
         else {
-            String bagID = getURIFromID(bagIDAttr);
+            String bagID = getIRIFromID(bagIDAttr);
             return new ReifiedStatementBag(bagID);
         }
     }
@@ -659,15 +660,15 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
     /**
-     * Tests whether supplied URI was generated by this parser in order to label an anonymous node.
-     * @param uri the URI
-     * @return <code>true</code> if the URI was generated by this parser to label an anonymous node
+     * Tests whether supplied IRI was generated by this parser in order to label an anonymous node.
+     * @param uri the IRI
+     * @return <code>true</code> if the IRI was generated by this parser to label an anonymous node
      */
-    public boolean isAnonymousNodeURI(String uri) {
+    public boolean isAnonymousNodeIRI(String uri) {
         return uri.indexOf("#genid") != -1;
     }
 
-    public URI getURI(String s) {
+    public IRI getIRI(String s) {
         return uriCache.get(s);
 //        throw new RuntimeException("DISABLED");
     }
@@ -678,12 +679,12 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     protected static class State {
 
-        public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
                                                                                                        SAXException {
         }
 
 
-        public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
         }
 
 
@@ -697,17 +698,17 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     protected class StartRDF extends State {
 
-        public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
                                                                                                        SAXException {
-            if (!RDFNS.equals(namespaceURI) || !ELT_RDF.equals(localName))
+            if (!RDFNS.equals(namespaceIRI) || !ELT_RDF.equals(localName))
                 throw new RDFParserException("Expecting rdf:RDF element.", m_documentLocator);
-            // the logical URI is the current URI that we have as the base URI at this point
-            m_consumer.logicalURI(m_baseURI.toString());
+            // the logical IRI is the current IRI that we have as the base IRI at this point
+            m_consumer.logicalURI(m_baseIRI.toString());
             pushState(new NodeElementList());
         }
 
 
-        public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             popState();
         }
 
@@ -725,16 +726,16 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     protected class NodeElementList extends State {
 
-        public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
                                                                                                        SAXException {
             pushState(new NodeElement());
-            m_state.startElement(namespaceURI, localName, qName, atts);
+            m_state.startElement(namespaceIRI, localName, qName, atts);
         }
 
 
-        public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             popState();
-            m_state.endElement(namespaceURI, localName, qName);
+            m_state.endElement(namespaceIRI, localName, qName);
         }
 
 
@@ -751,7 +752,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     protected class NodeElement extends State {
 
-        protected String m_subjectURI;
+        protected String m_subjectIRI;
 
         protected ReificationManager m_reificationManager;
 
@@ -759,20 +760,20 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         public void startDummyElement(Attributes atts) throws SAXException {
-            m_subjectURI = nextAnonymousURI();
+            m_subjectIRI = nextAnonymousIRI();
             m_reificationManager = getReificationManager(atts);
         }
 
 
-        public String getSubjectURI() {
-            return m_subjectURI;
+        public String getSubjectIRI() {
+            return m_subjectIRI;
         }
 
 
         public String getReificationID(Attributes atts) throws SAXException {
             String rdfID = atts.getValue(RDFNS, ATTR_ID);
             if (rdfID != null)
-                rdfID = getURIFromID(rdfID);
+                rdfID = getIRIFromID(rdfID);
             return m_reificationManager.getReificationID(rdfID);
         }
 
@@ -782,7 +783,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
 
 
-        public String getPropertyURI(String uri) {
+        public String getPropertyIRI(String uri) {
             if (RDF_LI.equals(uri))
                 return getNextLi();
             else
@@ -790,23 +791,23 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
 
 
-        public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
                                                                                                        SAXException {
-            m_subjectURI = getIDNodeIDAboutResourceURI(atts);
-            boolean isRDFNS = RDFNS.equals(namespaceURI);
+            m_subjectIRI = getIDNodeIDAboutResourceIRI(atts);
+            boolean isRDFNS = RDFNS.equals(namespaceIRI);
             m_reificationManager = getReificationManager(atts);
             if (!isRDFNS || !ELT_DESCRIPTION.equals(localName))
-                statementWithResourceValue(m_subjectURI,
+                statementWithResourceValue(m_subjectIRI,
                                            RDF_TYPE,
-                                           namespaceURI + localName,
+                                           namespaceIRI + localName,
                                            m_reificationManager.getReificationID(null));
             checkUnsupportedAttributes(atts);
-            propertyAttributes(m_subjectURI, atts, m_reificationManager);
+            propertyAttributes(m_subjectIRI, atts, m_reificationManager);
             pushState(new PropertyElementList(this));
         }
 
 
-        public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             popState();
         }
 
@@ -831,7 +832,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
 
 
-        public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
                                                                                                        SAXException {
             String parseType = atts.getValue(RDFNS, ATTR_PARSE_TYPE);
             if (PARSE_TYPE_LITERAL.equals(parseType))
@@ -843,19 +844,19 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             else if (parseType != null)
                 pushState(new ParseTypeLiteralPropertyElement(m_nodeElement));
             else {
-                String objectURI = getNodeIDResourceResourceURI(atts);
-                if (objectURI != null)
+                String objectIRI = getNodeIDResourceResourceIRI(atts);
+                if (objectIRI != null)
                     pushState(new EmptyPropertyElement(m_nodeElement));
                 else
                     pushState(new ResourceOrLiteralPropertyElement(m_nodeElement));
             }
-            m_state.startElement(namespaceURI, localName, qName, atts);
+            m_state.startElement(namespaceIRI, localName, qName, atts);
         }
 
 
-        public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             popState();
-            m_state.endElement(namespaceURI, localName, qName);
+            m_state.endElement(namespaceIRI, localName, qName);
         }
 
 
@@ -875,7 +876,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
         protected NodeElement m_nodeElement;
 
-        protected String m_propertyURI;
+        protected String m_propertyIRI;
 
         protected String m_reificationID;
 
@@ -891,11 +892,11 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
 
 
-        public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
                                                                                                        SAXException {
             if (m_text == null) {
                 // this is the invocation on the outer element
-                m_propertyURI = m_nodeElement.getPropertyURI(namespaceURI + localName);
+                m_propertyIRI = m_nodeElement.getPropertyIRI(namespaceIRI + localName);
                 m_reificationID = m_nodeElement.getReificationID(atts);
                 m_datatype = atts.getValue(RDFNS, ATTR_DATATYPE);
                 m_text = new StringBuffer();
@@ -908,20 +909,20 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
                                                  m_documentLocator);
                 m_innerNode = new NodeElement();
                 pushState(m_innerNode);
-                m_state.startElement(namespaceURI, localName, qName, atts);
+                m_state.startElement(namespaceIRI, localName, qName, atts);
             }
         }
 
 
-        public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             if (m_innerNode != null)
-                statementWithResourceValue(m_nodeElement.getSubjectURI(),
-                                           m_propertyURI,
-                                           m_innerNode.getSubjectURI(),
+                statementWithResourceValue(m_nodeElement.getSubjectIRI(),
+                                           m_propertyIRI,
+                                           m_innerNode.getSubjectIRI(),
                                            m_reificationID);
             else
-                statementWithLiteralValue(m_nodeElement.getSubjectURI(),
-                                          m_propertyURI,
+                statementWithLiteralValue(m_nodeElement.getSubjectIRI(),
+                                          m_propertyIRI,
                                           m_text.toString().trim(),
                                           m_datatype,
                                           m_reificationID);
@@ -948,7 +949,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
         protected NodeElement m_nodeElement;
 
-        protected String m_propertyURI;
+        protected String m_propertyIRI;
 
 
         public EmptyPropertyElement(NodeElement nodeElement) {
@@ -956,25 +957,25 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
 
 
-        public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
                                                                                                        SAXException {
-            if (m_propertyURI == null) {
+            if (m_propertyIRI == null) {
                 // this is the invocation on the outer element
-                m_propertyURI = m_nodeElement.getPropertyURI(namespaceURI + localName);
+                m_propertyIRI = m_nodeElement.getPropertyIRI(namespaceIRI + localName);
                 String reificationID = m_nodeElement.getReificationID(atts);
-                String objectURI = getNodeIDResourceResourceURI(atts);
-                if (objectURI == null)
-                    objectURI = nextAnonymousURI();
-                statementWithResourceValue(m_nodeElement.getSubjectURI(), m_propertyURI, objectURI, reificationID);
+                String objectIRI = getNodeIDResourceResourceIRI(atts);
+                if (objectIRI == null)
+                    objectIRI = nextAnonymousIRI();
+                statementWithResourceValue(m_nodeElement.getSubjectIRI(), m_propertyIRI, objectIRI, reificationID);
                 ReificationManager reificationManager = getReificationManager(atts);
-                propertyAttributes(objectURI, atts, reificationManager);
+                propertyAttributes(objectIRI, atts, reificationManager);
             }
             else
                 throw new RDFParserException("incorrect element start encountered.", m_documentLocator);
         }
 
 
-        public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             popState();
         }
 
@@ -992,11 +993,11 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
         protected NodeElement m_nodeElement;
 
-        protected String m_propertyURI;
+        protected String m_propertyIRI;
 
         protected String m_reificationID;
 
-        protected String m_lastCellURI;
+        protected String m_lastCellIRI;
 
 
         public ParseTypeCollectionPropertyElement(NodeElement nodeElement) {
@@ -1004,42 +1005,42 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
 
 
-        public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
                                                                                                        SAXException {
-            if (m_propertyURI == null) {
-                m_propertyURI = m_nodeElement.getPropertyURI(namespaceURI + localName);
+            if (m_propertyIRI == null) {
+                m_propertyIRI = m_nodeElement.getPropertyIRI(namespaceIRI + localName);
                 m_reificationID = m_nodeElement.getReificationID(atts);
             }
             else {
                 NodeElement collectionNode = new NodeElement();
                 pushState(collectionNode);
-                m_state.startElement(namespaceURI, localName, qName, atts);
-                String newListCellURI = listCell(collectionNode.getSubjectURI());
-                if (m_lastCellURI == null)
-                    statementWithResourceValue(m_nodeElement.getSubjectURI(),
-                                               m_propertyURI,
-                                               newListCellURI,
+                m_state.startElement(namespaceIRI, localName, qName, atts);
+                String newListCellIRI = listCell(collectionNode.getSubjectIRI());
+                if (m_lastCellIRI == null)
+                    statementWithResourceValue(m_nodeElement.getSubjectIRI(),
+                                               m_propertyIRI,
+                                               newListCellIRI,
                                                m_reificationID);
                 else
-                    statementWithResourceValue(m_lastCellURI, RDF_REST, newListCellURI, null);
-                m_lastCellURI = newListCellURI;
+                    statementWithResourceValue(m_lastCellIRI, RDF_REST, newListCellIRI, null);
+                m_lastCellIRI = newListCellIRI;
             }
         }
 
 
-        protected String listCell(String valueURI) throws SAXException {
-            String listCellURI = nextAnonymousURI();
-            statementWithResourceValue(listCellURI, RDF_FIRST, valueURI, null);
-            statementWithResourceValue(listCellURI, RDF_TYPE, RDF_LIST, null);
-            return listCellURI;
+        protected String listCell(String valueIRI) throws SAXException {
+            String listCellIRI = nextAnonymousIRI();
+            statementWithResourceValue(listCellIRI, RDF_FIRST, valueIRI, null);
+            statementWithResourceValue(listCellIRI, RDF_TYPE, RDF_LIST, null);
+            return listCellIRI;
         }
 
 
-        public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
-            if (m_lastCellURI == null)
-                statementWithResourceValue(m_nodeElement.getSubjectURI(), m_propertyURI, RDF_NIL, m_reificationID);
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+            if (m_lastCellIRI == null)
+                statementWithResourceValue(m_nodeElement.getSubjectIRI(), m_propertyIRI, RDF_NIL, m_reificationID);
             else
-                statementWithResourceValue(m_lastCellURI, RDF_REST, RDF_NIL, null);
+                statementWithResourceValue(m_lastCellIRI, RDF_REST, RDF_NIL, null);
             popState();
         }
 
@@ -1059,7 +1060,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
         protected NodeElement m_nodeElement;
 
-        protected String m_propertyURI;
+        protected String m_propertyIRI;
 
         protected String m_reificationID;
 
@@ -1073,10 +1074,10 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
 
 
-        public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
                                                                                                        SAXException {
             if (m_depth == 0) {
-                m_propertyURI = m_nodeElement.getPropertyURI(namespaceURI + localName);
+                m_propertyIRI = m_nodeElement.getPropertyIRI(namespaceIRI + localName);
                 m_reificationID = m_nodeElement.getReificationID(atts);
                 m_content = new StringBuffer();
             }
@@ -1097,10 +1098,10 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
 
 
-        public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             if (m_depth == 1) {
-                statementWithLiteralValue(m_nodeElement.getSubjectURI(),
-                                          m_propertyURI,
+                statementWithLiteralValue(m_nodeElement.getSubjectIRI(),
+                                          m_propertyIRI,
                                           m_content.toString(),
                                           RDF_XMLLITERAL,
                                           m_reificationID);
@@ -1128,7 +1129,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
         protected NodeElement m_nodeElement;
 
-        protected String m_propertyURI;
+        protected String m_propertyIRI;
 
         protected String m_reificationID;
 
@@ -1138,21 +1139,21 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
 
 
-        public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
                                                                                                        SAXException {
-            m_propertyURI = m_nodeElement.getPropertyURI(namespaceURI + localName);
+            m_propertyIRI = m_nodeElement.getPropertyIRI(namespaceIRI + localName);
             m_reificationID = m_nodeElement.getReificationID(atts);
             NodeElement anonymousNodeElement = new NodeElement();
             anonymousNodeElement.startDummyElement(atts);
-            statementWithResourceValue(m_nodeElement.getSubjectURI(),
-                                       m_propertyURI,
-                                       anonymousNodeElement.getSubjectURI(),
+            statementWithResourceValue(m_nodeElement.getSubjectIRI(),
+                                       m_propertyIRI,
+                                       anonymousNodeElement.getSubjectIRI(),
                                        m_reificationID);
             pushState(new PropertyElementList(anonymousNodeElement));
         }
 
 
-        public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             popState();
         }
 
@@ -1191,13 +1192,13 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         public String getReificationID(String reificationID) throws SAXException {
-            String resultURI;
+            String resultIRI;
             if (reificationID == null)
-                resultURI = nextAnonymousURI();
+                resultIRI = nextAnonymousIRI();
             else
-                resultURI = reificationID;
-            statementWithResourceValue(m_uri, RDFNS + "_" + (++m_elements), resultURI, null);
-            return resultURI;
+                resultIRI = reificationID;
+            statementWithResourceValue(m_uri, RDFNS + "_" + (++m_elements), resultIRI, null);
+            return resultIRI;
         }
     }
 }

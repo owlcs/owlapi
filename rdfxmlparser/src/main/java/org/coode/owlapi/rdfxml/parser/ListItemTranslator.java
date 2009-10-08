@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 
@@ -45,7 +46,7 @@ public interface ListItemTranslator<O extends OWLObject> {
      * @param firstObject The rdf:first triple that points to the item to be translated.
      * @return The translated item.
      */
-    O translate(URI firstObject);
+    O translate(IRI firstObject);
 
 
     O translate(OWLLiteral firstObject);

@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -36,11 +37,11 @@ import java.net.URI;
 public class TypeDataRangeHandler extends BuiltInTypeHandler {
 
     public TypeDataRangeHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_DATA_RANGE.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_DATA_RANGE.getIRI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         if (!isAnonymous(subject)) {
             getConsumer().addOWLDataRange(subject);
             consumeTriple(subject, predicate, object);

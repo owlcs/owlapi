@@ -120,7 +120,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
     }
 
     public boolean isBuiltIn() {
-        return OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTIES.contains(getURI());
+        return OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS.contains(getIRI());
     }
 
     public boolean isOWLClass() {

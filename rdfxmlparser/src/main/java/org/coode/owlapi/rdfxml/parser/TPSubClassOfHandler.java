@@ -3,6 +3,7 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -42,11 +43,11 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
     public static int potentiallyConsumedTiples = 0;
 
     public TPSubClassOfHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.RDFS_SUBCLASS_OF.getURI());
+        super(consumer, OWLRDFVocabulary.RDFS_SUBCLASS_OF.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         if (!getConsumer().isAnonymousNode(subject)) {
             if (getConsumer().isAnonymousNode(object)) {
                 OWLClassExpression superClass = getConsumer().getClassExpressionIfTranslated(object);
@@ -62,7 +63,7 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         OWLClassExpression subClass = translateClassExpression(subject);
         OWLClassExpression supClass = translateClassExpression(object);
         Set<OWLAnnotation> pendingAnnotations = getConsumer().getPendingAnnotations();

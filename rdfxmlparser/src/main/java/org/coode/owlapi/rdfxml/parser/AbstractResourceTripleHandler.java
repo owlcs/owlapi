@@ -1,5 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.net.URI;
 
 /*
@@ -40,14 +42,14 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
     }
 
 
-    protected boolean isSubjectOrObjectAnonymous(URI subject, URI object) {
+    protected boolean isSubjectOrObjectAnonymous(IRI subject, IRI object) {
         return isAnonymous(subject) || isAnonymous(object);
     }
 
 
-    public abstract void handleTriple(URI subject, URI predicate, URI object);
+    public abstract void handleTriple(IRI subject, IRI predicate, IRI object);
 
-    public abstract boolean canHandleStreaming(URI subject, URI predicate, URI object);
+    public abstract boolean canHandleStreaming(IRI subject, IRI predicate, IRI object);
 
-    public abstract boolean canHandle(URI subject, URI predicate, URI object);
+    public abstract boolean canHandle(IRI subject, IRI predicate, IRI object);
 }

@@ -1,5 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -33,21 +35,21 @@ import java.net.URI;
  */
 public abstract class TriplePredicateHandler extends AbstractResourceTripleHandler {
 
-    private URI predicateURI;
+    private IRI predicateIRI;
 
-    public TriplePredicateHandler(OWLRDFConsumer consumer, URI predicateURI) {
+    public TriplePredicateHandler(OWLRDFConsumer consumer, IRI predicateIRI) {
         super(consumer);
-        this.predicateURI = predicateURI;
+        this.predicateIRI = predicateIRI;
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, URI object) {
-        return predicate.equals(predicateURI);
+    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+        return predicate.equals(predicateIRI);
     }
 
 
-    public URI getPredicateURI() {
-        return predicateURI;
+    public IRI getPredicateIRI() {
+        return predicateIRI;
     }
 
 

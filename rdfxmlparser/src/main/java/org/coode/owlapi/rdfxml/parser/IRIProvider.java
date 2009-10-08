@@ -1,5 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.net.URI;/*
  * Copyright (C) 2008, University of Manchester
  *
@@ -27,7 +29,7 @@ import java.net.URI;/*
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 09-Mar-2009
  */
-public interface URIProvider {
+public interface IRIProvider {
 
-    URI getURI(String s);
+    IRI getIRI(String s);
 }

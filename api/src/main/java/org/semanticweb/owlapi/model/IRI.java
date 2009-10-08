@@ -6,8 +6,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Collections;
-import java.util.Set;/*
+import java.util.*;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -49,6 +48,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
      * @return <code>true</code> if this IRI is absolute or <code>false</code> if this IRI is not absolute
      */
     public abstract boolean isAbsolute();
+
+    public abstract IRI resolve(String s);
 
 
     /**
@@ -103,17 +104,57 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         return new IRIImpl(url.toURI());
     }
 
+    private static Map<String, String> prefixCache = new HashMap<String, String>();
+
 
     private static class IRIImpl extends IRI {
 
-        private URI uri;
+        private String fragment;
+
+        private String prefix;
+
+
+        public IRIImpl(String s) {
+            int fragmentSeparatorIndex = s.lastIndexOf('#');
+            if(fragmentSeparatorIndex != -1 && fragmentSeparatorIndex < s.length()) {
+                fragment = s.substring(fragmentSeparatorIndex + 1);
+                prefix = s.substring(0, fragmentSeparatorIndex + 1);
+            }
+            else {
+                int pathSeparatorIndex = s.lastIndexOf('/');
+                if(pathSeparatorIndex != -1 && pathSeparatorIndex < s.length()) {
+                    fragment = s.substring(pathSeparatorIndex + 1);
+                    prefix = s.substring(0, pathSeparatorIndex + 1);
+                }
+                else {
+                    fragment = null;
+                    prefix = s;
+                }
+            }
+            String cached = prefixCache.get(prefix);
+            if(cached == null) {
+                prefixCache.put(prefix, prefix);
+            }
+            else {
+                prefix = cached;
+            }
+        }
 
         public IRIImpl(URI uri) {
-            this.uri = uri;
+            this(uri.toString());
         }
 
         public URI toURI() {
-            return uri;
+            if (fragment != null) {
+                return URI.create(prefix + fragment);
+            }
+            else {
+                return URI.create(prefix);
+            }
+        }
+
+        public IRI resolve(String s) {
+            return IRI.create(toURI().resolve(s));
         }
 
         /**
@@ -121,7 +162,17 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
          * @return <code>true</code> if this IRI is absolute or <code>false</code> if this IRI is not absolute
          */
         public boolean isAbsolute() {
-            return uri.isAbsolute();
+            int colonIndex = prefix.indexOf(':');
+            if(colonIndex == -1) {
+                return false;
+            }
+            for(int i = 0; i < colonIndex; i++) {
+                char ch = prefix.charAt(i);
+                if(!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+' && ch != '-') {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /**
@@ -129,20 +180,24 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
          * @return The IRI fragment, or <code>null</code> if the IRI does not have a fragment
          */
         public String getFragment() {
-            return uri.getFragment();
+            if (prefix.charAt(prefix.length() - 1) == '#') {
+                return fragment;
+            }
+            else {
+                return null;
+            }
         }
         
         public boolean isNothing() {
-            return uri.equals(OWLRDFVocabulary.OWL_NOTHING.getURI());
+            return this.equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
         }
 
         public boolean isReservedVocabulary() {
-            String s = uri.toString();
-            return s.startsWith(Namespaces.OWL.toString()) || s.startsWith(Namespaces.RDF.toString()) || s.startsWith(Namespaces.RDFS.toString()) || s.startsWith(Namespaces.XSD.toString());
+            return prefix.startsWith(Namespaces.OWL.toString()) || prefix.startsWith(Namespaces.RDF.toString()) || prefix.startsWith(Namespaces.RDFS.toString()) || prefix.startsWith(Namespaces.XSD.toString());
         }
 
         public boolean isThing() {
-            return uri.equals(OWLRDFVocabulary.OWL_THING.getURI());
+            return fragment != null && fragment.equals("Thing") && prefix.equals(Namespaces.OWL.toString());
         }
 
         public void accept(OWLObjectVisitor visitor) {
@@ -178,28 +233,59 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         }
 
         public int compareTo(OWLObject o) {
-            if (!(o instanceof IRI)) {
+            if(o == this) {
+                return 0;
+            }
+            if (!(o instanceof IRIImpl)) {
                 return -1;
             }
-            IRI other = (IRI) o;
-            return uri.compareTo(other.toURI());
+            IRIImpl other = (IRIImpl) o;
+            int diff = prefix.compareTo(other.prefix);
+            if(diff != 0) {
+                return diff;
+            }
+            String otherFragment = other.fragment;
+            if(fragment == null) {
+                if(otherFragment == null) {
+                    return 0;
+                }
+                else {
+                    return -1;
+                }
+            }
+            else {
+                if(otherFragment == null) {
+                    return 1;
+                }
+                else {
+                    return fragment.compareTo(otherFragment);
+                }
+            }
         }
 
         public String toString() {
-            return uri.toString();
+            if(fragment != null) {
+                return prefix + fragment;
+            }
+            else {
+                return prefix;
+            }
         }
 
         public String toQuotedString() {
             StringBuilder sb = new StringBuilder();
             sb.append("<");
-            sb.append(uri);
+            sb.append(prefix);
+            if(fragment != null) {
+                sb.append(fragment);
+            }
             sb.append(">");
 
             return sb.toString();
         }
 
         public int hashCode() {
-            return uri.hashCode();
+            return prefix.hashCode() + (fragment != null ? fragment.hashCode() : 0);
         }
 
         public void accept(OWLAnnotationValueVisitor visitor) {
@@ -217,11 +303,27 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof IRI)) {
+            if (!(obj instanceof IRIImpl)) {
                 return false;
             }
-            IRI other = (IRI) obj;
-            return uri.equals(other.toURI());
+            IRIImpl other = (IRIImpl) obj;
+            String otherFragment = other.fragment;
+            if(fragment == null) {
+                if(otherFragment == null) {
+                    return prefix.equals(other.prefix);
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                if(otherFragment == null) {
+                    return false;
+                }
+                else {
+                    return fragment.equals(otherFragment) && other.prefix.equals(this.prefix);
+                }
+            }
         }
     }
 }

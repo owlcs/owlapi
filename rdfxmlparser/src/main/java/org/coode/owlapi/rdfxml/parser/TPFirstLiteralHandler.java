@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -41,17 +42,17 @@ public class TPFirstLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
 
-    public boolean canHandle(URI subject, URI predicate, OWLLiteral object) {
-        return predicate.equals(OWLRDFVocabulary.RDF_FIRST.getURI());
+    public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
+        return predicate.equals(OWLRDFVocabulary.RDF_FIRST.getIRI());
     }
 
 
-    public boolean canHandleStreaming(URI subject, URI predicate, OWLLiteral object) {
-        return predicate.equals(OWLRDFVocabulary.RDF_FIRST.getURI());
+    public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
+        return predicate.equals(OWLRDFVocabulary.RDF_FIRST.getIRI());
     }
 
 
-    public void handleTriple(URI subject, URI predicate, OWLLiteral object) {
+    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
         getConsumer().addFirst(subject, object);
         consumeTriple(subject, predicate, object);
     }

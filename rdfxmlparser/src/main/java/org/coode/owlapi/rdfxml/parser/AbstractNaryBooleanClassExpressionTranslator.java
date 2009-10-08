@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 import java.util.Set;
@@ -47,8 +48,8 @@ public abstract class AbstractNaryBooleanClassExpressionTranslator extends Abstr
     }
 
 
-    public OWLClassExpression translate(URI mainNode) {
-        URI object = getResourceObject(mainNode, getPredicateURI(), true);
+    public OWLClassExpression translate(IRI mainNode) {
+        IRI object = getResourceObject(mainNode, getPredicateIRI(), true);
         Set<OWLClassExpression> operands = translateToClassExpressionSet(object);
         if(operands.size() < 2) {
             logger.fine("Number of operands is less than 2");
@@ -66,5 +67,5 @@ public abstract class AbstractNaryBooleanClassExpressionTranslator extends Abstr
 
     protected abstract OWLClassExpression createClassExpression(Set<OWLClassExpression> operands);
 
-    protected abstract URI getPredicateURI();
+    protected abstract IRI getPredicateIRI();
 }

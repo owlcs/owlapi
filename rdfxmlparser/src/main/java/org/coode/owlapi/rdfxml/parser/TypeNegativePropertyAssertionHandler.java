@@ -38,44 +38,44 @@ import java.util.Set;
 public class TypeNegativePropertyAssertionHandler extends BuiltInTypeHandler {
 
     public TypeNegativePropertyAssertionHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_NEGATIVE_PROPERTY_ASSERTION.getURI());
+        super(consumer, OWLRDFVocabulary.OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
     }
 
-    public boolean canHandleStreaming(URI subject, URI predicate, URI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return false;
     }
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
-        URI source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SOURCE_INDIVIDUAL.getURI(), true);
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+        IRI source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SOURCE_INDIVIDUAL.getIRI(), true);
         if (source == null) {
-            source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SUBJECT.getURI(), true);
+            source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SUBJECT.getIRI(), true);
         }
         if (source == null) {
-            source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_SUBJECT.getURI(), true);
+            source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_SUBJECT.getIRI(), true);
         }
 
-        URI property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_ASSERTION_PROPERTY.getURI(), true);
+        IRI property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_ASSERTION_PROPERTY.getIRI(), true);
         if (property == null) {
-            property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PREDICATE.getURI(), true);
+            property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PREDICATE.getIRI(), true);
         }
         if (property == null) {
-            property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_PREDICATE.getURI(), true);
+            property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_PREDICATE.getIRI(), true);
         }
-        Object target = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_TARGET_INDIVIDUAL.getURI(), true);
+        Object target = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_TARGET_INDIVIDUAL.getIRI(), true);
         if (target == null) {
-            target = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_OBJECT.getURI(), true);
-        }
-        if (target == null) {
-            target = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
+            target = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_OBJECT.getIRI(), true);
         }
         if (target == null) {
-            target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_OBJECT.getURI(), true);
+            target = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
         }
         if (target == null) {
-            target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getURI(), true);
+            target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_OBJECT.getIRI(), true);
         }
         if (target == null) {
-            target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_TARGET_VALUE.getURI(), true);
+            target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
+        }
+        if (target == null) {
+            target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_TARGET_VALUE.getIRI(), true);
         }
         getConsumer().translateAnnotations(subject);
         Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
@@ -89,7 +89,7 @@ public class TypeNegativePropertyAssertionHandler extends BuiltInTypeHandler {
         else {
             OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
             OWLObjectPropertyExpression prop = getConsumer().translateObjectPropertyExpression(property);
-            OWLIndividual targetInd = getConsumer().getOWLIndividual((URI) target);
+            OWLIndividual targetInd = getConsumer().getOWLIndividual((IRI) target);
             consumeTriple(subject, predicate, object);
             addAxiom(getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(prop, sourceInd, targetInd, annos));
         }
