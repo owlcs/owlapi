@@ -1,6 +1,6 @@
 package de.uulm.ecs.ai.owlapi.krssrenderer;
 /*
- * Copyright (C) 2007, Ulm University
+ * Copyright (C) 2008, Ulm University
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -25,7 +25,9 @@ package de.uulm.ecs.ai.owlapi.krssrenderer;
 /**
  * Vocabulary of KRSS2 syntax.
  *
- * @author Olaf Noppens
+ * Author: Olaf Noppens<br>
+ * Ulm University<br>
+ * Institute of Artificial Intelligence<br>
  */
 public enum KRSS2Vocabulary {
 
@@ -33,28 +35,43 @@ public enum KRSS2Vocabulary {
     AND("and"),
     AT_LEAST("at-least"),
     AT_MOST("at-most"),
+    COMPOSE("compose"),
     DEFINE_CONCEPT("define-concept"),
+    DEFINE_INDIVIDUAL("define-individual"),
     DEFINE_PRIMITIVE_CONCEPT("define-primitive-concept"),
     DEFINE_PRIMITIVE_ROLE("define-primitive-role"),
+    DEFINE_ROLE("define-role"),
     DISJOINT("disjoint"),
+    DISJOINT_ROLES("disjoint-roles"),
+    DISTINCT("distinct"),
     DOMAIN("domain"),
-    DESTINCT("destinct"),
+    DOMAIN_ATTR(":domain"),
     EQUIVALENT("equivalent"),
     EXACTLY("exactly"),
     IMPLIES("implies"),
+    IMPLIES_ROLE("implies-role"),
     INSTANCE("instace"),
-    INVERSE("inv"),
+    INV("inv"),
+    INVERSE("inverse"),
+    INVERSE_ATTR(":inverse"),
+    LEFTIDENTITY_ATTR(":left-identity"),
     NIL("nil"),
     NOT("not"),
     OR("or"),
-    PARENTS("parents"),
-    RANGE("range"),
+    ONE_OF("one-of"),
+    PARENTS_ATTR(":parents"),
+    PARENT_ATTR(":parent"),
+    RANGE_ATTR(":range"),
+    REFLEXIVE_ATTR(":reflexive"),
     RELATED("related"),
+    RIGHTIDENTITY_ATTR(":right-identity"),
+    ROLES_EQUIVALENT("roles-equivalent"),
+    ROLE_INCLUSTION("role-inclusion"),
     SOME("some"),
     SUBROLE("subrole"),
-    SYMMETRIC("symmetric"),
+    SYMMETRIC_ATTR(":symmetric"),
     TRUE("t"),
-    TRANSITIVE("transitive");
+    TRANSITIVE_ATTR(":transitive");
 
     private String shortName;
 

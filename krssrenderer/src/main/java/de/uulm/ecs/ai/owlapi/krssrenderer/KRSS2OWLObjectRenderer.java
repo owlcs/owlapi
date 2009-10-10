@@ -212,12 +212,12 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
             write(property);
 
             if (property.isTransitive(ontology)) {
-                writeAttribute(TRANSITIVE);
+                writeAttribute(TRANSITIVE_ATTR);
                 writeSpace();
                 write(TRUE);
             }
             if (property.isSymmetric(ontology)) {
-                writeAttribute(SYMMETRIC);
+                writeAttribute(SYMMETRIC_ATTR);
                 writeSpace();
                 write(TRUE);
             }
@@ -228,12 +228,12 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
             }
             final Set<OWLClassExpression> ranges = property.getDomains(ontology);
             if (!ranges.isEmpty()) {
-                writeAttribute(RANGE);
+                writeAttribute(RANGE_ATTR);
                 flatten(ranges);
             }
             final Set<OWLObjectPropertyExpression> superProperties = property.getSuperProperties(ontology);
             if (!superProperties.isEmpty()) {
-                writeAttribute(PARENTS);
+                writeAttribute(PARENTS_ATTR);
                 writeOpenBracket();
                 for (OWLObjectPropertyExpression express : superProperties) {
                     write(express);
