@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br><br>
  */
-public class OWLConstantElementHandler extends AbstractOWLElementHandler<OWLLiteral> {
+public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiteral> {
 
     private OWLLiteral literal;
 
@@ -42,7 +42,7 @@ public class OWLConstantElementHandler extends AbstractOWLElementHandler<OWLLite
 
     private String lang;
 
-    protected OWLConstantElementHandler(OWLXMLParserHandler handler) {
+    protected OWLLiteralElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 

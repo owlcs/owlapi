@@ -42,7 +42,7 @@ public class SWRLDifferentIndividualsAtomElementHandler extends SWRLAtomElementH
 
 
     @Override
-    public void handleChild(SWRLIndividualVariableElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(SWRLVariableElementHandler handler) throws OWLXMLParserException {
         if (arg0 == null) {
             arg0 = handler.getOWLObject();
         }

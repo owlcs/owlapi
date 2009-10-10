@@ -40,7 +40,7 @@ public class OWLDataHasValueElementHandler extends AbstractDataRestrictionElemen
     }
 
 
-    public void handleChild(OWLConstantElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
         setFiller(handler.getOWLObject());
     }
 

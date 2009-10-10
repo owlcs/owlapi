@@ -673,15 +673,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    public void visit(SWRLLiteralVariable node) {
-        if (!nodeMap.containsKey(node)) {
-            nodeMap.put(node, getResourceNode(node.getIRI()));
-        }
-        addTriple(node, RDF_TYPE.getURI(), VARIABLE.getURI());
-    }
-
-
-    public void visit(SWRLIndividualVariable node) {
+    public void visit(SWRLVariable node) {
         if (!nodeMap.containsKey(node)) {
             nodeMap.put(node, getResourceNode(node.getIRI()));
         }

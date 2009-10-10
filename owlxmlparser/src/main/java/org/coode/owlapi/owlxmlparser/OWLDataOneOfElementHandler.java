@@ -46,7 +46,7 @@ public class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
     }
 
 
-    public void handleChild(OWLConstantElementHandler handler) {
+    public void handleChild(OWLLiteralElementHandler handler) {
         if (handler.getOWLObject().isTyped()) {
             constants.add((OWLTypedLiteral) handler.getOWLObject());
         } else {

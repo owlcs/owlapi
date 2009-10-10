@@ -282,20 +282,12 @@ public abstract class RDFRendererBase {
             writeBanner("Rules");
             SWRLVariableExtractor variableExtractor = new SWRLVariableExtractor();
             for (SWRLRule rule : ruleAxioms) {
-//                beginObject();
-//                if (!rule.isAnonymous()) {
-//                    render(new RDFResourceNode(rule.getIRI().toURI()));
-//                }
                 rule.accept(variableExtractor);
-//                endObject();
             }
-            for (SWRLVariable var : variableExtractor.getIVariables()) {
+            for (SWRLVariable var : variableExtractor.getVariables()) {
                 render(new RDFResourceNode(var.getIRI().toURI()));
             }
 
-            for (SWRLVariable var : variableExtractor.getDVariables()) {
-                render(new RDFResourceNode(var.getIRI().toURI()));
-            }
             renderAnonRoots();
         }
 
@@ -568,26 +560,31 @@ public abstract class RDFRendererBase {
     }
 
 
-    protected void toJavaList(RDFNode node, List<RDFNode> list) {
-        for (RDFTriple triple : graph.getTriplesForSubject(node)) {
-            if (triple.getProperty().getURI().equals(OWLRDFVocabulary.RDF_FIRST.getURI())) {
-                list.add(triple.getObject());
-                break;
+    protected void toJavaList(RDFNode n, List<RDFNode> list) {
+        RDFNode currentNode = n;
+        while(currentNode != null) {
+            for (RDFTriple triple : graph.getTriplesForSubject(currentNode)) {
+                if (triple.getProperty().getURI().equals(OWLRDFVocabulary.RDF_FIRST.getURI())) {
+                    list.add(triple.getObject());
+                }
             }
-        }
-        for (RDFTriple triple : graph.getTriplesForSubject(node)) {
-            if (triple.getProperty().getURI().equals(OWLRDFVocabulary.RDF_REST.getURI())) {
-                if (!triple.getObject().isAnonymous()) {
-                    if (triple.getObject().getURI().equals(OWLRDFVocabulary.RDF_NIL.getURI())) {
-                        // End of list
+            for (RDFTriple triple : graph.getTriplesForSubject(currentNode)) {
+                if (triple.getProperty().getURI().equals(OWLRDFVocabulary.RDF_REST.getURI())) {
+                    if (!triple.getObject().isAnonymous()) {
+                        if (triple.getObject().getURI().equals(OWLRDFVocabulary.RDF_NIL.getURI())) {
+                            // End of list
+                            currentNode = null;
+                        }
+                    }
+                    else {
+                        // Should be another list
+                        currentNode = triple.getObject();
+//                        toJavaList(triple.getObject(), list);
                     }
                 }
-                else {
-                    // Should be another list
-                    toJavaList(triple.getObject(), list);
-                }
             }
         }
+
     }
 
 

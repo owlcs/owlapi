@@ -23,9 +23,7 @@ public interface SWRLObjectVisitor {
 
     void visit(SWRLBuiltInAtom node);
 
-    void visit(SWRLLiteralVariable node);
-
-    void visit(SWRLIndividualVariable node);
+    void visit(SWRLVariable node);
 
     void visit(SWRLIndividualArgument node);
 

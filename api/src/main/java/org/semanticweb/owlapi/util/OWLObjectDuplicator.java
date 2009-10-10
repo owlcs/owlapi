@@ -679,16 +679,11 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         obj = dataFactory.getSWRLSameIndividualAtom(arg0, arg1);
     }
 
-
-    public void visit(SWRLLiteralVariable node) {
-        obj = dataFactory.getSWRLLiteralVariable(node.getIRI());
+    public void visit(SWRLVariable variable) {
+        variable.getIRI().accept(this);
+        IRI iri = (IRI) obj;
+        obj = dataFactory.getSWRLVariable(iri);
     }
-
-
-    public void visit(SWRLIndividualVariable node) {
-        obj = dataFactory.getSWRLIndividualVariable(node.getIRI());
-    }
-
 
     public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);

@@ -5,6 +5,7 @@ import org.semanticweb.owlapi.model.*;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.LinkedHashSet;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -39,29 +40,20 @@ import java.util.Set;
  */
 public class SWRLVariableExtractor implements SWRLObjectVisitor {
 
-    private Set<SWRLLiteralVariable> dvariables;
-
-    private Set<SWRLIndividualVariable> ivariables;
+    private Set<SWRLVariable> variables;
 
 
     public SWRLVariableExtractor() {
-        dvariables = new HashSet<SWRLLiteralVariable>();
-        ivariables = new HashSet<SWRLIndividualVariable>();
+        variables = new LinkedHashSet<SWRLVariable>();
     }
 
 
-    public Set<SWRLLiteralVariable> getDVariables() {
-        return Collections.unmodifiableSet(dvariables);
-    }
-
-
-    public Set<SWRLIndividualVariable> getIVariables() {
-        return Collections.unmodifiableSet(ivariables);
+    public Set<SWRLVariable> getVariables() {
+        return new LinkedHashSet<SWRLVariable>(variables);
     }
 
     public void reset() {
-        dvariables.clear();
-        ivariables.clear();
+        variables.clear();
     }
 
 
@@ -104,13 +96,8 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
     }
 
 
-    public void visit(SWRLLiteralVariable node) {
-        dvariables.add(node);
-    }
-
-
-    public void visit(SWRLIndividualVariable node) {
-        ivariables.add(node);
+    public void visit(SWRLVariable node) {
+        variables.add(node);
     }
 
 

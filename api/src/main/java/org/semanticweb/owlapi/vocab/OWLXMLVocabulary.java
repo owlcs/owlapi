@@ -236,9 +236,7 @@ public enum OWLXMLVocabulary {
 
     DIFFERENT_INDIVIDUALS_ATOM("DifferentIndividualsAtom"),
 
-    INDIVIDUAL_VARIABLE("IndividualVariable"),
-
-    LITERAL_VARIABLE("LiteralVariable"),
+    VARIABLE("Variable"),
 
     DESCRIPTION_GRAPH_RULE("DescriptionGraphRule")
     ;

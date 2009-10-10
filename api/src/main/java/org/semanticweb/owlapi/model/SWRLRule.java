@@ -49,21 +49,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      */
     Set<SWRLVariable> getVariables();
 
-
-    /**
-     * Gets the object variables that appear in this rule
-     * @return A set of object variables
-     */
-    Set<SWRLIndividualVariable> getIVariables();
-
-
-    /**
-     * Gets the data variables that appear in this rule
-     * @return A set of data variables
-     */
-    Set<SWRLLiteralVariable> getDVariables();
-
-
     /**
      * Determines if this rule uses anonymous class expressions in
      * class atoms.

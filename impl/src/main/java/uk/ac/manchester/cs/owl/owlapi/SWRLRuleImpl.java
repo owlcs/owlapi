@@ -36,19 +36,15 @@ import java.util.*;
  */
 public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
 
-    private IRI iri;
-
-    private NodeID nodeID;
-
     private Set<SWRLAtom> head;
 
     private Set<SWRLAtom> body;
 
     private Set<SWRLVariable> variables;
 
-    private Set<SWRLLiteralVariable> dVariables;
+    private Set<SWRLVariable> dVariables;
 
-    private Set<SWRLIndividualVariable> iVariables;
+    private Set<SWRLVariable> iVariables;
 
     private Boolean containsAnonymousClassExpressions = null;
 
@@ -57,7 +53,6 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
 
     public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
-        this.iri = iri;
         this.head = new TreeSet<SWRLAtom>(head);
         this.body = new TreeSet<SWRLAtom>(body);
     }
@@ -67,11 +62,11 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getSWRLRule(getIRI(), getBody(), getHead());
+        return getOWLDataFactory().getSWRLRule(getBody(), getHead());
     }
 
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getSWRLRule(getIRI(), getBody(), getHead());
+        return getOWLDataFactory().getSWRLRule(getBody(), getHead());
     }
 
     public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
@@ -84,37 +79,11 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
             Set<SWRLVariable> vars = new HashSet<SWRLVariable>();
             SWRLVariableExtractor extractor = new SWRLVariableExtractor();
             accept(extractor);
-            vars.addAll(extractor.getIVariables());
-            vars.addAll(extractor.getDVariables());
+            vars.addAll(extractor.getVariables());
             variables = new HashSet<SWRLVariable>(vars);
         }
         return variables;
     }
-
-
-    public Set<SWRLLiteralVariable> getDVariables() {
-        if (dVariables == null) {
-            Set<SWRLLiteralVariable> vars = new HashSet<SWRLLiteralVariable>();
-            SWRLVariableExtractor extractor = new SWRLVariableExtractor();
-            accept(extractor);
-            vars.addAll(extractor.getDVariables());
-            dVariables = new HashSet<SWRLLiteralVariable>(vars);
-        }
-        return dVariables;
-    }
-
-
-    public Set<SWRLIndividualVariable> getIVariables() {
-        if (iVariables == null) {
-            Set<SWRLIndividualVariable> vars = new HashSet<SWRLIndividualVariable>();
-            SWRLVariableExtractor extractor = new SWRLVariableExtractor();
-            accept(extractor);
-            vars.addAll(extractor.getIVariables());
-            iVariables = new HashSet<SWRLIndividualVariable>(vars);
-        }
-        return iVariables;
-    }
-
 
     public boolean containsAnonymousClassExpressions() {
         if (containsAnonymousClassExpressions == null) {
@@ -183,16 +152,6 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
 
 
     /**
-     * Determines if this rule is anonymous.
-     * @return <code>true</code> if this rule is anonymous and therefore
-     *         doesn't have an IRI, or <code>false</code> if this rule is anon
-     */
-    public boolean isAnonymous() {
-        return nodeID != null;
-    }
-
-
-    /**
      * Gets the atoms in the antecedent
      * @return A set of <code>SWRLAtom</code>s, which represent the atoms
      *         in the antecedent of the rule.
@@ -240,45 +199,6 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
      */
     public boolean isLogicalAxiom() {
         return true;
-    }
-
-
-    /**
-     * Gets the name of this object.
-     * @return A <code>URI</code> that represents the name
-     *         of the object
-     */
-    public IRI getIRI() {
-        if (isAnonymous()) {
-            throw new NullPointerException("Rule is anonymous and therefore does not have an IRI.  Use the isAnonymous method to check.");
-        }
-        return iri;
-    }
-
-    /**
-     * Gets the node ID if this rule is anonymous
-     * @return The NodeID
-     * @throws NullPointerException if this rule is not anonymous
-     */
-    public NodeID getNodeID() {
-        if (!isAnonymous()) {
-            throw new NullPointerException("Rule is not anonymous and therefore does not have a node ID.  Use the isAnonymous method to check.");
-        }
-        return nodeID;
-    }
-
-    /**
-     * Gets a String representation of the identity of this rule.  If the rule is anonymous then this will be
-     * a string representation of the anonymous ID, otherwise, it will be a string represetation of the IRI.
-     * @return A string representation of the identity of this rule.
-     */
-    public String toStringID() {
-        if (isAnonymous()) {
-            return nodeID.toString();
-        }
-        else {
-            return iri.toString();
-        }
     }
 
     public boolean equals(Object obj) {
@@ -342,11 +262,7 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
             return node;
         }
 
-        public SWRLLiteralVariable visit(SWRLLiteralVariable node) {
-            return node;
-        }
-
-        public SWRLIndividualVariable visit(SWRLIndividualVariable node) {
+        public SWRLVariable visit(SWRLVariable node) {
             return node;
         }
 

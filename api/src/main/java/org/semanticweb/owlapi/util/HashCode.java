@@ -515,14 +515,8 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(SWRLLiteralVariable node) {
+    public void visit(SWRLVariable node) {
         hashCode = 661;
-        hashCode = hashCode * MULT + node.getIRI().hashCode();
-    }
-
-
-    public void visit(SWRLIndividualVariable node) {
-        hashCode = 673;
         hashCode = hashCode * MULT + node.getIRI().hashCode();
     }
 

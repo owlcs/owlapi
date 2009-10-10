@@ -52,17 +52,17 @@ public class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    public void handleChild(SWRLIndividualVariableElementHandler handler) throws OWLXMLParserException {
-        arg0 = handler.getOWLObject();
+    public void handleChild(SWRLVariableElementHandler handler) throws OWLXMLParserException {
+        if (arg0 == null) {
+            arg0 = handler.getOWLObject();
+        }
+        else if(arg1 == null) {
+            arg1 = handler.getOWLObject();
+        }
     }
 
     @Override
-    public void handleChild(SWRLLiteralVariableElementHandler handler) throws OWLXMLParserException {
-        arg1 = handler.getOWLObject();
-    }
-
-    @Override
-    public void handleChild(OWLConstantElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
         arg1 = getOWLDataFactory().getSWRLLiteralArgument(handler.getOWLObject());
     }
 

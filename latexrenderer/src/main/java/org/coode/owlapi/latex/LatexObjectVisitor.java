@@ -672,6 +672,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     public void visit(SWRLRule rule) {
     }
 
+    public void visit(SWRLVariable node) {
+    }
 
     private void writeNested(OWLClassExpression classExpression) {
         openBracket(classExpression);
@@ -692,6 +694,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
             write(")");
         }
     }
+
 
 
     private String escapeName(String name) {
@@ -745,15 +748,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLLiteralVariable node) {
-    }
-
-
     public void visit(SWRLIndividualArgument node) {
-    }
-
-
-    public void visit(SWRLIndividualVariable node) {
     }
 
 

@@ -52,7 +52,7 @@ public abstract class AbstractOWLDataPropertyAssertionAxiomElementHandler extend
     }
 
 
-    public void handleChild(OWLConstantElementHandler handler) {
+    public void handleChild(OWLLiteralElementHandler handler) {
         setObject(handler.getOWLObject());
     }
 }

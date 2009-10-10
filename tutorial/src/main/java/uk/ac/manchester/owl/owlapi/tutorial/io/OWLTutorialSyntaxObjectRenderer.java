@@ -733,11 +733,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
-    public void visit(SWRLLiteralVariable node) {
-        throw new OWLRuntimeException("NOT IMPLEMENTED!");
-    }
-
-    public void visit(SWRLIndividualVariable node) {
+    public void visit(SWRLVariable node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 

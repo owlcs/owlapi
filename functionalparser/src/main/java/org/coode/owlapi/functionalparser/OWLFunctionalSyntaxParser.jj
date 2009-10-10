@@ -687,14 +687,8 @@ TOKEN:
 
 TOKEN:
 {
-    <INDIVIDUALVARIABLE: "IndividualVariable">
+    <VARIABLE: "Variable">
 }
-
-TOKEN:
-{
-    <LITERALVARIABLE: "LiteralVariable">
-}
-
 
 TOKEN:
 {
@@ -2350,7 +2344,7 @@ SWRLIArgument IArg() :
     IRI iri;
 }
 {
-    (<INDIVIDUALVARIABLE> <OPENPAR> iri = IRI() <CLOSEPAR>{ return dataFactory.getSWRLIndividualVariable(iri);})
+    (<VARIABLE> <OPENPAR> iri = IRI() <CLOSEPAR>{ return dataFactory.getSWRLVariable(iri);})
     |
     (ind = IndividualURI() {return dataFactory.getSWRLIndividualArgument(ind);})
 
@@ -2364,7 +2358,7 @@ SWRLDArgument DArg() :
     IRI iri;
 }
 {
-    (<LITERALVARIABLE> <OPENPAR> iri=IRI() <CLOSEPAR>{return dataFactory.getSWRLLiteralVariable(iri);})
+    (<VARIABLE> <OPENPAR> iri=IRI() <CLOSEPAR>{return dataFactory.getSWRLVariable(iri);})
     |
     (literal = Literal(){return dataFactory.getSWRLLiteralArgument(literal);})
 }

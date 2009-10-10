@@ -798,7 +798,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
 
 
-        public void visit(SWRLLiteralVariable node) {
+        public void visit(SWRLVariable node) {
             process(node);
         }
 
@@ -806,11 +806,6 @@ public class OWLObjectWalker<O extends OWLObject> {
         public void visit(SWRLIndividualArgument node) {
             process(node);
             node.getIndividual().accept(this);
-        }
-
-
-        public void visit(SWRLIndividualVariable node) {
-            process(node);
         }
 
 

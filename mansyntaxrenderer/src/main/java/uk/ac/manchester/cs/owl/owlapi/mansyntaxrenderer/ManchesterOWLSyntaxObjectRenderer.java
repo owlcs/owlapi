@@ -938,18 +938,12 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(SWRLLiteralVariable node) {
+    public void visit(SWRLVariable node) {
         write("?");
         write(node.getIRI().toQuotedString());
     }
 
-
-    public void visit(SWRLIndividualVariable node) {
-        write("?");
-        write(node.getIRI().toQuotedString());
-    }
-
-
+    
     public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
     }

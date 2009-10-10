@@ -813,23 +813,25 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
 
     public void visit(SWRLClassAtom node) {
+        sb.append("ClassAtom(");
         node.getPredicate().accept(this);
-        sb.append("(");
+        sb.append(" ");        
         node.getArgument().accept(this);
         sb.append(")");
     }
 
 
     public void visit(SWRLDataRangeAtom node) {
+        sb.append("DataRangeAtom(");
         node.getPredicate().accept(this);
-        sb.append("(");
+        sb.append(" ");        
         node.getArgument().accept(this);
         sb.append(")");
     }
 
 
     public void visit(SWRLDifferentIndividualsAtom node) {
-        sb.append("differentFromAtom(");
+        sb.append("DifferentFromAtom(");
         node.getFirstArgument().accept(this);
         sb.append(" ");
         node.getSecondArgument().accept(this);
@@ -838,7 +840,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
 
     public void visit(SWRLSameIndividualAtom node) {
-        sb.append("sameAsAtom(");
+        sb.append("SameAsAtom(");
         node.getFirstArgument().accept(this);
         sb.append(" ");
         node.getSecondArgument().accept(this);
@@ -847,8 +849,9 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
 
     public void visit(SWRLObjectPropertyAtom node) {
+        sb.append("ObjectPropertyAtom(");
         node.getPredicate().accept(this);
-        sb.append("(");
+        sb.append(" ");
         node.getFirstArgument().accept(this);
         sb.append(" ");
         node.getSecondArgument().accept(this);
@@ -857,8 +860,9 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
 
     public void visit(SWRLDataPropertyAtom node) {
+        sb.append("DataPropertyAtom(");
         node.getPredicate().accept(this);
-        sb.append("(");
+        sb.append(" ");        
         node.getFirstArgument().accept(this);
         sb.append(" ");
         node.getSecondArgument().accept(this);
@@ -867,8 +871,9 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
 
     public void visit(SWRLBuiltInAtom node) {
+        sb.append("BuiltInAtom(");
         sb.append(getShortForm(node.getPredicate().toURI()));
-        sb.append("(");
+        sb.append(" ");
         for (SWRLArgument arg : node.getArguments()) {
             arg.accept(this);
             sb.append(" ");
@@ -886,16 +891,12 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public void visit(SWRLLiteralVariable node) {
-        sb.append("?");
+    public void visit(SWRLVariable node) {
+        sb.append("Variable(");
         sb.append(getShortForm(node.getIRI().toURI()));
+        sb.append(")");
     }
 
-
-    public void visit(SWRLIndividualVariable node) {
-        sb.append("?");
-        sb.append(getShortForm(node.getIRI().toURI()));
-    }
 
     public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);

@@ -1803,7 +1803,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     String literal;
     OWLDatatype datatype=null;
     literal = QuotedString();
-    jj_consume_token(130);
+    jj_consume_token(129);
     datatype = DatatypeURI();
             {if (true) return dataFactory.getOWLTypedLiteral(literal, datatype);}
     throw new Error("Missing return statement in function");
@@ -2020,11 +2020,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     SWRLIArgument arg;
     IRI iri;
     if (jj_2_128(2)) {
-      jj_consume_token(INDIVIDUALVARIABLE);
+      jj_consume_token(VARIABLE);
       jj_consume_token(OPENPAR);
       iri = IRI();
       jj_consume_token(CLOSEPAR);
-                                                            {if (true) return dataFactory.getSWRLIndividualVariable(iri);}
+                                                  {if (true) return dataFactory.getSWRLVariable(iri);}
     } else if (jj_2_129(2)) {
       ind = IndividualURI();
                             {if (true) return dataFactory.getSWRLIndividualArgument(ind);}
@@ -2039,11 +2039,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     OWLLiteral literal;
     IRI iri;
     if (jj_2_130(2)) {
-      jj_consume_token(LITERALVARIABLE);
+      jj_consume_token(VARIABLE);
       jj_consume_token(OPENPAR);
       iri = IRI();
       jj_consume_token(CLOSEPAR);
-                                                      {if (true) return dataFactory.getSWRLLiteralVariable(iri);}
+                                               {if (true) return dataFactory.getSWRLVariable(iri);}
     } else if (jj_2_131(2)) {
       literal = Literal();
                          {if (true) return dataFactory.getSWRLLiteralArgument(literal);}
@@ -2971,6 +2971,23 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     finally { jj_save(130, xla); }
   }
 
+  private boolean jj_3R_40() {
+    if (jj_scan_token(DATASOMEVALUESFROM)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_87() {
+    if (jj_3R_96()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_118() {
+    if (jj_scan_token(DATARANGEATOM)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
   private boolean jj_3R_96() {
     if (jj_scan_token(CLASSASSERTION)) return true;
     if (jj_scan_token(OPENPAR)) return true;
@@ -3400,7 +3417,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   private boolean jj_3R_113() {
     if (jj_3R_126()) return true;
-    if (jj_scan_token(130)) return true;
+    if (jj_scan_token(129)) return true;
     return false;
   }
 
@@ -4207,7 +4224,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_130() {
-    if (jj_scan_token(LITERALVARIABLE)) return true;
+    if (jj_scan_token(VARIABLE)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
@@ -4280,7 +4297,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
 
   private boolean jj_3_128() {
-    if (jj_scan_token(INDIVIDUALVARIABLE)) return true;
+    if (jj_scan_token(VARIABLE)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
@@ -4469,23 +4486,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   private boolean jj_3R_70() {
     if (jj_scan_token(DISJOINTCLASSES)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_40() {
-    if (jj_scan_token(DATASOMEVALUESFROM)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_87() {
-    if (jj_3R_96()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_118() {
-    if (jj_scan_token(DATARANGEATOM)) return true;
     if (jj_scan_token(OPENPAR)) return true;
     return false;
   }
@@ -4713,7 +4713,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[131];
+    boolean[] la1tokens = new boolean[130];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -4739,7 +4739,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         }
       }
     }
-    for (int i = 0; i < 131; i++) {
+    for (int i = 0; i < 130; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

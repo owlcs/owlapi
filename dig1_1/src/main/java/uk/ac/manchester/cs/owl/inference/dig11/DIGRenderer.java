@@ -568,11 +568,7 @@ public class DIGRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLLiteralVariable node) {
-    }
-
-
-    public void visit(SWRLIndividualVariable node) {
+    public void visit(SWRLVariable node) {
     }
 
 

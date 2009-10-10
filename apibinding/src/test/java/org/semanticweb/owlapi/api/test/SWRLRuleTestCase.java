@@ -40,17 +40,17 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLDataFactory df = getFactory();
-        SWRLIndividualVariable varX = df.getSWRLIndividualVariable(IRI.create("http://www.owlapi#x"));
-        SWRLIndividualVariable varY = df.getSWRLIndividualVariable(IRI.create("http://www.owlapi#y"));
-        SWRLIndividualVariable varZ = df.getSWRLIndividualVariable(IRI.create("http://www.owlapi#z"));
+        SWRLVariable varX = df.getSWRLVariable(IRI.create("http://www.owlapi#x"));
+        SWRLVariable varY = df.getSWRLVariable(IRI.create("http://www.owlapi#y"));
+        SWRLVariable varZ = df.getSWRLVariable(IRI.create("http://www.owlapi#z"));
         Set<SWRLAtom> body = new HashSet<SWRLAtom>();
         body.add(df.getSWRLClassAtom(getOWLClass("A"), varX));
         SWRLIndividualArgument indIArg = df.getSWRLIndividualArgument(getOWLIndividual("i"));
         SWRLIndividualArgument indJArg = df.getSWRLIndividualArgument(getOWLIndividual("j"));
         body.add(df.getSWRLClassAtom(getOWLClass("D"), indIArg));
         body.add(df.getSWRLClassAtom(getOWLClass("B"), varX));
-        SWRLLiteralVariable varQ = df.getSWRLLiteralVariable(IRI.create("http://www.owlapi#q"));
-        SWRLLiteralVariable varR = df.getSWRLLiteralVariable(IRI.create("http://www.owlapi#r"));
+        SWRLVariable varQ = df.getSWRLVariable(IRI.create("http://www.owlapi#q"));
+        SWRLVariable varR = df.getSWRLVariable(IRI.create("http://www.owlapi#r"));
         body.add(df.getSWRLDataPropertyAtom(getOWLDataProperty("d"), varX, varQ));
         OWLLiteral lit = df.getOWLTypedLiteral(33);
         SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);

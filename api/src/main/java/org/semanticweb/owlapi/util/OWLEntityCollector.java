@@ -695,14 +695,10 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
 
-    public void visit(SWRLLiteralVariable node) {
+    public void visit(SWRLVariable node) {
     }
 
-
-    public void visit(SWRLIndividualVariable node) {
-    }
-
-
+    
     public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
     }

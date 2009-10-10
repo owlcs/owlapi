@@ -587,12 +587,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLLiteralVariable node) {
-        handleObject(node);
-    }
-
-
-    public void visit(SWRLIndividualVariable node) {
+    public void visit(SWRLVariable node) {
         handleObject(node);
     }
 

@@ -690,6 +690,8 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     public void visit(SWRLRule rule) {
     }
 
+    public void visit(SWRLVariable node) {
+    }
 
     public void visit(OWLOntology ontology) {
     }
@@ -712,14 +714,6 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
 
     public void visit(SWRLBuiltInAtom node) {
-    }
-
-
-    public void visit(SWRLLiteralVariable node) {
-    }
-
-
-    public void visit(SWRLIndividualVariable node) {
     }
 
 

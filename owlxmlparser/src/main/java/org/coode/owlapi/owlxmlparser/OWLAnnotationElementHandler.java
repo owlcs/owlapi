@@ -67,7 +67,7 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
         object = handler.getOWLObject();
     }
 
-    public void handleChild(OWLConstantElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
         object = handler.getOWLObject();
     }
 

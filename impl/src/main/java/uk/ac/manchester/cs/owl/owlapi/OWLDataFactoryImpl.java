@@ -1265,26 +1265,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     /**
-     * Gets a SWRL i-variable.  This is used in rule atoms where a SWRL
-     * I object can be used.
-     * @param var The id (URI) of the variable
+     * Gets a SWRLVariable.
+     * @param var The id (IRI) of the variable
+     * @return A SWRLVariable that has the name specified by the IRI
      */
-
-    public SWRLIndividualVariable getSWRLIndividualVariable(IRI var) {
-        return new SWRLIndividualVariableImpl(this, var);
+    public SWRLVariable getSWRLVariable(IRI var) {
+        return new SWRLVariableImpl(this, var);
     }
-
-
-    /**
-     * Gets a SWRL d-variable.  This is used in rule atoms where a SWRL
-     * D object can be used.
-     * @param var The id (URI) of the variable
-     */
-
-    public SWRLLiteralVariable getSWRLLiteralVariable(IRI var) {
-        return new SWRLLiteralVariableImpl(this, var);
-    }
-
 
     /**
      * Gets a SWRL individual object.

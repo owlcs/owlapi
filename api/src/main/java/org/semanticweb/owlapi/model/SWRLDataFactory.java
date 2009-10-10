@@ -117,19 +117,11 @@ public interface SWRLDataFactory {
 
 
     /**
-     * Gets a SWRLIndividualVariable.
+     * Gets a SWRLVariable.
      * @param var The id (IRI) of the variable
-     * @return A SWRLIndividualVariable that has the name specified by the IRI
+     * @return A SWRLVariable that has the name specified by the IRI
      */
-    SWRLIndividualVariable getSWRLIndividualVariable(IRI var);
-
-    /**
-     * Gets a SWRLLiteralVariable.
-     * @param var The id (IRI) of the variable
-     * @return A SWRLLiteralVariable that has the name specified by the IRI
-     */
-    SWRLLiteralVariable getSWRLLiteralVariable(IRI var);
-
+    SWRLVariable getSWRLVariable(IRI var);
 
     /**
      * Gets a SWRLIndividualArgument, which is used to wrap and OWLIndividual as an argument for an atom

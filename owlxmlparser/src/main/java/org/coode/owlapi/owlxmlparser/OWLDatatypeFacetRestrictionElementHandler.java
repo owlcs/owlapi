@@ -46,7 +46,7 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
     }
 
 
-    public void handleChild(OWLConstantElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
         OWLLiteral con = handler.getOWLObject();
         if (con.isTyped()) {
             constant = (OWLTypedLiteral) handler.getOWLObject();

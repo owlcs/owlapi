@@ -43,9 +43,7 @@ public interface SWRLObjectVisitorEx<O> {
 
     O visit(SWRLBuiltInAtom node);
 
-    O visit(SWRLLiteralVariable node);
-
-    O visit(SWRLIndividualVariable node);
+    O visit(SWRLVariable node);
 
     O visit(SWRLIndividualArgument node);
 

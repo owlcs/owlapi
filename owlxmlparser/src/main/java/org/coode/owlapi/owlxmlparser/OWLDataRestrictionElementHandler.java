@@ -53,7 +53,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
     }
 
 
-    public void handleChild(OWLConstantElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
         if (!handler.getOWLObject().isTyped()) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), "typed constant in data range restriction");
         }

@@ -12,9 +12,10 @@ import java.net.URI;
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
  *
- * Represents a varaible that can appear in an atom.  Variables are named with IRIs.
+ * Represents a varaible that can appear in an atom. Variable can either be place holders for individuals
+ * or literals. Variables are named with IRIs.
  */
-public interface SWRLVariable {
+public interface SWRLVariable extends SWRLIArgument, SWRLDArgument {
 
     /**
      * Gets the variable IRI that names the variable

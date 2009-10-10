@@ -50,12 +50,12 @@ public class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    public void handleChild(SWRLLiteralVariableElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(SWRLVariableElementHandler handler) throws OWLXMLParserException {
         args.add(handler.getOWLObject());
     }
 
     @Override
-    public void handleChild(OWLConstantElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
         args.add(getOWLDataFactory().getSWRLLiteralArgument(handler.getOWLObject()));
     }
 

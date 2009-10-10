@@ -737,15 +737,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLLiteralVariable node) {
-        writer.writeStartElement(LITERAL_VARIABLE);
-        writer.writeIRIAttribute(node.getIRI());
-        writer.writeEndElement();
-    }
-
-
-    public void visit(SWRLIndividualVariable node) {
-        writer.writeStartElement(INDIVIDUAL_VARIABLE);
+    public void visit(SWRLVariable node) {
+        writer.writeStartElement(VARIABLE);
         writer.writeIRIAttribute(node.getIRI());
         writer.writeEndElement();
     }

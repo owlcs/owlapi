@@ -2061,9 +2061,9 @@ public class ManchesterOWLSyntaxEditorParser {
 
     }
 
-    public SWRLIndividualVariable parseIVariable() throws ParserException {
+    public SWRLVariable parseIVariable() throws ParserException {
         IRI var = parseVariable();
-        return dataFactory.getSWRLIndividualVariable(var);
+        return dataFactory.getSWRLVariable(var);
     }
 
 
@@ -2097,9 +2097,9 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public SWRLLiteralVariable parseDVariable() throws ParserException {
+    public SWRLVariable parseDVariable() throws ParserException {
         IRI var = parseVariable();
-        return dataFactory.getSWRLLiteralVariable(var);
+        return dataFactory.getSWRLVariable(var);
     }
 
 

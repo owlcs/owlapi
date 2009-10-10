@@ -113,7 +113,7 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
         IRI argIRI = consumer.getResourceObject(mainIRI, argPredicateIRI, true);
         if (argIRI != null) {
             if (consumer.isSWRLVariable(argIRI)) {
-                return dataFactory.getSWRLIndividualVariable(argIRI);
+                return dataFactory.getSWRLVariable(argIRI);
             }
             else {
                 return dataFactory.getSWRLIndividualArgument(consumer.getOWLIndividual(argIRI));
@@ -132,7 +132,7 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
             if (!consumer.isSWRLVariable(argIRI)) {
                 logger.info("Expected SWRL variable for SWRL Data Object: " + argIRI + "(possibly untyped)");
             }
-            return dataFactory.getSWRLLiteralVariable(argIRI);
+            return dataFactory.getSWRLVariable(argIRI);
         }
         else {
             // Must be a literal
@@ -148,7 +148,7 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
     private class SWRLAtomDObjectListItemTranslator implements ListItemTranslator<SWRLDArgument> {
 
         public SWRLDArgument translate(IRI firstObject) {
-            return dataFactory.getSWRLLiteralVariable(firstObject);
+            return dataFactory.getSWRLVariable(firstObject);
         }
 
 

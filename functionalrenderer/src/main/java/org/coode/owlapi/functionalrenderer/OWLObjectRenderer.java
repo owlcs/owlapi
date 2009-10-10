@@ -1056,16 +1056,8 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(SWRLLiteralVariable node) {
-        write(LITERAL_VARIABLE);
-        writeOpenBracket();
-        node.getIRI().accept(this);
-        writeCloseBracket();
-    }
-
-
-    public void visit(SWRLIndividualVariable node) {
-        write(INDIVIDUAL_VARIABLE);
+    public void visit(SWRLVariable node) {
+        write(VARIABLE);
         writeOpenBracket();
         node.getIRI().accept(this);
         writeCloseBracket();

@@ -1,9 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.SWRLVariable;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.*;
 
 import java.net.URI;
 /*
@@ -36,7 +33,7 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public abstract class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
+public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
 
     private IRI iri;
 
@@ -53,5 +50,33 @@ public abstract class SWRLVariableImpl extends OWLObjectImpl implements SWRLVari
 
     final protected int compareObjectOfSameType(OWLObject object) {
         return iri.compareTo(((SWRLVariable) object).getIRI());
+    }
+
+    public void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    public void accept(SWRLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof SWRLVariable)) {
+            return false;
+        }
+        SWRLVariable other = (SWRLVariable) obj;
+        return other.getIRI().equals(this.getIRI());
     }
 }

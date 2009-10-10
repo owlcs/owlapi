@@ -344,15 +344,11 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
         return defaultReturnValue;
     }
 
-    public O visit(SWRLLiteralVariable node) {
+    public O visit(SWRLVariable node) {
         return defaultReturnValue;
     }
 
     public O visit(SWRLIndividualArgument node) {
-        return defaultReturnValue;
-    }
-
-    public O visit(SWRLIndividualVariable node) {
         return defaultReturnValue;
     }
 

@@ -261,13 +261,10 @@ public class OWLObjectVisitorAdapter implements OWLObjectVisitor {
     public void visit(SWRLLiteralArgument node) {
     }
 
-    public void visit(SWRLLiteralVariable node) {
-    }
-
     public void visit(SWRLIndividualArgument node) {
     }
 
-    public void visit(SWRLIndividualVariable node) {
+    public void visit(SWRLVariable node) {
     }
 
     public void visit(SWRLBuiltInAtom node) {

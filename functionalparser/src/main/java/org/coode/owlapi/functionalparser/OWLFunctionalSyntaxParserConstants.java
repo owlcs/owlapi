@@ -211,47 +211,45 @@ public interface OWLFunctionalSyntaxParserConstants {
   /** RegularExpression Id. */
   int DIFFERENTINDIVIDUALSATOM = 108;
   /** RegularExpression Id. */
-  int INDIVIDUALVARIABLE = 109;
+  int VARIABLE = 109;
   /** RegularExpression Id. */
-  int LITERALVARIABLE = 110;
+  int DGRULE = 110;
   /** RegularExpression Id. */
-  int DGRULE = 111;
+  int DESCRIPTIONGRAPH = 111;
   /** RegularExpression Id. */
-  int DESCRIPTIONGRAPH = 112;
+  int NODES = 112;
   /** RegularExpression Id. */
-  int NODES = 113;
+  int NODEASSERTION = 113;
   /** RegularExpression Id. */
-  int NODEASSERTION = 114;
+  int EDGES = 114;
   /** RegularExpression Id. */
-  int EDGES = 115;
+  int EDGEASSERTION = 115;
   /** RegularExpression Id. */
-  int EDGEASSERTION = 116;
+  int MAINCLASSES = 116;
   /** RegularExpression Id. */
-  int MAINCLASSES = 117;
+  int EQUALS = 117;
   /** RegularExpression Id. */
-  int EQUALS = 118;
+  int INT = 118;
   /** RegularExpression Id. */
-  int INT = 119;
+  int FULLIRI = 119;
   /** RegularExpression Id. */
-  int FULLIRI = 120;
+  int PNAME_NS = 120;
   /** RegularExpression Id. */
-  int PNAME_NS = 121;
+  int PN_LOCAL = 121;
   /** RegularExpression Id. */
-  int PN_LOCAL = 122;
+  int PNAME_LN = 122;
   /** RegularExpression Id. */
-  int PNAME_LN = 123;
+  int PN_PREFIX = 123;
   /** RegularExpression Id. */
-  int PN_PREFIX = 124;
+  int PN_CHARS_BASE = 124;
   /** RegularExpression Id. */
-  int PN_CHARS_BASE = 125;
+  int PN_CHARS = 125;
   /** RegularExpression Id. */
-  int PN_CHARS = 126;
+  int PN_CHARS_U = 126;
   /** RegularExpression Id. */
-  int PN_CHARS_U = 127;
+  int NODEID = 127;
   /** RegularExpression Id. */
-  int NODEID = 128;
-  /** RegularExpression Id. */
-  int ERROR = 129;
+  int ERROR = 128;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -371,8 +369,7 @@ public interface OWLFunctionalSyntaxParserConstants {
     "\"BuiltInAtom\"",
     "\"SameIndividualAtom\"",
     "\"DifferentIndividualsAtom\"",
-    "\"IndividualVariable\"",
-    "\"LiteralVariable\"",
+    "\"Variable\"",
     "\"DescriptionGraphRule\"",
     "\"DescriptionGraph\"",
     "\"Nodes\"",

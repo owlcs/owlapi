@@ -133,7 +133,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
         addFactory(new AbstractElementHandlerFactory(LITERAL) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
-                return new OWLConstantElementHandler(handler);
+                return new OWLLiteralElementHandler(handler);
             }
         }, "Constant");
 
@@ -604,15 +604,9 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
         });
 
-        addFactory(new AbstractElementHandlerFactory(INDIVIDUAL_VARIABLE) {
+        addFactory(new AbstractElementHandlerFactory(VARIABLE) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
-                return new SWRLIndividualVariableElementHandler(handler);
-            }
-        });
-
-        addFactory(new AbstractElementHandlerFactory(LITERAL_VARIABLE) {
-            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
-                return new SWRLLiteralVariableElementHandler(handler);
+                return new SWRLVariableElementHandler(handler);
             }
         });
 

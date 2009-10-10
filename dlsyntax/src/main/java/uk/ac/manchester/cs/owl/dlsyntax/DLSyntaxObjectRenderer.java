@@ -782,17 +782,10 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
-    public void visit(SWRLLiteralVariable node) {
+    public void visit(SWRLVariable node) {
         write("?");
         write(uriShortFormProvider.getShortForm(node.getIRI().toURI()));
     }
-
-
-    public void visit(SWRLIndividualVariable node) {
-        write("?");
-        write(uriShortFormProvider.getShortForm(node.getIRI().toURI()));
-    }
-
 
     public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);

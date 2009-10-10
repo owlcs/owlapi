@@ -65,7 +65,7 @@ public interface OWLElementHandler<O> {
     public void handleChild(AbstractOWLDataRangeHandler handler) throws OWLXMLParserException;
 
 
-    public void handleChild(OWLConstantElementHandler handler) throws OWLXMLParserException;
+    public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException;
 
 
     public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException;
@@ -89,10 +89,7 @@ public interface OWLElementHandler<O> {
     public void handleChars(char[] chars, int start, int length) throws OWLXMLParserException;
 
 
-    public void handleChild(SWRLIndividualVariableElementHandler handler) throws OWLXMLParserException;
-
-
-    public void handleChild(SWRLLiteralVariableElementHandler handler) throws OWLXMLParserException;
+    public void handleChild(SWRLVariableElementHandler handler) throws OWLXMLParserException;
 
 
     public void handleChild(SWRLAtomElementHandler handler) throws OWLXMLParserException;
