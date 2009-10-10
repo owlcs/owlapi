@@ -125,6 +125,6 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
             return false;
         }
         OWLHasKeyAxiom other = (OWLHasKeyAxiom) obj;
-        return expression.equals(other.getClassExpression()) && propertyExpressions.equals(other.getPropertyExpressions());
+        return expression.equals(other.getClassExpression()) && propertyExpressions.equals(other.getPropertyExpressions()) && other.getAnnotations().equals(getAnnotations());
     }
 }
