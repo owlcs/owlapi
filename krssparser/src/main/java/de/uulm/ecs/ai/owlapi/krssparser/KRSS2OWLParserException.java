@@ -3,7 +3,7 @@ package de.uulm.ecs.ai.owlapi.krssparser;
 import org.coode.owl.krssparser.KRSSOWLParserException;
 
 /*
- * Copyright (C) 2007, Ulm University
+ * Copyright (C) 2008, Ulm University
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -26,9 +26,9 @@ import org.coode.owl.krssparser.KRSSOWLParserException;
  */
 
 /**
- * @author Olaf Noppens<br>
- * Ulm University
- * Institute of Artificial Intelligence
+ * Author: Olaf Noppens<br>
+ * Ulm University<br>
+ * Institute of Artificial Intelligence<br>
  */
 public class KRSS2OWLParserException extends KRSSOWLParserException {
     public KRSS2OWLParserException(org.coode.owl.krssparser.ParseException e) {

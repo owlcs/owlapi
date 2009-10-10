@@ -1,11 +1,12 @@
-package de.uulm.ecs.ai.owlapi.krssparser;
+package de.uulm.ecs.ai.owl.krssparser;
 
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OWLParser;
 
 /*
- * Copyright (C) 2007, Ulm University
+ * Copyright (C) 2008, Ulm University
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -28,9 +29,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 
 /**
- * @author Olaf Noppens<br>
- * Ulm University
- * Institute of Artificial Intelligence
+ * Author: Olaf Noppens<br>
+ * Ulm University<br>
+ * Institute of Artificial Intelligence<br>
  */
 public class KRSS2OWLParserFactory implements OWLParserFactory {
 

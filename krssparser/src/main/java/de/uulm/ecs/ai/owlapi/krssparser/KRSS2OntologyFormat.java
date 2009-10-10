@@ -1,8 +1,9 @@
 package de.uulm.ecs.ai.owlapi.krssparser;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+
 /*
- * Copyright (C) 2007, Ulm University
+ * Copyright (C) 2008, Ulm University
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -25,9 +26,10 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 
 /**
- * @author Olaf Noppens<br>
- * Ulm University
- * Institute of Artificial Intelligence
+ *
+ * Author: Olaf Noppens<br>
+ * Ulm University<br>
+ * Institute of Artificial Intelligence<br>
  */
 public class KRSS2OntologyFormat extends OWLOntologyFormat {
     public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
