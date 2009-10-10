@@ -17,8 +17,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.ToldClassHierarchyReasoner;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import uk.ac.manchester.cs.owl.inference.dig11.DIGReasoner;
 import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
+import uk.ac.manchester.cs.owl.inference.dig11.DIGReasoner;
 
 import gnu.getopt.LongOpt;
 import gnu.getopt.Getopt;
