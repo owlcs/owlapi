@@ -7,7 +7,6 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Set;
 
-
 /**
  * <p/>
  * Title: </p>
@@ -47,6 +46,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     }
 
 
+    // TODO (TS): only visit logical axioms if possible
     private class AxiomLocalityVisitor implements OWLAxiomVisitor {
 
         private BottomEquivalenceEvaluator bottomEvaluator;
@@ -75,7 +75,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLDatatypeDefinitionAxiom axiom) {
-            throw new RuntimeException("NOT IMPLEMENTED");   
+            throw new RuntimeException("NOT IMPLEMENTED");
         }
 
         // BUGFIX: (TS) Antisymm OP axioms are local in the *_BOTTOM case:
@@ -154,7 +154,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX: (TS) Individual declaration axioms are local, too.
-        //              They need to be added to the module after the locality checks have been performed. 
+        //              They need to be added to the module after the locality checks have been performed.
         public void visit(OWLDeclarationAxiom axiom) {
             isLocal = true;
 //            isLocal = !(axiom.getEntity().isOWLNamedIndividual());
@@ -686,7 +686,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX: (TS) Even in the TOP_TOP case, this is not bottom-equiv:
-        //              "forall top.D" is not necessarily empty   
+        //              "forall top.D" is not necessarily empty
         public void visit(OWLDataAllValuesFrom desc) {
 //            switch (localityCls) {
 //                case BOTTOM_BOTTOM:
@@ -897,12 +897,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
+        // BUGFIX (TS): desc.getValue() is an individual and therefore is *not* bot-equiv if not in the signature
+        //              -> disjunct removed from *_BOTTOM case
         public void visit(OWLObjectHasValue desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isBottomEquivalent = !signature.contains(desc.getProperty().getNamedProperty()) || !signature.contains(
-                            desc.getValue());
+                    isBottomEquivalent = !signature.contains(desc.getProperty().getNamedProperty());
                     break;
                 case TOP_TOP:
                     isBottomEquivalent = false;
@@ -1022,7 +1023,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        // BUGFIX: (TS) A data value restriction is never top-equivalent 
+        // BUGFIX: (TS) A data value restriction is never top-equivalent
         public void visit(OWLDataHasValue desc) {
             isTopEquivalent = false;
         }
@@ -1091,7 +1092,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        // BUGFIX: (TS) Added the case n==0; repaired TOP_TOP condition 
+        // BUGFIX: (TS) Added the case n==0; repaired TOP_TOP condition
         public void visit(OWLObjectMinCardinality desc) {
             int card = desc.getCardinality();
             switch (localityCls) {
