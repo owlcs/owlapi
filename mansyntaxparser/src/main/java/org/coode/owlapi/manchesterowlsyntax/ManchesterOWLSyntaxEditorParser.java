@@ -1222,6 +1222,10 @@ public class ManchesterOWLSyntaxEditorParser {
             OWLAnnotation anno = dataFactory.getOWLAnnotation(annoProp, getIRI(obj));
             annos.add(anno);
         }
+        else if(obj.startsWith("<")) {
+            IRI value = parseIRI();
+            annos.add(dataFactory.getOWLAnnotation(annoProp, value));
+        }
         else {
             OWLLiteral con = parseConstant();
             OWLAnnotation anno = dataFactory.getOWLAnnotation(annoProp, con);
