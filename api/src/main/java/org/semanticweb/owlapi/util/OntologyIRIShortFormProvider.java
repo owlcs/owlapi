@@ -34,7 +34,7 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 23-Jan-2008<br><br>
  */
-public class OntologyIRIShortFormProvider implements URIShortFormProvider {
+public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
 
     public String getShortForm(OWLOntology ont) {
         if(!ont.isAnonymous()) {

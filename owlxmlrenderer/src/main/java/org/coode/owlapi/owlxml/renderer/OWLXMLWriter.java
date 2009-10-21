@@ -171,7 +171,7 @@ public class OWLXMLWriter {
      */
     public void writeDatatypeAttribute(OWLDatatype datatype) {
         try {
-            writer.writeAttribute(OWLXMLVocabulary.DATATYPE_IRI.getURI().toString(), datatype.getURI().toString());
+            writer.writeAttribute(OWLXMLVocabulary.DATATYPE_IRI.getURI().toString(), datatype.getIRI().toString());
         }
         catch (IOException e) {
             throw new OWLRuntimeException(e);

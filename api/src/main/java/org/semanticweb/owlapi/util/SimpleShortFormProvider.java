@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  */
 public class SimpleShortFormProvider implements ShortFormProvider {
 
-    private SimpleURIShortFormProvider uriShortFormProvider = new SimpleURIShortFormProvider();
+    private SimpleIRIShortFormProvider uriShortFormProvider = new SimpleIRIShortFormProvider();
 
     public String getShortForm(OWLEntity entity) {
         return uriShortFormProvider.getShortForm(entity.getIRI());

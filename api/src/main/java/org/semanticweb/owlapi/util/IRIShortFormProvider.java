@@ -35,7 +35,7 @@ import java.net.URI;
  *
  * A short form provider that produces short forms for URIs.
  */
-public interface URIShortFormProvider {
+public interface IRIShortFormProvider {
 
     String getShortForm(IRI uri);
 }

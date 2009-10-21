@@ -145,7 +145,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (obj instanceof OWLDatatype) {
-                return ((OWLDatatype) obj).getURI().equals(getURI());
+                return ((OWLDatatype) obj).getIRI().equals(getIRI());
             }
         }
         return false;
@@ -257,6 +257,6 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     }
 
     protected int compareObjectOfSameType(OWLObject object) {
-        return getURI().compareTo(((OWLDatatype) object).getURI());
+        return getIRI().compareTo(((OWLDatatype) object).getIRI());
     }
 }

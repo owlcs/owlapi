@@ -5,7 +5,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-import java.net.URI;
 import java.util.*;
 /*
  * Copyright (C) 2008, University of Manchester
@@ -35,7 +34,7 @@ import java.util.*;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 10-Sep-2008<br><br>
  */
-public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, URIShortFormProvider {
+public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, IRIShortFormProvider {
 
     private Map<String, String> prefix2NamespaceMap;
 

@@ -2,10 +2,9 @@ package uk.ac.manchester.cs.owlapi.dlsyntax;
 
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.ShortFormProvider;
-import org.semanticweb.owlapi.util.SimpleShortFormProvider;
-import org.semanticweb.owlapi.util.SimpleURIShortFormProvider;
-import org.semanticweb.owlapi.util.URIShortFormProvider;
+import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
+import org.semanticweb.owlapi.util.IRIShortFormProvider;
+import org.semanticweb.owlapi.util.*;
 import static uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntax.*;
 
 import java.util.*;
@@ -45,7 +44,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     private ShortFormProvider shortFormProvider;
 
-    private URIShortFormProvider uriShortFormProvider;
+    private IRIShortFormProvider iriShortFormProvider;
 
     private StringBuilder buffer;
 
@@ -53,7 +52,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     public DLSyntaxObjectRenderer() {
         this.shortFormProvider = new SimpleShortFormProvider();
-        this.uriShortFormProvider = new SimpleURIShortFormProvider();
+        this.iriShortFormProvider = new SimpleIRIShortFormProvider();
         this.buffer = new StringBuilder();
     }
 
@@ -784,7 +783,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     public void visit(SWRLVariable node) {
         write("?");
-        write(uriShortFormProvider.getShortForm(node.getIRI()));
+        write(iriShortFormProvider.getShortForm(node.getIRI()));
     }
 
     public void visit(SWRLIndividualArgument node) {

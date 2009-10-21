@@ -4,12 +4,11 @@ import org.coode.owlapi.obo.parser.OBOVocabulary;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.util.SimpleURIShortFormProvider;
-import org.semanticweb.owlapi.util.URIShortFormProvider;
+import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
+import org.semanticweb.owlapi.util.IRIShortFormProvider;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.net.URI;
 import java.util.*;
 /*
 * Copyright (C) 2008, University of Manchester
@@ -53,7 +52,7 @@ public class OBOTagValuePairList {
 
     private List<OBOVocabulary> vocab;
 
-    private URIShortFormProvider uriSFP;
+    private IRIShortFormProvider iriSFP;
 
     private Map<IRI, String> defaults = new HashMap<IRI, String>();
 
@@ -65,7 +64,7 @@ public class OBOTagValuePairList {
      */
     public OBOTagValuePairList(List<OBOVocabulary> knownVocab) {
         this.vocab = knownVocab;
-        uriSFP = new SimpleURIShortFormProvider();
+        iriSFP = new SimpleIRIShortFormProvider();
     }
 
 
@@ -89,7 +88,7 @@ public class OBOTagValuePairList {
             }
         }
         if (!found) {
-            final String name = uriSFP.getShortForm(tag);
+            final String name = iriSFP.getShortForm(tag);
             addPair(name, value, unknownTVPs);
         }
     }

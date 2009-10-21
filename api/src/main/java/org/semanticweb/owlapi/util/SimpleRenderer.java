@@ -4,7 +4,6 @@ import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-import java.net.URI;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -47,7 +46,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     private ShortFormProvider shortFormProvider;
 
-    private URIShortFormProvider uriShortFormProvider;
+    private IRIShortFormProvider iriShortFormProvider;
 
     public SimpleRenderer() {
         sb = new StringBuilder();
@@ -69,7 +68,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void resetShortFormProvider() {
         DefaultPrefixManager defaultPrefixManager = new DefaultPrefixManager();
         shortFormProvider = defaultPrefixManager;
-        uriShortFormProvider = defaultPrefixManager;
+        iriShortFormProvider = defaultPrefixManager;
     }
 
     /**
@@ -130,7 +129,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     public String getShortForm(IRI iri) {
-        return uriShortFormProvider.getShortForm(iri);
+        return iriShortFormProvider.getShortForm(iri);
     }
 
     public String render(OWLObject object) {
