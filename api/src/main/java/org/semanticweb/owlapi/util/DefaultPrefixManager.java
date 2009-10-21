@@ -200,14 +200,10 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, U
         }
     }
 
-    public String getShortForm(URI uri) {
-        String sf = getPrefixIRI(IRI.create(uri));
+    public String getShortForm(IRI iri) {
+        String sf = getPrefixIRI(iri);
         if(sf == null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("<");
-            sb.append(uri);
-            sb.append(">");
-            return sb.toString();
+            return iri.toQuotedString();
         }
         else {
             return sf;
@@ -215,7 +211,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, U
     }
 
     public String getShortForm(OWLEntity entity) {
-        return getShortForm(entity.getURI());
+        return getShortForm(entity.getIRI());
     }
 
 

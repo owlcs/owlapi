@@ -209,9 +209,11 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public void visit(OWLAnnotationAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         OWLAnnotationSubject subject = (OWLAnnotationSubject) obj;
-        axiom.getAnnotation().accept(this);
-        OWLAnnotation anno = (OWLAnnotation) obj;
-        obj = dataFactory.getOWLAnnotationAssertionAxiom(subject, anno);
+        axiom.getProperty().accept(this);
+        OWLAnnotationProperty prop = (OWLAnnotationProperty) obj;
+        axiom.getValue().accept(this);
+        OWLAnnotationValue value = (OWLAnnotationValue) obj;
+        obj = dataFactory.getOWLAnnotationAssertionAxiom(prop, subject, value);
     }
 
 
@@ -759,8 +761,13 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
     public void visit(IRI iri) {
+        for(OWLEntity entity : replacementMap.keySet()) {
+            if(entity.getIRI().equals(iri)) {
+                obj = replacementMap.get(entity);
+                return;
+            }
+        }
         obj = iri;
-
     }
 
 

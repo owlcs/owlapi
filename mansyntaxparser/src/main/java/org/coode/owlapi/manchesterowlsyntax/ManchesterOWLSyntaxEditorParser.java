@@ -231,7 +231,7 @@ public class ManchesterOWLSyntaxEditorParser {
         dataTypeNames.add(OWLRDFVocabulary.RDF_XML_LITERAL.getURI().getFragment());
         dataTypeNames.add("rdf:" + OWLRDFVocabulary.RDF_XML_LITERAL.getURI().getFragment());
 
-        dataTypeNames.add(dataFactory.getTopDatatype().getURI().getFragment());
+        dataTypeNames.add(dataFactory.getTopDatatype().getIRI().getFragment());
 
         for (IRI iri : OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS) {
             String[] res = u.split(iri.toString(), null);

@@ -288,30 +288,30 @@ public class TurtleRenderer extends RDFRendererBase {
 
 
     protected void writeClassComment(OWLClass cls) {
-        writeComment(cls.getURI().toString());
+        writeComment(cls.getIRI().toString());
     }
 
 
     protected void writeObjectPropertyComment(OWLObjectProperty prop) {
-        writeComment(prop.getURI().toString());
+        writeComment(prop.getIRI().toString());
     }
 
 
     protected void writeDataPropertyComment(OWLDataProperty prop) {
-        writeComment(prop.getURI().toString());
+        writeComment(prop.getIRI().toString());
     }
 
 
     protected void writeIndividualComments(OWLNamedIndividual ind) {
-        writeComment(ind.getURI().toString());
+        writeComment(ind.getIRI().toString());
     }
 
     protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
-        writeComment(prop.getURI().toString());
+        writeComment(prop.getIRI().toString());
     }
 
     protected void writeDatatypeComment(OWLDatatype datatype) {
-        writeComment(datatype.getURI().toString());
+        writeComment(datatype.getIRI().toString());
     }
 
     private void writeComment(String comment) {

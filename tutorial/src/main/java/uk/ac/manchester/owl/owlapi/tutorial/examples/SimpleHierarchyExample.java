@@ -108,7 +108,7 @@ public class SimpleHierarchyExample {
         if (le.getResult() != null) {
             return le.getResult().toString();
         } else {            
-            return clazz.getURI().toString();
+            return clazz.getIRI().toString();
         }
     }
     

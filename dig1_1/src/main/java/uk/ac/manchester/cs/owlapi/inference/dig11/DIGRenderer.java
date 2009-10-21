@@ -1,4 +1,4 @@
-package uk.ac.manchester.cs.owl.inference.dig11;
+package uk.ac.manchester.cs.owlapi.inference.dig11;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -355,7 +355,7 @@ public class DIGRenderer implements OWLObjectVisitor {
 
     public void visit(OWLNamedIndividual node) {
         createAndPushNode(Vocab.INDIVIDUAL);
-        getCurrentNode().setAttribute(Vocab.NAME, node.getURI().toString());
+        getCurrentNode().setAttribute(Vocab.NAME, node.getIRI().toString());
         popCurrentNode();
     }
 
@@ -400,7 +400,7 @@ public class DIGRenderer implements OWLObjectVisitor {
 
     public void visit(OWLObjectProperty node) {
         createAndPushNode(Vocab.RATOM);
-        getCurrentNode().setAttribute(Vocab.NAME, node.getURI().toString());
+        getCurrentNode().setAttribute(Vocab.NAME, node.getIRI().toString());
         popCurrentNode();
     }
 
@@ -429,17 +429,17 @@ public class DIGRenderer implements OWLObjectVisitor {
     public void visit(OWLOntology ontology) {
         for (OWLClass cls : ontology.getReferencedClasses()) {
             createAndPushNode(Vocab.DEFCONCEPT);
-            getCurrentNode().setAttribute(Vocab.NAME, cls.getURI().toString());
+            getCurrentNode().setAttribute(Vocab.NAME, cls.getIRI().toString());
             popCurrentNode();
         }
         for (OWLObjectProperty prop : ontology.getReferencedObjectProperties()) {
             createAndPushNode(Vocab.DEFROLE);
-            getCurrentNode().setAttribute(Vocab.NAME, prop.getURI().toString());
+            getCurrentNode().setAttribute(Vocab.NAME, prop.getIRI().toString());
             popCurrentNode();
         }
         for (OWLNamedIndividual ind : ontology.getReferencedIndividuals()) {
             createAndPushNode(Vocab.DEFINDIVIDUAL);
-            getCurrentNode().setAttribute(Vocab.NAME, ind.getURI().toString());
+            getCurrentNode().setAttribute(Vocab.NAME, ind.getIRI().toString());
             popCurrentNode();
         }
         for (OWLAxiom ax : ontology.getAxioms()) {
@@ -460,15 +460,15 @@ public class DIGRenderer implements OWLObjectVisitor {
     public static final URI NOTHING_URI = OWLRDFVocabulary.OWL_NOTHING.getURI();
 
     public void visit(OWLClass node) {
-        if (node.getURI().equals(NOTHING_URI)) {
+        if (node.getIRI().equals(NOTHING_URI)) {
             createAndPushNode(Vocab.BOTTOM);
             popCurrentNode();
-        } else if (node.getURI().equals(THING_URI)) {
+        } else if (node.getIRI().equals(THING_URI)) {
             createAndPushNode(Vocab.TOP);
             popCurrentNode();
         } else {
             createAndPushNode(Vocab.CATOM);
-            getCurrentNode().setAttribute(Vocab.NAME, node.getURI().toString());
+            getCurrentNode().setAttribute(Vocab.NAME, node.getIRI().toString());
             popCurrentNode();
         }
     }

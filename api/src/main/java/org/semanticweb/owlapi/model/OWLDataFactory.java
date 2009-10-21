@@ -96,6 +96,14 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
 
     /**
+     * Gets an entity that has the specified IRI and is of the specified type.
+     * @param entityType The type of the entity that will be returned
+     * @param iri The IRI of the entity that will be returned
+     * @return An entity that has the same IRI as this entity and is of the specified type
+     */
+    <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType, IRI iri);
+
+    /**
      * Gets an OWL class that has the specified URI
      *
      * @param uri The URI of the class

@@ -124,13 +124,13 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
 
     private void processEntity(OWLNamedObject entity) {
-        URI uri = entity.getURI();
-        processURI(uri);
+        IRI iri = entity.getIRI();
+        processIRI(iri);
     }
 
 
-    private void processURI(URI uri) {
-        String s = uri.toString();
+    private void processIRI(IRI iri) {
+        String s = iri.toString();
         namespaceUtil.split(s, splitResults);
         if (!(splitResults[0].equals("") || splitResults[1].equals(""))) {
             namespaceUtil.getPrefix(splitResults[0]);

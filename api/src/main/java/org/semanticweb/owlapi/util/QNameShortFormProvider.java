@@ -72,7 +72,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
 
 
     public String getShortForm(OWLEntity entity) {
-        String uriString = entity.getURI().toString();
+        String uriString = entity.getIRI().toString();
         namespaceUtil.split(uriString, result);
         String namespace = result[0];
         String localName = result[1];

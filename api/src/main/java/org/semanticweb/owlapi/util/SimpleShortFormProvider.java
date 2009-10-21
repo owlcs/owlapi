@@ -48,7 +48,7 @@ public class SimpleShortFormProvider implements ShortFormProvider {
     private SimpleURIShortFormProvider uriShortFormProvider = new SimpleURIShortFormProvider();
 
     public String getShortForm(OWLEntity entity) {
-        return uriShortFormProvider.getShortForm(entity.getURI());
+        return uriShortFormProvider.getShortForm(entity.getIRI());
     }
 
 

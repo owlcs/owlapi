@@ -276,11 +276,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
 
     private boolean isTop(OWLClassExpression classExpression) {
-        if (!classExpression.isAnonymous()) {
-            return OWLRDFVocabulary.OWL_THING.getURI().equals(((OWLClass) classExpression).getURI());
-        } else {
-            return false;
-        }
+        return classExpression.isOWLThing();
     }
 
 

@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.util;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -35,5 +37,5 @@ import java.net.URI;
  */
 public interface URIShortFormProvider {
 
-    String getShortForm(URI uri);
+    String getShortForm(IRI uri);
 }

@@ -83,9 +83,9 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    private void write(URI uri) {
+    private void write(IRI iri) {
         write("<");
-        write(uri.toString());
+        write(iri.toQuotedString());
         write(">");
     }
 
@@ -421,7 +421,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLImportsDeclaration axiom) {
         write(keyword("imports"));
-        write(axiom.getURI());
+        write(axiom.getIRI());
     }
 
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
@@ -649,7 +649,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLDatatype node) {
         write("Datatype");
         writeOpenBracket();
-        write(node.getURI());
+        write(node.getIRI());
         writeCloseBracket();
     }
 
@@ -666,7 +666,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(OWLFacetRestriction node) {
-        write(node.getFacet().getIRI().toURI());
+        write(node.getFacet().getIRI());
         writeSpace();
         node.getFacetValue().accept(this);
     }
@@ -676,7 +676,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write(node.getLiteral());
         write("\"");
         write("^^");
-        write(node.getDatatype().getURI());
+        write(node.getDatatype().getIRI());
     }
 
     public void visit(OWLStringLiteral node) {

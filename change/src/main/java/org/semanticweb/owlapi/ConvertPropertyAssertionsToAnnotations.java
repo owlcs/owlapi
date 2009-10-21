@@ -86,7 +86,7 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
                     if (!ax.getProperty().isAnonymous()) {
                         changes.add(new RemoveAxiom(ont, ax));
                         OWLDataFactory df = getDataFactory();
-                        OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(ax.getProperty().asOWLDataProperty().getURI()),
+                        OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(ax.getProperty().asOWLDataProperty().getIRI()),
                                 ax.getObject());
                         OWLAnnotationAssertionAxiom annoAx = df.getOWLAnnotationAssertionAxiom(ind.getIRI(), anno);
                         changes.add(new AddAxiom(ont, annoAx));

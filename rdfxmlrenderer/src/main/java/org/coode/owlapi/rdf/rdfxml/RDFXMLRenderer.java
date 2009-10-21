@@ -108,30 +108,30 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
 
     protected void writeIndividualComments(OWLNamedIndividual ind) throws IOException  {
-        writer.writeComment(EscapeUtils.escapeXML(ind.getURI().toString()));
+        writer.writeComment(EscapeUtils.escapeXML(ind.getIRI().toString()));
     }
 
 
     protected void writeClassComment(OWLClass cls) throws IOException  {
-        writer.writeComment(EscapeUtils.escapeXML(cls.getURI().toString()));
+        writer.writeComment(EscapeUtils.escapeXML(cls.getIRI().toString()));
     }
 
 
     protected void writeDataPropertyComment(OWLDataProperty prop) throws IOException  {
-        writer.writeComment(EscapeUtils.escapeXML(prop.getURI().toString()));
+        writer.writeComment(EscapeUtils.escapeXML(prop.getIRI().toString()));
     }
 
 
     protected void writeObjectPropertyComment(OWLObjectProperty prop) throws IOException  {
-        writer.writeComment(EscapeUtils.escapeXML(prop.getURI().toString()));
+        writer.writeComment(EscapeUtils.escapeXML(prop.getIRI().toString()));
     }
 
     protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) throws IOException  {
-        writer.writeComment(EscapeUtils.escapeXML(prop.getURI().toString()));
+        writer.writeComment(EscapeUtils.escapeXML(prop.getIRI().toString()));
     }
 
     protected void writeDatatypeComment(OWLDatatype datatype) throws IOException  {
-        writer.writeComment(EscapeUtils.escapeXML(datatype.getURI().toString()));
+        writer.writeComment(EscapeUtils.escapeXML(datatype.getIRI().toString()));
     }
 
     protected void writeBanner(String name) throws IOException  {

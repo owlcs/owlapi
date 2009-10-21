@@ -45,7 +45,7 @@ public class PartOfTagValueHandler extends AbstractTagValueHandler {
         int index = value.indexOf(' ');
         String propLocalName = value.substring(0, index);
         String val = value.substring(index + 1, value.length());
-        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getURIFromValue(propLocalName));
+        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getIRIFromValue(propLocalName));
         OWLClassExpression desc = getDataFactory().getOWLObjectSomeValuesFrom(prop, getClassFromId(val));
         OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(
                 getCurrentClass(),

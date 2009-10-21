@@ -11,7 +11,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -136,7 +135,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         }
 
         for (OWLImportsDeclaration importDecl : ontology.getImportsDeclarations()) {
-            tvpList.addPair(OBOVocabulary.IMPORT, importDecl.getURI().toString());
+            tvpList.addPair(OBOVocabulary.IMPORT, importDecl.getIRI().toString());
         }
 
         Map<String, String> namespace2PrefixMap = loadUsedNamespaces(ontology);
@@ -158,8 +157,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
     private Map<String, String> loadUsedNamespaces(OWLOntology ontology) {
         for (OWLEntity entity : ontology.getReferencedEntities()) {
             String[] pair = new String[2];
-            nsUtil.split(entity.getURI().toString(), pair);
-            final URI base = URI.create(pair[0]);
+            nsUtil.split(entity.getIRI().toString(), pair);
+            final IRI base = IRI.create(pair[0]);
             nsUtil.getPrefix(base.toString());
         }
         return nsUtil.getNamespace2PrefixMap();
@@ -468,7 +467,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
         for (OWLDataRange range : property.getRanges(ontology)) {
             if (range.isDatatype()) {
-                tvpList.addPair(OBOVocabulary.RANGE, range.asOWLDatatype().getURI().toString());
+                tvpList.addPair(OBOVocabulary.RANGE, range.asOWLDatatype().getIRI().toString());
             }
             else {
                 exceptions.add(new OBOStorageException(property, range, "Complex data range cannot be represented in OBO"));
@@ -564,11 +563,11 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
             tvpList.visit(anno);
         }
 
-        final String uri = entity.getURI().toString();
+        final String uri = entity.getIRI().toString();
         if (!uri.startsWith(defaultNamespace)) {
             String[] pair = new String[2];
             nsUtil.split(uri, pair);
-            final URI base = URI.create(pair[0]);
+            final IRI base = IRI.create(pair[0]);
             String prefix = nsUtil.getPrefix(base.toString());
             tvpList.setDefault(OBOVocabulary.NAMESPACE, prefix);
         }
@@ -581,7 +580,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         sb.append(literal.getLiteral());
         sb.append("\" ");
         if (literal.isTyped()) {
-            sb.append(literal.asOWLStringLiteral().getDatatype().getURI());
+            sb.append(literal.asOWLStringLiteral().getDatatype().getIRI());
         }
         return sb.toString();
     }

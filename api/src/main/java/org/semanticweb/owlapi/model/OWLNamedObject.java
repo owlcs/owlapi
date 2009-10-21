@@ -48,6 +48,7 @@ public interface OWLNamedObject extends OWLObject {
      *
      * @return A <code>URI</code> that represents the name
      *         of the object
+     * @deprecated Use the {@link OWLNamedObject#getIRI()} method instead.
      */
     public URI getURI();
 

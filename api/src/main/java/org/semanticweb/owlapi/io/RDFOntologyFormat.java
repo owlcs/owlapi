@@ -58,7 +58,7 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
     }
 
 
-    public class ParserMetaData {
+    public static class ParserMetaData {
 
         private int tripleCount;
 

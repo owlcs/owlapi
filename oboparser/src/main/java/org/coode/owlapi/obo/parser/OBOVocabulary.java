@@ -1,5 +1,7 @@
 package org.coode.owlapi.obo.parser;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -138,12 +140,12 @@ public enum OBOVocabulary {
 
     OBOVocabulary(String name) {
         this.name = name;
-        uri = URI.create(ANNOTATION_URI_BASE + "#" + name);
+        iri = IRI.create(ANNOTATION_URI_BASE + "#" + name);
     }
 
     private String name;
 
-    private URI uri;
+    private IRI iri;
 
 
     public String getName() {
@@ -151,8 +153,8 @@ public enum OBOVocabulary {
     }
 
 
-    public URI getURI() {
-        return uri;
+    public IRI getIRI() {
+        return iri;
     }
 
 

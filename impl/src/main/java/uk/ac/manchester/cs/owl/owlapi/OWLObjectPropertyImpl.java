@@ -45,8 +45,33 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     public OWLObjectPropertyImpl(OWLDataFactory dataFactory, IRI iri) {
         super(dataFactory);
         this.iri = iri;
-        this.builtin = getURI().equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI()) ||
-                getURI().equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getURI());
+        this.builtin = getURI().equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI()) || getURI().equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getURI());
+    }
+
+    /**
+     * Gets the entity type for this entity
+     * @return The entity type
+     */
+    public EntityType getEntityType() {
+        return EntityType.OBJECT_PROPERTY;
+    }
+
+    /**
+     * Gets an entity that has the same IRI as this entity but is of the specified type.
+     * @param entityType The type of the entity to obtain.  This entity is not affected in any way.
+     * @return An entity that has the same IRI as this entity and is of the specified type
+     */
+    public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
+        return getOWLDataFactory().getOWLEntity(entityType, getIRI());
+    }
+
+    /**
+     * Tests to see if this entity is of the specified type
+     * @param entityType The entity type
+     * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
+     */
+    public boolean isType(EntityType entityType) {
+        return getEntityType().equals(entityType);
     }
 
     /**
@@ -77,13 +102,8 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
             if (!(obj instanceof OWLObjectProperty)) {
                 return false;
             }
-            URI otherURI = ((OWLObjectProperty) obj).getURI();
-            String otherFragment = otherURI.getFragment();
-            String thisFragment = getURI().getFragment();
-            if (otherFragment != null && thisFragment != null && !otherFragment.equals(thisFragment)) {
-                return false;
-            }
-            return otherURI.equals(getURI());
+            IRI otherIRI = ((OWLObjectProperty) obj).getIRI();
+            return otherIRI.equals(this.iri);
         }
         return false;
     }
@@ -134,8 +154,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     }
 
 
-    protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>> getSubPropertyAxiomsForRHS(
-            OWLOntology ont) {
+    protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>> getSubPropertyAxiomsForRHS(OWLOntology ont) {
         return ont.getObjectSubPropertyAxiomsForSuperProperty(this);
     }
 
@@ -207,7 +226,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     }
 
     protected int compareObjectOfSameType(OWLObject object) {
-        return getURI().compareTo(((OWLObjectProperty) object).getURI());
+        return getIRI().compareTo(((OWLObjectProperty) object).getIRI());
     }
 
     /**

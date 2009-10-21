@@ -49,7 +49,7 @@ public class FaCTPlusPlusReasonerFactory implements OWLReasonerFactory {
 
     public FaCTPlusPlusReasonerFactory() {
         try {
-            Class faCTPPClass = Class.forName("uk.ac.manchester.cs.factplusplus.owlapi.Reasoner");
+            Class faCTPPClass = Class.forName("uk.ac.manchester.cs.factplusplus.owlapiv3.Reasoner");
             factPPConstructor = faCTPPClass.getConstructor(OWLOntologyManager.class);
             setSynchronisingMethod = faCTPPClass.getMethod("setSychroniseOnlyOnClassify", Boolean.TYPE);
         }

@@ -1,9 +1,6 @@
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.*;
 
 import java.net.URI;
 /*
@@ -44,12 +41,12 @@ public class RelationshipTagValueHandler extends AbstractTagValueHandler {
 
 
     public void handle(String id, String value) {
-        URI propURI = getURIFromValue(value.substring(0, value.indexOf(' ')).trim());
-        URI fillerURI = getURIFromValue(value.substring(value.indexOf(' '), value.length()).trim());
-        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propURI);
-        OWLClass filler = getDataFactory().getOWLClass(fillerURI);
+        IRI propIRI = getIRIFromValue(value.substring(0, value.indexOf(' ')).trim());
+        IRI fillerIRI = getIRIFromValue(value.substring(value.indexOf(' '), value.length()).trim());
+        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propIRI);
+        OWLClass filler = getDataFactory().getOWLClass(fillerIRI);
         OWLClassExpression restriction = getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
-        OWLClass subCls = getDataFactory().getOWLClass(getURIFromValue(id));
+        OWLClass subCls = getDataFactory().getOWLClass(getIRIFromValue(id));
         applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassOfAxiom(subCls, restriction)));
     }
 }

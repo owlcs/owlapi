@@ -46,11 +46,11 @@ public class NameTagValueHandler extends AbstractTagValueHandler {
         // This is an annotation - but add as a label
         OWLEntity ent;
         if (getConsumer().isTerm()) {
-            ent = getDataFactory().getOWLClass(getURIFromValue(id));
+            ent = getDataFactory().getOWLClass(getIRIFromValue(id));
         } else if (getConsumer().isTypedef()) {
-            ent = getDataFactory().getOWLObjectProperty(getURIFromValue(id));
+            ent = getDataFactory().getOWLObjectProperty(getIRIFromValue(id));
         } else {
-            ent = getDataFactory().getOWLNamedIndividual(getURIFromValue(id));
+            ent = getDataFactory().getOWLNamedIndividual(getIRIFromValue(id));
         }
         OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
         OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getURI()), ent.getIRI(), con);

@@ -434,8 +434,12 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
 
         public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-            source = axiom.getSubProperty().asOWLObjectProperty();
-            target = axiom.getSuperProperty().asOWLObjectProperty();
+            if (!axiom.getSubProperty().isAnonymous()) {
+                source = axiom.getSubProperty().asOWLObjectProperty();
+            }
+            if (!axiom.getSuperProperty().isAnonymous()) {
+                target = axiom.getSuperProperty().asOWLObjectProperty();
+            }
         }
 
 

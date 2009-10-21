@@ -1,9 +1,6 @@
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 
 import java.net.URI;
 /*
@@ -50,7 +47,7 @@ public interface TagValueHandler {
 
     OBOConsumer getConsumer();
 
-    URI getURIFromValue(String s);
+    IRI getIRIFromValue(String s);
 
     OWLDataFactory getDataFactory();
 }

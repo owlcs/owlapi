@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.util;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -38,20 +40,11 @@ import java.net.URI;
 public class SimpleURIShortFormProvider implements URIShortFormProvider {
 
 
-    public String getShortForm(URI uri) {
-        String rendering = uri.getFragment();
+    public String getShortForm(IRI iri) {
+        String rendering = iri.getFragment();
         if (rendering != null) {
             return rendering;
         }
-        // Get last bit of path
-        String path = uri.getPath();
-        if (path != null) {
-            int lastSeparatorIndex = path.lastIndexOf("/");
-            String candidate = path.substring(lastSeparatorIndex + 1);
-            if(candidate.length() > 0) {
-                return candidate;
-            }
-        }
-        return uri.toString();
+        return iri.toQuotedString();
     }
 }

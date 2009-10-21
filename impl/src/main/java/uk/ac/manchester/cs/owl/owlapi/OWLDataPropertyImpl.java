@@ -50,6 +50,32 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     }
 
     /**
+     * Gets the entity type for this entity
+     * @return The entity type
+     */
+    public EntityType getEntityType() {
+        return EntityType.DATA_PROPERTY;
+    }
+
+    /**
+     * Gets an entity that has the same IRI as this entity but is of the specified type.
+     * @param entityType The type of the entity to obtain.  This entity is not affected in any way.
+     * @return An entity that has the same IRI as this entity and is of the specified type
+     */
+    public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
+        return getOWLDataFactory().getOWLEntity(entityType, getIRI());
+    }
+
+    /**
+     * Tests to see if this entity is of the specified type
+     * @param entityType The entity type
+     * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
+     */
+    public boolean isType(EntityType entityType) {
+        return getEntityType().equals(entityType);
+    }
+
+    /**
      * Returns a string representation that can be used as the ID of this entity.  This is the toString
      * representation of the IRI
      * @return A string representing the toString of the IRI of this entity.
@@ -135,14 +161,8 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
                 return false;
             }
 
-            URI otherURI = ((OWLDataProperty) obj).getURI();
-            String otherFragment = otherURI.getFragment();
-            URI uri = getURI();
-            String thisFragment = uri.getFragment();
-            if (otherFragment != null && thisFragment != null && !otherFragment.equals(thisFragment)) {
-                return false;
-            }
-            return otherURI.equals(uri);
+            IRI otherIRI = ((OWLDataProperty) obj).getIRI();
+            return otherIRI.equals(iri);
         }
         return false;
     }
@@ -294,6 +314,6 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
 
 
     protected int compareObjectOfSameType(OWLObject object) {
-        return getURI().compareTo(((OWLDataProperty) object).getURI());
+        return getIRI().compareTo(((OWLDataProperty) object).getIRI());
     }
 }

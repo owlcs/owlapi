@@ -1,4 +1,4 @@
-package uk.ac.manchester.cs.owl.inference.dig11;
+package uk.ac.manchester.cs.owlapi.inference.dig11;
 
 import java.util.Collection;
 import java.util.List;

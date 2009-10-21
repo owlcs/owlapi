@@ -3,6 +3,7 @@ package org.coode.owlapi.obo.renderer;
 import org.coode.owlapi.obo.parser.OBOVocabulary;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.SimpleURIShortFormProvider;
 import org.semanticweb.owlapi.util.URIShortFormProvider;
 
@@ -54,7 +55,7 @@ public class OBOTagValuePairList {
 
     private URIShortFormProvider uriSFP;
 
-    private Map<URI, String> defaults = new HashMap<URI, String>();
+    private Map<IRI, String> defaults = new HashMap<IRI, String>();
 
     private Writer writer;
 
@@ -69,19 +70,19 @@ public class OBOTagValuePairList {
 
 
     public void visit(OWLAnnotation annot) {
-        addPair(annot.getProperty().getURI(), ((OWLLiteral) annot.getValue()).getLiteral());
+        addPair(annot.getProperty().getIRI(), ((OWLLiteral) annot.getValue()).getLiteral());
     }
 
 
     public void addPair(OBOVocabulary tag, String value) {
-        addPair(tag.getURI(), value);
+        addPair(tag.getIRI(), value);
     }
 
 
-    public void addPair(URI tag, String value) {
+    public void addPair(IRI tag, String value) {
         boolean found = false;
         for (OBOVocabulary obo : vocab) {
-            if (tag.equals(obo.getURI())) {
+            if (tag.equals(obo.getIRI())) {
                 addPair(obo.getName(), value, knownTVPs);
                 found = true;
                 break;
@@ -96,16 +97,16 @@ public class OBOTagValuePairList {
 
     public void setPair(OBOVocabulary key, String value) {
         knownTVPs.remove(key.getName());
-        addPair(key.getURI(), value);
+        addPair(key.getIRI(), value);
     }
 
 
     public void setDefault(OBOVocabulary tag, String value) {
-        defaults.put(tag.getURI(), value);
+        defaults.put(tag.getIRI(), value);
     }
 
 
-    public void setDefault(URI tag, String value) {
+    public void setDefault(IRI tag, String value) {
         defaults.put(tag, value);
     }
 
@@ -136,7 +137,7 @@ public class OBOTagValuePairList {
         for (OBOVocabulary tag : vocab) {
             Set<String> values = knownTVPs.get(tag.getName());
             if (values == null) {
-                String def = defaults.get(tag.getURI());
+                String def = defaults.get(tag.getIRI());
                 if (def != null) {
                     values = Collections.singleton(def);
                 }

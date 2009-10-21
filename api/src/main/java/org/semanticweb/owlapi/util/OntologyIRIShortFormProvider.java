@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -37,15 +38,16 @@ public class OntologyIRIShortFormProvider implements URIShortFormProvider {
 
     public String getShortForm(OWLOntology ont) {
         if(!ont.isAnonymous()) {
-            return getShortForm(ont.getOntologyID().getOntologyIRI().toURI());
+            return getShortForm(ont.getOntologyID().getOntologyIRI());
         }
         else {
             return ont.getOntologyID().toString();
         }
     }
 
-    public String getShortForm(URI uri) {
-        String shortForm = uri.toString();
+    public String getShortForm(IRI iri) {
+        String shortForm = iri.toString();
+        URI uri = iri.toURI();
         String path = uri.getPath();
         if(path != null && path.length() > 0) {
             int lastSepIndex = path.lastIndexOf('/');
@@ -58,7 +60,7 @@ public class OntologyIRIShortFormProvider implements URIShortFormProvider {
             }
         }
         else if(uri.getHost() != null) {
-            shortForm = uri.toString();
+            shortForm = iri.toString();
         }
 //        if(!Character.isUpperCase(shortForm.charAt(0))) {
 //            shortForm = Character.toUpperCase(shortForm.charAt(0)) + shortForm.substring(1, shortForm.length());

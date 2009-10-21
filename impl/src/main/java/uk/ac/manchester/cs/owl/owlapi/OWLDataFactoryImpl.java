@@ -85,6 +85,35 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return IRI.create(uri);
     }
 
+    /**
+     * Gets an entity that has the specified IRI and is of the specified type.
+     * @param entityType The type of the entity that will be returned
+     * @param iri        The IRI of the entity that will be returned
+     * @return An entity that has the same IRI as this entity and is of the specified type
+     */
+    public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType, IRI iri) {
+        if(entityType.equals(EntityType.CLASS)) {
+            return (E) getOWLClass(iri);
+        }
+        else if(entityType.equals(EntityType.OBJECT_PROPERTY)) {
+            return (E) getOWLObjectProperty(iri);
+        }
+        else if(entityType.equals(EntityType.DATA_PROPERTY)) {
+            return (E) getOWLDataProperty(iri);
+        }
+        else if(entityType.equals(EntityType.ANNOTATION_PROPERTY)) {
+            return (E) getOWLAnnotationProperty(iri);
+        }
+        else if(entityType.equals(EntityType.NAMED_INDIVIDUAL)) {
+            return (E) getOWLNamedIndividual(iri);
+        }
+        else if(entityType.equals(EntityType.DATATYPE)) {
+            return (E) getOWLDatatype(iri);
+        }
+        else {
+            throw new OWLRuntimeException("Unknown entity type: " + entityType);
+        }
+    }
 
     public OWLClass getOWLClass(URI uri) {
         IRI iri = IRI.create(uri);

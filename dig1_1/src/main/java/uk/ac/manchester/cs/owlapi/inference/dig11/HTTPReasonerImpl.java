@@ -1,4 +1,4 @@
-package uk.ac.manchester.cs.owl.inference.dig11;
+package uk.ac.manchester.cs.owlapi.inference.dig11;
 
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;

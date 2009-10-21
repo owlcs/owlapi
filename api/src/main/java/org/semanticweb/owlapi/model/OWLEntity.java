@@ -40,6 +40,26 @@ import java.util.Set;
 public interface OWLEntity extends OWLObject, OWLNamedObject {
 
     /**
+     * Gets the entity type for this entity
+     * @return The entity type
+     */
+    EntityType getEntityType();
+
+    /**
+     * Gets an entity that has the same IRI as this entity but is of the specified type.
+     * @param entityType The type of the entity to obtain.  This entity is not affected in any way.
+     * @return An entity that has the same IRI as this entity and is of the specified type
+     */
+    <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType);
+
+    /**
+     * Tests to see if this entity is of the specified type
+     * @param entityType The entity type
+     * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
+     */
+    boolean isType(EntityType entityType);
+
+    /**
      * Gets the annotations for this entity.  These are deemed to be annotations in annotation assertion
      * axioms that have a subject that is an IRI that is equal to the IRI of this entity.
      *

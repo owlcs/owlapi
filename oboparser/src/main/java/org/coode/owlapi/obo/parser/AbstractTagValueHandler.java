@@ -3,7 +3,6 @@ package org.coode.owlapi.obo.parser;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-import java.net.URI;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 /*
@@ -86,28 +85,28 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
     }
 
 
-    public URI getURIFromValue(String s) {
-        return consumer.getURI(s);
+    public IRI getIRIFromValue(String s) {
+        return consumer.getIRI(s);
     }
 
 
     public OWLClass getClassFromId(String s) {
-        return getDataFactory().getOWLClass(getURIFromValue(s));
+        return getDataFactory().getOWLClass(getIRIFromValue(s));
     }
 
 
     public OWLClass getCurrentClass() {
-        return getDataFactory().getOWLClass(getURIFromValue(consumer.getCurrentId()));
+        return getDataFactory().getOWLClass(getIRIFromValue(consumer.getCurrentId()));
     }
 
 
     protected OWLClass getOWLClass(String id) {
-        return getDataFactory().getOWLClass(getURIFromValue(id));
+        return getDataFactory().getOWLClass(getIRIFromValue(id));
     }
 
 
     protected OWLObjectProperty getOWLObjectProperty(String id) {
-        return getDataFactory().getOWLObjectProperty(getURIFromValue(id));
+        return getDataFactory().getOWLObjectProperty(getIRIFromValue(id));
     }
 
 
@@ -120,10 +119,10 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
             id1 = tok.nextToken();
         }
         if (id1 == null) {
-            return getDataFactory().getOWLClass(getURIFromValue(id0));
+            return getDataFactory().getOWLClass(getIRIFromValue(id0));
         } else {
-            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getURIFromValue(id0));
-            OWLClass filler = getDataFactory().getOWLClass(getURIFromValue(id1));
+            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getIRIFromValue(id0));
+            OWLClass filler = getDataFactory().getOWLClass(getIRIFromValue(id1));
             return getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
         }
     }
@@ -141,8 +140,8 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
 
 
     protected void addAnnotation(String id, String uriID, OWLLiteral value) {
-        IRI subject = IRI.create(getURIFromValue(id));
-        OWLAnnotationProperty annotationProperty = getDataFactory().getOWLAnnotationProperty(getURIFromValue(uriID));
+        IRI subject = getIRIFromValue(id);
+        OWLAnnotationProperty annotationProperty = getDataFactory().getOWLAnnotationProperty(getIRIFromValue(uriID));
         OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(annotationProperty, subject, value);
         applyChange(new AddAxiom(getOntology(), ax));
     }

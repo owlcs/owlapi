@@ -68,6 +68,32 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     }
 
     /**
+     * Gets the entity type for this entity
+     * @return The entity type
+     */
+    public EntityType getEntityType() {
+        return EntityType.CLASS;
+    }
+
+    /**
+     * Gets an entity that has the same IRI as this entity but is of the specified type.
+     * @param entityType The type of the entity to obtain.  This entity is not affected in any way.
+     * @return An entity that has the same IRI as this entity and is of the specified type
+     */
+    public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
+        return getOWLDataFactory().getOWLEntity(entityType, getIRI());
+    }
+
+    /**
+     * Tests to see if this entity is of the specified type
+     * @param entityType The entity type
+     * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
+     */
+    public boolean isType(EntityType entityType) {
+        return getEntityType().equals(entityType);
+    }
+
+    /**
      * Returns a string representation that can be used as the ID of this entity.  This is the toString
      * representation of the IRI
      * @return A string representing the toString of the IRI of this entity.
@@ -342,14 +368,8 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
             if (!(obj instanceof OWLClass)) {
                 return false;
             }
-            URI otherURI = ((OWLClass) obj).getURI();
-            String otherFragment = otherURI.getFragment();
-            String thisFragment = getURI().getFragment();
-            if (otherFragment != null && thisFragment != null && !otherFragment.equals(thisFragment)) {
-                return false;
-            } else {
-                return otherURI.equals(getURI());
-            }
+            IRI otherIRI = ((OWLClass) obj).getIRI();
+            return otherIRI.equals(this.iri);
 
         }
         return false;
@@ -393,6 +413,6 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
 
     protected int compareObjectOfSameType(OWLObject object) {
         OWLClass other = (OWLClass) object;
-        return getURI().compareTo(other.getURI());
+        return getIRI().compareTo(other.getIRI());
     }
 }

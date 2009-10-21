@@ -40,6 +40,32 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         this.iri = iri;
     }
 
+     /**
+     * Gets the entity type for this entity
+     * @return The entity type
+     */
+    public EntityType getEntityType() {
+        return EntityType.NAMED_INDIVIDUAL;
+    }
+
+    /**
+     * Gets an entity that has the same IRI as this entity but is of the specified type.
+     * @param entityType The type of the entity to obtain.  This entity is not affected in any way.
+     * @return An entity that has the same IRI as this entity and is of the specified type
+     */
+    public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
+        return getOWLDataFactory().getOWLEntity(entityType, getIRI());
+    }
+
+    /**
+     * Tests to see if this entity is of the specified type
+     * @param entityType The entity type
+     * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
+     */
+    public boolean isType(EntityType entityType) {
+        return getEntityType().equals(entityType);
+    }
+
     /**
      * Returns a string representation that can be used as the ID of this entity.  This is the toString
      * representation of the IRI
@@ -90,13 +116,8 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
             if (!(obj instanceof OWLNamedIndividual)) {
                 return false;
             }
-            URI otherURI = ((OWLNamedIndividual) obj).getURI();
-            String otherFragment = otherURI.getFragment();
-            String thisFragment = getURI().getFragment();
-            if (otherFragment != null && thisFragment != null && !otherFragment.equals(thisFragment)) {
-                return false;
-            }
-            return ((OWLNamedIndividual) obj).getURI().equals(getURI());
+            IRI otherIRI = ((OWLNamedIndividual) obj).getIRI();
+            return otherIRI.equals(this.iri);
         }
         return false;
     }
@@ -118,7 +139,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
 
     protected int compareObjectOfSameType(OWLObject object) {
         OWLNamedIndividual other = (OWLNamedIndividual) object;
-        return getURI().compareTo(other.getURI());
+        return getIRI().compareTo(other.getIRI());
     }
 
     public void accept(OWLObjectVisitor visitor) {

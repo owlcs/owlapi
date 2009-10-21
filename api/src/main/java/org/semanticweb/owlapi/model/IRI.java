@@ -113,6 +113,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 
         private String prefix;
 
+        private int hashCode = 0;
+
 
         public IRIImpl(String s) {
             int fragmentSeparatorIndex = s.lastIndexOf('#');
@@ -265,7 +267,10 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 
         public String toString() {
             if(fragment != null) {
-                return prefix + fragment;
+                StringBuilder sb = new StringBuilder();
+                sb.append(prefix);
+                sb.append(fragment);
+                return sb.toString();
             }
             else {
                 return prefix;
@@ -285,7 +290,10 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         }
 
         public int hashCode() {
-            return prefix.hashCode() + (fragment != null ? fragment.hashCode() : 0);
+            if(hashCode == 0) {
+                hashCode = prefix.hashCode() + (fragment != null ? fragment.hashCode() : 0);
+            }
+            return hashCode;
         }
 
         public void accept(OWLAnnotationValueVisitor visitor) {

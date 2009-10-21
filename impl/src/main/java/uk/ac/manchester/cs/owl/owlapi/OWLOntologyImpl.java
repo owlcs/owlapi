@@ -184,7 +184,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private Map<URI, Set<OWLAnnotationAxiom>> annotationAxiomsByAnnotationURI = createMap();
+//    private Map<IRI, Set<OWLAnnotationAxiom>> annotationAxiomsByAnnotationURI = createMap();
 
 
     private OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
@@ -291,7 +291,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
         Set<T> result = new HashSet<T>();
         for(OWLOntology ont : getImportsClosure()) {
-            result.addAll(getAxioms(axiomType));
+            result.addAll(ont.getAxioms(axiomType));
         }
         return result;
     }
@@ -447,10 +447,6 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
            }
        }
        return false;
-    }
-
-    public Set<URI> getAnnotationURIs() {
-        return getReturnSet(annotationAxiomsByAnnotationURI.keySet());
     }
 
 
@@ -2035,14 +2031,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 addToIndexedSet(ANNOTATION_ASSERTION, axiomsByType, axiom);
                 addToIndexedSet(axiom.getSubject(), annotationAssertionAxiomsBySubject, axiom);
-                addToIndexedSet(axiom.getAnnotation().getProperty().getURI(), annotationAxiomsByAnnotationURI, axiom);
             } else {
                 removeAxiomFromSet(ANNOTATION_ASSERTION, axiomsByType, axiom, true);
                 removeAxiomFromSet(axiom.getSubject(), annotationAssertionAxiomsBySubject, axiom, true);
-                removeAxiomFromSet(axiom.getAnnotation().getProperty().getURI(),
-                                   annotationAxiomsByAnnotationURI,
-                                   axiom,
-                                   true);
             }
         }
 

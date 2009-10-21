@@ -102,7 +102,10 @@ public class OWLEntityRenamer {
     }
 
     private static Set<OWLAxiom> getAxioms(OWLOntology ont, OWLEntity entity) {
-        return ont.getReferencingAxioms(entity);
+        Set<OWLAxiom> axioms = ont.getReferencingAxioms(entity);
+        axioms.addAll(ont.getDeclarationAxioms(entity));
+        axioms.addAll(ont.getAnnotationAssertionAxioms(entity.getIRI()));
+        return axioms;
     }
 
     private Set<OWLAxiom> getAxioms(OWLOntology ont, IRI uri) {
@@ -112,6 +115,7 @@ public class OWLEntityRenamer {
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory().getOWLDataProperty(uri)));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory().getOWLNamedIndividual(uri)));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory().getOWLDatatype(uri)));
+        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory().getOWLAnnotationProperty(uri)));
         return axioms;
     }
 

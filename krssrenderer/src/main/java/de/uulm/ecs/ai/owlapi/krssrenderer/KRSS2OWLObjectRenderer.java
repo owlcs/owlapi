@@ -67,9 +67,9 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    private void write(URI uri) {
+    private void write(IRI iri) {
         try {
-            writer.write(uri.toString());
+            writer.write(iri.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -407,7 +407,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     }
 
     public final void visit(OWLClass desc) {
-        write(desc.getURI());
+        write(desc.getIRI());
     }
 
     public final void visit(OWLObjectIntersectionOf desc) {
@@ -575,7 +575,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     }
 
     public final void visit(OWLObjectProperty property) {
-        write(property.getURI());
+        write(property.getIRI());
     }
 
     public final void visit(OWLObjectInverseOf property) {
@@ -587,11 +587,11 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     }
 
     public final void visit(OWLDataProperty property) {
-        write(property.getURI());
+        write(property.getIRI());
     }
 
     public final void visit(OWLNamedIndividual individual) {
-        write(individual.getURI());
+        write(individual.getIRI());
     }
 
     public void visit(OWLHasKeyAxiom axiom) {

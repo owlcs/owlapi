@@ -129,8 +129,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(s);
     }
 
-    public String getShortForm(URI uri) {
-        return uriShortFormProvider.getShortForm(uri);
+    public String getShortForm(IRI iri) {
+        return uriShortFormProvider.getShortForm(iri);
     }
 
     public String render(OWLObject object) {
@@ -872,7 +872,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(SWRLBuiltInAtom node) {
         sb.append("BuiltInAtom(");
-        sb.append(getShortForm(node.getPredicate().toURI()));
+        sb.append(getShortForm(node.getPredicate()));
         sb.append(" ");
         for (SWRLArgument arg : node.getArguments()) {
             arg.accept(this);
@@ -893,7 +893,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(SWRLVariable node) {
         sb.append("Variable(");
-        sb.append(getShortForm(node.getIRI().toURI()));
+        sb.append(getShortForm(node.getIRI()));
         sb.append(")");
     }
 

@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.rdf.syntax.RDFConsumer;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.*;
@@ -1271,7 +1272,8 @@ public class OWLRDFConsumer implements RDFConsumer {
 //        translateDanglingEntities();
 
         if (format != null) {
-//            format.setNumberOfTriplesProcessedDIRIngLoading(count);
+            RDFOntologyFormat.ParserMetaData metaData = new RDFOntologyFormat.ParserMetaData(count, RDFOntologyFormat.OntologyHeaderStatus.PARSED_ONE_HEADER);
+            format.setParserMetaData(metaData);
         }
         dumpRemainingTriples();
 //        }

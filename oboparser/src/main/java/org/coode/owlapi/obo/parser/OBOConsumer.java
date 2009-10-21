@@ -70,7 +70,7 @@ public class OBOConsumer implements OBOParserHandler {
 
     private Set<OWLClassExpression> unionOfOperands;
 
-    private Map<String, URI> uriCache;
+    private Map<String, IRI> uriCache;
 
 
     public OBOConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology) {
@@ -79,7 +79,7 @@ public class OBOConsumer implements OBOParserHandler {
         defaultNamespace = OBOVocabulary.ONTOLOGY_URI_BASE;
         intersectionOfOperands = new HashSet<OWLClassExpression>();
         unionOfOperands = new HashSet<OWLClassExpression>();
-        uriCache = new HashMap<String, URI>();
+        uriCache = new HashMap<String, IRI>();
         loadBuiltinURIs();
         setupTagHandlers();
     }
@@ -156,7 +156,7 @@ public class OBOConsumer implements OBOParserHandler {
 
     private void loadBuiltinURIs() {
         for (OBOVocabulary v : OBOVocabulary.values()) {
-            uriCache.put(v.getName(), v.getURI());
+            uriCache.put(v.getName(), v.getIRI());
         }
     }
 
@@ -278,15 +278,15 @@ public class OBOConsumer implements OBOParserHandler {
                 } else {
                     // Ontology annotations
                     OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
-                    OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getURI(tag));
+                    OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getIRI(tag));
                     OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
                     owlOntologyManager.applyChange(new AddOntologyAnnotation(ontology, anno));
                 }
             } else if (currentId != null) {
                 // Add as annotation
-                IRI subject = IRI.create(getURI(currentId));
+                IRI subject = getIRI(currentId);
                 OWLLiteral con = getDataFactory().getOWLStringLiteral(value);
-                OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getURI(tag));
+                OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getIRI(tag));
                 OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
                 OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
                 owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
@@ -305,29 +305,29 @@ public class OBOConsumer implements OBOParserHandler {
 
 
     public OWLClass getCurrentClass() {
-        return getDataFactory().getOWLClass(getURI(currentId));
+        return getDataFactory().getOWLClass(getIRI(currentId));
     }
 
     public OWLEntity getCurrentEntity() {
         if (isTerm()) {
             return getCurrentClass();
         } else if (isTypedef()) {
-            return getDataFactory().getOWLObjectProperty(getURI(currentId));
+            return getDataFactory().getOWLObjectProperty(getIRI(currentId));
         } else {
-            return getDataFactory().getOWLNamedIndividual(getURI(currentId));
+            return getDataFactory().getOWLNamedIndividual(getIRI(currentId));
         }
     }
 
 
-    public URI getURI(String s) {
+    public IRI getIRI(String s) {
         if (s == null) {
             for (StackTraceElement e : Thread.currentThread().getStackTrace()) {
                 System.out.println(e);
             }
         }
-        URI uri = uriCache.get(s);
-        if (uri != null) {
-            return uri;
+        IRI iri = uriCache.get(s);
+        if (iri != null) {
+            return iri;
         }
         String localName = s;
         String namespace = getDefaultNamespace();
@@ -340,14 +340,9 @@ public class OBOConsumer implements OBOParserHandler {
             namespace = currentNamespace;
         }
         localName = localName.replace(' ', '-');
-        try {
-            uri = new URI(namespace + localName);
-        }
-        catch (URISyntaxException e) {
-            System.out.println("URI Syntax Exception: " + namespace + localName);
-        }
-        uriCache.put(s, uri);
+        iri = IRI.create(namespace + localName);
+        uriCache.put(s, iri);
 
-        return uri;
+        return iri;
     }
 }
