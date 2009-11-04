@@ -30,31 +30,34 @@ import java.util.Set;/*
  * Date: 21-Jan-2009
  *
  * <p>
- * An OWLReasoner reasons over a set of axioms.  The set of axioms can be obtained using the
- * {@link #getAxioms()} method.  When the client responsible for creating the reasoner has finished with the
+ * An OWLReasoner reasons over a set of axioms that is defined by the imports closure of a particular ontology - the
+ * "root" ontology.  This ontology can be obtained using the {@link OWLReasoner#getRootOntology()} method.
+ * When the client responsible for creating the reasoner has finished with the
  * reasoner instance it must call the {@link #dispose()} method to free any resources that are used by the reasoner.
  * In general, reasoners should not be instantiated directly, but should be created using the appropriate
  * {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}.
  * </p>
  * <p>
  * At creation time, an OWLReasoner will attach itself as a listener to the {@link org.semanticweb.owlapi.model.OWLOntologyManager}
- * that manages the ontologies contained within the reasoner.  The reasoner will listen to any
+ * that manages the root ontology.  The reasoner will listen to any
  * {@link org.semanticweb.owlapi.model.OWLOntologyChange}s and respond to these so that any queries that are asked after
- * the ontology changes are answered with respect to the changed ontologies.
+ * the ontology changes are answered with respect to the changed ontologies.  Note that this does not guarentee that
+ * the reasoner implementation will respond to changes in an incremental manner (or efficient manner).
  * </p>
  */
 public interface OWLReasoner {
 
 
     /**
-     * Gets the set of axioms that this reasoner answers queries with respect to.  These are "asserted axioms", that is
-     * they are the axioms that were loaded into the reasoner.
-     * @return The set of axioms that the reasoner reasons over.
+     * Gets the "root" ontology that is loaded into this reasoner.  The reasoner takes into account the axioms
+     * in this ontology and its imports closure when reasoning.  Note that the root ontology is set at reasoner
+     * creation time and cannot be changed thereafter.
+     * @return The root ontology that is loaded into the reasoner.
      */
-    Set<OWLAxiom> getAxioms();
+    OWLOntology getRootOntology();
 
     /**
-     * Asks the reasoner to interrupt what it is currently doing.  An InterruptedException will be thrown in the
+     * Asks the reasoner to interrupt what it is currently doing.  An ReasonerInterruptedException will be thrown in the
      * thread that invoked the last reasoner operation.  The OWL API is not thread safe in general, but it is likely
      * that this method will be called from another thread than the event dispatch thread or the thread in which
      * reasoning takes place.
@@ -62,45 +65,45 @@ public interface OWLReasoner {
     void interrupt();
 
     /**
-     * A convenience method that determines if the set of reasoner axioms (the set of axioms returned by
-     * the {@link #getAxioms()} method) is consistent.
-     * @return <code>true</code> if the set of axioms is consistent,
-     * or <code>false</code> if the set of axioms is inconsistent.
-     * @throws InterruptedException if the reasoning process was interrupted for any particular reason (for example if
-     * reasoning was cancelled by a client process)
+     * A convenience method that determines if the imports closure of the root ontology (the ontology returned by
+     * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getRootOntology()}) is consistent.
+     * @return <code>true</code> if the imports closure of the root ontology is consistent,
+     * or <code>false</code> if the imports closure of the root ontology is inconsistent.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any particular reason (for example if
+     * reasoning was cancelled by a client process or reasoning timed out).
      */
-    boolean isConsistent() throws InterruptedException;
+    boolean isConsistent() throws ReasonerInterruptedException;
 
     /**
      * A convenience method that determines if the specified class expression is satisfiable with respect to the
-     * set of reasoner axioms (the set of axioms returned by the {@link #getAxioms()} method)
+     * axioms in the imports closure of the root ontology.
      * @param classExpression The class expression
      * @return <code>true</code> if classExpression is satisfiable with respect to the set of axioms, or
      * <code>false</code> if classExpression is unsatisfiable with respect to the axioms.
-     * @throws InconsistentOntologiesException if the reasoner's axiom set is inconsistent
+     * @throws InconsistentOntologyException if the reasoner's axiom set is inconsistent
      * @throws EntitiesNotInSignatureException if the signature of the classExpression is not contained within the signature
      * of the reasoner's axiom set.
      * @throws ExpressivenessOutOfScopeException If the class expression contains constructs that are out of the scope
      * of expressiveness that is supported by this reasoner.
-     * @throws InterruptedException if the reasoning process was interrupted for any particular reason (for example if
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any particular reason (for example if
      * reasoning was cancelled by a client process)
      */
-    boolean isSatisfiable(OWLClassExpression classExpression) throws InterruptedException;
+    boolean isSatisfiable(OWLClassExpression classExpression) throws ReasonerInterruptedException;
 
 
     /**
-     * A convenience method that determines if the specified axiom is entailed by the set of reasoner axioms
-     * (the set of axioms returned by the {@link #getAxioms()} method)
+     * A convenience method that determines if the specified axiom is entailed by the set of axioms in the
+     * imports closure of the root ontology.
      * @param axiom The axiom
      * @return <code>true</code> if {@code axiom} is entailed by the reasoner axioms or <code>false</code> if
      * {@code axiom} is not entailed by the reasoner axioms.
-     * @throws InterruptedException if the reasoning process was interupped for any particular reason (for example if
+     * @throws ReasonerInterruptedException if the reasoning process was interupped for any particular reason (for example if
      * reasoning was cancelled by a client process).
      * @throws UnsupportedEntailmentTypeException if the reasoner cannot perform a check to see if the specified
      * axiom is entailed
      * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType) 
      */
-    boolean isEntailed(OWLAxiom axiom) throws InterruptedException, UnsupportedEntailmentTypeException;
+    boolean isEntailed(OWLAxiom axiom) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException;
 
     /**
      * Determines if entailment checking for the specified axiom type is supported.
@@ -122,59 +125,59 @@ public interface OWLReasoner {
      * be a subclass of classExpression and there is no class "B" that is entailed to be a subclass of classExpression
      * for which "A" is entailed to be a subclass of "B".  
      */
-    HierarchyNodeSet<OWLClass> getSubClasses(OWLClassExpression classExpression, boolean direct) throws InterruptedException;
+    HierarchyNodeSet<OWLClass> getSubClasses(OWLClassExpression classExpression, boolean direct) throws ReasonerInterruptedException, InconsistentOntologyException;
 
-    HierarchyNodeSet<OWLClass> getSuperClasses(OWLClassExpression classExpression, boolean direct) throws InterruptedException;
+    HierarchyNodeSet<OWLClass> getSuperClasses(OWLClassExpression classExpression, boolean direct) throws ReasonerInterruptedException;
 
-    HierarchyNode<OWLClass> getEquivalentClasses(OWLClassExpression classExpression) throws InterruptedException;
-
-
-
-    HierarchyNodeSet<OWLObjectProperty> getSuperProperties(OWLObjectPropertyExpression property, boolean direct) throws InterruptedException;
-
-    HierarchyNodeSet<OWLObjectProperty> getSubProperties(OWLObjectPropertyExpression property, boolean direct) throws InterruptedException;
-
-    HierarchyNode<OWLObjectProperty> getEquivalentProperties(OWLObjectPropertyExpression property) throws InterruptedException;
-
-    HierarchyNodeSet<OWLObjectProperty> getInverseProperties(OWLObjectPropertyExpression property) throws InterruptedException;
-
-    HierarchyNodeSet<OWLClass> getDomains(OWLObjectPropertyExpression property, boolean direct) throws InterruptedException;
-
-    HierarchyNodeSet<OWLClass> getRanges(OWLObjectPropertyExpression property, boolean direct) throws InterruptedException;
+    HierarchyNode<OWLClass> getEquivalentClasses(OWLClassExpression classExpression) throws ReasonerInterruptedException;
 
 
-    HierarchyNodeSet<OWLDataProperty> getSuperProperties(OWLDataPropertyExpression property, boolean direct) throws InterruptedException;
 
-    HierarchyNodeSet<OWLDataProperty> getSubProperties(OWLDataPropertyExpression property, boolean direct) throws InterruptedException;
+    HierarchyNodeSet<OWLObjectProperty> getSuperProperties(OWLObjectPropertyExpression property, boolean direct) throws ReasonerInterruptedException;
 
-    HierarchyNode<OWLDataProperty> getEquivalentProperties(OWLDataProperty property) throws InterruptedException;
+    HierarchyNodeSet<OWLObjectProperty> getSubProperties(OWLObjectPropertyExpression property, boolean direct) throws ReasonerInterruptedException;
 
-    HierarchyNodeSet<OWLClass> getDomains(OWLDataPropertyExpression property, boolean direct) throws InterruptedException;
+    HierarchyNode<OWLObjectProperty> getEquivalentProperties(OWLObjectPropertyExpression property) throws ReasonerInterruptedException;
+
+    HierarchyNodeSet<OWLObjectProperty> getInverseProperties(OWLObjectPropertyExpression property) throws ReasonerInterruptedException;
+
+    HierarchyNodeSet<OWLClass> getDomains(OWLObjectPropertyExpression property, boolean direct) throws ReasonerInterruptedException;
+
+    HierarchyNodeSet<OWLClass> getRanges(OWLObjectPropertyExpression property, boolean direct) throws ReasonerInterruptedException;
 
 
-    HierarchyNodeSet<OWLClass> getTypes(OWLNamedIndividual individual, boolean direct) throws InterruptedException;
+    HierarchyNodeSet<OWLDataProperty> getSuperProperties(OWLDataPropertyExpression property, boolean direct) throws ReasonerInterruptedException;
 
-    IndividualSynonymsSet getInstances(OWLClassExpression classExpression, boolean direct) throws InterruptedException;
+    HierarchyNodeSet<OWLDataProperty> getSubProperties(OWLDataPropertyExpression property, boolean direct) throws ReasonerInterruptedException;
 
-    IndividualSynonymsSet getPropertyValues(OWLNamedIndividual individual, OWLObjectPropertyExpression property) throws InterruptedException;
+    HierarchyNode<OWLDataProperty> getEquivalentProperties(OWLDataProperty property) throws ReasonerInterruptedException;
 
-    Set<OWLLiteral> getPropertyValues(OWLNamedIndividual individual, OWLDataPropertyExpression property) throws InterruptedException;
+    HierarchyNodeSet<OWLClass> getDomains(OWLDataPropertyExpression property, boolean direct) throws ReasonerInterruptedException;
 
-    /**
-     * Asks the reasoner to answer a query.
-     * @param query The query to be answered.  The specific type of query defines the query semantics and what answers
-     * are expected.
-     * @return The query answer.  The type of query specifies the semantics of the query and the query answers.
-     * @throws UnsupportedQueryTypeException if this reasoner cannot answer the type of query being asked
-     * @throws InconsistentOntologiesException if the reasoner's axiom set is inconsistent
-     * @throws EntitiesNotInSignatureException if the signature of the query is not contained within the signature
-     * of the reasoner's axiom set.
-     * @throws ExpressivenessOutOfScopeException If the reasoner's axiom set contains axioms that are
-     * out of the scope of expressiveness that is supported by this reasoner
-     * @throws InterruptedException if the reasoning process was interrupted for any particular reason (for example if
-     * reasoning was cancelled by a client process)
-     */
-    <R> R answerQuery(Query<R> query) throws UnsupportedQueryTypeException, InterruptedException;
+
+    HierarchyNodeSet<OWLClass> getTypes(OWLNamedIndividual individual, boolean direct) throws ReasonerInterruptedException;
+
+    IndividualSynonymsSet getInstances(OWLClassExpression classExpression, boolean direct) throws ReasonerInterruptedException;
+
+    IndividualSynonymsSet getPropertyValues(OWLNamedIndividual individual, OWLObjectPropertyExpression property) throws ReasonerInterruptedException;
+
+    Set<OWLLiteral> getPropertyValues(OWLNamedIndividual individual, OWLDataPropertyExpression property) throws ReasonerInterruptedException;
+//
+//    /**
+//     * Asks the reasoner to answer a query.
+//     * @param query The query to be answered.  The specific type of query defines the query semantics and what answers
+//     * are expected.
+//     * @return The query answer.  The type of query specifies the semantics of the query and the query answers.
+//     * @throws UnsupportedQueryTypeException if this reasoner cannot answer the type of query being asked
+//     * @throws InconsistentOntologiesException if the reasoner's axiom set is inconsistent
+//     * @throws EntitiesNotInSignatureException if the signature of the query is not contained within the signature
+//     * of the reasoner's axiom set.
+//     * @throws ExpressivenessOutOfScopeException If the reasoner's axiom set contains axioms that are
+//     * out of the scope of expressiveness that is supported by this reasoner
+//     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any particular reason (for example if
+//     * reasoning was cancelled by a client process)
+//     */
+//    <R> R answerQuery(Query<R> query) throws UnsupportedQueryTypeException, ReasonerInterruptedException;
 
     /**
      * Determines if this reasoner supports satisfiability checking time out.
@@ -212,6 +215,5 @@ public interface OWLReasoner {
      */
     void dispose();
 
-    
 
 }

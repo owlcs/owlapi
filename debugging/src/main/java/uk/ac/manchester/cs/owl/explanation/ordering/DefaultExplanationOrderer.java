@@ -125,6 +125,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
                 targetAxioms.addAll(ont.getAxioms(currentTarget.asOWLNamedIndividual()));
             }
         }
+
         List<OWLAxiom> rootAxioms = new ArrayList<OWLAxiom>();
         for (OWLAxiom ax : axioms) {
             if (!axs.contains(ax)) {

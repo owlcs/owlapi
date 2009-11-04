@@ -1,6 +1,5 @@
-package org.semanticweb.owlapi.reasoner;
-/*
- * Copyright (C) 2009, University of Manchester
+package org.semanticweb.owlapi.reasoner;/*
+ * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -23,14 +22,16 @@ package org.semanticweb.owlapi.reasoner;
  */
 
 /**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 24-Sep-2009
+ * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+ * Date: 21-Jan-2009
  *
- * Thrown when the current reasoner operation has been interrupted due to a satisfiability check timeout.
+ * This type of exception is thrown by an {@link org.semanticweb.owlapi.reasoner.OWLReasoner} to indicate that
+ * the imports closure of the root ontology (returned by {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getRootOntology()})
+ * is inconsistent.
  */
-public class TimeOutException extends ReasonerInterruptedException {
+public class InconsistentOntologyException extends OWLReasonerRuntimeException {
 
-
+    public InconsistentOntologyException() {
+        super("Inconsistent ontology");
+    }
 }

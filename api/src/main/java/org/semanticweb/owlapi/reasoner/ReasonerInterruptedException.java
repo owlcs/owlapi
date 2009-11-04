@@ -1,5 +1,8 @@
-package org.semanticweb.owlapi.reasoner;/*
- * Copyright (C) 2008, University of Manchester
+package org.semanticweb.owlapi.reasoner;
+
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+/*
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -22,15 +25,25 @@ package org.semanticweb.owlapi.reasoner;/*
  */
 
 /**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 21-Jan-2009
- *
- * This type of exception is thrown by an {@link org.semanticweb.owlapi.reasoner.OWLReasoner} to indicate that
- * the set of reasoner ontologies (returned by {@link OWLReasoner#getOntologies()} is inconsistent.
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 29-Oct-2009
  */
-public class InconsistentOntologiesException extends OWLReasonerRuntimeException {
+public class ReasonerInterruptedException extends OWLRuntimeException {
 
-    public InconsistentOntologiesException() {
-        super("Inconsistent ontology");
+    public ReasonerInterruptedException() {
+    }
+
+    public ReasonerInterruptedException(String message) {
+        super(message);
+    }
+
+    public ReasonerInterruptedException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public ReasonerInterruptedException(Throwable cause) {
+        super(cause);
     }
 }

@@ -103,40 +103,40 @@ public interface OWLReasonerFactory {
     BufferedOWLReasoner createBufferedReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException;
 
 
-    /**
-     * Creates an OWLReasoner that reasons over the imports closure of the specified ontology plus the specified
-     * augmenting ontology.  The reasoner will obtain the imports closure from the specified ontology manager. The reasoner will listen for ontology changes to the ontologies
-     * that it is reasoning over and will always answer queries with respect to the changed ontologies (see {@link org.semanticweb.owlapi.reasoner.OWLReasoner}
-     * for further details).
-     *
-     * @param ontology           The ontology whose imports closure will be reasoned over by the reasoner that is created.
-     * @param config             A configuration object that can be used to customise the setup of the reasoner that will be created
-     *                           by calling this method.
-     * @param augmentingAxioms A set of axioms that can be used to augment the imports closure of the specified ontology.
-     * @return The reasoner that reasons over the imports closure of the specified ontology.  Note that calling this
-     *         method multiple times with the same manager and ontology will return <b>fresh</b> instances of OWLReasoner.
-     * @throws IllegalConfigurationException if the configuration object is inappropriate for reasoners created by this
-     *                                       factory, or if there is an illegal setting on the configuration.
-     * @throws NullPointerException          if any of {@code manager}, {@code ontology}, {@code augmentingOntology} or {@code config} are {@code null}.
-     */
-    OWLReasoner createReasoner(OWLOntology ontology, Set<OWLAxiom> augmentingAxioms, OWLReasonerConfiguration config) throws IllegalConfigurationException;
-
-    /**
-     * Creates a BufferedOWLReasoner that reasons over the imports closure of the specified ontology plus the specified
-     * augmenting ontology.  The reasoner will obtain the imports closure from the specified ontology manager. The reasoner will listen for ontology changes to the ontologies
-     * it is reasoning over but will only answer queries with respect to the changed ontologies when the {@link BufferedOWLReasoner#flush()} method is called
-     * (see {@link BufferedOWLReasoner} for further details).
-     *
-     * @param ontology           The ontology whose imports closure will be reasoned over by the reasoner that is created.
-     * @param config             A configuration object that can be used to customise the setup of the reasoner that will be created
-     *                           by calling this method.
-     * @param augmentingAxioms A set of axioms that can be used to augment the imports closure of the specified ontology.
-     * @return The reasoner that reasons over the imports closure of the specified ontology.  Note that calling this
-     *         method multiple times with the same manager and ontology will return <b>fresh</b> instances of OWLReasoner.
-     * @throws IllegalConfigurationException if the configuration object is inappropriate for reasoners created by this
-     *                                       factory, or if there is an illegal setting on the configuration.
-     * @throws NullPointerException          if any of {@code manager}, {@code ontology}, {@code augmentingOntology} or {@code config} are {@code null}.
-     */
-    BufferedOWLReasoner createBufferedReasoner(OWLOntology ontology, Set<OWLAxiom> augmentingAxioms, OWLReasonerConfiguration config) throws IllegalConfigurationException;
+//    /**
+//     * Creates an OWLReasoner that reasons over the imports closure of the specified ontology plus the specified
+//     * augmenting ontology.  The reasoner will obtain the imports closure from the specified ontology manager. The reasoner will listen for ontology changes to the ontologies
+//     * that it is reasoning over and will always answer queries with respect to the changed ontologies (see {@link org.semanticweb.owlapi.reasoner.OWLReasoner}
+//     * for further details).
+//     *
+//     * @param ontology           The ontology whose imports closure will be reasoned over by the reasoner that is created.
+//     * @param config             A configuration object that can be used to customise the setup of the reasoner that will be created
+//     *                           by calling this method.
+//     * @param augmentingAxioms A set of axioms that can be used to augment the imports closure of the specified ontology.
+//     * @return The reasoner that reasons over the imports closure of the specified ontology.  Note that calling this
+//     *         method multiple times with the same manager and ontology will return <b>fresh</b> instances of OWLReasoner.
+//     * @throws IllegalConfigurationException if the configuration object is inappropriate for reasoners created by this
+//     *                                       factory, or if there is an illegal setting on the configuration.
+//     * @throws NullPointerException          if any of {@code manager}, {@code ontology}, {@code augmentingOntology} or {@code config} are {@code null}.
+//     */
+//    OWLReasoner createReasoner(OWLOntology ontology, Set<OWLAxiom> augmentingAxioms, OWLReasonerConfiguration config) throws IllegalConfigurationException;
+//
+//    /**
+//     * Creates a BufferedOWLReasoner that reasons over the imports closure of the specified ontology plus the specified
+//     * augmenting ontology.  The reasoner will obtain the imports closure from the specified ontology manager. The reasoner will listen for ontology changes to the ontologies
+//     * it is reasoning over but will only answer queries with respect to the changed ontologies when the {@link BufferedOWLReasoner#flush()} method is called
+//     * (see {@link BufferedOWLReasoner} for further details).
+//     *
+//     * @param ontology           The ontology whose imports closure will be reasoned over by the reasoner that is created.
+//     * @param config             A configuration object that can be used to customise the setup of the reasoner that will be created
+//     *                           by calling this method.
+//     * @param augmentingAxioms A set of axioms that can be used to augment the imports closure of the specified ontology.
+//     * @return The reasoner that reasons over the imports closure of the specified ontology.  Note that calling this
+//     *         method multiple times with the same manager and ontology will return <b>fresh</b> instances of OWLReasoner.
+//     * @throws IllegalConfigurationException if the configuration object is inappropriate for reasoners created by this
+//     *                                       factory, or if there is an illegal setting on the configuration.
+//     * @throws NullPointerException          if any of {@code manager}, {@code ontology}, {@code augmentingOntology} or {@code config} are {@code null}.
+//     */
+//    BufferedOWLReasoner createBufferedReasoner(OWLOntology ontology, Set<OWLAxiom> augmentingAxioms, OWLReasonerConfiguration config) throws IllegalConfigurationException;
 
 }
