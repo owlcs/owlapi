@@ -162,22 +162,8 @@ public interface OWLReasoner {
     IndividualSynonymsSet getPropertyValues(OWLNamedIndividual individual, OWLObjectPropertyExpression property) throws ReasonerInterruptedException;
 
     Set<OWLLiteral> getPropertyValues(OWLNamedIndividual individual, OWLDataPropertyExpression property) throws ReasonerInterruptedException;
-//
-//    /**
-//     * Asks the reasoner to answer a query.
-//     * @param query The query to be answered.  The specific type of query defines the query semantics and what answers
-//     * are expected.
-//     * @return The query answer.  The type of query specifies the semantics of the query and the query answers.
-//     * @throws UnsupportedQueryTypeException if this reasoner cannot answer the type of query being asked
-//     * @throws InconsistentOntologiesException if the reasoner's axiom set is inconsistent
-//     * @throws EntitiesNotInSignatureException if the signature of the query is not contained within the signature
-//     * of the reasoner's axiom set.
-//     * @throws ExpressivenessOutOfScopeException If the reasoner's axiom set contains axioms that are
-//     * out of the scope of expressiveness that is supported by this reasoner
-//     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any particular reason (for example if
-//     * reasoning was cancelled by a client process)
-//     */
-//    <R> R answerQuery(Query<R> query) throws UnsupportedQueryTypeException, ReasonerInterruptedException;
+
+    HierarchyNode<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual individual) throws ReasonerInterruptedException;
 
     /**
      * Determines if this reasoner supports satisfiability checking time out.
