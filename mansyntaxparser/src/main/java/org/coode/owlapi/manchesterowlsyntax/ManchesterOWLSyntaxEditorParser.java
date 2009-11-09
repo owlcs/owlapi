@@ -2130,11 +2130,20 @@ public class ManchesterOWLSyntaxEditorParser {
 
         if(v != null) {
             // We know the arity!
-            for (int i = 0; i < v.getArity(); i++) {
+            for (int i = 0; i < v.getMaxArity(); i++) {
                 SWRLDArgument obj = parseDObject();
                 args.add(obj);
-                if (i != v.getArity() - 1) {
+                // parse at least the minumum arity
+                if (i < v.getMinArity() - 1) {
                     consumeToken(",");
+                }
+                else if(i < v.getMaxArity() - 1) {
+                    if(peekToken().equals(",")) {
+                        consumeToken();
+                    }
+                    else {
+                        break;
+                    }
                 }
             }
         }

@@ -36,7 +36,7 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
     CEILING("ceiling", 2),
     FLOOR("floor", 2),
     ROUND("round", 2),
-    ROUND_HALF_TO_EVEN("roundHalfToEven", 2),
+    ROUND_HALF_TO_EVEN("roundHalfToEven", 1, 2),
     SIN("sin", 2),
     COS("cos", 2),
     TAN("tan", 2),
@@ -92,12 +92,19 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
     private IRI iri;
 
     // Arity of the predicate (-1 if infinite)
-    private int arity;
+    private int minArity;
+
+    private int maxArity;
 
     SWRLBuiltInsVocabulary(String name, int arity) {
+        this(name, arity, arity);
+    }
+
+    SWRLBuiltInsVocabulary(String name, int minArity, int maxArity) {
         this.shortName = name;
         this.iri = IRI.create(Namespaces.SWRLB + name);
-        this.arity = arity;
+        this.minArity = minArity;
+        this.maxArity = maxArity;
     }
 
 
@@ -113,9 +120,29 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
         return iri.toURI();
     }
 
+    /**
+     * Gets the minimum arity of this built in
+     * @return The minimum arity of this built in
+     */
+    public int getMinArity() {
+        return minArity;
+    }
 
+    /**
+     * Gets the maximum arity of this built in.
+     * @return The maximum arity of the built in or -1 if the arity is infinite
+     */
+    public int getMaxArity() {
+        return maxArity;
+    }
+
+    /**
+     * Returns the minimum arity of this built in.
+     * @return The minimum arity of this built in.
+     * @deprecated Use getMinArity and getMaxArity instead
+     */
     public int getArity() {
-        return arity;
+        return minArity;
     }
 
 
