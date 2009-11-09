@@ -77,22 +77,22 @@ public class RDFXMLRenderer extends RDFRendererBase {
         writer = new RDFXMLWriter(XMLWriterFactory.getInstance().createXMLWriter(w,
                 nsm,
                 base));
-        prettyPrintedTypes = new HashSet<URI>();
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_CLASS.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_DATA_PROPERTY.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_RESTRICTION.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_THING.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NOTHING.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ONTOLOGY.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.RDFS_DATATYPE.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_AXIOM.getURI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION.getURI());
+        prettyPrintedTypes = new HashSet<IRI>();
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_CLASS.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_RESTRICTION.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_THING.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NOTHING.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ONTOLOGY.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.RDFS_DATATYPE.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_AXIOM.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION.getIRI());
     }
 
 
@@ -155,10 +155,10 @@ public class RDFXMLRenderer extends RDFRendererBase {
 //        }
         RDFTriple candidatePrettyPrintTypeTriple = null;
         for (RDFTriple triple : triples) {
-            URI propertyURI = triple.getProperty().getURI();
-            if (propertyURI.equals(OWLRDFVocabulary.RDF_TYPE.getURI()) && !triple.getObject().isAnonymous()) {
-                if (OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getURI())) {
-                    if (prettyPrintedTypes.contains(triple.getObject().getURI())) {
+            IRI propertyIRI = triple.getProperty().getIRI();
+            if (propertyIRI.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()) {
+                if (OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())) {
+                    if (prettyPrintedTypes.contains(triple.getObject().getIRI())) {
                         candidatePrettyPrintTypeTriple = triple;
                     }
                 } else {
@@ -167,12 +167,12 @@ public class RDFXMLRenderer extends RDFRendererBase {
             }
         }
         if (candidatePrettyPrintTypeTriple == null) {
-            writer.writeStartElement(RDF_DESCRIPTION.getURI());
+            writer.writeStartElement(RDF_DESCRIPTION.getIRI());
         } else {
-            writer.writeStartElement(candidatePrettyPrintTypeTriple.getObject().getURI());
+            writer.writeStartElement(candidatePrettyPrintTypeTriple.getObject().getIRI());
         }
         if (!node.isAnonymous()) {
-            writer.writeAboutAttribute(node.getURI());
+            writer.writeAboutAttribute(node.getIRI());
         }
 //        else {
 //            if (getGraph().isAnonymousNodeSharedSubject(node)) {
@@ -183,7 +183,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
             if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple.equals(triple)) {
                 continue;
             }
-            writer.writeStartElement(triple.getProperty().getURI());
+            writer.writeStartElement(triple.getProperty().getIRI());
             RDFNode objectNode = triple.getObject();
             if (!objectNode.isLiteral()) {
                 RDFResourceNode objectRes = (RDFResourceNode) objectNode;
@@ -199,7 +199,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                             } else {
                                 if (n.isLiteral()) {
                                     RDFLiteralNode litNode = (RDFLiteralNode) n;
-                                    writer.writeStartElement(OWLRDFVocabulary.RDFS_LITERAL.getURI());
+                                    writer.writeStartElement(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
                                     if (litNode.getDatatype() != null) {
                                         writer.writeDatatypeAttribute(litNode.getDatatype());
                                     } else if (litNode.getLang() != null) {
@@ -208,8 +208,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
                                     writer.writeTextContent((litNode.getLiteral()));
                                     writer.writeEndElement();
                                 } else {
-                                    writer.writeStartElement(RDF_DESCRIPTION.getURI());
-                                    writer.writeAboutAttribute(n.getURI());
+                                    writer.writeStartElement(RDF_DESCRIPTION.getIRI());
+                                    writer.writeAboutAttribute(n.getIRI());
                                     writer.writeEndElement();
                                 }
                             }
@@ -218,7 +218,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                         render(objectRes);
                     }
                 } else {
-                    writer.writeResourceAttribute(objectRes.getURI());
+                    writer.writeResourceAttribute(objectRes.getIRI());
                 }
             } else {
                 RDFLiteralNode rdfLiteralNode = ((RDFLiteralNode) objectNode);

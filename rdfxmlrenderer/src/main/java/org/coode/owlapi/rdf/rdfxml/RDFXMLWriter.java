@@ -3,6 +3,7 @@ package org.coode.owlapi.rdf.rdfxml;
 import org.coode.xml.XMLWriter;
 import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class RDFXMLWriter {
         this.writer = writer;
     }
 
-    public void writeStartElement(URI elementName) throws IOException {
+    public void writeStartElement(IRI elementName) throws IOException {
             // Sort out with namespace
             writer.writeStartElement(elementName.toString());
     }
@@ -54,8 +55,8 @@ public class RDFXMLWriter {
             writer.writeAttribute(Namespaces.RDF + "parseType", "Collection");
     }
 
-    public void writeDatatypeAttribute(URI datatypeURI) throws IOException  {
-            writer.writeAttribute(Namespaces.RDF + "datatype", datatypeURI.toString());
+    public void writeDatatypeAttribute(IRI datatypeIRI) throws IOException  {
+            writer.writeAttribute(Namespaces.RDF + "datatype", datatypeIRI.toString());
     }
 
     public void writeTextContent(String text) throws IOException  {
@@ -71,17 +72,17 @@ public class RDFXMLWriter {
             writer.writeEndElement();
     }
 
-    public void writeAboutAttribute(URI value) throws IOException  {
+    public void writeAboutAttribute(IRI value) throws IOException  {
             writeAttribute(Namespaces.RDF + "about", value);
     }
 
     public void writeNodeIDAttribute(RDFResourceNode node) throws IOException  {
-        writeAttribute(Namespaces.RDF + "nodeID", URI.create(node.toString()));
+        writeAttribute(Namespaces.RDF + "nodeID", IRI.create(node.toString()));
     }
 
-    private void writeAttribute(String attributeName, URI value) throws IOException  {
-            URI s = writer.getXMLBaseAsURI().relativize(value);
-            writer.writeAttribute(attributeName, s.toString());
+    private void writeAttribute(String attributeName, IRI value) throws IOException  {
+//            URI s = writer.getXMLBaseAsURI().relativize(value);
+            writer.writeAttribute(attributeName, value.toString());
     }
 
     public void writeOWLObject(OWLObject owlObject) {
@@ -89,7 +90,7 @@ public class RDFXMLWriter {
     }
 
 
-    public void writeResourceAttribute(URI value) throws IOException  {
+    public void writeResourceAttribute(IRI value) throws IOException  {
         writeAttribute(Namespaces.RDF + "resource", value);
     }
 

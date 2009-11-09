@@ -1,5 +1,7 @@
 package org.coode.owlapi.rdf.model;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -40,7 +42,7 @@ public abstract class RDFNode {
      * Gets the URI of the resource.
      * @return The URI or <code>null</code> if this is an anonymous resource.
      */
-    public abstract URI getURI();
+    public abstract IRI getIRI();
 
 
     /**

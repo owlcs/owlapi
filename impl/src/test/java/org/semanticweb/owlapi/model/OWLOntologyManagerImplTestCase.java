@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.model;
 import junit.framework.TestCase;
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -41,7 +42,7 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        manager = new OWLOntologyManagerImpl();
+        manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         manager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         manager.addIRIMapper(new NonMappingOntologyIRIMapper());
     }

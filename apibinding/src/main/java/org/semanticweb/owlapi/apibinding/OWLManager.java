@@ -78,7 +78,7 @@ public class OWLManager {
      * @return The new manager.
      */
     public static OWLOntologyManager createOWLOntologyManager() {
-        return createOWLOntologyManager(new OWLDataFactoryImpl());
+        return createOWLOntologyManager(OWLDataFactoryImpl.getInstance());
     }
 
 
@@ -91,7 +91,7 @@ public class OWLManager {
      */
     public static OWLOntologyManager createOWLOntologyManager(OWLDataFactory dataFactory) {
         // Create the ontology manager and add ontology factories, mappers and storers
-        OWLOntologyManager ontologyManager = new OWLOntologyManagerImpl();
+        OWLOntologyManager ontologyManager = new OWLOntologyManagerImpl(dataFactory);
         ontologyManager.addOntologyStorer(new RDFXMLOntologyStorer());
         ontologyManager.addOntologyStorer(new OWLXMLOntologyStorer());
         ontologyManager.addOntologyStorer(new OWLFunctionalSyntaxOntologyStorer());

@@ -1,6 +1,6 @@
 package org.coode.owlapi.rdf.model;
 
-import java.net.URI;
+import org.semanticweb.owlapi.model.IRI;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -33,7 +33,7 @@ import java.net.URI;
  */
 public class RDFResourceNode extends RDFNode {
 
-    private URI uri;
+    private IRI iri;
 
     private int anonId;
 
@@ -42,8 +42,8 @@ public class RDFResourceNode extends RDFNode {
      * Constructs a named resource (i.e. a resource with
      * a URI).
      */
-    public RDFResourceNode(URI uri) {
-        this.uri = uri;
+    public RDFResourceNode(IRI iri) {
+        this.iri = iri;
     }
 
 
@@ -56,8 +56,8 @@ public class RDFResourceNode extends RDFNode {
     }
 
 
-    public URI getURI() {
-        return uri;
+    public IRI getIRI() {
+        return iri;
     }
 
 
@@ -67,13 +67,13 @@ public class RDFResourceNode extends RDFNode {
 
 
     public boolean isAnonymous() {
-        return uri == null;
+        return iri == null;
     }
 
 
     public int hashCode() {
         int hashCode = 17;
-        hashCode = hashCode * 37 + (uri == null ? anonId : uri.hashCode());
+        hashCode = hashCode * 37 + (iri == null ? anonId : iri.hashCode());
         return hashCode;
     }
 
@@ -83,9 +83,9 @@ public class RDFResourceNode extends RDFNode {
             return false;
         }
         RDFResourceNode other = (RDFResourceNode) obj;
-        if (uri != null) {
-            if (other.uri != null) {
-                return other.uri.equals(uri);
+        if (iri != null) {
+            if (other.iri != null) {
+                return other.iri.equals(iri);
             }
             else {
                 return false;
@@ -98,6 +98,6 @@ public class RDFResourceNode extends RDFNode {
 
 
     public String toString() {
-        return (uri != null ? "<" + uri.toString() + ">" : "genid" + Integer.toString(anonId));
+        return (iri != null ? "<" + iri.toString() + ">" : "genid" + Integer.toString(anonId));
     }
 }

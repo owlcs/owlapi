@@ -58,7 +58,7 @@ public abstract class AbstractOWLTestCase extends TestCase {
 
     public OWLOntologyManager getOWLOntologyManager() {
         if(owlOntologyManager == null) {
-            owlOntologyManager = new OWLOntologyManagerImpl();
+            owlOntologyManager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
             owlOntologyManager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         }
         return owlOntologyManager;

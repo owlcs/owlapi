@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 import java.io.File;
 import java.net.URL;
@@ -48,7 +49,7 @@ public class RDFParserTestCases extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         // Use the reference implementation
-        man = new OWLOntologyManagerImpl();
+        man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
         ParsableOWLOntologyFactory factory = new ParsableOWLOntologyFactory();
         man.addOntologyFactory(factory);

@@ -9,6 +9,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.IRI;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 import java.net.URI;
 /*
@@ -44,7 +45,7 @@ import java.net.URI;
 public class CardinalityTest extends TestCase {
 
     public void testParser() throws Exception {
-        OWLOntologyManager manager = new OWLOntologyManagerImpl();
+        OWLOntologyManager manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
         manager.addOntologyFactory(new ParsableOWLOntologyFactory());
         URI a = getClass().getResource("/owlapi/cardinality.owlapi").toURI();

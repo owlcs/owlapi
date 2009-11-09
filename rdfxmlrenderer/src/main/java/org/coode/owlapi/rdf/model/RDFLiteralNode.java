@@ -1,5 +1,7 @@
 package org.coode.owlapi.rdf.model;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -37,7 +39,7 @@ public class RDFLiteralNode extends RDFNode {
 
     private String lang;
 
-    private URI datatype;
+    private IRI datatype;
 
     private int hashCode = 0;
 
@@ -46,7 +48,7 @@ public class RDFLiteralNode extends RDFNode {
     }
 
 
-    public URI getURI() {
+    public IRI getIRI() {
         return null;
     }
 
@@ -56,7 +58,7 @@ public class RDFLiteralNode extends RDFNode {
     }
 
 
-    public RDFLiteralNode(String literal, URI datatype) {
+    public RDFLiteralNode(String literal, IRI datatype) {
         this.literal = literal;
         this.datatype = datatype;
     }
@@ -78,7 +80,7 @@ public class RDFLiteralNode extends RDFNode {
     }
 
 
-    public URI getDatatype() {
+    public IRI getDatatype() {
         return datatype;
     }
 

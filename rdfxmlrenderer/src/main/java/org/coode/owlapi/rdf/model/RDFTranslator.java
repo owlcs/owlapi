@@ -2,6 +2,7 @@ package org.coode.owlapi.rdf.model;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
 /*
@@ -59,7 +60,7 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResourceNode, 
     }
 
 
-    protected RDFLiteralNode getLiteralNode(String literal, URI datatype) {
+    protected RDFLiteralNode getLiteralNode(String literal, IRI datatype) {
         return new RDFLiteralNode(literal, datatype);
     }
 
@@ -69,12 +70,12 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResourceNode, 
     }
 
 
-    protected RDFResourceNode getPredicateNode(URI uri) {
+    protected RDFResourceNode getPredicateNode(IRI uri) {
         return new RDFResourceNode(uri);
     }
 
 
-    protected RDFResourceNode getResourceNode(URI uri) {
+    protected RDFResourceNode getResourceNode(IRI uri) {
         return new RDFResourceNode(uri);
     }
 

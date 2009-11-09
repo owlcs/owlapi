@@ -83,8 +83,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     private OWLOntologyChangeBroadcastStrategy defaultChangeBroadcastStrategy;
 
 
-    public OWLOntologyManagerImpl() {
-        this.dataFactory = OWLDataFactoryImpl.getInstance();
+    public OWLOntologyManagerImpl(OWLDataFactory dataFactory) {
+        this.dataFactory = dataFactory;
         properties = new OWLOntologyManagerProperties();
         ontologiesByID = new HashMap<OWLOntologyID, OWLOntology>();
         physicalURIsByID = new HashMap<OWLOntologyID, URI>();

@@ -51,7 +51,7 @@ public abstract class RDFRendererBase {
 
     private RDFGraph graph;
 
-    protected Set<URI> prettyPrintedTypes;
+    protected Set<IRI> prettyPrintedTypes;
 
     private boolean insertDeclarationAxioms;
 
@@ -100,7 +100,7 @@ public abstract class RDFRendererBase {
             writeBanner("Annotation properties");
             for (OWLAnnotationProperty prop : annotationProperties) {
                 createGraph(prop);
-                render(new RDFResourceNode(prop.getURI()));
+                render(new RDFResourceNode(prop.getIRI()));
             }
         }
 
@@ -117,7 +117,7 @@ public abstract class RDFRendererBase {
                 if (createGraph(datatype)) {
                     beginObject();
                     writeDatatypeComment(datatype);
-                    render(new RDFResourceNode(datatype.getURI()));
+                    render(new RDFResourceNode(datatype.getIRI()));
                     renderAnonRoots();
                     endObject();
                 }
@@ -135,7 +135,7 @@ public abstract class RDFRendererBase {
                     }
                     beginObject();
                     writeObjectPropertyComment(prop);
-                    render(new RDFResourceNode(prop.getURI()));
+                    render(new RDFResourceNode(prop.getIRI()));
                     renderAnonRoots();
                     endObject();
                 }
@@ -153,7 +153,7 @@ public abstract class RDFRendererBase {
                     }
                     beginObject();
                     writeDataPropertyComment(prop);
-                    render(new RDFResourceNode(prop.getURI()));
+                    render(new RDFResourceNode(prop.getIRI()));
                     renderAnonRoots();
                     endObject();
                 }
@@ -172,7 +172,7 @@ public abstract class RDFRendererBase {
                     }
                     beginObject();
                     writeClassComment(cls);
-                    render(new RDFResourceNode(cls.getURI()));
+                    render(new RDFResourceNode(cls.getIRI()));
                     renderAnonRoots();
                     endObject();
                 }
@@ -191,7 +191,7 @@ public abstract class RDFRendererBase {
                     }
                     beginObject();
                     writeIndividualComments(ind);
-                    render(new RDFResourceNode(ind.getURI()));
+                    render(new RDFResourceNode(ind.getIRI()));
                     renderAnonRoots();
                     endObject();
                 }
@@ -235,7 +235,7 @@ public abstract class RDFRendererBase {
             for (IRI iri : annotatedIRIs) {
                 beginObject();
                 createGraph(ontology.getAnnotationAssertionAxioms(iri));
-                render(new RDFResourceNode(iri.toURI()));
+                render(new RDFResourceNode(iri));
                 renderAnonRoots();
                 endObject();
             }
@@ -285,7 +285,7 @@ public abstract class RDFRendererBase {
                 rule.accept(variableExtractor);
             }
             for (SWRLVariable var : variableExtractor.getVariables()) {
-                render(new RDFResourceNode(var.getIRI().toURI()));
+                render(new RDFResourceNode(var.getIRI()));
             }
 
             renderAnonRoots();
@@ -299,22 +299,22 @@ public abstract class RDFRendererBase {
         OWLOntologyID ontID = ontology.getOntologyID();
         RDFResourceNode ontologyNode = null;
         if (ontID.getOntologyIRI() != null) {
-            ontologyNode = new RDFResourceNode(ontID.getOntologyIRI().toURI());
-            graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()), new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getURI())));
+            ontologyNode = new RDFResourceNode(ontID.getOntologyIRI());
+            graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getIRI())));
             if (ontID.getVersionIRI() != null) {
-                graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.OWL_VERSION_IRI.getURI()), new RDFResourceNode(ontID.getVersionIRI().toURI())));
+                graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.OWL_VERSION_IRI.getIRI()), new RDFResourceNode(ontID.getVersionIRI())));
             }
         }
         else {
             ontologyNode = new RDFResourceNode(System.identityHashCode(ontology));
         }
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
-            graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.OWL_IMPORTS.getURI()), new RDFResourceNode(decl.getURI())));
+            graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.OWL_IMPORTS.getIRI()), new RDFResourceNode(decl.getIRI())));
         }
         for (OWLAnnotation anno : ontology.getAnnotations()) {
             OWLAnnotationValueVisitorEx<RDFNode> valVisitor = new OWLAnnotationValueVisitorEx<RDFNode>() {
                 public RDFNode visit(IRI iri) {
-                    return new RDFResourceNode(iri.toURI());
+                    return new RDFResourceNode(iri);
                 }
 
                 public RDFNode visit(OWLAnonymousIndividual individual) {
@@ -322,7 +322,7 @@ public abstract class RDFRendererBase {
                 }
 
                 public RDFNode visit(OWLTypedLiteral literal) {
-                    return new RDFLiteralNode(literal.getLiteral(), literal.asOWLStringLiteral().getDatatype().getURI());
+                    return new RDFLiteralNode(literal.getLiteral(), literal.asOWLStringLiteral().getDatatype().getIRI());
                 }
 
                 public RDFNode visit(OWLStringLiteral literal) {
@@ -332,7 +332,7 @@ public abstract class RDFRendererBase {
             RDFNode node = anno.getValue().accept(valVisitor);
 
 
-            graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(anno.getProperty().getURI()), node));
+            graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(anno.getProperty().getIRI()), node));
         }
         render(ontologyNode);
     }
@@ -485,31 +485,31 @@ public abstract class RDFRendererBase {
 //        graph = new RDFGraph();
         entity.accept(new OWLEntityVisitor() {
             public void visit(OWLClass cls) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(cls.getURI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()), new RDFResourceNode(OWLRDFVocabulary.OWL_CLASS.getURI())));
+                graph.addTriple(new RDFTriple(new RDFResourceNode(cls.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_CLASS.getIRI())));
             }
 
 
             public void visit(OWLDatatype datatype) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(datatype.getURI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()), new RDFResourceNode(OWLRDFVocabulary.RDFS_DATATYPE.getURI())));
+                graph.addTriple(new RDFTriple(new RDFResourceNode(datatype.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDFS_DATATYPE.getIRI())));
             }
 
 
             public void visit(OWLNamedIndividual individual) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(individual.getURI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()), new RDFResourceNode(OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getURI())));
+                graph.addTriple(new RDFTriple(new RDFResourceNode(individual.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI())));
             }
 
 
             public void visit(OWLDataProperty property) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()), new RDFResourceNode(OWLRDFVocabulary.OWL_DATA_PROPERTY.getURI())));
+                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI())));
             }
 
 
             public void visit(OWLObjectProperty property) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()), new RDFResourceNode(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getURI())));
+                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI())));
             }
 
             public void visit(OWLAnnotationProperty property) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getURI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getURI()), new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI())));
+                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI())));
             }
         });
     }
@@ -521,7 +521,7 @@ public abstract class RDFRendererBase {
     private static <N extends OWLEntity> Set<N> toSortedSet(Set<N> entities) {
         Set<N> results = new TreeSet<N>(new Comparator<OWLEntity>() {
             public int compare(OWLEntity o1, OWLEntity o2) {
-                return o1.getURI().compareTo(o2.getURI());
+                return o1.getIRI().compareTo(o2.getIRI());
             }
         });
         results.addAll(entities);
@@ -541,9 +541,9 @@ public abstract class RDFRendererBase {
 
     protected boolean isObjectList(RDFResourceNode node) {
         for (RDFTriple triple : graph.getTriplesForSubject(node)) {
-            if (triple.getProperty().getURI().equals(OWLRDFVocabulary.RDF_TYPE.getURI())) {
+            if (triple.getProperty().getIRI().equals(OWLRDFVocabulary.RDF_TYPE.getIRI())) {
                 if (!triple.getObject().isAnonymous()) {
-                    if (triple.getObject().getURI().equals(OWLRDFVocabulary.RDF_LIST.getURI())) {
+                    if (triple.getObject().getIRI().equals(OWLRDFVocabulary.RDF_LIST.getIRI())) {
                         List<RDFNode> items = new ArrayList<RDFNode>();
                         toJavaList(node, items);
                         for (RDFNode n : items) {
@@ -564,14 +564,14 @@ public abstract class RDFRendererBase {
         RDFNode currentNode = n;
         while(currentNode != null) {
             for (RDFTriple triple : graph.getTriplesForSubject(currentNode)) {
-                if (triple.getProperty().getURI().equals(OWLRDFVocabulary.RDF_FIRST.getURI())) {
+                if (triple.getProperty().getIRI().equals(OWLRDFVocabulary.RDF_FIRST.getIRI())) {
                     list.add(triple.getObject());
                 }
             }
             for (RDFTriple triple : graph.getTriplesForSubject(currentNode)) {
-                if (triple.getProperty().getURI().equals(OWLRDFVocabulary.RDF_REST.getURI())) {
+                if (triple.getProperty().getIRI().equals(OWLRDFVocabulary.RDF_REST.getIRI())) {
                     if (!triple.getObject().isAnonymous()) {
-                        if (triple.getObject().getURI().equals(OWLRDFVocabulary.RDF_NIL.getURI())) {
+                        if (triple.getObject().getIRI().equals(OWLRDFVocabulary.RDF_NIL.getIRI())) {
                             // End of list
                             currentNode = null;
                         }
@@ -590,34 +590,34 @@ public abstract class RDFRendererBase {
 
     public static class TripleComparator implements Comparator<RDFTriple> {
 
-        private List<URI> orderedURIs;
+        private List<IRI> orderedURIs;
 
 
         public TripleComparator() {
-            orderedURIs = new ArrayList<URI>();
-            orderedURIs.add(OWLRDFVocabulary.RDF_TYPE.getURI());
-            orderedURIs.add(OWLRDFVocabulary.RDFS_LABEL.getURI());
-            orderedURIs.add(OWLRDFVocabulary.OWL_EQUIVALENT_CLASS.getURI());
-            orderedURIs.add(OWLRDFVocabulary.RDFS_SUBCLASS_OF.getURI());
-            orderedURIs.add(OWLRDFVocabulary.OWL_DISJOINT_WITH.getURI());
+            orderedURIs = new ArrayList<IRI>();
+            orderedURIs.add(OWLRDFVocabulary.RDF_TYPE.getIRI());
+            orderedURIs.add(OWLRDFVocabulary.RDFS_LABEL.getIRI());
+            orderedURIs.add(OWLRDFVocabulary.OWL_EQUIVALENT_CLASS.getIRI());
+            orderedURIs.add(OWLRDFVocabulary.RDFS_SUBCLASS_OF.getIRI());
+            orderedURIs.add(OWLRDFVocabulary.OWL_DISJOINT_WITH.getIRI());
 
-            orderedURIs.add(OWLRDFVocabulary.OWL_ON_PROPERTY.getURI());
-            orderedURIs.add(OWLRDFVocabulary.OWL_DATA_RANGE.getURI());
-            orderedURIs.add(OWLRDFVocabulary.OWL_ON_CLASS.getURI());
+            orderedURIs.add(OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI());
+            orderedURIs.add(OWLRDFVocabulary.OWL_DATA_RANGE.getIRI());
+            orderedURIs.add(OWLRDFVocabulary.OWL_ON_CLASS.getIRI());
 
-            orderedURIs.add(OWLRDFVocabulary.RDF_SUBJECT.getURI());
-            orderedURIs.add(OWLRDFVocabulary.RDF_PREDICATE.getURI());
-            orderedURIs.add(OWLRDFVocabulary.RDF_OBJECT.getURI());
+            orderedURIs.add(OWLRDFVocabulary.RDF_SUBJECT.getIRI());
+            orderedURIs.add(OWLRDFVocabulary.RDF_PREDICATE.getIRI());
+            orderedURIs.add(OWLRDFVocabulary.RDF_OBJECT.getIRI());
 
-            orderedURIs.add(OWLRDFVocabulary.OWL_SUBJECT.getURI());
-            orderedURIs.add(OWLRDFVocabulary.OWL_PREDICATE.getURI());
-            orderedURIs.add(OWLRDFVocabulary.OWL_OBJECT.getURI());
+            orderedURIs.add(OWLRDFVocabulary.OWL_SUBJECT.getIRI());
+            orderedURIs.add(OWLRDFVocabulary.OWL_PREDICATE.getIRI());
+            orderedURIs.add(OWLRDFVocabulary.OWL_OBJECT.getIRI());
 
         }
 
 
-        private int getIndex(URI uri) {
-            int index = orderedURIs.indexOf(uri);
+        private int getIndex(IRI iri) {
+            int index = orderedURIs.indexOf(iri);
             if (index == -1) {
                 index = orderedURIs.size();
             }
@@ -626,13 +626,13 @@ public abstract class RDFRendererBase {
 
 
         public int compare(RDFTriple o1, RDFTriple o2) {
-            int diff = getIndex(o1.getProperty().getURI()) - getIndex(o2.getProperty().getURI());
+            int diff = getIndex(o1.getProperty().getIRI()) - getIndex(o2.getProperty().getIRI());
             if (diff == 0) {
                 // Compare by subject, then predicate, then object
 
                 if (!o1.getSubject().isAnonymous()) {
                     if (!o2.getSubject().isAnonymous()) {
-                        diff = o1.getSubject().getURI().compareTo(o2.getSubject().getURI());
+                        diff = o1.getSubject().getIRI().compareTo(o2.getSubject().getIRI());
                     }
                     else {
                         diff = -1;
@@ -648,7 +648,7 @@ public abstract class RDFRendererBase {
                 }
 
                 if (diff == 0) {
-                    diff = o2.getProperty().getURI().compareTo(o2.getProperty().getURI());
+                    diff = o2.getProperty().getIRI().compareTo(o2.getProperty().getIRI());
                     if (diff == 0) {
                         if (!o1.getObject().isLiteral()) {
                             // Resource
@@ -656,7 +656,7 @@ public abstract class RDFRendererBase {
                                 // Resource
                                 if (!o1.getObject().isAnonymous()) {
                                     if (!o2.getObject().isAnonymous()) {
-                                        diff = o1.getObject().getURI().compareTo(o2.getObject().getURI());
+                                        diff = o1.getObject().getIRI().compareTo(o2.getObject().getIRI());
                                     }
                                     else {
                                         diff = -1;

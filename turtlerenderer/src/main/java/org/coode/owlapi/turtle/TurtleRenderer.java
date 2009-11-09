@@ -188,7 +188,7 @@ public class TurtleRenderer extends RDFRendererBase {
             } else {
                 writeStringLiteral(node.getLiteral());
                 write("^^");
-                write(IRI.create(node.getDatatype()));
+                write(node.getDatatype());
             }
         } else {
             writeStringLiteral(node.getLiteral());
@@ -232,7 +232,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
     private void write(RDFResourceNode node) {
         if (!node.isAnonymous()) {
-            write(IRI.create(node.getURI()));
+            write(node.getIRI());
         } else {
             pushTab();
             if (!isObjectList(node)) {

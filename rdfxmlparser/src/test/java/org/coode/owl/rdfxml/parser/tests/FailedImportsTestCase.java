@@ -6,6 +6,7 @@ import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.*;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 import java.net.URI;
 import java.net.URL;
@@ -42,7 +43,7 @@ import java.net.URL;
 public class FailedImportsTestCase extends TestCase {
 
     public void testImports() throws Exception {
-        OWLOntologyManager manager = new OWLOntologyManagerImpl();
+        OWLOntologyManager manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
         manager.addOntologyFactory(new ParsableOWLOntologyFactory());
         URL a = getClass().getResource("/owlapi/A.owlapi");
