@@ -168,7 +168,6 @@ public class OWL2RLProfile implements OWLProfile {
         }
 
         public Object visit(OWLFunctionalDataPropertyAxiom axiom) {
-            profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
