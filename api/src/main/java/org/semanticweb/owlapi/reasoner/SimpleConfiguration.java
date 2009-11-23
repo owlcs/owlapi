@@ -53,4 +53,8 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
     public ProgressMonitor getProgressMonitor() {
         return progressMonitor;
     }
+
+    public long getTimeOut() {
+        return 0;
+    }
 }

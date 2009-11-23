@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.reasoner;
 
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.profiles.OWLProfile;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -28,7 +29,24 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 01-Aug-2009
+ * Date: 22-Nov-2009
  */
-public interface IndividualSynonymsSet extends SetOfSynonymSets<OWLNamedIndividual, SynonymSet<OWLNamedIndividual>> {
+public class ClassExpressionNotInProfileExpression extends OWLReasonerRuntimeException {
+
+    private OWLClassExpression classExpression;
+
+    private OWLProfile profile;
+
+    public ClassExpressionNotInProfileExpression(OWLClassExpression classExpression, OWLProfile profile) {
+        this.classExpression = classExpression;
+        this.profile = profile;
+    }
+
+    public OWLClassExpression getClassExpression() {
+        return classExpression;
+    }
+
+    public OWLProfile getProfile() {
+        return profile;
+    }
 }

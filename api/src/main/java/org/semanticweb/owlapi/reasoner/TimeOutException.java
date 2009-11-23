@@ -1,4 +1,6 @@
 package org.semanticweb.owlapi.reasoner;
+
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -30,7 +32,7 @@ package org.semanticweb.owlapi.reasoner;
  *
  * Thrown when the current reasoner operation has been interrupted due to a satisfiability check timeout.
  */
-public class TimeOutException extends ReasonerInterruptedException {
+public class TimeOutException extends OWLReasonerRuntimeException {
 
 
 }

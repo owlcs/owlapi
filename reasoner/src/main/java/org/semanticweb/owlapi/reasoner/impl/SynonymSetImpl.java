@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
-import org.semanticweb.owlapi.reasoner.SynonymSet;
 
 import java.util.*;
 /*
@@ -32,7 +31,7 @@ import java.util.*;
  * Information Management Group<br>
  * Date: 01-Aug-2009
  */
-public class SynonymSetImpl<E> implements SynonymSet<E> {
+public class SynonymSetImpl<E> {
 
     private Set<E> delegate;
     

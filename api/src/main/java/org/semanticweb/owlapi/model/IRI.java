@@ -115,6 +115,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 
         private int hashCode = 0;
 
+        private URI cachedURI = null;
+
 
         public IRIImpl(String s) {
             int fragmentSeparatorIndex = s.lastIndexOf('#');
@@ -147,12 +149,15 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         }
 
         public URI toURI() {
-            if (fragment != null) {
-                return URI.create(prefix + fragment);
+            if (cachedURI == null) {
+                if (fragment != null) {
+                    cachedURI = URI.create(prefix + fragment);
+                }
+                else {
+                    cachedURI = URI.create(prefix);
+                }
             }
-            else {
-                return URI.create(prefix);
-            }
+            return cachedURI;
         }
 
         public IRI resolve(String s) {

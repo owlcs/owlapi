@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;/*
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 21-Jan-2009
  */
-public class IllegalConfigurationException extends OWLReasonerException {
+public class IllegalConfigurationException extends OWLReasonerRuntimeException {
 
 
     private OWLReasonerConfiguration configuration;

@@ -1,7 +1,9 @@
-package org.semanticweb.owlapi.reasoner.impl;
+package org.semanticweb.owlapi.reasoner;
 
-import org.semanticweb.owlapi.reasoner.HierarchyNode;
-import org.semanticweb.owlapi.reasoner.HierarchyNodeSet;
+import org.semanticweb.owlapi.model.OWLEntity;
+
+import java.util.Set;
+
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -30,10 +32,15 @@ import org.semanticweb.owlapi.reasoner.HierarchyNodeSet;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 01-Aug-2009
+ *
+ * A set of {@link Node}s.  Note that a <code>NodeSet</code> is immutable.
  */
-public class HierarchyNodeSetImpl<E> extends SetOfSynonymSetsImpl<E, HierarchyNode<E>> {
+public interface NodeSet<E extends OWLEntity> extends Set<Node<E>> {
 
-    protected HierarchyNode<E> createSingleton(E e) {
-        return new HierarchyNodeImpl<E>(e);
-    }
+
+    /**
+     * A convenience method that gets all of the elements contained in the nodes in this set.
+     * @return The union of the elements contained in the nodes sets in this set.
+     */
+    Set<E> getFlattened();
 }

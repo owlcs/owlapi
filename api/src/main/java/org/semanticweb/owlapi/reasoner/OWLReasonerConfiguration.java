@@ -45,5 +45,11 @@ public interface OWLReasonerConfiguration {
      */
     ProgressMonitor getProgressMonitor();
 
+    /**
+     * Gets the timeout for basic reasoner operations (satisfiability check time out).
+     * @return The time out.
+     */
+    long getTimeOut();
+
     
 }

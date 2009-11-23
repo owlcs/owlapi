@@ -1,6 +1,7 @@
-package org.semanticweb.owlapi.reasoner.impl;
+package org.semanticweb.owlapi.reasoner;
 
-import org.semanticweb.owlapi.reasoner.SynonymSet;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.profiles.OWLProfile;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -28,11 +29,24 @@ import org.semanticweb.owlapi.reasoner.SynonymSet;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 01-Aug-2009
+ * Date: 22-Nov-2009
  */
-public class SetOfPlainSynonymSets<E> extends SetOfSynonymSetsImpl<E, SynonymSet<E>> {
+public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
 
-    protected SynonymSet<E> createSingleton(E e) {
-        return new SynonymSetImpl<E>(e);
+    private OWLAxiom axiom;
+
+    private OWLProfile profile;
+
+    public AxiomNotInProfileException(OWLAxiom axiom, OWLProfile profile) {
+        this.axiom = axiom;
+        this.profile = profile;
+    }
+
+    public OWLAxiom getAxiom() {
+        return axiom;
+    }
+
+    public OWLProfile getProfile() {
+        return profile;
     }
 }

@@ -1,5 +1,8 @@
-package org.semanticweb.owlapi.reasoner;/*
- * Copyright (C) 2008, University of Manchester
+package org.semanticweb.owlapi.reasoner;
+
+import org.semanticweb.owlapi.profiles.OWLProfile;
+/*
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -22,12 +25,20 @@ package org.semanticweb.owlapi.reasoner;/*
  */
 
 /**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 21-Jan-2009
- *
- * A high level query interface that returns a result of type R
- * @R The result type
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 22-Nov-2009
  */
-public interface Query<R> {
+public class ImportsClosureNotInProfileException extends OWLReasonerRuntimeException {
 
+    private OWLProfile profile;
+
+    public ImportsClosureNotInProfileException(OWLProfile profile) {
+        this.profile = profile;
+    }
+
+    public OWLProfile getProfile() {
+        return profile;
+    }
 }

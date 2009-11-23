@@ -771,11 +771,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             }
 
             if (!objectMap.isEmpty() || !dataMap.isEmpty() || !negObjectMap.isEmpty() || !negDataMap.isEmpty()) {
+                fireSectionRenderingPrepared(FACTS.toString());
                 writeSection(FACTS);
                 writeSpace();
                 writeOntologiesList(ontology);
                 incrementTab(4);
                 writeNewLine();
+                fireSectionRenderingStarted(FACTS.toString());
                 writeFacts(objectMap, false);
                 if (!objectMap.isEmpty() && (!dataMap.isEmpty() || !negObjectMap.isEmpty() || !negDataMap.isEmpty())) {
                     write(",");
@@ -928,11 +930,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     write(NOT);
                     writeSpace();
                 }
+                fireSectionItemPrepared(FACTS.toString());
                 prop.accept(this);
                 writeSpace();
                 writeSpace();
                 OWLObject ind = it.next();
                 ind.accept(this);
+                fireSectionItemFinished(FACTS.toString());
                 if (it.hasNext()) {
                     write(",");
                     writeNewLine();

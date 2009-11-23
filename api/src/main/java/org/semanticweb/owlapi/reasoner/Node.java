@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.reasoner;
 
+import org.semanticweb.owlapi.model.OWLEntity;
+
 import java.util.Set;
 /*
  * Copyright (C) 2009, University of Manchester
@@ -28,11 +30,37 @@ import java.util.Set;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 01-Aug-2009
+ * Date: 03-Jul-2009
  *
- * Represents a set of elements that are interpreted as the same element.
+ * Represents a node (in a hierarchy), such as a class hierarchy, which contains elements that are equivalent.
+ * For example a node containing classes represents the fact that the classes are equivalent to each other.
+ * Hierarchy nodes are immutable.
  */
-public interface SynonymSet<E> extends Set<E> {
+public interface Node<E extends OWLEntity> extends Set<E> {
+
+    /**
+     * Determines if this node represents the top node (in a hierarchy).  For a class node this corresponds
+     * to the node that contains owl:Thing.  For an object property node this represents the node that contains
+     * owl:topObjectProperty.  For a data property hierarchy node this represents the node that contains
+     * owl:topDataProperty.
+     * @return <code>true</code> if this node is the top node in the hierarchy, or <code>false</code> if this node
+     * is not the top node in the hierarchy.
+     */
+    boolean isTopNode();
+
+    /**
+     * Determines if this node represents the bottom node in the hierarchy.  For a class hierarchy this corresponds to
+     * the node that represents owl:Nothing
+     * @return <code>true</code> if this node is the bottom node in the hierarchy, or <code>false</code> if this node
+     * is not the bottom node in the hierarchy
+     */
+    boolean isBottomNode();
+
+    /**
+     * Gets the elements contained in this node.  The elements are equivalent to each other.
+     * @return The set of elements
+     */
+    Set<E> getEquivalentElements();
 
     /**
      * Determines if this set of synonyms is a singleton set.
@@ -44,8 +72,13 @@ public interface SynonymSet<E> extends Set<E> {
      * Gets the one and only element if this set of synonyms is a singleton set
      * @return the one and only element if this set is a singleton set.  If this set is not a singleton set
      * then a runtime exception will be thrown
-     * @see #isSingleton() 
+     * @see #isSingleton()
      */
     E getSingletonElement();
 
+    /**
+     * Gets one of the elements contained in this synonym set.
+     * @return An element from the set of synonyms
+     */
+    E getRepresentativeElement();
 }

@@ -368,19 +368,21 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
 
         // Adding all entity declaration axioms
         // Adding all entity annotation axioms
-        for (OWLEntity entity : sig) {
-            Set<OWLDeclarationAxiom> declarationAxioms = ontology.getDeclarationAxioms(entity);
-            enrichedModule.addAll(declarationAxioms);
-            if (verbose) {
-                for (OWLDeclarationAxiom declarationAxiom : declarationAxioms) {
-                        System.out.println("  Added entity declaration axiom:   " + declarationAxiom);
+        if (ontology != null) {
+            for (OWLEntity entity : sig) {
+                Set<OWLDeclarationAxiom> declarationAxioms = ontology.getDeclarationAxioms(entity);
+                enrichedModule.addAll(declarationAxioms);
+                if (verbose) {
+                    for (OWLDeclarationAxiom declarationAxiom : declarationAxioms) {
+                            System.out.println("  Added entity declaration axiom:   " + declarationAxiom);
+                    }
                 }
-            }
-            Set<OWLAnnotationAssertionAxiom> entityAnnotationAxioms = entity.getAnnotationAssertionAxioms(ontology);
-            enrichedModule.addAll(entityAnnotationAxioms);
-            if (verbose) {
-                for (OWLAnnotationAssertionAxiom entityAnnotationAxiom : entityAnnotationAxioms) {
-                        System.out.println("  Added entity annotation axiom:   " + entityAnnotationAxiom);
+                Set<OWLAnnotationAssertionAxiom> entityAnnotationAxioms = entity.getAnnotationAssertionAxioms(ontology);
+                enrichedModule.addAll(entityAnnotationAxioms);
+                if (verbose) {
+                    for (OWLAnnotationAssertionAxiom entityAnnotationAxiom : entityAnnotationAxioms) {
+                            System.out.println("  Added entity annotation axiom:   " + entityAnnotationAxiom);
+                    }
                 }
             }
         }
