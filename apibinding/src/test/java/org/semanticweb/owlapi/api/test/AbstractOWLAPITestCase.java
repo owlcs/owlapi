@@ -200,6 +200,8 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
                 }
                 fail(sb.toString());
             }
+            // Now for ontology annotations
+            assertEquals(ont.getAnnotations(), ont2.getAnnotations());
         }
         catch (OWLOntologyStorageException e) {
             fail(e.getMessage() + " " + e.getStackTrace().toString());
