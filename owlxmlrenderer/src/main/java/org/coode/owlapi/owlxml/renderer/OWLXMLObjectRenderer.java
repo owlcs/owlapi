@@ -64,6 +64,10 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             writer.writeTextContent(decl.getURI().toString());
             writer.writeEndElement();
         }
+         for(OWLAnnotation annotation : ontology.getAnnotations()) {
+             annotation.accept(this);
+         }
+        
         List<OWLAxiom> axioms = new ArrayList<OWLAxiom>(ontology.getAxioms());
         Collections.sort(axioms);
         for (OWLAxiom ax : axioms) {
