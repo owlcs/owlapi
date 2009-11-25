@@ -76,7 +76,10 @@ public class OWLXMLWriter {
             base = ontology.getOntologyID().getOntologyIRI().toString();
         }
         this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer, nsm, base);
-        
+    }
+
+    public XMLWriterNamespaceManager getNamespaceManager() {
+        return writer.getNamespacePrefixes();
     }
 
     /**
