@@ -28,10 +28,24 @@ import org.semanticweb.owlapi.model.*;
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 29-Jul-2008<br><br>
+ *
+ * Provides a default implementation of <code>OWLObjectVisitorEx</code>.  Only the methods that need specific client
+ * implementation need be overriden.  The adapter can be set up to return a default value.
  */
 public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
 
     private O defaultReturnValue = null;
+
+    /**
+     * Gets the default return value for this visitor.  By default, the default is <code>null</code>, but a fixed value
+     * (independent of the specified <code>OWLObject</code> <code>object</code>) can be specified in the constructor
+     * {@link org.semanticweb.owlapi.model.OWLObjectVisitorEx#()}
+     * @param object The object that was visited.
+     * @return The default return value
+     */
+    protected O getDefaultReturnValue(OWLObject object) {
+        return defaultReturnValue;
+    }
 
     public OWLObjectVisitorExAdapter() {
     }
@@ -41,351 +55,347 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
     }
 
     public O visit(OWLAnnotationAssertionAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLClassAssertionAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLDataPropertyAssertionAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLDataPropertyDomainAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLDataPropertyRangeAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLDeclarationAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLDifferentIndividualsAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLDisjointClassesAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLDisjointDataPropertiesAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLDisjointUnionAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLEquivalentClassesAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLFunctionalDataPropertyAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLHasKeyAxiom axiom) {
-        return defaultReturnValue;
-    }
-
-    public O visit(OWLImportsDeclaration axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLInverseObjectPropertiesAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLObjectPropertyAssertionAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLSubPropertyChainOfAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLObjectPropertyDomainAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLObjectPropertyRangeAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLSameIndividualAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLSubClassOfAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLSubDataPropertyOfAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLSubObjectPropertyOfAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(SWRLRule rule) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(rule);
     }
 
     public O visit(OWLClass desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLDataAllValuesFrom desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLDataExactCardinality desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLDataMaxCardinality desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLDataMinCardinality desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLDataSomeValuesFrom desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLDataHasValue desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLObjectAllValuesFrom desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLObjectComplementOf desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLObjectExactCardinality desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLObjectHasSelf desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLObjectHasValue desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLObjectIntersectionOf desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLObjectMaxCardinality desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLObjectMinCardinality desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLObjectOneOf desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLObjectSomeValuesFrom desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLObjectUnionOf desc) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(desc);
     }
 
     public O visit(OWLDataComplementOf node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(OWLDataIntersectionOf node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(OWLDataOneOf node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(OWLDatatype node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(OWLDatatypeRestriction node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(OWLDataUnionOf node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(OWLFacetRestriction node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(OWLStringLiteral node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(OWLTypedLiteral node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(OWLDataProperty property) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(property);
     }
 
     public O visit(OWLObjectProperty property) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(property);
     }
 
     public O visit(OWLObjectInverseOf property) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(property);
     }
 
     public O visit(OWLNamedIndividual individual) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(individual);
     }
 
     public O visit(OWLAnnotationProperty property) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(property);
     }
 
     public O visit(OWLAnnotation annotation) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(annotation);
     }
 
     public O visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 
     public O visit(OWLAnonymousIndividual individual) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(individual);
     }
 
     public O visit(IRI iri) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(iri);
     }
 
     public O visit(OWLLiteral literal) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(literal);
     }
 
     public O visit(SWRLLiteralArgument node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(SWRLVariable node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(SWRLIndividualArgument node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(SWRLBuiltInAtom node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(SWRLClassAtom node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(SWRLDataRangeAtom node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(SWRLDataPropertyAtom node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(SWRLDifferentIndividualsAtom node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(SWRLObjectPropertyAtom node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(SWRLSameIndividualAtom node) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(node);
     }
 
     public O visit(OWLOntology ontology) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(ontology);
     }
 
 
     public O visit(OWLDatatypeDefinitionAxiom axiom) {
-        return defaultReturnValue;
+        return getDefaultReturnValue(axiom);
     }
 }

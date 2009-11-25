@@ -1,9 +1,5 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
-import org.semanticweb.owlapi.reasoner.Node;
-
-import java.util.Set;
-import java.util.Collection;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -90,7 +86,7 @@ public class NodeImpl<E> {
 //     * Gets the elements contained in this hierarchy node.  The elements are equivalent to each other.
 //     * @return The set of elements
 //     */
-//    public Set<E> getEquivalentElements() {
+//    public Set<E> getEntities() {
 //        return this;
 //    }
 }

@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * <p/>
  * Represents a named data range.
  */
-public interface OWLDatatype extends OWLDataRange, OWLEntity, OWLNamedObject {
+public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObject {
 
     /**
      * Gets the built in datatype information if this datatype is a built in

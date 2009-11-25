@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLogicalEntity;
 
 import java.util.Set;
 
@@ -33,14 +34,66 @@ import java.util.Set;
  * Information Management Group<br>
  * Date: 01-Aug-2009
  *
- * A set of {@link Node}s.  Note that a <code>NodeSet</code> is immutable.
+ * </p>
+ * A set of {@link Node}s.
  */
-public interface NodeSet<E extends OWLEntity> extends Set<Node<E>> {
+public interface NodeSet<E extends OWLLogicalEntity> extends Set<Node<E>> {
 
 
     /**
-     * A convenience method that gets all of the elements contained in the nodes in this set.
-     * @return The union of the elements contained in the nodes sets in this set.
+     * A convenience method that gets all of the entities contained in the <code>Nodes</code> in this <code>NodeSet</code>.
+     * @return The union of the entities contained in the <code>Nodes</code> in this <code>NodeSet</code>.
      */
     Set<E> getFlattened();
+
+    /**
+     * A convenience method that determines if this <code>NodeSet</code> contains a specific entity.
+     * @param e The entity to test for
+     * @return <code>true</code> if this <code>NodeSet</code> contains a <code>Node</code> that contains the entity,
+     * <code>e</code>, and <code>false</code> if this <code>NodeSet</code> does not contain a <code>Node</code>
+     * that contains the entity, <code>e</code>.
+     */
+    boolean containsEntity(E e);
+
+    /**
+     * Determines if this <code>NodeSet</code> is a singleton.  A <code>NodeSet</code> is a singleton if it contains
+     * only one <code>Node</code>.
+     * @return <code>true</code> if this <code>NodeSet</code> is a singleton, otherwise <code>false</code>.
+     */
+    boolean isSingleton();
+
+    /**
+     * Determines if this <code>NodeSet</code> is a singleton node that only contains the top node (in a hierarchy).
+     * @see {@link Node#isTopNode()} 
+     * @return <code>true</code> if this <code>NodeSet</code> is a singleton that contains only the top node, and
+     * <code>false</code> otherwise.
+     */
+    boolean isTopSingleton();
+
+
+    /**
+     * Determies if this <code>NodeSet</code> is a singleton that only contains the bottom node (in a hierarchy).
+     * @see {@link Node#isBottomNode()} 
+     * @return <code>true</code> if this <code>NodeSet</code> is a singleton that only contains a node that is the
+     * bottom node, otherwise <code>false</code>
+     */
+    boolean isBottomSingleton();
+
+    /**
+     * Determines if this <code>NodeSet</code> contains a <code>Node</code> that is the top node (in a hierarchy).
+     * @see {@link Node#isTopNode()} 
+     * @return <code>true</code> if this <code>NodeSet</code> contains a node that is the top node, otherwise
+     * <code>false</code>
+     */
+    boolean containsTopNode();
+
+    /**
+     * Determies if this node set contains a node that is the bottom node (in a hierarchy).
+     * {@link Node#isBottomNode()} 
+     * @return <code>true</code> if this <code>NodeSet</code> contains a node that is the bottom node, otherwise
+     * <code>false</code>
+     */
+    boolean containsBottomNode();
+
+
 }

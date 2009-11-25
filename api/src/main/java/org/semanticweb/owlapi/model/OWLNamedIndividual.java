@@ -25,6 +25,6 @@ package org.semanticweb.owlapi.model;/*
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 15-Jan-2009
  */
-public interface OWLNamedIndividual extends OWLIndividual, OWLEntity {
+public interface OWLNamedIndividual extends OWLIndividual, OWLLogicalEntity {
 
 }

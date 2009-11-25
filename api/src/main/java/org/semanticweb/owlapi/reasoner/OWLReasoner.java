@@ -75,6 +75,49 @@ import java.util.Set;/*
  * of the <code>Nodes</code> in the <code>NodeSet</code>.
  * </p>
  * <p/>
+ *
+ * <h2>Hierarchies</h2>
+ *
+ * A hierachy (class hierachy, object property hierarchy, data property hierarchy) is viewed as a directed acyclic
+ * graph (DAG) containing nodes connected via edges.  Each node in the hierarchy represents a set of entities that
+ * are equivalent to each other.  Each hierarchy has a top node (see {@link Node#isTopNode()}) and a bottom node
+ * (see {@link Node#isBottomNode()}).
+ * </p>
+ * The figure below shows an example class hierarchy.  Each box in the hierarchy represents a <code>Node</code>.  In
+ * this case the top node contains <code>owl:Thing</code> and the bottom node contains <code>owl:Nothing</code>
+ * because the nodes in the hierarchy are <code>OWLClass</code> nodes.  In this case, class <code>G</code>
+ * is equivalent to <code>owl:Thing</code> so it appears as an entity in the top node along with <code>owl:Thing</code>.
+ * Similarly, class <code>K</code> is unsatisfiable, so it is equivalent to <code>owl:Nothing</code>, and therefore
+ * appears in the bottom node containing <code>owl:Nothing</code>.  In this example, classes <code>A</code> and
+ * <code>B</code> are equivalent so they appear in one node, also, classes <code>D</code> and <code>F</code> are
+ * equivalent so they appear in one node.
+ * </p>
+ * Asking for the subclasses of a given class (expression) returns the a <code>NodeSet</code> containing the nodes that contain classes
+ * that are strict subclasses of the specified class (expression). For example, asking for the subclasses of class <code>C</code>
+ * returns the <code>NodeSet</code> <code>{E}</code> and
+ * <code>{owl:Nothing, K}</code>.
+ * </p>
+ * Asking for the direct subclasses of a given class (expression) returns the <code>NodeSet</code> that
+ * contains the nodes that contains classes that are direct subclasses of the specified class.  For example, asking for
+ * the direct subclasses of class <code>A</code> returns the <code>NodeSet</code>
+ * containing the nodes <code>{C}</code> and <code>{D, F}</code>.  Note that there are convenience methods on
+ * {@link NodeSet} and {@link org.semanticweb.owlapi.reasoner.Node} that can be used to directly access the entities
+ * in a <code>NodeSet</code> without having to iterate over the nodes and entities in a <code>NodeSet</code>. For
+ * example, a "plain" set of classes contained inside the <code>Nodes</code> contained inside a <code>NodeSet</code>
+ * can easily be obtained using the {@link NodeSet#getFlattened()} method.  In this case we could quickly obtain <code>{C,
+ * D, F}</code> as the direct subclasses of <code>A</code> simply by using the
+ * {@link #getSubClasses(org.semanticweb.owlapi.model.OWLClassExpression, boolean)}} (with boolean=true) method on
+ * <code>OWLReasoner</code> and then we could use the {@link NodeSet#getFlattened()} method on the retuned <code>NodeSet</code>.
+ * </p>
+ * Asking for equivalent classes of a class (expression) returns a <code>Node</code> that contains classes that are equivalent to
+ * the class (expression) .  For example, asking for the equivalent classes of <code>owl:Nothing</code>
+ * (i.e. asking for the unsatisfiable classes) returns the <code>Node</code> <code>{owl:Nothing, K}</code>.
+ * </p>
+ * <div align="center">
+ *  <img src="../../../../doc-files/hierarchy.png"/>
+ * </div>
+ * </p>
+ *
  * <h2>Definitions</h2>
  * <p>
  * In what follows, an extension of the <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/">OWL 2 Functional Syntax</a>
@@ -140,6 +183,8 @@ import java.util.Set;/*
  * <code>ClassAssertion(CE j)</code> and there is no class name <code>C</code> in the signature of <code>O</code>
  * such that <code>O</code> entails <code>ClassAssertion(C j)</code> and <code>O</code> entails
  * <code>StrictSubClassOf(C CE)</code>.
+ *
+ *
  */
 public interface OWLReasoner {
 
@@ -171,7 +216,9 @@ public interface OWLReasoner {
      *         or <code>false</code> if the imports closure of the root ontology is inconsistent.
      *
      * @throws ReasonerInterruptedException if the reasoning process was interrupted for any particular reason (for example if
-     *                                      reasoning was cancelled by a client process or reasoning timed out).
+     *                                      reasoning was cancelled by a client process).
+     * @throws TimeOutException if the reasoning processed timed out after the specified amount of time.
+     * See {@link #getTimeOut()}
      */
     boolean isConsistent() throws ReasonerInterruptedException, TimeOutException;
 
@@ -183,12 +230,16 @@ public interface OWLReasoner {
      * @return <code>true</code> if classExpression is satisfiable with respect to the set of axioms, or
      *         <code>false</code> if classExpression is unsatisfiable with respect to the axioms.
      *
-     * @throws InconsistentOntologyException if the reasoner's axiom set is inconsistent
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws ClassExpressionNotInProfileExpression if <code>classExpression</code> is not within the profile that is
+     * supported by this reasoner.
      * @throws EntitiesNotInSignatureException
      *                                       if the signature of the classExpression is not contained within the signature
-     *                                       of the reasoner's axiom set.
+     *                                       of the imports closure of the root ontology.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     *
      */
     boolean isSatisfiable(OWLClassExpression classExpression) throws ReasonerInterruptedException, TimeOutException, ClassExpressionNotInProfileExpression, EntitiesNotInSignatureException, InconsistentOntologyException;
 
@@ -201,11 +252,17 @@ public interface OWLReasoner {
      * @return <code>true</code> if {@code axiom} is entailed by the reasoner axioms or <code>false</code> if
      *         {@code axiom} is not entailed by the reasoner axioms.
      *
-     * @throws ReasonerInterruptedException if the reasoning process was interupped for any particular reason (for example if
-     *                                      reasoning was cancelled by a client process).
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the classExpression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      * @throws UnsupportedEntailmentTypeException
      *                                      if the reasoner cannot perform a check to see if the specified
      *                                      axiom is entailed
+     * @throws AxiomNotInProfileException if <code>axiom</code> is not in the profile that is supported by this reasoner.
      * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType)
      */
     boolean isEntailed(OWLAxiom axiom) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, EntitiesNotInSignatureException, InconsistentOntologyException;
@@ -247,12 +304,17 @@ public interface OWLReasoner {
      * </p>
      * If <code>ce</code> is equivalent to <code>owl:Nothing</code> then the empty <code>NodeSet</code> will be returned.
      *
-     * @throws ReasonerInterruptedException  if the reasoner was interrupted before this method returned by a client
-     *                                       requesting an interrupt via the {@link #interrupt()} method.
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent.
-     * @throws TimeOutException              if the reasoner timed out during a satisfiability check
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws ClassExpressionNotInProfileExpression if <code>classExpression</code> is not within the profile that is
+     * supported by this reasoner.
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the classExpression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct) throws ReasonerInterruptedException, TimeOutException, InconsistentOntologyException;
+    NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileExpression, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -270,12 +332,17 @@ public interface OWLReasoner {
      * </p>
      * If <code>ce</code> is equivalent to <code>owl:Thing</code> then the empty <code>NodeSet</code> will be returned.
      *
-     * @throws ReasonerInterruptedException  if the reasoner was interrupted before this method returned by a client
-     *                                       requesting an interrupt via the {@link #interrupt()} method.
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent.
-     * @throws TimeOutException              if the reasoner timed out during a satisfiability check
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws ClassExpressionNotInProfileExpression if <code>classExpression</code> is not within the profile that is
+     * supported by this reasoner.
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the classExpression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, boolean direct) throws ReasonerInterruptedException;
+    NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileExpression, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -294,12 +361,17 @@ public interface OWLReasoner {
      * If <code>ce</code> is equivalent to <code>owl:Thing</code> with respect to the root ontology imports closure
      * then the node representing and containing <code>owl:Thing</code>, i.e. the top node, will be returned
      * </p>.
-     * @throws ReasonerInterruptedException  if the reasoner was interrupted before this method returned by a client
-     *                                       requesting an interrupt via the {@link #interrupt()} method.
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent.
-     * @throws TimeOutException              if the reasoner timed out during a satisfiability check
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws ClassExpressionNotInProfileExpression if <code>classExpression</code> is not within the profile that is
+     * supported by this reasoner.
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the classExpression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    Node<OWLClass> getEquivalentClasses(OWLClassExpression ce) throws ReasonerInterruptedException;
+    Node<OWLClass> getEquivalentClasses(OWLClassExpression ce) throws InconsistentOntologyException, ClassExpressionNotInProfileExpression, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -327,12 +399,15 @@ public interface OWLReasoner {
      * If <code>pe</code> is equivalent to <code>owl:bottomObjectProperty</code> then the empty <code>NodeSet</code>
      * will be returned.
      *
-     * @throws ReasonerInterruptedException  if the reasoner was interrupted before this method returned by a client
-     *                                       requesting an interrupt via the {@link #interrupt()} method.
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent.
-     * @throws TimeOutException              if the reasoner timed out during a satisfiability check
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the object property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLObjectProperty> getSubObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws ReasonerInterruptedException;
+    NodeSet<OWLObjectProperty> getSubObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -352,12 +427,15 @@ public interface OWLReasoner {
      * If <code>pe</code> is equivalent to <code>owl:topObjectProperty</code> then the empty <code>NodeSet</code>
      * will be returned.
      *
-     * @throws ReasonerInterruptedException  if the reasoner was interrupted before this method returned by a client
-     *                                       requesting an interrupt via the {@link #interrupt()} method.
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent.
-     * @throws TimeOutException              if the reasoner timed out during a satisfiability check
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the object property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLObjectProperty> getSuperObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws ReasonerInterruptedException;
+    NodeSet<OWLObjectProperty> getSuperObjectProperties(OWLObjectPropertyExpression pe, boolean direct)  throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -377,12 +455,15 @@ public interface OWLReasoner {
      * If <code>ce</code> is equivalent to <code>owl:topObjectProperty</code> with respect to the root ontology imports closure
      * then the node representing and containing <code>owl:topObjectProperty</code>, i.e. the top node, will be returned
      * </p>.
-     * @throws ReasonerInterruptedException  if the reasoner was interrupted before this method returned by a client
-     *                                       requesting an interrupt via the {@link #interrupt()} method.
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent.
-     * @throws TimeOutException              if the reasoner timed out during a satisfiability check
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the object property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    Node<OWLObjectProperty> getEquivalentObjectProperties(OWLObjectPropertyExpression pe) throws ReasonerInterruptedException;
+    Node<OWLObjectProperty> getEquivalentObjectProperties(OWLObjectPropertyExpression pe)  throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
     /**
      * Gets the set of named object properties that are the inverses of the specified object property expression with
@@ -390,9 +471,15 @@ public interface OWLReasoner {
      * @param pe The property expression whose inverse properties are to be retrieved.
      * @return A <code>NodeSet</code> containing object properties such that for each object property <code>P</code> in
      * the nodes set, the root ontology imports closure entails <code>InverseObjectProperties(pe, P)</code>
-     * @throws ReasonerInterruptedException
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the object property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLObjectProperty> getInverseObjectProperties(OWLObjectPropertyExpression pe) throws ReasonerInterruptedException;
+    NodeSet<OWLObjectProperty> getInverseObjectProperties(OWLObjectPropertyExpression pe)  throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
     /**
      * Gets the named classes that are the direct or indirect domains of this property with respect to the imports
@@ -409,9 +496,15 @@ public interface OWLReasoner {
      * <code>C</code> in the node set, the root ontology imports closure entails <code>ObjectPropertyDomain(pe C)</code>, that is,
      * the root ontology imports closure entails <code>StrictSubClassOf(ObjectSomeValuesFrom(pe owl:Thing) C)</code> 
      *
-     * @throws ReasonerInterruptedException
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the object property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe, boolean direct) throws ReasonerInterruptedException;
+    NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe, boolean direct)  throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
     /**
      * Gets the named classes that are the direct or indirect ranges of this property with respect to the imports
@@ -430,9 +523,15 @@ public interface OWLReasoner {
      * <code>C</code> in the node set, the root ontology imports closure entails <code>ObjectPropertyRange(pe C)</code>, that is,
      * the root ontology imports closure entails <code>SubClassOf(owl:Thing ObjectAllValuesFrom(pe C))</code>.
      *
-     * @throws ReasonerInterruptedException
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the object property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe, boolean direct) throws ReasonerInterruptedException;
+    NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe, boolean direct)  throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -460,12 +559,15 @@ public interface OWLReasoner {
      * If <code>pe</code> is equivalent to <code>owl:bottomDataProperty</code> then the empty <code>NodeSet</code>
      * will be returned.
      *
-     * @throws ReasonerInterruptedException  if the reasoner was interrupted before this method returned by a client
-     *                                       requesting an interrupt via the {@link #interrupt()} method.
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent.
-     * @throws TimeOutException              if the reasoner timed out during a satisfiability check
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the data property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLDataProperty> getSubDataProperties(OWLDataPropertyExpression pe, boolean direct) throws ReasonerInterruptedException;
+    NodeSet<OWLDataProperty> getSubDataProperties(OWLDataPropertyExpression pe, boolean direct)  throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -485,12 +587,15 @@ public interface OWLReasoner {
      * If <code>pe</code> is equivalent to <code>owl:topDataProperty</code> then the empty <code>NodeSet</code>
      * will be returned.
      *
-     * @throws ReasonerInterruptedException  if the reasoner was interrupted before this method returned by a client
-     *                                       requesting an interrupt via the {@link #interrupt()} method.
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent.
-     * @throws TimeOutException              if the reasoner timed out during a satisfiability check
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the data property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataPropertyExpression pe, boolean direct) throws ReasonerInterruptedException;
+    NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataPropertyExpression pe, boolean direct)  throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -510,12 +615,15 @@ public interface OWLReasoner {
      * If <code>ce</code> is equivalent to <code>owl:topDataProperty</code> with respect to the root ontology imports closure
      * then the node representing and containing <code>owl:topDataProperty</code>, i.e. the top node, will be returned
      * </p>.
-     * @throws ReasonerInterruptedException  if the reasoner was interrupted before this method returned by a client
-     *                                       requesting an interrupt via the {@link #interrupt()} method.
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent.
-     * @throws TimeOutException              if the reasoner timed out during a satisfiability check
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the data property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty pe) throws ReasonerInterruptedException;
+    Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty pe)  throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
     /**
      * Gets the named classes that are the direct or indirect domains of this property with respect to the imports
@@ -532,9 +640,15 @@ public interface OWLReasoner {
      * <code>C</code> in the node set, the root ontology imports closure entails <code>DataPropertyDomain(pe C)</code>, that is,
      * the root ontology imports closure entails <code>StrictSubClassOf(ObjectSomeValuesFrom(pe rdfs:Literal) C)</code>
      *
-     * @throws ReasonerInterruptedException
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the data property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getDataPropertyDomains(OWLDataPropertyExpression pe, boolean direct) throws ReasonerInterruptedException;
+    NodeSet<OWLClass> getDataPropertyDomains(OWLDataPropertyExpression pe, boolean direct)  throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -561,11 +675,15 @@ public interface OWLReasoner {
      * <code>ClassAssertion(C, ind)</code>.
      * </p>
      * 
-     * @throws ReasonerInterruptedException  if the reasoner was interrupted while getting the individuals of the
-     *                                       specified class expression.
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the individual is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, boolean direct) throws ReasonerInterruptedException;
+    NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, boolean direct)  throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
     /**
      * Gets the individuals which are instances of the specified class expression.  The individuals are returned a
@@ -584,11 +702,17 @@ public interface OWLReasoner {
      * If ce is unsatisfiable with respect to the root ontology imports closure then the empty <code>NodeSet</code>
      * is returned.
      *
-     * @throws ReasonerInterruptedException  if the reasoner was interrupted while getting the individuals of the
-     *                                       specified class expression.
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws ClassExpressionNotInProfileExpression if the class expression <code>ce</code> is not in the profile
+     * that is supported by this reasoner.
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the class expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, boolean direct) throws ReasonerInterruptedException, InconsistentOntologyException;
+    NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, boolean direct)  throws InconsistentOntologyException, ClassExpressionNotInProfileExpression, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -598,9 +722,15 @@ public interface OWLReasoner {
      * @param pe The object property expression whose values are to be retrieved for the specified individual
      * @return A <code>NodeSet</code> containing named individuals such that for each individual <code>j</code> in the
      * node set, the root ontology imports closure entails <code>ObjectPropertyAssertion(pe ind j)</code>
-     * @throws ReasonerInterruptedException
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the individual and property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual ind, OWLObjectPropertyExpression pe) throws ReasonerInterruptedException;
+    NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual ind, OWLObjectPropertyExpression pe)  throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -610,9 +740,15 @@ public interface OWLReasoner {
      * @return A set of <code>OWLLiteral</code>s containing literals such that for each literal <code>l</code> in the
      * set, the root ontology imports closure entails <code>DataPropertyAssertion(pe ind l)</code>, and, the literal
      * <code>l</code> appears in an axiom that is contained in the imports closure of the root ontology.
-     * @throws ReasonerInterruptedException
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the individual and property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataPropertyExpression pe) throws ReasonerInterruptedException;
+    Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataPropertyExpression pe)  throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
     /**
      * Gets the individuals that are the same as the specified individual.
@@ -620,16 +756,27 @@ public interface OWLReasoner {
      * @return A node containing individuals such that for each individual <code>j</code> in the node, the root
      * ontology imports closure entails <code>SameIndividual(j, ind)</code>.  Note that the node will contain
      * <code>j</code>.
-     * @throws ReasonerInterruptedException
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws EntitiesNotInSignatureException
+     *                                       if the signature of the individual is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind) throws ReasonerInterruptedException;
+    Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind)  throws InconsistentOntologyException, EntitiesNotInSignatureException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
      * Gets the time out for the most basic reasoning operations.  That is the maximum time for a
-     * satisfiability test, subsumption test etc.  The time out is set at reasoner creation time.
+     * satisfiability test, subsumption test etc.  The time out should be set at reasoner creation time.
+     * During satisfiability (subsumption) checking the reasoner will check to see if the time it has spent
+     * doing the single check is longer than the value returned by this method.  If this is the case, the
+     * reasoner will throw a {@link org.semanticweb.owlapi.reasoner.TimeOutException} in the thread that is
+     * executing the reasoning process.
      *
-     * @return The time out for basic reasoner operation.  A value of zero indicates there is no time out.
+     * @return The time out for basic reasoner operation.  By default this is the value of
+     * {@link Long#MAX_VALUE}.
      */
     long getTimeOut();
 

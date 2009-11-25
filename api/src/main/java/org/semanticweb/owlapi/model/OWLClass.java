@@ -33,7 +33,7 @@ import java.util.Set;
  *
  * Represents a named class in OWL.
  */
-public interface OWLClass extends OWLClassExpression, OWLEntity, OWLNamedObject {
+public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamedObject {
 
     /**
      * A convenience method that examines the axioms in the specified ontology

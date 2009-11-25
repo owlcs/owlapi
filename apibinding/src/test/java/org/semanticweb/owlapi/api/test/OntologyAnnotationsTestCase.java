@@ -1,8 +1,10 @@
-package org.semanticweb.owlapi.model;
+package org.semanticweb.owlapi.api.test;
 
-import java.net.URI;
+import org.semanticweb.owlapi.model.*;
+
+import java.util.Set;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -24,24 +26,25 @@ import java.net.URI;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <p/>
- * Represents a named object for example, class, property,
- * ontology etc. - i.e. anything that has an IRI as its name.
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 23-Nov-2009
  */
-public interface OWLNamedObject extends OWLObject {
+public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTest {
 
-    /**
-     * Gets the IRI of this object
-     *
-     * @return The IRI of this object
-     */
-    public IRI getIRI();
-
-    void accept(OWLNamedObjectVisitor visitor);
+    protected OWLOntology createOntology() {
+        try {
+            OWLOntology ont = getOWLOntology("AnnotationOntology");
+            OWLAnnotationProperty prop = getFactory().getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
+            OWLLiteral value = getFactory().getOWLTypedLiteral(33);
+            OWLAnnotation annotation = getFactory().getOWLAnnotation(prop, value);
+            getManager().applyChange(new AddOntologyAnnotation(ont, annotation));
+            return ont;
+        }
+        catch (OWLOntologyChangeException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
 }

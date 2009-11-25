@@ -1,8 +1,6 @@
 package org.semanticweb.owlapi.model;
-
-import java.net.URI;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -24,24 +22,13 @@ import java.net.URI;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <p/>
- * Represents a named object for example, class, property,
- * ontology etc. - i.e. anything that has an IRI as its name.
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 25-Nov-2009
+ *
+ * An <code>OWLLogicalEntity</code> is an <code>OWLEntity</code> that is not an <code>OWLAnnotationProperty</code>.
  */
-public interface OWLNamedObject extends OWLObject {
-
-    /**
-     * Gets the IRI of this object
-     *
-     * @return The IRI of this object
-     */
-    public IRI getIRI();
-
-    void accept(OWLNamedObjectVisitor visitor);
+public interface OWLLogicalEntity extends OWLEntity {
 }
