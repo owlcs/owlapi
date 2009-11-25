@@ -78,6 +78,10 @@ public class OWLXMLWriter {
         this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer, nsm, base);
     }
 
+    public Map<String, String> getIRIPrefixMap() {
+        return iriPrefixMap;
+    }
+
     public XMLWriterNamespaceManager getNamespaceManager() {
         return writer.getNamespacePrefixes();
     }
