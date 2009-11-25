@@ -35,22 +35,14 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
 
     private int hashCode;
 
-    private static HashCode instance = new HashCode();
-
     private static final int MULT = 37;
 
 
     public static int hashCode(OWLObject object) {
-        object.accept(instance);
-        return instance.hashCode;
+        HashCode hashCode = new HashCode();
+        object.accept(hashCode);
+        return hashCode.hashCode;
     }
-
-
-    public static int hashCode(SWRLObject object) {
-        object.accept(instance);
-        return instance.hashCode;
-    }
-
 
     public void visit(OWLOntology ontology) {
         hashCode = ontology.getOntologyID().hashCode();

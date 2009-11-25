@@ -47,7 +47,7 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends Abstra
         annos.add(anno2);
         OWLAxiom ax = getMainAxiom(annos);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(ax);
+        axioms.add(ax.getAnnotatedAxiom(annos));
         OWLEntityCollector entityCollector = new OWLEntityCollector();
         ax.accept(entityCollector);
         for(OWLEntity ent : entityCollector.getObjects()) {
