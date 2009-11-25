@@ -31,6 +31,10 @@ import java.util.*;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+/*
+ *  based on OWLOntologyImpl svn revision 1294
+ */ 
+
 
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group<br> Date:
@@ -1072,12 +1076,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(OWLClass cls) {
         if (subClassAxiomsByLHS == null) {
-            subClassAxiomsByLHS = createMap();
+            Map<OWLClass, Set<OWLSubClassOfAxiom>> subClassAxiomsByLHS = createMap(); // masks member declaration
             for (OWLSubClassOfAxiom axiom : getAxiomsInternal(SUBCLASS_OF)) {
                 if (!axiom.getSubClass().isAnonymous()) {
                     addToIndexedSet(axiom.getSubClass().asOWLClass(), subClassAxiomsByLHS, axiom);
                 }
             }
+            this.subClassAxiomsByLHS=subClassAxiomsByLHS;
         }
         return getReturnSet(getAxioms(cls, subClassAxiomsByLHS));
     }
@@ -1085,12 +1090,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSuperClass(OWLClass cls) {
         if (subClassAxiomsByRHS == null) {
-            subClassAxiomsByRHS = createMap();
+            Map<OWLClass, Set<OWLSubClassOfAxiom>> subClassAxiomsByRHS = createMap();  // masks member declaration
             for (OWLSubClassOfAxiom axiom : getAxiomsInternal(SUBCLASS_OF)) {
                 if (!axiom.getSuperClass().isAnonymous()) {
                     addToIndexedSet(axiom.getSuperClass().asOWLClass(), subClassAxiomsByRHS, axiom);
                 }
             }
+            this.subClassAxiomsByRHS=subClassAxiomsByRHS;
         }
         return getReturnSet(getAxioms(cls, subClassAxiomsByRHS));
     }
@@ -1098,7 +1104,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(OWLClass cls) {
         if (equivalentClassesAxiomsByClass == null) {
-            equivalentClassesAxiomsByClass = createMap();
+            Map<OWLClass, Set<OWLEquivalentClassesAxiom>> equivalentClassesAxiomsByClass = createMap();  // masks member declaration
             for (OWLEquivalentClassesAxiom axiom : getAxiomsInternal(EQUIVALENT_CLASSES)) {
                 for (OWLClassExpression desc : axiom.getClassExpressions()) {
                     if (!desc.isAnonymous()) {
@@ -1106,6 +1112,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                     }
                 }
             }
+            this.equivalentClassesAxiomsByClass=equivalentClassesAxiomsByClass;
         }
         return getReturnSet(getAxioms(cls, equivalentClassesAxiomsByClass));
     }
@@ -1113,7 +1120,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(OWLClass cls) {
         if (disjointClassesAxiomsByClass == null) {
-            disjointClassesAxiomsByClass = createMap();
+            Map<OWLClass, Set<OWLDisjointClassesAxiom>> disjointClassesAxiomsByClass = createMap(); // masks member declaration
             for (OWLDisjointClassesAxiom axiom : getAxiomsInternal(DISJOINT_CLASSES)) {
                 for (OWLClassExpression desc : axiom.getClassExpressions()) {
                     if (!desc.isAnonymous()) {
@@ -1121,6 +1128,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                     }
                 }
             }
+            this.disjointClassesAxiomsByClass=disjointClassesAxiomsByClass;
         }
         return getReturnSet(getAxioms(cls, disjointClassesAxiomsByClass));
     }
@@ -1128,7 +1136,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(OWLClass owlClass) {
         if (disjointUnionAxiomsByClass == null) {
-            disjointUnionAxiomsByClass = createMap();
+            Map<OWLClass, Set<OWLDisjointUnionAxiom>> disjointUnionAxiomsByClass = createMap(); // masks member declaration
             for (OWLDisjointUnionAxiom axiom : getAxiomsInternal(DISJOINT_UNION)) {
                 for (OWLClassExpression desc : axiom.getClassExpressions()) {
                     if (!desc.isAnonymous()) {
@@ -1136,6 +1144,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                     }
                 }
             }
+            this.disjointUnionAxiomsByClass=disjointUnionAxiomsByClass;
         }
         return getReturnSet(getAxioms(owlClass, disjointUnionAxiomsByClass));
     }
@@ -1143,12 +1152,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLHasKeyAxiom> getHasKeyAxioms(OWLClass cls) {
         if(hasKeyAxiomsByClass == null) {
-            hasKeyAxiomsByClass = createMap();
+            Map<OWLClass, Set<OWLHasKeyAxiom>> hasKeyAxiomsByClass = createMap(); // masks member declaration
             for(OWLHasKeyAxiom axiom : getAxiomsInternal(HAS_KEY)) {
                 if (!axiom.getClassExpression().isAnonymous()) {
                     addToIndexedSet(axiom.getClassExpression().asOWLClass(), hasKeyAxiomsByClass, axiom);
                 }
             }
+            this.hasKeyAxiomsByClass=hasKeyAxiomsByClass;
         }
         return getReturnSet(getAxioms(cls, hasKeyAxiomsByClass));
     }
@@ -1158,10 +1168,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     // Object properties
     public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSubProperty(OWLObjectPropertyExpression property) {
         if (objectSubPropertyAxiomsByLHS == null) {
-            objectSubPropertyAxiomsByLHS = createMap();
+            Map<OWLObjectPropertyExpression, Set<OWLSubObjectPropertyOfAxiom>> objectSubPropertyAxiomsByLHS = createMap(); // masks member declaration
             for (OWLSubObjectPropertyOfAxiom axiom : getAxiomsInternal(SUB_OBJECT_PROPERTY)) {
                 addToIndexedSet(axiom.getSubProperty(), objectSubPropertyAxiomsByLHS, axiom);
             }
+            this.objectSubPropertyAxiomsByLHS=objectSubPropertyAxiomsByLHS;
         }
         return getReturnSet(getAxioms(property, objectSubPropertyAxiomsByLHS));
     }
@@ -1169,10 +1180,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSuperProperty(OWLObjectPropertyExpression property) {
         if (objectSubPropertyAxiomsByRHS == null) {
-            objectSubPropertyAxiomsByRHS = createMap();
+            Map<OWLObjectPropertyExpression, Set<OWLSubObjectPropertyOfAxiom>> objectSubPropertyAxiomsByRHS = createMap(); // masks member declaration
             for (OWLSubObjectPropertyOfAxiom axiom : getAxiomsInternal(SUB_OBJECT_PROPERTY)) {
                 addToIndexedSet(axiom.getSuperProperty(), objectSubPropertyAxiomsByRHS, axiom);
             }
+            this.objectSubPropertyAxiomsByRHS=objectSubPropertyAxiomsByRHS;
         }
         return getReturnSet(getAxioms(property, objectSubPropertyAxiomsByRHS));
     }
@@ -1180,10 +1192,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(OWLObjectPropertyExpression property) {
         if (objectPropertyDomainAxiomsByProperty == null) {
-            objectPropertyDomainAxiomsByProperty = createMap();
+            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyDomainAxiom>> objectPropertyDomainAxiomsByProperty = createMap(); // masks member declaration
             for (OWLObjectPropertyDomainAxiom axiom : getAxiomsInternal(OBJECT_PROPERTY_DOMAIN)) {
                 addToIndexedSet(axiom.getProperty(), objectPropertyDomainAxiomsByProperty, axiom);
             }
+            this.objectPropertyDomainAxiomsByProperty=objectPropertyDomainAxiomsByProperty;
         }
         return getReturnSet(getAxioms(property, objectPropertyDomainAxiomsByProperty));
     }
@@ -1191,10 +1204,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLObjectPropertyRangeAxiom> getObjectPropertyRangeAxioms(OWLObjectPropertyExpression property) {
         if (objectPropertyRangeAxiomsByProperty == null) {
-            objectPropertyRangeAxiomsByProperty = createMap();
+            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyRangeAxiom>> objectPropertyRangeAxiomsByProperty = createMap(); // masks member declaration
             for (OWLObjectPropertyRangeAxiom axiom : getAxiomsInternal(OBJECT_PROPERTY_RANGE)) {
                 addToIndexedSet(axiom.getProperty(), objectPropertyRangeAxiomsByProperty, axiom);
             }
+            this.objectPropertyRangeAxiomsByProperty=objectPropertyRangeAxiomsByProperty;
         }
         return getReturnSet(getAxioms(property, objectPropertyRangeAxiomsByProperty));
     }
@@ -1202,12 +1216,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLInverseObjectPropertiesAxiom> getInverseObjectPropertyAxioms(OWLObjectPropertyExpression property) {
         if (inversePropertyAxiomsByProperty == null) {
-            inversePropertyAxiomsByProperty = createMap();
+            Map<OWLObjectPropertyExpression, Set<OWLInverseObjectPropertiesAxiom>> inversePropertyAxiomsByProperty = createMap(); // masks member declaration
             for (OWLInverseObjectPropertiesAxiom axiom : getAxiomsInternal(INVERSE_OBJECT_PROPERTIES)) {
                 for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                     addToIndexedSet(prop, inversePropertyAxiomsByProperty, axiom);
                 }
             }
+            this.inversePropertyAxiomsByProperty=inversePropertyAxiomsByProperty;
         }
         return getReturnSet(getAxioms(property, inversePropertyAxiomsByProperty));
     }
@@ -1216,12 +1231,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     public Set<OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertiesAxioms(
             OWLObjectPropertyExpression property) {
         if (equivalentObjectPropertyAxiomsByProperty == null) {
-            equivalentObjectPropertyAxiomsByProperty = createMap();
+            Map<OWLObjectPropertyExpression, Set<OWLEquivalentObjectPropertiesAxiom>> equivalentObjectPropertyAxiomsByProperty = createMap(); // masks member declaration
             for (OWLEquivalentObjectPropertiesAxiom axiom : getAxiomsInternal(EQUIVALENT_OBJECT_PROPERTIES)) {
                 for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                     addToIndexedSet(prop, equivalentObjectPropertyAxiomsByProperty, axiom);
                 }
             }
+            this.equivalentObjectPropertyAxiomsByProperty=equivalentObjectPropertyAxiomsByProperty;
         }
         return getReturnSet(getAxioms(property, equivalentObjectPropertyAxiomsByProperty));
     }
@@ -1230,12 +1246,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     public Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(
             OWLObjectPropertyExpression property) {
         if (disjointObjectPropertyAxiomsByProperty == null) {
-            disjointObjectPropertyAxiomsByProperty = createMap();
+            Map<OWLObjectPropertyExpression, Set<OWLDisjointObjectPropertiesAxiom>> disjointObjectPropertyAxiomsByProperty = createMap(); // masks member declaration
             for (OWLDisjointObjectPropertiesAxiom axiom : getAxiomsInternal(DISJOINT_OBJECT_PROPERTIES)) {
                 for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                     addToIndexedSet(prop, disjointObjectPropertyAxiomsByProperty, axiom);
                 }
             }
+            this.disjointObjectPropertyAxiomsByProperty=disjointObjectPropertyAxiomsByProperty;
         }
         return getReturnSet(getAxioms(property, disjointObjectPropertyAxiomsByProperty));
     }
@@ -1307,10 +1324,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxioms(OWLDataPropertyExpression property) {
         if (functionalDataPropertyAxiomsByProperty == null) {
-            functionalDataPropertyAxiomsByProperty = createMap();
+            Map<OWLDataPropertyExpression, Set<OWLFunctionalDataPropertyAxiom>> functionalDataPropertyAxiomsByProperty = createMap(); // masks member declaration
             for(OWLFunctionalDataPropertyAxiom ax : getAxiomsInternal(FUNCTIONAL_DATA_PROPERTY)) {
                 addToIndexedSet(ax.getProperty(), functionalDataPropertyAxiomsByProperty, ax);
             }
+            this.functionalDataPropertyAxiomsByProperty=functionalDataPropertyAxiomsByProperty;
         }
         return getAxioms(property, functionalDataPropertyAxiomsByProperty);
     }
@@ -1318,10 +1336,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSubProperty(OWLDataProperty lhsProperty) {
         if (dataSubPropertyAxiomsByLHS == null) {
-            dataSubPropertyAxiomsByLHS = createMap();
+            Map<OWLDataPropertyExpression, Set<OWLSubDataPropertyOfAxiom>> dataSubPropertyAxiomsByLHS = createMap(); // masks member declaration
             for (OWLSubDataPropertyOfAxiom axiom : getAxiomsInternal(SUB_DATA_PROPERTY)) {
                 addToIndexedSet(axiom.getSubProperty(), dataSubPropertyAxiomsByLHS, axiom);
             }
+            this.dataSubPropertyAxiomsByLHS=dataSubPropertyAxiomsByLHS;
         }
         return getReturnSet(getAxioms(lhsProperty, dataSubPropertyAxiomsByLHS));
     }
@@ -1329,10 +1348,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSuperProperty(OWLDataPropertyExpression property) {
         if (dataSubPropertyAxiomsByRHS == null) {
-            dataSubPropertyAxiomsByRHS = createMap();
+            Map<OWLDataPropertyExpression, Set<OWLSubDataPropertyOfAxiom>> dataSubPropertyAxiomsByRHS = createMap(); // masks member declaration
             for (OWLSubDataPropertyOfAxiom axiom : getAxiomsInternal(SUB_DATA_PROPERTY)) {
                 addToIndexedSet(axiom.getSuperProperty(), dataSubPropertyAxiomsByRHS, axiom);
             }
+            this.dataSubPropertyAxiomsByRHS=dataSubPropertyAxiomsByRHS;
         }
         return getReturnSet(getAxioms(property, dataSubPropertyAxiomsByRHS));
     }
@@ -1340,10 +1360,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(OWLDataProperty property) {
         if (dataPropertyDomainAxiomsByProperty == null) {
-            dataPropertyDomainAxiomsByProperty = createMap();
+            Map<OWLDataPropertyExpression, Set<OWLDataPropertyDomainAxiom>> dataPropertyDomainAxiomsByProperty = createMap(); // masks member declaration
             for (OWLDataPropertyDomainAxiom axiom : getAxiomsInternal(DATA_PROPERTY_DOMAIN)) {
                 addToIndexedSet(axiom.getProperty(), dataPropertyDomainAxiomsByProperty, axiom);
             }
+            this.dataPropertyDomainAxiomsByProperty=dataPropertyDomainAxiomsByProperty;
         }
         return getReturnSet(getAxioms(property, dataPropertyDomainAxiomsByProperty));
     }
@@ -1351,10 +1372,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(OWLDataProperty property) {
         if (dataPropertyRangeAxiomsByProperty == null) {
-            dataPropertyRangeAxiomsByProperty = createMap();
+            Map<OWLDataPropertyExpression, Set<OWLDataPropertyRangeAxiom>> dataPropertyRangeAxiomsByProperty = createMap(); // masks member declaration
             for (OWLDataPropertyRangeAxiom axiom : getAxiomsInternal(DATA_PROPERTY_RANGE)) {
                 addToIndexedSet(axiom.getProperty(), dataPropertyRangeAxiomsByProperty, axiom);
             }
+            this.dataPropertyRangeAxiomsByProperty=dataPropertyRangeAxiomsByProperty;
         }
         return getReturnSet(getAxioms(property, dataPropertyRangeAxiomsByProperty));
     }
@@ -1362,12 +1384,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxioms(OWLDataProperty property) {
         if (equivalentDataPropertyAxiomsByProperty == null) {
-            equivalentDataPropertyAxiomsByProperty = createMap();
+            Map<OWLDataPropertyExpression, Set<OWLEquivalentDataPropertiesAxiom>> equivalentDataPropertyAxiomsByProperty = createMap(); // masks member declaration
             for (OWLEquivalentDataPropertiesAxiom axiom : getAxiomsInternal(EQUIVALENT_DATA_PROPERTIES)) {
                 for (OWLDataPropertyExpression prop : axiom.getProperties()) {
                     addToIndexedSet(prop, equivalentDataPropertyAxiomsByProperty, axiom);
                 }
             }
+            this.equivalentDataPropertyAxiomsByProperty=equivalentDataPropertyAxiomsByProperty;
         }
         return getReturnSet(getAxioms(property, equivalentDataPropertyAxiomsByProperty));
     }
@@ -1375,12 +1398,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(OWLDataProperty property) {
         if (disjointDataPropertyAxiomsByProperty == null) {
-            disjointDataPropertyAxiomsByProperty = createMap();
+            Map<OWLDataPropertyExpression, Set<OWLDisjointDataPropertiesAxiom>> disjointDataPropertyAxiomsByProperty = createMap(); // masks member declaration
             for (OWLDisjointDataPropertiesAxiom axiom : getAxiomsInternal(DISJOINT_DATA_PROPERTIES)) {
                 for (OWLDataPropertyExpression prop : axiom.getProperties()) {
                     addToIndexedSet(prop, disjointDataPropertyAxiomsByProperty, axiom);
                 }
             }
+            this.disjointDataPropertyAxiomsByProperty=disjointDataPropertyAxiomsByProperty;
         }
         return getReturnSet(getAxioms(property, disjointDataPropertyAxiomsByProperty));
     }
@@ -1390,10 +1414,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLIndividual individual) {
         if (classAssertionAxiomsByIndividual == null) {
-            classAssertionAxiomsByIndividual = createMap();
+            Map<OWLIndividual, Set<OWLClassAssertionAxiom>> classAssertionAxiomsByIndividual = createMap(); // masks member declaration
             for (OWLClassAssertionAxiom axiom : getAxiomsInternal(CLASS_ASSERTION)) {
                 addToIndexedSet(axiom.getIndividual(), classAssertionAxiomsByIndividual, axiom);
             }
+            this.classAssertionAxiomsByIndividual=classAssertionAxiomsByIndividual;
         }
         return getReturnSet(getAxioms(individual, classAssertionAxiomsByIndividual));
     }
@@ -1401,12 +1426,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClass type) {
         if (classAssertionAxiomsByClass == null) {
-            classAssertionAxiomsByClass = createMap();
+            Map<OWLClass, Set<OWLClassAssertionAxiom>> classAssertionAxiomsByClass = createMap(); // masks member declaration
             for (OWLClassAssertionAxiom axiom : getAxiomsInternal(CLASS_ASSERTION)) {
                 if (!axiom.getClassExpression().isAnonymous()) {
                     addToIndexedSet((OWLClass) axiom.getClassExpression(), classAssertionAxiomsByClass, axiom);
                 }
             }
+            this.classAssertionAxiomsByClass=classAssertionAxiomsByClass;
         }
         return getReturnSet(getAxioms(type, classAssertionAxiomsByClass));
     }
@@ -1414,10 +1440,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(OWLIndividual individual) {
         if (dataPropertyAssertionsByIndividual == null) {
-            dataPropertyAssertionsByIndividual = createMap();
+            Map<OWLIndividual, Set<OWLDataPropertyAssertionAxiom>> dataPropertyAssertionsByIndividual = createMap(); // masks member declaration
             for (OWLDataPropertyAssertionAxiom axiom : getAxiomsInternal(DATA_PROPERTY_ASSERTION)) {
                 addToIndexedSet(axiom.getSubject(), dataPropertyAssertionsByIndividual, axiom);
             }
+            this.dataPropertyAssertionsByIndividual=dataPropertyAssertionsByIndividual;
         }
         return getReturnSet(getAxioms(individual, dataPropertyAssertionsByIndividual));
     }
@@ -1425,10 +1452,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLObjectPropertyAssertionAxiom> getObjectPropertyAssertionAxioms(OWLIndividual individual) {
         if (objectPropertyAssertionsByIndividual == null) {
-            objectPropertyAssertionsByIndividual = createMap();
+            Map<OWLIndividual, Set<OWLObjectPropertyAssertionAxiom>> objectPropertyAssertionsByIndividual = createMap(); // masks member declaration
             for (OWLObjectPropertyAssertionAxiom axiom : getAxiomsInternal(OBJECT_PROPERTY_ASSERTION)) {
                 addToIndexedSet(axiom.getSubject(), objectPropertyAssertionsByIndividual, axiom);
             }
+            this.objectPropertyAssertionsByIndividual=objectPropertyAssertionsByIndividual;
         }
         return getReturnSet(getAxioms(individual, objectPropertyAssertionsByIndividual));
     }
@@ -1437,10 +1465,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     public Set<OWLNegativeObjectPropertyAssertionAxiom> getNegativeObjectPropertyAssertionAxioms(
             OWLIndividual individual) {
         if (negativeObjectPropertyAssertionAxiomsByIndividual == null) {
-            negativeObjectPropertyAssertionAxiomsByIndividual = createMap();
+            Map<OWLIndividual, Set<OWLNegativeObjectPropertyAssertionAxiom>> negativeObjectPropertyAssertionAxiomsByIndividual = createMap(); // masks member declaration
             for (OWLNegativeObjectPropertyAssertionAxiom axiom : getAxiomsInternal(NEGATIVE_OBJECT_PROPERTY_ASSERTION)) {
                 addToIndexedSet(axiom.getSubject(), negativeObjectPropertyAssertionAxiomsByIndividual, axiom);
             }
+            this.negativeObjectPropertyAssertionAxiomsByIndividual=negativeObjectPropertyAssertionAxiomsByIndividual;
         }
         return getReturnSet(getAxioms(individual, negativeObjectPropertyAssertionAxiomsByIndividual));
     }
@@ -1448,10 +1477,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxioms(OWLIndividual individual) {
         if (negativeDataPropertyAssertionAxiomsByIndividual == null) {
-            negativeDataPropertyAssertionAxiomsByIndividual = createMap();
+            Map<OWLIndividual, Set<OWLNegativeDataPropertyAssertionAxiom>> negativeDataPropertyAssertionAxiomsByIndividual = createMap(); // masks member declaration
             for (OWLNegativeDataPropertyAssertionAxiom axiom : getAxiomsInternal(NEGATIVE_DATA_PROPERTY_ASSERTION)) {
                 addToIndexedSet(axiom.getSubject(), negativeDataPropertyAssertionAxiomsByIndividual, axiom);
             }
+            this.negativeDataPropertyAssertionAxiomsByIndividual=negativeDataPropertyAssertionAxiomsByIndividual;
         }
         return getReturnSet(getAxioms(individual, negativeDataPropertyAssertionAxiomsByIndividual));
     }
@@ -1459,12 +1489,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLSameIndividualAxiom> getSameIndividualAxioms(OWLIndividual individual) {
         if (sameIndividualsAxiomsByIndividual == null) {
-            sameIndividualsAxiomsByIndividual = createMap();
+            Map<OWLIndividual, Set<OWLSameIndividualAxiom>> sameIndividualsAxiomsByIndividual = createMap(); // masks member declaration
             for (OWLSameIndividualAxiom axiom : getAxiomsInternal(SAME_INDIVIDUAL)) {
                 for (OWLIndividual ind : axiom.getIndividuals()) {
                     addToIndexedSet(ind, sameIndividualsAxiomsByIndividual, axiom);
                 }
             }
+            this.sameIndividualsAxiomsByIndividual=sameIndividualsAxiomsByIndividual;
         }
         return getReturnSet(getAxioms(individual, sameIndividualsAxiomsByIndividual));
     }
@@ -1472,12 +1503,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(OWLIndividual individual) {
         if (differentIndividualsAxiomsByIndividual == null) {
-            differentIndividualsAxiomsByIndividual = createMap();
+            Map<OWLIndividual, Set<OWLDifferentIndividualsAxiom>> differentIndividualsAxiomsByIndividual = createMap(); // masks member declaration
             for (OWLDifferentIndividualsAxiom axiom : getAxiomsInternal(DIFFERENT_INDIVIDUALS)) {
                 for (OWLIndividual ind : axiom.getIndividuals()) {
                     addToIndexedSet(ind, differentIndividualsAxiomsByIndividual, axiom);
                 }
             }
+            this.differentIndividualsAxiomsByIndividual=differentIndividualsAxiomsByIndividual;
         }
         return getReturnSet(getAxioms(individual, differentIndividualsAxiomsByIndividual));
     }
@@ -2421,7 +2453,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void buildClassAxiomsByClassIndex() {
-        classAxiomsByClass = new HashMap<OWLClass, Set<OWLClassAxiom>>();
+        Map<OWLClass, Set<OWLClassAxiom>> classAxiomsByClass = createMap(); // masks member declaration
         for (OWLEquivalentClassesAxiom axiom : getAxiomsInternal(EQUIVALENT_CLASSES)) {
             for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 if (!desc.isAnonymous()) {
@@ -2447,15 +2479,17 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         for (OWLDisjointUnionAxiom axiom : getAxiomsInternal(DISJOINT_UNION)) {
             addToIndexedSet(axiom.getOWLClass(), classAxiomsByClass, axiom);
         }
+        this.classAxiomsByClass=classAxiomsByClass;
     }
 
 
     private Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxiomsBySubject(OWLAnnotationSubject subject){
         if (annotationAssertionAxiomsBySubject == null) {
-            annotationAssertionAxiomsBySubject = createMap();
+            Map<OWLAnnotationSubject, Set<OWLAnnotationAssertionAxiom>> annotationAssertionAxiomsBySubject = createMap(); // masks member declaration
             for (OWLAnnotationAssertionAxiom axiom : getAxiomsInternal(ANNOTATION_ASSERTION)) {
                 addToIndexedSet(axiom.getSubject(), annotationAssertionAxiomsBySubject, axiom);
             }
+            this.annotationAssertionAxiomsBySubject=annotationAssertionAxiomsBySubject;
         }
         return getReturnSet(getAxioms(subject, annotationAssertionAxiomsBySubject, false));
     }
