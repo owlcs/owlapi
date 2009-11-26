@@ -39,6 +39,6 @@ public class OWLTransitiveObjectPropertyAxiomElementHandler extends AbstractOWLO
 
 
     protected OWLAxiom createPropertyCharacteristicAxiom() {
-        return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(getProperty());
+        return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(getProperty(), getAnnotations());
     }
 }

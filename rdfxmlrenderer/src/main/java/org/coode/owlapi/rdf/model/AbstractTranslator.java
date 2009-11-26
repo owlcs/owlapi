@@ -463,6 +463,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         translateAnonymousNode(axiom);
+        for(OWLAnnotation anno : axiom.getAnnotations()) {
+            addTriple(axiom, anno.getProperty().getIRI(), anno.getValue());
+        }
         addTriple(axiom, RDF_TYPE.getIRI(), OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
         addTriple(axiom, OWL_SOURCE_INDIVIDUAL.getIRI(), axiom.getSubject());
         addTriple(axiom, OWL_ASSERTION_PROPERTY.getIRI(), axiom.getProperty());

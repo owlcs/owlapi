@@ -37,4 +37,6 @@ public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression> extends O
      * Gets all of the properties that appear in this axiom
      */
     public Set<P> getProperties();
+
+    Set<P> getPropertiesMinus(P property);
 }

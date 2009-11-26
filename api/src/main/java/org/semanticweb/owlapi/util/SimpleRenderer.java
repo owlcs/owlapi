@@ -187,6 +187,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         sb.append("NegativeObjectPropertyAssertion(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         insertSpace();
         axiom.getSubject().accept(this);
@@ -198,6 +199,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         sb.append("AsymmetricObjectProperty(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         sb.append(")");
     }
@@ -205,6 +207,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         sb.append("ReflexiveObjectProperty(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         sb.append(")");
     }
@@ -212,6 +215,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLDisjointClassesAxiom axiom) {
         sb.append("DisjointClasses(");
+        writeAnnotations(axiom);
         render(axiom.getClassExpressions());
         sb.append(")");
     }
@@ -219,6 +223,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLDataPropertyDomainAxiom axiom) {
         sb.append("DataPropertyDomain(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         insertSpace();
         axiom.getDomain().accept(this);
@@ -228,6 +233,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         sb.append("ObjectPropertyDomain(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         insertSpace();
         axiom.getDomain().accept(this);
@@ -237,6 +243,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         sb.append("EquivalentObjectProperties(");
+        writeAnnotations(axiom);
         render(axiom.getProperties());
         sb.append(" )");
     }
@@ -244,6 +251,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         sb.append("NegativeDataPropertyAssertion(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         insertSpace();
         axiom.getSubject().accept(this);
@@ -255,6 +263,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         sb.append("DifferentIndividuals(");
+        writeAnnotations(axiom);
         render(axiom.getIndividuals());
         sb.append(" )");
     }
@@ -262,6 +271,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         sb.append("DisjointDataProperties(");
+        writeAnnotations(axiom);
         render(axiom.getProperties());
         sb.append(" )");
     }
@@ -269,6 +279,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         sb.append("DisjointObjectProperties(");
+        writeAnnotations(axiom);
         render(axiom.getProperties());
         sb.append(" )");
     }
@@ -276,6 +287,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         sb.append("ObjectPropertyRange(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         insertSpace();
         axiom.getRange().accept(this);
@@ -285,6 +297,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         sb.append("ObjectPropertyAssertion(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         insertSpace();
         axiom.getSubject().accept(this);
@@ -296,6 +309,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         sb.append("FunctionalObjectProperty(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         sb.append(")");
     }
@@ -303,6 +317,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         sb.append("SubObjectPropertyOf(");
+        writeAnnotations(axiom);
         axiom.getSubProperty().accept(this);
         insertSpace();
         axiom.getSuperProperty().accept(this);
@@ -312,6 +327,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLDisjointUnionAxiom axiom) {
         sb.append("DisjointUnion(");
+        writeAnnotations(axiom);
         axiom.getOWLClass().accept(this);
         insertSpace();
         render(axiom.getClassExpressions());
@@ -321,6 +337,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLDeclarationAxiom axiom) {
         sb.append("Declaration(");
+        writeAnnotations(axiom);
         OWLEntity entity = axiom.getEntity();
         if (entity.isOWLClass()) {
             sb.append("OWLClass(");
@@ -348,6 +365,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLAnnotationAssertionAxiom axiom) {
         sb.append("AnnotationAssertion(");
         writeAnnotations(axiom);
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         insertSpace();
         axiom.getSubject().accept(this);
@@ -359,6 +377,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         sb.append("SymmetricObjectProperty(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         sb.append(")");
     }
@@ -366,6 +385,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLDataPropertyRangeAxiom axiom) {
         sb.append("DataPropertyRange(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         insertSpace();
         axiom.getRange().accept(this);
@@ -375,6 +395,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         sb.append("FunctionalDataProperty(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         sb.append(")");
     }
@@ -382,6 +403,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         sb.append("EquivalentDataProperties(");
+        writeAnnotations(axiom);
         render(axiom.getProperties());
         sb.append(" )");
     }
@@ -389,6 +411,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLClassAssertionAxiom axiom) {
         sb.append("ClassAssertion(");
+        writeAnnotations(axiom);
         axiom.getClassExpression().accept(this);
         insertSpace();
         axiom.getIndividual().accept(this);
@@ -398,6 +421,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
         sb.append("EquivalentClasses(");
+        writeAnnotations(axiom);
         render(axiom.getClassExpressions());
         sb.append(" )");
     }
@@ -405,6 +429,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
         sb.append("DataPropertyAssertion(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         insertSpace();
         axiom.getSubject().accept(this);
@@ -416,6 +441,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         sb.append("TransitiveObjectProperty(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         sb.append(")");
     }
@@ -423,6 +449,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         sb.append("IrreflexiveObjectProperty(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         sb.append(")");
     }
@@ -430,6 +457,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         sb.append("SubDataProperty(");
+        writeAnnotations(axiom);
         axiom.getSubProperty().accept(this);
         insertSpace();
         axiom.getSuperProperty().accept(this);
@@ -439,6 +467,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         sb.append("InverseFunctionalObjectProperty(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         sb.append(")");
     }
@@ -446,6 +475,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLSameIndividualAxiom axiom) {
         sb.append("SameIndividual(");
+        writeAnnotations(axiom);
         render(axiom.getIndividuals());
         sb.append(" )");
     }
@@ -453,6 +483,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         sb.append("SubObjectPropertyOf(");
+        writeAnnotations(axiom);
         sb.append("ObjectPropertyChain(");
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             insertSpace();

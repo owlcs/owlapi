@@ -51,6 +51,11 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
         return Collections.unmodifiableSet(properties);
     }
 
+    public Set<P> getPropertiesMinus(P property) {
+        Set<P> props = new TreeSet<P>(properties);
+        props.remove(property);
+        return props;
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

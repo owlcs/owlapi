@@ -50,6 +50,5 @@ public class TypeTransitivePropertyHandler extends BuiltInTypeHandler {
         getConsumer().addOWLObjectProperty(subject);
         addAxiom(getDataFactory().getOWLTransitiveObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
-        getConsumer().handle(subject, OWLRDFVocabulary.RDF_TYPE.getIRI(), OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
     }
 }

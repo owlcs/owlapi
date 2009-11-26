@@ -51,6 +51,5 @@ public class TypeSymmetricPropertyHandler extends BuiltInTypeHandler {
         getConsumer().addOWLObjectProperty(subject);
         addAxiom(getDataFactory().getOWLSymmetricObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
-        getConsumer().handle(subject, OWLRDFVocabulary.RDF_TYPE.getIRI(), OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
     }
 }

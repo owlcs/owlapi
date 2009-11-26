@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 import java.net.URI;
 /*
@@ -41,11 +42,11 @@ public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
 
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
         if(getConsumer().isDataPropertyOnly(subject) || getConsumer().isDataPropertyOnly(object)) {
-            addAxiom(getDataFactory().getOWLDisjointDataPropertiesAxiom(translateDataProperty(subject), translateDataProperty(object)));
+            addAxiom(getDataFactory().getOWLDisjointDataPropertiesAxiom(CollectionFactory.createSet(translateDataProperty(subject), translateDataProperty(object)), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
         else if(getConsumer().isObjectPropertyOnly(subject) || getConsumer().isObjectPropertyOnly(object)) {
-            addAxiom(getDataFactory().getOWLDisjointObjectPropertiesAxiom(translateObjectProperty(subject), translateObjectProperty(object)));
+            addAxiom(getDataFactory().getOWLDisjointObjectPropertiesAxiom(CollectionFactory.createSet(translateObjectProperty(subject), translateObjectProperty(object)), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
     }

@@ -77,8 +77,8 @@ public class TypeNegativePropertyAssertionHandler extends BuiltInTypeHandler {
         if (target == null) {
             target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_TARGET_VALUE.getIRI(), true);
         }
-        getConsumer().translateAnnotations(subject);
-        Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
+
+        Set<OWLAnnotation> annos = getConsumer().translateAnnotations(subject);//getConsumer().getPendingAnnotations();
         if(target instanceof OWLLiteral) {
             OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
             OWLDataPropertyExpression prop = getConsumer().translateDataPropertyExpression(property);

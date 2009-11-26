@@ -1,8 +1,14 @@
-package org.coode.owlapi.owlxmlparser;
+package org.semanticweb.owlapi.api.test;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+
+import java.util.Set;
+import java.util.Arrays;
+import java.util.List;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -24,21 +30,16 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 25-Nov-2009
  */
-public class OWLReflexiveObjectPropertyAxiomElementHandler extends AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
+public class SubObjectPropertyChainOfAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
-    public OWLReflexiveObjectPropertyAxiomElementHandler(OWLXMLParserHandler handler) {
-        super(handler);
-    }
-
-
-    protected OWLAxiom createPropertyCharacteristicAxiom() {
-        return getOWLDataFactory().getOWLReflexiveObjectPropertyAxiom(getProperty(), getAnnotations());
+    protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
+        List<OWLObjectProperty> props = Arrays.asList(getOWLObjectProperty("p"), getOWLObjectProperty("q"));
+        return getFactory().getOWLSubPropertyChainOfAxiom(props, getOWLObjectProperty("r"));
     }
 }
