@@ -1,5 +1,6 @@
-package org.semanticweb.owlapi.reasoner;/*
- * Copyright (C) 2008, University of Manchester
+package org.semanticweb.owlapi.reasoner;
+/*
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -22,23 +23,24 @@ package org.semanticweb.owlapi.reasoner;/*
  */
 
 /**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 10-Mar-2009
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 29-Nov-2009
+ *
+ * An implementation of a progress monitor that does nothing when it recieves notifcation of progress events.
  */
-public class InternalReasonerException extends OWLReasonerRuntimeException {
+public class NullReasonerProgressMonitor implements ReasonerProgressMonitor {
 
-    public InternalReasonerException() {
+    public void reasonerTaskStarted(String taskName) {
     }
 
-    public InternalReasonerException(Throwable cause) {
-        super(cause);
+    public void reasonerTaskStopped() {
     }
 
-    public InternalReasonerException(String message) {
-        super(message);
+    public void reasonerTaskProgressChanged(int value, int max) {
     }
 
-    public InternalReasonerException(String message, Throwable cause) {
-        super(message, cause);
+    public void reasonerTaskBusy() {
     }
 }

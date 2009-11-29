@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.reasoner;
 
-import org.semanticweb.owlapi.util.ProgressMonitor;/*
+/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -30,26 +30,34 @@ import org.semanticweb.owlapi.util.ProgressMonitor;/*
  * <p>
  * An OWLReasonerConfiguration can be used to customise the setup of a reasoner at reasoner creation time via
  * an {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}. Specific
- * reasoners define their own configuration objects with configuration options that are specific to the reasoner.
+ * reasoners may define their own configuration objects with configuration options particular to the reasoner.
  * There are also a set of general options defined by this configuration object.
  * </p>
+ * Note that once a reasoner has been created, changing fields (via setter methods or directly) on the configuration
+ * object will have no effect.
  * @see {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}
  */
 public interface OWLReasonerConfiguration {
 
     /**
      * Gets a progress monitor that the reasoner may update with information about the progress of its reasoning
-     * process.  If the reasoner does not support the attachement of a progress monitor then this option will be
-     * silently ignored.
-     * @return A progress monitor.
+     * process.
+     * @return A progress monitor.  By default this returns {@link NullReasonerProgressMonitor}
      */
-    ProgressMonitor getProgressMonitor();
+    ReasonerProgressMonitor getProgressMonitor();
 
     /**
-     * Gets the timeout for basic reasoner operations (satisfiability check time out).
+     * Gets the timeout for basic reasoner operations (satisfiability check time out).  By default this is set
+     * to the value of {@link Long#MAX_VALUE}.
      * @return The time out.
      */
     long getTimeOut();
 
-    
+    /**
+     * Gets the undeclared entity policy that should be used.  By default this is set to
+     * {@link org.semanticweb.owlapi.reasoner.UndeclaredEntityPolicy#ALLOW}.
+     * @return The undeclared entity policy.
+     */
+    UndeclaredEntityPolicy getUndeclaredEntityPolicy();
+
 }

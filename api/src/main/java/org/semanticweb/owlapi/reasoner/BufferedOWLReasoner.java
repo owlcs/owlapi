@@ -89,7 +89,7 @@ public interface BufferedOWLReasoner {
      * @return <code>true</code> if classExpression is satisfiable with respect to the set of axioms, or
      * <code>false</code> if classExpression is unsatisfiable with respect to the axioms.
      * @throws InconsistentOntologyException if the reasoner's axiom set is inconsistent
-     * @throws EntitiesNotInSignatureException if the signature of the classExpression is not contained within the signature
+     * @throws UndeclaredEntitiesException if the signature of the classExpression is not contained within the signature
      * of the reasoner's axiom set.
      * @throws ExpressivenessOutOfScopeException If the class expression contains constructs that are out of the scope
      * of expressiveness that is supported by this reasoner.

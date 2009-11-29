@@ -31,14 +31,15 @@ import java.util.Collections;/*
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 21-Jan-2009
  *
- * Indicates that the signature of a set of entities is disjoint with the signature of the union of
- * the axioms in a set of ontologies.
+ * Indicates that a query was posed to the reasoner that contained undeclared entities.  This exception is only thrown
+ * if the undeclared entity policy is set appropriately. (See {@link org.semanticweb.owlapi.reasoner.UndeclaredEntityPolicy}
+ * and {@link org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration}.
  */
-public abstract class EntitiesNotInSignatureException extends OWLReasonerRuntimeException {
+public abstract class UndeclaredEntitiesException extends OWLReasonerRuntimeException {
 
     private Set<OWLEntity> entities;
 
-    public EntitiesNotInSignatureException(Set<OWLEntity> entities) {
+    public UndeclaredEntitiesException(Set<OWLEntity> entities) {
         this.entities = Collections.unmodifiableSet(new LinkedHashSet<OWLEntity>(entities));
     }
 

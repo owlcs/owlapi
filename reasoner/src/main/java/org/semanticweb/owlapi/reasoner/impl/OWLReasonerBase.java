@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
+import org.semanticweb.owlapi.reasoner.ReasonerProgressMonitor;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.ProgressMonitor;
 
@@ -46,7 +47,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     protected OWLReasonerBase(OWLOntologyManager manager, ExecutorService longTaskExecutor, OWLReasonerConfiguration config) {
         this.manager = manager;
         this.longTaskExecutor = longTaskExecutor;
-        ProgressMonitor progressMonitor = config.getProgressMonitor();
+        ReasonerProgressMonitor progressMonitor = config.getProgressMonitor();
     }
 
     private void classify() throws InterruptedException {

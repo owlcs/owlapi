@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.reasoner;
 
-import org.semanticweb.owlapi.util.ProgressMonitor;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -31,30 +30,50 @@ import org.semanticweb.owlapi.util.ProgressMonitor;
  * Date: 18-Mar-2009
  *
  * <p>
- * A simple configuration that allows a progress monitor to be specified.
+ * A simple configuration with the general options.
  * </p>
  */
 public class SimpleConfiguration implements OWLReasonerConfiguration {
 
-    private ProgressMonitor progressMonitor;
+    private ReasonerProgressMonitor progressMonitor = new NullReasonerProgressMonitor();
 
+    private UndeclaredEntityPolicy undeclaredEntityPolicy = UndeclaredEntityPolicy.ALLOW;
 
-    public SimpleConfiguration(ProgressMonitor progressMonitor) {
+    private long timeOut = Long.MAX_VALUE;
+
+    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor) {
         this.progressMonitor = progressMonitor;
     }
 
+    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, long timeOut) {
+        this.progressMonitor = progressMonitor;
+        this.timeOut = timeOut;
+    }
 
-    /**
-     * Gets a progress monitor that the reasoner may update with information about the progress of its reasoning
-     * process.  If the reasoner does not support the attachement of a progress monitor then this option will be
-     * silently ignored.
-     * @return A progress monitor.
-     */
-    public ProgressMonitor getProgressMonitor() {
+    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, UndeclaredEntityPolicy undeclaredEntityPolicy, long timeOut) {
+        this.progressMonitor = progressMonitor;
+        this.undeclaredEntityPolicy = undeclaredEntityPolicy;
+        this.timeOut = timeOut;
+    }
+
+    public SimpleConfiguration(UndeclaredEntityPolicy undeclaredEntityPolicy, long timeOut) {
+        this.undeclaredEntityPolicy = undeclaredEntityPolicy;
+        this.timeOut = timeOut;
+    }
+
+    public SimpleConfiguration(long timeOut) {
+        this.timeOut = timeOut;
+    }
+
+    public ReasonerProgressMonitor getProgressMonitor() {
         return progressMonitor;
     }
 
     public long getTimeOut() {
-        return 0;
+        return timeOut;
+    }
+
+    public UndeclaredEntityPolicy getUndeclaredEntityPolicy() {
+        return undeclaredEntityPolicy;
     }
 }
