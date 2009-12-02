@@ -46,5 +46,5 @@ public enum UndeclaredEntityPolicy {
      * an OWLObject that is used in a query to a reasoner an {@link UndeclaredEntitiesException} will be thrown in the
      * calling thread.
      */
-    DISALLOW;
+    DISALLOW
 }
