@@ -746,8 +746,10 @@ public interface OWLReasoner {
      * @param ind The individual that is the subject of the data property values
      * @param pe The data property expression whose values are to be retrieved for the specified individual
      * @return A set of <code>OWLLiteral</code>s containing literals such that for each literal <code>l</code> in the
-     * set, the root ontology imports closure entails <code>DataPropertyAssertion(pe ind l)</code>, and, the literal
-     * <code>l</code> appears in an axiom that is contained in the imports closure of the root ontology.
+     * set, either there is an explicit data property assertion in the root ontology imports closure
+     *  <code>DataPropertyAssertion(pe, ind, l), or, there is an explicit
+     * data property assertion in the root ontology imports closure <code>DataPropertyAssertion(S, ind, l)</code> and
+     * the root ontology imports closure entails <code>DataPropertyAssertion(S, pe)</code>.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the individual and property expression is not contained within the signature
