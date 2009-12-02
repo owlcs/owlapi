@@ -196,6 +196,10 @@ public interface OWLReasoner {
      * thread that invoked the last reasoner operation.  The OWL API is not thread safe in general, but it is likely
      * that this method will be called from another thread than the event dispatch thread or the thread in which
      * reasoning takes place.
+     * </p>
+     * Note that the reasoner will periodically check for interupt requests.  Asking the reasoner to interrupt the
+     * current process does not mean that it will be interrupted immediately.  However, clients can expect to be able to
+     * interupt individual consistency checks, satisfiability checks etc.
      */
     void interrupt();
 
@@ -771,6 +775,7 @@ public interface OWLReasoner {
     Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
+
     /**
      * Gets the time out for the most basic reasoning operations.  That is the maximum time for a
      * satisfiability test, subsumption test etc.  The time out should be set at reasoner creation time.
@@ -778,7 +783,10 @@ public interface OWLReasoner {
      * doing the single check is longer than the value returned by this method.  If this is the case, the
      * reasoner will throw a {@link org.semanticweb.owlapi.reasoner.TimeOutException} in the thread that is
      * executing the reasoning process.
-     *
+     * </p>
+     * Note that clients that want a higher level timeout, at the level of classification for example, should start
+     * their own timers and request that the reasoner interrupts the current process using the {@link #interrupt()}
+     * method.
      * @return The time out for basic reasoner operation.  By default this is the value of
      * {@link Long#MAX_VALUE}.
      */
