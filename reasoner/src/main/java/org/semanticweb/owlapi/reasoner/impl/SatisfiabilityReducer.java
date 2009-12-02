@@ -34,7 +34,6 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpressi
 
     private OWLDataFactory df;
 
-    private ReasonerFreshIndividualFactory freshIndividualFactory;
 
     public SatisfiabilityReducer(OWLDataFactory dataFactory) {
         this.df = dataFactory;
