@@ -262,7 +262,7 @@ public interface OWLReasoner {
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
-     *                                       if the signature of the classExpression is not contained within the signature
+     *                                       if the signature of the axiom is not contained within the signature
      *                                       of the imports closure of the root ontology.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
@@ -274,6 +274,28 @@ public interface OWLReasoner {
      * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType)
      */
     boolean isEntailed(OWLAxiom axiom) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, UndeclaredEntitiesException, InconsistentOntologyException;
+
+
+    /**
+     * Determines if the specified set of axioms is entailed by the axioms in the imports closure of the root ontology.
+     * @param axioms The set of axioms to be tested
+     * @return <code>true</code> if the set of axioms is entailed by the axioms in the imports closure of the root
+     * ontology, otherwise <code>false</code>
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws UndeclaredEntitiesException
+     *                                       if the signature of the set of axioms is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws UnsupportedEntailmentTypeException
+     *                                      if the reasoner cannot perform a check to see if the specified
+     *                                      axiom is entailed
+     * @throws AxiomNotInProfileException if <code>axiom</code> is not in the profile that is supported by this reasoner.
+     * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType)
+     */
+    boolean isEntailed(Set<OWLAxiom> axioms) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, UndeclaredEntitiesException, InconsistentOntologyException;
+
 
     /**
      * Determines if entailment checking for the specified axiom type is supported.
@@ -555,7 +577,7 @@ public interface OWLReasoner {
      * data property expression with respect to the imports closure of the root ontology.
      * Note that the properties are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
-     * @param pe The data property expression whose strict (direct) subproperties are to be retrieved.
+     * @param pe The data property whose strict (direct) subproperties are to be retrieved.
      * @param direct Specifies if the direct subproperties should be retrived (<code>true</code>) or if the all
      * subproperties (descendants) should be retrieved (<code>false</code>).
      * @return If direct is <code>true</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
@@ -569,21 +591,21 @@ public interface OWLReasoner {
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
-     *                                       if the signature of the data property expression is not contained within the signature
+     *                                       if the signature of the data property is not contained within the signature
      *                                       of the imports closure of the root ontology.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLDataProperty> getSubDataProperties(OWLDataPropertyExpression pe, boolean direct)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe, boolean direct)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
      * Gets the set of named data properties that are the strict (potentially direct) super properties of the specified
-     * data property expression with respect to the imports closure of the root ontology.
+     * data property  with respect to the imports closure of the root ontology.
      * Note that the properties are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
-     * @param pe The data property expression whose strict (direct) super properties are to be retrieved.
+     * @param pe The data property whose strict (direct) super properties are to be retrieved.
      * @param direct Specifies if the direct super properties should be retrived (<code>true</code>) or if the all
      * super properties (ancestors) should be retrieved (<code>false</code>).
      * @return If direct is <code>true</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
@@ -597,13 +619,13 @@ public interface OWLReasoner {
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
-     *                                       if the signature of the data property expression is not contained within the signature
+     *                                       if the signature of the data property is not contained within the signature
      *                                       of the imports closure of the root ontology.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataPropertyExpression pe, boolean direct)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe, boolean direct)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -637,7 +659,7 @@ public interface OWLReasoner {
      * Gets the named classes that are the direct or indirect domains of this property with respect to the imports
      * closure of the root ontology.  The classes are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
-     * @param pe The property expression whose domains are to be retrieved.
+     * @param pe The property whose domains are to be retrieved.
      * @param direct Specifies if the direct domains should be retrieved (<code>true</code>), or if all domains
      * should be retrieved (<code>false</code>).
      * @return If <code>direct</code> is <code>true</code>, a <code>NodeSet</code> containing named classes such that for each named
@@ -650,13 +672,13 @@ public interface OWLReasoner {
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
-     *                                       if the signature of the data property expression is not contained within the signature
+     *                                       if the signature of the data property is not contained within the signature
      *                                       of the imports closure of the root ontology.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getDataPropertyDomains(OWLDataPropertyExpression pe, boolean direct)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe, boolean direct)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -742,9 +764,9 @@ public interface OWLReasoner {
 
 
     /**
-     * Gets the data property values for the specified individual and data property expression.
+     * Gets the data property values for the specified individual and data property.
      * @param ind The individual that is the subject of the data property values
-     * @param pe The data property expression whose values are to be retrieved for the specified individual
+     * @param pe The data property whose values are to be retrieved for the specified individual
      * @return A set of <code>OWLLiteral</code>s containing literals such that for each literal <code>l</code> in the
      * set, either there is an explicit data property assertion in the root ontology imports closure
      *  <code>DataPropertyAssertion(pe, ind, l), or, there is an explicit
@@ -752,13 +774,13 @@ public interface OWLReasoner {
      * the root ontology imports closure entails <code>DataPropertyAssertion(S, pe)</code>.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
-     *                                       if the signature of the individual and property expression is not contained within the signature
+     *                                       if the signature of the individual and property is not contained within the signature
      *                                       of the imports closure of the root ontology.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataPropertyExpression pe)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+    Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataProperty pe)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
     /**
      * Gets the individuals that are the same as the specified individual.
