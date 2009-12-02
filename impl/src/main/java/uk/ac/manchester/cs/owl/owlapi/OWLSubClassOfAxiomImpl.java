@@ -2,10 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.*;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -36,18 +33,32 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLSubClassOfAxiomImpl extends OWLNaryClassAxiomImpl implements OWLSubClassOfAxiom {
+public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubClassOfAxiom {
 
     private OWLClassExpression subClass;
 
     private OWLClassExpression superClass;
 
 
-    public OWLSubClassOfAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression subClass,
-                                  OWLClassExpression superClass, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, new HashSet<OWLClassExpression>(Arrays.asList(subClass, superClass)), annotations);
+    public OWLSubClassOfAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression subClass, OWLClassExpression superClass, Collection<? extends OWLAnnotation> annotations) {
+        super(dataFactory, annotations);
         this.subClass = subClass;
         this.superClass = superClass;
+    }
+
+    public Set<OWLClassExpression> getClassExpressions() {
+        Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>(3);
+        classExpressions.add(subClass);
+        classExpressions.add(superClass);
+        return classExpressions;
+    }
+
+    public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc) {
+        Set<OWLClassExpression> classExpressions = getClassExpressions();
+        for(OWLClassExpression ce : desc) {
+            classExpressions.remove(ce);
+        }
+        return classExpressions;
     }
 
     public OWLSubClassOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
@@ -55,7 +66,7 @@ public class OWLSubClassOfAxiomImpl extends OWLNaryClassAxiomImpl implements OWL
     }
 
     public OWLSubClassOfAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLSubClassOfAxiom(getSubClass(), getSuperClass());
@@ -77,15 +88,14 @@ public class OWLSubClassOfAxiomImpl extends OWLNaryClassAxiomImpl implements OWL
 
 
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLSubClassOfAxiom)) {
-                return false;
-            }
-            OWLSubClassOfAxiom other = (OWLSubClassOfAxiom) obj;
-            return other.getSubClass().equals(subClass) &&
-                    other.getSuperClass().equals(superClass);
+        if (obj == this) {
+            return true;
         }
-        return false;
+        if (!(obj instanceof OWLSubClassOfAxiom)) {
+            return false;
+        }
+        OWLSubClassOfAxiom other = (OWLSubClassOfAxiom) obj;
+        return other.getSubClass().equals(subClass) && other.getSuperClass().equals(superClass);
     }
 
     public void accept(OWLAxiomVisitor visitor) {

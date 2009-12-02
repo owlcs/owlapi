@@ -47,8 +47,8 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
     public OWLClassImpl(OWLDataFactory dataFactory, IRI iri) {
         super(dataFactory);
         this.iri = iri;
-        isThing = getURI().equals(OWLRDFVocabulary.OWL_THING.getURI());
-        isNothing = getURI().equals(OWLRDFVocabulary.OWL_NOTHING.getURI());
+        isThing = getIRI().equals(OWLRDFVocabulary.OWL_THING.getIRI());
+        isNothing = getIRI().equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
     }
 
     /**

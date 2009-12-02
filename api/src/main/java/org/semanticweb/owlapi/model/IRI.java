@@ -87,7 +87,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         if (str == null) {
             throw new NullPointerException("String must not be null");
         }
-        return new IRIImpl(URI.create(str));
+        return new IRIImpl(str);
     }
 
     public static IRI create(URI uri) {
