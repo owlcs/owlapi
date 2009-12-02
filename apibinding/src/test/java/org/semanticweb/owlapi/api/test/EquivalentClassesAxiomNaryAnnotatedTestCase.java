@@ -38,4 +38,14 @@ public class EquivalentClassesAxiomNaryAnnotatedTestCase extends AbstractAnnotat
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         return getFactory().getOWLEquivalentClassesAxiom(getOWLClass("A"), getOWLClass("B"), getOWLClass("C"), getOWLClass("D"));
     }
+
+    @Override
+    public void testRDFXML() throws Exception {
+        // Not supported in RDF.  Only binary equivalent classes axioms can be saved in RDF representations
+    }
+
+    @Override
+    public void testTurtle() throws Exception {
+        // Not supported in RDF.  Only binary equivalent classes axioms can be saved in RDF representations
+    }
 }

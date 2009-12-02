@@ -3,11 +3,13 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -51,13 +53,20 @@ public class TypeAllDisjointPropertiesHandler extends BuiltInTypeHandler {
         consumeTriple(subject, predicate, object);
         IRI listNode = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS.getIRI(), true);
         if (getConsumer().isObjectPropertyOnly(getConsumer().getFirstResource(listNode, false))) {
+            translateAndSetPendingAnnotations(subject);
             List<OWLObjectPropertyExpression> props = getConsumer().translateToObjectPropertyList(listNode);
             getConsumer().addAxiom(getDataFactory().getOWLDisjointObjectPropertiesAxiom(new HashSet<OWLObjectPropertyExpression>(props), getPendingAnnotations()));
         } else {
+            translateAndSetPendingAnnotations(subject);
             List<OWLDataPropertyExpression> props = getConsumer().translateToDataPropertyList(listNode);
             getConsumer().addAxiom(getDataFactory().getOWLDisjointDataPropertiesAxiom(new HashSet<OWLDataPropertyExpression>(props), getPendingAnnotations()));
         }
 
+    }
+
+    private void translateAndSetPendingAnnotations(IRI subject) {
+        Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
+        getConsumer().setPendingAnnotations(annotations);
     }
 
 

@@ -274,7 +274,14 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        addPairwiseClassExpressions(axiom, axiom.getClassExpressions(), OWL_EQUIVALENT_CLASS.getIRI());
+        if (axiom.getClassExpressions().size() == 2) {
+            addPairwiseClassExpressions(axiom, axiom.getClassExpressions(), OWL_EQUIVALENT_CLASS.getIRI());
+        }
+        else {
+            // TODO:
+            
+        }
+        
     }
 
 
@@ -286,6 +293,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
             translateAnonymousNode(axiom);
             addTriple(axiom, RDF_TYPE.getIRI(), OWL_ALL_DISJOINT_CLASSES.getIRI());
             addListTriples(axiom, OWL_MEMBERS.getIRI(), axiom.getClassExpressions());
+            translateAnnotations(axiom);
         }
     }
 
@@ -316,6 +324,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         }
         else {
             translateAnonymousNode(axiom);
+            translateAnnotations(axiom);
             addTriple(axiom, RDF_TYPE.getIRI(), OWL_ALL_DISJOINT_PROPERTIES.getIRI());
             addListTriples(axiom, OWL_MEMBERS.getIRI(), axiom.getProperties());
         }
@@ -386,6 +395,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         }
         else {
             translateAnonymousNode(axiom);
+            translateAnnotations(axiom);
             addTriple(axiom, RDF_TYPE.getIRI(), OWL_ALL_DISJOINT_PROPERTIES.getIRI());
             addListTriples(axiom, OWL_MEMBERS.getIRI(), axiom.getProperties());
         }
@@ -901,12 +911,6 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     private void addTriple(OWLObject subject, IRI pred, IRI object) {
         addTriple(getResourceNode(subject), getPredicateNode(pred), getResourceNode(object));
     }
-
-//    private void addTriple(IRI subj, IRI pred, IRI obj) {
-//        addTriple(getResourceNode(subj), getPredicateNode(pred), getResourceNode(obj));
-//    }
-
-
     private void addTriple(OWLObject subject, IRI pred, OWLObject object) {
         addTriple(getResourceNode(subject), getPredicateNode(pred), getNode(object));
     }

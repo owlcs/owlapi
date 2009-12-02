@@ -1229,7 +1229,9 @@ public class OWLRDFConsumer implements RDFConsumer {
                 for (IRI object : new ArrayList<IRI>(objects)) {
                     // We don't handle x rdf:type owl:Axiom because these must be handled after everything else
                     // so that the "base triples" that represent the axiom with out the annotations get mopped up first
-                    if (!(predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) && object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()))) {
+                    if (!(predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) &&
+                            (object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()) ||
+                             object.equals(OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI())))) {
                         handle(subject, predicate, object);
                     }
                 }
@@ -1249,7 +1251,9 @@ public class OWLRDFConsumer implements RDFConsumer {
                     continue;
                 }
                 for (IRI object : new ArrayList<IRI>(objects)) {
-                    if ((predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) && object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()))) {
+                    if ((predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) &&
+                         (object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()) ||
+                          object.equals(OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI())))) {
                         handle(subject, predicate, object);
                     }
                 }

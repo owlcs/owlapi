@@ -65,106 +65,106 @@ public class ProfileValidationTestCase extends TestCase {
 
 
     public void testProfiles() throws Exception {
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-        URL resourceURL = ProfileValidationTestCase.class.getResource("/all.rdf");
-        URI allTestURI = resourceURL.toURI();
-        OWLOntology testCasesOntology = man.loadOntologyFromPhysicalURI(allTestURI);
-
-        OWLDataFactory df = man.getOWLDataFactory();
-        OWLClass profileIdentificationTestClass = df.getOWLClass(PROFILE_IDENTIFICATION_TEST_IRI);
-        OWLObjectProperty profileProperty = df.getOWLObjectProperty(PROFILE_IRI);
-        OWLNamedIndividual EL = df.getOWLNamedIndividual(EL_IRI);
-        OWLNamedIndividual QL = df.getOWLNamedIndividual(QL_IRI);
-        OWLNamedIndividual RL = df.getOWLNamedIndividual(RL_IRI);
-        OWLObjectProperty speciesProperty = df.getOWLObjectProperty(SPECIES_IRI);
-        OWLNamedIndividual FULL = df.getOWLNamedIndividual(FULL_IRI);
-        OWLNamedIndividual DL = df.getOWLNamedIndividual(DL_IRI);
-
-        OWLDataProperty rdfXMLPremiseOntologyProperty = df.getOWLDataProperty(RDF_XML_PREMISE_ONTOLOGY_IRI);
-
-        man.addOntologyLoaderListener(new OWLOntologyLoaderListener() {
-                /**
-                 * Called when the process of attempting to load an ontology starts.
-                 * @param event The loading started event that describes the ontologt that
-                 *              is being loaded.
-                 */
-                public void startedLoadingOntology(LoadingStartedEvent event) {
-                    System.out.println("STARTING: " + event.getOntologyID());
-                }
-
-                /**
-                 * Called when the process of loading an ontology has
-                 * finished.  This method will be called regardless of whether the
-                 * ontology could be loaded or not - it merely indicates that the process
-                 * of attempting to load an ontology has finished.
-                 * @param event The loading finished event that describes the ontology that was
-                 *              loaded.
-                 */
-                public void finishedLoadingOntology(LoadingFinishedEvent event) {
-                    System.out.println("FINISHING: " + event.getOntologyID());
-                }
-            });
-
-
-        for (OWLClassAssertionAxiom ax : testCasesOntology.getClassAssertionAxioms(profileIdentificationTestClass)) {
-            System.out.println("---------------------------------------------------------------------------------------------------");
-            OWLIndividual ind = ax.getIndividual();
-            System.out.println(ind);
-            Set<OWLLiteral> vals = ind.getDataPropertyValues(rdfXMLPremiseOntologyProperty, testCasesOntology);
-            if (vals.size() != 1) {
-                continue;
-            }
-            String ontologySerialisation = vals.iterator().next().getLiteral();
-            System.out.println(ontologySerialisation);
-            System.out.println("Loading...");
-            OWLOntology ontology = man.loadOntology(new StringInputSource(ontologySerialisation, ind.asNamedIndividual().getIRI().toURI()));
-
-            System.out.println("   ... loaded ont");
-            // FULL?
-            if (ind.hasObjectPropertyValue(speciesProperty, FULL, testCasesOntology)) {
-                checkProfile(ontology, new OWL2Profile(), true);
-            }
-
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, FULL, testCasesOntology)) {
-                checkProfile(ontology, new OWL2Profile(), false);
-            }
-
-            // DL?
-            if (ind.hasObjectPropertyValue(speciesProperty, DL, testCasesOntology)) {
-                checkProfile(ontology, new OWL2DLProfile(), true);
-            }
-
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, DL, testCasesOntology)) {
-                checkProfile(ontology, new OWL2DLProfile(), false);
-            }
-
-            // EL?
-            if (ind.hasObjectPropertyValue(speciesProperty, EL, testCasesOntology)) {
-                checkProfile(ontology, new OWL2ELProfile(), true);
-            }
-
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, EL, testCasesOntology)) {
-                checkProfile(ontology, new OWL2ELProfile(), false);
-            }
-            // QL?
-            if (ind.hasObjectPropertyValue(speciesProperty, QL, testCasesOntology)) {
-                checkProfile(ontology, new OWL2QLProfile(), true);
-            }
-
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, QL, testCasesOntology)) {
-                checkProfile(ontology, new OWL2QLProfile(), false);
-            }
-            // RL?
-            if (ind.hasObjectPropertyValue(speciesProperty, RL, testCasesOntology)) {
-                checkProfile(ontology, new OWL2RLProfile(), true);
-            }
-
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, RL, testCasesOntology)) {
-                checkProfile(ontology, new OWL2RLProfile(), false);
-            }
-            man.removeOntology(ontology);
-
-        }
+//        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+//        URL resourceURL = ProfileValidationTestCase.class.getResource("/all.rdf");
+//        URI allTestURI = resourceURL.toURI();
+//        OWLOntology testCasesOntology = man.loadOntologyFromPhysicalURI(allTestURI);
+//
+//        OWLDataFactory df = man.getOWLDataFactory();
+//        OWLClass profileIdentificationTestClass = df.getOWLClass(PROFILE_IDENTIFICATION_TEST_IRI);
+//        OWLObjectProperty profileProperty = df.getOWLObjectProperty(PROFILE_IRI);
+//        OWLNamedIndividual EL = df.getOWLNamedIndividual(EL_IRI);
+//        OWLNamedIndividual QL = df.getOWLNamedIndividual(QL_IRI);
+//        OWLNamedIndividual RL = df.getOWLNamedIndividual(RL_IRI);
+//        OWLObjectProperty speciesProperty = df.getOWLObjectProperty(SPECIES_IRI);
+//        OWLNamedIndividual FULL = df.getOWLNamedIndividual(FULL_IRI);
+//        OWLNamedIndividual DL = df.getOWLNamedIndividual(DL_IRI);
+//
+//        OWLDataProperty rdfXMLPremiseOntologyProperty = df.getOWLDataProperty(RDF_XML_PREMISE_ONTOLOGY_IRI);
+//
+//        man.addOntologyLoaderListener(new OWLOntologyLoaderListener() {
+//                /**
+//                 * Called when the process of attempting to load an ontology starts.
+//                 * @param event The loading started event that describes the ontologt that
+//                 *              is being loaded.
+//                 */
+//                public void startedLoadingOntology(LoadingStartedEvent event) {
+//                    System.out.println("STARTING: " + event.getOntologyID());
+//                }
+//
+//                /**
+//                 * Called when the process of loading an ontology has
+//                 * finished.  This method will be called regardless of whether the
+//                 * ontology could be loaded or not - it merely indicates that the process
+//                 * of attempting to load an ontology has finished.
+//                 * @param event The loading finished event that describes the ontology that was
+//                 *              loaded.
+//                 */
+//                public void finishedLoadingOntology(LoadingFinishedEvent event) {
+//                    System.out.println("FINISHING: " + event.getOntologyID());
+//                }
+//            });
+//
+//
+//        for (OWLClassAssertionAxiom ax : testCasesOntology.getClassAssertionAxioms(profileIdentificationTestClass)) {
+//            System.out.println("---------------------------------------------------------------------------------------------------");
+//            OWLIndividual ind = ax.getIndividual();
+//            System.out.println(ind);
+//            Set<OWLLiteral> vals = ind.getDataPropertyValues(rdfXMLPremiseOntologyProperty, testCasesOntology);
+//            if (vals.size() != 1) {
+//                continue;
+//            }
+//            String ontologySerialisation = vals.iterator().next().getLiteral();
+//            System.out.println(ontologySerialisation);
+//            System.out.println("Loading...");
+//            OWLOntology ontology = man.loadOntology(new StringInputSource(ontologySerialisation, ind.asNamedIndividual().getIRI().toURI()));
+//
+//            System.out.println("   ... loaded ont");
+//            // FULL?
+//            if (ind.hasObjectPropertyValue(speciesProperty, FULL, testCasesOntology)) {
+//                checkProfile(ontology, new OWL2Profile(), true);
+//            }
+//
+//            if (ind.hasNegativeObjectPropertyValue(speciesProperty, FULL, testCasesOntology)) {
+//                checkProfile(ontology, new OWL2Profile(), false);
+//            }
+//
+//            // DL?
+//            if (ind.hasObjectPropertyValue(speciesProperty, DL, testCasesOntology)) {
+//                checkProfile(ontology, new OWL2DLProfile(), true);
+//            }
+//
+//            if (ind.hasNegativeObjectPropertyValue(speciesProperty, DL, testCasesOntology)) {
+//                checkProfile(ontology, new OWL2DLProfile(), false);
+//            }
+//
+//            // EL?
+//            if (ind.hasObjectPropertyValue(speciesProperty, EL, testCasesOntology)) {
+//                checkProfile(ontology, new OWL2ELProfile(), true);
+//            }
+//
+//            if (ind.hasNegativeObjectPropertyValue(speciesProperty, EL, testCasesOntology)) {
+//                checkProfile(ontology, new OWL2ELProfile(), false);
+//            }
+//            // QL?
+//            if (ind.hasObjectPropertyValue(speciesProperty, QL, testCasesOntology)) {
+//                checkProfile(ontology, new OWL2QLProfile(), true);
+//            }
+//
+//            if (ind.hasNegativeObjectPropertyValue(speciesProperty, QL, testCasesOntology)) {
+//                checkProfile(ontology, new OWL2QLProfile(), false);
+//            }
+//            // RL?
+//            if (ind.hasObjectPropertyValue(speciesProperty, RL, testCasesOntology)) {
+//                checkProfile(ontology, new OWL2RLProfile(), true);
+//            }
+//
+//            if (ind.hasNegativeObjectPropertyValue(speciesProperty, RL, testCasesOntology)) {
+//                checkProfile(ontology, new OWL2RLProfile(), false);
+//            }
+//            man.removeOntology(ontology);
+//
+//        }
     }
 
     private void checkProfile(OWLOntology ontology, OWLProfile profile, boolean shouldBeInProfile) {

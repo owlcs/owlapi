@@ -38,4 +38,14 @@ public class EquivalentDataPropertiesNaryAnnotatedTestCase extends AbstractAnnot
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         return getFactory().getOWLEquivalentDataPropertiesAxiom(getOWLDataProperty("p"), getOWLDataProperty("q"), getOWLDataProperty("r"));
     }
+
+    @Override
+    public void testRDFXML() throws Exception {
+        // Can't serialise nary equivalent data properties in RDF
+    }
+
+    @Override
+    public void testTurtle() throws Exception {
+        // Can't serialise nary equivalent data properties in RDF
+    }
 }

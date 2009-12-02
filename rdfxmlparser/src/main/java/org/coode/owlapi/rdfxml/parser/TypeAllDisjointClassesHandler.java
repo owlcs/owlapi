@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.net.URI;
@@ -49,6 +50,8 @@ public class TypeAllDisjointClassesHandler extends BuiltInTypeHandler {
         IRI listNode = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS.getIRI(), true);
         if (listNode != null) {
             Set<OWLClassExpression> desc = getConsumer().translateToClassExpressionSet(listNode);
+            Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
+            getConsumer().setPendingAnnotations(annotations);
             addAxiom(getDataFactory().getOWLDisjointClassesAxiom(desc, getPendingAnnotations()));
         }
     }
