@@ -1,13 +1,7 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
-import org.semanticweb.owlapi.reasoner.ReasonerProgressMonitor;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.ProgressMonitor;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 
-import java.util.concurrent.*;
 import java.util.*;
 /*
  * Copyright (C) 2009, University of Manchester
@@ -50,6 +44,7 @@ public abstract class OWLReasonerBase {
 
     private Set<OWLAxiom> reasonerAxioms;
 
+
     private OWLOntologyChangeListener ontologyChangeListener = new OWLOntologyChangeListener() {
         public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
             handleRawOntologyChanges(changes);
@@ -69,12 +64,22 @@ public abstract class OWLReasonerBase {
 
     private void handleRawOntologyChanges(List<? extends OWLOntologyChange> changes) {
         rawChanges.addAll(changes);
+        // We auto-flush the changes if the reasoner is non-buffering
+        if(bufferingMode.equals(BufferingMode.NON_BUFFERING)) {
+            flush();
+        }
     }
 
     public List<OWLOntologyChange> getPendingChanges() {
         return new ArrayList<OWLOntologyChange>(rawChanges);
     }
 
+    /**
+     * Flushes the pending changes from the pending change list.  The changes will be analysed to dermine which
+     * axioms have actually been added and removed from the imports closure of the root ontology and then the
+     * reasoner will be asked to handle these changes via the {@link #handleChanges(java.util.Set, java.util.Set)}
+     * method.
+     */
     public void flush() {
         // Process the changes
         final Set<OWLAxiom> added = new HashSet<OWLAxiom>();
@@ -82,10 +87,25 @@ public abstract class OWLReasonerBase {
         computeDiff(added, removed);
         reasonerAxioms.removeAll(removed);
         reasonerAxioms.addAll(added);
-        handleChanges(added, removed);
+        rawChanges.clear();
+        if (!added.isEmpty() || !removed.isEmpty()) {
+            handleChanges(added, removed);
+        }
     }
 
+
+    /**
+     * Computes a diff of what axioms have been added and what axioms have been removed from the list
+     * of pending changes.  Note that even if the list of pending changes is non-empty then there may be
+     * no changes for the reasoner to deal with.
+     * @param added The logical axioms that have been added to the imports closure of the reasoner root ontology
+     * @param removed The logical axioms that have been removed from the imports closure of the reasoner root
+     * ontology
+     */
     private void computeDiff(Set<OWLAxiom> added, Set<OWLAxiom> removed) {
+        if(rawChanges.isEmpty()) {
+            return;
+        }
         for (OWLOntology ont : rootOntology.getImportsClosure()) {
             for (OWLAxiom ax : ont.getLogicalAxioms()) {
                 if (!reasonerAxioms.contains(ax)) {
@@ -100,6 +120,22 @@ public abstract class OWLReasonerBase {
         }
     }
 
+    /**
+     * Gets the axioms that should be currently being reasoned over.
+     * @return A collections of axioms (not containing duplicates) that the reasoner should be taking into consideration
+     * when reasoning.  This set of axioms many not correspond to the current state of the imports closure of the
+     * reasoner root ontology if the reasoner is buffered.
+     */
+    public Collection<OWLAxiom> getReasonerAxioms() {
+        return new ArrayList<OWLAxiom>(reasonerAxioms);
+    }
+
+    /**
+     * Asks the reasoner implementation to handle axiom additions and removals from the imports closure of the root
+     * ontology.  The changes will not include annotation axiom additions and removals.
+     * @param addAxioms The axioms to be added to the reasoner.
+     * @param removeAxioms The axioms to be removed from the reasoner
+     */
     protected abstract void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms);
 
     void dispose() {
