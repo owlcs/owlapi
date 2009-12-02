@@ -62,6 +62,12 @@ public abstract class OWLReasonerBase {
         }
     }
 
+    /**
+     * Handles raw ontology changes.  If the reasoner is a buffering reasoner then the changes will be stored
+     * in a buffer.  If the reasoner is a non-buffering reasoner then the changes will be automatically flushed
+     * through to the change filter and passed on to the reasoner.
+     * @param changes The list of raw changes.
+     */
     private void handleRawOntologyChanges(List<? extends OWLOntologyChange> changes) {
         rawChanges.addAll(changes);
         // We auto-flush the changes if the reasoner is non-buffering
