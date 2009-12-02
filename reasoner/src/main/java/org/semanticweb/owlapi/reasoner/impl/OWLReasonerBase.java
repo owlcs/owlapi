@@ -3,10 +3,12 @@ package org.semanticweb.owlapi.reasoner.impl;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.ReasonerProgressMonitor;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.ProgressMonitor;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 
 import java.util.concurrent.*;
+import java.util.*;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -36,53 +38,72 @@ import java.util.concurrent.*;
  * Information Management Group<br>
  * Date: 01-Aug-2009
  */
-public abstract class OWLReasonerBase implements OWLReasoner {
+public abstract class OWLReasonerBase {
 
     private OWLOntologyManager manager;
 
-    private ExecutorService longTaskExecutor = null;
+    private OWLOntology rootOntology;
 
-    private boolean interrupted;
+    private BufferingMode bufferingMode;
 
-    protected OWLReasonerBase(OWLOntologyManager manager, ExecutorService longTaskExecutor, OWLReasonerConfiguration config) {
-        this.manager = manager;
-        this.longTaskExecutor = longTaskExecutor;
-        ReasonerProgressMonitor progressMonitor = config.getProgressMonitor();
+    private List<OWLOntologyChange> rawChanges = new ArrayList<OWLOntologyChange>();
+
+    private Set<OWLAxiom> reasonerAxioms;
+
+    private OWLOntologyChangeListener ontologyChangeListener = new OWLOntologyChangeListener() {
+        public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
+            handleRawOntologyChanges(changes);
+        }
+    };
+
+    protected OWLReasonerBase(OWLOntology rootOntology, BufferingMode bufferingMode) {
+        this.rootOntology = rootOntology;
+        this.bufferingMode = bufferingMode;
+        OWLOntologyManager ontologyManager = rootOntology.getOWLOntologyManager();
+        ontologyManager.addOntologyChangeListener(ontologyChangeListener);
+        reasonerAxioms = new HashSet<OWLAxiom>();
+        for (OWLOntology ont : rootOntology.getImportsClosure()) {
+            reasonerAxioms.addAll(ont.getLogicalAxioms());
+        }
     }
 
-    private void classify() throws InterruptedException {
-        // Send off to the service executor?
-        Future<Void> future = longTaskExecutor.submit(new Callable<Void>() {
-            /**
-             * Computes a result, or throws an exception if unable to do so.
-             * @return computed result
-             * @throws Exception if unable to compute a result
-             */
-            public Void call() throws Exception {
-                return null;
+    private void handleRawOntologyChanges(List<? extends OWLOntologyChange> changes) {
+        rawChanges.addAll(changes);
+    }
+
+    public List<OWLOntologyChange> getPendingChanges() {
+        return new ArrayList<OWLOntologyChange>(rawChanges);
+    }
+
+    public void flush() {
+        // Process the changes
+        final Set<OWLAxiom> added = new HashSet<OWLAxiom>();
+        final Set<OWLAxiom> removed = new HashSet<OWLAxiom>();
+        computeDiff(added, removed);
+        reasonerAxioms.removeAll(removed);
+        reasonerAxioms.addAll(added);
+        handleChanges(added, removed);
+    }
+
+    private void computeDiff(Set<OWLAxiom> added, Set<OWLAxiom> removed) {
+        for (OWLOntology ont : rootOntology.getImportsClosure()) {
+            for (OWLAxiom ax : ont.getLogicalAxioms()) {
+                if (!reasonerAxioms.contains(ax)) {
+                    added.add(ax);
+                }
             }
-        });
-        try {
-            Void v = future.get();
         }
-        catch (ExecutionException e) {
-            e.printStackTrace();
+        for(OWLAxiom ax : reasonerAxioms) {
+            if(!rootOntology.containsAxiom(ax, true)) {
+                removed.add(ax);
+            }
         }
     }
 
-    /**
-     * Asks the reasoner to interrupt what it is currently doing.  An InterruptedException will be thrown in the
-     * thread that invoked the last reasoner operation.  The OWL API is not thread safe in general, but it is likely
-     * that this method will be called from another thread than the event dispatch thread or the thread in which
-     * reasoning takes place.
-     */
-    public void interrupt() {
-        interrupted = true;
-    }
+    protected abstract void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms);
 
-    public boolean isInterrupted() {
-        return interrupted;
-    }
+    void dispose() {
 
+    }
 
 }
