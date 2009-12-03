@@ -117,7 +117,7 @@ public interface BufferedOWLReasoner {
      *         <code>false</code> if classExpression is unsatisfiable with respect to the axioms.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
-     * @throws ClassExpressionNotInProfileExpression
+     * @throws ClassExpressionNotInProfileException
      *                                       if <code>classExpression</code> is not within the profile that is
      *                                       supported by this reasoner.
      * @throws UndeclaredEntitiesException   if the signature of the classExpression is not contained within the signature
@@ -126,7 +126,7 @@ public interface BufferedOWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    boolean isSatisfiable(OWLClassExpression classExpression) throws ReasonerInterruptedException, TimeOutException, ClassExpressionNotInProfileExpression, UndeclaredEntitiesException, InconsistentOntologyException;
+    boolean isSatisfiable(OWLClassExpression classExpression) throws ReasonerInterruptedException, TimeOutException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, InconsistentOntologyException;
 
 
     /**
@@ -212,7 +212,7 @@ public interface BufferedOWLReasoner {
      *         If <code>ce</code> is equivalent to <code>owl:Nothing</code> then the empty <code>NodeSet</code> will be returned.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
-     * @throws ClassExpressionNotInProfileExpression
+     * @throws ClassExpressionNotInProfileException
      *                                       if <code>classExpression</code> is not within the profile that is
      *                                       supported by this reasoner.
      * @throws UndeclaredEntitiesException   if the signature of the classExpression is not contained within the signature
@@ -221,7 +221,7 @@ public interface BufferedOWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileExpression, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -240,7 +240,7 @@ public interface BufferedOWLReasoner {
      *         If <code>ce</code> is equivalent to <code>owl:Thing</code> then the empty <code>NodeSet</code> will be returned.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
-     * @throws ClassExpressionNotInProfileExpression
+     * @throws ClassExpressionNotInProfileException
      *                                       if <code>classExpression</code> is not within the profile that is
      *                                       supported by this reasoner.
      * @throws UndeclaredEntitiesException   if the signature of the classExpression is not contained within the signature
@@ -249,7 +249,7 @@ public interface BufferedOWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileExpression, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -270,7 +270,7 @@ public interface BufferedOWLReasoner {
      *         </p>.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
-     * @throws ClassExpressionNotInProfileExpression
+     * @throws ClassExpressionNotInProfileException
      *                                       if <code>classExpression</code> is not within the profile that is
      *                                       supported by this reasoner.
      * @throws UndeclaredEntitiesException   if the signature of the classExpression is not contained within the signature
@@ -279,7 +279,7 @@ public interface BufferedOWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    Node<OWLClass> getEquivalentClasses(OWLClassExpression ce) throws InconsistentOntologyException, ClassExpressionNotInProfileExpression, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+    Node<OWLClass> getEquivalentClasses(OWLClassExpression ce) throws InconsistentOntologyException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -605,7 +605,7 @@ public interface BufferedOWLReasoner {
      *         is returned.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
-     * @throws ClassExpressionNotInProfileExpression
+     * @throws ClassExpressionNotInProfileException
      *                                       if the class expression <code>ce</code> is not in the profile
      *                                       that is supported by this reasoner.
      * @throws UndeclaredEntitiesException   if the signature of the class expression is not contained within the signature
@@ -614,7 +614,7 @@ public interface BufferedOWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileExpression, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
     /**

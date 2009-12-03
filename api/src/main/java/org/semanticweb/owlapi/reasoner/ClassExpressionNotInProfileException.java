@@ -31,13 +31,13 @@ import org.semanticweb.owlapi.profiles.OWLProfile;
  * Information Management Group<br>
  * Date: 22-Nov-2009
  */
-public class ClassExpressionNotInProfileExpression extends OWLReasonerRuntimeException {
+public class ClassExpressionNotInProfileException extends OWLReasonerRuntimeException {
 
     private OWLClassExpression classExpression;
 
     private OWLProfile profile;
 
-    public ClassExpressionNotInProfileExpression(OWLClassExpression classExpression, OWLProfile profile) {
+    public ClassExpressionNotInProfileException(OWLClassExpression classExpression, OWLProfile profile) {
         this.classExpression = classExpression;
         this.profile = profile;
     }
