@@ -771,7 +771,7 @@ public interface OWLReasoner {
      * set, either there is an explicit data property assertion in the root ontology imports closure
      *  <code>DataPropertyAssertion(pe, ind, l), or, there is an explicit
      * data property assertion in the root ontology imports closure <code>DataPropertyAssertion(S, ind, l)</code> and
-     * the root ontology imports closure entails <code>DataPropertyAssertion(S, pe)</code>.
+     * the root ontology imports closure entails <code>SubDataPropertyOf(S, pe)</code>.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the individual and property is not contained within the signature
