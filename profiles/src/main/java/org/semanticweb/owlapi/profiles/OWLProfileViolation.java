@@ -4,6 +4,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.util.ShortFormProvider;
 
 import java.util.*;
 import java.net.URI;
