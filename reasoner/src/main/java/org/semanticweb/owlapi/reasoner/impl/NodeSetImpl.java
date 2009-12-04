@@ -73,10 +73,20 @@ public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
         return new NodeSetImpl<E>(node);
     }
 
+    /**
+     * Creates a NodeSet from a set of Nodes.
+     * @param nodes The nodes that will be contained in the NodeSet
+     * @return A NodeSet containing the specified nodes
+     */
     public static <E extends OWLLogicalEntity> NodeSet<E> createNodeSetFromNodes(Set<Node<E>> nodes) {
         return new NodeSetImpl<E>(nodes);
     }
 
+    /**
+     * Creates a Node set from a set of entities.  None of the entities in the set are equivalent.
+     * @param entities The entities
+     * @return A NodeSet containing the specified entities.
+     */
     public static <E extends OWLLogicalEntity> NodeSet<E> createNodeSetFromEnties(Set<E> entities) {
         return new NodeSetImpl<E>(entities, true);
     }
