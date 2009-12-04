@@ -227,7 +227,10 @@ public interface OWLReasoner {
 
     /**
      * Gets the "root" ontology that is loaded into this reasoner.  The reasoner takes into account the axioms
-     * in this ontology and its imports closure when reasoning.   Note that the root ontology is set at reasoner
+     * in this ontology and its imports closure, plus the axioms returned by {@link #getPendingAxiomRemovals()},
+     * minus the axioms returned by {@link #getPendingAxiomAdditions()} when reasoning.
+     * </p>
+     * Note that the root ontology is set at reasoner
      * creation time and cannot be changed thereafter.  Clients that want to add ontologies to and remove ontologies
      * from the reasoner after creation time should create a "dummy" ontology that imports the "real" ontologies and
      * then specify the dummy ontology as the root ontology at reasoner creation time.
