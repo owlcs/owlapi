@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.reasoner.impl;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
+import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 
 import java.util.*;
 /*
@@ -46,6 +47,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
 
     private Set<OWLAxiom> reasonerAxioms;
 
+    private long timeOut;
+
+    private OWLReasonerConfiguration configuration;
 
     private OWLOntologyChangeListener ontologyChangeListener = new OWLOntologyChangeListener() {
         public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
@@ -53,15 +57,33 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         }
     };
 
-    protected OWLReasonerBase(OWLOntology rootOntology, BufferingMode bufferingMode) {
+    protected OWLReasonerBase(OWLOntology rootOntology, OWLReasonerConfiguration configuration, BufferingMode bufferingMode) {
         this.rootOntology = rootOntology;
         this.bufferingMode = bufferingMode;
+        this.configuration = configuration;
+        this.timeOut = configuration.getTimeOut();
         manager = rootOntology.getOWLOntologyManager();
         manager.addOntologyChangeListener(ontologyChangeListener);
         reasonerAxioms = new HashSet<OWLAxiom>();
         for (OWLOntology ont : rootOntology.getImportsClosure()) {
             reasonerAxioms.addAll(ont.getLogicalAxioms());
         }
+    }
+
+    public OWLReasonerConfiguration getReasonerConfiguration() {
+        return configuration;
+    }
+
+    public BufferingMode getBufferingMode() {
+        return bufferingMode;
+    }
+
+    public long getTimeOut() {
+        return timeOut;
+    }
+
+    public OWLOntology getRootOntology() {
+        return rootOntology;
     }
 
     /**
@@ -80,6 +102,18 @@ public abstract class OWLReasonerBase implements OWLReasoner {
 
     public List<OWLOntologyChange> getPendingChanges() {
         return new ArrayList<OWLOntologyChange>(rawChanges);
+    }
+
+    public Set<OWLAxiom> getPendingAxiomAdditions() {
+        Set<OWLAxiom> added = new HashSet<OWLAxiom>();
+        computeDiff(added, new HashSet<OWLAxiom>());
+        return added;
+    }
+
+    public Set<OWLAxiom> getPendingAxiomRemovals() {
+        Set<OWLAxiom> removed = new HashSet<OWLAxiom>();
+        computeDiff(new HashSet<OWLAxiom>(), removed);
+        return removed;
     }
 
     /**

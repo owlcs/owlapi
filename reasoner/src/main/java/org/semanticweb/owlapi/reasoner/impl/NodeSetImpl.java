@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
-import org.semanticweb.owlapi.model.OWLLogicalAxiom;
-import org.semanticweb.owlapi.model.OWLLogicalEntity;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.Node;
 
@@ -41,7 +40,7 @@ import java.util.Collections;
 public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
 
     private Set<E> flattened;
-    
+
     private Set<Node<E>> nodes;
 
     private NodeSetImpl(E entity) {
@@ -71,6 +70,7 @@ public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
 
     /**
      * Creates a NodeSet from a set of Nodes.
+     *
      * @param nodes The nodes that will be contained in the NodeSet
      * @return A NodeSet containing the specified nodes
      */
@@ -80,6 +80,7 @@ public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
 
     /**
      * Creates a Node set from a set of entities.  None of the entities in the set are equivalent.
+     *
      * @param entities The entities
      * @return A NodeSet containing the specified entities.
      */
@@ -89,12 +90,12 @@ public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
 
 
     public Set<E> getFlattened() {
-        if(flattened != null) {
+        if (flattened != null) {
             return flattened;
         }
         else {
             Set<E> result = new HashSet<E>();
-            for(Node<E> node : nodes) {
+            for (Node<E> node : nodes) {
                 result.addAll(node.getEntities());
             }
             return result;
@@ -102,12 +103,12 @@ public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
     }
 
     public boolean containsEntity(E e) {
-        if(flattened != null) {
+        if (flattened != null) {
             return flattened.contains(e);
         }
         else {
-            for(Node<E> node : nodes) {
-                if(node.contains(e)) {
+            for (Node<E> node : nodes) {
+                if (node.contains(e)) {
                     return true;
                 }
             }
@@ -116,7 +117,7 @@ public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
     }
 
     public boolean isSingleton() {
-        if(flattened != null) {
+        if (flattened != null) {
             return flattened.size() == 1;
         }
         else {
@@ -125,7 +126,7 @@ public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
     }
 
     public boolean isTopSingleton() {
-        if(flattened != null) {
+        if (flattened != null) {
             return flattened.size() == 1 && flattened.iterator().next().isTopEntity();
         }
         else {
@@ -134,7 +135,7 @@ public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
     }
 
     public boolean isBottomSingleton() {
-        if(flattened != null) {
+        if (flattened != null) {
             return flattened.size() == 1 && flattened.iterator().next().isBottomEntity();
         }
         else {
@@ -143,14 +144,14 @@ public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
     }
 
     public int size() {
-        if(flattened != null) {
+        if (flattened != null) {
             flattened.size();
         }
         return 0;
     }
 
     public boolean isEmpty() {
-        if(flattened != null) {
+        if (flattened != null) {
             return flattened.isEmpty();
         }
         else {
@@ -159,12 +160,36 @@ public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
     }
 
     public Iterator<Node<E>> iterator() {
-        if(flattened != null) {
+        if (flattened != null) {
             return new FlattenedNodeIterator();
         }
         else {
             return nodes.iterator();
         }
+    }
+
+    private static final NodeSet<OWLClass> emptyClassNodeSet = createNodeSetFromEnties(new HashSet<OWLClass>(0));
+
+    private static final NodeSet<OWLObjectProperty> emptyObjectPropertyNodeSet = createNodeSetFromEnties(new HashSet<OWLObjectProperty>(0));
+
+    private static final NodeSet<OWLDataProperty> emptyDataPropertyNodeSet = createNodeSetFromEnties(new HashSet<OWLDataProperty>(0));
+
+    private static final NodeSet<OWLNamedIndividual> emptyNamedIndividualNodeSet = createNodeSetFromEnties(new HashSet<OWLNamedIndividual>(0));
+
+    public static NodeSet<OWLClass> emptyOWLClassNodeSet() {
+        return emptyClassNodeSet;
+    }
+
+    public static NodeSet<OWLObjectProperty> emptyOWLObjectPropertyNodeSet() {
+        return emptyObjectPropertyNodeSet;
+    }
+
+    public static NodeSet<OWLDataProperty> emptyOWLDataPropertyNodeSet() {
+        return emptyDataPropertyNodeSet;
+    }
+
+    public static NodeSet<OWLNamedIndividual> emptyOWLNamedIndividualNodeSet() {
+        return emptyNamedIndividualNodeSet;
     }
 
 
