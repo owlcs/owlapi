@@ -56,8 +56,8 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     protected OWLReasonerBase(OWLOntology rootOntology, BufferingMode bufferingMode) {
         this.rootOntology = rootOntology;
         this.bufferingMode = bufferingMode;
-        OWLOntologyManager ontologyManager = rootOntology.getOWLOntologyManager();
-        ontologyManager.addOntologyChangeListener(ontologyChangeListener);
+        manager = rootOntology.getOWLOntologyManager();
+        manager.addOntologyChangeListener(ontologyChangeListener);
         reasonerAxioms = new HashSet<OWLAxiom>();
         for (OWLOntology ont : rootOntology.getImportsClosure()) {
             reasonerAxioms.addAll(ont.getLogicalAxioms());
@@ -146,5 +146,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      */
     protected abstract void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms);
 
-
+    public void dispose() {
+        manager.removeOntologyChangeListener(ontologyChangeListener);
+    }
 }
