@@ -40,9 +40,19 @@ import java.util.List;/*
  * <h2>Change Management</h2>
  * At creation time, an OWLReasoner will attach itself as a listener to the {@link org.semanticweb.owlapi.model.OWLOntologyManager}
  * that manages the root ontology.  The reasoner will listen to any
- * {@link org.semanticweb.owlapi.model.OWLOntologyChange}s and respond to these so that any queries that are asked after
- * the ontology changes are answered with respect to the changed ontologies.  Note that this does not guarentee that
- * the reasoner implementation will respond to changes in an incremental (and efficient manner) manner.
+ * {@link org.semanticweb.owlapi.model.OWLOntologyChange}s and respond appropriately to them before answering any queries.
+ * If the {@link org.semanticweb.owlapi.reasoner.BufferingMode} of the reasoner (determined by {@link #getBufferingMode()}
+ * is {@link org.semanticweb.owlapi.reasoner.BufferingMode#NON_BUFFERING} the ontology changes are processed by the reasoner
+ * immediately so that any queries asked after the changes are answered with respect to the changed ontologies.
+ * If the {@link org.semanticweb.owlapi.reasoner.BufferingMode} of the reasoner is {@link org.semanticweb.owlapi.reasoner.BufferingMode#BUFFERING}
+ * then ontology changes are stored in a buffer and are only taken into consideration when the buffer is flushed with
+ * the {@link #flush()} method. When reasoning, axioms in the root ontology imports closure, minus the axioms returned
+ * by the {@link #getPendingAxiomAdditions()} method, plus the axioms returned by the {@link #getPendingAxiomRemovals()}
+ * are taken into consideration.
+ * </p>
+ * Note that there is no guarantee that the reasoner implementation will respond to changes in an incremental
+ * (and efficient manner) manner.
+ *
  * </p>
  * <h2>Nodes</h2>
  * The reasoner interface contains methods that return {@link org.semanticweb.owlapi.reasoner.NodeSet}s.  These are
