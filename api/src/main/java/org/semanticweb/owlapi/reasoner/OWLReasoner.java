@@ -30,19 +30,20 @@ import java.util.List;/*
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 21-Jan-2009
  * <p>
- * An OWLReasoner reasons over a set of axioms that is defined by the imports closure of a particular ontology - the
- * "root" ontology.  This ontology can be obtained using the {@link OWLReasoner#getRootOntology()} method.
+ * An OWLReasoner reasons over a set of axioms (the set of reasoner axioms) that is based on the imports closure of a
+ * particular ontology - the "root" ontology.  This ontology can be obtained using the {@link OWLReasoner#getRootOntology()} method.
  * When the client responsible for creating the reasoner has finished with the
  * reasoner instance it must call the {@link #dispose()} method to free any resources that are used by the reasoner.
  * In general, reasoners should not be instantiated directly, but should be created using the appropriate
  * {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}.
  * </p>
- * <h2>Change Management</h2>
- * At creation time, an OWLReasoner will attach itself as a listener to the {@link org.semanticweb.owlapi.model.OWLOntologyManager}
- * that manages the root ontology.  The reasoner will listen to any
+ * <h2>Ontology Change Management (Buffering and Non-Buffering Modes)</h2>
+ * At creation time, an OWLReasoner will load the axioms in the root ontology imports closure.  It will attach itself
+ * as a listener to the {@link org.semanticweb.owlapi.model.OWLOntologyManager} that manages the root ontology.
+ * The reasoner will listen to any
  * {@link org.semanticweb.owlapi.model.OWLOntologyChange}s and respond appropriately to them before answering any queries.
- * If the {@link org.semanticweb.owlapi.reasoner.BufferingMode} of the reasoner (determined by {@link #getBufferingMode()}
- * is {@link org.semanticweb.owlapi.reasoner.BufferingMode#NON_BUFFERING} the ontology changes are processed by the reasoner
+ * If the {@link org.semanticweb.owlapi.reasoner.BufferingMode} of the reasoner (the answer to {@link #getBufferingMode()}
+ * is {@link org.semanticweb.owlapi.reasoner.BufferingMode#NON_BUFFERING}) the ontology changes are processed by the reasoner
  * immediately so that any queries asked after the changes are answered with respect to the changed ontologies.
  * If the {@link org.semanticweb.owlapi.reasoner.BufferingMode} of the reasoner is {@link org.semanticweb.owlapi.reasoner.BufferingMode#BUFFERING}
  * then ontology changes are stored in a buffer and are only taken into consideration when the buffer is flushed with
@@ -52,7 +53,11 @@ import java.util.List;/*
  * </p>
  * Note that there is no guarantee that the reasoner implementation will respond to changes in an incremental
  * (and efficient manner) manner.
- *
+ * </p>
+ * <h2>Reasoner Axioms</h2>
+ * The set of axioms that the reasoner takes into consideration when answering queries is known as the <i>set of
+ * reasoner axioms</i>.  This corresponds the axioms in the imports closure of the root ontology plus the axioms
+ * returned by the {@link #getPendingAxiomRemovals()} minus the axioms returned by {@link #getPendingAxiomAdditions()}
  * </p>
  * <h2>Nodes</h2>
  * The reasoner interface contains methods that return {@link org.semanticweb.owlapi.reasoner.NodeSet}s.  These are
@@ -198,9 +203,9 @@ public interface OWLReasoner {
 
     /**
      * Flushes any changes stored in the buffer, which causes the reasoner to take into consideration the
-     * changes the current root ontology plus the changes.  If the reasoner buffering mode is
+     * changes the current root ontology specified by the changes.  If the reasoner buffering mode is
      * {@link org.semanticweb.owlapi.reasoner.BufferingMode#NON_BUFFERING}
-     * then this method will have no effect.
+     * then this method will have no effect.  
      */
     void flush();
 
@@ -273,8 +278,7 @@ public interface OWLReasoner {
     void prepareReasoner() throws ReasonerInterruptedException, TimeOutException;
 
     /**
-     * Determines if the imports closure of the root ontology (the ontology returned by
-     * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getRootOntology()}) is consistent.  Note that this method
+     * Determines if the set of reasoner axioms is consistent.  Note that this method
      * will not throw an {@link org.semanticweb.owlapi.reasoner.InconsistentOntologyException} even if the root ontology
      * imports closure is inconsistent.
      *
@@ -290,18 +294,18 @@ public interface OWLReasoner {
 
     /**
      * A convenience method that determines if the specified class expression is satisfiable with respect to the
-     * axioms in the imports closure of the root ontology.
+     * reasoner axioms.
      *
      * @param classExpression The class expression
      * @return <code>true</code> if classExpression is satisfiable with respect to the set of axioms, or
      *         <code>false</code> if classExpression is unsatisfiable with respect to the axioms.
      *
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws InconsistentOntologyException if the set of reasoner axioms is inconsistent
      * @throws ClassExpressionNotInProfileException if <code>classExpression</code> is not within the profile that is
      * supported by this reasoner.
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the classExpression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the set of reasoner axioms.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -311,14 +315,13 @@ public interface OWLReasoner {
 
 
     /**
-     * A convenience method that determines if the specified axiom is entailed by the set of axioms in the
-     * imports closure of the root ontology.
+     * A convenience method that determines if the specified axiom is entailed by the set of reasoner axioms.
      *
      * @param axiom The axiom
      * @return <code>true</code> if {@code axiom} is entailed by the reasoner axioms or <code>false</code> if
      *         {@code axiom} is not entailed by the reasoner axioms.
      *
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws InconsistentOntologyException if the set of reasoner axioms is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the axiom is not contained within the signature
      *                                       of the imports closure of the root ontology.
@@ -335,7 +338,7 @@ public interface OWLReasoner {
 
 
     /**
-     * Determines if the specified set of axioms is entailed by the axioms in the imports closure of the root ontology.
+     * Determines if the specified set of axioms is entailed by the reasoner axioms.
      * @param axioms The set of axioms to be tested
      * @return <code>true</code> if the set of axioms is entailed by the axioms in the imports closure of the root
      * ontology, otherwise <code>false</code>
@@ -379,16 +382,16 @@ public interface OWLReasoner {
 
     /**
      * Gets the set of named classes that are the strict (potentially direct) subclasses of the specified class expression with respect to the
-     * imports closure of the root ontology.  Note that the classes are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * reasoner axioms.  Note that the classes are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param ce The class expression whose strict (direct) subclasses are to be retrieved.
      * @param direct Specifies if the direct subclasses should be retrived (<code>true</code>) or if the all subclasses (descendant)
      * classes should be retrieved (<code>false</code>).
      * @return If direct is <code>true</code>, a <code>NodeSet</code> such that for each class <code>C</code> in the <code>NodeSet</code>
-     * the root ontology imports closure entails <code>DirectSubClassOf(C, ce)</code>.
+     * the set of reasoner axioms entails <code>DirectSubClassOf(C, ce)</code>.
      * </p>
      * If direct is <code>false</code>, a <code>NodeSet</code> such that for each class <code>C</code> in the <code>NodeSet</code>
-     * the root ontology imports closure entails <code>StrictSubClassOf(C, ce)</code>.
+     * the set of reasoner axioms entails <code>StrictSubClassOf(C, ce)</code>.
      * </p>
      * If <code>ce</code> is equivalent to <code>owl:Nothing</code> then the empty <code>NodeSet</code> will be returned.
      *
@@ -413,10 +416,10 @@ public interface OWLReasoner {
      * @param direct Specifies if the direct super classes should be retrived (<code>true</code>) or if the all super classes (ancestors)
      * classes should be retrieved (<code>false</code>).
      * @return If direct is <code>true</code>, a <code>NodeSet</code> such that for each class <code>C</code> in the <code>NodeSet</code>
-     * the root ontology imports closure entails <code>DirectSubClassOf(ce, C)</code>.
+     * the set of reasoner axioms entails <code>DirectSubClassOf(ce, C)</code>.
      * </p>
      * If direct is <code>false</code>, a <code>NodeSet</code> such that for each class <code>C</code> in the <code>NodeSet</code>
-     * the root ontology imports closure entails <code>StrictSubClassOf(ce, C)</code>.
+     * the set of reasoner axioms entails <code>StrictSubClassOf(ce, C)</code>.
      * </p>
      * If <code>ce</code> is equivalent to <code>owl:Thing</code> then the empty <code>NodeSet</code> will be returned.
      *
@@ -443,10 +446,10 @@ public interface OWLReasoner {
      * </p>
      * If <code>ce</code> is a named class then <code>ce</code> will be contained in the node.
      * </p>
-     * If <code>ce</code> is unsatisfiable with respect to the root ontology imports closure then the node
+     * If <code>ce</code> is unsatisfiable with respect to the set of reasoner axioms then the node
      * representing and containing <code>owl:Nothing</code>, i.e. the bottom node, will be returned.
      * </p>
-     * If <code>ce</code> is equivalent to <code>owl:Thing</code> with respect to the root ontology imports closure
+     * If <code>ce</code> is equivalent to <code>owl:Thing</code> with respect to the set of reasoner axioms
      * then the node representing and containing <code>owl:Thing</code>, i.e. the top node, will be returned
      * </p>.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
@@ -479,10 +482,10 @@ public interface OWLReasoner {
      * @param direct Specifies if the direct subproperties should be retrived (<code>true</code>) or if the all
      * subproperties (descendants) should be retrieved (<code>false</code>).
      * @return If direct is <code>true</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
-     * <code>NodeSet</code> the root ontology imports closure entails <code>DirectSubObjectPropertyOf(P, pe)</code>.
+     * <code>NodeSet</code> the set of reasoner axioms entails <code>DirectSubObjectPropertyOf(P, pe)</code>.
      * </p>
      * If direct is <code>false</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
-     * <code>NodeSet</code> the root ontology imports closure entails <code>StrictSubObjectPropertyOf(P, pe)</code>.
+     * <code>NodeSet</code> the set of reasoner axioms entails <code>StrictSubObjectPropertyOf(P, pe)</code>.
      * </p>
      * If <code>pe</code> is equivalent to <code>owl:bottomObjectProperty</code> then the empty <code>NodeSet</code>
      * will be returned.
@@ -507,10 +510,10 @@ public interface OWLReasoner {
      * @param direct Specifies if the direct super properties should be retrived (<code>true</code>) or if the all
      * super properties (ancestors) should be retrieved (<code>false</code>).
      * @return If direct is <code>true</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
-     * <code>NodeSet</code> the root ontology imports closure entails <code>DirectSubObjectPropertyOf(pe, P)</code>.
+     * <code>NodeSet</code> the set of reasoner axioms entails <code>DirectSubObjectPropertyOf(pe, P)</code>.
      * </p>
      * If direct is <code>false</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
-     * <code>NodeSet</code> the root ontology imports closure entails <code>StrictSubObjectPropertyOf(pe, P)</code>.
+     * <code>NodeSet</code> the set of reasoner axioms entails <code>StrictSubObjectPropertyOf(pe, P)</code>.
      * </p>
      * If <code>pe</code> is equivalent to <code>owl:topObjectProperty</code> then the empty <code>NodeSet</code>
      * will be returned.
@@ -533,14 +536,14 @@ public interface OWLReasoner {
      *
      * @param pe The object property expression whose equivalent properties are to be retrieved.
      * @return A node containing the named object properties such that for each named object property <code>P</code>
-     * in the node, the root ontology imports closure entails <code>EquivalentObjectProperties(pe P)</code>.
+     * in the node, the set of reasoner axioms entails <code>EquivalentObjectProperties(pe P)</code>.
      * </p>
      * If <code>pe</code> is a named object property then <code>pe</code> will be contained in the node.
      * </p>
-     * If <code>pe</code> is unsatisfiable with respect to the root ontology imports closure then the node
+     * If <code>pe</code> is unsatisfiable with respect to the set of reasoner axioms then the node
      * representing and containing <code>owl:bottomObjectProperty</code>, i.e. the bottom node, will be returned.
      * </p>
-     * If <code>ce</code> is equivalent to <code>owl:topObjectProperty</code> with respect to the root ontology imports closure
+     * If <code>ce</code> is equivalent to <code>owl:topObjectProperty</code> with respect to the set of reasoner axioms
      * then the node representing and containing <code>owl:topObjectProperty</code>, i.e. the top node, will be returned
      * </p>.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
@@ -558,7 +561,7 @@ public interface OWLReasoner {
      * respect to the imports closure of the root ontology.  The properties are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}
      * @param pe The property expression whose inverse properties are to be retrieved.
      * @return A <code>NodeSet</code> containing object properties such that for each object property <code>P</code> in
-     * the nodes set, the root ontology imports closure entails <code>InverseObjectProperties(pe, P)</code>
+     * the nodes set, the set of reasoner axioms entails <code>InverseObjectProperties(pe, P)</code>
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the object property expression is not contained within the signature
@@ -577,12 +580,12 @@ public interface OWLReasoner {
      * @param direct Specifies if the direct domains should be retrieved (<code>true</code>), or if all domains
      * should be retrieved (<code>false</code>).
      * @return If <code>direct</code> is <code>true</code>, a <code>NodeSet</code> containing named classes such that for each named
-     * class <code>C</code> in the node set, the root ontology imports closure entails <code>ObjectPropertyDomain(pe C)</code> and
-     * the root ontology imports closure entails <code>DirectSubClassOf(ObjectSomeValuesFrom(pe owl:Thing) C)</code>
+     * class <code>C</code> in the node set, the set of reasoner axioms entails <code>ObjectPropertyDomain(pe C)</code> and
+     * the set of reasoner axioms entails <code>DirectSubClassOf(ObjectSomeValuesFrom(pe owl:Thing) C)</code>
      * </p>
      * If <code>direct</code> is <code>false</code>, a <code>NodeSet</code> containing named classes such that for each named class
-     * <code>C</code> in the node set, the root ontology imports closure entails <code>ObjectPropertyDomain(pe C)</code>, that is,
-     * the root ontology imports closure entails <code>StrictSubClassOf(ObjectSomeValuesFrom(pe owl:Thing) C)</code> 
+     * <code>C</code> in the node set, the set of reasoner axioms entails <code>ObjectPropertyDomain(pe C)</code>, that is,
+     * the set of reasoner axioms entails <code>StrictSubClassOf(ObjectSomeValuesFrom(pe owl:Thing) C)</code>
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
@@ -602,14 +605,14 @@ public interface OWLReasoner {
      * @param direct Specifies if the direct ranges should be retrieved (<code>true</code>), or if all ranges
      * should be retrieved (<code>false</code>).
      * @return If <code>direct</code> is <code>true</code>, a <code>NodeSet</code> containing named classes such that for each named
-     * class <code>C</code> in the node set, the root ontology imports closure entails <code>ObjectPropertyRange(pe C)</code>
+     * class <code>C</code> in the node set, the set of reasoner axioms entails <code>ObjectPropertyRange(pe C)</code>
      * (<code>SubClassOf(owl:Thing ObjectAllValuesFrom(pe C))</code>) and there is no other class <code>D</code> in the
-     * signature of the root ontology imports closure such that the root ontology imports closure entails
+     * signature of the set of reasoner axioms such that the set of reasoner axioms entails
      * <code>StrictSubClassOf(D C)</code> and <code>SubClassOf(owl:Thing ObjectAllValuesFrom(pe D))</code>.
      * </p>
      * If <code>direct</code> is <code>false</code>, a <code>NodeSet</code> containing named classes such that for each named class
-     * <code>C</code> in the node set, the root ontology imports closure entails <code>ObjectPropertyRange(pe C)</code>, that is,
-     * the root ontology imports closure entails <code>SubClassOf(owl:Thing ObjectAllValuesFrom(pe C))</code>.
+     * <code>C</code> in the node set, the set of reasoner axioms entails <code>ObjectPropertyRange(pe C)</code>, that is,
+     * the set of reasoner axioms entails <code>SubClassOf(owl:Thing ObjectAllValuesFrom(pe C))</code>.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
@@ -639,10 +642,10 @@ public interface OWLReasoner {
      * @param direct Specifies if the direct subproperties should be retrived (<code>true</code>) or if the all
      * subproperties (descendants) should be retrieved (<code>false</code>).
      * @return If direct is <code>true</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
-     * <code>NodeSet</code> the root ontology imports closure entails <code>DirectSubDataPropertyOf(P, pe)</code>.
+     * <code>NodeSet</code> the set of reasoner axioms entails <code>DirectSubDataPropertyOf(P, pe)</code>.
      * </p>
      * If direct is <code>false</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
-     * <code>NodeSet</code> the root ontology imports closure entails <code>StrictSubDataPropertyOf(P, pe)</code>.
+     * <code>NodeSet</code> the set of reasoner axioms entails <code>StrictSubDataPropertyOf(P, pe)</code>.
      * </p>
      * If <code>pe</code> is equivalent to <code>owl:bottomDataProperty</code> then the empty <code>NodeSet</code>
      * will be returned.
@@ -667,10 +670,10 @@ public interface OWLReasoner {
      * @param direct Specifies if the direct super properties should be retrived (<code>true</code>) or if the all
      * super properties (ancestors) should be retrieved (<code>false</code>).
      * @return If direct is <code>true</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
-     * <code>NodeSet</code> the root ontology imports closure entails <code>DirectSubDataPropertyOf(pe, P)</code>.
+     * <code>NodeSet</code> the set of reasoner axioms entails <code>DirectSubDataPropertyOf(pe, P)</code>.
      * </p>
      * If direct is <code>false</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
-     * <code>NodeSet</code> the root ontology imports closure entails <code>StrictSubDataPropertyOf(pe, P)</code>.
+     * <code>NodeSet</code> the set of reasoner axioms entails <code>StrictSubDataPropertyOf(pe, P)</code>.
      * </p>
      * If <code>pe</code> is equivalent to <code>owl:topDataProperty</code> then the empty <code>NodeSet</code>
      * will be returned.
@@ -693,14 +696,14 @@ public interface OWLReasoner {
      *
      * @param pe The data property expression whose equivalent properties are to be retrieved.
      * @return A node containing the named data properties such that for each named data property <code>P</code>
-     * in the node, the root ontology imports closure entails <code>EquivalentDataProperties(pe P)</code>.
+     * in the node, the set of reasoner axioms entails <code>EquivalentDataProperties(pe P)</code>.
      * </p>
      * If <code>pe</code> is a named data property then <code>pe</code> will be contained in the node.
      * </p>
-     * If <code>pe</code> is unsatisfiable with respect to the root ontology imports closure then the node
+     * If <code>pe</code> is unsatisfiable with respect to the set of reasoner axioms then the node
      * representing and containing <code>owl:bottomDataProperty</code>, i.e. the bottom node, will be returned.
      * </p>
-     * If <code>ce</code> is equivalent to <code>owl:topDataProperty</code> with respect to the root ontology imports closure
+     * If <code>ce</code> is equivalent to <code>owl:topDataProperty</code> with respect to the set of reasoner axioms
      * then the node representing and containing <code>owl:topDataProperty</code>, i.e. the top node, will be returned
      * </p>.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
@@ -721,12 +724,12 @@ public interface OWLReasoner {
      * @param direct Specifies if the direct domains should be retrieved (<code>true</code>), or if all domains
      * should be retrieved (<code>false</code>).
      * @return If <code>direct</code> is <code>true</code>, a <code>NodeSet</code> containing named classes such that for each named
-     * class <code>C</code> in the node set, the root ontology imports closure entails <code>DataPropertyDomain(pe C)</code> and
-     * the root ontology imports closure entails <code>DirectSubClassOf(ObjectSomeValuesFrom(pe rdfs:Literal) C)</code>
+     * class <code>C</code> in the node set, the set of reasoner axioms entails <code>DataPropertyDomain(pe C)</code> and
+     * the set of reasoner axioms entails <code>DirectSubClassOf(ObjectSomeValuesFrom(pe rdfs:Literal) C)</code>
      * </p>
      * If <code>direct</code> is <code>false</code>, a <code>NodeSet</code> containing named classes such that for each named class
-     * <code>C</code> in the node set, the root ontology imports closure entails <code>DataPropertyDomain(pe C)</code>, that is,
-     * the root ontology imports closure entails <code>StrictSubClassOf(ObjectSomeValuesFrom(pe rdfs:Literal) C)</code>
+     * <code>C</code> in the node set, the set of reasoner axioms entails <code>DataPropertyDomain(pe C)</code>, that is,
+     * the set of reasoner axioms entails <code>StrictSubClassOf(ObjectSomeValuesFrom(pe rdfs:Literal) C)</code>
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
@@ -755,11 +758,11 @@ public interface OWLReasoner {
      * @param direct Specifies if the direct types should be retrieved (<code>true</code>), or if all types
      * should be retrieved (<code>false</code>).
      * @return If <code>direct</code> is <code>true</code>, a <code>NodeSet</code> containing named classes such
-     * that for each named class <code>C</code> in the node set, the root ontology imports closure entails
+     * that for each named class <code>C</code> in the node set, the set of reasoner axioms entails
      * <code>DirectClassAssertion(C, ind)</code>.
      * </p>
      * If <code>direct</code> is <code>false</code>, a <code>NodeSet</code> containing named classes such that for
-     * each named class <code>C</code> in the node set, the root ontology imports closure entails
+     * each named class <code>C</code> in the node set, the set of reasoner axioms entails
      * <code>ClassAssertion(C, ind)</code>.
      * </p>
      * 
@@ -780,14 +783,14 @@ public interface OWLReasoner {
      * @param direct Specifies if the direct instances should be retrieved (<code>true</code>), or if all instances
      * should be retrieved (<code>false</code>).
      * @return If <code>direct</code> is <code>true</code>, a <code>NodeSet</code> containing named individuals such
-     * that for each named individual <code>j</code> in the node set, the root ontology imports closure entails
+     * that for each named individual <code>j</code> in the node set, the set of reasoner axioms entails
      * <code>DirectClassAssertion(ce, j)</code>.
      * </p>
      * If <code>direct</code> is <code>false</code>, a <code>NodeSet</code> containing named individuals such that for
-     * each named individual <code>j</code> in the node set, the root ontology imports closure entails
+     * each named individual <code>j</code> in the node set, the set of reasoner axioms entails
      * <code>ClassAssertion(ce, j)</code>.
      * </p>
-     * If ce is unsatisfiable with respect to the root ontology imports closure then the empty <code>NodeSet</code>
+     * If ce is unsatisfiable with respect to the set of reasoner axioms then the empty <code>NodeSet</code>
      * is returned.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
@@ -809,7 +812,7 @@ public interface OWLReasoner {
      * @param ind The individual that is the subject of the object property values
      * @param pe The object property expression whose values are to be retrieved for the specified individual
      * @return A <code>NodeSet</code> containing named individuals such that for each individual <code>j</code> in the
-     * node set, the root ontology imports closure entails <code>ObjectPropertyAssertion(pe ind j)</code>
+     * node set, the set of reasoner axioms entails <code>ObjectPropertyAssertion(pe ind j)</code>
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the individual and property expression is not contained within the signature
@@ -826,10 +829,10 @@ public interface OWLReasoner {
      * @param ind The individual that is the subject of the data property values
      * @param pe The data property whose values are to be retrieved for the specified individual
      * @return A set of <code>OWLLiteral</code>s containing literals such that for each literal <code>l</code> in the
-     * set, either there is an explicit data property assertion in the root ontology imports closure
+     * set, either there is an explicit data property assertion in the set of reasoner axioms
      *  <code>DataPropertyAssertion(pe, ind, l), or, there is an explicit
-     * data property assertion in the root ontology imports closure <code>DataPropertyAssertion(S, ind, l)</code> and
-     * the root ontology imports closure entails <code>SubDataPropertyOf(S, pe)</code>.
+     * data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(S, ind, l)</code> and
+     * the set of reasoner axioms entails <code>SubDataPropertyOf(S, pe)</code>.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the individual and property is not contained within the signature
