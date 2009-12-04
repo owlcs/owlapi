@@ -44,10 +44,6 @@ public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
     
     private Set<Node<E>> nodes;
 
-    private NodeSetImpl() {
-        this.flattened = new HashSet<E>(flattened);
-    }
-
     private NodeSetImpl(E entity) {
         this(NodeImpl.createOWLNode(entity));
     }
