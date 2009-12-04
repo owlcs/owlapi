@@ -830,7 +830,7 @@ public interface OWLReasoner {
      * @param pe The data property whose values are to be retrieved for the specified individual
      * @return A set of <code>OWLLiteral</code>s containing literals such that for each literal <code>l</code> in the
      * set, either there is an explicit data property assertion in the set of reasoner axioms
-     *  <code>DataPropertyAssertion(pe, ind, l), or, there is an explicit
+     *  <code>DataPropertyAssertion(pe, ind, l)</code>, or, there is an explicit
      * data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(S, ind, l)</code> and
      * the set of reasoner axioms entails <code>SubDataPropertyOf(S, pe)</code>.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
