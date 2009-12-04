@@ -44,7 +44,7 @@ public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
     
     private Set<Node<E>> nodes;
 
-    private NodeSetImpl(Set<E> flattened) {
+    private NodeSetImpl() {
         this.flattened = new HashSet<E>(flattened);
     }
 
@@ -56,12 +56,29 @@ public class NodeSetImpl<E extends OWLLogicalEntity> implements NodeSet<E> {
         nodes = Collections.singleton(singleton);
     }
 
-    public NodeSet<E> createSingleton(E entity) {
+    private NodeSetImpl(Set<Node<E>> nodes) {
+        this.nodes = new HashSet<Node<E>>(nodes);
+    }
+
+
+    private NodeSetImpl(Set<E> entities, boolean flat) {
+        this.flattened = new HashSet<E>(entities);
+    }
+
+    public static <E extends OWLLogicalEntity> NodeSet<E> createSingleton(E entity) {
         return new NodeSetImpl<E>(entity);
     }
 
-    public NodeSet<E> createSingleton(Node<E> node) {
+    public static <E extends OWLLogicalEntity> NodeSet<E> createSingleton(Node<E> node) {
         return new NodeSetImpl<E>(node);
+    }
+
+    public static <E extends OWLLogicalEntity> NodeSet<E> createNodeSetFromNodes(Set<Node<E>> nodes) {
+        return new NodeSetImpl<E>(nodes);
+    }
+
+    public static <E extends OWLLogicalEntity> NodeSet<E> createNodeSetFromEnties(Set<E> entities) {
+        return new NodeSetImpl<E>(entities, true);
     }
 
 
