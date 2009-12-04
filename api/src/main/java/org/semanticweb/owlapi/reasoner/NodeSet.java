@@ -37,7 +37,7 @@ import java.util.Set;
  * </p>
  * A set of {@link Node}s.
  */
-public interface NodeSet<E extends OWLLogicalEntity> extends Set<Node<E>> {
+public interface NodeSet<E extends OWLLogicalEntity> extends Iterable<Node<E>> {
 
 
     /**
@@ -45,6 +45,8 @@ public interface NodeSet<E extends OWLLogicalEntity> extends Set<Node<E>> {
      * @return The union of the entities contained in the <code>Nodes</code> in this <code>NodeSet</code>.
      */
     Set<E> getFlattened();
+
+    boolean isEmpty();
 
     /**
      * A convenience method that determines if this <code>NodeSet</code> contains a specific entity.
@@ -78,22 +80,22 @@ public interface NodeSet<E extends OWLLogicalEntity> extends Set<Node<E>> {
      * bottom node, otherwise <code>false</code>
      */
     boolean isBottomSingleton();
-
-    /**
-     * Determines if this <code>NodeSet</code> contains a <code>Node</code> that is the top node (in a hierarchy).
-     * @see {@link Node#isTopNode()} 
-     * @return <code>true</code> if this <code>NodeSet</code> contains a node that is the top node, otherwise
-     * <code>false</code>
-     */
-    boolean containsTopNode();
-
-    /**
-     * Determies if this node set contains a node that is the bottom node (in a hierarchy).
-     * {@link Node#isBottomNode()} 
-     * @return <code>true</code> if this <code>NodeSet</code> contains a node that is the bottom node, otherwise
-     * <code>false</code>
-     */
-    boolean containsBottomNode();
+//
+//    /**
+//     * Determines if this <code>NodeSet</code> contains a <code>Node</code> that is the top node (in a hierarchy).
+//     * @see {@link Node#isTopNode()}
+//     * @return <code>true</code> if this <code>NodeSet</code> contains a node that is the top node, otherwise
+//     * <code>false</code>
+//     */
+//    boolean containsTopNode();
+//
+//    /**
+//     * Determies if this node set contains a node that is the bottom node (in a hierarchy).
+//     * {@link Node#isBottomNode()}
+//     * @return <code>true</code> if this <code>NodeSet</code> contains a node that is the bottom node, otherwise
+//     * <code>false</code>
+//     */
+//    boolean containsBottomNode();
 
 
 }

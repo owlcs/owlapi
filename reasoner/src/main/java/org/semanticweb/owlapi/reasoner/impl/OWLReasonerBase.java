@@ -1,6 +1,8 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.BufferingMode;
 
 import java.util.*;
 /*
@@ -32,7 +34,7 @@ import java.util.*;
  * Information Management Group<br>
  * Date: 01-Aug-2009
  */
-public abstract class OWLReasonerBase {
+public abstract class OWLReasonerBase implements OWLReasoner {
 
     private OWLOntologyManager manager;
 
@@ -143,9 +145,4 @@ public abstract class OWLReasonerBase {
      * @param removeAxioms The axioms to be removed from the reasoner
      */
     protected abstract void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms);
-
-    void dispose() {
-
-    }
-
 }

@@ -49,6 +49,14 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
                 getURI().equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getURI());
     }
 
+    public boolean isTopEntity() {
+        return isOWLTopDataProperty();
+    }
+
+    public boolean isBottomEntity() {
+        return isOWLBottomDataProperty();
+    }
+
     /**
      * Gets the entity type for this entity
      * @return The entity type

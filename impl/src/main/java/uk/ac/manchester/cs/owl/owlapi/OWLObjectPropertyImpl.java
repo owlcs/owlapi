@@ -48,6 +48,14 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
         this.builtin = getURI().equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI()) || getURI().equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getURI());
     }
 
+    public boolean isTopEntity() {
+        return isOWLTopObjectProperty();
+    }
+
+    public boolean isBottomEntity() {
+        return isOWLBottomObjectProperty();
+    }
+
     /**
      * Gets the entity type for this entity
      * @return The entity type

@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.reasoner.impl;
+package org.semanticweb.owlapi.reasoner;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -26,13 +26,12 @@ package org.semanticweb.owlapi.reasoner.impl;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 29-Nov-2009
+ * Date: 04-Dec-2009
  */
 public enum BufferingMode {
 
     BUFFERING,
 
     NON_BUFFERING
-
-    
 }
+

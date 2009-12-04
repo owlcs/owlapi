@@ -51,6 +51,14 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
         isNothing = getIRI().equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
     }
 
+    public boolean isTopEntity() {
+        return isOWLThing();
+    }
+
+    public boolean isBottomEntity() {
+        return isOWLNothing();
+    }
+
     /**
      * Gets the class expression type for this class expression
      * @return The class expression type

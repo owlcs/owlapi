@@ -72,7 +72,7 @@ import java.util.Set;
  *  <img src="../../../../doc-files/hierarchy.png"/>
  * </div>
  */
-public interface Node<E extends OWLLogicalEntity> extends Set<E> {
+public interface Node<E extends OWLLogicalEntity> extends Iterable<E> {
 
     /**
      * Determines if this node represents the top node (in a hierarchy).
@@ -113,6 +113,20 @@ public interface Node<E extends OWLLogicalEntity> extends Set<E> {
      * @return The set of entities contained in this <code>Node</code>.
      */
     Set<E> getEntities();
+
+    /**
+     * Gets the number of entities contained in this <code>Node</code>
+     * @return The number of entities contained in this node.
+     */
+    int getSize();
+
+    /**
+     * Determines if this node contains the specified entity.
+     * @param entity The entity to check for
+     * @return <code>true</code> if this node contains <code>entity</code>, or <code>false</code> if this node
+     * does not contain <code>entity</code>
+     */
+    boolean contains(E entity);
 
     /**
      * Gets the entities contained in this node minus the specified entitie <code>e</code>.  This essentially

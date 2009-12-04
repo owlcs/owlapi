@@ -2,7 +2,8 @@ package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.*;
 
-import java.util.Set;/*
+import java.util.Set;
+import java.util.List;/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -179,10 +180,54 @@ import java.util.Set;/*
  */
 public interface OWLReasoner {
 
+    /**
+     * Gets the buffering mode of this reasoner.
+     * @return The buffering mode of this reasoner.
+     */
+    BufferingMode getBufferingMode();
+
+    /**
+     * Flushes any changes stored in the buffer, which causes the reasoner to take into consideration the
+     * changes the current root ontology plus the changes.  If the reasoner buffering mode is
+     * {@link org.semanticweb.owlapi.reasoner.BufferingMode#NON_BUFFERING}
+     * then this method will have no effect.
+     */
+    void flush();
+
+    /**
+     * Gets the pending changes which need to be taken into consideration by the reasoner so that it is up to date
+     * with the root ontology imports closure.  After the {@link #flush()} method is called the set of pending changes
+     * will be empty.
+     *
+     * @return A set of changes. Note that the changes represent the raw changes as applied to the imports closure of
+     *         the root ontology.
+     */
+    List<OWLOntologyChange> getPendingChanges();
+
+    /**
+     * Gets the axioms that as a result of ontology changes need to be added to the reasoner to synchronise it
+     * with the root ontology imports closure.  If the buffering mode is
+     * {@link org.semanticweb.owlapi.reasoner.BufferingMode#NON_BUFFERING}
+     * then there will be no pending axiom additions.
+     * @return The set of axioms that need to added to the reasoner to the reasoner to synchronise it with the root
+     * ontology imports closure.
+     */
+    Set<OWLAxiom> getPendingAxiomAdditions();
+
+
+    /**
+     * Gets the axioms that as a result of ontology changes need to removed to the reasoner to synchronise it
+     * with the root ontology imports closure.  If the buffering mode is
+     * {@link org.semanticweb.owlapi.reasoner.BufferingMode#NON_BUFFERING}
+     * then there will be no pending axiom additions.
+     * @return The set of axioms that need to added to the reasoner to the reasoner to synchronise it with the root
+     * ontology imports closure.
+     */
+    Set<OWLAxiom> getPendingAxiomRemovals();
 
     /**
      * Gets the "root" ontology that is loaded into this reasoner.  The reasoner takes into account the axioms
-     * in this ontology and its imports closure when reasoning.  Note that the root ontology is set at reasoner
+     * in this ontology and its imports closure when reasoning.   Note that the root ontology is set at reasoner
      * creation time and cannot be changed thereafter.  Clients that want to add ontologies to and remove ontologies
      * from the reasoner after creation time should create a "dummy" ontology that imports the "real" ontologies and
      * then specify the dummy ontology as the root ontology at reasoner creation time.
@@ -294,7 +339,7 @@ public interface OWLReasoner {
      * @throws AxiomNotInProfileException if <code>axiom</code> is not in the profile that is supported by this reasoner.
      * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType)
      */
-    boolean isEntailed(Set<OWLAxiom> axioms) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, UndeclaredEntitiesException, InconsistentOntologyException;
+    boolean isEntailed(Set<? extends OWLAxiom> axioms) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, UndeclaredEntitiesException, InconsistentOntologyException;
 
 
     /**
@@ -307,7 +352,7 @@ public interface OWLReasoner {
      *         If <code>false</code> then asking {@link #isEntailed(org.semanticweb.owlapi.model.OWLAxiom)} <em>will</em> throw
      *         an {@link org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException}.
      */
-    boolean isEntailmentCheckingSupported(AxiomType axiomType);
+    boolean isEntailmentCheckingSupported(AxiomType<?> axiomType);
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -509,7 +554,7 @@ public interface OWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLObjectProperty> getInverseObjectProperties(OWLObjectPropertyExpression pe)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+    Node<OWLObjectProperty> getInverseObjectProperties(OWLObjectPropertyExpression pe)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
     /**
      * Gets the named classes that are the direct or indirect domains of this property with respect to the imports

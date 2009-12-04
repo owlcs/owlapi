@@ -52,6 +52,14 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         builtin = OWL2Datatype.isBuiltIn(getIRI()) | top;
     }
 
+    public boolean isTopEntity() {
+        return isTopDatatype();
+    }
+
+    public boolean isBottomEntity() {
+        return false;
+    }
+
     /**
      * Gets the entity type for this entity
      * @return The entity type

@@ -1,5 +1,15 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.Node;
+
+import java.util.Set;
+import java.util.Iterator;
+import java.util.HashSet;
+import java.util.Collections;
+
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -29,64 +39,224 @@ package org.semanticweb.owlapi.reasoner.impl;
  * Information Management Group<br>
  * Date: 01-Aug-2009
  */
-public class NodeImpl<E> {
-//
-//    private boolean top;
-//
-//    private boolean bottom;
-//
-//    /**
-//     * Constructs a new, empty set; the backing <tt>HashMap</tt> instance has
-//     * default initial capacity (16) and load factor (0.75).
-//     */
-//    public NodeImpl() {
-//    }
-//
-//    /**
-//     * Creates a singleton synonym set
-//     * @param e The one and only element
-//     */
-//    public NodeImpl(E e) {
-//        super(e);
-//    }
-//
-//    /**
-//     * Constructs a new set containing the elements in the specified
-//     * collection.  The <tt>HashMap</tt> is created with default load factor
-//     * (0.75) and an initial capacity sufficient to contain the elements in
-//     * the specified collection.
-//     * @param c the collection whose elements are to be placed into this set.
-//     * @throws NullPointerException if the specified collection is null.
-//     */
-//    public NodeImpl(Collection<? extends E> c) {
-//        super(c);
-//    }
-//
-//    /**
-//     * Determines if this node represents the top node in the hierarchy.  For a class hierarchy this corresponds
-//     * to the node that represents owl:Thing.
-//     * @return <code>true</code> if this node is the top node in the hierarchy, or <code>false</code> if this node
-//     *         is not the top node in the hierarchy.
-//     */
-//    public boolean isTopNode() {
-//        return top;
-//    }
-//
-//    /**
-//     * Determines if this node represents the bottom node in the hierarchy.  For a class hierarchy this corresponds to
-//     * the node that represents owl:Nothing
-//     * @return <code>true</code> if this node is the bottom node in the hierarchy, or <code>false</code> if this node
-//     *         is not the bottom node in the hierarchy
-//     */
-//    public boolean isBottomNode() {
-//        return bottom;
-//    }
-//
-//    /**
-//     * Gets the elements contained in this hierarchy node.  The elements are equivalent to each other.
-//     * @return The set of elements
-//     */
-//    public Set<E> getEntities() {
-//        return this;
-//    }
+public class NodeImpl<E extends OWLLogicalEntity> implements Node<E> {
+
+    private static Node<OWLClass> owlClassTopNode = createOWLClassNode(OWLDataFactoryImpl.getInstance().getOWLThing());
+
+    private static Node<OWLClass> owlClassBottomNode = createOWLClassNode(OWLDataFactoryImpl.getInstance().getOWLThing());
+
+    private static Node<OWLObjectProperty> owlObjectPropertyTopNode = createOWLObjectPropertyNode(OWLDataFactoryImpl.getInstance().getOWLTopObjectProperty());
+
+    private static Node<OWLObjectProperty> owlObjectPropertyBottomNode = createOWLObjectPropertyNode(OWLDataFactoryImpl.getInstance().getOWLBottomObjectProperty());
+
+    private static Node<OWLDataProperty> owlDataPropertyTopNode = createOWLDataPropertyNode(OWLDataFactoryImpl.getInstance().getOWLTopDataProperty());
+
+    private static Node<OWLDataProperty> owlDataPropertyBottomNode = createOWLDataPropertyNode(OWLDataFactoryImpl.getInstance().getOWLBottomDataProperty());
+
+
+    private E topEntity;
+
+    private E bottomEntity;
+
+    Set<E> entities;
+
+    private NodeImpl(Set<E> entities, E topEntity, E bottomEntity) {
+        this.entities = Collections.unmodifiableSet(new HashSet<E>(entities));
+        this.topEntity = topEntity;
+        this.bottomEntity = bottomEntity;
+    }
+
+    private NodeImpl(E entity, E topEntity, E bottomEntity) {
+        this(Collections.singleton(entity), topEntity, bottomEntity);
+    }
+
+    public static <E extends OWLLogicalEntity> Node<E> createOWLNode(E entity) {
+        if (entity.isOWLClass()) {
+            return (Node<E>) createOWLClassNode(entity.asOWLClass());
+        }
+        else if (entity.isOWLObjectProperty()) {
+            return (Node<E>) createOWLObjectPropertyNode(entity.asOWLObjectProperty());
+        }
+        else if (entity.isOWLDataProperty()) {
+            return (Node<E>) createOWLDataPropertyNode(entity.asOWLDataProperty());
+        }
+        else if (entity.isOWLNamedIndividual()) {
+            return (Node<E>) createOWLNamedIndividualNode(entity.asOWLNamedIndividual());
+        }
+        else if (entity.isOWLDatatype()) {
+            return (Node<E>) createOWLDatatypeNode(entity.asOWLDatatype());
+        }
+        else {
+            throw new IllegalStateException();
+        }
+    }
+
+    public static Node<OWLClass> createOWLClassTopNode() {
+        return owlClassTopNode;
+    }
+
+
+    public static Node<OWLClass> createOWLClassBottomNode() {
+        return owlClassBottomNode;
+    }
+
+
+    public static Node<OWLObjectProperty> createOWLObjectPropertyTopNode() {
+        return owlObjectPropertyTopNode;
+    }
+
+
+    public static Node<OWLObjectProperty> createOWLObjectPropertyBottomNode() {
+        return owlObjectPropertyBottomNode;
+    }
+
+
+    public static Node<OWLDataProperty> createOWLDataPropertyTopNode() {
+        return owlDataPropertyTopNode;
+    }
+
+
+    public static Node<OWLDataProperty> createOWLDataPropertyBottomNode() {
+        return owlDataPropertyBottomNode;
+    }
+
+
+    public static Node<OWLClass> createOWLClassNode(OWLClass entity) {
+        if (entity.isOWLThing()) {
+            return new NodeImpl<OWLClass>(entity, OWLDataFactoryImpl.getInstance().getOWLThing(), null);
+        }
+        else if (entity.isOWLNothing()) {
+            return new NodeImpl<OWLClass>(entity, null, OWLDataFactoryImpl.getInstance().getOWLNothing());
+        }
+        else {
+            return new NodeImpl<OWLClass>(entity, null, null);
+        }
+    }
+
+    public static Node<OWLClass> createOWLClassNode(Set<OWLClass> entities) {
+        if (entities.contains(OWLDataFactoryImpl.getInstance().getOWLThing())) {
+            return new NodeImpl<OWLClass>(entities, OWLDataFactoryImpl.getInstance().getOWLThing(), null);
+        }
+        else if (entities.contains(OWLDataFactoryImpl.getInstance().getOWLNothing())) {
+            return new NodeImpl<OWLClass>(entities, null, OWLDataFactoryImpl.getInstance().getOWLNothing());
+        }
+        else {
+            return new NodeImpl<OWLClass>(entities, null, null);
+        }
+    }
+
+    public static Node<OWLObjectProperty> createOWLObjectPropertyNode(OWLObjectProperty entity) {
+        if (entity.isOWLTopObjectProperty()) {
+            return new NodeImpl<OWLObjectProperty>(entity, OWLDataFactoryImpl.getInstance().getOWLTopObjectProperty(), null);
+        }
+        else if (entity.isOWLBottomObjectProperty()) {
+            return new NodeImpl<OWLObjectProperty>(entity, null, OWLDataFactoryImpl.getInstance().getOWLBottomObjectProperty());
+        }
+        else {
+            return new NodeImpl<OWLObjectProperty>(entity, null, null);
+        }
+    }
+
+    public static Node<OWLObjectProperty> createOWLObjectPropertyNode(Set<OWLObjectProperty> entities) {
+        if (entities.contains(OWLDataFactoryImpl.getInstance().getOWLTopObjectProperty())) {
+            return new NodeImpl<OWLObjectProperty>(entities, OWLDataFactoryImpl.getInstance().getOWLTopObjectProperty(), null);
+        }
+        else if (entities.contains(OWLDataFactoryImpl.getInstance().getOWLBottomObjectProperty())) {
+            return new NodeImpl<OWLObjectProperty>(entities, null, OWLDataFactoryImpl.getInstance().getOWLBottomObjectProperty());
+        }
+        else {
+            return new NodeImpl<OWLObjectProperty>(entities, null, null);
+        }
+    }
+
+
+    public static Node<OWLDataProperty> createOWLDataPropertyNode(OWLDataProperty entity) {
+        if (entity.isOWLTopObjectProperty()) {
+            return new NodeImpl<OWLDataProperty>(entity, OWLDataFactoryImpl.getInstance().getOWLTopDataProperty(), null);
+        }
+        else if (entity.isOWLBottomObjectProperty()) {
+            return new NodeImpl<OWLDataProperty>(entity, null, OWLDataFactoryImpl.getInstance().getOWLBottomDataProperty());
+        }
+        else {
+            return new NodeImpl<OWLDataProperty>(entity, null, null);
+        }
+    }
+    
+    public static Node<OWLDataProperty> createOWLDataPropertyNode(Set<OWLDataProperty> entities) {
+        if (entities.contains(OWLDataFactoryImpl.getInstance().getOWLTopDataProperty())) {
+            return new NodeImpl<OWLDataProperty>(entities, OWLDataFactoryImpl.getInstance().getOWLTopDataProperty(), null);
+        }
+        else if (entities.contains(OWLDataFactoryImpl.getInstance().getOWLBottomDataProperty())) {
+            return new NodeImpl<OWLDataProperty>(entities, null, OWLDataFactoryImpl.getInstance().getOWLBottomDataProperty());
+        }
+        else {
+            return new NodeImpl<OWLDataProperty>(entities, null, null);
+        }
+    }
+
+    public static Node<OWLDatatype> createOWLDatatypeNode(OWLDatatype entity) {
+        if (entity.isTopDatatype()) {
+            return new NodeImpl<OWLDatatype>(entity, OWLDataFactoryImpl.getInstance().getTopDatatype(), null);
+        }
+        else {
+            return new NodeImpl<OWLDatatype>(entity, null, null);
+        }
+    }
+
+    public static Node<OWLNamedIndividual> createOWLNamedIndividualNode(OWLNamedIndividual entity) {
+        return new NodeImpl<OWLNamedIndividual>(entity, null, null);
+    }
+
+
+    public static Node<OWLNamedIndividual> createOWLNamedIndividualNode(Set<OWLNamedIndividual> entities) {
+        return new NodeImpl<OWLNamedIndividual>(entities, null, null);
+    }
+
+
+    public Set<E> getEntities() {
+        return entities;
+    }
+
+    public int getSize() {
+        return entities.size();
+    }
+
+    public boolean isTopNode() {
+        return topEntity != null;
+    }
+
+    public boolean isBottomNode() {
+        return bottomEntity != null;
+    }
+
+    public Set<E> getEntitiesMinus(E e) {
+        Set<E> result = new HashSet<E>(entities);
+        result.remove(e);
+        return result;
+    }
+
+    public Set<E> getEntitiesMinusTop() {
+        return getEntitiesMinus(topEntity);
+    }
+
+    public Set<E> getEntitiesMinusBottom() {
+        return getEntitiesMinus(bottomEntity);
+    }
+
+    public boolean isSingleton() {
+        return entities.size() == 1;
+    }
+
+    public E getRepresentativeElement() {
+        return entities.iterator().next();
+    }
+
+    public Iterator<E> iterator() {
+        return entities.iterator();
+    }
+
+    public boolean contains(E entity) {
+        return entities.contains(entity);
+    }
+
 }
