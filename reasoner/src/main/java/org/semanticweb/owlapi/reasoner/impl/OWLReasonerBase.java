@@ -145,4 +145,6 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * @param removeAxioms The axioms to be removed from the reasoner
      */
     protected abstract void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms);
+
+
 }
