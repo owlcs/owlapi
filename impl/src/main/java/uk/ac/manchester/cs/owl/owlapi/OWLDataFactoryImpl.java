@@ -41,6 +41,10 @@ import java.util.*;
 public class OWLDataFactoryImpl implements OWLDataFactory {
 
     private static OWLDataFactory instance = new OWLDataFactoryImpl();
+    
+    private static OWLClass OWL_THING = new OWLClassImpl(instance, OWLRDFVocabulary.OWL_THING.getIRI());
+    
+    private static OWLClass OWL_NOTHING = new OWLClassImpl(instance, OWLRDFVocabulary.OWL_NOTHING.getIRI());
 
     private Map<IRI, OWLClass> classesByURI;
 
@@ -136,57 +140,57 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLClass getOWLThing() {
-        return getOWLClass(OWLRDFVocabulary.OWL_THING.getURI());
+        return OWL_THING;
     }
 
 
     public OWLClass getOWLNothing() {
-        return getOWLClass(OWLRDFVocabulary.OWL_NOTHING.getURI());
+        return OWL_NOTHING;
     }
 
 
     public OWLDataProperty getOWLBottomDataProperty() {
-        return getOWLDataProperty(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getURI());
+        return getOWLDataProperty(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
 
     public OWLObjectProperty getOWLBottomObjectProperty() {
-        return getOWLObjectProperty(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getURI());
+        return getOWLObjectProperty(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
     }
 
 
     public OWLDataProperty getOWLTopDataProperty() {
-        return getOWLDataProperty(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getURI());
+        return getOWLDataProperty(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI());
     }
 
 
     public OWLObjectProperty getOWLTopObjectProperty() {
-        return getOWLObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getURI());
+        return getOWLObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI());
     }
 
 
     public OWLDatatype getTopDatatype() {
-        return getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL.getURI());
+        return getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
     }
 
 
     public OWLDatatype getIntegerOWLDatatype() {
-        return getOWLDatatype(XSDVocabulary.INTEGER.getURI());
+        return getOWLDatatype(XSDVocabulary.INTEGER.getIRI());
     }
 
 
     public OWLDatatype getFloatOWLDatatype() {
-        return getOWLDatatype(XSDVocabulary.FLOAT.getURI());
+        return getOWLDatatype(XSDVocabulary.FLOAT.getIRI());
     }
 
 
     public OWLDatatype getDoubleOWLDatatype() {
-        return getOWLDatatype(XSDVocabulary.DOUBLE.getURI());
+        return getOWLDatatype(XSDVocabulary.DOUBLE.getIRI());
     }
 
 
     public OWLDatatype getBooleanOWLDatatype() {
-        return getOWLDatatype(XSDVocabulary.BOOLEAN.getURI());
+        return getOWLDatatype(XSDVocabulary.BOOLEAN.getIRI());
     }
 
 
@@ -282,27 +286,27 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLTypedLiteral getOWLTypedLiteral(int value) {
-        return new OWLTypedLiteralImpl(this, Integer.toString(value), getOWLDatatype(XSDVocabulary.INTEGER.getURI()));
+        return new OWLTypedLiteralImpl(this, Integer.toString(value), getOWLDatatype(XSDVocabulary.INTEGER.getIRI()));
     }
 
 
     public OWLTypedLiteral getOWLTypedLiteral(double value) {
-        return new OWLTypedLiteralImpl(this, Double.toString(value), getOWLDatatype(XSDVocabulary.DOUBLE.getURI()));
+        return new OWLTypedLiteralImpl(this, Double.toString(value), getOWLDatatype(XSDVocabulary.DOUBLE.getIRI()));
     }
 
 
     public OWLTypedLiteral getOWLTypedLiteral(boolean value) {
-        return new OWLTypedLiteralImpl(this, Boolean.toString(value), getOWLDatatype(XSDVocabulary.BOOLEAN.getURI()));
+        return new OWLTypedLiteralImpl(this, Boolean.toString(value), getOWLDatatype(XSDVocabulary.BOOLEAN.getIRI()));
     }
 
 
     public OWLTypedLiteral getOWLTypedLiteral(float value) {
-        return new OWLTypedLiteralImpl(this, Float.toString(value), getOWLDatatype(XSDVocabulary.FLOAT.getURI()));
+        return new OWLTypedLiteralImpl(this, Float.toString(value), getOWLDatatype(XSDVocabulary.FLOAT.getIRI()));
     }
 
 
     public OWLTypedLiteral getOWLTypedLiteral(String value) {
-        return new OWLTypedLiteralImpl(this, value, getOWLDatatype(XSDVocabulary.STRING.getURI()));
+        return new OWLTypedLiteralImpl(this, value, getOWLDatatype(XSDVocabulary.STRING.getIRI()));
     }
 
 

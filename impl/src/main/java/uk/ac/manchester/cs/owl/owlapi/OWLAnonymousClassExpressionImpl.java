@@ -84,6 +84,9 @@ public abstract class OWLAnonymousClassExpressionImpl extends OWLObjectImpl impl
         return Collections.singleton((OWLClassExpression) this);
     }
 
+    public boolean containsConjunct(OWLClassExpression ce) {
+        return ce.equals(this);
+    }
 
     public Set<OWLClassExpression> asDisjunctSet() {
         return Collections.singleton((OWLClassExpression) this);

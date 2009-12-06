@@ -158,6 +158,9 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
         return Collections.singleton((OWLClassExpression) this);
     }
 
+    public boolean containsConjunct(OWLClassExpression ce) {
+        return ce.equals(this);
+    }
 
     public Set<OWLClassExpression> asDisjunctSet() {
         return Collections.singleton((OWLClassExpression) this);

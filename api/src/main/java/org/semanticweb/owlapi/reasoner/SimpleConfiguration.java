@@ -41,6 +41,9 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
 
     private long timeOut = Long.MAX_VALUE;
 
+    public SimpleConfiguration() {
+    }
+
     public SimpleConfiguration(ReasonerProgressMonitor progressMonitor) {
         this.progressMonitor = progressMonitor;
     }

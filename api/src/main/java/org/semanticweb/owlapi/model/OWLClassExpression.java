@@ -109,6 +109,16 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      */
     public Set<OWLClassExpression> asConjunctSet();
 
+    /**
+     * Determines if this class expression contains a particular conjunct. This method does not do any normalisation
+     * such as applying DeMorgans rules.
+     * @param ce The conjunct to test for
+     * @return <code>true</code> if this class expression is equal to <code>ce</code> or if this class expression
+     * is an <code>ObjectIntersectionOf</code> (possibly nested withing another <code>ObjectIntersectionOf</code>)
+     * that contains <code>ce</code>, otherwise <code>false</code>.
+     */
+    public boolean containsConjunct(OWLClassExpression ce);
+
 
     /**
      * Interprets this expression as a disjunction and returns the disjuncts. This method does not normalise the
