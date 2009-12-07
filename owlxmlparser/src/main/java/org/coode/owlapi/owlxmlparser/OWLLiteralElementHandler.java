@@ -42,7 +42,7 @@ public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiter
 
     private String lang;
 
-    protected OWLLiteralElementHandler(OWLXMLParserHandler handler) {
+    public OWLLiteralElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
