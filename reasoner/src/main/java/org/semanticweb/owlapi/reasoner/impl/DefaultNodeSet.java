@@ -53,7 +53,7 @@ public abstract class DefaultNodeSet<E extends OWLLogicalEntity> implements Node
     }
 
     public DefaultNodeSet(Set<Node<E>> nodes) {
-        nodes.addAll(nodes);
+        this.nodes.addAll(nodes);
     }
 
     public void addEntity(E entity) {

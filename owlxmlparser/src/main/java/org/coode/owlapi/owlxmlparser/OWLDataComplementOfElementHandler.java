@@ -47,7 +47,7 @@ public class OWLDataComplementOfElementHandler extends AbstractOWLDataRangeHandl
 
     protected void endDataRangeElement() throws OWLXMLParserException {
         if (operand == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "data range element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "data range element");
         }
         setDataRange(getOWLDataFactory().getOWLDataComplementOf(operand));
     }

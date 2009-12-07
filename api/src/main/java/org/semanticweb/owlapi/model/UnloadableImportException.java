@@ -1,9 +1,6 @@
-package org.semanticweb.owlapi.reasoner.impl;
+package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.reasoner.Node;
-
-import java.util.Set;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -31,30 +28,25 @@ import java.util.Set;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 05-Dec-2009
+ * Date: 07-Dec-2009
  */
-public class DataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
+public class UnloadableImportException extends OWLParserException {
 
-    public DataPropertyNodeSet() {
+    private OWLImportsDeclaration importsDeclaration;
+
+    private OWLOntologyCreationException ontologyCreationException;
+
+    public UnloadableImportException(OWLOntologyCreationException e, OWLImportsDeclaration importsDeclaration) {
+        super("Could not loaded imported ontology: " + importsDeclaration + " Cause: " + e.getMessage());
+        this.importsDeclaration = importsDeclaration;
+        this.ontologyCreationException = e;
     }
 
-    public DataPropertyNodeSet(OWLDataProperty entity) {
-        super(entity);
+    public OWLImportsDeclaration getImportsDeclaration() {
+        return importsDeclaration;
     }
 
-    public DataPropertyNodeSet(Node<OWLDataProperty> owlDataPropertyNode) {
-        super(owlDataPropertyNode);
-    }
-
-    public DataPropertyNodeSet(Set<Node<OWLDataProperty>> nodes) {
-        super(nodes);
-    }
-
-    protected DefaultNode<OWLDataProperty> getNode(OWLDataProperty entity) {
-        return NodeFactory.getOWLDataPropertyNode(entity);
-    }
-
-    protected DefaultNode<OWLDataProperty> getNode(Set<OWLDataProperty> entities) {
-        return NodeFactory.getOWLDataPropertyNode(entities);
+    public OWLOntologyCreationException getOntologyCreationException() {
+        return ontologyCreationException;
     }
 }

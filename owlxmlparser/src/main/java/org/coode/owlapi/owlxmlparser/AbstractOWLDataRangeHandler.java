@@ -1,6 +1,8 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -50,7 +52,7 @@ public abstract class AbstractOWLDataRangeHandler extends AbstractOWLElementHand
     }
 
 
-    final public void endElement() throws OWLXMLParserException {
+    final public void endElement() throws OWLParserException, OWLOntologyChangeException {
         endDataRangeElement();
         getParentHandler().handleChild(this);
     }

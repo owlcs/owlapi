@@ -56,10 +56,10 @@ public class OWLDataPropertyRangeAxiomElementHandler extends AbstractOWLAxiomEle
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
         if (property == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "data property element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "data property element");
         }
         if (range == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "data range element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "data range element");
         }
         return getOWLDataFactory().getOWLDataPropertyRangeAxiom(property, range, getAnnotations());
     }

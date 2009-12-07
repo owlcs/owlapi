@@ -37,7 +37,6 @@ public class ManchesterOWLSyntaxParserFactory implements OWLParserFactory {
 
 
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
-        ManchesterOWLSyntaxOntologyParser parser = new ManchesterOWLSyntaxOntologyParser();
-        return parser;
+        return new ManchesterOWLSyntaxOntologyParser();
     }
 }

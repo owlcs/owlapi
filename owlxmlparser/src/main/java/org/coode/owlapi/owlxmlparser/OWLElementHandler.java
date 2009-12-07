@@ -1,5 +1,8 @@
 package org.coode.owlapi.owlxmlparser;
 
+import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -35,10 +38,10 @@ public interface OWLElementHandler<O> {
     public void startElement(String name) throws OWLXMLParserException;
 
 
-    public void attribute(String localName, String value) throws OWLXMLParserException;
+    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException;
 
 
-    public void endElement() throws OWLXMLParserException;
+    public void endElement() throws OWLParserException, OWLOntologyChangeException;
 
 
     public O getOWLObject() throws OWLXMLParserException;
@@ -47,7 +50,7 @@ public interface OWLElementHandler<O> {
     public void setParentHandler(OWLElementHandler handler) throws OWLXMLParserException;
 
 
-    public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException;
+    public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException;
 
 
     public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException;
@@ -68,7 +71,7 @@ public interface OWLElementHandler<O> {
     public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException;
 
 
-    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException;
+    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException;
 
 
     public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException;

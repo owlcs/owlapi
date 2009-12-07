@@ -59,7 +59,7 @@ public class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
 
     protected void endDataRangeElement() throws OWLXMLParserException {
         if (constants.isEmpty()) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "data oneOf element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "data oneOf element");
         }
         setDataRange(getOWLDataFactory().getOWLDataOneOf(constants));
     }

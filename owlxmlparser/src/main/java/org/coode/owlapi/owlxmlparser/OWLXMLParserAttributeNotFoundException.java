@@ -31,7 +31,7 @@ package org.coode.owlapi.owlxmlparser;
  */
 public class OWLXMLParserAttributeNotFoundException extends OWLXMLParserException {
 
-    public OWLXMLParserAttributeNotFoundException(int lineNumber, String attributeName) {
-        super(lineNumber, "Attribute not found: " + attributeName);
+    public OWLXMLParserAttributeNotFoundException(int lineNumber, int columnNumber, String attributeName) {
+        super("Attribute not found: " + attributeName, lineNumber, columnNumber);
     }
 }

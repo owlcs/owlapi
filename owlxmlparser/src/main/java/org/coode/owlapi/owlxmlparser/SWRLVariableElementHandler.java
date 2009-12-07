@@ -1,9 +1,7 @@
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.model.SWRLIArgument;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -42,12 +40,12 @@ public class SWRLVariableElementHandler extends AbstractOWLElementHandler<SWRLVa
     private IRI iri;
 
 
-    public void endElement() throws OWLXMLParserException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException {
         getParentHandler().handleChild(this);
     }
 
     @Override
-    public void attribute(String localName, String value) throws OWLXMLParserException {
+    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
         iri = getIRIFromAttribute(localName, value);
     }
 

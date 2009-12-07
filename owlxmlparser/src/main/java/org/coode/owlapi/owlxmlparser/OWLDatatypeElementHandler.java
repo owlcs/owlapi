@@ -1,6 +1,8 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -39,13 +41,13 @@ public class OWLDatatypeElementHandler extends AbstractOWLDataRangeHandler {
         super(handler);
     }
 
-    public void attribute(String localName, String value) throws OWLXMLParserException {
+    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
         iri = getIRIFromAttribute(localName, value);
     }
 
     protected void endDataRangeElement() throws OWLXMLParserException {
         if (iri == null) {
-            throw new OWLXMLParserAttributeNotFoundException(getLineNumber(), "IRI");
+            throw new OWLXMLParserAttributeNotFoundException(getLineNumber(), getColumnNumber(), "IRI");
         }
         setDataRange(getOWLDataFactory().getOWLDatatype(iri));
     }

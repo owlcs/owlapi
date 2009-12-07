@@ -115,20 +115,18 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * defined in Section 3.4 of the OWL 2 Structural specification
      * @param ontology The ontology whose direct imports are to be retrieved.
      * @return The set of <em>loaded</em> ontologies that the specified ontology is related to via the directlyImports
-     * relation.
-     * @throws UnknownOWLOntologyException if there isn't an ontology in this manager which has the specified IRI.
+     * relation.  If the ontology is not managed by this manager then the empty set will be returned.
      */
-    Set<OWLOntology> getDirectImports(OWLOntology ontology) throws UnknownOWLOntologyException;
+    Set<OWLOntology> getDirectImports(OWLOntology ontology);
 
     /**
      * Gets the set of ontologies that are in the transitive closure of the directly imports relation.
      * @param ontology The ontology whose imports are to be retrieved.
      * @return A set of <code>OWLOntology</code>ies that are in the transitive closure of the directly imports relation
      * of this ontology. If, for what ever reason, an imported ontology could not be loaded, then it will not be contained in the
-     *         returned set of ontologies.
-     * @throws UnknownOWLOntologyException if there isn't an ontology in this manager which has the specified IRI.
+     *         returned set of ontologies. If the ontology is not managed by this manager then the empty set will be returned.
      */
-    Set<OWLOntology> getImports(OWLOntology ontology) throws UnknownOWLOntologyException;
+    Set<OWLOntology> getImports(OWLOntology ontology);
 
     /**
      * Gets the imports closure for the specified ontology.
@@ -137,20 +135,19 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *         will also include the specified ontology. Example: if A imports B and B imports C, then calling this
      *         method with A will return the set consisting of A, B and C. If, for what ever reason, an imported
      *         ontology could not be loaded, then it will not be contained in the returned set of ontologies.
-     * @throws UnknownOWLOntologyException if there isn't an ontology in this manager which has the specified IRI.
+     *          If the ontology is not managed by this manager then the empty set will be returned.
      */
-    Set<OWLOntology> getImportsClosure(OWLOntology ontology) throws UnknownOWLOntologyException;
+    Set<OWLOntology> getImportsClosure(OWLOntology ontology);
 
 
     /**
      * Gets the topologically ordered imports closure.
      * @param ontology The ontology whose imports closure is to be determined.
      * @return A list that represents a topological ordering of the imports closure.  The first element in the list will
-     *         be the specified ontology.
-     * @throws UnknownOWLOntologyException if there isn't an ontology in this manager that corresponds to the specified
-     *                                     ontology
+     *         be the specified ontology. If the ontology is not managed by this manager then an empty list will be returned.
+     *
      */
-    List<OWLOntology> getSortedImportsClosure(OWLOntology ontology) throws UnknownOWLOntologyException;
+    List<OWLOntology> getSortedImportsClosure(OWLOntology ontology);
 
 
 
@@ -165,7 +162,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
     /**
      * Applies a list of changes to some or all of the ontologies that are managed by this manager.  The changes will be
-     * applied to the appropraite ontologies.
+     * applied to the appropriate ontologies.
      * @param changes The changes to be applied.
      * @return The changes that were actually applied.
      * @throws OWLOntologyChangeException If one or more of the changes could not be applied.  See subclasses of
@@ -244,8 +241,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * Creates a new ontology that is initialised to contain specific axioms. The ontology will not have an IRI.
      * @param axioms The axioms that should be copied into the new ontology
      * @return An ontology without an IRI that contains all of the specified axioms
-     * @throws OWLOntologyCreationException if there was a problem creating the new ontology, if the new ontology
-     *                                      already exists in this manager.
+     * @throws OWLOntologyCreationException if there was a problem creating the new ontology.
      * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
      */
     OWLOntology createOntology(Set<OWLAxiom> axioms) throws OWLOntologyCreationException, OWLOntologyChangeException;
@@ -528,10 +524,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * generally used by parsers and other kinds of loaders.  For simply loading an ontology, use the loadOntologyXXX
      * methods.
      * @param declaration The declaration that describes the import to be loaded.
-     * @throws OWLOntologyCreationException if there was a problem creating and loading the import and
+     * @throws UnloadableImportException if there was a problem creating and loading the import and
      * silent missing imports handling is not turned on.
      */
-    void makeLoadImportRequest(OWLImportsDeclaration declaration) throws OWLOntologyCreationException;
+    void makeLoadImportRequest(OWLImportsDeclaration declaration) throws UnloadableImportException;
 
 
     /**

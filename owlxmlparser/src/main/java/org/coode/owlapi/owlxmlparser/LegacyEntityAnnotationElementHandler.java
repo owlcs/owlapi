@@ -3,6 +3,7 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -65,7 +66,7 @@ public class LegacyEntityAnnotationElementHandler extends AbstractOWLAxiomElemen
         entity = handler.getOWLObject().asOWLObjectProperty();
     }
 
-    public void handleChild(OWLAnnotationElementHandler handler) {
+    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
         if (entity == null) {
             super.handleChild(handler);
         }

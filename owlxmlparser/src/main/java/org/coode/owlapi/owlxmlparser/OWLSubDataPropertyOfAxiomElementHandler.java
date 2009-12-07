@@ -50,7 +50,7 @@ public class OWLSubDataPropertyOfAxiomElementHandler extends AbstractOWLAxiomEle
         } else if (superProperty == null) {
             superProperty = handler.getOWLObject();
         } else {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "two data property expression elements");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "two data property expression elements");
         }
     }
 

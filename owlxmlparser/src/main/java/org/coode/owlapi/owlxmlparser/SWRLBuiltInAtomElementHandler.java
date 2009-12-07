@@ -2,6 +2,8 @@ package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLDArgument;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.io.OWLParserException;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    public void attribute(String localName, String value) throws OWLXMLParserException {
+    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
         iri = getIRIFromAttribute(localName, value);
     }
 
@@ -59,7 +61,7 @@ public class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
         args.add(getOWLDataFactory().getSWRLLiteralArgument(handler.getOWLObject()));
     }
 
-    public void endElement() throws OWLXMLParserException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException {
         setAtom(getOWLDataFactory().getSWRLBuiltInAtom(iri, args));
         getParentHandler().handleChild(this);
     }

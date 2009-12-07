@@ -33,21 +33,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
  */
 public class OWLXMLParserException extends OWLParserException {
 
-    public OWLXMLParserException(int lineNumber, String message) {
-        super(message);
-        setLineNumber(lineNumber);
+    public OWLXMLParserException(String message, int lineNumber, int columnNumber) {
+        super(message, lineNumber, columnNumber);
     }
-
-
-    public OWLXMLParserException(int lineNumber, String message, Throwable cause) {
-        super(message, cause);
-        setLineNumber(lineNumber);
-    }
-
-
-    public OWLXMLParserException(int lineNumber, Throwable cause) {
-        super(cause);
-        setLineNumber(lineNumber);
-    }
-
 }

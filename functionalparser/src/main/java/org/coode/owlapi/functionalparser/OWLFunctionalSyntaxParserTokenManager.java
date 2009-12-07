@@ -6,6 +6,8 @@ import java.net.*;
 import java.util.*;
 import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
+import java.io.IOException;
+import org.semanticweb.owlapi.io.OWLParserException;
 
 /** Token Manager. */
 public class OWLFunctionalSyntaxParserTokenManager implements OWLFunctionalSyntaxParserConstants

@@ -1,6 +1,8 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -41,14 +43,14 @@ public class OWLClassElementHandler extends AbstractClassExpressionElementHandle
     }
 
 
-    public void attribute(String localName, String value) throws OWLXMLParserException {
+    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
         iri = getIRIFromAttribute(localName, value);
     }
 
 
     public void endClassExpressionElement() throws OWLXMLParserException {
         if(iri == null) {
-            throw new OWLXMLParserAttributeNotFoundException(getLineNumber(), "IRI");
+            throw new OWLXMLParserAttributeNotFoundException(getLineNumber(), getColumnNumber(), "IRI");
         }
         setClassExpression(getOWLDataFactory().getOWLClass(iri));
     }

@@ -1,6 +1,7 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -38,19 +39,11 @@ public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
 
-    public void endElement() throws OWLXMLParserException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException {
         IRI ontIRI = getIRI(getText().trim());
         OWLImportsDeclaration decl = getOWLDataFactory().getOWLImportsDeclaration(ontIRI);
-        try {
-            getOWLOntologyManager().applyChange(new AddImport(getOntology(), decl));
-            getOWLOntologyManager().makeLoadImportRequest(decl);
-        }
-        catch (OWLOntologyChangeException e) {
-            throw new OWLXMLParserException(getLineNumber(), e);
-        }
-        catch (OWLOntologyCreationException e) {
-            throw new OWLXMLParserException(getLineNumber(), e);
-        }
+        getOWLOntologyManager().applyChange(new AddImport(getOntology(), decl));
+        getOWLOntologyManager().makeLoadImportRequest(decl);
     }
 
 

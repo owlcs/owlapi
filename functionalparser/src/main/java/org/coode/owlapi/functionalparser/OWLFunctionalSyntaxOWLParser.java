@@ -2,9 +2,12 @@ package org.coode.owlapi.functionalparser;
 
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyInputSource;
+import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+
+import java.io.IOException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -37,7 +40,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLOntologyCreationException {
+    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException {
         try {
             OWLFunctionalSyntaxParser parser;
             if(inputSource.isReaderAvailable()) {
@@ -53,7 +56,7 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
             return parser.parse();
         }
         catch (ParseException e) {
-            throw new OWLFunctionalSyntaxParserException(e);
+            throw new OWLParserException(e.getMessage(), e.currentToken.beginLine, e.currentToken.beginColumn);
         }
     }
 }

@@ -14,6 +14,9 @@ import java.net.*;
 import java.util.*;
 import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
+import java.io.IOException;
+import org.semanticweb.owlapi.io.OWLParserException;
+
 
 public class OWLFunctionalSyntaxParser {
 
@@ -820,7 +823,7 @@ TOKEN:
     <ERROR: ~[]>
 }
 
-public OWLFunctionalSyntaxOntologyFormat parse() throws OWLOntologyCreationException :
+public OWLFunctionalSyntaxOntologyFormat parse() throws OWLParserException, IOException :
 {
 }
 {
@@ -833,7 +836,7 @@ public OWLFunctionalSyntaxOntologyFormat parse() throws OWLOntologyCreationExcep
     }
 }
 
-void Ontology() throws OWLOntologyCreationException :
+void Ontology() throws OWLParserException :
 {
     OWLAnnotation anno;
     OWLAxiom ax;

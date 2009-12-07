@@ -57,7 +57,7 @@ public abstract class AbstractNaryBooleanClassExpressionElementHandler extends A
             setClassExpression(operands.iterator().next());
         }
         else {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Found zero child elements of an " + getElementName() + " element. At least 2 class expression elements are required as child elements of " + getElementName() + " elements");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "Found zero child elements of an " + getElementName() + " element. At least 2 class expression elements are required as child elements of " + getElementName() + " elements");
         }
     }
 

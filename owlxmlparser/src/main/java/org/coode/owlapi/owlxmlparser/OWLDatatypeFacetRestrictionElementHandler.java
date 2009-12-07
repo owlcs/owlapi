@@ -1,10 +1,8 @@
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLTypedLiteral;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLFacet;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -51,17 +49,17 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
         if (con.isTyped()) {
             constant = (OWLTypedLiteral) handler.getOWLObject();
         } else {
-            throw new OWLXMLParserException(getLineNumber(), "Found untyped constant, expected typed constant");
+            throw new OWLXMLParserException("Found untyped constant " + constant + ", expected typed constant", getLineNumber(), getColumnNumber());
         }
     }
 
-    public void attribute(String localName, String value) throws OWLXMLParserException {
+    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
         if (localName.equals("facet")) {
             facet = OWLFacet.getFacet(IRI.create(value));
         }
     }
 
-    public void endElement() throws OWLXMLParserException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException {
         getParentHandler().handleChild(this);
     }
 

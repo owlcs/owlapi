@@ -31,7 +31,7 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 13-Apr-2007<br><br>
  */
-public class OWLOntologyFactoryNotFoundException extends OWLOntologyCreationException {
+public class OWLOntologyFactoryNotFoundException extends OWLRuntimeException {
 
     public OWLOntologyFactoryNotFoundException(URI physicalURI) {
         super("Could not find an appropriate factory to load ontology from " + physicalURI);

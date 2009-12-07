@@ -1,6 +1,8 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.io.OWLParserException;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -50,7 +52,7 @@ public class SWRLAtomListElementHandler extends AbstractOWLElementHandler<List<S
         return atoms;
     }
 
-    public void endElement() throws OWLXMLParserException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException {
         getParentHandler().handleChild(this);
     }
 }

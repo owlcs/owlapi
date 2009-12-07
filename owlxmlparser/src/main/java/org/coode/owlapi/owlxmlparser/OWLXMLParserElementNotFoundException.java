@@ -31,7 +31,7 @@ package org.coode.owlapi.owlxmlparser;
  */
 public class OWLXMLParserElementNotFoundException extends OWLXMLParserException {
 
-    public OWLXMLParserElementNotFoundException(int lineNumber, String elementType) {
-        super(lineNumber, "Element not found: " + elementType);
+    public OWLXMLParserElementNotFoundException(int lineNumber, int columnNumber, String elementType) {
+        super("Element not found: " + elementType, lineNumber, columnNumber);
     }
 }

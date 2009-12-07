@@ -56,31 +56,26 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
 
 
     public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException {
-        checkForEntity(handler.getOWLObject());
         entity = (OWLClass) handler.getOWLObject();
     }
 
 
     public void handleChild(AbstractOWLObjectPropertyElementHandler handler) throws OWLXMLParserException {
-        checkForEntity(handler.getOWLObject());
         entity = (OWLEntity) handler.getOWLObject();
     }
 
 
     public void handleChild(OWLDataPropertyElementHandler handler) throws OWLXMLParserException {
-        checkForEntity(handler.getOWLObject());
         entity = (OWLEntity) handler.getOWLObject();
     }
 
 
     public void handleChild(AbstractOWLDataRangeHandler handler) throws OWLXMLParserException {
-        checkForEntity(handler.getOWLObject());
         entity = (OWLEntity) handler.getOWLObject();
     }
 
 
     public void handleChild(OWLAnnotationPropertyElementHandler handler) throws OWLXMLParserException {
-        checkForEntity(handler.getOWLObject());
         entity = (OWLEntity) handler.getOWLObject();
     }
 
@@ -95,7 +90,7 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
     }
 
 
-    public void handleChild(OWLAnnotationElementHandler handler) {
+    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
         if (entity == null) {
             super.handleChild(handler);
         } else {
@@ -111,13 +106,6 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
             return Collections.emptySet();
         } else {
             return entityAnnotations;
-        }
-    }
-
-
-    private void checkForEntity(OWLObject obj) throws OWLXMLParserException {
-        if (!(obj instanceof OWLEntity)) {
-            throw new OWLXMLParserUnexpectedElementException(getLineNumber(), "Only OWL entities may declared with declaration axioms");
         }
     }
 }

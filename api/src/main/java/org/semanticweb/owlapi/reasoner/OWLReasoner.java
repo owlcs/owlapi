@@ -315,11 +315,13 @@ public interface OWLReasoner {
 
     /**
      * A convenience method that obtains the classes in the signature of the root ontology that are unsatisfiable.
-     * @return
-     * @throws ReasonerInterruptedException
-     * @throws TimeOutException
+     * @return A <code>Node</code> that is the bottom node in the class hierarchy.  This node represents <code>owl:Nothing</code>
+     * and contains <code>owl:Nothing</code> itself plus classes that are equivalent to <code>owl:Nothing</code>.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    Set<OWLClass> getUnsatisfiableClasses() throws ReasonerInterruptedException, TimeOutException;
+    Node<OWLClass> getUnsatisfiableClasses() throws ReasonerInterruptedException, TimeOutException;
 
     /**
      * A convenience method that determines if the specified axiom is entailed by the set of reasoner axioms.

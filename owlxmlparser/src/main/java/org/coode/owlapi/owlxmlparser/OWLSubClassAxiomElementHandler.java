@@ -55,9 +55,7 @@ public class OWLSubClassAxiomElementHandler extends AbstractOWLAxiomElementHandl
             subClass = handler.getOWLObject();
         } else if (supClass == null) {
             supClass = handler.getOWLObject();
-        } else {
-            throw new OWLXMLParserUnexpectedElementException(getLineNumber(), "Expected exactly two class expression elements");
-        }
+        } 
     }
 
 

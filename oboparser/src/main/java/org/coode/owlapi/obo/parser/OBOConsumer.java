@@ -229,7 +229,8 @@ public class OBOConsumer implements OBOParserHandler {
         OWLClassExpression equivalentClass;
         if (unionOfOperands.size() == 1) {
             equivalentClass = unionOfOperands.iterator().next();
-        } else {
+        }
+        else {
             equivalentClass = getDataFactory().getOWLObjectUnionOf(unionOfOperands);
         }
         createEquivalentClass(equivalentClass);
@@ -240,7 +241,8 @@ public class OBOConsumer implements OBOParserHandler {
         OWLClassExpression equivalentClass;
         if (intersectionOfOperands.size() == 1) {
             equivalentClass = intersectionOfOperands.iterator().next();
-        } else {
+        }
+        else {
             equivalentClass = getDataFactory().getOWLObjectIntersectionOf(intersectionOfOperands);
         }
         createEquivalentClass(equivalentClass);
@@ -248,8 +250,7 @@ public class OBOConsumer implements OBOParserHandler {
 
 
     private void createEquivalentClass(OWLClassExpression classExpression) {
-        OWLAxiom ax = getDataFactory().getOWLEquivalentClassesAxiom(CollectionFactory.createSet(getCurrentClass(),
-                                                                                                classExpression));
+        OWLAxiom ax = getDataFactory().getOWLEquivalentClassesAxiom(CollectionFactory.createSet(getCurrentClass(), classExpression));
         try {
             getOWLOntologyManager().applyChange(new AddAxiom(ontology, ax));
         }
@@ -264,25 +265,23 @@ public class OBOConsumer implements OBOParserHandler {
             TagValueHandler handler = handlerMap.get(tag);
             if (handler != null) {
                 handler.handle(currentId, value);
-            } else if (inHeader) {
+            }
+            else if (inHeader) {
                 if (tag.equals("import")) {
-                    try {
-                        IRI uri = IRI.create(value.trim());
-                        OWLImportsDeclaration decl = owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(uri);
-                        owlOntologyManager.makeLoadImportRequest(decl);
-                        owlOntologyManager.applyChange(new AddImport(ontology, decl));
-                    }
-                    catch (OWLOntologyCreationException e) {
-                        e.printStackTrace();
-                    }
-                } else {
+                    IRI uri = IRI.create(value.trim());
+                    OWLImportsDeclaration decl = owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(uri);
+                    owlOntologyManager.makeLoadImportRequest(decl);
+                    owlOntologyManager.applyChange(new AddImport(ontology, decl));
+                }
+                else {
                     // Ontology annotations
                     OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
                     OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getIRI(tag));
                     OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
                     owlOntologyManager.applyChange(new AddOntologyAnnotation(ontology, anno));
                 }
-            } else if (currentId != null) {
+            }
+            else if (currentId != null) {
                 // Add as annotation
                 IRI subject = getIRI(currentId);
                 OWLLiteral con = getDataFactory().getOWLStringLiteral(value);
@@ -294,6 +293,9 @@ public class OBOConsumer implements OBOParserHandler {
 
         }
         catch (OWLOntologyChangeException e) {
+            logger.severe(e.getMessage());
+        }
+        catch (UnloadableImportException e) {
             logger.severe(e.getMessage());
         }
     }
@@ -311,9 +313,11 @@ public class OBOConsumer implements OBOParserHandler {
     public OWLEntity getCurrentEntity() {
         if (isTerm()) {
             return getCurrentClass();
-        } else if (isTypedef()) {
+        }
+        else if (isTypedef()) {
             return getDataFactory().getOWLObjectProperty(getIRI(currentId));
-        } else {
+        }
+        else {
             return getDataFactory().getOWLNamedIndividual(getIRI(currentId));
         }
     }

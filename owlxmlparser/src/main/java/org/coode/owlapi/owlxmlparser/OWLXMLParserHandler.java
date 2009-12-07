@@ -4,6 +4,8 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
+import org.semanticweb.owlapi.io.OWLParserURISyntaxException;
+import org.semanticweb.owlapi.io.OWLParserException;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
@@ -62,15 +64,13 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     private Stack<URI> bases;
 
-//    private Map<String, String> prefixName2IRIMap = new HashMap<String, String>();
-
 
     /**
      * Creates an OWLXML handler.
      *
      * @param owlOntologyManager The manager that should be used to obtain a data factory,
-     *                           imported ontologies etc.
-     * @param ontology           The ontology that the XML representation will be parsed into.
+     * imported ontologies etc.
+     * @param ontology The ontology that the XML representation will be parsed into.
      */
     public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology) {
         this(owlOntologyManager, ontology, null);
@@ -86,7 +86,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
             String systemId = locator.getSystemId();
             if (systemId != null)
                 base = new URI(systemId);
-        } catch (URISyntaxException e) {
+        }
+        catch (URISyntaxException e) {
         }
 
         bases.push(base);
@@ -100,13 +101,12 @@ public class OWLXMLParserHandler extends DefaultHandler {
      * element).
      *
      * @param owlOntologyManager The manager that should be used to obtain a data factory,
-     *                           imported ontologies etc.
-     * @param ontology           The ontology object that the XML representation should be parsed into.
-     * @param topHandler         The handler for top level elements - may be <code>null</code>, in which
-     *                           case the parser will expect an Ontology element to be the root element.
+     * imported ontologies etc.
+     * @param ontology The ontology object that the XML representation should be parsed into.
+     * @param topHandler The handler for top level elements - may be <code>null</code>, in which
+     * case the parser will expect an Ontology element to be the root element.
      */
-    public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
-                               OWLElementHandler topHandler) {
+    public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLElementHandler topHandler) {
         this.owlOntologyManager = owlOntologyManager;
         this.ontology = ontology;
         this.bases = new Stack<URI>();
@@ -659,14 +659,24 @@ public class OWLXMLParserHandler extends DefaultHandler {
     public int getLineNumber() {
         if (locator != null) {
             return locator.getLineNumber();
-        } else {
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public int getColumnNumber() {
+        if (locator != null) {
+            return locator.getColumnNumber();
+        }
+        else {
             return -1;
         }
     }
 
     private Map<String, IRI> iriMap = new HashMap<String, IRI>();
 
-    public IRI getIRI(String iriStr) throws OWLXMLParserException {
+    public IRI getIRI(String iriStr) throws OWLParserException {
         try {
             IRI iri = iriMap.get(iriStr);
             if (iri == null) {
@@ -674,7 +684,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 if (!uri.isAbsolute()) {
                     URI base = getBase();
                     if (base == null)
-                        throw new OWLXMLParserException(getLineNumber(), "Unable to resolve relative URI");
+                        throw new OWLXMLParserException("Unable to resolve relative URI", getLineNumber(), getColumnNumber());
 //                    iri = IRI.create(getBase().resolve(uri));
                     iri = IRI.create(base + iriStr);
                 }
@@ -684,13 +694,14 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 iriMap.put(iriStr, iri);
             }
             return iri;
-        } catch (URISyntaxException e) {
-            throw new OWLXMLParserException(getLineNumber(), e);
+        }
+        catch (URISyntaxException e) {
+            throw new OWLParserURISyntaxException(e, getLineNumber(), getColumnNumber());
         }
     }
 
     private String getNormalisedAbbreviatedIRI(String input) {
-        if(input.indexOf(':') != -1) {
+        if (input.indexOf(':') != -1) {
             return input;
         }
         else {
@@ -698,40 +709,20 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
-    public IRI getAbbreviatedIRI(String abbreviatedIRI) throws OWLXMLParserException {
+    public IRI getAbbreviatedIRI(String abbreviatedIRI) throws OWLParserException {
         String normalisedAbbreviatedIRI = getNormalisedAbbreviatedIRI(abbreviatedIRI);
         int sepIndex = normalisedAbbreviatedIRI.indexOf(':');
         String prefixName = normalisedAbbreviatedIRI.substring(0, sepIndex + 1);
         String localName = normalisedAbbreviatedIRI.substring(sepIndex + 1);
         String base = prefixName2PrefixMap.get(prefixName);
-        if(base == null) {
-            throw new OWLXMLParserException(getLineNumber(), "Prefix name not defined: " + prefixName);
+        if (base == null) {
+            throw new OWLXMLParserException("Prefix name not defined: " + prefixName, getLineNumber(), getColumnNumber());
         }
         StringBuilder sb = new StringBuilder();
         sb.append(base);
         sb.append(localName);
         return getIRI(sb.toString());
     }
-//
-//    public URI getIRI(String string) throws OWLXMLParserException {
-//        try {
-//            URI uri = iriMap.get(string);
-//            if (uri == null) {
-//                uri = new URI(string);
-//                if (!uri.isAbsolute()) {
-//                    URI base = getBase();
-//                    if (base == null)
-//                        throw new OWLXMLParserException(getLineNumber(), "Unable to resolve relative URI");
-//                    uri = getBase().resolve(uri);
-//                }
-//                iriMap.put(string, uri);
-//            }
-//            return uri;
-//        }
-//        catch (URISyntaxException e) {
-//            throw new OWLXMLParserException(getLineNumber(), e);
-//        }
-//    }
 
 
     public Map<String, String> getPrefixName2PrefixMap() {
@@ -778,13 +769,15 @@ public class OWLXMLParserHandler extends DefaultHandler {
             catch (OWLException e) {
                 throw new SAXException(e);
             }
-        } else {
+        }
+        else {
 //            throw new SAXException("Unexpected text content: " + ch + " for element ");
         }
     }
 
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+//        try {
         try {
             processXMLBase(attributes);
             if (localName.equals(OWLXMLVocabulary.PREFIX.getShortName())) {
@@ -801,22 +794,24 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 return;
             }
             OWLElementHandlerFactory handlerFactory = handlerMap.get(localName);
-            if (handlerFactory == null) {
-                throw new OWLXMLParserUnknownElementType(getLineNumber(), uri + localName);
+            if (handlerFactory != null) {
+                OWLElementHandler handler = handlerFactory.createHandler(this);
+                if (!handlerStack.isEmpty()) {
+                    OWLElementHandler topElement = handlerStack.get(0);
+                    handler.setParentHandler(topElement);
+                }
+                handlerStack.add(0, handler);
+                for (int i = 0; i < attributes.getLength(); i++) {
+                    handler.attribute(attributes.getLocalName(i), attributes.getValue(i));
+                }
+                handler.startElement(localName);
             }
-            OWLElementHandler handler = handlerFactory.createHandler(this);
-            if (!handlerStack.isEmpty()) {
-                OWLElementHandler topElement = handlerStack.get(0);
-                handler.setParentHandler(topElement);
-            }
-            handlerStack.add(0, handler);
-            for (int i = 0; i < attributes.getLength(); i++) {
-                handler.attribute(attributes.getLocalName(i), attributes.getValue(i));
-            }
-            handler.startElement(localName);
         }
-        catch (OWLException e) {
-            throw new SAXException(e.getMessage() + "(Current element " + localName + ")", e);
+        catch (OWLParserException e) {
+            throw new TranslatedOWLParserException(e);
+        }
+        catch (OWLOntologyChangeException e) {
+            throw new TranslatedOWLOntologyChangeException(e);
         }
     }
 
@@ -824,7 +819,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
         String base = attributes.getValue(Namespaces.XML.toString(), "base");
         if (base != null) {
             bases.push(URI.create(base));
-        } else {
+        }
+        else {
             bases.push(bases.peek());
         }
     }
@@ -842,7 +838,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
         try {
-            if(localName.equals(OWLXMLVocabulary.PREFIX.getShortName())) {
+            if (localName.equals(OWLXMLVocabulary.PREFIX.getShortName())) {
                 return;
             }
             OWLElementHandler handler = handlerStack.remove(0);

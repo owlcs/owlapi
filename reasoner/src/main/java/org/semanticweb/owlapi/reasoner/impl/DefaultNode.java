@@ -123,4 +123,21 @@ public abstract class DefaultNode<E extends OWLLogicalEntity> implements Node<E>
         sb.append(")");
         return sb.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof Node)) {
+            return false;
+        }
+        Node other = (Node) obj;
+        return entities.equals(other.getEntities());
+    }
+
+    @Override
+    public int hashCode() {
+        return entities.hashCode();
+    }
 }

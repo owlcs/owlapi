@@ -1,10 +1,8 @@
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLTypedLiteral;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLFacet;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -54,14 +52,11 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
 
 
     public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
-        if (!handler.getOWLObject().isTyped()) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "typed constant in data range restriction");
-        }
         constant = (OWLTypedLiteral) handler.getOWLObject();
     }
 
 
-    public void attribute(String localName, String value) throws OWLXMLParserException {
+    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
         super.attribute(localName, value);
         if (localName.equals("facet")) {
             facetIRI = getIRI(value);
@@ -71,10 +66,10 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
 
     protected void endDataRangeElement() throws OWLXMLParserException {
         if (dataRange == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "data range element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "data range element");
         }
         if (constant == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "typed constant element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "typed constant element");
         }
         setDataRange(getOWLDataFactory().getOWLDatatypeRestriction((OWLDatatype) dataRange, OWLFacet.getFacet(facetIRI), constant));
 

@@ -2,7 +2,9 @@ package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
+import org.semanticweb.owlapi.io.OWLParserException;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -50,7 +52,7 @@ public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiter
         super.startElement(name);
     }
 
-    public void attribute(String localName, String value) throws OWLXMLParserException {
+    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
         if (localName.equals(OWLXMLVocabulary.DATATYPE_IRI.getShortName())) {
             iri = getIRI(value);
         }
@@ -59,7 +61,7 @@ public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiter
         }
     }
 
-    public void endElement() throws OWLXMLParserException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException {
         if (iri != null) {
             literal = getOWLDataFactory().getOWLTypedLiteral(getText(), getOWLDataFactory().getOWLDatatype(iri));
         } else {

@@ -1,8 +1,8 @@
-package org.coode.owlapi.owlxmlparser;
+package org.semanticweb.owlapi.io;
 
-import javax.xml.parsers.ParserConfigurationException;
+import java.net.URISyntaxException;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -24,16 +24,20 @@ import javax.xml.parsers.ParserConfigurationException;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 07-Dec-2009
  */
-public class OWLXMLParserConfigurationException extends OWLXMLParserException {
+public class OWLParserURISyntaxException extends OWLParserException {
 
-    public OWLXMLParserConfigurationException(ParserConfigurationException cause) {
-        super(-1, cause);
+    public OWLParserURISyntaxException(URISyntaxException cause, int lineNumber, int columnNumber) {
+        super(cause, lineNumber, columnNumber);
+    }
+
+    @Override
+    public URISyntaxException getCause() {
+        return (URISyntaxException) super.getCause();
     }
 }

@@ -1,6 +1,8 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.SWRLIArgument;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -60,7 +62,7 @@ public class SWRLSameIndividualAtomElementHandler extends SWRLAtomElementHandler
         }
     }
 
-    public void endElement() throws OWLXMLParserException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException {
         setAtom(getOWLDataFactory().getSWRLSameIndividualAtom(arg0, arg1));
         getParentHandler().handleChild(this);
     }

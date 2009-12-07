@@ -1,7 +1,9 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -43,7 +45,7 @@ public class OWLAnonymousIndividualElementHandler extends AbstractOWLElementHand
         return ind;
     }
 
-    public void attribute(String localName, String value) throws OWLXMLParserException {
+    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
         if(localName.equals(OWLXMLVocabulary.NODE_ID.getShortName())) {
             ind = getOWLDataFactory().getOWLAnonymousIndividual(value.trim());
         }
@@ -52,7 +54,7 @@ public class OWLAnonymousIndividualElementHandler extends AbstractOWLElementHand
         }
     }
 
-    public void endElement() throws OWLXMLParserException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException {
         getParentHandler().handleChild(this);
     }
 }

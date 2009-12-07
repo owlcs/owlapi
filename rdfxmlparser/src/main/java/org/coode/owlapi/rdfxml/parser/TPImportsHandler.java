@@ -80,7 +80,7 @@ public class TPImportsHandler extends TriplePredicateHandler {
             try {
                 man.makeLoadImportRequest(importsDeclaration);
             }
-            catch (OWLOntologyCreationException e) {
+            catch (UnloadableImportException e) {
                 OWLRDFConsumer.logger.severe(e.getMessage());
             }
 

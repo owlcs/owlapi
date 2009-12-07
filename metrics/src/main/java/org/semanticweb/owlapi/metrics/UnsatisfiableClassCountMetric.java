@@ -52,7 +52,7 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
 
 
     protected Integer recomputeMetric() {
-        return reasoner.getUnsatisfiableClasses().size();
+        return reasoner.getUnsatisfiableClasses().getSize();
     }
 
 

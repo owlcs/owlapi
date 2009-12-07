@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLException;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -30,10 +31,14 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Apr-2007<br><br>
+ *
+ * Indicates that a parse error happened when trying to parse an ontology.
  */
-public class OWLParserException extends OWLOntologyCreationException {
+public class OWLParserException extends OWLException {
 
     private int lineNumber;
+
+    private int columnNumber;
 
     public OWLParserException() {
         this.lineNumber = -1;
@@ -56,6 +61,17 @@ public class OWLParserException extends OWLOntologyCreationException {
         lineNumber = -1;
     }
 
+    public OWLParserException(String message, int lineNumber, int columnNumber) {
+        super(message);
+        this.lineNumber = lineNumber;
+        this.columnNumber = columnNumber;
+    }
+
+    public OWLParserException(Throwable cause, int lineNumber, int columnNumber) {
+        super(cause);
+        this.lineNumber = lineNumber;
+        this.columnNumber = columnNumber;
+    }
 
     /**
      * Gets the line number of the line that the parser
@@ -67,10 +83,13 @@ public class OWLParserException extends OWLOntologyCreationException {
         return lineNumber;
     }
 
-
-    public void setLineNumber(int lineNumber) {
-        this.lineNumber = lineNumber;
+    public int getColumnNumber() {
+        return columnNumber;
     }
+
+//    public void setLineNumber(int lineNumber) {
+//        this.lineNumber = lineNumber;
+//    }
 
 
     public String getMessage() {

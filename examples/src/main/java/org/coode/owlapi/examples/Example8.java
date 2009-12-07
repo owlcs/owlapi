@@ -97,7 +97,7 @@ public class Example8 {
             // can't possibly have any instances).  Note that the getUnsatisfiableClasses method
             // is really just a convenience method for obtaining the classes that are equivalent
             // to owl:Nothing.
-            Set<OWLClass> inconsistentClasses = reasoner.getUnsatisfiableClasses();
+            Set<OWLClass> inconsistentClasses = reasoner.getUnsatisfiableClasses().getEntitiesMinusBottom();
             if (!inconsistentClasses.isEmpty()) {
                 System.out.println("The following classes are inconsistent: ");
                 for(OWLClass cls : inconsistentClasses) {

@@ -45,7 +45,7 @@ public class OWLInverseObjectPropertiesAxiomElementHandler extends AbstractOWLOb
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
         Set<OWLObjectPropertyExpression> props = getOperands();
         if (props.size() > 2 || props.size() < 1) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected 2 object property expression elements");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "Expected 2 object property expression elements");
         }
         Iterator<OWLObjectPropertyExpression> it = props.iterator();
         OWLObjectPropertyExpression propA = it.next();

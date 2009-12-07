@@ -1,6 +1,7 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -42,49 +43,32 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
 
-    public void attribute(String name, String value) throws OWLXMLParserException {
+    public void attribute(String name, String value) throws OWLParserException, OWLOntologyChangeException {
         if (name.equals("ontologyIRI")) {
-            try {
-                getOWLOntologyManager().applyChange(new SetOntologyID(getOntology(), new OWLOntologyID(IRI.create(value))));
-            }
-            catch (OWLOntologyChangeException e) {
-                throw new OWLXMLParserException(getLineNumber(), e);
-            }
+            getOWLOntologyManager().applyChange(new SetOntologyID(getOntology(), new OWLOntologyID(IRI.create(value))));
         }
     }
 
 
-    public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException {
-        try {
-            getOWLOntologyManager().applyChange(new AddAxiom(getOntology(), handler.getOWLObject()));
-        }
-        catch (OWLOntologyChangeException e) {
-            throw new OWLXMLParserException(getLineNumber(), e);
-        }
+    public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
+        getOWLOntologyManager().applyChange(new AddAxiom(getOntology(), handler.getOWLObject()));
     }
 
 
     public void handleChild(AbstractOWLDataRangeHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Encountered a data range, but was expecting an axiom.");
     }
 
 
     public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Encountered a class expression, but was expecting an axiom.");
     }
 
 
-    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
-        try {
-            getOWLOntologyManager().applyChange(new AddOntologyAnnotation(getOntology(), handler.getOWLObject()));
-        }
-        catch (OWLOntologyChangeException e) {
-            throw new OWLXMLParserException(getLineNumber(), e);
-        }
+    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
+        getOWLOntologyManager().applyChange(new AddOntologyAnnotation(getOntology(), handler.getOWLObject()));
     }
 
 
-    public void endElement() {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException {
     }
 
 

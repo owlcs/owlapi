@@ -7,6 +7,9 @@ import java.net.*;
 import java.util.*;
 import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
+import java.io.IOException;
+import org.semanticweb.owlapi.io.OWLParserException;
+
 
 public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
 
@@ -88,7 +91,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prefixMap.putAll(nsm.getPrefixName2PrefixMap());
     }
 
-  final public OWLFunctionalSyntaxOntologyFormat parse() throws ParseException, OWLOntologyCreationException {
+  final public OWLFunctionalSyntaxOntologyFormat parse() throws ParseException, OWLParserException, IOException {
     label_1:
     while (true) {
       if (jj_2_1(2)) {
@@ -108,7 +111,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     throw new Error("Missing return statement in function");
   }
 
-  final public void Ontology() throws ParseException, OWLOntologyCreationException {
+  final public void Ontology() throws ParseException, OWLParserException {
     OWLAnnotation anno;
     OWLAxiom ax;
     OWLImportsDeclaration decl;
@@ -137,7 +140,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
       }
       if (jj_2_5(2)) {
         decl = ImportsDeclaration();
-        man.makeLoadImportRequest(decl);
+//        man.makeLoadImportRequest(decl);
       } else if (jj_2_6(2)) {
         anno = Annotation();
         applyChange(new AddOntologyAnnotation(ontology, anno));
@@ -2971,17 +2974,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     finally { jj_save(130, xla); }
   }
 
-  private boolean jj_3R_40() {
-    if (jj_scan_token(DATASOMEVALUESFROM)) return true;
-    if (jj_scan_token(OPENPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_87() {
-    if (jj_3R_96()) return true;
-    return false;
-  }
-
   private boolean jj_3R_118() {
     if (jj_scan_token(DATARANGEATOM)) return true;
     if (jj_scan_token(OPENPAR)) return true;
@@ -4487,6 +4479,17 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   private boolean jj_3R_70() {
     if (jj_scan_token(DISJOINTCLASSES)) return true;
     if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_40() {
+    if (jj_scan_token(DATASOMEVALUESFROM)) return true;
+    if (jj_scan_token(OPENPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_87() {
+    if (jj_3R_96()) return true;
     return false;
   }
 

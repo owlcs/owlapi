@@ -1,6 +1,8 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -40,7 +42,7 @@ public abstract class AbstractOWLObjectPropertyElementHandler extends AbstractOW
     }
 
 
-    final public void endElement() throws OWLXMLParserException {
+    final public void endElement() throws OWLParserException, OWLOntologyChangeException {
         endObjectPropertyElement();
         getParentHandler().handleChild(this);
     }

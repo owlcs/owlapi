@@ -46,7 +46,7 @@ public class OWLFunctionalDataPropertyAxiomElementHandler extends AbstractOWLPro
 
     protected OWLAxiom createPropertyCharacteristicAxiom() throws OWLXMLParserException {
         if (getProperty() == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected data property element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "Expected data property element");
         }
         return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(getProperty(), getAnnotations());
     }

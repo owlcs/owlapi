@@ -34,8 +34,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 public class KRSSOWLParserException extends OWLParserException {
 
     public KRSSOWLParserException(ParseException e) {
-        super(e);
-        setLineNumber(e.currentToken.beginLine);
+        super(e.getMessage(), e.currentToken.beginLine, e.currentToken.beginColumn);
     }
 
 

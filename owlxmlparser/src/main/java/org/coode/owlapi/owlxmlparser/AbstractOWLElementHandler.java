@@ -1,10 +1,8 @@
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
+import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -51,7 +49,7 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
         this.handler = handler;
     }
 
-    public IRI getIRIFromAttribute(String localName, String value) throws OWLXMLParserException {
+    public IRI getIRIFromAttribute(String localName, String value) throws OWLParserException {
         if(localName.equals(OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName())) {
             return getIRI(value);
         }
@@ -62,18 +60,18 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
             // Legacy
             return getIRI(value);
         }
-        throw new OWLXMLParserAttributeNotFoundException(getLineNumber(), OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName());
+        throw new OWLXMLParserAttributeNotFoundException(getLineNumber(), getColumnNumber(), OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName());
     }
 
 
-    public IRI getIRIFromElement(String elementLocalName, String textContent) throws OWLXMLParserException {
+    public IRI getIRIFromElement(String elementLocalName, String textContent) throws OWLParserException {
         if(elementLocalName.equals(OWLXMLVocabulary.IRI_ELEMENT.getShortName())) {
             return handler.getIRI(textContent.trim());
         }
         else if(elementLocalName.equals(OWLXMLVocabulary.ABBREVIATED_IRI_ELEMENT.getShortName())) {
             return handler.getAbbreviatedIRI(textContent.trim());
         }
-        throw new OWLXMLParserException(getLineNumber(), elementLocalName + " is not an IRI element");
+        throw new OWLXMLParserException(elementLocalName + " is not an IRI element", getLineNumber(), getColumnNumber());
     }
 
 
@@ -102,15 +100,15 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
     }
 
 
-    public void attribute(String localName, String value) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(handler.getLineNumber(), getElementName());
+    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
+
     }
 
-    protected IRI getIRI(String iri) throws OWLXMLParserException {
+    protected IRI getIRI(String iri) throws OWLParserException {
         return handler.getIRI(iri);
     }
 
-    protected IRI getAbbreviatedIRI(String abbreviatedIRI) throws OWLXMLParserException {
+    protected IRI getAbbreviatedIRI(String abbreviatedIRI) throws OWLParserException {
         return handler.getAbbreviatedIRI(abbreviatedIRI);
     }
 
@@ -120,6 +118,10 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
 
     protected int getLineNumber() {
         return handler.getLineNumber();
+    }
+
+    protected int getColumnNumber() {
+        return handler.getColumnNumber();
     }
 
     // TODO: Make final
@@ -133,77 +135,61 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
     }
 
 
-    public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
+    public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
     }
 
 
     public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
 
     public void handleChild(AbstractOWLDataRangeHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
 
     public void handleChild(AbstractOWLObjectPropertyElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
 
     public void handleChild(OWLDataPropertyElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
 
     public void handleChild(OWLIndividualElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
 
     public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
 
-    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
+    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
     }
 
 
     public void handleChild(OWLSubObjectPropertyChainElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
 
     public void handleChild(OWLDatatypeFacetRestrictionElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
     public void handleChild(OWLAnnotationPropertyElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
     public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
     public void handleChild(AbstractIRIElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
     public void handleChild(SWRLVariableElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
     public void handleChild(SWRLAtomElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
     public void handleChild(SWRLAtomListElementHandler handler) throws OWLXMLParserException {
-        throw new OWLXMLParserUnexpectedElementException(getLineNumber(), handler.getElementName());
     }
 
     final public void handleChars(char[] chars, int start, int length) {

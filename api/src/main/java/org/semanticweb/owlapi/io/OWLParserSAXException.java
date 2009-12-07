@@ -1,6 +1,8 @@
-package org.coode.owlapi.owlxmlparser;
+package org.semanticweb.owlapi.io;
+
+import org.xml.sax.SAXException;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -22,25 +24,24 @@ package org.coode.owlapi.owlxmlparser;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 07-Dec-2009
+ * </p>
+ * Many of the various OWL document formats are written in XML.  This exception wraps a {@link org.xml.sax.SAXException}
+ * as an <code>OWLParserException</code>.  Parser implementers should use this class or subclasses of this class to
+ * wrap <code>SAXException</code>s.
  */
-public class OWLXMLParserUnexpectedElementException extends OWLXMLParserException {
+public class OWLParserSAXException extends OWLParserException {
 
-    private String name;
-
-    public OWLXMLParserUnexpectedElementException(int lineNumber, String name) {
-        super(lineNumber, "Unexpected element: " + name);
-        setLineNumber(lineNumber);
-        this.name = name;
+    public OWLParserSAXException(SAXException cause) {
+        super(cause);
     }
 
-
-    public String getName() {
-        return name;
+    @Override
+    public SAXException getCause() {
+        return (SAXException) super.getCause();
     }
 }

@@ -1,11 +1,9 @@
 package org.semanticweb.owlapi.io;
 
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 
 import java.net.URI;
+import java.io.IOException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -35,6 +33,9 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Nov-2006<br><br>
+ * </p>
+ * An <code>OWLParser</code> parses an ontology document into an OWL API object representation of an ontology.
+ *
  */
 public interface OWLParser {
 
@@ -54,9 +55,11 @@ public interface OWLParser {
      * parsed into.
      * @return An <code>OWLOntologyFormat</code> which describes the concrete representation
      * format which was parsed to obtain the ontology. This will never be <code>null</code>.
-     * @throws OWLParserException if there was a problem parsing the ontology.
+     * @throws OWLParserException if there was a problem parsing the ontology.  This indicates an error in the syntax
+     * with this ontology document that the parser reads.
+     * @throws IOException if there was an IOException during parsing
      */
-    OWLOntologyFormat parse(URI physicalURI, OWLOntology ontology) throws OWLOntologyCreationException;
+    OWLOntologyFormat parse(URI physicalURI, OWLOntology ontology) throws OWLParserException, IOException, OWLOntologyChangeException;
 
 
     /**
@@ -72,6 +75,7 @@ public interface OWLParser {
      * @return An <code>OWLOntologyFormat</code> which describes the concrete representation
      * format which was parsed to obtain the ontology.
      * @throws OWLParserException
+     * @throws IOException if there was an IOException during parsing.
      */
-    OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLOntologyCreationException;
+    OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, OWLOntologyChangeException;
 }

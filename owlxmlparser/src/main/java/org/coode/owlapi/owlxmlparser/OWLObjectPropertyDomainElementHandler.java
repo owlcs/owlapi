@@ -56,10 +56,10 @@ public class OWLObjectPropertyDomainElementHandler extends AbstractOWLAxiomEleme
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
         if (property == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected object property element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "Expected object property element");
         }
         if (domain == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected class expression element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "Expected class expression element");
         }
         return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(property, domain, getAnnotations());
     }

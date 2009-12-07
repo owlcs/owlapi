@@ -59,10 +59,10 @@ public class OWLClassAssertionAxiomElementHandler extends AbstractOWLAxiomElemen
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
         if (individual == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "individual element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "individual element");
         }
         if (classExpression == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "classExpression kind element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "classExpression kind element");
         }
         return getOWLDataFactory().getOWLClassAssertionAxiom(classExpression, individual, getAnnotations());
     }

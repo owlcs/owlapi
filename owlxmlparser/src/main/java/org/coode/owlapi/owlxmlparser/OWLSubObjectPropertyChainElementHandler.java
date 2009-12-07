@@ -1,6 +1,8 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.io.OWLParserException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +47,7 @@ public class OWLSubObjectPropertyChainElementHandler extends AbstractOWLElementH
     }
 
 
-    public void endElement() throws OWLXMLParserException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException {
         getParentHandler().handleChild(this);
     }
 

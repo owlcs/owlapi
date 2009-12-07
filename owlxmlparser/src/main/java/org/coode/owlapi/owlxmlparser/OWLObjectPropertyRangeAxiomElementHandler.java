@@ -56,10 +56,10 @@ public class OWLObjectPropertyRangeAxiomElementHandler extends AbstractOWLAxiomE
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
         if (property == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), OWLXMLVocabulary.OBJECT_PROPERTY.getShortName());
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), OWLXMLVocabulary.OBJECT_PROPERTY.getShortName());
         }
         if (range == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "OWL class expression element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "OWL class expression element");
         }
         return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range, getAnnotations());
     }

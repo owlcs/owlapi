@@ -905,10 +905,15 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
 
-    public void makeLoadImportRequest(OWLImportsDeclaration declaration) throws OWLOntologyCreationException {
-        OWLOntology ont = loadImports(declaration);
-        if (ont != null) {
-            ontologyIDsByImportsDeclaration.put(declaration, ont.getOntologyID());
+    public void makeLoadImportRequest(OWLImportsDeclaration declaration) throws UnloadableImportException {
+        try {
+            OWLOntology ont = loadImports(declaration);
+            if (ont != null) {
+                ontologyIDsByImportsDeclaration.put(declaration, ont.getOntologyID());
+            }
+        }
+        catch (OWLOntologyCreationException e) {
+            throw new UnloadableImportException(e, declaration);
         }
     }
 

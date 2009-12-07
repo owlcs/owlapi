@@ -56,9 +56,6 @@ public class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandl
     public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException {
         if (cls == null) {
             OWLClassExpression desc = handler.getOWLObject();
-            if (desc.isAnonymous()) {
-                throw new OWLXMLParserUnexpectedElementException(getLineNumber(), "Found anonymous class as first child of disjoint union, expected a named class.");
-            }
             cls = (OWLClass) desc;
         } else {
             classExpressions.add(handler.getOWLObject());

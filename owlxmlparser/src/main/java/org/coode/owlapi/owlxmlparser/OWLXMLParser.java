@@ -3,6 +3,8 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -44,7 +46,7 @@ import java.util.Map;
 public class OWLXMLParser extends AbstractOWLParser {
 
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException {
+    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, OWLOntologyChangeException {
         try {
             System.setProperty("entityExpansionLimit", "100000000");
             OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
@@ -61,13 +63,18 @@ public class OWLXMLParser extends AbstractOWLParser {
             return format;
         }
         catch (ParserConfigurationException e) {
-            throw new OWLXMLParserConfigurationException(e);
+            // What the hell should be do here?  In serious trouble if this happens
+            throw new OWLRuntimeException(e);
+        }
+        catch (TranslatedOWLOntologyChangeException e) {
+            throw e.getCause();
+        }
+        catch (TranslatedOWLParserException e) {
+            throw e.getCause();
         }
         catch (SAXException e) {
-            throw new OWLXMLParserSAXException(-1, e);
-        }
-        catch (IOException e) {
-            throw new OWLParserIOException(e);
+            // General exception
+            throw new OWLParserSAXException(e);
         }
     }
 }

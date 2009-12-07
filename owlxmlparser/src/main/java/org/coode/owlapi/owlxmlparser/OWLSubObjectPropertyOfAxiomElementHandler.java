@@ -54,7 +54,7 @@ public class OWLSubObjectPropertyOfAxiomElementHandler extends AbstractOWLAxiomE
         } else if (superProperty == null) {
             superProperty = handler.getOWLObject();
         } else {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), "Expected two object property expression elements");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "Expected two object property expression elements");
         }
     }
 

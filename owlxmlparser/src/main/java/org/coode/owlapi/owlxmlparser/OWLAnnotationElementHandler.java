@@ -1,6 +1,7 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.io.OWLParserException;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -52,11 +53,11 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
         super.startElement(name);
     }
 
-    public void endElement() throws OWLXMLParserException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException {
         getParentHandler().handleChild(this);
     }
 
-    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
         if(annotations == null) {
             annotations = new HashSet<OWLAnnotation>();
         }

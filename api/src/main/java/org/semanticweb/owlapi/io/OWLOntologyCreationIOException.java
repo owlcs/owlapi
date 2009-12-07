@@ -32,6 +32,9 @@ import java.io.IOException;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 11-Apr-2008<br><br>
+ *
+ * Indicates an {@link java.io.IOException} happened during ontology creation.  The cause of this exception will
+ * be an {@link java.io.IOException}.
  */
 public class OWLOntologyCreationIOException extends OWLOntologyCreationException {
 
@@ -44,7 +47,10 @@ public class OWLOntologyCreationIOException extends OWLOntologyCreationException
         return (IOException) super.getCause();
     }
 
-
+    /**
+     * Delegates to the getMessage() method of the contained <code>IOException</code>.
+     * @return The message of the IOException 
+     */
     public String getMessage() {
         return getCause().getMessage();
     }

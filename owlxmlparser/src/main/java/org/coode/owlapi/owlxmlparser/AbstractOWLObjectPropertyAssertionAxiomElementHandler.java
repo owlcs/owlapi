@@ -45,9 +45,6 @@ public abstract class AbstractOWLObjectPropertyAssertionAxiomElementHandler exte
         else if (getObject() == null) {
             setObject(handler.getOWLObject());
         }
-        else {
-            throw new OWLXMLParserException(getLineNumber(), "Only two individual elements expected");
-        }
     }
 
     public void handleChild(OWLIndividualElementHandler handler) throws OWLXMLParserException {
@@ -56,9 +53,6 @@ public abstract class AbstractOWLObjectPropertyAssertionAxiomElementHandler exte
         }
         else if (getObject() == null) {
             setObject(handler.getOWLObject());
-        }
-        else {
-            throw new OWLXMLParserException(getLineNumber(), "Only two individual elements expected");
         }
     }
 
