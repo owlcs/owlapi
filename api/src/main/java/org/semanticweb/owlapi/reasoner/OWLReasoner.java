@@ -328,9 +328,9 @@ public interface OWLReasoner {
      *
      * @param axiom The axiom
      * @return <code>true</code> if {@code axiom} is entailed by the reasoner axioms or <code>false</code> if
-     *         {@code axiom} is not entailed by the reasoner axioms.
+     *         {@code axiom} is not entailed by the reasoner axioms.  <code>true</code> if the set of reasoner axioms
+     * is inconsistent.
      *
-     * @throws InconsistentOntologyException if the set of reasoner axioms is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the axiom is not contained within the signature
      *                                       of the imports closure of the root ontology.
@@ -343,15 +343,14 @@ public interface OWLReasoner {
      * @throws AxiomNotInProfileException if <code>axiom</code> is not in the profile that is supported by this reasoner.
      * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType)
      */
-    boolean isEntailed(OWLAxiom axiom) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, UndeclaredEntitiesException, InconsistentOntologyException;
+    boolean isEntailed(OWLAxiom axiom) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, UndeclaredEntitiesException;
 
 
     /**
      * Determines if the specified set of axioms is entailed by the reasoner axioms.
      * @param axioms The set of axioms to be tested
      * @return <code>true</code> if the set of axioms is entailed by the axioms in the imports closure of the root
-     * ontology, otherwise <code>false</code>
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * ontology, otherwise <code>false</code>.  If the set of reasoner axioms is inconsistent then <code>true</code>.
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the set of axioms is not contained within the signature
      *                                       of the imports closure of the root ontology.
@@ -364,7 +363,7 @@ public interface OWLReasoner {
      * @throws AxiomNotInProfileException if <code>axiom</code> is not in the profile that is supported by this reasoner.
      * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType)
      */
-    boolean isEntailed(Set<? extends OWLAxiom> axioms) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, UndeclaredEntitiesException, InconsistentOntologyException;
+    boolean isEntailed(Set<? extends OWLAxiom> axioms) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, UndeclaredEntitiesException;
 
 
     /**
