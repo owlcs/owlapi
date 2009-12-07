@@ -30,6 +30,8 @@ import org.semanticweb.owlapi.io.OWLParserException;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 07-Dec-2009
+ * </p>
+ * Translates an {@link org.semanticweb.owlapi.io.OWLParserException} to a {@link org.xml.sax.SAXException}.
  */
 public class TranslatedOWLParserException extends SAXException {
 

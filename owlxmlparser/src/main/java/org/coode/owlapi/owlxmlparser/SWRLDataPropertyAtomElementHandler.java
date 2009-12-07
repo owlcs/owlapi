@@ -1,9 +1,6 @@
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.model.SWRLIArgument;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.SWRLDArgument;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2009, University of Manchester
@@ -68,7 +65,7 @@ public class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
         arg1 = getOWLDataFactory().getSWRLLiteralArgument(handler.getOWLObject());
     }
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
         setAtom(getOWLDataFactory().getSWRLDataPropertyAtom(prop, arg0, arg1));
         getParentHandler().handleChild(this);
     }

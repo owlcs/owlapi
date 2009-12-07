@@ -1,6 +1,7 @@
 package org.coode.owlapi.manchesterowlsyntax;
 
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.expression.ParserException;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -33,18 +34,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
  */
 public class ManchesterOWLSyntaxParserException extends OWLParserException {
 
-
-    public ManchesterOWLSyntaxParserException(Throwable cause) {
-        super(cause);
-    }
-
-
-    public ManchesterOWLSyntaxParserException(String message) {
-        super(message);
-    }
-
-
-    public ManchesterOWLSyntaxParserException(String message, Throwable cause) {
-        super(message, cause);
+    public ManchesterOWLSyntaxParserException(String message, int lineNumber, int columnNumber) {
+        super(message, lineNumber, columnNumber);
     }
 }

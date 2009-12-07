@@ -2,6 +2,7 @@ package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -41,7 +42,7 @@ public interface OWLElementHandler<O> {
     public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException;
 
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException;
+    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException;
 
 
     public O getOWLObject() throws OWLXMLParserException;

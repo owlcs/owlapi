@@ -187,12 +187,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
          * @return The IRI fragment, or <code>null</code> if the IRI does not have a fragment
          */
         public String getFragment() {
-            if (prefix.charAt(prefix.length() - 1) == '#') {
-                return fragment;
-            }
-            else {
-                return null;
-            }
+            return fragment;
         }
         
         public boolean isNothing() {

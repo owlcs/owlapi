@@ -68,7 +68,7 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
     }
 
 

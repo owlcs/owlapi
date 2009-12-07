@@ -58,8 +58,10 @@ public interface OWLParser {
      * @throws OWLParserException if there was a problem parsing the ontology.  This indicates an error in the syntax
      * with this ontology document that the parser reads.
      * @throws IOException if there was an IOException during parsing
+     * @throws OWLOntologyChangeException if there was a problem updating the specified ontology from information
+     * that was parsed.
      */
-    OWLOntologyFormat parse(URI physicalURI, OWLOntology ontology) throws OWLParserException, IOException, OWLOntologyChangeException;
+    OWLOntologyFormat parse(URI physicalURI, OWLOntology ontology) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException;
 
 
     /**
@@ -74,8 +76,11 @@ public interface OWLParser {
      * @param ontology The ontology which the representation will be parsed into
      * @return An <code>OWLOntologyFormat</code> which describes the concrete representation
      * format which was parsed to obtain the ontology.
-     * @throws OWLParserException
-     * @throws IOException if there was an IOException during parsing.
+     * @throws OWLParserException if there was a problem parsing the ontology.  This indicates an error in the syntax
+     * with this ontology document that the parser reads.
+     * @throws IOException if there was an IOException during parsing
+     * @throws OWLOntologyChangeException if there was a problem updating the specified ontology from information
+     * that was parsed.
      */
-    OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, OWLOntologyChangeException;
+    OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException;
 }

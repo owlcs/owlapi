@@ -59,7 +59,7 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
         }
     }
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
         getParentHandler().handleChild(this);
     }
 

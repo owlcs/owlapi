@@ -78,12 +78,11 @@ public abstract class AbstractOWLParser implements OWLParser {
      * A convenience method that obtains an input stream from a URI.
      * This method sets up the correct request type and wraps the input
      * stream within a buffered input stream
-     * @param uri
-     * @return
-     * @throws OWLParserException
+     * @param uri The URI from which the input stream should be returned
+     * @return The input stream obtained from the URI
+     * @throws IOException if there was an <code>IOException</code> in obtaining the input stream from the URI.
      */
-    protected InputStream getInputStream(URI uri) throws OWLParserException {
-        try {
+    protected InputStream getInputStream(URI uri) throws IOException {
             String requestType = getRequestTypes();
             URLConnection conn = uri.toURL().openConnection();
             conn.addRequestProperty("Accept", requestType);
@@ -107,13 +106,9 @@ public abstract class AbstractOWLParser implements OWLParser {
                 is = new BufferedInputStream(zis);
             }
             return is;
-        }
-        catch (IOException e) {
-            throw new OWLParserIOException(e);
-        }
     }
 
-    protected InputSource getInputSource(OWLOntologyInputSource inputSource) throws OWLParserException {
+    protected InputSource getInputSource(OWLOntologyInputSource inputSource) throws IOException {
         InputSource is;
         if(inputSource.isReaderAvailable()) {
             is = new InputSource(inputSource.getReader());
@@ -129,7 +124,7 @@ public abstract class AbstractOWLParser implements OWLParser {
     }
 
 
-    public OWLOntologyFormat parse(URI physicalURI, OWLOntology ontology) throws OWLParserException, OWLOntologyChangeException, IOException {
+    public OWLOntologyFormat parse(URI physicalURI, OWLOntology ontology) throws OWLParserException, OWLOntologyChangeException, IOException, UnloadableImportException {
         return parse(new PhysicalURIInputSource(physicalURI), ontology);
     }
 }

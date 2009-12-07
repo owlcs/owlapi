@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
  * Information Management Group<br>
  * Date: 07-Dec-2009
  */
-public class UnloadableImportException extends OWLParserException {
+public class UnloadableImportException extends OWLOntologyCreationException {
 
     private OWLImportsDeclaration importsDeclaration;
 

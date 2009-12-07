@@ -3,6 +3,7 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.io.OWLParserException;
 
 import java.util.List;
@@ -61,7 +62,7 @@ public class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
         args.add(getOWLDataFactory().getSWRLLiteralArgument(handler.getOWLObject()));
     }
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
         setAtom(getOWLDataFactory().getSWRLBuiltInAtom(iri, args));
         getParentHandler().handleChild(this);
     }

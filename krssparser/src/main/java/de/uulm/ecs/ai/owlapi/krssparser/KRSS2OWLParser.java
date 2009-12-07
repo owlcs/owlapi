@@ -6,6 +6,8 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 
+import java.io.IOException;
+
 /*
 * Copyright (C) 2008, Ulm University
 *
@@ -271,7 +273,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class KRSS2OWLParser extends AbstractOWLParser {
 
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException {
+    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException {
         try {
             KRSS2OntologyFormat format = new KRSS2OntologyFormat();
             KRSS2Parser parser;

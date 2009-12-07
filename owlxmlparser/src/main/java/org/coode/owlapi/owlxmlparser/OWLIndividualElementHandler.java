@@ -3,6 +3,7 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -55,7 +56,7 @@ public class OWLIndividualElementHandler extends AbstractOWLElementHandler<OWLNa
     }
 
 
-    final public void endElement() throws OWLParserException, OWLOntologyChangeException {
+    final public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
 //        URI uri = getNameAttribute();
         individual = getOWLDataFactory().getOWLNamedIndividual(name);
         getParentHandler().handleChild(this);

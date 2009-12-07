@@ -3,6 +3,7 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2009, University of Manchester
@@ -52,7 +53,7 @@ public class OWLAnnotationPropertyElementHandler extends AbstractOWLElementHandl
         iri = getIRIFromAttribute(localName, value);
     }
 
-    final public void endElement() throws OWLParserException, OWLOntologyChangeException {
+    final public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
         prop = getOWLDataFactory().getOWLAnnotationProperty(iri);
         getParentHandler().handleChild(this);
     }

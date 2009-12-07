@@ -770,14 +770,10 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 throw new SAXException(e);
             }
         }
-        else {
-//            throw new SAXException("Unexpected text content: " + ch + " for element ");
-        }
     }
 
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-//        try {
         try {
             processXMLBase(attributes);
             if (localName.equals(OWLXMLVocabulary.PREFIX.getShortName())) {
@@ -845,8 +841,14 @@ public class OWLXMLParserHandler extends DefaultHandler {
             handler.endElement();
             bases.pop();
         }
-        catch (OWLException e) {
-            throw new SAXException(e);
+        catch (OWLParserException e) {
+            throw new TranslatedOWLParserException(e);
+        }
+        catch (OWLOntologyChangeException e) {
+            throw new TranslatedOWLOntologyChangeException(e);
+        }
+        catch (UnloadableImportException e) {
+            throw new TranslatedUnloadableImportException(e);
         }
     }
 

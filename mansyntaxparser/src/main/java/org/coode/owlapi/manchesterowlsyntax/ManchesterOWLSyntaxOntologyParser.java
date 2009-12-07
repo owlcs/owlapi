@@ -5,10 +5,7 @@ import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyInputSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserIOException;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -45,15 +42,17 @@ import java.io.InputStreamReader;
  */
 public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
 
+    private static final String COMMENT_START_CHAR = "#";
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException {
+
+    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, OWLOntologyChangeException, IOException, UnloadableImportException {
         try {
             BufferedReader br = null;
             try {
-                if(inputSource.isReaderAvailable()) {
+                if (inputSource.isReaderAvailable()) {
                     br = new BufferedReader(inputSource.getReader());
                 }
-                else if(inputSource.isInputStreamAvailable()) {
+                else if (inputSource.isInputStreamAvailable()) {
                     br = new BufferedReader(new InputStreamReader(inputSource.getInputStream()));
                 }
                 else {
@@ -61,24 +60,43 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 }
                 StringBuilder sb = new StringBuilder();
                 String line;
-                boolean foundOntology = false;
-                while((line = br.readLine()) != null) {
-                        sb.append(line);
+                int lineCount = 1;
+                // Try to find the "magic number" (Prefix: or Ontology:)
+                boolean foundMagicNumber = false;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line);
                     sb.append("\n");
-                    if(!foundOntology  && line.trim().length() > 0 && !line.trim().startsWith("//")) {
+                    if (!foundMagicNumber) {
+                        String trimmedLine = line.trim();
+                        if(trimmedLine.length() > 0) {
+                            if(!trimmedLine.startsWith(COMMENT_START_CHAR)) {
+                                // Non-empty line, that is not a comment.  The trimmed line MUST start with our magic
+                                // number if we are going to parse the rest of it.
+                                if (startsWithMagicNumber(line)) {
+                                    foundMagicNumber = true;
+                                    // We have set the found flag - we never end up here again
+                                }
+                                else {
+                                    // Non-empty line that is NOT a comment.  We cannot possibly parse this.
+                                    int startCol = line.indexOf(trimmedLine) + 1;
+                                    StringBuilder msg = new StringBuilder();
+                                    msg.append("Encountered '");
+                                    msg.append(trimmedLine);
+                                    msg.append("' at line ");
+                                    msg.append(lineCount);
+                                    msg.append(" column ");
+                                    msg.append(startCol);
+                                    msg.append(".  Expected either 'Ontology:' or 'Prefix:'");
+                                    throw new ManchesterOWLSyntaxParserException(msg.toString(), lineCount, startCol);
+                                }
+                            }
 
-                        // Should contain an ontology or a namespace
-                        if(line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) >= 0) {
-                            foundOntology = true;
-                        }
-                        else if(line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) == -1) {
-                            throw new ManchesterOWLSyntaxParserException("Expected 'Ontology:'");
                         }
                     }
+                    lineCount++;
                 }
                 String s = sb.toString();
-                ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(getOWLOntologyManager().getOWLDataFactory(),
-                                                                                             s);
+                ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(getOWLOntologyManager().getOWLDataFactory(), s);
                 parser.parseOntology(getOWLOntologyManager(), ontology);
             }
             finally {
@@ -86,17 +104,12 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
             }
             return new ManchesterOWLSyntaxOntologyFormat();
         }
-        catch (IOException e) {
-            throw new OWLParserIOException(e);
-        }
         catch (ParserException e) {
-            throw new ManchesterOWLSyntaxParserException(e);
+            throw new ManchesterOWLSyntaxParserException(e.getMessage(), e.getLineNumber(), e.getColumnNumber());
         }
-        catch (OWLOntologyCreationException e) {
-            throw new ManchesterOWLSyntaxParserException(e);
-        }
-        catch (OWLOntologyChangeException e) {
-            throw new ManchesterOWLSyntaxParserException(e);
-        }
+    }
+
+    private boolean startsWithMagicNumber(String line) {
+        return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1 || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;
     }
 }

@@ -5,6 +5,8 @@ import org.semanticweb.owlapi.io.OWLOntologyInputSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+
+import java.io.IOException;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -37,7 +39,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public class OWLOBOParser extends AbstractOWLParser {
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException {
+    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException {
         OBOParser parser;
         if (inputSource.isReaderAvailable()) {
             parser = new OBOParser(inputSource.getReader());
@@ -53,7 +55,7 @@ public class OWLOBOParser extends AbstractOWLParser {
             parser.parse();
         }
         catch (ParseException e) {
-            throw new OWLParserException(e);
+            throw new OWLParserException(e, e.currentToken.beginLine, e.currentToken.beginColumn);
         }
         catch(TokenMgrError e) {
             throw new OWLParserException(e);

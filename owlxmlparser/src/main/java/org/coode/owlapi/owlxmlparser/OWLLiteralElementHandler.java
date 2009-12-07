@@ -3,6 +3,7 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.semanticweb.owlapi.io.OWLParserException;
 
@@ -61,7 +62,7 @@ public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiter
         }
     }
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
         if (iri != null) {
             literal = getOWLDataFactory().getOWLTypedLiteral(getText(), getOWLDataFactory().getOWLDatatype(iri));
         } else {

@@ -3,6 +3,7 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.io.OWLParserException;
 
 import java.util.Collections;
@@ -74,7 +75,7 @@ public abstract class AbstractOWLAxiomElementHandler extends AbstractOWLElementH
     }
 
 
-    final public void endElement() throws OWLParserException, OWLOntologyChangeException {
+    final public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
         setAxiom(createAxiom());
         getParentHandler().handleChild(this);
     }

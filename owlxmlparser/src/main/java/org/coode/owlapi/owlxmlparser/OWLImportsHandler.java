@@ -39,7 +39,7 @@ public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException {
+    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
         IRI ontIRI = getIRI(getText().trim());
         OWLImportsDeclaration decl = getOWLDataFactory().getOWLImportsDeclaration(ontIRI);
         getOWLOntologyManager().applyChange(new AddImport(getOntology(), decl));
