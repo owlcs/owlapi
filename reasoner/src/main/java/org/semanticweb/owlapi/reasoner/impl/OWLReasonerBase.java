@@ -66,7 +66,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         manager.addOntologyChangeListener(ontologyChangeListener);
         reasonerAxioms = new HashSet<OWLAxiom>();
         for (OWLOntology ont : rootOntology.getImportsClosure()) {
-            reasonerAxioms.addAll(ont.getLogicalAxioms());
+            for(OWLAxiom ax : ont.getLogicalAxioms()) {
+                reasonerAxioms.add(ax.getAxiomWithoutAnnotations());
+            }
         }
     }
 
