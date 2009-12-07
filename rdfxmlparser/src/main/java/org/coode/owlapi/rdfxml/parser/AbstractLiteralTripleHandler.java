@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 
 import java.net.URI;
 /*
@@ -40,7 +41,7 @@ public abstract class AbstractLiteralTripleHandler extends AbstractTripleHandler
         super(consumer);
     }
 
-    public abstract void handleTriple(IRI subject, IRI predicate, OWLLiteral object);
+    public abstract void handleTriple(IRI subject, IRI predicate, OWLLiteral object) throws OWLOntologyChangeException;
 
     public abstract boolean canHandle(IRI subject, IRI predicate, OWLLiteral object);
 

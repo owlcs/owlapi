@@ -2,9 +2,10 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import java.net.URI;
 import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -49,7 +50,7 @@ public class TPDistinctMembersHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         Set<OWLIndividual> inds = getConsumer().translateToIndividualSet(object);
         addAxiom(getDataFactory().getOWLDifferentIndividualsAxiom(inds, getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

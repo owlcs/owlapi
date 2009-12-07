@@ -46,7 +46,7 @@ public class RDFXMLParser extends AbstractOWLParser {
     private OWLRDFConsumer consumer;
 
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException {
+    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException, OWLOntologyChangeException {
         try {
             final RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
             if (owlOntologyManager == null) {
@@ -89,11 +89,14 @@ public class RDFXMLParser extends AbstractOWLParser {
             parser.parse(is, consumer);
             return format;
         }
+        catch (TranslatedOntologyChangeException e) {
+            throw e.getCause();
+        }
+        catch (TranslatedUnloadedImportException e) {
+            throw e.getCause();
+        }
         catch (SAXException e) {
             throw new OWLRDFXMLParserSAXException(e);
-        }
-        catch (IOException e) {
-            throw new OWLParserIOException(e);
         }
     }
 

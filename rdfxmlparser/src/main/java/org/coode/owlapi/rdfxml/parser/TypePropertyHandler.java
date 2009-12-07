@@ -2,8 +2,9 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 
-import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /*
@@ -45,7 +46,7 @@ public class TypePropertyHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         // We need to consume this triple
         consumeTriple(subject, predicate, object);
         if (logger.isLoggable(Level.FINE)) {

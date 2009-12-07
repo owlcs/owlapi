@@ -2,9 +2,9 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
-
-import java.net.URI;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -40,7 +40,7 @@ public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
         super(consumer, OWLRDFVocabulary.OWL_PROPERTY_DISJOINT_WITH.getIRI());
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         if(getConsumer().isDataPropertyOnly(subject) || getConsumer().isDataPropertyOnly(object)) {
             addAxiom(getDataFactory().getOWLDisjointDataPropertiesAxiom(CollectionFactory.createSet(translateDataProperty(subject), translateDataProperty(object)), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);

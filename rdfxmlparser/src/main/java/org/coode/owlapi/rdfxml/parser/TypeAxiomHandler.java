@@ -3,8 +3,6 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import java.net.URI;
-import java.util.HashSet;
 import java.util.Set;
 
 /*
@@ -78,7 +76,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         consumeTriple(subject, predicate, object);
 
 

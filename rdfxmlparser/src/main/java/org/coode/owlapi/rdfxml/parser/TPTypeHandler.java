@@ -2,8 +2,9 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 
-import java.net.URI;
 import java.util.logging.Logger;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -53,7 +54,7 @@ public class TPTypeHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         if (OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(object)) {
             if (!object.equals(OWLRDFVocabulary.OWL_THING.getIRI())) {
                 // Can't have instance of built in vocabulary!

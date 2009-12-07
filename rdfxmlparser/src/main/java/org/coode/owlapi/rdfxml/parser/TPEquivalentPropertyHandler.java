@@ -1,11 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -56,7 +53,7 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         // If either is an object property then translate as object properties
         if (getConsumer().isObjectPropertyOnly(subject) ||
                 getConsumer().isObjectPropertyOnly(object)) {
@@ -77,7 +74,7 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
     }
 
 
-    private void translateEquivalentObjectProperties(IRI subject, IRI predicate, IRI object) {
+    private void translateEquivalentObjectProperties(IRI subject, IRI predicate, IRI object) throws OWLOntologyChangeException {
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
         props.add(translateObjectProperty(subject));
         props.add(translateObjectProperty(object));

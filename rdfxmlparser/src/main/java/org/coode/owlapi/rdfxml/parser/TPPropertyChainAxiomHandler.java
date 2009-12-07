@@ -1,11 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Set;
 /*
@@ -47,7 +44,7 @@ public class TPPropertyChainAxiomHandler extends TriplePredicateHandler {
         return false;
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         OWLObjectPropertyExpression superProp = getConsumer().translateObjectPropertyExpression(subject);
         List<OWLObjectPropertyExpression> chain = getConsumer().translateToObjectPropertyList(object);
         consumeTriple(subject, predicate, object);

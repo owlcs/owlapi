@@ -3,8 +3,8 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 
-import java.net.URI;
 import java.util.logging.Logger;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -56,7 +56,7 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
+    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) throws OWLOntologyChangeException {
         consumeTriple(subject, predicate, object);
         if(getConsumer().isOntology(subject)) {
             getConsumer().addOntologyAnnotation(getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), object));

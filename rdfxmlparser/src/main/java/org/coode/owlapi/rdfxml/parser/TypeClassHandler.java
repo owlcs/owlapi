@@ -2,8 +2,8 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.model.IRI;
-
-import java.net.URI;
+import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -40,7 +40,7 @@ public class TypeClassHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_CLASS.getIRI());
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         if (!isAnonymous(subject)) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLClass(subject)));
             getConsumer().addOWLClass(subject);

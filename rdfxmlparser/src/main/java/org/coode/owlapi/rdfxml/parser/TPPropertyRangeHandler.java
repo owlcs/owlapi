@@ -2,9 +2,10 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import java.net.URI;
 import java.util.logging.Logger;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -63,7 +64,7 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
 
     public void handleTriple(IRI subject,
                              IRI predicate,
-                             IRI object) {
+                             IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         if (getConsumer().isObjectPropertyOnly(subject)) {
             translateObjectPropertyRange(subject, object, predicate);
         }
@@ -99,7 +100,7 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
 
     private void translateObjectPropertyRange(IRI subject,
                                               IRI object,
-                                              IRI predicate) {
+                                              IRI predicate) throws OWLOntologyChangeException {
         addAxiom(getDataFactory().getOWLObjectPropertyRangeAxiom(translateObjectProperty(subject), translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }

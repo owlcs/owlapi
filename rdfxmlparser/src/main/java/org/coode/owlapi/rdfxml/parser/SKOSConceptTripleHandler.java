@@ -1,11 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.SKOSVocabulary;
-
-import java.net.URI;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -42,7 +38,7 @@ public class SKOSConceptTripleHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         OWLIndividual ind = getDataFactory().getOWLNamedIndividual(subject);
         OWLClass skosConcept = getDataFactory().getOWLClass(SKOSVocabulary.CONCPET.getIRI());
         addAxiom(getDataFactory().getOWLClassAssertionAxiom(skosConcept, ind));

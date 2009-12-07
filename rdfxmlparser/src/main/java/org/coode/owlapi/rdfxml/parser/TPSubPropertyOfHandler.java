@@ -1,11 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import java.net.URI;
 import java.util.List;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -53,7 +50,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
 
     public void handleTriple(IRI subject,
                              IRI predicate,
-                             IRI object) {
+                             IRI object) throws UnloadableImportException, OWLOntologyChangeException {
 
         // First check for object property chain
         if (!getConsumer().isStrict() && getConsumer().hasPredicate(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getIRI())) {
@@ -117,7 +114,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
 
     private void translateSubObjectProperty(IRI subject,
                                             IRI predicate,
-                                            IRI object) {
+                                            IRI object) throws OWLOntologyChangeException {
         // Object - object
         addAxiom(getDataFactory().getOWLSubObjectPropertyOfAxiom(translateObjectProperty(subject), translateObjectProperty(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
@@ -126,7 +123,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
 
     private void translateSubDataProperty(IRI subject,
                                           IRI predicate,
-                                          IRI object) {
+                                          IRI object) throws OWLOntologyChangeException {
         // Data - Data
         addAxiom(getDataFactory().getOWLSubDataPropertyOfAxiom(translateDataProperty(subject), translateDataProperty(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

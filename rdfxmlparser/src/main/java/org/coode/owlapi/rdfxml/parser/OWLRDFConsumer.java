@@ -11,7 +11,6 @@ import org.xml.sax.SAXException;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.URI;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -658,17 +657,9 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    protected void addAxiom(OWLAxiom axiom) {
-        try {
+    protected void addAxiom(OWLAxiom axiom) throws OWLOntologyChangeException {
             owlOntologyManager.applyChange(new AddAxiom(ontology, axiom));
             lastAddedAxiom = axiom;
-        }
-        catch (OWLOntologyChangeException e) {
-            logger.severe(e.getMessage());
-        }
-        // Consider recording which entity IRIs have been used here. This
-        // might make translation of "dangling entities" faster (at the expense
-        // of memory).
     }
 
     protected void applyChange(OWLOntologyChange change) {
@@ -1052,7 +1043,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     private long t0;
 
 
-    public void handle(IRI subject, IRI predicate, IRI object) {
+    public void handle(IRI subject, IRI predicate, IRI object) throws OWLOntologyChangeException, UnloadableImportException {
         if (predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI())) {
             BuiltInTypeHandler typeHandler = builtInTypeTripleHandlers.get(object);
             if (typeHandler != null) {
@@ -1078,7 +1069,12 @@ public class OWLRDFConsumer implements RDFConsumer {
     public void handle(IRI subject, IRI predicate, OWLLiteral object) {
         for (AbstractLiteralTripleHandler handler : literalTripleHandlers) {
             if (handler.canHandle(subject, predicate, object)) {
-                handler.handleTriple(subject, predicate, object);
+                try {
+                    handler.handleTriple(subject, predicate, object);
+                }
+                catch (OWLOntologyChangeException e) {
+                    e.printStackTrace();
+                }
                 break;
             }
         }
@@ -1167,15 +1163,16 @@ public class OWLRDFConsumer implements RDFConsumer {
      * This is where we do all remaining parsing
      */
     public void endModel() throws SAXException {
+        try {
 //        try {
-        IRIMap.clear();
+            IRIMap.clear();
 
-        tripleProcessor.fine("Total number of triples: " + count);
-        RDFXMLOntologyFormat format = getOntologyFormat();
+            tripleProcessor.fine("Total number of triples: " + count);
+            RDFXMLOntologyFormat format = getOntologyFormat();
 
 
-        // Do we need to change the ontology IRI?
-        OWLOntologyID id = ontology.getOntologyID();
+            // Do we need to change the ontology IRI?
+            OWLOntologyID id = ontology.getOntologyID();
 
 //        if (id.isAnonymous() || !ontologyIRIs.contains(id.getOntologyIRI().toIRI())) {
             if (ontologyIRIs.size() == 1 && !isAnonymousNode(firstOntologyIRI)) {
@@ -1199,226 +1196,121 @@ public class OWLRDFConsumer implements RDFConsumer {
 //        }
 
 
-        if (tripleProcessor.isLoggable(Level.FINE)) {
-            tripleProcessor.fine("Loaded " + ontology.getOntologyID());
-        }
-
-        // First mop up any rules triples
-        SWRLRuleTranslator translator = new SWRLRuleTranslator(this);
-        for (IRI ruleIRI : swrlRules) {
-            translator.translateRule(ruleIRI);
-        }
-
-
-        // We need to mop up all remaining triples.  These triples will be in the
-        // triples by subject map.  Other triples which reside in the triples by
-        // predicate (single valued) triple aren't "root" triples for axioms.  First
-        // we translate all system triples and then go for triples whose predicates
-        // are not system/reserved vocabulary IRIs to translate these into ABox assertions
-        // or annotationIRIs
-        for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
-            Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
-            if (map == null) {
-                continue;
+            if (tripleProcessor.isLoggable(Level.FINE)) {
+                tripleProcessor.fine("Loaded " + ontology.getOntologyID());
             }
-            for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                Set<IRI> objects = map.get(predicate);
-                if (objects == null) {
+
+            // First mop up any rules triples
+            SWRLRuleTranslator translator = new SWRLRuleTranslator(this);
+            for (IRI ruleIRI : swrlRules) {
+                translator.translateRule(ruleIRI);
+            }
+
+
+            // We need to mop up all remaining triples.  These triples will be in the
+            // triples by subject map.  Other triples which reside in the triples by
+            // predicate (single valued) triple aren't "root" triples for axioms.  First
+            // we translate all system triples and then go for triples whose predicates
+            // are not system/reserved vocabulary IRIs to translate these into ABox assertions
+            // or annotationIRIs
+            for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
+                Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
+                if (map == null) {
                     continue;
                 }
-                for (IRI object : new ArrayList<IRI>(objects)) {
-                    // We don't handle x rdf:type owl:Axiom because these must be handled after everything else
-                    // so that the "base triples" that represent the axiom with out the annotations get mopped up first
-                    if (!(predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) &&
-                            (object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()) ||
-                             object.equals(OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI())))) {
-                        handle(subject, predicate, object);
+                for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
+                    Set<IRI> objects = map.get(predicate);
+                    if (objects == null) {
+                        continue;
                     }
-                }
-            }
-        }
-
-        // Now handle axiom annotations
-        // TODO: TIDY UP THIS COPY AND PASTE HACK!
-        for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
-            Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
-            if (map == null) {
-                continue;
-            }
-            for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                Set<IRI> objects = map.get(predicate);
-                if (objects == null) {
-                    continue;
-                }
-                for (IRI object : new ArrayList<IRI>(objects)) {
-                    if ((predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) &&
-                         (object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()) ||
-                          object.equals(OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI())))) {
-                        handle(subject, predicate, object);
-                    }
-                }
-            }
-        }
-
-        // TODO: TIDY UP!  This is a copy and paste hack!!
-        // Now for the ABox assertions and annotationIRIs
-        for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
-            Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
-            if (map == null) {
-                continue;
-            }
-            for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                Set<IRI> objects = map.get(predicate);
-                if (objects == null) {
-                    continue;
-                }
-                for (IRI object : new ArrayList<IRI>(objects)) {
-                    for (AbstractResourceTripleHandler resTripHandler : resourceTripleHandlers) {
-                        if (resTripHandler.canHandle(subject, predicate, object)) {
-                            resTripHandler.handleTriple(subject, predicate, object);
-                            break;
+                    for (IRI object : new ArrayList<IRI>(objects)) {
+                        // We don't handle x rdf:type owl:Axiom because these must be handled after everything else
+                        // so that the "base triples" that represent the axiom with out the annotations get mopped up first
+                        if (!(predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) &&
+                                (object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()) ||
+                                 object.equals(OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI())))) {
+                            handle(subject, predicate, object);
                         }
                     }
                 }
             }
-        }
 
-
-        for (IRI subject : new ArrayList<IRI>(litTriplesBySubject.keySet())) {
-            Map<IRI, Set<OWLLiteral>> map = litTriplesBySubject.get(subject);
-            if (map == null) {
-                continue;
-            }
-            for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                Set<OWLLiteral> objects = map.get(predicate);
-                for (OWLLiteral object : new ArrayList<OWLLiteral>(objects)) {
-                    handle(subject, predicate, object);
+            // Now handle axiom annotations
+            // TODO: TIDY UP THIS COPY AND PASTE HACK!
+            for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
+                Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
+                if (map == null) {
+                    continue;
                 }
-            }
-        }
-
-//        translateDanglingEntities();
-
-        if (format != null) {
-            RDFOntologyFormat.ParserMetaData metaData = new RDFOntologyFormat.ParserMetaData(count, RDFOntologyFormat.OntologyHeaderStatus.PARSED_ONE_HEADER);
-            format.setParserMetaData(metaData);
-        }
-        dumpRemainingTriples();
-//        }
-//        catch (OWLException e) {
-//            throw new SAXException(e);
-//        }
-        cleanup();
-    }
-
-
-    private Set<IRI> getAnnotationsForSubject(IRI subject) {
-        Set<IRI> result = new HashSet<IRI>();
-        for (IRI annoIRI : annotationIRIs) {
-            IRI annoIRISubject = getResourceObject(annoIRI, OWL_SUBJECT.getIRI(), false);
-            if (annoIRISubject != null && annoIRISubject.equals(subject)) {
-                result.add(annoIRI);
-            }
-        }
-        return result;
-    }
-
-//    private OWLAnnotation translateAnnotation(IRI node) {
-//        OWLAnnotation anno = annotationIRI2Annotation.get(node);
-//        if (anno != null) {
-//            return anno;
-//        }
-//        IRI subject = getResourceObject(node, OWL_SUBJECT.getIRI(), true);
-//        IRI predicate = getResourceObject(node, OWL_PREDICATE.getIRI(), true);
-//        Object object = getResourceObject(node, OWL_OBJECT.getIRI(), true);
-//        if (object == null) {
-//            object = getLiteralObject(node, OWL_OBJECT.getIRI(), true);
-//        }
-//        getResourceObject(node, predicate, true);
-//        // We now have to get any annotations on this annotation
-//        Set<OWLAnnotation> translatedAnnotations = new HashSet<OWLAnnotation>();
-//        for (IRI annotationIRI : getAnnotationsForSubject(node)) {
-//            OWLAnnotation annotation = translateAnnotation(annotationIRI);
-//            translatedAnnotations.add(annotation);
-//        }
-//
-//
-//        if (object == null) {
-//            System.out.println("NULL");
-//            return null;
-//        }
-//        else {
-//            OWLAnnotationValue value = translateAnnotationValue(object);
-//            OWLAnnotation annotation = getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), value, translatedAnnotations);
-//            System.out.println("Translated annotation: " + annotation);
-//            return annotation;
-//        }
-//
-//
-//    }
-
-
-    private OWLAnnotationValue translateAnnotationValue(Object object) {
-        OWLAnnotationValue value;
-        if (object instanceof IRI) {
-            IRI iri = (IRI) object;
-            if (isAnonymousNode(iri)) {
-                value = getDataFactory().getOWLAnonymousIndividual(iri.toString());
-            }
-            else {
-                value = iri;
-            }
-
-        }
-        else if (object instanceof OWLLiteral) {
-            value = (OWLLiteral) object;
-        }
-        else {
-            throw new RuntimeException("Unknown type of annotation value: " + object);
-        }
-        return value;
-    }
-
-    private void translateDanglingEntities() {
-        owlClassIRIs.remove(OWLRDFVocabulary.OWL_THING.getIRI());
-        owlClassIRIs.remove(OWLRDFVocabulary.OWL_NOTHING.getIRI());
-        for (IRI clsIRI : owlClassIRIs) {
-            if (!isAnonymousNode(clsIRI)) {
-                OWLClass cls = getDataFactory().getOWLClass(clsIRI);
-                addDeclarationIfNecessary(cls);
-            }
-        }
-        for (IRI propIRI : objectPropertyIRIs) {
-            if (!isAnonymousNode(propIRI)) {
-                OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propIRI);
-                addDeclarationIfNecessary(prop);
-            }
-        }
-        for (IRI propIRI : dataPropertyIRIs) {
-            OWLDataProperty prop = getDataFactory().getOWLDataProperty(propIRI);
-            addDeclarationIfNecessary(prop);
-        }
-        // We don't need to do this with individuals, since there is no
-        // such things a x rdf:type OWLIndividual
-    }
-
-
-    private void addDeclarationIfNecessary(OWLEntity entity) {
-        OWLOntology ont = getOntology();
-        if (!ont.containsEntityReference(entity)) {
-            boolean ref = false;
-            for (OWLOntology o : getOWLOntologyManager().getImportsClosure(ont)) {
-                if (!o.equals(ont)) {
-                    if (ref = o.containsEntityReference(entity)) {
-                        break;
+                for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
+                    Set<IRI> objects = map.get(predicate);
+                    if (objects == null) {
+                        continue;
+                    }
+                    for (IRI object : new ArrayList<IRI>(objects)) {
+                        if ((predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) &&
+                             (object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()) ||
+                              object.equals(OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI())))) {
+                            handle(subject, predicate, object);
+                        }
                     }
                 }
             }
-            if (!ref) {
-                addAxiom(getDataFactory().getOWLDeclarationAxiom(entity));
+
+            // TODO: TIDY UP!  This is a copy and paste hack!!
+            // Now for the ABox assertions and annotationIRIs
+            for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
+                Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
+                if (map == null) {
+                    continue;
+                }
+                for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
+                    Set<IRI> objects = map.get(predicate);
+                    if (objects == null) {
+                        continue;
+                    }
+                    for (IRI object : new ArrayList<IRI>(objects)) {
+                        for (AbstractResourceTripleHandler resTripHandler : resourceTripleHandlers) {
+                            if (resTripHandler.canHandle(subject, predicate, object)) {
+                                resTripHandler.handleTriple(subject, predicate, object);
+                                break;
+                            }
+                        }
+                    }
+                }
             }
+
+
+            for (IRI subject : new ArrayList<IRI>(litTriplesBySubject.keySet())) {
+                Map<IRI, Set<OWLLiteral>> map = litTriplesBySubject.get(subject);
+                if (map == null) {
+                    continue;
+                }
+                for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
+                    Set<OWLLiteral> objects = map.get(predicate);
+                    for (OWLLiteral object : new ArrayList<OWLLiteral>(objects)) {
+                        handle(subject, predicate, object);
+                    }
+                }
+            }
+
+//        translateDanglingEntities();
+
+            if (format != null) {
+                RDFOntologyFormat.ParserMetaData metaData = new RDFOntologyFormat.ParserMetaData(count, RDFOntologyFormat.OntologyHeaderStatus.PARSED_ONE_HEADER);
+                format.setParserMetaData(metaData);
+            }
+            dumpRemainingTriples();
+            cleanup();
+        }
+        catch (OWLOntologyChangeException e) {
+            throw new TranslatedOntologyChangeException(e);
+        }
+        catch (UnloadableImportException e) {
+            throw new TranslatedUnloadedImportException(e);
         }
     }
+
 
 
     private void cleanup() {
@@ -1473,12 +1365,20 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     public void statementWithResourceValue(String subject, String predicate, String object) throws SAXException {
-        incrementTripleCount();
-        IRI subjectIRI = getIRI(subject);
-        IRI predicateIRI = getIRI(predicate);
-        predicateIRI = checkForSynonym(predicateIRI);
-        IRI objectIRI = checkForSynonym(getIRI(object));
-        handleStreaming(subjectIRI, predicateIRI, objectIRI);
+        try {
+            incrementTripleCount();
+            IRI subjectIRI = getIRI(subject);
+            IRI predicateIRI = getIRI(predicate);
+            predicateIRI = checkForSynonym(predicateIRI);
+            IRI objectIRI = checkForSynonym(getIRI(object));
+            handleStreaming(subjectIRI, predicateIRI, objectIRI);
+        }
+        catch (UnloadableImportException e) {
+            throw new TranslatedUnloadedImportException(e);
+        }
+        catch (OWLOntologyChangeException e) {
+            throw new TranslatedOntologyChangeException(e);
+        }
     }
 
 
@@ -1491,7 +1391,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      * @param predicate The predicate of the triple that has been parsed
      * @param object    The object of the triple that has been parsed
      */
-    private void handleStreaming(IRI subject, IRI predicate, IRI object) {
+    private void handleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         if (predicate.equals(RDF_TYPE.getIRI())) {
             BuiltInTypeHandler handler = builtInTypeTripleHandlers.get(object);
             if (handler != null) {
@@ -1528,12 +1428,22 @@ public class OWLRDFConsumer implements RDFConsumer {
         OWLLiteral con = getOWLConstant(literal, datatype, lang);
         AbstractLiteralTripleHandler skosHandler = skosTripleHandlers.get(predicate);
         if (skosHandler != null) {
-            skosHandler.handleTriple(subject, predicate, con);
+            try {
+                skosHandler.handleTriple(subject, predicate, con);
+            }
+            catch (OWLOntologyChangeException e) {
+                e.printStackTrace();
+            }
             return;
         }
         for (AbstractLiteralTripleHandler handler : literalTripleHandlers) {
             if (handler.canHandleStreaming(subject, predicate, con)) {
-                handler.handleTriple(subject, predicate, con);
+                try {
+                    handler.handleTriple(subject, predicate, con);
+                }
+                catch (OWLOntologyChangeException e) {
+                    e.printStackTrace();
+                }
                 return;
             }
         }
@@ -1656,11 +1566,13 @@ public class OWLRDFConsumer implements RDFConsumer {
             // Inverse of a property expression
 
             IRI inverseOfObject = getResourceObject(mainNode, OWL_INVERSE_OF.getIRI(), true);
-            if (inverseOfObject == null) {
-                throw new IllegalStateException("Attempting to translate inverse property (anon property), but inverseOf triple is missing (" + mainNode + ")");
+            if (inverseOfObject != null) {
+                OWLObjectPropertyExpression otherProperty = translateObjectPropertyExpression(inverseOfObject);
+                prop = getDataFactory().getOWLObjectInverseOf(otherProperty);
             }
-            OWLObjectPropertyExpression otherProperty = translateObjectPropertyExpression(inverseOfObject);
-            prop = getDataFactory().getOWLObjectInverseOf(otherProperty);
+            else {
+                prop = getDataFactory().getOWLObjectInverseOf(getDataFactory().getOWLObjectProperty(mainNode));
+            }
             translatedProperties.put(mainNode, prop);
             return prop;
         }

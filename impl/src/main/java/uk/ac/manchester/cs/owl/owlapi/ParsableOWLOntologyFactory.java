@@ -166,25 +166,22 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                 mediator.setOntologyFormat(ont, format);
                 return ont;
             }
-            catch (UnparsableOntologyException e) {
-                throw e;
+            catch (IOException e) {
+                // For certain IO errors, no matter which parser we try, it
+                // will fail because it can't read anything.
+                // First clean up
+                getOWLOntologyManager().removeOntology(ont);
+                // Now just throw the exception and break out
+                throw new OWLOntologyCreationIOException(e);
+            }
+            catch (OWLOntologyChangeException e) {
+                exceptions.put(parser, e);
+            }
+            catch (OWLParserException e) {
+                exceptions.put(parser, e);
             }
             catch (Throwable e) {
-                Throwable t = e;
-                while (t != null) {
-                    // For certain IO errors, no matter which parser we try, it
-                    // will fail because it can't read anything.
-                    if (t instanceof IOException) {
-                        // Need to remove ontology that we tried to parse into
-                        getOWLOntologyManager().removeOntology(ont);
-                        throw new OWLOntologyCreationIOException((IOException) t);
-                    }
-                    Throwable tt = e.getCause();
-                    if (tt == t) {
-                        break;
-                    }
-                    t = tt;
-                }
+                // Perhaps a bad parser implementation
                 exceptions.put(parser, e);
             }
         }

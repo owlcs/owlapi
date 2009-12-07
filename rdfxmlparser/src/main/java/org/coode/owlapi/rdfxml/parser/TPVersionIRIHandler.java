@@ -1,11 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.IRI;
-
-import java.net.URI;
+import org.semanticweb.owlapi.model.*;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -44,7 +40,7 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
 
     public void handleTriple(IRI subject,
                              IRI predicate,
-                             IRI object) {
+                             IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         OWLOntology ontology = getConsumer().getOntology();
         OWLOntologyID ontologyID = new OWLOntologyID(ontology.getOntologyID().getOntologyIRI(), object);
         getConsumer().setOntologyID(ontologyID);

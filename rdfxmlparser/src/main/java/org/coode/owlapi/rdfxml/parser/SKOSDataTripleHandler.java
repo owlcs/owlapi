@@ -1,11 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.IRI;
-
-import java.net.URI;
+import org.semanticweb.owlapi.model.*;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -44,7 +39,7 @@ public class SKOSDataTripleHandler extends AbstractLiteralTripleHandler {
         this.predicate = predicate;
     }
 
-    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
+    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) throws OWLOntologyChangeException {
         OWLIndividual subj = getDataFactory().getOWLNamedIndividual(subject);
         OWLDataProperty prop = getDataFactory().getOWLDataProperty(predicate);
         addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(prop, subj, object));

@@ -2,9 +2,9 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -60,7 +60,7 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
 
     public void handleTriple(IRI subject,
                              IRI predicate,
-                             IRI object) {
+                             IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         if (getConsumer().isObjectPropertyOnly(subject)) {
             translateObjectPropertyDomain(subject, predicate, object);
         }
@@ -88,7 +88,7 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
 
     private void translateDataPropertyDomain(IRI subject,
                                              IRI predicate,
-                                             IRI object) {
+                                             IRI object) throws OWLOntologyChangeException {
         addAxiom(getDataFactory().getOWLDataPropertyDomainAxiom(translateDataProperty(subject), translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
@@ -96,7 +96,7 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
 
     private void translateObjectPropertyDomain(IRI subject,
                                                IRI predicate,
-                                               IRI object) {
+                                               IRI object) throws OWLOntologyChangeException {
         addAxiom(getDataFactory().getOWLObjectPropertyDomainAxiom(translateObjectProperty(subject), translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }

@@ -5,7 +5,6 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 
-import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 /*
@@ -59,7 +58,7 @@ public class TPImportsHandler extends TriplePredicateHandler {
         return true;
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
 
        // NOTE:
        // For backwards compatibility with OWL 1 DL, if G contains an owl:imports triple pointing to an RDF
@@ -77,12 +76,7 @@ public class TPImportsHandler extends TriplePredicateHandler {
             OWLImportsDeclaration importsDeclaration = getDataFactory().getOWLImportsDeclaration(object);
             getConsumer().addImport(importsDeclaration);
             OWLOntologyManager man = getConsumer().getOWLOntologyManager();
-            try {
-                man.makeLoadImportRequest(importsDeclaration);
-            }
-            catch (UnloadableImportException e) {
-                OWLRDFConsumer.logger.severe(e.getMessage());
-            }
+            man.makeLoadImportRequest(importsDeclaration);
 
 
 
@@ -95,7 +89,6 @@ public class TPImportsHandler extends TriplePredicateHandler {
                         // we remove the imports statement, add the axioms from the imported ontology to
                         // out importing ontology and remove the imported ontology.
                         // WHO EVER THOUGHT THAT THIS WAS A GOOD IDEA?
-                        try {
                             man.applyChange(new RemoveImport(getConsumer().getOntology(), importsDeclaration));
 
                             for(OWLImportsDeclaration decl : importedOntology.getImportsDeclarations()) {
@@ -108,15 +101,11 @@ public class TPImportsHandler extends TriplePredicateHandler {
                                 getConsumer().addAxiom(ax);
                             }
                             man.removeOntology(importedOntology);
-                        }
-                        catch (OWLOntologyChangeException e) {
-                            throw new OWLRuntimeException(e);
-                        }
 
                     }
                 }
             }
-            
+
             getConsumer().importsClosureChanged();
 
         }

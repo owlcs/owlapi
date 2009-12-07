@@ -2,9 +2,10 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import java.net.URI;
 import java.util.List;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -50,7 +51,7 @@ public class TPSubObjectPropertyOfHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
         if (isAnonymous(subject) && getConsumer().hasPredicateObject(subject,
                 OWLRDFVocabulary.RDF_TYPE.getIRI(),
                 OWLRDFVocabulary.RDF_LIST.getIRI())) {

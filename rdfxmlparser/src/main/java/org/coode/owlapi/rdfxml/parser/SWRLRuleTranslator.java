@@ -1,9 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 
 import java.net.URI;
@@ -52,7 +49,7 @@ public class SWRLRuleTranslator {
     }
 
 
-    public void translateRule(IRI mainNode) {
+    public void translateRule(IRI mainNode) throws OWLOntologyChangeException {
         Set<SWRLAtom> consequent = Collections.emptySet();
         IRI ruleHeadIRI = consumer.getResourceObject(mainNode, SWRLVocabulary.HEAD.getIRI(), true);
         if (ruleHeadIRI != null) {

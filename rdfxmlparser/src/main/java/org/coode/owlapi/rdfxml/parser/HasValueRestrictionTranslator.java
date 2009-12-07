@@ -1,13 +1,11 @@
 package org.coode.owlapi.rdfxml.parser;
 
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-
-import java.net.URI;
-
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -29,29 +27,31 @@ import java.net.URI;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 09-Dec-2006<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 28-Oct-2009
  */
-public abstract class AbstractResourceTripleHandler extends AbstractTripleHandler {
+public class HasValueRestrictionTranslator extends AbstractRestrictionTranslator {
 
-
-    public AbstractResourceTripleHandler(OWLRDFConsumer consumer) {
+    public HasValueRestrictionTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
+    protected OWLClassExpression translateRestriction(IRI mainNode) {
+        IRI propertyIRI = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), true);
+        IRI fillerIRI = getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getIRI(), true);
+        OWLClassExpression ce = null;
+        if(fillerIRI != null) {
+            OWLClassExpression filler = getConsumer().translateClassExpression(fillerIRI);
+            
+          //  ce = getDataFactory().getOWLObjectHasValue(prop, filler);
+        }
+        else {
+            OWLLiteral lit = getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getIRI(), true);
 
-    protected boolean isSubjectOrObjectAnonymous(IRI subject, IRI object) {
-        return isAnonymous(subject) || isAnonymous(object);
+        }
+        return null;
     }
-
-
-    public abstract void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException;
-
-    public abstract boolean canHandleStreaming(IRI subject, IRI predicate, IRI object);
-
-    public abstract boolean canHandle(IRI subject, IRI predicate, IRI object);
 }

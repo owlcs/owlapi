@@ -2,9 +2,8 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -52,7 +51,7 @@ public class TPFirstLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
+    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) throws OWLOntologyChangeException {
         getConsumer().addFirst(subject, object);
         consumeTriple(subject, predicate, object);
     }
