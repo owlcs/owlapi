@@ -1,13 +1,11 @@
 package org.coode.owlapi.examples;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerAdapter;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.DLExpressivityChecker;
 import org.semanticweb.owlapi.reasonerfactory.pellet.PelletReasonerFactory;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.Set;
 import java.net.URI;
@@ -78,10 +76,10 @@ public class Example8 {
             // we loaded just the pizza ontology (using a singleton set) then any imported ontologies
             // would not automatically be loaded.
             // Obtain and load the imports closure of the pizza ontology
-            OWLReasoner reasoner = reasonerFactory.createReasoner(manager, manager.getImportsClosure(ont));
+            OWLReasoner reasoner = reasonerFactory.createReasoner(ont);
 
 
-            reasoner.classify();
+            reasoner.prepareReasoner();
 
             // We can examine the expressivity of our ontology (some reasoners do not support
             // the full expressivity of OWL)
@@ -91,7 +89,7 @@ public class Example8 {
             // We can determine if the pizza ontology is actually consistent.  (If an ontology is
             // inconsistent then owl:Thing is equivalent to owlapi:Nothing - i.e. there can't be any
             // models of the ontology)
-            boolean consistent = reasoner.isConsistent(ont);
+            boolean consistent = reasoner.isConsistent();
             System.out.println("Consistent: " + consistent);
             System.out.println("\n");
 
@@ -117,16 +115,15 @@ public class Example8 {
             OWLClass vegPizza = manager.getOWLDataFactory().getOWLClass(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi#VegetarianPizza"));
 
             // Now use the reasoner to obtain the subclasses of vegetarian pizza.  Note the reasoner
-            // returns a set of sets.  Each set represents a subclass of vegetarian pizza where the
-            // classes in the set represent equivalence classes.  For example, if we asked for the
+            // returns a set of Nodes.  Each node represents a subclass of vegetarian pizza where the
+            // classes in the node represent equivalence classes.  For example, if we asked for the
             // subclasses of A and got back {{B, C}, {D}} then A would have essentially to subclasses.
             // One of these subclasses would be equivalent to the class D, and the other would be the class that
             // was equivalent to class B and class C.
-            Set<Set<OWLClass>> subClsSets = reasoner.getDescendantClasses(vegPizza);
+            Set<OWLClass> subClses = reasoner.getSubClasses(vegPizza, false).getFlattened();
             // In this case, we don't particularly care about the equivalences, so we will flatten this
             // set of sets and print the result
             System.out.println("Vegetarian pizzas: ");
-            Set<OWLClass> subClses = OWLReasonerAdapter.flattenSetOfSets(subClsSets);
             for(OWLClass cls : subClses) {
                 System.out.println("    " + cls);
             }
@@ -137,16 +134,13 @@ public class Example8 {
             // country.  First we need to get a reference to the country class
             OWLClass country = manager.getOWLDataFactory().getOWLClass(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi#Country"));
             System.out.println("Instances of country: ");
-            for(OWLIndividual ind : reasoner.getIndividuals(country, true)) {
+            for(OWLIndividual ind : reasoner.getInstances(country, true).getFlattened()) {
                 System.out.println("    " + ind);
             }
 
         }
         catch(UnsupportedOperationException exception) {
             System.out.println("Unsupported reasoner operation.");
-        }
-        catch(OWLReasonerException ex) {
-            System.out.println("Reasoner error: " + ex.getMessage());
         }
         catch (OWLOntologyCreationException e) {
             System.out.println("Could not load the pizza ontology: " + e.getMessage());

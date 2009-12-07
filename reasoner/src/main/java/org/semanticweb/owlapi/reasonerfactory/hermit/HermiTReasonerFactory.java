@@ -1,15 +1,14 @@
 package org.semanticweb.owlapi.reasonerfactory.hermit;
 
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.reasonerfactory.OWLReasonerSetupException;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
+import org.semanticweb.owlapi.reasoner.IllegalConfigurationException;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
 /*
@@ -70,17 +69,19 @@ public class HermiTReasonerFactory implements OWLReasonerFactory {
     }
 
 
+    public OWLReasoner createReasoner(OWLOntology ontology) {
+        throw new RuntimeException("NOT IMPLEMENTED");
+    }
 
-    public OWLReasoner createReasoner(OWLOntologyManager manager, Set<OWLOntology> ontologies) throws OWLReasonerSetupException{
-        try {
-            return (OWLReasoner) constructor.newInstance(configurationClass.newInstance(), manager.getOWLDataFactory(), ontologies);
+    public OWLReasoner createBufferedReasoner(OWLOntology ontology) {
+        throw new RuntimeException("NOT IMPLEMENTED");
+    }
 
-        } catch (InstantiationException e) {
-            throw new OWLReasonerSetupException(this, e);
-        } catch (IllegalAccessException e) {
-            throw new OWLReasonerSetupException(this, e);
-        } catch (InvocationTargetException e) {
-            throw new OWLReasonerSetupException(this, e);
-        }
+    public OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
+        throw new RuntimeException("NOT IMPLEMENTED");
+    }
+
+    public OWLReasoner createBufferedReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
+        throw new RuntimeException("NOT IMPLEMENTED");
     }
 }

@@ -1,10 +1,9 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.Set;
 /*
@@ -43,8 +42,7 @@ import java.util.Set;
 public class InferredDisjointClassesAxiomGenerator extends InferredClassAxiomGenerator<OWLDisjointClassesAxiom> {
 
 
-    protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLDisjointClassesAxiom> result) throws
-            OWLReasonerException {
+    protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLDisjointClassesAxiom> result) {
         for (OWLClass cls : getAllEntities(reasoner)) {
             if (!cls.equals(entity)) {
                 if (!reasoner.isSatisfiable(dataFactory.getOWLObjectIntersectionOf(CollectionFactory.createSet(entity, cls)))) {

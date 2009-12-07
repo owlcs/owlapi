@@ -3,8 +3,7 @@ package org.semanticweb.owlapi.metrics;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.List;
 /*
@@ -53,12 +52,7 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
 
 
     protected Integer recomputeMetric() {
-        try {
-            return reasoner.getUnsatisfiableClasses().size();
-        }
-        catch (OWLReasonerException e) {
-            throw new OWLRuntimeException(e);
-        }
+        return reasoner.getUnsatisfiableClasses().size();
     }
 
 

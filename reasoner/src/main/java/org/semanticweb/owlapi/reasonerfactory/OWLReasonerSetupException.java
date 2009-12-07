@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.reasonerfactory;
 
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -33,11 +33,11 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class OWLReasonerSetupException extends OWLRuntimeException {
 
     public OWLReasonerSetupException(OWLReasonerFactory factory, Throwable cause) {
-        super(getErrorMessage(factory), cause);
+        super(getErrorMessage(factory, cause), cause);
     }
 
-    private static String getErrorMessage(OWLReasonerFactory factory) {
+    private static String getErrorMessage(OWLReasonerFactory factory, Throwable cause) {
         return "There was a problem setting up the reasoner (" + factory.getReasonerName() +
-        ").  Please ensure that you have the appropriate classes (jar files) are in your class path";
+        ").  Please ensure that you have the appropriate classes (jar files) are in your class path. Cause: " + cause.getMessage();
     }
 }

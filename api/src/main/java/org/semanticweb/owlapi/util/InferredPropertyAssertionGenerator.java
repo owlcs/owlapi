@@ -1,8 +1,7 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.Map;
 import java.util.Set;
@@ -39,21 +38,20 @@ import java.util.Set;
 public class InferredPropertyAssertionGenerator extends InferredIndividualAxiomGenerator<OWLPropertyAssertionAxiom> {
 
 
-    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLPropertyAssertionAxiom> result) throws
-            OWLReasonerException {
-        Map<OWLObjectProperty, Set<OWLNamedIndividual>> objectPropertyRels = reasoner.getObjectPropertyRelationships(entity);
-        for (OWLObjectProperty prop : objectPropertyRels.keySet()) {
-            for (OWLIndividual obj : objectPropertyRels.get(prop)) {
-                result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(prop, entity, obj));
-            }
-        }
-
-        Map<OWLDataProperty, Set<OWLLiteral>> dataPropertyRels = reasoner.getDataPropertyRelationships(entity);
-        for (OWLDataProperty prop : dataPropertyRels.keySet()) {
-            for (OWLLiteral con : dataPropertyRels.get(prop)) {
-                result.add(dataFactory.getOWLDataPropertyAssertionAxiom(prop, entity, con));
-            }
-        }
+    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLPropertyAssertionAxiom> result) {
+//        Map<OWLObjectProperty, Set<OWLNamedIndividual>> objectPropertyRels = reasoner.getObjectPropertyRelationships(entity);
+//        for (OWLObjectProperty prop : objectPropertyRels.keySet()) {
+//            for (OWLIndividual obj : objectPropertyRels.get(prop)) {
+//                result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(prop, entity, obj));
+//            }
+//        }
+//
+//        Map<OWLDataProperty, Set<OWLLiteral>> dataPropertyRels = reasoner.getDataPropertyRelationships(entity);
+//        for (OWLDataProperty prop : dataPropertyRels.keySet()) {
+//            for (OWLLiteral con : dataPropertyRels.get(prop)) {
+//                result.add(dataFactory.getOWLDataPropertyAssertionAxiom(prop, entity, con));
+//            }
+//        }
     }
 
 

@@ -1,9 +1,7 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
-import org.semanticweb.owlapi.inference.UnsupportedReasonerOperationException;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,29 +102,15 @@ public class InferredOntologyGenerator {
      * @param manager  The manager which can be used to obtain a data factory and
      *                 apply changes.
      * @param ontology The ontology which the inferred axioms will be added to
-     * @throws InferredAxiomGeneratorException if some inferred axioms could not be generated
-     * because the reasoner that is used to generate the axioms doesn't support the kinds of
-     * queries required to generate the axiom.
-     * @throws OWLReasonerException If there was a problem with querying the reasoner.
      * @throws OWLOntologyChangeException If there was a problem adding the inferred
      * axioms to the specified ontology.
      */
-    public void fillOntology(OWLOntologyManager manager, OWLOntology ontology) throws InferredAxiomGeneratorException,
-                                                                                      OWLOntologyChangeException,
-                                                                                      OWLReasonerException {
+    public void fillOntology(OWLOntologyManager manager, OWLOntology ontology) throws OWLOntologyChangeException {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         for (InferredAxiomGenerator<? extends OWLAxiom> axiomGenerator : axiomGenerators) {
-            try {
                 for (OWLAxiom ax : axiomGenerator.createAxioms(manager, reasoner)) {
                     changes.add(new AddAxiom(ontology, ax));
                 }
-            }
-            catch (UnsupportedReasonerOperationException e) {
-                throw new InferredAxiomGeneratorException(axiomGenerator, e);
-            }
-            catch (OWLReasonerException e) {
-                throw new InferredAxiomGeneratorException(axiomGenerator, e);
-            }
         }
         manager.applyChanges(changes);
     }

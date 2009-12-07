@@ -1,11 +1,10 @@
 package com.clarkparsia.owlapi.modularity.locality;
 
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 import org.semanticweb.owlapi.reasonerfactory.OWLReasonerSetupException;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -29,9 +28,7 @@ import java.util.logging.Logger;
 public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
 
-    public static final Logger log = Logger
-            .getLogger(SemanticLocalityEvaluator.class
-                    .getName());
+    public static final Logger log = Logger.getLogger(SemanticLocalityEvaluator.class.getName());
 
     private OWLDataFactory df;
 
@@ -45,8 +42,9 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     public SemanticLocalityEvaluator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory) {
         this.df = man.getOWLDataFactory();
         try {
-            reasoner = reasonerFactory.createReasoner(man, new HashSet<OWLOntology>());
-        } catch (OWLReasonerSetupException e) {
+            reasoner = reasonerFactory.createReasoner(man.createOntology());
+        }
+        catch (Exception e) {
             throw new OWLRuntimeException(e);
         }
     }
@@ -85,12 +83,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             if (log.isLoggable(Level.FINE))
                 log.fine("Calling the Reasoner");
 
-            try {
-                isLocal = reasoner.isEquivalentClass(conjunction, df.getOWLNothing());
-            }
-            catch (OWLReasonerException e) {
-                throw new OWLRuntimeException(e);
-            }
+            isLocal = !reasoner.isSatisfiable(df.getOWLNothing());
 
             if (log.isLoggable(Level.FINE))
                 log.fine("DONE Calling the Reasoner. isLocal = " + isLocal);
@@ -103,18 +96,11 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
                 return;
 
             Iterator<OWLClassExpression> iter = eqClasses.iterator();
-            OWLClassExpression first = iter.next();
-            OWLClassExpression second = iter.next();
 
             if (log.isLoggable(Level.FINE))
                 log.fine("Calling the Reasoner");
 
-            try {
-                isLocal = reasoner.isEquivalentClass(first, second);
-            }
-            catch (OWLReasonerException e) {
-                throw new OWLRuntimeException(e);
-            }
+            isLocal = reasoner.isEntailed(axiom);
 
             if (log.isLoggable(Level.FINE))
                 log.fine("DONE Calling the Reasoner. isLocal = " + isLocal);
@@ -122,18 +108,11 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLSubClassOfAxiom axiom) {
-            OWLClassExpression sup = axiom.getSuperClass();
-            OWLClassExpression sub = axiom.getSubClass();
 
             if (log.isLoggable(Level.FINE))
                 log.fine("Calling the Reasoner");
 
-            try {
-                isLocal = reasoner.isSubClassOf(sub, sup);
-            }
-            catch (OWLReasonerException e) {
-                throw new OWLRuntimeException(e);
-            }
+            isLocal = reasoner.isEntailed(axiom);
 
             if (log.isLoggable(Level.FINE))
                 log.fine("DONE Calling the Reasoner. isLocal = " + isLocal);
@@ -310,9 +289,9 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         public void visit(OWLObjectSomeValuesFrom desc) {
             if (signature.contains(desc.getProperty().getNamedProperty())) {
-                newClassExpression = df.getOWLObjectSomeValuesFrom(desc.getProperty(),
-                        replaceBottom(desc.getFiller()));
-            } else
+                newClassExpression = df.getOWLObjectSomeValuesFrom(desc.getProperty(), replaceBottom(desc.getFiller()));
+            }
+            else
                 newClassExpression = df.getOWLNothing();
         }
 
@@ -333,6 +312,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             OWLClassExpression sub = replaceBottom(ax.getSubClass());
             newAxiom = df.getOWLSubClassOfAxiom(sub, sup);
         }
+
     }
 
 

@@ -2,9 +2,10 @@ package uk.ac.manchester.owl.owlapi.tutorial;
 
 import org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger;
 import org.semanticweb.owlapi.debugging.OWLDebugger;
-import org.semanticweb.owlapi.inference.OWLSatisfiabilityChecker;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import uk.ac.manchester.owl.owlapi.tutorial.io.OWLTutorialSyntaxObjectRenderer;
 
 import java.io.PrintWriter;
@@ -63,17 +64,16 @@ public class Debugger {
 
     private OWLDebugger debugger;
 
-    private OWLSatisfiabilityChecker checker;
+    private OWLReasoner checker;
 
     private OWLClass bottom;
 
     public Debugger(OWLOntologyManager manager, OWLOntology ontology,
-            OWLSatisfiabilityChecker checker) throws OWLException {
+            OWLReasonerFactory reasonerFactory) throws OWLException {
         this.ontology = ontology;
-        this.checker = checker;
-        checker.loadOntologies(Collections.singleton(ontology));
+        this.checker = reasonerFactory.createReasoner(ontology);
         /* Create a new debugger */
-        this.debugger = new BlackBoxOWLDebugger(manager, ontology, checker);
+        this.debugger = new BlackBoxOWLDebugger(manager, ontology, reasonerFactory);
         /* Get bottom */
         URI bottomURI = OWLRDFVocabulary.OWL_THING.getURI();
         bottom = manager.getOWLDataFactory().getOWLClass(bottomURI);

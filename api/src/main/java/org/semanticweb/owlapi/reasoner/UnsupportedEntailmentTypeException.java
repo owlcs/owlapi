@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -30,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Information Management Group<br>
  * Date: 18-Mar-2009
  */
-public class UnsupportedEntailmentTypeException extends OWLReasonerException {
+public class UnsupportedEntailmentTypeException extends OWLRuntimeException {
 
     private OWLAxiom axiom;
 

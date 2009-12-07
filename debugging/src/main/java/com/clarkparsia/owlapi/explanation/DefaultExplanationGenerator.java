@@ -1,9 +1,9 @@
 package com.clarkparsia.owlapi.explanation;
 
 import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.Set;
 /*
@@ -45,24 +45,15 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
 
     public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
                                        ExplanationProgressMonitor progressMonitor) {
-        this(man, reasonerFactory, ontology, createAndLoadReasoner(man, reasonerFactory, ontology), progressMonitor);
-    }
-
-
-    private static OWLReasoner createAndLoadReasoner(OWLOntologyManager man, OWLReasonerFactory factory,
-                                                     OWLOntology ont) {
-        return factory.createReasoner(man, man.getImportsClosure(ont));
+        this(man, reasonerFactory, ontology, reasonerFactory.createReasoner(ontology), progressMonitor);
     }
 
 
     public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
                                        OWLReasoner reasoner, ExplanationProgressMonitor progressMonitor) {
         this.dataFactory = man.getOWLDataFactory();
-        BlackBoxExplanation singleGen = new BlackBoxExplanation(man);
+        BlackBoxExplanation singleGen = new BlackBoxExplanation(ontology, reasonerFactory, reasoner);
         gen = new HSTExplanationGenerator(singleGen);
-        gen.setOntology(ontology);
-        gen.setReasoner(reasoner);
-        gen.setReasonerFactory(reasonerFactory);
         if (progressMonitor != null) {
             gen.setProgressMonitor(progressMonitor);
         }

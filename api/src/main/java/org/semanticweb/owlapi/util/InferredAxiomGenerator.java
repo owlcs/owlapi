@@ -1,9 +1,8 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.Set;
 /*
@@ -44,7 +43,7 @@ import java.util.Set;
  */
 public interface InferredAxiomGenerator<A extends OWLAxiom> {
 
-    Set<A> createAxioms(OWLOntologyManager manager, OWLReasoner reasoner) throws OWLReasonerException;
+    Set<A> createAxioms(OWLOntologyManager manager, OWLReasoner reasoner);
 
     String getLabel();
 }

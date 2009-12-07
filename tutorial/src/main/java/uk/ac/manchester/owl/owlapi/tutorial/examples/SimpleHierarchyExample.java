@@ -3,22 +3,19 @@ package uk.ac.manchester.owl.owlapi.tutorial.examples;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
-import java.util.Collections;
 import java.util.Set;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.inference.OWLClassReasoner;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.ToldClassHierarchyReasoner;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
-import uk.ac.manchester.cs.owl.inference.dig11.DIGReasoner;
 
 import gnu.getopt.LongOpt;
 import gnu.getopt.Getopt;
@@ -59,20 +56,15 @@ import gnu.getopt.Getopt;
 public class SimpleHierarchyExample {
     private static int INDENT = 4;
 
-    private OWLClassReasoner reasoner;
+    private OWLReasonerFactory reasonerFactory;
+
     private OWLOntology ontology;
 
     private PrintStream out;
 
-    public SimpleHierarchyExample(OWLOntologyManager manager, String reasonerURL)
+    public SimpleHierarchyExample(OWLOntologyManager manager, OWLReasonerFactory reasonerFactory)
             throws OWLException, MalformedURLException {
-        if (reasonerURL != null) {
-            reasoner = new DIGReasoner(manager);
-            URL rURL = new URL(reasonerURL);
-            ((DIGReasoner) reasoner).getReasoner().setReasonerURL(rURL);
-        } else {
-            reasoner = new ToldClassHierarchyReasoner(manager);
-        }
+        this.reasonerFactory = reasonerFactory;
         out = System.out;
     }
 
@@ -82,16 +74,16 @@ public class SimpleHierarchyExample {
      * inheritance.
      */
     public void printHierarchy(OWLOntology ontology, OWLClass clazz) throws OWLException {
-        reasoner.loadOntologies(Collections.singleton(ontology));
+        OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
         this.ontology = ontology;
-        printHierarchy( clazz, 0 );
+        printHierarchy(reasoner, clazz, 0 );
         /* Now print out any unsatisfiable classes */
         for (OWLClass cl: ontology.getReferencedClasses()) {
             if (!reasoner.isSatisfiable(cl)) {
                 out.println("XXX: " + labelFor(cl));
             }
         }
-        reasoner.clearOntologies();
+        reasoner.dispose();
     }
     
     private String labelFor( OWLClass clazz) {
@@ -117,7 +109,7 @@ public class SimpleHierarchyExample {
      * the given level. Makes no attempt to deal sensibly with multiple
      * inheritance.
      */
-    public void printHierarchy(OWLClass clazz, int level)
+    public void printHierarchy(OWLReasoner reasoner, OWLClass clazz, int level)
             throws OWLException {
         /*
          * Only print satisfiable classes -- otherwise we end up with bottom
@@ -129,21 +121,18 @@ public class SimpleHierarchyExample {
             }
             out.println(labelFor( clazz ));
             /* Find the children and recurse */
-            Set<Set<OWLClass>> children = reasoner.getSubClasses(clazz);
-            for (Set<OWLClass> setOfClasses : children) {
-                for (OWLClass child : setOfClasses) {
+                for (OWLClass child : reasoner.getSubClasses(clazz, true).getFlattened()) {
                     if (!child.equals(clazz)) {
-                        printHierarchy(child, level + 1);
+                        printHierarchy(reasoner, child, level + 1);
                     }
                 }
-            }
         }
     }
 
     public static void main(String[] args) {
         try {
 
-            String reasonerURL = null;
+            String reasonerFactoryClassName = null;
             URI classURI = null;
 
             /* Handle command line arguments */
@@ -162,11 +151,11 @@ public class SimpleHierarchyExample {
             while ((c = g.getopt()) != -1) {
                 switch (c) {
                 case '?':
-                    System.out.println("command [--reasoner=URL] [--class=URL] URL");
+                    System.out.println("command --reasonerFactoryClassName [--class=URL] URL");
                     System.exit(0);
                 case 'r':
                     /* Use a reasoner */
-                    reasonerURL = g.getOptarg();
+                    reasonerFactoryClassName = g.getOptarg();
                     break;
                 case 'c':
                     /* Class to start from */
@@ -202,7 +191,7 @@ public class SimpleHierarchyExample {
                     + manager.getOntologyFormat(ontology));
             // / Create a new SimpleHierarchy object with the given reasoner.
             SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample(
-                    manager, reasonerURL);
+                    manager, (OWLReasonerFactory) Class.forName(reasonerFactoryClassName).newInstance());
 
 	    // Get Thing
             if (classURI==null) {

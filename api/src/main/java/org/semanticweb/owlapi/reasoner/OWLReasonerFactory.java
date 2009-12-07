@@ -43,6 +43,12 @@ import java.util.Set;
 public interface OWLReasonerFactory {
 
     /**
+     * Gets the name of the reasoner created by this factory.
+     * @return A string that represents the name of the reasoner created by this factory.
+     */
+    String getReasonerName();
+
+    /**
      * Creates an OWLReasoner that reasons over the imports closure of the specified ontology.  The reasoner will obtain
      * the imports closure from the specified ontology manager.  The reasoner will listen for ontology changes to the ontologies
      * that it is reasoning over and will always answer queries with respect to the changed ontologies (see {@link org.semanticweb.owlapi.reasoner.OWLReasoner}

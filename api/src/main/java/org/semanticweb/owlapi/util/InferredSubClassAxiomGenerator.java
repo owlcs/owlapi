@@ -1,11 +1,9 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerAdapter;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.Set;
 /*
@@ -40,10 +38,9 @@ import java.util.Set;
  */
 public class InferredSubClassAxiomGenerator extends InferredClassAxiomGenerator<OWLSubClassOfAxiom> {
 
-    protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
-                             Set<OWLSubClassOfAxiom> result) throws OWLReasonerException {
+    protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLSubClassOfAxiom> result) {
         if (reasoner.isSatisfiable(entity)) {
-            for (OWLClass sup : OWLReasonerAdapter.flattenSetOfSets(reasoner.getSuperClasses(entity))) {
+            for (OWLClass sup : reasoner.getSuperClasses(entity, true).getFlattened()) {
                 result.add(dataFactory.getOWLSubClassOfAxiom(entity, sup));
             }
         }

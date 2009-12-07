@@ -72,7 +72,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
 
     private OWLEntityCollector entityCollector = new OWLEntityCollector();
 
-    private Set<OWLOntology> ontologies = new LinkedHashSet<OWLOntology>();
+    private OWLOntology ontology;
 
 	private Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 
@@ -81,17 +81,26 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     private Integer ONE = Integer.valueOf(1);
 
 
-    public DefinitionTracker(OWLOntologyManager manager) {
-        this.manager = manager;
-
+    public DefinitionTracker(OWLOntology ontology) {
+        this.manager = ontology.getOWLOntologyManager();
+        this.ontology = ontology;
+        for (OWLOntology ont : ontology.getImportsClosure()) {
+			for (OWLOntology importOnt : manager.getImportsClosure(ont)) {
+//	            if (this.ontologies.add(importOnt)) {
+					for (OWLAxiom axiom : importOnt.getAxioms()) {
+		                addAxiom(axiom);
+					}
+//	            }
+	        }
+		}
         manager.addOntologyChangeListener(this);
     }
     
-    private void clear() {
-        axioms.clear();
-        ontologies.clear();
-        referenceCounts.clear();    	
-    }
+//    private void clear() {
+//        axioms.clear();
+//        ontologies.clear();
+//        referenceCounts.clear();
+//    }
 
 	private void addAxiom(OWLAxiom axiom) {
         if (axioms.add(axiom)) {
@@ -125,26 +134,26 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
         }
     }
 
-	public void setOntology(OWLOntology ontology) {
-		setOntologies( Collections.singleton( ontology ) );
-	}
+//	public void setOntology(OWLOntology ontology) {
+//		setOntologies( Collections.singleton( ontology ) );
+//	}
 
-	public void setOntologies(Set<OWLOntology> ontologies) {
-		clear();
-		for (OWLOntology ont : ontologies) {
-			for (OWLOntology importOnt : manager.getImportsClosure(ont)) {
-	            if (this.ontologies.add(importOnt)) {
-					for (OWLAxiom axiom : importOnt.getAxioms()) {
-		                addAxiom(axiom);
-					}
-	            }
-	        }
-		}
-	}
+//	public void setOntologies(Set<OWLOntology> ontologies) {
+//		clear();
+//		for (OWLOntology ont : ontologies) {
+//			for (OWLOntology importOnt : manager.getImportsClosure(ont)) {
+//	            if (this.ontologies.add(importOnt)) {
+//					for (OWLAxiom axiom : importOnt.getAxioms()) {
+//		                addAxiom(axiom);
+//					}
+//	            }
+//	        }
+//		}
+//	}
 
-    public Set<OWLOntology> getOntologies() {
-    	return ontologies;
-    }
+//    public Set<OWLOntology> getOntologies() {
+//    	return ontologies;
+//    }
 
     /**
      * Checks if this entity is referred by a logical axiom in the imports
@@ -155,15 +164,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      *         entity
      */
     public boolean isDefined(OWLEntity entity) {
-        if(entity.isBuiltIn()) {
-            return true;
-        }
-        if (entity instanceof OWLClass) {
-            OWLClass cls = (OWLClass) entity;
-            if (cls.isOWLThing() || cls.isOWLNothing())
-                return true;
-        }
-        return referenceCounts.containsKey(entity);
+        return entity.isBuiltIn() || referenceCounts.containsKey(entity);
     }
 
 
@@ -187,7 +188,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
 
     public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
         for (OWLOntologyChange change : changes) {
-            if (!change.isAxiomChange() || !ontologies.contains(change.getOntology()))
+            if (!change.isAxiomChange() || !ontology.getImportsClosure().contains(change.getOntology()))
                 continue;
 
 			final OWLAxiom axiom = change.getAxiom();

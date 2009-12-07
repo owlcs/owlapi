@@ -1,8 +1,8 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -41,10 +41,10 @@ import java.util.Set;
 public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extends OWLAxiom> implements InferredAxiomGenerator<A> {
 
 
-    public Set<A> createAxioms(OWLOntologyManager manager, OWLReasoner reasoner) throws OWLReasonerException {
+    public Set<A> createAxioms(OWLOntologyManager manager, OWLReasoner reasoner) {
         Set<E> processedEntities = new HashSet<E>();
         Set<A> result = new HashSet<A>();
-        for(OWLOntology ont : reasoner.getLoadedOntologies()) {
+        for(OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
             for(E entity : getEntities(ont)) {
                 if(!processedEntities.contains(entity)) {
                     processedEntities.add(entity);
@@ -62,9 +62,8 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
      * @param reasoner The reasoner that has inferred the new axioms
      * @param dataFactory A data factory which should be used to create the new axioms
      * @param result The results set, which the new axioms should be added to.
-     * @throws OWLReasonerException
      */
-    protected abstract void addAxioms(E entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<A> result) throws OWLReasonerException;
+    protected abstract void addAxioms(E entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<A> result);
 
 
     /**
@@ -76,7 +75,7 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
 
     protected Set<E> getAllEntities(OWLReasoner reasoner) {
         Set<E> results = new HashSet<E>();
-        for(OWLOntology ont : reasoner.getLoadedOntologies()) {
+        for(OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
             results.addAll(getEntities(ont));
         }
         return results;

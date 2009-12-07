@@ -1,11 +1,12 @@
 package org.semanticweb.owlapi.reasonerfactory.factpp;
 
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasonerfactory.OWLReasonerSetupException;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
+import org.semanticweb.owlapi.reasoner.IllegalConfigurationException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -67,27 +68,43 @@ public class FaCTPlusPlusReasonerFactory implements OWLReasonerFactory {
     }
 
 
-    public OWLReasoner createReasoner(OWLOntologyManager manager, Set<OWLOntology> ontologies) throws OWLReasonerSetupException {
-        try {
-            OWLReasoner reasoner = (OWLReasoner) factPPConstructor.newInstance(manager);
-            setSynchronisingMethod.invoke(reasoner, Boolean.FALSE);
-            reasoner.loadOntologies(ontologies);
-            return reasoner;
-        }
-        catch (InstantiationException e) {
-            throw new OWLReasonerSetupException(this, e);
-        }
-        catch (IllegalAccessException e) {
-            throw new OWLReasonerSetupException(this, e);
-        }
-        catch (InvocationTargetException e) {
-            throw new OWLReasonerSetupException(this, e);
-        }
-        catch(UnsatisfiedLinkError e) {
-            throw new FaCTNativeLibraryNotFoundException();
-        } catch (OWLReasonerException e) {
-            throw new OWLReasonerSetupException(this, e);
-        }
+    public OWLReasoner createReasoner(OWLOntology ontology) {
+        throw new RuntimeException("NOT IMPLEMENTED");
     }
+
+    public OWLReasoner createBufferedReasoner(OWLOntology ontology) {
+        throw new RuntimeException("NOT IMPLEMENTED");
+    }
+
+    public OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
+        throw new RuntimeException("NOT IMPLEMENTED");
+    }
+
+    public OWLReasoner createBufferedReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
+        throw new RuntimeException("NOT IMPLEMENTED");
+    }
+
+//    public OWLReasoner createReasoner(OWLOntologyManager manager, Set<OWLOntology> ontologies) throws OWLReasonerSetupException {
+//        try {
+//            OWLReasoner reasoner = (OWLReasoner) factPPConstructor.newInstance(manager);
+//            setSynchronisingMethod.invoke(reasoner, Boolean.FALSE);
+//            reasoner.loadOntologies(ontologies);
+//            return reasoner;
+//        }
+//        catch (InstantiationException e) {
+//            throw new OWLReasonerSetupException(this, e);
+//        }
+//        catch (IllegalAccessException e) {
+//            throw new OWLReasonerSetupException(this, e);
+//        }
+//        catch (InvocationTargetException e) {
+//            throw new OWLReasonerSetupException(this, e);
+//        }
+//        catch(UnsatisfiedLinkError e) {
+//            throw new FaCTNativeLibraryNotFoundException();
+//        } catch (OWLReasonerException e) {
+//            throw new OWLReasonerSetupException(this, e);
+//        }
+//    }
 
 }

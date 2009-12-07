@@ -1,12 +1,10 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerAdapter;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.Set;
 /*
@@ -44,9 +42,8 @@ import java.util.Set;
 public class InferredClassAssertionAxiomGenerator extends InferredIndividualAxiomGenerator<OWLClassAssertionAxiom> {
 
 
-    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLClassAssertionAxiom> result) throws
-            OWLReasonerException {
-        for (OWLClass type : OWLReasonerAdapter.flattenSetOfSets(reasoner.getTypes(entity, false))) {
+    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLClassAssertionAxiom> result) {
+        for (OWLClass type : reasoner.getTypes(entity, false).getFlattened()) {
             result.add(dataFactory.getOWLClassAssertionAxiom(type, entity));
         }
     }

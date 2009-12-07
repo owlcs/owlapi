@@ -1,10 +1,9 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.Set;
 /*
@@ -40,31 +39,21 @@ import java.util.Set;
 public class InferredObjectPropertyCharacteristicAxiomGenerator extends InferredObjectPropertyAxiomGenerator<OWLObjectPropertyCharacteristicAxiom> {
 
 
-    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLObjectPropertyCharacteristicAxiom> result) throws
-            OWLReasonerException {
-        if (reasoner.isFunctional(entity)) {
-            result.add(dataFactory.getOWLFunctionalObjectPropertyAxiom(entity));
-        }
-        if (reasoner.isInverseFunctional(entity)) {
-            result.add(dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(entity));
-        }
-        if (reasoner.isSymmetric(entity)) {
-            result.add(dataFactory.getOWLSymmetricObjectPropertyAxiom(entity));
-        }
-        if (reasoner.isTransitive(entity)) {
-            result.add(dataFactory.getOWLTransitiveObjectPropertyAxiom(entity));
-        }
-        if (reasoner.isReflexive(entity)) {
-            result.add(dataFactory.getOWLReflexiveObjectPropertyAxiom(entity));
-        }
-        if (reasoner.isIrreflexive(entity)) {
-            result.add(dataFactory.getOWLIrreflexiveObjectPropertyAxiom(entity));
-        }
-        if (reasoner.isAsymmetric(entity)) {
-            result.add(dataFactory.getOWLAsymmetricObjectPropertyAxiom(entity));
-        }
+    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLObjectPropertyCharacteristicAxiom> result) {
+        addIfEntailed(dataFactory.getOWLFunctionalObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(dataFactory.getOWLSymmetricObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(dataFactory.getOWLAsymmetricObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(dataFactory.getOWLTransitiveObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(dataFactory.getOWLReflexiveObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(dataFactory.getOWLIrreflexiveObjectPropertyAxiom(entity), reasoner, result);
     }
 
+    protected void addIfEntailed(OWLObjectPropertyCharacteristicAxiom axiom, OWLReasoner reasoner, Set<OWLObjectPropertyCharacteristicAxiom> result) {
+        if(reasoner.isEntailmentCheckingSupported(axiom.getAxiomType()) && reasoner.isEntailed(axiom)) {
+            result.add(axiom);
+        }
+    }
 
     public String getLabel() {
         return "Object property characteristics";

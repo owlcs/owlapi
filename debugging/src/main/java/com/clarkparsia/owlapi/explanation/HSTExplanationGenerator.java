@@ -1,9 +1,9 @@
 package com.clarkparsia.owlapi.explanation;
 
-import org.semanticweb.owlapi.inference.OWLClassReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -54,8 +54,7 @@ import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
  */
 public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
-    public static final Logger log = Logger.getLogger(HSTExplanationGenerator.class
-            .getName());
+    public static final Logger log = Logger.getLogger(HSTExplanationGenerator.class.getName());
 
     private TransactionAwareSingleExpGen singleExplanationGenerator;
 
@@ -65,7 +64,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
     public HSTExplanationGenerator(TransactionAwareSingleExpGen singleExplanationGenerator) {
         this.singleExplanationGenerator = singleExplanationGenerator;
-
         collector = new OWLEntityCollector();
         collector.setCollectDatatypes(false);
     }
@@ -80,44 +78,41 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return singleExplanationGenerator.getOntologyManager();
     }
 
-    /**
-     * @deprecated
-     */
     public OWLOntology getOntology() {
         return singleExplanationGenerator.getOntology();
     }
 
-    public Set<OWLOntology> getOntologies() {
-        return singleExplanationGenerator.getOntologies();
-    }
+//    public Set<OWLOntology> getOntologies() {
+//        return singleExplanationGenerator.getOntologies();
+//    }
 
-    public void setOntology(OWLOntology ontology) {
-        singleExplanationGenerator.setOntology(ontology);
-    }
+//    public void setOntology(OWLOntology ontology) {
+//        singleExplanationGenerator.setOntology(ontology);
+//    }
 
-    public void setOntologies(Set<OWLOntology> ontologies) {
-        singleExplanationGenerator.setOntologies(ontologies);
-    }
+//    public void setOntologies(Set<OWLOntology> ontologies) {
+//        singleExplanationGenerator.setOntologies(ontologies);
+//    }
 
-
-    public OWLClassReasoner getReasoner() {
+//
+    public OWLReasoner getReasoner() {
         return singleExplanationGenerator.getReasoner();
     }
-
-
-    public void setReasoner(OWLClassReasoner reasoner) {
-        singleExplanationGenerator.setReasoner(reasoner);
-    }
-
-
+//
+//
+//    public void setReasoner(OWLReasoner reasoner) {
+//        singleExplanationGenerator.setReasoner(reasoner);
+//    }
+//
+//
     public OWLReasonerFactory getReasonerFactory() {
         return singleExplanationGenerator.getReasonerFactory();
     }
-
-
-    public void setReasonerFactory(OWLReasonerFactory reasonerFactory) {
-        singleExplanationGenerator.setReasonerFactory(reasonerFactory);
-    }
+//
+//
+//    public void setReasonerFactory(OWLReasonerFactory reasonerFactory) {
+//        singleExplanationGenerator.setReasonerFactory(reasonerFactory);
+//    }
 
 
     public TransactionAwareSingleExpGen getSingleExplanationGenerator() {
@@ -155,7 +150,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             singleExplanationGenerator.beginTransaction();
             try {
                 constructHittingSetTree(unsatClass, firstMups, allMups, satPaths, currentPathContents, maxExplanations);
-            } finally {
+            }
+            finally {
                 singleExplanationGenerator.endTransaction();
             }
             progressMonitor.foundAllExplanations();
@@ -177,7 +173,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * Orders the axioms in a single MUPS by the frequency of which they appear
      * in all MUPS.
      *
-     * @param mups    The MUPS containing the axioms to be ordered
+     * @param mups The MUPS containing the axioms to be ordered
      * @param allMups The set of all MUPS which is used to calculate the ordering
      */
     private static List<OWLAxiom> getOrderedMUPS(List<OWLAxiom> mups, final Set<Set<OWLAxiom>> allMups) {
@@ -199,7 +195,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * Given an axiom and a set of axioms this method determines how many sets
      * contain the axiom.
      *
-     * @param ax        The axiom that will be counted.
+     * @param ax The axiom that will be counted.
      * @param axiomSets The sets to count from
      */
     private static int getOccurrences(OWLAxiom ax, Set<Set<OWLAxiom>> axiomSets) {
@@ -231,18 +227,16 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * This is a recursive method that builds a hitting set tree to obtain all
      * justifications for an unsatisfiable class.
      *
-     * @param mups                The current justification for the current class. This
-     *                            corresponds to a node in the hitting set tree.
-     * @param allMups             All of the MUPS that have been found - this set gets populated
-     *                            over the course of the tree building process. Initially this
-     *                            should just contain the first justification
-     * @param satPaths            Paths that have been completed.
+     * @param mups The current justification for the current class. This
+     * corresponds to a node in the hitting set tree.
+     * @param allMups All of the MUPS that have been found - this set gets populated
+     * over the course of the tree building process. Initially this
+     * should just contain the first justification
+     * @param satPaths Paths that have been completed.
      * @param currentPathContents The contents of the current path. Initially this should be an
-     *                            empty set.
+     * empty set.
      */
-    private void constructHittingSetTree(OWLClassExpression unsatClass, Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups,
-                                         Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents,
-                                         int maxExplanations) throws OWLException {
+    private void constructHittingSetTree(OWLClassExpression unsatClass, Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents, int maxExplanations) throws OWLException {
 
         if (log.isLoggable(Level.FINE))
             log.fine("MUPS " + allMups.size() + ": " + mups);
@@ -273,18 +267,15 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             // Remove the current axiom from all the ontologies it is included
             // in
 
-            Set<OWLOntology> ontologies = OntologyUtils.removeAxiom(axiom, getReasoner()
-                    .getLoadedOntologies(), getOntologyManager());
+            Set<OWLOntology> ontologies = OntologyUtils.removeAxiom(axiom, getReasoner().getRootOntology().getImportsClosure(), getOntologyManager());
 
             // Removal may have dereferenced some entities, if so declarations are added
             Set<OWLEntity> sig = getSignature(axiom);
-            List<OWLDeclarationAxiom> temporaryDeclarations = new ArrayList<OWLDeclarationAxiom>(
-                    sig.size());
+            List<OWLDeclarationAxiom> temporaryDeclarations = new ArrayList<OWLDeclarationAxiom>(sig.size());
             for (OWLEntity e : sig) {
                 boolean referenced = false;
                 for (Iterator<OWLOntology> i = ontologies.iterator(); !referenced && i.hasNext();) {
-                    for (Iterator<OWLAxiom> j = i.next().getReferencingAxioms(e).iterator(); !referenced
-                            && j.hasNext();) {
+                    for (Iterator<OWLAxiom> j = i.next().getReferencingAxioms(e).iterator(); !referenced && j.hasNext();) {
                         OWLAxiom a = j.next();
                         referenced = a.isLogicalAxiom() || (a instanceof OWLDeclarationAxiom);
                     }
@@ -295,8 +286,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                 }
             }
             for (OWLDeclarationAxiom decl : temporaryDeclarations) {
-                OntologyUtils.addAxiom(decl, getReasoner().getLoadedOntologies(),
-                        getOntologyManager());
+                OntologyUtils.addAxiom(decl, getReasoner().getRootOntology().getImportsClosure(), getOntologyManager());
             }
 
             currentPathContents.add(axiom);
@@ -340,16 +330,12 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                     allMups.add(newMUPS);
                     progressMonitor.foundExplanation(newMUPS);
                     // Recompute priority here?
-                    constructHittingSetTree(unsatClass,
-                            newMUPS,
-                            allMups,
-                            satPaths,
-                            currentPathContents,
-                            maxExplanations);
+                    constructHittingSetTree(unsatClass, newMUPS, allMups, satPaths, currentPathContents, maxExplanations);
                     // We have found a new MUPS, so recalculate the ordering
                     // axioms in the MUPS at the current level
                     orderedMups = getOrderedMUPS(orderedMups, allMups);
-                } else {
+                }
+                else {
                     if (log.isLoggable(Level.FINE))
                         log.fine("Stop - satisfiable");
 
@@ -366,8 +352,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
             // Remove any temporary declarations
             for (OWLDeclarationAxiom decl : temporaryDeclarations) {
-                OntologyUtils.removeAxiom(decl, getReasoner().getLoadedOntologies(),
-                        getOntologyManager());
+                OntologyUtils.removeAxiom(decl, getReasoner().getRootOntology().getImportsClosure(), getOntologyManager());
             }
 
             // Done with the axiom that was removed. Add it back in

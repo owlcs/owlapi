@@ -1,11 +1,11 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,9 +44,8 @@ import java.util.Set;
 public class InferredEquivalentClassAxiomGenerator extends InferredClassAxiomGenerator<OWLEquivalentClassesAxiom> {
 
 
-    protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
-                             Set<OWLEquivalentClassesAxiom> result) throws OWLReasonerException {
-        Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>(reasoner.getEquivalentClasses(entity));
+    protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLEquivalentClassesAxiom> result) {
+        Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>(reasoner.getEquivalentClasses(entity).getEntities());
         equivalentClasses.add(entity);
         if (equivalentClasses.size() > 1) {
             result.add(dataFactory.getOWLEquivalentClassesAxiom(equivalentClasses));

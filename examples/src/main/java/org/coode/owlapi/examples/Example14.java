@@ -1,11 +1,10 @@
 package org.coode.owlapi.examples;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasonerfactory.pellet.PelletReasonerFactory;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.net.URI;
 import java.util.Collections;
@@ -53,7 +52,7 @@ public class Example14 {
             // Create a reasoner.  We will use Pellet in this case.  Make sure that the latest
             // version of the Pellet libraries are on the runtime class path
             OWLReasonerFactory reasonerFactory = new PelletReasonerFactory();
-            OWLReasoner reasoner = reasonerFactory.createReasoner(man, Collections.singleton(ont));
+            OWLReasoner reasoner = reasonerFactory.createReasoner(ont);
             
 
             // Now we can query the reasoner, suppose we want to determine the properties that
@@ -74,8 +73,6 @@ public class Example14 {
         }
         catch (OWLOntologyCreationException e) {
             System.out.println("Problem loading ontology: " + e.getMessage());
-        } catch (OWLReasonerException e) {
-            System.out.println("Problem with reasoner: " + e.getMessage());
         }
     }
 
@@ -86,9 +83,8 @@ public class Example14 {
      * @param ont      The ontology
      * @param reasoner The reasoner
      * @param cls      The class expression
-     * @throws OWLReasonerException If there was a problem during reasoning
      */
-    private static void printProperties(OWLOntologyManager man, OWLOntology ont, OWLReasoner reasoner, OWLClass cls) throws OWLReasonerException {
+    private static void printProperties(OWLOntologyManager man, OWLOntology ont, OWLReasoner reasoner, OWLClass cls) {
         if (!ont.containsClassReference(cls.getIRI())) {
             throw new RuntimeException("Class not in signature of the ontology");
         }
@@ -105,7 +101,7 @@ public class Example14 {
         }
     }
 
-    private static boolean hasProperty(OWLOntologyManager man, OWLReasoner reasoner, OWLClass cls, OWLObjectPropertyExpression prop) throws OWLReasonerException {
+    private static boolean hasProperty(OWLOntologyManager man, OWLReasoner reasoner, OWLClass cls, OWLObjectPropertyExpression prop) {
         // To test whether the instances of a class must have a property we create a some values
         // from restriction and then ask for the satisfiability of the class interesected with the complement
         // of this some values from restriction.  If the intersection is satisfiable then the instances of

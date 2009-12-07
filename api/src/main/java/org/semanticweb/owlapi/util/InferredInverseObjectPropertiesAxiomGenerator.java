@@ -1,11 +1,9 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerAdapter;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.Set;
 /*
@@ -41,9 +39,8 @@ import java.util.Set;
 public class InferredInverseObjectPropertiesAxiomGenerator extends InferredObjectPropertyAxiomGenerator<OWLInverseObjectPropertiesAxiom> {
 
 
-    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLInverseObjectPropertiesAxiom> result) throws
-            OWLReasonerException {
-        for (OWLObjectProperty prop : OWLReasonerAdapter.flattenSetOfSets(reasoner.getInverseProperties(entity))) {
+    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLInverseObjectPropertiesAxiom> result) {
+        for (OWLObjectProperty prop : reasoner.getInverseObjectProperties(entity)) {
             result.add(dataFactory.getOWLInverseObjectPropertiesAxiom(entity, prop));
         }
     }

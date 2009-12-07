@@ -1,15 +1,13 @@
 package org.coode.owlapi.examples;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
-import org.semanticweb.owlapi.util.InferredAxiomGeneratorException;
 import org.semanticweb.owlapi.util.InferredOntologyGenerator;
 import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
 import org.semanticweb.owlapi.reasonerfactory.pellet.PelletReasonerFactory;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,8 +65,8 @@ public class Example11 {
             OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi"));
 
             // Create the reasoner and classify the ontology
-            OWLReasoner reasoner = reasonerFactory.createReasoner(man, Collections.singleton(ont));
-            reasoner.classify();
+            OWLReasoner reasoner = reasonerFactory.createReasoner(ont);
+            reasoner.prepareReasoner();
 
             // To generate an inferred ontology we use implementations of inferred axiom generators
             // to generate the parts of the ontology we want (e.g. subclass axioms, equivalent classes
@@ -92,16 +90,10 @@ public class Example11 {
             // Save the inferred ontology. (Replace the URI with one that is appropriate for your setup)
             man.saveOntology(infOnt, URI.create("file:///tmp/inferredont.owlapi"));
         }
-        catch(InferredAxiomGeneratorException e) {
-            e.printStackTrace();
-        }
         catch(OWLOntologyChangeException e) {
             e.printStackTrace();
         }
         catch (OWLOntologyCreationException e) {
-            e.printStackTrace();
-        }
-        catch(OWLReasonerException e) {
             e.printStackTrace();
         }
         catch(OWLOntologyStorageException e) {

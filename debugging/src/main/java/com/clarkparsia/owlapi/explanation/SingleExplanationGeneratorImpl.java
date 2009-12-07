@@ -2,10 +2,10 @@ package com.clarkparsia.owlapi.explanation;
 
 import java.util.Set;
 
-import org.semanticweb.owlapi.inference.OWLClassReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import com.clarkparsia.owlapi.explanation.util.DefinitionTracker;
 
@@ -29,22 +29,22 @@ public abstract class SingleExplanationGeneratorImpl implements TransactionAware
 
 	private boolean inTransaction;
 	
-    protected OWLOntologyManager owlOntologyManager;
+    private OWLOntologyManager owlOntologyManager;
 
-//    protected OWLOntology ontology;
+    private OWLOntology ontology;
 
-    protected OWLClassReasoner reasoner;
+    private OWLReasoner reasoner;
 
-    protected OWLReasonerFactory reasonerFactory;
+    private OWLReasonerFactory reasonerFactory;
 
-    protected DefinitionTracker definitionTracker;
+    private DefinitionTracker definitionTracker;
 
-    protected OWLClassReasoner altReasoner;
-
-    public SingleExplanationGeneratorImpl(OWLOntologyManager manager) {
-        this.owlOntologyManager = manager;
-
-        definitionTracker = new DefinitionTracker(manager);
+    public SingleExplanationGeneratorImpl(OWLOntology ontology, OWLReasonerFactory reasonerFactory, OWLReasoner reasoner) {
+        this.ontology = ontology;
+        this.reasonerFactory = reasonerFactory;
+        this.reasoner = reasoner;
+        this.owlOntologyManager = ontology.getOWLOntologyManager();
+        definitionTracker = new DefinitionTracker(ontology);
     }
 
 
@@ -52,60 +52,24 @@ public abstract class SingleExplanationGeneratorImpl implements TransactionAware
         return owlOntologyManager;
     }
 
-
-    public void setOntology(OWLOntology ontology) {
-        this.altReasoner = null;
-
-        definitionTracker.setOntology(ontology);
-    }
-    
-    public void setOntologies(Set<OWLOntology> ontologies) {
-        this.altReasoner = null;
-    	
-    	definitionTracker.setOntologies( ontologies );
-    }
-
-
-    public OWLClassReasoner getReasoner() {
+    public OWLReasoner getReasoner() {
         return reasoner;
     }
 
-
-    public void setReasoner(OWLClassReasoner reasoner) {
-        this.reasoner = reasoner;
-        this.altReasoner = null;
+    public DefinitionTracker getDefinitionTracker() {
+        return definitionTracker;
     }
 
     /**
      * {@inheritDoc}
      */
     public OWLOntology getOntology() {
-        return getOntologies().iterator().next();
+        return ontology;
     }
-    
-    public Set<OWLOntology> getOntologies() {
-        return definitionTracker.getOntologies();
-    }
-    
+
     public OWLReasonerFactory getReasonerFactory() {
         return reasonerFactory;
     }
-
-
-    public void setReasonerFactory(OWLReasonerFactory reasonerFactory) {
-        this.reasonerFactory = reasonerFactory;
-        this.altReasoner = null;
-    }
-
-
-    public OWLClassReasoner getAltReasoner() {
-        if (altReasoner == null) {
-            altReasoner = reasonerFactory.createReasoner(owlOntologyManager, getOntologies());
-        }
-
-        return altReasoner;
-    }
-
 
     protected boolean isFirstExplanation() {
     	return !inTransaction;

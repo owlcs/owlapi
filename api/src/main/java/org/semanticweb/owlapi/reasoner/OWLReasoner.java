@@ -313,6 +313,13 @@ public interface OWLReasoner {
      */
     boolean isSatisfiable(OWLClassExpression classExpression) throws ReasonerInterruptedException, TimeOutException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, InconsistentOntologyException;
 
+    /**
+     * A convenience method that obtains the classes in the signature of the root ontology that are unsatisfiable.
+     * @return
+     * @throws ReasonerInterruptedException
+     * @throws TimeOutException
+     */
+    Set<OWLClass> getUnsatisfiableClasses() throws ReasonerInterruptedException, TimeOutException;
 
     /**
      * A convenience method that determines if the specified axiom is entailed by the set of reasoner axioms.
