@@ -32,7 +32,8 @@ import java.util.Set;
 
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group Date: 24-Oct-2006
- * The <code>OWLOntologyManager</code> manages a set of ontologies. It is the main point for creating, loading and
+ * </p>
+ * An <code>OWLOntologyManager</code> manages a set of ontologies. It is the main point for creating, loading and
  * accessing ontologies.
  */
 public interface OWLOntologyManager extends OWLOntologySetProvider {
@@ -183,7 +184,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     /**
-     * A convenience method that adds a single axioms to an ontology. The appropriate AddAxiom change object is
+     * A convenience method that adds a single axiom to an ontology. The appropriate AddAxiom change object is
      * automatically generated.
      * @param ont   The ontology to add the axiom to.
      * @param axiom The axiom to be added
@@ -193,7 +194,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     List<OWLOntologyChange> addAxiom(OWLOntology ont, OWLAxiom axiom) throws OWLOntologyChangeException;
 
     /**
-     * A convenience method that removes a single axioms from an ontology. The appropriate RemoveAxiom change object is
+     * A convenience method that removes a single axiom from an ontology. The appropriate RemoveAxiom change object is
      * automatically generated.
      * @param ont   The ontology to remove the axiom from.
      * @param axiom The axiom to be removed
@@ -324,35 +325,63 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Loads the ontology specified by the <code>ontologyIRI</code> parameter.  Note that this is <b>NOT</b> the
-     * physical IRI that points to a concrete representation (e.g. an RDF/XML OWL file) of an ontology.  The mapping to
-     * a physical IRI will be determined by using one of the loaded <code>OWLOntologyIRIMapper</code>s.
-     * @param ontologyIRI The ontology IRI (sometimes called logical IRI of the ontology to be loaded)
+     * Loads an ontology from an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Ontology_Documents">ontology
+     * document</a> specified by the <code>ontologyIRI</code> parameter.
+     * This ontology IRI will be mapped to a physical IRI.  The mapping will be determined using one of the loaded
+     * {@link OWLOntologyIRIMapper} objects. By default, if no custom <code>OWLOntologyIRIMapper</code>s have been registed
+     * using the {@link #addIRIMapper(OWLOntologyIRIMapper)} method, the physical IRI is taken to be the specified
+     * ontology IRI. However, if the mappers have been cleared and/or replaced entirely by custom mappers and the ontology
+     * IRI cannot be mapped then an
+     * {@link org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException} will be thrown.
+     * @param ontologyIRI The IRI that identifies the ontology.  It is expected that the ontology will also have this
+     * IRI (although the OWL API will tolerated situations where this is not the case).
      * @return The <code>OWLOntology</code> representation of the ontology that was loaded.  If an ontology with the
      *         specified IRI is already loaded then that ontology will be returned.
-     * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
+     * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.  Notable subclasses
+     * of this exception are listed below:
+     * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was parsed from a document and
+     * the document contained errors.
+     * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
+     * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
+     * not be thrown.
+     * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException if there was an <code>IOException</code>
+     * when trying to load the ontology.
      */
     OWLOntology loadOntology(IRI ontologyIRI) throws OWLOntologyCreationException;
 
 
     /**
-     * A convenience method that loads an ontology from a physical URI.  If the ontology contains imports, then the
-     * appropriate mappers should be set up before calling this method.
+     * A convenience method that loads an ontology from a physical URI.  In contrast the the {@link #loadOntology(IRI)}
+     * method, no mapping is performed on the specified URI.
      * @param uri The physical URI which points to a concrete representation of an ontology.
      * @return The ontology that was loaded.
-     * @throws OWLOntologyCreationException If the ontology could not be created and loaded.
+     * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.  Notable subclasses
+     * of this exception are listed below:
+     * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was parsed from a document and
+     * the document contained errors.
+     * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
+     * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
+     * not be thrown.
+     * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException if there was an <code>IOException</code>
+     * when trying to load the ontology.
      */
     OWLOntology loadOntologyFromPhysicalURI(URI uri) throws OWLOntologyCreationException;
 
 
     /**
-     * A convenience method that load an ontology from an input source.  If the ontology contains imports then the
-     * appropriate mappers should be set up before calling this method.
+     * A convenience method that load an ontology from an input source.
      * @param inputSource The input source that describes where the ontology should be loaded from.
-     * @return The ontology that was loaded.  Note that other ontologies may be loaded as a result of the ontology
-     *         being loaded, but these are not returned here.
-     * @throws OWLOntologyCreationException if there was a problem loading the ontology from the specified input source,
-     *                                      or if the ontology imports other ontologies the exception is thrown if there was a problem handing imports.
+     * @return The ontology that was loaded.
+     * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology from the
+     * specified input source.  Notable subclasses
+     * of this exception are listed below:
+     * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was parsed from a document and
+     * the document contained errors.
+     * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
+     * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
+     * not be thrown.
+     * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException if there was an <code>IOException</code>
+     * when trying to load the ontology.
      */
     OWLOntology loadOntology(OWLOntologyInputSource inputSource) throws OWLOntologyCreationException;
 
@@ -365,16 +394,16 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     /**
-     * Gets the physical IRI for a given ontology.  This will either be the physical IRI from where the ontology was
-     * obtained from during loading, or the physcial IRI which was specified (via a mapper) when the (empty) ontology
+     * Gets the physical IRI for a given ontology.  This will either be the physical URI from where the ontology was
+     * obtained from during loading, or the physcial URI which was specified (via a mapper) when the (empty) ontology
      * was created.  Note that this may not correspond to the first physical IRI found in the list of mappings from
      * ontology IRI to physcial IRI. The reason for this is that it might not have been possible to load the ontology
      * from the first physical IRI found in the mapping table.
      * @param ontology The ontology whose physical IRI is to be obtained.
-     * @return The physical IRI of the ontology.
+     * @return The physical IRI of the ontology or <code>null</code>.
      * @throws UnknownOWLOntologyException If the specified ontology is not managed by this manager.
      */
-    URI getPhysicalURIForOntology(OWLOntology ontology) throws UnknownOWLOntologyException;
+    URI getPhysicalURIForOntology(OWLOntology ontology);
 
 
     /**
@@ -412,29 +441,60 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @param ontology The ontology to be saved.
      * @throws OWLOntologyStorageException An exception will be thrown if there is a problem with saving the ontology,
      *                                     or the ontology can't be saved in the format it was loaded from.
+     * @throws UnknownOWLOntologyException if this manager does not manage the specified ontology
      */
-    void saveOntology(OWLOntology ontology) throws OWLOntologyStorageException, UnknownOWLOntologyException;
+    void saveOntology(OWLOntology ontology) throws OWLOntologyStorageException;
 
 
     /**
-     * Saves the specified ontology, using the specified IRI to determine where/how the ontology should be saved.
+     * Saves the specified ontology, using the specified URI to determine where/how the ontology should be saved.
      * @param ontology    The ontology to be saved.
-     * @param physicalURI The physical URI that specified how and where the ontology should be saved.
-     * @throws OWLOntologyStorageException If the ontology cannot be saved.
+     * @param physicalURI The physical URI that specifies how and where to the ontology should be saved.
+     * @throws OWLOntologyStorageException If the ontology cannot be saved
+     * @throws UnknownOWLOntologyException if the specified ontology is not managed by this manager.
      */
-    void saveOntology(OWLOntology ontology, URI physicalURI) throws OWLOntologyStorageException, UnknownOWLOntologyException;
+    void saveOntology(OWLOntology ontology, URI physicalURI) throws OWLOntologyStorageException;
 
 
-    void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat) throws OWLOntologyStorageException, UnknownOWLOntologyException;
+    /**
+     * Saves the specified ontology in the specified ontology format to its physical URI.
+     * @param ontology The ontology to be saved.
+     * @param ontologyFormat The format in which the ontology should be saved.
+     * @throws OWLOntologyStorageException If the ontology cannot be saved.
+     * @throws UnknownOWLOntologyException if the specified ontology is not managed by this manager
+     */
+    void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat) throws OWLOntologyStorageException;
 
 
-    void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, URI physicalURI) throws OWLOntologyStorageException, UnknownOWLOntologyException;
+    /**
+     * Saves the specified ontology to the specified physical URI in the specified ontology format.
+     * @param ontology The ontology to be saved
+     * @param ontologyFormat The format in which to save the ontology
+     * @param physicalURI The physical URI where the ontology will be saved to
+     * @throws OWLOntologyStorageException If the ontology could not be saved.
+     * @throws UnknownOWLOntologyException if the specified ontology is not managed by the manager.
+     */
+    void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, URI physicalURI) throws OWLOntologyStorageException;
 
 
-    void saveOntology(OWLOntology ontology, OWLOntologyOutputTarget outputTarget) throws OWLOntologyStorageException, UnknownOWLOntologyException;
+    /**
+     * Saves the specified ontology to the specified {@link org.semanticweb.owlapi.io.OWLOntologyOutputTarget}.
+     * @param ontology The ontology to be saved.
+     * @param outputTarget The output target where the ontology will be saved to.
+     * @throws OWLOntologyStorageException If the ontology could not be saved.
+     * @throws UnknownOWLOntologyException if the specified ontology is not managed by this manager.
+     */
+    void saveOntology(OWLOntology ontology, OWLOntologyOutputTarget outputTarget) throws OWLOntologyStorageException;
 
-
-    void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, OWLOntologyOutputTarget outputTarget) throws OWLOntologyStorageException, UnknownOWLOntologyException;
+    /**
+     * Saves the specified ontology to the specified output target in the specified ontology format.
+     * @param ontology The ontology to be saved.
+     * @param ontologyFormat The output format in which to save the ontology
+     * @param outputTarget The output target where the ontology will be saved to
+     * @throws OWLOntologyStorageException If the ontology could not be saved.
+     * @throws UnknownOWLOntologyException If the specified ontology is not managed by this manager.
+     */
+    void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, OWLOntologyOutputTarget outputTarget) throws OWLOntologyStorageException;
 
 
     /**
@@ -447,7 +507,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
     /**
      * Removes a mapper from this manager.
-     * @param mapper The mapper to be removed.
+     * @param mapper The mapper to be removed. If this manager does not managed the specified mapper then nothing will
+     * happen.
      */
     void removeIRIMapper(OWLOntologyIRIMapper mapper);
 
@@ -507,8 +568,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * Sets the default strategy that is used to broadcast ontology changes.
      * @param strategy The strategy to be used for broadcasting changes.  This strategy will override any previously
      *                 set broadcast strategy.  The strategy should not be <code>null</code>.
-     * @see org.semanticweb.owlapi.model.DefaultChangeBroadcastStrategy
-     * @see org.semanticweb.owlapi.model.EDTChangeBroadcastStrategy
+     * @see {@link org.semanticweb.owlapi.model.DefaultChangeBroadcastStrategy}
+     * @see {@link org.semanticweb.owlapi.model.EDTChangeBroadcastStrategy}
      */
     void setDefaultChangeBroadcastStrategy(OWLOntologyChangeBroadcastStrategy strategy);
 
@@ -525,7 +586,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * methods.
      * @param declaration The declaration that describes the import to be loaded.
      * @throws UnloadableImportException if there was a problem creating and loading the import and
-     * silent missing imports handling is not turned on.
+     * silent missing imports handling is not turned on.  If silent missing import handling is turned on then
+     * this exception will not be thrown.
      */
     void makeLoadImportRequest(OWLImportsDeclaration declaration) throws UnloadableImportException;
 
@@ -561,14 +623,28 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     void removeMissingImportListener(MissingImportListener listener);
 
 
+    /**
+     * Adds an ontology loaded listener to this manager.
+     * @param listener The listener to be added.
+     */
     void addOntologyLoaderListener(OWLOntologyLoaderListener listener);
 
-
+    /**
+     * Removes a previously added ontology loaded listener.
+     * @param listener The listener to be removed.
+     */
     void removeOntologyLoaderListener(OWLOntologyLoaderListener listener);
 
-
+    /**
+     * Adds an ontology change progress listener.
+     * @param listener The listener to be added.
+     */
     void addOntologyChangeProgessListener(OWLOntologyChangeProgressListener listener);
 
+    /**
+     * Removes a previously added ontology change listener.
+     * @param listener The listener to be removed.
+     */
     void removeOntologyChangeProgessListener(OWLOntologyChangeProgressListener listener);
 
 

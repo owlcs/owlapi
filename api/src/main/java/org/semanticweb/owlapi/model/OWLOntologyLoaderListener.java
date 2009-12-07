@@ -30,6 +30,9 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Apr-2008<br><br>
+ * </p>
+ * Receives notification of ontology loading starting and finishing from a manager.
+ *
  */
 public interface OWLOntologyLoaderListener {
 

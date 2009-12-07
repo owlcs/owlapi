@@ -3,7 +3,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import org.semanticweb.owlapi.io.OWLOntologyInputSource;
 import org.semanticweb.owlapi.io.OWLOntologyOutputTarget;
 import org.semanticweb.owlapi.io.PhysicalURIInputSource;
-import org.semanticweb.owlapi.io.PhysicalURIMappingNotFoundException;
+import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
@@ -539,7 +539,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         else {
             // Nothing we can do here.  We can't get a physical URI to load
             // the ontology from.
-            throw new PhysicalURIMappingNotFoundException(ontologyIRI);
+            throw new OntologyIRIMappingNotFoundException(ontologyIRI);
         }
         return loadOntology(ontologyIRI, new PhysicalURIInputSource(physicalURI));
     }

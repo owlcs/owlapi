@@ -32,11 +32,11 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group<br>
  * Date: 10-Apr-2008<br><br>
  */
-public class PhysicalURIMappingNotFoundException extends OWLOntologyCreationException {
+public class OntologyIRIMappingNotFoundException extends OWLOntologyCreationException {
 
     private IRI ontologyIRI;
 
-    public PhysicalURIMappingNotFoundException(IRI ontologyIRI) {
+    public OntologyIRIMappingNotFoundException(IRI ontologyIRI) {
         super("Physical URI mapping not found for " + ontologyIRI);
         this.ontologyIRI = ontologyIRI;
     }

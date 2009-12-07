@@ -59,6 +59,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private Map<AxiomType, Set<OWLAxiom>> axiomsByType = createMap();
 
+    private Map<OWLAxiom, Set<OWLAxiom>> logicalAxiom2AnnotatedAxiomMap = createMap();
+
     private Set<OWLClassAxiom> generalClassAxioms = createSet();
 
     private Set<OWLSubPropertyChainOfAxiom> propertyChainSubPropertyAxioms = createSet();
@@ -453,6 +455,87 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
        return false;
     }
 
+    /**
+     * Determines if this ontology contains the specified axiom, ignoring any annotations on this
+     * axiom.
+     *
+     * @param axiom The axiom to test for.
+     * @return <code>true</code> if this ontology contains this axiom with or without annotations.
+     */
+    public boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom) {
+        if(axiom.isAnnotated()) {
+            return logicalAxiom2AnnotatedAxiomMap.containsKey(axiom.getAxiomWithoutAnnotations());
+        }
+        else {
+            return containsAxiom(axiom) || logicalAxiom2AnnotatedAxiomMap.containsKey(axiom);
+        }
+    }
+
+    /**
+     * Determines if this ontology and possibly its imports closure contains the specified axiom,
+     * ignoring any annotations on this axiom.
+     *
+     * @param axiom The axiom to test for.
+     * @param includeImportsClosure if <code>true</code> the imports closure of this ontology will be searched for the
+     * specified axiom. If <code>false</code> only this ontology will be searched for the specifed axiom.
+     * @return <code>true</code> if this ontology contains this axiom with or without annotations.
+     */
+    public boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom, boolean includeImportsClosure) {
+        if(!includeImportsClosure) {
+            return containsAxiomIgnoreAnnotations(axiom);
+        }
+        else {
+            for(OWLOntology ont : getImportsClosure()) {
+                if(ont.containsAxiomIgnoreAnnotations(axiom)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    /**
+     * Gets the set of axioms that have the same "logical structure" as the specified axiom.
+     *
+     * @param axiom The axiom that specifies the logical structure of the axioms to retrieve
+     * @return A set of axioms such that for any two axioms, <code>axiomA</code> and
+     *         <code>axiomB</code> in the set, <code>axiomA.getAxiomWithoutAnnotations()</code> is equal to
+     *         <code>axiomB.getAxiomWithoutAnnotations()</code>.  The specified axiom will be contained in the set.
+     */
+    public Set<OWLAxiom> getAxiomsIgnoringAnnotations(OWLAxiom axiom) {
+        Set<OWLAxiom> result = new HashSet<OWLAxiom>();
+        if (containsAxiom(axiom)) {
+            result.add(axiom);
+        }
+        Set<OWLAxiom> annotated = logicalAxiom2AnnotatedAxiomMap.get(axiom.getAxiomWithoutAnnotations());
+        if(annotated != null) {
+            result.addAll(annotated);
+        }
+        return result;
+    }
+
+    /**
+     * Gets the set of axioms that have the same "logical structure" as the specified axiom, possibly searching
+     * the imports closure of this ontology.
+     *
+     * @param axiom The axiom that specifies the logical structure of the axioms to retrieve.  If this axiom is annotated
+     * then the annotations are ignored.
+     * @param includeImportsClosure if <code>true</code> then axioms in the imports closure of this ontology are returned,
+     * if <code>false</code> only axioms in this ontology will be returned.
+     * @return A set of axioms such that for any two axioms, <code>axiomA</code> and
+     *         <code>axiomB</code> in the set, <code>axiomA.getAxiomWithoutAnnotations()</code> is equal to
+     *         <code>axiomB.getAxiomWithoutAnnotations()</code>.  The specified axiom will be contained in the set.
+     */
+    public Set<OWLAxiom> getAxiomsIgnoringAnnotations(OWLAxiom axiom, boolean includeImportsClosure) {
+        if(!includeImportsClosure) {
+            return getAxiomsIgnoringAnnotations(axiom);
+        }
+        Set<OWLAxiom> result = new HashSet<OWLAxiom>();
+        for(OWLOntology ont : getImportsClosure()) {
+            result.addAll(ont.getAxiomsIgnoringAnnotations(axiom));
+        }
+        return result;
+    }
 
     public boolean containsClassReference(IRI owlClassIRI) {
         return owlClassReferences.containsKey(getOWLDataFactory().getOWLClass(owlClassIRI));
@@ -1655,6 +1738,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         for(OWLAnonymousIndividual ind : entityCollector.getAnonymousIndividuals()) {
             addToIndexedSet(ind, owlAnonymousIndividualReferences, axiom);
         }
+        if(axiom.isAnnotated()) {
+            addToIndexedSet(axiom.getAxiomWithoutAnnotations(), logicalAxiom2AnnotatedAxiomMap, axiom);
+        }
     }
 
 
@@ -1670,6 +1756,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
         for(OWLAnonymousIndividual ind : entityCollector.getAnonymousIndividuals()) {
             removeAxiomFromSet(ind, owlAnonymousIndividualReferences, axiom, true);
+        }
+        if(axiom.isAnnotated()) {
+            removeAxiomFromSet(axiom.getAxiomWithoutAnnotations(), logicalAxiom2AnnotatedAxiomMap, axiom, true);
         }
     }
 

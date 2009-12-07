@@ -24,6 +24,9 @@ package org.semanticweb.owlapi.model;/*
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 12-Mar-2009
+ * </p>
+ * Objects that want to listen to the progress of applying changes to an ontology should implement this interface
+ * and add themselves as listener to a manager.
  */
 public interface OWLOntologyChangeProgressListener {
 
