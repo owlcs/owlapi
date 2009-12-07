@@ -377,42 +377,6 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
 
-    public static void main(String[] args) {
-        try {
-            OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            long t0 = System.currentTimeMillis();
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("file:/Users/matthewhorridge/ontologies/Thesaurus.08.02d.owl.zip"));
-            long t1 = System.currentTimeMillis();
-            System.out.println("Time to load: " + (t1 - t0));
-//            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
-//            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("file:/Users/matthewhorridge/Desktop/cycletest.owl"));
-//            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("file:/Users/matthewhorridge/Desktop/yatbu.owl"));
-            System.out.println("Loaded");
-            System.out.println("Clses: " + ont.getReferencedClasses().size());
-            for (int i = 0; i < 10; i++) {
-                StructuralReasoner reasoner = new StructuralReasoner(ont, new SimpleConfiguration(), BufferingMode.NON_BUFFERING);
-//            for(OWLClass cls : ont.getReferencedClasses()) {
-//                reasoner.getRawSupers(cls, null);
-//            }
-                doPrepare(reasoner);
-//                reasoner.dumpHierarchy();
-            }
-
-
-        }
-        catch (OWLOntologyCreationException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void doPrepare(StructuralReasoner reasoner) {
-        long t0 = System.currentTimeMillis();
-        reasoner.prepareReasoner();
-        long t1 = System.currentTimeMillis();
-        System.out.println("Time to prepare reasoner: " + (t1 - t0));
-    }
-
-
     private interface RawHierarchyProvider<T> {
 
         Collection<T> getParents(T child);

@@ -150,13 +150,13 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         }
         for (OWLOntology ont : rootOntology.getImportsClosure()) {
             for (OWLAxiom ax : ont.getLogicalAxioms()) {
-                if (!reasonerAxioms.contains(ax)) {
+                if (!reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())) {
                     added.add(ax);
                 }
             }
         }
         for(OWLAxiom ax : reasonerAxioms) {
-            if(!rootOntology.containsAxiom(ax, true)) {
+            if(!rootOntology.containsAxiomIgnoreAnnotations(ax, true)) {
                 removed.add(ax);
             }
         }
