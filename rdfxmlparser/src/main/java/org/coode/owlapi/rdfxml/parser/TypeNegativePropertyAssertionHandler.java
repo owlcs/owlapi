@@ -44,7 +44,7 @@ public class TypeNegativePropertyAssertionHandler extends BuiltInTypeHandler {
         return false;
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         IRI source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SOURCE_INDIVIDUAL.getIRI(), true);
         if (source == null) {
             source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SUBJECT.getIRI(), true);

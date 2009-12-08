@@ -66,12 +66,7 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
 
 
     public void applyChange(OWLOntologyChange change) {
-        try {
-            consumer.getOWLOntologyManager().applyChange(change);
-        }
-        catch (OWLOntologyChangeException e) {
-            logger.severe(e.getMessage());
-        }
+        consumer.getOWLOntologyManager().applyChange(change);
     }
 
 

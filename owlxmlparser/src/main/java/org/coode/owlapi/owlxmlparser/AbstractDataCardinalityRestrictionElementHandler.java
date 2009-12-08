@@ -1,7 +1,6 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -43,7 +42,7 @@ public abstract class AbstractDataCardinalityRestrictionElementHandler extends A
     }
 
 
-    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
+    public void attribute(String localName, String value) throws OWLParserException {
         if (localName.equals("cardinality")) {
             cardinality = Integer.parseInt(value);
         }

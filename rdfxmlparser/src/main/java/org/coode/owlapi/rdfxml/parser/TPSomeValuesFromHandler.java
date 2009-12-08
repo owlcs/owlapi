@@ -48,35 +48,35 @@ public class TPSomeValuesFromHandler extends TriplePredicateHandler {
 
 
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        eagerConsume = false;
-        count++;
-        // We either need to know that
-        // 1) the property is an object property and the filler is a class
-        // 2) the property is a datatype prop and the filler is a datatype
-        OWLRDFConsumer consumer = getConsumer();
-        if (!consumer.isAnonymousNode(object) || consumer.getClassExpressionIfTranslated(object) != null) {
-            IRI obj = consumer.getResourceObject(subject, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), false);
-            if (obj != null) {
-                // Our object is either a class or a datatype
-                if (consumer.isObjectPropertyOnly(obj) || consumer.isClass(object)) {
-                    // The object MUST be a named class
-                    consumer.addOWLClass(object);
-                    consumer.addOWLObjectProperty(obj);
-                    eagerConsume = true;
-                    // In order to translate the restriction we need to add the triple.
-                    consumer.addTriple(subject, predicate, object);
-                    translateClassExpression(subject);
-                    consumer.consumeTriple(subject, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), obj);
-                    eagerConsume = false;
-                    return true;
-                }
-            }
-        }
-
         return false;
+//        eagerConsume = false;
+//        count++;
+//        // We either need to know that
+//        // 1) the property is an object property and the filler is a class
+//        // 2) the property is a datatype prop and the filler is a datatype
+//        OWLRDFConsumer consumer = getConsumer();
+//        if (!consumer.isAnonymousNode(object) || consumer.getClassExpressionIfTranslated(object) != null) {
+//            IRI obj = consumer.getResourceObject(subject, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), false);
+//            if (obj != null) {
+//                // Our object is either a class or a datatype
+//                if (consumer.isObjectPropertyOnly(obj) || consumer.isClass(object)) {
+//                    // The object MUST be a named class
+//                    consumer.addOWLClass(object);
+//                    consumer.addOWLObjectProperty(obj);
+//                    eagerConsume = true;
+//                    // In order to translate the restriction we need to add the triple.
+//                    consumer.addTriple(subject, predicate, object);
+//                    translateClassExpression(subject);
+//                    consumer.consumeTriple(subject, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), obj);
+//                    eagerConsume = false;
+//                    return true;
+//                }
+//            }
+//        }
+
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
     }
 }

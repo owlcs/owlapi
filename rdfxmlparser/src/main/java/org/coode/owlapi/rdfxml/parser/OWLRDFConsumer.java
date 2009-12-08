@@ -657,18 +657,13 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    protected void addAxiom(OWLAxiom axiom) throws OWLOntologyChangeException {
+    protected void addAxiom(OWLAxiom axiom) {
             owlOntologyManager.applyChange(new AddAxiom(ontology, axiom));
             lastAddedAxiom = axiom;
     }
 
     protected void applyChange(OWLOntologyChange change) {
-        try {
-            owlOntologyManager.applyChange(change);
-        }
-        catch (OWLOntologyChangeException e) {
-            logger.severe(e.getMessage());
-        }
+        owlOntologyManager.applyChange(change);
     }
 
     protected void setOntologyID(OWLOntologyID ontologyID) {
@@ -1043,7 +1038,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     private long t0;
 
 
-    public void handle(IRI subject, IRI predicate, IRI object) throws OWLOntologyChangeException, UnloadableImportException {
+    public void handle(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI())) {
             BuiltInTypeHandler typeHandler = builtInTypeTripleHandlers.get(object);
             if (typeHandler != null) {
@@ -1069,12 +1064,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     public void handle(IRI subject, IRI predicate, OWLLiteral object) {
         for (AbstractLiteralTripleHandler handler : literalTripleHandlers) {
             if (handler.canHandle(subject, predicate, object)) {
-                try {
-                    handler.handleTriple(subject, predicate, object);
-                }
-                catch (OWLOntologyChangeException e) {
-                    e.printStackTrace();
-                }
+                handler.handleTriple(subject, predicate, object);
                 break;
             }
         }
@@ -1303,9 +1293,6 @@ public class OWLRDFConsumer implements RDFConsumer {
             dumpRemainingTriples();
             cleanup();
         }
-        catch (OWLOntologyChangeException e) {
-            throw new TranslatedOntologyChangeException(e);
-        }
         catch (UnloadableImportException e) {
             throw new TranslatedUnloadedImportException(e);
         }
@@ -1376,9 +1363,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         catch (UnloadableImportException e) {
             throw new TranslatedUnloadedImportException(e);
         }
-        catch (OWLOntologyChangeException e) {
-            throw new TranslatedOntologyChangeException(e);
-        }
     }
 
 
@@ -1391,7 +1375,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      * @param predicate The predicate of the triple that has been parsed
      * @param object    The object of the triple that has been parsed
      */
-    private void handleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    private void handleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (predicate.equals(RDF_TYPE.getIRI())) {
             BuiltInTypeHandler handler = builtInTypeTripleHandlers.get(object);
             if (handler != null) {
@@ -1428,22 +1412,12 @@ public class OWLRDFConsumer implements RDFConsumer {
         OWLLiteral con = getOWLConstant(literal, datatype, lang);
         AbstractLiteralTripleHandler skosHandler = skosTripleHandlers.get(predicate);
         if (skosHandler != null) {
-            try {
-                skosHandler.handleTriple(subject, predicate, con);
-            }
-            catch (OWLOntologyChangeException e) {
-                e.printStackTrace();
-            }
+            skosHandler.handleTriple(subject, predicate, con);
             return;
         }
         for (AbstractLiteralTripleHandler handler : literalTripleHandlers) {
             if (handler.canHandleStreaming(subject, predicate, con)) {
-                try {
-                    handler.handleTriple(subject, predicate, con);
-                }
-                catch (OWLOntologyChangeException e) {
-                    e.printStackTrace();
-                }
+                handler.handleTriple(subject, predicate, con);
                 return;
             }
         }

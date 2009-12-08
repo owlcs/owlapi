@@ -32,7 +32,7 @@ package org.semanticweb.owlapi.model;
  * A high level exception interface that describes errors that occurred when
  * applying changes to ontologies.
  */
-public abstract class OWLOntologyChangeException extends OWLException {
+public abstract class OWLOntologyChangeException extends OWLRuntimeException {
 
     private OWLOntologyChange change;
 

@@ -4,6 +4,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
+import org.semanticweb.owlapi.vocab.OWLFacet;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -45,7 +47,7 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
         if (getConsumer().isAnnotationProperty(predicate)) {
             return false;
         }
-        return !OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(predicate);
+        return !OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(predicate) && !OWLFacet.FACET_IRIS.contains(predicate);
     }
 
 
@@ -54,7 +56,7 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) throws OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
         addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(translateDataProperty(predicate), translateIndividual(subject), object, getPendingAnnotations()
         ));
         consumeTriple(subject, predicate, object);

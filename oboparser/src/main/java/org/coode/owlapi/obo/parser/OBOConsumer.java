@@ -251,12 +251,7 @@ public class OBOConsumer implements OBOParserHandler {
 
     private void createEquivalentClass(OWLClassExpression classExpression) {
         OWLAxiom ax = getDataFactory().getOWLEquivalentClassesAxiom(CollectionFactory.createSet(getCurrentClass(), classExpression));
-        try {
-            getOWLOntologyManager().applyChange(new AddAxiom(ontology, ax));
-        }
-        catch (OWLOntologyChangeException e) {
-            logger.severe(e.getMessage());
-        }
+        getOWLOntologyManager().applyChange(new AddAxiom(ontology, ax));
     }
 
 
@@ -291,9 +286,6 @@ public class OBOConsumer implements OBOParserHandler {
                 owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
             }
 
-        }
-        catch (OWLOntologyChangeException e) {
-            logger.severe(e.getMessage());
         }
         catch (UnloadableImportException e) {
             logger.severe(e.getMessage());

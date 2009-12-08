@@ -124,7 +124,7 @@ public abstract class AbstractOWLParser implements OWLParser {
     }
 
 
-    public OWLOntologyFormat parse(URI physicalURI, OWLOntology ontology) throws OWLParserException, OWLOntologyChangeException, IOException, UnloadableImportException {
+    public OWLOntologyFormat parse(URI physicalURI, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         return parse(new PhysicalURIInputSource(physicalURI), ontology);
     }
 }

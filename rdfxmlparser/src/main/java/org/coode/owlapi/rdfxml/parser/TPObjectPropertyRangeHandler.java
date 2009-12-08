@@ -46,7 +46,7 @@ public class TPObjectPropertyRangeHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         addAxiom(getDataFactory().getOWLObjectPropertyRangeAxiom(
                 translateObjectProperty(subject),
                 translateClassExpression(object), getPendingAnnotations()

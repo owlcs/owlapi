@@ -65,12 +65,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
                 changes.add(new AddAxiom(ontology, ax));
             }
         }
-        try {
             owlOntologyManager.applyChanges(changes);
-        }
-        catch (OWLOntologyChangeException e) {
-            throw new OWLRuntimeException(e);
-        }
     }
 
 

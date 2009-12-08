@@ -83,8 +83,5 @@ public class Example5 {
         catch (OWLOntologyCreationException e) {
             System.out.println("Could not load ontology: " + e.getMessage());
         }
-        catch (OWLOntologyChangeException e) {
-            System.out.println("Problem apply changes to ontology: " + e.getMessage());
-        }
     }
 }

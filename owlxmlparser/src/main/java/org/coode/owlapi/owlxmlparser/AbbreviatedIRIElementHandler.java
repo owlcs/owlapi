@@ -1,7 +1,6 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.io.OWLParserException;
 /*
@@ -50,7 +49,7 @@ public class AbbreviatedIRIElementHandler extends AbstractIRIElementHandler {
         return iri;
     }
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
+    public void endElement() throws OWLParserException, UnloadableImportException {
         String iriText = getText().trim();
         iri = getAbbreviatedIRI(iriText);
         handleChild(this);

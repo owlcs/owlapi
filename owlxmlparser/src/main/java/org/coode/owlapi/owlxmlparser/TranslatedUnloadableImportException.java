@@ -33,12 +33,14 @@ import org.xml.sax.SAXException;
  */
 public class TranslatedUnloadableImportException extends SAXException {
 
+    private UnloadableImportException unloadableImportException;
+
     public TranslatedUnloadableImportException(UnloadableImportException e) {
         super(e);
+        this.unloadableImportException = e;
     }
 
-    @Override
-    public UnloadableImportException getCause() {
-        return (UnloadableImportException) super.getCause();
+    public UnloadableImportException getUnloadableImportException() {
+        return unloadableImportException;
     }
 }

@@ -169,7 +169,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws OWLOntologyChangeException If one or more of the changes could not be applied.  See subclasses of
      * ontology change exception for more specific details.
      */
-    List<OWLOntologyChange> applyChanges(List<? extends OWLOntologyChange> changes) throws OWLOntologyChangeException;
+    List<OWLOntologyChange> applyChanges(List<? extends OWLOntologyChange> changes);
 
 
     /**
@@ -180,7 +180,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @return A list of ontology changes that represent the changes which took place in order to add the axioms.
      * @throws OWLOntologyChangeException if there was a problem adding the axioms
      */
-    List<OWLOntologyChange> addAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms) throws OWLOntologyChangeException;
+    List<OWLOntologyChange> addAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms);
 
 
     /**
@@ -191,7 +191,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @return A list of ontology changes that represent the changes that actually took place.
      * @throws OWLOntologyChangeException if there was a problem adding the axiom
      */
-    List<OWLOntologyChange> addAxiom(OWLOntology ont, OWLAxiom axiom) throws OWLOntologyChangeException;
+    List<OWLOntologyChange> addAxiom(OWLOntology ont, OWLAxiom axiom);
 
     /**
      * A convenience method that removes a single axiom from an ontology. The appropriate RemoveAxiom change object is
@@ -201,7 +201,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @return A list of ontology changes that represent the changes that actually took place.
      * @throws OWLOntologyChangeException if there was a problem removing the axiom
      */
-    List<OWLOntologyChange> removeAxiom(OWLOntology ont, OWLAxiom axiom) throws OWLOntologyChangeException;
+    List<OWLOntologyChange> removeAxiom(OWLOntology ont, OWLAxiom axiom);
 
     /**
      * A convenience method that removes a set of axioms from an ontology.  The appropriate RemoveAxiom change objects are
@@ -211,7 +211,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @return A list of ontology changes that represent the changes which took place in order to remove the axioms.
      * @throws OWLOntologyChangeException if there was a problem removing the axioms
      */
-    List<OWLOntologyChange> removeAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms) throws OWLOntologyChangeException;
+    List<OWLOntologyChange> removeAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms);
 
 
     /**
@@ -221,7 +221,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws OWLOntologyChangeException If the change could not be applied.  See subclasses of ontology change
      *                                    exception for more specific details.
      */
-    List<OWLOntologyChange> applyChange(OWLOntologyChange change) throws OWLOntologyChangeException;
+    List<OWLOntologyChange> applyChange(OWLOntologyChange change);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -245,7 +245,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws OWLOntologyCreationException if there was a problem creating the new ontology.
      * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
      */
-    OWLOntology createOntology(Set<OWLAxiom> axioms) throws OWLOntologyCreationException, OWLOntologyChangeException;
+    OWLOntology createOntology(Set<OWLAxiom> axioms) throws OWLOntologyCreationException;
 
 
     /**
@@ -257,7 +257,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *                                      already exists in this manager.
      * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
      */
-    OWLOntology createOntology(Set<OWLAxiom> axioms, IRI ontologyIRI) throws OWLOntologyCreationException, OWLOntologyChangeException;
+    OWLOntology createOntology(Set<OWLAxiom> axioms, IRI ontologyIRI) throws OWLOntologyCreationException;
 
 
     /**
@@ -300,7 +300,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *                                      already exists in this manager.
      * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
      */
-    OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly) throws OWLOntologyCreationException, OWLOntologyChangeException;
+    OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly) throws OWLOntologyCreationException;
 
 
     /**
@@ -314,7 +314,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *                                      already exists in this manager.
      * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
      */
-    OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies) throws OWLOntologyCreationException, OWLOntologyChangeException;
+    OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies) throws OWLOntologyCreationException;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -337,13 +337,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * IRI (although the OWL API will tolerated situations where this is not the case).
      * @return The <code>OWLOntology</code> representation of the ontology that was loaded.  If an ontology with the
      *         specified IRI is already loaded then that ontology will be returned.
-     * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.  Notable subclasses
-     * of this exception are listed below:
-     * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was parsed from a document and
-     * the document contained errors.
+     * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
+     * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was being parsed from a document and
+     * the document contained syntax errors.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
      * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
-     * not be thrown.
+     * not be thrown.  The <code>UnloadableImportException</code> contains information about the import declaration
+     * that triggered the import and the cause of this exception is an <code>OWLOntologyCreationException</code>
+     * which contains information about why the import could not be loaded.
      * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException if there was an <code>IOException</code>
      * when trying to load the ontology.
      */
@@ -355,13 +356,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * method, no mapping is performed on the specified URI.
      * @param uri The physical URI which points to a concrete representation of an ontology.
      * @return The ontology that was loaded.
-     * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.  Notable subclasses
-     * of this exception are listed below:
-     * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was parsed from a document and
-     * the document contained errors.
+     * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
+     * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was being parsed from a document and
+     * the document contained syntax errors.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
      * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
-     * not be thrown.
+     * not be thrown.  The <code>UnloadableImportException</code> contains information about the import declaration
+     * that triggered the import and the cause of this exception is an <code>OWLOntologyCreationException</code>
+     * which contains information about why the import could not be loaded.
      * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException if there was an <code>IOException</code>
      * when trying to load the ontology.
      */
@@ -372,14 +374,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * A convenience method that load an ontology from an input source.
      * @param inputSource The input source that describes where the ontology should be loaded from.
      * @return The ontology that was loaded.
-     * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology from the
-     * specified input source.  Notable subclasses
-     * of this exception are listed below:
-     * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was parsed from a document and
-     * the document contained errors.
+     * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
+     * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was being parsed from a document and
+     * the document contained syntax errors.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
      * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
-     * not be thrown.
+     * not be thrown.  The <code>UnloadableImportException</code> contains information about the import declaration
+     * that triggered the import and the cause of this exception is an <code>OWLOntologyCreationException</code>
+     * which contains information about why the import could not be loaded.
      * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException if there was an <code>IOException</code>
      * when trying to load the ontology.
      */

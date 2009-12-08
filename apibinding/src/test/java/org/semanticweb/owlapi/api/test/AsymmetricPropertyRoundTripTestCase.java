@@ -33,15 +33,9 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 public class AsymmetricPropertyRoundTripTestCase extends AbstractRoundTrippingTest {
 
     protected OWLOntology createOntology() {
-        try {
             OWLOntology ont = getOWLOntology("Test");
             getManager().addAxiom(ont, getFactory().getOWLAsymmetricObjectPropertyAxiom(getOWLObjectProperty("p")));
             return ont;
-        }
-        catch (OWLOntologyChangeException e) {
-            fail(e.getMessage());
-            return null;
-        }
     }
 
 

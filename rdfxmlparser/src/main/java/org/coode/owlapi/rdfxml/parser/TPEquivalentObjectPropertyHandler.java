@@ -51,7 +51,7 @@ public class TPEquivalentObjectPropertyHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
         properties.add(translateObjectProperty(subject));
         properties.add(translateObjectProperty(object));

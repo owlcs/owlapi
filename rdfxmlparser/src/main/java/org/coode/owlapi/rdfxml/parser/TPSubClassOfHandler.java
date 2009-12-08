@@ -59,7 +59,7 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         OWLClassExpression subClass = translateClassExpression(subject);
         OWLClassExpression supClass = translateClassExpression(object);
         Set<OWLAnnotation> pendingAnnotations = getConsumer().getPendingAnnotations();

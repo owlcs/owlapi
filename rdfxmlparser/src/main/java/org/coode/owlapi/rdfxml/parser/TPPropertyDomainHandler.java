@@ -46,21 +46,13 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
                                       IRI predicate,
                                       IRI object) {
         // Need to parse everything to make sure
-
-//        if (!isAnonymous(object)) {
-//            if (getConsumer().isObjectPropertyOnly(subject)) {
-//                return true;
-//            } else if (getConsumer().isDataPropertyOnly(subject)) {
-//                return true;
-//            }
-//        }
         return false;
     }
 
 
     public void handleTriple(IRI subject,
                              IRI predicate,
-                             IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+                             IRI object) throws UnloadableImportException {
         if (getConsumer().isObjectPropertyOnly(subject)) {
             translateObjectPropertyDomain(subject, predicate, object);
         }

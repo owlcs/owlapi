@@ -70,7 +70,7 @@ public class OntologyUtils {
      * @return set of ontologies that have been affected
      */
     public static Set<OWLOntology> removeAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies,
-                                               OWLOntologyManager manager) throws OWLOntologyChangeException {
+                                               OWLOntologyManager manager) {
         Set<OWLOntology> modifiedOnts = new HashSet<OWLOntology>();
 
         for (OWLOntology ont : ontologies) {
@@ -88,8 +88,7 @@ public class OntologyUtils {
     /**
      * Add the axiom to all the given ontologies.
      */
-    public static void addAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies, OWLOntologyManager manager) throws
-                                                                                                         OWLOntologyChangeException {
+    public static void addAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies, OWLOntologyManager manager) {
         for (OWLOntology ont : ontologies) {
             manager.applyChange(new AddAxiom(ont, axiom));
         }

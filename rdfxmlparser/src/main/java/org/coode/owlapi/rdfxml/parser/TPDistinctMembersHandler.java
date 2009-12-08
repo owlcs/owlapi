@@ -50,7 +50,7 @@ public class TPDistinctMembersHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         Set<OWLIndividual> inds = getConsumer().translateToIndividualSet(object);
         addAxiom(getDataFactory().getOWLDifferentIndividualsAxiom(inds, getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

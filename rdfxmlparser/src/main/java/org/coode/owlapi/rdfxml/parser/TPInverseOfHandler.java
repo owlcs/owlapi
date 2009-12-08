@@ -53,7 +53,7 @@ public class TPInverseOfHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         addAxiom(getDataFactory().getOWLInverseObjectPropertiesAxiom(
                 translateObjectProperty(subject),
                 translateObjectProperty(object), getPendingAnnotations()

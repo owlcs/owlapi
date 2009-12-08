@@ -41,7 +41,7 @@ public abstract class AbstractLiteralTripleHandler extends AbstractTripleHandler
         super(consumer);
     }
 
-    public abstract void handleTriple(IRI subject, IRI predicate, OWLLiteral object) throws OWLOntologyChangeException;
+    public abstract void handleTriple(IRI subject, IRI predicate, OWLLiteral object);
 
     public abstract boolean canHandle(IRI subject, IRI predicate, OWLLiteral object);
 

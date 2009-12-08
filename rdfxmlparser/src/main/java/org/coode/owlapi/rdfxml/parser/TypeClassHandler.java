@@ -40,7 +40,7 @@ public class TypeClassHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_CLASS.getIRI());
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (!isAnonymous(subject)) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLClass(subject)));
             getConsumer().addOWLClass(subject);

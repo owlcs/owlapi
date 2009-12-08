@@ -41,7 +41,7 @@ public class TypeSWRLBuiltInAtomHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().addSWRLBuiltInAtom(subject);
         consumeTriple(subject, predicate, object);
     }

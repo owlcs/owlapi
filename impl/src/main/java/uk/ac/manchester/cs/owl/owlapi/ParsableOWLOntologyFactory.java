@@ -143,7 +143,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // I think that this is more reliable than selecting a parser based on a file extension
         // for example (perhaps the parser list could be ordered based on most likely parser, which
         // could be determined by file extension).
-        Map<OWLParser, Throwable> exceptions = new LinkedHashMap<OWLParser, Throwable>();
+        Map<OWLParser, OWLParserException> exceptions = new LinkedHashMap<OWLParser, OWLParserException>();
         // Call the super method to create the ontology - this is needed, because
         // we throw an exception if someone tries to create an ontology directly
 
@@ -167,23 +167,21 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                 return ont;
             }
             catch (IOException e) {
-                // For certain IO errors, no matter which parser we try, it
-                // will fail because it can't read anything.
+                // No hope of any parsers working?
                 // First clean up
                 getOWLOntologyManager().removeOntology(ont);
-                // Now just throw the exception and break out
                 throw new OWLOntologyCreationIOException(e);
             }
-            catch (OWLOntologyChangeException e) {
-                exceptions.put(parser, e);
+            catch (UnloadableImportException e) {
+                // First clean up
+                getOWLOntologyManager().removeOntology(ont);
+                throw e;
             }
             catch (OWLParserException e) {
+                // Record this attempts and continue trying to parse.
                 exceptions.put(parser, e);
             }
-            catch (Throwable e) {
-                // Perhaps a bad parser implementation
-                exceptions.put(parser, e);
-            }
+
         }
         if (existingOntology == null) {
             getOWLOntologyManager().removeOntology(ont);

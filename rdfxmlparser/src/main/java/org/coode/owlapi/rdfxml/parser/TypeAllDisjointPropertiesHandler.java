@@ -45,7 +45,7 @@ public class TypeAllDisjointPropertiesHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
         IRI listNode = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS.getIRI(), true);
         if (getConsumer().isObjectPropertyOnly(getConsumer().getFirstResource(listNode, false))) {

@@ -90,7 +90,7 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
     }
 
 
-    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
+    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
         if (entity == null) {
             super.handleChild(handler);
         } else {

@@ -46,7 +46,7 @@ public class TPObjectPropertyDomainHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         OWLObjectPropertyExpression prop = translateObjectProperty(subject);
         OWLClassExpression domain = translateClassExpression(subject);
         addAxiom(getDataFactory().getOWLObjectPropertyDomainAxiom(prop, domain, getPendingAnnotations()));

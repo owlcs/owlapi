@@ -56,7 +56,7 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) throws OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
         consumeTriple(subject, predicate, object);
         if(getConsumer().isOntology(subject)) {
             getConsumer().addOntologyAnnotation(getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), object));

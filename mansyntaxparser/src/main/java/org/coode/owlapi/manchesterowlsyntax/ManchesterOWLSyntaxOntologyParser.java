@@ -45,7 +45,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     private static final String COMMENT_START_CHAR = "#";
 
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, OWLOntologyChangeException, IOException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         try {
             BufferedReader br = null;
             try {

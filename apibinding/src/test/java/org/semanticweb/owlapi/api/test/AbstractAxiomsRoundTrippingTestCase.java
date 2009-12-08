@@ -41,15 +41,11 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends AbstractRoundT
 
 
     final protected OWLOntology createOntology() {
-        try {
             OWLOntology ont = getOWLOntology("Ont");
             axioms.clear();
             axioms.addAll(createAxioms());
             getManager().addAxioms(ont, axioms);
             return ont;
-        } catch (OWLOntologyChangeException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void testRDFXML() throws Exception {

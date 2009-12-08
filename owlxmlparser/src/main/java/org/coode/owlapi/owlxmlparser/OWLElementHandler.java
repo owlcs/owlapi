@@ -39,10 +39,10 @@ public interface OWLElementHandler<O> {
     public void startElement(String name) throws OWLXMLParserException;
 
 
-    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException;
+    public void attribute(String localName, String value) throws OWLParserException;
 
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException;
+    public void endElement() throws OWLParserException, UnloadableImportException;
 
 
     public O getOWLObject() throws OWLXMLParserException;
@@ -51,7 +51,7 @@ public interface OWLElementHandler<O> {
     public void setParentHandler(OWLElementHandler handler) throws OWLXMLParserException;
 
 
-    public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException;
+    public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException;
 
 
     public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException;
@@ -72,7 +72,7 @@ public interface OWLElementHandler<O> {
     public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException;
 
 
-    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException;
+    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException;
 
 
     public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException;

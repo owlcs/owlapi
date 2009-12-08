@@ -113,9 +113,6 @@ public class Example10 {
                 }
             }
         }
-        catch (OWLOntologyChangeException e) {
-            System.out.println("Could not apply changes to ontology: " + e.getMessage());
-        }
         catch (OWLOntologyCreationException e) {
             System.out.println("Could not create ontology");
         }

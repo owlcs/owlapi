@@ -41,7 +41,7 @@ public class TypeSWRLVariableHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().addSWRLVariable(subject);
         consumeTriple(subject, predicate, object);
     }

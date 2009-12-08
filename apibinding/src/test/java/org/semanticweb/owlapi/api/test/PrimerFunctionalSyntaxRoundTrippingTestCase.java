@@ -1,9 +1,4 @@
-package org.coode.owlapi.rdfxml.parser;
-
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+package org.semanticweb.owlapi.api.test;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -31,19 +26,28 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeException;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 02-Jul-2009
+ * Date: 08-Dec-2009
  */
-public class TPAnnotatedSourceHandler extends TriplePredicateHandler {
+public class PrimerFunctionalSyntaxRoundTrippingTestCase extends AbstractFileRoundTrippingTestCase {
 
-    public TPAnnotatedSourceHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_ANNOTATED_SOURCE.getIRI());
+    protected String getFileName() {
+        return "primer.functionalsyntax.txt";
     }
 
-    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        getConsumer().addAnnotatedSource(object, subject);
-        return false;
+
+    @Override
+    public void testRDFXML() throws Exception {
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    @Override
+    public void testOWLXML() throws Exception {
+    }
+
+    @Override
+    public void testTurtle() throws Exception {
+    }
+
+    @Override
+    public void testManchesterOWLSyntax() throws Exception {
     }
 }

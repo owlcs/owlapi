@@ -50,7 +50,7 @@ public class TPDifferentFromHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         inds.add(translateIndividual(subject));
         inds.add(translateIndividual(object));

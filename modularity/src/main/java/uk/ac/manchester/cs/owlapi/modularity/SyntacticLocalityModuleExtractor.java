@@ -480,11 +480,11 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @throws OWLOntologyChangeException   if adding axioms to the module fails
      * @throws OWLOntologyCreationException if the module cannot be created
      */
-    public OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri) throws OWLOntologyCreationException, OWLOntologyChangeException {
+    public OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri) throws OWLOntologyCreationException {
         return extractAsOntology(signature, iri, false);
     }
 
-    protected OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri, boolean verbose) throws OWLOntologyCreationException, OWLOntologyChangeException {
+    protected OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri, boolean verbose) throws OWLOntologyCreationException {
         Set<OWLAxiom> axs = extract(signature, verbose);
         OWLOntology newOnt = manager.createOntology(iri);
         LinkedList<AddAxiom> addaxs = new LinkedList<AddAxiom>();

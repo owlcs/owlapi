@@ -36,7 +36,7 @@ public class TypeNamedIndividualHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI());
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLNamedIndividual(subject)));
         getConsumer().addIndividual(subject);
     }

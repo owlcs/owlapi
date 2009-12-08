@@ -40,7 +40,7 @@ public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
         super(consumer, OWLRDFVocabulary.OWL_PROPERTY_DISJOINT_WITH.getIRI());
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if(getConsumer().isDataPropertyOnly(subject) || getConsumer().isDataPropertyOnly(object)) {
             addAxiom(getDataFactory().getOWLDisjointDataPropertiesAxiom(CollectionFactory.createSet(translateDataProperty(subject), translateDataProperty(object)), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);

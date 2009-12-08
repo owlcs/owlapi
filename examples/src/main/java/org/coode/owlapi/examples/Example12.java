@@ -63,9 +63,6 @@ public class Example12 {
         catch (OWLOntologyCreationException e) {
             System.out.println("Coult not load ontology: " + e.getMessage());
         }
-        catch (OWLOntologyChangeException e) {
-            System.out.println("Problem merging ontologies.  Could not add axiom to merged ontology: " + e.getMessage());
-        }
         catch (OWLOntologyStorageException e) {
             System.out.println("Problem saving ontology: " + e.getMessage());
         }

@@ -316,7 +316,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
      * @return A list of changes that were actually applied.
      * @throws OWLOntologyChangeException
      */
-    private List<OWLOntologyChange> enactChangeApplication(OWLOntologyChange change) throws OWLOntologyChangeException {
+    private List<OWLOntologyChange> enactChangeApplication(OWLOntologyChange change) {
         if (!isChangeApplicable(change)) {
             return Collections.emptyList();
         }
@@ -331,7 +331,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
 
-    public List<OWLOntologyChange> applyChanges(List<? extends OWLOntologyChange> changes) throws OWLOntologyChangeException {
+    public List<OWLOntologyChange> applyChanges(List<? extends OWLOntologyChange> changes) {
         List<OWLOntologyChange> appliedChanges = new ArrayList<OWLOntologyChange>(changes.size() + 2);
         fireBeginChanges(changes.size());
         for (OWLOntologyChange change : changes) {
@@ -344,12 +344,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
 
-    public List<OWLOntologyChange> addAxiom(OWLOntology ont, OWLAxiom axiom) throws OWLOntologyChangeException {
+    public List<OWLOntologyChange> addAxiom(OWLOntology ont, OWLAxiom axiom) {
         return addAxioms(ont, Collections.singleton(axiom));
     }
 
 
-    public List<OWLOntologyChange> addAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms) throws OWLOntologyChangeException {
+    public List<OWLOntologyChange> addAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms) {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>(axioms.size());
         // Optimisation - Precheck that the ontology is an immutable ontology.
         if (ont instanceof OWLMutableOntology) {
@@ -368,11 +368,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         return changes;
     }
 
-    public List<OWLOntologyChange> removeAxiom(OWLOntology ont, OWLAxiom axiom) throws OWLOntologyChangeException {
+    public List<OWLOntologyChange> removeAxiom(OWLOntology ont, OWLAxiom axiom) {
         return removeAxioms(ont, Collections.singleton(axiom));
     }
 
-    public List<OWLOntologyChange> removeAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms) throws OWLOntologyChangeException {
+    public List<OWLOntologyChange> removeAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms) {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>(axioms.size());
         // Optimisation - Precheck that the ontology is an immutable ontology.
         if (ont instanceof OWLMutableOntology) {
@@ -391,7 +391,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         return changes;
     }
 
-    public List<OWLOntologyChange> applyChange(OWLOntologyChange change) throws OWLOntologyChangeException {
+    public List<OWLOntologyChange> applyChange(OWLOntologyChange change) {
         fireBeginChanges(1);
         List<OWLOntologyChange> changes = enactChangeApplication(change);
         fireChangeApplied(change);
@@ -477,12 +477,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         throw new OWLOntologyFactoryNotFoundException(physicalURI);
     }
 
-    public OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies) throws OWLOntologyCreationException, OWLOntologyChangeException {
+    public OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies) throws OWLOntologyCreationException {
         return createOntology(ontologyIRI, ontologies, false);
     }
 
 
-    public OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly) throws OWLOntologyCreationException, OWLOntologyChangeException {
+    public OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly) throws OWLOntologyCreationException {
         if (contains(ontologyIRI)) {
             throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(ontologyIRI));
         }
@@ -501,7 +501,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
 
-    public OWLOntology createOntology(Set<OWLAxiom> axioms, IRI iri) throws OWLOntologyCreationException, OWLOntologyChangeException {
+    public OWLOntology createOntology(Set<OWLAxiom> axioms, IRI iri) throws OWLOntologyCreationException {
         if (contains(iri)) {
             throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(iri));
         }
@@ -511,7 +511,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
 
-    public OWLOntology createOntology(Set<OWLAxiom> axioms) throws OWLOntologyCreationException, OWLOntologyChangeException {
+    public OWLOntology createOntology(Set<OWLAxiom> axioms) throws OWLOntologyCreationException {
         return createOntology(axioms, getNextAutoGeneratedIRI());
     }
 
@@ -594,10 +594,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             loadCount--;
             if (loadCount == 0) {
                 broadcastChanges = true;
-                // Completed loading ontology and imports
+//                 Completed loading ontology and imports
             }
             fireFinishedLoadingEvent(idOfLoadedOntology, inputSource.getPhysicalURI(), loadCount > 0, ex);
         }
+        System.out.println("THROWING FACTORY NOT FOUND EXCEPTION");
+
         throw new OWLOntologyFactoryNotFoundException(inputSource.getPhysicalURI());
     }
 
@@ -913,6 +915,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             }
         }
         catch (OWLOntologyCreationException e) {
+            // Wrap as UnloadableImportException and throw
             throw new UnloadableImportException(e, declaration);
         }
     }

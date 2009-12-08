@@ -41,7 +41,7 @@ public class TypeAnnotationPropertyHandler extends BuiltInTypeHandler{
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLAnnotationProperty(subject)));
         getConsumer().addAnnotationProperty(subject);
         consumeTriple(subject, predicate, object);

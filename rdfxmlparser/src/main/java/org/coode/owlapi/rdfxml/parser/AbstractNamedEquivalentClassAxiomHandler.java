@@ -58,7 +58,7 @@ public abstract class AbstractNamedEquivalentClassAxiomHandler extends TriplePre
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateClassExpression(subject));

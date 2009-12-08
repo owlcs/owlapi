@@ -44,7 +44,7 @@ public class TPPropertyChainAxiomHandler extends TriplePredicateHandler {
         return false;
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         OWLObjectPropertyExpression superProp = getConsumer().translateObjectPropertyExpression(subject);
         List<OWLObjectPropertyExpression> chain = getConsumer().translateToObjectPropertyList(object);
         consumeTriple(subject, predicate, object);

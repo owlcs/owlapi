@@ -40,12 +40,12 @@ public class SWRLVariableElementHandler extends AbstractOWLElementHandler<SWRLVa
     private IRI iri;
 
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
+    public void endElement() throws OWLParserException, UnloadableImportException {
         getParentHandler().handleChild(this);
     }
 
     @Override
-    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
+    public void attribute(String localName, String value) throws OWLParserException {
         iri = getIRIFromAttribute(localName, value);
     }
 

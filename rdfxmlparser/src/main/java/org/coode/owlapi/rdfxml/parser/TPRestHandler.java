@@ -48,7 +48,7 @@ public class TPRestHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (!object.equals(OWLRDFVocabulary.RDF_NIL.getIRI())) {
             getConsumer().addRest(subject, object);
         }

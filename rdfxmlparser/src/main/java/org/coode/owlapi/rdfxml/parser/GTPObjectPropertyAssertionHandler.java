@@ -54,7 +54,7 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
         addAxiom(getDataFactory().getOWLObjectPropertyAssertionAxiom(translateObjectProperty(predicate), translateIndividual(subject), translateIndividual(object),
                 getPendingAnnotations()

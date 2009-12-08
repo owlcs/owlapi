@@ -53,7 +53,7 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         // If either is an object property then translate as object properties
         if (getConsumer().isObjectPropertyOnly(subject) ||
                 getConsumer().isObjectPropertyOnly(object)) {

@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.api.test;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.io.UnparsableOntologyException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,6 +40,7 @@ public abstract class AbstractFileRoundTrippingTestCase extends AbstractRoundTri
         try {
             String fileName = getFileName();
             URI uri = getClass().getResource("/" + fileName).toURI();
+            UnparsableOntologyException.setIncludeStackTraceInMessage(true);
             return getManager().loadOntologyFromPhysicalURI(uri);
         }
         catch (URISyntaxException e) {
@@ -50,4 +52,5 @@ public abstract class AbstractFileRoundTrippingTestCase extends AbstractRoundTri
     }
 
     protected abstract String getFileName();
+
 }

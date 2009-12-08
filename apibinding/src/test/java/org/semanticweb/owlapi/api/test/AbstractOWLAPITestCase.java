@@ -129,12 +129,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
 
 
     public void addAxiom(OWLOntology ont, OWLAxiom ax) {
-        try {
             manager.addAxiom(ont, ax);
-        }
-        catch (OWLOntologyChangeException e) {
-            fail(e.getMessage() + " " + e.getStackTrace().toString());
-        }
     }
 
 

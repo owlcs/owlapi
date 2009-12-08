@@ -1,7 +1,6 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.io.OWLParserException;
 /*
@@ -53,7 +52,7 @@ public abstract class AbstractOWLDataRangeHandler extends AbstractOWLElementHand
     }
 
 
-    final public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
+    final public void endElement() throws OWLParserException, UnloadableImportException {
         endDataRangeElement();
         getParentHandler().handleChild(this);
     }

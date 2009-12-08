@@ -5,10 +5,9 @@
 
  <Ontology
    xml:base="http://example.com/owl/families/"
-   xmlns="http://www.w3.org/2002/07/owl#"
-   xmlns:owl="http://www.w3.org/2002/07/owl#"
-   xmlns:g="http://example.org/otherOntologies/families/"
-   ontologyIRI="http://example.com/owl/families">
+   ontologyIRI="http://example.com/owl/families"
+   xmlns="http://www.w3.org/2002/07/owl#">
+   <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
    <Prefix name="otherOnt" IRI="http://example.org/otherOntologies/families/"/>
    <!--<Import>http://example.org/otherOntologies/families.owl</Import>-->
 
@@ -230,7 +229,7 @@
 
    <EquivalentObjectProperties>
      <ObjectProperty IRI="hasChild"/>
-     <ObjectProperty IRI="otherOnt:child"/>
+     <ObjectProperty abbreviatedIRI="otherOnt:child"/>
    </EquivalentObjectProperties>
 
    <SubObjectPropertyOf>
@@ -274,14 +273,14 @@
    </DataPropertyDomain>
    <DataPropertyRange>
      <DataProperty IRI="hasAge"/>
-     <Datatype IRI="http://www.w3.org/2001/XMLSchema#NonNegativeInteger"/>
+     <Datatype IRI="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
    </DataPropertyRange>
    <FunctionalDataProperty>
      <DataProperty IRI="hasHusband"/>
    </FunctionalDataProperty>
    <EquivalentDataProperties>
      <DataProperty IRI="hasAge"/>
-     <DataProperty IRI="otherOnt:age"/>
+     <DataProperty abbreviatedIRI="otherOnt:age"/>
    </EquivalentDataProperties>
 
    <SubClassOf>
@@ -381,7 +380,7 @@
      <Class IRI="JohnsChildren"/>
      <ObjectHasValue>
        <ObjectProperty IRI="hasParent"/>
-       <Individual IRI="John"/>
+       <NamedIndividual IRI="John"/>
      </ObjectHasValue>
    </EquivalentClasses>
    <EquivalentClasses>
@@ -409,7 +408,7 @@
    </EquivalentClasses>
    <EquivalentClasses>
      <Class IRI="Adult"/>
-     <Class IRI="otherOnt:Grownup"/>
+     <Class abbreviatedIRI="otherOnt:Grownup"/>
    </EquivalentClasses>
    <EquivalentClasses>
      <Class IRI="Parent"/>
@@ -472,14 +471,14 @@
      <NamedIndividual IRI="James"/>
      <NamedIndividual IRI="Jim"/>
    </SameIndividual>
-   <SameIndividuals>
-     <Individual IRI="John"/>
-     <Individual IRI="otherOnt:JohnBrown"/>
-   </SameIndividuals>
-   <SameIndividuals>
-     <Individual IRI="Mary"/>
-     <Individual IRI="otherOnt:MaryBrown"/>
-   </SameIndividuals>
+   <SameIndividual>
+     <NamedIndividual IRI="John"/>
+     <NamedIndividual abbreviatedIRI="otherOnt:JohnBrown"/>
+   </SameIndividual>
+   <SameIndividual>
+     <NamedIndividual IRI="Mary"/>
+     <NamedIndividual abbreviatedIRI="otherOnt:MaryBrown"/>
+   </SameIndividual>
 
    <ObjectPropertyAssertion>
      <ObjectProperty IRI="hasWife"/>
@@ -539,12 +538,12 @@
      <NamedIndividual IRI="John"/>
    </ClassAssertion>
    <ClassAssertion>
-     <Class URI="Father"/>
+     <Class IRI="Father"/>
      <NamedIndividual IRI="John"/>
    </ClassAssertion>
 
    <ClassAssertion>
-     <Class URI="SocialRole"/>
+     <Class IRI="SocialRole"/>
      <NamedIndividual IRI="Father"/>
    </ClassAssertion>
 

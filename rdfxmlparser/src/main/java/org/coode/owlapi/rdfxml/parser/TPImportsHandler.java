@@ -58,7 +58,7 @@ public class TPImportsHandler extends TriplePredicateHandler {
         return true;
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
 
        // NOTE:
        // For backwards compatibility with OWL 1 DL, if G contains an owl:imports triple pointing to an RDF

@@ -40,7 +40,7 @@ public class TypeObjectPropertyHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (!isAnonymous(subject)) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLObjectProperty(subject), getPendingAnnotations()));
         }

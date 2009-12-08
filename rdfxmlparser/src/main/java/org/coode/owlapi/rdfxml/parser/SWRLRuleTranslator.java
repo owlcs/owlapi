@@ -49,7 +49,7 @@ public class SWRLRuleTranslator {
     }
 
 
-    public void translateRule(IRI mainNode) throws OWLOntologyChangeException {
+    public void translateRule(IRI mainNode) {
         Set<SWRLAtom> consequent = Collections.emptySet();
         IRI ruleHeadIRI = consumer.getResourceObject(mainNode, SWRLVocabulary.HEAD.getIRI(), true);
         if (ruleHeadIRI != null) {

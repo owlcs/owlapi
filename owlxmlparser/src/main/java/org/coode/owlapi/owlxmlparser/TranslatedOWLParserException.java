@@ -35,13 +35,15 @@ import org.semanticweb.owlapi.io.OWLParserException;
  */
 public class TranslatedOWLParserException extends SAXException {
 
+    private OWLParserException parserException;
+
     public TranslatedOWLParserException(OWLParserException cause) {
         super(cause);
+        this.parserException = cause;
     }
 
-    @Override
-    public OWLParserException getCause() {
-        return (OWLParserException) super.getCause();
+    public OWLParserException getParserException() {
+        return parserException;
     }
 }
 

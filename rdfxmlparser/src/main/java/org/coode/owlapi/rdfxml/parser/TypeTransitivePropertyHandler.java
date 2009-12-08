@@ -46,7 +46,7 @@ public class TypeTransitivePropertyHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().addOWLObjectProperty(subject);
         addAxiom(getDataFactory().getOWLTransitiveObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

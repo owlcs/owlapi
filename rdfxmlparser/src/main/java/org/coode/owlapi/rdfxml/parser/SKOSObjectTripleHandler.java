@@ -38,7 +38,7 @@ public class SKOSObjectTripleHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         OWLIndividual subj = getDataFactory().getOWLNamedIndividual(subject);
         OWLIndividual obj = getDataFactory().getOWLNamedIndividual(object);
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(predicate);

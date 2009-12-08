@@ -47,7 +47,7 @@ public class TPSubDataPropertyOfHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         addAxiom(getDataFactory().getOWLSubDataPropertyOfAxiom(translateDataProperty(subject),
                 translateDataProperty(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

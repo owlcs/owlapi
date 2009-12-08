@@ -49,7 +49,7 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
     }
 
 
-    public abstract void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException;
+    public abstract void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException;
 
     public abstract boolean canHandleStreaming(IRI subject, IRI predicate, IRI object);
 

@@ -41,7 +41,7 @@ public class TypeFunctionalDataPropertyHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().addOWLDataProperty(subject);
         addAxiom(getDataFactory().getOWLFunctionalDataPropertyAxiom(translateDataProperty(subject), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

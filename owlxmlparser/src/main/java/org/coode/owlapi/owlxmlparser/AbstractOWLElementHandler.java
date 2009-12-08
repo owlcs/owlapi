@@ -100,7 +100,7 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
     }
 
 
-    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
+    public void attribute(String localName, String value) throws OWLParserException {
 
     }
 
@@ -135,7 +135,7 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
     }
 
 
-    public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
+    public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException {
     }
 
 
@@ -163,7 +163,7 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
     }
 
 
-    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
+    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
     }
 
 

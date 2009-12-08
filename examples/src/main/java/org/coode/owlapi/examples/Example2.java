@@ -46,26 +46,26 @@ public class Example2 {
             // would have to be used.
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
-            // All ontologies have a URI, which is used to identify the ontology.  You should
-            // think of the ontology URI as the "name" of the ontology.  This URI frequently
+            // Ontologies cna have an IRI, which is used to identify the ontology.  You should
+            // think of the ontology IRI as the "name" of the ontology.  This IRI frequently
             // resembles a Web address (i.e. http://...), but it is important to realise that
-            // the ontology URI might not necessarily be resolvable.  In other words, we
-            // can't necessarily get a document from the URI corresponding to the ontology
-            // URI, which represents the ontology.
+            // the ontology IRI might not necessarily be resolvable.  In other words, we
+            // can't necessarily get a document from the URL corresponding to the ontology
+            // IRI, which represents the ontology.
             // In order to have a concrete representation of an ontology (e.g. an RDF/XML
-            // file), we MAP the ontology URI to a PHYSICAL URI.  We do this using a URIMapper
+            // file), we MAP the ontology IRI to a PHYSICAL URI.  We do this using an IRIMapper
 
-            // Let's create an ontology and name it "http://www.co-ode.org/ontologies/testont.owlapi"
+            // Let's create an ontology and name it "http://www.co-ode.org/ontologies/testont.owl"
             // We need to set up a mapping which points to a concrete file where the ontology will
             // be stored. (It's good practice to do this even if we don't intend to save the ontology).
-            IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/testont.owlapi");
+            IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/testont.owl");
             // Create a physical URI which can be resolved to point to where our ontology will be saved.
             URI physicalURI = URI.create("file:/tmp/MyOnt.owlapi");
-            // Set up a mapping, which maps the ontology URI to the physical URI
+            // Set up a mapping, which maps the ontology IRI to the physical URI
             SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, physicalURI);
             manager.addIRIMapper(mapper);
 
-            // Now create the ontology - we use the ontology URI (not the physical URI)
+            // Now create the ontology - we use the ontology IRI (not the physical URI)
             OWLOntology ontology = manager.createOntology(ontologyIRI);
             // Now we want to specify that A is a subclass of B.  To do this, we add a subclass
             // axiom.  A subclass axiom is simply an object that specifies that one class is a

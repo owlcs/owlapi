@@ -76,4 +76,13 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration {
     public int compareTo(OWLImportsDeclaration o) {
         return iri.compareTo(o.getIRI());
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Import(");
+        sb.append(iri.toQuotedString());
+        sb.append(")");
+        return sb.toString();
+    }
 }

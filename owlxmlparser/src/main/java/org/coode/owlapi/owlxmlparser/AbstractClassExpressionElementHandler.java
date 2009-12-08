@@ -1,7 +1,6 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.io.OWLParserException;
 /*
@@ -43,7 +42,7 @@ public abstract class AbstractClassExpressionElementHandler extends AbstractOWLE
     }
 
 
-    final public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
+    final public void endElement() throws OWLParserException, UnloadableImportException {
         endClassExpressionElement();
         getParentHandler().handleChild(this);
     }

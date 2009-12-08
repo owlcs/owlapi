@@ -35,9 +35,8 @@ import java.util.Map;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 11-Apr-2008<br><br>
- *
- * Base class for providing details of error messages during the parsing
- * of ontologies.  This class collects parse errors and the parsers that
+ * </p>
+ * A class that describes how ontology parsing failed.  This class collects parse errors and the parsers that
  * generated the errors.
  */
 public class UnparsableOntologyException extends OWLOntologyCreationException {
@@ -46,12 +45,12 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
 
     private URI ontologyURI;
 
-    private Map<OWLParser, Throwable> exceptions;
+    private Map<OWLParser, OWLParserException> exceptions;
 
-    public UnparsableOntologyException(URI ontologyURI, Map<OWLParser, Throwable> exceptions) {
+    public UnparsableOntologyException(URI ontologyURI, Map<OWLParser, OWLParserException> exceptions) {
         super("Could not parse ontology: " + ontologyURI);
         this.ontologyURI = ontologyURI;
-        this.exceptions = new LinkedHashMap<OWLParser, Throwable>(exceptions);
+        this.exceptions = new LinkedHashMap<OWLParser, OWLParserException>(exceptions);
     }
 
 
@@ -131,7 +130,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      * ontology) and the errors that they generated.
      * @return The map of parsers and their errors.
      */
-    public Map<OWLParser, Throwable> getExceptions() {
+    public Map<OWLParser, OWLParserException> getExceptions() {
         return Collections.unmodifiableMap(exceptions);
     }
 }

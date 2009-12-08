@@ -66,7 +66,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
 
     public OWLOntologyXMLNamespaceManager(OWLOntologyManager man, OWLOntology ontology, OWLOntologyFormat format) {
-        super(getDefaultNamespace(ontology));
+        super(getDefaultNamespace(ontology, format));
         this.man = man;
         this.ontology = ontology;
         namespaceUtil = new NamespaceUtil();
@@ -145,7 +145,14 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
      * @param ontology The ontology
      * @return A suggested default namespace
      */
-    private static String getDefaultNamespace(OWLOntology ontology) {
+    private static String getDefaultNamespace(OWLOntology ontology, OWLOntologyFormat format) {
+        if(format instanceof PrefixOWLOntologyFormat) {
+            PrefixOWLOntologyFormat prefixOWLOntologyFormat = (PrefixOWLOntologyFormat) format;
+            String defaultPrefix = prefixOWLOntologyFormat.getDefaultPrefix();
+            if(defaultPrefix != null) {
+                return defaultPrefix;
+            }
+        }
         if(ontology.getOntologyID().isAnonymous()) {
             // What do we return here? Just return the OWL namespace for now.
             return Namespaces.OWL.toString();
@@ -181,7 +188,12 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         }
         String prefix = getPrefixForNamespace(splitResults[0]);
         if (prefix != null) {
-            return prefix + ":" + splitResults[1];
+            if (prefix.length() > 0) {
+                return prefix + ":" + splitResults[1];
+            }
+            else {
+                return splitResults[1];
+            }
         }
         else {
             return null;

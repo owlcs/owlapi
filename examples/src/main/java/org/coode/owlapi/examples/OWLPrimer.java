@@ -460,9 +460,6 @@ public class OWLPrimer {
         catch (OWLOntologyCreationException e) {
             System.out.println("There was a problem creating the ontology: " + e.getMessage());
         }
-        catch (OWLOntologyChangeException e) {
-            System.out.println("Could not apply change to ontology: " + e.getMessage());
-        }
         catch (OWLOntologyStorageException e) {
             System.out.println("Problem saving ontology: " + e.getMessage());
         }

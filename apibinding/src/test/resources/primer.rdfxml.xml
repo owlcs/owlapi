@@ -14,7 +14,7 @@
    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 
    <owl:Ontology rdf:about="http://example.com/owl/families">
-     <owl:imports rdf:resource="http://example.org/otherOntologies/families.owl" />
+     <!--<owl:imports rdf:resource="http://example.org/otherOntologies/families.owl" />-->
    </owl:Ontology>
 
 
@@ -61,7 +61,7 @@
 
    <owl:DatatypeProperty rdf:about="hasAge">
      <rdfs:domain rdf:resource="Person"/>
-     <rdfs:range rdf:datatpye="http://www.w3.org/2001/XMLSchema#NonNegativeInteger"/>
+     <rdfs:range rdfs:Datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
      <owl:equivalentProperty rdf:resource="&otherOnt;age"/>
    </owl:DatatypeProperty>
    <owl:FunctionalProperty rdf:about="hasAge"/>
@@ -135,14 +135,14 @@
    <owl:Class rdf:about="HappyPerson">
      <owl:equivalentClass>
        <owl:Class>
-         <owl:intersectionOf parseType="Collection">
+         <owl:intersectionOf rdf:parseType="Collection">
            <owl:Restriction>
-             <owl:onProperty rdf:about="hasChild"/>
-             <owl:allValuesFrom rdf:about="HappyPerson"/>
+             <owl:onProperty rdf:resource="hasChild"/>
+             <owl:allValuesFrom rdf:resource="HappyPerson"/>
            </owl:Restriction>
            <owl:Restriction>
-             <owl:onProperty rdf:about="hasChild"/>
-             <owl:someValuesFrom rdf:about="HappyPerson"/>
+             <owl:onProperty rdf:resource="hasChild"/>
+             <owl:someValuesFrom rdf:resource="HappyPerson"/>
            </owl:Restriction>
          </owl:intersectionOf>
        </owl:Class>
@@ -186,10 +186,10 @@
        <owl:Restriction>
          <owl:onProperty>
            <owl:ObjectProperty>
-             <owl:inverseOf rdf:about="hasChild"/>
+             <owl:inverseOf rdf:resource="hasChild"/>
            </owl:ObjectProperty>
          </owl:onProperty>
-         <owl:Class rdf:about="Dead"/>
+         <owl:Class rdf:resource="Dead"/>
        </owl:Restriction>
      </owl:equivalentClass>
    </owl:Class>
@@ -200,14 +200,14 @@
          <owl:onProperty rdf:resource="hasAge"/>
          <owl:someValuesFrom>
            <rdfs:Datatype>
-             <owl:onDataType rdf:resource="&xsd;integer"/>
+             <owl:onDatatype rdf:resource="&xsd;integer"/>
              <owl:withRestrictions rdf:parseType="Collection">
-               <xsd:minExclusive rdf:datatype="&xsd;integer">
-                 12
-               </xsd:minExclusive>
-               <xsd:maxInclusive rdf:datatype="&xsd;integer">
-                 19
-               </xsd:maxInclusive>
+               <rdf:Description>
+                 <xsd:minExclusive rdf:datatype="&xsd;integer">12</xsd:minExclusive>
+               </rdf:Description>
+               <rdf:Description>
+                 <xsd:maxInclusive rdf:datatype="&xsd;integer">19</xsd:maxInclusive>
+               </rdf:Description>
              </owl:withRestrictions>
            </rdfs:Datatype>
          </owl:someValuesFrom>
@@ -310,37 +310,48 @@
 
    <rdf:Description rdf:about="personAge">
      <owl:equivalentClass>
-       <owl:Datatype>
+       <rdfs:Datatype>
          <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
          <owl:withRestrictions rdf:parseType="Collection">
-           <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</xsd:minInclusive>
-           <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">150</xsd:maxInclusive>
+           <rdf:Description>
+             <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</xsd:minInclusive>
+           </rdf:Description>
+           <rdf:Description>
+             <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">150</xsd:maxInclusive>
+           </rdf:Description>
          </owl:withRestrictions>
-       </owl:Datatype>
+       </rdfs:Datatype>
      </owl:equivalentClass>
    </rdf:Description>
 
    <rdf:Description rdf:about="majorAge">
      <owl:equivalentClass>
-       <owl:Datatype>
+       <rdfs:Datatype>
          <owl:intersectionOf rdf:parseType="Collection">
            <rdf:Description rdf:about="personAge"/>
            <rdfs:Datatype>
-             <owl:datatypeComplementOf about="minorAge"/>
+             <owl:datatypeComplementOf rdf:resource="minorAge"/>
            </rdfs:Datatype>
          </owl:intersectionOf>
-       </owl:Datatype>
+       </rdfs:Datatype>
      </owl:equivalentClass>
    </rdf:Description>
 
    <rdf:Description rdf:about="toddlerAge">
      <owl:equivalentClass>
-       <owl:Datatype>
-         <owl:oneOf rdf:parseType="Collection">
-           <rdf:Description rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</rdf:Description>
-           <rdf:Description rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</rdf:Description>
+       <rdfs:Datatype>
+         <owl:oneOf>
+           <rdf:Description>
+             <rdf:first rdf:datatype="&xsd;integer">1</rdf:first>
+             <rdf:rest>
+               <rdf:Description>
+                 <rdf:first rdf:datatype="&xsd;integer">2</rdf:first>
+                 <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+               </rdf:Description>
+             </rdf:rest>
+           </rdf:Description>
          </owl:oneOf>
-       </owl:Datatype>
+       </rdfs:Datatype>
      </owl:equivalentClass>
    </rdf:Description>
 
@@ -354,7 +365,20 @@
      <owl:sameAs rdf:resource="Jim"/>
    </owl:NamedIndividual>
 
-     <owl:NamedIndividual rdf:about="John">
+   <rdf:Description rdf:about="Jack">
+     <rdf:type>
+       <owl:Class>
+         <owl:intersectionOf  rdf:parseType="Collection">
+           <owl:Class rdf:about="Person"/>
+           <owl:Class>
+             <owl:complementOf rdf:resource="Parent"/>
+           </owl:Class>
+         </owl:intersectionOf>
+       </owl:Class>
+     </rdf:type>
+   </rdf:Description>
+
+   <owl:NamedIndividual rdf:about="John">
      <hasWife rdf:resource="Mary"/>
      <hasAge rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">51</hasAge>
      <owl:differentFrom rdf:resource="Bill"/>
@@ -362,77 +386,59 @@
      <rdf:type rdf:resource="Person"/>
      <rdf:type rdf:resource="Father"/>
      <rdf:type>
-       <owl:Class>
-         <owl:intersectionOf  rdf:parseType="Collection">
-           <owl:Class rdf:about="Person"/>
-           <owl:Class>
-             <owl:complementOf rdf:about="Parent"/>
-           </owl:Class>
-         </owl:intersectionOf>
-       </owl:Class>
+       <owl:Restriction>
+         <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">
+           4
+         </owl:maxQualifiedCardinality>
+         <owl:onProperty rdf:resource="hasChild"/>
+         <owl:onClass rdf:resource="Parent"/>
+       </owl:Restriction>
      </rdf:type>
      <rdf:type>
-       <owl:Class>
-         <owl:Restriction>
-           <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">
-             4
-           </owl:maxQualifiedCardinality>
-           <owl:onProperty rdf:about="hasChild"/>
-           <owl:onClass rdf:about="Parent"/>
-         </owl:Restriction>
-       </owl:Class>
+       <owl:Restriction>
+         <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">
+           2
+         </owl:minQualifiedCardinality>
+         <owl:onProperty rdf:resource="hasChild"/>
+         <owl:onClass rdf:resource="Parent"/>
+       </owl:Restriction>
      </rdf:type>
      <rdf:type>
-       <owl:Class>
-         <owl:Restriction>
-           <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">
-             2
-           </owl:minQualifiedCardinality>
-           <owl:onProperty rdf:about="hasChild"/>
-           <owl:onClass rdf:about="Parent"/>
-         </owl:Restriction>
-       </owl:Class>
+       <owl:Restriction>
+         <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">
+           3
+         </owl:qualifiedCardinality>
+         <owl:onProperty rdf:resource="hasChild"/>
+         <owl:onClass rdf:resource="Parent"/>
+       </owl:Restriction>
      </rdf:type>
      <rdf:type>
-       <owl:Class>
-         <owl:Restriction>
-           <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">
-             3
-           </owl:qualifiedCardinality>
-           <owl:onProperty rdf:about="hasChild"/>
-           <owl:onClass rdf:about="Parent"/>
-         </owl:Restriction>
-       </owl:Class>
-     </rdf:type>
-     <rdf:type>
-       <owl:Class>
-         <owl:Restriction>
-           <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">
-             5
-           </owl:cardinality>
-           <owl:onProperty rdf:about="hasChild"/>
-         </owl:Restriction>
-       </owl:Class>
+       <owl:Restriction>
+         <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">
+           5
+         </owl:cardinality>
+         <owl:onProperty rdf:resource="hasChild"/>
+       </owl:Restriction>
      </rdf:type>
    </owl:NamedIndividual>
 
    <SocialRole rdf:about="Father"/>
 
    <owl:NegativePropertyAssertion>
-     <owl:sourceIndividual rdf:about="Bill"/>
-     <owl:assertionProperty rdf:about="hasWife"/>
-     <owl:targetIndividual rdf:about="Mary"/>
+     <owl:sourceIndividual rdf:resource="Bill"/>
+     <owl:assertionProperty rdf:resource="hasWife"/>
+     <owl:targetIndividual rdf:resource="Mary"/>
    </owl:NegativePropertyAssertion>
 
    <owl:NegativePropertyAssertion>
-     <owl:sourceIndividual rdf:about="Jack"/>
-     <owl:assertionProperty rdf:about="hasAge"/>
+     <owl:sourceIndividual rdf:resource="Jack"/>
+     <owl:assertionProperty rdf:resource="hasAge"/>
      <owl:targetValue rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">53</owl:targetValue>
    </owl:NegativePropertyAssertion>
 
    <owl:NegativePropertyAssertion>
-     <owl:sourceIndividual rdf:about="Bill"/>
-     <owl:assertionProperty rdf:about="hasDaughter"/>
-     <owl:targetIndividual rdf:about="Susan"/>
+     <owl:sourceIndividual rdf:resource="Bill"/>
+     <owl:assertionProperty rdf:resource="hasDaughter"/>
+     <owl:targetIndividual rdf:resource="Susan"/>
    </owl:NegativePropertyAssertion>
  </rdf:RDF>

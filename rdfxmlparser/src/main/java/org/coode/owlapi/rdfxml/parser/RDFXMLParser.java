@@ -46,7 +46,7 @@ public class RDFXMLParser extends AbstractOWLParser {
     private OWLRDFConsumer consumer;
 
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException, OWLOntologyChangeException {
+    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         try {
             final RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
             if (owlOntologyManager == null) {
@@ -75,7 +75,7 @@ public class RDFXMLParser extends AbstractOWLParser {
             };
             consumer = new OWLRDFConsumer(owlOntologyManager, ontology, new AnonymousNodeChecker() {
                 public boolean isAnonymousNode(IRI IRI) {
-                    return parser.isAnonymousNodeIRI(IRI.getFragment());
+                    return parser.isAnonymousNodeIRI(IRI.toString());
                 }
 
 

@@ -71,9 +71,6 @@ public class Example4 {
         catch (OWLOntologyCreationException e) {
             System.out.println("Could not create ontology: " + e.getMessage());
         }
-        catch (OWLOntologyChangeException e) {
-            System.out.println("Problem editing ontology: " + e.getMessage());
-        }
         catch (OWLOntologyStorageException e) {
             System.out.println("Could not save ontology: " + e.getMessage());
         }

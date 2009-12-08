@@ -46,7 +46,7 @@ public class TypeIrreflexivePropertyHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().addOWLObjectProperty(subject);
         addAxiom(getDataFactory().getOWLIrreflexiveObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

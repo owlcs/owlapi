@@ -37,7 +37,7 @@ public class UnloadableImportException extends OWLOntologyCreationException {
     private OWLOntologyCreationException ontologyCreationException;
 
     public UnloadableImportException(OWLOntologyCreationException e, OWLImportsDeclaration importsDeclaration) {
-        super("Could not loaded imported ontology: " + importsDeclaration + " Cause: " + e.getMessage());
+        super("Could not loaded imported ontology: " + importsDeclaration.getIRI().toQuotedString() + " Cause: " + e.getMessage(), e);
         this.importsDeclaration = importsDeclaration;
         this.ontologyCreationException = e;
     }
@@ -48,5 +48,10 @@ public class UnloadableImportException extends OWLOntologyCreationException {
 
     public OWLOntologyCreationException getOntologyCreationException() {
         return ontologyCreationException;
+    }
+
+    @Override
+    public OWLOntologyCreationException getCause() {
+        return (OWLOntologyCreationException) super.getCause();
     }
 }

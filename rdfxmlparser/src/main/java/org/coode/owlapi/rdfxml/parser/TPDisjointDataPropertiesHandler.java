@@ -52,7 +52,7 @@ public class TPDisjointDataPropertiesHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         Set<OWLDataPropertyExpression> properties = new HashSet<OWLDataPropertyExpression>();
         properties.add(translateDataProperty(subject));
         properties.add(translateDataProperty(object));

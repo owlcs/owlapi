@@ -49,7 +49,7 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         // Can handle because the IRIs can easily be translated to classes
         if(getConsumer().isDataRange(object) || getConsumer().isDataRange(subject)) {
             OWLDatatype datatype = getDataFactory().getOWLDatatype(subject);

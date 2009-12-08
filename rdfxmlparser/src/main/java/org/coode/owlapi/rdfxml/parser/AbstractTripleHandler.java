@@ -65,7 +65,7 @@ public class AbstractTripleHandler {
     }
 
 
-    protected void addAxiom(OWLAxiom axiom) throws OWLOntologyChangeException {
+    protected void addAxiom(OWLAxiom axiom) {
         consumer.addAxiom(axiom);
     }
 

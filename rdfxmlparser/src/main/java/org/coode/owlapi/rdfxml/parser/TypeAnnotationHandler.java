@@ -36,7 +36,7 @@ public class TypeAnnotationHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_ANNOTATION.getIRI());
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().addAnnotationIRI(subject);
     }
 }

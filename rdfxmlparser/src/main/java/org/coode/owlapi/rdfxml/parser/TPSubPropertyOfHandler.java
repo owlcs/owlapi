@@ -50,7 +50,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
 
     public void handleTriple(IRI subject,
                              IRI predicate,
-                             IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+                             IRI object) throws UnloadableImportException {
 
         // First check for object property chain
         if (!getConsumer().isStrict() && getConsumer().hasPredicate(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getIRI())) {

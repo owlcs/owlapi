@@ -41,7 +41,7 @@ public class TypeListHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
         getConsumer().addList(subject);
     }

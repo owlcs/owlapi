@@ -48,7 +48,7 @@ public class TPDisjointUnionHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         OWLClass cls = (OWLClass) translateClassExpression(subject);
         Set<OWLClassExpression> classExpressions = getConsumer().translateToClassExpressionSet(object);
         addAxiom(getDataFactory().getOWLDisjointUnionAxiom(cls, classExpressions, getPendingAnnotations()));

@@ -53,13 +53,13 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
         }
     }
 
-    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
+    public void attribute(String localName, String value) throws OWLParserException {
         if (localName.equals("facet")) {
             facet = OWLFacet.getFacet(IRI.create(value));
         }
     }
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
+    public void endElement() throws OWLParserException, UnloadableImportException {
         getParentHandler().handleChild(this);
     }
 

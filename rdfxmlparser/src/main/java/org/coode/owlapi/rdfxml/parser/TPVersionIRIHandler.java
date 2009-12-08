@@ -40,7 +40,7 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
 
     public void handleTriple(IRI subject,
                              IRI predicate,
-                             IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+                             IRI object) throws UnloadableImportException {
         OWLOntology ontology = getConsumer().getOntology();
         OWLOntologyID ontologyID = new OWLOntologyID(ontology.getOntologyID().getOntologyIRI(), object);
         getConsumer().setOntologyID(ontologyID);

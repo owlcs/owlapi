@@ -45,7 +45,7 @@ public class TPFirstResourceHandler extends TriplePredicateHandler {
         return true;
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().addFirst(subject, object);
         consumeTriple(subject, predicate, object);
     }

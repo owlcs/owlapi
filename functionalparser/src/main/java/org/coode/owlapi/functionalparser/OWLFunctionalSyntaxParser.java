@@ -71,12 +71,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     protected void applyChange(OWLOntologyChange chg) {
-        try {
-            man.applyChange(chg);
-        }
-        catch(OWLOntologyChangeException e) {
-            e.printStackTrace();
-        }
+        man.applyChange(chg);
     }
 
     protected void addAxiom(OWLAxiom ax) {

@@ -64,7 +64,7 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
 
     public void handleTriple(IRI subject,
                              IRI predicate,
-                             IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+                             IRI object) throws UnloadableImportException {
         if (getConsumer().isObjectPropertyOnly(subject)) {
             translateObjectPropertyRange(subject, object, predicate);
         }

@@ -43,7 +43,7 @@ import java.util.Map;
 public class OWLXMLParser extends AbstractOWLParser {
 
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         try {
             System.setProperty("entityExpansionLimit", "100000000");
             OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
@@ -63,14 +63,11 @@ public class OWLXMLParser extends AbstractOWLParser {
             // What the hell should be do here?  In serious trouble if this happens
             throw new OWLRuntimeException(e);
         }
-        catch (TranslatedOWLOntologyChangeException e) {
-            throw e.getCause();
-        }
         catch (TranslatedOWLParserException e) {
-            throw e.getCause();
+            throw e.getParserException();
         }
         catch (TranslatedUnloadableImportException e) {
-            throw e.getCause();
+            throw e.getUnloadableImportException();
         }
         catch (SAXException e) {
             // General exception

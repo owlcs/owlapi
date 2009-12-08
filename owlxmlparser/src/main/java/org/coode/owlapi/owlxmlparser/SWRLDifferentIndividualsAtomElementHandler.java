@@ -1,7 +1,6 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.SWRLIArgument;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.io.OWLParserException;
 /*
@@ -64,7 +63,7 @@ public class SWRLDifferentIndividualsAtomElementHandler extends SWRLAtomElementH
         }
     }
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
+    public void endElement() throws OWLParserException, UnloadableImportException {
         setAtom(getOWLDataFactory().getSWRLDifferentIndividualsAtom(arg0, arg1));
         getParentHandler().handleChild(this);
     }

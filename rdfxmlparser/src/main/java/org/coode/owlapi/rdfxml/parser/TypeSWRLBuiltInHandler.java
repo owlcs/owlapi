@@ -41,7 +41,7 @@ public class TypeSWRLBuiltInHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         // Just consume - I don't care about this
         consumeTriple(subject, predicate, object);
     }

@@ -47,12 +47,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
      protected void addAxiom(OWLAxiom ax) throws KRSS2OWLParserException {
-        try {
             ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology, ax));
-        }
-        catch(OWLOntologyChangeException e) {
-            throw new KRSS2OWLParserException(e);
-        }
     }
 
      public IRI getIRI(final String s) throws URISyntaxException {

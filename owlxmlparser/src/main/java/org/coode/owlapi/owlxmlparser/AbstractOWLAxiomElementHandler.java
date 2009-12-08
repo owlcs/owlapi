@@ -2,7 +2,6 @@ package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.io.OWLParserException;
 
@@ -67,7 +66,7 @@ public abstract class AbstractOWLAxiomElementHandler extends AbstractOWLElementH
     }
 
 
-    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
+    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
         if(annotations == null) {
             annotations = new HashSet<OWLAnnotation>();
         }
@@ -75,7 +74,7 @@ public abstract class AbstractOWLAxiomElementHandler extends AbstractOWLElementH
     }
 
 
-    final public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
+    final public void endElement() throws OWLParserException, UnloadableImportException {
         setAxiom(createAxiom());
         getParentHandler().handleChild(this);
     }

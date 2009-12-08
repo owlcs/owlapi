@@ -53,11 +53,11 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
         super.startElement(name);
     }
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
+    public void endElement() throws OWLParserException, UnloadableImportException {
         getParentHandler().handleChild(this);
     }
 
-    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
+    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
         if(annotations == null) {
             annotations = new HashSet<OWLAnnotation>();
         }

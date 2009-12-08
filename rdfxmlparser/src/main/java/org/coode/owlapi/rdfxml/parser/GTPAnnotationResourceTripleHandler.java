@@ -48,7 +48,7 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
 
         OWLAnnotation anno = getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate),
                                                             object);

@@ -76,8 +76,5 @@ public class Example6 {
         catch (OWLOntologyCreationException e) {
             e.printStackTrace();
         }
-        catch (OWLOntologyChangeException e) {
-            e.printStackTrace();
-        }
     }
 }

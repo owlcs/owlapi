@@ -42,7 +42,7 @@ public class TypeDatatypeHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (!getConsumer().isAnonymousNode(subject)) {
             OWLDatatype dt = getDataFactory().getOWLDatatype(subject);
             if (!dt.isBuiltIn()) {

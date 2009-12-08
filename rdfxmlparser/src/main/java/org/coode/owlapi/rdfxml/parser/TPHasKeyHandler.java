@@ -43,7 +43,7 @@ public class TPHasKeyHandler extends TriplePredicateHandler {
         return false;
     }
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
         OWLClassExpression ce = translateClassExpression(subject);
         Set<OWLPropertyExpression> props = listTranslator.translateToSet(object);

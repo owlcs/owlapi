@@ -271,9 +271,6 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
-        catch (OWLOntologyChangeException e) {
-            throw new OWLRuntimeException(e);
-        }
     }
 
 

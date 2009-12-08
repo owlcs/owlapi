@@ -51,7 +51,7 @@ public class TPSubObjectPropertyOfHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (isAnonymous(subject) && getConsumer().hasPredicateObject(subject,
                 OWLRDFVocabulary.RDF_TYPE.getIRI(),
                 OWLRDFVocabulary.RDF_LIST.getIRI())) {

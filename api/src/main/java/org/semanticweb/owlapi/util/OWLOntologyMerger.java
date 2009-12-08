@@ -65,8 +65,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
 
 
     public OWLOntology createMergedOntology(OWLOntologyManager ontologyManager, IRI ontologyIRI) throws
-                                                                                                 OWLOntologyCreationException,
-                                                                                                 OWLOntologyChangeException {
+                                                                                                 OWLOntologyCreationException {
         OWLOntology ontology;
         if(ontologyIRI != null) {
             ontology =  ontologyManager.createOntology(ontologyIRI);

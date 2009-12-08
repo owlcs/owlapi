@@ -38,7 +38,7 @@ public class SKOSConceptTripleHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         OWLIndividual ind = getDataFactory().getOWLNamedIndividual(subject);
         OWLClass skosConcept = getDataFactory().getOWLClass(SKOSVocabulary.CONCPET.getIRI());
         addAxiom(getDataFactory().getOWLClassAssertionAxiom(skosConcept, ind));

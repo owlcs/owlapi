@@ -36,12 +36,7 @@ public class KRSSParser implements KRSSParserConstants {
     }
 
     protected void addAxiom(OWLAxiom ax) throws KRSSOWLParserException {
-        try {
-            ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology, ax));
-        }
-        catch (OWLOntologyChangeException e) {
-            throw new KRSSOWLParserException(e);
-        }
+        ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology, ax));
     }
 
     public URI getURI(String s) throws URISyntaxException {
@@ -64,7 +59,8 @@ public class KRSSParser implements KRSSParserConstants {
         while (true) {
             if (jj_2_1(2)) {
                 ;
-            } else {
+            }
+            else {
                 break label_1;
             }
             ax = TBoxStatement();
@@ -74,21 +70,24 @@ public class KRSSParser implements KRSSParserConstants {
         }
         if (jj_2_2(2)) {
             jj_consume_token(ENDTBOX);
-        } else {
+        }
+        else {
             ;
         }
         label_2:
         while (true) {
             if (jj_2_3(2)) {
                 ;
-            } else {
+            }
+            else {
                 break label_2;
             }
             ABoxStatement();
         }
         if (jj_2_4(2)) {
             jj_consume_token(ENDABOX);
-        } else {
+        }
+        else {
             ;
         }
         jj_consume_token(0);
@@ -98,20 +97,26 @@ public class KRSSParser implements KRSSParserConstants {
         OWLAxiom ax;
         if (jj_2_5(2)) {
             ax = DefinePrimitiveConcept();
-        } else if (jj_2_6(2)) {
+        }
+        else if (jj_2_6(2)) {
             ax = DefineConcept();
-        } else if (jj_2_7(2)) {
+        }
+        else if (jj_2_7(2)) {
             ax = DefinePrimitiveRole();
-        } else if (jj_2_8(2)) {
+        }
+        else if (jj_2_8(2)) {
             ax = Transitive();
-        } else if (jj_2_9(2)) {
+        }
+        else if (jj_2_9(2)) {
             ax = Range();
-        } else {
+        }
+        else {
             jj_consume_token(-1);
             throw new ParseException();
         }
         {
-            if (true) return ax;
+            if (true)
+                return ax;
         }
         throw new Error("Missing return statement in function");
     }
@@ -125,7 +130,8 @@ public class KRSSParser implements KRSSParserConstants {
         superClass = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLSubClassOfAxiom(subClass, superClass);
+            if (true)
+                return dataFactory.getOWLSubClassOfAxiom(subClass, superClass);
         }
         throw new Error("Missing return statement in function");
     }
@@ -142,7 +148,8 @@ public class KRSSParser implements KRSSParserConstants {
         ops.add(clsA);
         ops.add(clsB);
         {
-            if (true) return dataFactory.getOWLEquivalentClassesAxiom(ops);
+            if (true)
+                return dataFactory.getOWLEquivalentClassesAxiom(ops);
         }
         throw new Error("Missing return statement in function");
     }
@@ -157,13 +164,15 @@ public class KRSSParser implements KRSSParserConstants {
         if (jj_2_10(2)) {
             jj_consume_token(42);
             RoleName();
-        } else {
+        }
+        else {
             ;
         }
         jj_consume_token(CLOSEPAR);
         if (superProp != null) {
             {
-                if (true) return dataFactory.getOWLSubObjectPropertyOfAxiom(subProp, superProp);
+                if (true)
+                    return dataFactory.getOWLSubObjectPropertyOfAxiom(subProp, superProp);
             }
         }
         throw new Error("Missing return statement in function");
@@ -176,7 +185,8 @@ public class KRSSParser implements KRSSParserConstants {
         prop = RoleName();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLTransitiveObjectPropertyAxiom(prop);
+            if (true)
+                return dataFactory.getOWLTransitiveObjectPropertyAxiom(prop);
         }
         throw new Error("Missing return statement in function");
     }
@@ -190,7 +200,8 @@ public class KRSSParser implements KRSSParserConstants {
         rng = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectPropertyRangeAxiom(prop, rng);
+            if (true)
+                return dataFactory.getOWLObjectPropertyRangeAxiom(prop, rng);
         }
         throw new Error("Missing return statement in function");
     }
@@ -199,28 +210,38 @@ public class KRSSParser implements KRSSParserConstants {
         OWLClassExpression desc;
         if (jj_2_11(2)) {
             desc = ConceptName();
-        } else if (jj_2_12(2)) {
+        }
+        else if (jj_2_12(2)) {
             desc = And();
-        } else if (jj_2_13(2)) {
+        }
+        else if (jj_2_13(2)) {
             desc = Or();
-        } else if (jj_2_14(2)) {
+        }
+        else if (jj_2_14(2)) {
             desc = Not();
-        } else if (jj_2_15(2)) {
+        }
+        else if (jj_2_15(2)) {
             desc = All();
-        } else if (jj_2_16(2)) {
+        }
+        else if (jj_2_16(2)) {
             desc = Some();
-        } else if (jj_2_17(2)) {
+        }
+        else if (jj_2_17(2)) {
             desc = AtLeast();
-        } else if (jj_2_18(2)) {
+        }
+        else if (jj_2_18(2)) {
             desc = AtMost();
-        } else if (jj_2_19(2)) {
+        }
+        else if (jj_2_19(2)) {
             desc = Exactly();
-        } else {
+        }
+        else {
             jj_consume_token(-1);
             throw new ParseException();
         }
         {
-            if (true) return desc;
+            if (true)
+                return desc;
         }
         throw new Error("Missing return statement in function");
     }
@@ -229,7 +250,8 @@ public class KRSSParser implements KRSSParserConstants {
         URI uri;
         uri = Name();
         {
-            if (true) return dataFactory.getOWLClass(uri);
+            if (true)
+                return dataFactory.getOWLClass(uri);
         }
         throw new Error("Missing return statement in function");
     }
@@ -243,12 +265,14 @@ public class KRSSParser implements KRSSParserConstants {
             descs.add(desc);
             if (jj_2_20(2)) {
                 ;
-            } else {
+            }
+            else {
                 break label_3;
             }
         }
         {
-            if (true) return descs;
+            if (true)
+                return descs;
         }
         throw new Error("Missing return statement in function");
     }
@@ -260,7 +284,8 @@ public class KRSSParser implements KRSSParserConstants {
         operands = ConceptSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectIntersectionOf(operands);
+            if (true)
+                return dataFactory.getOWLObjectIntersectionOf(operands);
         }
         throw new Error("Missing return statement in function");
     }
@@ -272,7 +297,8 @@ public class KRSSParser implements KRSSParserConstants {
         operands = ConceptSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectUnionOf(operands);
+            if (true)
+                return dataFactory.getOWLObjectUnionOf(operands);
         }
         throw new Error("Missing return statement in function");
     }
@@ -284,7 +310,8 @@ public class KRSSParser implements KRSSParserConstants {
         operand = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectComplementOf(operand);
+            if (true)
+                return dataFactory.getOWLObjectComplementOf(operand);
         }
         throw new Error("Missing return statement in function");
     }
@@ -298,7 +325,8 @@ public class KRSSParser implements KRSSParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
+            if (true)
+                return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -312,7 +340,8 @@ public class KRSSParser implements KRSSParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
+            if (true)
+                return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -328,7 +357,8 @@ public class KRSSParser implements KRSSParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectMinCardinality(card, prop, filler);
+            if (true)
+                return dataFactory.getOWLObjectMinCardinality(card, prop, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -344,7 +374,8 @@ public class KRSSParser implements KRSSParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectMaxCardinality(card, prop, filler);
+            if (true)
+                return dataFactory.getOWLObjectMaxCardinality(card, prop, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -360,7 +391,8 @@ public class KRSSParser implements KRSSParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectExactCardinality(card, prop, filler);
+            if (true)
+                return dataFactory.getOWLObjectExactCardinality(card, prop, filler);
         }
         throw new Error("Missing return statement in function");
     }
@@ -369,7 +401,8 @@ public class KRSSParser implements KRSSParserConstants {
         URI uri;
         uri = Name();
         {
-            if (true) return dataFactory.getOWLObjectProperty(uri);
+            if (true)
+                return dataFactory.getOWLObjectProperty(uri);
         }
         throw new Error("Missing return statement in function");
     }
@@ -378,18 +411,23 @@ public class KRSSParser implements KRSSParserConstants {
         OWLAxiom ax;
         if (jj_2_21(2)) {
             ax = Instance();
-        } else if (jj_2_22(2)) {
+        }
+        else if (jj_2_22(2)) {
             ax = Related();
-        } else if (jj_2_23(2)) {
+        }
+        else if (jj_2_23(2)) {
             ax = Equal();
-        } else if (jj_2_24(2)) {
+        }
+        else if (jj_2_24(2)) {
             ax = Distinct();
-        } else {
+        }
+        else {
             jj_consume_token(-1);
             throw new ParseException();
         }
         {
-            if (true) return ax;
+            if (true)
+                return ax;
         }
         throw new Error("Missing return statement in function");
     }
@@ -403,7 +441,8 @@ public class KRSSParser implements KRSSParserConstants {
         type = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLClassAssertionAxiom(type, ind);
+            if (true)
+                return dataFactory.getOWLClassAssertionAxiom(type, ind);
         }
         throw new Error("Missing return statement in function");
     }
@@ -419,7 +458,8 @@ public class KRSSParser implements KRSSParserConstants {
         obj = IndividualName();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj);
+            if (true)
+                return dataFactory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj);
         }
         throw new Error("Missing return statement in function");
     }
@@ -435,7 +475,8 @@ public class KRSSParser implements KRSSParserConstants {
         inds.add(indA);
         inds.add(indB);
         {
-            if (true) return dataFactory.getOWLSameIndividualAxiom(inds);
+            if (true)
+                return dataFactory.getOWLSameIndividualAxiom(inds);
         }
         throw new Error("Missing return statement in function");
     }
@@ -451,7 +492,8 @@ public class KRSSParser implements KRSSParserConstants {
         inds.add(indA);
         inds.add(indB);
         {
-            if (true) return dataFactory.getOWLDifferentIndividualsAxiom(inds);
+            if (true)
+                return dataFactory.getOWLDifferentIndividualsAxiom(inds);
         }
         throw new Error("Missing return statement in function");
     }
@@ -460,7 +502,8 @@ public class KRSSParser implements KRSSParserConstants {
         URI name;
         name = Name();
         {
-            if (true) return dataFactory.getOWLNamedIndividual(name);
+            if (true)
+                return dataFactory.getOWLNamedIndividual(name);
         }
         throw new Error("Missing return statement in function");
     }
@@ -470,12 +513,14 @@ public class KRSSParser implements KRSSParserConstants {
         t = jj_consume_token(NAME);
         try {
             {
-                if (true) return getURI(t.image);
+                if (true)
+                    return getURI(t.image);
             }
         }
         catch (URISyntaxException e) {
             {
-                if (true) return null;
+                if (true)
+                    return null;
             }
         }
         throw new Error("Missing return statement in function");
@@ -485,7 +530,8 @@ public class KRSSParser implements KRSSParserConstants {
         Token t;
         t = jj_consume_token(INT);
         {
-            if (true) return Integer.parseInt(t.image);
+            if (true)
+                return Integer.parseInt(t.image);
         }
         throw new Error("Missing return statement in function");
     }
@@ -827,152 +873,194 @@ public class KRSSParser implements KRSSParserConstants {
     }
 
     final private boolean jj_3_17() {
-        if (jj_3R_18()) return true;
+        if (jj_3R_18())
+            return true;
         return false;
     }
 
     final private boolean jj_3R_18() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(ATLEAST)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(ATLEAST))
+            return true;
         return false;
     }
 
     final private boolean jj_3R_10() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(RANGE)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(RANGE))
+            return true;
         return false;
     }
 
     final private boolean jj_3R_25() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(DISTINCT)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(DISTINCT))
+            return true;
         return false;
     }
 
     final private boolean jj_3_24() {
-        if (jj_3R_25()) return true;
+        if (jj_3R_25())
+            return true;
         return false;
     }
 
     final private boolean jj_3_7() {
-        if (jj_3R_8()) return true;
+        if (jj_3R_8())
+            return true;
         return false;
     }
 
     final private boolean jj_3R_17() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(SOME)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(SOME))
+            return true;
         return false;
     }
 
     final private boolean jj_3R_9() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(TRANSITIVE)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(TRANSITIVE))
+            return true;
         return false;
     }
 
     final private boolean jj_3_16() {
-        if (jj_3R_17()) return true;
+        if (jj_3R_17())
+            return true;
         return false;
     }
 
     final private boolean jj_3R_24() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(EQUAL)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(EQUAL))
+            return true;
         return false;
     }
 
     final private boolean jj_3_23() {
-        if (jj_3R_24()) return true;
+        if (jj_3R_24())
+            return true;
         return false;
     }
 
     final private boolean jj_3R_16() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(ALL)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(ALL))
+            return true;
         return false;
     }
 
     final private boolean jj_3R_8() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(DEFINEPRIMITIVEROLE)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(DEFINEPRIMITIVEROLE))
+            return true;
         return false;
     }
 
     final private boolean jj_3_15() {
-        if (jj_3R_16()) return true;
+        if (jj_3R_16())
+            return true;
         return false;
     }
 
     final private boolean jj_3R_23() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(RELATED)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(RELATED))
+            return true;
         return false;
     }
 
     final private boolean jj_3_6() {
-        if (jj_3R_7()) return true;
+        if (jj_3R_7())
+            return true;
         return false;
     }
 
     final private boolean jj_3R_15() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(NOT)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(NOT))
+            return true;
         return false;
     }
 
     final private boolean jj_3_22() {
-        if (jj_3R_23()) return true;
+        if (jj_3R_23())
+            return true;
         return false;
     }
 
     final private boolean jj_3_4() {
-        if (jj_scan_token(ENDABOX)) return true;
+        if (jj_scan_token(ENDABOX))
+            return true;
         return false;
     }
 
     final private boolean jj_3_14() {
-        if (jj_3R_15()) return true;
+        if (jj_3R_15())
+            return true;
         return false;
     }
 
     final private boolean jj_3R_22() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(INSTANCE)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(INSTANCE))
+            return true;
         return false;
     }
 
     final private boolean jj_3R_7() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(DEFINECONCEPT)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(DEFINECONCEPT))
+            return true;
         return false;
     }
 
     final private boolean jj_3R_14() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(OR)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(OR))
+            return true;
         return false;
     }
 
     final private boolean jj_3_10() {
-        if (jj_scan_token(42)) return true;
-        if (jj_3R_11()) return true;
+        if (jj_scan_token(42))
+            return true;
+        if (jj_3R_11())
+            return true;
         return false;
     }
 
     final private boolean jj_3_21() {
-        if (jj_3R_22()) return true;
+        if (jj_3R_22())
+            return true;
         return false;
     }
 
     final private boolean jj_3R_6() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(DEFINEPRIMITIVECONCEPT)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(DEFINEPRIMITIVECONCEPT))
+            return true;
         return false;
     }
 
     final private boolean jj_3_13() {
-        if (jj_3R_14()) return true;
+        if (jj_3R_14())
+            return true;
         return false;
     }
 
@@ -985,7 +1073,8 @@ public class KRSSParser implements KRSSParserConstants {
                 jj_scanpos = xsp;
                 if (jj_3_23()) {
                     jj_scanpos = xsp;
-                    if (jj_3_24()) return true;
+                    if (jj_3_24())
+                        return true;
                 }
             }
         }
@@ -993,38 +1082,46 @@ public class KRSSParser implements KRSSParserConstants {
     }
 
     final private boolean jj_3_3() {
-        if (jj_3R_5()) return true;
+        if (jj_3R_5())
+            return true;
         return false;
     }
 
     final private boolean jj_3R_13() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(AND)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(AND))
+            return true;
         return false;
     }
 
     final private boolean jj_3_9() {
-        if (jj_3R_10()) return true;
+        if (jj_3R_10())
+            return true;
         return false;
     }
 
     final private boolean jj_3_19() {
-        if (jj_3R_20()) return true;
+        if (jj_3R_20())
+            return true;
         return false;
     }
 
     final private boolean jj_3R_11() {
-        if (jj_3R_26()) return true;
+        if (jj_3R_26())
+            return true;
         return false;
     }
 
     final private boolean jj_3_5() {
-        if (jj_3R_6()) return true;
+        if (jj_3R_6())
+            return true;
         return false;
     }
 
     final private boolean jj_3_20() {
-        if (jj_3R_21()) return true;
+        if (jj_3R_21())
+            return true;
         return false;
     }
 
@@ -1039,7 +1136,8 @@ public class KRSSParser implements KRSSParserConstants {
                     jj_scanpos = xsp;
                     if (jj_3_8()) {
                         jj_scanpos = xsp;
-                        if (jj_3_9()) return true;
+                        if (jj_3_9())
+                            return true;
                     }
                 }
             }
@@ -1048,54 +1146,66 @@ public class KRSSParser implements KRSSParserConstants {
     }
 
     final private boolean jj_3_12() {
-        if (jj_3R_13()) return true;
+        if (jj_3R_13())
+            return true;
         return false;
     }
 
     final private boolean jj_3_2() {
-        if (jj_scan_token(ENDTBOX)) return true;
+        if (jj_scan_token(ENDTBOX))
+            return true;
         return false;
     }
 
     final private boolean jj_3R_20() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(EXACTLY)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(EXACTLY))
+            return true;
         return false;
     }
 
     final private boolean jj_3_1() {
-        if (jj_3R_4()) return true;
+        if (jj_3R_4())
+            return true;
         return false;
     }
 
     final private boolean jj_3R_26() {
-        if (jj_scan_token(NAME)) return true;
+        if (jj_scan_token(NAME))
+            return true;
         return false;
     }
 
     final private boolean jj_3R_12() {
-        if (jj_3R_26()) return true;
+        if (jj_3R_26())
+            return true;
         return false;
     }
 
     final private boolean jj_3_18() {
-        if (jj_3R_19()) return true;
+        if (jj_3R_19())
+            return true;
         return false;
     }
 
     final private boolean jj_3_8() {
-        if (jj_3R_9()) return true;
+        if (jj_3R_9())
+            return true;
         return false;
     }
 
     final private boolean jj_3R_19() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(ATMOST)) return true;
+        if (jj_scan_token(OPENPAR))
+            return true;
+        if (jj_scan_token(ATMOST))
+            return true;
         return false;
     }
 
     final private boolean jj_3_11() {
-        if (jj_3R_12()) return true;
+        if (jj_3R_12())
+            return true;
         return false;
     }
 
@@ -1118,7 +1228,8 @@ public class KRSSParser implements KRSSParserConstants {
                                     jj_scanpos = xsp;
                                     if (jj_3_18()) {
                                         jj_scanpos = xsp;
-                                        if (jj_3_19()) return true;
+                                        if (jj_3_19())
+                                            return true;
                                     }
                                 }
                             }
@@ -1167,15 +1278,18 @@ public class KRSSParser implements KRSSParserConstants {
     public KRSSParser(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1);
-        } catch (java.io.UnsupportedEncodingException e) {
+        }
+        catch (java.io.UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
         token_source = new KRSSParserTokenManager(jj_input_stream);
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++) jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
+        for (int i = 0; i < 0; i++)
+            jj_la1[i] = -1;
+        for (int i = 0; i < jj_2_rtns.length; i++)
+            jj_2_rtns[i] = new JJCalls();
     }
 
     public void ReInit(java.io.InputStream stream) {
@@ -1185,15 +1299,18 @@ public class KRSSParser implements KRSSParserConstants {
     public void ReInit(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream.ReInit(stream, encoding, 1, 1);
-        } catch (java.io.UnsupportedEncodingException e) {
+        }
+        catch (java.io.UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
         token_source.ReInit(jj_input_stream);
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++) jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
+        for (int i = 0; i < 0; i++)
+            jj_la1[i] = -1;
+        for (int i = 0; i < jj_2_rtns.length; i++)
+            jj_2_rtns[i] = new JJCalls();
     }
 
     public KRSSParser(java.io.Reader stream) {
@@ -1202,8 +1319,10 @@ public class KRSSParser implements KRSSParserConstants {
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++) jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
+        for (int i = 0; i < 0; i++)
+            jj_la1[i] = -1;
+        for (int i = 0; i < jj_2_rtns.length; i++)
+            jj_2_rtns[i] = new JJCalls();
     }
 
     public void ReInit(java.io.Reader stream) {
@@ -1212,8 +1331,10 @@ public class KRSSParser implements KRSSParserConstants {
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++) jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
+        for (int i = 0; i < 0; i++)
+            jj_la1[i] = -1;
+        for (int i = 0; i < jj_2_rtns.length; i++)
+            jj_2_rtns[i] = new JJCalls();
     }
 
     public KRSSParser(KRSSParserTokenManager tm) {
@@ -1221,8 +1342,10 @@ public class KRSSParser implements KRSSParserConstants {
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++) jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
+        for (int i = 0; i < 0; i++)
+            jj_la1[i] = -1;
+        for (int i = 0; i < jj_2_rtns.length; i++)
+            jj_2_rtns[i] = new JJCalls();
     }
 
     public void ReInit(KRSSParserTokenManager tm) {
@@ -1230,14 +1353,18 @@ public class KRSSParser implements KRSSParserConstants {
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++) jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
+        for (int i = 0; i < 0; i++)
+            jj_la1[i] = -1;
+        for (int i = 0; i < jj_2_rtns.length; i++)
+            jj_2_rtns[i] = new JJCalls();
     }
 
     final private Token jj_consume_token(int kind) throws ParseException {
         Token oldToken;
-        if ((oldToken = token).next != null) token = token.next;
-        else token = token.next = token_source.getNextToken();
+        if ((oldToken = token).next != null)
+            token = token.next;
+        else
+            token = token.next = token_source.getNextToken();
         jj_ntk = -1;
         if (token.kind == kind) {
             jj_gen++;
@@ -1246,7 +1373,8 @@ public class KRSSParser implements KRSSParserConstants {
                 for (int i = 0; i < jj_2_rtns.length; i++) {
                     JJCalls c = jj_2_rtns[i];
                     while (c != null) {
-                        if (c.gen < jj_gen) c.first = null;
+                        if (c.gen < jj_gen)
+                            c.first = null;
                         c = c.next;
                     }
                 }
@@ -1268,10 +1396,12 @@ public class KRSSParser implements KRSSParserConstants {
             jj_la--;
             if (jj_scanpos.next == null) {
                 jj_lastpos = jj_scanpos = jj_scanpos.next = token_source.getNextToken();
-            } else {
+            }
+            else {
                 jj_lastpos = jj_scanpos = jj_scanpos.next;
             }
-        } else {
+        }
+        else {
             jj_scanpos = jj_scanpos.next;
         }
         if (jj_rescan) {
@@ -1281,16 +1411,21 @@ public class KRSSParser implements KRSSParserConstants {
                 i++;
                 tok = tok.next;
             }
-            if (tok != null) jj_add_error_token(kind, i);
+            if (tok != null)
+                jj_add_error_token(kind, i);
         }
-        if (jj_scanpos.kind != kind) return true;
-        if (jj_la == 0 && jj_scanpos == jj_lastpos) throw jj_ls;
+        if (jj_scanpos.kind != kind)
+            return true;
+        if (jj_la == 0 && jj_scanpos == jj_lastpos)
+            throw jj_ls;
         return false;
     }
 
     final public Token getNextToken() {
-        if (token.next != null) token = token.next;
-        else token = token.next = token_source.getNextToken();
+        if (token.next != null)
+            token = token.next;
+        else
+            token = token.next = token_source.getNextToken();
         jj_ntk = -1;
         jj_gen++;
         return token;
@@ -1299,8 +1434,10 @@ public class KRSSParser implements KRSSParserConstants {
     final public Token getToken(int index) {
         Token t = lookingAhead ? jj_scanpos : token;
         for (int i = 0; i < index; i++) {
-            if (t.next != null) t = t.next;
-            else t = t.next = token_source.getNextToken();
+            if (t.next != null)
+                t = t.next;
+            else
+                t = t.next = token_source.getNextToken();
         }
         return t;
     }
@@ -1319,10 +1456,12 @@ public class KRSSParser implements KRSSParserConstants {
     private int jj_endpos;
 
     private void jj_add_error_token(int kind, int pos) {
-        if (pos >= 100) return;
+        if (pos >= 100)
+            return;
         if (pos == jj_endpos + 1) {
             jj_lasttokens[jj_endpos++] = kind;
-        } else if (jj_endpos != 0) {
+        }
+        else if (jj_endpos != 0) {
             jj_expentry = new int[jj_endpos];
             for (int i = 0; i < jj_endpos; i++) {
                 jj_expentry[i] = jj_lasttokens[i];
@@ -1338,11 +1477,14 @@ public class KRSSParser implements KRSSParserConstants {
                             break;
                         }
                     }
-                    if (exists) break;
+                    if (exists)
+                        break;
                 }
             }
-            if (!exists) jj_expentries.addElement(jj_expentry);
-            if (pos != 0) jj_lasttokens[(jj_endpos = pos) - 1] = kind;
+            if (!exists)
+                jj_expentries.addElement(jj_expentry);
+            if (pos != 0)
+                jj_lasttokens[(jj_endpos = pos) - 1] = kind;
         }
     }
 
@@ -1477,7 +1619,8 @@ public class KRSSParser implements KRSSParserConstants {
                     }
                     p = p.next;
                 } while (p != null);
-            } catch (LookaheadSuccess ls) {
+            }
+            catch (LookaheadSuccess ls) {
             }
         }
         jj_rescan = false;

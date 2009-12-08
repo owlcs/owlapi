@@ -806,9 +806,6 @@ public class OWLXMLParserHandler extends DefaultHandler {
         catch (OWLParserException e) {
             throw new TranslatedOWLParserException(e);
         }
-        catch (OWLOntologyChangeException e) {
-            throw new TranslatedOWLOntologyChangeException(e);
-        }
     }
 
     protected void processXMLBase(Attributes attributes) {
@@ -842,12 +839,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
             bases.pop();
         }
         catch (OWLParserException e) {
+            // Temporarily translate to a SAX parse exception
             throw new TranslatedOWLParserException(e);
         }
-        catch (OWLOntologyChangeException e) {
-            throw new TranslatedOWLOntologyChangeException(e);
-        }
         catch (UnloadableImportException e) {
+            // Temporarily translate to a SAX parse exception
             throw new TranslatedUnloadableImportException(e);
         }
     }

@@ -2978,7 +2978,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public void parseOntology(OWLOntologyManager manager, OWLOntology ont) throws ParserException, OWLOntologyChangeException, UnloadableImportException {
+    public void parseOntology(OWLOntologyManager manager, OWLOntology ont) throws ParserException, UnloadableImportException {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
         OWLOntologyID ontologyID = new OWLOntologyID();
         Set<AddImport> imports = new HashSet<AddImport>();

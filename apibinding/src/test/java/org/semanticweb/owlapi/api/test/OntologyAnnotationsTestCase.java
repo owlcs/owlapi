@@ -35,16 +35,11 @@ import java.util.Set;
 public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTest {
 
     protected OWLOntology createOntology() {
-        try {
             OWLOntology ont = getOWLOntology("AnnotationOntology");
             OWLAnnotationProperty prop = getFactory().getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
             OWLLiteral value = getFactory().getOWLTypedLiteral(33);
             OWLAnnotation annotation = getFactory().getOWLAnnotation(prop, value);
             getManager().applyChange(new AddOntologyAnnotation(ont, annotation));
             return ont;
-        }
-        catch (OWLOntologyChangeException e) {
-            throw new OWLRuntimeException(e);
-        }
     }
 }

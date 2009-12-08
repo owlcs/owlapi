@@ -53,7 +53,7 @@ public class TPDisjointWithHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateClassExpression(subject));
         operands.add(translateClassExpression(object));

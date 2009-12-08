@@ -46,7 +46,7 @@ public class TypePropertyHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         // We need to consume this triple
         consumeTriple(subject, predicate, object);
         if (logger.isLoggable(Level.FINE)) {

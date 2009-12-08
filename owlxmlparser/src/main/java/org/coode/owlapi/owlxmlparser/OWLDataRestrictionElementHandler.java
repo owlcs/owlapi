@@ -56,7 +56,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
     }
 
 
-    public void attribute(String localName, String value) throws OWLParserException, OWLOntologyChangeException {
+    public void attribute(String localName, String value) throws OWLParserException {
         super.attribute(localName, value);
         if (localName.equals("facet")) {
             facetIRI = getIRI(value);

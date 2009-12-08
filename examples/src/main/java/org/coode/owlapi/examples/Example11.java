@@ -90,9 +90,6 @@ public class Example11 {
             // Save the inferred ontology. (Replace the URI with one that is appropriate for your setup)
             man.saveOntology(infOnt, URI.create("file:///tmp/inferredont.owlapi"));
         }
-        catch(OWLOntologyChangeException e) {
-            e.printStackTrace();
-        }
         catch (OWLOntologyCreationException e) {
             e.printStackTrace();
         }

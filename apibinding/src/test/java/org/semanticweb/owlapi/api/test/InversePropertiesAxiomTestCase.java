@@ -34,13 +34,8 @@ public class InversePropertiesAxiomTestCase extends AbstractRoundTrippingTest {
 
 
     protected OWLOntology createOntology() {
-        try {
             OWLOntology ont = getOWLOntology("ont");
             getManager().addAxiom(ont, getFactory().getOWLInverseObjectPropertiesAxiom(getOWLObjectProperty("p"), getOWLObjectProperty("q")));
             return ont;
-        }
-        catch (OWLOntologyChangeException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

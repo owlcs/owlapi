@@ -54,7 +54,7 @@ public class TPTypeHandler extends TriplePredicateHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException, OWLOntologyChangeException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(object)) {
             if (!object.equals(OWLRDFVocabulary.OWL_THING.getIRI())) {
                 // Can't have instance of built in vocabulary!

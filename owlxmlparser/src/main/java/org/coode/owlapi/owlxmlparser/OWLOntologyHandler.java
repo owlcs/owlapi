@@ -43,14 +43,14 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
 
-    public void attribute(String name, String value) throws OWLParserException, OWLOntologyChangeException {
+    public void attribute(String name, String value) throws OWLParserException {
         if (name.equals("ontologyIRI")) {
             getOWLOntologyManager().applyChange(new SetOntologyID(getOntology(), new OWLOntologyID(IRI.create(value))));
         }
     }
 
 
-    public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
+    public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException {
         getOWLOntologyManager().applyChange(new AddAxiom(getOntology(), handler.getOWLObject()));
     }
 
@@ -63,12 +63,12 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
 
-    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException, OWLOntologyChangeException {
+    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
         getOWLOntologyManager().applyChange(new AddOntologyAnnotation(getOntology(), handler.getOWLObject()));
     }
 
 
-    public void endElement() throws OWLParserException, OWLOntologyChangeException, UnloadableImportException {
+    public void endElement() throws OWLParserException, UnloadableImportException {
     }
 
 
