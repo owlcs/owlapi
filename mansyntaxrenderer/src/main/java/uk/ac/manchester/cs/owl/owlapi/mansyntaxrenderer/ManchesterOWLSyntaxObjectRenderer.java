@@ -581,7 +581,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.getProperties(), EQUIVALENT_OBJECT_PROPERTIES);
+        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.getProperties(), EQUIVALENT_PROPERTIES);
         restore();
     }
 
@@ -609,14 +609,14 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DISJOINT_WITH, axiom.getProperties(), DISJOINT_DATA_PROPERTIES);
+        writeBinaryOrNaryList(DISJOINT_WITH, axiom.getProperties(), DISJOINT_PROPERTIES);
         restore();
     }
 
 
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DISJOINT_WITH, axiom.getProperties(), DISJOINT_OBJECT_PROPERTIES);
+        writeBinaryOrNaryList(DISJOINT_WITH, axiom.getProperties(), DISJOINT_PROPERTIES);
         restore();
     }
 
@@ -760,7 +760,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeFrameKeyword(EQUIVALENT_DATA_PROPERTIES);
+        writeFrameKeyword(EQUIVALENT_PROPERTIES);
         writeCommaSeparatedList(axiom.getProperties());
         restore();
     }

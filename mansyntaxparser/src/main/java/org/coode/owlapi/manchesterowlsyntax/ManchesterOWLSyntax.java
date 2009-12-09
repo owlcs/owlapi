@@ -73,7 +73,7 @@ public enum ManchesterOWLSyntax {
 
     NOT("not", false, false, false, false, true),
 
-    INVERSE("inv", false, false, true, false, false),
+    INVERSE("inverse", false, false, true, false, false),
 
     SELF("Self", false, false, false, true, false),
 
@@ -87,9 +87,7 @@ public enum ManchesterOWLSyntax {
 
     EQUIVALENT_CLASSES("EquivalentClasses", false, true, true, false, false),
 
-    EQUIVALENT_OBJECT_PROPERTIES("EquivalentObjectProperties", false, true, true, false, false),
-
-    EQUIVALENT_DATA_PROPERTIES("EquivalentDataProperties", false, true, true, false, false),
+    EQUIVALENT_PROPERTIES("EquivalentProperties", false, true, true, false, false),
 
     DISJOINT_WITH("DisjointWith", false, true, true, false, false),
 
@@ -97,9 +95,7 @@ public enum ManchesterOWLSyntax {
 
     DISJOINT_CLASSES("DisjointClasses", true, true, true, false, false),
 
-    DISJOINT_OBJECT_PROPERTIES("DisjointObjectProperties", false, true, true, false, false),
-
-    DISJOINT_DATA_PROPERTIES("DisjointDataProperties", false, true, true, false, false),
+    DISJOINT_PROPERTIES("DisjointProperties", true, false, true, false, false),
 
     DISJOINT_UNION_OF("DisjointUnionOf", false, true, true, false, false),
 

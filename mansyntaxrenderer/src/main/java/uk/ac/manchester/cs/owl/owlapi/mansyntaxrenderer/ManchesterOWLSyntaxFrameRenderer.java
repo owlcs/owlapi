@@ -154,7 +154,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             if (ax.getProperties().size() > 2) {
                 Map<Object, Set<OWLAnnotation>> map = new HashMap<Object, Set<OWLAnnotation>>();
                 map.put(ax.getProperties(), ax.getAnnotations());
-                writeSection(DISJOINT_OBJECT_PROPERTIES, map, ",", false, ontology);
+                writeSection(DISJOINT_PROPERTIES, map, ",", false, ontology);
             }
         }
         // Nary equivlant properties
@@ -162,7 +162,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             if (ax.getProperties().size() > 2) {
                 Map<Object, Set<OWLAnnotation>> map = new HashMap<Object, Set<OWLAnnotation>>();
                 map.put(ax.getProperties(), ax.getAnnotations());
-                writeSection(EQUIVALENT_OBJECT_PROPERTIES, map, ",", false, ontology);
+                writeSection(EQUIVALENT_PROPERTIES, map, ",", false, ontology);
             }
         }
         // Nary disjoint properties
@@ -170,7 +170,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             if (ax.getProperties().size() > 2) {
                 Map<Object, Set<OWLAnnotation>> map = new HashMap<Object, Set<OWLAnnotation>>();
                 map.put(ax.getProperties(), ax.getAnnotations());
-                writeSection(DISJOINT_DATA_PROPERTIES, map, ",", false, ontology);
+                writeSection(DISJOINT_PROPERTIES, map, ",", false, ontology);
             }
         }
         // Nary equivalent properties
@@ -178,7 +178,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             if (ax.getProperties().size() > 2) {
                 Map<Object, Set<OWLAnnotation>> map = new HashMap<Object, Set<OWLAnnotation>>();
                 map.put(ax.getProperties(), ax.getAnnotations());
-                writeSection(EQUIVALENT_DATA_PROPERTIES, map, ",", false, ontology);
+                writeSection(EQUIVALENT_PROPERTIES, map, ",", false, ontology);
             }
         }
         // Nary different individuals
