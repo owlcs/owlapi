@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.Version;
 
 import java.util.Set;
 import java.util.List;/*
@@ -194,6 +195,19 @@ import java.util.List;/*
  *
  */
 public interface OWLReasoner {
+
+    /**
+     * Gets the name of this reasoner.
+     * @return A string that represents the name of this reasoner.
+     */
+    String getReasonerName();
+
+    /**
+     * Gets the version of this reasoner.
+     * @return The version of this reasoner. Not <code>null</code>.
+     */
+    Version getReasonerVersion();
+
 
     /**
      * Gets the buffering mode of this reasoner.
@@ -413,8 +427,7 @@ public interface OWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
-
+    NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct);
 
     /**
      * Gets the set of named classes that are the strict (potentially direct) super classes of the specified class expression with respect to the
@@ -507,7 +520,6 @@ public interface OWLReasoner {
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
     NodeSet<OWLObjectProperty> getSubObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
-
 
     /**
      * Gets the set of named object properties that are the strict (potentially direct) super properties of the specified
@@ -668,7 +680,6 @@ public interface OWLReasoner {
      */
     NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe, boolean direct)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
-
     /**
      * Gets the set of named data properties that are the strict (potentially direct) super properties of the specified
      * data property  with respect to the imports closure of the root ontology.
@@ -800,7 +811,7 @@ public interface OWLReasoner {
      * </p>
      * If ce is unsatisfiable with respect to the set of reasoner axioms then the empty <code>NodeSet</code>
      * is returned.
-     *
+     * @see {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy}
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws ClassExpressionNotInProfileException if the class expression <code>ce</code> is not in the profile
      * that is supported by this reasoner.
@@ -820,7 +831,8 @@ public interface OWLReasoner {
      * @param ind The individual that is the subject of the object property values
      * @param pe The object property expression whose values are to be retrieved for the specified individual
      * @return A <code>NodeSet</code> containing named individuals such that for each individual <code>j</code> in the
-     * node set, the set of reasoner axioms entails <code>ObjectPropertyAssertion(pe ind j)</code>
+     * node set, the set of reasoner axioms entails <code>ObjectPropertyAssertion(pe ind j)</code>.
+     * @see {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy}
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the individual and property expression is not contained within the signature
@@ -885,6 +897,18 @@ public interface OWLReasoner {
      */
     long getTimeOut();
 
+    /**
+     * Gets the UndeclaredEntityPolicy in use by this reasoner.  The undeclared entity policy is set at reasoner
+     * creation time.
+     * @return The policy.
+     */
+    UndeclaredEntityPolicy getUndeclaredEntityPolicy();
+
+    /**
+     * Gets the IndividualNodeSetPolicy  in use by this reasoner.  The policy is set at reasoner creation time.
+     * @return The policy.
+     */
+    IndividualNodeSetPolicy getIndividualNodeSetPolicy();
 
 
     /**

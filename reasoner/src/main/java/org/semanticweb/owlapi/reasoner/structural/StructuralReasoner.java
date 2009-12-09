@@ -4,6 +4,7 @@ import org.semanticweb.owlapi.reasoner.impl.*;
 import org.semanticweb.owlapi.reasoner.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.util.Version;
 
 import java.util.*;
 import java.net.URI;
@@ -48,8 +49,47 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private Set<OWLClass> roots = new HashSet<OWLClass>();
 
+    private static final Version version = new Version(1, 0, 0, 0);
+
     public StructuralReasoner(OWLOntology rootOntology, OWLReasonerConfiguration configuration, BufferingMode bufferingMode) {
         super(rootOntology, configuration, bufferingMode);
+    }
+
+    /**
+     * Gets the name of this reasoner.
+     *
+     * @return A string that represents the name of this reasoner.
+     */
+    public String getReasonerName() {
+        return "Structural Reasoner";
+    }
+
+    /**
+     * Gets the UndeclaredEntityPolicy in use by this reasoner.  The undeclared entity policy is set at reasoner
+     * creation time.
+     *
+     * @return The policy.
+     */
+    public UndeclaredEntityPolicy getUndeclaredEntityPolicy() {
+        return UndeclaredEntityPolicy.ALLOW;
+    }
+
+    /**
+     * Gets the IndividualNodeSetPolicy  in use by this reasoner.  The policy is set at reasoner creation time.
+     *
+     * @return The policy.
+     */
+    public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
+        return IndividualNodeSetPolicy.BY_NAME;
+    }
+
+    /**
+     * Gets the version of this reasoner.
+     *
+     * @return The version of this reasoner. Not <code>null</code>.
+     */
+    public Version getReasonerVersion() {
+        return version;
     }
 
     protected void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms) {

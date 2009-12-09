@@ -36,6 +36,7 @@ package org.semanticweb.owlapi.reasoner;
  * Note that once a reasoner has been created, changing fields (via setter methods or directly) on the configuration
  * object will have no effect.
  * @see {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}
+ * @see {@link org.semanticweb.owlapi.reasoner.SimpleConfiguration}
  */
 public interface OWLReasonerConfiguration {
 
@@ -59,5 +60,15 @@ public interface OWLReasonerConfiguration {
      * @return The undeclared entity policy.
      */
     UndeclaredEntityPolicy getUndeclaredEntityPolicy();
+
+    /**
+     * Gets the {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy} which determines how <code>NodeSet</code>s
+     * of named individuals are returned from the reasoner.
+     * @return The <code>IndividualNodeSetPolicy</code> that should be used.  By default the policy is
+     * {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy#BY_NAME} i.e. by default individuals that are
+     * the same as each other are not grouped into the same node within a node set.
+     */
+    IndividualNodeSetPolicy getIndividualNodeSetPolicy();
+    
 
 }

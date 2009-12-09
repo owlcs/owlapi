@@ -39,6 +39,8 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
 
     private UndeclaredEntityPolicy undeclaredEntityPolicy = UndeclaredEntityPolicy.ALLOW;
 
+    private IndividualNodeSetPolicy individualNodeSetPolicy = IndividualNodeSetPolicy.BY_NAME;
+
     private long timeOut = Long.MAX_VALUE;
 
     public SimpleConfiguration() {
@@ -53,10 +55,11 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
         this.timeOut = timeOut;
     }
 
-    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, UndeclaredEntityPolicy undeclaredEntityPolicy, long timeOut) {
+    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, UndeclaredEntityPolicy undeclaredEntityPolicy, long timeOut, IndividualNodeSetPolicy individualNodeSetPolicy) {
         this.progressMonitor = progressMonitor;
         this.undeclaredEntityPolicy = undeclaredEntityPolicy;
         this.timeOut = timeOut;
+        this.individualNodeSetPolicy = individualNodeSetPolicy;
     }
 
     public SimpleConfiguration(UndeclaredEntityPolicy undeclaredEntityPolicy, long timeOut) {
@@ -78,5 +81,9 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
 
     public UndeclaredEntityPolicy getUndeclaredEntityPolicy() {
         return undeclaredEntityPolicy;
+    }
+
+    public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
+        return individualNodeSetPolicy;
     }
 }
