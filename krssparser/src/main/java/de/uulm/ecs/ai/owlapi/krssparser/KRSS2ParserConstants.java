@@ -11,124 +11,128 @@ public interface KRSS2ParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int IRI_START = 8;
+  int COMMENT_START = 8;
   /** RegularExpression Id. */
-  int IRI_END = 9;
+  int IRI_START = 11;
   /** RegularExpression Id. */
-  int TOP = 11;
+  int IRI_END = 12;
   /** RegularExpression Id. */
-  int BOTTOM = 12;
+  int TOP = 14;
   /** RegularExpression Id. */
-  int NIL = 13;
+  int BOTTOM = 15;
   /** RegularExpression Id. */
-  int TRUE = 14;
+  int NIL = 16;
   /** RegularExpression Id. */
-  int OPENPAR = 15;
+  int TRUE = 17;
   /** RegularExpression Id. */
-  int CLOSEPAR = 16;
+  int OPENPAR = 18;
   /** RegularExpression Id. */
-  int ENDTBOX = 17;
+  int CLOSEPAR = 19;
   /** RegularExpression Id. */
-  int ENDABOX = 18;
+  int ENDTBOX = 20;
   /** RegularExpression Id. */
-  int COMPOSE = 19;
+  int ENDABOX = 21;
   /** RegularExpression Id. */
-  int DEFINECONCEPT = 20;
+  int COMPOSE = 22;
   /** RegularExpression Id. */
-  int DEFINEPRIMITIVECONCEPT = 21;
+  int DEFINECONCEPT = 23;
   /** RegularExpression Id. */
-  int DISJOINT = 22;
+  int DEFINEPRIMITIVECONCEPT = 24;
   /** RegularExpression Id. */
-  int EQUIVALENT = 23;
+  int DISJOINT = 25;
   /** RegularExpression Id. */
-  int IMPLIES = 24;
+  int EQUIVALENT = 26;
   /** RegularExpression Id. */
-  int AND = 25;
+  int IMPLIES = 27;
   /** RegularExpression Id. */
-  int OR = 26;
+  int AND = 28;
   /** RegularExpression Id. */
-  int NOT = 27;
+  int OR = 29;
   /** RegularExpression Id. */
-  int ALL = 28;
+  int NOT = 30;
   /** RegularExpression Id. */
-  int ONEOF = 29;
+  int ALL = 31;
   /** RegularExpression Id. */
-  int SOME = 30;
+  int ONEOF = 32;
   /** RegularExpression Id. */
-  int ATLEAST = 31;
+  int SOME = 33;
   /** RegularExpression Id. */
-  int ATMOST = 32;
+  int ATLEAST = 34;
   /** RegularExpression Id. */
-  int EXACTLY = 33;
+  int ATMOST = 35;
   /** RegularExpression Id. */
-  int DEFINEROLE = 34;
+  int EXACTLY = 36;
   /** RegularExpression Id. */
-  int DEFINEPRIMITIVEROLE = 35;
+  int DEFINEROLE = 37;
   /** RegularExpression Id. */
-  int DISJOINTROLES = 36;
+  int DEFINEPRIMITIVEROLE = 38;
   /** RegularExpression Id. */
-  int DOMAIN_ATTRIBUTE = 37;
+  int DISJOINTROLES = 39;
   /** RegularExpression Id. */
-  int IMPLIESROLE = 38;
+  int DOMAIN_ATTRIBUTE = 40;
   /** RegularExpression Id. */
-  int INV = 39;
+  int IMPLIESROLE = 41;
   /** RegularExpression Id. */
-  int INVERSE = 40;
+  int INV = 42;
   /** RegularExpression Id. */
-  int INVERSE_ATTRIBUTE = 41;
+  int INVERSE = 43;
   /** RegularExpression Id. */
-  int LEFT_IDENTITY_ATTRIBUTE = 42;
+  int INVERSE_ATTRIBUTE = 44;
   /** RegularExpression Id. */
-  int PARENT = 43;
+  int LEFT_IDENTITY_ATTRIBUTE = 45;
   /** RegularExpression Id. */
-  int PARENTS = 44;
+  int PARENT = 46;
   /** RegularExpression Id. */
-  int RANGE = 45;
+  int PARENTS = 47;
   /** RegularExpression Id. */
-  int RANGE_ATTRIBUTE = 46;
+  int RANGE = 48;
   /** RegularExpression Id. */
-  int REFLEXIVE_ATTRIBUTE = 47;
+  int RANGE_ATTRIBUTE = 49;
   /** RegularExpression Id. */
-  int RIGHT_IDENTITY_ATTRIBUTE = 48;
+  int REFLEXIVE_ATTRIBUTE = 50;
   /** RegularExpression Id. */
-  int ROLESEQUIVALENT = 49;
+  int RIGHT_IDENTITY_ATTRIBUTE = 51;
   /** RegularExpression Id. */
-  int ROLE_INCLUSION = 50;
+  int ROLESEQUIVALENT = 52;
   /** RegularExpression Id. */
-  int SUBROLE = 51;
+  int ROLE_INCLUSION = 53;
   /** RegularExpression Id. */
-  int SYMMETRIC_ATTRIBUTE = 52;
+  int SUBROLE = 54;
   /** RegularExpression Id. */
-  int TRANSITIVE = 53;
+  int SYMMETRIC_ATTRIBUTE = 55;
   /** RegularExpression Id. */
-  int TRANSITIVE_ATTRIBUTE = 54;
+  int TRANSITIVE = 56;
   /** RegularExpression Id. */
-  int DEFINEINDIVIDUAL = 55;
+  int TRANSITIVE_ATTRIBUTE = 57;
   /** RegularExpression Id. */
-  int DISTINCT = 56;
+  int DEFINEINDIVIDUAL = 58;
   /** RegularExpression Id. */
-  int EQUAL = 57;
+  int DISTINCT = 59;
   /** RegularExpression Id. */
-  int INSTANCE = 58;
+  int EQUAL = 60;
   /** RegularExpression Id. */
-  int RELATED = 59;
+  int INSTANCE = 61;
   /** RegularExpression Id. */
-  int DPOINT = 60;
+  int RELATED = 62;
   /** RegularExpression Id. */
-  int ENUM = 61;
+  int DPOINT = 63;
   /** RegularExpression Id. */
-  int INT = 62;
+  int ENUM = 64;
   /** RegularExpression Id. */
-  int NAME = 63;
+  int INT = 65;
   /** RegularExpression Id. */
-  int NCCHAR_FULL = 64;
+  int NAME = 66;
   /** RegularExpression Id. */
-  int NCCHAR1 = 65;
+  int NCCHAR_FULL = 67;
+  /** RegularExpression Id. */
+  int NCCHAR1 = 68;
 
   /** Lexical state. */
   int DEFAULT = 0;
   /** Lexical state. */
-  int IN_IRI = 1;
+  int IN_COMMENT = 1;
+  /** Lexical state. */
+  int IN_IRI = 2;
 
   /** Literal token values. */
   String[] tokenImage = {
@@ -140,9 +144,12 @@ public interface KRSS2ParserConstants {
     "\"|\"",
     "\"\\\\\"",
     "\"\\n\"",
+    "\";\"",
+    "\"\\n\"",
+    "<token of kind 10>",
     "\"<\"",
     "\">\"",
-    "<token of kind 10>",
+    "<token of kind 13>",
     "<TOP>",
     "<BOTTOM>",
     "\"NIL\"",

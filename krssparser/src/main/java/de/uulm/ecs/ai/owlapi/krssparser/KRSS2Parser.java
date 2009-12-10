@@ -47,7 +47,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
      protected void addAxiom(OWLAxiom ax) throws KRSS2OWLParserException {
+        try {
             ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology, ax));
+        }
+        catch(OWLOntologyChangeException e) {
+            throw new KRSS2OWLParserException(e);
+        }
     }
 
      public IRI getIRI(final String s) throws URISyntaxException {
@@ -1445,54 +1450,6 @@ OWLObjectPropertyExpression superProp;
     finally { jj_save(76, xla); }
   }
 
-  private boolean jj_3R_14() {
-    if (jj_scan_token(OPENPAR)) return true;
-    if (jj_scan_token(ROLE_INCLUSION)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_15() {
-    if (jj_scan_token(OPENPAR)) return true;
-    if (jj_scan_token(DEFINEPRIMITIVEROLE)) return true;
-    return false;
-  }
-
-  private boolean jj_3_60() {
-    if (jj_3R_23()) return true;
-    return false;
-  }
-
-  private boolean jj_3_63() {
-    if (jj_3R_24()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_26() {
-    Token xsp;
-    if (jj_3_63()) return true;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3_63()) { jj_scanpos = xsp; break; }
-    }
-    return false;
-  }
-
-  private boolean jj_3R_18() {
-    if (jj_scan_token(OPENPAR)) return true;
-    if (jj_scan_token(ROLESEQUIVALENT)) return true;
-    return false;
-  }
-
-  private boolean jj_3_14() {
-    if (jj_3R_18()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_24() {
-    if (jj_3R_41()) return true;
-    return false;
-  }
-
   private boolean jj_3R_16() {
     if (jj_scan_token(OPENPAR)) return true;
     if (jj_scan_token(DEFINEROLE)) return true;
@@ -1857,13 +1814,13 @@ OWLObjectPropertyExpression superProp;
     return false;
   }
 
-  private boolean jj_3_53() {
-    if (jj_3R_31()) return true;
+  private boolean jj_3_15() {
+    if (jj_3R_19()) return true;
     return false;
   }
 
-  private boolean jj_3_15() {
-    if (jj_3R_19()) return true;
+  private boolean jj_3_53() {
+    if (jj_3R_31()) return true;
     return false;
   }
 
@@ -2199,6 +2156,54 @@ OWLObjectPropertyExpression superProp;
     return false;
   }
 
+  private boolean jj_3R_14() {
+    if (jj_scan_token(OPENPAR)) return true;
+    if (jj_scan_token(ROLE_INCLUSION)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_15() {
+    if (jj_scan_token(OPENPAR)) return true;
+    if (jj_scan_token(DEFINEPRIMITIVEROLE)) return true;
+    return false;
+  }
+
+  private boolean jj_3_60() {
+    if (jj_3R_23()) return true;
+    return false;
+  }
+
+  private boolean jj_3_63() {
+    if (jj_3R_24()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_26() {
+    Token xsp;
+    if (jj_3_63()) return true;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3_63()) { jj_scanpos = xsp; break; }
+    }
+    return false;
+  }
+
+  private boolean jj_3R_18() {
+    if (jj_scan_token(OPENPAR)) return true;
+    if (jj_scan_token(ROLESEQUIVALENT)) return true;
+    return false;
+  }
+
+  private boolean jj_3_14() {
+    if (jj_3R_18()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_24() {
+    if (jj_3R_41()) return true;
+    return false;
+  }
+
   /** Generated Token Manager. */
   public KRSS2ParserTokenManager token_source;
   SimpleCharStream jj_input_stream;
@@ -2412,7 +2417,7 @@ OWLObjectPropertyExpression superProp;
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[66];
+    boolean[] la1tokens = new boolean[69];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -2432,7 +2437,7 @@ OWLObjectPropertyExpression superProp;
         }
       }
     }
-    for (int i = 0; i < 66; i++) {
+    for (int i = 0; i < 69; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
