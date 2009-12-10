@@ -9,6 +9,7 @@ PARSER_BEGIN(KRSSParser)
 package org.coode.owl.krssparser;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.Namespaces;
 import java.net.*;
 import java.util.*;
 
@@ -318,23 +319,23 @@ OWLAxiom TBoxStatement() :
 
 OWLAxiom DefinePrimitiveConcept() :
 {
-    OWLDescription subClass;
-    OWLDescription superClass;
+    OWLClassExpression subClass;
+    OWLClassExpression superClass;
 }
 {
     <OPENPAR><DEFINEPRIMITIVECONCEPT>subClass=ConceptName() superClass=ConceptExpression()<CLOSEPAR> {
-        return dataFactory.getOWLSubClassAxiom(subClass, superClass);
+        return dataFactory.getOWLSubClassOfAxiom(subClass, superClass);
     }
 }
 
 OWLAxiom DefineConcept() :
 {
-    OWLDescription clsA;
-    OWLDescription clsB;
+    OWLClassExpression clsA;
+    OWLClassExpression clsB;
 }
 {
     <OPENPAR><DEFINECONCEPT>clsA=ConceptName() clsB=ConceptExpression()<CLOSEPAR> {
-        Set<OWLDescription> ops = new HashSet<OWLDescription>();
+        Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
         ops.add(clsA);
         ops.add(clsB);
         return dataFactory.getOWLEquivalentClassesAxiom(ops);
@@ -349,7 +350,7 @@ OWLAxiom DefinePrimitiveRole() :
 {
     <OPENPAR><DEFINEPRIMITIVEROLE>subProp=RoleName() superProp=RoleName() (":right-identity" RoleName())?<CLOSEPAR> {
         if(superProp != null) {
-            return dataFactory.getOWLSubObjectPropertyAxiom(subProp, superProp);
+            return dataFactory.getOWLSubObjectPropertyOfAxiom(subProp, superProp);
         }
     }
 }
@@ -368,7 +369,7 @@ OWLAxiom Transitive() :
 OWLAxiom Range() :
 {
     OWLObjectProperty prop;
-    OWLDescription rng;
+    OWLClassExpression rng;
 }
 {
     <OPENPAR><RANGE>prop=RoleName() rng=ConceptExpression()<CLOSEPAR> {
@@ -377,9 +378,9 @@ OWLAxiom Range() :
 }
 
 
-OWLDescription ConceptExpression() :
+OWLClassExpression ConceptExpression() :
 {
-    OWLDescription desc;
+    OWLClassExpression desc;
 }
 {
     (desc=ConceptName() | desc=And() | desc=Or() | desc=Not() | desc=All() | desc=Some() | desc=AtLeast() | desc=AtMost() | desc=Exactly()) {
@@ -387,7 +388,7 @@ OWLDescription ConceptExpression() :
     }
 }
 
-OWLDescription ConceptName() :
+OWLClassExpression ConceptName() :
 {
     URI uri;
 }
@@ -398,10 +399,10 @@ OWLDescription ConceptName() :
 }
 
 
-Set<OWLDescription> ConceptSet() :
+Set<OWLClassExpression> ConceptSet() :
 {
-    Set<OWLDescription> descs = new HashSet<OWLDescription>();
-    OWLDescription desc;
+    Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
+    OWLClassExpression desc;
 }
 {
     ((desc=ConceptExpression() {descs.add(desc);})+) {
@@ -409,9 +410,9 @@ Set<OWLDescription> ConceptSet() :
     }
 }
 
-OWLDescription And() :
+OWLClassExpression And() :
 {
-    Set<OWLDescription> operands;
+    Set<OWLClassExpression> operands;
 }
 {
     <OPENPAR><AND>(operands=ConceptSet())<CLOSEPAR> {
@@ -419,9 +420,9 @@ OWLDescription And() :
     }
 }
 
-OWLDescription Or() :
+OWLClassExpression Or() :
 {
-    Set<OWLDescription> operands;
+    Set<OWLClassExpression> operands;
 }
 {
     <OPENPAR><OR>(operands=ConceptSet())<CLOSEPAR> {
@@ -429,9 +430,9 @@ OWLDescription Or() :
     }
 }
 
-OWLDescription Not() :
+OWLClassExpression Not() :
 {
-    OWLDescription operand;
+    OWLClassExpression operand;
 }
 {
     <OPENPAR><NOT>(operand=ConceptExpression())<CLOSEPAR> {
@@ -439,61 +440,61 @@ OWLDescription Not() :
     }
 }
 
-OWLDescription All() :
+OWLClassExpression All() :
 {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
 }
 {
     <OPENPAR><ALL>prop=RoleName() filler=ConceptExpression()<CLOSEPAR> {
-        return dataFactory.getOWLObjectAllRestriction(prop, filler);
+        return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
     }
 }
 
-OWLDescription Some() :
+OWLClassExpression Some() :
 {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
 }
 {
     <OPENPAR><SOME>prop=RoleName() filler=ConceptExpression()<CLOSEPAR>{
-        return dataFactory.getOWLObjectSomeRestriction(prop, filler);
+        return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
     }
 }
 
-OWLDescription AtLeast() :
+OWLClassExpression AtLeast() :
 {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     int card;
 }
 {
     <OPENPAR><ATLEAST>card=Integer() prop=RoleName() filler=ConceptExpression()<CLOSEPAR>{
-        return dataFactory.getOWLObjectMinCardinalityRestriction(prop, card, filler);
+        return dataFactory.getOWLObjectMinCardinality(card, prop, filler);
     }
 }
 
-OWLDescription AtMost() :
+OWLClassExpression AtMost() :
 {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     int card;
 }
 {
     <OPENPAR><ATMOST>card=Integer() prop=RoleName() filler=ConceptExpression()<CLOSEPAR>{
-        return dataFactory.getOWLObjectMaxCardinalityRestriction(prop, card, filler);
+        return dataFactory.getOWLObjectMaxCardinality(card, prop, filler);
     }
 }
 
-OWLDescription Exactly() :
+OWLClassExpression Exactly() :
 {
     OWLObjectProperty prop;
-    OWLDescription filler;
+    OWLClassExpression filler;
     int card;
 }
 {
     <OPENPAR><EXACTLY>card=Integer() prop=RoleName() filler=ConceptExpression()<CLOSEPAR>{
-        return dataFactory.getOWLObjectExactCardinalityRestriction(prop, card, filler);
+        return dataFactory.getOWLObjectExactCardinality(card, prop, filler);
     }
 }
 
@@ -520,11 +521,11 @@ OWLAxiom ABoxStatement() :
 OWLAxiom Instance() :
 {
     OWLIndividual ind;
-    OWLDescription type;
+    OWLClassExpression type;
 }
 {
     <OPENPAR><INSTANCE>ind=IndividualName() type=ConceptExpression()<CLOSEPAR> {
-        return dataFactory.getOWLClassAssertionAxiom(ind, type);
+        return dataFactory.getOWLClassAssertionAxiom(type, ind);
     }
 }
 
@@ -536,7 +537,7 @@ OWLAxiom Related() :
 }
 {
     <OPENPAR><RELATED>subj=IndividualName() prop=RoleName() obj=IndividualName()<CLOSEPAR> {
-        return dataFactory.getOWLObjectPropertyAssertionAxiom(subj, prop, obj);
+        return dataFactory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj);
     }
 }
 
@@ -549,7 +550,7 @@ OWLAxiom Equal() :
     <OPENPAR><EQUAL>indA=IndividualName() indB=IndividualName()<CLOSEPAR> {
         inds.add(indA);
         inds.add(indB);
-        return dataFactory.getOWLSameIndividualsAxiom(inds);
+        return dataFactory.getOWLSameIndividualAxiom(inds);
     }
 }
 
@@ -573,7 +574,7 @@ OWLIndividual IndividualName() :
 }
 {
     name = Name() {
-        return dataFactory.getOWLIndividual(name);
+        return dataFactory.getOWLNamedIndividual(name);
     }
 }
 
