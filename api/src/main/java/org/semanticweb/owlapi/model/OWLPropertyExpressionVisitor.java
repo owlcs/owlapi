@@ -28,6 +28,8 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Nov-2006<br><br>
+ * </p>
+ * An interface to object that can visit the different types of property expressions.
  */
 public interface OWLPropertyExpressionVisitor {
 

@@ -67,7 +67,7 @@ public class ImportedAnnotationPropertiesTestCase extends TestCase {
 
         OWLOntology ontA = man.loadOntology(ontURI);
         OWLIndividual ind = man.getOWLDataFactory().getOWLNamedIndividual(IRI.create("http://www.semanticweb.org/ontologies/importAnnotationProperties.owlapi#A"));
-        assertTrue(ontA.getReferencedIndividuals().contains(ind));
-        assertTrue(ontA.containsAnnotationPropertyReference(IRI.create("http://www.semanticweb.org/owlapi/annotationprops#myProp")));
+        assertTrue(ontA.getIndividualsInSignature().contains(ind));
+        assertTrue(ontA.containsAnnotationPropertyInSignature(IRI.create("http://www.semanticweb.org/owlapi/annotationprops#myProp")));
     }
 }

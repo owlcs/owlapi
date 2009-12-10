@@ -38,6 +38,6 @@ import java.util.Set;
 public abstract class InferredClassAxiomGenerator<A extends OWLClassAxiom> extends InferredEntityAxiomGenerator<OWLClass, A> {
 
     protected Set<OWLClass> getEntities(OWLOntology ont) {
-        return ont.getReferencedClasses();
+        return ont.getClassesInSignature();
     }
 }

@@ -47,6 +47,6 @@ public class ReferencedClassCount extends ObjectCountMetric {
 
 
     protected Set getObjects(OWLOntology ont) {
-        return ont.getReferencedClasses();
+        return ont.getClassesInSignature();
     }
 }

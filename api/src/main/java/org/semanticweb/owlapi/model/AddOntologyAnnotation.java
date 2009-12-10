@@ -27,6 +27,8 @@ package org.semanticweb.owlapi.model;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 24-Mar-2009
+ * </p>
+ * Represents an ontology change where an annotation is added to an ontology.
  */
 public class AddOntologyAnnotation extends OWLOntologyChange {
 
@@ -45,6 +47,10 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
     }
 
 
+    /**
+     * Gets the annotation that was added to an ontology.
+     * @return
+     */
     public OWLAnnotation getAnnotation() {
         return annotation;
     }

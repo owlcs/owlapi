@@ -78,7 +78,7 @@ public class SimpleHierarchyExample {
         this.ontology = ontology;
         printHierarchy(reasoner, clazz, 0 );
         /* Now print out any unsatisfiable classes */
-        for (OWLClass cl: ontology.getReferencedClasses()) {
+        for (OWLClass cl: ontology.getClassesInSignature()) {
             if (!reasoner.isSatisfiable(cl)) {
                 out.println("XXX: " + labelFor(cl));
             }

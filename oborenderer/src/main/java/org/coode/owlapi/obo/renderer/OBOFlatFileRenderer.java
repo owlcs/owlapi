@@ -155,7 +155,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
 
     private Map<String, String> loadUsedNamespaces(OWLOntology ontology) {
-        for (OWLEntity entity : ontology.getReferencedEntities()) {
+        for (OWLEntity entity : ontology.getSignature()) {
             String[] pair = new String[2];
             nsUtil.split(entity.getIRI().toString(), pair);
             final IRI base = IRI.create(pair[0]);
@@ -169,7 +169,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
         write("\n\n! ----------------------  CLASSES  -------------------------\n", writer);
 
-        final List<OWLClass> sortedClasses = new ArrayList<OWLClass>(ontology.getReferencedClasses());
+        final List<OWLClass> sortedClasses = new ArrayList<OWLClass>(ontology.getClassesInSignature());
         Collections.sort(sortedClasses);
         for (OWLClass cls : sortedClasses) {
             writeTermStanza(cls, ontology, writer);
@@ -178,13 +178,13 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
         write("\n\n! ----------------------  PROPERTIES  -------------------------\n", writer);
 
-        final List<OWLObjectProperty> objProps = new ArrayList<OWLObjectProperty>(ontology.getReferencedObjectProperties());
+        final List<OWLObjectProperty> objProps = new ArrayList<OWLObjectProperty>(ontology.getObjectPropertiesInSignature());
         Collections.sort(objProps);
         for (OWLObjectProperty property : objProps) {
             writeTypeDefStanza(property, ontology, writer);
         }
 
-        final List<OWLDataProperty> dataProps = new ArrayList<OWLDataProperty>(ontology.getReferencedDataProperties());
+        final List<OWLDataProperty> dataProps = new ArrayList<OWLDataProperty>(ontology.getDataPropertiesInSignature());
         Collections.sort(dataProps);
         for (OWLDataProperty property : dataProps) {
             writeTypeDefStanza(property, ontology, writer);
@@ -193,7 +193,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
         write("\n\n! ----------------------  INSTANCES  -------------------------\n", writer);
 
-        final List<OWLNamedIndividual> individuals = new ArrayList<OWLNamedIndividual>(ontology.getReferencedIndividuals());
+        final List<OWLNamedIndividual> individuals = new ArrayList<OWLNamedIndividual>(ontology.getIndividualsInSignature());
         Collections.sort(individuals);
         for (OWLNamedIndividual individual : individuals) {
             writeInstanceStanza(individual, ontology, writer);

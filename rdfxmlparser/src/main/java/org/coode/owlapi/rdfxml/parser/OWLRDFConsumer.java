@@ -639,7 +639,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     public void importsClosureChanged() {
         for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
-            for(OWLAnnotationProperty prop : ont.getReferencedAnnotationProperties()) {
+            for(OWLAnnotationProperty prop : ont.getAnnotationPropertiesInSignature()) {
                 annotationPropertyIRIs.add(prop.getIRI());
             }
         }
@@ -753,7 +753,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         else {
             for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
-                if (ont.containsClassReference(iri)) {
+                if (ont.containsClassInSignature(iri)) {
                     return true;
                 }
             }
@@ -775,11 +775,11 @@ public class OWLRDFConsumer implements RDFConsumer {
         else {
             boolean containsObjectPropertyReference = false;
             for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
-                if (ont.containsDataPropertyReference(iri)) {
+                if (ont.containsDataPropertyInSignature(iri)) {
                     dataPropertyIRIs.add(iri);
                     return false;
                 }
-                else if (ont.containsObjectPropertyReference(iri)) {
+                else if (ont.containsObjectPropertyInSignature(iri)) {
                     containsObjectPropertyReference = true;
                     objectPropertyIRIs.add(iri);
                 }
@@ -803,10 +803,10 @@ public class OWLRDFConsumer implements RDFConsumer {
         else {
             boolean containsDataPropertyReference = false;
             for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
-                if (ont.containsObjectPropertyReference(iri)) {
+                if (ont.containsObjectPropertyInSignature(iri)) {
                     return false;
                 }
-                else if (ont.containsDataPropertyReference(iri)) {
+                else if (ont.containsDataPropertyInSignature(iri)) {
                     containsDataPropertyReference = true;
                 }
             }
@@ -826,7 +826,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
             if (!ont.equals(ontology)) {
-                for (OWLAnnotationProperty prop : ont.getReferencedAnnotationProperties()) {
+                for (OWLAnnotationProperty prop : ont.getAnnotationPropertiesInSignature()) {
                     annotationPropertyIRIs.add(prop.getIRI());
                 }
 //                if (ont.getAnnotationIRIs().contains(iri)) {

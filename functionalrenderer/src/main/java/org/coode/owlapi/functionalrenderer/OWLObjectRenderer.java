@@ -176,7 +176,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
         Set<OWLAxiom> writtenAxioms = new HashSet<OWLAxiom>();
 
-        for (OWLEntity ent : new TreeSet<OWLEntity>(ontology.getReferencedEntities())) {
+        for (OWLEntity ent : new TreeSet<OWLEntity>(ontology.getSignature())) {
             writtenAxioms.addAll(writeAxioms(ent));
         }
 

@@ -64,14 +64,14 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
         Set<OWLNamedIndividual> individuals = new HashSet<OWLNamedIndividual>();
 
         for (OWLOntology ont : ontologies) {
-            individuals.addAll(ont.getReferencedIndividuals());
+            individuals.addAll(ont.getIndividualsInSignature());
         }
 
         Set<OWLDataProperty> convertedDataProperties = new HashSet<OWLDataProperty>();
         for (OWLNamedIndividual ind : individuals) {
             boolean punned = false;
             for (OWLOntology ont : ontologies) {
-                if (ont.containsClassReference(ind.getIRI())) {
+                if (ont.containsClassInSignature(ind.getIRI())) {
                     punned = true;
                     break;
                 }

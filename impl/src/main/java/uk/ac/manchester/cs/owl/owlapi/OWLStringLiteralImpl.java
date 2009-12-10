@@ -78,7 +78,7 @@ public class OWLStringLiteralImpl extends OWLLiteralImpl implements OWLStringLit
     }
 
 
-    public OWLStringLiteral asRDFTextLiteral() {
+    public OWLStringLiteral asStringLiteral() {
         return this;
     }
 

@@ -48,6 +48,6 @@ public class ReferencedDataPropertyCount extends ObjectCountMetric {
 
 
     protected Set getObjects(OWLOntology ont) {
-        return ont.getReferencedDataProperties();
+        return ont.getDataPropertiesInSignature();
     }
 }

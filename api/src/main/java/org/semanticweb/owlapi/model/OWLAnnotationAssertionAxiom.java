@@ -29,17 +29,38 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group<br>
  * Date: 25-Nov-2006<br><br>
  * <p/>
- * An annotation that annotates the <b>entity</b> in an entity declaration.  Such
- * annotations could be used to provide labels for entities etc.
+ * Represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Assertion">AnnotationAssertion</a> axioms
+ * in the OWL 2 specification.
  */
 public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom {
 
+    /**
+     * Gets the subject of the annotation assertion. This is either an {@link org.semanticweb.owlapi.model.IRI} or
+     * an {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual}.
+     * @return The subject of the annotation
+     */
     OWLAnnotationSubject getSubject();
 
+    /**
+     * Gets the annotation property.
+     * @return The annotation property.
+     */
     OWLAnnotationProperty getProperty();
 
+    /**
+     * Gets the annotation value.  This is either an {@link org.semanticweb.owlapi.model.IRI}, an {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual}
+     * or an {@link OWLTypedLiteral} or an {@link org.semanticweb.owlapi.model.OWLStringLiteral}. Annotation values can be visited with an {@link org.semanticweb.owlapi.model.OWLAnnotationValueVisitor}.
+     * @see {@link org.semanticweb.owlapi.model.OWLAnnotationValueVisitor}
+     * @see {@link OWLAnnotationValueVisitorEx}
+     * @return The annotation value.
+     */
     OWLAnnotationValue getValue();
 
+    /**
+     * Gets the combination of the annotation property and the annotation value as an {@link org.semanticweb.owlapi.model.OWLAnnotation}
+     * object.
+     * @return The annotation object that combines the property and value of this annotation.
+     */
     OWLAnnotation getAnnotation();
 
     OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();

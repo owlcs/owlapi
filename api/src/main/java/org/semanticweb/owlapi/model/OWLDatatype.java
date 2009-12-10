@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  * <p/>
- * Represents a named data range.
+ * Represents a <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Datatypes">Datatype</a> (named data range) in the OWL 2 Specification.
  */
 public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObject {
 
@@ -46,14 +46,38 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObj
      */
     OWL2Datatype getBuiltInDatatype();
 
+    /**
+     * Determines if this datatype has the IRI <code>xsd:string</code>
+     * @return <code>true</code> if this datatype has the IRI <code>xsd:string</code>, otherwise <code>false</code>.
+     */
     boolean isString();
 
+
+    /**
+     * Determines if this datatype has the IRI <code>xsd:integer</code>
+     * @return <code>true</code> if this datatype has the IRI <code>xsd:integer</code>, otherwise <code>false</code>.
+     */
     boolean isInteger();
 
+
+    /**
+     * Determines if this datatype has the IRI <code>xsd:float</code>
+     * @return <code>true</code> if this datatype has the IRI <code>xsd:float</code>, otherwise <code>false</code>.
+     */
     boolean isFloat();
 
+
+    /**
+     * Determines if this datatype has the IRI <code>xsd:double</code>
+     * @return <code>true</code> if this datatype has the IRI <code>xsd:double</code>, otherwise <code>false</code>.
+     */
     boolean isDouble();
 
+
+    /**
+     * Determines if this datatype has the IRI <code>xsd:boolean</code>
+     * @return <code>true</code> if this datatype has the IRI <code>xsd:boolean</code>, otherwise <code>false</code>.
+     */
     boolean isBoolean();
 
 }

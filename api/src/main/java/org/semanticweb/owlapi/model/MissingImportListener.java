@@ -28,6 +28,12 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 11-Apr-2008<br><br>
+ * </p>
+ * An interface for objects that listen to missing imports events.
+ * @see MissingImportEvent
+ * @see OWLOntologyManager#isSilentMissingImportsHandling() 
+ * @see org.semanticweb.owlapi.model.OWLOntologyManager#addMissingImportListener(MissingImportListener)
+ * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener)
  */
 public interface MissingImportListener {
 

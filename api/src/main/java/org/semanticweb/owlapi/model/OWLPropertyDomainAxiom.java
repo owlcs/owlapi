@@ -28,10 +28,20 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
+ * <p/>
+ * Represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Object_Property_Domain">ObjectPropertyDomain</a> axioms in the OWL 2 specification.
  */
 public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression> extends OWLUnaryPropertyAxiom<P> {
 
+    /**
+     * Gets the domain specified by this property axiom
+     * @return The class expression that represents the domain specified by this axiom.
+     */
     OWLClassExpression getDomain();
 
+    /**
+     * Gets this axiom represented as an {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}.
+     * @return The {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} that is equivalent to this axiom.
+     */
     OWLSubClassOfAxiom asOWLSubClassOfAxiom();
 }

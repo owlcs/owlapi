@@ -42,7 +42,7 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLTestCase {
         OWLOntologyManager man = getOWLOntologyManager();
         OWLOntology ont = man.createOntology(TestUtils.createIRI());
         man.applyChange(new AddAxiom(ont, ax));
-        assertTrue(ont.getReferencedClasses().contains(cls));
+        assertTrue(ont.getClassesInSignature().contains(cls));
     }
 
     public void testOWLObjectPropertyDeclarationAxiom() throws Exception {
@@ -51,7 +51,7 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLTestCase {
         OWLOntologyManager man = getOWLOntologyManager();
         OWLOntology ont = man.createOntology(TestUtils.createIRI());
         man.applyChange(new AddAxiom(ont, ax));
-        assertTrue(ont.getReferencedObjectProperties().contains(prop));
+        assertTrue(ont.getObjectPropertiesInSignature().contains(prop));
     }
 
     public void testOWLDataPropertyDeclarationAxiom() throws Exception {
@@ -60,7 +60,7 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLTestCase {
         OWLOntologyManager man = getOWLOntologyManager();
         OWLOntology ont = man.createOntology(TestUtils.createIRI());
         man.applyChange(new AddAxiom(ont, ax));
-        assertTrue(ont.getReferencedDataProperties().contains(prop));
+        assertTrue(ont.getDataPropertiesInSignature().contains(prop));
     }
 
     public void testOWLIndividualDeclarationAxiom() throws Exception {
@@ -69,6 +69,6 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLTestCase {
         OWLOntologyManager man = getOWLOntologyManager();
         OWLOntology ont = man.createOntology(TestUtils.createIRI());
         man.applyChange(new AddAxiom(ont, ax));
-        assertTrue(ont.getReferencedIndividuals().contains(ind));
+        assertTrue(ont.getIndividualsInSignature().contains(ind));
     }
 }

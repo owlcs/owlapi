@@ -6,7 +6,6 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.net.URI;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -170,22 +169,22 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
         write("<h2>Classes</h2>\n");
 
-        writeCollection(ontology.getReferencedClasses());
+        writeCollection(ontology.getClassesInSignature());
 
         write("</div>\n");
 
         write("<div class='box'>\n");
         write("<h2>Properties</h2>\n");
 
-        writeCollection(ontology.getReferencedObjectProperties());
-        writeCollection(ontology.getReferencedDataProperties());
+        writeCollection(ontology.getObjectPropertiesInSignature());
+        writeCollection(ontology.getDataPropertiesInSignature());
 
         write("</div>\n");
 
         write("<div class='box'>\n");
         write("<h2>Individuals</h2>\n");
 
-        writeCollection(ontology.getReferencedIndividuals());
+        writeCollection(ontology.getIndividualsInSignature());
 
         write("</div>");
         write("<div>");

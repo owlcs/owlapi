@@ -79,7 +79,7 @@ public class FailedImportsTestCase extends TestCase {
 
         for (OWLOntology ont : manager.getOntologies()) {
             System.out.println("ont = " + ont);
-            System.out.println("classes = " + ont.getReferencedClasses());
+            System.out.println("classes = " + ont.getClassesInSignature());
         }
 
         assertEquals(2, manager.getOntologies().size());

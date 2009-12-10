@@ -53,7 +53,7 @@ public class CardinalityTest extends TestCase {
         OWLOntology o;
         try {
             o = manager.loadOntologyFromPhysicalURI(a);
-            assertTrue(o.containsObjectPropertyReference(IRI.create("http://www.co-ode.org/ontologies/test/convertMin1ToSomeValusFrom.owlapi#p")));
+            assertTrue(o.containsObjectPropertyInSignature(IRI.create("http://www.co-ode.org/ontologies/test/convertMin1ToSomeValusFrom.owlapi#p")));
         }
         catch (OWLOntologyCreationException e) {
             System.out.println("Failed to load ontology");

@@ -27,7 +27,8 @@ import java.util.Set;
 
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group Date: 24-Oct-2006
- * Represents a class expression in OWL.  This interface covers named and anonymous classes.
+ * Represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Class_Expressions">Class Expressions</a> in
+ * the OWL 2 specification.  This interface covers named and anonymous classes.
  */
 public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPredicate {
 

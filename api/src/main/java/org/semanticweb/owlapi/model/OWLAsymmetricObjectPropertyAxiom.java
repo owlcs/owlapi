@@ -29,9 +29,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  * <p/>
- * States that an object property is asymmetric.  NOTE that in the original OWL 1.1 spec asymmetric properties
- * were called antisymmetric properties - hence the name of this interface.  This interface (despite the name)
- * therefore means asymmteric.
+ * Represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Asymmetric_Object_Properties">AsymmetricObjectProperty</a> axioms in the OWL 2 specification.
  */
 public interface OWLAsymmetricObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 

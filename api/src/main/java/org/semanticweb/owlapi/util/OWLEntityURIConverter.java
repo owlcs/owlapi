@@ -83,18 +83,18 @@ public class OWLEntityURIConverter {
         processedEntities = new HashSet<OWLEntity>();
         changes = new ArrayList<OWLOntologyChange>();
         for (OWLOntology ont : ontologies) {
-            for (OWLClass cls : ont.getReferencedClasses()) {
+            for (OWLClass cls : ont.getClassesInSignature()) {
                 if (!cls.isOWLThing() && !cls.isOWLNothing()) {
                     processEntity(cls);
                 }
             }
-            for (OWLObjectProperty prop : ont.getReferencedObjectProperties()) {
+            for (OWLObjectProperty prop : ont.getObjectPropertiesInSignature()) {
                 processEntity(prop);
             }
-            for (OWLDataProperty prop : ont.getReferencedDataProperties()) {
+            for (OWLDataProperty prop : ont.getDataPropertiesInSignature()) {
                 processEntity(prop);
             }
-            for (OWLNamedIndividual ind : ont.getReferencedIndividuals()) {
+            for (OWLNamedIndividual ind : ont.getIndividualsInSignature()) {
                 processEntity(ind);
             }
         }

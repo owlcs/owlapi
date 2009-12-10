@@ -5,7 +5,6 @@ import org.semanticweb.owlapi.model.*;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.net.URI;
 import java.util.Iterator;
 import java.util.Set;
 /*
@@ -147,7 +146,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     }
 
     public final void visit(OWLOntology ontology) {
-        for (final OWLClass eachClass : ontology.getReferencedClasses()) {
+        for (final OWLClass eachClass : ontology.getClassesInSignature()) {
             final boolean primitive = !eachClass.isDefined(ontology);//!eachClass.getSuperClasses(ontology).isEmpty();
             if (primitive) {
                 writeOpenBracket();
@@ -206,7 +205,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
             axiom.accept(this);
         }
 
-        for (final OWLObjectProperty property : ontology.getReferencedObjectProperties()) {
+        for (final OWLObjectProperty property : ontology.getObjectPropertiesInSignature()) {
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);

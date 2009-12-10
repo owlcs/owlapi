@@ -88,7 +88,7 @@ public class Example2 {
 
             // The ontology will now contain references to class A and class B - let's
             // print them out
-            for (OWLClass cls : ontology.getReferencedClasses()) {
+            for (OWLClass cls : ontology.getClassesInSignature()) {
                 System.out.println("Referenced class: " + cls);
             }
             // We should also find that B is a superclass of A

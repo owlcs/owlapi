@@ -51,7 +51,7 @@ public class Example1 {
             // Now ask the manager to load the ontology
             OWLOntology ontology = manager.loadOntologyFromPhysicalURI(physicalURI);
             // Print out all of the classes which are referenced in the ontology
-            for (OWLClass cls : ontology.getReferencedClasses()) {
+            for (OWLClass cls : ontology.getClassesInSignature()) {
                 System.out.println(cls);
             }
             // Now save a copy to another location in OWL/XML format (i.e. disregard the

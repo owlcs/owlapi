@@ -24,6 +24,8 @@ package org.semanticweb.owlapi.model;/*
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 17-Jan-2009
+ * </p>
+ * A visitor which visits the different kinds of annotation axioms.
  */
 public interface OWLAnnotationAxiomVisitor {
 

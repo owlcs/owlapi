@@ -6,7 +6,6 @@ import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
-import java.net.URI;
 import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -502,7 +501,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      *         <code>axiomB</code> in the set, <code>axiomA.getAxiomWithoutAnnotations()</code> is equal to
      *         <code>axiomB.getAxiomWithoutAnnotations()</code>.  The specified axiom will be contained in the set.
      */
-    public Set<OWLAxiom> getAxiomsIgnoringAnnotations(OWLAxiom axiom) {
+    public Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom) {
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
         if (containsAxiom(axiom)) {
             result.add(axiom);
@@ -526,57 +525,57 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      *         <code>axiomB</code> in the set, <code>axiomA.getAxiomWithoutAnnotations()</code> is equal to
      *         <code>axiomB.getAxiomWithoutAnnotations()</code>.  The specified axiom will be contained in the set.
      */
-    public Set<OWLAxiom> getAxiomsIgnoringAnnotations(OWLAxiom axiom, boolean includeImportsClosure) {
+    public Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom, boolean includeImportsClosure) {
         if(!includeImportsClosure) {
-            return getAxiomsIgnoringAnnotations(axiom);
+            return getAxiomsIgnoreAnnotations(axiom);
         }
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
         for(OWLOntology ont : getImportsClosure()) {
-            result.addAll(ont.getAxiomsIgnoringAnnotations(axiom));
+            result.addAll(ont.getAxiomsIgnoreAnnotations(axiom));
         }
         return result;
     }
 
-    public boolean containsClassReference(IRI owlClassIRI) {
+    public boolean containsClassInSignature(IRI owlClassIRI) {
         return owlClassReferences.containsKey(getOWLDataFactory().getOWLClass(owlClassIRI));
     }
 
-    public boolean containsClassReference(IRI owlClassIRI, boolean includeImportsClosure) {
+    public boolean containsClassInSignature(IRI owlClassIRI, boolean includeImportsClosure) {
         for(OWLOntology ont : manager.getImportsClosure(this)) {
-            if(ont.containsClassReference(owlClassIRI)) {
+            if(ont.containsClassInSignature(owlClassIRI)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean containsObjectPropertyReference(IRI propIRI) {
+    public boolean containsObjectPropertyInSignature(IRI propIRI) {
         return owlObjectPropertyReferences.containsKey(getOWLDataFactory().getOWLObjectProperty(propIRI));
     }
 
-    public boolean containsObjectPropertyReference(IRI propIRI, boolean includeImportsClosure) {
+    public boolean containsObjectPropertyInSignature(IRI propIRI, boolean includeImportsClosure) {
         for(OWLOntology ont : manager.getImportsClosure(this)) {
-            if(ont.containsObjectPropertyReference(propIRI)) {
+            if(ont.containsObjectPropertyInSignature(propIRI)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean containsDataPropertyReference(IRI propIRI) {
+    public boolean containsDataPropertyInSignature(IRI propIRI) {
         return owlDataPropertyReferences.containsKey(getOWLDataFactory().getOWLDataProperty(propIRI));
     }
 
-    public boolean containsDataPropertyReference(IRI propIRI, boolean includeImportsClosure) {
+    public boolean containsDataPropertyInSignature(IRI propIRI, boolean includeImportsClosure) {
         for(OWLOntology ont : manager.getImportsClosure(this)) {
-            if(ont.containsDataPropertyReference(propIRI)) {
+            if(ont.containsDataPropertyInSignature(propIRI)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean containsAnnotationPropertyReference(IRI propIRI) {
+    public boolean containsAnnotationPropertyInSignature(IRI propIRI) {
         boolean b = owlAnnotationPropertyReferences.containsKey(getOWLDataFactory().getOWLAnnotationProperty(propIRI));
         if(b) {
             return true;
@@ -591,37 +590,37 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return false;
     }
 
-    public boolean containsAnnotationPropertyReference(IRI propIRI, boolean includeImportsClosure) {
+    public boolean containsAnnotationPropertyInSignature(IRI propIRI, boolean includeImportsClosure) {
         for(OWLOntology ont : manager.getImportsClosure(this)) {
-            if(ont.containsAnnotationPropertyReference(propIRI)) {
+            if(ont.containsAnnotationPropertyInSignature(propIRI)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean containsIndividualReference(IRI individualIRI) {
+    public boolean containsIndividualInSignature(IRI individualIRI) {
         return owlIndividualReferences.containsKey(getOWLDataFactory().getOWLNamedIndividual(individualIRI));
     }
 
 
 
-    public boolean containsIndividualReference(IRI individualIRI, boolean includeImportsClosure) {
+    public boolean containsIndividualInSignature(IRI individualIRI, boolean includeImportsClosure) {
         for(OWLOntology ont : manager.getImportsClosure(this)) {
-            if(ont.containsIndividualReference(individualIRI)) {
+            if(ont.containsIndividualInSignature(individualIRI)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean containsDatatypeReference(IRI datatypeIRI) {
+    public boolean containsDatatypeInSignature(IRI datatypeIRI) {
         return owlDatatypeReferences.containsKey(getOWLDataFactory().getOWLDatatype(datatypeIRI));
     }
 
-    public boolean containsDatatypeReference(IRI datatypeIRI, boolean includeImportsClosure) {
+    public boolean containsDatatypeInSignature(IRI datatypeIRI, boolean includeImportsClosure) {
         for(OWLOntology ont : manager.getImportsClosure(this)) {
-            if(ont.containsDatatypeReference(datatypeIRI)) {
+            if(ont.containsDatatypeInSignature(datatypeIRI)) {
                 return true;
             }
         }
@@ -634,24 +633,24 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      * @return A set of entities that are in the signature of this ontology that have the specified IRI.  The
      *         set will be empty if there are no entities in the signature of this ontology with the specified IRI.
      */
-    public Set<OWLEntity> getEntitiesWithIRI(IRI iri) {
+    public Set<OWLEntity> getEntitiesInSignature(IRI iri) {
         Set<OWLEntity> result = new HashSet<OWLEntity>(6);
-        if(containsClassReference(iri)) {
+        if(containsClassInSignature(iri)) {
             result.add(manager.getOWLDataFactory().getOWLClass(iri));
         }
-        if(containsObjectPropertyReference(iri)) {
+        if(containsObjectPropertyInSignature(iri)) {
             result.add(manager.getOWLDataFactory().getOWLObjectProperty(iri));
         }
-        if(containsDataPropertyReference(iri)) {
+        if(containsDataPropertyInSignature(iri)) {
             result.add(manager.getOWLDataFactory().getOWLDataProperty(iri));
         }
-        if(containsIndividualReference(iri)) {
+        if(containsIndividualInSignature(iri)) {
             result.add(manager.getOWLDataFactory().getOWLNamedIndividual(iri));
         }
-        if(containsDatatypeReference(iri)) {
+        if(containsDatatypeInSignature(iri)) {
             result.add(manager.getOWLDataFactory().getOWLDatatype(iri));
         }
-        if(containsAnnotationPropertyReference(iri)) {
+        if(containsAnnotationPropertyInSignature(iri)) {
             result.add(manager.getOWLDataFactory().getOWLAnnotationProperty(iri));
         }
         return result;
@@ -665,14 +664,14 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      *         that have the specified IRI.  The set will be empty if there are no entities in the signature of this ontology
      *         and possibly its imports closure with the specified IRI.
      */
-    public Set<OWLEntity> getEntitiesWithIRI(IRI iri, boolean includeImportsClosure) {
+    public Set<OWLEntity> getEntitiesInSignature(IRI iri, boolean includeImportsClosure) {
         if(!includeImportsClosure) {
-            return getEntitiesWithIRI(iri);
+            return getEntitiesInSignature(iri);
         }
         else {
             Set<OWLEntity> result = new HashSet<OWLEntity>(6);
             for(OWLOntology ont : getImportsClosure()) {
-                result.addAll(ont.getEntitiesWithIRI(iri));
+                result.addAll(ont.getEntitiesInSignature(iri));
             }
             return result;
         }
@@ -727,7 +726,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return false;
     }
 
-    public boolean containsEntityReference(OWLEntity owlEntity) {
+    public boolean containsEntityInSignature(OWLEntity owlEntity) {
         return entityReferenceChecker.containsReference(owlEntity);
     }
 
@@ -740,46 +739,46 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      *         <code>false</code> The set that is returned is a copy - it will not be updated if the ontology changes.
      *         It is therefore safe to apply changes to this ontology while iterating over this set.
      */
-    public boolean containsEntityReference(OWLEntity owlEntity, boolean includeImportsClosure) {
+    public boolean containsEntityInSignature(OWLEntity owlEntity, boolean includeImportsClosure) {
         if(!includeImportsClosure) {
-            return containsEntityReference(owlEntity);
+            return containsEntityInSignature(owlEntity);
         }
         for(OWLOntology ont : getImportsClosure()) {
-            if(ont.containsEntityReference(owlEntity)) {
+            if(ont.containsEntityInSignature(owlEntity)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean containsEntityReference(IRI entityIRI) {
-        if(containsClassReference(entityIRI)) {
+    public boolean containsEntityInSignature(IRI entityIRI) {
+        if(containsClassInSignature(entityIRI)) {
             return true;
         }
-        if(containsObjectPropertyReference(entityIRI)) {
+        if(containsObjectPropertyInSignature(entityIRI)) {
             return true;
         }
-        if(containsDataPropertyReference(entityIRI)) {
+        if(containsDataPropertyInSignature(entityIRI)) {
             return true;
         }
-        if(containsIndividualReference(entityIRI)) {
+        if(containsIndividualInSignature(entityIRI)) {
             return true;
         }
-        if(containsDatatypeReference(entityIRI)) {
+        if(containsDatatypeInSignature(entityIRI)) {
             return true;
         }
-        if(containsAnnotationPropertyReference(entityIRI)) {
+        if(containsAnnotationPropertyInSignature(entityIRI)) {
             return true;
         }
         return false;
     }
 
-    public boolean containsEntityReference(IRI entityIRI, boolean includeImportsClosure) {
+    public boolean containsEntityInSignature(IRI entityIRI, boolean includeImportsClosure) {
         if(!includeImportsClosure) {
-            return containsEntityReference(entityIRI);
+            return containsEntityInSignature(entityIRI);
         }
         for(OWLOntology ont : getImportsClosure()) {
-            if(ont.containsEntityReference(entityIRI)) {
+            if(ont.containsEntityInSignature(entityIRI)) {
                 return true;
             }
         }
@@ -935,22 +934,49 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLEntity> getReferencedEntities() {
+    public Set<OWLEntity> getSignature() {
         // We might want to cache this for performance reasons,
         // but I'm not sure right now.
         Set<OWLEntity> entities = new HashSet<OWLEntity>();
-        entities.addAll(getReferencedClasses());
-        entities.addAll(getReferencedObjectProperties());
-        entities.addAll(getReferencedDataProperties());
-        entities.addAll(getReferencedIndividuals());
-        entities.addAll(getReferencedDatatypes());
-        entities.addAll(getReferencedAnnotationProperties());
+        entities.addAll(getClassesInSignature());
+        entities.addAll(getObjectPropertiesInSignature());
+        entities.addAll(getDataPropertiesInSignature());
+        entities.addAll(getIndividualsInSignature());
+        entities.addAll(getDatatypesInSignature());
+        entities.addAll(getAnnotationPropertiesInSignature());
         return entities;
     }
 
-
-    public Set<OWLClass> getReferencedClasses() {
+    @Override
+    public Set<OWLClass> getClassesInSignature() {
         return getReturnSet(owlClassReferences.keySet());
+    }
+
+    @Override
+    public Set<OWLDataProperty> getDataPropertiesInSignature() {
+        return getReturnSet(owlDataPropertyReferences.keySet());
+    }
+
+    @Override
+    public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
+        return getReturnSet(owlObjectPropertyReferences.keySet());
+    }
+
+    @Override
+    public Set<OWLNamedIndividual> getIndividualsInSignature() {
+        return getReturnSet(owlIndividualReferences.keySet());
+    }
+
+    /**
+     * A convenience method that obtains the datatypes
+     * that are in the signature of this object
+     *
+     * @return A set containing the datatypes that are in the signature
+     *         of this object.
+     */
+    @Override
+    public Set<OWLDatatype> getDatatypesInSignature() {
+        return getReturnSet(owlDatatypeReferences.keySet());
     }
 
     /**
@@ -963,19 +989,15 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
      *         ontology while iterating over this set.
      */
-    public Set<OWLClass> getReferencedClasses(boolean includeImportsClosure) {
+    public Set<OWLClass> getClassesInSignature(boolean includeImportsClosure) {
         if(!includeImportsClosure) {
-            return getReferencedClasses();
+            return getClassesInSignature();
         }
         Set<OWLClass> results = new HashSet<OWLClass>();
         for(OWLOntology ont : getImportsClosure()) {
-            results.addAll(ont.getReferencedClasses());
+            results.addAll(ont.getClassesInSignature());
         }
         return results;
-    }
-
-    public Set<OWLObjectProperty> getReferencedObjectProperties() {
-        return getReturnSet(owlObjectPropertyReferences.keySet());
     }
 
     /**
@@ -988,19 +1010,15 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
      *         ontology while iterating over this set.
      */
-    public Set<OWLObjectProperty> getReferencedObjectProperties(boolean includeImportsClosure) {
+    public Set<OWLObjectProperty> getObjectPropertiesInSignature(boolean includeImportsClosure) {
         if(!includeImportsClosure) {
-            return getReferencedObjectProperties();
+            return getObjectPropertiesInSignature();
         }
         Set<OWLObjectProperty> results = new HashSet<OWLObjectProperty>();
         for(OWLOntology ont : getImportsClosure()) {
-            results.addAll(ont.getReferencedObjectProperties());
+            results.addAll(ont.getObjectPropertiesInSignature());
         }
         return results;
-    }
-
-    public Set<OWLDataProperty> getReferencedDataProperties() {
-        return getReturnSet(owlDataPropertyReferences.keySet());
     }
 
     /**
@@ -1013,19 +1031,15 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
      *         ontology while iterating over this set.
      */
-    public Set<OWLDataProperty> getReferencedDataProperties(boolean includeImportsClosure) {
+    public Set<OWLDataProperty> getDataPropertiesInSignature(boolean includeImportsClosure) {
         if(!includeImportsClosure) {
-            return getReferencedDataProperties();
+            return getDataPropertiesInSignature();
         }
         Set<OWLDataProperty> results = new HashSet<OWLDataProperty>();
         for(OWLOntology ont : getImportsClosure()) {
-            results.addAll(ont.getReferencedDataProperties());
+            results.addAll(ont.getDataPropertiesInSignature());
         }
         return results;
-    }
-
-    public Set<OWLNamedIndividual> getReferencedIndividuals() {
-        return getReturnSet(owlIndividualReferences.keySet());
     }
 
     /**
@@ -1038,13 +1052,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
      *         ontology while iterating over this set.
      */
-    public Set<OWLNamedIndividual> getReferencedIndividuals(boolean includeImportsClosure) {
+    public Set<OWLNamedIndividual> getIndividualsInSignature(boolean includeImportsClosure) {
         if(!includeImportsClosure) {
-            return getReferencedIndividuals();
+            return getIndividualsInSignature();
         }
         Set<OWLNamedIndividual> results = new HashSet<OWLNamedIndividual>();
         for(OWLOntology ont : getImportsClosure()) {
-            results.addAll(ont.getReferencedIndividuals());
+            results.addAll(ont.getIndividualsInSignature());
         }
         return results;
     }
@@ -1057,10 +1071,6 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return getReturnSet(owlAnonymousIndividualReferences.keySet());
     }
 
-    public Set<OWLDatatype> getReferencedDatatypes() {
-        return getReturnSet(owlDatatypeReferences.keySet());
-    }
-
     /**
      * Gets the datatypes that are referenced by this ontology and possibly its imports closure
      * @param includeImportsClosure Specifies whether referenced named individuals should be drawn from this ontology or the imports
@@ -1069,18 +1079,18 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      *                              be from this ontology.
      * @return The set of datatypes that are referenced by axioms in this ontology and possibly its imports closure
      */
-    public Set<OWLDatatype> getReferencedDatatypes(boolean includeImportsClosure) {
+    public Set<OWLDatatype> getDatatypesInSignature(boolean includeImportsClosure) {
         if(!includeImportsClosure) {
-            return getReferencedDatatypes();
+            return getDatatypesInSignature();
         }
         Set<OWLDatatype> results = new HashSet<OWLDatatype>();
         for(OWLOntology ont : getImportsClosure()) {
-            results.addAll(ont.getReferencedDatatypes());
+            results.addAll(ont.getDatatypesInSignature());
         }
         return results;
     }
 
-    public Set<OWLAnnotationProperty> getReferencedAnnotationProperties() {
+    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
         Set<OWLAnnotationProperty> props = new HashSet<OWLAnnotationProperty>(owlAnnotationPropertyReferences.keySet());
         for(OWLAnnotation anno : ontologyAnnotations) {
             props.add(anno.getProperty());
@@ -1090,11 +1100,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLAnnotationProperty> getReferencedAnnotationProperties(boolean includeImportsClosure) {
         if(!includeImportsClosure) {
-            return getReferencedAnnotationProperties();
+            return getAnnotationPropertiesInSignature();
         }
         Set<OWLAnnotationProperty> results = new HashSet<OWLAnnotationProperty>();
         for(OWLOntology ont : getImportsClosure()) {
-            results.addAll(ont.getReferencedAnnotationProperties());
+            results.addAll(ont.getAnnotationPropertiesInSignature());
         }
         return results;
     }

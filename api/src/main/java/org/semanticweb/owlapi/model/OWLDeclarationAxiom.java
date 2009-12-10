@@ -30,11 +30,10 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  * <p/>
+ * Represents a <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Entity_Declarations_and_Typing">Declaration</a> in the OWL 2 Specification.
+ * <p/>
  * A declaration axiom declares an entity in an ontology.  It doesn't affect
- * the logical meaning of the ontology.  Such axioms are necessary for adding
- * labels etc. to classes, properties and individuals.  Declaration axioms can
- * also be used for structural consistency checking, for example some tools
- * may enforce that all entities in the ontology must be declared.
+ * the logical meaning of the ontology.
  */
 public interface OWLDeclarationAxiom extends OWLAxiom {
 

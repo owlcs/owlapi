@@ -29,7 +29,8 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  * <p/>
- * Represents a literal (typed or rdf:TEXT).
+ * Represents a <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Literals">Literal</a> in the OWL 2 Specification.  Literals can either be typed literals ({@link org.semanticweb.owlapi.model.OWLTypedLiteral)
+ * or untyped literals ({@link org.semanticweb.owlapi.model.OWLStringLiteral).
  */
 public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotationValue, OWLPropertyAssertionObject {
 
@@ -71,7 +72,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *
      * @return This literal as a more specific RDF Text Literal
      */
-    OWLStringLiteral asRDFTextLiteral();
+    OWLStringLiteral asStringLiteral();
 
 
     void accept(OWLDataVisitor visitor);

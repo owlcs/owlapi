@@ -41,10 +41,10 @@ public class GetAxiomsIgnoringAnnotationsTestCase extends AbstractOWLAPITestCase
         OWLAxiom axiom = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getOWLClass("B"), Collections.singleton(anno));
         OWLOntology ont = getOWLOntology("testont");
         getManager().addAxiom(ont, axiom);
-        assertTrue(ont.getAxiomsIgnoringAnnotations(axiom).contains(axiom));
-        assertFalse(ont.getAxiomsIgnoringAnnotations(axiom).contains(axiom.getAxiomWithoutAnnotations()));
-        assertTrue(ont.getAxiomsIgnoringAnnotations(axiom.getAxiomWithoutAnnotations()).contains(axiom));
-        assertFalse(ont.getAxiomsIgnoringAnnotations(axiom.getAxiomWithoutAnnotations()).contains(axiom.getAxiomWithoutAnnotations()));
+        assertTrue(ont.getAxiomsIgnoreAnnotations(axiom).contains(axiom));
+        assertFalse(ont.getAxiomsIgnoreAnnotations(axiom).contains(axiom.getAxiomWithoutAnnotations()));
+        assertTrue(ont.getAxiomsIgnoreAnnotations(axiom.getAxiomWithoutAnnotations()).contains(axiom));
+        assertFalse(ont.getAxiomsIgnoreAnnotations(axiom.getAxiomWithoutAnnotations()).contains(axiom.getAxiomWithoutAnnotations()));
 
     }
 }

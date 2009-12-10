@@ -614,7 +614,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 //    }
 
     public void visit(OWLOntology ontology) {
-        objects.addAll(ontology.getReferencedEntities());
+        objects.addAll(ontology.getSignature());
     }
 
     public void visit(OWLAnnotationProperty property) {

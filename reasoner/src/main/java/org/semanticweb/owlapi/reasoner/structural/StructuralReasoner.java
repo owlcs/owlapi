@@ -3,11 +3,9 @@ package org.semanticweb.owlapi.reasoner.structural;
 import org.semanticweb.owlapi.reasoner.impl.*;
 import org.semanticweb.owlapi.reasoner.*;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.util.Version;
 
 import java.util.*;
-import java.net.URI;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 /*
@@ -106,7 +104,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         Set<OWLClass> processed = new HashSet<OWLClass>();
         HashSet<Set<OWLClass>> result = new HashSet<Set<OWLClass>>();
         for (OWLOntology ont : getRootOntology().getImportsClosure()) {
-            for (OWLClass cls : ont.getReferencedClasses()) {
+            for (OWLClass cls : ont.getClassesInSignature()) {
                 if (!processed.contains(cls)) {
                     tarjan(cls, 0, new Stack<OWLClass>(), new HashMap<OWLClass, Integer>(), new HashMap<OWLClass, Integer>(), result, processed, new HashSet<OWLClass>());
                 }

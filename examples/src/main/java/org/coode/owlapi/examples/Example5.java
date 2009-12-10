@@ -62,12 +62,12 @@ public class Example5 {
             // Create the entity remover - in this case we just want to remove the individuals from
             // the pizza ontology, so pass our reference to the pizza ontology in as a singleton set.
             OWLEntityRemover remover = new OWLEntityRemover(man, Collections.singleton(ont));
-            System.out.println("Number of individuals: " + ont.getReferencedIndividuals().size());
+            System.out.println("Number of individuals: " + ont.getIndividualsInSignature().size());
             // Loop through each individual that is referenced in the pizza ontology, and ask it
             // to accept a visit from the entity remover.  The remover will automatically accumulate
             // the changes which are necessary to remove the individual from the ontologies (the pizza
             // ontology) which it knows about
-            for (OWLNamedIndividual ind : ont.getReferencedIndividuals()) {
+            for (OWLNamedIndividual ind : ont.getIndividualsInSignature()) {
                 ind.accept(remover);
             }
             // Now we get all of the changes from the entity remover, which should be applied to
@@ -76,7 +76,7 @@ public class Example5 {
             // and individuals that we want to remove and then apply ALL of the changes afer using the
             // entity remover to collect them
             man.applyChanges(remover.getChanges());
-            System.out.println("Number of individuals: " + ont.getReferencedIndividuals().size());
+            System.out.println("Number of individuals: " + ont.getIndividualsInSignature().size());
             // At this point, if we wanted to reuse the entity remover, we would have to reset it
             remover.reset();
         }

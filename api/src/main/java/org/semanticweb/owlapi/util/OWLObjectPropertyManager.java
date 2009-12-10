@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.util.*;
 
@@ -92,7 +91,7 @@ public class OWLObjectPropertyManager {
     private void setOntology(OWLOntology ontology) {
         this.ontology = ontology;
         for(OWLOntology ont : man.getImportsClosure(ontology)) {
-            for(OWLObjectProperty prop : ont.getReferencedObjectProperties()) {
+            for(OWLObjectProperty prop : ont.getObjectPropertiesInSignature()) {
                 properties.add(prop);
                 properties.add(prop.getInverseProperty());
             }
@@ -337,7 +336,7 @@ public class OWLObjectPropertyManager {
     private Set<OWLObjectPropertyExpression> getReferencedProperties() {
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
         for (OWLOntology ont : getOntologies()) {
-            for (OWLObjectPropertyExpression prop : ont.getReferencedObjectProperties()) {
+            for (OWLObjectPropertyExpression prop : ont.getObjectPropertiesInSignature()) {
                 props.add(prop.getSimplified());
             }
         }
@@ -351,7 +350,7 @@ public class OWLObjectPropertyManager {
         Set<OWLObjectPropertyExpression> processed = new HashSet<OWLObjectPropertyExpression>();
         Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
         for (OWLOntology ont : ontologies) {
-            properties.addAll(ont.getReferencedObjectProperties());
+            properties.addAll(ont.getObjectPropertiesInSignature());
         }
 
 

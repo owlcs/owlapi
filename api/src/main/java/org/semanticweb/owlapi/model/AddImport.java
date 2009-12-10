@@ -27,6 +27,8 @@ package org.semanticweb.owlapi.model;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 18-Mar-2009
+ * </p>
+ * Represents an ontology change where an import statement is added to an ontology.
  */
 public class AddImport extends ImportChange {
 

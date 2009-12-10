@@ -26,6 +26,8 @@ import java.util.Set;/*
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 15-Jan-2009
+ * <p/>
+ * Represents a <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Keys">HasKey</a> axiom in the OWL 2 Specification.
  */
 public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
 

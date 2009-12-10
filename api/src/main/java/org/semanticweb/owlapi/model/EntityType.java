@@ -29,6 +29,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 11-Oct-2009
+ * </p>
+ * Represents the different types of OWL 2 Entities.
  */
 public final class EntityType<E extends OWLEntity> {
 

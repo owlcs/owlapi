@@ -10,7 +10,6 @@ import uk.ac.manchester.owl.owlapi.tutorial.io.OWLTutorialSyntaxObjectRenderer;
 
 import java.io.PrintWriter;
 import java.net.URI;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -86,7 +85,7 @@ public class Debugger {
         renderer.header();
 
         Set<OWLClass> unsatisfiables = new HashSet<OWLClass>();
-        for (OWLClass clazz : ontology.getReferencedClasses()) {
+        for (OWLClass clazz : ontology.getClassesInSignature()) {
             /* Collect the unsatisfiable classes that aren't bottom. */
             if (!checker.isSatisfiable(clazz) && !clazz.equals(bottom)) {
                 unsatisfiables.add(clazz);

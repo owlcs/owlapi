@@ -30,9 +30,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  *
- * A high level interface to describe different types of data properties.  The current
- * OWL 1.1 spec only allows straight forward named data properties, it doesn't for
- * example allow inverse data properties.
+ * A high level interface to describe different types of data properties.
  */
 public interface OWLDataPropertyExpression extends OWLPropertyExpression<OWLDataPropertyExpression, OWLDataRange>, SWRLPredicate {
 

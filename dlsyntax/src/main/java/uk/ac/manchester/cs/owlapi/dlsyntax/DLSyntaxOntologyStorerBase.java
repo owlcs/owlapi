@@ -47,16 +47,16 @@ public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStor
         ont = ontology;
         PrintWriter writer = new PrintWriter(w);
         beginWritingOntology(ontology, writer);
-        for (OWLObjectProperty prop : new TreeSet<OWLObjectProperty>(ontology.getReferencedObjectProperties())) {
+        for (OWLObjectProperty prop : new TreeSet<OWLObjectProperty>(ontology.getObjectPropertiesInSignature())) {
             write(prop, ontology.getAxioms(prop), writer);
         }
-        for (OWLDataProperty prop : new TreeSet<OWLDataProperty>(ontology.getReferencedDataProperties())) {
+        for (OWLDataProperty prop : new TreeSet<OWLDataProperty>(ontology.getDataPropertiesInSignature())) {
             write(prop, ontology.getAxioms(prop), writer);
         }
-        for (OWLClass cls : new TreeSet<OWLClass>(ontology.getReferencedClasses())) {
+        for (OWLClass cls : new TreeSet<OWLClass>(ontology.getClassesInSignature())) {
             write(cls, ontology.getAxioms(cls), writer);
         }
-        for (OWLNamedIndividual ind : new TreeSet<OWLNamedIndividual>(ontology.getReferencedIndividuals())) {
+        for (OWLNamedIndividual ind : new TreeSet<OWLNamedIndividual>(ontology.getIndividualsInSignature())) {
             write(ind, ontology.getAxioms(ind), writer);
         }
         beginWritingGeneralAxioms(ontology.getGeneralClassAxioms(), writer);

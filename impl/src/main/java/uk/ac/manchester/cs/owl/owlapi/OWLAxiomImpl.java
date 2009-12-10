@@ -59,6 +59,17 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
     }
 
     /**
+     * Determines if another axiom is equal to this axiom not taking into consideration the annotations on the axiom
+     *
+     * @param axiom The axiom to test if equal
+     * @return <code>true</code> if <code>axiom</code> without annotations is equal to this axiom without annotations
+     *         otherwise <code>false</code>.
+     */
+    public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
+        return this.getAxiomWithoutAnnotations().equals(axiom.getAxiomWithoutAnnotations());
+    }
+
+    /**
      * Determines if this axiom is one of the specified types
      * @param axiomTypes The axiom types to check for
      * @return <code>true</code> if this axiom is one of the specified types, otherwise <code>false</code>

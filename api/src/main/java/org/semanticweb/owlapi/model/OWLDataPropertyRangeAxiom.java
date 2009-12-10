@@ -29,9 +29,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  * <p/>
- * Represents an axiom which specifies the range of a data property.  A set of data property range
- * axioms which have a common data property are interpreted to produce a range which is the intersection
- * of the ranges specified by each individual data property range axiom.
+ * Represents a <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Data_Property_Range">DataPropertyRange</a> axiom in the OWL 2 Specification.
  */
 public interface OWLDataPropertyRangeAxiom extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>, OWLDataPropertyAxiom {
 

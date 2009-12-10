@@ -29,8 +29,9 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  * <p/>
- * The base interface for all class expressions which are not named
- * class expressions (i.e. all class expressions which are not <code>OWLClass</code>).
+ * The super interface for all class expressions which are not named
+ * class expressions (i.e. all class expressions which are not <code>OWLClass</code>).  This interface
+ * represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Class_Expressions">class expressions</a> in the OWL 2 Specification.
  */
 public interface OWLAnonymousClassExpression extends OWLClassExpression {
 

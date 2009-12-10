@@ -54,7 +54,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
         Set<OWLClass> clses = new HashSet<OWLClass>();
         NamedConjunctChecker checker = new NamedConjunctChecker();
         for (OWLOntology ont : getOntologies()) {
-            for (OWLClass cls : ont.getReferencedClasses()) {
+            for (OWLClass cls : ont.getClassesInSignature()) {
                 if (processed.contains(cls)) {
                     continue;
                 }

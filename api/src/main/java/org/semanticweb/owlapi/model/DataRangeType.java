@@ -24,19 +24,44 @@ package org.semanticweb.owlapi.model;/*
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 21-Nov-2008
+ * </p>
+ * Represents the different types of OWL 2 data ranges.
  */
 public enum DataRangeType {
 
+    /**
+     * Represents {@link org.semanticweb.owlapi.model.OWLDatatype}
+     */
     DATATYPE("Datatype"),
 
+
+    /**
+     * Represents {@link OWLDataOneOf}
+     */
     DATA_ONE_OF("DataOneOf"),
 
+
+    /**
+     * Represents {@link OWLDatatypeRestriction}
+     */
     DATATYPE_RESTRICTION("DatatypeRestriction"),
 
+
+    /**
+     * Represents {@link OWLDataComplementOf}
+     */
     DATA_COMPLEMENT_OF("DataComplementOf"),
 
+
+    /**
+     * Represents {@link OWLDataUnionOf}
+     */
     DATA_UNION_OF("DataUnionOf"),
 
+
+    /**
+     * Represents {@link OWLDataIntersectionOf}
+     */
     DATA_INTERSECTION_OF("DataIntersectionOf");
 
 

@@ -97,7 +97,7 @@ public class Example10 {
             // Firstly, get the annotation property for rdfs:label
             OWLAnnotationProperty label = df.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getURI());
 
-            for (OWLClass cls : ont.getReferencedClasses()) {
+            for (OWLClass cls : ont.getClassesInSignature()) {
                 // Get the annotations on the class that use the label property
                 for (OWLAnnotation annotation : cls.getAnnotations(ont, label)) {
                     if (annotation.getValue() instanceof OWLLiteral) {
@@ -105,7 +105,7 @@ public class Example10 {
                         if (!val.isTyped()) {
                             // The value isn't a typed constant, so we can safely obtain it
                             // as an OWLRDFTextLiteral and check the lang is Portuguese (pt)
-                            if (val.asRDFTextLiteral().hasLang("pt")) {
+                            if (val.asStringLiteral().hasLang("pt")) {
                                 System.out.println(cls + " -> " + val.getLiteral());
                             }
                         }

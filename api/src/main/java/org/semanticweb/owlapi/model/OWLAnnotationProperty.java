@@ -24,13 +24,34 @@ package org.semanticweb.owlapi.model;/*
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 13-Jan-2009
+ * </p>
+ * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Properties">AnnotationProperty</a>
+ * in the OWL 2 specification.
  */
 public interface OWLAnnotationProperty extends OWLEntity {
 
+    /**
+     * Determines if this annotation property has an IRI corresponding to <code>rdfs:comment</code>.
+     * @return <code>true</code> if the IRI of this annotation property is
+     * <code>rdfs:comment</code>, where <code>rdfs:</code> expands to the usual prefix, otherwise <code>false</code>.
+     */
     boolean isComment();
 
+    /**
+     * Determines if this annotation property has an IRI corresponding to <code>rdfs:label</code>.
+     * @return <code>true</code> if the IRI of this annotation property is
+     * <code>rdfs:label</code>, where <code>rdfs:</code> expands to the usual prefix, otherwise <code>false</code>.
+     */
     boolean isLabel();
 
+    /**
+     * Determines if this annotation property has an IRI corresponding to <code>owl:deprecated</code>. An annotation
+     * along the <code>owl:deprecated</code> property which has a value of <code>"true"^^xsd:boolean</code> can be
+     * used to deprecate IRIs. (See <a href="Section 5.5">http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Properties</a>
+     * of the OWL 2 specification.
+     * @return <code>true</code> if the IRI of this annotation property is
+     * <code>owl:deprecated</code>, where <code>owl:</code> expands to the usual prefix, otherwise <code>false</code>.
+     */
     boolean isDeprecated();
 
     /**

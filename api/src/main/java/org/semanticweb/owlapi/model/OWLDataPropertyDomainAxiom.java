@@ -29,7 +29,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  * <p/>
- * Represents an axiom which specified the domain of a data property.
+ * Represents a <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Data_Property_Domain">DataPropertyDomain</a> axiom in the OWL 2 Specification.
  */
 public interface OWLDataPropertyDomainAxiom extends OWLPropertyDomainAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 

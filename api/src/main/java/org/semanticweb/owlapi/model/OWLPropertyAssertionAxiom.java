@@ -29,27 +29,28 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  *
- * An individual relationship axiom describes a relationship
- * of the form Property(Subject, Object) i.e. the subject of the
- * relationship is related to the object of the relationship via
- * the property.
+ * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Assertions">Assertion</a> in the OWL 2
+ * specification.
  */
 public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject> extends OWLIndividualAxiom {
 
     /**
-     * Gets the individual (i.e. the subject of the relationship)
+     * Gets the individual that is the subject of this assertion.
+     * @return The individual that represents the subject of this assertion.
      */
     public OWLIndividual getSubject();
 
 
     /**
-     * Gets the property that the relationship acts along
+     * Gets the property that this assertion acts along
+     * @return The property
      */
     public P getProperty();
 
 
     /**
-     * Gets the object of the relationship
+     * Gets the object of this assertion
+     * @return The object that this assertion points to.
      */
     public O getObject();
 }

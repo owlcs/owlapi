@@ -26,11 +26,22 @@ package org.semanticweb.owlapi.model;
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 13-Jan-2009
+ * </p>
+ * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Property_Domain">AnnotationPropertyDomain</a>
+ * axiom in the OWL 2 specification.
  */
 public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom {
 
+    /**
+     * Gets the annotation property that this axiom specifies a domain for.
+     * @return The annotation property.
+     */
     OWLAnnotationProperty getProperty();
 
+    /**
+     * Gets the IRI that represents the domain.
+     * @return The IRI that represents the domain
+     */
     IRI getDomain();
 
     OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations();

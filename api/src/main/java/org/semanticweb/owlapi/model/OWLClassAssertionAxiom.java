@@ -28,14 +28,28 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
+ * </a>
+ * Represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Class_Assertions">ClassAssertion</a> axioms in the OWL 2 Specification.
  */
 public interface OWLClassAssertionAxiom extends OWLIndividualAxiom {
 
+    /**
+     * Gets the individual that is asserted to be an instance of a class expression by this axiom.
+     * @return The individual
+     */
     OWLIndividual getIndividual();
 
+    /**
+     * Gets the class expression that is asserted to be a type for an individual by this axiom.
+     * @return
+     */
     OWLClassExpression getClassExpression();
 
     OWLClassAssertionAxiom getAxiomWithoutAnnotations();
 
+    /**
+     * Gets this axiom as an {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}.
+     * @return This axiom as an {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}.
+     */
     OWLSubClassOfAxiom asOWLSubClassOfAxiom();
 }

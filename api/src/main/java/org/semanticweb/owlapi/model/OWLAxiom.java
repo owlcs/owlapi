@@ -30,7 +30,9 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- * <p/>
+ * </p>
+ * Represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Axioms>Axioms</a> in the OWL 2 Specification.
+ * </p>
  * An OWL ontology contains a set of axioms.  These axioms can be annotation axioms,
  * declaration axioms, imports axioms or logical axioms
  */
@@ -62,6 +64,14 @@ public interface OWLAxiom extends OWLObject {
      * {@code OWLAxiom#getAnnotations()} method.
      */
     OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations);
+
+    /**
+     * Determines if another axiom is equal to this axiom not taking into consideration the annotations on the axiom
+     * @param axiom The axiom to test if equal
+     * @return <code>true</code> if <code>axiom</code> without annotations is equal to this axiom without annotations
+     * otherwise <code>false</code>.
+     */
+    boolean equalsIgnoreAnnotations(OWLAxiom axiom);
 
     /**
      * Determines if this axiom is a logical axiom. Logical axioms are defined to be

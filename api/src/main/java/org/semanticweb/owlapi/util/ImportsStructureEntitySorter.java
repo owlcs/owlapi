@@ -46,7 +46,7 @@ public class ImportsStructureEntitySorter extends ImportsStructureObjectSorter<O
 
 
         public Set<OWLEntity> getObjects(OWLOntology ontology) {
-            return ontology.getReferencedEntities();
+            return ontology.getSignature();
         }
     }
 }

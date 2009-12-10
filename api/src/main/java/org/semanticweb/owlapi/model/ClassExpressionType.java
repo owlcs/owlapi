@@ -26,43 +26,116 @@ package org.semanticweb.owlapi.model;
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 08-Sep-2008<br><br>
+ * </p>
+ * Represents the different types of OWL 2 class expressions.
  */
 public enum ClassExpressionType {
 
-    OWL_CLASS("OWLClass"),
 
+    /**
+     * Represents {@link OWLClass}
+     */
+    OWL_CLASS("Class"),
+
+
+    /**
+     * Represents {@link OWLObjectSomeValuesFrom}
+     */
     OBJECT_SOME_VALUES_FROM("ObjectSomeValuesFrom"),
 
+
+    /**
+     * Represents {@link OWLObjectAllValuesFrom}
+     */
     OBJECT_ALL_VALUES_FROM("ObjectAllValuesFrom"),
 
+
+    /**
+     * Represents {@link OWLObjectMinCardinality}
+     */
     OBJECT_MIN_CARDINALITY("ObjectMinCardinality"),
 
+
+    /**
+     * Represents {@link OWLObjectMaxCardinality}
+     */
     OBJECT_MAX_CARDINALITY("ObjectMaxCardinality"),
 
+
+    /**
+     * Represents {@link OWLObjectExactCardinality}
+     */
     OBJECT_EXACT_CARDINALITY("ObjectExactCardinality"),
 
+
+    /**
+     * Represents {@link OWLObjectHasValue}
+     */
     OBJECT_HAS_VALUE("ObjectHasValue"),
 
+    /**
+     * Represents {@link org.semanticweb.owlapi.model.OWLObjectHasSelf}
+     */
     OBJECT_HAS_SELF("ObjectHasSelf"),
 
+
+    /**
+     * Represents {@link OWLDataSomeValuesFrom}
+     */
     DATA_SOME_VALUES_FROM("DataSomeValuesFrom"),
 
+
+    /**
+     * Represents {@link OWLDataAllValuesFrom}
+     */
     DATA_ALL_VALUES_FROM("DataAllValuesFrom"),
 
+
+    /**
+     * Represents {@link OWLDataMinCardinality}
+     */
     DATA_MIN_CARDINALITY("DataMinCardinality"),
 
+
+    /**
+     * Represents {@link OWLDataMaxCardinality}
+     */
     DATA_MAX_CARDINALITY("DataMaxCardinality"),
 
+
+    /**
+     * Represents {@link OWLDataExactCardinality}
+     */
     DATA_EXACT_CARDINALITY("DataExactCardinality"),
 
+
+    /**
+     * Represents {@link OWLDataHasValue}
+     */
     DATA_HAS_VALUE("DataHasValue"),
 
+
+    /**
+     * Represents {@link org.semanticweb.owlapi.model.OWLObjectIntersectionOf}
+     */
     OBJECT_INTERSETION_OF("ObjectIntersectionOf"),
 
+
+    /**
+     * Represents {@link org.semanticweb.owlapi.model.OWLObjectUnionOf}
+     */
     OBJECT_UNION_OF("ObjectUnionOf"),
 
+
+    /**
+     * Represents {@link org.semanticweb.owlapi.model.OWLObjectComplementOf}
+     */
     OBJECT_COMPLEMENT_OF("ObjectComplementOf"),
 
+
+    /**
+     * Represents {@link OWLObjectComplementOf}
+     */
     OBJECT_ONE_OF("ObjectOneOf");
 
     private String name;

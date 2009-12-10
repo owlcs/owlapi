@@ -70,7 +70,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
             LatexObjectVisitor renderer = new LatexObjectVisitor(w, getOWLOntologyManager().getOWLDataFactory());
 
-            Collection<OWLClass> clses = sortEntities(ontology.getReferencedClasses());
+            Collection<OWLClass> clses = sortEntities(ontology.getClassesInSignature());
             if (!clses.isEmpty()) {
                 w.write("\\subsection*{Classes}\n\n");
             }
@@ -85,7 +85,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
             w.write("\\section*{Object properties}");
 
-            for (OWLObjectProperty prop : sortEntities(ontology.getReferencedObjectProperties())) {
+            for (OWLObjectProperty prop : sortEntities(ontology.getObjectPropertiesInSignature())) {
                 writeEntitySection(prop, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop))) {
                     ax.accept(renderer);
@@ -95,7 +95,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
             w.write("\\section*{Data properties}");
 
-            for (OWLDataProperty prop : sortEntities(ontology.getReferencedDataProperties())) {
+            for (OWLDataProperty prop : sortEntities(ontology.getDataPropertiesInSignature())) {
                 writeEntitySection(prop, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop))) {
                     ax.accept(renderer);
@@ -105,7 +105,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
             w.write("\\section*{Individuals}");
 
-            for (OWLNamedIndividual ind : sortEntities(ontology.getReferencedIndividuals())) {
+            for (OWLNamedIndividual ind : sortEntities(ontology.getIndividualsInSignature())) {
                 writeEntitySection(ind, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(ind))) {
                     ax.accept(renderer);

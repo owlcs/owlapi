@@ -7,7 +7,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.net.URI;
-import java.util.Collections;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -85,7 +84,7 @@ public class Example14 {
      * @param cls      The class expression
      */
     private static void printProperties(OWLOntologyManager man, OWLOntology ont, OWLReasoner reasoner, OWLClass cls) {
-        if (!ont.containsClassReference(cls.getIRI())) {
+        if (!ont.containsClassInSignature(cls.getIRI())) {
             throw new RuntimeException("Class not in signature of the ontology");
         }
         // Note that the following code could be optimised... if we find that instances of the specified class
@@ -93,7 +92,7 @@ public class Example14 {
         System.out.println("----------------------------------------------------------");
         System.out.println("Properties of " + cls);
         System.out.println("----------------------------------------------------------");
-        for (OWLObjectPropertyExpression prop : ont.getReferencedObjectProperties()) {
+        for (OWLObjectPropertyExpression prop : ont.getObjectPropertiesInSignature()) {
             boolean sat = hasProperty(man, reasoner, cls, prop);
             if (sat) {
                 System.out.println("Instances of " + cls + " necessarily have the property " + prop);

@@ -30,12 +30,9 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- * <p/>
- * A marker interface for classes, properties, individuals (including anonymous individuals)
- * and datatypes. Entities are the fundamental building blocks of ontologies, and all entities
- * are identified by a URI.  Note that OWL 2 supports punning, which means that an OWLClass
- * may have the same URI as an OWLIndividual (or other entity) but will still be considered to
- * be a separate object.
+ * </p>
+ * Represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Entities.2C_Literals.2C_and_Anonymous_Individuals">Entities</a> in the OWL 2 Specification.
+ * </p>
  */
 public interface OWLEntity extends OWLObject, OWLNamedObject {
 

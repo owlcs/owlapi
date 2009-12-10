@@ -52,7 +52,7 @@ public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiter
     }
 
 
-    public OWLStringLiteral asRDFTextLiteral() {
+    public OWLStringLiteral asStringLiteral() {
         throw new OWLRuntimeException("Not an untyped constant!");
     }
 

@@ -1,13 +1,10 @@
 package org.semanticweb.owlapi.profiles;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-import java.net.URI;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -124,7 +121,7 @@ public class OWL2DLProfile implements OWLProfile {
             if (!desc.isBuiltIn() && !getCurrentOntology().isDeclared(desc, true)) {
                 profileViolations.add(new UseOfUndeclaredClass(getCurrentOntology(), getCurrentAxiom(), desc));
             }
-            if (getCurrentOntology().containsDatatypeReference(desc.getIRI())) {
+            if (getCurrentOntology().containsDatatypeInSignature(desc.getIRI())) {
                 profileViolations.add(new DatatypeIRIAlsoUsedAsClassIRI(getCurrentOntology(), getCurrentAxiom(), desc.getIRI()));
             }
             return null;
@@ -151,7 +148,7 @@ public class OWL2DLProfile implements OWLProfile {
                 }
             }
 
-            if (getCurrentOntology().containsClassReference(datatype.getIRI(), true)) {
+            if (getCurrentOntology().containsClassInSignature(datatype.getIRI(), true)) {
                 profileViolations.add(new DatatypeIRIAlsoUsedAsClassIRI(getCurrentOntology(), getCurrentAxiom(), datatype.getIRI()));
             }
             return null;
@@ -194,10 +191,10 @@ public class OWL2DLProfile implements OWLProfile {
             if (!property.isBuiltIn() && !getCurrentOntology().isDeclared(property, true)) {
                 profileViolations.add(new UseOfUndeclaredObjectProperty(getCurrentOntology(), getCurrentAxiom(), property));
             }
-            if (getCurrentOntology().containsDataPropertyReference(property.getIRI(), true)) {
+            if (getCurrentOntology().containsDataPropertyInSignature(property.getIRI(), true)) {
                 // TODO: Error
             }
-            if (getCurrentOntology().containsAnnotationPropertyReference(property.getIRI(), true)) {
+            if (getCurrentOntology().containsAnnotationPropertyInSignature(property.getIRI(), true)) {
                 // TODO: Error
             }
 
@@ -214,11 +211,11 @@ public class OWL2DLProfile implements OWLProfile {
                 profileViolations.add(new UseOfUndeclaredDataProperty(getCurrentOntology(), getCurrentAxiom(), property));
             }
 
-            if (getCurrentOntology().containsObjectPropertyReference(property.getIRI(), true)) {
+            if (getCurrentOntology().containsObjectPropertyInSignature(property.getIRI(), true)) {
                 // TODO: Error
             }
 
-            if (getCurrentOntology().containsAnnotationPropertyReference(property.getIRI(), true)) {
+            if (getCurrentOntology().containsAnnotationPropertyInSignature(property.getIRI(), true)) {
                 // TODO: Error
             }
             return null;
@@ -234,12 +231,12 @@ public class OWL2DLProfile implements OWLProfile {
                 profileViolations.add(new UseOfUndeclaredAnnotationProperty(getCurrentOntology(), getCurrentAxiom(), getCurrentAnnotation(), property));
             }
 
-            if (getCurrentOntology().containsObjectPropertyReference(property.getIRI(), true)) {
+            if (getCurrentOntology().containsObjectPropertyInSignature(property.getIRI(), true)) {
                 // TODO: Error
                 System.out.println("Annotation property IRI is also an object property IRI");
             }
 
-            if (getCurrentOntology().containsDataPropertyReference(property.getIRI(), true)) {
+            if (getCurrentOntology().containsDataPropertyInSignature(property.getIRI(), true)) {
                 // TODO: Error
                 System.out.println("Annotation property IRI is also a data property IRI");
             }

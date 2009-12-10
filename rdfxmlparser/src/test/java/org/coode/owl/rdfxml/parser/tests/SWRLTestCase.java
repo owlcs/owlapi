@@ -59,9 +59,9 @@ public class SWRLTestCase extends TestCase {
     public void testSWRLParser() throws Exception {
         URI uri = getClass().getResource("/owlapi/SWRLTest.owlapi").toURI();
         OWLOntology ont = man.loadOntologyFromPhysicalURI(uri);
-        for(OWLIndividual i : ont.getReferencedIndividuals()) {
+        for(OWLIndividual i : ont.getIndividualsInSignature()) {
             System.out.println(i);
         }
-        assertTrue(ont.getReferencedIndividuals().isEmpty());
+        assertTrue(ont.getIndividualsInSignature().isEmpty());
     }
 }

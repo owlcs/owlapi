@@ -48,6 +48,6 @@ public class ReferencedIndividualCount extends ObjectCountMetric {
 
 
     protected Set getObjects(OWLOntology ont) {
-        return ont.getReferencedIndividuals();
+        return ont.getIndividualsInSignature();
     }
 }

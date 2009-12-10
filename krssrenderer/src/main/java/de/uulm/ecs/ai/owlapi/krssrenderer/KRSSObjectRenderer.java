@@ -6,7 +6,6 @@ import org.semanticweb.owlapi.model.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.net.URI;
 import java.util.*;
 
 /*
@@ -361,7 +360,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(OWLOntology ontology) {
-        Set<OWLClass> classes = ontology.getReferencedClasses();
+        Set<OWLClass> classes = ontology.getClassesInSignature();
         classes.remove(manager.getOWLDataFactory().getOWLThing());
         classes.remove(manager.getOWLDataFactory().getOWLNothing());
 
@@ -385,7 +384,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
             }
         }
 
-        for (final OWLObjectProperty property : sort(ontology.getReferencedObjectProperties())) {
+        for (final OWLObjectProperty property : sort(ontology.getObjectPropertiesInSignature())) {
             writeOpenBracket();
             Set<OWLObjectPropertyExpression> properties = property.getEquivalentProperties(ontology);
             boolean isDefined = !properties.isEmpty();

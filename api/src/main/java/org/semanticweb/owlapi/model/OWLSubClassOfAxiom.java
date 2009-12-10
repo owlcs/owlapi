@@ -28,11 +28,21 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
+ * <p/>
+ * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Subclass_Axioms">SubClassOf</a> axiom in the OWL 2 Specification.
  */
 public interface OWLSubClassOfAxiom extends OWLNaryClassAxiom {
 
+    /**
+     * Gets the subclass in this axiom
+     * @return The class expression that represents the subclass in this axiom.
+     */
     OWLClassExpression getSubClass();
 
+    /**
+     * Gets the superclass in this axiom.
+     * @return The class expression that represents the superclass in this axiom.
+     */
     OWLClassExpression getSuperClass();
 
 

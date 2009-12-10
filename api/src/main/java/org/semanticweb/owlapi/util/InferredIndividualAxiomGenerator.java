@@ -39,7 +39,7 @@ public abstract class InferredIndividualAxiomGenerator<A extends OWLIndividualAx
 
 
     protected Set<OWLNamedIndividual> getEntities(OWLOntology ont) {
-        return ont.getReferencedIndividuals();
+        return ont.getIndividualsInSignature();
     }
 
 

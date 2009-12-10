@@ -38,6 +38,6 @@ import java.util.Set;
 public abstract class InferredDataPropertyAxiomGenerator<A extends OWLDataPropertyAxiom> extends InferredEntityAxiomGenerator<OWLDataProperty, A> {
 
     protected Set<OWLDataProperty> getEntities(OWLOntology ont) {
-        return ont.getReferencedDataProperties();
+        return ont.getDataPropertiesInSignature();
     }
 }

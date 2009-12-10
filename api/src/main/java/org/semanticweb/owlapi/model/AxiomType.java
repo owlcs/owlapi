@@ -30,7 +30,10 @@ import java.util.*;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
- * Represents the type of axioms which can belong to ontologies
+ * </p>
+ * Represents the type of axioms which can belong to ontologies.  Axioms can be retrieved from ontologies
+ * by their <code>AxiomType</code>.  For example, see {@link org.semanticweb.owlapi.model.OWLOntology#getAxioms(AxiomType)} and
+ * {@link org.semanticweb.owlapi.model.OWLOntology#getAxiomCount(AxiomType, boolean)}.
  */
 public class AxiomType<C extends OWLAxiom> {
 
@@ -65,12 +68,22 @@ public class AxiomType<C extends OWLAxiom> {
         return name;
     }
 
-
+    /**
+     * Determines if this axiom is structurally an OWL 2 axiom.
+     * @return <code>true</code> if this axiom is an OWL 2 axiom, <code>false</code> if this axiom is not an OWL 2
+     * axiom and it can be represented using OWL 1.
+     */
     public boolean isOWL2Axiom() {
         return owl2Axiom;
     }
 
-
+    /**
+     * Some OWL 2 axioms, for example, {@link org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom} axioms
+     * are structurally OWL 2 axioms, but can be represented using OWL 1 syntax. This method determines if this axiom type
+     * is a pure OWL 2 axiom and cannot be represented using OWL 1 syntax.
+     * @return <code>true</code> if this axiom is a pure OWL 2 axiom and cannot be represented using OWL 1 syntax, otherwise
+     * <code>false</code>.
+     */
     public boolean isNonSyntacticOWL2Axiom() {
         return nonSyntacticOWL2Axiom;
     }
@@ -85,6 +98,10 @@ public class AxiomType<C extends OWLAxiom> {
         return name;
     }
 
+    /**
+     * Determines if this axiom type is a logical axiom type.
+     * @return <code>true</code> if this axiom type is a logical axiom type, otherwise false;
+     */
     public boolean isLogical() {
         return isLogical;
     }

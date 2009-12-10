@@ -31,7 +31,7 @@ import java.net.URI;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  * <p/>
- *
+ * Represents an import statement in an ontology.
  */
 public interface OWLImportsDeclaration extends Comparable<OWLImportsDeclaration> {
 

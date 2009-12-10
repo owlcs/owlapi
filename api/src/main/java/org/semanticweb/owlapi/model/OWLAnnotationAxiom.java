@@ -30,7 +30,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group<br>
  * Date: 25-Oct-2006<br><br>
  * <p/>
- * Annotation axioms do not affect the logical meaning of an ontology.
+ * A super interface for annotation axioms.
  */
 public interface OWLAnnotationAxiom extends OWLAxiom, OWLAnnotationObject {
 

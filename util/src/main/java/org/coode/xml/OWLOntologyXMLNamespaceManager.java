@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 
-import java.net.URI;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -114,11 +113,11 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
         Set<OWLEntity> result = new HashSet<OWLEntity>();
-        result.addAll(ontology.getReferencedClasses());
-        result.addAll(ontology.getReferencedObjectProperties());
-        result.addAll(ontology.getReferencedDataProperties());
-        result.addAll(ontology.getReferencedIndividuals());
-        result.addAll(ontology.getReferencedAnnotationProperties());
+        result.addAll(ontology.getClassesInSignature());
+        result.addAll(ontology.getObjectPropertiesInSignature());
+        result.addAll(ontology.getDataPropertiesInSignature());
+        result.addAll(ontology.getIndividualsInSignature());
+        result.addAll(ontology.getAnnotationPropertiesInSignature());
         return result;
     }
 

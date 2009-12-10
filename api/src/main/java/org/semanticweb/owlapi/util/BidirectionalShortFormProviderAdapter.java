@@ -131,7 +131,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
                            processed.add(ent);
                            boolean stillRef = false;
                            for(OWLOntology ont : ontologies) {
-                               if(ont.containsEntityReference(ent)) {
+                               if(ont.containsEntityInSignature(ent)) {
                                    stillRef = true;
                                    break;
                                }

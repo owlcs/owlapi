@@ -50,7 +50,7 @@ public class OntologyUtils {
         OWLEntityCollector entityCollector = new OWLEntityCollector();
         desc.accept(entityCollector);
         for (OWLEntity entity : entityCollector.getObjects()) {
-            if (!ontology.containsEntityReference(entity)) {
+            if (!ontology.containsEntityInSignature(entity)) {
                 if (entity instanceof OWLClass && (((OWLClass) entity).isOWLThing() || ((OWLClass) entity).isOWLNothing())) {
                     continue;
                 }

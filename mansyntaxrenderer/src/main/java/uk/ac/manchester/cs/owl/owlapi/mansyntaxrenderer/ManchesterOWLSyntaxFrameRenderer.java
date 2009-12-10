@@ -107,26 +107,26 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         writeNewLine();
         writeOntologyHeader(ontology);
 
-        for (OWLAnnotationProperty prop : ontology.getReferencedAnnotationProperties()) {
+        for (OWLAnnotationProperty prop : ontology.getAnnotationPropertiesInSignature()) {
             write(prop);
         }
-        for (OWLDatatype datatype : ontology.getReferencedDatatypes()) {
+        for (OWLDatatype datatype : ontology.getDatatypesInSignature()) {
             write(datatype);
         }
-        for (OWLObjectProperty prop : ontology.getReferencedObjectProperties()) {
+        for (OWLObjectProperty prop : ontology.getObjectPropertiesInSignature()) {
             write(prop);
             OWLObjectPropertyExpression invProp = prop.getInverseProperty();
             if (!ontology.getAxioms(invProp).isEmpty()) {
                 write(invProp);
             }
         }
-        for (OWLDataProperty prop : ontology.getReferencedDataProperties()) {
+        for (OWLDataProperty prop : ontology.getDataPropertiesInSignature()) {
             write(prop);
         }
-        for (OWLClass cls : ontology.getReferencedClasses()) {
+        for (OWLClass cls : ontology.getClassesInSignature()) {
             write(cls);
         }
-        for (OWLNamedIndividual ind : ontology.getReferencedIndividuals()) {
+        for (OWLNamedIndividual ind : ontology.getIndividualsInSignature()) {
             write(ind);
         }
         for (OWLAnonymousIndividual ind : ontology.getReferencedAnonymousIndividuals()) {

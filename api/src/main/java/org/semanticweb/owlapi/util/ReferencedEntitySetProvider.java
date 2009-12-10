@@ -48,12 +48,12 @@ public class ReferencedEntitySetProvider implements OWLEntitySetProvider<OWLEnti
     public Set<OWLEntity> getEntities() {
         Set<OWLEntity> entities = new HashSet<OWLEntity>();
         for(OWLOntology ont : ontologies) {
-            entities.addAll(ont.getReferencedClasses());
-            entities.addAll(ont.getReferencedObjectProperties());
-            entities.addAll(ont.getReferencedDataProperties());
-            entities.addAll(ont.getReferencedIndividuals());
-            entities.addAll(ont.getReferencedAnnotationProperties());
-            entities.addAll(ont.getReferencedDatatypes());
+            entities.addAll(ont.getClassesInSignature());
+            entities.addAll(ont.getObjectPropertiesInSignature());
+            entities.addAll(ont.getDataPropertiesInSignature());
+            entities.addAll(ont.getIndividualsInSignature());
+            entities.addAll(ont.getAnnotationPropertiesInSignature());
+            entities.addAll(ont.getDatatypesInSignature());
         }
         return entities;
     }

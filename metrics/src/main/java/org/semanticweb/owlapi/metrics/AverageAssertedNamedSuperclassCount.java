@@ -53,7 +53,7 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
         int count = 0;
         Set<OWLClass> processedClasses = new HashSet<OWLClass>();
         for (OWLOntology ont : getOntologies()) {
-            for (OWLClass cls : ont.getReferencedClasses()) {
+            for (OWLClass cls : ont.getClassesInSignature()) {
                 if (!processedClasses.contains(cls)) {
                     count++;
                     int prevTotal = total;

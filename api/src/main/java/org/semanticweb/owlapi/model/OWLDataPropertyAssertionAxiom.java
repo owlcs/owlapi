@@ -29,12 +29,14 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  * <p/>
- * Represents an assertion about a relationship between and individual and a data value. For
- * example  hasAge(matthew, 28) would represent a data relationship along the hasAge property
- * from the individual matthew to the value 28.
+ * Represents a <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Positive_Data_Property_Assertions">DataPropertyAssertion</a> in the OWL 2 Specification.
  */
 public interface OWLDataPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral> {
 
+    /**
+     * Gets this axiom represented as an {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} (using nominals).
+     * @return This axiom represented as an equivalent {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}.
+     */
     OWLSubClassOfAxiom asOWLSubClassOfAxiom();
 
     OWLDataPropertyAssertionAxiom getAxiomWithoutAnnotations();

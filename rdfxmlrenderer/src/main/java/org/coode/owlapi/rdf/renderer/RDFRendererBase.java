@@ -95,7 +95,7 @@ public abstract class RDFRendererBase {
 
         boolean first;
 
-        Set<OWLAnnotationProperty> annotationProperties = new HashSet<OWLAnnotationProperty>(ontology.getReferencedAnnotationProperties());
+        Set<OWLAnnotationProperty> annotationProperties = new HashSet<OWLAnnotationProperty>(ontology.getAnnotationPropertiesInSignature());
         if (!annotationProperties.isEmpty()) {
             writeBanner("Annotation properties");
             for (OWLAnnotationProperty prop : annotationProperties) {
@@ -104,7 +104,7 @@ public abstract class RDFRendererBase {
             }
         }
 
-        Set<OWLDatatype> datatypes = ontology.getReferencedDatatypes();
+        Set<OWLDatatype> datatypes = ontology.getDatatypesInSignature();
         for (OWLDatatype datatype : new HashSet<OWLDatatype>(datatypes)) {
             if (datatype.isBuiltIn()) {
                 datatypes.remove(datatype);
@@ -124,7 +124,7 @@ public abstract class RDFRendererBase {
             }
         }
 
-        Set<OWLObjectProperty> objectProperties = ontology.getReferencedObjectProperties();
+        Set<OWLObjectProperty> objectProperties = ontology.getObjectPropertiesInSignature();
         if (!objectProperties.isEmpty()) {
             first = true;
             for (OWLObjectProperty prop : toSortedSet(objectProperties)) {
@@ -142,10 +142,10 @@ public abstract class RDFRendererBase {
             }
         }
 
-        Set<OWLDataProperty> dataProperties = ontology.getReferencedDataProperties();
+        Set<OWLDataProperty> dataProperties = ontology.getDataPropertiesInSignature();
         if (!dataProperties.isEmpty()) {
             first = true;
-            for (OWLDataProperty prop : toSortedSet(ontology.getReferencedDataProperties())) {
+            for (OWLDataProperty prop : toSortedSet(ontology.getDataPropertiesInSignature())) {
                 if (createGraph(prop)) {
                     if (first) {
                         first = false;
@@ -161,7 +161,7 @@ public abstract class RDFRendererBase {
         }
 
 
-        Set<OWLClass> clses = ontology.getReferencedClasses();
+        Set<OWLClass> clses = ontology.getClassesInSignature();
         if (!clses.isEmpty()) {
             first = true;
             for (OWLClass cls : toSortedSet(clses)) {
@@ -180,10 +180,10 @@ public abstract class RDFRendererBase {
         }
 
 
-        Set<OWLNamedIndividual> individuals = ontology.getReferencedIndividuals();
+        Set<OWLNamedIndividual> individuals = ontology.getIndividualsInSignature();
         if (!individuals.isEmpty()) {
             first = true;
-            for (OWLNamedIndividual ind : toSortedSet(ontology.getReferencedIndividuals())) {
+            for (OWLNamedIndividual ind : toSortedSet(ontology.getIndividualsInSignature())) {
                 if (createGraph(ind)) {
                     if (first) {
                         writeBanner("Individuals");
@@ -225,7 +225,7 @@ public abstract class RDFRendererBase {
             OWLAnnotationSubject subject = ax.getSubject();
             if (subject instanceof IRI) {
                 IRI iri = (IRI) subject;
-                if (!ontology.containsEntityReference(iri)) {
+                if (!ontology.containsEntityInSignature(iri)) {
                     annotatedIRIs.add(iri);
                 }
             }
@@ -326,7 +326,7 @@ public abstract class RDFRendererBase {
                 }
 
                 public RDFNode visit(OWLStringLiteral literal) {
-                    return new RDFLiteralNode(literal.getLiteral(), literal.asRDFTextLiteral().getLang());
+                    return new RDFLiteralNode(literal.getLiteral(), literal.asStringLiteral().getLang());
                 }
             };
             RDFNode node = anno.getValue().accept(valVisitor);

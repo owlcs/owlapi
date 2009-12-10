@@ -29,6 +29,8 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  * <p/>
+ * Represents a <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Data_Ranges">DataRange</a> in the OWL 2 Specification.
+ * </p>
  * A high level interface which represents a data range.  Example of
  * data ranges are datatypes (e.g. int, float, double, string, ...),
  * complements of data ranges (e.g. not(int)), data enumerations (data oneOfs),
@@ -55,11 +57,15 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate
      */
     boolean isTopDatatype();
 
+    /**
+     * If this data range is a datatype then this method may be used to obtain it as a datatype (rather than
+     * using an explicit cast).
+     * @return This data range as an {@link org.semanticweb.owlapi.model.OWLDatatype}
+     */
     OWLDatatype asOWLDatatype();
 
     /**
      * Gets the type of this data range
-     *
      * @return The data range type
      */
     DataRangeType getDataRangeType();

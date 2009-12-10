@@ -58,7 +58,7 @@ public abstract class OWLOntologyChange {
 
 
     /**
-     * Determines if this change is an import change
+     * Determines if this change is an import change and hence causes a change to the imports closure of an ontology.
      * @return <code>true</code> if this change is an import change, otherwise <code>false</code>.
      */
     public abstract boolean isImportChange();

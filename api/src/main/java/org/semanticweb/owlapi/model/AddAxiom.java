@@ -30,7 +30,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group<br>
  * Date: 25-Oct-2006<br><br>
  *
- *
+ * </p>
  * Represents an ontology change where axioms should be added
  * to an ontology.
  */

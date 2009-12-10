@@ -39,6 +39,6 @@ public abstract class InferredObjectPropertyAxiomGenerator<A extends OWLObjectPr
 
 
     protected Set<OWLObjectProperty> getEntities(OWLOntology ont) {
-        return ont.getReferencedObjectProperties();
+        return ont.getObjectPropertiesInSignature();
     }
 }

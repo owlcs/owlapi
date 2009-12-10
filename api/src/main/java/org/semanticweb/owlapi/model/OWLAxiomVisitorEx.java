@@ -28,6 +28,8 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 16-Apr-2008<br><br>
+ * </p>
+ * An interface for objects that can accept visits from axioms.  (See the <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
  */
 public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O> {
 
