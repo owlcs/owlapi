@@ -1161,36 +1161,6 @@ public class OWLRDFConsumer implements RDFConsumer {
             tripleProcessor.fine("Total number of triples: " + count);
             RDFXMLOntologyFormat format = getOntologyFormat();
 
-
-            // Do we need to change the ontology IRI?
-            OWLOntologyID id = ontology.getOntologyID();
-
-//        if (id.isAnonymous() || !ontologyIRIs.contains(id.getOntologyIRI().toIRI())) {
-            if (ontologyIRIs.size() == 1 && !isAnonymousNode(firstOntologyIRI)) {
-                applyChange(new SetOntologyID(ontology, new OWLOntologyID(firstOntologyIRI)));
-            }
-            else {
-                if (ontologyIRIs.isEmpty()) {
-                    if (xmlBase == null) {
-                        logger.fine("There are no resources which are typed as ontologies.  Cannot determine the IRI of the ontology being parsed - using physical IRI.");
-                    }
-                    else {
-                        logger.fine("There are no resources which are typed as ontologies.  Cannot determine the IRI of the ontology being parsed - using xml:base.");
-                        applyChange(new SetOntologyID(ontology, new OWLOntologyID(xmlBase)));
-                    }
-                }
-                else if(!isAnonymousNode(firstOntologyIRI)) {
-                    logger.fine("There are multiple resources which are typed as ontologies.  Using the first encountered ontology IRI.");
-                    applyChange(new SetOntologyID(ontology, new OWLOntologyID(firstOntologyIRI)));
-                }
-            }
-//        }
-
-
-            if (tripleProcessor.isLoggable(Level.FINE)) {
-                tripleProcessor.fine("Loaded " + ontology.getOntologyID());
-            }
-
             // First mop up any rules triples
             SWRLRuleTranslator translator = new SWRLRuleTranslator(this);
             for (IRI ruleIRI : swrlRules) {
@@ -1291,6 +1261,53 @@ public class OWLRDFConsumer implements RDFConsumer {
                 RDFOntologyFormat.ParserMetaData metaData = new RDFOntologyFormat.ParserMetaData(count, RDFOntologyFormat.OntologyHeaderStatus.PARSED_ONE_HEADER);
                 format.setParserMetaData(metaData);
             }
+
+
+
+
+            // Do we need to change the ontology IRI?
+            if (ontologyIRIs.size() == 1 && !isAnonymousNode(firstOntologyIRI)) {
+                applyChange(new SetOntologyID(ontology, new OWLOntologyID(firstOntologyIRI)));
+            }
+            else {
+                if (ontologyIRIs.isEmpty()) {
+                    if (xmlBase == null) {
+                        logger.fine("There are no resources which are typed as ontologies.  Cannot determine the IRI of the ontology being parsed - using physical IRI.");
+                    }
+                    else {
+                        logger.fine("There are no resources which are typed as ontologies.  Cannot determine the IRI of the ontology being parsed - using xml:base.");
+                        applyChange(new SetOntologyID(ontology, new OWLOntologyID(xmlBase)));
+                    }
+                }
+                else  {
+                    // We have multiple
+                    // Choose one that isn't the object of an annotation assertion
+                    Set<IRI> candidateIRIs = new HashSet<IRI>(ontologyIRIs);
+                    for(OWLAnnotation anno : ontology.getAnnotations()) {
+                        if(anno.getValue() instanceof IRI) {
+                            IRI iri = (IRI) anno.getValue();
+                            if(ontologyIRIs.contains(iri)) {
+                               candidateIRIs.remove(iri);
+                            }
+                        }
+                    }
+                    if(candidateIRIs.contains(firstOntologyIRI)) {
+                        applyChange(new SetOntologyID(ontology, new OWLOntologyID(firstOntologyIRI)));
+                    }
+                    else if(!candidateIRIs.isEmpty()) {
+                        applyChange(new SetOntologyID(ontology, new OWLOntologyID(candidateIRIs.iterator().next())));
+                    }
+
+                }
+            }
+
+
+            if (tripleProcessor.isLoggable(Level.FINE)) {
+                tripleProcessor.fine("Loaded " + ontology.getOntologyID());
+            }
+
+
+
             dumpRemainingTriples();
             cleanup();
         }

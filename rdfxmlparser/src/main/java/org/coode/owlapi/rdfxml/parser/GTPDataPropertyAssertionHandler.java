@@ -44,7 +44,7 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
 
 
     public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
-        if (getConsumer().isAnnotationProperty(predicate)) {
+        if (getConsumer().isAnnotationProperty(predicate) || getConsumer().isOntology(subject)) {
             return false;
         }
         return !OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(predicate) && !OWLFacet.FACET_IRIS.contains(predicate);

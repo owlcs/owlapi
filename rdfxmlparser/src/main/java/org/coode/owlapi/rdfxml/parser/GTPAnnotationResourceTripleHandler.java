@@ -44,7 +44,7 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
 
 
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
-        return getConsumer().isAnnotationProperty(predicate);
+        return getConsumer().isAnnotationProperty(predicate) || getConsumer().isOntology(subject);
     }
 
 
@@ -60,5 +60,22 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
             OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno, getPendingAnnotations());
             addAxiom(decAx);
         }
+//        
+//            // Add as annotation
+//            OWLAnnotationSubject annoSubject;
+//            if(getConsumer().isAnonymousNode(subject)) {
+//                annoSubject = getDataFactory().getOWLAnonymousIndividual(subject.toString());
+//            }
+//            else {
+//                annoSubject = subject;
+//            }
+//            OWLAnnotationValue annoValue;
+//            if(getConsumer().isAnonymousNode(object)) {
+//                annoValue = getDataFactory().getOWLAnonymousIndividual(object.toString());
+//            }
+//            else {
+//                annoValue = object;
+//            }
+//            addAxiom(getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getOWLAnnotationProperty(predicate), annoSubject, annoValue));
     }
 }

@@ -92,7 +92,7 @@ Class: MyBirthdayGuests
 Class: Father
   SubClassOf: Man and Parent
 Class: X
-  SubClassOf:   Parent and hasChild max 1 and hasChild only Female
+  SubClassOf:   Parent and (hasChild max 1 owl:Thing) and (hasChild only Female)
   EquivalentTo: {Mary, Bill, Meg} and Female
 Class: Dead
 Class: Father
@@ -101,7 +101,7 @@ Class: Happy
 Class: Human
 Class: SocialRole
 Class: YoungChild
-
+Class: Adult
 DisjointClasses: Mother, Father, YoungChild
 DisjointClasses: Woman, Man
 EquivalentClasses: Adult, otherOnt:Grownup
@@ -118,9 +118,9 @@ Individual: John
   Types: hasChild max 4 Parent
   Types: hasChild min 2 Parent
   Types: hasChild exactly 3 Parent
-  Types: hasChild exactly 5
-  Facts: hasAge "51"^^xsd:integer
-  Facts: hasWife Mary
+  Types: hasChild exactly 5 owl:Thing
+  Facts: hasAge "51"^^xsd:integer,
+   hasWife Mary
   DifferentFrom: Bill
 Individual: Bill
   Facts: not hasWife     Mary
