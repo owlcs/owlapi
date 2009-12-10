@@ -501,6 +501,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addBuiltInTypeTripleHandler(new TypeListHandler(this));
         addBuiltInTypeTripleHandler(new TypeAnnotationPropertyHandler(this));
         addBuiltInTypeTripleHandler(new TypeDeprecatedClassHandler(this));
+        addBuiltInTypeTripleHandler(new TypeDeprecatedPropertyHandler(this));
         addBuiltInTypeTripleHandler(new TypeDataRangeHandler(this));
         addBuiltInTypeTripleHandler(new TypeAllDifferentHandler(this));
         addBuiltInTypeTripleHandler(new TypeOntologyHandler(this));

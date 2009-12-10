@@ -45,8 +45,8 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     public OWLDataPropertyImpl(OWLDataFactory dataFactory, IRI iri) {
         super(dataFactory);
         this.iri = iri;
-        this.builtin = getURI().equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getURI()) ||
-                getURI().equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getURI());
+        this.builtin = getIRI().equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()) ||
+                getIRI().equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
     public boolean isTopEntity() {

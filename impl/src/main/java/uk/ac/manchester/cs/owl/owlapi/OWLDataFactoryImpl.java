@@ -1143,6 +1143,18 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return new OWLAnnotationAssertionAxiomImpl(this, subject, property, value, annotations);
     }
 
+    /**
+     * Gets an annotation assertion that specifies that an IRI is deprecated.  The annotation property is
+     * owl:deprecated and the value of the annotation is <code>"true"^^xsd:boolean</code>.  (See
+     * <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Properties">Annotation Properties</a> in
+     * the OWL 2 Specification
+     *
+     * @param subject The IRI to be deprecated.
+     * @return The annotation assertion that deprecates the specified IRI.
+     */
+    public OWLAnnotationAssertionAxiom getDeprecatedOWLAnnotationAssertionAxiom(IRI subject) {
+        return getOWLAnnotationAssertionAxiom(getOWLAnnotationProperty(OWLRDFVocabulary.OWL_DEPRECATED.getIRI()), subject, getOWLTypedLiteral(true));
+    }
 
     public OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
                                                                    IRI domain, Set<? extends OWLAnnotation> annotations) {

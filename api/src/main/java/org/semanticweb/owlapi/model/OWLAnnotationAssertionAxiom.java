@@ -63,5 +63,13 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom {
      */
     OWLAnnotation getAnnotation();
 
+    /**
+     * Determines if this annotation assertion deprecates the IRI that is the subject of the annotation.
+     * @return <code>true</code> if this annotation assertion deprecates the subject IRI of the assertion, otherwise
+     * <code>false</code>.
+     * @see {@link OWLAnnotation#isDeprecatedIRIAnnotation()}
+     */
+    boolean isDeprecatedIRIAssertion();
+
     OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();
 }

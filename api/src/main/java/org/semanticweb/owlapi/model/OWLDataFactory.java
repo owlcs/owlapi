@@ -1046,6 +1046,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                    OWLAnnotationValue value,
                                    Set<? extends OWLAnnotation> annotations);
 
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////
@@ -1069,6 +1070,17 @@ public interface OWLDataFactory extends SWRLDataFactory {
                                                                OWLAnnotation annotation,
                                                                Set<? extends OWLAnnotation> annotations);
 
+
+    /**
+     * Gets an annotation assertion that specifies that an IRI is deprecated.  The annotation property is
+     * owl:deprecated and the value of the annotation is <code>"true"^^xsd:boolean</code>.  (See
+     * <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Properties">Annotation Properties</a> in
+     * the OWL 2 Specification
+     * @param subject The IRI to be deprecated.
+     * @return The annotation assertion that deprecates the specified IRI.
+     */
+    OWLAnnotationAssertionAxiom getDeprecatedOWLAnnotationAssertionAxiom(IRI subject);
+    
 
     OWLImportsDeclaration getOWLImportsDeclaration(URI importedOntologyURI);
 

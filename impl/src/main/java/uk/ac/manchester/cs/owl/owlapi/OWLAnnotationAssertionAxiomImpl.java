@@ -56,6 +56,18 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         return getOWLDataFactory().getOWLAnnotationAssertionAxiom(getProperty(), getSubject(), getValue());
     }
 
+    /**
+     * Determines if this annotation assertion deprecates the IRI that is the subject of the annotation.
+     *
+     * @return <code>true</code> if this annotation assertion deprecates the subject IRI of the assertion, otherwise
+     *         <code>false</code>.
+     *
+     * @see {@link org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()}
+     */
+    public boolean isDeprecatedIRIAssertion() {
+        return property.isDeprecated() && getAnnotation().isDeprecatedIRIAnnotation();
+    }
+
     public OWLAnnotationAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLAnnotationAssertionAxiom(getProperty(), getSubject(), getValue(), mergeAnnos(annotations));
     }

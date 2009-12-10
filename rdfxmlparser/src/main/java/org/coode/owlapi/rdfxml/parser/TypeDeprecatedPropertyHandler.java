@@ -1,11 +1,10 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -27,19 +26,17 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeException;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 09-Dec-2006<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 10-Dec-2009
  */
-public class TypeDeprecatedClassHandler extends BuiltInTypeHandler {
+public class TypeDeprecatedPropertyHandler extends BuiltInTypeHandler {
 
-    public TypeDeprecatedClassHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_DEPRECATED_CLASS.getIRI());
+    public TypeDeprecatedPropertyHandler(OWLRDFConsumer consumer) {
+        super(consumer, OWLRDFVocabulary.OWL_DEPRECATED_PROPERTY.getIRI());
     }
-
 
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().addOWLClass(subject);
