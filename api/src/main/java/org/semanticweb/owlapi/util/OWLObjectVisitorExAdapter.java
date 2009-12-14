@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.model.*;
  * 29-Jul-2008<br><br>
  *
  * Provides a default implementation of <code>OWLObjectVisitorEx</code>.  Only the methods that need specific client
- * implementation need be overriden.  The adapter can be set up to return a default value.
+ * implementation need be overridden.  The adapter can be set up to return a default value.
  */
 public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
 

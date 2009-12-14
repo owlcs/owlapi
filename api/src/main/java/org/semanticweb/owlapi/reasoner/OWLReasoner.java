@@ -458,8 +458,8 @@ public interface OWLReasoner {
 
 
     /**
-     * Gets the set of named classes that are equivalent to the specified class expression with respect to the imports
-     * closure of the root ontology. The classes are returned as a {@link org.semanticweb.owlapi.reasoner.Node}.
+     * Gets the set of named classes that are equivalent to the specified class expression with respect to the set of
+     * reasoner axioms. The classes are returned as a {@link org.semanticweb.owlapi.reasoner.Node}.
      *
      * @param ce The class expression whose equivalent classes are to be retrieved.
      * @return A node containing the named classes such that for each named class <code>C</code> in the node the root ontology
@@ -484,6 +484,28 @@ public interface OWLReasoner {
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
     Node<OWLClass> getEquivalentClasses(OWLClassExpression ce) throws InconsistentOntologyException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+
+
+    /**
+     * Gets the classes that are disjoint with the specified class expression <code>ce</code>. The classes are returned
+     * as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param ce The class expression whose disjoint classes are to be retrieved.
+     * @param direct Specifies if only the direct disjoint classes should be retrieved or if all disjoint classes should be retrieved.
+     * @return If <code>direct=true</code>, a <code>NodeSet</code> of classes such that for each class <code>C</code> in the <code>NodeSet</code>
+     * the reasoner axioms entail <code>DirectSubClassOf(C, ObjectComplementOf(ce))</code>.  If <code>direct=false</code>
+     * a <code>NodeSet</code> such that for each class <code>C</code> in the <code>NodeSet</code> the set of reasoner
+     * axioms entails <code>StrictSubClassOf(C, ObjectComplementOf(ce))</code>.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws ClassExpressionNotInProfileException if <code>classExpression</code> is not within the profile that is
+     * supported by this reasoner.
+     * @throws UndeclaredEntitiesException
+     *                                       if the signature of the classExpression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     */
+    NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce, boolean direct);
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -551,7 +573,7 @@ public interface OWLReasoner {
 
     /**
      * Gets the set of named object properties that are equivalent to the specified object property expression with
-     * respect to the imports closure of the root ontology. The properties are returned as a
+     * respect to the set of reasoner axioms. The properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.Node}.
      *
      * @param pe The object property expression whose equivalent properties are to be retrieved.
@@ -575,6 +597,29 @@ public interface OWLReasoner {
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
     Node<OWLObjectProperty> getEquivalentObjectProperties(OWLObjectPropertyExpression pe)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+
+
+    /**
+     * Gets the object properties that are disjoint with the specified object property expression with respect to the
+     * set of reasoner axioms. The properties are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param pe The property expression for which the disjoint properties will be retrieved.
+     * @param direct Specifies whether just the direct disjoint properties should be retrieved or whether all properties
+     * that are disjoint with the specified property should be retrieved.
+     * @return If <code>direct=true</code>, a <code>NodeSet</code> containing object properties such that for each property <code>P</code> in the
+     * <code>NodeSet</code>, the set of reasoner axioms entails <code>DirectSubObjectPropertyOf(P, ObjectPropertyComplementOf(pe))</code>.  If
+     * <code>direct=false</code>, a <code>NodeSet</code> containing object properties such that for each property <code>P</code> in the
+     * <code>NodeSet</code>, the set of reasoner axioms entails <code>StrictSubObjectPropertyOf(P, ObjectPropertyComplementOf(pe))</code>.
+     *
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws UndeclaredEntitiesException
+     *                                       if the signature of the object property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     */
+    Node<OWLObjectProperty> getDisjointObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+
 
     /**
      * Gets the set of named object properties that are the inverses of the specified object property expression with
@@ -735,6 +780,30 @@ public interface OWLReasoner {
      */
     Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty pe)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
+
+    /**
+     * Gets the data properties that are disjoint with the specified data property expression with respect to the
+     * set of reasoner axioms. The properties are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param pe The property expression for which the disjoint properties will be retrieved.
+     * @param direct Specifies whether just the direct disjoint properties should be retrieved or whether all properties
+     * that are disjoint with the specified property should be retrieved.
+     * @return If <code>direct=true</code>, a <code>NodeSet</code> containing data properties such that for each property <code>P</code> in the
+     * <code>NodeSet</code>, the set of reasoner axioms entails <code>DirectSubDataPropertyOf(P, DataPropertyComplementOf(pe))</code>.  If
+     * <code>direct=false</code>, a <code>NodeSet</code> containing data properties such that for each property <code>P</code> in the
+     * <code>NodeSet</code>, the set of reasoner axioms entails <code>StrictSubDataPropertyOf(P, DataPropertyComplementOf(pe))</code>.
+     *
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws UndeclaredEntitiesException
+     *                                       if the signature of the data property expression is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     */
+    Node<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+    
+    
+    
     /**
      * Gets the named classes that are the direct or indirect domains of this property with respect to the imports
      * closure of the root ontology.  The classes are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
@@ -878,6 +947,22 @@ public interface OWLReasoner {
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
     Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind)  throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+
+    /**
+     * Gets the individuals which are entailed to be different from the specified individual.  The individuals are
+     * returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param ind The individual whose different individuals are to be returned.
+     * @return A <code>NodeSet</code> containing <code>OWLNamedIndividual</code>s such that for each individual <code>i</code>
+     * in the <code>NodeSet</code> the set of reasoner axioms entails <code>DifferentIndividuals(ind, i)</code>.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws UndeclaredEntitiesException
+     *                                       if the signature of the individual is not contained within the signature
+     *                                       of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     */
+    NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
 

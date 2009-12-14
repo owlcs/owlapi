@@ -347,6 +347,10 @@ public class StructuralReasoner extends OWLReasonerBase {
         return node;
     }
 
+    public NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce, boolean direct) {
+        return null;
+    }
+
     public NodeSet<OWLObjectProperty> getSubObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
         return null;
     }
@@ -356,6 +360,10 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public Node<OWLObjectProperty> getEquivalentObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
+        return null;
+    }
+
+    public Node<OWLObjectProperty> getDisjointObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
         return null;
     }
 
@@ -380,6 +388,10 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty pe) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
+        return null;
+    }
+
+    public Node<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
         return null;
     }
 
@@ -408,6 +420,9 @@ public class StructuralReasoner extends OWLReasonerBase {
         return null;
     }
 
+    public NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
+        return null;
+    }
 
     private void printIndent(int level) {
         for (int i = 0; i < level; i++) {
