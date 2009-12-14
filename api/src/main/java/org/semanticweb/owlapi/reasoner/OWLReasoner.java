@@ -618,7 +618,7 @@ public interface OWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    Node<OWLObjectProperty> getDisjointObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLObjectProperty> getDisjointObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -800,7 +800,7 @@ public interface OWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
-    Node<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
     
     
     

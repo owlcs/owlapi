@@ -117,7 +117,7 @@ public abstract class DefaultNode<E extends OWLLogicalEntity> implements Node<E>
         StringBuilder sb = new StringBuilder();
         sb.append("Node( ");
         for(OWLEntity entity : entities) {
-            sb.append(entity.toStringID());
+            sb.append(entity);
             sb.append(" ");
         }
         sb.append(")");
