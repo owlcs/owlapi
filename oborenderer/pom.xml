@@ -3,13 +3,13 @@
     <groupId>owlapi</groupId>
     <artifactId>oborenderer</artifactId>
     <packaging>jar</packaging>
-    <version>2.2.0</version>
+    <version>3.0.0</version>
     <name>OBO Parser</name>
 
     <parent>
         <groupId>owlapi</groupId>
         <artifactId>owlapi-parent</artifactId>
-        <version>2.2.0</version>
+        <version>3.0.0</version>
     </parent>
 
 
@@ -18,19 +18,19 @@
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>api</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>util</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>oboparser</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
         
     </dependencies>

@@ -5,7 +5,7 @@
     <groupId>owlapi</groupId>
     <artifactId>owlapi-parent</artifactId>
     <packaging>pom</packaging>
-    <version>2.2.0</version>
+    <version>3.0.0</version>
     <name>OWLAPI</name>
     <url>http://sourceforge.net/projects/owlapi</url>
 
@@ -13,7 +13,6 @@
         <module>api</module>
         <module>apibinding</module>
         <module>debugging</module>
-        <module>dig1_1</module>
         <module>dlsyntax</module>
         <module>examples</module>
         <module>functionalparser</module>

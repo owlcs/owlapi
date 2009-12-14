@@ -3,13 +3,13 @@
     <groupId>owlapi</groupId>
     <artifactId>apibinding</artifactId>
     <packaging>jar</packaging>
-    <version>2.2.0</version>
+    <version>3.0.0</version>
     <name>OWLAPI Binding and Config</name>
 
     <parent>
         <groupId>owlapi</groupId>
         <artifactId>owlapi-parent</artifactId>
-        <version>2.2.0</version>
+        <version>3.0.0</version>
     </parent>
 
 
@@ -18,109 +18,109 @@
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>api</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>impl</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>functionalparser</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>functionalrenderer</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>rdfxmlparser</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>rdfxmlrenderer</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>krssparser</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>oboparser</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>oborenderer</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>owlxmlparser</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>owlxmlrenderer</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>mansyntaxparser</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>mansyntaxrenderer</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>turtlerenderer</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>turtleparser</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>krssparser</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>krssrenderer</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>latexrenderer</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         

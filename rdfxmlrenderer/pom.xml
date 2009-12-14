@@ -3,13 +3,13 @@
     <groupId>owlapi</groupId>
     <artifactId>rdfxmlrenderer</artifactId>
     <packaging>jar</packaging>
-    <version>2.2.0</version>
+    <version>3.0.0</version>
     <name>RDF/XML Renderer</name>
 
     <parent>
         <groupId>owlapi</groupId>
         <artifactId>owlapi-parent</artifactId>
-        <version>2.2.0</version>
+        <version>3.0.0</version>
     </parent>
 
 
@@ -18,19 +18,19 @@
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>api</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>util</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>impl</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
             <scope>test</scope>
         </dependency>
 
@@ -38,7 +38,7 @@
         <dependency>
             <groupId>owlapi</groupId>
             <artifactId>rdfxmlparser</artifactId>
-            <version>2.2.0</version>
+            <version>3.0.0</version>
             <scope>test</scope>
         </dependency>
 

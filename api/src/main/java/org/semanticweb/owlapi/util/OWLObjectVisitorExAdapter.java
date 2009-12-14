@@ -48,6 +48,7 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
     }
 
     public OWLObjectVisitorExAdapter() {
+        this(null);
     }
 
     public OWLObjectVisitorExAdapter(O defaultReturnValue) {
