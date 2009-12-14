@@ -35,7 +35,7 @@ import java.util.Collections;/*
  * if the undeclared entity policy is set appropriately. (See {@link org.semanticweb.owlapi.reasoner.UndeclaredEntityPolicy}
  * and {@link org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration}.
  */
-public abstract class UndeclaredEntitiesException extends OWLReasonerRuntimeException {
+public class UndeclaredEntitiesException extends OWLReasonerRuntimeException {
 
     private Set<OWLEntity> entities;
 
