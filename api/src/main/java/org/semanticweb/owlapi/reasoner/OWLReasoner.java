@@ -192,6 +192,22 @@ import java.util.List;/*
  * such that <code>O</code> entails <code>ClassAssertion(C j)</code> and <code>O</code> entails
  * <code>StrictSubClassOf(C CE)</code>.
  *
+ * <h3>ObjectPropertyComplementOf</h3>
+ *
+ * Given an object property expression <code>pe</code>, the object property complement of <code>pe</code> is written
+ * as <code>ObjectPropertyComplementOf(pe)</code>.  The interpretation of <code>ObjectPropertyComplementOf(pe)</code>
+ * is equal to the interpretation of <code>owl:topObjectProperty</code>
+ * minus the interpretation of <code>pe</code>. In other words, <code>ObjectPropertyComplementOf(pe)</code> is the
+ * set of pairs of individuals that are not in <code>pe</code>.
+ *
+ * 
+ * <h3>DataPropertyComplementOf</h3>
+ *
+ * Given a data property expression <code>pe</code>, the data property complement of <code>pe</code> is written
+ * as <code>DataPropertyComplementOf(pe)</code>.  The interpretation of <code>DataPropertyComplementOf(pe)</code>
+ * is equal to the interpretation of <code>owl:topDataProperty</code>
+ * minus the interpretation of <code>pe</code>. In other words, <code>DataPropertyComplementOf(pe)</code> is the
+ * set of pairs of individual and literals that are not in <code>pe</code>.
  *
  */
 public interface OWLReasoner {
@@ -367,7 +383,7 @@ public interface OWLReasoner {
      * ontology, otherwise <code>false</code>.  If the set of reasoner axioms is inconsistent then <code>true</code>.
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the set of axioms is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -422,7 +438,7 @@ public interface OWLReasoner {
      * supported by this reasoner.
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the classExpression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -449,7 +465,7 @@ public interface OWLReasoner {
      * supported by this reasoner.
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the classExpression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -478,7 +494,7 @@ public interface OWLReasoner {
      * supported by this reasoner.
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the classExpression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -491,16 +507,24 @@ public interface OWLReasoner {
      * as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      * @param ce The class expression whose disjoint classes are to be retrieved.
      * @param direct Specifies if only the direct disjoint classes should be retrieved or if all disjoint classes should be retrieved.
-     * @return If <code>direct=true</code>, a <code>NodeSet</code> of classes such that for each class <code>C</code> in the <code>NodeSet</code>
-     * the reasoner axioms entail <code>DirectSubClassOf(C, ObjectComplementOf(ce))</code>.  If <code>direct=false</code>
-     * a <code>NodeSet</code> such that for each class <code>C</code> in the <code>NodeSet</code> the set of reasoner
-     * axioms entails <code>StrictSubClassOf(C, ObjectComplementOf(ce))</code>.
+     * @return
+     * If <code>direct=true</code>:<br>
+     * Let <code>S</code> be the, possibly empty, set of classes such that for each
+     * class <code>C</code> in <code>S</code> the set of reasoner axioms entails <code>EquivalentClasses(C ObjectComplementOf(ce))</code>.
+     * If <code>S</code> is <i>non-empty</i> the return value is a singleton
+     * <code>NodeSet</code> containing one <code>Node</code> that contains the classes in <code>S</code>.  If <code>S</code>
+     * is <i>empty</i> then the return value is a <code>NodeSet</code> such that for each class <code>D</code> in the <code>NodeSet</code>
+     * the set of reasoner axioms entails <code>DirectSubClassOf(D ObjectComplementOf(ce))</code>.
+     * </p>
+     * If <code>direct=false</code>:<br>
+     * The return value is a <code>NodeSet</code> such that for each class <code>D</code> in the <code>NodeSet</code>
+     * the set of reasoner axioms entails <code>EquivalentClasses(D, ObjectComplementOf(ce))</code> or <code>StrictSubClassOf(D, ObjectComplementOf(ce))</code>.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws ClassExpressionNotInProfileException if <code>classExpression</code> is not within the profile that is
      * supported by this reasoner.
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the classExpression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -536,7 +560,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the object property expression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -563,7 +587,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the object property expression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -591,7 +615,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the object property expression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -600,20 +624,28 @@ public interface OWLReasoner {
 
 
     /**
-     * Gets the object properties that are disjoint with the specified object property expression with respect to the
-     * set of reasoner axioms. The properties are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param pe The property expression for which the disjoint properties will be retrieved.
-     * @param direct Specifies whether just the direct disjoint properties should be retrieved or whether all properties
-     * that are disjoint with the specified property should be retrieved.
-     * @return If <code>direct=true</code>, a <code>NodeSet</code> containing object properties such that for each property <code>P</code> in the
-     * <code>NodeSet</code>, the set of reasoner axioms entails <code>DirectSubObjectPropertyOf(P, ObjectPropertyComplementOf(pe))</code>.  If
-     * <code>direct=false</code>, a <code>NodeSet</code> containing object properties such that for each property <code>P</code> in the
-     * <code>NodeSet</code>, the set of reasoner axioms entails <code>StrictSubObjectPropertyOf(P, ObjectPropertyComplementOf(pe))</code>.
-     *
+     * Gets the object properties that are disjoint with the specified object property expression <code>pe</code>. The object properties are returned
+     * as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param pe The object property expression whose disjoint object properties are to be retrieved.
+     * @param direct Specifies if only the direct disjoint object properties should be retrieved or if all disjoint object properties should be retrieved.
+     * @return
+     * If <code>direct=true</code>:<br>
+     * Let <code>S</code> be the, possibly empty, set of object properties such that for each
+     * object property <code>P</code> in <code>S</code> the set of reasoner axioms entails <code>EquivalentObjectProperties(P ObjectPropertyComplementOf(pe))</code>.
+     * If <code>S</code> is <i>non-empty</i> the return value is a singleton
+     * <code>NodeSet</code> containing one <code>Node</code> that contains the object properties in <code>S</code>.  If <code>S</code>
+     * is <i>empty</i> then the return value is a <code>NodeSet</code> such that for each object property <code>D</code> in the <code>NodeSet</code>
+     * the set of reasoner axioms entails <code>DirectSubObjectPropertyOf(P ObjectPropertyComplementOf(pe))</code>.
+     * </p>
+     * If <code>direct=false</code>:<br>
+     * The return value is a <code>NodeSet</code> such that for each object property <code>P</code> in the <code>NodeSet</code>
+     * the set of reasoner axioms entails <code>EquivalentObjectProperties(P, ObjectPropertyComplementOf(pe))</code> or <code>StrictSubObjectPropertyOf(P, ObjectPropertyComplementOf(pe))</code>.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws ClassExpressionNotInProfileException if <code>object propertyExpression</code> is not within the profile that is
+     * supported by this reasoner.
      * @throws UndeclaredEntitiesException
-     *                                       if the signature of the object property expression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       if the signature of <code>pe</code> is not contained within the signature
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -630,7 +662,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the object property expression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -655,7 +687,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the object property expression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -682,7 +714,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the object property expression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -718,7 +750,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the data property is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -745,7 +777,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the data property is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -773,7 +805,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the data property expression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -782,20 +814,28 @@ public interface OWLReasoner {
 
 
     /**
-     * Gets the data properties that are disjoint with the specified data property expression with respect to the
-     * set of reasoner axioms. The properties are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param pe The property expression for which the disjoint properties will be retrieved.
-     * @param direct Specifies whether just the direct disjoint properties should be retrieved or whether all properties
-     * that are disjoint with the specified property should be retrieved.
-     * @return If <code>direct=true</code>, a <code>NodeSet</code> containing data properties such that for each property <code>P</code> in the
-     * <code>NodeSet</code>, the set of reasoner axioms entails <code>DirectSubDataPropertyOf(P, DataPropertyComplementOf(pe))</code>.  If
-     * <code>direct=false</code>, a <code>NodeSet</code> containing data properties such that for each property <code>P</code> in the
-     * <code>NodeSet</code>, the set of reasoner axioms entails <code>StrictSubDataPropertyOf(P, DataPropertyComplementOf(pe))</code>.
-     *
+     * Gets the data properties that are disjoint with the specified data property expression <code>pe</code>. The data properties are returned
+     * as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param pe The data property expression whose disjoint data properties are to be retrieved.
+     * @param direct Specifies if only the direct disjoint data properties should be retrieved or if all disjoint data properties should be retrieved.
+     * @return
+     * If <code>direct=true</code>:<br>
+     * Let <code>S</code> be the, possibly empty, set of data properties such that for each
+     * data property <code>P</code> in <code>S</code> the set of reasoner axioms entails <code>EquivalentDataProperties(P DataPropertyComplementOf(pe))</code>.
+     * If <code>S</code> is <i>non-empty</i> the return value is a singleton
+     * <code>NodeSet</code> containing one <code>Node</code> that contains the data properties in <code>S</code>.  If <code>S</code>
+     * is <i>empty</i> then the return value is a <code>NodeSet</code> such that for each data property <code>D</code> in the <code>NodeSet</code>
+     * the set of reasoner axioms entails <code>DirectSubDataPropertyOf(P DataPropertyComplementOf(pe))</code>.
+     * </p>
+     * If <code>direct=false</code>:<br>
+     * The return value is a <code>NodeSet</code> such that for each data property <code>P</code> in the <code>NodeSet</code>
+     * the set of reasoner axioms entails <code>EquivalentDataProperties(P, DataPropertyComplementOf(pe))</code> or <code>StrictSubDataPropertyOf(P, DataPropertyComplementOf(pe))</code>.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws ClassExpressionNotInProfileException if <code>data propertyExpression</code> is not within the profile that is
+     * supported by this reasoner.
      * @throws UndeclaredEntitiesException
-     *                                       if the signature of the data property expression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       if the signature of <code>pe</code> is not contained within the signature
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -822,7 +862,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the data property is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -857,7 +897,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the individual is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -886,7 +926,7 @@ public interface OWLReasoner {
      * that is supported by this reasoner.
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the class expression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -905,7 +945,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the individual and property expression is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -925,7 +965,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the individual and property is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -941,7 +981,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the individual is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
@@ -957,7 +997,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws UndeclaredEntitiesException
      *                                       if the signature of the individual is not contained within the signature
-     *                                       of the imports closure of the root ontology.
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
