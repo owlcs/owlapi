@@ -139,6 +139,14 @@ public class StructuralReasoner extends OWLReasonerBase {
         return true;
     }
 
+    public Node<OWLClass> getTopClassNode() {
+        return classHierarchyInfo.getEquivalents(getDataFactory().getOWLThing());
+    }
+
+    public Node<OWLClass> getBottomClassNode() {
+        return classHierarchyInfo.getEquivalents(getDataFactory().getOWLNothing());
+    }
+
     public NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
         OWLClassNodeSet ns = new OWLClassNodeSet();
         if (!ce.isAnonymous()) {
@@ -178,6 +186,14 @@ public class StructuralReasoner extends OWLReasonerBase {
             }
         }
         return ns;
+    }
+
+    public Node<OWLObjectProperty> getTopObjectPropertyNode() {
+        return objectPropertyHierarchyInfo.getEquivalents(getDataFactory().getOWLTopObjectProperty());
+    }
+
+    public Node<OWLObjectProperty> getBottomObjectPropertyNode() {
+        return objectPropertyHierarchyInfo.getEquivalents(getDataFactory().getOWLBottomObjectProperty());
     }
 
     public NodeSet<OWLObjectProperty> getSubObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
@@ -234,6 +250,14 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     public NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
         return null;
+    }
+
+    public Node<OWLDataProperty> getTopDataPropertyNode() {
+        return dataPropertyHierarchyInfo.getEquivalents(getDataFactory().getOWLTopDataProperty());
+    }
+
+    public Node<OWLDataProperty> getBottomDataPropertyNode() {
+        return dataPropertyHierarchyInfo.getEquivalents(getDataFactory().getOWLBottomDataProperty());
     }
 
     public NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
