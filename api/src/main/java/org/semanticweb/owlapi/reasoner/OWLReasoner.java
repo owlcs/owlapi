@@ -469,6 +469,7 @@ public interface OWLReasoner {
      * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct);
+    
 
     /**
      * Gets the set of named classes that are the strict (potentially direct) super classes of the specified class expression with respect to the
