@@ -80,22 +80,11 @@ public interface NodeSet<E extends OWLLogicalEntity> extends Iterable<Node<E>> {
      * bottom node, otherwise <code>false</code>
      */
     boolean isBottomSingleton();
-//
-//    /**
-//     * Determines if this <code>NodeSet</code> contains a <code>Node</code> that is the top node (in a hierarchy).
-//     * @see {@link Node#isTopNode()}
-//     * @return <code>true</code> if this <code>NodeSet</code> contains a node that is the top node, otherwise
-//     * <code>false</code>
-//     */
-//    boolean containsTopNode();
-//
-//    /**
-//     * Determies if this node set contains a node that is the bottom node (in a hierarchy).
-//     * {@link Node#isBottomNode()}
-//     * @return <code>true</code> if this <code>NodeSet</code> contains a node that is the bottom node, otherwise
-//     * <code>false</code>
-//     */
-//    boolean containsBottomNode();
 
-
+    /**
+     * Gets the <code>Node</code>s contained in this <code>NodeSet</code>
+     * @return The set of <code>Node</code>s contained in this <code>NodeSet</code>.  Note that this set will be
+     * an unmodifiable set.
+     */
+    Set<Node<E>> getNodes();
 }

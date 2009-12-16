@@ -5,9 +5,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.Node;
 
-import java.util.Set;
-import java.util.Iterator;
-import java.util.HashSet;
+import java.util.*;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -56,18 +54,50 @@ public abstract class DefaultNodeSet<E extends OWLLogicalEntity> implements Node
         this.nodes.addAll(nodes);
     }
 
+    public Set<Node<E>> getNodes() {
+        return Collections.unmodifiableSet(nodes);
+    }
+
+    /**
+     * Adds an entity to this <code>NodeSet</code> by wrapping it in a <code>Node</code>.
+     * @param entity The entity to be added.  The entity will be wrapped in the <code>Node</code> and the <code>Node</code>
+     * added to this set.
+     */
     public void addEntity(E entity) {
         addNode(getNode(entity));
     }
 
+    /**
+     * Adds a <code>Node</code> to this set.
+     * @param node The <code>Node</code> to be added.
+     */
     public void addNode(Node<E> node) {
         nodes.add(node);
     }
 
+    /**
+     * Adds a collection of <code>Node</code>s to this set.
+     * @param nodes The <code>Node</code>s to be added.  Note that if the collection is not a set then duplicate
+     * <code>Node</code>s will be filtered out.
+     */
+    public void addAllNodes(Collection<Node<E>> nodes) {
+        this.nodes.addAll(nodes);
+    }
+
+    /**
+     * Adds the set of entities as a <code>Node</code> to this set.
+     * @param entities The set of entities to be added.  The entities will be wrapped in a <code>Node</code>
+     * which will be added to this <code>NodeSet</code>.
+     */
     public void addSameEntities(Set<E> entities) {
         nodes.add(getNode(entities));
     }
 
+    /**
+     * Adds the specified entities as <code>Node</code>s to this set.
+     * @param entities The entities to be added.  Each entity will be wrapped in a <code>Node</code> which will then
+     * be added to this <code>NodeSet</code>.
+     */
     public void addDifferentEntities(Set<E> entities) {
         for(E e : entities) {
             addNode(getNode(e));
