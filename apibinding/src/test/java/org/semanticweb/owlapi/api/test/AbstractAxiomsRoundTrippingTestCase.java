@@ -49,7 +49,6 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends AbstractRoundT
     }
 
     public void testRDFXML() throws Exception {
-        System.out.println("RDF/XML");
         super.testRDFXML();
     }
 

@@ -24,6 +24,7 @@ package org.coode.xml;
  */
 
 import org.coode.string.EscapeUtils;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -93,27 +94,25 @@ public class XMLWriterImpl implements XMLWriter {
         entities = new LinkedHashMap<String, String>();
         for (String curNamespace : namespaces) {
             String curPrefix = "";
-            if (xmlWriterNamespaceManager.getDefaultNamespace().equals(curNamespace)){
+            if (xmlWriterNamespaceManager.getDefaultNamespace().equals(curNamespace)) {
                 curPrefix = xmlWriterNamespaceManager.getDefaultPrefix();
             }
-            else{
+            else {
                 curPrefix = xmlWriterNamespaceManager.getPrefixForNamespace(curNamespace);
 
             }
-            if (curPrefix.length() > 0){
-                    entities.put(curNamespace, "&" + curPrefix + ";");
-                }
+            if (curPrefix.length() > 0) {
+                entities.put(curNamespace, "&" + curPrefix + ";");
+            }
         }
     }
 
 
     private String swapForEntity(String value) {
-        String repVal;
         for (String curEntity : entities.keySet()) {
             String entityVal = entities.get(curEntity);
             if (value.length() > curEntity.length()) {
-                repVal = value.replace(curEntity, entityVal);
-//                repVal = StringUtils.replaceOnce(value, curEntity, entityVal);
+                String repVal = value.replace(curEntity, entityVal);
                 if (repVal.length() < value.length()) {
                     return repVal;
                 }
@@ -145,9 +144,24 @@ public class XMLWriterImpl implements XMLWriter {
         this.encoding = encoding;
     }
 
+    private boolean isValidQName(String name) {
+        int colonIndex = name.indexOf(":");
+        boolean valid = false;
+        if (colonIndex == -1) {
+            valid = OWL2Datatype.XSD_NCNAME.getPattern().matcher(name).matches();
+        }
+        else {
+            valid = OWL2Datatype.XSD_NCNAME.getPattern().matcher(name.substring(0, colonIndex - 1)).matches();
+            if (valid) {
+                valid = OWL2Datatype.XSD_NAME.getPattern().matcher(name.substring(colonIndex + 1)).matches();
+            }
+        }
+        return valid;
+    }
+
 
     public void setWrapAttributes(boolean b) {
-        if (elementStack.size() > 0) {
+        if (!elementStack.isEmpty()) {
             XMLElement element = elementStack.peek();
             element.setWrapAttributes(b);
         }
@@ -156,13 +170,16 @@ public class XMLWriterImpl implements XMLWriter {
 
     public void writeStartElement(String name) throws IOException {
         String qName = xmlWriterNamespaceManager.getQName(name);
-        if(qName == null) {
-            // Could not generate a valid QName, therefore, we cannot
-            // write valid XML - just throw an exception!
-            throw new IOException("Could not generate legal element name (qname) for " + name);
+        if (qName.equals(name)) {
+            if (!isValidQName(name)) {
+                // Could not generate a valid QName, therefore, we cannot
+                // write valid XML - just throw an exception!
+                throw new IllegalElementNameException(name);
+
+            }
         }
         XMLElement element = new XMLElement(qName, elementStack.size());
-        if (elementStack.size() > 0) {
+        if (!elementStack.isEmpty()) {
             XMLElement topElement = elementStack.peek();
             if (topElement != null) {
                 topElement.writeElementStart(false);
@@ -174,7 +191,7 @@ public class XMLWriterImpl implements XMLWriter {
 
     public void writeEndElement() throws IOException {
         // Pop the element off the stack and write it out
-        if (elementStack.size() > 0) {
+        if (!elementStack.isEmpty()) {
             XMLElement element = elementStack.pop();
             element.writeElementEnd();
         }
@@ -248,7 +265,7 @@ public class XMLWriterImpl implements XMLWriter {
             writeAttribute("xml:base", xmlBase);
         }
         for (String curPrefix : xmlWriterNamespaceManager.getPrefixes()) {
-            if (curPrefix.length() > 0){
+            if (curPrefix.length() > 0) {
                 writeAttribute("xmlns:" + curPrefix, xmlWriterNamespaceManager.getNamespaceForPrefix(curPrefix));
             }
         }

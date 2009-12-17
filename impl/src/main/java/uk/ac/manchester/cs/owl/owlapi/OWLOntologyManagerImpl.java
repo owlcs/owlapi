@@ -1,12 +1,10 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.io.OWLOntologyInputSource;
-import org.semanticweb.owlapi.io.OWLOntologyOutputTarget;
-import org.semanticweb.owlapi.io.PhysicalURIInputSource;
-import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
+import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.*;
 import java.util.logging.Logger;
@@ -685,13 +683,18 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
 
     public void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, URI physcialURI) throws OWLOntologyStorageException, UnknownOWLOntologyException {
-        for (OWLOntologyStorer storer : ontologyStorers) {
-            if (storer.canStoreOntology(ontologyFormat)) {
-                storer.storeOntology(this, ontology, physcialURI, ontologyFormat);
-                return;
+        try {
+            for (OWLOntologyStorer storer : ontologyStorers) {
+                if (storer.canStoreOntology(ontologyFormat)) {
+                    storer.storeOntology(this, ontology, physcialURI, ontologyFormat);
+                    return;
+                }
             }
+            throw new OWLOntologyStorerNotFoundException(ontologyFormat);
         }
-        throw new OWLOntologyStorerNotFoundException(ontologyFormat);
+        catch (IOException e) {
+            throw new OWLOntologyStorageIOException(e);
+        }
     }
 
 
@@ -701,10 +704,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
 
     public void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, OWLOntologyOutputTarget outputTarget) throws OWLOntologyStorageException, UnknownOWLOntologyException {
-        for (OWLOntologyStorer storer : ontologyStorers) {
-            if (storer.canStoreOntology(ontologyFormat)) {
-                storer.storeOntology(this, ontology, outputTarget, ontologyFormat);
+        try {
+            for (OWLOntologyStorer storer : ontologyStorers) {
+                if (storer.canStoreOntology(ontologyFormat)) {
+                    storer.storeOntology(this, ontology, outputTarget, ontologyFormat);
+                    return;
+                }
             }
+            throw new OWLOntologyStorerNotFoundException(ontologyFormat);
+        }
+        catch (IOException e) {
+            throw new OWLOntologyStorageIOException(e);
         }
     }
 

@@ -1,5 +1,6 @@
 package org.coode.owlapi.rdf.rdfxml;
 
+import org.coode.xml.IllegalElementNameException;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -56,6 +57,9 @@ public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
             renderer.render();
         }
         catch (IOException e) {
+            throw new OWLOntologyStorageException(e);
+        }
+        catch (IllegalElementNameException e) {
             throw new OWLOntologyStorageException(e);
         }
     }

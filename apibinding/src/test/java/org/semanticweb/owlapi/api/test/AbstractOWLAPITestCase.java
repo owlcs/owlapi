@@ -133,7 +133,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
     }
 
 
-    public void roundTripOntology(OWLOntology ont) {
+    public void roundTripOntology(OWLOntology ont) throws Exception {
         roundTripOntology(ont, new RDFXMLOntologyFormat());
     }
 
@@ -146,8 +146,8 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
      * @param ont    The ontology to be round tripped.
      * @param format The format to use when doing the round trip.
      */
-    public void roundTripOntology(OWLOntology ont, OWLOntologyFormat format) {
-        try {
+    public void roundTripOntology(OWLOntology ont, OWLOntologyFormat format) throws Exception {
+//        try {
             UnparsableOntologyException.setIncludeStackTraceInMessage(true);
             StringOutputTarget target = new StringOutputTarget();
             OWLOntologyFormat fromFormat = manager.getOntologyFormat(ont);
@@ -197,13 +197,13 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
             }
             // Now for ontology annotations
             assertEquals(ont.getAnnotations(), ont2.getAnnotations());
-        }
-        catch (OWLOntologyStorageException e) {
-            fail(e.getMessage() + " " + e.getStackTrace().toString());
-        }
-        catch (OWLOntologyCreationException e) {
-            fail(e.getMessage() + " " + e.getStackTrace().toString());
-        }
+//        }
+//        catch (OWLOntologyStorageException e) {
+//            fail(e.getMessage() + " " + e.getStackTrace().toString());
+//        }
+//        catch (OWLOntologyCreationException e) {
+//            fail(e.getMessage() + " " + e.getStackTrace().toString());
+//        }
     }
 
     protected final boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {

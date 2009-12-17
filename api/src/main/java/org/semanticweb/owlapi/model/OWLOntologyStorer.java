@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.io.OWLOntologyOutputTarget;
 
+import java.io.IOException;
 import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -54,8 +55,9 @@ public interface OWLOntologyStorer {
      * @param physicalURI The physical URI that specifies the location
      * @param ontologyFormat The format that the ontology should be stored in
      * @throws OWLOntologyStorageException if there was a problem storing the ontology.
+     * @throws IOException if there was an IOException when storing the ontology
      */
-    void storeOntology(OWLOntologyManager manager, OWLOntology ontology, URI physicalURI, OWLOntologyFormat ontologyFormat) throws OWLOntologyStorageException;
+    void storeOntology(OWLOntologyManager manager, OWLOntology ontology, URI physicalURI, OWLOntologyFormat ontologyFormat) throws OWLOntologyStorageException, IOException;
 
 
     /**
@@ -66,6 +68,7 @@ public interface OWLOntologyStorer {
      * @param target The target which describes the physical location of where the ontology should be stored
      * @param format The format in which to store the ontology
      * @throws OWLOntologyStorageException if there was a problem storing the ontology.
+     * @throws IOException if there was an IOException when storing the ontology.
      */
-    void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OWLOntologyOutputTarget target, OWLOntologyFormat format) throws OWLOntologyStorageException;
+    void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OWLOntologyOutputTarget target, OWLOntologyFormat format) throws OWLOntologyStorageException, IOException;
 }
