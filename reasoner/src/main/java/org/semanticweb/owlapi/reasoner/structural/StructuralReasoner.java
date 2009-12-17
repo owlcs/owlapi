@@ -36,6 +36,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 04-Dec-2009
+ * </p>
+ * This is a simple structural reasoner that essentially answers with told information.  It is incomplete.
  */
 public class StructuralReasoner extends OWLReasonerBase {
 
@@ -45,9 +47,10 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private DataPropertyHierarchyInfo dataPropertyHierarchyInfo = new DataPropertyHierarchyInfo();
 
-    private HierarchyInfo<OWLClass> clsHierarchy;
 
     private static final Version version = new Version(1, 0, 0, 0);
+
+    private boolean interrupted = false;
 
     public StructuralReasoner(OWLOntology rootOntology, OWLReasonerConfiguration configuration, BufferingMode bufferingMode) {
         super(rootOntology, configuration, bufferingMode);
@@ -95,6 +98,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public void interrupt() {
+        interrupted = true;
     }
 
     public void prepareReasoner() throws ReasonerInterruptedException, TimeOutException {
@@ -104,6 +108,14 @@ public class StructuralReasoner extends OWLReasonerBase {
         dataPropertyHierarchyInfo.prepare();
         long t1 = System.currentTimeMillis();
         System.out.println("Time to prepare reasoner: " + (t1 - t0));
+    }
+
+
+    private void checkForInterrupt() {
+        if (interrupted) {
+            interrupted = false;
+            throw new ReasonerInterruptedException();
+        }
     }
 
 
@@ -127,8 +139,8 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public boolean isEntailed(Set<? extends OWLAxiom> axioms) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, UndeclaredEntitiesException, InconsistentOntologyException {
-        for(OWLAxiom ax : axioms) {
-            if(!getRootOntology().containsAxiomIgnoreAnnotations(ax, true)) {
+        for (OWLAxiom ax : axioms) {
+            if (!getRootOntology().containsAxiomIgnoreAnnotations(ax, true)) {
                 return false;
             }
         }
@@ -136,7 +148,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public boolean isEntailmentCheckingSupported(AxiomType<?> axiomType) {
-        return true;
+        return false;
     }
 
     public Node<OWLClass> getTopClassNode() {
@@ -168,24 +180,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce, boolean direct) {
-        OWLClassNodeSet ns = new OWLClassNodeSet();
-        for(OWLOntology ont : getRootOntology().getImportsClosure()) {
-            for(OWLDisjointClassesAxiom ax : ont.getDisjointClassesAxioms(ce.asOWLClass())) {
-                for(OWLClassExpression disjoint : ax.getClassExpressionsMinus(ce)) {
-                    if(!disjoint.isAnonymous()) {
-                        ns.addNode(getEquivalentClasses(disjoint.asOWLClass()));
-                        if(!direct) {
-                            for(Node<OWLClass> nd : getSubClasses(disjoint, false)) {
-                                if (!ns.isBottomSingleton()) {
-                                    ns.addNode(nd);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return ns;
+        return new OWLClassNodeSet();
     }
 
     public Node<OWLObjectProperty> getTopObjectPropertyNode() {
@@ -221,35 +216,69 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public NodeSet<OWLObjectProperty> getDisjointObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return null;
+        return new OWLObjectPropertyNodeSet();
     }
 
     public Node<OWLObjectProperty> getInverseObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
-        OWLObjectPropertyNode node = new OWLObjectPropertyNode();
-        for(OWLOntology ont : getRootOntology().getImportsClosure()) {
-            for(OWLInverseObjectPropertiesAxiom axiom : ont.getInverseObjectPropertyAxioms(pe)) {
-                for(OWLObjectPropertyExpression inv : axiom.getProperties()) {
-                    if (!inv.equals(pe)) {
-                        OWLObjectPropertyExpression simplified = inv.getSimplified();
-                        if(!simplified.isAnonymous()) {
-                            node.add(simplified.asOWLObjectProperty());
-                            for(OWLObjectProperty prop : getEquivalentObjectProperties(simplified.asOWLObjectProperty())) {
-                                node.add(prop);
-                            }
+        Set<OWLObjectProperty> props = new HashSet<OWLObjectProperty>();
+        Set<OWLObjectProperty> equivalentObjectProperties = getEquivalentObjectProperties(pe).getEntities();
+        for (OWLObjectProperty property : equivalentObjectProperties) {
+            for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
+                for (OWLInverseObjectPropertiesAxiom axiom : ontology.getInverseObjectPropertyAxioms(property)) {
+                    for (OWLObjectPropertyExpression invProp : axiom.getPropertiesMinus(property)) {
+                        OWLObjectPropertyExpression invPropSimp = invProp.getSimplified();
+                        if (!invProp.isAnonymous()) {
+                            props.add(invPropSimp.asOWLObjectProperty());
+                            props.addAll(getEquivalentObjectProperties(invPropSimp).getEntities());
                         }
                     }
                 }
             }
         }
-        return node;
+        return new OWLObjectPropertyNode(props);
     }
 
     public NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return null;
+        DefaultNodeSet<OWLClass> result = new OWLClassNodeSet();
+        for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
+            for (OWLObjectPropertyDomainAxiom axiom : ontology.getObjectPropertyDomainAxioms(pe)) {
+                result.addNode(getEquivalentClasses(axiom.getDomain()));
+                if (!direct) {
+                    result.addAllNodes(getSuperClasses(axiom.getDomain(), false).getNodes());
+                }
+            }
+
+            for (OWLObjectPropertyExpression invPe : getInverseObjectProperties(pe).getEntities()) {
+                for (OWLObjectPropertyRangeAxiom axiom : ontology.getObjectPropertyRangeAxioms(invPe)) {
+                    result.addNode(getEquivalentClasses(axiom.getRange()));
+                    if (!direct) {
+                        result.addAllNodes(getSuperClasses(axiom.getRange(), false).getNodes());
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     public NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return null;
+        DefaultNodeSet<OWLClass> result = new OWLClassNodeSet();
+        for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
+            for (OWLObjectPropertyRangeAxiom axiom : ontology.getObjectPropertyRangeAxioms(pe)) {
+                result.addNode(getEquivalentClasses(axiom.getRange()));
+                if (!direct) {
+                    result.addAllNodes(getSuperClasses(axiom.getRange(), false).getNodes());
+                }
+            }
+            for (OWLObjectPropertyExpression invPe : getInverseObjectProperties(pe).getEntities()) {
+                for (OWLObjectPropertyDomainAxiom axiom : ontology.getObjectPropertyDomainAxioms(invPe)) {
+                    result.addNode(getEquivalentClasses(axiom.getDomain()));
+                    if (!direct) {
+                        result.addAllNodes(getSuperClasses(axiom.getDomain(), false).getNodes());
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     public Node<OWLDataProperty> getTopDataPropertyNode() {
@@ -275,36 +304,175 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public NodeSet<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return null;
+        DefaultNodeSet<OWLDataProperty> result = new OWLDataPropertyNodeSet();
+        for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
+            for (OWLDisjointDataPropertiesAxiom axiom : ontology.getDisjointDataPropertiesAxioms(pe.asOWLDataProperty())) {
+                for (OWLDataPropertyExpression dpe : axiom.getPropertiesMinus(pe)) {
+                    if (!dpe.isAnonymous()) {
+                        result.addNode(dataPropertyHierarchyInfo.getEquivalents(dpe.asOWLDataProperty()));
+                        if (!direct) {
+                            result.addAllNodes(getSubDataProperties(dpe.asOWLDataProperty(), false).getNodes());
+                        }
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     public NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return null;
+        DefaultNodeSet<OWLClass> result = new OWLClassNodeSet();
+        for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
+            for (OWLDataPropertyDomainAxiom axiom : ontology.getDataPropertyDomainAxioms(pe)) {
+                result.addNode(getEquivalentClasses(axiom.getDomain()));
+                if (!direct) {
+                    result.addAllNodes(getSuperClasses(axiom.getDomain(), false).getNodes());
+                }
+            }
+        }
+        return result;
     }
 
     public NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return null;
+        DefaultNodeSet<OWLClass> result = new OWLClassNodeSet();
+        for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
+            for (OWLClassAssertionAxiom axiom : ontology.getClassAssertionAxioms(ind)) {
+                OWLClassExpression ce = axiom.getClassExpression();
+                if (!ce.isAnonymous()) {
+                    result.addNode(classHierarchyInfo.getEquivalents(ce.asOWLClass()));
+                    if (!direct) {
+                        result.addAllNodes(getSuperClasses(ce, false).getNodes());
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     public NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
-
-        return null;
+        DefaultNodeSet<OWLNamedIndividual> result = new OWLNamedIndividualNodeSet();
+        if (!ce.isAnonymous()) {
+            OWLClass cls = ce.asOWLClass();
+            for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
+                for (OWLClassAssertionAxiom axiom : ontology.getClassAssertionAxioms(cls)) {
+                    OWLIndividual individual = axiom.getIndividual();
+                    if (!individual.isAnonymous()) {
+                        if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
+                            result.addNode(getSameIndividuals(individual.asNamedIndividual()));
+                        }
+                        else {
+                            result.addNode(new OWLNamedIndividualNode(individual.asNamedIndividual()));
+                        }
+                        if (!direct) {
+                            for (Node<OWLClass> node : getSubClasses(ce, false)) {
+                                for (OWLClass c : node.getEntities()) {
+                                    result.addAllNodes(getInstances(c, true).getNodes());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     public NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual ind, OWLObjectPropertyExpression pe) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return null;
+        OWLNamedIndividualNodeSet result = new OWLNamedIndividualNodeSet();
+        Node<OWLObjectProperty> inverses = getInverseObjectProperties(pe);
+        for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
+            for (OWLObjectPropertyAssertionAxiom axiom : ontology.getObjectPropertyAssertionAxioms(ind)) {
+                if (!axiom.getObject().isAnonymous()) {
+                    if (axiom.getProperty().getSimplified().equals(pe.getSimplified())) {
+                        if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
+                            result.addNode(getSameIndividuals(axiom.getObject().asNamedIndividual()));
+                        }
+                        else {
+                            result.addNode(new OWLNamedIndividualNode(axiom.getObject().asNamedIndividual()));
+                        }
+                    }
+                }
+                // Inverse of pe
+                if (axiom.getObject().equals(ind) && !axiom.getSubject().isAnonymous()) {
+                    OWLObjectPropertyExpression invPe = axiom.getProperty().getInverseProperty().getSimplified();
+                    if (!invPe.isAnonymous() && inverses.contains(invPe.asOWLObjectProperty())) {
+                        if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
+                            result.addNode(getSameIndividuals(axiom.getObject().asNamedIndividual()));
+                        }
+                        else {
+                            result.addNode(new OWLNamedIndividualNode(axiom.getObject().asNamedIndividual()));
+                        }
+                    }
+                }
+
+            }
+        }
+        // Could do other stuff like inspecting owl:hasValue restrictions
+        return result;
     }
 
+    /**
+     * Gets the data property values for the specified individual and data property.
+     *
+     * @param ind The individual that is the subject of the data property values
+     * @param pe The data property whose values are to be retrieved for the specified individual
+     * @return A set of <code>OWLLiteral</code>s containing literals such that for each literal <code>l</code> in the
+     *         set, either there is an explicit data property assertion in the set of reasoner axioms
+     *         <code>DataPropertyAssertion(pe, ind, l)</code>, or, there is an explicit
+     *         data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(S, ind, l)</code> and
+     *         the set of reasoner axioms entails <code>SubDataPropertyOf(S, pe)</code>.
+     *
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws UndeclaredEntitiesException   if the signature of the individual and property is not contained within the signature
+     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
+     */
     public Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataProperty pe) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return null;
+        Set<OWLLiteral> literals = new HashSet<OWLLiteral>();
+        Set<OWLDataProperty> superProperties = getSuperDataProperties(pe, false).getFlattened();
+        superProperties.addAll(getEquivalentDataProperties(pe).getEntities());
+        for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
+            for (OWLDataPropertyAssertionAxiom axiom : ontology.getDataPropertyAssertionAxioms(ind)) {
+                if (superProperties.contains(axiom.getProperty().asOWLDataProperty())) {
+                    literals.add(axiom.getObject());
+                }
+            }
+        }
+        return literals;
     }
 
     public Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return null;
+        Set<OWLNamedIndividual> inds = new HashSet<OWLNamedIndividual>();
+        Set<OWLSameIndividualAxiom> processed = new HashSet<OWLSameIndividualAxiom>();
+        List<OWLNamedIndividual> stack = new ArrayList<OWLNamedIndividual>();
+        stack.add(ind);
+        while (!stack.isEmpty()) {
+            OWLNamedIndividual currentInd = stack.remove(0);
+            for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
+                for (OWLSameIndividualAxiom axiom : ontology.getSameIndividualAxioms(currentInd)) {
+                    if (!processed.contains(axiom)) {
+                        processed.add(axiom);
+                        for (OWLIndividual i : axiom.getIndividuals()) {
+                            if (!i.isAnonymous()) {
+                                OWLNamedIndividual namedInd = ind.asNamedIndividual();
+                                if (!inds.contains(namedInd)) {
+                                    inds.add(namedInd);
+                                    stack.add(ind);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return new OWLNamedIndividualNode(inds);
     }
 
     public NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return null;
+        return new OWLNamedIndividualNodeSet();
     }
 
 
@@ -429,6 +597,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                 for (T entity : getEntities(ont)) {
                     if (!processed.contains(entity)) {
                         tarjan(entity, 0, new Stack<T>(), new HashMap<T, Integer>(), new HashMap<T, Integer>(), result, processed, new HashSet<T>(), cache);
+                        checkForInterrupt();
                     }
 
                 }
@@ -448,6 +617,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
 
         public void tarjan(T entity, int index, Stack<T> stack, Map<T, Integer> indexMap, Map<T, Integer> lowlinkMap, Set<Set<T>> result, Set<T> processed, Set<T> stackEntities, Map<T, Collection<T>> cache) {
+            checkForInterrupt();
             processed.add(entity);
             indexMap.put(entity, index);
             lowlinkMap.put(entity, index);
@@ -484,27 +654,6 @@ public class StructuralReasoner extends OWLReasonerBase {
                 }
             }
         }
-
-
-//        public void clearCycles() {
-//            cycles.clear();
-//        }
-
-//        public Node<T> getCycle(T element) {
-//            return cycles.get(element);
-//        }
-
-//        public void addCycle(T element, Node<T> cycle) {
-//            cycles.put(element, cycle);
-//        }
-
-//        public Set<T> getRoots() {
-//            return roots;
-//        }
-//
-//        public void addRoot(T root) {
-//            roots.add(root);
-//        }
 
         public NodeSet<T> getNodeHierarchyChildren(T parent, boolean direct, DefaultNodeSet<T> ns) {
             Collection<T> children = getChildrenInternal(parent);
