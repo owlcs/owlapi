@@ -75,7 +75,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     public OWLReasonerConfiguration getReasonerConfiguration() {
         return configuration;
     }
-
+    
     public BufferingMode getBufferingMode() {
         return bufferingMode;
     }

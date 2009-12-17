@@ -4,7 +4,9 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.Version;
 
 import java.util.Set;
-import java.util.List;/*
+import java.util.List;
+
+/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -308,7 +310,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     void prepareReasoner() throws ReasonerInterruptedException, TimeOutException;
 
@@ -322,8 +324,7 @@ public interface OWLReasoner {
      *
      * @throws ReasonerInterruptedException if the reasoning process was interrupted for any particular reason (for example if
      *                                      reasoning was cancelled by a client process).
-     * @throws TimeOutException             if the reasoning processed timed out after the specified amount of time.
-     *                                      See {@link #getTimeOut()}
+     * @throws TimeOutException             if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     boolean isConsistent() throws ReasonerInterruptedException, TimeOutException;
 
@@ -343,7 +344,7 @@ public interface OWLReasoner {
      *                                       of the set of reasoner axioms.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     boolean isSatisfiable(OWLClassExpression classExpression) throws ReasonerInterruptedException, TimeOutException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, InconsistentOntologyException;
 
@@ -355,7 +356,7 @@ public interface OWLReasoner {
      *
      * @throws ReasonerInterruptedException if the reasoning process was interrupted for any particular reason (for example if
      *                                      reasoning was cancelled by a client process)
-     * @throws TimeOutException             if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException             if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     Node<OWLClass> getUnsatisfiableClasses() throws ReasonerInterruptedException, TimeOutException;
 
@@ -371,7 +372,7 @@ public interface OWLReasoner {
      *                                      of the imports closure of the root ontology.
      * @throws ReasonerInterruptedException if the reasoning process was interrupted for any particular reason (for example if
      *                                      reasoning was cancelled by a client process)
-     * @throws TimeOutException             if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException             if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      * @throws UnsupportedEntailmentTypeException
      *                                      if the reasoner cannot perform a check to see if the specified
      *                                      axiom is entailed
@@ -392,7 +393,7 @@ public interface OWLReasoner {
      *                                      of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException if the reasoning process was interrupted for any particular reason (for example if
      *                                      reasoning was cancelled by a client process)
-     * @throws TimeOutException             if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException             if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      * @throws UnsupportedEntailmentTypeException
      *                                      if the reasoner cannot perform a check to see if the specified
      *                                      axiom is entailed
@@ -466,7 +467,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct);
     
@@ -494,7 +495,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -524,7 +525,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     Node<OWLClass> getEquivalentClasses(OWLClassExpression ce) throws InconsistentOntologyException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -555,7 +556,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce, boolean direct);
 
@@ -614,7 +615,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLObjectProperty> getSubObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -640,7 +641,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLObjectProperty> getSuperObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -668,7 +669,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     Node<OWLObjectProperty> getEquivalentObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -699,7 +700,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLObjectProperty> getDisjointObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -717,7 +718,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     Node<OWLObjectProperty> getInverseObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -741,7 +742,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -767,7 +768,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -828,7 +829,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -854,7 +855,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -882,7 +883,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty pe) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -913,7 +914,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -938,7 +939,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -973,7 +974,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, boolean direct) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -1003,7 +1004,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      * @see {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy}
      */
     NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
@@ -1023,7 +1024,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      * @see {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy}
      */
     NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual ind, OWLObjectPropertyExpression pe) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
@@ -1045,7 +1046,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataProperty pe) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -1062,7 +1063,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
@@ -1079,7 +1080,7 @@ public interface OWLReasoner {
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link UndeclaredEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out the satisfiability check. See {@link #getTimeOut()}.
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
     NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind) throws InconsistentOntologyException, UndeclaredEntitiesException, ReasonerInterruptedException, TimeOutException;
 
