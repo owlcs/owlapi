@@ -60,8 +60,6 @@
             <include name="change/${sourcepath}"/>
             <include name="debugging/${sourcepath}"/>
             <include name="dlsyntax/${sourcepath}"/>
-            <include name="dig1_1/${sourcepath}"/>
-            <!--<include name="explanation/${sourcepath}"/>-->
             <include name="functionalparser/${sourcepath}"/>
             <include name="functionalrenderer/${sourcepath}"/>
             <include name="impl/${sourcepath}"/>
@@ -85,7 +83,6 @@
             <include name="reasoner/${sourcepath}"/>
             <include name="turtlerenderer/${sourcepath}"/>
             <include name="turtleparser/${sourcepath}"/>
-            <include name="ui-expression-editor/${sourcepath}"/>
             <include name="util/${sourcepath}"/>
         </javac>
     </target>
@@ -117,8 +114,6 @@
                 <include name="apibinding/${sourcepath}"/>
                 <include name="change/${sourcepath}"/>
                 <include name="debugging/${sourcepath}"/>
-                <include name="dig1_1/${sourcepath}"/>
-                <!--<include name="explanation/${sourcepath}"/>-->
                 <include name="metrics/${sourcepath}"/>
                 <include name="modularity/${sourcepath}"/>
                 <include name="normalform/${sourcepath}"/>
@@ -143,8 +138,6 @@
             <fileset dir="../change/src/main/java"/>
             <fileset dir="../debugging/src/main/java"/>
             <fileset dir="../dlsyntax/src/main/java"/>
-            <fileset dir="../dig1_1/src/main/java"/>
-            <!--<fileset dir="../explanation/src/main/java"/>-->
             <fileset dir="../functionalparser/src/main/java"/>
             <fileset dir="../functionalrenderer/src/main/java"/>
             <fileset dir="../impl/src/main/java"/>
@@ -169,7 +162,6 @@
             <fileset dir="../turtlerenderer/src/main/java"/>
             <fileset dir="../turtleparser/src/main/java"/>
             <fileset dir="../util/src/main/java"/>
-            <fileset dir="../ui-expression-editor/src/main/java"/>
         </jar>
     </target>
 
