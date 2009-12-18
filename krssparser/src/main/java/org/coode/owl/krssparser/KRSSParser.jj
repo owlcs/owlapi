@@ -19,7 +19,7 @@ public class KRSSParser {
 
     private OWLDataFactory dataFactory;
 
-    private Map<String, URI> string2URI;
+    private Map<String, IRI> string2IRI;
 
     private boolean ignoreAnnotationsAndDeclarations = false;
 
@@ -28,7 +28,7 @@ public class KRSSParser {
     public void setOntology(OWLOntology ontology, OWLDataFactory dataFactory) {
         this.ontology = ontology;
         this.dataFactory = dataFactory;
-        string2URI = new HashMap<String, URI>();
+        string2IRI = new HashMap<String, IRI>();
         if (!ontology.isAnonymous()) {
             base = ontology.getOntologyID().getOntologyIRI() + "#";
         }
@@ -46,14 +46,14 @@ public class KRSSParser {
         }
     }
 
-    public URI getURI(String s) throws URISyntaxException {
+    public IRI getIRI(String s) {
         s = base + s;
-        URI uri = string2URI.get(s);
-        if(uri == null) {
-            uri = new URI(s);
-            string2URI.put(s, uri);
+        IRI iri = string2IRI.get(s);
+        if(iri == null) {
+            iri = IRI.create(s);
+            string2IRI.put(s, iri);
         }
-        return uri;
+        return iri;
     }
 
     public void setIgnoreAnnotationsAndDeclarations(boolean b) {
@@ -88,19 +88,19 @@ MORE:
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //
-// URIs
+// IRIs
 
 MORE:
 {
-    <URI_START: "<"> : IN_URI
+    <IRI_START: "<"> : IN_IRI
 }
 
-<IN_URI>TOKEN:
+<IN_IRI>TOKEN:
 {
-    <URI_END: ">"> : DEFAULT
+    <IRI_END: ">"> : DEFAULT
 }
 
-<IN_URI>MORE:
+<IN_IRI>MORE:
 {
     <~[]>
 }
@@ -390,11 +390,11 @@ OWLClassExpression ConceptExpression() :
 
 OWLClassExpression ConceptName() :
 {
-    URI uri;
+    IRI iri;
 }
 {
-    uri = Name() {
-        return dataFactory.getOWLClass(uri);
+    iri = Name() {
+        return dataFactory.getOWLClass(iri);
     }
 }
 
@@ -500,11 +500,11 @@ OWLClassExpression Exactly() :
 
 OWLObjectProperty RoleName() :
 {
-    URI uri;
+    IRI iri;
 }
 {
-    uri=Name() {
-        return dataFactory.getOWLObjectProperty(uri);
+    iri=Name() {
+        return dataFactory.getOWLObjectProperty(iri);
     }
 }
 
@@ -570,7 +570,7 @@ OWLAxiom Distinct() :
 
 OWLIndividual IndividualName() :
 {
-    URI name;
+    IRI name;
 }
 {
     name = Name() {
@@ -578,18 +578,13 @@ OWLIndividual IndividualName() :
     }
 }
 
-URI Name() :
+IRI Name() :
 {
     Token t;
 }
 {
     t=<NAME> {
-        try {
-            return getURI(t.image);
-        }
-        catch(URISyntaxException e) {
-            return null;
-        }
+        return getIRI(t.image);
     }
 }
 

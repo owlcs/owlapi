@@ -45,7 +45,7 @@ public class Example6 {
 
             // In this example we will add an axiom to state that all Heads have
             // parts that are noses (in fact, here we merely state that a Head has
-            // at least one nose!).  We do this by createing an existential (some) restriction
+            // at least one nose!).  We do this by creating an existential (some) restriction
             // to describe the class of things which have a part that is a nose (hasPart some Nose),
             // and then we use this restriction in a subclass axiom to state that Head is a subclass
             // of things that have parts that are Noses SubClassOf(Head, hasPart some Nose) -- in

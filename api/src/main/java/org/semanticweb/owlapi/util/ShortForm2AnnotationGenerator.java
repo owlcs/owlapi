@@ -40,7 +40,7 @@ import java.util.Set;
 public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange {
 
     // The annotation URI to be used.
-    private URI annotationURI;
+    private IRI annotationIRI;
 
     // An optional language tag to be used - could be null;
     private String languageTag;
@@ -53,18 +53,18 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
 
 
     public ShortForm2AnnotationGenerator(OWLOntologyManager ontologyManager, OWLOntology ontology,
-                                         ShortFormProvider shortFormProvider, URI annotationURI, String languageTag) {
+                                         ShortFormProvider shortFormProvider, IRI annotationIRI, String languageTag) {
         this.ontologyManager = ontologyManager;
         this.shortFormProvider = shortFormProvider;
-        this.annotationURI = annotationURI;
+        this.annotationIRI = annotationIRI;
         this.languageTag = languageTag;
         this.ontology = ontology;
     }
 
 
     public ShortForm2AnnotationGenerator(OWLOntologyManager ontologyManager, OWLOntology ontology,
-                                         ShortFormProvider shortFormProvider, URI annotationURI) {
-        this(ontologyManager, ontology, shortFormProvider, annotationURI, null);
+                                         ShortFormProvider shortFormProvider, IRI annotationIRI) {
+        this(ontologyManager, ontology, shortFormProvider, annotationIRI, null);
     }
 
 
@@ -83,7 +83,7 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
                 }
                 if (ontology.containsEntityInSignature(ent)) {
                     OWLOntologyChange chg = new AddAxiom(ont,
-                            ontologyManager.getOWLDataFactory().getOWLAnnotationAssertionAxiom(ontologyManager.getOWLDataFactory().getOWLAnnotationProperty(annotationURI), ent.getIRI(), con));
+                            ontologyManager.getOWLDataFactory().getOWLAnnotationAssertionAxiom(ontologyManager.getOWLDataFactory().getOWLAnnotationProperty(annotationIRI), ent.getIRI(), con));
                     changes.add(chg);
                 }
             }

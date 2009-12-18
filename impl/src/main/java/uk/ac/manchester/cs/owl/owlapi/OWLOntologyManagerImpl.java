@@ -443,9 +443,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         return ontologyFormatsByOntology.get(ontology);
     }
 
-    private IRI toIRI(URI uri) {
-        return dataFactory.getIRI(uri);
-    }
 
     public OWLOntology createOntology() throws OWLOntologyCreationException {
         // Brand new ontology without a URI

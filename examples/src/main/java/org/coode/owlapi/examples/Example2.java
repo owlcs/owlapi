@@ -40,10 +40,7 @@ public class Example2 {
 
     public static void main(String[] args) {
         try {
-            // We first need to obtain a copy of an OWLOntologyManager, which, as the
-            // name suggests, manages a set of ontologies.  An ontology is unique within
-            // an ontology manager.  To load multiple copies of an ontology, multiple managers
-            // would have to be used.
+            // Create the manager that we will use to load ontologies.
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
             // Ontologies cna have an IRI, which is used to identify the ontology.  You should
@@ -60,7 +57,7 @@ public class Example2 {
             // be stored. (It's good practice to do this even if we don't intend to save the ontology).
             IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/testont.owl");
             // Create a physical URI which can be resolved to point to where our ontology will be saved.
-            URI physicalURI = URI.create("file:/tmp/MyOnt.owlapi");
+            URI physicalURI = URI.create("file:/tmp/MyOnt.owl");
             // Set up a mapping, which maps the ontology IRI to the physical URI
             SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, physicalURI);
             manager.addIRIMapper(mapper);
@@ -70,7 +67,7 @@ public class Example2 {
             // Now we want to specify that A is a subclass of B.  To do this, we add a subclass
             // axiom.  A subclass axiom is simply an object that specifies that one class is a
             // subclass of another class.
-            // We need a data factory to create various object from.  Each ontology has a reference
+            // We need a data factory to create various object from.  Each manager has a reference
             // to a data factory that we can use.
             OWLDataFactory factory = manager.getOWLDataFactory();
             // Get hold of references to class A and class B.  Note that the ontology does not
@@ -82,18 +79,20 @@ public class Example2 {
             OWLAxiom axiom = factory.getOWLSubClassOfAxiom(clsA, clsB);
             // We now add the axiom to the ontology, so that the ontology states that
             // A is a subclass of B.  To do this we create an AddAxiom change object.
+            // At this stage neither classes A or B, or the axiom are contained in the ontology. We have to
+            // add the axiom to the ontology.
             AddAxiom addAxiom = new AddAxiom(ontology, axiom);
             // We now use the manager to apply the change
             manager.applyChange(addAxiom);
 
-            // The ontology will now contain references to class A and class B - let's
-            // print them out
+            // The ontology will now contain references to class A and class B - that is, class A and class B
+            // are contained within the SIGNATURE of the ontology let's print them out
             for (OWLClass cls : ontology.getClassesInSignature()) {
                 System.out.println("Referenced class: " + cls);
             }
-            // We should also find that B is a superclass of A
+            // We should also find that B is an ASSERTED superclass of A
             Set<OWLClassExpression> superClasses = clsA.getSuperClasses(ontology);
-            System.out.println("Superclasses of " + clsA + ":");
+            System.out.println("Asserted superclasses of " + clsA + ":");
             for (OWLClassExpression desc : superClasses) {
                 System.out.println(desc);
             }

@@ -59,7 +59,7 @@ public class Example10 {
             // Now we create the content of our comment.  In this case we simply want a plain string literal.
             // We'll attach a language to the comment to specify that our comment is written in English (en).
             OWLAnnotation commentAnno = df.getOWLAnnotation(
-                    df.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_COMMENT.getURI()),
+                    df.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_COMMENT.getIRI()),
                     df.getOWLStringLiteral("A class which represents pizzas", "en"));
 
             // Specify that the pizza class has an annotation - to do this we attach an entity annotation using
@@ -78,7 +78,7 @@ public class Example10 {
             OWLLiteral lit = df.getOWLTypedLiteral("Added a comment to the pizza class");
             // The above constant is just a plain literal containing the version info text/comment
             // we need to create an annotation, which pairs a URI with the constant
-            OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO.getURI()), lit);
+            OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO.getIRI()), lit);
             // Now we can add this as an ontology annotation
             // Apply the change in the usual way
             man.applyChange(new AddOntologyAnnotation(ont, anno));
@@ -95,7 +95,7 @@ public class Example10 {
             // tag to see if it is Portugeuse.
 
             // Firstly, get the annotation property for rdfs:label
-            OWLAnnotationProperty label = df.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getURI());
+            OWLAnnotationProperty label = df.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI());
 
             for (OWLClass cls : ont.getClassesInSignature()) {
                 // Get the annotations on the class that use the label property

@@ -138,7 +138,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         }
         else {
             // The class is anonymous, so we need to assign it a name
-            OWLClass curCls = owlOntologyManager.getOWLDataFactory().getOWLClass(createURI());
+            OWLClass curCls = owlOntologyManager.getOWLDataFactory().getOWLClass(createIRI());
             Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
             operands.add(curCls);
             operands.add(cls);
@@ -429,10 +429,10 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         if (debuggingOntology != null) {
             owlOntologyManager.removeOntology(debuggingOntology);
         }
-        URI uri = createURI();
-        SimpleIRIMapper mapper = new SimpleIRIMapper(uri, uri);
+        IRI iri = createIRI();
+        SimpleIRIMapper mapper = new SimpleIRIMapper(iri, iri.toURI());
         owlOntologyManager.addIRIMapper(mapper);
-        debuggingOntology = owlOntologyManager.createOntology(IRI.create(uri));
+        debuggingOntology = owlOntologyManager.createOntology(iri);
         owlOntologyManager.removeIRIMapper(mapper);
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         for (OWLAxiom ax : debuggingAxioms) {
@@ -563,7 +563,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
 
-    private static URI createURI() {
-        return URI.create("http://debugging.blackbox#" + System.nanoTime());
+    private static IRI createIRI() {
+        return IRI.create("http://debugging.blackbox#" + System.nanoTime());
     }
 }

@@ -3,13 +3,10 @@ package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
 import java.io.Reader;
 import java.util.Set;
 import java.util.HashSet;
-import java.net.URI;
 import java.util.*;
-import java.net.URI;
-import java.net.URISyntaxException;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.*;
 import org.semanticweb.owlapi.model.*;
 
 /** Token Manager. */

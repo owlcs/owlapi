@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -40,7 +41,7 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLOntology ont = getOWLOntology("Ont");
-        OWLClass cls = getFactory().getOWLClass(URI.create(ont.getOntologyID().getOntologyIRI() + "/Office"));
+        OWLClass cls = getFactory().getOWLClass(IRI.create(ont.getOntologyID().getOntologyIRI() + "/Office"));
         Set<OWLAxiom> axs = new HashSet<OWLAxiom>();
         axs.add(getFactory().getOWLDeclarationAxiom(cls));
         return axs;

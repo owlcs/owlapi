@@ -74,8 +74,7 @@ public class Debugger {
         /* Create a new debugger */
         this.debugger = new BlackBoxOWLDebugger(manager, ontology, reasonerFactory);
         /* Get bottom */
-        URI bottomURI = OWLRDFVocabulary.OWL_THING.getURI();
-        bottom = manager.getOWLDataFactory().getOWLClass(bottomURI);
+        bottom = manager.getOWLDataFactory().getOWLNothing();
     }
 
     public void report(PrintWriter writer) throws OWLException {

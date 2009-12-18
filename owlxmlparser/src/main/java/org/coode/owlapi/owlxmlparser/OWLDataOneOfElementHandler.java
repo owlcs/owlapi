@@ -52,7 +52,7 @@ public class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
         } else {
             // Type as string?
             OWLLiteral currentLiteral = handler.getOWLObject();
-            constants.add(getOWLDataFactory().getOWLTypedLiteral(currentLiteral.getLiteral(), getOWLDataFactory().getOWLDatatype(XSDVocabulary.STRING.getURI())));
+            constants.add(getOWLDataFactory().getOWLTypedLiteral(currentLiteral.getLiteral()));
         }
     }
 

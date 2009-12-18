@@ -4,13 +4,10 @@ package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
 import java.io.Reader;
 import java.util.Set;
 import java.util.HashSet;
-import java.net.URI;
 import java.util.*;
-import java.net.URI;
-import java.net.URISyntaxException;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.*;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -23,9 +20,9 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
 
     private OWLDataFactory factory;
 
-    private Map<String, URI> uriMap = new HashMap<String, URI>();
+    private Map<String, IRI> iriMap = new HashMap<String, IRI>();
 
-    private Map<String, URI> qnameURIMap = new HashMap<String, URI>();
+    private Map<String, IRI> qnameIRIMap = new HashMap<String, IRI>();
 
     public void setOWLDataFactory(OWLDataFactory factory) {
         this.factory = factory;
@@ -39,33 +36,28 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         defaultNamespace = ns;
     }
 
-    public URI getURI(String val) {
-        URI uri = uriMap.get(val);
-        if(uri == null) {
-            try {
-                uri = new URI(val);
-                uriMap.put(val, uri);
-            }
-            catch(URISyntaxException e) {
-                e.printStackTrace();
-            }
+    public IRI getIRI(String val) {
+        IRI iri = iriMap.get(val);
+        if(iri == null) {
+                iri = IRI.create(val);
+                iriMap.put(val, iri);
         }
-        return uri;
+        return iri;
     }
 
-    public URI getURIFromId(String qname) {
+    public IRI getIRIFromId(String qname) {
         if(qname.equals("top") || qname.equals("\u22a4")) {
-            return OWLRDFVocabulary.OWL_THING.getURI();
+            return OWLRDFVocabulary.OWL_THING.getIRI();
         }
         if(qname.equals("bottom") || qname.equals("\u22a5")) {
-            return OWLRDFVocabulary.OWL_NOTHING.getURI();
+            return OWLRDFVocabulary.OWL_NOTHING.getIRI();
         }
-        URI uri = qnameURIMap.get(qname);
-        if(uri == null) {
-            uri = getURI(defaultNamespace + "#" + qname);
-            qnameURIMap.put(qname, uri);
+        IRI iri = qnameIRIMap.get(qname);
+        if(iri == null) {
+            iri = getIRI(defaultNamespace + "#" + qname);
+            qnameIRIMap.put(qname, iri);
         }
-        return uri;
+        return iri;
     }
 
   final public OWLClassExpression parseDescription() throws ParseException {
@@ -413,9 +405,9 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
   }
 
   final public OWLObjectPropertyExpression parseObjectPropertyId() throws ParseException {
-    URI uri;
+    IRI iri;
     boolean inverse = false;
-    uri = parseId();
+    iri = parseId();
     if (jj_2_30(5)) {
       jj_consume_token(INVERSE);
                              inverse = true;
@@ -423,20 +415,20 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
       ;
     }
         if(inverse) {
-            OWLObjectProperty prop = factory.getOWLObjectProperty(uri);
+            OWLObjectProperty prop = factory.getOWLObjectProperty(iri);
             {if (true) return factory.getOWLObjectInverseOf(prop);}
         }
         else {
-            {if (true) return factory.getOWLObjectProperty(uri);}
+            {if (true) return factory.getOWLObjectProperty(iri);}
         }
     throw new Error("Missing return statement in function");
   }
 
   final public OWLDataPropertyExpression parseDataPropertyId() throws ParseException {
-    URI uri;
+    IRI iri;
     boolean inverse = false;
-    uri = parseId();
-            {if (true) return factory.getOWLDataProperty(uri);}
+    iri = parseId();
+            {if (true) return factory.getOWLDataProperty(iri);}
     throw new Error("Missing return statement in function");
   }
 
@@ -552,9 +544,9 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
   }
 
   final public OWLIndividual parseIndividualId() throws ParseException {
-    URI uri;
-    uri = parseId();
-                   {if (true) return factory.getOWLNamedIndividual(uri);}
+    IRI iri;
+    iri = parseId();
+                   {if (true) return factory.getOWLNamedIndividual(iri);}
     throw new Error("Missing return statement in function");
   }
 
@@ -623,9 +615,9 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
   }
 
   final public OWLClass parseClassId() throws ParseException {
-    URI uri;
-    uri = parseId();
-        {if (true) return factory.getOWLClass(uri);}
+    IRI iri;
+    iri = parseId();
+        {if (true) return factory.getOWLClass(iri);}
     throw new Error("Missing return statement in function");
   }
 
@@ -661,11 +653,11 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public URI parseId() throws ParseException {
+  final public IRI parseId() throws ParseException {
     Token t;
     t = jj_consume_token(ID);
         String name = t.image;
-        {if (true) return getURIFromId(name);}
+        {if (true) return getIRIFromId(name);}
     throw new Error("Missing return statement in function");
   }
 
@@ -1017,6 +1009,28 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     try { return !jj_3_50(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(49, xla); }
+  }
+
+  private boolean jj_3R_27() {
+    if (jj_scan_token(SOME)) return true;
+    if (jj_3R_20()) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_35()) jj_scanpos = xsp;
+    if (jj_3R_26()) return true;
+    return false;
+  }
+
+  private boolean jj_3_12() {
+    if (jj_scan_token(NEQ)) return true;
+    if (jj_3R_17()) return true;
+    return false;
+  }
+
+  private boolean jj_3_17() {
+    if (jj_scan_token(SUBCLASSOF)) return true;
+    if (jj_3R_19()) return true;
+    return false;
   }
 
   private boolean jj_3R_10() {
@@ -1594,28 +1608,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     xsp = jj_scanpos;
     if (jj_3_36()) jj_scanpos = xsp;
     if (jj_3R_38()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_27() {
-    if (jj_scan_token(SOME)) return true;
-    if (jj_3R_20()) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_35()) jj_scanpos = xsp;
-    if (jj_3R_26()) return true;
-    return false;
-  }
-
-  private boolean jj_3_12() {
-    if (jj_scan_token(NEQ)) return true;
-    if (jj_3R_17()) return true;
-    return false;
-  }
-
-  private boolean jj_3_17() {
-    if (jj_scan_token(SUBCLASSOF)) return true;
-    if (jj_3R_19()) return true;
     return false;
   }
 

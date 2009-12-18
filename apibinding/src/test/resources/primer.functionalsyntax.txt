@@ -3,7 +3,6 @@
  Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
  Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
  Ontology(<http://example.com/owl/families>
-   Import( <http://example.org/otherOntologies/families.owl> )
 
    Declaration( NamedIndividual( :John ) )
    Declaration( NamedIndividual( :Mary ) )

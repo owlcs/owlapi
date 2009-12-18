@@ -48,14 +48,14 @@ public class Example5 {
             // and ingredients.  In this example we will delete them all.
             // First off, we start by loading the pizza ontology.
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owlapi"));
+            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
 
             // We can't directly delete individuals, properties or classes from an ontology because
             // ontologies don't directly contain entities -- they are merely referenced by the
             // axioms that the ontology contains.  For example, if an ontology contained a subclass axiom
             // SubClassOf(A, B) which stated A was a subclass of B, then that ontology would contain references
             // to classes A and B.  If we essentially want to "delete" classes A and B from this ontology we
-            // have to remove all axioms that REFERENCE class A and class B (in this case just one axiom
+            // have to remove all axioms that contain class A and class B in their SIGNATURE (in this case just one axiom
             // SubClassOf(A, B)).  To do this, we can use the OWLEntityRemove utility class, which will remove
             // an entity (class, property or individual) from a set of ontologies.
 
@@ -73,7 +73,7 @@ public class Example5 {
             // Now we get all of the changes from the entity remover, which should be applied to
             // remove all of the individuals that we have visited from the pizza ontology.  Notice that
             // "batch" deletes can essentially be performed - we simply visit all of the classes, properties
-            // and individuals that we want to remove and then apply ALL of the changes afer using the
+            // and individuals that we want to remove and then apply ALL of the changes after using the
             // entity remover to collect them
             man.applyChanges(remover.getChanges());
             System.out.println("Number of individuals: " + ont.getIndividualsInSignature().size());

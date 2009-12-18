@@ -65,7 +65,16 @@ public class Example4 {
             // Finally, add the axiom to our ontology and save
             AddAxiom addAxiomChange = new AddAxiom(ont, assertion);
             man.applyChange(addAxiomChange);
-
+            // We can also specify that matthew is an instance of Person.  To do this we use a ClassAssertion axiom.
+            // First we need a reference to the person class
+            OWLClass personClass = dataFactory.getOWLClass(IRI.create(base + "#Person"));
+            // Now we will create out Class Assertion to specify that matthew is an instance of Person (or rather that
+            // Person has matthew as an instance)
+            OWLClassAssertionAxiom ax = dataFactory.getOWLClassAssertionAxiom(personClass, matthew);
+            // Add this axiom to our ontology.  We can use a short cut method - instead of creating the AddAxiom change
+            // ourselves, it will be created automatically and the change applied
+            man.addAxiom(ont, ax);
+            // Save our ontology
             man.saveOntology(ont, URI.create("file:/tmp/example.owlapi"));
         }
         catch (OWLOntologyCreationException e) {

@@ -13,13 +13,10 @@ package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
 import java.io.Reader;
 import java.util.Set;
 import java.util.HashSet;
-import java.net.URI;
 import java.util.*;
-import java.net.URI;
-import java.net.URISyntaxException;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.*;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -32,9 +29,9 @@ public class DLSyntaxParser {
 
     private OWLDataFactory factory;
 
-    private Map<String, URI> uriMap = new HashMap<String, URI>();
+    private Map<String, IRI> iriMap = new HashMap<String, IRI>();
 
-    private Map<String, URI> qnameURIMap = new HashMap<String, URI>();
+    private Map<String, IRI> qnameIRIMap = new HashMap<String, IRI>();
 
     public void setOWLDataFactory(OWLDataFactory factory) {
         this.factory = factory;
@@ -48,33 +45,28 @@ public class DLSyntaxParser {
         defaultNamespace = ns;
     }
 
-    public URI getURI(String val) {
-        URI uri = uriMap.get(val);
-        if(uri == null) {
-            try {
-                uri = new URI(val);
-                uriMap.put(val, uri);
-            }
-            catch(URISyntaxException e) {
-                e.printStackTrace();
-            }
+    public IRI getIRI(String val) {
+        IRI iri = iriMap.get(val);
+        if(iri == null) {
+                iri = IRI.create(val);
+                iriMap.put(val, iri);
         }
-        return uri;
+        return iri;
     }
 
-    public URI getURIFromId(String qname) {
+    public IRI getIRIFromId(String qname) {
         if(qname.equals("top") || qname.equals("\u22A4")) {
-            return OWLRDFVocabulary.OWL_THING.getURI();
+            return OWLRDFVocabulary.OWL_THING.getIRI();
         }
         if(qname.equals("bottom") || qname.equals("\u22A5")) {
-            return OWLRDFVocabulary.OWL_NOTHING.getURI();
+            return OWLRDFVocabulary.OWL_NOTHING.getIRI();
         }
-        URI uri = qnameURIMap.get(qname);
-        if(uri == null) {
-            uri = getURI(defaultNamespace + "#" + qname);
-            qnameURIMap.put(qname, uri);
+        IRI iri = qnameIRIMap.get(qname);
+        if(iri == null) {
+            iri = getIRI(defaultNamespace + "#" + qname);
+            qnameIRIMap.put(qname, iri);
         }
-        return uri;
+        return iri;
     }
 
 }
@@ -520,29 +512,29 @@ OWLClassExpression NonNaryBooleanDescription():
 
 OWLObjectPropertyExpression parseObjectPropertyId():
 {
-    URI uri;
+    IRI iri;
     boolean inverse = false;
 }
 {
-    uri=parseId() (<INVERSE>{inverse = true;})?  {
+    iri=parseId() (<INVERSE>{inverse = true;})?  {
         if(inverse) {
-            OWLObjectProperty prop = factory.getOWLObjectProperty(uri);
+            OWLObjectProperty prop = factory.getOWLObjectProperty(iri);
             return factory.getOWLObjectInverseOf(prop);
         }
         else {
-            return factory.getOWLObjectProperty(uri);
+            return factory.getOWLObjectProperty(iri);
         }
     }
 }
 
 OWLDataPropertyExpression parseDataPropertyId():
 {
-    URI uri;
+    IRI iri;
     boolean inverse = false;
 }
 {
-    uri=parseId() {
-            return factory.getOWLDataProperty(uri);
+    iri=parseId() {
+            return factory.getOWLDataProperty(iri);
         }
     
 }
@@ -626,10 +618,10 @@ OWLClassExpression parseCardinalityRestriction():
 
 OWLIndividual parseIndividualId():
 {
-    URI uri;
+    IRI iri;
 }
 {
-    uri=parseId() {return factory.getOWLNamedIndividual(uri);}
+    iri=parseId() {return factory.getOWLNamedIndividual(iri);}
 }
 
 
@@ -677,11 +669,11 @@ OWLClassExpression NamedClassOrNestedDescription():
 
 OWLClass parseClassId():
 {
-    URI uri;
+    IRI iri;
 }
 {
-    uri=parseId() {
-        return factory.getOWLClass(uri);
+    iri=parseId() {
+        return factory.getOWLClass(iri);
     }
 }
 
@@ -703,13 +695,13 @@ OWLLiteral parseLiteral() :
     t=<DOUBLE>{return factory.getOWLTypedLiteral(Double.parseDouble(t.image));}
 }
 
-URI parseId() :
+IRI parseId() :
 {
     Token t;
 }
 {
     t=<ID> {
         String name = t.image;
-        return getURIFromId(name);
+        return getIRIFromId(name);
     }
 }

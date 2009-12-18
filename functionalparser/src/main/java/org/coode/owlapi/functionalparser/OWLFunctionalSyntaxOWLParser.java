@@ -6,6 +6,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 
 import java.io.IOException;
 /*
@@ -40,7 +41,7 @@ import java.io.IOException;
  */
 public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException {
+    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         try {
             OWLFunctionalSyntaxParser parser;
             if(inputSource.isReaderAvailable()) {

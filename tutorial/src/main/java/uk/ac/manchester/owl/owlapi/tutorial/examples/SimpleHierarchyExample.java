@@ -6,11 +6,7 @@ import java.net.URI;
 import java.util.Set;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -132,9 +128,6 @@ public class SimpleHierarchyExample {
     public static void main(String[] args) {
         try {
 
-            String reasonerFactoryClassName = null;
-            URI classURI = null;
-
             /* Handle command line arguments */
             LongOpt[] longopts = new LongOpt[11];
             
@@ -148,6 +141,8 @@ public class SimpleHierarchyExample {
             int c;
             // String arg;
 
+            IRI classIRI = null;
+            String reasonerFactoryClassName = null;
             while ((c = g.getopt()) != -1) {
                 switch (c) {
                 case '?':
@@ -159,7 +154,7 @@ public class SimpleHierarchyExample {
                     break;
                 case 'c':
                     /* Class to start from */
-                    classURI = new URI(g.getOptarg());
+                    classIRI = IRI.create(g.getOptarg());
                     break;
                 }
             }
@@ -193,13 +188,13 @@ public class SimpleHierarchyExample {
             SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample(
                     manager, (OWLReasonerFactory) Class.forName(reasonerFactoryClassName).newInstance());
 
-	    // Get Thing
-            if (classURI==null) {
-                classURI = OWLRDFVocabulary.OWL_THING.getURI();
+	        // Get Thing
+            if (classIRI==null) {
+                classIRI = OWLRDFVocabulary.OWL_THING.getIRI();
                 
             }
-            OWLClass clazz = manager.getOWLDataFactory().getOWLClass(classURI);
-            System.out.println("Class       : " + classURI);
+            OWLClass clazz = manager.getOWLDataFactory().getOWLClass(classIRI);
+            System.out.println("Class       : " + classIRI);
 
             // Print the hierarchy below thing
             simpleHierarchy.printHierarchy(ontology, clazz );

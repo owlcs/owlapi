@@ -60,7 +60,7 @@ public class BuiltInClassTestCase extends TestCase {
     }
 
     public void testOWLThingFromURI() {
-        OWLClassExpression desc = dataFactory.getOWLClass(OWLRDFVocabulary.OWL_THING.getURI());
+        OWLClassExpression desc = dataFactory.getOWLClass(OWLRDFVocabulary.OWL_THING.getIRI());
         assertTrue(desc.isOWLThing());
         assertFalse(desc.isOWLNothing());
     }
@@ -72,7 +72,7 @@ public class BuiltInClassTestCase extends TestCase {
     }
 
     public void testOWLNothingFromURI() {
-        OWLClassExpression desc = dataFactory.getOWLClass(OWLRDFVocabulary.OWL_NOTHING.getURI());
+        OWLClassExpression desc = dataFactory.getOWLClass(OWLRDFVocabulary.OWL_NOTHING.getIRI());
         assertTrue(desc.isOWLNothing());
         assertFalse(desc.isOWLThing());
     }

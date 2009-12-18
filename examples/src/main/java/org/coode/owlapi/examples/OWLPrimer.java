@@ -141,7 +141,7 @@ public class OWLPrimer {
             // In the above code, 33 is an integer, so we can just pass 33 into the data factory method.
             // Behind the scenes the OWL API will create a typed constant that it will use as the value
             // of the data property assertion.  We could have manually created the constant as follows:
-            OWLDatatype intDatatype = factory.getOWLDatatype(XSDVocabulary.INT.getURI());
+            OWLDatatype intDatatype = factory.getIntegerOWLDatatype();
             OWLTypedLiteral thirtyThree = factory.getOWLTypedLiteral("33", intDatatype);
             // We would then create the axiom as follows:
             factory.getOWLDataPropertyAssertionAxiom(hasAge, john, thirtyThree);
@@ -210,7 +210,7 @@ public class OWLPrimer {
             // We need the integer datatype.  The XML Schema Datatype URIs are used for data types.
             // The OWL API provide a built in set via the XSDVocabulary enum.
             domainsAndRanges.add(factory.getOWLDataPropertyDomainAxiom(hasAge, person));
-            OWLDatatype integerDatatype = factory.getOWLDatatype(XSDVocabulary.INTEGER.getURI());
+            OWLDatatype integerDatatype = factory.getIntegerOWLDatatype();
             domainsAndRanges.add(factory.getOWLDataPropertyRangeAxiom(hasAge, integerDatatype));
 
             // Now add all of our domain and range axioms

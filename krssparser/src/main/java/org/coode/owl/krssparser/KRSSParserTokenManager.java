@@ -1237,16 +1237,6 @@ private int jjMoveNfa_0(int startState, int curPos)
       catch(java.io.IOException e) { return curPos; }
    }
 }
-private int jjMoveStringLiteralDfa0_2()
-{
-   switch(curChar)
-   {
-      case 62:
-         return jjStopAtPos(0, 9);
-      default :
-         return 1;
-   }
-}
 private int jjMoveStringLiteralDfa0_3()
 {
    switch(curChar)
@@ -1275,6 +1265,16 @@ private int jjMoveStringLiteralDfa1_3(long active0)
          return 2;
    }
    return 2;
+}
+private int jjMoveStringLiteralDfa0_2()
+{
+   switch(curChar)
+   {
+      case 62:
+         return jjStopAtPos(0, 9);
+      default :
+         return 1;
+   }
 }
 private int jjMoveStringLiteralDfa0_1()
 {
@@ -1306,7 +1306,7 @@ null, null, "\50", "\51", "\145\156\144\55\164\142\157\170",
 public static final String[] lexStateNames = {
    "DEFAULT",
    "IN_COMMENT",
-   "IN_URI",
+   "IN_IRI",
    "IN_STRING_LITERAL",
 };
 

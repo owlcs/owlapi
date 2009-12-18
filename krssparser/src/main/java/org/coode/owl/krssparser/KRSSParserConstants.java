@@ -13,9 +13,9 @@ public interface KRSSParserConstants {
   /** RegularExpression Id. */
   int COMMENT_START = 5;
   /** RegularExpression Id. */
-  int URI_START = 8;
+  int IRI_START = 8;
   /** RegularExpression Id. */
-  int URI_END = 9;
+  int IRI_END = 9;
   /** RegularExpression Id. */
   int STRING_LITERAL_START = 11;
   /** RegularExpression Id. */
@@ -80,7 +80,7 @@ public interface KRSSParserConstants {
   /** Lexical state. */
   int IN_COMMENT = 1;
   /** Lexical state. */
-  int IN_URI = 2;
+  int IN_IRI = 2;
   /** Lexical state. */
   int IN_STRING_LITERAL = 3;
 

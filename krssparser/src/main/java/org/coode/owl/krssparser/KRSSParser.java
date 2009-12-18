@@ -12,7 +12,7 @@ public class KRSSParser implements KRSSParserConstants {
 
     private OWLDataFactory dataFactory;
 
-    private Map<String, URI> string2URI;
+    private Map<String, IRI> string2IRI;
 
     private boolean ignoreAnnotationsAndDeclarations = false;
 
@@ -21,7 +21,7 @@ public class KRSSParser implements KRSSParserConstants {
     public void setOntology(OWLOntology ontology, OWLDataFactory dataFactory) {
         this.ontology = ontology;
         this.dataFactory = dataFactory;
-        string2URI = new HashMap<String, URI>();
+        string2IRI = new HashMap<String, IRI>();
         if (!ontology.isAnonymous()) {
             base = ontology.getOntologyID().getOntologyIRI() + "#";
         }
@@ -39,14 +39,14 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    public URI getURI(String s) throws URISyntaxException {
+    public IRI getIRI(String s) {
         s = base + s;
-        URI uri = string2URI.get(s);
-        if(uri == null) {
-            uri = new URI(s);
-            string2URI.put(s, uri);
+        IRI iri = string2IRI.get(s);
+        if(iri == null) {
+            iri = IRI.create(s);
+            string2IRI.put(s, iri);
         }
-        return uri;
+        return iri;
     }
 
     public void setIgnoreAnnotationsAndDeclarations(boolean b) {
@@ -207,9 +207,9 @@ public class KRSSParser implements KRSSParserConstants {
   }
 
   final public OWLClassExpression ConceptName() throws ParseException {
-    URI uri;
-    uri = Name();
-        {if (true) return dataFactory.getOWLClass(uri);}
+    IRI iri;
+    iri = Name();
+        {if (true) return dataFactory.getOWLClass(iri);}
     throw new Error("Missing return statement in function");
   }
 
@@ -327,9 +327,9 @@ public class KRSSParser implements KRSSParserConstants {
   }
 
   final public OWLObjectProperty RoleName() throws ParseException {
-    URI uri;
-    uri = Name();
-        {if (true) return dataFactory.getOWLObjectProperty(uri);}
+    IRI iri;
+    iri = Name();
+        {if (true) return dataFactory.getOWLObjectProperty(iri);}
     throw new Error("Missing return statement in function");
   }
 
@@ -406,21 +406,16 @@ public class KRSSParser implements KRSSParserConstants {
   }
 
   final public OWLIndividual IndividualName() throws ParseException {
-    URI name;
+    IRI name;
     name = Name();
         {if (true) return dataFactory.getOWLNamedIndividual(name);}
     throw new Error("Missing return statement in function");
   }
 
-  final public URI Name() throws ParseException {
+  final public IRI Name() throws ParseException {
     Token t;
     t = jj_consume_token(NAME);
-        try {
-            {if (true) return getURI(t.image);}
-        }
-        catch(URISyntaxException e) {
-            {if (true) return null;}
-        }
+        {if (true) return getIRI(t.image);}
     throw new Error("Missing return statement in function");
   }
 

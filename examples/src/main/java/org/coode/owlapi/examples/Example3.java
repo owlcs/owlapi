@@ -42,38 +42,20 @@ public class Example3 {
 
     public static void main(String[] args) {
         try {
-            // We first need to obtain a copy of an OWLOntologyManager, which, as the
-            // name suggests, manages a set of ontologies.  An ontology is unique within
-            // an ontology manager.  To load multiple copies of an ontology, multiple managers
-            // would have to be used.
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
-            // All ontologies have a URI, which is used to identify the ontology.  You should
-            // think of the ontology URI as the "name" of the ontology.  This URI frequently
-            // resembles a Web address (i.e. http://...), but it is important to realise that
-            // the ontology URI might not necessarily be resolvable.  In other words, we
-            // can't necessarily get a document from the URI corresponding to the ontology
-            // URI, which represents the ontology.
-            // In order to have a concrete representation of an ontology (e.g. an RDF/XML
-            // file), we MAP the ontology URI to a PHYSICAL URI.  We do this using a URIMapper
-
-            // Let's create an ontology and name it "http://www.co-ode.org/ontologies/testont.owlapi"
+            // Let's create an ontology and name it "http://www.co-ode.org/ontologies/testont.owl"
             // We need to set up a mapping which points to a concrete file where the ontology will
             // be stored. (It's good practice to do this even if we don't intend to save the ontology).
-            IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/testont.owlapi");
+            IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/testont.owl");
             // Create a physical URI which can be resolved to point to where our ontology will be saved.
-            URI physicalURI = URI.create("file:/tmp/SWRLTest.owlapi");
+            URI physicalURI = URI.create("file:/tmp/SWRLTest.owl");
             // Set up a mapping, which maps the ontology URI to the physical URI
             SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, physicalURI);
             manager.addIRIMapper(mapper);
 
-            // Now create the ontology - we use the ontology URI (not the physical URI)
+            // Now create the ontology - we use the ontology IRI (not the physical IRI)
             OWLOntology ontology = manager.createOntology(ontologyIRI);
-            // Now we want to specify that A is a subclass of B.  To do this, we add a subclass
-            // axiom.  A subclass axiom is simply an object that specifies that one class is a
-            // subclass of another class.
-            // We need a data factory to create various object from.  Each ontology has a reference
-            // to a data factory that we can use.
             OWLDataFactory factory = manager.getOWLDataFactory();
             // Get hold of references to class A and class B.  Note that the ontology does not
             // contain class A or classB, we simply get references to objects from a data factory that represent

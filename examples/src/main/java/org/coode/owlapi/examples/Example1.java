@@ -42,22 +42,23 @@ public class Example1 {
             // A simple example of how to load and save an ontology
             // We first need to obtain a copy of an OWLOntologyManager, which, as the
             // name suggests, manages a set of ontologies.  An ontology is unique within
-            // an ontology manager.  To load multiple copies of an ontology, multiple managers
-            // would have to be used.
+            // an ontology manager.  Each ontology knows its ontology manager.
+            // To load multiple copies of an ontology, multiple managers would have to be used.
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
             // We load an ontology from a physical URI - in this case we'll load the pizza
             // ontology.
-            URI physicalURI = URI.create("http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owlapi");
+            URI physicalURI = URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
             // Now ask the manager to load the ontology
             OWLOntology ontology = manager.loadOntologyFromPhysicalURI(physicalURI);
-            // Print out all of the classes which are referenced in the ontology
+            // Print out all of the classes which are contained in the signature of the ontology.
+            // These are the classes that are referenced by axioms in the ontology.
             for (OWLClass cls : ontology.getClassesInSignature()) {
                 System.out.println(cls);
             }
             // Now save a copy to another location in OWL/XML format (i.e. disregard the
             // format that the ontology was loaded in).
             // (To save the file on windows use a URL such as  "file:/C:\\windows\\temp\\MyOnt.owlapi")
-            URI physicalURI2 = URI.create("file:/tmp/MyOnt2.owlapi");
+            URI physicalURI2 = URI.create("file:/tmp/MyOnt2.owl");
             manager.saveOntology(ontology, new OWLXMLOntologyFormat(), physicalURI2);
             // Remove the ontology from the manager
             manager.removeOntology(ontology);

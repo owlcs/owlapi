@@ -6,7 +6,6 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-import java.net.URI;
 import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -81,14 +80,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         individualsByURI.clear();
     }
 
-
-    public IRI getIRI(URI uri) {
-        if (uri == null) {
-            return null;
-        }
-        return IRI.create(uri);
-    }
-
     /**
      * Gets an entity that has the specified IRI and is of the specified type.
      * @param entityType The type of the entity that will be returned
@@ -119,11 +110,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         }
     }
 
-    public OWLClass getOWLClass(URI uri) {
-        IRI iri = IRI.create(uri);
-        return getOWLClass(iri);
-    }
-
     public OWLClass getOWLClass(IRI iri) {
         OWLClass cls = classesByURI.get(iri);
         if (cls == null) {
@@ -138,6 +124,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return getOWLClass(prefixManager.getIRI(curi));
     }
 
+    public OWLAnnotationProperty getOWLAnnotationProperty(String abbreviatedIRI, PrefixManager prefixManager) {
+        return getOWLAnnotationProperty(prefixManager.getIRI(abbreviatedIRI));
+    }
+
+    public OWLDatatype getOWLDatatype(String abbreviatedIRI, PrefixManager prefixManager) {
+        return getOWLDatatype(prefixManager.getIRI(abbreviatedIRI));
+    }
 
     public OWLClass getOWLThing() {
         return OWL_THING;
@@ -194,11 +187,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLObjectProperty getOWLObjectProperty(URI uri) {
-        IRI iri = IRI.create(uri);
-        return getOWLObjectProperty(iri);
-    }
-
     public OWLObjectProperty getOWLObjectProperty(IRI iri) {
         OWLObjectProperty prop = objectPropertiesByURI.get(iri);
         if (prop == null) {
@@ -208,11 +196,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return prop;
     }
 
-    public OWLDataProperty getOWLDataProperty(URI uri) {
-        IRI iri = IRI.create(uri);
-        return getOWLDataProperty(iri);
-    }
-
     public OWLDataProperty getOWLDataProperty(IRI iri) {
         OWLDataProperty prop = dataPropertiesByURI.get(iri);
         if (prop == null) {
@@ -220,11 +203,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
             dataPropertiesByURI.put(iri, prop);
         }
         return prop;
-    }
-
-    public OWLNamedIndividual getOWLNamedIndividual(URI uri) {
-        IRI iri = IRI.create(uri);
-        return getOWLNamedIndividual(iri);
     }
 
     public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
@@ -264,10 +242,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      */
     public OWLAnonymousIndividual getOWLAnonymousIndividual() {
         return new OWLAnonymousIndividualImpl(this, NodeID.getNodeID());
-    }
-
-    public OWLDatatype getOWLDatatype(URI uri) {
-        return getOWLDatatype(IRI.create(uri));
     }
 
     public OWLDatatype getOWLDatatype(IRI iri) {
@@ -786,16 +760,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLImportsDeclaration getOWLImportsDeclaration(URI importedOntologyURI) {
-        URI cleanedImportedOntologyURI = importedOntologyURI;
-        if (importedOntologyURI.getFragment() != null && importedOntologyURI.getFragment().length() == 0) {
-            cleanedImportedOntologyURI = URI.create(importedOntologyURI.toString().substring(0, importedOntologyURI.toString().length() - 1));
-        }
-        return new OWLImportsDeclarationImpl(this, getIRI(cleanedImportedOntologyURI));
-    }
-
     public OWLImportsDeclaration getOWLImportsDeclaration(IRI importedOntologyIRI) {
-        return getOWLImportsDeclaration(importedOntologyIRI.toURI());
+        return new OWLImportsDeclarationImpl(this, importedOntologyIRI);
     }
 
     public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object, Set<? extends OWLAnnotation> annotations) {
@@ -1080,10 +1046,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     // Annotations
 
-
-    public OWLAnnotationProperty getOWLAnnotationProperty(URI uri) {
-        return getOWLAnnotationProperty(IRI.create(uri));
-    }
 
     public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
         OWLAnnotationProperty prop = annotationPropertiesByURI.get(iri);

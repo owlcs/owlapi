@@ -2874,8 +2874,8 @@ public class ManchesterOWLSyntaxEditorParser {
 
     public OWLImportsDeclaration parseImportsDeclaration(OWLOntology ont) throws ParserException {
         consumeToken(IMPORT);
-        URI importedOntologyURI = parseIRI().toURI();
-        return dataFactory.getOWLImportsDeclaration(importedOntologyURI);
+        IRI importedOntologyIRI = parseIRI();
+        return dataFactory.getOWLImportsDeclaration(importedOntologyIRI);
     }
 
 
@@ -3212,8 +3212,8 @@ public class ManchesterOWLSyntaxEditorParser {
         public DefaultEntityChecker() {
             dataTypeNameMap = new HashMap<String, OWLDatatype>();
             for (XSDVocabulary v : XSDVocabulary.values()) {
-                dataTypeNameMap.put(v.getURI().getFragment(), dataFactory.getOWLDatatype(v.getURI()));
-                dataTypeNameMap.put("xsd:" + v.getURI().getFragment(), dataFactory.getOWLDatatype(v.getURI()));
+                dataTypeNameMap.put(v.getURI().getFragment(), dataFactory.getOWLDatatype(v.getIRI()));
+                dataTypeNameMap.put("xsd:" + v.getURI().getFragment(), dataFactory.getOWLDatatype(v.getIRI()));
             }
         }
 

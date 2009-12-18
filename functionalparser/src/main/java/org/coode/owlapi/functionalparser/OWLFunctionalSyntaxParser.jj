@@ -26,7 +26,7 @@ public class OWLFunctionalSyntaxParser {
 
     private OWLDataFactory dataFactory;
 
-    private Map<String, URI> string2URI;
+    private Map<String, IRI> string2IRI;
 
     private Map<String, String> prefixMap;
 
@@ -49,14 +49,14 @@ public class OWLFunctionalSyntaxParser {
             prefixMap.put("xml:", Namespaces.XML.toString());
             prefixMap.put("xsd:", Namespaces.XSD.toString());
         }
-        string2URI = new HashMap<String, URI>();
+        string2IRI = new HashMap<String, IRI>();
     }
 
-    public URI getURI(String s) throws URISyntaxException {
-        URI iri = string2URI.get(s);
+    public IRI getIRI(String s) {
+        IRI iri = string2IRI.get(s);
         if(iri == null) {
             if(s.charAt(0) == '<') {
-                iri = new URI(s.substring(1, s.length() - 1));
+                iri = IRI.create(s.substring(1, s.length() - 1));
             }
             else {
                 int colonIndex = s.indexOf(':');
@@ -65,10 +65,10 @@ public class OWLFunctionalSyntaxParser {
                 if(prefix == null) {
                     throw new OWLRuntimeException("Undefined prefix name: " + prefixName);
                 }
-                String fullURIString = prefix + s.substring(colonIndex + 1);
-                iri = new URI(fullURIString);
+                String fullIRIString = prefix + s.substring(colonIndex + 1);
+                iri = IRI.create(fullIRIString);
             }
-            string2URI.put(s, iri);
+            string2IRI.put(s, iri);
         }
         return iri;
     }
@@ -747,7 +747,7 @@ TOKEN:
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //
-// URIs
+// IRIs
 
 TOKEN:
 {
@@ -823,7 +823,7 @@ TOKEN:
     <ERROR: ~[]>
 }
 
-public OWLFunctionalSyntaxOntologyFormat parse() throws OWLParserException, IOException :
+public OWLFunctionalSyntaxOntologyFormat parse() throws OWLParserException, IOException, UnloadableImportException :
 {
 }
 {
@@ -836,7 +836,7 @@ public OWLFunctionalSyntaxOntologyFormat parse() throws OWLParserException, IOEx
     }
 }
 
-void Ontology() throws OWLParserException :
+void Ontology() throws OWLParserException, UnloadableImportException :
 {
     OWLAnnotation anno;
     OWLAxiom ax;
@@ -880,7 +880,7 @@ public void Prefix() :
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// URIs
+// IRIs
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -900,12 +900,7 @@ public IRI FullIRI() :
 }
 {
     t=<FULLIRI> {
-        try {
-            return dataFactory.getIRI(getURI(t.image));
-        }
-        catch(URISyntaxException e) {
-            throw new OWLRuntimeException(e);
-        }
+        return getIRI(t.image);
     }
 }
 
@@ -915,12 +910,7 @@ public IRI AbbreviatedIRI() :
 }
 {
     t=<PNAME_LN> {
-        try {
-            return dataFactory.getIRI(getURI(t.image));
-        }
-        catch(URISyntaxException e) {
-            throw new OWLRuntimeException(e);
-        }
+        return getIRI(t.image);
     }
 }
 
@@ -947,7 +937,7 @@ OWLClassExpression ClassExpression() :
     OWLClassExpression desc;
 }
 {
-    (desc=ClassURI() | desc=ObjectUnionOf() | desc=ObjectIntersectionOf() | desc=ObjectComplementOf() | desc=ObjectOneOf() |
+    (desc=ClassIRI() | desc=ObjectUnionOf() | desc=ObjectIntersectionOf() | desc=ObjectComplementOf() | desc=ObjectOneOf() |
     desc=ObjectSomeValuesFrom() | desc=ObjectAllValuesFrom() | desc=ObjectHasValue() | desc=ObjectSelf() |
     desc=ObjectMinCardinality() | desc=ObjectExactCardinality() | desc=ObjectMaxCardinality() |
     desc=DataSomeValuesFrom() | desc=DataAllValuesFrom() | desc=DataHasValue() | desc=DataMinCardinality() |
@@ -956,7 +946,7 @@ OWLClassExpression ClassExpression() :
     }
 }
 
-OWLClass ClassURI() :
+OWLClass ClassIRI() :
 {
     IRI iri;
 }
@@ -986,8 +976,8 @@ Set<OWLIndividual> IndividualMinOneSet() :
 
 }
 {
-    (ind=IndividualURI() {individuals.add(ind);}
-    (ind=IndividualURI() {individuals.add(ind);})*) {
+    (ind=IndividualIRI() {individuals.add(ind);}
+    (ind=IndividualIRI() {individuals.add(ind);})*) {
         return individuals;
     }
 }
@@ -1060,7 +1050,7 @@ OWLClassExpression ObjectHasValue()  :
     OWLIndividual ind;
 }
 {
-    <OBJECTHASVALUE><OPENPAR>prop=ObjectPropertyExpression() ind=IndividualURI()<CLOSEPAR> {
+    <OBJECTHASVALUE><OPENPAR>prop=ObjectPropertyExpression() ind=IndividualIRI()<CLOSEPAR> {
         return dataFactory.getOWLObjectHasValue(prop, ind);
     }
 }
@@ -1216,7 +1206,7 @@ OWLClass Class()  :
     OWLClass cls;
 }
 {
-    <CLASS><OPENPAR>cls=ClassURI()<CLOSEPAR> {
+    <CLASS><OPENPAR>cls=ClassIRI()<CLOSEPAR> {
         return cls;
     }
 }
@@ -1226,7 +1216,7 @@ OWLObjectPropertyExpression ObjectPropertyExpression()  :
     OWLObjectPropertyExpression prop;
 }
 {
-    (prop=InverseObjectProperty() | prop=ObjectPropertyURI()){return prop;}
+    (prop=InverseObjectProperty() | prop=ObjectPropertyIRI()){return prop;}
 }
 
 OWLObjectPropertyExpression InverseObjectProperty()  :
@@ -1244,7 +1234,7 @@ OWLObjectProperty ObjectProperty()  :
     OWLObjectProperty prop;
 }
 {
-    <OBJECTPROP><OPENPAR>prop=ObjectPropertyURI()<CLOSEPAR> {
+    <OBJECTPROP><OPENPAR>prop=ObjectPropertyIRI()<CLOSEPAR> {
         return prop;
     }
 }
@@ -1254,12 +1244,12 @@ OWLDataPropertyExpression DataPropertyExpression()  :
     OWLDataPropertyExpression prop;
 }
 {
-    prop=DataPropertyURI() {
+    prop=DataPropertyIRI() {
         return prop;
     }
 }
 
-OWLDataProperty DataPropertyURI() :
+OWLDataProperty DataPropertyIRI() :
 {
     IRI iri;
 }
@@ -1274,7 +1264,7 @@ OWLDataProperty DataProperty()  :
     OWLDataProperty prop;
 }
 {
-    (<DATAPROP><OPENPAR>prop=DataPropertyURI()<CLOSEPAR>) {
+    (<DATAPROP><OPENPAR>prop=DataPropertyIRI()<CLOSEPAR>) {
         return prop;
     }
 }
@@ -1284,12 +1274,12 @@ OWLAnnotationProperty AnnotationProperty()  :
     OWLAnnotationProperty prop;
 }
 {
-    (<ANNOTATIONPROPERTY><OPENPAR>prop=AnnotationPropertyURI()<CLOSEPAR>) {
+    (<ANNOTATIONPROPERTY><OPENPAR>prop=AnnotationPropertyIRI()<CLOSEPAR>) {
         return prop;
     }
 }
 
-OWLAnnotationProperty AnnotationPropertyURI() :
+OWLAnnotationProperty AnnotationPropertyIRI() :
 {
     IRI iri;
 }
@@ -1306,7 +1296,7 @@ OWLNamedIndividual NamedIndividual()  :
     OWLNamedIndividual ind;
 }
 {
-   <NAMEDINDIVIDUAL><OPENPAR>ind=IndividualURI()<CLOSEPAR> {
+   <NAMEDINDIVIDUAL><OPENPAR>ind=IndividualIRI()<CLOSEPAR> {
         return ind;
    }
 }
@@ -1327,12 +1317,12 @@ OWLDatatype Datatype()  :
     OWLDatatype dt;
 }
 {
-   (<DATATYPE><OPENPAR>dt=DatatypeURI()<CLOSEPAR>) {
+   (<DATATYPE><OPENPAR>dt=DatatypeIRI()<CLOSEPAR>) {
         return dt;
    }
 }
 
-OWLDatatype DatatypeURI() :
+OWLDatatype DatatypeIRI() :
 {
     IRI iri;
 }
@@ -1372,7 +1362,7 @@ OWLDatatypeDefinitionAxiom DatatypeDefinitionAxiom() :
     Set<OWLAnnotation> axAnnos;
 }
 {
-    <DATATYPEDEFINITION><OPENPAR>(axAnnos = AxiomAnnotationSet() datatype=DatatypeURI() dr=DataRange()<CLOSEPAR>) {
+    <DATATYPEDEFINITION><OPENPAR>(axAnnos = AxiomAnnotationSet() datatype=DatatypeIRI() dr=DataRange()<CLOSEPAR>) {
         return dataFactory.getOWLDatatypeDefinitionAxiom(datatype, dr, axAnnos);
     }
 }
@@ -1382,7 +1372,7 @@ OWLDataRange DataRange()  :
     OWLDataRange rng;
 }
 {
-    (rng=DatatypeURI() | rng=DataOneOf() | rng=DataComplementOf() | rng=DataRangeRestriction() | rng=DataIntersectionOf() | rng=DataUnionOf()) {
+    (rng=DatatypeIRI() | rng=DataOneOf() | rng=DataComplementOf() | rng=DataRangeRestriction() | rng=DataIntersectionOf() | rng=DataUnionOf()) {
         return rng;
     }
 }
@@ -1439,7 +1429,7 @@ OWLDataRange DataRangeRestriction() :
     Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
 }
 {
-    (<DATATYPERESTRICTION><OPENPAR>rng=DatatypeURI()((facetRestriction=DataRangeFacetRestriction()){
+    (<DATATYPERESTRICTION><OPENPAR>rng=DatatypeIRI()((facetRestriction=DataRangeFacetRestriction()){
         facetRestrictions.add(facetRestriction);
     })+<CLOSEPAR>) {
         return dataFactory.getOWLDatatypeRestriction(rng, facetRestrictions);
@@ -1455,7 +1445,7 @@ OWLFacetRestriction DataRangeFacetRestriction() :
     (   iri = IRI()
         con = Literal()
     ) {
-        OWLFacet v = OWLFacet.getFacetByShortName(iri.toURI().getFragment());
+        OWLFacet v = OWLFacet.getFacetByShortName(iri.getFragment());
         return dataFactory.getOWLFacetRestriction(v, con);
     }
 
@@ -1543,7 +1533,7 @@ OWLClassAxiom DisjointUnion() :
     Set<OWLAnnotation> axiomAnnos;
 }
 {
-    <DISJOINTUNION><OPENPAR>axiomAnnos = AxiomAnnotationSet()cls=ClassURI() classExpressions=ClassExpressionSet()<CLOSEPAR> {
+    <DISJOINTUNION><OPENPAR>axiomAnnos = AxiomAnnotationSet()cls=ClassIRI() classExpressions=ClassExpressionSet()<CLOSEPAR> {
         return dataFactory.getOWLDisjointUnionAxiom(cls, classExpressions, axiomAnnos);
     }
 }
@@ -1962,7 +1952,7 @@ OWLIndividualAxiom NegativeDataPropertyAssertion() :
 
 
 
-OWLNamedIndividual IndividualURI() :
+OWLNamedIndividual IndividualIRI() :
 {
     IRI iri;
 }
@@ -1975,13 +1965,13 @@ OWLIndividual Individual() :
     OWLIndividual ind;
 }
 {
-    (ind=IndividualURI() | ind=AnonymousIndividual()) {
+    (ind=IndividualIRI() | ind=AnonymousIndividual()) {
         return ind;
     }
 }
 
 
-OWLObjectProperty ObjectPropertyURI() :
+OWLObjectProperty ObjectPropertyIRI() :
 {
     IRI iri;
 }
@@ -2017,7 +2007,7 @@ OWLAnnotation Annotation() :
     OWLAnnotation anno = null;
 }
 {
-    ((<ANNOTATION>{annos = new HashSet<OWLAnnotation>();}<OPENPAR>((anno=Annotation(){annos.add(anno);})*) prop=AnnotationPropertyURI()val=AnnotationValue()<CLOSEPAR>){
+    ((<ANNOTATION>{annos = new HashSet<OWLAnnotation>();}<OPENPAR>((anno=Annotation(){annos.add(anno);})*) prop=AnnotationPropertyIRI()val=AnnotationValue()<CLOSEPAR>){
         return dataFactory.getOWLAnnotation(prop, val, annos);
     })
 }
@@ -2082,7 +2072,7 @@ OWLAnnotationAssertionAxiom AnnotationAssertion() :
     Set<OWLAnnotation> axiomAnnos;
 }
 {
-    <ANNOTATIONASSERTION><OPENPAR>axiomAnnos=AxiomAnnotationSet() prop=AnnotationPropertyURI() subj=AnnotationSubject() val=AnnotationValue()  <CLOSEPAR> {
+    <ANNOTATIONASSERTION><OPENPAR>axiomAnnos=AxiomAnnotationSet() prop=AnnotationPropertyIRI() subj=AnnotationSubject() val=AnnotationValue()  <CLOSEPAR> {
         return dataFactory.getOWLAnnotationAssertionAxiom(prop, subj, val, axiomAnnos);
     }
 }
@@ -2094,7 +2084,7 @@ OWLSubAnnotationPropertyOfAxiom SubAnnotationPropertyOf() :
     Set<OWLAnnotation> axiomAnnos;
 }
 {
-    <SUBANNOTATIONPROPERTYOF><OPENPAR>axiomAnnos = AxiomAnnotationSet() subProp = AnnotationPropertyURI() superProperty = AnnotationPropertyURI()<CLOSEPAR> {
+    <SUBANNOTATIONPROPERTYOF><OPENPAR>axiomAnnos = AxiomAnnotationSet() subProp = AnnotationPropertyIRI() superProperty = AnnotationPropertyIRI()<CLOSEPAR> {
         return dataFactory.getOWLSubAnnotationPropertyOfAxiom(subProp, superProperty, axiomAnnos);
     }
 }
@@ -2107,7 +2097,7 @@ OWLAnnotationPropertyDomainAxiom AnnotationPropertyDomain() :
 
 }
 {
-    <ANNOTATIONPROPERTYDOMAIN><OPENPAR> axiomAnnos = AxiomAnnotationSet() prop=AnnotationPropertyURI() domain=IRI()<CLOSEPAR> {
+    <ANNOTATIONPROPERTYDOMAIN><OPENPAR> axiomAnnos = AxiomAnnotationSet() prop=AnnotationPropertyIRI() domain=IRI()<CLOSEPAR> {
         return dataFactory.getOWLAnnotationPropertyDomainAxiom(prop, domain, axiomAnnos);
     }
 }
@@ -2119,7 +2109,7 @@ OWLAnnotationPropertyRangeAxiom AnnotationPropertyRange() :
     Set<OWLAnnotation> axiomAnnos;
 }
 {
-    <ANNOTATIONPROPERTYRANGE><OPENPAR> axiomAnnos=AxiomAnnotationSet() prop=AnnotationPropertyURI() range=IRI()<CLOSEPAR> {
+    <ANNOTATIONPROPERTYRANGE><OPENPAR> axiomAnnos=AxiomAnnotationSet() prop=AnnotationPropertyIRI() range=IRI()<CLOSEPAR> {
         return dataFactory.getOWLAnnotationPropertyRangeAxiom(prop, range, axiomAnnos);
     }
 }
@@ -2145,7 +2135,7 @@ OWLHasKeyAxiom HasKey() :
 OWLAxiom Declaration() :
 {
     OWLEntity entity = null;
-    URI iri = null;
+    IRI iri = null;
     OWLLiteral con = null;
     Set<OWLAnnotation> axiomAnnos;
 }
@@ -2195,7 +2185,7 @@ OWLTypedLiteral TypedLiteral() :
 
 }
 {
-    (literal=QuotedString()"^^"datatype=DatatypeURI()) {
+    (literal=QuotedString()"^^"datatype=DatatypeIRI()) {
 
             return dataFactory.getOWLTypedLiteral(literal, datatype);
 
@@ -2307,7 +2297,7 @@ SWRLDataPropertyAtom DataPropertyAtom() :
     SWRLDArgument arg1;
 }
 {
-    <DATAPROPERTYATOM> <OPENPAR> prop=DataPropertyURI() arg0=IArg() arg1=DArg() <CLOSEPAR> {return dataFactory.getSWRLDataPropertyAtom(prop, arg0, arg1);}
+    <DATAPROPERTYATOM> <OPENPAR> prop=DataPropertyIRI() arg0=IArg() arg1=DArg() <CLOSEPAR> {return dataFactory.getSWRLDataPropertyAtom(prop, arg0, arg1);}
 }
 
 
@@ -2349,7 +2339,7 @@ SWRLIArgument IArg() :
 {
     (<VARIABLE> <OPENPAR> iri = IRI() <CLOSEPAR>{ return dataFactory.getSWRLVariable(iri);})
     |
-    (ind = IndividualURI() {return dataFactory.getSWRLIndividualArgument(ind);})
+    (ind = IndividualIRI() {return dataFactory.getSWRLIndividualArgument(ind);})
 
 
 }

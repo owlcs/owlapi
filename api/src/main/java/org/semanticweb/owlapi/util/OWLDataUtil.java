@@ -40,7 +40,7 @@ import java.util.*;
  */
 public class OWLDataUtil {
 
-    private static final URI INT_URI = XSDVocabulary.INT.getURI();
+    private static final IRI INT_URI = XSDVocabulary.INT.getIRI();
 
     private static Map<Class, XSDVocabulary> numberTypeMap;
 
@@ -61,17 +61,17 @@ public class OWLDataUtil {
 
 
     public static OWLDatatype getLongDatatype(OWLDataFactory dataFactory) throws OWLException {
-        return dataFactory.getOWLDatatype(XSDVocabulary.LONG.getURI());
+        return dataFactory.getOWLDatatype(XSDVocabulary.LONG.getIRI());
     }
 
 
     public static OWLDatatype getFloatDatatype(OWLDataFactory dataFactory) throws OWLException {
-        return dataFactory.getOWLDatatype(XSDVocabulary.FLOAT.getURI());
+        return dataFactory.getOWLDatatype(XSDVocabulary.FLOAT.getIRI());
     }
 
 
     public static OWLDatatype getDoubleDatatype(OWLDataFactory dataFactory) throws OWLException {
-        return dataFactory.getOWLDatatype(XSDVocabulary.DOUBLE.getURI());
+        return dataFactory.getOWLDatatype(XSDVocabulary.DOUBLE.getIRI());
     }
 
     /**
@@ -86,7 +86,7 @@ public class OWLDataUtil {
         if (v == null) {
             throw new OWLRuntimeException("Don't know how to translate " + n.getClass());
         }
-        return dataFactory.getOWLDatatype(v.getURI());
+        return dataFactory.getOWLDatatype(v.getIRI());
     }
 
     public static Set<OWLFacetRestriction> getFacetRestrictionSet(OWLDataFactory dataFactory, OWLFacet facet, OWLTypedLiteral facetValue) {
