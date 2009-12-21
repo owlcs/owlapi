@@ -45,7 +45,7 @@ import java.net.URI;
  */
 public class Example8 {
 
-    public static final String PHYSICAL_URI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owlapi";
+    public static final String PHYSICAL_URI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owl";
 
     public static void main(String[] args) {
 
