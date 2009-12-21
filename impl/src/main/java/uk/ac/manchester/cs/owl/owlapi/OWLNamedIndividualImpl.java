@@ -48,6 +48,10 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         return false;
     }
 
+    public boolean isNamed() {
+        return true;
+    }
+
     /**
      * Gets the entity type for this entity
      * @return The entity type
@@ -92,22 +96,18 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
     }
 
     public URI getURI() {
-        return getIRI().toURI();
+        return iri.toURI();
     }
 
     public boolean isAnonymous() {
         return false;
     }
 
-    public OWLNamedIndividual asNamedIndividual() {
-        return this;
-    }
-
     public OWLNamedIndividual asOWLNamedIndividual() {
         return this;
     }
 
-    public OWLAnonymousIndividual asAnonymousIndividual() {
+    public OWLAnonymousIndividual asOWLAnonymousIndividual() {
         throw new OWLRuntimeException("Not an anonymous individual");
     }
 
@@ -147,7 +147,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
 
     protected int compareObjectOfSameType(OWLObject object) {
         OWLNamedIndividual other = (OWLNamedIndividual) object;
-        return getIRI().compareTo(other.getIRI());
+        return iri.compareTo(other.getIRI());
     }
 
     public void accept(OWLObjectVisitor visitor) {

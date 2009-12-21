@@ -49,15 +49,19 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
         return id.getID();
     }
 
+    public boolean isNamed() {
+        return false;
+    }
+
     public boolean isAnonymous() {
         return true;
     }
 
-    public OWLAnonymousIndividual asAnonymousIndividual() {
+    public OWLAnonymousIndividual asOWLAnonymousIndividual() {
         return this;
     }
 
-    public OWLNamedIndividual asNamedIndividual() {
+    public OWLNamedIndividual asOWLNamedIndividual() {
         throw new OWLRuntimeException("Not a named individual! This method should only be called on named individuals");
     }
 

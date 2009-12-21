@@ -470,7 +470,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
         public void visit(OWLClassAssertionAxiom axiom) {
             if (!axiom.getClassExpression().isAnonymous()) {
-                source = axiom.getIndividual().asNamedIndividual();
+                source = axiom.getIndividual().asOWLNamedIndividual();
                 target = axiom.getClassExpression().asOWLClass();
             }
         }
@@ -624,7 +624,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         public void visit(OWLDifferentIndividualsAxiom axiom) {
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 if (!ind.isAnonymous()) {
-                    getAxiomsForLHS(ind.asNamedIndividual()).add(axiom);
+                    getAxiomsForLHS(ind.asOWLNamedIndividual()).add(axiom);
                     indexAxiomsByRHSEntities(ind, axiom);
                 }
             }
@@ -721,7 +721,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
         public void visit(OWLClassAssertionAxiom axiom) {
             if (!axiom.getIndividual().isAnonymous()) {
-                getAxiomsForLHS(axiom.getIndividual().asNamedIndividual()).add(axiom);
+                getAxiomsForLHS(axiom.getIndividual().asOWLNamedIndividual()).add(axiom);
                 indexAxiomsByRHSEntities(axiom.getClassExpression(), axiom);
             }
         }
@@ -772,7 +772,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         public void visit(OWLSameIndividualAxiom axiom) {
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 if (!ind.isAnonymous()) {
-                    getAxiomsForLHS(ind.asNamedIndividual()).add(axiom);
+                    getAxiomsForLHS(ind.asOWLNamedIndividual()).add(axiom);
                     indexAxiomsByRHSEntities(ind, axiom);
                 }
             }

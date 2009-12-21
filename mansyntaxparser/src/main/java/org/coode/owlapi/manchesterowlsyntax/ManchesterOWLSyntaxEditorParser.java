@@ -1814,7 +1814,7 @@ public class ManchesterOWLSyntaxEditorParser {
             throw createException(false, false, false, true);
         }
         if (!ind.isAnonymous()) {
-            axioms.add(new OntologyAxiomPair(getOntology(null), getDataFactory().getOWLDeclarationAxiom(ind.asNamedIndividual())));
+            axioms.add(new OntologyAxiomPair(getOntology(null), getDataFactory().getOWLDeclarationAxiom(ind.asOWLNamedIndividual())));
         }
         while (true) {
             String sect = peekToken();
@@ -1898,10 +1898,10 @@ public class ManchesterOWLSyntaxEditorParser {
                         }
                         for (OWLOntology ont : onts) {
                             if (ind.isAnonymous()) {
-                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationAssertionAxiom(ind.asAnonymousIndividual(), annotation, annos)));
+                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationAssertionAxiom(ind.asOWLAnonymousIndividual(), annotation, annos)));
                             }
                             else {
-                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationAssertionAxiom(ind.asNamedIndividual().getIRI(), annotation, annos)));
+                                axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLAnnotationAssertionAxiom(ind.asOWLNamedIndividual().getIRI(), annotation, annos)));
                             }
                         }
                     }
@@ -1950,10 +1950,10 @@ public class ManchesterOWLSyntaxEditorParser {
             else if (sect.equalsIgnoreCase(ANNOTATIONS)) {
                 potentialKeywords.clear();
                 if (ind.isAnonymous()) {
-                    axioms.addAll(parseAnnotations(ind.asAnonymousIndividual()));
+                    axioms.addAll(parseAnnotations(ind.asOWLAnonymousIndividual()));
                 }
                 else {
-                    axioms.addAll(parseAnnotations(ind.asNamedIndividual().getIRI()));
+                    axioms.addAll(parseAnnotations(ind.asOWLNamedIndividual().getIRI()));
                 }
             }
             else {

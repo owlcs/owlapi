@@ -609,7 +609,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 //            value.asLiteral().accept(this);
 //        }
 //        else if(value.isAnonymousIndividual()) {
-//            value.asAnonymousIndividual().accept(this);
+//            value.asOWLAnonymousIndividual().accept(this);
 //        }
 //    }
 

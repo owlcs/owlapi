@@ -89,16 +89,6 @@ public interface OWLAxiom extends OWLObject {
      */
     boolean isAnnotated();
 
-
-    /**
-     * A convenience method that obtains the entities that this axiom
-     * references.
-     *
-     * @return A set of <code>OWLEntity</code> objects.
-     */
-    Set<OWLEntity> getReferencedEntities();
-
-
     /**
      * Gets the axiom type for this axiom.
      *

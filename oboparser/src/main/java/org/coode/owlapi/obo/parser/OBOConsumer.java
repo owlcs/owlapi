@@ -3,8 +3,6 @@ package org.coode.owlapi.obo.parser;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -173,7 +171,7 @@ public class OBOConsumer implements OBOParserHandler {
         addTagHandler(new UnionOfHandler(this));
         addTagHandler(new IntersectionOfHandler(this));
         addTagHandler(new DisjointFromHandler(this));
-        addTagHandler(new AntiSymmetricHandler(this));
+        addTagHandler(new AsymmetricHandler(this));
         addTagHandler(new InverseHandler(this));
         addTagHandler(new ReflexiveHandler(this));
         addTagHandler(new TransitiveOverHandler(this));

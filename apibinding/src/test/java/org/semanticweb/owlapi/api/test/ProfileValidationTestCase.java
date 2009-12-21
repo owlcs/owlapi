@@ -1,14 +1,8 @@
 package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.StringInputSource;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.profiles.*;
-
-import java.net.URI;
-import java.net.URL;
-import java.util.Set;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -117,7 +111,7 @@ public class ProfileValidationTestCase extends TestCase {
 //            String ontologySerialisation = vals.iterator().next().getLiteral();
 //            System.out.println(ontologySerialisation);
 //            System.out.println("Loading...");
-//            OWLOntology ontology = man.loadOntology(new StringInputSource(ontologySerialisation, ind.asNamedIndividual().getIRI().toURI()));
+//            OWLOntology ontology = man.loadOntology(new StringInputSource(ontologySerialisation, ind.asOWLNamedIndividual().getIRI().toURI()));
 //
 //            System.out.println("   ... loaded ont");
 //            // FULL?

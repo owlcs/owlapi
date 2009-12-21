@@ -36,7 +36,16 @@ import java.util.Set;
 public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
 
     /**
-     * Determines if this object represents an anonymous individual.
+     * Determines if this individual is an instance of {@link org.semanticweb.owlapi.model.OWLNamedIndividual}.
+     * Note that this method  is the dual of {@link #isAnonymous()}.
+     * @return <code>true</code> if this individual is an instance of {@link org.semanticweb.owlapi.model.OWLNamedIndividual}
+     * because it is a named individuals, otherwise <code>false</code>
+     */
+    boolean isNamed();
+
+    /**
+     * Determines if this object is an instance of {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual}
+     * Note that this method  is the dual of {@link #isNamed()}.
      * @return <code>true</code> if this object represents an anonymous
      *         individual (<code>OWLAnonymousIndividual)</code> or <code>false</code>
      *         if this object represents a named individual (<code>OWLIndividual</code>)
@@ -48,14 +57,14 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      * @return The individual as a named individual
      * @throws OWLRuntimeException if this individual is anonymous
      */
-    OWLNamedIndividual asNamedIndividual();
+    OWLNamedIndividual asOWLNamedIndividual();
 
     /**
      * Obtains this individual an anonymous individual if it is indeed anonymous
      * @return The individual as an anonymous individual
      * @throws OWLRuntimeException if this individual is named
      */
-    OWLAnonymousIndividual asAnonymousIndividual();
+    OWLAnonymousIndividual asOWLAnonymousIndividual();
 
 
     /**
@@ -81,6 +90,7 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
 
     /**
      * Gets the object property values for this individual.
+     * @param ontology The ontology to search for the property values.
      * @return A map, which maps object properties to sets of individuals.
      */
     Map<OWLObjectPropertyExpression, Set<OWLIndividual>> getObjectPropertyValues(OWLOntology ontology);

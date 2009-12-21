@@ -33,11 +33,11 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Bio-Health Informatics Group<br>
  * Date: 06-Mar-2007<br><br>
  */
-public class AntiSymmetricHandler extends AbstractTagValueHandler {
+public class AsymmetricHandler extends AbstractTagValueHandler {
 
 
-    public AntiSymmetricHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.IS_ANTI_SYMMETRIC.getName(), consumer);
+    public AsymmetricHandler(OBOConsumer consumer) {
+        super(OBOVocabulary.IS_ASYMMETRIC.getName(), consumer);
     }
 
 
@@ -47,7 +47,7 @@ public class AntiSymmetricHandler extends AbstractTagValueHandler {
             OWLAxiom ax = getDataFactory().getOWLAsymmetricObjectPropertyAxiom(prop);
             applyChange(new AddAxiom(getOntology(), ax));
         } else {
-            addAnnotation(id, OBOVocabulary.IS_ANTI_SYMMETRIC.getName(), getBooleanConstant(false));
+            addAnnotation(id, OBOVocabulary.IS_ASYMMETRIC.getName(), getBooleanConstant(false));
         }
     }
 }

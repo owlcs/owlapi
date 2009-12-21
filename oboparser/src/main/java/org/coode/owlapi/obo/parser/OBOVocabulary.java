@@ -2,7 +2,6 @@ package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -81,7 +80,7 @@ public enum OBOVocabulary {
     IS_CYCLIC("is_cyclic"),
     IS_TRANSITIVE("is_transitive"),
     IS_SYMMETRIC("is_symmetric"),
-    IS_ANTI_SYMMETRIC("is_anti_symmetric"),
+    IS_ASYMMETRIC("is_asymmetric"),
     IS_REFLEXIVE("is_reflexive"),
     INVERSE("inverse"),
     TRANSITIVE_OVER("transitive_over"),
@@ -124,7 +123,7 @@ public enum OBOVocabulary {
     private static final List<OBOVocabulary> typeDefStanzaTags =
             Arrays.asList(ID, NAME, NAMESPACE, ALT_ID,
                           DEF, COMMENT, SUBSET, SYNONYM, XREF,
-                          DOMAIN, RANGE, IS_ANTI_SYMMETRIC,
+                          DOMAIN, RANGE, IS_ASYMMETRIC,
                           IS_CYCLIC, IS_REFLEXIVE, IS_SYMMETRIC,
                           IS_TRANSITIVE, IS_A, INVERSE, TRANSITIVE_OVER,
                           RELATIONSHIP, IS_METADATA_TAG,

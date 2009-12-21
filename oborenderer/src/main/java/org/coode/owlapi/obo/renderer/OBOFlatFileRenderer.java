@@ -421,7 +421,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
         }
 
         if (property.isAsymmetric(ontology)) {
-            tvpList.addPair(OBOVocabulary.IS_ANTI_SYMMETRIC, "true");
+            tvpList.addPair(OBOVocabulary.IS_ASYMMETRIC, "true");
         }
         if (property.isReflexive(ontology)) {
             tvpList.addPair(OBOVocabulary.IS_REFLEXIVE, "true");
@@ -504,7 +504,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
             if (!p.isAnonymous()) {
                 for (OWLIndividual ind : objPropAssertions.get(p)) {
                     if (!ind.isAnonymous()) {
-                        final String rel = renderRestriction(new OBORelationship(p.asOWLObjectProperty(), ind.asNamedIndividual()));
+                        final String rel = renderRestriction(new OBORelationship(p.asOWLObjectProperty(), ind.asOWLNamedIndividual()));
                         tvpList.addPair(OBOVocabulary.PROPERTY_VALUE, rel);
                     }
                 }

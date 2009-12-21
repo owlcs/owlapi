@@ -358,10 +358,10 @@ public class StructuralReasoner extends OWLReasonerBase {
                     OWLIndividual individual = axiom.getIndividual();
                     if (!individual.isAnonymous()) {
                         if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
-                            result.addNode(getSameIndividuals(individual.asNamedIndividual()));
+                            result.addNode(getSameIndividuals(individual.asOWLNamedIndividual()));
                         }
                         else {
-                            result.addNode(new OWLNamedIndividualNode(individual.asNamedIndividual()));
+                            result.addNode(new OWLNamedIndividualNode(individual.asOWLNamedIndividual()));
                         }
                         if (!direct) {
                             for (Node<OWLClass> node : getSubClasses(ce, false)) {
@@ -385,10 +385,10 @@ public class StructuralReasoner extends OWLReasonerBase {
                 if (!axiom.getObject().isAnonymous()) {
                     if (axiom.getProperty().getSimplified().equals(pe.getSimplified())) {
                         if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
-                            result.addNode(getSameIndividuals(axiom.getObject().asNamedIndividual()));
+                            result.addNode(getSameIndividuals(axiom.getObject().asOWLNamedIndividual()));
                         }
                         else {
-                            result.addNode(new OWLNamedIndividualNode(axiom.getObject().asNamedIndividual()));
+                            result.addNode(new OWLNamedIndividualNode(axiom.getObject().asOWLNamedIndividual()));
                         }
                     }
                 }
@@ -397,10 +397,10 @@ public class StructuralReasoner extends OWLReasonerBase {
                     OWLObjectPropertyExpression invPe = axiom.getProperty().getInverseProperty().getSimplified();
                     if (!invPe.isAnonymous() && inverses.contains(invPe.asOWLObjectProperty())) {
                         if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
-                            result.addNode(getSameIndividuals(axiom.getObject().asNamedIndividual()));
+                            result.addNode(getSameIndividuals(axiom.getObject().asOWLNamedIndividual()));
                         }
                         else {
-                            result.addNode(new OWLNamedIndividualNode(axiom.getObject().asNamedIndividual()));
+                            result.addNode(new OWLNamedIndividualNode(axiom.getObject().asOWLNamedIndividual()));
                         }
                     }
                 }
@@ -456,7 +456,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                         processed.add(axiom);
                         for (OWLIndividual i : axiom.getIndividuals()) {
                             if (!i.isAnonymous()) {
-                                OWLNamedIndividual namedInd = ind.asNamedIndividual();
+                                OWLNamedIndividual namedInd = ind.asOWLNamedIndividual();
                                 if (!inds.contains(namedInd)) {
                                     inds.add(namedInd);
                                     stack.add(ind);
