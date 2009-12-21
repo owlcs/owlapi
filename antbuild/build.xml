@@ -111,6 +111,7 @@
         <javadoc destdir="${javadocdir}" verbose="no" windowtitle="The OWL API">
             <fileset dir="./.." defaultexcludes="yes">
                 <include name="api/${sourcepath}"/>
+                <include name="api/javadoc"/>
                 <include name="apibinding/${sourcepath}"/>
                 <include name="change/${sourcepath}"/>
                 <include name="debugging/${sourcepath}"/>

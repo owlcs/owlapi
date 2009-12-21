@@ -503,20 +503,6 @@ public interface OWLOntology extends OWLObject {
      */
     Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature();
 
-    /**
-     * Gets the annotation properties that are in the signature of this ontology, and possibly the imports closure of this
-     * ontology.
-     * @see #getSignature()
-     * @param includeImportsClosure Specifies whether annotation properties should be drawn from the signature of just this ontology or the
-     * imports closure of this ontology.  If <code>true</code> then the set of annotation properties returned will correspond to the union
-     * of the annotation properties in the signatures of the ontologies in the imports closure of this ontology. If <code>false</code>
-     * then the set of annotation properties returned will correspond to the annotation properties that are in the signature of this just this ontology.
-     * @return A set of annotation properties that are in the signature of this ontology and possibly the union of the signatures of
-     * the ontologies in the imports closure of this ontology. The set that is returned is a
-     *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
-     *         ontology while iterating over this set.
-     */
-    Set<OWLAnnotationProperty> getReferencedAnnotationProperties(boolean includeImportsClosure);
 
     /**
      * Gets the axioms where the specified entity appears in the signature of the axiom. The set that is returned,
