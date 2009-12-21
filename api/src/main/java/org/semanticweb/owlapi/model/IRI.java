@@ -39,12 +39,14 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
     /**
      * Obtains this IRI as a URI.  Note that Java URIs handle unicode characters,
      * so there is no loss during this translation.
+     *
      * @return The URI
      */
     public abstract URI toURI();
 
     /**
      * Determines if this IRI is absolute
+     *
      * @return <code>true</code> if this IRI is absolute or <code>false</code> if this IRI is not absolute
      */
     public abstract boolean isAbsolute();
@@ -54,32 +56,47 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 
     /**
      * Determines if this IRI is in the reserved vocabulary.  An IRI is in the reserved vocabulary if it starts with
-     * <http://www.w3.org/1999/02/22-rdf-syntax-ns#> or <http://www.w3.org/2000/01/rdf-schema#>
-     * or <http://www.w3.org/2001/XMLSchema#> or <http://www.w3.org/2002/07/owl#>
+     * &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; or &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+     * or &lt;http://www.w3.org/2001/XMLSchema#&gt; or &lt;http://www.w3.org/2002/07/owl#&gt;
+     *
      * @return <code>true</code> if the IRI is in the reserved vocabulary, otherwise <code>false</code>.
      */
     public abstract boolean isReservedVocabulary();
 
-
+    /**
+     * Determines if this IRI is equal to the IRI that <code>owl:Thing</code> is named with
+     *
+     * @return <code>true</code> if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Thing&gt; and otherwise
+     *         <code>false</code>
+     */
     public abstract boolean isThing();
 
 
+    /**
+     * Determines if this IRI is equal to the IRI that <code>owl:Nothing</code> is named with
+     *
+     * @return <code>true</code> if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Nothing&gt; and otherwise
+     *         <code>false</code>
+     */
     public abstract boolean isNothing();
 
     /**
      * Gets the fragment of the IRI.
+     *
      * @return The IRI fragment, or <code>null</code> if the IRI does not have a fragment
      */
     public abstract String getFragment();
-
+    
     /**
      * Obtained this IRI surrounded by angled brackets
+     *
      * @return This IRI surrounded by &lt; and &gt;
      */
     public abstract String toQuotedString();
 
     /**
      * Creates an IRI from the specified String.
+     *
      * @param str The String that specifies the IRI
      * @return The IRI that has the specified string representation.
      */
@@ -109,34 +126,31 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 
     private static class IRIImpl extends IRI {
 
-        private String fragment;
+        private String remainder;
 
         private String prefix;
 
         private int hashCode = 0;
 
-        private URI cachedURI = null;
-
-
         public IRIImpl(String s) {
             int fragmentSeparatorIndex = s.lastIndexOf('#');
-            if(fragmentSeparatorIndex != -1 && fragmentSeparatorIndex < s.length()) {
-                fragment = s.substring(fragmentSeparatorIndex + 1);
+            if (fragmentSeparatorIndex != -1 && fragmentSeparatorIndex < s.length()) {
+                remainder = s.substring(fragmentSeparatorIndex + 1);
                 prefix = s.substring(0, fragmentSeparatorIndex + 1);
             }
             else {
                 int pathSeparatorIndex = s.lastIndexOf('/');
-                if(pathSeparatorIndex != -1 && pathSeparatorIndex < s.length()) {
-                    fragment = s.substring(pathSeparatorIndex + 1);
+                if (pathSeparatorIndex != -1 && pathSeparatorIndex < s.length()) {
+                    remainder = s.substring(pathSeparatorIndex + 1);
                     prefix = s.substring(0, pathSeparatorIndex + 1);
                 }
                 else {
-                    fragment = null;
+                    remainder = null;
                     prefix = s;
                 }
             }
             String cached = prefixCache.get(prefix);
-            if(cached == null) {
+            if (cached == null) {
                 prefixCache.put(prefix, prefix);
             }
             else {
@@ -149,15 +163,15 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         }
 
         public URI toURI() {
-            if (cachedURI == null) {
-                if (fragment != null) {
-                    cachedURI = URI.create(prefix + fragment);
-                }
-                else {
-                    cachedURI = URI.create(prefix);
-                }
+            if (remainder != null) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(prefix);
+                sb.append(remainder);
+                return URI.create(sb.toString());
             }
-            return cachedURI;
+            else {
+                return URI.create(prefix);
+            }
         }
 
         public IRI resolve(String s) {
@@ -166,16 +180,17 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 
         /**
          * Determines if this IRI is absolute
+         *
          * @return <code>true</code> if this IRI is absolute or <code>false</code> if this IRI is not absolute
          */
         public boolean isAbsolute() {
             int colonIndex = prefix.indexOf(':');
-            if(colonIndex == -1) {
+            if (colonIndex == -1) {
                 return false;
             }
-            for(int i = 0; i < colonIndex; i++) {
+            for (int i = 0; i < colonIndex; i++) {
                 char ch = prefix.charAt(i);
-                if(!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+' && ch != '-') {
+                if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+' && ch != '-') {
                     return false;
                 }
             }
@@ -184,12 +199,19 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 
         /**
          * Gets the fragment of the IRI.
+         *
          * @return The IRI fragment, or <code>null</code> if the IRI does not have a fragment
          */
         public String getFragment() {
-            return fragment;
+            if(prefix.endsWith("#")) {
+                return remainder;
+            }
+            else {
+                return null;
+            }
         }
-        
+       
+
         public boolean isNothing() {
             return this.equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
         }
@@ -199,7 +221,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         }
 
         public boolean isThing() {
-            return fragment != null && fragment.equals("Thing") && prefix.equals(Namespaces.OWL.toString());
+            return remainder != null && remainder.equals("Thing") && prefix.equals(Namespaces.OWL.toString());
         }
 
         public void accept(OWLObjectVisitor visitor) {
@@ -229,13 +251,13 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         public Set<OWLEntity> getSignature() {
             return Collections.emptySet();
         }
-        
+
         public Set<OWLDatatype> getDatatypesInSignature() {
             return Collections.emptySet();
         }
 
         public int compareTo(OWLObject o) {
-            if(o == this) {
+            if (o == this) {
                 return 0;
             }
             if (!(o instanceof IRIImpl)) {
@@ -243,12 +265,12 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             }
             IRIImpl other = (IRIImpl) o;
             int diff = prefix.compareTo(other.prefix);
-            if(diff != 0) {
+            if (diff != 0) {
                 return diff;
             }
-            String otherFragment = other.fragment;
-            if(fragment == null) {
-                if(otherFragment == null) {
+            String otherRemainder = other.remainder;
+            if (remainder == null) {
+                if (otherRemainder == null) {
                     return 0;
                 }
                 else {
@@ -256,20 +278,20 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
                 }
             }
             else {
-                if(otherFragment == null) {
+                if (otherRemainder == null) {
                     return 1;
                 }
                 else {
-                    return fragment.compareTo(otherFragment);
+                    return remainder.compareTo(otherRemainder);
                 }
             }
         }
 
         public String toString() {
-            if(fragment != null) {
+            if (remainder != null) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(prefix);
-                sb.append(fragment);
+                sb.append(remainder);
                 return sb.toString();
             }
             else {
@@ -281,8 +303,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             StringBuilder sb = new StringBuilder();
             sb.append("<");
             sb.append(prefix);
-            if(fragment != null) {
-                sb.append(fragment);
+            if (remainder != null) {
+                sb.append(remainder);
             }
             sb.append(">");
 
@@ -290,8 +312,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         }
 
         public int hashCode() {
-            if(hashCode == 0) {
-                hashCode = prefix.hashCode() + (fragment != null ? fragment.hashCode() : 0);
+            if (hashCode == 0) {
+                hashCode = prefix.hashCode() + (remainder != null ? remainder.hashCode() : 0);
             }
             return hashCode;
         }
@@ -315,9 +337,9 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
                 return false;
             }
             IRIImpl other = (IRIImpl) obj;
-            String otherFragment = other.fragment;
-            if(fragment == null) {
-                if(otherFragment == null) {
+            String otherRemainder = other.remainder;
+            if (remainder == null) {
+                if (otherRemainder == null) {
                     return prefix.equals(other.prefix);
                 }
                 else {
@@ -325,11 +347,11 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
                 }
             }
             else {
-                if(otherFragment == null) {
+                if (otherRemainder == null) {
                     return false;
                 }
                 else {
-                    return fragment.equals(otherFragment) && other.prefix.equals(this.prefix);
+                    return remainder.equals(otherRemainder) && other.prefix.equals(this.prefix);
                 }
             }
         }

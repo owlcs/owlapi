@@ -29,6 +29,9 @@ package org.semanticweb.owlapi.model;
  * <p/>
  * A marker interface for annotation values, which can either be an IRI (URI),
  * Literal or Anonymous Individual.
+ * @see org.semanticweb.owlapi.model.IRI
+ * @see org.semanticweb.owlapi.model.OWLLiteral
+ * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
  */
 public interface OWLAnnotationValue extends OWLAnnotationObject {
 

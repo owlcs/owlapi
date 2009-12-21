@@ -48,13 +48,23 @@ public interface OWLAnnotation extends OWLObject, OWLAnnotationSubject {
 
     /**
      * Gets the annotation value.  The type of value will depend upon
-     * the type of the annotation e.g. whether the annotation is a constant
-     * annotation, individual annotation etc.
-     *
-     * @return the annotation value. Annotations can either have a value of an IRI (URI),
-     *         literal or anonymous individual
+     * the type of the annotation e.g. whether the annotation is an {@link org.semanticweb.owlapi.model.OWLLiteral},
+     * an {@link org.semanticweb.owlapi.model.IRI} or an {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual}.
+     * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitor
+     * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx
+     * @return The annotation value.
      */
     OWLAnnotationValue getValue();
+
+
+    /**
+     * Determines if this annotation is an annotation used to deprecate an IRI.  This is the case if the annotation
+     * property has an IRI of <code>owl:deprecated</code> and the value of the annotation is <code>"true"^^xsd:boolean</code>
+     * @return <code>true</code> if this annotation is an annotation that can be used to deprecate an IRI, otherwise
+     * <code>false</code>.
+     */
+    boolean isDeprecatedIRIAnnotation();
+
 
     /**
      * Gets the annotations on this annotation
@@ -67,12 +77,4 @@ public interface OWLAnnotation extends OWLObject, OWLAnnotationSubject {
 
     <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor);
 
-
-    /**
-     * Determines if this annotation is an annotation used to deprecate an IRI.  This is the case if the annotation
-     * property has an IRI of <code>owl:deprecated</code> and the value of the annotation is <code>"true"^^xsd:boolean</code>
-     * @return <code>true</code> if this annotation is an annotation that can be used to deprecate an IRI, otherwise
-     * <code>false</code>.
-     */
-    boolean isDeprecatedIRIAnnotation();
 }
