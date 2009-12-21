@@ -34,14 +34,6 @@ package org.semanticweb.owlapi.model;
  */
 public interface OWLTypedLiteral extends OWLLiteral {
 
-    /**
-     * Gets the datatype which types the literal which is represented
-     * by this typed literal.
-     *
-     * @return the data type which types this constant.
-     */
-    public OWLDatatype getDatatype();
-
     public void accept(OWLDataVisitor visitor);
 
 }

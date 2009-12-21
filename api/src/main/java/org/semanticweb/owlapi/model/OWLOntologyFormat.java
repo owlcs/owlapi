@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.model;
 
+import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
+
 import java.util.HashMap;
 import java.util.Map;
 /*
@@ -37,7 +39,7 @@ import java.util.Map;
  * is defined by the equals and hashCode method (not
  * its identity).
  */
-public class OWLOntologyFormat {
+public abstract class OWLOntologyFormat {
 
     private Map<Object, Object> paramaterMap;
 
@@ -62,6 +64,24 @@ public class OWLOntologyFormat {
         }
     }
 
+    /**
+     * Determines if this format is an instance of a format that uses prefixes to shorted IRIs
+     * @return <code>true</code> if this format is an instance of {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat}
+     * other wise <code>false</code>.
+     */
+    public boolean isPrefixOWLOntologyFormat() {
+        return this instanceof PrefixOWLOntologyFormat;
+    }
+
+    /**
+     * If this format is an instance of {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat} then this method
+     * will obtain it as a {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat}
+     * @return This format as a more specific {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat}.
+     * @throws ClassCastException if this format is not an instance of {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat}
+     */
+    public PrefixOWLOntologyFormat asPrefixOWLOntologyFormat() {
+        return (PrefixOWLOntologyFormat) this;
+    }
 
     public boolean equals(Object obj) {
         return obj.getClass().equals(getClass());

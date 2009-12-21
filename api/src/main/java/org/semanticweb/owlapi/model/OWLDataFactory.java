@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.model;
 
 
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 import java.util.List;
@@ -347,6 +348,13 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     OWLTypedLiteral getOWLTypedLiteral(String literal, OWLDatatype datatype);
 
+    /**
+     * Creates a typed literal that has the specified OWL 2 Datatype as its datatype
+     * @param literal The literal
+     * @param datatype The OWL 2 Datatype that will type the literal
+     * @return The typed literal
+     */
+    OWLTypedLiteral getOWLTypedLiteral(String literal, OWL2Datatype datatype);
 
     /**
      * Convenience method that obtains a literal typed as an integer.

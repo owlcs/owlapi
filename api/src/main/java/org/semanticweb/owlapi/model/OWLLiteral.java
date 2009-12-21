@@ -41,38 +41,89 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      */
     String getLiteral();
 
-
     /**
-     * Determines if this literal is typed (i.e. an instance
-     * of <code>OWLTypedLiteral</code>)
-     *
-     * @return <code>true</code> if the literal is typed, otherwise false
-     *         <code>false</code>
+     * Determines if this literal is an instance of {@link org.semanticweb.owlapi.model.OWLStringLiteral}
+     * @return <code>true</code> if this <code>OWLLiteral</code> is an instance of
+     * {@link org.semanticweb.owlapi.model.OWLStringLiteral}
      */
-    boolean isTyped();
+    boolean isOWLStringLiteral();
+
+    /**
+     * Gets the language tag of this literal (if it is an {@link org.semanticweb.owlapi.model.OWLStringLiteral}
+     * and has a langauge tag.
+     * @return
+     * </p>
+     * If this <code>OWLLiteral</code> is an {@link org.semanticweb.owlapi.model.OWLStringLiteral}:<br>
+     * If this {@link org.semanticweb.owlapi.model.OWLStringLiteral} has a language tag the return value is the string
+     * that represents this language tag.  If this {@link org.semanticweb.owlapi.model.OWLStringLiteral} does not have
+     * a language tag then the return value is <code>null</code>.
+     * </p>
+     * If this <code>OWLLiteral</code> is an {@link org.semanticweb.owlapi.model.OWLTypedLiteral}:<br>
+     * The return value is <code>null</code> (typed literals cannot have language tags).
+     */
+    String getLang();
 
 
     /**
-     * If this literal is a typed (i.e. if the <code>isTyped</code>
+     * Determines if this <code>OWLLiteral</code> is an <code>OWLStringLiteral</code> and if so whether it has a
+     * specific language tag.
+     * @param lang The specific lang to test for.
+     * @return
+     * </p>
+     * If this <code>OWLLiteral</code> is an {@link org.semanticweb.owlapi.model.OWLStringLiteral}:<br>
+     * If this {@link org.semanticweb.owlapi.model.OWLStringLiteral} has a language tag the return value is <code>true</code>
+     * if the language tag is equal to <code>lang</code>.  If this {@link org.semanticweb.owlapi.model.OWLStringLiteral} does not have
+     * a language tag then the return value is <code>false</code>.
+     * </p>
+     * If this <code>OWLLiteral</code> is an {@link org.semanticweb.owlapi.model.OWLTypedLiteral}:<br>
+     * The return value is <code>false</code> (typed literals cannot have language tags).
+     */
+    boolean hasLang(String lang);
+
+
+    /**
+     * Determines if this literal is an {@link org.semanticweb.owlapi.model.OWLTypedLiteral} and is therefore
+     * typed with an {@link org.semanticweb.owlapi.model.OWLDatatype}
+     * @return <code>true</code> if this literal is an instance of {@link org.semanticweb.owlapi.model.OWLTypedLiteral}
+     * and <code>false</code> if this is not the case.
+     */
+    boolean isOWLTypedLiteral();
+
+    /**
+     * Gets the <code>OWLDatatype</code> which types this literal if it is an {@link org.semanticweb.owlapi.model.OWLTypedLiteral}.
+     *
+     * @return
+     * </p>
+     * If this literal is an {@link org.semanticweb.owlapi.model.OWLTypedLiteral} then the return value is the
+     * <code>OWLDatatype</code> that types this literal.
+     * </p>
+     * If this literal is an {@link org.semanticweb.owlapi.model.OWLStringLiteral} then the return value is <code>null</code>.
+     * ({@link org.semanticweb.owlapi.model.OWLStringLiteral}s are not typed).
+     */
+    public OWLDatatype getDatatype();
+
+
+    /**
+     * If this literal is a typed (i.e. if the <code>isOWLTypedLiteral</code>
      * method returns <code>true</code> then this method obtains this literal as a typed
-     * literal.  If <code>isTyped</code> returns <code>false</code> then calling this method will
+     * literal.  If <code>isOWLTypedLiteral</code> returns <code>false</code> then calling this method will
      * cause an <code>OWLRuntimeException</code> to be thrown.
      *
-     * @return This literal as a typed literal
+     * @return This literal as an 
      */
-    OWLTypedLiteral asOWLStringLiteral();
+    OWLTypedLiteral asOWLTypedLiteral();
 
 
     /**
-     * If this literal is an RDFTextLiteral (i.e. if the <code>isTyped</code>
+     * If this literal is an RDFTextLiteral (i.e. if the <code>isOWLTypedLiteral</code>
      * method returns <code>false</code> then this method obtains this literal as
-     * an RDFTextLiteral.  If the <code>isTyped</code> method returns <code>true</code>
+     * an RDFTextLiteral.  If the <code>isOWLTypedLiteral</code> method returns <code>true</code>
      * because this method is a typed literal, then calling this method will cause
      * an <code>OWLRuntimeException</code> to be thrown.
      *
-     * @return This literal as a more specific RDF Text Literal
+     * @return This literal as a more specific <code>OWLStringLiteral</code>
      */
-    OWLStringLiteral asStringLiteral();
+    OWLStringLiteral asOWLStringLiteral();
 
 
     void accept(OWLDataVisitor visitor);

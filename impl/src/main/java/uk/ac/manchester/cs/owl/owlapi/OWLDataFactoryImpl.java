@@ -2,6 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -255,6 +256,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return new OWLTypedLiteralImpl(this, literal, datatype);
     }
 
+    public OWLTypedLiteral getOWLTypedLiteral(String literal, OWL2Datatype datatype) {
+        return getOWLTypedLiteral(literal, getOWLDatatype(datatype.getIRI()));
+    }
 
     public OWLTypedLiteral getOWLTypedLiteral(int value) {
         return new OWLTypedLiteralImpl(this, Integer.toString(value), getOWLDatatype(XSDVocabulary.INTEGER.getIRI()));

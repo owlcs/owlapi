@@ -33,21 +33,4 @@ package org.semanticweb.owlapi.model;
  */
 public interface OWLStringLiteral extends OWLLiteral {
 
-    /**
-     * Gets the language tag (if present)
-     * @return A <code>String</code> which represents the langauge tag,
-     * or <code>null</code> if there is no language tag
-     */
-    public String getLang();
-
-
-    /**
-     * Determines if this constant has a specific language tag.
-     * @param lang The specific lang to test for.
-     * @return <code>true</code> if this constant has the specified
-     * langauge tag, or <code>false</code> if this constant does not
-     * have a language tag or if this constant has a language tag that
-     * is not equal to the specified language tag.
-     */
-    boolean hasLang(String lang);
 }

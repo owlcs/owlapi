@@ -1466,7 +1466,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             Set<OWLLiteral> literals = translateToConstantSet(oneOfObject);
             Set<OWLTypedLiteral> typedConstants = new HashSet<OWLTypedLiteral>(literals.size());
             for (OWLLiteral con : literals) {
-                if (con.isTyped()) {
+                if (con.isOWLTypedLiteral()) {
                     typedConstants.add((OWLTypedLiteral) con);
                 }
                 else {

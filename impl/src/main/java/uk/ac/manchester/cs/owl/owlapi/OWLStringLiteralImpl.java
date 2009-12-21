@@ -56,29 +56,30 @@ public class OWLStringLiteralImpl extends OWLLiteralImpl implements OWLStringLit
         return lang != null;
     }
 
+    public boolean isOWLStringLiteral() {
+        return true;
+    }
+
+    public OWLDatatype getDatatype() {
+        return null;
+    }
 
     public boolean hasLang(String lang) {
-        if (lang == null) {
-            return false;
-        }
-        if (this.lang == null) {
-            return false;
-        }
-        return this.lang.equals(lang);
+        return lang != null && this.lang != null && this.lang.equals(lang);
     }
 
 
-    public boolean isTyped() {
+    public boolean isOWLTypedLiteral() {
         return false;
     }
 
 
-    public OWLTypedLiteral asOWLStringLiteral() {
+    public OWLTypedLiteral asOWLTypedLiteral() {
         throw new OWLRuntimeException("Not a typed constant!");
     }
 
 
-    public OWLStringLiteral asStringLiteral() {
+    public OWLStringLiteral asOWLStringLiteral() {
         return this;
     }
 

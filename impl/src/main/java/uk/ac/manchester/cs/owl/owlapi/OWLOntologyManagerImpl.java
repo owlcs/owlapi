@@ -4,6 +4,7 @@ import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.*;
@@ -550,6 +551,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         return loadOntology(null, inputSource);
     }
 
+    public OWLOntology loadOntology(File file) throws OWLOntologyCreationException {
+        return loadOntology(new FileInputSource(file));
+    }
 
     /**
      * This is the method that all the other load method delegate to.

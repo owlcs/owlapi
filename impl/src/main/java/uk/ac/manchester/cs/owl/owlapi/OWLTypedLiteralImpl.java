@@ -47,12 +47,23 @@ public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiter
     }
 
 
-    public OWLTypedLiteral asOWLStringLiteral() {
+    public OWLTypedLiteral asOWLTypedLiteral() {
         return this;
     }
 
+    public boolean isOWLStringLiteral() {
+        return false;
+    }
 
-    public OWLStringLiteral asStringLiteral() {
+    public String getLang() {
+        return null;
+    }
+
+    public boolean hasLang(String lang) {
+        return false;
+    }
+
+    public OWLStringLiteral asOWLStringLiteral() {
         throw new OWLRuntimeException("Not an untyped constant!");
     }
 
@@ -68,7 +79,7 @@ public class OWLTypedLiteralImpl extends OWLLiteralImpl implements OWLTypedLiter
     }
 
 
-    public boolean isTyped() {
+    public boolean isOWLTypedLiteral() {
         return true;
     }
 

@@ -37,7 +37,7 @@ public class ClassesAndInstances {
 
     public static void main(String[] args) {
         try {
-// For more information on classes and instances see the OWL 2 Primer
+            // For more information on classes and instances see the OWL 2 Primer
             // http://www.w3.org/TR/2009/REC-owl2-primer-20091027/#Classes_and_Instances
 
             // In order to say that an individual is an instance of a class (in an ontology), we can add a ClassAssertion

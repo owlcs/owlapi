@@ -2,7 +2,6 @@ package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLTypedLiteral;
-import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -47,7 +46,7 @@ public class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
 
 
     public void handleChild(OWLLiteralElementHandler handler) {
-        if (handler.getOWLObject().isTyped()) {
+        if (handler.getOWLObject().isOWLTypedLiteral()) {
             constants.add((OWLTypedLiteral) handler.getOWLObject());
         } else {
             // Type as string?

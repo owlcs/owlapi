@@ -9,7 +9,6 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.vocab.*;
 
-import java.net.URI;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -867,10 +866,10 @@ public class ManchesterOWLSyntaxEditorParser {
                         throw createException(OWLFacet.getFacets().toArray(new String[OWLFacet.getFacetIRIs().size()]));
                     }
                     OWLLiteral con = parseConstant();
-                    if (!con.isTyped()) {
+                    if (!con.isOWLTypedLiteral()) {
                         con = dataFactory.getOWLTypedLiteral(con.getLiteral());
                     }
-                    facetRestrictions.add(dataFactory.getOWLFacetRestriction(fv, con.asOWLStringLiteral()));
+                    facetRestrictions.add(dataFactory.getOWLFacetRestriction(fv, con.asOWLTypedLiteral()));
                     sep = consumeToken();
                 }
                 if (!sep.equals("]")) {

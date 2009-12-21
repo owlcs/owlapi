@@ -322,11 +322,11 @@ public abstract class RDFRendererBase {
                 }
 
                 public RDFNode visit(OWLTypedLiteral literal) {
-                    return new RDFLiteralNode(literal.getLiteral(), literal.asOWLStringLiteral().getDatatype().getIRI());
+                    return new RDFLiteralNode(literal.getLiteral(), literal.asOWLTypedLiteral().getDatatype().getIRI());
                 }
 
                 public RDFNode visit(OWLStringLiteral literal) {
-                    return new RDFLiteralNode(literal.getLiteral(), literal.asStringLiteral().getLang());
+                    return new RDFLiteralNode(literal.getLiteral(), literal.asOWLStringLiteral().getLang());
                 }
             };
             RDFNode node = anno.getValue().accept(valVisitor);

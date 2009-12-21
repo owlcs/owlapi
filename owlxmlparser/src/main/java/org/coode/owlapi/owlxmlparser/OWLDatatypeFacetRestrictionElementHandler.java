@@ -46,7 +46,7 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
 
     public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
         OWLLiteral con = handler.getOWLObject();
-        if (con.isTyped()) {
+        if (con.isOWLTypedLiteral()) {
             constant = (OWLTypedLiteral) handler.getOWLObject();
         } else {
             throw new OWLXMLParserException("Found untyped constant " + constant + ", expected typed constant", getLineNumber(), getColumnNumber());

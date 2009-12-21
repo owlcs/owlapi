@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.io.OWLOntologyInputSource;
 import org.semanticweb.owlapi.io.OWLOntologyOutputTarget;
 
+import java.io.File;
 import java.net.URI;
 import java.util.List;
 import java.util.Set;
@@ -369,6 +370,22 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     OWLOntology loadOntologyFromPhysicalURI(URI uri) throws OWLOntologyCreationException;
 
+    /**
+     * Loads an ontology from a document contained in a local file.
+     * @param file The file that contains a representation of an ontology
+     * @return The ontology that was parsed from the file.
+     * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
+     * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology could not be parsed.
+     * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
+     * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
+     * not be thrown.  The <code>UnloadableImportException</code> contains information about the import declaration
+     * that triggered the import and the cause of this exception is an <code>OWLOntologyCreationException</code>
+     * which contains information about why the import could not be loaded.
+     * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException if there was an <code>IOException</code>
+     * when trying to load the ontology.
+     */
+    OWLOntology loadOntology(File file) throws OWLOntologyCreationException;
+
 
     /**
      * A convenience method that load an ontology from an input source.
@@ -456,7 +473,6 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws UnknownOWLOntologyException if the specified ontology is not managed by this manager.
      */
     void saveOntology(OWLOntology ontology, URI physicalURI) throws OWLOntologyStorageException;
-
 
     /**
      * Saves the specified ontology in the specified ontology format to its physical URI.
