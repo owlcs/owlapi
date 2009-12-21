@@ -76,7 +76,7 @@ public class Example11 {
             List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();
             gens.add(new InferredSubClassAxiomGenerator());
 
-            // Put the inferred axiomns into a fresh empty ontology - note that there
+            // Put the inferred axioms into a fresh empty ontology - note that there
             // is nothing stopping us stuffing them back into the original asserted ontology
             // if we wanted to do this.
             OWLOntology infOnt = man.createOntology();
