@@ -59,7 +59,7 @@ public class DataRanges {
             // Get hold of the integer datatype
             OWLDatatype integer = factory.getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI());
 
-            // For common datatypes there are some convenience methods of OWLDataFactory.  For example
+            // For common data types there are some convenience methods of OWLDataFactory.  For example
 
             OWLDatatype integerDatatype = factory.getIntegerOWLDatatype();
             OWLDatatype floatDatatype = factory.getFloatOWLDatatype();
@@ -99,7 +99,7 @@ public class DataRanges {
             // Create a data range of integers less than 16
             OWLDatatypeRestriction integerLT16 = factory.getOWLDatatypeMaxExclusiveRestriction(18);
 
-            // In OWL 2 it is possible to represent the intersection, union and complement of datatypes
+            // In OWL 2 it is possible to represent the intersection, union and complement of data types
             // For example, we could create a union of data ranges of the data range
             // integer less than 16 or integer greater or equal to 60
             OWLDataUnionOf concessionaryAge = factory.getOWLDataUnionOf(integerLT16, integerGE60);
