@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.io;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.io.*;
 import java.net.URI;
 /*
@@ -36,7 +38,7 @@ import java.net.URI;
  */
 public class StreamInputSource implements OWLOntologyInputSource {
 
-    private URI physicalURI;
+    private IRI documentIRI;
 
     private byte [] buffer;
 
@@ -48,7 +50,7 @@ public class StreamInputSource implements OWLOntologyInputSource {
      * read from.
      */
     public StreamInputSource(InputStream is) {
-        this(is, URI.create("http://org.semanticweb.ontologies/Ontology" + System.nanoTime()));
+        this(is, IRI.create("inputstream:ontology" + System.nanoTime()));
     }
 
 
@@ -57,11 +59,10 @@ public class StreamInputSource implements OWLOntologyInputSource {
      * a representation from the specified stream.
      * @param stream The stream that the ontology representation will be
      * read from.
-     * @param physicalURI The physical URI which will be used as the base
-     * of the document if needed.
+     * @param documentIRI The document IRI
      */
-    public StreamInputSource(InputStream stream, URI physicalURI) {
-        this.physicalURI = physicalURI;
+    public StreamInputSource(InputStream stream, IRI documentIRI) {
+        this.documentIRI = documentIRI;
         readIntoBuffer(stream);
     }
 
@@ -97,8 +98,8 @@ public class StreamInputSource implements OWLOntologyInputSource {
     }
 
 
-    public URI getPhysicalURI() {
-        return physicalURI;
+    public IRI getDocumentIRI() {
+        return documentIRI;
     }
 
 

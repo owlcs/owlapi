@@ -69,7 +69,7 @@ public class RDFParserTestCases extends TestCase {
             if (testSuiteFolder.isDirectory()) {
                 for (File ontologyFile : testSuiteFolder.listFiles()) {
                     if (ontologyFile.getName().endsWith(".rdf") || ontologyFile.getName().endsWith(".owlapi")) {
-                        OWLOntology ont = man.loadOntologyFromPhysicalURI(ontologyFile.toURI());
+                        OWLOntology ont = man.loadOntologyFromOntologyDocument(ontologyFile);
                         System.out.println("Loaded: " + ont);
                         man.removeOntology(ont);
                     }

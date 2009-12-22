@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
@@ -39,9 +40,9 @@ public abstract class AbstractFileRoundTrippingTestCase extends AbstractRoundTri
     protected OWLOntology createOntology() {
         try {
             String fileName = getFileName();
-            URI uri = getClass().getResource("/" + fileName).toURI();
+            IRI iri = IRI.create(getClass().getResource("/" + fileName).toURI());
             UnparsableOntologyException.setIncludeStackTraceInMessage(true);
-            return getManager().loadOntologyFromPhysicalURI(uri);
+            return getManager().loadOntologyFromOntologyDocument(iri);
         }
         catch (URISyntaxException e) {
             throw new RuntimeException(e);

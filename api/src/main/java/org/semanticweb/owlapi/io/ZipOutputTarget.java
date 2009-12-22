@@ -1,7 +1,8 @@
 package org.semanticweb.owlapi.io;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.io.*;
-import java.net.URI;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 /*
@@ -70,12 +71,12 @@ public class ZipOutputTarget implements OWLOntologyOutputTarget {
     }
 
 
-    public boolean isPhysicalURIAvailable() {
+    public boolean isDocumentIRIAvailable() {
         return false;
     }
 
 
-    public URI getPhysicalURI() {
+    public IRI getDocumentIRI() {
         return null;
     }
 }

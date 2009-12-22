@@ -4,7 +4,6 @@ import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyInputSource;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.io.OWLParserIOException;
 import org.semanticweb.owlapi.model.*;
 
 import java.io.BufferedReader;
@@ -56,7 +55,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     br = new BufferedReader(new InputStreamReader(inputSource.getInputStream()));
                 }
                 else {
-                    br = new BufferedReader(new InputStreamReader(getInputStream(inputSource.getPhysicalURI())));
+                    br = new BufferedReader(new InputStreamReader(getInputStream(inputSource.getDocumentIRI())));
                 }
                 StringBuilder sb = new StringBuilder();
                 String line;

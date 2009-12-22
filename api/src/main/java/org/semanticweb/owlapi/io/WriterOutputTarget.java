@@ -1,8 +1,9 @@
 package org.semanticweb.owlapi.io;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.io.OutputStream;
 import java.io.Writer;
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -63,12 +64,12 @@ public class WriterOutputTarget implements OWLOntologyOutputTarget {
     }
 
 
-    public boolean isPhysicalURIAvailable() {
+    public boolean isDocumentIRIAvailable() {
         return false;
     }
 
 
-    public URI getPhysicalURI() {
+    public IRI getDocumentIRI() {
         return null;
     }
 }

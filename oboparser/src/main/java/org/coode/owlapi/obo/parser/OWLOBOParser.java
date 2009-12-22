@@ -48,7 +48,7 @@ public class OWLOBOParser extends AbstractOWLParser {
             parser = new OBOParser(inputSource.getInputStream());
         }
         else {
-            parser = new OBOParser(getInputStream(inputSource.getPhysicalURI()));
+            parser = new OBOParser(getInputStream(inputSource.getDocumentIRI()));
         }
         parser.setHandler(new OBOConsumer(getOWLOntologyManager(), ontology));
         try {

@@ -36,6 +36,8 @@ import java.util.Set;
  * </p>
  * An <code>OWLOntologyManager</code> manages a set of ontologies. It is the main point for creating, loading and
  * accessing ontologies.
+ * </p>
+ * An <code>OWLOntologyManager</code> also manages the mapping betweem an ontology and its ontology document.
  */
 public interface OWLOntologyManager extends OWLOntologySetProvider {
 
@@ -169,8 +171,11 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @return The changes that were actually applied.
      * @throws OWLOntologyChangeException If one or more of the changes could not be applied.  See subclasses of
      * ontology change exception for more specific details.
+     * @throws OWLOntologyRenameException If one or more of the changes is an instance of {@link org.semanticweb.owlapi.model.SetOntologyID}
+     * where the new {@link org.semanticweb.owlapi.model.OWLOntologyID} already belongs to an ontology managed by this
+     * manager.
      */
-    List<OWLOntologyChange> applyChanges(List<? extends OWLOntologyChange> changes);
+    List<OWLOntologyChange> applyChanges(List<? extends OWLOntologyChange> changes) throws OWLOntologyRenameException;
 
 
     /**
@@ -221,8 +226,11 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @return The changes that resulted of the applied ontology change.
      * @throws OWLOntologyChangeException If the change could not be applied.  See subclasses of ontology change
      *                                    exception for more specific details.
+     * @throws OWLOntologyRenameException If one or more of the changes is an instance of {@link org.semanticweb.owlapi.model.SetOntologyID}
+     * where the new {@link org.semanticweb.owlapi.model.OWLOntologyID} already belongs to an ontology managed by this
+     * manager.
      */
-    List<OWLOntologyChange> applyChange(OWLOntologyChange change);
+    List<OWLOntologyChange> applyChange(OWLOntologyChange change) throws OWLOntologyRenameException;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -233,7 +241,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Creates a new (empty) ontology that does not have an ontology IRI (and therefore does not have a version IRI)
+     * Creates a new (empty) ontology that does not have an ontology IRI (and therefore does not have a version IRI).
+     * A document IRI will automatically be generated.
      * @return The newly created ontology
      * @throws OWLOntologyCreationException if there was a problem creating the ontology
      */
@@ -241,6 +250,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
     /**
      * Creates a new ontology that is initialised to contain specific axioms. The ontology will not have an IRI.
+     * The document IRI of the created ontology will be auto-generated.
      * @param axioms The axioms that should be copied into the new ontology
      * @return An ontology without an IRI that contains all of the specified axioms
      * @throws OWLOntologyCreationException if there was a problem creating the new ontology.
@@ -252,17 +262,32 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     /**
      * Creates a new ontology that has the specified ontology IRI and is initialised to contain specific axioms.
      * @param ontologyIRI The IRI of the new ontology.
+     * </p>
+     * The ontology document IRI of the created ontology will be set to the value returned
+     * by any installed {@link org.semanticweb.owlapi.model.OWLOntologyIRIMapper}s.  If no mappers are installed
+     * or the ontology IRI was not mapped to a document IRI by any of the installed mappers, then the ontology document
+     * IRI will be set to the value of <code>ontologyIRI</code>.
+     *
      * @param axioms      The axioms that should be copied into the new ontology
      * @return An ontology that has the specified IRI and contains all of the specified axioms
      * @throws OWLOntologyCreationException if there was a problem creating the new ontology, if the new ontology
      *                                      already exists in this manager.
      * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
+     * @throws OWLOntologyAlreadyExistsException if the manager already contains an ontology with the specified
+     * <code>ontologyIRI</code>.
+     * @throws OWLOntologyDocumentAlreadyExistsException if the specified <code>ontologyIRI</code> is mapped to a
+     * ontology document IRI for which there already exists a mapping in this manager. 
      */
     OWLOntology createOntology(Set<OWLAxiom> axioms, IRI ontologyIRI) throws OWLOntologyCreationException;
 
 
     /**
-     * Creates a new (empty) ontology that has the specified ontology IRI (and no version IRI)
+     * Creates a new (empty) ontology that has the specified ontology IRI (and no version IRI).
+     * </p>
+     * The ontology document IRI of the created ontology will be set to the value returned
+     * by any installed {@link org.semanticweb.owlapi.model.OWLOntologyIRIMapper}s.  If no mappers are installed
+     * or the ontology IRI was not mapped to a document IRI by any of the installed mappers, then the ontology document
+     * IRI will be set to the value of <code>ontologyIRI</code>.
      * @param ontologyIRI The IRI of the ontology to be created.  The ontology IRI will be mapped to a physical IRI in
      *                    order to determine the type of ontology factory that will be used to create the ontology.  If
      *                    this mapping is <code>null</code> then a default (in memory) implementation of the ontology
@@ -270,19 +295,29 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @return The newly created ontology, or if an ontology with the specified IRI already exists then this existing
      *         ontology will be returned.
      * @throws OWLOntologyCreationException If the ontology could not be created.
+     * @throws OWLOntologyAlreadyExistsException if the manager already contains an ontology with the specified
+     * <code>ontologyIRI</code> (and no version IRI).
+     * @throws OWLOntologyDocumentAlreadyExistsException if the specified <code>ontologyIRI</code> is mapped to a
+     * ontology document IRI for which there already exists a mapping in this manager.
      */
     OWLOntology createOntology(IRI ontologyIRI) throws OWLOntologyCreationException;
 
 
     /**
      * Creates a new (empty) ontology that has the specified ontology ID.
-     * @param ontologyID The ID of the ontology to be created.  The ontology IRI will be mapped to a physical IRI in
-     *                   order to determine the type of ontology factory that will be used to create the ontology.  If
-     *                   this mapping is <code>null</code> then a default (in memory) implementation of the ontology
-     *                   will most likely be created.
+     * @param ontologyID The ID of the ontology to be created.
+     * </p>
+     * The ontology document IRI of the created ontology will be set to the value returned
+     * by any installed {@link org.semanticweb.owlapi.model.OWLOntologyIRIMapper}s.  If no mappers are installed
+     * or the ontology IRI was not mapped to a document IRI by any of the installed mappers, then the ontology document
+     * IRI will be set to the value of <code>ontologyIRI</code>.
      * @return The newly created ontology, or if an ontology with the specified IRI already exists then this existing
      *         ontology will be returned.
      * @throws OWLOntologyCreationException If the ontology could not be created.
+     * @throws OWLOntologyAlreadyExistsException if the manager already contains an ontology with the specified
+     * <code>ontologyID</code> (and no version IRI).
+     * @throws OWLOntologyDocumentAlreadyExistsException if the specified <code>ontologyID</code> is mapped to a
+     * ontology document IRI for which there already exists a mapping in this manager.
      */
     OWLOntology createOntology(OWLOntologyID ontologyID) throws OWLOntologyCreationException;
 
@@ -290,6 +325,11 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     /**
      * Creates a new ontology that has the specified ontology IRI and is initialised to contain the axioms that are
      * contained in the specified ontologies.  Note that the specified ontologies need not be managed by this manager.
+     * </p>
+     * The ontology document IRI of the created ontology will be set to the value returned
+     * by any installed {@link org.semanticweb.owlapi.model.OWLOntologyIRIMapper}s.  If no mappers are installed
+     * or the ontology IRI was not mapped to a document IRI by any of the installed mappers, then the ontology document
+     * IRI will be set to the value of <code>ontologyIRI</code>.
      * @param ontologyIRI           The IRI of the new ontology.
      * @param ontologies            The ontologies whose axioms should be copied into the new ontology
      * @param copyLogicalAxiomsOnly If set to <code>true</code> only logical axioms are copied into the new ontology.
@@ -299,7 +339,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *         ontologies possibly minus all non-logical axioms
      * @throws OWLOntologyCreationException if there was a problem creating the new ontology, if the new ontology
      *                                      already exists in this manager.
-     * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
+     * @throws OWLOntologyAlreadyExistsException if the manager already contains an ontology with the specified
+     * <code>ontologyIRI</code> (and no ontology version IRI).
+     * @throws OWLOntologyDocumentAlreadyExistsException if the specified <code>ontologyIRI</code> is mapped to a
+     * ontology document IRI for which there already exists a mapping in this manager.
      */
     OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly) throws OWLOntologyCreationException;
 
@@ -307,13 +350,21 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     /**
      * Creates a new ontology that has the specified ontology IRI and is initialised to contain the axioms that are
      * contained in the specified ontologies.  Note that the specified ontologies need not be managed by this manager.
+     * </p>
+     * The ontology document IRI of the created ontology will be set to the value returned
+     * by any installed {@link org.semanticweb.owlapi.model.OWLOntologyIRIMapper}s.  If no mappers are installed
+     * or the ontology IRI was not mapped to a document IRI by any of the installed mappers, then the ontology document
+     * IRI will be set to the value of <code>ontologyIRI</code>.
      * @param ontologyIRI The IRI of the new ontology.
      * @param ontologies  The ontologies whose axioms should be copied into the new ontology
      * @return An ontology that has the specified IRI and contains all of the axioms that are contained in the specified
      *         ontologies
      * @throws OWLOntologyCreationException if there was a problem creating the new ontology, if the new ontology
      *                                      already exists in this manager.
-     * @throws OWLOntologyChangeException   if there was a problem copying the axioms.
+     * @throws OWLOntologyAlreadyExistsException if the manager already contains an ontology with the specified
+     * <code>ontologyIRI</code> (and no version IRI).
+     * @throws OWLOntologyDocumentAlreadyExistsException if the specified <code>ontologyIRI</code> is mapped to a
+     * ontology document IRI for which there already exists a mapping in this manager.
      */
     OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies) throws OWLOntologyCreationException;
 
@@ -326,18 +377,15 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Loads an ontology from an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Ontology_Documents">ontology
-     * document</a> specified by the <code>ontologyIRI</code> parameter.
-     * This ontology IRI will be mapped to a physical IRI.  The mapping will be determined using one of the loaded
-     * {@link OWLOntologyIRIMapper} objects. By default, if no custom <code>OWLOntologyIRIMapper</code>s have been registed
-     * using the {@link #addIRIMapper(OWLOntologyIRIMapper)} method, the physical IRI is taken to be the specified
-     * ontology IRI. However, if the mappers have been cleared and/or replaced entirely by custom mappers and the ontology
-     * IRI cannot be mapped then an
-     * {@link org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException} will be thrown.
+     * Loads an ontology that is assumed to have the specified <code>ontologyIRI</code> as its IRI or version IRI.
+     * </p>
+     * The ontology IRI will be mapped to an ontology document IRI.  The mapping will be determined using one of the loaded
+     * {@link OWLOntologyIRIMapper} objects. By default, if no custom <code>OWLOntologyIRIMapper</code>s have been registered
+     * using the {@link #addIRIMapper(OWLOntologyIRIMapper)} method, or no mapping can be found, the ontology document
+     * IRI is taken to be the specified ontology IRI. 
      * @param ontologyIRI The IRI that identifies the ontology.  It is expected that the ontology will also have this
      * IRI (although the OWL API will tolerated situations where this is not the case).
-     * @return The <code>OWLOntology</code> representation of the ontology that was loaded.  If an ontology with the
-     *         specified IRI is already loaded then that ontology will be returned.
+     * @return The <code>OWLOntology</code> representation of the ontology that was loaded.
      * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
      * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was being parsed from a document and
      * the document contained syntax errors.
@@ -348,14 +396,18 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * which contains information about why the import could not be loaded.
      * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException if there was an <code>IOException</code>
      * when trying to load the ontology.
+     * @throws OWLOntologyAlreadyExistsException if the manager already contains an ontology with the specified
+     * <code>ontologyIRI</code> (where the ontology doesn't have a version IRI).
+     * @throws OWLOntologyDocumentAlreadyExistsException if the specified <code>ontologyIRI</code> is mapped to a
+     * ontology document IRI for which there already exists a mapping in this manager.
      */
     OWLOntology loadOntology(IRI ontologyIRI) throws OWLOntologyCreationException;
 
 
     /**
-     * A convenience method that loads an ontology from a physical URI.  In contrast the the {@link #loadOntology(IRI)}
-     * method, no mapping is performed on the specified URI.
-     * @param uri The physical URI which points to a concrete representation of an ontology.
+     * Loads an ontology from an ontology document specified by an IRI.  In contrast the the {@link #loadOntology(IRI)}
+     * method, no mapping is performed on the specified IRI.
+     * @param documentIRI The ontology document IRI where the ontology will be loaded from.
      * @return The ontology that was loaded.
      * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
      * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was being parsed from a document and
@@ -367,11 +419,17 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * which contains information about why the import could not be loaded.
      * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException if there was an <code>IOException</code>
      * when trying to load the ontology.
+     * @throws OWLOntologyDocumentAlreadyExistsException if the specified <code>documentIRI</code> is already
+     * the document IRI for a loaded ontology.
+     * @throws OWLOntologyAlreadyExistsException if the manager already contains an ontology whose ontology IRI and
+     * version IRI is the same as the ontology IRI and version IRI of the ontology contained in the document pointed
+     * to by <code>documentIRI</code>.
      */
-    OWLOntology loadOntologyFromPhysicalURI(URI uri) throws OWLOntologyCreationException;
+    OWLOntology loadOntologyFromOntologyDocument(IRI documentIRI) throws OWLOntologyCreationException;
 
     /**
-     * Loads an ontology from a document contained in a local file.
+     * Loads an ontology from an ontology document contained in a local file.  The loaded ontology will be assigned
+     * a document IRI that corresponds to the file IRI.
      * @param file The file that contains a representation of an ontology
      * @return The ontology that was parsed from the file.
      * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
@@ -383,8 +441,13 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * which contains information about why the import could not be loaded.
      * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException if there was an <code>IOException</code>
      * when trying to load the ontology.
+     * @throws OWLOntologyDocumentAlreadyExistsException if the IRI of the specified file is already
+     * the document IRI for a loaded ontology.
+     * @throws OWLOntologyAlreadyExistsException if the manager already contains an ontology whose ontology IRI and
+     * version IRI is the same as the ontology IRI and version IRI of the ontology contained in the document pointed
+     * to by <code>documentIRI</code>.
      */
-    OWLOntology loadOntology(File file) throws OWLOntologyCreationException;
+    OWLOntology loadOntologyFromOntologyDocument(File file) throws OWLOntologyCreationException;
 
 
     /**
@@ -401,8 +464,13 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * which contains information about why the import could not be loaded.
      * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException if there was an <code>IOException</code>
      * when trying to load the ontology.
+     * @throws OWLOntologyDocumentAlreadyExistsException if the document IRI of the input source is already
+     * the document IRI for a loaded ontology.
+     * @throws OWLOntologyAlreadyExistsException if the manager already contains an ontology whose ontology IRI and
+     * version IRI is the same as the ontology IRI and version IRI of the ontology contained in the document
+     * represented by the input source.
      */
-    OWLOntology loadOntology(OWLOntologyInputSource inputSource) throws OWLOntologyCreationException;
+    OWLOntology loadOntologyFromOntologyDocument(OWLOntologyInputSource inputSource) throws OWLOntologyCreationException;
 
     /**
      * Attempts to remove an ontology.  The ontology which is identified by the specified IRI is removed regardless of
@@ -422,17 +490,17 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @return The physical IRI of the ontology or <code>null</code>.
      * @throws UnknownOWLOntologyException If the specified ontology is not managed by this manager.
      */
-    URI getPhysicalURIForOntology(OWLOntology ontology);
+    IRI getOntologyDocumentIRI(OWLOntology ontology);
 
 
     /**
-     * Overrides the current physical URI for a given ontology.  This method does not alter the IRI mappers which are
-     * installed, but alters the physical URI of an ontology that has already been loaded.
+     * Overrides the current document IRI for a given ontology.  This method does not alter the IRI mappers which are
+     * installed, but alters the actual document IRI of an ontology that has already been loaded.
      * @param ontology    The ontology that has already been loaded.
-     * @param physicalURI The new physcial URI
+     * @param documentIRI The new ontology document IRI
      * @throws UnknownOWLOntologyException If the specified ontology is not managed by this manager.
      */
-    void setPhysicalURIForOntology(OWLOntology ontology, URI physicalURI) throws UnknownOWLOntologyException;
+    void setOntologyDocumentIRI(OWLOntology ontology, IRI documentIRI) throws UnknownOWLOntologyException;
 
 
     /**
@@ -448,6 +516,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * Sets the format for the specified ontology.
      * @param ontology       The ontology whose format is to be set.
      * @param ontologyFormat The format for the specified ontology.
+     * @throws UnknownOWLOntologyException If the specified ontology is not managed by this manager.
      */
     void setOntologyFormat(OWLOntology ontology, OWLOntologyFormat ontologyFormat);
 
@@ -466,13 +535,13 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     /**
-     * Saves the specified ontology, using the specified URI to determine where/how the ontology should be saved.
+     * Saves the specified ontology, using the specified document IRI to determine where/how the ontology should be saved.
      * @param ontology    The ontology to be saved.
-     * @param physicalURI The physical URI that specifies how and where to the ontology should be saved.
+     * @param documentIRI The document IRI where the ontology should be saved to
      * @throws OWLOntologyStorageException If the ontology cannot be saved
      * @throws UnknownOWLOntologyException if the specified ontology is not managed by this manager.
      */
-    void saveOntology(OWLOntology ontology, URI physicalURI) throws OWLOntologyStorageException;
+    void saveOntology(OWLOntology ontology, IRI documentIRI) throws OWLOntologyStorageException;
 
     /**
      * Saves the specified ontology in the specified ontology format to its physical URI.
@@ -485,14 +554,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     /**
-     * Saves the specified ontology to the specified physical URI in the specified ontology format.
+     * Saves the specified ontology to the specified document IRI in the specified ontology format.
      * @param ontology The ontology to be saved
      * @param ontologyFormat The format in which to save the ontology
-     * @param physicalURI The physical URI where the ontology will be saved to
+     * @param documentIRI The document IRI where the ontology should be saved to
      * @throws OWLOntologyStorageException If the ontology could not be saved.
      * @throws UnknownOWLOntologyException if the specified ontology is not managed by the manager.
      */
-    void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, URI physicalURI) throws OWLOntologyStorageException;
+    void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, IRI documentIRI) throws OWLOntologyStorageException;
 
 
     /**

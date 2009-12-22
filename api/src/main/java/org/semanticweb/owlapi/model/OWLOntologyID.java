@@ -122,7 +122,8 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
      * Gets the IRI which is used as a default for the document that contain a representation of an ontology with this
      * ID. This will be the version IRI if there is an ontology IRI and version IRI, else it will be the ontology IRI
      * if there is an ontology IRI but no version IRI, else it will be <code>null</code> if there is no ontology IRI.
-     * (See section 3.2 of the OWL 2 specification)
+     * See <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Ontology_Documents">Ontology Documents</a> in
+     * the OWL 2 Structural Specification.
      * @return The IRI that can be used as a default for an ontology document containing an ontology as identified
      *         by this ontology ID.  Returns the default IRI or <code>null</code>.
      */

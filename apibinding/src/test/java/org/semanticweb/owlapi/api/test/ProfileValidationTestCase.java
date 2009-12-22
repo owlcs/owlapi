@@ -62,7 +62,7 @@ public class ProfileValidationTestCase extends TestCase {
 //        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 //        URL resourceURL = ProfileValidationTestCase.class.getResource("/all.rdf");
 //        URI allTestURI = resourceURL.toURI();
-//        OWLOntology testCasesOntology = man.loadOntologyFromPhysicalURI(allTestURI);
+//        OWLOntology testCasesOntology = man.loadOntologyFromOntologyDocument(allTestURI);
 //
 //        OWLDataFactory df = man.getOWLDataFactory();
 //        OWLClass profileIdentificationTestClass = df.getOWLClass(PROFILE_IDENTIFICATION_TEST_IRI);
@@ -111,7 +111,7 @@ public class ProfileValidationTestCase extends TestCase {
 //            String ontologySerialisation = vals.iterator().next().getLiteral();
 //            System.out.println(ontologySerialisation);
 //            System.out.println("Loading...");
-//            OWLOntology ontology = man.loadOntology(new StringInputSource(ontologySerialisation, ind.asOWLNamedIndividual().getIRI().toURI()));
+//            OWLOntology ontology = man.loadOntologyFromOntologyDocument(new StringInputSource(ontologySerialisation, ind.asOWLNamedIndividual().getIRI().toURI()));
 //
 //            System.out.println("   ... loaded ont");
 //            // FULL?

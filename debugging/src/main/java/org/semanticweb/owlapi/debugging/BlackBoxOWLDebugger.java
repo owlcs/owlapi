@@ -430,7 +430,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             owlOntologyManager.removeOntology(debuggingOntology);
         }
         IRI iri = createIRI();
-        SimpleIRIMapper mapper = new SimpleIRIMapper(iri, iri.toURI());
+        SimpleIRIMapper mapper = new SimpleIRIMapper(iri, iri);
         owlOntologyManager.addIRIMapper(mapper);
         debuggingOntology = owlOntologyManager.createOntology(iri);
         owlOntologyManager.removeIRIMapper(mapper);

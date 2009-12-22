@@ -46,13 +46,13 @@ public class TurtleOntologyParser extends AbstractOWLParser {
         try {
             TurtleParser parser;
             if(inputSource.isReaderAvailable()) {
-                parser = new TurtleParser(inputSource.getReader(), new ConsoleTripleHandler(), inputSource.getPhysicalURI().toString());
+                parser = new TurtleParser(inputSource.getReader(), new ConsoleTripleHandler(), inputSource.getDocumentIRI().toString());
             }
             else if(inputSource.isInputStreamAvailable()) {
-                parser = new TurtleParser(inputSource.getInputStream(), new ConsoleTripleHandler(), inputSource.getPhysicalURI().toString());
+                parser = new TurtleParser(inputSource.getInputStream(), new ConsoleTripleHandler(), inputSource.getDocumentIRI().toString());
             }
             else {
-                parser = new TurtleParser(new BufferedInputStream(inputSource.getPhysicalURI().toURL().openStream()), new ConsoleTripleHandler(), inputSource.getPhysicalURI().toString());
+                parser = new TurtleParser(new BufferedInputStream(inputSource.getDocumentIRI().toURI().toURL().openStream()), new ConsoleTripleHandler(), inputSource.getDocumentIRI().toString());
             }
 
             OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(getOWLOntologyManager(), ontology, parser);

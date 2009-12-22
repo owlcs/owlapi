@@ -1,10 +1,9 @@
 package org.semanticweb.owlapi.profiles;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.util.ShortFormProvider;
 
 import java.util.*;
 import java.net.URI;
@@ -44,7 +43,7 @@ public class OWLProfileViolation {
 
     private OWLOntologyID ontologyID;
 
-    private Map<OWLOntologyID, URI> importsClosureMap = new HashMap<OWLOntologyID, URI>();
+    private Map<OWLOntologyID, IRI> importsClosureMap = new HashMap<OWLOntologyID, IRI>();
 
     private OWLAxiom axiom;
 
@@ -52,7 +51,7 @@ public class OWLProfileViolation {
         this.axiom = axiom;
         this.ontologyID = ontology.getOntologyID();
         for(OWLOntology ont : ontology.getImportsClosure()) {
-            importsClosureMap.put(ont.getOntologyID(), ont.getOWLOntologyManager().getPhysicalURIForOntology(ont));
+            importsClosureMap.put(ont.getOntologyID(), ont.getOWLOntologyManager().getOntologyDocumentIRI(ont));
         }
     }
 
@@ -64,7 +63,7 @@ public class OWLProfileViolation {
         return ontologyID;
     }
 
-    public URI getPhysicalURI(OWLOntologyID ontologyID) {
+    public IRI getDocumentIRI(OWLOntologyID ontologyID) {
         return importsClosureMap.get(ontologyID);
     }
 

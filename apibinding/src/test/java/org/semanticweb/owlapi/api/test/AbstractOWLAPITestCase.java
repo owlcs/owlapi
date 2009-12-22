@@ -87,7 +87,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
     public OWLOntology loadOntology(String fileName) {
         try {
             URL url = getClass().getResource("/" + fileName);
-            return manager.loadOntologyFromPhysicalURI(url.toURI());
+            return manager.loadOntologyFromOntologyDocument(IRI.create(url));
         }
         catch (OWLOntologyCreationException e) {
             fail(e.getMessage());
@@ -159,7 +159,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
             manager.saveOntology(ont, format, target);
             handleSaved(target, format);
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            OWLOntology ont2 = man.loadOntology(new StringInputSource(target.toString()));
+            OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringInputSource(target.toString()));
             assertEquals(ont, ont2);
             Set<OWLAxiom> axioms1;
             Set<OWLAxiom> axioms2;

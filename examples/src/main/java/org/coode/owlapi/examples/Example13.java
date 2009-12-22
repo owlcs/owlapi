@@ -1,10 +1,7 @@
 package org.coode.owlapi.examples;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 
@@ -50,9 +47,9 @@ public class Example13 {
             // we can use the walker to do this.
 
             // We'll use the pizza ontology as an example.  Load the ontology from the web:
-            URI physicalURI = URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi");
+            IRI documentIRI = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi");
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(physicalURI);
+            OWLOntology ont = man.loadOntologyFromOntologyDocument(documentIRI);
 
             // Create the walker.  Pass in the pizza ontology - we need to put it into a set
             // though, so we just create a singleton set in this case.

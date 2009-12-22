@@ -4,7 +4,6 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 import java.io.File;
 import java.net.URI;
@@ -47,13 +46,13 @@ public class SavingOntologies {
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
             // Let's load an ontology from the web.  We load the ontology from a physical URI
-            URI uri = URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
-            OWLOntology pizzaOntology = manager.loadOntologyFromPhysicalURI(uri);
+            IRI documentIRI = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
+            OWLOntology pizzaOntology = manager.loadOntologyFromOntologyDocument(documentIRI);
             System.out.println("Loaded ontology: " + pizzaOntology);
 
             // Now save a local copy of the ontology.  (Specify a path appropriate to your setup)
             File file = new File("/tmp/local.owl");
-            manager.saveOntology(pizzaOntology, file.toURI());
+            manager.saveOntology(pizzaOntology, IRI.create(file.toURI()));
 
             // By default ontologies are saved in the format from which they were loaded.  In this case the
             // ontology was loaded from an rdf/xml file
@@ -70,7 +69,7 @@ public class SavingOntologies {
             if(format.isPrefixOWLOntologyFormat()) {
                 owlxmlFormat.copyPrefixesFrom(format.asPrefixOWLOntologyFormat());
             }
-            manager.saveOntology(pizzaOntology, owlxmlFormat, file.toURI());
+            manager.saveOntology(pizzaOntology, owlxmlFormat, IRI.create(file.toURI()));
 
             // We can also dump an ontology to System.out by specifying a different OWLOntologyOutputTarget
             // Note that we can write an ontology to a stream in a similar way using the StreamOutputTarget class

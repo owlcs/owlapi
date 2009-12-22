@@ -1,9 +1,10 @@
 package org.semanticweb.owlapi.io;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.net.URI;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -37,11 +38,11 @@ import java.net.URI;
  */
 public class SystemOutOutputTarget implements OWLOntologyOutputTarget {
 
-    public URI getPhysicalURI() {
+    public IRI getDocumentIRI() {
         return null;
     }
 
-    public boolean isPhysicalURIAvailable() {
+    public boolean isDocumentIRIAvailable() {
         return false;
     }
 

@@ -38,30 +38,25 @@ import java.util.TreeMap;
  */
 public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
 
-    private Map<IRI, URI> iriMap;
+    private Map<IRI, IRI> iriMap;
 
 
     public OWLOntologyIRIMapperImpl() {
-        iriMap = new TreeMap<IRI, URI>();
+        iriMap = new TreeMap<IRI, IRI>();
     }
 
 
-    /**
-     * Gets the physical IRI of an ontology given an ontology IRI.  If no mapping
-     * is found, then the ontology IRI is returned.
-     * @param ontologyIRI
-     */
-    public URI getPhysicalURI(IRI ontologyIRI) {
-        URI uri = iriMap.get(ontologyIRI);
-        if(uri != null) {
-            return uri;
+    public IRI getDocumentIRI(IRI ontologyIRI) {
+        IRI iri = iriMap.get(ontologyIRI);
+        if(iri != null) {
+            return iri;
         }
         else {
-            return ontologyIRI.toURI();
+            return ontologyIRI;
         }
     }
 
-    public void addMapping(IRI ontologyIRI, URI physicalURI) {
-        iriMap.put(ontologyIRI, physicalURI);
+    public void addMapping(IRI ontologyIRI, IRI documentIRI) {
+        iriMap.put(ontologyIRI, documentIRI);
     }
 }

@@ -5,7 +5,6 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 import uk.ac.manchester.cs.bhig.util.Tree;
 
-import java.net.URI;
 import java.util.*;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -72,8 +71,8 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         seedExtractor = new SeedExtractor();
         man = OWLManager.createOWLOntologyManager();
         man.addIRIMapper(new OWLOntologyIRIMapper() {
-            public URI getPhysicalURI(IRI ontologyIRI) {
-                return ontologyIRI.toURI();
+            public IRI getDocumentIRI(IRI ontologyIRI) {
+                return ontologyIRI;
             }
         });
         mappedAxioms = new HashMap<OWLObject, Set<OWLAxiom>>();

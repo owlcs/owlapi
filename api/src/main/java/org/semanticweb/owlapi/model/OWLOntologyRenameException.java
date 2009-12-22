@@ -1,11 +1,6 @@
-package org.semanticweb.owlapi.util;
-
-import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.model.IRI;
-
-import java.net.URI;
+package org.semanticweb.owlapi.model;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -27,35 +22,25 @@ import java.net.URI;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 22-Dec-2009
+ * </p>
+ * An exception that describes the situation where an ontology could not be renamed (have its ID set) because
+ * its manager already contained an ontology with the same name.
  */
-public class SimpleIRIMapper implements OWLOntologyIRIMapper {
+public class OWLOntologyRenameException extends OWLOntologyChangeException {
 
-    private IRI ontologyIRI;
+    private OWLOntologyID ontologyID;
 
-    private IRI documentIRI;
-
-    public SimpleIRIMapper(IRI ontologyIRI, IRI documentIRI) {
-        this.ontologyIRI = ontologyIRI;
-        this.documentIRI = documentIRI;
+    public OWLOntologyRenameException(OWLOntologyChange change, OWLOntologyID ontologyID) {
+        super(change, "Could not rename ontology. An ontology with this ID already exists: " + ontologyID);
+        this.ontologyID = ontologyID;
     }
 
-    public SimpleIRIMapper(URI ontologyURI, IRI physicalURI) {
-        this(IRI.create(ontologyURI), physicalURI);
-    }
-
-
-    public IRI getDocumentIRI(IRI ontologyIRI) {
-        if(this.ontologyIRI.equals(ontologyIRI)) {
-            return documentIRI;
-        }
-        else {
-            return null;
-        }
+    public OWLOntologyID getOntologyID() {
+        return ontologyID;
     }
 }

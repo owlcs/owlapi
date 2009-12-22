@@ -75,7 +75,7 @@ public class Example4 {
             // ourselves, it will be created automatically and the change applied
             man.addAxiom(ont, ax);
             // Save our ontology
-            man.saveOntology(ont, URI.create("file:/tmp/example.owlapi"));
+            man.saveOntology(ont, IRI.create("file:/tmp/example.owl"));
         }
         catch (OWLOntologyCreationException e) {
             System.out.println("Could not create ontology: " + e.getMessage());

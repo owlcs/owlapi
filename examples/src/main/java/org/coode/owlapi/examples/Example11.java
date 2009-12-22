@@ -10,7 +10,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.net.URI;
 /*
@@ -62,7 +61,7 @@ public class Example11 {
             // Load an example ontology - for the purposes of the example, we will just load
             // the pizza ontology.
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi"));
+            OWLOntology ont = man.loadOntologyFromOntologyDocument(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi"));
 
             // Create the reasoner and classify the ontology
             OWLReasoner reasoner = reasonerFactory.createReasoner(ont);
@@ -88,7 +87,7 @@ public class Example11 {
             iog.fillOntology(man, infOnt);
 
             // Save the inferred ontology. (Replace the URI with one that is appropriate for your setup)
-            man.saveOntology(infOnt, URI.create("file:///tmp/inferredont.owlapi"));
+            man.saveOntology(infOnt, IRI.create("file:///tmp/inferredont.owlapi"));
         }
         catch (OWLOntologyCreationException e) {
             e.printStackTrace();

@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.io;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
@@ -36,24 +38,24 @@ import java.net.URI;
  */
 public class StringInputSource implements OWLOntologyInputSource {
 
-    private URI physicalURI;
+    private IRI documentIRI;
 
     private String string;
 
     public StringInputSource(String string) {
         this.string = string;
-        physicalURI = URI.create("http://org.semanticweb.ontologies/Ontology" + System.nanoTime());
+        documentIRI = IRI.create("string:ontology" + System.nanoTime());
     }
 
 
     /**
-     * Specified an input source with an ontology URI
-     * @param string
-     * @param ontologyURI
+     * Specifies a string as an ontology document.
+     * @param string The string
+     * @param documentIRI The document IRI
      */
-    public StringInputSource(String string, URI ontologyURI) {
+    public StringInputSource(String string, IRI documentIRI) {
         this.string = string;
-        this.physicalURI = ontologyURI;
+        this.documentIRI = documentIRI;
     }
 
 
@@ -77,7 +79,7 @@ public class StringInputSource implements OWLOntologyInputSource {
     }
 
 
-    public URI getPhysicalURI() {
-        return physicalURI;
+    public IRI getDocumentIRI() {
+        return documentIRI;
     }
 }

@@ -64,9 +64,9 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     private File currentFile;
 
-    private Map<IRI, URI> ontologyIRI2PhysicalURIMap;
+    private Map<IRI, IRI> ontologyIRI2PhysicalURIMap;
 
-    private Map<String, URI> oboFileMap;
+    private Map<String, IRI> oboFileMap;
 
     private SAXParserFactory parserFactory;
 
@@ -82,8 +82,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     public AutoIRIMapper(File rootDirectory, boolean recursive) {
         this.directory = rootDirectory;
         this.recursive = recursive;
-        ontologyIRI2PhysicalURIMap = new HashMap<IRI, URI>();
-        oboFileMap = new HashMap<String, URI>();
+        ontologyIRI2PhysicalURIMap = new HashMap<IRI, IRI>();
+        oboFileMap = new HashMap<String, IRI>();
         fileExtensions = new HashSet<String>();
         fileExtensions.add("owl");
         fileExtensions.add("xml");
@@ -138,7 +138,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     }
 
 
-    public URI getPhysicalURI(IRI ontologyIRI) {
+    public IRI getDocumentIRI(IRI ontologyIRI) {
         if (!mapped) {
             mapFiles();
         }
@@ -147,9 +147,9 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             if (path != null) {
                 int lastSepIndex = path.lastIndexOf('/');
                 String name = path.substring(lastSepIndex + 1, path.length());
-                URI physicalURI = oboFileMap.get(name);
-                if (physicalURI != null) {
-                    return physicalURI;
+                IRI documentIRI = oboFileMap.get(name);
+                if (documentIRI != null) {
+                    return documentIRI;
                 }
             }
         }
@@ -175,7 +175,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             else {
                 boolean parsedFile = false;
                 if (file.getName().endsWith(".obo")) {
-                    oboFileMap.put(file.getName(), file.toURI());
+                    oboFileMap.put(file.getName(), IRI.create(file));
                 }
                 else if(file.getName().endsWith(".omn")) {
                     parseManchesterSyntaxFile(file);
@@ -230,7 +230,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
                     String tok = tokenizer.nextToken();
                     if(tok.startsWith("<") && tok.endsWith(">")) {
                         ontologyIRI = IRI.create(tok.substring(1, tok.length() - 1));
-                        ontologyIRI2PhysicalURIMap.put(ontologyIRI, file.toURI());
+                        ontologyIRI2PhysicalURIMap.put(ontologyIRI, IRI.create(file));
                         break;
                     }
                 }
@@ -249,7 +249,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         if (handler != null) {
             IRI ontologyIRI = handler.handle(attributes);
             if (ontologyIRI != null) {
-                ontologyIRI2PhysicalURIMap.put(ontologyIRI, currentFile.toURI());
+                ontologyIRI2PhysicalURIMap.put(ontologyIRI, IRI.create(currentFile));
             }
             throw new SAXException();
         }

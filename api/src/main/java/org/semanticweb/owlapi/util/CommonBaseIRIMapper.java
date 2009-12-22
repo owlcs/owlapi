@@ -41,18 +41,18 @@ import java.util.Map;
  */
 public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
 
-    private URI base;
+    private IRI base;
 
-    private Map<IRI, URI> uriMap;
+    private Map<IRI, IRI> iriMap;
 
 
     /**
      * Creates a mapper, which maps ontology URIs to URIs which share
      * the specified base
      */
-    public CommonBaseIRIMapper(URI base) {
+    public CommonBaseIRIMapper(IRI base) {
         this.base = base;
-        uriMap = new HashMap<IRI, URI>();
+        iriMap = new HashMap<IRI, IRI>();
     }
 
 
@@ -63,8 +63,8 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
      * the local name against the URI base of this mapper.
      */
     public void addMapping(IRI ontologyIRI, String localName) {
-        URI physicalIRI = base.resolve(localName);
-        uriMap.put(ontologyIRI, physicalIRI);
+        IRI physicalIRI = base.resolve(localName);
+        iriMap.put(ontologyIRI, physicalIRI);
     }
 
 
@@ -76,7 +76,7 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
      * @return The physical IRI of the ontology, or <code>null</code>
      *         if the mapper doesn't have mapping for the specified ontology IRI.
      */
-    public URI getPhysicalURI(IRI ontologyIRI) {
-        return uriMap.get(ontologyIRI);
+    public IRI getDocumentIRI(IRI ontologyIRI) {
+        return iriMap.get(ontologyIRI);
     }
 }

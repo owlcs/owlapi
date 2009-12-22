@@ -2,6 +2,7 @@ package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -52,24 +53,23 @@ public class RDF2XML {
              * ontology, multiple managers would have to be used.
              */
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-            /* Load an ontology from a physical URI */
+            /* Load an ontology from a document IRI */
             System.out.println("In : " + args[0]);
-            URI physicalURI = URI.create(args[0]);
+            IRI documentIRI = IRI.create(args[0]);
             // Now do the loading
-            OWLOntology ontology = manager
-                    .loadOntologyFromPhysicalURI(physicalURI);
+            OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);
             /*
              * Now save a copy to another location in OWL/XML format (i.e.
              * disregard the format that the ontology was loaded in)
              */
             System.out.println("Out: " + args[1]);
-            URI physicalURI2 = URI.create(args[1]);
-            manager.saveOntology(ontology, new OWLXMLOntologyFormat(),
-                    physicalURI2);
+            IRI documentIRI2 = IRI.create(args[1]);
+            manager.saveOntology(ontology, new OWLXMLOntologyFormat(), documentIRI2);
             /* Remove the ontology from the manager */
             manager.removeOntology(ontology);
 
-        } catch (OWLException e) {
+        }
+        catch (OWLException e) {
             e.printStackTrace();
         }
     }

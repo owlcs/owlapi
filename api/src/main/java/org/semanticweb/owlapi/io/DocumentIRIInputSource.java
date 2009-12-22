@@ -1,8 +1,9 @@
 package org.semanticweb.owlapi.io;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.io.InputStream;
 import java.io.Reader;
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -33,18 +34,18 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 24-Apr-2007<br><br>
  */
-public class PhysicalURIInputSource implements OWLOntologyInputSource {
+public class DocumentIRIInputSource implements OWLOntologyInputSource {
 
-    private URI physicalURI;
+    private IRI documentIRI;
 
 
-    public PhysicalURIInputSource(URI physicalURI) {
-        this.physicalURI = physicalURI;
+    public DocumentIRIInputSource(IRI documentIRI) {
+        this.documentIRI = documentIRI;
     }
 
 
-    public URI getPhysicalURI() {
-        return physicalURI;
+    public IRI getDocumentIRI() {
+        return documentIRI;
     }
 
 
@@ -69,6 +70,6 @@ public class PhysicalURIInputSource implements OWLOntologyInputSource {
 
 
     public String toString() {
-        return physicalURI.toString();
+        return documentIRI.toString();
     }
 }

@@ -3,8 +3,6 @@ package org.coode.owlapi.examples;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -39,7 +37,7 @@ import java.net.URI;
  */
 public class Example10 {
 
-    public static final String PHYSICAL_URI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owlapi";
+    public static final String DOCUMENT_IRI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owlapi";
 
 
     public static void main(String[] args) {
@@ -48,7 +46,7 @@ public class Example10 {
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 
             // Load the pizza ontology
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create(PHYSICAL_URI));
+            OWLOntology ont = man.loadOntologyFromOntologyDocument(IRI.create(DOCUMENT_IRI));
             System.out.println("Loaded: " + ont.getOntologyID());
 
             // We want to add a comment to the pizza class.

@@ -52,7 +52,7 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
         assertTrue(manager.contains(ont.getOntologyID()));
         assertNotNull(manager.getOntology(ont.getOntologyID()));
         assertTrue(manager.getOntologies().contains(ont));
-        assertNotNull(manager.getPhysicalURIForOntology(ont));
+        assertNotNull(manager.getOntologyDocumentIRI(ont));
         manager.removeOntology(ont);
         assertFalse(manager.contains(ont.getOntologyID()));
     }

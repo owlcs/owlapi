@@ -40,9 +40,9 @@ public class Example14 {
     public static void main(String[] args) {
         try {
             // We will load the pizza ontology and query it using a reasoner
-            URI physicalURI = URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi");
+            IRI documentIRI = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi");
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(physicalURI);
+            OWLOntology ont = man.loadOntologyFromOntologyDocument(documentIRI);
 
             // For this particular ontology, we know that all class, properties names etc. have
             // URIs that is made up of the ontology IRI plus # plus the local name

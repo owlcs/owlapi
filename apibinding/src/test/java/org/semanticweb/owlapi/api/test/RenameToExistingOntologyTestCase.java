@@ -1,11 +1,8 @@
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi.api.test;
 
-import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.model.IRI;
-
-import java.net.URI;
+import org.semanticweb.owlapi.model.*;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -27,35 +24,27 @@ import java.net.URI;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 22-Dec-2009
  */
-public class SimpleIRIMapper implements OWLOntologyIRIMapper {
+public class RenameToExistingOntologyTestCase extends AbstractOWLAPITestCase {
 
-    private IRI ontologyIRI;
-
-    private IRI documentIRI;
-
-    public SimpleIRIMapper(IRI ontologyIRI, IRI documentIRI) {
-        this.ontologyIRI = ontologyIRI;
-        this.documentIRI = documentIRI;
-    }
-
-    public SimpleIRIMapper(URI ontologyURI, IRI physicalURI) {
-        this(IRI.create(ontologyURI), physicalURI);
-    }
-
-
-    public IRI getDocumentIRI(IRI ontologyIRI) {
-        if(this.ontologyIRI.equals(ontologyIRI)) {
-            return documentIRI;
+    public void testRenameToExistingOntology() throws Exception {
+        try {
+            OWLOntologyManager manager = getManager();
+            IRI ontologyAIRI = IRI.create("http://www.semanticweb.org/ontologies/ontologyA");
+            OWLOntology ontologyA = manager.createOntology(ontologyAIRI);
+            IRI ontologyBIRI = IRI.create("http://www.semanticweb.org/ontologies/ontologyB");
+            OWLOntology ontologyB = manager.createOntology(ontologyBIRI);
+            manager.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(ontologyAIRI)));
+            fail();
         }
-        else {
-            return null;
+        catch (OWLOntologyRenameException e) {
+            System.out.println("Got expected rename exception: " + e.getMessage());
         }
     }
+
 }

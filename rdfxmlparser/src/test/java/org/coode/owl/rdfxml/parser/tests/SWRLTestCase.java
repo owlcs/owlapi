@@ -3,6 +3,7 @@ package org.coode.owl.rdfxml.parser.tests;
 import junit.framework.TestCase;
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -57,8 +58,8 @@ public class SWRLTestCase extends TestCase {
     }
 
     public void testSWRLParser() throws Exception {
-        URI uri = getClass().getResource("/owlapi/SWRLTest.owlapi").toURI();
-        OWLOntology ont = man.loadOntologyFromPhysicalURI(uri);
+        URI uri = getClass().getResource("/owlapi/SWRLTest.owl").toURI();
+        OWLOntology ont = man.loadOntologyFromOntologyDocument(IRI.create(uri));
         for(OWLIndividual i : ont.getIndividualsInSignature()) {
             System.out.println(i);
         }

@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.io;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.io.InputStream;
 import java.io.Reader;
 import java.net.URI;
@@ -88,12 +90,10 @@ public interface OWLOntologyInputSource {
 
 
     /**
-     * Gets the physical IRI of the ontology.
-     * @return An IRI which represents the physical IRI of
-     * an ontology - this will never be <code>null</code>.
+     * Gets the IRI of the ontology document.
+     * @return An IRI which represents the ontology document IRI - this will never be <code>null</code>.
      */
-    public URI getPhysicalURI();
+    public IRI getDocumentIRI();
 
 
-    
 }

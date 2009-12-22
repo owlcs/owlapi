@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.*;
 
-import java.net.URI;
 import java.io.IOException;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -48,20 +47,22 @@ public interface OWLParser {
 
     /**
      * Parses the ontology that has a concrete representation which is pointed
-     * to by the specified physical URI.  Implementors of this method should
+     * to by the specified document IRI.  Implementors of this method should
      * load any imported ontologies with the loadImports method on OWLOntologyManager.
-     * @param physicalURI
-     * @param ontology The ontology that the concrete representation should be
-     * parsed into.
-     * @return An <code>OWLOntologyFormat</code> which describes the concrete representation
+     * @param documentIRI The document IRI where the ontology should be loaded from
+     *@param ontology The ontology that the concrete representation should be
+     * parsed into.  @return An <code>OWLOntologyFormat</code> which describes the concrete representation
      * format which was parsed to obtain the ontology. This will never be <code>null</code>.
+     * @return The format of the ontology
      * @throws OWLParserException if there was a problem parsing the ontology.  This indicates an error in the syntax
      * with this ontology document that the parser reads.
      * @throws IOException if there was an IOException during parsing
      * @throws OWLOntologyChangeException if there was a problem updating the specified ontology from information
      * that was parsed.
+     * @throws UnloadableImportException if loading this ontology prompted the loading of an import and the import
+     * could not be loaded.
      */
-    OWLOntologyFormat parse(URI physicalURI, OWLOntology ontology) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException;
+    OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException;
 
 
     /**
@@ -81,6 +82,8 @@ public interface OWLParser {
      * @throws IOException if there was an IOException during parsing
      * @throws OWLOntologyChangeException if there was a problem updating the specified ontology from information
      * that was parsed.
+     * @throws UnloadableImportException if loading this ontology prompted the loading of an import and the import
+     * could not be loaded.
      */
     OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException;
 }

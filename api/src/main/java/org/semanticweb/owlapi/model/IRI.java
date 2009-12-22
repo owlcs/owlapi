@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -50,6 +51,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
      * @return <code>true</code> if this IRI is absolute or <code>false</code> if this IRI is not absolute
      */
     public abstract boolean isAbsolute();
+
+    public abstract String getScheme();
 
     public abstract IRI resolve(String s);
 
@@ -107,6 +110,10 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         return new IRIImpl(str);
     }
 
+    public static IRI create(File file) {
+        return new IRIImpl(file.toURI());
+    }
+
     public static IRI create(URI uri) {
         if (uri == null) {
             throw new NullPointerException("URI must not be null");
@@ -119,6 +126,15 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             throw new NullPointerException("URL must not be null");
         }
         return new IRIImpl(url.toURI());
+    }
+
+    /**
+     * Gets an auto-generated ontology document IRI.
+     * @return An auto-generated ontology document IRI.  The IRI has the form
+     * <code>owlapi:ontologyTIMESTAMP</code>
+     */
+    public static IRI generateDocumentIRI() {
+        return create("owlapi:ontology" + System.nanoTime());
     }
 
     private static Map<String, String> prefixCache = new HashMap<String, String>();
@@ -176,6 +192,15 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 
         public IRI resolve(String s) {
             return IRI.create(toURI().resolve(s));
+        }
+
+        @Override
+        public String getScheme() {
+            int colonIndex = prefix.indexOf(":");
+            if(colonIndex == -1) {
+                return null;
+            }
+            return prefix.substring(0, colonIndex - 1);
         }
 
         /**

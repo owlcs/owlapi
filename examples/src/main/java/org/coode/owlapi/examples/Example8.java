@@ -8,7 +8,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.Set;
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -45,7 +44,7 @@ import java.net.URI;
  */
 public class Example8 {
 
-    public static final String PHYSICAL_URI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owl";
+    public static final String PHYSICAL_IRI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owl";
 
     public static void main(String[] args) {
 
@@ -54,7 +53,7 @@ public class Example8 {
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
             // Load a copy of the pizza ontology.  We'll load the ontology from the web.
-            OWLOntology ont = manager.loadOntologyFromPhysicalURI(URI.create(PHYSICAL_URI));
+            OWLOntology ont = manager.loadOntologyFromOntologyDocument(IRI.create(PHYSICAL_IRI));
             System.out.println("Loaded " + ont.getOntologyID());
 
 

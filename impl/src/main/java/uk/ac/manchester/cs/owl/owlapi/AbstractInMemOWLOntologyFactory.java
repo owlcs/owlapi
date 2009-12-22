@@ -1,8 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.*;
-
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -47,7 +45,7 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
     }
 
 
-    public boolean canCreateFromPhysicalURI(URI physicalURI) {
+    public boolean canCreateFromDocumentIRI(IRI documentIRI) {
         return true;
     }
 
@@ -56,9 +54,9 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
      * parsed into.  Subclasses can override this method to change the implementation
      * of the ontology.
      *
-     * @param
+     * @param documentIRI
      */
-    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, URI physicalURI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
+    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
         if(ontologyManager == null) {
             throw new NullPointerException();
         }

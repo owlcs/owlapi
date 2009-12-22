@@ -91,9 +91,9 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
 //        OWLOntologyAnnotationAxiom anno = getDataFactory().getOWLOntologyAnnotationAxiom(ontA, getDataFactory().getCommentAnnotation(getClassExpression()));
 //        man.applyChange(new AddAxiom(ontA, anno));
         File tempFile = File.createTempFile("Ontology", ".owlapi");
-        man.saveOntology(ontA, tempFile.toURI());
+        man.saveOntology(ontA, IRI.create(tempFile.toURI()));
         man.removeOntology(ontA);
-        OWLOntology ontB = man.loadOntologyFromPhysicalURI(tempFile.toURI());
+        OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI.create(tempFile.toURI()));
         assertTrue(ontB.getAxioms().containsAll(ontA.getAxioms()));
     }
 

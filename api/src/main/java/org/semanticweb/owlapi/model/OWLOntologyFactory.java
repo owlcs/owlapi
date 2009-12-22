@@ -1,8 +1,6 @@
 package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.io.OWLOntologyInputSource;
-
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -44,14 +42,13 @@ public interface OWLOntologyFactory {
      * Creates an (empty) ontology.
      *
      * @param ontologyID  The ID of the ontology to create. This MUST NOT BE <code>null</code>.
-     * @param physicalURI The physical URI of the ontology.  This MAY be
-     *                    <code>null</code>.
-     * @param handler     The ontology creation handler that will be notified when the
-     *                    ontology has been created.
-     * @return The newly created ontology
+     * @param documentIRI The document IRI of the ontology
+     *@param handler     The ontology creation handler that will be notified when the
+     *                    ontology has been created.  @return The newly created ontology
+     * @return The created ontology
      * @throws OWLOntologyCreationException if the ontology could not be created.
      */
-    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, URI physicalURI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException;
+    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException;
 
 
     /**
@@ -68,15 +65,13 @@ public interface OWLOntologyFactory {
     public OWLOntology loadOWLOntology(OWLOntologyInputSource inputSource, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException;
 
     /**
-     * Determines if the factory can create an ontology for the specified physical
-     * URI.
+     * Determines if the factory can create an ontology for the specified ontology document IRI.
      *
-     * @param physicalURI The physical URI of the ontology to be created.  This may
-     *                    be <code>null</code>.
-     * @return <code>true</code> if the factory can create an ontology given a physical URI,
-     *         or <code>false</code> if the factory cannot create an ontology.
+     * @param documentIRI The document IRI
+     * @return <code>true</code> if the factory can create an ontology given the specified document IRI,
+     *         or <code>false</code> if the factory cannot create an ontology given the specified document IRI.
      */
-    public boolean canCreateFromPhysicalURI(URI physicalURI);
+    public boolean canCreateFromDocumentIRI(IRI documentIRI);
 
 
     /**

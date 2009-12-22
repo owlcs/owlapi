@@ -2,8 +2,6 @@ package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.IRI;
-
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -39,7 +37,7 @@ import java.net.URI;
  */
 public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper {
 
-    public URI getPhysicalURI(IRI ontologyIRI) {
-        return ontologyIRI.toURI();
+    public IRI getDocumentIRI(IRI ontologyIRI) {
+        return ontologyIRI;
     }
 }

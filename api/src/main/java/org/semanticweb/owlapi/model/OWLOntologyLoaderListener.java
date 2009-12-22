@@ -59,14 +59,14 @@ public interface OWLOntologyLoaderListener {
 
         private OWLOntologyID ontologyID;
 
-        private URI physicalURI;
+        private IRI documentIRI;
 
         private boolean imported;
 
 
-        public LoadingEvent(OWLOntologyID ontologyID, URI physicalURI, boolean imported) {
+        public LoadingEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported) {
             this.ontologyID = ontologyID;
-            this.physicalURI = physicalURI;
+            this.documentIRI = documentIRI;
             this.imported = imported;
         }
 
@@ -80,13 +80,12 @@ public interface OWLOntologyLoaderListener {
 
 
         /**
-         * Gets the physical URI of the ontology being loaded.
-         * @return The physical URI that describes where the ontology
-         * was loaded from.  This may be <code>null</code> if the ontology is loaded
-         * from a stream.
+         * Gets the document IRI for the ontology being loaded
+         * @return The document IRI that describes where the ontology
+         * was loaded from.
          */
-        public URI getPhysicalURI() {
-            return physicalURI;
+        public IRI getDocumentIRI() {
+            return documentIRI;
         }
 
 
@@ -104,8 +103,8 @@ public interface OWLOntologyLoaderListener {
 
     public static class LoadingStartedEvent extends LoadingEvent {
 
-        public LoadingStartedEvent(OWLOntologyID ontologyID, URI physicalURI, boolean imported) {
-            super(ontologyID, physicalURI, imported);
+        public LoadingStartedEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported) {
+            super(ontologyID, documentIRI, imported);
         }
     }
 
@@ -118,8 +117,8 @@ public interface OWLOntologyLoaderListener {
 
         private OWLOntologyCreationException ex;
 
-        public LoadingFinishedEvent(OWLOntologyID ontologyID, URI physicalURI, boolean imported, OWLOntologyCreationException ex) {
-            super(ontologyID, physicalURI, imported);
+        public LoadingFinishedEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported, OWLOntologyCreationException ex) {
+            super(ontologyID, documentIRI, imported);
             this.ex = ex;
         }
 

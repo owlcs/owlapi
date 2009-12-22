@@ -42,7 +42,7 @@ import java.util.Set;
  */
 public class Example9 {
 
-    public static final String PHYSICAL_URI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owlapi";
+    public static final String DOCUMENT_IRI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owlapi";
 
     public static void main(String[] args) {
         try {
@@ -50,7 +50,7 @@ public class Example9 {
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 
             // Load the pizza ontology
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create(PHYSICAL_URI));
+            OWLOntology ont = man.loadOntologyFromOntologyDocument(IRI.create(DOCUMENT_IRI));
             System.out.println("Loaded: " + ont.getOntologyID());
 
             // We want to examine the restrictions on margherita pizza.  To do this, we

@@ -109,16 +109,16 @@ public class ClosureAxiomsExample {
                 System.exit(1);
             }
 
-            URI physicalURI = URI.create(inputOntology);
+            IRI documentIRI = IRI.create(inputOntology);
             IRI classIRI = IRI.create(classToClose);
-            URI outputURI = URI.create(outputOntology);
+            IRI outputDocumentIRI = IRI.create(outputOntology);
 
             /* Load an ontology */
-            System.out.println("Loading: " + physicalURI);
+            System.out.println("Loading: " + documentIRI);
             OWLOntology ontology = manager
-                    .loadOntologyFromPhysicalURI(physicalURI);
+                    .loadOntologyFromOntologyDocument(documentIRI);
             System.out.println("Ontology Loaded...");
-            System.out.println("Logical URI : " + physicalURI);
+            System.out.println("Logical URI : " + documentIRI);
             System.out.println("Physical URI: " + ontology.getOntologyID());
             System.out.println("Format      : "
                     + manager.getOntologyFormat(ontology));
@@ -133,11 +133,11 @@ public class ClosureAxiomsExample {
             closureAxioms.addClosureAxioms(clazz);
 
             /* Now save a copy to another location */
-            System.out.println("Saving: " + outputURI);
+            System.out.println("Saving: " + outputDocumentIRI);
 
-            manager.saveOntology(ontology, outputURI);
+            manager.saveOntology(ontology, outputDocumentIRI);
             System.out.println("Ontology Saved...");
-            System.out.println("Physical URI : " + outputURI);
+            System.out.println("Physical URI : " + outputDocumentIRI);
 
             /* Remove the ontology from the manager */
             manager.removeOntology(ontology);

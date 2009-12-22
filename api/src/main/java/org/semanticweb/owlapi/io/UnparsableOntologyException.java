@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.io;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import java.net.URI;
@@ -43,13 +44,13 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
 
     private static boolean includeStackTraceInMessage = false;
 
-    private URI ontologyURI;
+    private IRI documentIRI;
 
     private Map<OWLParser, OWLParserException> exceptions;
 
-    public UnparsableOntologyException(URI ontologyURI, Map<OWLParser, OWLParserException> exceptions) {
-        super("Could not parse ontology: " + ontologyURI);
-        this.ontologyURI = ontologyURI;
+    public UnparsableOntologyException(IRI documentIRI, Map<OWLParser, OWLParserException> exceptions) {
+        super("Could not parse ontology from document IRI: " + documentIRI.toQuotedString());
+        this.documentIRI = documentIRI;
         this.exceptions = new LinkedHashMap<OWLParser, OWLParserException>(exceptions);
     }
 
@@ -57,7 +58,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
     public String getMessage() {
         StringBuilder msg = new StringBuilder();
         msg.append("Problem parsing ");
-        msg.append(ontologyURI);
+        msg.append(documentIRI);
         msg.append("\n");
         msg.append("Could not parse ontology.  Either a suitable parser could not be found, or " + "parsing failed.  See parser logs below for explanation.\n");
         msg.append("The following parsers were tried:\n");
@@ -93,11 +94,11 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
 
 
     /**
-     * Gets the URI of the ontology which was being parsed.
-     * @return The URI
+     * Gets the ontology document IRI from which there was an attempt to parse an ontology
+     * @return The ontology document IRI
      */
-    public URI getOntologyURI() {
-        return ontologyURI;
+    public IRI getDocumentIRI() {
+        return documentIRI;
     }
 
 

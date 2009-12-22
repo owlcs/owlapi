@@ -38,12 +38,11 @@ import java.net.URI;
 public interface OWLOntologyIRIMapper {
 
     /**
-     * Given an ontology URI, this method maps the ontology URI
-     * to a physical URI that points to some concrete representation
-     * of the ontology.
+     * Given an ontology IRI, this method maps the ontology IRI
+     * to a document IRI.
      * @param ontologyIRI The ontology IRI to be mapped.
-     * @return The physical URI of the ontology, or <code>null</code>
-     * if the mapper doesn't have mapping for the specified ontology URI.
+     * @return The document IRI of the ontology, or <code>null</code>
+     * if the mapper doesn't have mapping for the specified ontology IRI.
      */
-    public URI getPhysicalURI(IRI ontologyIRI);
+    public IRI getDocumentIRI(IRI ontologyIRI);
 }

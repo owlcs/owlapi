@@ -3,6 +3,7 @@ package uk.ac.manchester.owl.owlapi.tutorial.examples;
 import gnu.getopt.Getopt;
 import gnu.getopt.LongOpt;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -87,16 +88,15 @@ public class RenderingExample {
                 System.exit(1);
             }
 
-            URI physicalURI = URI.create(inputOntology);
-            URI outputURI = URI.create(outputOntology);
+            IRI inputDocumentIRI = IRI.create(inputOntology);
+            IRI outputDocumentIRI = IRI.create(outputOntology);
 
             /* Load an ontology from a physical URI */
 
-            OWLOntology ontology = manager
-                    .loadOntologyFromPhysicalURI(physicalURI);
+            OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputDocumentIRI);
             /* Report information about the ontology */
             System.out.println("Ontology Loaded...");
-            System.out.println("Physical URI: " + physicalURI);
+            System.out.println("Physical URI: " + inputDocumentIRI);
             System.out.println("Logical URI : " + ontology.getOntologyID());
             System.out.println("Format      : "
                     + manager.getOntologyFormat(ontology));
@@ -106,9 +106,8 @@ public class RenderingExample {
 
             /* Save using a different format */
 
-            System.out.println("Storing     : " + outputURI);
-            manager.saveOntology(ontology,
-                    new OWLTutorialSyntaxOntologyFormat(), outputURI);
+            System.out.println("Storing     : " + outputDocumentIRI);
+            manager.saveOntology(ontology, new OWLTutorialSyntaxOntologyFormat(), outputDocumentIRI);
             /* Remove the ontology from the manager */
             manager.removeOntology(ontology);
             System.out.println("Done");

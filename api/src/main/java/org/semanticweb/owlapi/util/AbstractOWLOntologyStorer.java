@@ -4,7 +4,6 @@ import org.semanticweb.owlapi.io.OWLOntologyOutputTarget;
 import org.semanticweb.owlapi.model.*;
 
 import java.io.*;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 /*
@@ -40,11 +39,11 @@ import java.net.URLConnection;
 public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
 
-    public void storeOntology(OWLOntologyManager manager, OWLOntology ontology, URI physicalURI, OWLOntologyFormat ontologyFormat) throws
+    public void storeOntology(OWLOntologyManager manager, OWLOntology ontology, IRI documentIRI, OWLOntologyFormat ontologyFormat) throws
             OWLOntologyStorageException {
         try {
-            if (!physicalURI.isAbsolute()) {
-                throw new OWLOntologyStorageException("Physical URI must be absolute: " + physicalURI);
+            if (!documentIRI.isAbsolute()) {
+                throw new OWLOntologyStorageException("Physical URI must be absolute: " + documentIRI);
             }
 
 
@@ -57,13 +56,13 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
                 // Now copy across
                 OutputStream os;
-                if (physicalURI.getScheme().equals("file")) {
-                    File file = new File(physicalURI);
+                if (documentIRI.getScheme().equals("file")) {
+                    File file = new File(documentIRI.toURI());
                     // Ensure that the necessary directories exist.
                     file.getParentFile().mkdirs();
                     os = new FileOutputStream(file);
                 } else {
-                    URL url = physicalURI.toURL();
+                    URL url = documentIRI.toURI().toURL();
                     URLConnection conn = url.openConnection();
                     os = conn.getOutputStream();
                 }
@@ -111,8 +110,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             catch (IOException e) {
                 throw new OWLOntologyStorageException(e);
             }
-        } else if (target.isPhysicalURIAvailable()) {
-            storeOntology(manager, ontology, target.getPhysicalURI(), format);
+        } else if (target.isDocumentIRIAvailable()) {
+            storeOntology(manager, ontology, target.getDocumentIRI(), format);
         } else {
             throw new OWLOntologyStorageException("Neither a Writer, OutputStream or Physical URI could be obtained to store the ontology");
         }

@@ -1,9 +1,10 @@
 package org.semanticweb.owlapi.io;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.io.OutputStream;
 import java.io.Writer;
 import java.io.IOException;
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -38,7 +39,7 @@ import java.net.URI;
  * ontology.  Any OWLOntologyStorer that uses this interface will first try
  * to obtain a writer (if isWriterAvailable returns true), followed by an
  * OutputStream (if isOutputStreamAvailable returns true), followed by trying
- * to open a stream from a physical URI (if isPhysicalURIAvailable returns true)
+ * to open a stream from a document IRI (if isDocumentIRIAvailable returns true)
  */
 public interface OWLOntologyOutputTarget {
 
@@ -50,7 +51,7 @@ public interface OWLOntologyOutputTarget {
 
     OutputStream getOutputStream() throws IOException;
 
-    boolean isPhysicalURIAvailable();
+    boolean isDocumentIRIAvailable();
 
-    URI getPhysicalURI();
+    IRI getDocumentIRI();
 }

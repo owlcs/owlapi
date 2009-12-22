@@ -5,7 +5,6 @@ import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
-import javax.xml.parsers.SAXParser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -51,9 +50,9 @@ public class LoadingOntologies {
             // Get hold of an ontology manager
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
-            // Let's load an ontology from the web.  We load the ontology from a physical URI
-            URI uri = URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
-            OWLOntology pizzaOntology = manager.loadOntologyFromPhysicalURI(uri);
+            // Let's load an ontology from the web
+            IRI iri = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
+            OWLOntology pizzaOntology = manager.loadOntologyFromOntologyDocument(iri);
             System.out.println("Loaded ontology: " + pizzaOntology);
 
 
@@ -66,12 +65,12 @@ public class LoadingOntologies {
             File file = new File("/tmp/pizza.owl");
 
             // Now load the local copy
-            OWLOntology localPizza = manager.loadOntology(file);
+            OWLOntology localPizza = manager.loadOntologyFromOntologyDocument(file);
             System.out.println("Loaded ontology: " + localPizza);
 
             // We can always obtain the location where an ontology was loaded from
-            URI physicalURI = manager.getPhysicalURIForOntology(localPizza);
-            System.out.println("    from: " + physicalURI);
+            IRI documentIRI = manager.getOntologyDocumentIRI(localPizza);
+            System.out.println("    from: " + documentIRI);
 
             // Remove the ontology again so we can reload it later
             manager.removeOntology(pizzaOntology);
@@ -82,12 +81,12 @@ public class LoadingOntologies {
             // on the web.
             // In this example, we simply redirect the loading from http://www.co-ode.org/ontologies/pizza/pizza.owl
             // to our local copy above.
-            manager.addIRIMapper(new SimpleIRIMapper(uri, file.toURI()));
+            manager.addIRIMapper(new SimpleIRIMapper(iri, IRI.create(file)));
             // Load the ontology as if we were loading it from the web (from its ontology IRI)
             IRI pizzaOntologyIRI = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
             OWLOntology redirectedPizza = manager.loadOntology(pizzaOntologyIRI);
             System.out.println("Loaded ontology: " + redirectedPizza);
-            System.out.println("    from: " + manager.getPhysicalURIForOntology(redirectedPizza));
+            System.out.println("    from: " + manager.getOntologyDocumentIRI(redirectedPizza));
 
             // Note that when imports are loaded an ontology manager will be searched for mappings
         }

@@ -42,7 +42,7 @@ public class TestURIsWithNumericFragments extends AbstractRendererAndParserTestC
 //        OWLOntology ont = null;
 //        try {
 //            URL url = TestURIsWithNumericFragments.class.getResource("/numericfragments.rdf");
-//            ont = getManager().loadOntologyFromPhysicalURI(url.toURI());
+//            ont = getManager().loadOntologyFromOntologyDocument(url.toURI());
 //            List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
 //            for(OWLOntologyAnnotationAxiom ax : ont.getOntologyAnnotationAxioms()) {
 //                changes.add(new RemoveAxiom(ont, ax));

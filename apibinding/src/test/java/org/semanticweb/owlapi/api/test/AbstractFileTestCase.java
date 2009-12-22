@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
@@ -37,7 +38,7 @@ public  abstract class AbstractFileTestCase extends AbstractOWLAPITestCase {
         try {
             String fileName = getFileName();
             URI uri = getClass().getResource("/" + fileName).toURI();
-            return getManager().loadOntologyFromPhysicalURI(uri);
+            return getManager().loadOntologyFromOntologyDocument(IRI.create(uri));
         }
         catch (URISyntaxException e) {
             throw new RuntimeException(e);

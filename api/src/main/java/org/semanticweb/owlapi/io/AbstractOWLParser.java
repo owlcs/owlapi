@@ -6,7 +6,6 @@ import org.xml.sax.InputSource;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.net.URLConnection;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
@@ -78,13 +77,13 @@ public abstract class AbstractOWLParser implements OWLParser {
      * A convenience method that obtains an input stream from a URI.
      * This method sets up the correct request type and wraps the input
      * stream within a buffered input stream
-     * @param uri The URI from which the input stream should be returned
+     * @param documentIRI The URI from which the input stream should be returned
      * @return The input stream obtained from the URI
      * @throws IOException if there was an <code>IOException</code> in obtaining the input stream from the URI.
      */
-    protected InputStream getInputStream(URI uri) throws IOException {
+    protected InputStream getInputStream(IRI documentIRI) throws IOException {
             String requestType = getRequestTypes();
-            URLConnection conn = uri.toURL().openConnection();
+            URLConnection conn = documentIRI.toURI().toURL().openConnection();
             conn.addRequestProperty("Accept", requestType);
             if (IOProperties.getInstance().isConnectionAcceptHTTPCompression()) {
                 conn.setRequestProperty("Accept-Encoding","gzip, deflate");
@@ -100,7 +99,7 @@ public abstract class AbstractOWLParser implements OWLParser {
 			} else {
 			    is = new BufferedInputStream(conn.getInputStream());
 			}
-            if (uri.toString().endsWith(".zip")) {
+            if (documentIRI.toString().endsWith(".zip")) {
             	ZipInputStream zis = new ZipInputStream(is);
                 zis.getNextEntry();
                 is = new BufferedInputStream(zis);
@@ -117,14 +116,14 @@ public abstract class AbstractOWLParser implements OWLParser {
             is = new InputSource(inputSource.getInputStream());
         }
         else {
-            is = new InputSource(getInputStream(inputSource.getPhysicalURI()));
+            is = new InputSource(getInputStream(inputSource.getDocumentIRI()));
         }
-        is.setSystemId(inputSource.getPhysicalURI().toString());
+        is.setSystemId(inputSource.getDocumentIRI().toString());
         return is;
     }
 
 
-    public OWLOntologyFormat parse(URI physicalURI, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
-        return parse(new PhysicalURIInputSource(physicalURI), ontology);
+    public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+        return parse(new DocumentIRIInputSource(documentIRI), ontology);
     }
 }

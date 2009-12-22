@@ -174,13 +174,12 @@ public class SimpleHierarchyExample {
             }
 
             System.out.println(args[i]);
-            URI physicalURI = URI.create(args[i]);
+            IRI documentIRI = IRI.create(args[i]);
             // Now load the ontology.
-            OWLOntology ontology = manager
-                    .loadOntologyFromPhysicalURI(physicalURI);
+            OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);
             // Report information about the ontology
             System.out.println("Ontology Loaded...");
-            System.out.println("Physical URI: " + physicalURI);
+            System.out.println("Physical URI: " + documentIRI);
             System.out.println("Logical URI : " + ontology.getOntologyID());
             System.out.println("Format      : "
                     + manager.getOntologyFormat(ontology));

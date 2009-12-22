@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -42,10 +41,9 @@ import java.net.URI;
  */
 public class ReaderInputSource implements OWLOntologyInputSource {
 
-    private URI physicalURI;
+    private IRI documentIRI;
 
     private String buffer;
-
 
 
     /**
@@ -62,11 +60,11 @@ public class ReaderInputSource implements OWLOntologyInputSource {
      * Constructs and ontology input source which will read an ontology
      * from a reader.
      * @param reader The reader that will be used to read an ontology.
-     * @param physicalURI The physical IRI which will be used as the base
+     * @param documentIRI The physical IRI which will be used as the base
      * of the document if needed.
      */
-    public ReaderInputSource(Reader reader, IRI physicalURI) {
-        this.physicalURI = physicalURI.toURI();
+    public ReaderInputSource(Reader reader, IRI documentIRI) {
+        this.documentIRI = documentIRI;
         fillBuffer(reader);
     }
 
@@ -85,8 +83,8 @@ public class ReaderInputSource implements OWLOntologyInputSource {
         }
     }
 
-    public URI getPhysicalURI() {
-        return physicalURI;
+    public IRI getDocumentIRI() {
+        return documentIRI;
     }
 
     public Reader getReader() {

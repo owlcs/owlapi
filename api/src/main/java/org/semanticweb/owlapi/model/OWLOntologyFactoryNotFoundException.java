@@ -33,7 +33,7 @@ import java.net.URI;
  */
 public class OWLOntologyFactoryNotFoundException extends OWLRuntimeException {
 
-    public OWLOntologyFactoryNotFoundException(URI physicalURI) {
-        super("Could not find an appropriate factory to load ontology from " + physicalURI);
+    public OWLOntologyFactoryNotFoundException(IRI documentIRI) {
+        super("Could not find an appropriate factory to load ontology from ontology document: " + documentIRI.toQuotedString());
     }
 }

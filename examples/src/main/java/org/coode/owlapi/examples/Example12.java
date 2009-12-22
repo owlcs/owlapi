@@ -45,8 +45,8 @@ public class Example12 {
         try {
             // Just load two arbitrary ontologies for the purposes of this example
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi"));
-            man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/amino-acid/2006/05/18/amino-acid.owlapi"));
+            man.loadOntologyFromOntologyDocument(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi"));
+            man.loadOntologyFromOntologyDocument(IRI.create("http://www.co-ode.org/ontologies/amino-acid/2006/05/18/amino-acid.owlapi"));
             // Create our ontology merger
             OWLOntologyMerger merger = new OWLOntologyMerger(man);
             // We merge all of the loaded ontologies.  Since an OWLOntologyManager is an OWLOntologySetProvider we
@@ -58,10 +58,10 @@ public class Example12 {
                 System.out.println(ax);
             }
             // Save to RDF/XML
-            man.saveOntology(merged, new RDFXMLOntologyFormat(), URI.create("file:/tmp/mergedont.owlapi"));
+            man.saveOntology(merged, new RDFXMLOntologyFormat(), IRI.create("file:/tmp/mergedont.owlapi"));
         }
         catch (OWLOntologyCreationException e) {
-            System.out.println("Coult not load ontology: " + e.getMessage());
+            System.out.println("Could not load ontology: " + e.getMessage());
         }
         catch (OWLOntologyStorageException e) {
             System.out.println("Problem saving ontology: " + e.getMessage());

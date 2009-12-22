@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.io;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.io.*;
 import java.net.URI;
 /*
@@ -51,8 +53,8 @@ public class FileInputSource implements OWLOntologyInputSource {
     }
 
 
-    public URI getPhysicalURI() {
-        return file.toURI();
+    public IRI getDocumentIRI() {
+        return IRI.create(file.toURI());
     }
 
 

@@ -48,7 +48,7 @@ public class Example5 {
             // and ingredients.  In this example we will delete them all.
             // First off, we start by loading the pizza ontology.
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            OWLOntology ont = man.loadOntologyFromPhysicalURI(URI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
+            OWLOntology ont = man.loadOntologyFromOntologyDocument(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
 
             // We can't directly delete individuals, properties or classes from an ontology because
             // ontologies don't directly contain entities -- they are merely referenced by the

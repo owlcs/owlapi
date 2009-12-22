@@ -56,8 +56,8 @@ public class Example2 {
             // We need to set up a mapping which points to a concrete file where the ontology will
             // be stored. (It's good practice to do this even if we don't intend to save the ontology).
             IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/testont.owl");
-            // Create a physical URI which can be resolved to point to where our ontology will be saved.
-            URI physicalURI = URI.create("file:/tmp/MyOnt.owl");
+            // Create the document IRI for our ontology
+            IRI physicalURI = IRI.create("file:/tmp/MyOnt.owl");
             // Set up a mapping, which maps the ontology IRI to the physical URI
             SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, physicalURI);
             manager.addIRIMapper(mapper);
