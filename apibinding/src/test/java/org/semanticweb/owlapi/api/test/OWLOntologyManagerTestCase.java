@@ -2,10 +2,7 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 /*
  * Copyright (C) 2009, University of Manchester
@@ -103,5 +100,49 @@ public class OWLOntologyManagerTestCase extends TestCase {
         assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI());
         assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI());
         assertEquals(documentIRI, manager.getOntologyDocumentIRI(ontology));
+    }
+
+    public void testCreateDuplicateOntologyWithIRI() throws Exception {
+        try {
+            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+            IRI ontologyIRI = IRI.create("http://www.semanticweb.org/ontologies/ontology");
+            OWLOntology ontology = manager.createOntology(ontologyIRI);
+            manager.createOntology(ontologyIRI);
+            fail("OWLOntologyAlreadyExistsException Not Thrown");
+        }
+        catch (OWLOntologyAlreadyExistsException e) {
+            System.out.println("Caught OWLOntologyAlreadyExistsException: " + e.getMessage());
+        }
+    }
+
+    public void testCreateDuplicateOntologyWithIRIAndVersionIRI() throws Exception {
+        try {
+            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+            IRI ontologyIRI = IRI.create("http://www.semanticweb.org/ontologies/ontology");
+            IRI versionIRI = IRI.create("http://www.semanticweb.org/ontologies/ontology");
+            OWLOntology ontology = manager.createOntology(new OWLOntologyID(ontologyIRI, versionIRI));
+            manager.createOntology(new OWLOntologyID(ontologyIRI, versionIRI));
+            fail("OWLOntologyAlreadyExistsException Not Thrown");
+        }
+        catch (OWLOntologyAlreadyExistsException e) {
+            System.out.println("Caught OWLOntologyAlreadyExistsException: " + e.getMessage());
+        }
+    }
+
+    public void testCreateDuplicatedDocumentIRI() throws Exception {
+        try {
+            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+            IRI ontologyIRI = IRI.create("http://www.semanticweb.org/ontologies/ontology");
+            IRI ontologyIRI2 = IRI.create("http://www.semanticweb.org/ontologies/ontology2");
+            IRI documentIRI = IRI.create("file:documentIRI");
+            manager.addIRIMapper(new SimpleIRIMapper(ontologyIRI, documentIRI));
+            manager.addIRIMapper(new SimpleIRIMapper(ontologyIRI2, documentIRI));
+            manager.createOntology(new OWLOntologyID(ontologyIRI));
+            manager.createOntology(new OWLOntologyID(ontologyIRI2));
+            fail("OWLOntologyDocumentAlreadyExistsException Not Thrown");
+        }
+        catch (OWLOntologyDocumentAlreadyExistsException e) {
+            System.out.println("Caught OWLOntologyDocumentAlreadyExistsException: " + e.getMessage());
+        }
     }
 }

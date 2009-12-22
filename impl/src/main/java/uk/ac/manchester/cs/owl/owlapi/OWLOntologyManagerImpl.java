@@ -487,6 +487,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
                 documentIRI = IRI.generateDocumentIRI();
             }
         }
+        if(documentIRIsByID.values().contains(documentIRI)) {
+            throw new OWLOntologyDocumentAlreadyExistsException(documentIRI);
+        }
         for (OWLOntologyFactory factory : ontologyFactories) {
             if (factory.canCreateFromDocumentIRI(documentIRI)) {
                 documentIRIsByID.put(ontologyID, documentIRI);
@@ -549,6 +552,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         if(documentIRIsByID.values().contains(documentIRI)) {
             // TODO: We should throw an exception here
             // What about cyclic imports
+            throw new OWLOntologyDocumentAlreadyExistsException(documentIRI);
         }
         // The ontology might be being loaded, but its IRI might
         // not have been set (as is probably the case with RDF/XML!)
