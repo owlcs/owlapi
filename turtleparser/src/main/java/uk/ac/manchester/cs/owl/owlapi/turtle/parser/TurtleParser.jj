@@ -24,7 +24,7 @@ public class TurtleParser implements AnonymousNodeChecker {
 
     private OWLDataFactory dataFactory;
 
-    private Map<String, URI> string2URI;
+    private Map<String, IRI> string2IRI;
 
     private boolean ignoreAnnotationsAndDeclarations = false;
 
@@ -41,7 +41,7 @@ public class TurtleParser implements AnonymousNodeChecker {
         this(reader);
         this.handler = handler;
         this.base = base;
-        string2URI = new HashMap<String, URI>();
+        string2IRI = new HashMap<String, IRI>();
         blankNodeId = 0;
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
@@ -50,7 +50,7 @@ public class TurtleParser implements AnonymousNodeChecker {
         this(is);
         this.handler = handler;
         this.base = base;
-        string2URI = new HashMap<String, URI>();
+        string2IRI = new HashMap<String, IRI>();
         blankNodeId = 0;
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
@@ -59,59 +59,51 @@ public class TurtleParser implements AnonymousNodeChecker {
         this.handler = handler;
     }
 
-    public boolean isAnonymousNode(String uri) {
-        return uri.indexOf("genid") != -1;
+    public boolean isAnonymousNode(String iri) {
+        return iri.indexOf("genid") != -1;
     }
 
 
     public boolean isAnonymousNode(IRI iri) {
-        String frag = iri.getFragment();
-        return frag != null && frag.indexOf("genid") != -1;
+        return iri.toString().indexOf("genid") != -1;
     }
 
-    protected URI getNextBlankNode() {
-        URI uri = getURI("genid" + blankNodeId);
+    protected IRI getNextBlankNode() {
+        IRI iri = getIRI("genid" + blankNodeId);
         blankNodeId++;
-        return uri;
+        return iri;
     }
 
-    protected URI getURIFromQName(String qname) {
-        IRI iri = pm.getIRI(qname);
-        return iri.toURI();
+    protected IRI getIRIFromQName(String qname) {
+        return pm.getIRI(qname);
     }
 
-    public URI getURI(String s) {
+    public IRI getIRI(String s) {
          if(s.charAt(0) == '<') {
             s = s.substring(1, s.length() - 1);
         }
 
-        URI uri = string2URI.get(s);
-        if(uri == null) {
-            try {
-                uri = new URI(s);
-
-                if(!uri.isAbsolute()) {
-                    String uriString = uri.toString();
-                    if(uri.getFragment() != null) {
-                        uri = new URI(base + uriString);
-                    }
-                    else {
-                        if(base.endsWith("/")) {
-                            uri = new URI(base + uriString);
-                        }
-                        else {
-                            uri = new URI(base + "#" + uriString);
-                        }
-                    }
-
-                }
-                string2URI.put(s, uri);
-            }
-            catch(URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
+        IRI iri = string2IRI.get(s);
+        if(iri == null) {
+                iri = IRI.create(s);
+          //      if(!iri.isAbsolute()) {
+          //          String iriString = iri.toString();
+          //          if(iri.getFragment() != null) {
+          //              iri = new IRI(base + iriString);
+          //          }
+          //          else {
+          //              if(base.endsWith("/")) {
+          //                  iri = new IRI(base + iriString);
+          //              }
+          //              else {
+          //                  iri = new IRI(base + "#" + iriString);
+          //              }
+          //          }
+          //
+          //      }
+                string2IRI.put(s, iri);
         }
-        return uri;
+        return iri;
     }
 
     public void setIgnoreAnnotationsAndDeclarations(boolean b) {
@@ -298,7 +290,7 @@ TOKEN:
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //
-// URIs
+// IRIs
 
 TOKEN:
 {
@@ -400,10 +392,10 @@ void parsePrefixDirective() :
 {
     Token t;
     String prefix = "";
-    URI ns;
+    IRI ns;
 }
 {
-    <PREFIX> t=<PNAME_NS>{prefix=t.image;} ns=parseURI() {
+    <PREFIX> t=<PNAME_NS>{prefix=t.image;} ns=parseIRI() {
         pm.setPrefix(prefix, ns.toString());
         handler.handlePrefixDirective(prefix, ns.toString());
     }
@@ -411,7 +403,7 @@ void parsePrefixDirective() :
 
 void parseBaseDirective() :
 {
-    URI baseURI;
+    IRI baseIRI;
     Token t;
 }
 {
@@ -429,108 +421,108 @@ void parseStatement() :
 
 void parseTriples() :
 {
-    URI subject;
+    IRI subject;
 }
 {
     subject = parseSubject() (parsePredicateObjectList(subject))?
 }
 
-URI parseSubject() :
+IRI parseSubject() :
 {
-    URI uri;
+    IRI iri;
 }
 {
-    (uri=parseResource() | uri=parseBlankNode()) {
-        return uri;
+    (iri=parseResource() | iri=parseBlankNode()) {
+        return iri;
     }
 }
 
-URI parseAbbreviatedURI() :
+IRI parseAbbreviatedIRI() :
 {
-    URI uri;
+    IRI iri;
     Token t;
 }
 {
     t=<PNAME_LN> {
-        return getURIFromQName(t.image);
+        return getIRIFromQName(t.image);
     }
 }
 
-URI parseURI() :
+IRI parseIRI() :
 {
     Token t;
-    URI uri;
+    IRI iri;
 }
 {
-    t=<FULLIRI> {return getURI(t.image);}
+    t=<FULLIRI> {return getIRI(t.image);}
 }
 
-URI parseBlankNode() :
+IRI parseBlankNode() :
 {
-    URI uri = null;
+    IRI iri = null;
 }
 {
-    (uri=parseNodeID()
+    (iri=parseNodeID()
     |
-    <NODEID>{uri = getNextBlankNode();}
+    <NODEID>{iri = getNextBlankNode();}
     |
-    <OPEN_SQUARE_BRACKET> ({uri = getNextBlankNode();} parsePredicateObjectList(uri) (<DOT>)?)? <CLOSE_SQUARE_BRACKET> {if (uri == null) {uri = getNextBlankNode(); }}
+    <OPEN_SQUARE_BRACKET> ({iri = getNextBlankNode();} parsePredicateObjectList(iri) (<DOT>)?)? <CLOSE_SQUARE_BRACKET> {if (iri == null) {iri = getNextBlankNode(); }}
     |
-    uri = parseCollection()) {
-        return uri;
+    iri = parseCollection()) {
+        return iri;
     }
 }
 
-URI parseNodeID() :
+IRI parseNodeID() :
 {
     Token t;
 }
 {
     t=<NODEID> {
-        return getURIFromQName(t.image);
+        return getIRIFromQName(t.image);
     }
 }
 
-void parsePredicateObjectList(URI subject) :
+void parsePredicateObjectList(IRI subject) :
 {
-    URI predicate;
+    IRI predicate;
 }
 {
     (predicate=parseVerb() parseObjectList(subject, predicate) (<SEMICOLON> predicate=parseVerb() parseObjectList(subject, predicate) )*) (<SEMICOLON>)?
 }
 
-URI parseVerb() :
+IRI parseVerb() :
 {
-    URI uri;
+    IRI iri;
 }
 {
-    (<A>{uri = OWLRDFVocabulary.RDF_TYPE.getURI();} | uri=parsePredicate()) {
-        return uri;
+    (<A>{iri = OWLRDFVocabulary.RDF_TYPE.getIRI();} | iri=parsePredicate()) {
+        return iri;
     }
 }
 
-URI parsePredicate() :
+IRI parsePredicate() :
 {
-    URI uri;
+    IRI iri;
 }
 {
-    uri=parseResource() {
-        return uri;
+    iri=parseResource() {
+        return iri;
     }
 }
 
-URI parseResource() :
+IRI parseResource() :
 {
-    URI uri;
+    IRI iri;
 }
 {
-    (uri=parseURI() | uri=parseAbbreviatedURI()) {
-        return uri;
+    (iri=parseIRI() | iri=parseAbbreviatedIRI()) {
+        return iri;
     }
 }
 
 
-void parseObjectList(URI subject, URI predicate) :
+void parseObjectList(IRI subject, IRI predicate) :
 {
     
 }
@@ -538,9 +530,9 @@ void parseObjectList(URI subject, URI predicate) :
     parseObject(subject, predicate) ( <COMMA> parseObject(subject, predicate) )*
 }
 
-void parseObject(URI subject, URI predicate) :
+void parseObject(IRI subject, IRI predicate) :
 {
-    URI resObject;
+    IRI resObject;
 }
 {
     (parseLiteral(subject, predicate) 
@@ -552,33 +544,33 @@ void parseObject(URI subject, URI predicate) :
     })
 }
 
-URI parseCollection() :
+IRI parseCollection() :
 {
-    URI uri;
+    IRI iri;
 }
 {
-    <OPENPAR> uri=parseItemList() <CLOSEPAR> {
-        return uri;
+    <OPENPAR> iri=parseItemList() <CLOSEPAR> {
+        return iri;
     }
 }
 
-URI parseItemList() :
+IRI parseItemList() :
 {
     //  _x  rdf:type rdf:List
     //  _x  rdf:first
     //  _x  rdf:next
-    URI firstSubject = null;
-    URI subject = null;
-    URI type = OWLRDFVocabulary.RDF_TYPE.getURI();
-    URI first = OWLRDFVocabulary.RDF_FIRST.getURI();
-    URI rest = OWLRDFVocabulary.RDF_REST.getURI();
-    URI list = OWLRDFVocabulary.RDF_LIST.getURI();
-    URI nil = OWLRDFVocabulary.RDF_NIL.getURI();
+    IRI firstSubject = null;
+    IRI subject = null;
+    IRI type = OWLRDFVocabulary.RDF_TYPE.getIRI();
+    IRI first = OWLRDFVocabulary.RDF_FIRST.getIRI();
+    IRI rest = OWLRDFVocabulary.RDF_REST.getIRI();
+    IRI list = OWLRDFVocabulary.RDF_LIST.getIRI();
+    IRI nil = OWLRDFVocabulary.RDF_NIL.getIRI();
 }
 {
     (
     {
-        URI prevSubject = subject;
+        IRI prevSubject = subject;
         subject=getNextBlankNode();
         if(prevSubject != null) {
             handler.handleTriple(prevSubject, rest, subject);
@@ -596,11 +588,11 @@ URI parseItemList() :
 }
 
 
-void parseLiteral(URI subject, URI predicate) :
+void parseLiteral(IRI subject, IRI predicate) :
 {
     String literal;
     String lang = null;
-    URI datatype = null;
+    IRI datatype = null;
     Token t;
 }
 {
@@ -619,13 +611,13 @@ void parseLiteral(URI subject, URI predicate) :
         }
     )
     |
-    (literal=parseInteger(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.INTEGER.getURI());})
+    (literal=parseInteger(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.INTEGER.getIRI());})
     |
-    (literal=parseDouble(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.DOUBLE.getURI());})
+    (literal=parseDouble(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.DOUBLE.getIRI());})
     |
-    (literal=parseDecimal(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.DECIMAL.getURI());})
+    (literal=parseDecimal(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.DECIMAL.getIRI());})
     |
-    (literal=parseBoolean(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.BOOLEAN.getURI());})
+    (literal=parseBoolean(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.BOOLEAN.getIRI());})
 }
 
 

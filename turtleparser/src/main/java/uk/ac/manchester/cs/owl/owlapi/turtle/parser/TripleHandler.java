@@ -1,5 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -39,13 +41,13 @@ public interface TripleHandler {
 
     void handleComment(String comment);
 
-    void handleTriple(URI subject, URI predicate, URI object);
+    void handleTriple(IRI subject, IRI predicate, IRI object);
 
-    void handleTriple(URI subject, URI predicate, String object);
+    void handleTriple(IRI subject, IRI predicate, String object);
 
-    void handleTriple(URI subject, URI predicate, String object, String lang);
+    void handleTriple(IRI subject, IRI predicate, String object, String lang);
 
-    void handleTriple(URI subject, URI predicate, String object, URI datatype);
+    void handleTriple(IRI subject, IRI predicate, String object, IRI datatype);
 
     void handleEnd();
 }

@@ -185,10 +185,31 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
         }
         OWLOntologyID other = (OWLOntologyID) obj;
         if (ontologyIRI != null) {
-            return other.ontologyIRI != null && ontologyIRI.equals(other.ontologyIRI) && (versionIRI == null || other.versionIRI != null && versionIRI.equals(other.versionIRI));
+            if(other.ontologyIRI == null) {
+                return false;
+            }
+            if(!ontologyIRI.equals(other.ontologyIRI)) {
+                return false;
+            }
+            if(versionIRI != null) {
+                if(other.versionIRI == null) {
+                    return false;
+                }
+                else {
+                    return versionIRI.equals(other.versionIRI);
+                }
+            }
+            else {
+                return other.versionIRI == null;
+            }
         }
         else {
-            return other.ontologyIRI == null && internalID.equals(other.internalID);
+            if(other.ontologyIRI != null) {
+                return false;
+            }
+            else {
+                return internalID.equals(other.internalID);
+            }
         }
     }
 }

@@ -298,11 +298,14 @@ public abstract class RDFRendererBase {
         graph = new RDFGraph();
         OWLOntologyID ontID = ontology.getOntologyID();
         RDFResourceNode ontologyNode = null;
+        int count = 0;
         if (ontID.getOntologyIRI() != null) {
             ontologyNode = new RDFResourceNode(ontID.getOntologyIRI());
             graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getIRI())));
+            count++;
             if (ontID.getVersionIRI() != null) {
                 graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.OWL_VERSION_IRI.getIRI()), new RDFResourceNode(ontID.getVersionIRI())));
+                count++;
             }
         }
         else {
@@ -310,6 +313,7 @@ public abstract class RDFRendererBase {
         }
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
             graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.OWL_IMPORTS.getIRI()), new RDFResourceNode(decl.getIRI())));
+            count++;
         }
         for (OWLAnnotation anno : ontology.getAnnotations()) {
             OWLAnnotationValueVisitorEx<RDFNode> valVisitor = new OWLAnnotationValueVisitorEx<RDFNode>() {
@@ -330,11 +334,12 @@ public abstract class RDFRendererBase {
                 }
             };
             RDFNode node = anno.getValue().accept(valVisitor);
-
-
             graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(anno.getProperty().getIRI()), node));
+            count++;
         }
-        render(ontologyNode);
+        if (count > 0) {
+            render(ontologyNode);
+        }
     }
 
 

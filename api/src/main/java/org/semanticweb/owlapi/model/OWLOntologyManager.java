@@ -4,6 +4,7 @@ import org.semanticweb.owlapi.io.OWLOntologyInputSource;
 import org.semanticweb.owlapi.io.OWLOntologyOutputTarget;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Set;
@@ -406,7 +407,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
     /**
      * Loads an ontology from an ontology document specified by an IRI.  In contrast the the {@link #loadOntology(IRI)}
-     * method, no mapping is performed on the specified IRI.
+     * method, <i>no mapping</i> is performed on the specified IRI.
      * @param documentIRI The ontology document IRI where the ontology will be loaded from.
      * @return The ontology that was loaded.
      * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
@@ -449,6 +450,25 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     OWLOntology loadOntologyFromOntologyDocument(File file) throws OWLOntologyCreationException;
 
+     /**
+     * Loads an ontology from an ontology document obtained from an input stream.  The loaded ontology will be assigned
+     * an auto-generated document IRI with "inputstream" as its scheme.
+     * @param inputStream The input stream that can be used to obtain a representation of an ontology
+     * @return The ontology that was parsed from the input stream.
+     * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
+     * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology could not be parsed.
+     * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
+     * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
+     * not be thrown.  The <code>UnloadableImportException</code> contains information about the import declaration
+     * that triggered the import and the cause of this exception is an <code>OWLOntologyCreationException</code>
+     * which contains information about why the import could not be loaded.
+     * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException if there was an <code>IOException</code>
+     * when trying to load the ontology.
+     * @throws OWLOntologyAlreadyExistsException if the manager already contains an ontology whose ontology IRI and
+     * version IRI is the same as the ontology IRI and version IRI of the ontology obtained from parsing the content
+      * of the input stream.
+     */
+    OWLOntology loadOntologyFromOntologyDocument(InputStream inputStream) throws OWLOntologyCreationException;
 
     /**
      * A convenience method that load an ontology from an input source.

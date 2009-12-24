@@ -45,7 +45,12 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
 
     public void attribute(String name, String value) throws OWLParserException {
         if (name.equals("ontologyIRI")) {
-            getOWLOntologyManager().applyChange(new SetOntologyID(getOntology(), new OWLOntologyID(IRI.create(value))));
+            OWLOntologyID newID = new OWLOntologyID(IRI.create(value), getOntology().getOntologyID().getVersionIRI());
+            getOWLOntologyManager().applyChange(new SetOntologyID(getOntology(), newID));
+        }
+        if(name.equals("versionIRI")) {
+            OWLOntologyID newID = new OWLOntologyID(getOntology().getOntologyID().getOntologyIRI(), IRI.create(value));
+            getOWLOntologyManager().applyChange(new SetOntologyID(getOntology(), newID));
         }
     }
 

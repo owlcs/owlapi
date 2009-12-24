@@ -16,7 +16,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
 
     private OWLDataFactory dataFactory;
 
-    private Map<String, URI> string2URI;
+    private Map<String, IRI> string2IRI;
 
     private boolean ignoreAnnotationsAndDeclarations = false;
 
@@ -33,7 +33,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         this(reader);
         this.handler = handler;
         this.base = base;
-        string2URI = new HashMap<String, URI>();
+        string2IRI = new HashMap<String, IRI>();
         blankNodeId = 0;
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
@@ -42,7 +42,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         this(is);
         this.handler = handler;
         this.base = base;
-        string2URI = new HashMap<String, URI>();
+        string2IRI = new HashMap<String, IRI>();
         blankNodeId = 0;
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
@@ -51,59 +51,51 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         this.handler = handler;
     }
 
-    public boolean isAnonymousNode(String uri) {
-        return uri.indexOf("genid") != -1;
+    public boolean isAnonymousNode(String iri) {
+        return iri.indexOf("genid") != -1;
     }
 
 
     public boolean isAnonymousNode(IRI iri) {
-        String frag = iri.getFragment();
-        return frag != null && frag.indexOf("genid") != -1;
+        return iri.toString().indexOf("genid") != -1;
     }
 
-    protected URI getNextBlankNode() {
-        URI uri = getURI("genid" + blankNodeId);
+    protected IRI getNextBlankNode() {
+        IRI iri = getIRI("genid" + blankNodeId);
         blankNodeId++;
-        return uri;
+        return iri;
     }
 
-    protected URI getURIFromQName(String qname) {
-        IRI iri = pm.getIRI(qname);
-        return iri.toURI();
+    protected IRI getIRIFromQName(String qname) {
+        return pm.getIRI(qname);
     }
 
-    public URI getURI(String s) {
+    public IRI getIRI(String s) {
          if(s.charAt(0) == '<') {
             s = s.substring(1, s.length() - 1);
         }
 
-        URI uri = string2URI.get(s);
-        if(uri == null) {
-            try {
-                uri = new URI(s);
-
-                if(!uri.isAbsolute()) {
-                    String uriString = uri.toString();
-                    if(uri.getFragment() != null) {
-                        uri = new URI(base + uriString);
-                    }
-                    else {
-                        if(base.endsWith("/")) {
-                            uri = new URI(base + uriString);
-                        }
-                        else {
-                            uri = new URI(base + "#" + uriString);
-                        }
-                    }
-
-                }
-                string2URI.put(s, uri);
-            }
-            catch(URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
+        IRI iri = string2IRI.get(s);
+        if(iri == null) {
+                iri = IRI.create(s);
+          //      if(!iri.isAbsolute()) {
+          //          String iriString = iri.toString();
+          //          if(iri.getFragment() != null) {
+          //              iri = new IRI(base + iriString);
+          //          }
+          //          else {
+          //              if(base.endsWith("/")) {
+          //                  iri = new IRI(base + iriString);
+          //              }
+          //              else {
+          //                  iri = new IRI(base + "#" + iriString);
+          //              }
+          //          }
+          //
+          //      }
+                string2IRI.put(s, iri);
         }
-        return uri;
+        return iri;
     }
 
     public void setIgnoreAnnotationsAndDeclarations(boolean b) {
@@ -153,17 +145,17 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
   final public void parsePrefixDirective() throws ParseException {
     Token t;
     String prefix = "";
-    URI ns;
+    IRI ns;
     jj_consume_token(PREFIX);
     t = jj_consume_token(PNAME_NS);
                           prefix=t.image;
-    ns = parseURI();
+    ns = parseIRI();
         pm.setPrefix(prefix, ns.toString());
         handler.handlePrefixDirective(prefix, ns.toString());
   }
 
   final public void parseBaseDirective() throws ParseException {
-    URI baseURI;
+    IRI baseIRI;
     Token t;
     jj_consume_token(BASE);
     t = jj_consume_token(FULLIRI);
@@ -176,7 +168,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
   }
 
   final public void parseTriples() throws ParseException {
-    URI subject;
+    IRI subject;
     subject = parseSubject();
     if (jj_2_6(2)) {
       parsePredicateObjectList(subject);
@@ -185,48 +177,48 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     }
   }
 
-  final public URI parseSubject() throws ParseException {
-    URI uri;
+  final public IRI parseSubject() throws ParseException {
+    IRI iri;
     if (jj_2_7(2)) {
-      uri = parseResource();
+      iri = parseResource();
     } else if (jj_2_8(2)) {
-      uri = parseBlankNode();
+      iri = parseBlankNode();
     } else {
       jj_consume_token(-1);
       throw new ParseException();
     }
-        {if (true) return uri;}
+        {if (true) return iri;}
     throw new Error("Missing return statement in function");
   }
 
-  final public URI parseAbbreviatedURI() throws ParseException {
-    URI uri;
+  final public IRI parseAbbreviatedIRI() throws ParseException {
+    IRI iri;
     Token t;
     t = jj_consume_token(PNAME_LN);
-        {if (true) return getURIFromQName(t.image);}
+        {if (true) return getIRIFromQName(t.image);}
     throw new Error("Missing return statement in function");
   }
 
-  final public URI parseURI() throws ParseException {
+  final public IRI parseIRI() throws ParseException {
     Token t;
-    URI uri;
+    IRI iri;
     t = jj_consume_token(FULLIRI);
-                 {if (true) return getURI(t.image);}
+                 {if (true) return getIRI(t.image);}
     throw new Error("Missing return statement in function");
   }
 
-  final public URI parseBlankNode() throws ParseException {
-    URI uri = null;
+  final public IRI parseBlankNode() throws ParseException {
+    IRI iri = null;
     if (jj_2_11(2)) {
-      uri = parseNodeID();
+      iri = parseNodeID();
     } else if (jj_2_12(2)) {
       jj_consume_token(NODEID);
-             uri = getNextBlankNode();
+             iri = getNextBlankNode();
     } else if (jj_2_13(2)) {
       jj_consume_token(OPEN_SQUARE_BRACKET);
       if (jj_2_10(2)) {
-                            uri = getNextBlankNode();
-        parsePredicateObjectList(uri);
+                            iri = getNextBlankNode();
+        parsePredicateObjectList(iri);
         if (jj_2_9(2)) {
           jj_consume_token(DOT);
         } else {
@@ -236,26 +228,26 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         ;
       }
       jj_consume_token(CLOSE_SQUARE_BRACKET);
-                                                                                                                        if (uri == null) {uri = getNextBlankNode(); }
+                                                                                                                        if (iri == null) {iri = getNextBlankNode(); }
     } else if (jj_2_14(2)) {
-      uri = parseCollection();
+      iri = parseCollection();
     } else {
       jj_consume_token(-1);
       throw new ParseException();
     }
-        {if (true) return uri;}
+        {if (true) return iri;}
     throw new Error("Missing return statement in function");
   }
 
-  final public URI parseNodeID() throws ParseException {
+  final public IRI parseNodeID() throws ParseException {
     Token t;
     t = jj_consume_token(NODEID);
-        {if (true) return getURIFromQName(t.image);}
+        {if (true) return getIRIFromQName(t.image);}
     throw new Error("Missing return statement in function");
   }
 
-  final public void parsePredicateObjectList(URI subject) throws ParseException {
-    URI predicate;
+  final public void parsePredicateObjectList(IRI subject) throws ParseException {
+    IRI predicate;
     predicate = parseVerb();
     parseObjectList(subject, predicate);
     label_2:
@@ -276,43 +268,43 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     }
   }
 
-  final public URI parseVerb() throws ParseException {
-    URI uri;
+  final public IRI parseVerb() throws ParseException {
+    IRI iri;
     if (jj_2_17(2)) {
       jj_consume_token(A);
-         uri = OWLRDFVocabulary.RDF_TYPE.getURI();
+         iri = OWLRDFVocabulary.RDF_TYPE.getIRI();
     } else if (jj_2_18(2)) {
-      uri = parsePredicate();
+      iri = parsePredicate();
     } else {
       jj_consume_token(-1);
       throw new ParseException();
     }
-        {if (true) return uri;}
+        {if (true) return iri;}
     throw new Error("Missing return statement in function");
   }
 
-  final public URI parsePredicate() throws ParseException {
-    URI uri;
-    uri = parseResource();
-        {if (true) return uri;}
+  final public IRI parsePredicate() throws ParseException {
+    IRI iri;
+    iri = parseResource();
+        {if (true) return iri;}
     throw new Error("Missing return statement in function");
   }
 
-  final public URI parseResource() throws ParseException {
-    URI uri;
+  final public IRI parseResource() throws ParseException {
+    IRI iri;
     if (jj_2_19(2)) {
-      uri = parseURI();
+      iri = parseIRI();
     } else if (jj_2_20(2)) {
-      uri = parseAbbreviatedURI();
+      iri = parseAbbreviatedIRI();
     } else {
       jj_consume_token(-1);
       throw new ParseException();
     }
-        {if (true) return uri;}
+        {if (true) return iri;}
     throw new Error("Missing return statement in function");
   }
 
-  final public void parseObjectList(URI subject, URI predicate) throws ParseException {
+  final public void parseObjectList(IRI subject, IRI predicate) throws ParseException {
     parseObject(subject, predicate);
     label_3:
     while (true) {
@@ -326,8 +318,8 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     }
   }
 
-  final public void parseObject(URI subject, URI predicate) throws ParseException {
-    URI resObject;
+  final public void parseObject(IRI subject, IRI predicate) throws ParseException {
+    IRI resObject;
     if (jj_2_24(2)) {
       parseLiteral(subject, predicate);
     } else if (jj_2_25(2)) {
@@ -346,26 +338,26 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     }
   }
 
-  final public URI parseCollection() throws ParseException {
-    URI uri;
+  final public IRI parseCollection() throws ParseException {
+    IRI iri;
     jj_consume_token(OPENPAR);
-    uri = parseItemList();
+    iri = parseItemList();
     jj_consume_token(CLOSEPAR);
-        {if (true) return uri;}
+        {if (true) return iri;}
     throw new Error("Missing return statement in function");
   }
 
-  final public URI parseItemList() throws ParseException {
+  final public IRI parseItemList() throws ParseException {
     //  _x  rdf:type rdf:List
     //  _x  rdf:first
     //  _x  rdf:next
-    URI firstSubject = null;
-    URI subject = null;
-    URI type = OWLRDFVocabulary.RDF_TYPE.getURI();
-    URI first = OWLRDFVocabulary.RDF_FIRST.getURI();
-    URI rest = OWLRDFVocabulary.RDF_REST.getURI();
-    URI list = OWLRDFVocabulary.RDF_LIST.getURI();
-    URI nil = OWLRDFVocabulary.RDF_NIL.getURI();
+    IRI firstSubject = null;
+    IRI subject = null;
+    IRI type = OWLRDFVocabulary.RDF_TYPE.getIRI();
+    IRI first = OWLRDFVocabulary.RDF_FIRST.getIRI();
+    IRI rest = OWLRDFVocabulary.RDF_REST.getIRI();
+    IRI list = OWLRDFVocabulary.RDF_LIST.getIRI();
+    IRI nil = OWLRDFVocabulary.RDF_NIL.getIRI();
     label_4:
     while (true) {
       if (jj_2_26(2)) {
@@ -373,7 +365,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
       } else {
         break label_4;
       }
-        URI prevSubject = subject;
+        IRI prevSubject = subject;
         subject=getNextBlankNode();
         if(prevSubject != null) {
             handler.handleTriple(prevSubject, rest, subject);
@@ -390,10 +382,10 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     throw new Error("Missing return statement in function");
   }
 
-  final public void parseLiteral(URI subject, URI predicate) throws ParseException {
+  final public void parseLiteral(IRI subject, IRI predicate) throws ParseException {
     String literal;
     String lang = null;
-    URI datatype = null;
+    IRI datatype = null;
     Token t;
     if (jj_2_30(2)) {
       literal = parseQuotedString();
@@ -423,16 +415,16 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
             }
     } else if (jj_2_31(2)) {
       literal = parseInteger();
-                            handler.handleTriple(subject, predicate, literal, XSDVocabulary.INTEGER.getURI());
+                            handler.handleTriple(subject, predicate, literal, XSDVocabulary.INTEGER.getIRI());
     } else if (jj_2_32(2)) {
       literal = parseDouble();
-                           handler.handleTriple(subject, predicate, literal, XSDVocabulary.DOUBLE.getURI());
+                           handler.handleTriple(subject, predicate, literal, XSDVocabulary.DOUBLE.getIRI());
     } else if (jj_2_33(2)) {
       literal = parseDecimal();
-                            handler.handleTriple(subject, predicate, literal, XSDVocabulary.DECIMAL.getURI());
+                            handler.handleTriple(subject, predicate, literal, XSDVocabulary.DECIMAL.getIRI());
     } else if (jj_2_34(2)) {
       literal = parseBoolean();
-                            handler.handleTriple(subject, predicate, literal, XSDVocabulary.BOOLEAN.getURI());
+                            handler.handleTriple(subject, predicate, literal, XSDVocabulary.BOOLEAN.getIRI());
     } else {
       jj_consume_token(-1);
       throw new ParseException();
@@ -784,6 +776,52 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     try { return !jj_3_40(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(39, xla); }
+  }
+
+  private boolean jj_3_13() {
+    if (jj_scan_token(OPEN_SQUARE_BRACKET)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_10()) jj_scanpos = xsp;
+    if (jj_scan_token(CLOSE_SQUARE_BRACKET)) return true;
+    return false;
+  }
+
+  private boolean jj_3_21() {
+    if (jj_scan_token(COMMA)) return true;
+    if (jj_3R_18()) return true;
+    return false;
+  }
+
+  private boolean jj_3_12() {
+    if (jj_scan_token(NODEID)) return true;
+    return false;
+  }
+
+  private boolean jj_3_11() {
+    if (jj_3R_12()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_11() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_11()) {
+    jj_scanpos = xsp;
+    if (jj_3_12()) {
+    jj_scanpos = xsp;
+    if (jj_3_13()) {
+    jj_scanpos = xsp;
+    if (jj_3_14()) return true;
+    }
+    }
+    }
+    return false;
+  }
+
+  private boolean jj_3R_23() {
+    if (jj_scan_token(DECIMAL)) return true;
+    return false;
   }
 
   private boolean jj_3_8() {
@@ -1166,52 +1204,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
 
   private boolean jj_3_14() {
     if (jj_3R_13()) return true;
-    return false;
-  }
-
-  private boolean jj_3_13() {
-    if (jj_scan_token(OPEN_SQUARE_BRACKET)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_10()) jj_scanpos = xsp;
-    if (jj_scan_token(CLOSE_SQUARE_BRACKET)) return true;
-    return false;
-  }
-
-  private boolean jj_3_21() {
-    if (jj_scan_token(COMMA)) return true;
-    if (jj_3R_18()) return true;
-    return false;
-  }
-
-  private boolean jj_3_12() {
-    if (jj_scan_token(NODEID)) return true;
-    return false;
-  }
-
-  private boolean jj_3_11() {
-    if (jj_3R_12()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_11() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_11()) {
-    jj_scanpos = xsp;
-    if (jj_3_12()) {
-    jj_scanpos = xsp;
-    if (jj_3_13()) {
-    jj_scanpos = xsp;
-    if (jj_3_14()) return true;
-    }
-    }
-    }
-    return false;
-  }
-
-  private boolean jj_3R_23() {
-    if (jj_scan_token(DECIMAL)) return true;
     return false;
   }
 

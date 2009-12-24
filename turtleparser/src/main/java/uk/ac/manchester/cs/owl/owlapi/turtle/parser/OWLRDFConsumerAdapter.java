@@ -2,6 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.owlapi.rdfxml.parser.OWLRDFConsumer;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -61,7 +62,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         try {
             statementWithResourceValue(subject.toString(), predicate.toString(), object.toString());
         }
@@ -71,7 +72,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     }
 
 
-    public void handleTriple(URI subject, URI predicate, String object) {
+    public void handleTriple(IRI subject, IRI predicate, String object) {
         try {
             statementWithLiteralValue(subject.toString(), predicate.toString(), object, null, null);
         }
@@ -81,7 +82,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     }
 
 
-    public void handleTriple(URI subject, URI predicate, String object, String lang) {
+    public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
         try {
             statementWithLiteralValue(subject.toString(), predicate.toString(), object, lang, null);
         }
@@ -91,7 +92,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     }
 
 
-    public void handleTriple(URI subject, URI predicate, String object, URI datatype) {
+    public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
         try {
             statementWithLiteralValue(subject.toString(), predicate.toString(), object, null, datatype.toString());
         }

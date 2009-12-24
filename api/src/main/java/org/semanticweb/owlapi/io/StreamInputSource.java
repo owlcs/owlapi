@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.io;
 import org.semanticweb.owlapi.model.IRI;
 
 import java.io.*;
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -38,6 +37,10 @@ import java.net.URI;
  */
 public class StreamInputSource implements OWLOntologyInputSource {
 
+    public static final String DOCUMENT_IRI_SCHEME = "inputstream";
+
+    private static int counter = 0;
+
     private IRI documentIRI;
 
     private byte [] buffer;
@@ -50,7 +53,12 @@ public class StreamInputSource implements OWLOntologyInputSource {
      * read from.
      */
     public StreamInputSource(InputStream is) {
-        this(is, IRI.create("inputstream:ontology" + System.nanoTime()));
+        this(is, getNextDocumentIRI());
+    }
+
+    public static synchronized IRI getNextDocumentIRI() {
+        counter = counter + 1;
+        return IRI.create(DOCUMENT_IRI_SCHEME + ":ontology" + counter);
     }
 
 

@@ -6,7 +6,9 @@ import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.*;
+
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+
 import org.xml.sax.SAXException;
 
 import java.io.PrintWriter;
@@ -133,7 +135,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     private Map<IRI, OWLAxiom> reifiedAxiomsMap;
 
     private Map<IRI, Set<OWLAnnotation>> annotationsBySubject;
-    
+
     // A translator for lists of class expressions (such lists are used
     // in intersections, unions etc.)
     private OptimisedListTranslator<OWLClassExpression> classExpressionListTranslator;
@@ -289,10 +291,10 @@ public class OWLRDFConsumer implements RDFConsumer {
             dataRangeIRIs.add(dt.getIRI());
         }
         dataRangeIRIs.add(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
-        for(OWL2Datatype dt : OWL2Datatype.values()) {
+        for (OWL2Datatype dt : OWL2Datatype.values()) {
             dataRangeIRIs.add(dt.getIRI());
         }
-        
+
         swrlRules = new HashSet<IRI>();
         swrlIndividualPropertyAtoms = new HashSet<IRI>();
         swrlDataValuedPropertyAtoms = new HashSet<IRI>();
@@ -322,6 +324,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     /**
      * Determines if strict parsing should be used.  If strict parsing is in opertion then no patching, fixing or type
      * inference should be done.
+     *
      * @return <code>true</code> if strict parsing should be used, otherwise <code>false</code>.
      */
     public boolean isStrict() {
@@ -603,6 +606,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     /**
      * Gets any annotations that were translated since the last call of this method (calling
      * this method clears the current pending annotations)
+     *
      * @return The set (possibly empty) of pending annotations.
      */
     public Set<OWLAnnotation> getPendingAnnotations() {
@@ -640,7 +644,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     public void importsClosureChanged() {
         for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
-            for(OWLAnnotationProperty prop : ont.getAnnotationPropertiesInSignature()) {
+            for (OWLAnnotationProperty prop : ont.getAnnotationPropertiesInSignature()) {
                 annotationPropertyIRIs.add(prop.getIRI());
             }
         }
@@ -649,6 +653,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     /**
      * Checks whether a node is anonymous.
+     *
      * @param iri The IRI of the node to be checked.
      * @return <code>true</code> if the node is anonymous, or
      *         <code>false</code> if the node is not anonymous.
@@ -659,8 +664,8 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     protected void addAxiom(OWLAxiom axiom) {
-            owlOntologyManager.applyChange(new AddAxiom(ontology, axiom));
-            lastAddedAxiom = axiom;
+        owlOntologyManager.applyChange(new AddAxiom(ontology, axiom));
+        lastAddedAxiom = axiom;
     }
 
     protected void applyChange(OWLOntologyChange change) {
@@ -860,8 +865,9 @@ public class OWLRDFConsumer implements RDFConsumer {
     /**
      * Records an annotation of an anonymous node (either an annotation of an annotation, or an annotation
      * of an axiom for example)
+     *
      * @param annotatedAnonSource The source that the annotation annotates
-     * @param annotationMainNode  The annotations
+     * @param annotationMainNode The annotations
      */
     public void addAnnotatedSource(IRI annotatedAnonSource, IRI annotationMainNode) {
         Set<IRI> annotationMainNodes = annotatedAnonSource2AnnotationMap.get(annotatedAnonSource);
@@ -874,6 +880,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     /**
      * Gets the main nodes of annotations that annotated the specified source
+     *
      * @param source The source (axiom or annotation main node)
      * @return The set of main nodes that annotate the specified source
      */
@@ -1187,9 +1194,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                     for (IRI object : new ArrayList<IRI>(objects)) {
                         // We don't handle x rdf:type owl:Axiom because these must be handled after everything else
                         // so that the "base triples" that represent the axiom with out the annotations get mopped up first
-                        if (!(predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) &&
-                                (object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()) ||
-                                 object.equals(OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI())))) {
+                        if (!(predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) && (object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()) || object.equals(OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI())))) {
                             handle(subject, predicate, object);
                         }
                     }
@@ -1209,9 +1214,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                         continue;
                     }
                     for (IRI object : new ArrayList<IRI>(objects)) {
-                        if ((predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) &&
-                             (object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()) ||
-                              object.equals(OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI())))) {
+                        if ((predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) && (object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()) || object.equals(OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI())))) {
                             handle(subject, predicate, object);
                         }
                     }
@@ -1263,49 +1266,16 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
 
 
-
-
             // Do we need to change the ontology IRI?
-            if (ontologyIRIs.size() == 1 && !isAnonymousNode(firstOntologyIRI)) {
-                applyChange(new SetOntologyID(ontology, new OWLOntologyID(firstOntologyIRI)));
+            IRI ontologyIRIToSet = chooseOntologyIRI();
+            if (ontologyIRIToSet != null) {
+                IRI versionIRI = ontology.getOntologyID().getVersionIRI();
+                applyChange(new SetOntologyID(ontology, new OWLOntologyID(ontologyIRIToSet, versionIRI)));
             }
-            else {
-                if (ontologyIRIs.isEmpty()) {
-                    if (xmlBase == null) {
-                        logger.fine("There are no resources which are typed as ontologies.  Cannot determine the IRI of the ontology being parsed - using physical IRI.");
-                    }
-                    else {
-                        logger.fine("There are no resources which are typed as ontologies.  Cannot determine the IRI of the ontology being parsed - using xml:base.");
-                        applyChange(new SetOntologyID(ontology, new OWLOntologyID(xmlBase)));
-                    }
-                }
-                else  {
-                    // We have multiple
-                    // Choose one that isn't the object of an annotation assertion
-                    Set<IRI> candidateIRIs = new HashSet<IRI>(ontologyIRIs);
-                    for(OWLAnnotation anno : ontology.getAnnotations()) {
-                        if(anno.getValue() instanceof IRI) {
-                            IRI iri = (IRI) anno.getValue();
-                            if(ontologyIRIs.contains(iri)) {
-                               candidateIRIs.remove(iri);
-                            }
-                        }
-                    }
-                    if(candidateIRIs.contains(firstOntologyIRI)) {
-                        applyChange(new SetOntologyID(ontology, new OWLOntologyID(firstOntologyIRI)));
-                    }
-                    else if(!candidateIRIs.isEmpty()) {
-                        applyChange(new SetOntologyID(ontology, new OWLOntologyID(candidateIRIs.iterator().next())));
-                    }
-
-                }
-            }
-
 
             if (tripleProcessor.isLoggable(Level.FINE)) {
                 tripleProcessor.fine("Loaded " + ontology.getOntologyID());
             }
-
 
 
             dumpRemainingTriples();
@@ -1316,6 +1286,49 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
+    /**
+     * Selects an IRI to be the ontology IRI
+     *
+     * @return An IRI that should be used as the IRI of the parsed ontology, or <code>null</code>
+     *         if the parsed ontology does not have an IRI
+     */
+    private IRI chooseOntologyIRI() {
+        IRI ontologyIRIToSet = null;
+        if (ontologyIRIs.isEmpty()) {
+            // No ontology IRIs
+            // We used to use the xml:base here.  But this is probably incorrect for OWL 2 now.
+        }
+        else if (ontologyIRIs.size() == 1) {
+            // Exactly one ontologyIRI
+            IRI ontologyIRI = ontologyIRIs.iterator().next();
+            if (!isAnonymousNode(ontologyIRI)) {
+                ontologyIRIToSet = ontologyIRI;
+            }
+        }
+        else {
+            // We have multiple to choose from
+            // Choose one that isn't the object of an annotation assertion
+            Set<IRI> candidateIRIs = new HashSet<IRI>(ontologyIRIs);
+            for (OWLAnnotation anno : ontology.getAnnotations()) {
+                if (anno.getValue() instanceof IRI) {
+                    IRI iri = (IRI) anno.getValue();
+                    if (ontologyIRIs.contains(iri)) {
+                        candidateIRIs.remove(iri);
+                    }
+                }
+            }
+            // Choose the first one parsed
+            if (candidateIRIs.contains(firstOntologyIRI)) {
+                ontologyIRIToSet = firstOntologyIRI;
+            }
+            else if (!candidateIRIs.isEmpty()) {
+                // Just pick any
+                ontologyIRIToSet = candidateIRIs.iterator().next();
+            }
+
+        }
+        return ontologyIRIToSet;
+    }
 
 
     private void cleanup() {
@@ -1351,7 +1364,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     public IRI checkForSynonym(IRI original) {
-        if(!strict) {
+        if (!strict) {
             IRI synonymIRI = synonymMap.get(original);
             if (synonymIRI != null) {
                 return synonymIRI;
@@ -1389,9 +1402,10 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     /**
      * Called when a resource triple has been parsed.
-     * @param subject   The subject of the triple that has been parsed
+     *
+     * @param subject The subject of the triple that has been parsed
      * @param predicate The predicate of the triple that has been parsed
-     * @param object    The object of the triple that has been parsed
+     * @param object The object of the triple that has been parsed
      */
     private void handleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (predicate.equals(RDF_TYPE.getIRI())) {
@@ -1445,9 +1459,10 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     /**
      * A convenience method to obtain an <code>OWLConstant</code>
-     * @param literal  The literal - must NOT be <code>null</code>
+     *
+     * @param literal The literal - must NOT be <code>null</code>
      * @param datatype The data type - may be <code>null</code>
-     * @param lang     The lang - may be <code>null</code>
+     * @param lang The lang - may be <code>null</code>
      * @return The <code>OWLConstant</code> (either typed or untyped depending on the params)
      */
     private OWLLiteral getOWLConstant(String literal, String datatype, String lang) {
@@ -1511,7 +1526,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             if (facetRestrictionList != null) {
                 restrictions = translateToFacetRestrictionSet(facetRestrictionList);
             }
-            else if(!strict) {
+            else if (!strict) {
                 // Try the legacy encoding
                 for (IRI facetIRI : OWLFacet.FACET_IRIS) {
                     OWLLiteral val;
@@ -1579,6 +1594,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      * Translates the annotation on a main node.  Triples whose subject is the specified main node and whose subject
      * is typed an an annotation property (or is a built in annotation property) will be translated to annotation on
      * this main node.
+     *
      * @param mainNode The main node
      * @return The set of annotations on the main node
      */
@@ -1587,8 +1603,8 @@ public class OWLRDFConsumer implements RDFConsumer {
         // will only happen if we are an annotation!
         Set<OWLAnnotation> annosOnMainNodeAnnotations = new HashSet<OWLAnnotation>();
         Set<IRI> annotationMainNodes = getAnnotatedSourceAnnotationMainNodes(mainNode);
-        if(!annotationMainNodes.isEmpty()) {
-            for(IRI annotationMainNode : annotationMainNodes) {
+        if (!annotationMainNodes.isEmpty()) {
+            for (IRI annotationMainNode : annotationMainNodes) {
                 annosOnMainNodeAnnotations.addAll(translateAnnotations(annotationMainNode));
             }
         }

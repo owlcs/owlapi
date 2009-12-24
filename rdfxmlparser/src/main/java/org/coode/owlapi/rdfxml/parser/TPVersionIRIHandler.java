@@ -44,6 +44,7 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
         OWLOntology ontology = getConsumer().getOntology();
         OWLOntologyID ontologyID = new OWLOntologyID(ontology.getOntologyID().getOntologyIRI(), object);
         getConsumer().setOntologyID(ontologyID);
+        consumeTriple(subject, predicate, object);
     }
 
 

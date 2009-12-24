@@ -1,5 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
+import org.semanticweb.owlapi.model.IRI;
+
 import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -46,19 +48,19 @@ public class NullTripleHandler implements TripleHandler {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, URI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, String object) {
+    public void handleTriple(IRI subject, IRI predicate, String object) {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, String object, String lang) {
+    public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
     }
 
 
-    public void handleTriple(URI subject, URI predicate, String object, URI datatype) {
+    public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
     }
 
 

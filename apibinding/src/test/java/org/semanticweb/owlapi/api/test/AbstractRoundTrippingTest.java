@@ -41,7 +41,7 @@ public abstract class AbstractRoundTrippingTest extends AbstractOWLAPITestCase {
 
     private OWLOntology ont;
 
-    protected abstract OWLOntology createOntology();
+    protected abstract OWLOntology createOntology() throws Exception;
 
     protected OWLOntology getOnt() {
         return ont;
