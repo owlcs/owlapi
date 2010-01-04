@@ -47,6 +47,10 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     public Set<OWLClassExpression> getClassExpressions() {
         return classExpressions;
     }
+    
+    public boolean contains(OWLClassExpression ce) {
+        return classExpressions.contains(ce);
+    }
 
 
     public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... descs) {

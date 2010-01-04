@@ -145,6 +145,15 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         return ImplUtils.getAnnotations(this, annotationProperty, Collections.singleton(ontology));
     }
 
+
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
+        return ontology.getReferencingAxioms(this);
+    }
+
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+        return ontology.getReferencingAxioms(this, includeImports);
+    }
+
     protected int compareObjectOfSameType(OWLObject object) {
         OWLNamedIndividual other = (OWLNamedIndividual) object;
         return iri.compareTo(other.getIRI());

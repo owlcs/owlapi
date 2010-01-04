@@ -35,7 +35,7 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLAnonymousClassExpressionImpl extends OWLObjectImpl implements OWLAnonymousClassExpression {
+public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpressionImpl implements OWLAnonymousClassExpression {
 
     public OWLAnonymousClassExpressionImpl(OWLDataFactory dataFactory) {
         super(dataFactory);

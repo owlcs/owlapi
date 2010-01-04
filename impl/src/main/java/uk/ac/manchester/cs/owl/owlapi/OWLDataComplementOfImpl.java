@@ -94,6 +94,14 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
         return visitor.visit(this);
     }
 
+    public void accept(OWLDataRangeVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
     protected int compareObjectOfSameType(OWLObject object) {
         OWLDataComplementOf other = (OWLDataComplementOf) object;
         return getDataRange().compareTo(other.getDataRange());

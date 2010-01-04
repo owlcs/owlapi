@@ -1,9 +1,7 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.reasoner.BufferingMode;
-import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
+import org.semanticweb.owlapi.reasoner.*;
 
 import java.util.*;
 /*
@@ -184,5 +182,17 @@ public abstract class OWLReasonerBase implements OWLReasoner {
 
     public void dispose() {
         manager.removeOntologyChangeListener(ontologyChangeListener);
+    }
+
+    public UndeclaredEntityPolicy getUndeclaredEntityPolicy() {
+        return configuration.getUndeclaredEntityPolicy();
+    }
+
+    public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
+        return configuration.getIndividualNodeSetPolicy();
+    }
+
+    public OWLDataFactory getOWLDataFactory() {
+        return rootOntology.getOWLOntologyManager().getOWLDataFactory();
     }
 }

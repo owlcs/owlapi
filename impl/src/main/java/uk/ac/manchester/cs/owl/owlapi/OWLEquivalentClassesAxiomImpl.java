@@ -58,7 +58,6 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         return !getNamedClasses().isEmpty();
     }
 
-
     public boolean containsOWLNothing() {
         for (OWLClassExpression desc : getClassExpressions()) {
             if (desc.isOWLNothing()) {

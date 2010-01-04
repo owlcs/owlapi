@@ -209,6 +209,23 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      */
     String toStringID();
 
+    /**
+     * Gets the axioms in the specified ontology that contain this entity in their signature.
+     * @param ontology The ontology that will be searched for axioms
+     * @return The axioms in the specified ontology whose signature contains this entity.
+     */
+    Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology);
+
+    /**
+     * Gets the axioms in the specified ontology and possibly its imports closure that contain this entity in their
+     * signature.
+     * @param ontology The ontology that will be searched for axioms
+     * @param includeImports If <code>true</code> then axioms in the imports closure will also be returned, if
+     * <code>false</code> then only the axioms in the specified ontology will be returned.
+     * @return The axioms in the specified ontology whose signature contains this entity.
+     */
+    Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports);
+
     void accept(OWLEntityVisitor visitor);
 
     <O> O accept(OWLEntityVisitorEx<O> visitor);

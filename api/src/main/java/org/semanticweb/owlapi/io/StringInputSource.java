@@ -38,14 +38,24 @@ import java.net.URI;
  */
 public class StringInputSource implements OWLOntologyInputSource {
 
+    public static final String DOCUMENT_IRI_SCHEME = "string";
+
+    private static int counter = 0;
+
     private IRI documentIRI;
 
     private String string;
 
     public StringInputSource(String string) {
         this.string = string;
-        documentIRI = IRI.create("string:ontology" + System.nanoTime());
+        documentIRI = getNextDocumentIRI();
     }
+
+    public static synchronized IRI getNextDocumentIRI() {
+        counter = counter + 1;
+        return IRI.create(DOCUMENT_IRI_SCHEME + ":ontology" + counter);
+    }
+
 
 
     /**

@@ -35,7 +35,7 @@ import java.util.TreeSet;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group<br> Date:
  * 25-Oct-2006<br><br>
  */
-public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
+public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass {
 
     private IRI iri;
 
@@ -118,6 +118,14 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
         return isOWLThing() || isOWLNothing();
     }
 
+
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
+        return ontology.getReferencingAxioms(this);
+    }
+
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+        return ontology.getReferencingAxioms(this, includeImports);
+    }
 
     public boolean isAnonymous() {
         return false;
@@ -424,6 +432,6 @@ public class OWLClassImpl extends OWLObjectImpl implements OWLClass {
 
     protected int compareObjectOfSameType(OWLObject object) {
         OWLClass other = (OWLClass) object;
-        return getIRI().compareTo(other.getIRI());
+        return iri.compareTo(other.getIRI());
     }
 }

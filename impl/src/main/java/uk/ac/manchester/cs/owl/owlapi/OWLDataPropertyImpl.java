@@ -45,8 +45,8 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     public OWLDataPropertyImpl(OWLDataFactory dataFactory, IRI iri) {
         super(dataFactory);
         this.iri = iri;
-        this.builtin = getIRI().equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()) ||
-                getIRI().equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+        this.builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()) ||
+                iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
     public boolean isTopEntity() {
@@ -71,7 +71,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
      * @return An entity that has the same IRI as this entity and is of the specified type
      */
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
-        return getOWLDataFactory().getOWLEntity(entityType, getIRI());
+        return getOWLDataFactory().getOWLEntity(entityType, iri);
     }
 
     /**
@@ -301,7 +301,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
      * @return <code>true</code> if this property is the owl:topDataProperty otherwise <code>false</code>
      */
     public boolean isOWLTopDataProperty() {
-        return getIRI().equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI());
+        return iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI());
     }
 
     /**
@@ -309,7 +309,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
      * @return <code>true</code> if this property is the owl:bottomDataProperty otherwise <code>false</code>
      */
     public boolean isOWLBottomDataProperty() {
-        return getIRI().equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+        return iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
     public OWLAnnotationProperty asOWLAnnotationProperty() {
@@ -320,8 +320,15 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
         return false;
     }
 
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
+        return ontology.getReferencingAxioms(this);
+    }
+
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+        return ontology.getReferencingAxioms(this, includeImports);
+    }
 
     protected int compareObjectOfSameType(OWLObject object) {
-        return getIRI().compareTo(((OWLDataProperty) object).getIRI());
+        return iri.compareTo(((OWLDataProperty) object).getIRI());
     }
 }

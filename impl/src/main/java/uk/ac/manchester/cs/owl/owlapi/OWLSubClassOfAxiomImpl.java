@@ -62,14 +62,18 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
     }
 
     public OWLSubClassOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(getSubClass(), getSuperClass(), mergeAnnos(annotations));
+        return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass, mergeAnnos(annotations));
     }
 
     public OWLSubClassOfAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLSubClassOfAxiom(getSubClass(), getSuperClass());
+        return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass);
+    }
+
+    public boolean contains(OWLClassExpression ce) {
+        return subClass.equals(ce) || superClass.equals(ce);
     }
 
     public OWLClassExpression getSubClass() {

@@ -45,7 +45,6 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
      */
     Set<OWLClassExpression> getSuperClasses(OWLOntology ontology);
 
-
     /**
      * A convenience method that examines the axioms in the specified ontologies
      * and returns the class expression corresponding to the asserted super classes
@@ -138,17 +137,21 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
     Set<OWLIndividual> getIndividuals(Set<OWLOntology> ontologies);
 
     /**
-     * Determines if this class has at least one equivalent class in the specified
-     * ontology.
+     * Determines if this class is a top level class in an {@link org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom}
+     * in the specified ontology.
      * @param ontology The ontology to examine for axioms.
+     * @return <code>true</code> if <code>ontology</code> contains an <code>EquivalentClassesAxiom</code> where this
+     * class is a top level class in the axiom, other wise <code>false</code>.
      */
     boolean isDefined(OWLOntology ontology);
 
 
     /**
-     * Determines if this class has at least one equvialent class specified
-     * by an equvialent classes axiom in one of the ontologies.
-     * @param ontologies The ontologies to be examined for equivalent classes axioms
+     * Determines if this class is a top level class in an {@link org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom}
+     * in at least one of the specified ontologies.
+     * @param ontologies The ontologies to examine for axioms.
+     * @return <code>true</code> if one or more of <code>ontologies</code> contains an <code>EquivalentClassesAxiom</code> where this
+     * class is a top level class in the axiom, other wise <code>false</code>.
      */
     boolean isDefined(Set<OWLOntology> ontologies);
     

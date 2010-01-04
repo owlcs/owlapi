@@ -268,4 +268,13 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     public boolean isOWLBottomDataProperty() {
         return false;
     }
+
+
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
+        return ontology.getReferencingAxioms(this);
+    }
+
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+        return ontology.getReferencingAxioms(this, includeImports);
+    }
 }

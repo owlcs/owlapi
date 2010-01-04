@@ -41,6 +41,10 @@ import java.io.StringReader;
  */
 public class ReaderInputSource implements OWLOntologyInputSource {
 
+    private static int counter = 0;
+
+    public static final String DOCUMENT_IRI_SCHEME = "reader";
+
     private IRI documentIRI;
 
     private String buffer;
@@ -52,7 +56,12 @@ public class ReaderInputSource implements OWLOntologyInputSource {
      * @param reader The reader that will be used to read an ontology.
      */
     public ReaderInputSource(Reader reader) {
-        this(reader, IRI.create("http://org.semanticweb.ontologies/Ontology" + System.nanoTime()));
+        this(reader, getNextDocumentIRI());
+    }
+
+    public static synchronized IRI getNextDocumentIRI() {
+        counter = counter + 1;
+        return IRI.create(DOCUMENT_IRI_SCHEME + ":ontology" + counter);
     }
 
 

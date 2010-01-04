@@ -264,7 +264,24 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         return visitor.visit(this);
     }
 
+    public void accept(OWLDataRangeVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
     protected int compareObjectOfSameType(OWLObject object) {
-        return getIRI().compareTo(((OWLDatatype) object).getIRI());
+        return iri.compareTo(((OWLDatatype) object).getIRI());
+    }
+
+
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
+        return ontology.getReferencingAxioms(this);
+    }
+
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+        return ontology.getReferencingAxioms(this, includeImports);
     }
 }

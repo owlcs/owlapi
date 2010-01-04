@@ -143,7 +143,7 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
         return result;
     }
 
-
+    
     protected abstract Set<? extends OWLPropertyDomainAxiom> getDomainAxioms(OWLOntology ontology);
 
     protected abstract Set<? extends OWLPropertyRangeAxiom<P, R>> getRangeAxioms(OWLOntology ontology);

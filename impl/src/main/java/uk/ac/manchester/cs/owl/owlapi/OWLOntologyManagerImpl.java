@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.*;
 import java.util.logging.Logger;
 /*
@@ -742,6 +743,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         }
     }
 
+    public void saveOntology(OWLOntology ontology, OutputStream outputStream) throws OWLOntologyStorageException {
+        saveOntology(ontology, new StreamOutputTarget(outputStream));
+    }
+
+    public void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, OutputStream outputStream) throws OWLOntologyStorageException {
+        saveOntology(ontology, ontologyFormat, new StreamOutputTarget(outputStream));
+    }
 
     public void saveOntology(OWLOntology ontology, OWLOntologyOutputTarget outputTarget) throws OWLOntologyStorageException, UnknownOWLOntologyException {
         saveOntology(ontology, getOntologyFormat(ontology), outputTarget);

@@ -43,6 +43,15 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom {
 
 
     /**
+     * Determines if this class axiom contains the specified class expression as an operand
+     * @param ce The class expression to test for
+     * @return <code>true</code> if this axiom contains the specified class expression as an operand,
+     * otherwise <code>false</code>.
+     */
+    boolean contains(OWLClassExpression ce);
+
+
+    /**
      * Gets the set of class expressions that appear in this axiom minus the specfied
      * class expressions.
      * @param desc The class expressions to subtract from the class expressions in this axiom

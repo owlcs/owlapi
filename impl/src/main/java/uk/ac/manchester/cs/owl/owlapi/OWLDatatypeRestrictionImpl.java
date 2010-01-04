@@ -115,6 +115,13 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
         return visitor.visit(this);
     }
 
+    public void accept(OWLDataRangeVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 
     protected int compareObjectOfSameType(OWLObject object) {
         OWLDatatypeRestriction other = (OWLDatatypeRestriction) object;

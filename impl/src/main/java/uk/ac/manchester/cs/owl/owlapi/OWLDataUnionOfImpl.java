@@ -70,4 +70,12 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
     public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    public void accept(OWLDataRangeVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

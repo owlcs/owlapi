@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.model;
 
+import java.util.Collection;
 import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -139,4 +140,35 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
 
 
     <O> O accept(OWLClassExpressionVisitorEx<O> visitor);
+
+
+    /**
+     * Adds a super class to this class by adding an {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}
+     * with this class as the subclass and the specified class as the super class to the specified ontology.
+     * In essence a subclass axiom of the form
+     * <code>SubClassOf(this, classExpression)</code> will be added to <code>ontology</code>.
+     * @param ontology The ontology that the subclass axiom will be added to.
+     * @param classExpression The class expression to be added
+     */
+    void addSubClassOf(OWLOntology ontology, OWLClassExpression classExpression);
+
+    void addSubClassOf(OWLOntology ontology, OWLClassExpression classExpression, OWLOntologyChangeBuilder changeBuilder);
+
+    void addSubClassOf(OWLOntology ontology, OWLClassExpression classExpression, Set<? extends OWLAnnotation> annotations, OWLOntologyChangeBuilder changeBuilder);
+
+    void removeSubClassOf(OWLOntology ontology, boolean fromImportsClosure, OWLClassExpression classExpression);
+
+    void removeSubClassOf(OWLOntology ontology, boolean fromImportsClosure, OWLClassExpression classExpression, OWLOntologyChangeBuilder changeBuilder);
+
+    void addEquivalentClasses(OWLOntology ontology, OWLClassExpression classExpression);
+
+    void addEquivalentClasses(OWLOntology ontology, OWLClassExpression classExpression, OWLOntologyChangeBuilder changeBuilder);
+
+    void removeEquivalentClasses(OWLOntology ontology, boolean fromImportsClosure, OWLClassExpression classExpression, OWLOntologyChangeBuilder changeBuilder);
+
+    void addDisjointClasses(OWLOntology ontology, OWLClassExpression classExpression, OWLOntologyChangeBuilder changeBuilder);
+
+    void addClassAssertion(OWLOntology ontology, OWLIndividual individual, OWLOntologyChangeBuilder changeBuilder);
+
+    void removeClassAssertion(OWLOntology ontology, boolean fromImportsClosure, OWLIndividual individual, OWLOntologyChangeBuilder changeBuilder);
 }

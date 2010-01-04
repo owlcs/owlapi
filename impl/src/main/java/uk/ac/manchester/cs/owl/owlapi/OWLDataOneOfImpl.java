@@ -98,6 +98,13 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
         return visitor.visit(this);
     }
 
+    public void accept(OWLDataRangeVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 
     protected int compareObjectOfSameType(OWLObject object) {
         return compareSets(values, ((OWLDataOneOf) object).getValues());

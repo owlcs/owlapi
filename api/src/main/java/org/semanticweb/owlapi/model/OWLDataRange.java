@@ -73,4 +73,8 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate
     void accept(OWLDataVisitor visitor);
 
     <O> O accept(OWLDataVisitorEx<O> visitor);
+
+    void accept(OWLDataRangeVisitor visitor);
+
+    <O> O accept(OWLDataRangeVisitorEx<O> visitor);
 }

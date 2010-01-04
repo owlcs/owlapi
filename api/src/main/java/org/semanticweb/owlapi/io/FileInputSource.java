@@ -54,7 +54,7 @@ public class FileInputSource implements OWLOntologyInputSource {
 
 
     public IRI getDocumentIRI() {
-        return IRI.create(file.toURI());
+        return IRI.create(file);
     }
 
 

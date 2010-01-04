@@ -5,6 +5,7 @@ import org.semanticweb.owlapi.io.OWLOntologyOutputTarget;
 
 import java.io.File;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Set;
@@ -563,6 +564,16 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     void saveOntology(OWLOntology ontology, IRI documentIRI) throws OWLOntologyStorageException;
 
+
+    /**
+     * Saves the specified ontology, to the specified output stream
+     * @param ontology The ontology to be saved.
+     * @param outputStream The output stream where the ontology will be saved to
+     * @throws OWLOntologyStorageException If there was a problem saving this ontology to the specified output stream
+     * @throws UnknownOWLOntologyException if this manager does not manage the specified ontology.
+     */
+    void saveOntology(OWLOntology ontology, OutputStream outputStream) throws OWLOntologyStorageException;
+
     /**
      * Saves the specified ontology in the specified ontology format to its physical URI.
      * @param ontology The ontology to be saved.
@@ -571,7 +582,6 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws UnknownOWLOntologyException if the specified ontology is not managed by this manager
      */
     void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat) throws OWLOntologyStorageException;
-
 
     /**
      * Saves the specified ontology to the specified document IRI in the specified ontology format.
@@ -582,6 +592,16 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws UnknownOWLOntologyException if the specified ontology is not managed by the manager.
      */
     void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, IRI documentIRI) throws OWLOntologyStorageException;
+
+    /**
+     * Saves the specified ontology to the specified output stream in the specified ontology format.
+     * @param ontology The ontology to be saved
+     * @param ontologyFormat The format in which to save the ontology
+     * @param outputStream The output stream where the ontology will be saved to.
+     * @throws OWLOntologyStorageException If the ontology could not be saved.
+     * @throws UnknownOWLOntologyException if the specified ontology is not managed by the manager.
+     */
+    void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, OutputStream outputStream) throws OWLOntologyStorageException;
 
 
     /**
