@@ -40,7 +40,6 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
         super(dataFactory, operands);
     }
 
-
     /**
      * Gets the class expression type for this class expression
      * @return The class expression type

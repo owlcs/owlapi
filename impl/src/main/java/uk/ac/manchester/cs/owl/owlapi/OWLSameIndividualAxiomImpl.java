@@ -2,6 +2,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -40,7 +43,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
     }
 
     public OWLSameIndividualAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLSameIndividualAxiom(getIndividuals());
@@ -50,18 +53,56 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         return getOWLDataFactory().getOWLSameIndividualAxiom(getIndividuals(), mergeAnnos(annotations));
     }
 
+    public Set<OWLSameIndividualAxiom> asPairwiseAxioms() {
+        List<OWLIndividual> inds = getIndividualsAsList();
+        Set<OWLSameIndividualAxiom> result = new HashSet<OWLSameIndividualAxiom>();
+        for(int i = 0; i < inds.size() - 1; i++) {
+            OWLIndividual indI = inds.get(i);
+            OWLIndividual indJ = inds.get(i + 1);
+            result.add(getOWLDataFactory().getOWLSameIndividualAxiom(indI, indJ));
+        }
+        return result;
+    }
+
     /**
      * Determines whether this axiom contains anonymous individuals.  Anonymous individuals are not allowed in
      * same individuals axioms.
+     *
      * @return <code>true</code> if this axioms contains anonymous individual axioms
      */
     public boolean containsAnonymousIndividuals() {
-        for(OWLIndividual ind : getIndividuals()) {
-            if(ind.isAnonymous()) {
+        for (OWLIndividual ind : getIndividuals()) {
+            if (ind.isAnonymous()) {
                 return true;
             }
         }
         return false;
+    }
+
+    public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
+        List<OWLClassExpression> nominalsList = new ArrayList<OWLClassExpression>();
+        for (OWLIndividual individual : getIndividuals()) {
+            nominalsList.add(getOWLDataFactory().getOWLObjectOneOf(individual));
+        }
+        Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
+        for (int i = 0; i < nominalsList.size() - 1; i++) {
+            OWLClassExpression ceI = nominalsList.get(i);
+            OWLClassExpression ceJ = nominalsList.get(i + 1);
+            result.add(getOWLDataFactory().getOWLSubClassOfAxiom(ceI, ceJ));
+            result.add(getOWLDataFactory().getOWLSubClassOfAxiom(ceJ, ceI));
+        }
+        return result;
+    }
+
+    public Set<OWLSameIndividualAxiom> asPairwiseSameIndividualAxioms() {
+        List<OWLIndividual> individuals = new ArrayList<OWLIndividual>(getIndividuals());
+        Set<OWLSameIndividualAxiom> result = new HashSet<OWLSameIndividualAxiom>();
+        for(int i = 0; i < individuals.size() - 1; i++) {
+            OWLIndividual indI = individuals.get(i);
+            OWLIndividual indJ = individuals.get(i + 1);
+            result.add(getOWLDataFactory().getOWLSameIndividualAxiom(indI, indJ));
+        }
+        return result;
     }
 
     public boolean equals(Object obj) {

@@ -143,17 +143,40 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
 
 
     /**
-     * Adds a super class to this class by adding an {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}
-     * with this class as the subclass and the specified class as the super class to the specified ontology.
-     * In essence a subclass axiom of the form
-     * <code>SubClassOf(this, classExpression)</code> will be added to <code>ontology</code>.
+     * Adds an {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} to <code>ontology</code> that specifies
+     * <code>SubClassOf(this, classExpression)</code>, where <code>this</code> refers to this class expression.  The
+     * {@link org.semanticweb.owlapi.model.AddAxiom} change that gets generated will be applied straight away.  To build
+     * up a list of changes that can be applied in one go, see the {@link org.semanticweb.owlapi.model.OWLClassExpression#addSubClassOf(OWLOntology, OWLClassExpression, OWLOntologyChangeBuilder)}
+     * method.
      * @param ontology The ontology that the subclass axiom will be added to.
-     * @param classExpression The class expression to be added
+     * @param classExpression The class expression that will be specified as the super class in the <code>SubClassOf</code>
+     * axiom.
      */
     void addSubClassOf(OWLOntology ontology, OWLClassExpression classExpression);
 
+    /**
+     * Adds an {@link org.semanticweb.owlapi.model.AddAxiom} change to the <code>changeBuilder</code> which specifies that
+     * an {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} should be added to <code>ontology</code> that specifies
+     * <code>SubClassOf(this, classExpression)</code>, where <code>this</code> refers to this class expression.
+     * @param ontology The ontology that the {@link org.semanticweb.owlapi.model.AddAxiom} change will apply to.
+     * @param classExpression The class expression that will be specified as the super class in the <code>SubClassOf</code>
+     * axiom that will be generated.
+     * @param changeBuilder An <code>OWLOntologyChangeBuilder</code> that the {@link org.semanticweb.owlapi.model.AddAxiom} change will be added to.
+     */
     void addSubClassOf(OWLOntology ontology, OWLClassExpression classExpression, OWLOntologyChangeBuilder changeBuilder);
 
+    /**
+     * Adds an {@link org.semanticweb.owlapi.model.AddAxiom} to the specified {@link org.semanticweb.owlapi.model.OWLOntologyChangeBuilder},
+     * which specifies that an {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} should be added to the specified
+     * <code>ontology</code>, that specifies <code>SubClassOf(this, classExpression)</code>, where <code>this</code>
+     * refers to this class expression.
+     * @param ontology The ontology that the {@link org.semanticweb.owlapi.model.AddAxiom} change will apply to.
+     * @param classExpression The class expression that will be specified as the super class in the <code>SubClassOf</code>
+     * axiom that will be generated.
+     * @param annotations A set of annotations that will annotate the generated {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}
+     * @param changeBuilder An <code>OWLOntologyChangeBuilder</code> that the {@link org.semanticweb.owlapi.model.AddAxiom}
+     * change will be added to.
+     */
     void addSubClassOf(OWLOntology ontology, OWLClassExpression classExpression, Set<? extends OWLAnnotation> annotations, OWLOntologyChangeBuilder changeBuilder);
 
     void removeSubClassOf(OWLOntology ontology, boolean fromImportsClosure, OWLClassExpression classExpression);

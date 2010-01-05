@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.model;
 
+import java.util.List;
 import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -33,5 +34,11 @@ import java.util.Set;
  */
 public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression {
 
-    public Set<OWLClassExpression> getOperands();
+    Set<OWLClassExpression> getOperands();
+
+    /**
+     * Gets the class expressions returned by {@link #getOperands()} as a list of class expressions.
+     * @return The class expressions as a list.
+     */
+    List<OWLClassExpression> getOperandsAsList();
 }

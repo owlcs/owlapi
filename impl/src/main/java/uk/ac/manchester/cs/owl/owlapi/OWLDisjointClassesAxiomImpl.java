@@ -5,7 +5,6 @@ import org.semanticweb.owlapi.model.*;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
-import java.util.ArrayList;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -54,10 +53,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
     }
 
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLDisjointClassesAxiom;
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLDisjointClassesAxiom;
     }
 
     public void accept(OWLAxiomVisitor visitor) {
@@ -81,13 +77,23 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         return AxiomType.DISJOINT_CLASSES;
     }
 
+    public Set<OWLDisjointClassesAxiom> asPairwiseAxioms() {
+        Set<OWLDisjointClassesAxiom> result = new HashSet<OWLDisjointClassesAxiom>();
+        List<OWLClassExpression> list = getClassExpressionsAsList();
+        for(int i = 0; i < list.size() - 1; i++) {
+            for(int j = i + 1; j < list.size(); j++) {
+                result.add(getOWLDataFactory().getOWLDisjointClassesAxiom(list.get(i), list.get(j)));
+            }
+        }
+        return result;
+    }
 
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
-        List<OWLClassExpression> list = new ArrayList<OWLClassExpression>(getClassExpressions());
+        List<OWLClassExpression> list = getClassExpressionsAsList();
         for(int i = 0; i < list.size() - 1; i++) {
             for(int j = i + 1; j < list.size(); j++) {
-                result.add(getOWLDataFactory().getOWLSubClassOfAxiom(list.get(i), getOWLDataFactory().getOWLObjectComplementOf(list.get(j))));
+                result.add(getOWLDataFactory().getOWLSubClassOfAxiom(list.get(i), list.get(j).getObjectComplementOf()));
             }
         }
         return result;

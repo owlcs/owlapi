@@ -2,7 +2,7 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -24,31 +24,20 @@ import java.util.Set;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <p/>
- * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Individual_Equality">SameIndividual</a> axiom in the OWL 2 Specification.
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 05-Jan-2010
+ * </p>
+ * Represents an axiom that contains two or more operands that could also be represented with multiple pairwise axioms
  */
-public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
-
-    OWLSameIndividualAxiom getAxiomWithoutAnnotations();
+public interface OWLNaryAxiom extends OWLAxiom {
 
     /**
-     * Determines whether this axiom contains anonymous individuals.  Anonymous individuals are not allowed in
-     * same individuals axioms.
-     * @return <code>true</code> if this axioms contains anonymous individual axioms
+     * Gets this axiom as a set of pairwise axioms.  Note that annotations on this axiom will not be copied to each axiom
+     * returned in the set of pairwise axioms.
+     * @return This axiom as a set of pairwise axioms.
      */
-    boolean containsAnonymousIndividuals();
-
-    /**
-     * Returns this axiom represented as set of {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}s.
-     * @return This axiom represented as a set of {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}s.
-     */
-    Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms();
-
-    Set<OWLSameIndividualAxiom> asPairwiseAxioms();
+    Set<? extends OWLNaryAxiom> asPairwiseAxioms();
 }

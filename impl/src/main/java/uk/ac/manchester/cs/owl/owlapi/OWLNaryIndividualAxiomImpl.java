@@ -2,10 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.*;
 
-import java.util.Collections;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.Collection;
+import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -51,6 +48,9 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
         return individuals;
     }
 
+    public List<OWLIndividual> getIndividualsAsList() {
+        return new ArrayList<OWLIndividual>(individuals);
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

@@ -2,7 +2,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.*;
 
+import java.util.Collections;
 import java.util.Set;
+import java.util.TreeSet;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -33,15 +35,21 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLDisjointUnionAxiomImpl extends OWLNaryClassAxiomImpl implements OWLDisjointUnionAxiom {
+public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLDisjointUnionAxiom {
 
     private OWLClass owlClass;
 
+    private Set<OWLClassExpression> classExpressions;
 
     public OWLDisjointUnionAxiomImpl(OWLDataFactory dataFactory, OWLClass owlClass,
                                 Set<? extends OWLClassExpression> classExpressions, Set<? extends OWLAnnotation> annotations) {
-        super(dataFactory, classExpressions, annotations);
+        super(dataFactory, annotations);
         this.owlClass = owlClass;
+        this.classExpressions = Collections.unmodifiableSortedSet(new TreeSet<OWLClassExpression>(classExpressions));
+    }
+
+    public Set<OWLClassExpression> getClassExpressions() {
+        return classExpressions;
     }
 
     public OWLDisjointUnionAxiom getAxiomWithoutAnnotations() {
@@ -93,6 +101,13 @@ public class OWLDisjointUnionAxiomImpl extends OWLNaryClassAxiomImpl implements 
         return AxiomType.DISJOINT_UNION;
     }
 
+    public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
+        return getOWLDataFactory().getOWLEquivalentClassesAxiom(owlClass, getOWLDataFactory().getOWLObjectUnionOf(getClassExpressions()));
+    }
+
+    public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom() {
+        return getOWLDataFactory().getOWLDisjointClassesAxiom(getClassExpressions());
+    }
 
     protected int compareObjectOfSameType(OWLObject object) {
         OWLDisjointUnionAxiom other = (OWLDisjointUnionAxiom) object;
@@ -100,6 +115,6 @@ public class OWLDisjointUnionAxiomImpl extends OWLNaryClassAxiomImpl implements 
         if (diff != 0) {
             return diff;
         }
-        return super.compareObjectOfSameType(object);
+        return compareSets(classExpressions, other.getClassExpressions());
     }
 }

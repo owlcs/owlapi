@@ -5,9 +5,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 
-import java.util.Collections;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -48,6 +46,9 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
         this.operands = Collections.unmodifiableSet(new TreeSet<OWLClassExpression>(operands));
     }
 
+    public List<OWLClassExpression> getOperandsAsList() {
+        return new ArrayList<OWLClassExpression>(operands);
+    }
 
     public Set<OWLClassExpression> getOperands() {
         return operands;

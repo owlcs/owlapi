@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.model;
 
+import java.util.List;
 import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -31,7 +32,7 @@ import java.util.Set;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLNaryClassAxiom extends OWLClassAxiom {
+public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom {
 
     /**
      * Gets all of the top level class expressions that appear in this
@@ -40,6 +41,13 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom {
      * axiom.
      */
     public Set<OWLClassExpression> getClassExpressions();
+
+    /**
+     * A convenience method that obtains the class expression returned by the {@link #getClassExpressions()} method
+     * as a list of class expressions.
+     * @return A list of the class expressions in this axiom.
+     */
+    public List<OWLClassExpression> getClassExpressionsAsList();
 
 
     /**

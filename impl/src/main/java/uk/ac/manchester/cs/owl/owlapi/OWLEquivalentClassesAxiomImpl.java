@@ -2,10 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.*;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Collection;
+import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -52,6 +49,18 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
 
     public OWLEquivalentClassesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLEquivalentClassesAxiom(getClassExpressions(), mergeAnnos(annotations));
+    }
+
+
+    public Set<OWLEquivalentClassesAxiom> asPairwiseAxioms() {
+        List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(getClassExpressions());
+        Set<OWLEquivalentClassesAxiom> result = new HashSet<OWLEquivalentClassesAxiom>();
+        for(int i = 0; i < classExpressions.size() - 1; i++) {
+            OWLClassExpression ceI = classExpressions.get(i);
+            OWLClassExpression ceJ = classExpressions.get(i + 1);
+            result.add(getOWLDataFactory().getOWLEquivalentClassesAxiom(ceI, ceJ));
+        }
+        return result;
     }
 
     public boolean containsNamedEquivalentClass() {

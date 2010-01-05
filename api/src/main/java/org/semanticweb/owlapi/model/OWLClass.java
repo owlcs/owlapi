@@ -117,7 +117,7 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
 
     /**
      * Gets the individuals that have been asserted to be an instance of this
-     * class by axioms in the speficied ontology.
+     * class by axioms in the specified ontology.
      * @param ontology The ontology to be examined for class assertion axioms that
      * assert an individual to be an instance of this class.
      * @return A <code>Set</code> of <code>OWLIndividual</code>s that represent

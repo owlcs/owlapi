@@ -1,4 +1,6 @@
 package org.semanticweb.owlapi.model;
+
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -42,4 +44,8 @@ public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
      * @return <code>true</code> if this axioms contains anonymous individual axioms
      */
     boolean containsAnonymousIndividuals();
+
+    Set<OWLDifferentIndividualsAxiom> asPairwiseAxioms();
+
+    Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms();
 }

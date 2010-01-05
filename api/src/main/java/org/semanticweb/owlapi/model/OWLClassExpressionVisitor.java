@@ -35,41 +35,41 @@ package org.semanticweb.owlapi.model;
  */
 public interface OWLClassExpressionVisitor {
 
-    void visit(OWLClass desc);
+    void visit(OWLClass ce);
 
-    void visit(OWLObjectIntersectionOf desc);
+    void visit(OWLObjectIntersectionOf ce);
 
-    void visit(OWLObjectUnionOf desc);
+    void visit(OWLObjectUnionOf ce);
 
-    void visit(OWLObjectComplementOf desc);
+    void visit(OWLObjectComplementOf ce);
 
-    void visit(OWLObjectSomeValuesFrom desc);
+    void visit(OWLObjectSomeValuesFrom ce);
 
-    void visit(OWLObjectAllValuesFrom desc);
+    void visit(OWLObjectAllValuesFrom ce);
 
-    void visit(OWLObjectHasValue desc);
+    void visit(OWLObjectHasValue ce);
 
-    void visit(OWLObjectMinCardinality desc);
+    void visit(OWLObjectMinCardinality ce);
 
-    void visit(OWLObjectExactCardinality desc);
+    void visit(OWLObjectExactCardinality ce);
 
-    void visit(OWLObjectMaxCardinality desc);
+    void visit(OWLObjectMaxCardinality ce);
 
-    void visit(OWLObjectHasSelf desc);
+    void visit(OWLObjectHasSelf ce);
 
-    void visit(OWLObjectOneOf desc);
+    void visit(OWLObjectOneOf ce);
 
-    void visit(OWLDataSomeValuesFrom desc);
+    void visit(OWLDataSomeValuesFrom ce);
 
-    void visit(OWLDataAllValuesFrom desc);
+    void visit(OWLDataAllValuesFrom ce);
 
-    void visit(OWLDataHasValue desc);
+    void visit(OWLDataHasValue ce);
 
-    void visit(OWLDataMinCardinality desc);
+    void visit(OWLDataMinCardinality ce);
 
-    void visit(OWLDataExactCardinality desc);
+    void visit(OWLDataExactCardinality ce);
 
-    void visit(OWLDataMaxCardinality desc);
+    void visit(OWLDataMaxCardinality ce);
 
 
 }

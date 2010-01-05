@@ -1,10 +1,9 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.reasoner.Node;
 
 import java.util.Set;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -32,30 +31,32 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 05-Dec-2009
+ * Date: 05-Jan-2010
  */
-public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
+public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
 
-    private static final OWLDatatype TOP_DATATYPE = OWLDataFactoryImpl.getInstance().getTopDatatype();
-
-    private static final OWLDatatypeNode topNode = new OWLDatatypeNode(TOP_DATATYPE);
-
-    public OWLDatatypeNode() {
+    public OWLDatatypeNodeSet() {
     }
 
-    public OWLDatatypeNode(OWLDatatype entity) {
+    public OWLDatatypeNodeSet(OWLDatatype entity) {
         super(entity);
     }
 
-    public OWLDatatypeNode(Set<OWLDatatype> entities) {
-        super(entities);
+    public OWLDatatypeNodeSet(Node<OWLDatatype> owlDatatypeNode) {
+        super(owlDatatypeNode);
     }
 
-    protected OWLDatatype getTopEntity() {
-        return TOP_DATATYPE;
+    public OWLDatatypeNodeSet(Set<Node<OWLDatatype>> nodes) {
+        super(nodes);
     }
 
-    protected OWLDatatype getBottomEntity() {
-        return null;
+    @Override
+    protected DefaultNode<OWLDatatype> getNode(OWLDatatype entity) {
+        return new OWLDatatypeNode(entity);
+    }
+
+    @Override
+    protected DefaultNode<OWLDatatype> getNode(Set<OWLDatatype> entities) {
+        return new OWLDatatypeNode(entities);
     }
 }

@@ -1,10 +1,4 @@
-package org.semanticweb.owlapi.reasoner.impl;
-
-import org.semanticweb.owlapi.model.OWLDatatype;
-
-import java.util.Set;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+package org.semanticweb.owlapi.reasoner;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -32,30 +26,33 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 05-Dec-2009
+ * Date: 05-Jan-2010
  */
-public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
+public class ConsoleProgressMonitor implements ReasonerProgressMonitor {
 
-    private static final OWLDatatype TOP_DATATYPE = OWLDataFactoryImpl.getInstance().getTopDatatype();
+    private int lastPercentage = 0;
 
-    private static final OWLDatatypeNode topNode = new OWLDatatypeNode(TOP_DATATYPE);
-
-    public OWLDatatypeNode() {
+    public void reasonerTaskStarted(String taskName) {
+        System.out.print(taskName);
+        System.out.println(" ...");
     }
 
-    public OWLDatatypeNode(OWLDatatype entity) {
-        super(entity);
+    public void reasonerTaskStopped() {
+        System.out.println("    ... finished");
+        lastPercentage = 0;
     }
 
-    public OWLDatatypeNode(Set<OWLDatatype> entities) {
-        super(entities);
+    public void reasonerTaskProgressChanged(int value, int max) {
+        int percent = (value * 100) / max;
+        if (lastPercentage != percent) {
+            System.out.print("    ");
+            System.out.print(percent);
+            System.out.println("%");
+            lastPercentage = percent;
+        }
     }
 
-    protected OWLDatatype getTopEntity() {
-        return TOP_DATATYPE;
-    }
-
-    protected OWLDatatype getBottomEntity() {
-        return null;
+    public void reasonerTaskBusy() {
+        System.out.println("    busy ...");
     }
 }

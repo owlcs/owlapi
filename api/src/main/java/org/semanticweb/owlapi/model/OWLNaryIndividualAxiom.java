@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.model;
 
+import java.util.List;
 import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -31,7 +32,14 @@ import java.util.Set;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom {
+public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom, OWLNaryAxiom {
 
-    public Set<OWLIndividual> getIndividuals();
+    Set<OWLIndividual> getIndividuals();
+
+    /**
+     * Gets the individuals returned by {@link #getIndividuals()} as a list.
+     * @return The individuals in this axiom as a list
+     */
+    List<OWLIndividual> getIndividualsAsList();
+
 }

@@ -2,6 +2,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -50,6 +53,19 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
         return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getIndividuals(), mergeAnnos(annotations));
     }
 
+    public Set<OWLDifferentIndividualsAxiom> asPairwiseAxioms() {
+        List<OWLIndividual> individuals = getIndividualsAsList();
+        Set<OWLDifferentIndividualsAxiom> result = new HashSet<OWLDifferentIndividualsAxiom>();
+        for(int i = 0; i < individuals.size() - 1; i++) {
+            for(int j = i + 1; j < individuals.size(); j++) {
+                OWLIndividual indI = individuals.get(i);
+                OWLIndividual indJ = individuals.get(j);
+                result.add(getOWLDataFactory().getOWLDifferentIndividualsAxiom(indI, indJ));
+            }
+        }
+        return result;
+    }
+
     /**
      * Determines whether this axiom contains anonymous individuals.  Anonymous individuals are not allowed in
      * different individuals axioms.
@@ -65,10 +81,23 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
     }
 
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLDifferentIndividualsAxiom;
+        return super.equals(obj) && obj instanceof OWLDifferentIndividualsAxiom;
+    }
+
+    public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
+        List<OWLClassExpression> nominalsList = new ArrayList<OWLClassExpression>();
+        for(OWLIndividual individual : getIndividuals()) {
+            nominalsList.add(getOWLDataFactory().getOWLObjectOneOf(individual));
         }
-        return false;
+        Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
+        for(int i = 0; i < nominalsList.size() - 1; i++) {
+            for(int j = i + 1; j < nominalsList.size(); j++) {
+                OWLClassExpression ceI = nominalsList.get(i);
+                OWLClassExpression ceJ = nominalsList.get(j).getObjectComplementOf();
+                result.add(getOWLDataFactory().getOWLSubClassOfAxiom(ceI, ceJ));
+            }
+        }
+        return result;
     }
 
     public void accept(OWLAxiomVisitor visitor) {
