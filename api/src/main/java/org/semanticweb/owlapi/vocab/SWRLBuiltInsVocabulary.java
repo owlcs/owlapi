@@ -36,7 +36,7 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
     CEILING("ceiling", 2),
     FLOOR("floor", 2),
     ROUND("round", 2),
-    ROUND_HALF_TO_EVEN("roundHalfToEven", 1, 2),
+    ROUND_HALF_TO_EVEN("roundHalfToEven", 2, 3),
     SIN("sin", 2),
     COS("cos", 2),
     TAN("tan", 2),
