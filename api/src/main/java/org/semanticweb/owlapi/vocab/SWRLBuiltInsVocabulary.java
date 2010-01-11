@@ -42,7 +42,7 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
     TAN("tan", 2),
     BOOLEAN_NOT("booleanNot", 2),
     STRING_EQUALS_IGNORE_CASE("stringEqualIgnoreCase", 2),
-    STRING_CONCAT("stringConcat", 2),
+    STRING_CONCAT("stringConcat", -1),
     SUBSTRING("substring", 3),
     STRING_LENGTH("stringLength", 2),
     NORMALIZE_SPACE("normalizeSpace", 2),
