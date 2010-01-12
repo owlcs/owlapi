@@ -99,7 +99,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         return namedClasses;
     }
 
-    public Set<OWLSubClassOfAxiom> asSubClassAxioms() {
+    public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
         for (OWLClassExpression descA : getClassExpressions()) {
             for (OWLClassExpression descB : getClassExpressions()) {

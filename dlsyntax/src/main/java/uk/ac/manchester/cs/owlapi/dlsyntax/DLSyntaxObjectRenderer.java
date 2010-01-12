@@ -555,7 +555,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
-    private void writeValueRestriction(OWLValueRestriction restriction) {
+    private void writeValueRestriction(OWLHasValueRestriction restriction) {
         write(EXISTS);
         writeSpace();
         restriction.getProperty().accept(this);

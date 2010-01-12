@@ -31,9 +31,7 @@ package org.semanticweb.owlapi.model;
  * <p/>
  * Represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Reflexive_Object_Properties">ReflexiveObjectProperty</a> axioms in the OWL 2 specification.
  */
-public interface OWLReflexiveObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
-
-    OWLSubClassOfAxiom asOWLSubClassOfAxiom();
+public interface OWLReflexiveObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
 
     OWLReflexiveObjectPropertyAxiom getAxiomWithoutAnnotations();
 }

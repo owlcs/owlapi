@@ -126,7 +126,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    private void writeRestriction(OWLValueRestriction restriction) {
+    private void writeRestriction(OWLHasValueRestriction restriction) {
         restriction.getProperty().accept(this);
         write(VALUE);
         restriction.getValue().accept(this);

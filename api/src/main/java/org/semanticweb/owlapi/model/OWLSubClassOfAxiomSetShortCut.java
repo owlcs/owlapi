@@ -1,6 +1,8 @@
 package org.semanticweb.owlapi.model;
+
+import java.util.Set;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -22,20 +24,15 @@ package org.semanticweb.owlapi.model;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <p/>
- * Represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Object_Property_Range">ObjectPropertyRange</a> axioms in the OWL 2 specification.
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 12-Jan-2010
+ * </p>
+ * A marker interface for an axiom that can be represented by a set of SubClassOf axioms that is equivalent to this axiom.
  */
-public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression, R extends OWLPropertyRange> extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut {
+public interface OWLSubClassOfAxiomSetShortCut {
 
-    /**
-     * Gets the range specified by this axiom
-     * @return The range specified by this axiom.
-     */
-    public R getRange();
+    Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms();
 }

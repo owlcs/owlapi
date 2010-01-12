@@ -31,9 +31,7 @@ package org.semanticweb.owlapi.model;
  * <p/>
  * Represents a <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Negative_Object_Property_Assertions">NegativeObjectPropertyAssertion</a> axiom in the OWL 2 Specification.
  */
-public interface OWLNegativeObjectPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual> {
-
-    OWLSubClassOfAxiom asOWLSubClassOfAxiom();
+public interface OWLNegativeObjectPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>, OWLSubClassOfAxiomShortCut {
 
     OWLNegativeObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
 

@@ -70,15 +70,6 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
      */
     boolean containsOWLThing();
 
-    /**
-     * Gets an equivalent representation of this axiom as subclass axioms.  EquivalentClasses(A B) is equivalent to
-     * SubClassOf(A B) and SubClassOf(B A).
-     *
-     * @return A set of subclass axioms that when taken together are equivalent to this
-     *         equivalent classes axiom.
-     */
-    Set<OWLSubClassOfAxiom> asSubClassAxioms();
-
     Set<OWLEquivalentClassesAxiom> asPairwiseAxioms();
 
     OWLEquivalentClassesAxiom getAxiomWithoutAnnotations();

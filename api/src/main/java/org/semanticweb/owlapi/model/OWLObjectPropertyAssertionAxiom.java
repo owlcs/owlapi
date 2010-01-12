@@ -31,7 +31,7 @@ package org.semanticweb.owlapi.model;
  * <p/>
  * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Positive_Object_Property_Assertions">ObjectPropertyAssertion</a> axiom in the OWL 2 Specification.
  */
-public interface OWLObjectPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual> {
+public interface OWLObjectPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>, OWLSubClassOfAxiomShortCut {
 
     OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
@@ -52,6 +52,4 @@ public interface OWLObjectPropertyAssertionAxiom extends OWLPropertyAssertionAxi
      * @return <code>true</code> if this axiom is in a simplified form, otherwise <code>false</code>
      */
     boolean isInSimplifiedForm();
-
-    OWLSubClassOfAxiom asOWLSubClassOfAxiom();
 }

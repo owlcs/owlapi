@@ -46,6 +46,4 @@ public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
     boolean containsAnonymousIndividuals();
 
     Set<OWLDifferentIndividualsAxiom> asPairwiseAxioms();
-
-    Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms();
 }

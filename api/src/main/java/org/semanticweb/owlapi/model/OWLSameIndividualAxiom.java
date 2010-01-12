@@ -48,7 +48,5 @@ public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
      * Returns this axiom represented as set of {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}s.
      * @return This axiom represented as a set of {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}s.
      */
-    Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms();
-
     Set<OWLSameIndividualAxiom> asPairwiseAxioms();
 }

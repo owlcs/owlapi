@@ -32,7 +32,7 @@ package org.semanticweb.owlapi.model;
  * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Assertions">Assertion</a> in the OWL 2
  * specification.
  */
-public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject> extends OWLIndividualAxiom {
+public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject> extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut {
 
     /**
      * Gets the individual that is the subject of this assertion.

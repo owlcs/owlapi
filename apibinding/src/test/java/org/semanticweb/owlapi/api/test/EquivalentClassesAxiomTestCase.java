@@ -89,7 +89,7 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
         clses.add(clsB);
         clses.add(clsC);
         OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(clses);
-        Set<OWLSubClassOfAxiom> scas = ax.asSubClassAxioms();
+        Set<OWLSubClassOfAxiom> scas = ax.asOWLSubClassOfAxioms();
         assertEquals(scas.size(), 6);
         assertTrue(scas.contains(getFactory().getOWLSubClassOfAxiom(clsA, clsB)));
         assertTrue(scas.contains(getFactory().getOWLSubClassOfAxiom(clsB, clsA)));

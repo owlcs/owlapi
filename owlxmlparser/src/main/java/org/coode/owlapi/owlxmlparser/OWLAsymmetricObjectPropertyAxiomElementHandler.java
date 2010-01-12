@@ -1,4 +1,6 @@
-package org.semanticweb.owlapi.model;
+package org.coode.owlapi.owlxmlparser;
+
+import org.semanticweb.owlapi.model.OWLAxiom;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -26,16 +28,17 @@ package org.semanticweb.owlapi.model;
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <p/>
- * Represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Object_Property_Range">ObjectPropertyRange</a> axioms in the OWL 2 specification.
+ * Bio-Health Informatics Group<br>
+ * Date: 14-Dec-2006<br><br>
  */
-public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression, R extends OWLPropertyRange> extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut {
+public class OWLAsymmetricObjectPropertyAxiomElementHandler extends AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
 
-    /**
-     * Gets the range specified by this axiom
-     * @return The range specified by this axiom.
-     */
-    public R getRange();
+    public OWLAsymmetricObjectPropertyAxiomElementHandler(OWLXMLParserHandler handler) {
+        super(handler);
+    }
+
+
+    protected OWLAxiom createPropertyCharacteristicAxiom() {
+        return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(getProperty());
+    }
 }

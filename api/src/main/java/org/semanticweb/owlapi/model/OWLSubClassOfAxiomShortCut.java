@@ -1,8 +1,6 @@
-package org.coode.owlapi.owlxmlparser;
-
-import org.semanticweb.owlapi.model.OWLAxiom;
+package org.semanticweb.owlapi.model;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -24,21 +22,21 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 12-Jan-2010
+ * </p>
+ * A marker interface for axioms that are essentially syntactic shortcuts for SubClassOf axioms.
  */
-public class OWLAntisymmetricObjectPropertyAxiomElementHandler extends AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
+public interface OWLSubClassOfAxiomShortCut {
 
-    public OWLAntisymmetricObjectPropertyAxiomElementHandler(OWLXMLParserHandler handler) {
-        super(handler);
-    }
+    /**
+     * Gets this axiom as an {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}.
+     * @return An {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} that is equivalent to this axiom. Note that
+     * annotations are not copied to the returned {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} axiom.
+     */
+    OWLSubClassOfAxiom asOWLSubClassOfAxiom();
 
-
-    protected OWLAxiom createPropertyCharacteristicAxiom() {
-        return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(getProperty());
-    }
 }

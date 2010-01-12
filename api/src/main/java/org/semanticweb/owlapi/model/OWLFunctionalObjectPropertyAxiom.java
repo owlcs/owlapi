@@ -31,13 +31,7 @@ package org.semanticweb.owlapi.model;
  * </p>
  * Represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Functional_Object_Properties">FunctionalObjectProperty</a> axioms in the OWL 2 specification.
  */
-public interface OWLFunctionalObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
-
-    /**
-     * Obtains this axiom as a SubClassOf axiom.  That is, an equivalent axiom that is a GCI.
-     * @return This axiom as SubClassOf(owl:Thing, ObjectMaxCardinality(1 R)) where R is the functional property
-     */
-    OWLSubClassOfAxiom asOWLSubClassOfAxiom();
+public interface OWLFunctionalObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
 
     OWLFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations();
 }

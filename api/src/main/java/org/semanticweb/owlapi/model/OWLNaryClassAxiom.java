@@ -32,7 +32,7 @@ import java.util.Set;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom {
+public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom, OWLSubClassOfAxiomSetShortCut {
 
     /**
      * Gets all of the top level class expressions that appear in this
