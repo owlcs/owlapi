@@ -58,6 +58,21 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
         return annotations;
     }
 
+    public Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
+        if(annotations.isEmpty()) {
+            return annotations;
+        }
+        else {
+            Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
+            for(OWLAnnotation anno : annotations) {
+                if(anno.getProperty().equals(annotationProperty)) {
+                    result.add(anno);
+                }
+            }
+            return result;
+        }
+    }
+
     /**
      * Determines if another axiom is equal to this axiom not taking into consideration the annotations on the axiom
      *

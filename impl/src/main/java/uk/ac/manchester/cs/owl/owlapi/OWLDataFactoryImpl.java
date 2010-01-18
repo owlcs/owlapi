@@ -129,6 +129,38 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return getOWLAnnotationProperty(prefixManager.getIRI(abbreviatedIRI));
     }
 
+    public OWLAnnotationProperty getRDFSLabel() {
+        return getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI());
+    }
+
+    public OWLAnnotationProperty getRDFSComment() {
+        return getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_COMMENT.getIRI());
+    }
+
+    public OWLAnnotationProperty getRDFSSeeAlso() {
+        return getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_SEE_ALSO.getIRI());
+    }
+
+    public OWLAnnotationProperty getRDFSIsDefinedBy() {
+        return getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_IS_DEFINED_BY.getIRI());
+    }
+
+    public OWLAnnotationProperty getOWLVersionInfo() {
+        return getOWLAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO.getIRI());
+    }
+
+    public OWLAnnotationProperty getOWLBackwardCompatibleWith() {
+        return getOWLAnnotationProperty(OWLRDFVocabulary.OWL_BACKWARD_COMPATIBLE_WITH.getIRI());
+    }
+
+    public OWLAnnotationProperty getOWLIncompatibleWith() {
+        return getOWLAnnotationProperty(OWLRDFVocabulary.OWL_INCOMPATIBLE_WITH.getIRI());
+    }
+
+    public OWLAnnotationProperty getOWLDeprecated() {
+        return getOWLAnnotationProperty(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
+    }
+
     public OWLDatatype getOWLDatatype(String abbreviatedIRI, PrefixManager prefixManager) {
         return getOWLDatatype(prefixManager.getIRI(abbreviatedIRI));
     }
@@ -1088,7 +1120,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @return The annotation assertion that deprecates the specified IRI.
      */
     public OWLAnnotationAssertionAxiom getDeprecatedOWLAnnotationAssertionAxiom(IRI subject) {
-        return getOWLAnnotationAssertionAxiom(getOWLAnnotationProperty(OWLRDFVocabulary.OWL_DEPRECATED.getIRI()), subject, getOWLTypedLiteral(true));
+        return getOWLAnnotationAssertionAxiom(getOWLDeprecated(), subject, getOWLTypedLiteral(true));
     }
 
     public OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop, IRI domain, Set<? extends OWLAnnotation> annotations) {

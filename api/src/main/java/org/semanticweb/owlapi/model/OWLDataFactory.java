@@ -271,7 +271,53 @@ public interface OWLDataFactory extends SWRLDataFactory {
      */
     OWLAnnotationProperty getOWLAnnotationProperty(String abbreviatedIRI, PrefixManager prefixManager);
 
+    /**
+     * Gets an annotation property that has an IRI corresponding to <code>rdfs:label</code>.
+     * @return An annotation property with an IRI of <code>rdfs:label</code>.
+     */
+    OWLAnnotationProperty getRDFSLabel();
 
+    /**
+     * Gets an annotation property that has an IRI corresponding to <code>rdfs:comment</code>.
+     * @return An annotation property with an IRI of <code>rdfs:comment</code>.
+     */
+    OWLAnnotationProperty getRDFSComment();
+
+    /**
+     * Gets an annotation property that has an IRI corresponding to <code>rdfs:seeAlso</code>.
+     * @return An annotation property with an IRI of <code>rdfs:seeAlso</code>.
+     */
+    OWLAnnotationProperty getRDFSSeeAlso();
+
+    /**
+     * Gets an annotation property that has an IRI corresponding to <code>rdfs:isDefinedBy</code>.
+     * @return An annotation property with an IRI of <code>rdfs:isDefinedBy</code>.
+     */
+    OWLAnnotationProperty getRDFSIsDefinedBy();
+
+    /**
+     * Gets an annotation property that has an IRI corresponding to <code>owl:versionInfo</code>.
+     * @return An annotation property with an IRI of <code>owl:versionInfo</code>.
+     */
+    OWLAnnotationProperty getOWLVersionInfo();
+
+    /**
+     * Gets an annotation property that has an IRI corresponding to <code>owl:backwardCompatibleWith</code>.
+     * @return An annotation property with an IRI of <code>owl:backwardCompatibleWith</code>.
+     */
+    OWLAnnotationProperty getOWLBackwardCompatibleWith();
+
+    /**
+     * Gets an annotation property that has an IRI corresponding to <code>owl:incompatibleWith</code>.
+     * @return An annotation property with an IRI of <code>owl:incompatibleWith</code>.
+     */
+    OWLAnnotationProperty getOWLIncompatibleWith();
+
+    /**
+     * Gets an annotation property that has an IRI corresponding to <code>owl:backwardCompatibleWith</code>.
+     * @return An annotation property with an IRI of <code>owl:backwardCompatibleWith</code>.
+     */
+    OWLAnnotationProperty getOWLDeprecated();
 
     /**
      * Gets an OWLDatatype that has the specified IRI

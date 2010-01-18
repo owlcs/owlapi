@@ -49,6 +49,15 @@ public interface OWLAxiom extends OWLObject {
     Set<OWLAnnotation> getAnnotations();
 
     /**
+     * Gets the annotations that annotate this axiom and whose annotation property is equal to <code>annotationProperty</code>.
+     * @param annotationProperty The annotation property that will be equal to the annotation property of each returned
+     * annotation.
+     * @return A set of annotations that annotate this axiom, each of whose annotation properties is equals to
+     * <code>annotationProperty</code>.
+     */
+    Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty);
+
+    /**
      * Gets an axiom that is structurally equivalent to this axiom without annotations.  This essentially
      * returns a version of this axiom stripped of any annotations
      * @return The annotationless version of this axiom
