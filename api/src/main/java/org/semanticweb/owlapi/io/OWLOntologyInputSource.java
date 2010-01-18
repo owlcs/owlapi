@@ -38,10 +38,10 @@ import java.net.URI;
  * An input source may provide three forms
  * of obtaining a concrete representation of an ontology 1) From a
  * <code>Reader</code>, 2) From and <code>InputStream</code> 3) From
- * a physical URI.  Consumers which use an input source will attempt
+ * a ontology document IRI.  Consumers which use an input source will attempt
  * to obtain a concrete representation of an ontology in the above
  * order.
- *
+ * </p>
  * While an ontology input source may appear similar to a SAX input
  * source, an important difference is that the getReader and getInputStream
  * methods return new instances each time the method is called.  This allows

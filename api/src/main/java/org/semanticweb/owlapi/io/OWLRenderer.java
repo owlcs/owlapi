@@ -42,10 +42,9 @@ public interface OWLRenderer {
 
     /**
      * Renders the specified ontology to a concrete representation which should
-     * be written to a document located at the specified physical URI.
+     * be written to the specified output stream
      * @param ontology The ontology
      * @param os The OutputStream
-     * @throws OWLException
      */
     void render(OWLOntology ontology, OutputStream os) throws OWLException;
 }

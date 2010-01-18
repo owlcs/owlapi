@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.io.OWLOntologyInputSource;
  * Date: 25-Oct-2006
  * <p/>
  * An ontology factory is responsible from creating new ontologies and creating ontologies
- * from physical URIs.
+ * from ontology document IRIs.
  */
 public interface OWLOntologyFactory {
 
@@ -75,8 +75,7 @@ public interface OWLOntologyFactory {
 
 
     /**
-     * Determines if the factory can load an ontology for the specified physical
-     * URI.
+     * Determines if the factory can load an ontology for the specified input souce
      *
      * @param inputSource The input source from which to load the ontology
      * @return <code>true</code> if the factory can load from the specified input source.

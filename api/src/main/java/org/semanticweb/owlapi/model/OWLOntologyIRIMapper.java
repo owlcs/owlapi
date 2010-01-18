@@ -32,8 +32,8 @@ import java.net.URI;
  * Date: 25-Oct-2006
  *
  * The interface to an object that is capable of mapping
- * onology URIs (sometimes referred to a logical URIs) to
- * physical URIs.
+ * ontology IRIs to
+ * document IRIs.
  */
 public interface OWLOntologyIRIMapper {
 

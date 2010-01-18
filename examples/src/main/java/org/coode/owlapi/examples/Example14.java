@@ -5,8 +5,6 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasonerfactory.pellet.PelletReasonerFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
-
-import java.net.URI;
 /*
  * Copyright (C) 2008, University of Manchester
  *
@@ -51,7 +49,7 @@ public class Example14 {
             // Create a reasoner.  We will use Pellet in this case.  Make sure that the latest
             // version of the Pellet libraries are on the runtime class path
             OWLReasonerFactory reasonerFactory = new PelletReasonerFactory();
-            OWLReasoner reasoner = reasonerFactory.createReasoner(ont);
+            OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ont);
             
 
             // Now we can query the reasoner, suppose we want to determine the properties that

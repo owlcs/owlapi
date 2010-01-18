@@ -1,4 +1,5 @@
-package org.semanticweb.owlapi;/*
+package org.semanticweb.owlapi;
+/*
 * Copyright (C) 2007, University of Manchester
 *
 * Modifications to the initial code base are copyright of their
@@ -22,7 +23,6 @@ package org.semanticweb.owlapi;/*
 */
 
 
-import org.semanticweb.owlapi.model.OWLCompositeOntologyChange;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /**

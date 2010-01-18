@@ -1,8 +1,6 @@
 package org.semanticweb.owlapi.model;
-
-import java.net.URI;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -24,20 +22,15 @@ import java.net.URI;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
- *
- * An exception which describes the situation where no ontology URI -> physical URI mapping
- * could be found.  This is a runtime exception since clients should really ensure that a
- * mapping exists before attempting to load an ontology.
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 17-Jan-2010
  */
-public class OWLOntologyURIMappingNotFoundException extends OWLRuntimeException {
+public interface OWLAnnotationSubjectVisitor {
 
-    public OWLOntologyURIMappingNotFoundException(URI ontologyURI) {
-        super("Could not find ontology URI to physical URI mapping for " + ontologyURI);
-    }
+    void visit(IRI iri);
+
+    void visit(OWLAnonymousIndividual individual);
 }

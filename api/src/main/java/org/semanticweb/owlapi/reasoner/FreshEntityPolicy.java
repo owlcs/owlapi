@@ -28,22 +28,22 @@ package org.semanticweb.owlapi.reasoner;
  * Information Management Group<br>
  * Date: 29-Nov-2009
  * </p>
- * An undeclared entity is an entity that is not a built in entity (see {@link org.semanticweb.owlapi.model.OWLEntity#isBuiltIn()}
+ * A fresh entity is an entity that is not a built in entity (see {@link org.semanticweb.owlapi.model.OWLEntity#isBuiltIn()}
  * and is not contained within the signature of the root ontology imports closure.
  * </p>
- * See also: {@link org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration}, {@link org.semanticweb.owlapi.reasoner.UndeclaredEntitiesException}
+ * See also: {@link org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration}, {@link FreshEntitiesException}
  */
-public enum UndeclaredEntityPolicy {
+public enum FreshEntityPolicy {
 
     /**
-     * Specifies that undeclared entities are allowed and should be treated as "fresh" entities when they are encountered
+     * Specifies that fresh entities are allowed when they are encountered
      * in the signature of OWLObjects in queries to a reasoner.
      */
     ALLOW,
 
     /**
-     * Specifies that undeclared entities are not disallowed.  When an undeclared entity is encountered in the signature of
-     * an OWLObject that is used in a query to a reasoner an {@link UndeclaredEntitiesException} will be thrown in the
+     * Specifies that fresh entities are not disallowed.  When a fresh entity is encountered in the signature of
+     * an OWLObject that is used in a query to a reasoner an {@link FreshEntitiesException} will be thrown in the
      * calling thread.
      */
     DISALLOW

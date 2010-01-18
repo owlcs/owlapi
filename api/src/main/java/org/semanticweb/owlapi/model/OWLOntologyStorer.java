@@ -64,7 +64,7 @@ public interface OWLOntologyStorer {
      * ontology to some stream.
      * @param manager The manager
      * @param ontology The ontology to be stored
-     * @param target The target which describes the physical location of where the ontology should be stored
+     * @param target The target which describes the ontology document where the ontology should be stored
      * @param format The format in which to store the ontology
      * @throws OWLOntologyStorageException if there was a problem storing the ontology.
      * @throws IOException if there was an IOException when storing the ontology.

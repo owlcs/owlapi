@@ -64,10 +64,10 @@ public interface OWLReasonerConfiguration {
 
     /**
      * Gets the undeclared entity policy that should be used.  By default this is set to
-     * {@link org.semanticweb.owlapi.reasoner.UndeclaredEntityPolicy#ALLOW}.
+     * {@link FreshEntityPolicy#ALLOW}.
      * @return The undeclared entity policy.
      */
-    UndeclaredEntityPolicy getUndeclaredEntityPolicy();
+    FreshEntityPolicy getUndeclaredEntityPolicy();
 
     /**
      * Gets the {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy} which determines how <code>NodeSet</code>s

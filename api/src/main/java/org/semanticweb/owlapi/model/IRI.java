@@ -257,6 +257,14 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             return visitor.visit(this);
         }
 
+        public void accept(OWLAnnotationSubjectVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        public <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
+            return visitor.visit(this);
+        }
+
         public Set<OWLClass> getClassesInSignature() {
             return Collections.emptySet();
         }

@@ -44,6 +44,9 @@ public class InferredSubClassAxiomGenerator extends InferredClassAxiomGenerator<
                 result.add(dataFactory.getOWLSubClassOfAxiom(entity, sup));
             }
         }
+        else {
+            result.add(dataFactory.getOWLSubClassOfAxiom(entity, dataFactory.getOWLNothing()));
+        }
     }
 
 

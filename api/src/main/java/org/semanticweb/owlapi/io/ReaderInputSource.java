@@ -69,7 +69,7 @@ public class ReaderInputSource implements OWLOntologyInputSource {
      * Constructs and ontology input source which will read an ontology
      * from a reader.
      * @param reader The reader that will be used to read an ontology.
-     * @param documentIRI The physical IRI which will be used as the base
+     * @param documentIRI The ontology document IRI which will be used as the base
      * of the document if needed.
      */
     public ReaderInputSource(Reader reader, IRI documentIRI) {

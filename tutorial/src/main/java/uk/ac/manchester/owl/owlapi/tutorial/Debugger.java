@@ -3,13 +3,11 @@ package uk.ac.manchester.owl.owlapi.tutorial;
 import org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger;
 import org.semanticweb.owlapi.debugging.OWLDebugger;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import uk.ac.manchester.owl.owlapi.tutorial.io.OWLTutorialSyntaxObjectRenderer;
 
 import java.io.PrintWriter;
-import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -70,7 +68,7 @@ public class Debugger {
     public Debugger(OWLOntologyManager manager, OWLOntology ontology,
             OWLReasonerFactory reasonerFactory) throws OWLException {
         this.ontology = ontology;
-        this.checker = reasonerFactory.createReasoner(ontology);
+        this.checker = reasonerFactory.createNonBufferingReasoner(ontology);
         /* Create a new debugger */
         this.debugger = new BlackBoxOWLDebugger(manager, ontology, reasonerFactory);
         /* Get bottom */

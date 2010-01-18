@@ -78,7 +78,7 @@ public class OWLManager {
      * @return The new manager.
      */
     public static OWLOntologyManager createOWLOntologyManager() {
-        return createOWLOntologyManager(OWLDataFactoryImpl.getInstance());
+        return createOWLOntologyManager(getOWLDataFactory());
     }
 
 
@@ -107,5 +107,13 @@ public class OWLManager {
         ontologyManager.addOntologyFactory(new ParsableOWLOntologyFactory());
 
         return ontologyManager;
+    }
+
+    /**
+     * Gets a global data factory that can be used to create OWL API objects.
+     * @return An OWLDataFactory  that can be used for creating OWL API objects.
+     */
+    public static OWLDataFactory getOWLDataFactory() {
+        return OWLDataFactoryImpl.getInstance();
     }
 }

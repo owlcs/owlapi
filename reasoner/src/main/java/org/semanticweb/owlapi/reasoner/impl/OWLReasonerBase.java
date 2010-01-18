@@ -184,7 +184,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         manager.removeOntologyChangeListener(ontologyChangeListener);
     }
 
-    public UndeclaredEntityPolicy getUndeclaredEntityPolicy() {
+    public FreshEntityPolicy getUndeclaredEntityPolicy() {
         return configuration.getUndeclaredEntityPolicy();
     }
 

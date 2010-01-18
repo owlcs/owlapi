@@ -45,7 +45,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
 
     public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
                                        ExplanationProgressMonitor progressMonitor) {
-        this(man, reasonerFactory, ontology, reasonerFactory.createReasoner(ontology), progressMonitor);
+        this(man, reasonerFactory, ontology, reasonerFactory.createNonBufferingReasoner(ontology), progressMonitor);
     }
 
 

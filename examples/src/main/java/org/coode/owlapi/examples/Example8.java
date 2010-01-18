@@ -75,7 +75,7 @@ public class Example8 {
             // we loaded just the pizza ontology (using a singleton set) then any imported ontologies
             // would not automatically be loaded.
             // Obtain and load the imports closure of the pizza ontology
-            OWLReasoner reasoner = reasonerFactory.createReasoner(ont);
+            OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ont);
 
 
             reasoner.prepareReasoner();

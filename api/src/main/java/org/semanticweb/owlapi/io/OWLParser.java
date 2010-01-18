@@ -73,7 +73,7 @@ public interface OWLParser {
      * the input source can provider a <code>Reader</code> then the ontology is parsed
      * from the <code>Reader</code>.  If the input source cannot provide a reader then
      * it is parsed from the <code>InputStream</code>.  If the input source cannot provide
-     * an <code>InputStream</code> then it is parsed from the physical URI.
+     * an <code>InputStream</code> then it is parsed from the ontology document IRI.
      * @param ontology The ontology which the representation will be parsed into
      * @return An <code>OWLOntologyFormat</code> which describes the concrete representation
      * format which was parsed to obtain the ontology.

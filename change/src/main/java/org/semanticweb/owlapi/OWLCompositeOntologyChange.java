@@ -1,11 +1,10 @@
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi;
 
-import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
 
-import java.net.URI;
+import java.util.List;
 /*
- * Copyright (C) 2006, University of Manchester
+ * Copyright (C) 2007, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -32,30 +31,18 @@ import java.net.URI;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br><br>
+ * Date: 23-Jul-2007<br><br>
+ *
+ * A composite ontology change encapsulates a list of
+ * ontology changes, which should be applied as a logical
+ * unit.
  */
-public class SimpleIRIMapper implements OWLOntologyIRIMapper {
+public interface OWLCompositeOntologyChange {
 
-    private IRI ontologyIRI;
-
-    private IRI documentIRI;
-
-    public SimpleIRIMapper(IRI ontologyIRI, IRI documentIRI) {
-        this.ontologyIRI = ontologyIRI;
-        this.documentIRI = documentIRI;
-    }
-
-    public SimpleIRIMapper(URI ontologyURI, IRI documentIRI) {
-        this(IRI.create(ontologyURI), documentIRI);
-    }
-
-
-    public IRI getDocumentIRI(IRI ontologyIRI) {
-        if(this.ontologyIRI.equals(ontologyIRI)) {
-            return documentIRI;
-        }
-        else {
-            return null;
-        }
-    }
+    /**
+     * Gets the changes which compose this composite change.  Once this method
+     * has been invoked, it will <i>always<i> return the same list of changes.
+     * @return A list of ontology changes.
+     */
+    List<OWLOntologyChange> getChanges();
 }

@@ -290,7 +290,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * by any installed {@link org.semanticweb.owlapi.model.OWLOntologyIRIMapper}s.  If no mappers are installed
      * or the ontology IRI was not mapped to a document IRI by any of the installed mappers, then the ontology document
      * IRI will be set to the value of <code>ontologyIRI</code>.
-     * @param ontologyIRI The IRI of the ontology to be created.  The ontology IRI will be mapped to a physical IRI in
+     * @param ontologyIRI The IRI of the ontology to be created.  The ontology IRI will be mapped to a document IRI in
      *                    order to determine the type of ontology factory that will be used to create the ontology.  If
      *                    this mapping is <code>null</code> then a default (in memory) implementation of the ontology
      *                    will most likely be created.
@@ -502,13 +502,13 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     /**
-     * Gets the physical IRI for a given ontology.  This will either be the physical URI from where the ontology was
-     * obtained from during loading, or the physcial URI which was specified (via a mapper) when the (empty) ontology
-     * was created.  Note that this may not correspond to the first physical IRI found in the list of mappings from
-     * ontology IRI to physcial IRI. The reason for this is that it might not have been possible to load the ontology
-     * from the first physical IRI found in the mapping table.
-     * @param ontology The ontology whose physical IRI is to be obtained.
-     * @return The physical IRI of the ontology or <code>null</code>.
+     * Gets the document IRI for a given ontology.  This will either be the document IRI from where the ontology was
+     * obtained from during loading, or the document IRI which was specified (via a mapper) when the (empty) ontology
+     * was created.  Note that this may not correspond to the first document IRI found in the list of mappings from
+     * ontology IRI to document IRI. The reason for this is that it might not have been possible to load the ontology
+     * from the first document IRI found in the mapping table.
+     * @param ontology The ontology whose document IRI is to be obtained.
+     * @return The document IRI of the ontology or <code>null</code>.
      * @throws UnknownOWLOntologyException If the specified ontology is not managed by this manager.
      */
     IRI getOntologyDocumentIRI(OWLOntology ontology);
@@ -575,7 +575,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     void saveOntology(OWLOntology ontology, OutputStream outputStream) throws OWLOntologyStorageException;
 
     /**
-     * Saves the specified ontology in the specified ontology format to its physical URI.
+     * Saves the specified ontology in the specified ontology format to its document URI.
      * @param ontology The ontology to be saved.
      * @param ontologyFormat The format in which the ontology should be saved.
      * @throws OWLOntologyStorageException If the ontology cannot be saved.
@@ -625,7 +625,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     /**
-     * Adds a mapper to this manager.  The mapper is used to obtain physical IRIs for ontology IRIs (logical IRIs).  The
+     * Adds a mapper to this manager.  The mapper is used to obtain ontology document IRIs for ontology IRIs.  The
      * mapper will be added so that it is given the highest priority (i.e. it will be tried first).
      * @param mapper The mapper to be added.
      */
@@ -647,7 +647,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     /**
-     * Adds an ontology factory that is capable of creating an ontology given a particular physical IRI.
+     * Adds an ontology factory that is capable of creating an ontology given a particular document IRI.
      * @param factory The factory to be added.
      */
     void addOntologyFactory(OWLOntologyFactory factory);

@@ -11,7 +11,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -64,7 +63,7 @@ public class Example11 {
             OWLOntology ont = man.loadOntologyFromOntologyDocument(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi"));
 
             // Create the reasoner and classify the ontology
-            OWLReasoner reasoner = reasonerFactory.createReasoner(ont);
+            OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ont);
             reasoner.prepareReasoner();
 
             // To generate an inferred ontology we use implementations of inferred axiom generators

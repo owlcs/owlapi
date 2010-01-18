@@ -2,7 +2,6 @@ package com.clarkparsia.owlapi.modularity.locality;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
-import org.semanticweb.owlapi.reasonerfactory.OWLReasonerSetupException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
@@ -42,7 +41,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     public SemanticLocalityEvaluator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory) {
         this.df = man.getOWLDataFactory();
         try {
-            reasoner = reasonerFactory.createReasoner(man.createOntology());
+            reasoner = reasonerFactory.createNonBufferingReasoner(man.createOntology());
         }
         catch (Exception e) {
             throw new OWLRuntimeException(e);

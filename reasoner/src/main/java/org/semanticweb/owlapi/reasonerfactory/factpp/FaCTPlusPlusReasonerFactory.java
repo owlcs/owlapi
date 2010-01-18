@@ -9,9 +9,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.IllegalConfigurationException;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Set;
 
 /*
  * Copyright (C) 2008, University of Manchester
@@ -68,11 +66,15 @@ public class FaCTPlusPlusReasonerFactory implements OWLReasonerFactory {
     }
 
 
+    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology) {
+        throw new RuntimeException("NOT IMPLEMENTED");
+    }
+
     public OWLReasoner createReasoner(OWLOntology ontology) {
         throw new RuntimeException("NOT IMPLEMENTED");
     }
 
-    public OWLReasoner createBufferedReasoner(OWLOntology ontology) {
+    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
         throw new RuntimeException("NOT IMPLEMENTED");
     }
 
@@ -80,11 +82,7 @@ public class FaCTPlusPlusReasonerFactory implements OWLReasonerFactory {
         throw new RuntimeException("NOT IMPLEMENTED");
     }
 
-    public OWLReasoner createBufferedReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
-        throw new RuntimeException("NOT IMPLEMENTED");
-    }
-
-//    public OWLReasoner createReasoner(OWLOntologyManager manager, Set<OWLOntology> ontologies) throws OWLReasonerSetupException {
+//    public OWLReasoner createNonBufferingReasoner(OWLOntologyManager manager, Set<OWLOntology> ontologies) throws OWLReasonerSetupException {
 //        try {
 //            OWLReasoner reasoner = (OWLReasoner) factPPConstructor.newInstance(manager);
 //            setSynchronisingMethod.invoke(reasoner, Boolean.FALSE);

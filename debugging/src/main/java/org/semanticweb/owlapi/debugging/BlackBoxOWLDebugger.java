@@ -6,7 +6,6 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-import java.net.URI;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -413,7 +412,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 //        ren.setOWLOntologyManager(owlOntologyManager);
 //        ren.render(debuggingOntology, IRI.create("file:/Users/matthewhorridge/Desktop/DebuggingOntology" + ontologyCounter + ".owlapi"));
         ontologyCounter++;
-        OWLReasoner reasoner = reasonerFactory.createReasoner(debuggingOntology);
+        OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(debuggingOntology);
         satTestCount++;
         boolean sat = reasoner.isSatisfiable(currentClass);
         reasoner.dispose();

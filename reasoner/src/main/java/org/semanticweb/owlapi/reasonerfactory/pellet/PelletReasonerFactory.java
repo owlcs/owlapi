@@ -193,19 +193,19 @@ public class PelletReasonerFactory implements OWLReasonerFactory {
      *
      * @return An instance of OWLReasoner that corresponds to the Pellet reasoner.
      */
-    public OWLReasoner createReasoner(OWLOntology ontology) throws OWLReasonerSetupException {
+    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology) throws OWLReasonerSetupException {
         throw new RuntimeException("NOT IMPLEMENTED");
     }
 
-    public OWLReasoner createBufferedReasoner(OWLOntology ontology) {
+    public OWLReasoner createReasoner(OWLOntology ontology) {
+        throw new RuntimeException("NOT IMPLEMENTED");
+    }
+
+    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
         throw new RuntimeException("NOT IMPLEMENTED");
     }
 
     public OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
-        throw new RuntimeException("NOT IMPLEMENTED");
-    }
-
-    public OWLReasoner createBufferedReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
         throw new RuntimeException("NOT IMPLEMENTED");
     }
 }

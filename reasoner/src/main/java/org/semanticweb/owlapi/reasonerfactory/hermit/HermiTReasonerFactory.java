@@ -69,19 +69,19 @@ public class HermiTReasonerFactory implements OWLReasonerFactory {
     }
 
 
+    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology) {
+        throw new RuntimeException("NOT IMPLEMENTED");
+    }
+
     public OWLReasoner createReasoner(OWLOntology ontology) {
         throw new RuntimeException("NOT IMPLEMENTED");
     }
 
-    public OWLReasoner createBufferedReasoner(OWLOntology ontology) {
+    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
         throw new RuntimeException("NOT IMPLEMENTED");
     }
 
     public OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
-        throw new RuntimeException("NOT IMPLEMENTED");
-    }
-
-    public OWLReasoner createBufferedReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
         throw new RuntimeException("NOT IMPLEMENTED");
     }
 }

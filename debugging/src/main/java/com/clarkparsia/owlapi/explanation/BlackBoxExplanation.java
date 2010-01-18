@@ -394,7 +394,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         createDebuggingOntology();
         ontologyCounter++;
 
-        OWLReasoner reasoner = getReasonerFactory().createReasoner(getOntology());
+        OWLReasoner reasoner = getReasonerFactory().createNonBufferingReasoner(getOntology());
 
         if (OntologyUtils.containsUnreferencedEntity(debuggingOntology, unsatClass))
             return true;

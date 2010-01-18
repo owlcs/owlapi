@@ -37,7 +37,7 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
 
     private ReasonerProgressMonitor progressMonitor = new NullReasonerProgressMonitor();
 
-    private UndeclaredEntityPolicy undeclaredEntityPolicy = UndeclaredEntityPolicy.ALLOW;
+    private FreshEntityPolicy freshEntityPolicy = FreshEntityPolicy.ALLOW;
 
     private IndividualNodeSetPolicy individualNodeSetPolicy = IndividualNodeSetPolicy.BY_NAME;
 
@@ -55,15 +55,15 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
         this.timeOut = timeOut;
     }
 
-    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, UndeclaredEntityPolicy undeclaredEntityPolicy, long timeOut, IndividualNodeSetPolicy individualNodeSetPolicy) {
+    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, FreshEntityPolicy freshEntityPolicy, long timeOut, IndividualNodeSetPolicy individualNodeSetPolicy) {
         this.progressMonitor = progressMonitor;
-        this.undeclaredEntityPolicy = undeclaredEntityPolicy;
+        this.freshEntityPolicy = freshEntityPolicy;
         this.timeOut = timeOut;
         this.individualNodeSetPolicy = individualNodeSetPolicy;
     }
 
-    public SimpleConfiguration(UndeclaredEntityPolicy undeclaredEntityPolicy, long timeOut) {
-        this.undeclaredEntityPolicy = undeclaredEntityPolicy;
+    public SimpleConfiguration(FreshEntityPolicy freshEntityPolicy, long timeOut) {
+        this.freshEntityPolicy = freshEntityPolicy;
         this.timeOut = timeOut;
     }
 
@@ -79,8 +79,8 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
         return timeOut;
     }
 
-    public UndeclaredEntityPolicy getUndeclaredEntityPolicy() {
-        return undeclaredEntityPolicy;
+    public FreshEntityPolicy getUndeclaredEntityPolicy() {
+        return freshEntityPolicy;
     }
 
     public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {

@@ -145,6 +145,9 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     private boolean isValidQName(String name) {
+        if(name == null) {
+            return false;
+        }
         int colonIndex = name.indexOf(":");
         boolean valid = false;
         if (colonIndex == -1) {
@@ -170,7 +173,7 @@ public class XMLWriterImpl implements XMLWriter {
 
     public void writeStartElement(String name) throws IOException {
         String qName = xmlWriterNamespaceManager.getQName(name);
-        if (qName.equals(name)) {
+        if ( qName == null || qName.equals(name)) {
             if (!isValidQName(name)) {
                 // Could not generate a valid QName, therefore, we cannot
                 // write valid XML - just throw an exception!

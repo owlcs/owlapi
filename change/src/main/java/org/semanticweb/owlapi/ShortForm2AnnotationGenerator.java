@@ -1,8 +1,9 @@
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.ImportsStructureEntitySorter;
+import org.semanticweb.owlapi.util.ShortFormProvider;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -91,3 +92,4 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
         return changes;
     }
 }
+

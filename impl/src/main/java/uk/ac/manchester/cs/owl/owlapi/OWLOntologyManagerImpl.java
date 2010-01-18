@@ -845,7 +845,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             return ontologyID.getDefaultDocumentIRI();
         }
         if (!quiet) {
-            throw new OWLOntologyURIMappingNotFoundException(ontologyID.getDefaultDocumentIRI().toURI());
+            throw new OWLOntologyIRIMappingNotFoundException(ontologyID.getDefaultDocumentIRI());
         }
         else {
             return null;

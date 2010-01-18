@@ -60,10 +60,10 @@ public interface OWLReasonerFactory {
      *         method multiple times with the same manager and ontology will return <b>fresh</b> instances of OWLReasoner.
      * @throws NullPointerException if the {@code manager} or {@code ontology} are {@code null}.
      */
-    OWLReasoner createReasoner(OWLOntology ontology);
+    OWLReasoner createNonBufferingReasoner(OWLOntology ontology);
 
     /**
-     * Creates a <b>BufferedOWLReasoner</b> that reasons over the imports closure of the specified ontology.  The reasoner will obtain
+     * Creates a buffering reasoner that reasons over the imports closure of the specified ontology.  The reasoner will obtain
      * the imports closure from the specified ontology manager. The reasoner will listen for ontology changes to the ontologies
      * it is reasoning over but will only answer queries with respect to the changed ontologies when the {@link OWLReasoner#flush()} method is called
      * (see {@link org.semanticweb.owlapi.reasoner.OWLReasoner} for further details).
@@ -73,7 +73,7 @@ public interface OWLReasonerFactory {
      *         method multiple times with the same manager and ontology will return <b>fresh</b> instances of OWLReasoner.
      * @throws NullPointerException if the {@code manager} or {@code ontology} are {@code null}.
      */
-    OWLReasoner createBufferedReasoner(OWLOntology ontology);
+    OWLReasoner createReasoner(OWLOntology ontology);
 
     /**
      * Creates an OWLReasoner that reasons over the imports closure of the specified ontology.  The reasoner will obtain
@@ -90,10 +90,10 @@ public interface OWLReasonerFactory {
      *                                       factory, or if there is an illegal setting on the configuration.
      * @throws NullPointerException          if any of {@code manager}, {@code ontology} or {@code config} are {@code null}.
      */
-    OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException;
+    OWLReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException;
 
     /**
-     * Creates a BufferedOWLReasoner that reasons over the imports closure of the specified ontology.  The reasoner will obtain
+     * Creates a buffering reasoner that reasons over the imports closure of the specified ontology.  The reasoner will obtain
      * the imports closure from the specified ontology manager.  The reasoner will listen for ontology changes to the ontologies
      * it is reasoning over but will only answer queries with respect to the changed ontologies when the {@link OWLReasoner#flush()} method is called
      * (see {@link org.semanticweb.owlapi.reasoner.OWLReasoner} for further details).
@@ -107,6 +107,6 @@ public interface OWLReasonerFactory {
      *                                       factory, or if there is an illegal setting on the configuration.
      * @throws NullPointerException          if any of {@code manager}, {@code ontology} or {@code config} are {@code null}.
      */
-    OWLReasoner createBufferedReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException;
+    OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException;
 
 }

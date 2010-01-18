@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.model;
 
-import java.util.List;
+import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -29,18 +29,15 @@ import java.util.List;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 23-Jul-2007<br><br>
+ * Date: 13-Apr-2007<br><br>
  *
- * A composite ontology change encapsulates a list of
- * ontology changes, which should be applied as a logical
- * unit.
+ * An exception which describes the situation where no ontology document IRI mapping
+ * could be found.  This is a runtime exception since clients should really ensure that a
+ * mapping exists before attempting to load an ontology.
  */
-public interface OWLCompositeOntologyChange {
+public class OWLOntologyIRIMappingNotFoundException extends OWLRuntimeException {
 
-    /**
-     * Gets the changes which compose this composite change.  Once this method
-     * has been invoked, it will <i>always<i> return the same list of changes.
-     * @return A list of ontology changes.
-     */
-    List<OWLOntologyChange> getChanges();
+    public OWLOntologyIRIMappingNotFoundException(IRI ontologyIRI) {
+        super("Could not find ontology document mapping for " + ontologyIRI.toQuotedString());
+    }
 }

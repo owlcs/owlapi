@@ -2,7 +2,6 @@ package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
 import java.io.PrintStream;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.util.Set;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -70,7 +69,7 @@ public class SimpleHierarchyExample {
      * inheritance.
      */
     public void printHierarchy(OWLOntology ontology, OWLClass clazz) throws OWLException {
-        OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+        OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ontology);
         this.ontology = ontology;
         printHierarchy(reasoner, clazz, 0 );
         /* Now print out any unsatisfiable classes */
