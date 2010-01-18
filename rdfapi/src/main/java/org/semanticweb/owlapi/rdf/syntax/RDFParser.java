@@ -923,7 +923,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             else
                 statementWithLiteralValue(m_nodeElement.getSubjectIRI(),
                                           m_propertyIRI,
-                                          m_text.toString().trim(),
+                                          m_text.toString(),
                                           m_datatype,
                                           m_reificationID);
             popState();
