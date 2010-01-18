@@ -74,7 +74,18 @@ public class TurtleParser implements AnonymousNodeChecker {
         return iri;
     }
 
-    protected IRI getIRIFromQName(String qname) {
+    protected IRI getIRIFromQName(String qname) throws ParseException  {
+        int colonIndex = qname.indexOf(':');
+        if(colonIndex == -1) {
+            throw new ParseException("Not a valid qname (missing ':') " + qname);
+        }
+        String prefix = qname.substring(0, colonIndex + 1);
+        if(prefix.equals("_:")) {
+            return getIRI("genid" + qname.substring(colonIndex + 1));
+        }
+        if(!pm.containsPrefixMapping(prefix)) {
+            throw new ParseException("Prefix not declared: " + prefix);
+        }
         return pm.getIRI(qname);
     }
 

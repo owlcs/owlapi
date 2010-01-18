@@ -66,7 +66,7 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
         if(con == null) {
             return -1;
         }
-        return Integer.parseInt(con.getLiteral());
+        return Integer.parseInt(con.getLiteral().trim());
     }
 
 

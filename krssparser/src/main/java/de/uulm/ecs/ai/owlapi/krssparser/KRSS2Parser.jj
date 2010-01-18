@@ -468,6 +468,10 @@ TOKEN:
         | ["\uF900"-"\uFFFF"]>
 }
 
+TOKEN:
+{
+    <ERROR: ~[]>
+}
 
 
 public void parse() throws KRSS2OWLParserException :

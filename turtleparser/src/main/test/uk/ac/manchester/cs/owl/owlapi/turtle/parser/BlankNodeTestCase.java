@@ -1,0 +1,51 @@
+package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
+
+import junit.framework.TestCase;
+
+import java.io.Reader;
+import java.io.StringReader;
+/*
+ * Copyright (C) 2009, University of Manchester
+ *
+ * Modifications to the initial code base are copyright of their
+ * respective authors, or their employers as appropriate.  Authorship
+ * of the modifications may be determined from the ChangeLog placed at
+ * the end of this file.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
+/**
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 18-Jan-2010
+ */
+public class BlankNodeTestCase extends TestCase {
+
+    public void testBlankNodes() throws Exception {
+        try {
+            String s = "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n" + "@prefix : <http://www.semanticweb.org/owlapi/test/OntA#> .\n" + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n" + "@prefix skos: <http://www.w3.org/2004/02/skos/core#> .\n" + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n" + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n" + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n" + "@base <http://www.semanticweb.org/owlapi/test/OntA> .\n" + "\n" + "<http://www.semanticweb.org/owlapi/test/OntA> rdf:type owl:Ontology .\n" + "\n" + "\n" + "#################################################################\n" + "#\n" + "#    Individuals\n" + "#\n" + "#################################################################\n" + "\n" + "\n" + "###  http://www.semanticweb.org/owlapi/test#Ind0\n" + "\n" + "<http://www.semanticweb.org/owlapi/test#Ind0> rdf:type owl:NamedIndividual .\n" + "\n" + "\n" + "\n" + "###  http://www.semanticweb.org/owlapi/test#Ind1\n" + "\n" + "<http://www.semanticweb.org/owlapi/test#Ind1> rdf:type owl:NamedIndividual .\n" + "\n" + "\n" + "\n" + "###  http://www.semanticweb.org/owlapi/test#Ind2\n" + "\n" + "<http://www.semanticweb.org/owlapi/test#Ind2> rdf:type owl:NamedIndividual .\n" + "\n" + "\n" + "\n" + "###  http://www.semanticweb.org/owlapi/test#Ind3\n" + "\n" + "<http://www.semanticweb.org/owlapi/test#Ind3> rdf:type owl:NamedIndividual .\n" + "\n" + "\n" + "\n" + "###  http://www.semanticweb.org/owlapi/test#Ind4\n" + "\n" + "<http://www.semanticweb.org/owlapi/test#Ind4> rdf:type owl:NamedIndividual .\n" + "\n" + "\n" + "\n" + "###  http://www.semanticweb.org/owlapi/test#Ind5\n" + "\n" + "<http://www.semanticweb.org/owlapi/test#Ind5> rdf:type owl:NamedIndividual .\n" + "\n" + "\n" + "\n" + "###  http://www.semanticweb.org/owlapi/test#Ind6\n" + "\n" + "<http://www.semanticweb.org/owlapi/test#Ind6> rdf:type owl:NamedIndividual .\n" + "\n" + "\n" + "\n" + "###  http://www.semanticweb.org/owlapi/test#Ind7\n" + "\n" + "<http://www.semanticweb.org/owlapi/test#Ind7> rdf:type owl:NamedIndividual .\n" + "\n" + "\n" + "\n" + "###  http://www.semanticweb.org/owlapi/test#Ind8\n" + "\n" + "<http://www.semanticweb.org/owlapi/test#Ind8> rdf:type owl:NamedIndividual .\n" + "\n" + "\n" + "\n" + "###  http://www.semanticweb.org/owlapi/test#Ind9\n" + "\n" + "<http://www.semanticweb.org/owlapi/test#Ind9> rdf:type owl:NamedIndividual .\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "#################################################################\n" + "#\n" + "#    General axioms\n" + "#\n" + "#################################################################\n" + "\n" + "\n" + "[ rdf:type owl:AllDifferent ;\n" + "  owl:distinctMembers ( <http://www.semanticweb.org/owlapi/test#Ind0>\n" + "                        <http://www.semanticweb.org/owlapi/test#Ind1>\n" + "                        <http://www.semanticweb.org/owlapi/test#Ind2>\n" + "                        <http://www.semanticweb.org/owlapi/test#Ind3>\n" + "                        <http://www.semanticweb.org/owlapi/test#Ind4>\n" + "                        <http://www.semanticweb.org/owlapi/test#Ind5>\n" + "                        <http://www.semanticweb.org/owlapi/test#Ind6>\n" + "                        <http://www.semanticweb.org/owlapi/test#Ind7>\n" + "                        <http://www.semanticweb.org/owlapi/test#Ind8>\n" + "                        <http://www.semanticweb.org/owlapi/test#Ind9>\n" + "                      )\n" + "] .\n" + "\n" + "\n" + "\n" + "\n" + "###  Generated by the OWL API (version [Not Released]) http://owlapi.sourceforge.net\n" + "";
+//            Reader input = new StringReader( "_:foo <http://example.com/> _:bar ." );
+            Reader input = new StringReader( s );
+            TurtleParser parser = new TurtleParser( input, new ConsoleTripleHandler(), "" );
+            parser.parseDocument();
+            assertTrue(true);
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+}

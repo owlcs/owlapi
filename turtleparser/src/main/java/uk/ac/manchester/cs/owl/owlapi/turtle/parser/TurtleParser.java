@@ -66,7 +66,18 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         return iri;
     }
 
-    protected IRI getIRIFromQName(String qname) {
+    protected IRI getIRIFromQName(String qname) throws ParseException  {
+        int colonIndex = qname.indexOf(':');
+        if(colonIndex == -1) {
+            throw new ParseException("Not a valid qname (missing ':') " + qname);
+        }
+        String prefix = qname.substring(0, colonIndex + 1);
+        if(prefix.equals("_:")) {
+            return getIRI("genid" + qname.substring(colonIndex + 1));
+        }
+        if(!pm.containsPrefixMapping(prefix)) {
+            throw new ParseException("Prefix not declared: " + prefix);
+        }
         return pm.getIRI(qname);
     }
 
@@ -778,52 +789,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     finally { jj_save(39, xla); }
   }
 
-  private boolean jj_3_13() {
-    if (jj_scan_token(OPEN_SQUARE_BRACKET)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_10()) jj_scanpos = xsp;
-    if (jj_scan_token(CLOSE_SQUARE_BRACKET)) return true;
-    return false;
-  }
-
-  private boolean jj_3_21() {
-    if (jj_scan_token(COMMA)) return true;
-    if (jj_3R_18()) return true;
-    return false;
-  }
-
-  private boolean jj_3_12() {
-    if (jj_scan_token(NODEID)) return true;
-    return false;
-  }
-
-  private boolean jj_3_11() {
-    if (jj_3R_12()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_11() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_11()) {
-    jj_scanpos = xsp;
-    if (jj_3_12()) {
-    jj_scanpos = xsp;
-    if (jj_3_13()) {
-    jj_scanpos = xsp;
-    if (jj_3_14()) return true;
-    }
-    }
-    }
-    return false;
-  }
-
-  private boolean jj_3R_23() {
-    if (jj_scan_token(DECIMAL)) return true;
-    return false;
-  }
-
   private boolean jj_3_8() {
     if (jj_3R_11()) return true;
     return false;
@@ -1207,6 +1172,52 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
+  private boolean jj_3_13() {
+    if (jj_scan_token(OPEN_SQUARE_BRACKET)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_10()) jj_scanpos = xsp;
+    if (jj_scan_token(CLOSE_SQUARE_BRACKET)) return true;
+    return false;
+  }
+
+  private boolean jj_3_21() {
+    if (jj_scan_token(COMMA)) return true;
+    if (jj_3R_18()) return true;
+    return false;
+  }
+
+  private boolean jj_3_12() {
+    if (jj_scan_token(NODEID)) return true;
+    return false;
+  }
+
+  private boolean jj_3_11() {
+    if (jj_3R_12()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_11() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_11()) {
+    jj_scanpos = xsp;
+    if (jj_3_12()) {
+    jj_scanpos = xsp;
+    if (jj_3_13()) {
+    jj_scanpos = xsp;
+    if (jj_3_14()) return true;
+    }
+    }
+    }
+    return false;
+  }
+
+  private boolean jj_3R_23() {
+    if (jj_scan_token(DECIMAL)) return true;
+    return false;
+  }
+
   /** Generated Token Manager. */
   public TurtleParserTokenManager token_source;
   SimpleCharStream jj_input_stream;
@@ -1381,7 +1392,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
       return (jj_ntk = jj_nt.kind);
   }
 
-  private java.util.List jj_expentries = new java.util.ArrayList();
+  private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
   private int[] jj_expentry;
   private int jj_kind = -1;
   private int[] jj_lasttokens = new int[100];
@@ -1396,7 +1407,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
       for (int i = 0; i < jj_endpos; i++) {
         jj_expentry[i] = jj_lasttokens[i];
       }
-      jj_entries_loop: for (java.util.Iterator it = jj_expentries.iterator(); it.hasNext();) {
+      jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries.iterator(); it.hasNext();) {
         int[] oldentry = (int[])(it.next());
         if (oldentry.length == jj_expentry.length) {
           for (int i = 0; i < jj_expentry.length; i++) {
@@ -1444,7 +1455,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     jj_add_error_token(0, 0);
     int[][] exptokseq = new int[jj_expentries.size()][];
     for (int i = 0; i < jj_expentries.size(); i++) {
-      exptokseq[i] = (int[])jj_expentries.get(i);
+      exptokseq[i] = jj_expentries.get(i);
     }
     return new ParseException(token, exptokseq, tokenImage);
   }

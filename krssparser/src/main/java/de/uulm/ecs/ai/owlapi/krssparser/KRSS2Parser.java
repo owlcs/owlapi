@@ -1450,17 +1450,6 @@ OWLObjectPropertyExpression superProp;
     finally { jj_save(76, xla); }
   }
 
-  private boolean jj_3R_16() {
-    if (jj_scan_token(OPENPAR)) return true;
-    if (jj_scan_token(DEFINEROLE)) return true;
-    return false;
-  }
-
-  private boolean jj_3_29() {
-    if (jj_3R_23()) return true;
-    return false;
-  }
-
   private boolean jj_3R_20() {
     if (jj_scan_token(OPENPAR)) return true;
     if (jj_scan_token(INVERSE)) return true;
@@ -2204,6 +2193,17 @@ OWLObjectPropertyExpression superProp;
     return false;
   }
 
+  private boolean jj_3R_16() {
+    if (jj_scan_token(OPENPAR)) return true;
+    if (jj_scan_token(DEFINEROLE)) return true;
+    return false;
+  }
+
+  private boolean jj_3_29() {
+    if (jj_3R_23()) return true;
+    return false;
+  }
+
   /** Generated Token Manager. */
   public KRSS2ParserTokenManager token_source;
   SimpleCharStream jj_input_stream;
@@ -2383,7 +2383,7 @@ OWLObjectPropertyExpression superProp;
       return (jj_ntk = jj_nt.kind);
   }
 
-  private java.util.List jj_expentries = new java.util.ArrayList();
+  private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
   private int[] jj_expentry;
   private int jj_kind = -1;
   private int[] jj_lasttokens = new int[100];
@@ -2398,7 +2398,7 @@ OWLObjectPropertyExpression superProp;
       for (int i = 0; i < jj_endpos; i++) {
         jj_expentry[i] = jj_lasttokens[i];
       }
-      jj_entries_loop: for (java.util.Iterator it = jj_expentries.iterator(); it.hasNext();) {
+      jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries.iterator(); it.hasNext();) {
         int[] oldentry = (int[])(it.next());
         if (oldentry.length == jj_expentry.length) {
           for (int i = 0; i < jj_expentry.length; i++) {
@@ -2417,7 +2417,7 @@ OWLObjectPropertyExpression superProp;
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[69];
+    boolean[] la1tokens = new boolean[70];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -2437,7 +2437,7 @@ OWLObjectPropertyExpression superProp;
         }
       }
     }
-    for (int i = 0; i < 69; i++) {
+    for (int i = 0; i < 70; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
@@ -2449,7 +2449,7 @@ OWLObjectPropertyExpression superProp;
     jj_add_error_token(0, 0);
     int[][] exptokseq = new int[jj_expentries.size()][];
     for (int i = 0; i < jj_expentries.size(); i++) {
-      exptokseq[i] = (int[])jj_expentries.get(i);
+      exptokseq[i] = jj_expentries.get(i);
     }
     return new ParseException(token, exptokseq, tokenImage);
   }

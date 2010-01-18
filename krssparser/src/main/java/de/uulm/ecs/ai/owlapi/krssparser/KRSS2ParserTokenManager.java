@@ -1878,7 +1878,7 @@ null, null, null, null, null, null, null, null, null, null, null, null, null,
 "\72\154\145\146\164\55\151\144\145\156\164\151\164\171", null, null, null, "\72\162\141\156\147\145", 
 "\72\162\145\146\154\145\170\151\166\145", "\72\162\151\147\150\164\55\151\144\145\156\164\151\164\171", null, null, 
 "\163\165\142\162\157\154\145", "\72\163\171\155\155\145\164\162\151\143", null, null, null, null, null, null, 
-null, "\72", null, null, null, null, null, };
+null, "\72", null, null, null, null, null, null, };
 
 /** Lexer state names. */
 public static final String[] lexStateNames = {
@@ -1891,10 +1891,10 @@ public static final String[] lexStateNames = {
 public static final int[] jjnewLexState = {
    -1, -1, -1, -1, -1, -1, -1, -1, 1, 0, -1, 2, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
-   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
+   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
 };
 static final long[] jjtoToken = {
-   0xffffffffffffd001L, 0x1fL, 
+   0xffffffffffffd001L, 0x3fL, 
 };
 static final long[] jjtoSkip = {
    0x2feL, 0x0L, 
@@ -2010,6 +2010,10 @@ public Token getNextToken()
          jjmatchedKind = 0x7fffffff;
          jjmatchedPos = 0;
          curPos = jjMoveStringLiteralDfa0_0();
+         if (jjmatchedPos == 0 && jjmatchedKind > 69)
+         {
+            jjmatchedKind = 69;
+         }
          break;
        case 1:
          jjmatchedKind = 0x7fffffff;

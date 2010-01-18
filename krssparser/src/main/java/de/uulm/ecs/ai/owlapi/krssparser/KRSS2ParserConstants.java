@@ -126,6 +126,8 @@ public interface KRSS2ParserConstants {
   int NCCHAR_FULL = 67;
   /** RegularExpression Id. */
   int NCCHAR1 = 68;
+  /** RegularExpression Id. */
+  int ERROR = 69;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -205,6 +207,7 @@ public interface KRSS2ParserConstants {
     "<NAME>",
     "<NCCHAR_FULL>",
     "<NCCHAR1>",
+    "<ERROR>",
   };
 
 }
