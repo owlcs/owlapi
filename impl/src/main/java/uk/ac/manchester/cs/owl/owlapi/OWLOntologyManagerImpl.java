@@ -416,6 +416,20 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     private void checkForImportsChange(OWLOntologyChange change) {
         if (change.isImportChange()) {
             resetImportsClosureCache();
+            if(change instanceof AddImport) {
+                // Do we contain the import already?
+                for(OWLOntologyID id : ontologiesByID.keySet()) {
+                    OWLImportsDeclaration addImportDeclaration = ((AddImport) change).getImportDeclaration();
+                    if(id.getDefaultDocumentIRI() != null && id.getDefaultDocumentIRI().equals(addImportDeclaration.getIRI())) {
+                        // Yes we do
+                        ontologyIDsByImportsDeclaration.put(addImportDeclaration, id);
+                    }
+                }
+            }
+            else {
+                // Remove the mapping from declaration to ontology
+                ontologyIDsByImportsDeclaration.remove(((RemoveImport) change).getImportDeclaration());
+            }
         }
     }
 
@@ -552,8 +566,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         }
         IRI documentIRI = getDocumentIRIFromMappers(id, true);
         if (documentIRIsByID.values().contains(documentIRI)) {
-            // TODO: We should throw an exception here
-            // What about cyclic imports
             throw new OWLOntologyDocumentAlreadyExistsException(documentIRI);
         }
         // The ontology might be being loaded, but its IRI might

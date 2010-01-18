@@ -87,4 +87,6 @@ public interface OWLObject extends Comparable<OWLObject> {
     public void accept(OWLObjectVisitor visitor);
 
     <O> O accept(OWLObjectVisitorEx<O> visitor);
+
+    
 }
