@@ -200,7 +200,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             if(colonIndex == -1) {
                 return null;
             }
-            return prefix.substring(0, colonIndex - 1);
+            return prefix.substring(0, colonIndex);
         }
 
         /**
