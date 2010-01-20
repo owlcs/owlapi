@@ -361,6 +361,23 @@ public interface OWLOntology extends OWLObject {
 
 
     /**
+     * Gets the entities that are in the signature of this ontology.  The signature of an ontology is the set of
+     * entities that are used to build axioms and annotations in the ontology.
+     * (See <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Entities.2C_Literals.2C_and_Anonymous_Individuals">The OWL 2 Structural Specification</a>)
+     *
+     * @param includeImportsClosure Specifies whether or not the returned set of entities should represent the signature
+     * of just this ontology, or the signature of the imports closure of this ontology.
+     * @return A set of <code>OWLEntity</code> objects. The set that is returned is a copy - it will not be updated if
+     *         the ontology changes.  It is therefore safe to apply changes to this ontology while iterating over this
+     *         set.
+     * @see #getClassesInSignature()
+     * @see #getObjectPropertiesInSignature()
+     * @see #getDataPropertiesInSignature()
+     * @see #getIndividualsInSignature()
+     */
+    Set<OWLEntity> getSignature(boolean includeImportsClosure);
+
+    /**
      * Gets the classes that are in the signature of this ontology.
      * @see #getSignature()
      * @return A set of named classes, which are referenced by any axiom in this ontology. The set that is returned is a

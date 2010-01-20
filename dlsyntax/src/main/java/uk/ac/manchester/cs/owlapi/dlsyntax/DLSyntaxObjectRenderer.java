@@ -124,7 +124,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 //                return false;
 //            }
 //        }
-        return object instanceof OWLClassExpression && !((OWLClassExpression) object).isClassExpressionLiteral();
+//        return object instanceof OWLClassExpression && !((OWLClassExpression) object).isClassExpressionLiteral();
+        return !(object instanceof OWLEntity);
     }
 
     private void writeObject(OWLObject object, boolean nest) {

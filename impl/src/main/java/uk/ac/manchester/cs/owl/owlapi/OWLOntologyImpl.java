@@ -947,6 +947,18 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return entities;
     }
 
+    public Set<OWLEntity> getSignature(boolean includeImportsClosure) {
+        Set<OWLEntity> entities = getSignature();
+        if(includeImportsClosure) {
+            for(OWLOntology ont : getImportsClosure()) {
+                if(!ont.equals(this)) {
+                    entities.addAll(ont.getSignature());
+                }
+            }
+        }
+        return entities;
+    }
+
     @Override
     public Set<OWLClass> getClassesInSignature() {
         return getReturnSet(owlClassReferences.keySet());
