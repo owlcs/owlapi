@@ -1086,7 +1086,7 @@ public interface OWLReasoner {
 
 
     /**
-     * Gets the time out for the most basic reasoning operations.  That is the maximum time for a
+     * Gets the time out (in milliseconds) for the most basic reasoning operations.  That is the maximum time for a
      * satisfiability test, subsumption test etc.  The time out should be set at reasoner creation time.
      * During satisfiability (subsumption) checking the reasoner will check to see if the time it has spent
      * doing the single check is longer than the value returned by this method.  If this is the case, the
@@ -1097,7 +1097,7 @@ public interface OWLReasoner {
      * their own timers and request that the reasoner interrupts the current process using the {@link #interrupt()}
      * method.
      *
-     * @return The time out for basic reasoner operation.  By default this is the value of
+     * @return The time out in milliseconds for basic reasoner operation.  By default this is the value of
      *         {@link Long#MAX_VALUE}.
      */
     long getTimeOut();
