@@ -581,26 +581,26 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             // the ontology from.
             throw new OntologyIRIMappingNotFoundException(ontologyIRI);
         }
-        return loadOntology(ontologyIRI, new DocumentIRIInputSource(documentIRI));
+        return loadOntology(ontologyIRI, new IRIDocumentSource(documentIRI));
     }
 
 
     public OWLOntology loadOntologyFromOntologyDocument(IRI documentIRI) throws OWLOntologyCreationException {
         // Ontology URI not known in advance
-        return loadOntology(null, new DocumentIRIInputSource(documentIRI));
+        return loadOntology(null, new IRIDocumentSource(documentIRI));
     }
 
-    public OWLOntology loadOntologyFromOntologyDocument(OWLOntologyInputSource inputSource) throws OWLOntologyCreationException {
+    public OWLOntology loadOntologyFromOntologyDocument(OWLOntologyDocumentSource documentSource) throws OWLOntologyCreationException {
         // Ontology URI not known in advance
-        return loadOntology(null, inputSource);
+        return loadOntology(null, documentSource);
     }
 
     public OWLOntology loadOntologyFromOntologyDocument(File file) throws OWLOntologyCreationException {
-        return loadOntologyFromOntologyDocument(new FileInputSource(file));
+        return loadOntologyFromOntologyDocument(new FileDocumentSource(file));
     }
 
     public OWLOntology loadOntologyFromOntologyDocument(InputStream inputStream) throws OWLOntologyCreationException {
-        return loadOntologyFromOntologyDocument(new StreamInputSource(inputStream));
+        return loadOntologyFromOntologyDocument(new StreamDocumentSource(inputStream));
     }
 
     /**
@@ -608,31 +608,31 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
      *
      * @param ontologyIRI The URI of the ontology to be loaded.  This is only used to
      * report to listeners and may be <code>null</code>
-     * @param inputSource The input source that specifies where the ontology should be loaded from.
+     * @param documentSource The input source that specifies where the ontology should be loaded from.
      * @return The ontology that was loaded.
      *
      * @throws OWLOntologyCreationException If the ontology could not be loaded.
      */
-    protected OWLOntology loadOntology(IRI ontologyIRI, OWLOntologyInputSource inputSource) throws OWLOntologyCreationException {
+    protected OWLOntology loadOntology(IRI ontologyIRI, OWLOntologyDocumentSource documentSource) throws OWLOntologyCreationException {
         if (loadCount != importsLoadCount) {
             System.err.println("Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
         }
-        fireStartedLoadingEvent(new OWLOntologyID(ontologyIRI), inputSource.getDocumentIRI(), loadCount > 0);
+        fireStartedLoadingEvent(new OWLOntologyID(ontologyIRI), documentSource.getDocumentIRI(), loadCount > 0);
         loadCount++;
         broadcastChanges = false;
         OWLOntologyCreationException ex = null;
         OWLOntologyID idOfLoadedOntology = new OWLOntologyID();
         try {
             for (OWLOntologyFactory factory : ontologyFactories) {
-                if (factory.canLoad(inputSource)) {
+                if (factory.canLoad(documentSource)) {
                     OWLOntology ontology = null;
                     try {
                         // Note - there is no need to add the ontology here, because it will be added
                         // when the ontology is created.
-                        ontology = factory.loadOWLOntology(inputSource, this);
+                        ontology = factory.loadOWLOntology(documentSource, this);
                         idOfLoadedOntology = ontology.getOntologyID();
                         // Store the ontology to physical URI mapping
-                        documentIRIsByID.put(ontology.getOntologyID(), inputSource.getDocumentIRI());
+                        documentIRIsByID.put(ontology.getOntologyID(), documentSource.getDocumentIRI());
                         return ontology;
                     }
                     catch (OWLOntologyRenameException e) {
@@ -653,9 +653,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
                 broadcastChanges = true;
 //                 Completed loading ontology and imports
             }
-            fireFinishedLoadingEvent(idOfLoadedOntology, inputSource.getDocumentIRI(), loadCount > 0, ex);
+            fireFinishedLoadingEvent(idOfLoadedOntology, documentSource.getDocumentIRI(), loadCount > 0, ex);
         }
-        throw new OWLOntologyFactoryNotFoundException(inputSource.getDocumentIRI());
+        throw new OWLOntologyFactoryNotFoundException(documentSource.getDocumentIRI());
     }
 
 

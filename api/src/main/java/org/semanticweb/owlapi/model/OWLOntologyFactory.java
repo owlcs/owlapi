@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.io.OWLOntologyInputSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -55,14 +55,14 @@ public interface OWLOntologyFactory {
      * Creates and loads an <code>OWLOntology</code>.
      * be loaded into the ontology.
      *
-     * @param inputSource The input source
+     * @param documentSource The input source
      * @param handler     A pointer to an <code>OWLOntologyCreationHandler</code> which will be notified immediately
      *                    after an emtpty ontology has been created, but before the source data is read and the ontology is loaded
      *                    with axioms.
      * @return The newly created and loaded ontology
      * @throws OWLOntologyCreationException if the ontology could not be created.
      */
-    public OWLOntology loadOWLOntology(OWLOntologyInputSource inputSource, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException;
+    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException;
 
     /**
      * Determines if the factory can create an ontology for the specified ontology document IRI.
@@ -77,10 +77,10 @@ public interface OWLOntologyFactory {
     /**
      * Determines if the factory can load an ontology for the specified input souce
      *
-     * @param inputSource The input source from which to load the ontology
+     * @param documentSource The input source from which to load the ontology
      * @return <code>true</code> if the factory can load from the specified input source.
      */
-    public boolean canLoad(OWLOntologyInputSource inputSource);
+    public boolean canLoad(OWLOntologyDocumentSource documentSource);
 
 
     /**

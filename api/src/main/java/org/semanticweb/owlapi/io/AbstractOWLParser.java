@@ -107,23 +107,23 @@ public abstract class AbstractOWLParser implements OWLParser {
             return is;
     }
 
-    protected InputSource getInputSource(OWLOntologyInputSource inputSource) throws IOException {
+    protected InputSource getInputSource(OWLOntologyDocumentSource documentSource) throws IOException {
         InputSource is;
-        if(inputSource.isReaderAvailable()) {
-            is = new InputSource(inputSource.getReader());
+        if(documentSource.isReaderAvailable()) {
+            is = new InputSource(documentSource.getReader());
         }
-        else if(inputSource.isInputStreamAvailable()) {
-            is = new InputSource(inputSource.getInputStream());
+        else if(documentSource.isInputStreamAvailable()) {
+            is = new InputSource(documentSource.getInputStream());
         }
         else {
-            is = new InputSource(getInputStream(inputSource.getDocumentIRI()));
+            is = new InputSource(getInputStream(documentSource.getDocumentIRI()));
         }
-        is.setSystemId(inputSource.getDocumentIRI().toString());
+        is.setSystemId(documentSource.getDocumentIRI().toString());
         return is;
     }
 
 
     public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
-        return parse(new DocumentIRIInputSource(documentIRI), ontology);
+        return parse(new IRIDocumentSource(documentIRI), ontology);
     }
 }

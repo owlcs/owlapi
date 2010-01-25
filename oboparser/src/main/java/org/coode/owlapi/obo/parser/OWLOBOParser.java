@@ -1,7 +1,7 @@
 package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.io.OWLOntologyInputSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -39,16 +39,16 @@ import java.io.IOException;
  */
 public class OWLOBOParser extends AbstractOWLParser {
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException {
         OBOParser parser;
-        if (inputSource.isReaderAvailable()) {
-            parser = new OBOParser(inputSource.getReader());
+        if (documentSource.isReaderAvailable()) {
+            parser = new OBOParser(documentSource.getReader());
         }
-        else if (inputSource.isInputStreamAvailable()) {
-            parser = new OBOParser(inputSource.getInputStream());
+        else if (documentSource.isInputStreamAvailable()) {
+            parser = new OBOParser(documentSource.getInputStream());
         }
         else {
-            parser = new OBOParser(getInputStream(inputSource.getDocumentIRI()));
+            parser = new OBOParser(getInputStream(documentSource.getDocumentIRI()));
         }
         parser.setHandler(new OBOConsumer(getOWLOntologyManager(), ontology));
         try {

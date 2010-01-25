@@ -69,7 +69,7 @@ public interface OWLParser {
      * Parses the ontology that has a concrete representation which is pointed to
      * by the specified input source. Implementors of this method should
      * load any imported ontologies with the makeImportsLoadRequest method on OWLOntologyManager.
-     * @param inputSource The input source which points the concrete representation.  If
+     * @param documentSource The input source which points the concrete representation.  If
      * the input source can provider a <code>Reader</code> then the ontology is parsed
      * from the <code>Reader</code>.  If the input source cannot provide a reader then
      * it is parsed from the <code>InputStream</code>.  If the input source cannot provide
@@ -85,5 +85,5 @@ public interface OWLParser {
      * @throws UnloadableImportException if loading this ontology prompted the loading of an import and the import
      * could not be loaded.
      */
-    OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException;
+    OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException;
 }

@@ -2,7 +2,7 @@ package org.coode.owlapi.manchesterowlsyntax;
 
 import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.io.OWLOntologyInputSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.*;
 
@@ -44,18 +44,18 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     private static final String COMMENT_START_CHAR = "#";
 
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         try {
             BufferedReader br = null;
             try {
-                if (inputSource.isReaderAvailable()) {
-                    br = new BufferedReader(inputSource.getReader());
+                if (documentSource.isReaderAvailable()) {
+                    br = new BufferedReader(documentSource.getReader());
                 }
-                else if (inputSource.isInputStreamAvailable()) {
-                    br = new BufferedReader(new InputStreamReader(inputSource.getInputStream()));
+                else if (documentSource.isInputStreamAvailable()) {
+                    br = new BufferedReader(new InputStreamReader(documentSource.getInputStream()));
                 }
                 else {
-                    br = new BufferedReader(new InputStreamReader(getInputStream(inputSource.getDocumentIRI())));
+                    br = new BufferedReader(new InputStreamReader(getInputStream(documentSource.getDocumentIRI())));
                 }
                 StringBuilder sb = new StringBuilder();
                 String line;

@@ -1,12 +1,11 @@
 package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.io.OWLOntologyInputSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyOutputTarget;
 
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URI;
 import java.util.List;
 import java.util.Set;
 /*
@@ -473,7 +472,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
     /**
      * A convenience method that load an ontology from an input source.
-     * @param inputSource The input source that describes where the ontology should be loaded from.
+     * @param documentSource The input source that describes where the ontology should be loaded from.
      * @return The ontology that was loaded.
      * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
      * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was being parsed from a document and
@@ -491,7 +490,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * version IRI is the same as the ontology IRI and version IRI of the ontology contained in the document
      * represented by the input source.
      */
-    OWLOntology loadOntologyFromOntologyDocument(OWLOntologyInputSource inputSource) throws OWLOntologyCreationException;
+    OWLOntology loadOntologyFromOntologyDocument(OWLOntologyDocumentSource documentSource) throws OWLOntologyCreationException;
 
     /**
      * Attempts to remove an ontology.  The ontology which is identified by the specified IRI is removed regardless of

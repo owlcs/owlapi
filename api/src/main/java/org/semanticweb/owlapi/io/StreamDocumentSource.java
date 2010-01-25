@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 import java.io.*;
 /*
@@ -33,9 +34,9 @@ import java.io.*;
  * Bio-Health Informatics Group<br>
  * Date: 15-Nov-2007<br><br>
  *
- * An ontology input source which can read from a stream.
+ * An ontology document source which can read from a stream.
  */
-public class StreamInputSource implements OWLOntologyInputSource {
+public class StreamDocumentSource implements OWLOntologyDocumentSource {
 
     public static final String DOCUMENT_IRI_SCHEME = "inputstream";
 
@@ -52,7 +53,7 @@ public class StreamInputSource implements OWLOntologyInputSource {
      * @param is The stream that the ontology representation will be
      * read from.
      */
-    public StreamInputSource(InputStream is) {
+    public StreamDocumentSource(InputStream is) {
         this(is, getNextDocumentIRI());
     }
 
@@ -69,7 +70,7 @@ public class StreamInputSource implements OWLOntologyInputSource {
      * read from.
      * @param documentIRI The document IRI
      */
-    public StreamInputSource(InputStream stream, IRI documentIRI) {
+    public StreamDocumentSource(InputStream stream, IRI documentIRI) {
         this.documentIRI = documentIRI;
         readIntoBuffer(stream);
     }
@@ -112,7 +113,7 @@ public class StreamInputSource implements OWLOntologyInputSource {
 
 
     public Reader getReader() {
-        return null;
+        throw new OWLRuntimeException("Reader not available.  Check with StreamDocumentSource.isReaderAvailable() first!");
     }
 
 

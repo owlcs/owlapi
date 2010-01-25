@@ -1,9 +1,8 @@
 package org.semanticweb.owlapi.io;
 
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
@@ -35,28 +34,23 @@ import java.io.StringReader;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 17-Nov-2007<br><br>
- *
- * Ontology input source which reads an ontology from a reader.
+ * Date: 24-Apr-2007<br><br>
+ * </p>
+ * An ontology input source that wraps a string.
  */
-public class ReaderInputSource implements OWLOntologyInputSource {
+public class StringDocumentSource implements OWLOntologyDocumentSource {
+
+    public static final String DOCUMENT_IRI_SCHEME = "string";
 
     private static int counter = 0;
 
-    public static final String DOCUMENT_IRI_SCHEME = "reader";
-
     private IRI documentIRI;
 
-    private String buffer;
+    private String string;
 
-
-    /**
-     * Constructs and ontology input source which will read an ontology
-     * from a reader.
-     * @param reader The reader that will be used to read an ontology.
-     */
-    public ReaderInputSource(Reader reader) {
-        this(reader, getNextDocumentIRI());
+    public StringDocumentSource(String string) {
+        this.string = string;
+        documentIRI = getNextDocumentIRI();
     }
 
     public static synchronized IRI getNextDocumentIRI() {
@@ -65,45 +59,25 @@ public class ReaderInputSource implements OWLOntologyInputSource {
     }
 
 
+
     /**
-     * Constructs and ontology input source which will read an ontology
-     * from a reader.
-     * @param reader The reader that will be used to read an ontology.
-     * @param documentIRI The ontology document IRI which will be used as the base
-     * of the document if needed.
+     * Specifies a string as an ontology document.
+     * @param string The string
+     * @param documentIRI The document IRI
      */
-    public ReaderInputSource(Reader reader, IRI documentIRI) {
+    public StringDocumentSource(String string, IRI documentIRI) {
+        this.string = string;
         this.documentIRI = documentIRI;
-        fillBuffer(reader);
-    }
-
-    private void fillBuffer(Reader reader) {
-        try {
-            StringBuilder builder = new StringBuilder();
-            char [] tempBuffer = new char [4096];
-            int read;
-            while((read = reader.read(tempBuffer)) != -1) {
-                builder.append(tempBuffer, 0, read);
-            }
-            buffer = builder.toString();
-        }
-        catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    public IRI getDocumentIRI() {
-        return documentIRI;
-    }
-
-    public Reader getReader() {
-
-        return new StringReader(buffer);
     }
 
 
     public boolean isReaderAvailable() {
         return true;
+    }
+
+
+    public Reader getReader() {
+        return new StringReader(string);
     }
 
 
@@ -113,7 +87,11 @@ public class ReaderInputSource implements OWLOntologyInputSource {
 
 
     public InputStream getInputStream() {
-        return null;
+        throw new OWLRuntimeException("InputStream not available.  Check with StringDocumentSource.isInputStreamAvailable() first!");
+    }
+
+
+    public IRI getDocumentIRI() {
+        return documentIRI;
     }
 }
-

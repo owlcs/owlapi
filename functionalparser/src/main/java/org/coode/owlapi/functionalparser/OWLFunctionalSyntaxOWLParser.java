@@ -1,7 +1,7 @@
 package org.coode.owlapi.functionalparser;
 
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.io.OWLOntologyInputSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -40,17 +40,17 @@ import java.io.IOException;
  */
 public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         try {
             OWLFunctionalSyntaxParser parser;
-            if(inputSource.isReaderAvailable()) {
-                parser = new OWLFunctionalSyntaxParser(inputSource.getReader());
+            if(documentSource.isReaderAvailable()) {
+                parser = new OWLFunctionalSyntaxParser(documentSource.getReader());
             }
-            else if(inputSource.isInputStreamAvailable()) {
-                parser = new OWLFunctionalSyntaxParser(inputSource.getInputStream());
+            else if(documentSource.isInputStreamAvailable()) {
+                parser = new OWLFunctionalSyntaxParser(documentSource.getInputStream());
             }
             else {
-                parser = new OWLFunctionalSyntaxParser(getInputStream(inputSource.getDocumentIRI()));
+                parser = new OWLFunctionalSyntaxParser(getInputStream(documentSource.getDocumentIRI()));
             }
             parser.setUp(getOWLOntologyManager(), ontology);
             return parser.parse();

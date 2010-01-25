@@ -8,7 +8,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -46,7 +45,7 @@ public class RDFXMLParser extends AbstractOWLParser {
     private OWLRDFConsumer consumer;
 
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         try {
             final RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
             if (owlOntologyManager == null) {
@@ -85,7 +84,7 @@ public class RDFXMLParser extends AbstractOWLParser {
             });
             consumer.setIRIProvider(prov);
             consumer.setOntologyFormat(format);
-            InputSource is = getInputSource(inputSource);
+            InputSource is = getInputSource(documentSource);
             parser.parse(is, consumer);
             return format;
         }

@@ -1,7 +1,7 @@
 package de.uulm.ecs.ai.owlapi.krssparser;
 
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.io.OWLOntologyInputSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -273,16 +273,16 @@ import java.io.IOException;
 public class KRSS2OWLParser extends AbstractOWLParser {
 
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException {
         try {
             KRSS2OntologyFormat format = new KRSS2OntologyFormat();
             KRSS2Parser parser;
-            if (inputSource.isReaderAvailable()) {
-                parser = new KRSS2Parser(inputSource.getReader());
-            } else if (inputSource.isInputStreamAvailable()) {
-                parser = new KRSS2Parser(inputSource.getInputStream());
+            if (documentSource.isReaderAvailable()) {
+                parser = new KRSS2Parser(documentSource.getReader());
+            } else if (documentSource.isInputStreamAvailable()) {
+                parser = new KRSS2Parser(documentSource.getInputStream());
             } else {
-                parser = new KRSS2Parser(getInputStream(inputSource.getDocumentIRI()));
+                parser = new KRSS2Parser(getInputStream(documentSource.getDocumentIRI()));
             }
             parser.setOntology(ontology, getOWLOntologyManager().getOWLDataFactory());
             parser.parse();

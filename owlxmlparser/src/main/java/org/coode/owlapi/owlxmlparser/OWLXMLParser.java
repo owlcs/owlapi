@@ -43,14 +43,14 @@ import java.util.Map;
 public class OWLXMLParser extends AbstractOWLParser {
 
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         try {
             System.setProperty("entityExpansionLimit", "100000000");
             OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
             SAXParserFactory factory = SAXParserFactory.newInstance();
             factory.setNamespaceAware(true);
             SAXParser parser = factory.newSAXParser();
-            InputSource isrc = getInputSource(inputSource);
+            InputSource isrc = getInputSource(documentSource);
             OWLXMLParserHandler handler = new OWLXMLParserHandler(getOWLOntologyManager(), ontology);
             parser.parse(isrc, handler);
             Map<String, String> prefix2NamespaceMap = handler.getPrefixName2PrefixMap();

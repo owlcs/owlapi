@@ -3,7 +3,7 @@ package org.semanticweb.owlapi.api.test;
 import junit.framework.TestCase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringInputSource;
+import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringOutputTarget;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.*;
@@ -159,7 +159,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
         manager.saveOntology(ont, format, target);
         handleSaved(target, format);
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-        OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringInputSource(target.toString()));
+        OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringDocumentSource(target.toString()));
         if (!ont.isAnonymous() && !ont2.isAnonymous()) {
             assertEquals(ont, ont2);
         }

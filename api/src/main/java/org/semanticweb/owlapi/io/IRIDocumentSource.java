@@ -1,11 +1,10 @@
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 import java.io.InputStream;
 import java.io.Reader;
-import java.io.StringReader;
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -36,46 +35,18 @@ import java.net.URI;
  * Bio-Health Informatics Group<br>
  * Date: 24-Apr-2007<br><br>
  */
-public class StringInputSource implements OWLOntologyInputSource {
-
-    public static final String DOCUMENT_IRI_SCHEME = "string";
-
-    private static int counter = 0;
+public class IRIDocumentSource implements OWLOntologyDocumentSource {
 
     private IRI documentIRI;
 
-    private String string;
 
-    public StringInputSource(String string) {
-        this.string = string;
-        documentIRI = getNextDocumentIRI();
-    }
-
-    public static synchronized IRI getNextDocumentIRI() {
-        counter = counter + 1;
-        return IRI.create(DOCUMENT_IRI_SCHEME + ":ontology" + counter);
-    }
-
-
-
-    /**
-     * Specifies a string as an ontology document.
-     * @param string The string
-     * @param documentIRI The document IRI
-     */
-    public StringInputSource(String string, IRI documentIRI) {
-        this.string = string;
+    public IRIDocumentSource(IRI documentIRI) {
         this.documentIRI = documentIRI;
     }
 
 
-    public boolean isReaderAvailable() {
-        return true;
-    }
-
-
-    public Reader getReader() {
-        return new StringReader(string);
+    public IRI getDocumentIRI() {
+        return documentIRI;
     }
 
 
@@ -85,11 +56,21 @@ public class StringInputSource implements OWLOntologyInputSource {
 
 
     public InputStream getInputStream() {
-        return null;
+        throw new OWLRuntimeException("InputStream not available.  Check with IRIDocumentSource.isInputStreamAvailable() first!");
     }
 
 
-    public IRI getDocumentIRI() {
-        return documentIRI;
+    public boolean isReaderAvailable() {
+        return false;
+    }
+
+
+    public Reader getReader() {
+        throw new OWLRuntimeException("Reader not available.  Check with IRIDocumentSource.isReaderAvailable() first!");
+    }
+
+
+    public String toString() {
+        return documentIRI.toString();
     }
 }

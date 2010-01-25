@@ -104,20 +104,20 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     }
 
 
-    public boolean canLoad(OWLOntologyInputSource inputSource) {
-        if (inputSource.isReaderAvailable()) {
+    public boolean canLoad(OWLOntologyDocumentSource documentSource) {
+        if (documentSource.isReaderAvailable()) {
             return true;
         }
-        if (inputSource.isInputStreamAvailable()) {
+        if (documentSource.isInputStreamAvailable()) {
             return true;
         }
-        if (parsableSchemes.contains(inputSource.getDocumentIRI().getScheme())) {
+        if (parsableSchemes.contains(documentSource.getDocumentIRI().getScheme())) {
             return true;
         }
         // If we can open an input stream then we can attempt to parse the ontology
         // TODO: Take into consideration the request type!
         try {
-            InputStream is = inputSource.getDocumentIRI().toURI().toURL().openStream();
+            InputStream is = documentSource.getDocumentIRI().toURI().toURL().openStream();
             is.close();
             return true;
         }
@@ -137,7 +137,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     }
 
 
-    public OWLOntology loadOWLOntology(OWLOntologyInputSource inputSource, final OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
+    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, final OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
         // Attempt to parse the ontology by looping through the parsers.  If the
         // ontology is parsed successfully then we break out and return the ontology.
         // I think that this is more reliable than selecting a parser based on a file extension
@@ -148,21 +148,21 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // we throw an exception if someone tries to create an ontology directly
 
         OWLOntology existingOntology = null;
-        IRI iri = inputSource.getDocumentIRI();
+        IRI iri = documentSource.getDocumentIRI();
         if (getOWLOntologyManager().contains(iri)) {
             existingOntology = getOWLOntologyManager().getOntology(iri);
         }
         OWLOntologyID ontologyID = new OWLOntologyID();
-        OWLOntology ont = super.createOWLOntology(ontologyID, inputSource.getDocumentIRI(), mediator);
+        OWLOntology ont = super.createOWLOntology(ontologyID, documentSource.getDocumentIRI(), mediator);
         // Now parse the input into the empty ontology that we created
         for (final OWLParser parser : getParsers()) {
             try {
                 if (existingOntology == null && !ont.isEmpty()) {
                     // Junk from a previous parse.  We should clear the ont
                     getOWLOntologyManager().removeOntology(ont);
-                    ont = super.createOWLOntology(ontologyID, inputSource.getDocumentIRI(), mediator);
+                    ont = super.createOWLOntology(ontologyID, documentSource.getDocumentIRI(), mediator);
                 }
-                OWLOntologyFormat format = parser.parse(inputSource, ont);
+                OWLOntologyFormat format = parser.parse(documentSource, ont);
                 mediator.setOntologyFormat(ont, format);
                 return ont;
             }
@@ -194,6 +194,6 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // We haven't found a parser that could parse the ontology properly.  Throw an
         // exception whose message contains the stack traces from all of the parsers
         // that we have tried.
-        throw new UnparsableOntologyException(inputSource.getDocumentIRI(), exceptions);
+        throw new UnparsableOntologyException(documentSource.getDocumentIRI(), exceptions);
     }
 }

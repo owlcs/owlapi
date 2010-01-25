@@ -2,7 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.io.OWLOntologyInputSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -42,17 +42,17 @@ import java.io.IOException;
  */
 public class TurtleOntologyParser extends AbstractOWLParser {
 
-    public OWLOntologyFormat parse(OWLOntologyInputSource inputSource, OWLOntology ontology) throws OWLParserException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException {
         try {
             TurtleParser parser;
-            if(inputSource.isReaderAvailable()) {
-                parser = new TurtleParser(inputSource.getReader(), new ConsoleTripleHandler(), inputSource.getDocumentIRI().toString());
+            if(documentSource.isReaderAvailable()) {
+                parser = new TurtleParser(documentSource.getReader(), new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
             }
-            else if(inputSource.isInputStreamAvailable()) {
-                parser = new TurtleParser(inputSource.getInputStream(), new ConsoleTripleHandler(), inputSource.getDocumentIRI().toString());
+            else if(documentSource.isInputStreamAvailable()) {
+                parser = new TurtleParser(documentSource.getInputStream(), new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
             }
             else {
-                parser = new TurtleParser(new BufferedInputStream(inputSource.getDocumentIRI().toURI().toURL().openStream()), new ConsoleTripleHandler(), inputSource.getDocumentIRI().toString());
+                parser = new TurtleParser(new BufferedInputStream(documentSource.getDocumentIRI().toURI().toURL().openStream()), new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
             }
 
             OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(getOWLOntologyManager(), ontology, parser);

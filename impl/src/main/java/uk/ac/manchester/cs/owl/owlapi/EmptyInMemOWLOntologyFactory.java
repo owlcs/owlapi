@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.io.DefaultOntologyFormat;
-import org.semanticweb.owlapi.io.OWLOntologyInputSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.*;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
 
-    public OWLOntology loadOWLOntology(OWLOntologyInputSource inputSource, OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
+    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
         throw new OWLRuntimeException(new UnsupportedOperationException("Cannot load OWL ontologies."));
     }
 
@@ -48,7 +48,7 @@ public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactor
     }
 
 
-    public boolean canLoad(OWLOntologyInputSource inputSource) {
+    public boolean canLoad(OWLOntologyDocumentSource documentSource) {
         return false;
     }
 }
