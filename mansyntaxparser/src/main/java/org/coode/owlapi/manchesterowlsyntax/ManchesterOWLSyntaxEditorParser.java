@@ -1460,7 +1460,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 Map<OWLClassExpression, Set<OWLAnnotation>> ces = parseAnnotatedClassExpressionList();
                 for (OWLOntology ont : onts) {
                     for (OWLClassExpression ce : ces.keySet()) {
-                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLSubClassOfAxiom(ce, cls, ces.get(cls))));
+                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLSubClassOfAxiom(ce, cls, ces.get(ce))));
                     }
                 }
 

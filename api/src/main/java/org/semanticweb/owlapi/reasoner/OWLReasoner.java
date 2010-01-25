@@ -1103,12 +1103,11 @@ public interface OWLReasoner {
     long getTimeOut();
 
     /**
-     * Gets the UndeclaredEntityPolicy in use by this reasoner.  The undeclared entity policy is set at reasoner
-     * creation time.
+     * Gets the Fresh Entity Policy in use by this reasoner.  The policy is set at reasoner creation time.
      *
      * @return The policy.
      */
-    FreshEntityPolicy getUndeclaredEntityPolicy();
+    FreshEntityPolicy getFreshEntityPolicy();
 
     /**
      * Gets the IndividualNodeSetPolicy  in use by this reasoner.  The policy is set at reasoner creation time.

@@ -65,13 +65,8 @@ public class StructuralReasoner extends OWLReasonerBase {
         return "Structural Reasoner";
     }
 
-    /**
-     * Gets the UndeclaredEntityPolicy in use by this reasoner.  The undeclared entity policy is set at reasoner
-     * creation time.
-     *
-     * @return The policy.
-     */
-    public FreshEntityPolicy getUndeclaredEntityPolicy() {
+
+    public FreshEntityPolicy getFreshEntityPolicy() {
         return FreshEntityPolicy.ALLOW;
     }
 
