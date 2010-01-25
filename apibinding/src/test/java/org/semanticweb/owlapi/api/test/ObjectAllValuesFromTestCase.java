@@ -4,7 +4,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.io.StringOutputTarget;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 
 import java.util.Set;
 import java.util.HashSet;/*
@@ -48,7 +48,7 @@ public class ObjectAllValuesFromTestCase extends AbstractFileRoundTrippingTestCa
          assertEquals(getOnt().getAxioms(), axioms);
     }
 
-    protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }
 

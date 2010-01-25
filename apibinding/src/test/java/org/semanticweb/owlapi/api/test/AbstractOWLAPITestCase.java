@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringOutputTarget;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
@@ -149,7 +149,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
     public void roundTripOntology(OWLOntology ont, OWLOntologyFormat format) throws Exception {
 //        try {
         UnparsableOntologyException.setIncludeStackTraceInMessage(true);
-        StringOutputTarget target = new StringOutputTarget();
+        StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyFormat fromFormat = manager.getOntologyFormat(ont);
         if (fromFormat instanceof PrefixOWLOntologyFormat && format instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat fromPrefixFormat = (PrefixOWLOntologyFormat) fromFormat;
@@ -212,7 +212,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
         return true;
     }
 
-    protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println("Saved: ");
         System.out.println(target.toString());
         System.out.println("------------------------------------------------------------");

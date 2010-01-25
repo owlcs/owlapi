@@ -3,7 +3,7 @@ package org.semanticweb.owlapi.api.test;
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringOutputTarget;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 /*
@@ -70,7 +70,7 @@ public abstract class AbstractRoundTrippingTest extends AbstractOWLAPITestCase {
 //        roundTripOntology(ont, new ManchesterOWLSyntaxOntologyFormat());
     }
 
-    protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         super.handleSaved(target, format);
     }
 

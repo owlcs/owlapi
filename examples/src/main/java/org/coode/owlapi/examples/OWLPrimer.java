@@ -4,11 +4,10 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StreamOutputTarget;
+import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
 import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
-import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -441,19 +440,19 @@ public class OWLPrimer {
 
             // RDF/XML is the default format
             System.out.println("RDF/XML: -------------------------------------------------------------------------------");
-            manager.saveOntology(ont, new StreamOutputTarget(System.out));
+            manager.saveOntology(ont, new StreamDocumentTarget(System.out));
 
             // OWL/XML
             System.out.println("OWL/XML: -------------------------------------------------------------------------------");
-            manager.saveOntology(ont, new OWLXMLOntologyFormat(), new StreamOutputTarget(System.out));
+            manager.saveOntology(ont, new OWLXMLOntologyFormat(), new StreamDocumentTarget(System.out));
 
             // Manchester Syntax
             System.out.println("Manchester syntax: -------------------------------------------------------------------------------");
-            manager.saveOntology(ont, new ManchesterOWLSyntaxOntologyFormat(), new StreamOutputTarget(System.out));
+            manager.saveOntology(ont, new ManchesterOWLSyntaxOntologyFormat(), new StreamDocumentTarget(System.out));
 
             // Turtle
             System.out.println("Turtle: -------------------------------------------------------------------------------");
-            manager.saveOntology(ont, new TurtleOntologyFormat(), new StreamOutputTarget(System.out));
+            manager.saveOntology(ont, new TurtleOntologyFormat(), new StreamDocumentTarget(System.out));
 
 
         }

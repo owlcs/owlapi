@@ -1,8 +1,10 @@
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 import java.io.OutputStream;
+import java.io.StringWriter;
 import java.io.Writer;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -32,35 +34,40 @@ import java.io.Writer;
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Jan-2008<br><br>
+ * Date: 23-Mar-2008<br><br>
  */
-public class StreamOutputTarget implements OWLOntologyOutputTarget {
+public class StringDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private OutputStream os;
+    private StringWriter writer;
 
 
-    public StreamOutputTarget(OutputStream os) {
-        this.os = os;
+    public StringDocumentTarget() {
+        this.writer = new StringWriter();
+    }
+
+
+    public String toString() {
+        return writer.getBuffer().toString();
     }
 
 
     public boolean isWriterAvailable() {
-        return false;
-    }
-
-
-    public Writer getWriter() {
-        return null;
-    }
-
-
-    public boolean isOutputStreamAvailable() {
         return true;
     }
 
 
+    public Writer getWriter() {
+        return writer;
+    }
+
+
+    public boolean isOutputStreamAvailable() {
+        return false;
+    }
+
+
     public OutputStream getOutputStream() {
-        return os;
+        throw new OWLRuntimeException("OutputStream not available.  getOutputStream() should not be called if isOutputStreamAvailable() returns false.");
     }
 
 
@@ -70,6 +77,6 @@ public class StreamOutputTarget implements OWLOntologyOutputTarget {
 
 
     public IRI getDocumentIRI() {
-        return null;
+        throw new OWLRuntimeException("IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
     }
 }

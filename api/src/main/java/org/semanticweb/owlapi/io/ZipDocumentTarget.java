@@ -1,10 +1,11 @@
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Writer;
+import java.io.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -32,33 +33,51 @@ import java.io.Writer;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 18-Dec-2009
- * </p>
- * An output target that will output an ontology to <code>System.out</code>
+ * Date: 03-Apr-2009
  */
-public class SystemOutOutputTarget implements OWLOntologyOutputTarget {
+public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
 
-    public IRI getDocumentIRI() {
-        return null;
+    private File file;
+
+
+    public ZipDocumentTarget(File file) {
+        this.file = file;
     }
 
-    public boolean isDocumentIRIAvailable() {
-        return false;
+
+    public boolean isWriterAvailable() {
+        return true;
     }
 
-    public OutputStream getOutputStream() throws IOException {
-        return System.out;
+
+    public Writer getWriter() throws IOException {
+        return new BufferedWriter(new OutputStreamWriter(getOutputStream()));
     }
+
 
     public boolean isOutputStreamAvailable() {
         return true;
     }
 
-    public Writer getWriter() throws IOException {
-        return null;
+
+    public OutputStream getOutputStream() throws IOException {
+        if(file.getParentFile().mkdirs()) {
+            ZipOutputStream os = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+            os.putNextEntry(new ZipEntry("ontology.txt"));
+            return os;
+        }
+        else {
+            throw new IOException("Could not create directories: " + file.getParentFile());
+        }
     }
 
-    public boolean isWriterAvailable() {
+
+    public boolean isDocumentIRIAvailable() {
         return false;
+    }
+
+
+    public IRI getDocumentIRI() {
+        throw new OWLRuntimeException("IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
     }
 }

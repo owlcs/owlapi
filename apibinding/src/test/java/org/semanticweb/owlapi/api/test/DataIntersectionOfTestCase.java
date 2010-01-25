@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.api.test;
 
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.io.StringOutputTarget;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -47,7 +47,7 @@ public class DataIntersectionOfTestCase extends AbstractFileRoundTrippingTestCas
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
-    protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }
 

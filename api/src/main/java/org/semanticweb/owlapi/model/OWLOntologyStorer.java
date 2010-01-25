@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.io.OWLOntologyOutputTarget;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 
 import java.io.IOException;
 /*
@@ -69,5 +69,5 @@ public interface OWLOntologyStorer {
      * @throws OWLOntologyStorageException if there was a problem storing the ontology.
      * @throws IOException if there was an IOException when storing the ontology.
      */
-    void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OWLOntologyOutputTarget target, OWLOntologyFormat format) throws OWLOntologyStorageException, IOException;
+    void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OWLOntologyDocumentTarget target, OWLOntologyFormat format) throws OWLOntologyStorageException, IOException;
 }

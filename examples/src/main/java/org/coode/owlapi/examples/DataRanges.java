@@ -1,7 +1,7 @@
 package org.coode.owlapi.examples;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.SystemOutOutputTarget;
+import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -114,7 +114,7 @@ public class DataRanges {
             manager.addAxiom(ontology, datatypeDef);
 
             // Dump our ontology
-            manager.saveOntology(ontology, new SystemOutOutputTarget());
+            manager.saveOntology(ontology, new SystemOutDocumentTarget());
         }
         catch (OWLOntologyCreationException e) {
             System.out.println("Could not create ontology: " + e.getMessage());

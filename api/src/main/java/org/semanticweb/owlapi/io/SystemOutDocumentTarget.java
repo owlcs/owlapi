@@ -1,11 +1,13 @@
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 /*
- * Copyright (C) 2007, University of Manchester
+ * Copyright (C) 2009, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -27,49 +29,37 @@ import java.io.Writer;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Jan-2008<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 18-Dec-2009
+ * </p>
+ * An output target that will output an ontology to <code>System.out</code>
  */
-public class WriterOutputTarget implements OWLOntologyOutputTarget {
+public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private Writer writer;
-
-
-    public WriterOutputTarget(Writer writer) {
-        this.writer = writer;
+    public IRI getDocumentIRI() {
+        throw new OWLRuntimeException("IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
     }
-
-
-    public boolean isWriterAvailable() {
-        return true;
-    }
-
-
-    public Writer getWriter() {
-        return writer;
-    }
-
-
-    public boolean isOutputStreamAvailable() {
-        return false;
-    }
-
-
-    public OutputStream getOutputStream() {
-        return null;
-    }
-
 
     public boolean isDocumentIRIAvailable() {
         return false;
     }
 
+    public OutputStream getOutputStream() throws IOException {
+        return System.out;
+    }
 
-    public IRI getDocumentIRI() {
-        return null;
+    public boolean isOutputStreamAvailable() {
+        return true;
+    }
+
+    public Writer getWriter() throws IOException {
+        throw new OWLRuntimeException("Writer not available.  getWriter() should not be called if isWriterAvailable() returns false.");
+    }
+
+    public boolean isWriterAvailable() {
+        return false;
     }
 }

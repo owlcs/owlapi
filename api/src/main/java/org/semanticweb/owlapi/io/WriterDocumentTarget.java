@@ -1,12 +1,12 @@
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-import java.io.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import java.io.OutputStream;
+import java.io.Writer;
 /*
- * Copyright (C) 2009, University of Manchester
+ * Copyright (C) 2007, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -28,19 +28,20 @@ import java.util.zip.ZipOutputStream;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
 /**
  * Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Apr-2009
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 25-Jan-2008<br><br>
  */
-public class ZipOutputTarget implements OWLOntologyOutputTarget {
+public class WriterDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private File file;
+    private Writer writer;
 
 
-    public ZipOutputTarget(File file) {
-        this.file = file;
+    public WriterDocumentTarget(Writer writer) {
+        this.writer = writer;
     }
 
 
@@ -49,25 +50,18 @@ public class ZipOutputTarget implements OWLOntologyOutputTarget {
     }
 
 
-    public Writer getWriter() throws IOException {
-        return new BufferedWriter(new OutputStreamWriter(getOutputStream()));
+    public Writer getWriter() {
+        return writer;
     }
 
 
     public boolean isOutputStreamAvailable() {
-        return true;
+        return false;
     }
 
 
-    public OutputStream getOutputStream() throws IOException {
-        if(file.getParentFile().mkdirs()) {
-            ZipOutputStream os = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
-            os.putNextEntry(new ZipEntry("ontology.txt"));
-            return os;
-        }
-        else {
-            throw new IOException("Could not create directories: " + file.getParentFile());
-        }
+    public OutputStream getOutputStream() {
+        throw new OWLRuntimeException("OutputStream not available.  getOutputStream() should not be called if isOutputStreamAvailable() returns false.");
     }
 
 
@@ -77,6 +71,6 @@ public class ZipOutputTarget implements OWLOntologyOutputTarget {
 
 
     public IRI getDocumentIRI() {
-        return null;
+        throw new OWLRuntimeException("IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
     }
 }

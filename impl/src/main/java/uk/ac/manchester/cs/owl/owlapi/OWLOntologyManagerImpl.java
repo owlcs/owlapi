@@ -756,23 +756,23 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     public void saveOntology(OWLOntology ontology, OutputStream outputStream) throws OWLOntologyStorageException {
-        saveOntology(ontology, new StreamOutputTarget(outputStream));
+        saveOntology(ontology, new StreamDocumentTarget(outputStream));
     }
 
     public void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, OutputStream outputStream) throws OWLOntologyStorageException {
-        saveOntology(ontology, ontologyFormat, new StreamOutputTarget(outputStream));
+        saveOntology(ontology, ontologyFormat, new StreamDocumentTarget(outputStream));
     }
 
-    public void saveOntology(OWLOntology ontology, OWLOntologyOutputTarget outputTarget) throws OWLOntologyStorageException, UnknownOWLOntologyException {
-        saveOntology(ontology, getOntologyFormat(ontology), outputTarget);
+    public void saveOntology(OWLOntology ontology, OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException, UnknownOWLOntologyException {
+        saveOntology(ontology, getOntologyFormat(ontology), documentTarget);
     }
 
 
-    public void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, OWLOntologyOutputTarget outputTarget) throws OWLOntologyStorageException, UnknownOWLOntologyException {
+    public void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException, UnknownOWLOntologyException {
         try {
             for (OWLOntologyStorer storer : ontologyStorers) {
                 if (storer.canStoreOntology(ontologyFormat)) {
-                    storer.storeOntology(this, ontology, outputTarget, ontologyFormat);
+                    storer.storeOntology(this, ontology, documentTarget, ontologyFormat);
                     return;
                 }
             }

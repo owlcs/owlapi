@@ -6,7 +6,6 @@ import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 
 import java.io.File;
-import java.net.URI;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -73,13 +72,13 @@ public class SavingOntologies {
 
             // We can also dump an ontology to System.out by specifying a different OWLOntologyOutputTarget
             // Note that we can write an ontology to a stream in a similar way using the StreamOutputTarget class
-            OWLOntologyOutputTarget outputTarget = new SystemOutOutputTarget();
+            OWLOntologyDocumentTarget documentTarget = new SystemOutDocumentTarget();
             // Try another format - The Manchester OWL Syntax
             ManchesterOWLSyntaxOntologyFormat manSyntaxFormat = new ManchesterOWLSyntaxOntologyFormat();
             if(format.isPrefixOWLOntologyFormat()) {
                 manSyntaxFormat.copyPrefixesFrom(format.asPrefixOWLOntologyFormat());
             }
-            manager.saveOntology(pizzaOntology, manSyntaxFormat, new SystemOutOutputTarget());
+            manager.saveOntology(pizzaOntology, manSyntaxFormat, new SystemOutDocumentTarget());
 
 
         }

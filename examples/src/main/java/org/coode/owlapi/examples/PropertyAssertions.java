@@ -1,7 +1,7 @@
 package org.coode.owlapi.examples;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.SystemOutOutputTarget;
+import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -81,7 +81,7 @@ public class PropertyAssertions {
             manager.addAxiom(ontology, ax);
 
             // Dump the ontology to System.out
-            manager.saveOntology(ontology, new SystemOutOutputTarget());
+            manager.saveOntology(ontology, new SystemOutDocumentTarget());
         }
         catch (OWLOntologyCreationException e) {
             System.out.println("Could not create ontology: " + e.getMessage());

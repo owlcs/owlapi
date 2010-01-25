@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
-import org.semanticweb.owlapi.io.StringOutputTarget;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -51,7 +51,7 @@ public class ObjectSomeValuesFromTestCase extends AbstractFileRoundTrippingTestC
         return "ObjectSomeValuesFrom.rdf";
     }
 
-    protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }
 }

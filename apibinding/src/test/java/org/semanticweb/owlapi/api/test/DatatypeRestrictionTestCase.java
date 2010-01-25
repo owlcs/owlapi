@@ -2,7 +2,7 @@ package org.semanticweb.owlapi.api.test;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLFacet;
-import org.semanticweb.owlapi.io.StringOutputTarget;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 
 import java.util.Set;
 import java.util.HashSet;/*
@@ -48,7 +48,7 @@ public class DatatypeRestrictionTestCase extends AbstractFileRoundTrippingTestCa
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
-    protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }
 

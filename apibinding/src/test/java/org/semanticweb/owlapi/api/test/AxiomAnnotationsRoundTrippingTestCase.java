@@ -1,8 +1,8 @@
 package org.semanticweb.owlapi.api.test;
 
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.io.StringOutputTarget;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -60,7 +60,7 @@ public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTripping
         return ont;
     }
 
-    protected void handleSaved(StringOutputTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }
 

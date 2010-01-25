@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyOutputTarget;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 
 import java.io.File;
 import java.io.InputStream;
@@ -604,23 +604,23 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
 
     /**
-     * Saves the specified ontology to the specified {@link org.semanticweb.owlapi.io.OWLOntologyOutputTarget}.
+     * Saves the specified ontology to the specified {@link org.semanticweb.owlapi.io.OWLOntologyDocumentTarget}.
      * @param ontology The ontology to be saved.
-     * @param outputTarget The output target where the ontology will be saved to.
+     * @param documentTarget The output target where the ontology will be saved to.
      * @throws OWLOntologyStorageException If the ontology could not be saved.
      * @throws UnknownOWLOntologyException if the specified ontology is not managed by this manager.
      */
-    void saveOntology(OWLOntology ontology, OWLOntologyOutputTarget outputTarget) throws OWLOntologyStorageException;
+    void saveOntology(OWLOntology ontology, OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException;
 
     /**
      * Saves the specified ontology to the specified output target in the specified ontology format.
      * @param ontology The ontology to be saved.
      * @param ontologyFormat The output format in which to save the ontology
-     * @param outputTarget The output target where the ontology will be saved to
+     * @param documentTarget The output target where the ontology will be saved to
      * @throws OWLOntologyStorageException If the ontology could not be saved.
      * @throws UnknownOWLOntologyException If the specified ontology is not managed by this manager.
      */
-    void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, OWLOntologyOutputTarget outputTarget) throws OWLOntologyStorageException;
+    void saveOntology(OWLOntology ontology, OWLOntologyFormat ontologyFormat, OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException;
 
 
     /**

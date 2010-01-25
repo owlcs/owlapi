@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.io.OWLOntologyOutputTarget;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 
 import java.io.*;
@@ -90,7 +90,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     }
 
 
-    public void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OWLOntologyOutputTarget target,
+    public void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OWLOntologyDocumentTarget target,
                               OWLOntologyFormat format) throws OWLOntologyStorageException {
         if (target.isWriterAvailable()) {
             try {
