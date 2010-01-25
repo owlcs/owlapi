@@ -52,7 +52,7 @@ public class AbbreviatedIRIElementHandler extends AbstractIRIElementHandler {
     public void endElement() throws OWLParserException, UnloadableImportException {
         String iriText = getText().trim();
         iri = getAbbreviatedIRI(iriText);
-        handleChild(this);
+        getParentHandler().handleChild(this);
     }
 
 }
