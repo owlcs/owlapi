@@ -79,7 +79,7 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
         return timeOut;
     }
 
-    public FreshEntityPolicy getUndeclaredEntityPolicy() {
+    public FreshEntityPolicy getFreshEntityPolicy() {
         return freshEntityPolicy;
     }
 

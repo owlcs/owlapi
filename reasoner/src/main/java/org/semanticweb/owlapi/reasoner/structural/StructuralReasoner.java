@@ -52,8 +52,14 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private boolean interrupted = false;
 
+    private ReasonerProgressMonitor pm;
+
     public StructuralReasoner(OWLOntology rootOntology, OWLReasonerConfiguration configuration, BufferingMode bufferingMode) {
         super(rootOntology, configuration, bufferingMode);
+        pm = configuration.getProgressMonitor();
+        if(pm == null) {
+            pm = new NullReasonerProgressMonitor();
+        }
     }
 
     /**
@@ -89,7 +95,16 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     protected void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms) {
-        // TODO: We just need to check we haven't formed or broken a cycle.
+        handleChanges(addAxioms, removeAxioms, classHierarchyInfo);
+        handleChanges(addAxioms, removeAxioms, objectPropertyHierarchyInfo);
+        handleChanges(addAxioms, removeAxioms, dataPropertyHierarchyInfo);
+    }
+
+    private <T extends OWLLogicalEntity> void handleChanges(Set<OWLAxiom> added, Set<OWLAxiom> removed, HierarchyInfo<T> hierarchyInfo) {
+        Set<T> sig = hierarchyInfo.getEntitiesInSignature(added);
+        sig.addAll(hierarchyInfo.getEntitiesInSignature(removed));
+        hierarchyInfo.processChanges(sig);
+
     }
 
     public void interrupt() {
@@ -97,12 +112,9 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public void prepareReasoner() throws ReasonerInterruptedException, TimeOutException {
-        long t0 = System.currentTimeMillis();
         classHierarchyInfo.prepare();
         objectPropertyHierarchyInfo.prepare();
         dataPropertyHierarchyInfo.prepare();
-        long t1 = System.currentTimeMillis();
-        System.out.println("Time to prepare reasoner: " + (t1 - t0));
     }
 
 
@@ -175,7 +187,19 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce, boolean direct) {
-        return new OWLClassNodeSet();
+        OWLClassNodeSet nodeSet = new OWLClassNodeSet();
+        if (!ce.isAnonymous()) {
+            for(OWLOntology ontology : getRootOntology().getImportsClosure()) {
+                for(OWLDisjointClassesAxiom ax : ontology.getDisjointClassesAxioms(ce.asOWLClass())) {
+                    for(OWLClassExpression op : ax.getClassExpressions()) {
+                        if(!op.isAnonymous()) {
+                            nodeSet.addNode(getEquivalentClasses(op));
+                        }
+                    }
+                }
+            }
+        }
+        return nodeSet;
     }
 
     public Node<OWLObjectProperty> getTopObjectPropertyNode() {
@@ -542,17 +566,34 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         private RawHierarchyProvider<T> rawHierarchyProvider;
 
+        private String name;
 
-        public HierarchyInfo(T topEntity, RawHierarchyProvider<T> rawHierarchyProvider) {
+        private int classificationSize;
+
+        public HierarchyInfo(String name, T topEntity, RawHierarchyProvider<T> rawHierarchyProvider) {
             this.topEntity = topEntity;
             this.rawHierarchyProvider = rawHierarchyProvider;
+            this.name = name;
         }
 
+        public boolean isInCycle(T t) {
+            return cycles.containsKey(t);
+        }
         protected abstract Set<T> getEntities(OWLOntology ont);
 
         protected abstract DefaultNode<T> createNode(Set<T> cycle);
 
         protected abstract DefaultNode<T> createNode();
+
+        protected abstract Set<T> getEntitiesInSignature(OWLAxiom ax);
+
+        public Set<T> getEntitiesInSignature(Set<OWLAxiom> axioms) {
+            Set<T> result = new HashSet<T>();
+            for(OWLAxiom ax : axioms) {
+                result.addAll(getEntitiesInSignature(ax));
+            }
+            return result;
+        }
 
         private Collection<T> getChildrenInternal(T parent) {
             Collection<T> result;
@@ -585,19 +626,35 @@ public class StructuralReasoner extends OWLReasonerBase {
 
 
         public void prepare() {
+            pm.reasonerTaskStarted("Computing " + name + " hierarchy");
+            pm.reasonerTaskBusy();
+            cycles.clear();
             Map<T, Collection<T>> cache = new HashMap<T, Collection<T>>();
             Set<T> processed = new HashSet<T>();
             HashSet<Set<T>> result = new HashSet<Set<T>>();
+            Set<T> entities = new HashSet<T>();
             for (OWLOntology ont : getRootOntology().getImportsClosure()) {
-                for (T entity : getEntities(ont)) {
-                    if (!processed.contains(entity)) {
-                        tarjan(entity, 0, new Stack<T>(), new HashMap<T, Integer>(), new HashMap<T, Integer>(), result, processed, new HashSet<T>(), cache);
-                        checkForInterrupt();
-                    }
+                entities.addAll(getEntities(ont));
+            }
+            classificationSize = entities.size();
+            pm.reasonerTaskProgressChanged(0, classificationSize);
+            computeCyclesForSignature(entities, cache, processed, result);
+            addCycles(result);
+            pm.reasonerTaskStopped();
+        }
 
+        private void computeCyclesForSignature(Set<T> signature, Map<T, Collection<T>> cache, Set<T> processed, HashSet<Set<T>> result) {
+            for (T entity : signature) {
+                if (!processed.contains(entity)) {
+                    pm.reasonerTaskProgressChanged(processed.size(), signature.size());
+                    tarjan(entity, 0, new Stack<T>(), new HashMap<T, Integer>(), new HashMap<T, Integer>(), result, processed, new HashSet<T>(), cache);
+                    checkForInterrupt();
                 }
             }
-            for (Set<T> entity : result) {
+        }
+
+        private void addCycles(HashSet<Set<T>> forCycles) {
+            for (Set<T> entity : forCycles) {
                 DefaultNode<T> node = createNode(entity);
                 for (T cls : entity) {
                     cycles.put(cls, node);
@@ -611,9 +668,52 @@ public class StructuralReasoner extends OWLReasonerBase {
             roots.remove(topEntity);
         }
 
+        /**
+         * Processes the specified signature that represents the signature of potential changes
+         * @param signature The signature
+         */
+        public void processChanges(Set<T> signature) {
+            // Break existing cycles - they will be reformed if necessary
+            removeCyclesForSignature(signature);
+            // Compute new cycles
+            HashSet<Set<T>> result = new HashSet<Set<T>>();
+            computeCyclesForSignature(signature, new HashMap<T, Collection<T>>(), new HashSet<T>(), result);
+            // Add them
+            addCycles(result);
+
+        }
+
+        /**
+         * Removes all cycles that contain entities in the specified signature
+         * @param signature The signature - cycles that contain any part of the signature will be removed.
+         */
+        private void removeCyclesForSignature(Set<T> signature) {
+            for(T entity : cycles.keySet()) {
+                if(signature.contains(entity)) {
+                    cycles.remove(entity);
+                }
+            }
+            for(T entity : signature) {
+                roots.remove(entity);
+            }
+
+
+        }
+
+        public Set<Set<T>> computeCycleForEntites(Set<T> entities) {
+            Map<T, Collection<T>> cache = new HashMap<T, Collection<T>>();
+            Set<T> processed = new HashSet<T>();
+            HashSet<Set<T>> result = new HashSet<Set<T>>();
+            for (T entity : entities) {
+                tarjan(entity, 0, new Stack<T>(), new HashMap<T, Integer>(), new HashMap<T, Integer>(), result, processed, new HashSet<T>(), cache);
+            }
+            return result;
+        }
+
         public void tarjan(T entity, int index, Stack<T> stack, Map<T, Integer> indexMap, Map<T, Integer> lowlinkMap, Set<Set<T>> result, Set<T> processed, Set<T> stackEntities, Map<T, Collection<T>> cache) {
             checkForInterrupt();
             processed.add(entity);
+            pm.reasonerTaskProgressChanged(processed.size(), classificationSize);
             indexMap.put(entity, index);
             lowlinkMap.put(entity, index);
             index = index + 1;
@@ -704,7 +804,12 @@ public class StructuralReasoner extends OWLReasonerBase {
     private class ClassHierarchyInfo extends HierarchyInfo<OWLClass> {
 
         private ClassHierarchyInfo() {
-            super(getRootOntology().getOWLOntologyManager().getOWLDataFactory().getOWLThing(), new RawClassHierarchyProvider());
+            super("class", getRootOntology().getOWLOntologyManager().getOWLDataFactory().getOWLThing(), new RawClassHierarchyProvider());
+        }
+
+        @Override
+        protected Set<OWLClass> getEntitiesInSignature(OWLAxiom ax) {
+            return ax.getClassesInSignature();
         }
 
         @Override
@@ -726,7 +831,12 @@ public class StructuralReasoner extends OWLReasonerBase {
     private class ObjectPropertyHierarchyInfo extends HierarchyInfo<OWLObjectProperty> {
 
         private ObjectPropertyHierarchyInfo() {
-            super(getDataFactory().getOWLTopObjectProperty(), new RawObjectPropertyHierarchyProvider());
+            super("object property", getDataFactory().getOWLTopObjectProperty(), new RawObjectPropertyHierarchyProvider());
+        }
+
+        @Override
+        protected Set<OWLObjectProperty> getEntitiesInSignature(OWLAxiom ax) {
+            return ax.getObjectPropertiesInSignature();
         }
 
         @Override
@@ -748,7 +858,12 @@ public class StructuralReasoner extends OWLReasonerBase {
     private class DataPropertyHierarchyInfo extends HierarchyInfo<OWLDataProperty> {
 
         private DataPropertyHierarchyInfo() {
-            super(getDataFactory().getOWLTopDataProperty(), new RawDataPropertyHierarchyProvider());
+            super("data property", getDataFactory().getOWLTopDataProperty(), new RawDataPropertyHierarchyProvider());
+        }
+
+        @Override
+        protected Set<OWLDataProperty> getEntitiesInSignature(OWLAxiom ax) {
+            return ax.getDataPropertiesInSignature();
         }
 
         @Override

@@ -63,11 +63,11 @@ public interface OWLReasonerConfiguration {
     long getTimeOut();
 
     /**
-     * Gets the undeclared entity policy that should be used.  By default this is set to
+     * Gets the fresh entity policy that should be used.  By default this is set to
      * {@link FreshEntityPolicy#ALLOW}.
-     * @return The undeclared entity policy.
+     * @return The fresh entity policy.
      */
-    FreshEntityPolicy getUndeclaredEntityPolicy();
+    FreshEntityPolicy getFreshEntityPolicy();
 
     /**
      * Gets the {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy} which determines how <code>NodeSet</code>s
@@ -77,6 +77,6 @@ public interface OWLReasonerConfiguration {
      * the same as each other are not grouped into the same node within a node set.
      */
     IndividualNodeSetPolicy getIndividualNodeSetPolicy();
-    
+
 
 }

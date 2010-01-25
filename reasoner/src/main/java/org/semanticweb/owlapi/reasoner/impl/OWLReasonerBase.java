@@ -67,6 +67,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
             for(OWLAxiom ax : ont.getLogicalAxioms()) {
                 reasonerAxioms.add(ax.getAxiomWithoutAnnotations());
             }
+            for(OWLAxiom ax : ont.getAxioms(AxiomType.DECLARATION)) {
+                reasonerAxioms.add(ax.getAxiomWithoutAnnotations());
+            }
         }
     }
 
@@ -154,6 +157,11 @@ public abstract class OWLReasonerBase implements OWLReasoner {
                     added.add(ax);
                 }
             }
+            for(OWLAxiom ax : ont.getAxioms(AxiomType.DECLARATION)) {
+                if(!reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())) {
+                    added.add(ax);
+                }
+            }
         }
         for(OWLAxiom ax : reasonerAxioms) {
             if(!rootOntology.containsAxiomIgnoreAnnotations(ax, true)) {
@@ -184,8 +192,8 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         manager.removeOntologyChangeListener(ontologyChangeListener);
     }
 
-    public FreshEntityPolicy getUndeclaredEntityPolicy() {
-        return configuration.getUndeclaredEntityPolicy();
+    public FreshEntityPolicy getFreshEntityPolicy() {
+        return configuration.getFreshEntityPolicy();
     }
 
     public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
