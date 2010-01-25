@@ -43,7 +43,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             OWLOntologyStorageException {
         try {
             if (!documentIRI.isAbsolute()) {
-                throw new OWLOntologyStorageException("Physical URI must be absolute: " + documentIRI);
+                throw new OWLOntologyStorageException("Document IRI must be absolute: " + documentIRI);
             }
 
 
@@ -113,7 +113,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
         } else if (target.isDocumentIRIAvailable()) {
             storeOntology(manager, ontology, target.getDocumentIRI(), format);
         } else {
-            throw new OWLOntologyStorageException("Neither a Writer, OutputStream or Physical URI could be obtained to store the ontology");
+            throw new OWLOntologyStorageException("Neither a Writer, OutputStream or Document IRI could be obtained to store the ontology");
         }
     }
 

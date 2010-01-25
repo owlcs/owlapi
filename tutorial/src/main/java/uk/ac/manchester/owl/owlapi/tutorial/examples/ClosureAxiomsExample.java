@@ -119,7 +119,7 @@ public class ClosureAxiomsExample {
                     .loadOntologyFromOntologyDocument(documentIRI);
             System.out.println("Ontology Loaded...");
             System.out.println("Logical URI : " + documentIRI);
-            System.out.println("Physical URI: " + ontology.getOntologyID());
+            System.out.println("Document IRI: " + ontology.getOntologyID());
             System.out.println("Format      : "
                     + manager.getOntologyFormat(ontology));
 
@@ -137,7 +137,7 @@ public class ClosureAxiomsExample {
 
             manager.saveOntology(ontology, outputDocumentIRI);
             System.out.println("Ontology Saved...");
-            System.out.println("Physical URI : " + outputDocumentIRI);
+            System.out.println("Document IRI : " + outputDocumentIRI);
 
             /* Remove the ontology from the manager */
             manager.removeOntology(ontology);

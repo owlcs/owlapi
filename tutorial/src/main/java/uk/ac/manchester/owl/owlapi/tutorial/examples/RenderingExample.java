@@ -91,13 +91,13 @@ public class RenderingExample {
             IRI inputDocumentIRI = IRI.create(inputOntology);
             IRI outputDocumentIRI = IRI.create(outputOntology);
 
-            /* Load an ontology from a physical URI */
+            /* Load an ontology from a document IRI */
 
             OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputDocumentIRI);
             /* Report information about the ontology */
             System.out.println("Ontology Loaded...");
-            System.out.println("Physical URI: " + inputDocumentIRI);
-            System.out.println("Logical URI : " + ontology.getOntologyID());
+            System.out.println("Document IRI: " + inputDocumentIRI);
+            System.out.println("Logical IRI : " + ontology.getOntologyID());
             System.out.println("Format      : "
                     + manager.getOntologyFormat(ontology));
 

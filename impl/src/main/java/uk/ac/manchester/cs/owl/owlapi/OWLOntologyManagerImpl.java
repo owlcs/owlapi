@@ -571,13 +571,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         // The ontology might be being loaded, but its IRI might
         // not have been set (as is probably the case with RDF/XML!)
         if (documentIRI != null) {
-            OWLOntology ontByPhysicalURI = getOntology(documentIRI);
-            if (ontByPhysicalURI != null) {
-                return ontByPhysicalURI;
+            OWLOntology ontByDocumentIRI = getOntology(documentIRI);
+            if (ontByDocumentIRI != null) {
+                return ontByDocumentIRI;
             }
         }
         else {
-            // Nothing we can do here.  We can't get a physical URI to load
+            // Nothing we can do here.  We can't get a document IRI to load
             // the ontology from.
             throw new OntologyIRIMappingNotFoundException(ontologyIRI);
         }
@@ -631,7 +631,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
                         // when the ontology is created.
                         ontology = factory.loadOWLOntology(documentSource, this);
                         idOfLoadedOntology = ontology.getOntologyID();
-                        // Store the ontology to physical URI mapping
+                        // Store the ontology to the document IRI mapping
                         documentIRIsByID.put(ontology.getOntologyID(), documentSource.getDocumentIRI());
                         return ontology;
                     }
@@ -835,11 +835,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Uses the mapper mechanism to obtain an ontology document IRI from an ontology IRI.
      *
-     * @param ontologyID The ontology ID for which the physical mapping is to be retrieved
+     * @param ontologyID The ontology ID for which a document IRI is to be retrieved
      * @param quiet If set to <code>true</code> and a mapping can't be found then a value of <code>null</code>
      * is returned.  If set to <code>false</code> and a mapping can't be found then an exception {@link org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException}
      * is thrown.
-     * @return The physical URI that corresponds to the ontology URI, or
+     * @return The document IRI that corresponds to the ontology IRI, or
      *         <code>null</code> if no physical URI can be found.
      */
     private IRI getDocumentIRIFromMappers(OWLOntologyID ontologyID, boolean quiet) {

@@ -37,7 +37,7 @@ public class OntologyIRIMappingNotFoundException extends OWLOntologyCreationExce
     private IRI ontologyIRI;
 
     public OntologyIRIMappingNotFoundException(IRI ontologyIRI) {
-        super("Physical URI mapping not found for " + ontologyIRI);
+        super("Document IRI mapping not found for " + ontologyIRI);
         this.ontologyIRI = ontologyIRI;
     }
 

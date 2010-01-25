@@ -45,7 +45,7 @@ public class Example1 {
             // an ontology manager.  Each ontology knows its ontology manager.
             // To load multiple copies of an ontology, multiple managers would have to be used.
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-            // We load an ontology from a physical URI - in this case we'll load the pizza
+            // We load an ontology from a document IRI - in this case we'll load the pizza
             // ontology.
             IRI documentIRI = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
             // Now ask the manager to load the ontology

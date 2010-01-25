@@ -50,7 +50,7 @@ public class Example3 {
             IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/testont.owl");
             // Create a document IRI which can be resolved to point to where our ontology will be saved.
             IRI documentIRI = IRI.create("file:/tmp/SWRLTest.owl");
-            // Set up a mapping, which maps the ontology URI to the physical URI
+            // Set up a mapping, which maps the ontology to the document IRI
             SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, documentIRI);
             manager.addIRIMapper(mapper);
 

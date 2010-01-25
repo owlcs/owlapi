@@ -43,7 +43,7 @@ import java.util.logging.Logger;
  * <p/>
  * An ontology factory that creates ontologies by parsing documents containing
  * concrete representations of ontologies.  This ontology factory will claim that
- * it is suitable for creating an ontology if the physical URI can be opened for
+ * it is suitable for creating an ontology if the document IRI can be opened for
  * reading.  This factory will not create empty ontologies.  Parsers are instantiated
  * by using a list of <code>OWLParserFactory</code> objects that are obtained from
  * the <code>OWLParserFactoryRegistry</code>.

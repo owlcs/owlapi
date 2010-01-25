@@ -44,7 +44,7 @@ public class SavingOntologies {
             // Get hold of an ontology manager
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
-            // Let's load an ontology from the web.  We load the ontology from a physical URI
+            // Let's load an ontology from the web.  We load the ontology from a document IRI
             IRI documentIRI = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
             OWLOntology pizzaOntology = manager.loadOntologyFromOntologyDocument(documentIRI);
             System.out.println("Loaded ontology: " + pizzaOntology);

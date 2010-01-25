@@ -178,8 +178,8 @@ public class SimpleHierarchyExample {
             OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);
             // Report information about the ontology
             System.out.println("Ontology Loaded...");
-            System.out.println("Physical URI: " + documentIRI);
-            System.out.println("Logical URI : " + ontology.getOntologyID());
+            System.out.println("Document IRI: " + documentIRI);
+            System.out.println("Ontology : " + ontology.getOntologyID());
             System.out.println("Format      : "
                     + manager.getOntologyFormat(ontology));
             // / Create a new SimpleHierarchy object with the given reasoner.

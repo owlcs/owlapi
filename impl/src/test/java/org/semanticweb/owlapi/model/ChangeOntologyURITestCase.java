@@ -52,7 +52,7 @@ public class ChangeOntologyURITestCase extends AbstractOWLTestCase {
         assertEquals(man.getOntology(newURI).getOntologyID().getOntologyIRI().toURI(), newURI);
         assertTrue(man.getImportsClosure(importingOnt).contains(ont));
         assertNotNull(man.getOntologyDocumentIRI(ont));
-        // Physical URI will still be the same (in this case the old ont URI)
+        // Document IRI will still be the same (in this case the old ont URI)
         assertEquals(man.getOntologyDocumentIRI(ont), oldURI);
         assertNotNull(man.getOntologyFormat(ont));
 
