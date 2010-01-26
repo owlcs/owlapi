@@ -1527,7 +1527,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 Map<OWLObjectPropertyExpression, Set<OWLAnnotation>> props = parseAnnotatedObjectPropertyList();
                 for (OWLOntology ont : onts) {
                     for (OWLObjectPropertyExpression pe : props.keySet()) {
-                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLSubObjectPropertyOfAxiom(pe, prop, props.get(prop))));
+                        axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLSubObjectPropertyOfAxiom(pe, prop, props.get(pe))));
                     }
                 }
             }

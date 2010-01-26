@@ -560,6 +560,8 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         private T topEntity;
 
+        private T bottomEntity;
+
         private Set<T> roots = new HashSet<T>();
 
         private Map<T, Node<T>> cycles = new HashMap<T, Node<T>>();
@@ -570,15 +572,13 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         private int classificationSize;
 
-        public HierarchyInfo(String name, T topEntity, RawHierarchyProvider<T> rawHierarchyProvider) {
+        public HierarchyInfo(String name, T topEntity, T bottomEntity, RawHierarchyProvider<T> rawHierarchyProvider) {
             this.topEntity = topEntity;
+            this.bottomEntity = bottomEntity;
             this.rawHierarchyProvider = rawHierarchyProvider;
             this.name = name;
         }
 
-        public boolean isInCycle(T t) {
-            return cycles.containsKey(t);
-        }
         protected abstract Set<T> getEntities(OWLOntology ont);
 
         protected abstract DefaultNode<T> createNode(Set<T> cycle);
@@ -751,6 +751,9 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
 
         public NodeSet<T> getNodeHierarchyChildren(T parent, boolean direct, DefaultNodeSet<T> ns) {
+            if(parent.equals(bottomEntity)) {
+                return ns;
+            }
             Collection<T> children = getChildrenInternal(parent);
             for (Iterator<T> childIt = children.iterator(); childIt.hasNext();) {
                 T child = childIt.next();
@@ -772,20 +775,24 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
 
         public NodeSet<T> getNodeHierarchyParents(T child, boolean direct, DefaultNodeSet<T> ns) {
+            if(child.equals(topEntity)) {
+                return ns;
+            }
             Collection<T> parents = getParentsInternal(child, null);
             for (Iterator<T> parIt = parents.iterator(); parIt.hasNext();) {
                 T par = parIt.next();
-                Node<T> cycleNode = cycles.get(par);
-                if (cycleNode != null) {
-                    ns.addNode(cycleNode);
-                    parIt.remove();
-                }
-                else {
-                    ns.addEntity(par);
-                }
-                if (!direct) {
-                    getNodeHierarchyParents(par, direct, ns);
-                }
+                    Node<T> cycleNode = cycles.get(par);
+                    if (cycleNode != null) {
+                        ns.addNode(cycleNode);
+                        parIt.remove();
+                    }
+                    else {
+                        ns.addEntity(par);
+                    }
+                    if (!direct) {
+                        getNodeHierarchyParents(par, direct, ns);
+                    }
+
             }
             return ns;
         }
@@ -804,8 +811,12 @@ public class StructuralReasoner extends OWLReasonerBase {
     private class ClassHierarchyInfo extends HierarchyInfo<OWLClass> {
 
         private ClassHierarchyInfo() {
-            super("class", getRootOntology().getOWLOntologyManager().getOWLDataFactory().getOWLThing(), new RawClassHierarchyProvider());
+            super("class",
+                    getDataFactory().getOWLThing(),
+                    getDataFactory().getOWLNothing(),
+                    new RawClassHierarchyProvider());
         }
+
 
         @Override
         protected Set<OWLClass> getEntitiesInSignature(OWLAxiom ax) {
@@ -831,7 +842,10 @@ public class StructuralReasoner extends OWLReasonerBase {
     private class ObjectPropertyHierarchyInfo extends HierarchyInfo<OWLObjectProperty> {
 
         private ObjectPropertyHierarchyInfo() {
-            super("object property", getDataFactory().getOWLTopObjectProperty(), new RawObjectPropertyHierarchyProvider());
+            super("object property",
+                    getDataFactory().getOWLTopObjectProperty(),
+                    getDataFactory().getOWLBottomObjectProperty(),
+                    new RawObjectPropertyHierarchyProvider());
         }
 
         @Override
@@ -858,7 +872,10 @@ public class StructuralReasoner extends OWLReasonerBase {
     private class DataPropertyHierarchyInfo extends HierarchyInfo<OWLDataProperty> {
 
         private DataPropertyHierarchyInfo() {
-            super("data property", getDataFactory().getOWLTopDataProperty(), new RawDataPropertyHierarchyProvider());
+            super("data property",
+                    getDataFactory().getOWLTopDataProperty(),
+                    getDataFactory().getOWLBottomDataProperty(),
+                    new RawDataPropertyHierarchyProvider());
         }
 
         @Override

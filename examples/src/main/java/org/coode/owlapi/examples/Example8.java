@@ -3,7 +3,6 @@ package org.coode.owlapi.examples;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.DLExpressivityChecker;
-import org.semanticweb.owlapi.reasonerfactory.pellet.PelletReasonerFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
@@ -65,8 +64,8 @@ public class Example8 {
             // use FaCT++ using the FaCTPlusPlusReasonerFactory.
             // Pellet requires the Pellet libraries  (pellet.jar, aterm-java-x.x.jar) and the
             // XSD libraries that are bundled with pellet: xsdlib.jar and relaxngDatatype.jar
-            // make sure these jars are on the classpath
-            OWLReasonerFactory reasonerFactory = new PelletReasonerFactory();
+            // make sure these jars are on the classpath and uncomment the line below.
+//            OWLReasonerFactory reasonerFactory = new PelletReasonerFactory();
 
             // We now need to load some ontologies into the reasoner.  This is typically the
             // imports closure of an ontology that we're interested in.  In this case, we want
@@ -75,7 +74,9 @@ public class Example8 {
             // we loaded just the pizza ontology (using a singleton set) then any imported ontologies
             // would not automatically be loaded.
             // Obtain and load the imports closure of the pizza ontology
-            OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ont);
+            OWLReasoner reasoner = null;
+            // Uncomment the line below
+//            OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ont);
 
 
             reasoner.prepareReasoner();

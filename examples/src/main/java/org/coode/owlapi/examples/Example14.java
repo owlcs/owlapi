@@ -2,7 +2,6 @@ package org.coode.owlapi.examples;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.reasonerfactory.pellet.PelletReasonerFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 /*
@@ -48,7 +47,9 @@ public class Example14 {
 
             // Create a reasoner.  We will use Pellet in this case.  Make sure that the latest
             // version of the Pellet libraries are on the runtime class path
-            OWLReasonerFactory reasonerFactory = new PelletReasonerFactory();
+            OWLReasonerFactory reasonerFactory = null;
+            // Uncomment the line below
+//            reasonerFactory = new PelletReasonerFactory();
             OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ont);
             
 

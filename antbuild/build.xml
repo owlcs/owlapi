@@ -115,15 +115,36 @@
                 <include name="apibinding/${sourcepath}"/>
                 <include name="change/${sourcepath}"/>
                 <include name="debugging/${sourcepath}"/>
+                <include name="dlsyntax/${sourcepath}"/>
+                <include name="impl/${sourcepath}"/>
+                <include name="functionalparser/${sourcepath}"/>
+                <include name="functionalrenderer/${sourcepath}"/>
+                <include name="krssparser/${sourcepath}"/>
+                <include name="krssrenderer/${sourcepath}"/>
+                <include name="latexrenderer/${sourcepath}"/>
+                <include name="mansyntaxparser/${sourcepath}"/>
+                <include name="mansyntaxrenderer/${sourcepath}"/>
                 <include name="metrics/${sourcepath}"/>
                 <include name="modularity/${sourcepath}"/>
                 <include name="normalform/${sourcepath}"/>
+                <include name="oboparser/${sourcepath}"/>
+                <include name="oborenderer/${sourcepath}"/>
                 <include name="owlexpression/${sourcepath}"/>
+                <include name="owlxmlparser/${sourcepath}"/>
+                <include name="owlxmlrenderer/${sourcepath}"/>
                 <include name="profiles/${sourcepath}"/>
-                <include name="util/${sourcepath}"/>
+                <include name="rdfapi/${sourcepath}"/>
+                <include name="rdfxmlparser/${sourcepath}"/>
+                <include name="rdfxmlrenderer/${sourcepath}"/>
+                <include name="turtleparser/${sourcepath}"/>
+                <include name="turtlerenderer/${sourcepath}"/>
                 <include name="reasoner/${sourcepath}"/>
+                <include name="util/${sourcepath}"/>
             </fileset>
         </javadoc>
+        <copy todir="${javadocdir}/doc-files">
+            <fileset dir="./../api/src/main/javadoc/doc-files"/>
+        </copy>
     </target>
 
     <!-- Creates a jar containing the OWL API source code -->

@@ -5,7 +5,6 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredOntologyGenerator;
 import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
-import org.semanticweb.owlapi.reasonerfactory.pellet.PelletReasonerFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
@@ -54,7 +53,9 @@ public class Example11 {
             // Pellet requires the Pellet libraries  (pellet.jar, aterm-java-x.x.jar) and the
             // XSD libraries that are bundled with pellet: xsdlib.jar and relaxngDatatype.jar
             // make sure these jars are on the classpath
-            OWLReasonerFactory reasonerFactory = new PelletReasonerFactory();
+            OWLReasonerFactory reasonerFactory = null;
+            // Uncomment the line below
+//            reasonerFactory = new PelletReasonerFactory();
 
 
             // Load an example ontology - for the purposes of the example, we will just load
