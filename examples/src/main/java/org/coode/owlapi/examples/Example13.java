@@ -47,7 +47,7 @@ public class Example13 {
             // we can use the walker to do this.
 
             // We'll use the pizza ontology as an example.  Load the ontology from the web:
-            IRI documentIRI = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi");
+            IRI documentIRI = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
             OWLOntology ont = man.loadOntologyFromOntologyDocument(documentIRI);
 

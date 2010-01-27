@@ -61,7 +61,7 @@ public class Example11 {
             // Load an example ontology - for the purposes of the example, we will just load
             // the pizza ontology.
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            OWLOntology ont = man.loadOntologyFromOntologyDocument(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi"));
+            OWLOntology ont = man.loadOntologyFromOntologyDocument(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
 
             // Create the reasoner and classify the ontology
             OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ont);

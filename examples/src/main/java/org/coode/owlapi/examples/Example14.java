@@ -37,7 +37,7 @@ public class Example14 {
     public static void main(String[] args) {
         try {
             // We will load the pizza ontology and query it using a reasoner
-            IRI documentIRI = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi");
+            IRI documentIRI = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
             OWLOntology ont = man.loadOntologyFromOntologyDocument(documentIRI);
 

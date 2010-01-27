@@ -45,8 +45,8 @@ public class Example12 {
         try {
             // Just load two arbitrary ontologies for the purposes of this example
             OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-            man.loadOntologyFromOntologyDocument(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owlapi"));
-            man.loadOntologyFromOntologyDocument(IRI.create("http://www.co-ode.org/ontologies/amino-acid/2006/05/18/amino-acid.owlapi"));
+            man.loadOntologyFromOntologyDocument(IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
+            man.loadOntologyFromOntologyDocument(IRI.create("http://www.co-ode.org/ontologies/amino-acid/2006/05/18/amino-acid.owl"));
             // Create our ontology merger
             OWLOntologyMerger merger = new OWLOntologyMerger(man);
             // We merge all of the loaded ontologies.  Since an OWLOntologyManager is an OWLOntologySetProvider we

@@ -42,7 +42,7 @@ import java.util.Set;
  */
 public class Example9 {
 
-    public static final String DOCUMENT_IRI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owlapi";
+    public static final String DOCUMENT_IRI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owl";
 
     public static void main(String[] args) {
         try {
