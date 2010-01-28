@@ -39,19 +39,20 @@ public class InferredPropertyAssertionGenerator extends InferredIndividualAxiomG
 
 
     protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLPropertyAssertionAxiom> result) {
-//        Map<OWLObjectProperty, Set<OWLNamedIndividual>> objectPropertyRels = reasoner.getObjectPropertyRelationships(entity);
-//        for (OWLObjectProperty prop : objectPropertyRels.keySet()) {
-//            for (OWLIndividual obj : objectPropertyRels.get(prop)) {
-//                result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(prop, entity, obj));
-//            }
-//        }
-//
-//        Map<OWLDataProperty, Set<OWLLiteral>> dataPropertyRels = reasoner.getDataPropertyRelationships(entity);
-//        for (OWLDataProperty prop : dataPropertyRels.keySet()) {
-//            for (OWLLiteral con : dataPropertyRels.get(prop)) {
-//                result.add(dataFactory.getOWLDataPropertyAssertionAxiom(prop, entity, con));
-//            }
-//        }
+        for (OWLObjectProperty prop : reasoner.getRootOntology().getObjectPropertiesInSignature(true)) {
+            for (OWLNamedIndividual value : reasoner.getObjectPropertyValues(entity, prop).getFlattened()) {
+                result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(prop, entity, value));
+            }
+
+        }
+        for (OWLDataProperty prop : reasoner.getRootOntology().getDataPropertiesInSignature(true)) {
+            for (OWLLiteral value : reasoner.getDataPropertyValues(entity, prop)) {
+                result.add(dataFactory.getOWLDataPropertyAssertionAxiom(prop, entity, value));
+            }
+
+        }
+
+
     }
 
 
