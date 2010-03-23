@@ -131,8 +131,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
             satTestCount++;
 
             if (isFirstExplanation()) {
-                getReasoner().isSatisfiable(unsatClass);
-                return Collections.emptySet();
+                if (getReasoner().isSatisfiable(unsatClass))
+                	return Collections.emptySet();
             }
             reset();
             expandUntilUnsatisfiable(unsatClass);
@@ -394,7 +394,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         createDebuggingOntology();
         ontologyCounter++;
 
-        OWLReasoner reasoner = getReasonerFactory().createNonBufferingReasoner(getOntology());
+        OWLReasoner reasoner = getReasonerFactory().createNonBufferingReasoner(debuggingOntology);
 
         if (OntologyUtils.containsUnreferencedEntity(debuggingOntology, unsatClass))
             return true;
