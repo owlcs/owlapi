@@ -215,7 +215,7 @@ public class XMLWriterImpl implements XMLWriter {
 
     public void writeComment(String commentText) throws IOException {
         XMLElement element = new XMLElement(null, elementStack.size());
-        element.setText("<!-- " + commentText + " -->");
+        element.setText("<!-- " + commentText.replaceAll("--","&#45;&#45;") + " -->");
         if (!elementStack.isEmpty()) {
             XMLElement topElement = elementStack.peek();
             if (topElement != null) {
