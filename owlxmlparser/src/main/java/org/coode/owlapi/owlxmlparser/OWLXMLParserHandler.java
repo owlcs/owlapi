@@ -834,8 +834,10 @@ public class OWLXMLParserHandler extends DefaultHandler {
             if (localName.equals(OWLXMLVocabulary.PREFIX.getShortName())) {
                 return;
             }
-            OWLElementHandler handler = handlerStack.remove(0);
-            handler.endElement();
+            if (!handlerStack.isEmpty()) {
+                OWLElementHandler handler = handlerStack.remove(0);
+                handler.endElement();
+            }
             bases.pop();
         }
         catch (OWLParserException e) {
