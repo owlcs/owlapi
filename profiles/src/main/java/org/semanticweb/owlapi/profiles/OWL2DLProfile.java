@@ -233,12 +233,12 @@ public class OWL2DLProfile implements OWLProfile {
 
             if (getCurrentOntology().containsObjectPropertyInSignature(property.getIRI(), true)) {
                 // TODO: Error
-                System.out.println("Annotation property IRI is also an object property IRI");
+//                System.out.println("Annotation property IRI is also an object property IRI");
             }
 
             if (getCurrentOntology().containsDataPropertyInSignature(property.getIRI(), true)) {
                 // TODO: Error
-                System.out.println("Annotation property IRI is also a data property IRI");
+//                System.out.println("Annotation property IRI is also a data property IRI");
             }
             return null;
         }
