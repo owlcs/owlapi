@@ -866,11 +866,6 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLAnnotationAxiom> getAxioms(final OWLAnnotationProperty prop) {
         Set<OWLAnnotationAxiom> result = new HashSet<OWLAnnotationAxiom>();
-        for(OWLAnnotationAssertionAxiom ax : getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-            if(ax.getProperty().equals(prop)) {
-                result.add(ax);
-            }
-        }
         for(OWLSubAnnotationPropertyOfAxiom ax : getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
             if(ax.getSubProperty().equals(prop)) {
                 result.add(ax);
