@@ -975,11 +975,11 @@ OWLObjectPropertyExpression RoleExpression() throws KRSS2OWLParserException :
 }
 {
     (
-    (<OPENPAR><INV>exp=RoleExpression()<CLOSEPAR>)
+    (<OPENPAR><INV>exp=RoleExpression()<CLOSEPAR>) {return dataFactory.getOWLObjectInverseOf(exp);}
     |
     (exp=RoleName(){return exp;})
     )
-    {return exp.getSimplified();}
+    
 
 }
 
