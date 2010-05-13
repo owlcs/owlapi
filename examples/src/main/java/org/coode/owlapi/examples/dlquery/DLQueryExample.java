@@ -1,6 +1,6 @@
 package org.coode.owlapi.examples.dlquery;
 
-import org.semanticweb.HermiT.Reasoner;
+//import org.semanticweb.HermiT.Reasoner;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -104,8 +104,8 @@ public class DLQueryExample {
         // Comment out the first line below and uncomment the second line below to instantiate
         // the HermiT reasoner factory.  You'll also need to import the org.semanticweb.HermiT.Reasoner
         // package.
-//        OWLReasonerFactory reasonerFactory = null;
-        OWLReasonerFactory reasonerFactory = new Reasoner.ReasonerFactory();
+        OWLReasonerFactory reasonerFactory = null;
+//        OWLReasonerFactory reasonerFactory = new Reasoner.ReasonerFactory();
         return reasonerFactory.createReasoner(rootOntology);
     }
 
