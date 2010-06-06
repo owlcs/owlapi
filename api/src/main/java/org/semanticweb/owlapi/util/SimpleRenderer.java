@@ -340,7 +340,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         writeAnnotations(axiom);
         OWLEntity entity = axiom.getEntity();
         if (entity.isOWLClass()) {
-            sb.append("OWLClass(");
+            sb.append("Class(");
         }
         else if (entity.isOWLObjectProperty()) {
             sb.append("ObjectProperty(");
