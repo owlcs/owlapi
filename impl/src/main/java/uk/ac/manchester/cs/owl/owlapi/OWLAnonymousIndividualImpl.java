@@ -29,15 +29,15 @@ import org.semanticweb.owlapi.model.*;/*
  */
 public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWLAnonymousIndividual {
 
-    private NodeID id;
+    private NodeID nodeId;
 
     public OWLAnonymousIndividualImpl(OWLDataFactory dataFactory, NodeID nodeID) {
         super(dataFactory);
-        this.id = nodeID;
+        this.nodeId = nodeID;
     }
 
     public NodeID getID() {
-        return id;
+        return nodeId;
     }
 
     /**
@@ -46,7 +46,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
      * @return A string representing the toString of the node ID of this entity.
      */
     public String toStringID() {
-        return id.getID();
+        return nodeId.getID();
     }
 
     public boolean isNamed() {
@@ -67,7 +67,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
 
     protected int compareObjectOfSameType(OWLObject object) {
         OWLAnonymousIndividual other = (OWLAnonymousIndividual) object;
-        return id.compareTo(other.getID());
+        return nodeId.compareTo(other.getID());
     }
 
     public void accept(OWLObjectVisitor visitor) {
