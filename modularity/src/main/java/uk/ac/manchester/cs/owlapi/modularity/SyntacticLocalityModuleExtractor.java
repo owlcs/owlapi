@@ -9,6 +9,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 
 /**
@@ -426,25 +427,61 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         return enrich(moduleAsSet, signature, verbose);
     }
 
+    Set<OWLClass> SuperOrSubClasses(int superOrSubClassLevel, boolean superVsSub, OWLReasoner reasoner, Set<OWLClass> classesInSig) {
+        Set<OWLClass> superOrSubClasses = new HashSet<OWLClass>();
+
+        if (superOrSubClassLevel < 0) {
+            for (OWLClassExpression ent : classesInSig) {
+                NodeSet<OWLClass> nodes;
+                if (superVsSub) nodes = reasoner.getSuperClasses(ent, false);
+                else            nodes = reasoner.getSubClasses(ent, false);
+                superOrSubClasses.addAll(nodes.getFlattened());
+            }
+        }
+        else if (superOrSubClassLevel > 0) {
+            Queue<OWLClass> toBeSuClassedNow;
+            Queue<OWLClass> toBeSuClassedNext = new LinkedList<OWLClass>(classesInSig);
+            Queue<OWLClass> suClassesToBeAdded = new LinkedList<OWLClass>();
+
+            for (int i = 0; i < superOrSubClassLevel; i++) {
+                toBeSuClassedNow = toBeSuClassedNext;
+                toBeSuClassedNext = new LinkedList<OWLClass>();
+
+                for (OWLClassExpression ce : toBeSuClassedNow) {
+                    Set<OWLClass> suClasses;
+                    if (superVsSub) suClasses = reasoner.getSuperClasses(ce, true).getFlattened();
+                    else            suClasses = reasoner.getSubClasses(ce, true).getFlattened();
+                    for (OWLClass suClass : suClasses) {
+                        if (!classesInSig.contains(suClass) && !suClassesToBeAdded.contains(suClass)) {
+                            toBeSuClassedNext.add(suClass);
+                            suClassesToBeAdded.add(suClass);
+                        }
+                    }
+                }
+            }
+
+            superOrSubClasses.addAll(suClassesToBeAdded);
+        }
+
+        return superOrSubClasses;
+    }
+
     Set<OWLEntity> enrichSignature(Set<OWLEntity> sig, int superClassLevel, int subClassLevel, OWLReasoner reasoner) {
         Set<OWLEntity> enrichedSig = new HashSet<OWLEntity>(sig);
 
-        if (superClassLevel != 0) {
-            for (OWLEntity ent : sig) {
-                if (OWLClass.class.isAssignableFrom(ent.getClass())) {
-                    NodeSet<OWLClass> superClasses = reasoner.getSuperClasses((OWLClassExpression) ent, false);
-                    enrichedSig.addAll(superClasses.getFlattened());
-                }
+        Set<OWLClass> classesInSig = new HashSet<OWLClass>();
+        for (OWLEntity ent : sig) {
+            if (OWLClass.class.isAssignableFrom(ent.getClass())) {
+                classesInSig.add((OWLClass) ent);
             }
         }
 
+        if (superClassLevel != 0) {
+            enrichedSig.addAll(SuperOrSubClasses(superClassLevel, true, reasoner, classesInSig));
+        }
+
         if (subClassLevel != 0) {
-            for (OWLEntity ent : sig) {
-                if (OWLClass.class.isAssignableFrom(ent.getClass())) {
-                    NodeSet<OWLClass> subClasses = reasoner.getSubClasses((OWLClassExpression) ent, false);
-                    enrichedSig.addAll(subClasses.getFlattened());
-                }
-            }
+            enrichedSig.addAll(SuperOrSubClasses(subClassLevel, false, reasoner, classesInSig));
         }
 
         return enrichedSig;
@@ -473,15 +510,20 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *
      * @param sig the seed signature (set of entities) for the module
      * @param superClassLevel determines whether superclasses are added to the signature before segment extraction, see below for admissible values
-     * @param subClassLevel determines whether subclasses are added to the signature before segment extraction, see below for admissible values
+     * @param subClassLevel determines whether subclasses are added to the signature before segment extraction<br>
+     * Admissible values for superClassLevel (analogously for subClassLevel):
+     * <ul>
+     * <li>If superClassLevel > 0, then all classes C are included for which the class hierarchy computed by the reasoner
+     * contains a path of length at most superClassLevel downwards from C to some class from the signature.
+     * </li>
+     * <li>If superClassLevel = 0, then no super-/subclasses are added.
+     * </li>
+     * <li>If superClassLevel < 0, then all direct and indirect super-/subclasses of any class in the signature
+     * are added.
+     * </li>
+     * </ul>
      * @param reasoner the reasoner to determine super-/subclasses. This can be an arbitrary reasoner, including a ToldClassHierarchyReasoner. It must have loaded the ontology.
      * @return the module
-
-     * Meaning of the value of superClassLevel, subClassLevel:<br>
-     * Let this value be k. If k > 0, then all classes are included that are (direct or indirect) super-/subclasses of some class in signature,
-     * with a distance of at most k to this class in the class hierarchy computed by reasoner (THIS IS NOT YET IMPLEMENTED). If k = 0, then no
-     * super-/subclasses are added. If k < 0, then all direct and indirect super-/subclasses of any class in the signature
-     * are added.
      */
     public Set<OWLAxiom> extract(Set<OWLEntity> sig, int superClassLevel, int subClassLevel, OWLReasoner reasoner) {
         return extract(sig, superClassLevel, subClassLevel, reasoner, false);
@@ -550,17 +592,22 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @param signature the seed signature (set of entities) for the module
      * @param iri       the IRI for the module
      * @param superClassLevel determines whether superclasses are added to the signature before segment extraction, see below for admissible values
-     * @param subClassLevel determines whether subclasses are added to the signature before segment extraction, see below for admissible values
+     * @param subClassLevel determines whether subclasses are added to the signature before segment extraction<br>
+     * Admissible values for superClassLevel (analogously for subClassLevel):
+     * <ul>
+     * <li>If superClassLevel > 0, then all classes C are included for which the class hierarchy computed by the reasoner
+     * contains a path of length at most superClassLevel downwards from C to some class from the signature.
+     * </li>
+     * <li>If superClassLevel = 0, then no super-/subclasses are added.
+     * </li>
+     * <li>If superClassLevel < 0, then all direct and indirect super-/subclasses of any class in the signature
+     * are added.
+     * </li>
+     * </ul>
      * @param reasoner the reasoner to determine super-/subclasses. This can be an arbitrary reasoner, including a ToldClassHierarchyReasoner. It must have loaded the ontology.
      * @return the module, having the specified IRI
      * @throws OWLOntologyChangeException   if adding axioms to the module fails
      * @throws OWLOntologyCreationException if the module cannot be created
-
-     * Meaning of the value of superClassLevel, subClassLevel:<br>
-     * Let this value be k. If k > 0, then all classes are included that are (direct or indirect) super-/subclasses of some class in signature,
-     * with a distance of at most k to this class in the class hierarchy computed by reasoner (THIS IS NOT YET IMPLEMENTED). If k = 0, then no
-     * super-/subclasses are added. If k < 0, then all direct and indirect super-/subclasses of any class in the signature
-     * are added.
      */
     public OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri, int superClassLevel, int subClassLevel, OWLReasoner reasoner) throws OWLOntologyCreationException {
         return extractAsOntology(signature, iri, superClassLevel, subClassLevel, reasoner, false);
