@@ -46,10 +46,10 @@ public class StructuralReasonerFactory implements OWLReasonerFactory {
     }
 
     public OWLReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
-        return new StructuralReasoner(ontology, new SimpleConfiguration(), BufferingMode.NON_BUFFERING);
+        return new StructuralReasoner(ontology, config, BufferingMode.NON_BUFFERING);
     }
 
     public OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
-        return new StructuralReasoner(ontology, new SimpleConfiguration(), BufferingMode.BUFFERING);
+        return new StructuralReasoner(ontology, config, BufferingMode.BUFFERING);
     }
 }

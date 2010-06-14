@@ -372,21 +372,21 @@ public class StructuralReasoner extends OWLReasonerBase {
         DefaultNodeSet<OWLNamedIndividual> result = new OWLNamedIndividualNodeSet();
         if (!ce.isAnonymous()) {
             OWLClass cls = ce.asOWLClass();
+            Set<OWLClass> clses = new HashSet<OWLClass>();
+            clses.add(cls);
+            if(!direct) {
+                clses.addAll(getSubClasses(cls, false).getFlattened());
+            }
             for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
-                for (OWLClassAssertionAxiom axiom : ontology.getClassAssertionAxioms(cls)) {
-                    OWLIndividual individual = axiom.getIndividual();
-                    if (!individual.isAnonymous()) {
-                        if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
-                            result.addNode(getSameIndividuals(individual.asOWLNamedIndividual()));
-                        }
-                        else {
-                            result.addNode(new OWLNamedIndividualNode(individual.asOWLNamedIndividual()));
-                        }
-                        if (!direct) {
-                            for (Node<OWLClass> node : getSubClasses(ce, false)) {
-                                for (OWLClass c : node.getEntities()) {
-                                    result.addAllNodes(getInstances(c, true).getNodes());
-                                }
+                for (OWLClass curCls : clses) {
+                    for (OWLClassAssertionAxiom axiom : ontology.getClassAssertionAxioms(curCls)) {
+                        OWLIndividual individual = axiom.getIndividual();
+                        if (!individual.isAnonymous()) {
+                            if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
+                                result.addNode(getSameIndividuals(individual.asOWLNamedIndividual()));
+                            }
+                            else {
+                                result.addNode(new OWLNamedIndividualNode(individual.asOWLNamedIndividual()));
                             }
                         }
                     }
@@ -493,6 +493,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     public NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
         return new OWLNamedIndividualNodeSet();
     }
+
 
 
     protected OWLDataFactory getDataFactory() {
@@ -673,6 +674,13 @@ public class StructuralReasoner extends OWLReasonerBase {
          * @param signature The signature
          */
         public void processChanges(Set<T> signature) {
+            for(T entity : signature) {
+                if(roots.contains(entity)) {
+                    if(!rawHierarchyProvider.getParents(entity).isEmpty()) {
+                        roots.remove(entity);
+                    }
+                }
+            }
             // Break existing cycles - they will be reformed if necessary
             removeCyclesForSignature(signature);
             // Compute new cycles
@@ -721,7 +729,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             stackEntities.add(entity);
             // First call to getParents - cache roots
             Collection<T> parents = getParentsInternal(entity, cache);
-            if (parents.isEmpty()) {
+            if (parents.isEmpty() || parents.contains(topEntity)) {
                 roots.add(entity);
             }
 
