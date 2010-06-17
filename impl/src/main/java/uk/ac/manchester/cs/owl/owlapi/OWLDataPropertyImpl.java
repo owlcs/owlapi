@@ -115,7 +115,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
 
 
     public boolean isFunctional(OWLOntology ontology) {
-        return ontology.getFunctionalDataPropertyAxioms(this) != null;
+        return ontology.getFunctionalDataPropertyAxioms(this).size() > 0;
     }
 
 

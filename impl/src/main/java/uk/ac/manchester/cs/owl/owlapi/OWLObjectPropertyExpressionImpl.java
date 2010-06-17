@@ -58,7 +58,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     }
 
     public boolean isFunctional(OWLOntology ontology) {
-        return ontology.getFunctionalObjectPropertyAxioms(this) != null;
+		return ontology.getFunctionalObjectPropertyAxioms(this).size() > 0;
     }
 
 
