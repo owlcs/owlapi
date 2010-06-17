@@ -30,7 +30,7 @@ public class DLQueryPrinter {
     }
 
     public void askQuery(String classExpression) {
-        if(classExpression.isEmpty()) {
+        if(classExpression.length()==0) {
             System.out.println("No class expression specified");
         }
         else {
