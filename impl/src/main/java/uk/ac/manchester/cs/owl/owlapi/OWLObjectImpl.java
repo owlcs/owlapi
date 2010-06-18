@@ -40,9 +40,9 @@ import java.util.*;
  */
 public abstract class OWLObjectImpl implements OWLObject {
 
-    private OWLDataFactory dataFactory;
+    private final OWLDataFactory dataFactory;
 
-    private int hashCode = 0;
+    private final int hashCode;
 
     private static OWLObjectTypeIndexProvider typeIndexProvider = new OWLObjectTypeIndexProvider();
 
@@ -52,6 +52,7 @@ public abstract class OWLObjectImpl implements OWLObject {
 
     public OWLObjectImpl(OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
+        hashCode = HashCode.hashCode(this);
     }
 
 
@@ -143,9 +144,6 @@ public abstract class OWLObjectImpl implements OWLObject {
 
 
     public int hashCode() {
-        if (hashCode == 0) {
-            hashCode = HashCode.hashCode(this);
-        }
         return hashCode;
     }
 
