@@ -225,8 +225,8 @@ public class ManchesterOWLSyntaxEditorParser {
         NamespaceUtil u = new NamespaceUtil();
 
         for (XSDVocabulary v : XSDVocabulary.values()) {
-            dataTypeNames.add(v.getURI().getFragment());
-            dataTypeNames.add("xsd:" + v.getURI().getFragment());
+            dataTypeNames.add(v.getIRI().getFragment());
+            dataTypeNames.add("xsd:" + v.getIRI().getFragment());
         }
         dataTypeNames.add(OWLRDFVocabulary.RDF_XML_LITERAL.getURI().getFragment());
         dataTypeNames.add("rdf:" + OWLRDFVocabulary.RDF_XML_LITERAL.getURI().getFragment());
@@ -3211,8 +3211,8 @@ public class ManchesterOWLSyntaxEditorParser {
         public DefaultEntityChecker() {
             dataTypeNameMap = new HashMap<String, OWLDatatype>();
             for (XSDVocabulary v : XSDVocabulary.values()) {
-                dataTypeNameMap.put(v.getURI().getFragment(), dataFactory.getOWLDatatype(v.getIRI()));
-                dataTypeNameMap.put("xsd:" + v.getURI().getFragment(), dataFactory.getOWLDatatype(v.getIRI()));
+                dataTypeNameMap.put(v.getIRI().getFragment(), dataFactory.getOWLDatatype(v.getIRI()));
+                dataTypeNameMap.put("xsd:" + v.getIRI().getFragment(), dataFactory.getOWLDatatype(v.getIRI()));
             }
         }
 

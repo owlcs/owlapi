@@ -101,22 +101,22 @@ public enum XSDVocabulary {
     }
 
 
-    public URI getURI() {
-        return iri.toURI();
-    }
+//    public URI getURI() {
+//        return iri.toURI();
+//    }
 
     public IRI getIRI() {
         return iri;
     }
 
-    public static final Set<URI> ALL_DATATYPES;
-
-    static {
-        ALL_DATATYPES = new HashSet<URI>();
-        for(XSDVocabulary v : XSDVocabulary.values()) {
-            ALL_DATATYPES.add(v.getURI());
-        }
-    }
+//    public static final Set<URI> ALL_DATATYPES;
+//
+//    static {
+//        ALL_DATATYPES = new HashSet<URI>();
+//        for(XSDVocabulary v : XSDVocabulary.values()) {
+//            ALL_DATATYPES.add(v.getURI());
+//        }
+//    }
 
 
     public String toString() {
