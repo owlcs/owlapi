@@ -880,7 +880,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private Map<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy> listenerMap = new LinkedHashMap<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy>();
+    private Map<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy> listenerMap = new IdentityHashMap<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy>();
 
 
     public void addOntologyChangeListener(OWLOntologyChangeListener listener) {

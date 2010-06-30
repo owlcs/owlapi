@@ -58,6 +58,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     };
 
+    private RenderingDirector renderingDirector = new DefaultRenderingDirector();
+
     public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, Writer writer, ShortFormProvider entityShortFormProvider) {
         this(owlOntologyManager, Collections.singleton(ontology), ontology, writer, entityShortFormProvider);
     }
@@ -67,6 +69,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);
         this.defaultOntology = defaultOntology;
 
+    }
+
+    public void setRenderingDirector(RenderingDirector renderingDirector) {
+        this.renderingDirector = renderingDirector;
     }
 
     public void addRendererListener(RendererListener listener) {
@@ -358,7 +364,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 Map<OWLClassExpression, Set<OWLAnnotation>> disjointClasses = new TreeMap<OWLClassExpression, Set<OWLAnnotation>>();
                 for (OWLDisjointClassesAxiom ax : ontology.getDisjointClassesAxioms(cls)) {
                     if (isDisplayed(ax)) {
-                        if (ax.getClassExpressions().size() <= 2) {
+                        if (ax.getClassExpressions().size() == 2) {
                             pairwiseDisjointClassesAxioms.add(ax);
                             OWLClassExpression disjointWith = ax.getClassExpressionsMinus(cls).iterator().next();
                             disjointClasses.put(disjointWith, ax.getAnnotations());
@@ -1049,7 +1055,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     public void writeSection(ManchesterOWLSyntax keyword, Map<? extends Object, Set<OWLAnnotation>> content, String delimeter, boolean newline, OWLOntology... ontologies) {
         String sec = keyword.toString();
-        if (!content.isEmpty()) {
+        if (!content.isEmpty() || renderingDirector.renderEmptyFrameSection(keyword, ontologies)) {
             fireSectionRenderingPrepared(sec);
             writeSection(keyword);
             writeOntologiesList(ontologies);
@@ -1120,7 +1126,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     public void writeSection(ManchesterOWLSyntax keyword, Collection<? extends Object> content, String delimeter, boolean newline, OWLOntology... ontologies) {
 
         String sec = keyword.toString();
-        if (!content.isEmpty()) {
+        if (!content.isEmpty() || renderingDirector.renderEmptyFrameSection(keyword, ontologies)) {
             fireSectionRenderingPrepared(sec);
             writeSection(keyword);
             writeOntologiesList(ontologies);
@@ -1263,6 +1269,15 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         for (RendererListener listener : listeners) {
             listener.sectionItemFinished(section, event);
+        }
+    }
+
+
+
+    private class DefaultRenderingDirector implements RenderingDirector {
+
+        public boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword, OWLOntology ... ontologies) {
+            return false;
         }
     }
 

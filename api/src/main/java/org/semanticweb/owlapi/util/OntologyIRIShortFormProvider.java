@@ -4,6 +4,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
+import java.util.StringTokenizer;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -50,9 +51,15 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         URI uri = iri.toURI();
         String path = uri.getPath();
         if(path != null && path.length() > 0) {
-            int lastSepIndex = path.lastIndexOf('/');
-            String lastPathComponent = path.substring(lastSepIndex + 1, path.length());
-            if(lastPathComponent.endsWith(".owlapi")) {
+            StringTokenizer tokenizer = new StringTokenizer(path, "/", false);
+            String lastPathComponent = "";
+            while(tokenizer.hasMoreTokens()) {
+                String tok = tokenizer.nextToken();
+                if(tok.length() > 0) {
+                    lastPathComponent = tok;
+                }
+            }
+            if(lastPathComponent.endsWith(".owl")) {
                 shortForm = lastPathComponent.substring(0, lastPathComponent.length() - 4);
             }
             else {

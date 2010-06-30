@@ -2,10 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.AxiomSubjectProvider;
-import org.semanticweb.owlapi.util.HashCode;
-import org.semanticweb.owlapi.util.OWLEntityCollector;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+import org.semanticweb.owlapi.util.*;
 
 import java.util.*;
 /*
@@ -129,6 +126,11 @@ public abstract class OWLObjectImpl implements OWLObject {
             }
         }
         return result;
+    }
+
+    public Set<OWLClassExpression> getNestedClassExpressions() {
+        OWLClassExpressionCollector collector = new OWLClassExpressionCollector();
+        return this.accept(collector);
     }
 
     public boolean equals(Object obj) {

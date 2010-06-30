@@ -289,6 +289,10 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             return Collections.emptySet();
         }
 
+        public Set<OWLClassExpression> getNestedClassExpressions() {
+            return Collections.emptySet();
+        }
+
         public int compareTo(OWLObject o) {
             if (o == this) {
                 return 0;

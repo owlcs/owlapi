@@ -61,17 +61,25 @@ public abstract class DefaultNodeSet<E extends OWLLogicalEntity> implements Node
     /**
      * Adds an entity to this <code>NodeSet</code> by wrapping it in a <code>Node</code>.
      * @param entity The entity to be added.  The entity will be wrapped in the <code>Node</code> and the <code>Node</code>
-     * added to this set.
+     * added to this set.  Must not be <code>null</code>.
+     * @throws NullPointerException if <code>entity</code> is <code>null</code>.
      */
     public void addEntity(E entity) {
+        if(entity == null) {
+            throw new NullPointerException("Cannot add null to a NodeSet");
+        }
         addNode(getNode(entity));
     }
 
     /**
      * Adds a <code>Node</code> to this set.
      * @param node The <code>Node</code> to be added.
+     * @throws NullPointerException if <code>entity</code> is <code>null</code>.
      */
     public void addNode(Node<E> node) {
+        if(node == null) {
+            throw new NullPointerException("Cannot add null to a NodeSet");
+        }
         nodes.add(node);
     }
 
@@ -81,7 +89,11 @@ public abstract class DefaultNodeSet<E extends OWLLogicalEntity> implements Node
      * <code>Node</code>s will be filtered out.
      */
     public void addAllNodes(Collection<Node<E>> nodes) {
-        this.nodes.addAll(nodes);
+        for (Node<E> node : nodes) {
+            if (node != null) {
+                this.nodes.add(node);
+            }
+        }
     }
 
     /**

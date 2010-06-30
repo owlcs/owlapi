@@ -84,6 +84,13 @@ public interface OWLObject extends Comparable<OWLObject> {
      */
     Set<OWLDatatype> getDatatypesInSignature();
 
+    /**
+     * Gets all of the nested (includes top level) class expressions that are used in this object
+     * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s that represent the nested class
+     * expressions used in this object.
+     */
+    Set<OWLClassExpression> getNestedClassExpressions();
+
     public void accept(OWLObjectVisitor visitor);
 
     <O> O accept(OWLObjectVisitorEx<O> visitor);
