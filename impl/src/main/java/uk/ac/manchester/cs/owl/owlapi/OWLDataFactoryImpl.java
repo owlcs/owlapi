@@ -1106,7 +1106,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationProperty property, OWLAnnotationSubject subject, OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations) {
-
+        if(property == null) {
+            throw new NullPointerException("Annotation property is null");
+        }
+        if(subject == null) {
+            throw new NullPointerException("Annotation subject is null");
+        }
+        if(value == null) {
+            throw new NullPointerException("Annotation value is null");
+        }
         return new OWLAnnotationAssertionAxiomImpl(this, subject, property, value, annotations);
     }
 

@@ -53,7 +53,12 @@ public class OWLAnnotationAssertionElementHandler extends AbstractOWLAxiomElemen
     }
 
     public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException {
-        object = handler.getOWLObject();
+        if(subject == null) {
+            subject = handler.getOWLObject();
+        }
+        else {
+            object = handler.getOWLObject();
+        }
     }
 
     public void handleChild(OWLAnnotationPropertyElementHandler handler) throws OWLXMLParserException {
