@@ -48,7 +48,17 @@ public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
     }
 
     public OutputStream getOutputStream() throws IOException {
-        return System.out;
+        return new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+                System.out.write(b);
+            }
+
+            @Override
+            public void close() throws IOException {
+                // Do nothing
+            }
+        };
     }
 
     public boolean isOutputStreamAvailable() {
