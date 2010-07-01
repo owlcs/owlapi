@@ -181,7 +181,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
             writtenAxioms.addAll(writeAxioms(ent));
         }
 
-        Set<OWLAxiom> remainingAxioms = new TreeSet<OWLAxiom>(ontology.getAxioms());
+        List<OWLAxiom> remainingAxioms = new ArrayList<OWLAxiom>(ontology.getAxioms());
         remainingAxioms.removeAll(writtenAxioms);
 
         for (OWLAxiom ax : remainingAxioms) {
@@ -205,7 +205,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         setFocusedObject(entity);
         writtenAxioms.addAll(writeDeclarations(entity));
         writtenAxioms.addAll(writeAnnotations(entity));
-        Set<OWLAxiom> axs = new TreeSet<OWLAxiom>();
+        List<OWLAxiom> axs = new ArrayList<OWLAxiom>();
         axs.addAll(entity.accept(new OWLEntityVisitorEx<Set<? extends OWLAxiom>>() {
             public Set<? extends OWLAxiom> visit(OWLClass cls) {
                 return ontology.getAxioms(cls);
@@ -228,8 +228,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
 
             public Set<? extends OWLAxiom> visit(OWLDatatype datatype) {
-                return Collections.emptySet();
-//                return ontology.getAxioms(datatype);
+                return ontology.getAxioms(datatype);
             }
 
 
@@ -237,6 +236,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
                 return ontology.getAxioms(property);
             }
         }));
+        Collections.sort(axs);
         for (OWLAxiom ax : axs) {
             if (ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)) {
                 continue;

@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.api.test;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.HashSet;
 /*
@@ -42,12 +43,18 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends Abstra
         OWLAnnotation anno1 = getFactory().getOWLAnnotation(prop, lit);
         OWLAnnotationProperty prop2 = getOWLAnnotationProperty("prop2");
         OWLAnnotation anno2 = getFactory().getOWLAnnotation(prop2, lit);
+
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
+        // Add two annotations per axiom
         annos.add(anno1);
         annos.add(anno2);
         OWLAxiom ax = getMainAxiom(annos);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(ax.getAnnotatedAxiom(annos));
+
+        axioms.add(ax.getAnnotatedAxiom(Collections.singleton(anno1)));
+        axioms.add(ax.getAnnotatedAxiom(Collections.singleton(anno2)));
+
         OWLEntityCollector entityCollector = new OWLEntityCollector();
         ax.accept(entityCollector);
         for(OWLEntity ent : entityCollector.getObjects()) {
