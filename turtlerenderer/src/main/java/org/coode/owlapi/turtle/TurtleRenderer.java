@@ -181,9 +181,9 @@ public class TurtleRenderer extends RDFRendererBase {
 
     private void write(RDFLiteralNode node) {
         if (node.isTyped()) {
-            if (node.getDatatype().equals(XSDVocabulary.INTEGER.getIRI())) {
+            if (node.getDatatype().equals(manager.getOWLDataFactory().getIntegerOWLDatatype())) {
                 write(node.getLiteral());
-            } else if (node.getDatatype().equals(XSDVocabulary.DECIMAL.getIRI())) {
+            } else if (node.getDatatype().equals(manager.getOWLDataFactory().getOWLDatatype(XSDVocabulary.DECIMAL.getIRI()))) {
                 write(node.getLiteral());
             } else {
                 writeStringLiteral(node.getLiteral());
