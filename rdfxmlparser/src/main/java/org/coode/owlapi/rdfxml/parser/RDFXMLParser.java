@@ -77,6 +77,9 @@ public class RDFXMLParser extends AbstractOWLParser {
                     return parser.isAnonymousNodeIRI(IRI.toString());
                 }
 
+                public boolean isAnonymousSharedNode(String iri) {
+                    return parser.isAnonymousNodeID(iri);
+                }
 
                 public boolean isAnonymousNode(String IRI) {
                     return parser.isAnonymousNodeIRI(IRI);

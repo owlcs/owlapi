@@ -39,4 +39,7 @@ public interface AnonymousNodeChecker {
 
 
     public boolean isAnonymousNode(String iri);
+
+
+    public boolean isAnonymousSharedNode(String iri);
 }

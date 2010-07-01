@@ -68,9 +68,20 @@ public class TurtleParser implements AnonymousNodeChecker {
         return iri.toString().indexOf("genid") != -1;
     }
 
-    protected IRI getNextBlankNode() {
-        IRI iri = getIRI("genid" + blankNodeId);
-        blankNodeId++;
+    public boolean isAnonymousSharedNode(String iri) {
+        return iri.indexOf("genid-nodeid") != -1;
+    }
+
+    protected IRI getNextBlankNode(String id) {
+        IRI iri;
+        if(id == null) {
+            iri = getIRI("genid" + blankNodeId);
+            blankNodeId++;
+        }
+        else {
+            iri = getIRI("genid-nodeid-" + id);
+        }
+
         return iri;
     }
 
@@ -471,13 +482,14 @@ IRI parseIRI() :
 IRI parseBlankNode() :
 {
     IRI iri = null;
+    Token t;
 }
 {
     (iri=parseNodeID()
     |
-    <NODEID>{iri = getNextBlankNode();}
+    t=<NODEID>{iri = getNextBlankNode(t.image.trim());}
     |
-    <OPEN_SQUARE_BRACKET> ({iri = getNextBlankNode();} parsePredicateObjectList(iri) (<DOT>)?)? <CLOSE_SQUARE_BRACKET> {if (iri == null) {iri = getNextBlankNode(); }}
+    <OPEN_SQUARE_BRACKET> ({iri = getNextBlankNode(null);} parsePredicateObjectList(iri) (<DOT>)?)? <CLOSE_SQUARE_BRACKET> {if (iri == null) {iri = getNextBlankNode(null); }}
     |
     iri = parseCollection()) {
         return iri;
@@ -582,7 +594,7 @@ IRI parseItemList() :
     (
     {
         IRI prevSubject = subject;
-        subject=getNextBlankNode();
+        subject=getNextBlankNode(null);
         if(prevSubject != null) {
             handler.handleTriple(prevSubject, rest, subject);
         }

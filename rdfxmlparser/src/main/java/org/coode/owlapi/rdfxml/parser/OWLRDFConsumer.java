@@ -132,9 +132,13 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private Map<IRI, OWLLiteral> listFirstLiteralTripleMap;
 
-    private Map<IRI, OWLAxiom> reifiedAxiomsMap;
+//    private Map<IRI, OWLAxiom> reifiedAxiomsMap;
+
+    private Set<IRI> axioms = new HashSet<IRI>();
 
     private Map<IRI, Set<OWLAnnotation>> annotationsBySubject;
+
+    private Map<IRI, Object> sharedAnonymousNodes = new HashMap<IRI, Object>();
 
     // A translator for lists of class expressions (such lists are used
     // in intersections, unions etc.)
@@ -156,6 +160,17 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     // Handlers for built in types
     private Map<IRI, BuiltInTypeHandler> builtInTypeTripleHandlers;
+
+    // Handler for triples that denote nodes which represent axioms.
+    // i.e.
+    // owl:AllDisjointClasses
+    // owl:AllDisjointProperties
+    // owl:AllDifferent
+    // owl:NegativePropertyAssertion
+    // owl:Axiom
+    // These need to be handled separately from other types, because the base triples for annotated
+    // axioms should be in the ontology before annotations on the annotated versions of these axioms are parsed.
+    private Map<IRI, BuiltInTypeHandler> axiomTypeTripleHandlers = new HashMap<IRI, BuiltInTypeHandler>();
 
     // Handlers for build in predicates
     private Map<IRI, TriplePredicateHandler> predicateHandlers;
@@ -217,6 +232,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     private Set<IRI> swrlDifferentFromAtoms;
 
     private IRIProvider iriProvider;
+    private GTPObjectPropertyAssertionHandler objectPropertyAssertionHandler;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -252,7 +268,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         listFirstLiteralTripleMap = CollectionFactory.createMap();
         listFirstResourceTripleMap = CollectionFactory.createMap();
         listRestTripleMap = CollectionFactory.createMap();
-        reifiedAxiomsMap = CollectionFactory.createMap();
         classExpressionListTranslator = new OptimisedListTranslator<OWLClassExpression>(this, new ClassExpressionListItemTranslator(this));
         individualListTranslator = new OptimisedListTranslator<OWLIndividual>(this, new IndividualListItemTranslator(this));
         constantListTranslator = new OptimisedListTranslator<OWLLiteral>(this, new TypedConstantListItemTranslator(this));
@@ -285,7 +300,8 @@ public class OWLRDFConsumer implements RDFConsumer {
         // translated as an annotation on a:A
         resourceTripleHandlers = new ArrayList<AbstractResourceTripleHandler>();
         resourceTripleHandlers.add(new GTPAnnotationResourceTripleHandler(this));
-        resourceTripleHandlers.add(new GTPObjectPropertyAssertionHandler(this));
+        objectPropertyAssertionHandler = new GTPObjectPropertyAssertionHandler(this);
+        resourceTripleHandlers.add(objectPropertyAssertionHandler);
 
         for (OWL2Datatype dt : OWL2Datatype.values()) {
             dataRangeIRIs.add(dt.getIRI());
@@ -324,7 +340,6 @@ public class OWLRDFConsumer implements RDFConsumer {
     /**
      * Determines if strict parsing should be used.  If strict parsing is in opertion then no patching, fixing or type
      * inference should be done.
-     *
      * @return <code>true</code> if strict parsing should be used, otherwise <code>false</code>.
      */
     public boolean isStrict() {
@@ -482,8 +497,16 @@ public class OWLRDFConsumer implements RDFConsumer {
         builtInTypeTripleHandlers.put(handler.getTypeIRI(), handler);
     }
 
+    private void addAxiomTypeTripleHandler(BuiltInTypeHandler handler) {
+        axiomTypeTripleHandlers.put(handler.getTypeIRI(), handler);
+    }
 
     private void setupTypeTripleHandlers() {
+        setupBasicTypeHandlers();
+        setupAxiomTypeHandlers();
+    }
+
+    private void setupBasicTypeHandlers() {
         addBuiltInTypeTripleHandler(new TypeAntisymmetricPropertyHandler(this));
         addBuiltInTypeTripleHandler(new TypeAsymmetricPropertyHandler(this));
         addBuiltInTypeTripleHandler(new TypeClassHandler(this));
@@ -506,17 +529,12 @@ public class OWLRDFConsumer implements RDFConsumer {
         addBuiltInTypeTripleHandler(new TypeDeprecatedClassHandler(this));
         addBuiltInTypeTripleHandler(new TypeDeprecatedPropertyHandler(this));
         addBuiltInTypeTripleHandler(new TypeDataRangeHandler(this));
-        addBuiltInTypeTripleHandler(new TypeAllDifferentHandler(this));
         addBuiltInTypeTripleHandler(new TypeOntologyHandler(this));
-        addBuiltInTypeTripleHandler(new TypeNegativePropertyAssertionHandler(this));
         addBuiltInTypeTripleHandler(new TypeNegativeDataPropertyAssertionHandler(this));
-        addBuiltInTypeTripleHandler(new TypeAxiomHandler(this));
         addBuiltInTypeTripleHandler(new TypeRDFPropertyHandler(this));
         addBuiltInTypeTripleHandler(new TypeRDFSClassHandler(this));
         addBuiltInTypeTripleHandler(new TypeSelfRestrictionHandler(this));
         addBuiltInTypeTripleHandler(new TypePropertyHandler(this));
-        addBuiltInTypeTripleHandler(new TypeAllDisjointClassesHandler(this));
-        addBuiltInTypeTripleHandler(new TypeAllDisjointPropertiesHandler(this));
         addBuiltInTypeTripleHandler(new TypeNamedIndividualHandler(this));
         addBuiltInTypeTripleHandler(new TypeAnnotationHandler(this));
 
@@ -533,6 +551,15 @@ public class OWLRDFConsumer implements RDFConsumer {
         addBuiltInTypeTripleHandler(new TypeSWRLVariableHandler(this));
 
         addBuiltInTypeTripleHandler(new SKOSConceptTripleHandler(this));
+    }
+
+    private void setupAxiomTypeHandlers() {
+        addAxiomTypeTripleHandler(new TypeAxiomHandler(this));
+        addAxiomTypeTripleHandler(new TypeAllDifferentHandler(this));
+        addAxiomTypeTripleHandler(new TypeAllDisjointClassesHandler(this));
+        addAxiomTypeTripleHandler(new TypeAllDisjointPropertiesHandler(this));
+        addAxiomTypeTripleHandler(new TypeAllDifferentHandler(this));
+        addAxiomTypeTripleHandler(new TypeNegativePropertyAssertionHandler(this));
     }
 
 
@@ -606,7 +633,6 @@ public class OWLRDFConsumer implements RDFConsumer {
     /**
      * Gets any annotations that were translated since the last call of this method (calling
      * this method clears the current pending annotations)
-     *
      * @return The set (possibly empty) of pending annotations.
      */
     public Set<OWLAnnotation> getPendingAnnotations() {
@@ -653,7 +679,6 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     /**
      * Checks whether a node is anonymous.
-     *
      * @param iri The IRI of the node to be checked.
      * @return <code>true</code> if the node is anonymous, or
      *         <code>false</code> if the node is not anonymous.
@@ -662,6 +687,17 @@ public class OWLRDFConsumer implements RDFConsumer {
         return anonymousNodeChecker.isAnonymousNode(iri);
     }
 
+    protected boolean isSharedAnonymousNode(IRI iri) {
+        return anonymousNodeChecker.isAnonymousSharedNode(iri.toString());
+    }
+
+    protected void addSharedAnonymousNode(IRI iri, Object translation) {
+        sharedAnonymousNodes.put(iri, translation);
+    }
+
+    protected Object getSharedAnonymousNode(IRI iri) {
+        return sharedAnonymousNodes.get(iri);
+    }
 
     protected void addAxiom(OWLAxiom axiom) {
         owlOntologyManager.applyChange(new AddAxiom(ontology, axiom));
@@ -747,6 +783,9 @@ public class OWLRDFConsumer implements RDFConsumer {
         annotationIRIs.add(iri);
     }
 
+    protected boolean isAnnotation(IRI iri) {
+        return annotationIRIs.contains(iri);
+    }
 
     public boolean isRestriction(IRI iri) {
         return restrictionIRIs.contains(iri);
@@ -865,7 +904,6 @@ public class OWLRDFConsumer implements RDFConsumer {
     /**
      * Records an annotation of an anonymous node (either an annotation of an annotation, or an annotation
      * of an axiom for example)
-     *
      * @param annotatedAnonSource The source that the annotation annotates
      * @param annotationMainNode The annotations
      */
@@ -880,7 +918,6 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     /**
      * Gets the main nodes of annotations that annotated the specified source
-     *
      * @param source The source (axiom or annotation main node)
      * @return The set of main nodes that annotate the specified source
      */
@@ -1043,29 +1080,41 @@ public class OWLRDFConsumer implements RDFConsumer {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private long t0;
-
-
+    /**
+     * Handles triples in a non-streaming mode.  Type triples whose type is an axiom type, are NOT handled.
+     * @param subject The subject of the triple
+     * @param predicate The predicate of the triple
+     * @param object The object of the triple
+     * @throws UnloadableImportException .
+     */
     public void handle(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI())) {
             BuiltInTypeHandler typeHandler = builtInTypeTripleHandlers.get(object);
             if (typeHandler != null) {
                 typeHandler.handleTriple(subject, predicate, object);
-                // Consumed the triple - no further processing
-                return;
+            }
+            else if(axiomTypeTripleHandlers.get(object) == null) {
+                // C(a)
+                OWLIndividual ind = translateIndividual(subject);
+                OWLClassExpression ce = translateClassExpression(object);
+                addAxiom(dataFactory.getOWLClassAssertionAxiom(ce, ind, getPendingAnnotations()));
+            }
+        }
+        else {
+            AbstractResourceTripleHandler handler = predicateHandlers.get(predicate);
+            if (handler != null && handler.canHandle(subject, predicate, object)) {
+                handler.handleTriple(subject, predicate, object);
             }
             else {
-                addIndividual(subject);
+                for (AbstractResourceTripleHandler resHandler : resourceTripleHandlers) {
+                    if (resHandler.canHandle(subject, predicate, object)) {
+                        resHandler.handleTriple(subject, predicate, object);
+                        break;
+                    }
+                }
             }
         }
 
-        AbstractResourceTripleHandler handler = predicateHandlers.get(predicate);
-        if (handler != null) {
-            if (handler.canHandle(subject, predicate, object)) {
-                handler.handleTriple(subject, predicate, object);
-            }
-            return;
-        }
     }
 
 
@@ -1153,7 +1202,6 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     public void startModel(String string) throws SAXException {
         count = 0;
-        t0 = System.currentTimeMillis();
     }
 
 
@@ -1162,17 +1210,16 @@ public class OWLRDFConsumer implements RDFConsumer {
      */
     public void endModel() throws SAXException {
         try {
+
+            // We are now left with triples that could not be consumed during streaming parsing
+
 //        try {
             IRIMap.clear();
 
             tripleProcessor.fine("Total number of triples: " + count);
             RDFXMLOntologyFormat format = getOntologyFormat();
 
-            // First mop up any rules triples
-            SWRLRuleTranslator translator = new SWRLRuleTranslator(this);
-            for (IRI ruleIRI : swrlRules) {
-                translator.translateRule(ruleIRI);
-            }
+            consumeSWRLRules();
 
 
             // We need to mop up all remaining triples.  These triples will be in the
@@ -1181,82 +1228,48 @@ public class OWLRDFConsumer implements RDFConsumer {
             // we translate all system triples and then go for triples whose predicates
             // are not system/reserved vocabulary IRIs to translate these into ABox assertions
             // or annotationIRIs
-            for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
-                Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
-                if (map == null) {
-                    continue;
+            iterateResourceTriples(new ResourceTripleIterator<UnloadableImportException>() {
+                public void handleResourceTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+                    handle(subject, predicate, object);
                 }
-                for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                    Set<IRI> objects = map.get(predicate);
-                    if (objects == null) {
-                        continue;
-                    }
-                    for (IRI object : new ArrayList<IRI>(objects)) {
-                        // We don't handle x rdf:type owl:Axiom because these must be handled after everything else
-                        // so that the "base triples" that represent the axiom with out the annotations get mopped up first
-                        if (!(predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) && (object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()) || object.equals(OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI())))) {
-                            handle(subject, predicate, object);
-                        }
-                    }
-                }
-            }
+            });
 
-            // Now handle axiom annotations
-            // TODO: TIDY UP THIS COPY AND PASTE HACK!
-            for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
-                Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
-                if (map == null) {
-                    continue;
+            iterateLiteralTriples(new LiteralTripleIterator<UnloadableImportException>() {
+                public void handleLiteralTriple(IRI subject, IRI predicate, OWLLiteral object) throws UnloadableImportException {
+                    handle(subject, predicate, object);
                 }
-                for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                    Set<IRI> objects = map.get(predicate);
-                    if (objects == null) {
-                        continue;
-                    }
-                    for (IRI object : new ArrayList<IRI>(objects)) {
-                        if ((predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) && (object.equals(OWLRDFVocabulary.OWL_AXIOM.getIRI()) || object.equals(OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI())))) {
-                            handle(subject, predicate, object);
-                        }
-                    }
-                }
-            }
+            });
 
-            // TODO: TIDY UP!  This is a copy and paste hack!!
-            // Now for the ABox assertions and annotationIRIs
-            for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
-                Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
-                if (map == null) {
-                    continue;
-                }
-                for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                    Set<IRI> objects = map.get(predicate);
-                    if (objects == null) {
-                        continue;
-                    }
-                    for (IRI object : new ArrayList<IRI>(objects)) {
-                        for (AbstractResourceTripleHandler resTripHandler : resourceTripleHandlers) {
-                            if (resTripHandler.canHandle(subject, predicate, object)) {
-                                resTripHandler.handleTriple(subject, predicate, object);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
+            // Now handle non-reserved predicate triples
+            processNonReservedPredicateTriples();
 
+            // Now axiom annotations
+            processAnnotatedAxioms();
 
-            for (IRI subject : new ArrayList<IRI>(litTriplesBySubject.keySet())) {
-                Map<IRI, Set<OWLLiteral>> map = litTriplesBySubject.get(subject);
-                if (map == null) {
-                    continue;
-                }
-                for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                    Set<OWLLiteral> objects = map.get(predicate);
-                    for (OWLLiteral object : new ArrayList<OWLLiteral>(objects)) {
-                        handle(subject, predicate, object);
-                    }
-                }
-            }
+//
+//            // TODO: TIDY UP!  This is a copy and paste hack!!
+//            // Now for the ABox assertions and annotationIRIs
+//            for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
+//                Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
+//                if (map == null) {
+//                    continue;
+//                }
+//                for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
+//                    Set<IRI> objects = map.get(predicate);
+//                    if (objects == null) {
+//                        continue;
+//                    }
+//                    for (IRI object : new ArrayList<IRI>(objects)) {
+//                        for (AbstractResourceTripleHandler resTripHandler : resourceTripleHandlers) {
+//                            if (resTripHandler.canHandle(subject, predicate, object)) {
+//                                resTripHandler.handleTriple(subject, predicate, object);
+//                                break;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+
 
 //        translateDanglingEntities();
 
@@ -1286,9 +1299,53 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
+    private void processNonReservedPredicateTriples() throws UnloadableImportException {
+        iterateResourceTriples(new ResourceTripleIterator<UnloadableImportException>() {
+            public void handleResourceTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+                if (!predicate.isReservedVocabulary()) {
+                    for (AbstractResourceTripleHandler resTripHandler : resourceTripleHandlers) {
+                        if (resTripHandler.canHandle(subject, predicate, object)) {
+                            resTripHandler.handleTriple(subject, predicate, object);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    private void consumeSWRLRules() {
+        SWRLRuleTranslator translator = new SWRLRuleTranslator(this);
+        for (IRI ruleIRI : swrlRules) {
+            translator.translateRule(ruleIRI);
+        }
+    }
+
+    private void processAnnotatedAxioms() throws UnloadableImportException {
+        for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
+            Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
+            if (map == null) {
+                continue;
+            }
+            for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
+                Set<IRI> objects = map.get(predicate);
+                if (objects == null) {
+                    continue;
+                }
+                for (IRI object : new ArrayList<IRI>(objects)) {
+                    BuiltInTypeHandler builtInTypeHandler = axiomTypeTripleHandlers.get(object);
+                    if (builtInTypeHandler != null) {
+                        if (builtInTypeHandler.canHandle(subject, predicate, object)) {
+                            builtInTypeHandler.handleTriple(subject, predicate, object);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * Selects an IRI to be the ontology IRI
-     *
      * @return An IRI that should be used as the IRI of the parsed ontology, or <code>null</code>
      *         if the parsed ontology does not have an IRI
      */
@@ -1402,41 +1459,43 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     /**
      * Called when a resource triple has been parsed.
-     *
      * @param subject The subject of the triple that has been parsed
      * @param predicate The predicate of the triple that has been parsed
      * @param object The object of the triple that has been parsed
+     * @throws org.semanticweb.owlapi.model.UnloadableImportException
+     *          .
      */
     private void handleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+        boolean consumed = false;
         if (predicate.equals(RDF_TYPE.getIRI())) {
             BuiltInTypeHandler handler = builtInTypeTripleHandlers.get(object);
             if (handler != null) {
                 if (handler.canHandleStreaming(subject, predicate, object)) {
                     handler.handleTriple(subject, predicate, object);
-                    // Consumed the triple - no further processing
-                    return;
+                    consumed = true;
                 }
             }
-            else {
-                // Individual?
+            else if (axiomTypeTripleHandlers.get(object) == null) {
+                // Not a built in type
                 addIndividual(subject);
             }
-        }
-        AbstractResourceTripleHandler handler = predicateHandlers.get(predicate);
-        if (handler != null) {
-            if (handler.canHandleStreaming(subject, predicate, object)) {
-                handler.handleTriple(subject, predicate, object);
-                return;
+            else {
+                addAxiom(subject);
             }
         }
-//        if(addCount < 10000) {
-//            if(!predicate.equals(OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI())) {
-//                addCount++;
-//            }
-
-//        }
-        // Not consumed, so add the triple
-        addTriple(subject, predicate, object);
+        else {
+            AbstractResourceTripleHandler handler = predicateHandlers.get(predicate);
+            if (handler != null) {
+                if (handler.canHandleStreaming(subject, predicate, object)) {
+                    handler.handleTriple(subject, predicate, object);
+                    consumed = true;
+                }
+            }
+        }
+        if (!consumed) {
+            // Not consumed, so add the triple
+            addTriple(subject, predicate, object);
+        }
     }
 
     private void handleStreaming(IRI subject, IRI predicate, String literal, String datatype, String lang) {
@@ -1459,7 +1518,6 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     /**
      * A convenience method to obtain an <code>OWLConstant</code>
-     *
      * @param literal The literal - must NOT be <code>null</code>
      * @param datatype The data type - may be <code>null</code>
      * @param lang The lang - may be <code>null</code>
@@ -1594,7 +1652,6 @@ public class OWLRDFConsumer implements RDFConsumer {
      * Translates the annotation on a main node.  Triples whose subject is the specified main node and whose subject
      * is typed an an annotation property (or is a built in annotation property) will be translated to annotation on
      * this main node.
-     *
      * @param mainNode The main node
      * @return The set of annotations on the main node
      */
@@ -1948,18 +2005,13 @@ public class OWLRDFConsumer implements RDFConsumer {
         return ontologyIRIs;
     }
 
-    public void addReifiedAxiom(IRI axiomIRI, OWLAxiom axiom) {
-        reifiedAxiomsMap.put(axiomIRI, axiom);
+    public void addAxiom(IRI axiomIRI) {
+        axioms.add(axiomIRI);
     }
 
 
     public boolean isAxiom(IRI iri) {
-        return reifiedAxiomsMap.containsKey(iri);
-    }
-
-
-    public OWLAxiom getAxiom(IRI iri) {
-        return reifiedAxiomsMap.get(iri);
+        return axioms.contains(iri);
     }
 
 
@@ -1980,6 +2032,48 @@ public class OWLRDFConsumer implements RDFConsumer {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    private interface ResourceTripleIterator<E extends Throwable> {
+        void handleResourceTriple(IRI subject, IRI predicate, IRI object) throws E;
+    }
+
+    private interface LiteralTripleIterator<E extends Throwable> {
+        void handleLiteralTriple(IRI subject, IRI predicate, OWLLiteral object) throws E;
+    }
+
+    public <E extends Throwable> void iterateResourceTriples(ResourceTripleIterator<E> iterator) throws E {
+        for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
+            Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
+            if (map == null) {
+                continue;
+            }
+            for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
+                Set<IRI> objects = map.get(predicate);
+                if (objects == null) {
+                    continue;
+                }
+                for (IRI object : new ArrayList<IRI>(objects)) {
+                    iterator.handleResourceTriple(subject, predicate, object);
+                }
+            }
+        }
+    }
+
+    public <E extends Throwable> void iterateLiteralTriples(LiteralTripleIterator<E> iterator) throws E {
+        for (IRI subject : new ArrayList<IRI>(litTriplesBySubject.keySet())) {
+            Map<IRI, Set<OWLLiteral>> map = litTriplesBySubject.get(subject);
+            if (map == null) {
+                continue;
+            }
+            for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
+                Set<OWLLiteral> objects = map.get(predicate);
+                for (OWLLiteral object : new ArrayList<OWLLiteral>(objects)) {
+                    iterator.handleLiteralTriple(subject, predicate, object);
+                }
+            }
+        }
+    }
 
     /*
         Originally we had a special Triple class, which was specialised into ResourceTriple and

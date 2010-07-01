@@ -100,8 +100,26 @@ public class OptimisedListTranslator<O extends OWLObject> {
 
 
     public List<O> translateList(IRI mainNode) {
-        List<O> list = new ArrayList<O>();
-        translateList(mainNode, list);
+        boolean shared = consumer.isSharedAnonymousNode(mainNode);
+        List<O> list;
+        if(shared) {
+            Object o = consumer.getSharedAnonymousNode(mainNode);
+            if(o != null && o instanceof List) {
+                list = (List<O>) o;
+            }
+            else {
+                list = new ArrayList<O>();
+                translateList(mainNode, list);
+                consumer.addSharedAnonymousNode(mainNode, list);
+            }
+        }
+        else {
+            list = new ArrayList<O>();
+            translateList(mainNode, list);
+        }
+
+
+
         return list;
     }
 

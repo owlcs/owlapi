@@ -48,8 +48,7 @@ public class TypeAllDisjointClassesHandler extends BuiltInTypeHandler {
         if (listNode != null) {
             Set<OWLClassExpression> desc = getConsumer().translateToClassExpressionSet(listNode);
             Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
-            getConsumer().setPendingAnnotations(annotations);
-            addAxiom(getDataFactory().getOWLDisjointClassesAxiom(desc, getPendingAnnotations()));
+            addAxiom(getDataFactory().getOWLDisjointClassesAxiom(desc, annotations));
         }
     }
 

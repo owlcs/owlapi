@@ -60,9 +60,20 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         return iri.toString().indexOf("genid") != -1;
     }
 
-    protected IRI getNextBlankNode() {
-        IRI iri = getIRI("genid" + blankNodeId);
-        blankNodeId++;
+    public boolean isAnonymousSharedNode(String iri) {
+        return iri.indexOf("genid-nodeid") != -1;
+    }
+
+    protected IRI getNextBlankNode(String id) {
+        IRI iri;
+        if(id == null) {
+            iri = getIRI("genid" + blankNodeId);
+            blankNodeId++;
+        }
+        else {
+            iri = getIRI("genid-nodeid-" + id);
+        }
+
         return iri;
     }
 
@@ -220,15 +231,16 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
 
   final public IRI parseBlankNode() throws ParseException {
     IRI iri = null;
+    Token t;
     if (jj_2_11(2)) {
       iri = parseNodeID();
     } else if (jj_2_12(2)) {
-      jj_consume_token(NODEID);
-             iri = getNextBlankNode();
+      t = jj_consume_token(NODEID);
+               iri = getNextBlankNode(t.image.trim());
     } else if (jj_2_13(2)) {
       jj_consume_token(OPEN_SQUARE_BRACKET);
       if (jj_2_10(2)) {
-                            iri = getNextBlankNode();
+                            iri = getNextBlankNode(null);
         parsePredicateObjectList(iri);
         if (jj_2_9(2)) {
           jj_consume_token(DOT);
@@ -239,7 +251,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         ;
       }
       jj_consume_token(CLOSE_SQUARE_BRACKET);
-                                                                                                                        if (iri == null) {iri = getNextBlankNode(); }
+                                                                                                                            if (iri == null) {iri = getNextBlankNode(null); }
     } else if (jj_2_14(2)) {
       iri = parseCollection();
     } else {
@@ -377,7 +389,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         break label_4;
       }
         IRI prevSubject = subject;
-        subject=getNextBlankNode();
+        subject=getNextBlankNode(null);
         if(prevSubject != null) {
             handler.handleTriple(prevSubject, rest, subject);
         }
@@ -789,59 +801,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     finally { jj_save(39, xla); }
   }
 
-  private boolean jj_3_8() {
-    if (jj_3R_11()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_16() {
-    if (jj_scan_token(FULLIRI)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_13() {
-    if (jj_scan_token(OPENPAR)) return true;
-    if (jj_3R_27()) return true;
-    if (jj_scan_token(CLOSEPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3_15() {
-    if (jj_scan_token(SEMICOLON)) return true;
-    if (jj_3R_14()) return true;
-    return false;
-  }
-
-  private boolean jj_3_9() {
-    if (jj_scan_token(DOT)) return true;
-    return false;
-  }
-
-  private boolean jj_3_18() {
-    if (jj_3R_15()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_22() {
-    if (jj_scan_token(DOUBLE)) return true;
-    return false;
-  }
-
-  private boolean jj_3_6() {
-    if (jj_3R_9()) return true;
-    return false;
-  }
-
-  private boolean jj_3_22() {
-    if (jj_3R_10()) return true;
-    return false;
-  }
-
-  private boolean jj_3_23() {
-    if (jj_3R_11()) return true;
-    return false;
-  }
-
   private boolean jj_3R_17() {
     if (jj_scan_token(PNAME_LN)) return true;
     return false;
@@ -913,13 +872,18 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3_7() {
-    if (jj_3R_10()) return true;
+  private boolean jj_3_16() {
+    if (jj_scan_token(SEMICOLON)) return true;
     return false;
   }
 
-  private boolean jj_3_16() {
-    if (jj_scan_token(SEMICOLON)) return true;
+  private boolean jj_3R_26() {
+    if (jj_3R_18()) return true;
+    return false;
+  }
+
+  private boolean jj_3_7() {
+    if (jj_3R_10()) return true;
     return false;
   }
 
@@ -930,11 +894,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     jj_scanpos = xsp;
     if (jj_3_8()) return true;
     }
-    return false;
-  }
-
-  private boolean jj_3R_26() {
-    if (jj_3R_18()) return true;
     return false;
   }
 
@@ -996,12 +955,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3R_8() {
-    if (jj_scan_token(BASE)) return true;
-    if (jj_scan_token(FULLIRI)) return true;
-    return false;
-  }
-
   private boolean jj_3R_19() {
     Token xsp;
     xsp = jj_scanpos;
@@ -1021,6 +974,12 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
+  private boolean jj_3R_8() {
+    if (jj_scan_token(BASE)) return true;
+    if (jj_scan_token(FULLIRI)) return true;
+    return false;
+  }
+
   private boolean jj_3_30() {
     if (jj_3R_20()) return true;
     Token xsp;
@@ -1029,14 +988,14 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3_2() {
-    if (jj_3R_6()) return true;
-    if (jj_scan_token(DOT)) return true;
+  private boolean jj_3_40() {
+    if (jj_scan_token(LONG_STRING)) return true;
     return false;
   }
 
-  private boolean jj_3_40() {
-    if (jj_scan_token(LONG_STRING)) return true;
+  private boolean jj_3_2() {
+    if (jj_3R_6()) return true;
+    if (jj_scan_token(DOT)) return true;
     return false;
   }
 
@@ -1097,6 +1056,12 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
+  private boolean jj_3_28() {
+    if (jj_scan_token(AT)) return true;
+    if (jj_scan_token(PN_LOCAL)) return true;
+    return false;
+  }
+
   private boolean jj_3R_5() {
     Token xsp;
     xsp = jj_scanpos;
@@ -1112,14 +1077,22 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     return false;
   }
 
-  private boolean jj_3_28() {
-    if (jj_scan_token(AT)) return true;
-    if (jj_scan_token(PN_LOCAL)) return true;
+  private boolean jj_3R_12() {
+    if (jj_scan_token(NODEID)) return true;
     return false;
   }
 
-  private boolean jj_3R_12() {
-    if (jj_scan_token(NODEID)) return true;
+  private boolean jj_3_26() {
+    if (jj_3R_18()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_27() {
+    Token xsp;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3_26()) { jj_scanpos = xsp; break; }
+    }
     return false;
   }
 
@@ -1134,20 +1107,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     if (jj_3_1()) {
     jj_scanpos = xsp;
     if (jj_3_2()) return true;
-    }
-    return false;
-  }
-
-  private boolean jj_3_26() {
-    if (jj_3R_18()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_27() {
-    Token xsp;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3_26()) { jj_scanpos = xsp; break; }
     }
     return false;
   }
@@ -1215,6 +1174,59 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
 
   private boolean jj_3R_23() {
     if (jj_scan_token(DECIMAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3_9() {
+    if (jj_scan_token(DOT)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_13() {
+    if (jj_scan_token(OPENPAR)) return true;
+    if (jj_3R_27()) return true;
+    if (jj_scan_token(CLOSEPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_8() {
+    if (jj_3R_11()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_16() {
+    if (jj_scan_token(FULLIRI)) return true;
+    return false;
+  }
+
+  private boolean jj_3_15() {
+    if (jj_scan_token(SEMICOLON)) return true;
+    if (jj_3R_14()) return true;
+    return false;
+  }
+
+  private boolean jj_3_18() {
+    if (jj_3R_15()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_22() {
+    if (jj_scan_token(DOUBLE)) return true;
+    return false;
+  }
+
+  private boolean jj_3_6() {
+    if (jj_3R_9()) return true;
+    return false;
+  }
+
+  private boolean jj_3_22() {
+    if (jj_3R_10()) return true;
+    return false;
+  }
+
+  private boolean jj_3_23() {
+    if (jj_3R_11()) return true;
     return false;
   }
 

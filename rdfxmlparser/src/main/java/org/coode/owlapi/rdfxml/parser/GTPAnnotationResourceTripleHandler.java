@@ -44,7 +44,7 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
 
 
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
-        return getConsumer().isAnnotationProperty(predicate) || getConsumer().isOntology(subject);
+        return !getConsumer().isAxiom(subject) && !getConsumer().isAnnotation (subject) && (getConsumer().isAnnotationProperty(predicate) || getConsumer().isOntology(subject));
     }
 
 

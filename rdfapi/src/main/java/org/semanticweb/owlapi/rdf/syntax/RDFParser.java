@@ -439,7 +439,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     protected String getIRIFromNodeID(String nodeID) throws SAXException {
 //        return nodeID;
-        return resolveIRI("#genid-" + nodeID);
+        return resolveIRI("#genid-nodeid-" + nodeID);
     }
 
 
@@ -666,6 +666,10 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     public boolean isAnonymousNodeIRI(String uri) {
         return uri != null && uri.indexOf("genid") != -1;
+    }
+
+    public boolean isAnonymousNodeID(String iri) {
+        return iri != null && iri.indexOf("genid-nodeid") != -1;
     }
 
     public IRI getIRI(String s) {

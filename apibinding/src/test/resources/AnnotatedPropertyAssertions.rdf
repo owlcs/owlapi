@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://Example.com#"
+     xml:base="http://Example.com"
+     xmlns:Annotations="http://annotations#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+    <!-- This ontology was submitted with bug report 3017636 -->
+    <owl:Ontology rdf:about="http://Example.com"/>
+
+    <owl:AnnotationProperty rdf:about="http://annotations#newAnnotationProp"/>
+
+    <owl:ObjectProperty rdf:about="http://Example.com#located_at"/>
+    <owl:ObjectProperty rdf:about="http://Example.com#referencedIn"/>
+
+    <owl:Thing rdf:about="http://Example.com#myDocument"/>
+    <owl:Thing rdf:about="http://Example.com#myLocation"/>
+
+    <owl:Thing rdf:about="http://Example.com#myBuilding">
+        <located_at rdf:resource="http://Example.com#myLocation"/>
+        <referencedIn rdf:resource="http://Example.com#myDocument"/>
+    </owl:Thing>
+    <owl:Axiom>
+        <Annotations:newAnnotationProp>annotation value</Annotations:newAnnotationProp>
+        <owl:annotatedSource rdf:resource="http://Example.com#myBuilding"/>
+        <owl:annotatedProperty rdf:resource="http://Example.com#located_at"/>
+        <owl:annotatedTarget rdf:resource="http://Example.com#myLocation"/>
+    </owl:Axiom>
+</rdf:RDF>
+
+

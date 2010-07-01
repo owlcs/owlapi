@@ -49,21 +49,17 @@ public class TypeAllDisjointPropertiesHandler extends BuiltInTypeHandler {
         consumeTriple(subject, predicate, object);
         IRI listNode = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS.getIRI(), true);
         if (getConsumer().isObjectPropertyOnly(getConsumer().getFirstResource(listNode, false))) {
-            translateAndSetPendingAnnotations(subject);
+            Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
             List<OWLObjectPropertyExpression> props = getConsumer().translateToObjectPropertyList(listNode);
-            getConsumer().addAxiom(getDataFactory().getOWLDisjointObjectPropertiesAxiom(new HashSet<OWLObjectPropertyExpression>(props), getPendingAnnotations()));
+            getConsumer().addAxiom(getDataFactory().getOWLDisjointObjectPropertiesAxiom(new HashSet<OWLObjectPropertyExpression>(props), annotations));
         } else {
-            translateAndSetPendingAnnotations(subject);
+            Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
             List<OWLDataPropertyExpression> props = getConsumer().translateToDataPropertyList(listNode);
-            getConsumer().addAxiom(getDataFactory().getOWLDisjointDataPropertiesAxiom(new HashSet<OWLDataPropertyExpression>(props), getPendingAnnotations()));
+            getConsumer().addAxiom(getDataFactory().getOWLDisjointDataPropertiesAxiom(new HashSet<OWLDataPropertyExpression>(props), annotations));
         }
 
     }
 
-    private void translateAndSetPendingAnnotations(IRI subject) {
-        Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
-        getConsumer().setPendingAnnotations(annotations);
-    }
 
 
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
