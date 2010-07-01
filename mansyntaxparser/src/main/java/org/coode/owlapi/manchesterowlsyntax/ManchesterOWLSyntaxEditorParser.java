@@ -307,6 +307,7 @@ public class ManchesterOWLSyntaxEditorParser {
         tokenIndex = 0;
         for (SWRLBuiltInsVocabulary v : SWRLBuiltInsVocabulary.values()) {
             ruleBuiltIns.put(v.getShortName(), v);
+            ruleBuiltIns.put(v.getIRI().toQuotedString(), v);
         }
     }
 
@@ -2340,7 +2341,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
         List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
 
-        if (v != null) {
+        if (v != null && v.getMaxArity() >= 0) {
             // We know the arity!
             for (int i = 0; i < v.getMaxArity(); i++) {
                 SWRLDArgument obj = parseDObject();
