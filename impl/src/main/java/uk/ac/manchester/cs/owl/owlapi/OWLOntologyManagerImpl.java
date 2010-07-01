@@ -559,19 +559,23 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     public OWLOntology loadOntology(IRI ontologyIRI) throws OWLOntologyCreationException {
+        return loadOntology(ontologyIRI, false);
+    }
+
+    private OWLOntology loadOntology(IRI ontologyIRI, boolean allowExists) throws OWLOntologyCreationException {
         OWLOntologyID id = new OWLOntologyID(ontologyIRI);
         OWLOntology ontByID = ontologiesByID.get(id);
         if (ontByID != null) {
             return ontByID;
         }
         IRI documentIRI = getDocumentIRIFromMappers(id, true);
-        if (documentIRIsByID.values().contains(documentIRI)) {
+        if (documentIRIsByID.values().contains(documentIRI) && !allowExists) {
             throw new OWLOntologyDocumentAlreadyExistsException(documentIRI);
         }
         // The ontology might be being loaded, but its IRI might
         // not have been set (as is probably the case with RDF/XML!)
         if (documentIRI != null) {
-            OWLOntology ontByDocumentIRI = getOntology(documentIRI);
+            OWLOntology ontByDocumentIRI = getOntologyByDocumentIRI(documentIRI);
             if (ontByDocumentIRI != null) {
                 return ontByDocumentIRI;
             }
@@ -582,6 +586,16 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             throw new OntologyIRIMappingNotFoundException(ontologyIRI);
         }
         return loadOntology(ontologyIRI, new IRIDocumentSource(documentIRI));
+    }
+
+    private OWLOntology getOntologyByDocumentIRI(IRI documentIRI) {
+        for(OWLOntologyID ontID : documentIRIsByID.keySet()) {
+            IRI docIRI = documentIRIsByID.get(ontID);
+            if(docIRI != null && docIRI.equals(documentIRI)) {
+                return getOntology(ontID);
+            }
+        }
+        return null;
     }
 
 
@@ -964,7 +978,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         importsLoadCount++;
         OWLOntology ont = null;
         try {
-            ont = loadOntology(declaration.getIRI());
+            ont = loadOntology(declaration.getIRI(), true);
         }
         catch (OWLOntologyCreationException e) {
             if (!silentMissingImportsHandling) {

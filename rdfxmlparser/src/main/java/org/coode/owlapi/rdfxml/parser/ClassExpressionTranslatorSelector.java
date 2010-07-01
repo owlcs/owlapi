@@ -128,7 +128,7 @@ public class ClassExpressionTranslatorSelector {
 
     private boolean isClassExpressionObject(IRI mainNode, IRI predicate) {
         IRI object = consumer.getResourceObject(mainNode, predicate, false);
-        return object != null && consumer.isClass(object);
+        return object != null && (consumer.isClass(object) || consumer.isRestriction(object));
     }
 
     public boolean isDataRestriction(IRI mainNode, IRI property) {

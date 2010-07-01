@@ -43,6 +43,7 @@ public class TPAllValuesFromHandler extends TriplePredicateHandler {
 
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         OWLRDFConsumer consumer = getConsumer();
+        consumer.addRestriction(subject);
         IRI propIRI = consumer.getResourceObject(subject, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), false);
         if(propIRI != null && (!consumer.isAnonymousNode(object) || consumer.getClassExpressionIfTranslated(object) != null)) {
             // The filler is either a datatype or named class

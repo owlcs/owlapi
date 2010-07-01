@@ -48,6 +48,7 @@ public class TPSomeValuesFromHandler extends TriplePredicateHandler {
 
 
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+        getConsumer().addRestriction(subject);
         return false;
 //        eagerConsume = false;
 //        count++;

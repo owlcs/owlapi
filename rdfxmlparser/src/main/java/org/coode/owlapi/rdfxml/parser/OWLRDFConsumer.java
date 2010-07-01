@@ -1662,7 +1662,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     public OWLClassExpression translateClassExpression(IRI mainNode) {
         if (!isAnonymousNode(mainNode)) {
-            return getDataFactory().getOWLClass(mainNode);
+            return dataFactory.getOWLClass(mainNode);
         }
         OWLClassExpression desc = translatedClassExpression.get(mainNode);
         if (desc == null) {
@@ -1673,7 +1673,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                 restrictionIRIs.remove(mainNode);
             }
             else {
-                return getDataFactory().getOWLClass(mainNode);
+                return dataFactory.getOWLClass(mainNode);
             }
         }
         return desc;
