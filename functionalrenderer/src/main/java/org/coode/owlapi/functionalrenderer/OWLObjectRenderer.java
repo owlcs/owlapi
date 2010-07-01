@@ -160,6 +160,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
                 write("\n");
                 writeFullIRI(ontology.getOntologyID().getVersionIRI());
             }
+            write("\n");
         }
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
             write(IMPORT);
