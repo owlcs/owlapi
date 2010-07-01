@@ -786,25 +786,30 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
+        Set<OWLAxiom> axioms;
         if (owlEntity instanceof OWLClass) {
-            return getAxioms(owlEntity.asOWLClass(), owlClassReferences, false);
+            axioms = getAxioms(owlEntity.asOWLClass(), owlClassReferences, false);
         }
-        if (owlEntity instanceof OWLObjectProperty) {
-            return getAxioms(owlEntity.asOWLObjectProperty(), owlObjectPropertyReferences, false);
+        else if (owlEntity instanceof OWLObjectProperty) {
+            axioms = getAxioms(owlEntity.asOWLObjectProperty(), owlObjectPropertyReferences, false);
         }
-        if (owlEntity instanceof OWLDataProperty) {
-            return getAxioms(owlEntity.asOWLDataProperty(), owlDataPropertyReferences, false);
+        else if (owlEntity instanceof OWLDataProperty) {
+            axioms = getAxioms(owlEntity.asOWLDataProperty(), owlDataPropertyReferences, false);
         }
-        if (owlEntity instanceof OWLNamedIndividual) {
-            return getAxioms(owlEntity.asOWLNamedIndividual(), owlIndividualReferences, false);
+        else if (owlEntity instanceof OWLNamedIndividual) {
+            axioms = getAxioms(owlEntity.asOWLNamedIndividual(), owlIndividualReferences, false);
         }
-        if (owlEntity instanceof OWLDatatype) {
-            return getAxioms(owlEntity.asOWLDatatype(), owlDatatypeReferences, false);
+        else if (owlEntity instanceof OWLDatatype) {
+            axioms = getAxioms(owlEntity.asOWLDatatype(), owlDatatypeReferences, false);
         }
-        if(owlEntity instanceof OWLAnnotationProperty) {
-            return getAxioms(owlEntity.asOWLAnnotationProperty(), owlAnnotationPropertyReferences, false);
+        else if(owlEntity instanceof OWLAnnotationProperty) {
+            axioms = getAxioms(owlEntity.asOWLAnnotationProperty(), owlAnnotationPropertyReferences, false);
         }
-        return Collections.emptySet();
+        else {
+            axioms = Collections.emptySet();
+        }
+
+        return new HashSet<OWLAxiom>(axioms);
     }
 
     /**
