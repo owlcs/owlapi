@@ -43,6 +43,13 @@ public class SimpleIRIShortFormProvider implements IRIShortFormProvider {
         if (rendering != null) {
             return rendering;
         }
+        else {
+            String s = iri.toString();
+            int lastSlashIndex = s.lastIndexOf('/');
+            if(lastSlashIndex != -1 && lastSlashIndex != s.length() - 1) {
+                return s.substring(lastSlashIndex + 1);
+            }
+        }
         return iri.toQuotedString();
     }
 }
