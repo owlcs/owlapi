@@ -839,14 +839,14 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      * @return The axioms that reference the specified anonymous individual
      */
     public Set<OWLAxiom> getReferencingAxioms(OWLAnonymousIndividual individual) {
-        return getAxioms(individual, owlAnonymousIndividualReferences, false);
+        return getReturnSet(getAxioms(individual, owlAnonymousIndividualReferences, false));
     }
 
     public Set<OWLClassAxiom> getAxioms(final OWLClass cls) {
         if (classAxiomsByClass == null) {
             buildClassAxiomsByClassIndex();
         }
-        return getAxioms(cls, classAxiomsByClass);
+        return getReturnSet(getAxioms(cls, classAxiomsByClass));
     }
 
 
@@ -1383,7 +1383,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if (inverseFunctionalPropertyAxiomsByProperty == null) {
             inverseFunctionalPropertyAxiomsByProperty = buildObjectPropertyCharacteristicsIndex(INVERSE_FUNCTIONAL_OBJECT_PROPERTY);
         }
-        return getAxioms(property, inverseFunctionalPropertyAxiomsByProperty);
+        return getReturnSet(getAxioms(property, inverseFunctionalPropertyAxiomsByProperty));
     }
 
 
@@ -1391,7 +1391,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if (symmetricPropertyAxiomsByProperty == null) {
             symmetricPropertyAxiomsByProperty = buildObjectPropertyCharacteristicsIndex(SYMMETRIC_OBJECT_PROPERTY);
         }
-        return getAxioms(property, symmetricPropertyAxiomsByProperty);
+        return getReturnSet(getAxioms(property, symmetricPropertyAxiomsByProperty));
     }
 
 
@@ -1399,7 +1399,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if (asymmetricPropertyAxiomsByProperty == null) {
             asymmetricPropertyAxiomsByProperty = buildObjectPropertyCharacteristicsIndex(ASYMMETRIC_OBJECT_PROPERTY);
         }
-        return getAxioms(property, asymmetricPropertyAxiomsByProperty);
+        return getReturnSet(getAxioms(property, asymmetricPropertyAxiomsByProperty));
     }
 
 
@@ -1407,7 +1407,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if (reflexivePropertyAxiomsByProperty == null) {
             reflexivePropertyAxiomsByProperty = buildObjectPropertyCharacteristicsIndex(REFLEXIVE_OBJECT_PROPERTY);
         }
-        return getAxioms(property, reflexivePropertyAxiomsByProperty);
+        return getReturnSet(getAxioms(property, reflexivePropertyAxiomsByProperty));
     }
 
 
@@ -1415,7 +1415,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if (irreflexivePropertyAxiomsByProperty == null) {
             irreflexivePropertyAxiomsByProperty = buildObjectPropertyCharacteristicsIndex(IRREFLEXIVE_OBJECT_PROPERTY);
         }
-        return getAxioms(property, irreflexivePropertyAxiomsByProperty);
+        return getReturnSet(getAxioms(property, irreflexivePropertyAxiomsByProperty));
     }
 
 
@@ -1423,7 +1423,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if (transitivePropertyAxiomsByProperty == null) {
             transitivePropertyAxiomsByProperty = buildObjectPropertyCharacteristicsIndex(TRANSITIVE_OBJECT_PROPERTY);
         }
-        return getAxioms(property, transitivePropertyAxiomsByProperty);
+        return getReturnSet(getAxioms(property, transitivePropertyAxiomsByProperty));
     }
 
 
@@ -1435,7 +1435,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             }
             this.functionalDataPropertyAxiomsByProperty=functionalDataPropertyAxiomsByProperty;
         }
-        return getAxioms(property, functionalDataPropertyAxiomsByProperty);
+        return getReturnSet(getAxioms(property, functionalDataPropertyAxiomsByProperty));
     }
 
 
