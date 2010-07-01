@@ -1093,7 +1093,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             if (typeHandler != null) {
                 typeHandler.handleTriple(subject, predicate, object);
             }
-            else if(axiomTypeTripleHandlers.get(object) == null) {
+            else if (axiomTypeTripleHandlers.get(object) == null) {
                 // C(a)
                 OWLIndividual ind = translateIndividual(subject);
                 OWLClassExpression ce = translateClassExpression(object);
@@ -1213,7 +1213,6 @@ public class OWLRDFConsumer implements RDFConsumer {
 
             // We are now left with triples that could not be consumed during streaming parsing
 
-//        try {
             IRIMap.clear();
 
             tripleProcessor.fine("Total number of triples: " + count);
@@ -1241,37 +1240,11 @@ public class OWLRDFConsumer implements RDFConsumer {
             });
 
             // Now handle non-reserved predicate triples
-            processNonReservedPredicateTriples();
+            consumeNonReservedPredicateTriples();
 
             // Now axiom annotations
-            processAnnotatedAxioms();
+            consumeAnnotatedAxioms();
 
-//
-//            // TODO: TIDY UP!  This is a copy and paste hack!!
-//            // Now for the ABox assertions and annotationIRIs
-//            for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
-//                Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
-//                if (map == null) {
-//                    continue;
-//                }
-//                for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-//                    Set<IRI> objects = map.get(predicate);
-//                    if (objects == null) {
-//                        continue;
-//                    }
-//                    for (IRI object : new ArrayList<IRI>(objects)) {
-//                        for (AbstractResourceTripleHandler resTripHandler : resourceTripleHandlers) {
-//                            if (resTripHandler.canHandle(subject, predicate, object)) {
-//                                resTripHandler.handleTriple(subject, predicate, object);
-//                                break;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-
-
-//        translateDanglingEntities();
 
             if (format != null) {
                 RDFOntologyFormat.ParserMetaData metaData = new RDFOntologyFormat.ParserMetaData(count, RDFOntologyFormat.OntologyHeaderStatus.PARSED_ONE_HEADER);
@@ -1299,7 +1272,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
-    private void processNonReservedPredicateTriples() throws UnloadableImportException {
+    private void consumeNonReservedPredicateTriples() throws UnloadableImportException {
         iterateResourceTriples(new ResourceTripleIterator<UnloadableImportException>() {
             public void handleResourceTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
                 if (!predicate.isReservedVocabulary()) {
@@ -1321,27 +1294,17 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
-    private void processAnnotatedAxioms() throws UnloadableImportException {
-        for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
-            Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
-            if (map == null) {
-                continue;
-            }
-            for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                Set<IRI> objects = map.get(predicate);
-                if (objects == null) {
-                    continue;
-                }
-                for (IRI object : new ArrayList<IRI>(objects)) {
-                    BuiltInTypeHandler builtInTypeHandler = axiomTypeTripleHandlers.get(object);
-                    if (builtInTypeHandler != null) {
-                        if (builtInTypeHandler.canHandle(subject, predicate, object)) {
-                            builtInTypeHandler.handleTriple(subject, predicate, object);
-                        }
+    private void consumeAnnotatedAxioms() throws UnloadableImportException {
+        iterateResourceTriples(new ResourceTripleIterator<UnloadableImportException>() {
+            public void handleResourceTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+                BuiltInTypeHandler builtInTypeHandler = axiomTypeTripleHandlers.get(object);
+                if (builtInTypeHandler != null) {
+                    if (builtInTypeHandler.canHandle(subject, predicate, object)) {
+                        builtInTypeHandler.handleTriple(subject, predicate, object);
                     }
                 }
             }
-        }
+        });
     }
 
     /**
