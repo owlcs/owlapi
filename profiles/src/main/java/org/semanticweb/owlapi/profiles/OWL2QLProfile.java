@@ -391,7 +391,7 @@ public class OWL2QLProfile implements OWLProfile {
         }
 
         public Boolean visit(OWLDataSomeValuesFrom desc) {
-            return false;
+            return true;
         }
 
         public Boolean visit(OWLDataAllValuesFrom desc) {
