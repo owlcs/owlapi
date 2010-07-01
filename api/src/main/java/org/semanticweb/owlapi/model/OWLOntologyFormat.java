@@ -84,7 +84,7 @@ public abstract class OWLOntologyFormat {
     }
 
     public boolean equals(Object obj) {
-        return obj.getClass().equals(getClass());
+        return obj != null && (obj == this || obj.getClass().equals(getClass()));
     }
 
 
