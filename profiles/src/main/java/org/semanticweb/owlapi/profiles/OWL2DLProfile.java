@@ -227,7 +227,7 @@ public class OWL2DLProfile implements OWLProfile {
                     profileViolations.add(new UseOfReservedVocabularyForAnnotationPropertyIRI(getCurrentOntology(), getCurrentAxiom(), property));
                 }
             }
-            if (!property.isBuiltIn() && !getCurrentOntology().isDeclared(property)) {
+            if (!property.isBuiltIn() && !getCurrentOntology().isDeclared(property, true)) {
                 profileViolations.add(new UseOfUndeclaredAnnotationProperty(getCurrentOntology(), getCurrentAxiom(), getCurrentAnnotation(), property));
             }
 
