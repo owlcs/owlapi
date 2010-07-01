@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.api.test;
 
 import org.semanticweb.owlapi.model.*;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,20 +16,10 @@ public class AnonymousIndividualRoundtripTestCase extends AbstractAxiomsRoundTri
 
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        String NS = "http://smi-protege.stanford.edu/ontologies/AnonymousIndividuals.owl";
-        OWLDataFactory factory = getFactory();
-        OWLClass a = factory.getOWLClass(IRI.create(NS + "#A"));
-        OWLAnnotationProperty annoPropP = factory.getOWLAnnotationProperty(IRI.create(NS + "#annoPropP"));
-        OWLObjectProperty objProp = factory.getOWLObjectProperty(IRI.create(NS + "#objProp"));
-        OWLAnonymousIndividual anonIndH = factory.getOWLAnonymousIndividual();
-        OWLAnonymousIndividual anonIndI = factory.getOWLAnonymousIndividual();
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLAnnotation annotation1 = factory.getOWLAnnotation(annoPropP, anonIndH);
-        axioms.add(factory.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1));
-        axioms.add(factory.getOWLClassAssertionAxiom(a, anonIndH));
-        axioms.add(factory.getOWLObjectPropertyAssertionAxiom(objProp, anonIndH, anonIndI));
-        OWLAnnotation annotation2 = factory.getOWLAnnotation(factory.getRDFSLabel(), factory.getOWLStringLiteral("Second", "en"));
-        axioms.add(factory.getOWLAnnotationAssertionAxiom(anonIndH, annotation2));
-        return axioms;
+        OWLAnonymousIndividual ind = getFactory().getOWLAnonymousIndividual();
+        OWLClass cls = getOWLClass("A");
+        OWLAnnotationProperty prop = getOWLAnnotationProperty("prop");
+        OWLAnnotationAssertionAxiom ax = getFactory().getOWLAnnotationAssertionAxiom(prop, cls.getIRI(), ind);
+        return Collections.singleton(ax);
     }
 }

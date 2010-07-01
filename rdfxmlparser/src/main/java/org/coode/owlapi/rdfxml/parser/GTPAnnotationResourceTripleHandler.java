@@ -50,8 +50,16 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
 
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
 
-        OWLAnnotation anno = getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate),
-                                                            object);
+
+        OWLAnnotationValue value;
+        if(isAnonymous(object)) {
+            value = getDataFactory().getOWLAnonymousIndividual(object.toString());
+        }
+        else {
+            value = object;
+        }
+        OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(predicate);
+        OWLAnnotation anno = getDataFactory().getOWLAnnotation(prop, value);
         if(getConsumer().isOntology(subject)) {
             // Assume we annotation our ontology?
             getConsumer().addOntologyAnnotation(anno);
@@ -60,22 +68,6 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
             OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno, getPendingAnnotations());
             addAxiom(decAx);
         }
-//        
-//            // Add as annotation
-//            OWLAnnotationSubject annoSubject;
-//            if(getConsumer().isAnonymousNode(subject)) {
-//                annoSubject = getDataFactory().getOWLAnonymousIndividual(subject.toString());
-//            }
-//            else {
-//                annoSubject = subject;
-//            }
-//            OWLAnnotationValue annoValue;
-//            if(getConsumer().isAnonymousNode(object)) {
-//                annoValue = getDataFactory().getOWLAnonymousIndividual(object.toString());
-//            }
-//            else {
-//                annoValue = object;
-//            }
-//            addAxiom(getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getOWLAnnotationProperty(predicate), annoSubject, annoValue));
+
     }
 }

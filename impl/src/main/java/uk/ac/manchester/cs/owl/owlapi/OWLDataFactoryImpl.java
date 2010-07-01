@@ -263,6 +263,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLAnonymousIndividual getOWLAnonymousIndividual(String id) {
+        if(id == null) {
+            throw new NullPointerException("ID for anonymous individual is null");
+        }
         return new OWLAnonymousIndividualImpl(this, NodeID.getNodeID(id));
     }
 
