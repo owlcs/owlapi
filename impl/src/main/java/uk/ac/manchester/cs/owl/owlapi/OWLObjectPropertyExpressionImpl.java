@@ -188,9 +188,13 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     public Set<OWLObjectPropertyExpression> getInverses(OWLOntology ontology) {
         Set<OWLObjectPropertyExpression> result = new TreeSet<OWLObjectPropertyExpression>();
         for (OWLInverseObjectPropertiesAxiom ax : ontology.getInverseObjectPropertyAxioms(this)) {
-            result.addAll(ax.getProperties());
+            if(ax.getFirstProperty().equals(this)) {
+                result.add(ax.getSecondProperty());
+            }
+            else {
+                result.add(ax.getFirstProperty());
+            }
         }
-        result.remove(this);
         return result;
     }
 
