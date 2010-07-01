@@ -58,7 +58,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     }
 
     public boolean isFunctional(OWLOntology ontology) {
-		return ontology.getFunctionalObjectPropertyAxioms(this).size() > 0;
+		return !ontology.getFunctionalObjectPropertyAxioms(this).isEmpty();
     }
 
 
@@ -73,7 +73,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isInverseFunctional(OWLOntology ontology) {
-        return ontology.getInverseFunctionalObjectPropertyAxioms(this) != null;
+        return !ontology.getInverseFunctionalObjectPropertyAxioms(this).isEmpty();
     }
 
 
@@ -88,7 +88,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isSymmetric(OWLOntology ontology) {
-        return ontology.getSymmetricObjectPropertyAxioms(this) != null;
+        return !ontology.getSymmetricObjectPropertyAxioms(this).isEmpty();
     }
 
 
@@ -102,7 +102,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     }
 
     public boolean isAsymmetric(OWLOntology ontology) {
-        return ontology.getAsymmetricObjectPropertyAxioms(this) != null;
+        return !ontology.getAsymmetricObjectPropertyAxioms(this).isEmpty();
     }
 
 
@@ -117,7 +117,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isReflexive(OWLOntology ontology) {
-        return ontology.getReflexiveObjectPropertyAxioms(this) != null;
+        return !ontology.getReflexiveObjectPropertyAxioms(this).isEmpty();
     }
 
 
@@ -132,7 +132,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isIrreflexive(OWLOntology ontology) {
-        return ontology.getIrreflexiveObjectPropertyAxioms(this) != null;
+        return !ontology.getIrreflexiveObjectPropertyAxioms(this).isEmpty();
     }
 
 
@@ -147,7 +147,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
 
     public boolean isTransitive(OWLOntology ontology) {
-        return ontology.getTransitiveObjectPropertyAxioms(this) != null;
+        return !ontology.getTransitiveObjectPropertyAxioms(this).isEmpty();
     }
 
 
