@@ -302,10 +302,29 @@ public interface OWLReasoner {
      */
     void interrupt();
 
+
     /**
-     * Asks the reasoner to precompute (cache the results of) certain types of inferences.  Note that it is NOT necessary
+     * @deprecated user the {@link OWLReasoner#precomputeInferences(InferenceType...)} method instead.  This method
+     * may be removed in a future release of the OWL API.
+     * <p>
+     * Asks the reasoner to perform various tasks that prepare it for querying.  These tasks include consistency
+     * checking, computation of class, object property and data property hierarchies, computation of individual
+     * type and the relationships between individuals.
+     *
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
+     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
+     *                                       reasoning was cancelled by a client process)
+     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
+     */
+    void prepareReasoner() throws ReasonerInterruptedException, TimeOutException;
+    
+
+    /**
+     * Asks the reasoner to precompute certain types of inferences.  Note that it is NOT necessary
      * to call this method before asking any other queries - the reasoner will answer all queries correctly regardless of
-     * whether inferences are precomputed or not.
+     * whether inferences are precomputed or not.  For example, if the imports closure of the root ontology entails
+     * <code>SubClassOf(A B)</code> then the result of <code>getSubClasses(B)</code> will contain <code>A</code>, regardless of whether
+     * <code>precomputeInferences({@link InferenceType#CLASS_HIERARCHY})</code> has been called.
      * @param inferenceTypes Suggests a list of the types of inferences that should be precomputed.  If the list is empty then
      * the reasoner will determine which types of inferences are precomputed.  Note that the order of the list is
      * unimportant - the reasoner will determine the order in which inferences are computed.
