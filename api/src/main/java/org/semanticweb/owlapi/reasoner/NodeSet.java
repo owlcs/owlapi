@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
+import org.semanticweb.owlapi.model.OWLObject;
 
 import java.util.Set;
 
@@ -37,7 +38,7 @@ import java.util.Set;
  * </p>
  * A set of {@link Node}s.
  */
-public interface NodeSet<E extends OWLLogicalEntity> extends Iterable<Node<E>> {
+public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
 
 
     /**

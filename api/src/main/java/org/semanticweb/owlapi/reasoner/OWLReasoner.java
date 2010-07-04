@@ -577,7 +577,7 @@ public interface OWLReasoner {
      *         is essentially equivalent to the <code>Node</code> returned by calling {@link #getEquivalentObjectProperties(org.semanticweb.owlapi.model.OWLObjectPropertyExpression)}
      *         with a parameter of <code>owl:topObjectProperty</code>.
      */
-    Node<OWLObjectProperty> getTopObjectPropertyNode();
+    Node<OWLObjectPropertyExpression> getTopObjectPropertyNode();
 
 
     /**
@@ -590,7 +590,7 @@ public interface OWLReasoner {
      *         {@link #getEquivalentObjectProperties(org.semanticweb.owlapi.model.OWLObjectPropertyExpression)}
      *         with a parameter of <code>owl:bottomObjectProperty</code>.
      */
-    Node<OWLObjectProperty> getBottomObjectPropertyNode();
+    Node<OWLObjectPropertyExpression> getBottomObjectPropertyNode();
 
 
     /**
@@ -617,7 +617,7 @@ public interface OWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLObjectProperty> getSubObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
 
     /**
      * Gets the set of named object properties that are the strict (potentially direct) super properties of the specified
@@ -643,7 +643,7 @@ public interface OWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLObjectProperty> getSuperObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -671,7 +671,7 @@ public interface OWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
-    Node<OWLObjectProperty> getEquivalentObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
+    Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -702,7 +702,7 @@ public interface OWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLObjectProperty> getDisjointObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -720,7 +720,7 @@ public interface OWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
-    Node<OWLObjectProperty> getInverseObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
+    Node<OWLObjectPropertyExpression> getInverseObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
 
     /**
      * Gets the named classes that are the direct or indirect domains of this property with respect to the imports

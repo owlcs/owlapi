@@ -95,5 +95,22 @@ public interface OWLObject extends Comparable<OWLObject> {
 
     <O> O accept(OWLObjectVisitorEx<O> visitor);
 
+
+    /**
+     * Determines if this object is either, owl:Thing (the top class), owl:topObjectProperty (the top object property)
+     * , owl:topDataProperty (the top data property) or rdfs:Literal (the top datatype).
+     * @return <code>true</code> if this object corresponds to one of the above entities.
+     */
+    boolean isTopEntity();
+
+    
+    /**
+     * Determines if this object is either, owl:Nothing (the bottom class), owl:bottomObjectProperty (the bottom object property)
+     * , owl:bottomDataProperty (the bottom data property).
+     * @return <code>true</code> if this object corresponds to one of the above entities.
+     */
+    boolean isBottomEntity();
+
+
     
 }

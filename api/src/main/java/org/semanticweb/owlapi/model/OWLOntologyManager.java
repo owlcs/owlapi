@@ -690,6 +690,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     void addOntologyChangeListener(OWLOntologyChangeListener listener, OWLOntologyChangeBroadcastStrategy strategy);
 
+    void addImpendingOntologyChangeListener(ImpendingOWLOntologyChangeListener listener);
+
+    void removeImpendingOntologyChangeListener(ImpendingOWLOntologyChangeListener listener);
+
+    void addOntologyChangesVetoedListener(OWLOntologyChangesVetoedListener listener);
+
+    void removeOntologyChangesVetoedListener(OWLOntologyChangesVetoedListener listener);
+
     /**
      * Sets the default strategy that is used to broadcast ontology changes.
      * @param strategy The strategy to be used for broadcasting changes.  This strategy will override any previously

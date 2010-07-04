@@ -179,6 +179,14 @@ public abstract class OWLObjectImpl implements OWLObject {
         return ToStringRenderer.getInstance().getRendering(this);
     }
 
+    public boolean isTopEntity() {
+        return false;
+    }
+
+    public boolean isBottomEntity() {
+        return false;
+    }
+
     protected static int compareSets(Set<? extends OWLObject> set1, Set<? extends OWLObject> set2) {
         SortedSet<? extends OWLObject> ss1;
         if (set1 instanceof SortedSet) {

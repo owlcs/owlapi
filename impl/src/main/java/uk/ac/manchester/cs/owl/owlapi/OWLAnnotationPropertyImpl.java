@@ -41,14 +41,6 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         this.iri = iri;
     }
 
-    public boolean isTopEntity() {
-        return false;
-    }
-
-    public boolean isBottomEntity() {
-        return false;
-    }
-
     public IRI getIRI() {
         return iri;
     }

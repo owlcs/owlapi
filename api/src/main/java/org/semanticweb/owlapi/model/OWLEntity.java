@@ -36,10 +36,6 @@ import java.util.Set;
  */
 public interface OWLEntity extends OWLObject, OWLNamedObject {
 
-    boolean isTopEntity();
-
-    boolean isBottomEntity();
-
     /**
      * Gets the entity type for this entity
      * @return The entity type

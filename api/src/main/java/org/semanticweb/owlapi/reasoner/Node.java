@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.reasoner;
 
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLogicalEntity;
+import org.semanticweb.owlapi.model.OWLObject;
 
 import java.util.Set;
 /*
@@ -72,7 +71,7 @@ import java.util.Set;
  *  <img src="../../../../doc-files/hierarchy.png"/>
  * </div>
  */
-public interface Node<E extends OWLLogicalEntity> extends Iterable<E> {
+public interface Node<E extends OWLObject> extends Iterable<E> {
 
     /**
      * Determines if this node represents the top node (in a hierarchy).

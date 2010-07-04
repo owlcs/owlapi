@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.util;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.HashSet;
@@ -41,7 +42,7 @@ public class InferredEquivalentObjectPropertyAxiomGenerator extends InferredObje
 
 
     protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLEquivalentObjectPropertiesAxiom> result) {
-        Set<OWLObjectProperty> equivProps = new HashSet<OWLObjectProperty>(reasoner.getEquivalentObjectProperties(entity).getEntities());
+        Set<OWLObjectPropertyExpression> equivProps = new HashSet<OWLObjectPropertyExpression>(reasoner.getEquivalentObjectProperties(entity).getEntities());
         equivProps.add(entity);
         result.add(dataFactory.getOWLEquivalentObjectPropertiesAxiom(equivProps));
     }

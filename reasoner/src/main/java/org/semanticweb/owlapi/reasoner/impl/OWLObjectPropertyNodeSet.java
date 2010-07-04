@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.Node;
 
 import java.util.Set;
@@ -33,28 +34,28 @@ import java.util.Set;
  * Information Management Group<br>
  * Date: 05-Dec-2009
  */
-public class OWLObjectPropertyNodeSet extends DefaultNodeSet<OWLObjectProperty> {
+public class OWLObjectPropertyNodeSet extends DefaultNodeSet<OWLObjectPropertyExpression> {
 
     public OWLObjectPropertyNodeSet() {
     }
 
-    public OWLObjectPropertyNodeSet(OWLObjectProperty entity) {
+    public OWLObjectPropertyNodeSet(OWLObjectPropertyExpression entity) {
         super(entity);
     }
 
-    public OWLObjectPropertyNodeSet(Node<OWLObjectProperty> owlObjectPropertyNode) {
+    public OWLObjectPropertyNodeSet(Node<OWLObjectPropertyExpression> owlObjectPropertyNode) {
         super(owlObjectPropertyNode);
     }
 
-    public OWLObjectPropertyNodeSet(Set<Node<OWLObjectProperty>> nodes) {
+    public OWLObjectPropertyNodeSet(Set<Node<OWLObjectPropertyExpression>> nodes) {
         super(nodes);
     }
 
-    protected DefaultNode<OWLObjectProperty> getNode(OWLObjectProperty entity) {
+    protected DefaultNode<OWLObjectPropertyExpression> getNode(OWLObjectPropertyExpression entity) {
         return NodeFactory.getOWLObjectPropertyNode(entity);
     }
 
-    protected DefaultNode<OWLObjectProperty> getNode(Set<OWLObjectProperty> entities) {
+    protected DefaultNode<OWLObjectPropertyExpression> getNode(Set<OWLObjectPropertyExpression> entities) {
         return NodeFactory.getOWLObjectPropertyNode(entities);
     }
 }

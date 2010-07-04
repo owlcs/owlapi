@@ -59,23 +59,23 @@ public class NodeFactory {
     
     
     
-    public static DefaultNode<OWLObjectProperty> getOWLObjectPropertyNode() {
+    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode() {
         return new OWLObjectPropertyNode();
     }
     
-    public static DefaultNode<OWLObjectProperty> getOWLObjectPropertyNode(OWLObjectProperty prop) {
+    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode(OWLObjectPropertyExpression prop) {
         return new OWLObjectPropertyNode(prop);
     }
     
-    public static DefaultNode<OWLObjectProperty> getOWLObjectPropertyNode(Set<OWLObjectProperty> properties) {
+    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode(Set<OWLObjectPropertyExpression> properties) {
         return new OWLObjectPropertyNode(properties);
     }
     
-    public static DefaultNode<OWLObjectProperty> getOWLObjectPropertyTopNode() {
+    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyTopNode() {
         return OWLObjectPropertyNode.getTopNode();
     }
     
-    public static DefaultNode<OWLObjectProperty> getOWLObjectPropertyBottomNode() {
+    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyBottomNode() {
         return OWLObjectPropertyNode.getBottomNode();
     }
     

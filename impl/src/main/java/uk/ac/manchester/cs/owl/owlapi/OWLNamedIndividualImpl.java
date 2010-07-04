@@ -40,13 +40,6 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         this.iri = iri;
     }
 
-    public boolean isTopEntity() {
-        return false;
-    }
-
-    public boolean isBottomEntity() {
-        return false;
-    }
 
     public boolean isNamed() {
         return true;

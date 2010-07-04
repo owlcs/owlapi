@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.Node;
 
@@ -35,7 +36,7 @@ import java.util.*;
  * Information Management Group<br>
  * Date: 05-Dec-2009
  */
-public abstract class DefaultNodeSet<E extends OWLLogicalEntity> implements NodeSet<E> {
+public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> {
 
     private Set<Node<E>> nodes = new HashSet<Node<E>>();
 

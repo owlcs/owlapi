@@ -363,6 +363,14 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             return visitor.visit(this);
         }
 
+        public boolean isTopEntity() {
+            return false;
+        }
+
+        public boolean isBottomEntity() {
+            return false;
+        }
+
         public boolean equals(Object obj) {
             if (obj == null) {
                 return false;

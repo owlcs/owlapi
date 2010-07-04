@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
@@ -33,7 +34,7 @@ import java.util.Set;
  * Information Management Group<br>
  * Date: 05-Dec-2009
  */
-public class OWLObjectPropertyNode extends DefaultNode<OWLObjectProperty> {
+public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
 
 
     private static final OWLObjectProperty TOP_OBJECT_PROPERTY = OWLDataFactoryImpl.getInstance().getOWLTopObjectProperty();
@@ -47,11 +48,11 @@ public class OWLObjectPropertyNode extends DefaultNode<OWLObjectProperty> {
     public OWLObjectPropertyNode() {
     }
 
-    public OWLObjectPropertyNode(OWLObjectProperty entity) {
+    public OWLObjectPropertyNode(OWLObjectPropertyExpression entity) {
         super(entity);
     }
 
-    public OWLObjectPropertyNode(Set<OWLObjectProperty> entities) {
+    public OWLObjectPropertyNode(Set<OWLObjectPropertyExpression> entities) {
         super(entities);
     }
 
