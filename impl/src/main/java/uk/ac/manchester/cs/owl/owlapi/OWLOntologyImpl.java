@@ -84,6 +84,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private Map<OWLAnnotationProperty, Set<OWLAxiom>> owlAnnotationPropertyReferences = createMap();
 
+    private Map<OWLEntity, Set<OWLDeclarationAxiom>> declarationsByEntity = createMap();
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // OWLClassAxioms by OWLClass
@@ -398,12 +400,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity entity) {
-        OWLDeclarationAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(entity);
-        if (getAxiomsInternal(DECLARATION).contains(ax)) {
-            return Collections.singleton(ax);
-        } else {
-            return Collections.emptySet();
-        }
+        return getReturnSet(getAxioms(entity, declarationsByEntity, false));
     }
 
 
@@ -2164,8 +2161,10 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         public void visit(OWLDeclarationAxiom axiom) {
             if (addAxiom) {
                 addToIndexedSet(DECLARATION, axiomsByType, axiom);
+                addToIndexedSet(axiom.getEntity(), declarationsByEntity, axiom);
             } else {
                 removeAxiomFromSet(DECLARATION, axiomsByType, axiom, true);
+                removeAxiomFromSet(axiom.getEntity(), declarationsByEntity, axiom, true);
             }
         }
 

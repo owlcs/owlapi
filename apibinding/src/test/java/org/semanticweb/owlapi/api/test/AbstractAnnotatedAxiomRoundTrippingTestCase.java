@@ -51,16 +51,25 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends Abstra
         OWLAxiom ax = getMainAxiom(annos);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(ax.getAnnotatedAxiom(annos));
+        axioms.add(getFactory().getOWLDeclarationAxiom(prop));
+        axioms.add(getFactory().getOWLDeclarationAxiom(prop2));
 
         axioms.add(ax.getAnnotatedAxiom(Collections.singleton(anno1)));
         axioms.add(ax.getAnnotatedAxiom(Collections.singleton(anno2)));
 
+        Set<OWLAxiom> declarations = getDeclarationsToAdd(ax);
+        axioms.addAll(declarations);
+        return axioms;
+    }
+
+    protected Set<OWLAxiom> getDeclarationsToAdd(OWLAxiom ax) {
+        Set<OWLAxiom> declarations = new HashSet<OWLAxiom>();
         OWLEntityCollector entityCollector = new OWLEntityCollector();
         ax.accept(entityCollector);
         for(OWLEntity ent : entityCollector.getObjects()) {
-            axioms.add(getFactory().getOWLDeclarationAxiom(ent));
+            declarations.add(getFactory().getOWLDeclarationAxiom(ent));
         }
-        return axioms;
+        return declarations;
     }
 
     protected abstract OWLAxiom getMainAxiom(Set<OWLAnnotation> annos);

@@ -2145,7 +2145,7 @@ OWLAxiom Declaration() :
             return null;
         }
         else {
-            return dataFactory.getOWLDeclarationAxiom(entity);
+            return dataFactory.getOWLDeclarationAxiom(entity, axiomAnnos);
         }
         }
 

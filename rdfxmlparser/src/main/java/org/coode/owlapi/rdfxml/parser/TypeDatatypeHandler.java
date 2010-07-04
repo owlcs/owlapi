@@ -1,10 +1,9 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -46,7 +45,8 @@ public class TypeDatatypeHandler extends BuiltInTypeHandler {
         if (!getConsumer().isAnonymousNode(subject)) {
             OWLDatatype dt = getDataFactory().getOWLDatatype(subject);
             if (!dt.isBuiltIn()) {
-                addAxiom(getDataFactory().getOWLDeclarationAxiom(dt));
+                Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
+                addAxiom(getDataFactory().getOWLDeclarationAxiom(dt, annos));
             }
         }
         getConsumer().addOWLDatatype(subject);

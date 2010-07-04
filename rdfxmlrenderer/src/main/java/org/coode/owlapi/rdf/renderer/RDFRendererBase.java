@@ -99,8 +99,12 @@ public abstract class RDFRendererBase {
         if (!annotationProperties.isEmpty()) {
             writeBanner("Annotation properties");
             for (OWLAnnotationProperty prop : annotationProperties) {
-                createGraph(prop);
-                render(new RDFResourceNode(prop.getIRI()));
+                if(createGraph(prop)) {
+                    beginObject();
+                    render(new RDFResourceNode(prop.getIRI()));
+                    renderAnonRoots();
+                    endObject();
+                }
             }
         }
 
