@@ -111,12 +111,20 @@ public class StructuralReasoner extends OWLReasonerBase {
         interrupted = true;
     }
 
-    public void prepareReasoner() throws ReasonerInterruptedException, TimeOutException {
+
+    public void precomputeInferences(InferenceType... inferenceTypes) throws ReasonerInterruptedException, TimeOutException, InconsistentOntologyException {
         classHierarchyInfo.prepare();
         objectPropertyHierarchyInfo.prepare();
         dataPropertyHierarchyInfo.prepare();
     }
 
+    public boolean isPrecomputed(InferenceType inferenceType) {
+        return true;
+    }
+
+    public NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce) throws ReasonerInterruptedException, TimeOutException, FreshEntitiesException {
+        return null;
+    }
 
     private void checkForInterrupt() {
         if (interrupted) {

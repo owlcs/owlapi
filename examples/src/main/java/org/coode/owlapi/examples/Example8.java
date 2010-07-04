@@ -94,7 +94,7 @@ public class Example8 {
             OWLReasoner reasoner = reasonerFactory.createReasoner(ont, config);
 
             // Ask the reasoner to do all the necessary work now
-            reasoner.prepareReasoner();
+            reasoner.precomputeInferences();
 
             // We can determine if the ontology is actually consistent (in this case, it should be).
             boolean consistent = reasoner.isConsistent();

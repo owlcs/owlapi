@@ -303,20 +303,29 @@ public interface OWLReasoner {
     void interrupt();
 
     /**
-     * Asks the reasoner to perform various tasks that prepare it for querying.  These tasks include consistency
-     * checking, computation of class, object property and data property hierarchies, computation of individual
-     * type and the relationships between individuals.
-     *
+     * Asks the reasoner to precompute (cache the results of) certain types of inferences.  Note that it is NOT necessary
+     * to call this method before asking any other queries - the reasoner will answer all queries correctly regardless of
+     * whether inferences are precomputed or not.
+     * @param inferenceTypes Suggests a list of the types of inferences that should be precomputed.  If the list is empty then
+     * the reasoner will determine which types of inferences are precomputed.  Note that the order of the list is
+     * unimportant - the reasoner will determine the order in which inferences are computed.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
-    void prepareReasoner() throws ReasonerInterruptedException, TimeOutException;
+    void precomputeInferences(InferenceType... inferenceTypes) throws ReasonerInterruptedException, TimeOutException, InconsistentOntologyException;
+
+    /**
+     * Determines if a specific set of inferences have been precomputed.
+     * @param inferenceType The type of inference to check for.
+     * @return <code>true</code> if the specified type of inferences have been precomputed, otherwise <code>false</code>.
+     */
+    boolean isPrecomputed(InferenceType inferenceType);
 
     /**
      * Determines if the set of reasoner axioms is consistent.  Note that this method
-     * will not throw an {@link org.semanticweb.owlapi.reasoner.InconsistentOntologyException} even if the root ontology
+     * will NOT throw an {@link org.semanticweb.owlapi.reasoner.InconsistentOntologyException} even if the root ontology
      * imports closure is inconsistent.
      *
      * @return <code>true</code> if the imports closure of the root ontology is consistent,
@@ -535,17 +544,7 @@ public interface OWLReasoner {
      * as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param ce The class expression whose disjoint classes are to be retrieved.
-     * @param direct Specifies if only the direct disjoint classes should be retrieved or if all disjoint classes should be retrieved.
-     * @return If <code>direct=true</code>:<br>
-     *         Let <code>S</code> be the, possibly empty, set of classes such that for each
-     *         class <code>C</code> in <code>S</code> the set of reasoner axioms entails <code>EquivalentClasses(C ObjectComplementOf(ce))</code>.
-     *         If <code>S</code> is <i>non-empty</i> the return value is a singleton
-     *         <code>NodeSet</code> containing one <code>Node</code> that contains the classes in <code>S</code>.  If <code>S</code>
-     *         is <i>empty</i> then the return value is a <code>NodeSet</code> such that for each class <code>D</code> in the <code>NodeSet</code>
-     *         the set of reasoner axioms entails <code>DirectSubClassOf(D ObjectComplementOf(ce))</code>.
-     *         </p>
-     *         If <code>direct=false</code>:<br>
-     *         The return value is a <code>NodeSet</code> such that for each class <code>D</code> in the <code>NodeSet</code>
+     * @return The return value is a <code>NodeSet</code> such that for each class <code>D</code> in the <code>NodeSet</code>
      *         the set of reasoner axioms entails <code>EquivalentClasses(D, ObjectComplementOf(ce))</code> or <code>StrictSubClassOf(D, ObjectComplementOf(ce))</code>.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
@@ -558,7 +557,7 @@ public interface OWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce, boolean direct) throws ReasonerInterruptedException, TimeOutException, FreshEntitiesException;
+    NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce) throws ReasonerInterruptedException, TimeOutException, FreshEntitiesException;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

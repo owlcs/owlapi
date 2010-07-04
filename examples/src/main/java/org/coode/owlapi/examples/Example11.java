@@ -2,6 +2,7 @@ package org.coode.owlapi.examples;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredOntologyGenerator;
 import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
@@ -65,7 +66,7 @@ public class Example11 {
 
             // Create the reasoner and classify the ontology
             OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ont);
-            reasoner.prepareReasoner();
+            reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
 
             // To generate an inferred ontology we use implementations of inferred axiom generators
             // to generate the parts of the ontology we want (e.g. subclass axioms, equivalent classes
