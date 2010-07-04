@@ -48,8 +48,8 @@ public interface OWLReasonerConfiguration {
     ReasonerProgressMonitor getProgressMonitor();
 
     /**
-     * Gets the timeout in milliseconds for basic single reasoner operations (satisfiability check time out).  By default this is set
-     * to the value of {@link Long#MAX_VALUE}.
+     * Gets the timeout in milliseconds for basic single reasoner operations (satisfiability check time out).  If the
+     * value is equal to {@link Long#MAX_VALUE} then this means that the reasoner should never time out.
      * </p>
      * The reasoner will monitor the elapsed time during a satisfiability check (attempt to build a model for example)
      * and if the elapsed time exceeds the timeout then it will abort the test as soon as possible and terminate
@@ -58,7 +58,8 @@ public interface OWLReasonerConfiguration {
      * </p>
      * Note that this is not a timeout for method calls such as "getSubClasses", which may involve many satisfiability
      * (or other basic reasoning task) checks, the sum of which may well exceed the timeout.
-     * @return The time out in milliseconds
+     * @return The time out in milliseconds.  By default this is set
+     * to the value of {@link Long#MAX_VALUE}, which means the reasoner SHOULD NOT timeout.
      */
     long getTimeOut();
 
