@@ -1028,20 +1028,12 @@ public class StructuralReasoner extends OWLReasonerBase {
                 OWLObjectPropertyExpression simplifiedProp = prop.getSimplified();
                 properties.add(simplifiedProp);
             }
-            for (OWLObjectPropertyExpression prop : child.getInverseProperty().getSimplified().getSuperProperties(getRootOntology().getImportsClosure())) {
-                OWLObjectPropertyExpression simplifiedProp = prop.getSimplified();
-                properties.add(simplifiedProp);
-            }
             return properties;
         }
 
         public Collection<OWLObjectPropertyExpression> getChildren(OWLObjectPropertyExpression parent) {
             Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
             for (OWLObjectPropertyExpression prop : parent.getSubProperties(getRootOntology().getImportsClosure())) {
-                OWLObjectPropertyExpression simplifiedProp = prop.getSimplified();
-                properties.add(simplifiedProp.asOWLObjectProperty());
-            }
-            for (OWLObjectPropertyExpression prop : parent.getInverseProperty().getSimplified().getSubProperties(getRootOntology().getImportsClosure())) {
                 OWLObjectPropertyExpression simplifiedProp = prop.getSimplified();
                 properties.add(simplifiedProp.asOWLObjectProperty());
             }
