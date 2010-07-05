@@ -304,22 +304,6 @@ public interface OWLReasoner {
 
 
     /**
-     * @deprecated user the {@link OWLReasoner#precomputeInferences(InferenceType...)} method instead.  This method
-     * may be removed in a future release of the OWL API.
-     * <p>
-     * Asks the reasoner to perform various tasks that prepare it for querying.  These tasks include consistency
-     * checking, computation of class, object property and data property hierarchies, computation of individual
-     * type and the relationships between individuals.
-     *
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
-     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
-     *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
-     */
-    void prepareReasoner() throws ReasonerInterruptedException, TimeOutException;
-    
-
-    /**
      * Asks the reasoner to precompute certain types of inferences.  Note that it is NOT necessary
      * to call this method before asking any other queries - the reasoner will answer all queries correctly regardless of
      * whether inferences are precomputed or not.  For example, if the imports closure of the root ontology entails
