@@ -125,10 +125,6 @@ public class StructuralReasoner extends OWLReasonerBase {
         return true;
     }
 
-    public NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce) throws ReasonerInterruptedException, TimeOutException, FreshEntitiesException {
-        return null;
-    }
-
     private void checkForInterrupt() {
         if (interrupted) {
             interrupted = false;
@@ -197,7 +193,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         return classHierarchyInfo.getEquivalents(ce.asOWLClass());
     }
 
-    public NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce, boolean direct) {
+    public NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce) {
         OWLClassNodeSet nodeSet = new OWLClassNodeSet();
         if (!ce.isAnonymous()) {
             for(OWLOntology ontology : getRootOntology().getImportsClosure()) {
@@ -245,7 +241,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         return nd;
     }
 
-    public NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+    public NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
         return new OWLObjectPropertyNodeSet();
     }
 
@@ -333,16 +329,14 @@ public class StructuralReasoner extends OWLReasonerBase {
         return dataPropertyHierarchyInfo.getEquivalents(pe);
     }
 
-    public NodeSet<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+    public NodeSet<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
         DefaultNodeSet<OWLDataProperty> result = new OWLDataPropertyNodeSet();
         for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
             for (OWLDisjointDataPropertiesAxiom axiom : ontology.getDisjointDataPropertiesAxioms(pe.asOWLDataProperty())) {
                 for (OWLDataPropertyExpression dpe : axiom.getPropertiesMinus(pe)) {
                     if (!dpe.isAnonymous()) {
                         result.addNode(dataPropertyHierarchyInfo.getEquivalents(dpe.asOWLDataProperty()));
-                        if (!direct) {
-                            result.addAllNodes(getSubDataProperties(dpe.asOWLDataProperty(), false).getNodes());
-                        }
+                        result.addAllNodes(getSubDataProperties(dpe.asOWLDataProperty(), false).getNodes());
                     }
                 }
             }

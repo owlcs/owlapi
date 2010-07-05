@@ -697,17 +697,7 @@ public interface OWLReasoner {
      * as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The object property expression whose disjoint object properties are to be retrieved.
-     * @param direct Specifies if only the direct disjoint object properties should be retrieved or if all disjoint object properties should be retrieved.
-     * @return If <code>direct=true</code>:<br>
-     *         Let <code>S</code> be the, possibly empty, set of object properties such that for each
-     *         object property <code>P</code> in <code>S</code> the set of reasoner axioms entails <code>EquivalentObjectProperties(P ObjectPropertyComplementOf(pe))</code>.
-     *         If <code>S</code> is <i>non-empty</i> the return value is a singleton
-     *         <code>NodeSet</code> containing one <code>Node</code> that contains the object properties in <code>S</code>.  If <code>S</code>
-     *         is <i>empty</i> then the return value is a <code>NodeSet</code> such that for each object property <code>D</code> in the <code>NodeSet</code>
-     *         the set of reasoner axioms entails <code>DirectSubObjectPropertyOf(P ObjectPropertyComplementOf(pe))</code>.
-     *         </p>
-     *         If <code>direct=false</code>:<br>
-     *         The return value is a <code>NodeSet</code> such that for each object property <code>P</code> in the <code>NodeSet</code>
+     * @return The return value is a <code>NodeSet</code> such that for each object property <code>P</code> in the <code>NodeSet</code>
      *         the set of reasoner axioms entails <code>EquivalentObjectProperties(P, ObjectPropertyComplementOf(pe))</code> or <code>StrictSubObjectPropertyOf(P, ObjectPropertyComplementOf(pe))</code>.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
@@ -720,7 +710,7 @@ public interface OWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
@@ -911,17 +901,7 @@ public interface OWLReasoner {
      * as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The data property expression whose disjoint data properties are to be retrieved.
-     * @param direct Specifies if only the direct disjoint data properties should be retrieved or if all disjoint data properties should be retrieved.
-     * @return If <code>direct=true</code>:<br>
-     *         Let <code>S</code> be the, possibly empty, set of data properties such that for each
-     *         data property <code>P</code> in <code>S</code> the set of reasoner axioms entails <code>EquivalentDataProperties(P DataPropertyComplementOf(pe))</code>.
-     *         If <code>S</code> is <i>non-empty</i> the return value is a singleton
-     *         <code>NodeSet</code> containing one <code>Node</code> that contains the data properties in <code>S</code>.  If <code>S</code>
-     *         is <i>empty</i> then the return value is a <code>NodeSet</code> such that for each data property <code>D</code> in the <code>NodeSet</code>
-     *         the set of reasoner axioms entails <code>DirectSubDataPropertyOf(P DataPropertyComplementOf(pe))</code>.
-     *         </p>
-     *         If <code>direct=false</code>:<br>
-     *         The return value is a <code>NodeSet</code> such that for each data property <code>P</code> in the <code>NodeSet</code>
+     * @return The return value is a <code>NodeSet</code> such that for each data property <code>P</code> in the <code>NodeSet</code>
      *         the set of reasoner axioms entails <code>EquivalentDataProperties(P, DataPropertyComplementOf(pe))</code> or <code>StrictSubDataPropertyOf(P, DataPropertyComplementOf(pe))</code>.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
@@ -934,7 +914,7 @@ public interface OWLReasoner {
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
      */
-    NodeSet<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
 
 
     /**
