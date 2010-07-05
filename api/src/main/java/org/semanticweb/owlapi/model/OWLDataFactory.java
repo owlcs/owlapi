@@ -320,6 +320,12 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLAnnotationProperty getOWLDeprecated();
 
     /**
+     * Gets the rdf:PlainLiteral datatype.
+     * @return The datattype with an IRI of <code>rdf:PlainLiteral</code>
+     */
+    OWLDatatype getRDFPlainLiteral();
+
+    /**
      * Gets an OWLDatatype that has the specified IRI
      *
      * @param iri The IRI of the datatype to be obtained
@@ -392,7 +398,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    OWLTypedLiteral getOWLTypedLiteral(String literal, OWLDatatype datatype);
+    OWLLiteral getOWLLiteral(String literal, OWLDatatype datatype);
 
     /**
      * Creates a typed literal that has the specified OWL 2 Datatype as its datatype
@@ -400,7 +406,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param datatype The OWL 2 Datatype that will type the literal
      * @return The typed literal
      */
-    OWLTypedLiteral getOWLTypedLiteral(String literal, OWL2Datatype datatype);
+    OWLLiteral getOWLLiteral(String literal, OWL2Datatype datatype);
 
     /**
      * Convenience method that obtains a literal typed as an integer.
@@ -409,7 +415,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      *         value of the integer, and whose data type is xsd:integer.
      */
-    OWLTypedLiteral getOWLTypedLiteral(int value);
+    OWLLiteral getOWLLiteral(int value);
 
 
     /**
@@ -419,7 +425,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      *         value of the double, and whose data type is xsd:double.
      */
-    OWLTypedLiteral getOWLTypedLiteral(double value);
+    OWLLiteral getOWLLiteral(double value);
 
 
     /**
@@ -429,7 +435,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      *         value of the boolean, and whose data type is xsd:boolean.
      */
-    OWLTypedLiteral getOWLTypedLiteral(boolean value);
+    OWLLiteral getOWLLiteral(boolean value);
 
 
     /**
@@ -439,38 +445,32 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @return An <code>OWLTypedConstant</code> whose literal is the lexical
      *         value of the float, and whose data type is xsd:float.
      */
-    OWLTypedLiteral getOWLTypedLiteral(float value);
-
+    OWLLiteral getOWLLiteral(float value);
 
     /**
-     * Convenience method that obtains a literal typed as a string.
-     *
-     * @param value The value of the literal
-     * @return An <code>OWLTypedConstant</code> whose literal is the lexical
-     *         value of the string, and whose data type is xsd:string.
+     * Gets a literal that has the specified lexical value, and has the datatype xsd:string.  The literal will not
+     * have a language tag.
+     * @param value The lexical value of the literal
+     * @return A literal (without a language tag) that has a datatype of xsd:string.
      */
-    OWLTypedLiteral getOWLTypedLiteral(String value);
+    OWLLiteral getOWLLiteral(String value);
 
 
     /**
-     * Gets an OWLStringLiteral with a language tag.
-     *
-     * @param literal The string literal
-     * @param lang The language tag.  The tag is formed according to <a href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP47</a>
-     * but the OWL API will not check that the tag conforms to this specification - it is up to the caller to ensure this.  For backwards
-     * compatibility, if the value of lang is <code>null</code> then this is equivalent to calling the getOWLStringLiteral(String literal)
-     * method.
-     * @return The OWLStringLiteral that represents the string literal with a language tag.
-     */
-    OWLStringLiteral getOWLStringLiteral(String literal, String lang);
-
-    /**
-     * Gets a string literal without a language tag.
+     * Gets an OWLLiteral with a language tag.  The datatype of this literal will have an IRI of rdf:PlainLiteral
+     * ({@link org.semanticweb.owlapi.vocab.OWLRDFVocabulary#RDF_PLAIN_LITERAL}).
      *
      * @param literal The string literal
-     * @return The string literal for the specfied string
+     * @param lang The language tag.  The empty string may be specified to indicate an empty language tag.  Leading
+     * and trailing white space will be removed from the tag and the tag will be normalised to LOWER CASE.
+     * If <code>lang</code> is <code>null</code> then <code>lang</code> will be converted to the empty string (for
+     * backwards compatibility).
+     * If not empty, the tag is formed according to <a href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP47</a>
+     * but the OWL API will not check that the tag conforms to this specification - it is up to the caller to ensure this.
+     * @return The OWLLiteral that represents the string literal with a (possibly empty) language tag.
+     * @throws NullPointerException if literal is <code>null</code>
      */
-    OWLStringLiteral getOWLStringLiteral(String literal);
+    OWLLiteral getOWLLiteral(String literal, String lang);
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////////

@@ -36,6 +36,6 @@ import java.util.Set;
 public class DataPropertyAssertionAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return getFactory().getOWLDataPropertyAssertionAxiom(getOWLDataProperty("p"), getOWLIndividual("i"), getFactory().getOWLTypedLiteral("xyz"));
+        return getFactory().getOWLDataPropertyAssertionAxiom(getOWLDataProperty("p"), getOWLIndividual("i"), getFactory().getOWLLiteral("xyz"));
     }
 }

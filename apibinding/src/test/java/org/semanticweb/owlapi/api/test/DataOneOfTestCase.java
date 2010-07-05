@@ -36,8 +36,8 @@ public class DataOneOfTestCase extends AbstractFileRoundTrippingTestCase {
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLDataRange oneOf = getFactory().getOWLDataOneOf(
-                getFactory().getOWLTypedLiteral(30),
-                getFactory().getOWLTypedLiteral(31f)
+                getFactory().getOWLLiteral(30),
+                getFactory().getOWLLiteral(31f)
         );
         OWLDataProperty p = getOWLDataProperty("p");
         OWLDataPropertyRangeAxiom ax = getFactory().getOWLDataPropertyRangeAxiom(p, oneOf);

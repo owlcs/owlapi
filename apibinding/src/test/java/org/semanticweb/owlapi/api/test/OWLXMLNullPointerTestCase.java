@@ -28,7 +28,7 @@ public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
             OWLDataFactory factory = manager.getOWLDataFactory();
 
             OWLAnonymousIndividual i = factory.getOWLAnonymousIndividual();
-            manager.addAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), i, factory.getOWLStringLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION)));
+            manager.addAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), i, factory.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION)));
             manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(factory.getOWLClass(IRI.create(NS + "#CheeseyPizza")), i));
             OWLIndividual j = factory.getOWLAnonymousIndividual();
             manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(factory.getOWLClass(IRI.create(NS + "#CheeseTopping")), j));

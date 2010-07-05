@@ -1,8 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
 import org.semanticweb.owlapi.model.*;
-
-import java.util.Set;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -37,7 +35,7 @@ public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTest {
     protected OWLOntology createOntology() {
             OWLOntology ont = getOWLOntology("AnnotationOntology");
             OWLAnnotationProperty prop = getFactory().getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
-            OWLLiteral value = getFactory().getOWLTypedLiteral(33);
+            OWLLiteral value = getFactory().getOWLLiteral(33);
             OWLAnnotation annotation = getFactory().getOWLAnnotation(prop, value);
             getManager().applyChange(new AddOntologyAnnotation(ont, annotation));
             return ont;

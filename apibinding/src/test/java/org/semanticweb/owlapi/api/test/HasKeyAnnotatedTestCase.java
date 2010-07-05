@@ -38,7 +38,7 @@ public class HasKeyAnnotatedTestCase extends AbstractAxiomsRoundTrippingTestCase
 
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLAnnotationProperty ap = getFactory().getOWLAnnotationProperty(IRI.create("http://annotation.com/annos#prop"));
-        OWLLiteral val = getFactory().getOWLStringLiteral("Test", null);
+        OWLLiteral val = getFactory().getOWLLiteral("Test", "");
         OWLAnnotation anno = getFactory().getOWLAnnotation(ap, val);
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
         annos.add(anno);

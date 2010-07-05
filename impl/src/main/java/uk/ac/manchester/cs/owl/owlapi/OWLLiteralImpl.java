@@ -1,7 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,78 +35,131 @@ import java.io.RandomAccessFile;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
-//
-//    private static RandomAccessFile db;
-//
-//    private int length = 0;
-//
-//    private long filePointer;
-//
-//    static {
-//        try {
-//            File file = File.createTempFile("owlapiliteraldb", ".txt");
-//            db = new RandomAccessFile(file, "rw");
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     private String literal;
 
+    private OWLDatatype datatype;
 
-    public OWLLiteralImpl(OWLDataFactory dataFactory, String literal) {
+    private String lang;
+
+    public OWLLiteralImpl(OWLDataFactory dataFactory, String literal, OWLDatatype datatype) {
         super(dataFactory);
         this.literal = literal;
-//        this.length = literal.length();
-//        try {
-//            filePointer = db.getFilePointer();
-//            db.writeChars(literal);
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        this.datatype = datatype;
+        this.lang = "";
     }
 
-    @Override
-    public int hashCode() {
-        int hash = super.hashCode();
-//        literal = null;
-        return hash;
+    public OWLLiteralImpl(OWLDataFactory dataFactory, String literal, String lang) {
+        super(dataFactory);
+        this.literal = literal;
+        this.lang = lang;
+        this.datatype = dataFactory.getRDFPlainLiteral();
     }
 
     public String getLiteral() {
-//        if(literal != null) {
-//            return literal;
-//        }
-//        try {
-//            StringBuilder sb = new StringBuilder();
-//            db.seek(filePointer);
-//            for(int i = 0; i < length; i++) {
-//                sb.append(db.readChar());
-//            }
-//            return sb.toString();
-//        }
-//        catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
         return literal;
     }
 
+    public boolean isRDFPlainLiteral() {
+        return datatype.equals(getOWLDataFactory().getRDFPlainLiteral());
+    }
+
+    public boolean hasLang() {
+        return !lang.equals("");
+    }
+
+    public boolean isInteger() {
+        return datatype.equals(getOWLDataFactory().getIntegerOWLDatatype());
+    }
+
+    public int parseInteger() throws NumberFormatException {
+        return Integer.parseInt(literal);
+    }
+
+    public boolean isBoolean() {
+        return datatype.equals(getOWLDataFactory().getBooleanOWLDatatype());
+    }
+
+    public boolean parseBoolean() throws NumberFormatException {
+        return Boolean.parseBoolean(literal);
+    }
+
+    public boolean isDouble() {
+        return datatype.equals(getOWLDataFactory().getDoubleOWLDatatype());
+    }
+
+    public double parseDouble() throws NumberFormatException {
+        return Double.parseDouble(literal);
+    }
+
+    public boolean isFloat() {
+        return datatype.equals(getOWLDataFactory().getFloatOWLDatatype());
+    }
+
+    public float parseFloat() throws NumberFormatException {
+        return Float.parseFloat(literal);
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public boolean hasLang(String lang) {
+        return this.lang != null && this.lang.equals(lang);
+    }
+
+    public OWLDatatype getDatatype() {
+        return datatype;
+    }
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLLiteral)) {
                 return false;
             }
-
-            OWLLiteralImpl other = (OWLLiteralImpl) obj;
-//            if(other.length != this.length) {
-//                return false;
-//            }
-            return other.getLiteral().equals(getLiteral());
+            OWLLiteral other = (OWLLiteral) obj;
+            return literal.equals(other.getLiteral()) && datatype.equals(other.getDatatype()) && lang.equals(other.getLang());
         }
         return false;
+    }
+
+    public void accept(OWLDataVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    public void accept(OWLAnnotationValueVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    protected int compareObjectOfSameType(OWLObject object) {
+        OWLLiteral other = (OWLLiteral) object;
+        int diff = literal.compareTo(other.getLiteral());
+        if(diff != 0) {
+            return diff;
+        }
+        diff = datatype.compareTo(other.getDatatype());
+        if(diff != 0) {
+            return diff;
+        }
+        return lang.compareTo(other.getLang());
+
+    }
+
+    public void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
     }
 }

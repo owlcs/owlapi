@@ -2,8 +2,8 @@ package org.semanticweb.owlapi.api.test;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLTypedLiteral;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -40,15 +40,15 @@ public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        addAxiomForLiteral(getFactory().getOWLTypedLiteral(3), axioms);
-        addAxiomForLiteral(getFactory().getOWLTypedLiteral(33.3), axioms);
-        addAxiomForLiteral(getFactory().getOWLTypedLiteral(true), axioms);
-        addAxiomForLiteral(getFactory().getOWLTypedLiteral(33.3f), axioms);
-        addAxiomForLiteral(getFactory().getOWLTypedLiteral("33.3"), axioms);
+        addAxiomForLiteral(getFactory().getOWLLiteral(3), axioms);
+        addAxiomForLiteral(getFactory().getOWLLiteral(33.3), axioms);
+        addAxiomForLiteral(getFactory().getOWLLiteral(true), axioms);
+        addAxiomForLiteral(getFactory().getOWLLiteral(33.3f), axioms);
+        addAxiomForLiteral(getFactory().getOWLLiteral("33.3"), axioms);
         return axioms;
     }
 
-    private void addAxiomForLiteral(OWLTypedLiteral lit, Set<OWLAxiom> axioms) {
+    private void addAxiomForLiteral(OWLLiteral lit, Set<OWLAxiom> axioms) {
         OWLDataProperty prop = getOWLDataProperty("p");
         OWLNamedIndividual ind = getOWLIndividual("i");
         axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(

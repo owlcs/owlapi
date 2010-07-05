@@ -84,6 +84,13 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
     public abstract boolean isNothing();
 
     /**
+     * Determines if this IRI is equal to the IRI that is named <code>rdf:PlainLiteral</code>
+     * @return <code>true</code> if this IRI is equal to &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;,
+     * otherwise <code>false</code>
+     */
+    public abstract boolean isPlainLiteral();
+
+    /**
      * Gets the fragment of the IRI.
      *
      * @return The IRI fragment, or <code>null</code> if the IRI does not have a fragment
@@ -247,6 +254,11 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 
         public boolean isThing() {
             return remainder != null && remainder.equals("Thing") && prefix.equals(Namespaces.OWL.toString());
+        }
+
+        @Override
+        public boolean isPlainLiteral() {
+            return remainder != null && remainder.equals("PlainLiteral") && prefix.equals(Namespaces.RDF.toString());
         }
 
         public void accept(OWLObjectVisitor visitor) {

@@ -818,25 +818,20 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLTypedLiteral node) {
+    public void visit(OWLLiteral node) {
         write("\"");
         write(EscapeUtils.escapeString(node.getLiteral()));
         write("\"");
-        write("^^");
-        write(node.getDatatype().getIRI());
-    }
-
-
-    public void visit(OWLStringLiteral node) {
-        write("\"");
-        write(EscapeUtils.escapeString(node.getLiteral()));
-        write("\"");
-        if (node.getLang() != null) {
+        if(node.hasLang()) {
             write("@");
             write(node.getLang());
         }
-    }
+        else {
+            write("^^");
+            write(node.getDatatype().getIRI());
+        }
 
+    }
 
     public void visit(OWLDataProperty property) {
         if (!writeEnitiesAsURIs) {

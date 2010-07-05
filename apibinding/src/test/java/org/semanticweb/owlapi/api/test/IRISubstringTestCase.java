@@ -45,8 +45,8 @@ public class IRISubstringTestCase extends AbstractAxiomsRoundTrippingTestCase {
         OWLAnnotationProperty propA = getFactory().getOWLAnnotationProperty(iriA);
         OWLAnnotationProperty propB = getFactory().getOWLAnnotationProperty(iriB);
         axioms.add(getFactory().getOWLDeclarationAxiom(clsA));
-        axioms.add(getFactory().getOWLAnnotationAssertionAxiom(propA, clsA.getIRI(), getFactory().getOWLStringLiteral("value1")));
-        axioms.add(getFactory().getOWLAnnotationAssertionAxiom(propB, clsA.getIRI(), getFactory().getOWLStringLiteral("value2")));
+        axioms.add(getFactory().getOWLAnnotationAssertionAxiom(propA, clsA.getIRI(), getFactory().getOWLLiteral("value1")));
+        axioms.add(getFactory().getOWLAnnotationAssertionAxiom(propB, clsA.getIRI(), getFactory().getOWLLiteral("value2")));
         return axioms;
     }
 }

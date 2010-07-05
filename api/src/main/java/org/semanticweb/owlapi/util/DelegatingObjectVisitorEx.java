@@ -332,15 +332,9 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
 
-    public O visit(OWLTypedLiteral node) {
+    public O visit(OWLLiteral node) {
         return delegate.visit(node);
     }
-
-
-    public O visit(OWLStringLiteral node) {
-        return delegate.visit(node);
-    }
-
 
     public O visit(OWLDataProperty property) {
         return delegate.visit(property);

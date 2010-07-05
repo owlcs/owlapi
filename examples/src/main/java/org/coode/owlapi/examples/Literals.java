@@ -38,29 +38,29 @@ public class Literals {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
 
-        // Get an untyped string literal
-        OWLStringLiteral literal1 = factory.getOWLStringLiteral("My string literal");
+        // Get an plain literal with an empty language tag
+        OWLLiteral literal1 = factory.getOWLLiteral("My string literal", "");
 
         // Get an untyped string literal with a language tag
-        OWLStringLiteral literal2 = factory.getOWLStringLiteral("My string literal", "en");
+        OWLLiteral literal2 = factory.getOWLLiteral("My string literal", "en");
 
         // Typed literals are literals that are typed with a datatype
 
         // Create a typed literal to represent the integer 33
         OWLDatatype integerDatatype = factory.getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI());
-        OWLTypedLiteral literal3 = factory.getOWLTypedLiteral("33", integerDatatype);
+        OWLLiteral literal3 = factory.getOWLLiteral("33", integerDatatype);
 
         // There is are short cut methods on OWLDataFactory for creating typed literals with common datatypes
         // Internallym these methods create literals as above
 
-        // Create a typed literal to represent the integer 33
-        OWLTypedLiteral literal4 = factory.getOWLTypedLiteral(33);
+        // Create a literal to represent the integer 33
+        OWLLiteral literal4 = factory.getOWLLiteral(33);
 
-        // Create a typed literal to represent the double 33.3
-        OWLTypedLiteral literal5 = factory.getOWLTypedLiteral(33.3);
+        // Create a literal to represent the double 33.3
+        OWLLiteral literal5 = factory.getOWLLiteral(33.3);
 
-        // Create a typed literal to represent the boolean value true
-        OWLTypedLiteral literal6 = factory.getOWLTypedLiteral(true);
+        // Create a literal to represent the boolean value true
+        OWLLiteral literal6 = factory.getOWLLiteral(true);
 
     }
 }

@@ -31,15 +31,15 @@ import java.util.Set;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public class OWLDataEnumerationTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLTypedLiteral> {
+public class OWLDataEnumerationTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLLiteral> {
 
 
-    protected OWLObject createObject(Set<OWLTypedLiteral> operands) throws Exception {
+    protected OWLObject createObject(Set<OWLLiteral> operands) throws Exception {
         return getOWLDataFactory().getOWLDataOneOf(operands);
     }
 
 
-    protected OWLTypedLiteral createOperand() throws Exception {
-        return createOWLTypedConstant();
+    protected OWLLiteral createOperand() throws Exception {
+        return createOWLLiteral();
     }
 }

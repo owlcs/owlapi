@@ -219,6 +219,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return getOWLDatatype(XSDVocabulary.BOOLEAN.getIRI());
     }
 
+    public OWLDatatype getRDFPlainLiteral() {
+        return getOWLDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
+    }
 
     public OWLObjectProperty getOWLObjectProperty(IRI iri) {
         OWLObjectProperty prop = objectPropertiesByURI.get(iri);
@@ -287,51 +290,55 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return dt;
     }
 
-    public OWLTypedLiteral getOWLTypedLiteral(String literal, OWLDatatype datatype) {
-        return new OWLTypedLiteralImpl(this, literal, datatype);
+    public OWLLiteral getOWLLiteral(String literal, OWLDatatype datatype) {
+        return new OWLLiteralImpl(this, literal, datatype);
     }
 
-    public OWLTypedLiteral getOWLTypedLiteral(String literal, OWL2Datatype datatype) {
-        return getOWLTypedLiteral(literal, getOWLDatatype(datatype.getIRI()));
+    public OWLLiteral getOWLLiteral(String literal, OWL2Datatype datatype) {
+        return getOWLLiteral(literal, getOWLDatatype(datatype.getIRI()));
     }
 
-    public OWLTypedLiteral getOWLTypedLiteral(int value) {
-        return new OWLTypedLiteralImpl(this, Integer.toString(value), getOWLDatatype(XSDVocabulary.INTEGER.getIRI()));
-    }
-
-
-    public OWLTypedLiteral getOWLTypedLiteral(double value) {
-        return new OWLTypedLiteralImpl(this, Double.toString(value), getOWLDatatype(XSDVocabulary.DOUBLE.getIRI()));
+    public OWLLiteral getOWLLiteral(int value) {
+        return new OWLLiteralImpl(this, Integer.toString(value), getOWLDatatype(XSDVocabulary.INTEGER.getIRI()));
     }
 
 
-    public OWLTypedLiteral getOWLTypedLiteral(boolean value) {
-        return new OWLTypedLiteralImpl(this, Boolean.toString(value), getOWLDatatype(XSDVocabulary.BOOLEAN.getIRI()));
+    public OWLLiteral getOWLLiteral(double value) {
+        return new OWLLiteralImpl(this, Double.toString(value), getOWLDatatype(XSDVocabulary.DOUBLE.getIRI()));
     }
 
 
-    public OWLTypedLiteral getOWLTypedLiteral(float value) {
-        return new OWLTypedLiteralImpl(this, Float.toString(value), getOWLDatatype(XSDVocabulary.FLOAT.getIRI()));
+    public OWLLiteral getOWLLiteral(boolean value) {
+        return new OWLLiteralImpl(this, Boolean.toString(value), getOWLDatatype(XSDVocabulary.BOOLEAN.getIRI()));
     }
 
 
-    public OWLTypedLiteral getOWLTypedLiteral(String value) {
-        return new OWLTypedLiteralImpl(this, value, getOWLDatatype(XSDVocabulary.STRING.getIRI()));
+    public OWLLiteral getOWLLiteral(float value) {
+        return new OWLLiteralImpl(this, Float.toString(value), getOWLDatatype(XSDVocabulary.FLOAT.getIRI()));
     }
 
 
-    public OWLStringLiteral getOWLStringLiteral(String literal, String lang) {
-        return new OWLStringLiteralImpl(this, literal, lang);
+    public OWLLiteral getOWLLiteral(String value) {
+        return new OWLLiteralImpl(this, value, getOWLDatatype(XSDVocabulary.STRING.getIRI()));
     }
 
-    /**
-     * Gets a string literal without a language tag.
-     *
-     * @param literal The string literal
-     * @return The string literal for the specfied string
-     */
-    public OWLStringLiteral getOWLStringLiteral(String literal) {
-        return new OWLStringLiteralImpl(this, literal, null);
+
+    public OWLLiteral getOWLLiteral(String literal, String lang) {
+        if(literal == null) {
+            throw new NullPointerException("literal argument is null");
+        }
+        String normalisedLang;
+        if(lang == null) {
+            normalisedLang = "";
+        }
+        else {
+            normalisedLang = lang.trim().toLowerCase();
+        }
+        return new OWLLiteralImpl(this, literal, normalisedLang);
+    }
+
+    public OWLLiteral getOWLStringLiteral(String literal) {
+        return new OWLLiteralImpl(this, literal, getOWLDatatype(XSDVocabulary.STRING.getIRI()));
     }
 
     public OWLDataOneOf getOWLDataOneOf(Set<? extends OWLLiteral> values) {
@@ -384,67 +391,67 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
     public OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(int minInclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_INCLUSIVE, getOWLTypedLiteral(minInclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive));
     }
 
     public OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(int maxInclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_INCLUSIVE, getOWLTypedLiteral(maxInclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_INCLUSIVE, getOWLLiteral(maxInclusive));
     }
 
     public OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(int minInclusive, int maxInclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, getOWLTypedLiteral(minInclusive)), getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, maxInclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive)), getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, maxInclusive));
     }
 
     public OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(int minExclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_EXCLUSIVE, getOWLTypedLiteral(minExclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive));
     }
 
     public OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(int maxExclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_EXCLUSIVE, getOWLTypedLiteral(maxExclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_EXCLUSIVE, getOWLLiteral(maxExclusive));
     }
 
     public OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(int minExclusive, int maxExclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE, getOWLTypedLiteral(minExclusive)), getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE, maxExclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive)), getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE, maxExclusive));
     }
 
 
     public OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(double minInclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_INCLUSIVE, getOWLTypedLiteral(minInclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive));
     }
 
     public OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(double maxInclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_INCLUSIVE, getOWLTypedLiteral(maxInclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_INCLUSIVE, getOWLLiteral(maxInclusive));
     }
 
     public OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(double minInclusive, double maxInclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, getOWLTypedLiteral(minInclusive)), getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, maxInclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive)), getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, maxInclusive));
     }
 
     public OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(double minExclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_EXCLUSIVE, getOWLTypedLiteral(minExclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive));
     }
 
     public OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(double maxExclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_EXCLUSIVE, getOWLTypedLiteral(maxExclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_EXCLUSIVE, getOWLLiteral(maxExclusive));
     }
 
     public OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(double minExclusive, double maxExclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE, getOWLTypedLiteral(minExclusive)), getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE, maxExclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive)), getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE, maxExclusive));
     }
 
 
     public OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet, int facetValue) {
-        return getOWLFacetRestriction(facet, getOWLTypedLiteral(facetValue));
+        return getOWLFacetRestriction(facet, getOWLLiteral(facetValue));
     }
 
 
     public OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet, double facetValue) {
-        return getOWLFacetRestriction(facet, getOWLTypedLiteral(facetValue));
+        return getOWLFacetRestriction(facet, getOWLLiteral(facetValue));
     }
 
 
     public OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet, float facetValue) {
-        return getOWLFacetRestriction(facet, getOWLTypedLiteral(facetValue));
+        return getOWLFacetRestriction(facet, getOWLLiteral(facetValue));
     }
 
 
@@ -820,27 +827,27 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, int value) {
-        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
     public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, double value) {
-        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
     public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, float value) {
-        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
     public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, boolean value) {
-        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
     public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, String value) {
-        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLTypedLiteral(value), EMPTY_ANNOTATIONS_SET);
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), EMPTY_ANNOTATIONS_SET);
     }
 
 
@@ -1131,7 +1138,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @return The annotation assertion that deprecates the specified IRI.
      */
     public OWLAnnotationAssertionAxiom getDeprecatedOWLAnnotationAssertionAxiom(IRI subject) {
-        return getOWLAnnotationAssertionAxiom(getOWLDeprecated(), subject, getOWLTypedLiteral(true));
+        return getOWLAnnotationAssertionAxiom(getOWLDeprecated(), subject, getOWLLiteral(true));
     }
 
     public OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop, IRI domain, Set<? extends OWLAnnotation> annotations) {

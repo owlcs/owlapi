@@ -345,6 +345,9 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         writeln();
     }
 
+    public void visit(OWLLiteral node) {
+    }
+
     public void visit(OWLEquivalentClassesAxiom axiom) {
     }
 
@@ -558,14 +561,6 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     }
 
     public void visit(OWLDatatypeRestriction node) {
-
-    }
-
-    public void visit(OWLTypedLiteral node) {
-
-    }
-
-    public void visit(OWLStringLiteral node) {
 
     }
 

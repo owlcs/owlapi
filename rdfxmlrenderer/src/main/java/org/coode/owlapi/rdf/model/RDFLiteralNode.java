@@ -43,11 +43,6 @@ public class RDFLiteralNode extends RDFNode {
 
     private int hashCode = 0;
 
-    public RDFLiteralNode(String literal) {
-        this.literal = literal;
-    }
-
-
     public IRI getIRI() {
         return null;
     }

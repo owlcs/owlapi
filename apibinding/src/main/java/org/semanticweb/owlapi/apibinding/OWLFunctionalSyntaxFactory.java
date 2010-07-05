@@ -3,9 +3,6 @@ package org.semanticweb.owlapi.apibinding;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWLFacet;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-
-import java.util.Arrays;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -390,34 +387,34 @@ public class OWLFunctionalSyntaxFactory {
         return IRI.create(iri);
     }
 
-    public static OWLStringLiteral StringLiteral(String literal) {
-        return dataFactory.getOWLStringLiteral(literal);
+    public static OWLLiteral PlainLiteral(String literal) {
+        return dataFactory.getOWLLiteral(literal, "");
     }
 
 
-    public static OWLStringLiteral StringLiteral(String literal, String lang) {
-        return dataFactory.getOWLStringLiteral(literal, lang);
+    public static OWLLiteral Literal(String literal, String lang) {
+        return dataFactory.getOWLLiteral(literal, lang);
     }
 
-    public static OWLTypedLiteral TypedLiteral(String literal) {
-        return dataFactory.getOWLTypedLiteral(literal);
+    public static OWLLiteral Literal(String literal) {
+        return dataFactory.getOWLLiteral(literal);
     }
 
 
-    public static OWLTypedLiteral TypedLiteral(boolean literal) {
-        return dataFactory.getOWLTypedLiteral(literal);
+    public static OWLLiteral Literal(boolean literal) {
+        return dataFactory.getOWLLiteral(literal);
     }
 
-    public static OWLTypedLiteral TypedLiteral(int literal) {
-        return dataFactory.getOWLTypedLiteral(literal);
+    public static OWLLiteral Literal(int literal) {
+        return dataFactory.getOWLLiteral(literal);
     }
 
-    public static OWLTypedLiteral TypedLiteral(double literal) {
-        return dataFactory.getOWLTypedLiteral(literal);
+    public static OWLLiteral Literal(double literal) {
+        return dataFactory.getOWLLiteral(literal);
     }
 
-    public static OWLTypedLiteral TypedLiteral(float literal) {
-        return dataFactory.getOWLTypedLiteral(literal);
+    public static OWLLiteral Literal(float literal) {
+        return dataFactory.getOWLLiteral(literal);
     }
 
 

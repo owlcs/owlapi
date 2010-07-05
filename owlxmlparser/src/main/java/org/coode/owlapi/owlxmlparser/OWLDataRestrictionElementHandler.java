@@ -37,7 +37,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
 
     private OWLDataRange dataRange;
 
-    private OWLTypedLiteral constant;
+    private OWLLiteral constant;
 
     private IRI facetIRI;
 
@@ -52,7 +52,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
 
 
     public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
-        constant = (OWLTypedLiteral) handler.getOWLObject();
+        constant = (OWLLiteral) handler.getOWLObject();
     }
 
 

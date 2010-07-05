@@ -468,17 +468,10 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
         process(node.getFacetRestrictions());
     }
 
-
-    public void visit(OWLTypedLiteral node) {
+    public void visit(OWLLiteral node) {
         handleObject(node);
         node.getDatatype().accept(this);
     }
-
-
-    public void visit(OWLStringLiteral node) {
-        handleObject(node);
-    }
-
 
     public void visit(OWLFacetRestriction node) {
         handleObject(node);

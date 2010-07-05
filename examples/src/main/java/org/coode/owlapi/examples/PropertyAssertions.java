@@ -75,7 +75,7 @@ public class PropertyAssertions {
             // Get hold of the xsd:integer datatype
             OWLDatatype integerDatatype = factory.getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI());
             // Create a typed literal.  We type the literal "51" with the datatype
-            OWLTypedLiteral literal = factory.getOWLTypedLiteral("51", integerDatatype);
+            OWLLiteral literal = factory.getOWLLiteral("51", integerDatatype);
             // Create the property assertion and add it to the ontology
             OWLAxiom ax = factory.getOWLDataPropertyAssertionAxiom(hasAge, john, literal);
             manager.addAxiom(ontology, ax);

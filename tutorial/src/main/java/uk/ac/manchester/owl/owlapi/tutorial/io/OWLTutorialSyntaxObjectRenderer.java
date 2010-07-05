@@ -670,20 +670,18 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         node.getFacetValue().accept(this);
     }
 
-    public void visit(OWLTypedLiteral node) {
+    public void visit(OWLLiteral node) {
         write("\"");
         write(node.getLiteral());
         write("\"");
-        write("^^");
-        write(node.getDatatype().getIRI());
-    }
-
-    public void visit(OWLStringLiteral node) {
-        write("\"");
-        write(node.getLiteral());
-        write("\"");
-        write("@");
-        write(node.getLang());
+        if(node.hasLang()) {
+            write("@");
+            write(node.getLang());
+        }
+        else {
+            write("^^");
+            write(node.getDatatype().getIRI());
+        }
     }
 
     public void visit(OWLDataProperty property) {

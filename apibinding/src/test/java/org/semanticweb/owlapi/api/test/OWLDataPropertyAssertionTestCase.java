@@ -40,7 +40,7 @@ public class OWLDataPropertyAssertionTestCase extends AbstractAxiomsRoundTrippin
         axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(
                 getOWLDataProperty("p"),
                 getOWLIndividual("i"),
-                getFactory().getOWLTypedLiteral(33.3)));
+                getFactory().getOWLLiteral(33.3)));
         return axioms;
     }
 }

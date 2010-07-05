@@ -3,7 +3,6 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -45,6 +44,6 @@ public class TypeSelfRestrictionHandler extends BuiltInTypeHandler {
         consumeTriple(subject, predicate, object);
         getConsumer().addRestriction(subject);
         // Patch to new OWL syntax
-        getConsumer().addTriple(subject, OWLRDFVocabulary.OWL_HAS_SELF.getIRI(), getDataFactory().getOWLTypedLiteral(true));
+        getConsumer().addTriple(subject, OWLRDFVocabulary.OWL_HAS_SELF.getIRI(), getDataFactory().getOWLLiteral(true));
     }
 }

@@ -40,7 +40,7 @@ public class NegativeDataPropertyAssertionTestCase extends AbstractAxiomsRoundTr
         axioms.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(
                 getOWLDataProperty("p"),
                 getOWLIndividual("i"),
-                getFactory().getOWLTypedLiteral(33.3)
+                getFactory().getOWLLiteral(33.3)
         ));
         return axioms;
     }

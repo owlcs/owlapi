@@ -183,7 +183,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), desc.getProperty());
-        addTriple(desc, OWL_HAS_SELF.getIRI(), manager.getOWLDataFactory().getOWLTypedLiteral(true));
+        addTriple(desc, OWL_HAS_SELF.getIRI(), manager.getOWLDataFactory().getOWLLiteral(true));
     }
 
 
@@ -521,15 +521,14 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         }
     }
 
-    public void visit(OWLTypedLiteral node) {
-        nodeMap.put(node, getLiteralNode(node.getLiteral(), node.getDatatype().getIRI()));
+    public void visit(OWLLiteral node) {
+        if(node.hasLang()) {
+            nodeMap.put(node, getLiteralNode(node.getLiteral(), node.getLang()));
+        }
+        else {
+            nodeMap.put(node, getLiteralNode(node.getLiteral(), node.getDatatype().getIRI()));
+        }
     }
-
-
-    public void visit(OWLStringLiteral node) {
-        nodeMap.put(node, getLiteralNode(node.getLiteral(), node.getLang()));
-    }
-
 
     public void visit(OWLDataProperty property) {
         if (!nodeMap.containsKey(property)) {
@@ -922,8 +921,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         addTriple(getResourceNode(subject), getPredicateNode(pred), translateList(new ArrayList<OWLObject>(objects), listType));
     }
 
-    private OWLTypedLiteral toTypedConstant(int i) {
-        return manager.getOWLDataFactory().getOWLTypedLiteral(Integer.toString(i), manager.getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
+    private OWLLiteral toTypedConstant(int i) {
+        return manager.getOWLDataFactory().getOWLLiteral(Integer.toString(i), manager.getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
     }
 
     private void processIfAnonymous(Set<OWLIndividual> inds, OWLAxiom root) {

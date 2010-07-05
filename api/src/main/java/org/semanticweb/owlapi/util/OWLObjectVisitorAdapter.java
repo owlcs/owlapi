@@ -253,11 +253,7 @@ public class OWLObjectVisitorAdapter implements OWLObjectVisitor {
         handleDefault(node);
     }
 
-    public void visit(OWLStringLiteral node) {
-        handleDefault(node);
-    }
-
-    public void visit(OWLTypedLiteral node) {
+    public void visit(OWLLiteral node) {
         handleDefault(node);
     }
 

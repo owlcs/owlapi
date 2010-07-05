@@ -4,7 +4,6 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-import java.net.URI;
 import java.util.*;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -89,7 +88,7 @@ public class OWLDataUtil {
         return dataFactory.getOWLDatatype(v.getIRI());
     }
 
-    public static Set<OWLFacetRestriction> getFacetRestrictionSet(OWLDataFactory dataFactory, OWLFacet facet, OWLTypedLiteral facetValue) {
+    public static Set<OWLFacetRestriction> getFacetRestrictionSet(OWLDataFactory dataFactory, OWLFacet facet, OWLLiteral facetValue) {
         return Collections.singleton(dataFactory.getOWLFacetRestriction(facet, facetValue));
     }
 
@@ -100,8 +99,8 @@ public class OWLDataUtil {
      * @return The typed constant, consisting of a string literal and datatype that
      *         corresponds to the translation of the specified number.
      */
-    public static <N extends Number> OWLTypedLiteral getTypedConstant(OWLDataFactory dataFactory, N val) {
-        return dataFactory.getOWLTypedLiteral(val.toString(), getDatatype(dataFactory, val));
+    public static <N extends Number> OWLLiteral getTypedConstant(OWLDataFactory dataFactory, N val) {
+        return dataFactory.getOWLLiteral(val.toString(), getDatatype(dataFactory, val));
     }
 
 

@@ -52,7 +52,7 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
         SWRLVariable varQ = df.getSWRLVariable(IRI.create("http://www.owlapi#q"));
         SWRLVariable varR = df.getSWRLVariable(IRI.create("http://www.owlapi#r"));
         body.add(df.getSWRLDataPropertyAtom(getOWLDataProperty("d"), varX, varQ));
-        OWLLiteral lit = df.getOWLTypedLiteral(33);
+        OWLLiteral lit = df.getOWLLiteral(33);
         SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);
         body.add(df.getSWRLDataPropertyAtom(getOWLDataProperty("d"), varY, litArg));
         Set<SWRLAtom> head = new HashSet<SWRLAtom>();

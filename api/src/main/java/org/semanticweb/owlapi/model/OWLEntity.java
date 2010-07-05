@@ -88,7 +88,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * <li>a class and the URI corresponds to owl:Thing or owl:Nothing</li>
      * <li>an object property and the URI corresponds to owl:topObjectProperty or owl:bottomObjectProperty</li>
      * <li>a data property and the URI corresponds to owl:topDataProperty or owl:bottomDataProperty</li>
-     * <li>a datatype and the IRI is rdfs:Literal or is in the OWL 2 datatype map</li>
+     * <li>a datatype and the IRI is rdfs:Literal or is in the OWL 2 datatype map or is rdf:PlainLiteral</li>
      * <li>an annotation property and the URI is in the set of built in annotation property URIs</li>
      * </ul>
      * @return <code>true</code> if this entity is a built in entity, or <code>false</code>

@@ -58,7 +58,7 @@ public class Example10 {
             // We'll attach a language to the comment to specify that our comment is written in English (en).
             OWLAnnotation commentAnno = df.getOWLAnnotation(
                     df.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_COMMENT.getIRI()),
-                    df.getOWLStringLiteral("A class which represents pizzas", "en"));
+                    df.getOWLLiteral("A class which represents pizzas", "en"));
 
             // Specify that the pizza class has an annotation - to do this we attach an entity annotation using
             // an entity annotation axiom (remember, classes are entities)
@@ -73,7 +73,7 @@ public class Example10 {
             // First we'll create a constant for the annotation value.  Version info should probably contain a
             // version number for the ontology, but in this case, we'll add some text to describe why the version
             // has been updated
-            OWLLiteral lit = df.getOWLTypedLiteral("Added a comment to the pizza class");
+            OWLLiteral lit = df.getOWLLiteral("Added a comment to the pizza class");
             // The above constant is just a plain literal containing the version info text/comment
             // we need to create an annotation, which pairs a URI with the constant
             OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO.getIRI()), lit);
@@ -100,12 +100,8 @@ public class Example10 {
                 for (OWLAnnotation annotation : cls.getAnnotations(ont, label)) {
                     if (annotation.getValue() instanceof OWLLiteral) {
                         OWLLiteral val = (OWLLiteral) annotation.getValue();
-                        if (!val.isOWLTypedLiteral()) {
-                            // The value isn't a typed constant, so we can safely obtain it
-                            // as an OWLRDFTextLiteral and check the lang is Portuguese (pt)
-                            if (val.asOWLStringLiteral().hasLang("pt")) {
-                                System.out.println(cls + " -> " + val.getLiteral());
-                            }
+                        if (val.hasLang("pt")) {
+                            System.out.println(cls + " -> " + val.getLiteral());
                         }
                     }
                 }

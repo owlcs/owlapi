@@ -37,7 +37,7 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
 
     private OWLFacet facet;
 
-    private OWLTypedLiteral constant;
+    private OWLLiteral constant;
 
     public OWLDatatypeFacetRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
@@ -45,12 +45,7 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
 
 
     public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
-        OWLLiteral con = handler.getOWLObject();
-        if (con.isOWLTypedLiteral()) {
-            constant = (OWLTypedLiteral) handler.getOWLObject();
-        } else {
-            throw new OWLXMLParserException("Found untyped constant " + constant + ", expected typed constant", getLineNumber(), getColumnNumber());
-        }
+        constant = handler.getOWLObject();
     }
 
     public void attribute(String localName, String value) throws OWLParserException {

@@ -78,7 +78,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
      *         <code>false</code>.
      */
     public boolean isDeprecatedIRIAnnotation() {
-        return property.isDeprecated() && value instanceof OWLTypedLiteral && ((OWLTypedLiteral) value).getDatatype().isBoolean() &&((OWLTypedLiteral) value).getLiteral().equalsIgnoreCase("true");
+        return property.isDeprecated() && value instanceof OWLLiteral && ((OWLLiteral) value).isBoolean() && ((OWLLiteral) value).parseBoolean();
     }
 
     public boolean equals(Object obj) {

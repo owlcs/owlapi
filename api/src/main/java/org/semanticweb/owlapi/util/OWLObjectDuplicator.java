@@ -564,20 +564,20 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     public void visit(OWLFacetRestriction node) {
         node.getFacetValue().accept(this);
-        OWLTypedLiteral val = (OWLTypedLiteral) obj;
+        OWLLiteral val = (OWLLiteral) obj;
         obj = dataFactory.getOWLFacetRestriction(node.getFacet(), val);
     }
 
 
-    public void visit(OWLTypedLiteral node) {
+    public void visit(OWLLiteral node) {
         node.getDatatype().accept(this);
         OWLDatatype dt = (OWLDatatype) obj;
-        obj = dataFactory.getOWLTypedLiteral(node.getLiteral(), dt);
-    }
-
-
-    public void visit(OWLStringLiteral node) {
-        obj = dataFactory.getOWLStringLiteral(node.getLiteral(), node.getLang());
+        if(node.hasLang()) {
+            obj = dataFactory.getOWLLiteral(node.getLiteral(), node.getLang());
+        }
+        else {
+            obj = dataFactory.getOWLLiteral(node.getLiteral(), dt);
+        }
     }
 
 

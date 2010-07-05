@@ -800,11 +800,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     }
 
-    public void visit(OWLTypedLiteral node) {
-        write(node.getLiteral());
-    }
-
-    public void visit(OWLStringLiteral node) {
+    public void visit(OWLLiteral node) {
         write(node.getLiteral());
     }
 

@@ -1,7 +1,6 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLTypedLiteral;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,22 +36,16 @@ import java.util.Set;
  */
 public class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
 
-    Set<OWLTypedLiteral> constants;
+    Set<OWLLiteral> constants;
 
     public OWLDataOneOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
-        constants = new HashSet<OWLTypedLiteral>();
+        constants = new HashSet<OWLLiteral>();
     }
 
 
     public void handleChild(OWLLiteralElementHandler handler) {
-        if (handler.getOWLObject().isOWLTypedLiteral()) {
-            constants.add((OWLTypedLiteral) handler.getOWLObject());
-        } else {
-            // Type as string?
-            OWLLiteral currentLiteral = handler.getOWLObject();
-            constants.add(getOWLDataFactory().getOWLTypedLiteral(currentLiteral.getLiteral()));
-        }
+        constants.add(handler.getOWLObject());
     }
 
 

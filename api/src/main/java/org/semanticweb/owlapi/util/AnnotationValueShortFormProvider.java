@@ -175,32 +175,18 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             }
         }
 
-
-        public void visit(OWLStringLiteral untypedConstantVal) {
+        public void visit(OWLLiteral node) {
             if (preferredLanguages == null || preferredLanguages.isEmpty()) { // if there are no languages just match the first thing
-                lastLangMatchIndex = 0;
-                candidateValue = untypedConstantVal;
-            } else {
-                final int index = preferredLanguages.indexOf(untypedConstantVal.getLang());
-                if (index >= 0 && index < lastLangMatchIndex) {
-                    lastLangMatchIndex = index;
-                    candidateValue = untypedConstantVal;
-                }
-            }
-        }
-
-
-        public void visit(OWLTypedLiteral node) {
-            if (preferredLanguages == null || preferredLanguages.isEmpty()) {
                 lastLangMatchIndex = 0;
                 candidateValue = node;
             } else {
-                final int index = preferredLanguages.indexOf(null);
+                final int index = preferredLanguages.indexOf(node.getLang());
                 if (index >= 0 && index < lastLangMatchIndex) {
                     lastLangMatchIndex = index;
                     candidateValue = node;
                 }
             }
         }
+
     }
 }

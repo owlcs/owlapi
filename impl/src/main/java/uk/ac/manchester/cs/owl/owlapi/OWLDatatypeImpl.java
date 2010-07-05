@@ -49,11 +49,11 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         super(dataFactory);
         this.iri = iri;
         top = getURI().equals(OWLRDFVocabulary.RDFS_LITERAL.getURI());
-        builtin = OWL2Datatype.isBuiltIn(getIRI()) | top;
+        builtin = OWL2Datatype.isBuiltIn(iri) | top | iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
     }
 
     public boolean isTopEntity() {
-        return isTopDatatype();
+        return top;
     }
 
     public boolean isBottomEntity() {

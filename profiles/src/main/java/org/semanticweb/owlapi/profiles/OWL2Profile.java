@@ -106,7 +106,7 @@ public class OWL2Profile implements OWLProfile {
             return null;
         }
 
-        public Object visit(OWLTypedLiteral node) {
+        public Object visit(OWLLiteral node) {
             // Check that the lexical value of the literal is in the lexical space of the
             // literal datatype
             if (node.getDatatype().isBuiltIn()) {

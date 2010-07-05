@@ -35,7 +35,7 @@ import java.util.Collections;
 public class GetAxiomsIgnoringAnnotationsTestCase extends AbstractOWLAPITestCase {
 
     public void testGetAxiomsIgnoringAnnoations() throws Exception {
-        OWLLiteral annoLiteral = getFactory().getOWLTypedLiteral("value");
+        OWLLiteral annoLiteral = getFactory().getOWLLiteral("value");
         OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
         OWLAnnotation anno = getFactory().getOWLAnnotation(annoProp, annoLiteral);
         OWLAxiom axiom = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getOWLClass("B"), Collections.singleton(anno));

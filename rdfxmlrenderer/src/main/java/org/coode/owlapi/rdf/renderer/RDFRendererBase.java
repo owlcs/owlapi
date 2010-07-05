@@ -329,12 +329,13 @@ public abstract class RDFRendererBase {
                     return new RDFResourceNode(System.identityHashCode(individual));
                 }
 
-                public RDFNode visit(OWLTypedLiteral literal) {
-                    return new RDFLiteralNode(literal.getLiteral(), literal.asOWLTypedLiteral().getDatatype().getIRI());
-                }
-
-                public RDFNode visit(OWLStringLiteral literal) {
-                    return new RDFLiteralNode(literal.getLiteral(), literal.asOWLStringLiteral().getLang());
+                public RDFNode visit(OWLLiteral literal) {
+                    if(literal.hasLang()) {
+                        return new RDFLiteralNode(literal.getLiteral(), literal.getLang());
+                    }
+                    else {
+                        return new RDFLiteralNode(literal.getLiteral(), literal.getDatatype().getIRI());
+                    }
                 }
             };
             RDFNode node = anno.getValue().accept(valVisitor);

@@ -52,8 +52,8 @@ public class ObjectPropertyChainAnnotatedRoundTrippingTestCase extends AbstractA
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
         OWLAnnotationProperty annoPropA = getOWLAnnotationProperty("annoPropA");
         OWLAnnotationProperty annoPropB = getOWLAnnotationProperty("annoPropB");
-        annos.add(getFactory().getOWLAnnotation(annoPropA, getFactory().getOWLStringLiteral("Test", "en")));
-        annos.add(getFactory().getOWLAnnotation(annoPropB, getFactory().getOWLStringLiteral("Test", null)));
+        annos.add(getFactory().getOWLAnnotation(annoPropA, getFactory().getOWLLiteral("Test", "en")));
+        annos.add(getFactory().getOWLAnnotation(annoPropB, getFactory().getOWLLiteral("Test", "")));
         OWLAxiom ax = getFactory().getOWLSubPropertyChainOfAxiom(props, propD, annos);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(ax);

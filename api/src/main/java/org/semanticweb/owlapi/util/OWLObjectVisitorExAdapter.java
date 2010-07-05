@@ -295,14 +295,6 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
         return getDefaultReturnValue(node);
     }
 
-    public O visit(OWLStringLiteral node) {
-        return getDefaultReturnValue(node);
-    }
-
-    public O visit(OWLTypedLiteral node) {
-        return getDefaultReturnValue(node);
-    }
-
     public O visit(OWLDataProperty property) {
         return getDefaultReturnValue(property);
     }

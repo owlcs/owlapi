@@ -268,7 +268,7 @@ public class OBOConsumer implements OBOParserHandler {
                 }
                 else {
                     // Ontology annotations
-                    OWLLiteral con = getDataFactory().getOWLTypedLiteral(value);
+                    OWLLiteral con = getDataFactory().getOWLLiteral(value);
                     OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getIRI(tag));
                     OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
                     owlOntologyManager.applyChange(new AddOntologyAnnotation(ontology, anno));
@@ -277,7 +277,7 @@ public class OBOConsumer implements OBOParserHandler {
             else if (currentId != null) {
                 // Add as annotation
                 IRI subject = getIRI(currentId);
-                OWLLiteral con = getDataFactory().getOWLStringLiteral(value);
+                OWLLiteral con = getDataFactory().getOWLLiteral(value, "");
                 OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getIRI(tag));
                 OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
                 OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);

@@ -1,8 +1,8 @@
 package org.semanticweb.owlapi.profiles;
 
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLTypedLiteral;
 
 import java.util.Set;
 import java.util.Collections;
@@ -37,9 +37,9 @@ import java.util.Collections;
  */
 public class LexicalNotInLexicalSpace extends OWLProfileViolation implements OWL2ProfileViolation {
 
-    private OWLTypedLiteral literal;
+    private OWLLiteral literal;
 
-    public LexicalNotInLexicalSpace(OWLOntology ontology, OWLAxiom axiom, OWLTypedLiteral literal) {
+    public LexicalNotInLexicalSpace(OWLOntology ontology, OWLAxiom axiom, OWLLiteral literal) {
         super(ontology, axiom);
         this.literal = literal;
     }
@@ -48,7 +48,7 @@ public class LexicalNotInLexicalSpace extends OWLProfileViolation implements OWL
         visitor.visit(this);
     }
 
-    public OWLTypedLiteral getLiteral() {
+    public OWLLiteral getLiteral() {
         return literal;
     }
 

@@ -439,13 +439,8 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = DATA_TYPE_INDEX_BASE + 7;
     }
 
-    public void visit(OWLTypedLiteral node) {
+    public void visit(OWLLiteral node) {
         type = DATA_TYPE_INDEX_BASE + 8;
-    }
-
-
-    public void visit(OWLStringLiteral node) {
-        type = DATA_TYPE_INDEX_BASE + 9;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////

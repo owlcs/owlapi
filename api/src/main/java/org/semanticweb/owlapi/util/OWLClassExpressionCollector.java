@@ -113,7 +113,7 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return Collections.emptySet();
     }
 
-    public Set<OWLClassExpression> visit(OWLTypedLiteral node) {
+    public Set<OWLClassExpression> visit(OWLLiteral node) {
         return Collections.emptySet();
     }
 
@@ -134,9 +134,6 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return Collections.emptySet();
     }
 
-    public Set<OWLClassExpression> visit(OWLStringLiteral node) {
-        return Collections.emptySet();
-    }
 
     public Set<OWLClassExpression> visit(OWLObjectUnionOf ce) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();

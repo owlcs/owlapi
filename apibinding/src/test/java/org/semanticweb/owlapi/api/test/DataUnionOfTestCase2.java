@@ -39,7 +39,7 @@ public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLDataFactory factory = getFactory();
         OWLDatatype dt = factory.getOWLDatatype(IRI.create("file:/c/test.owlapi#SSN"));
-        OWLFacetRestriction fr = factory.getOWLFacetRestriction(OWLFacet.PATTERN, factory.getOWLTypedLiteral("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
+        OWLFacetRestriction fr = factory.getOWLFacetRestriction(OWLFacet.PATTERN, factory.getOWLLiteral("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
         OWLDataRange dr = factory.getOWLDatatypeRestriction(factory.getOWLDatatype(IRI.create("http://www.w3.org/2001/XMLSchema#string")), fr);
         OWLDataIntersectionOf disj1 = factory.getOWLDataIntersectionOf(factory.getOWLDataComplementOf(dr), dt); // here I negate dr
         OWLDataIntersectionOf disj2 = factory.getOWLDataIntersectionOf(factory.getOWLDataComplementOf(dt), dr); // here I negate dt

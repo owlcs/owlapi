@@ -384,7 +384,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    public void visit(OWLTypedLiteral node) {
+    public void visit(OWLLiteral node) {
         if (node.getDatatype().isDouble()) {
             write(node.getLiteral());
         }
@@ -404,22 +404,18 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         else {
             pushTab(getIndent());
             writeLiteral(node.getLiteral());
+            if(node.hasLang()) {
+                write("@");
+                write(node.getLang());
+            }
+            else {
+                write("^^");
+                node.getDatatype().accept(this);
+            }
             popTab();
-            write("^^");
-            node.getDatatype().accept(this);
         }
     }
 
-
-    public void visit(OWLStringLiteral node) {
-        pushTab(getIndent());
-        writeLiteral(node.getLiteral());
-            write("@");
-        if (node.getLang() != null) {
-            write(node.getLang());
-        }
-        popTab();
-    }
 
     private void writeLiteral(String literal) {
         write("\"");

@@ -37,7 +37,7 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
 
     public void testContainsReferenceForAnnotationAssertion() throws Exception {
         OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
-        OWLLiteral val = getFactory().getOWLStringLiteral("Test", null);
+        OWLLiteral val = getFactory().getOWLLiteral("Test", "");
         OWLAnnotationSubject subject = getOWLClass("A").getIRI();
         OWLAnnotationAssertionAxiom ax = getFactory().getOWLAnnotationAssertionAxiom(ap, subject, val);
         OWLOntology ont = getOWLOntology("Ont");
@@ -49,7 +49,7 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
 
     public void testContainsReferenceForAxiomAnnotation() throws Exception {
         OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
-        OWLLiteral val = getFactory().getOWLStringLiteral("Test", null);
+        OWLLiteral val = getFactory().getOWLLiteral("Test", "");
         OWLAnnotation anno = getFactory().getOWLAnnotation(ap, val);
         Set<OWLAnnotation> annos = Collections.singleton(anno);
         OWLSubClassOfAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getOWLClass("B"), annos);
@@ -61,7 +61,7 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
 
     public void testContainsReferenceForOntologyAnnotation() throws Exception {
         OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
-        OWLLiteral val = getFactory().getOWLStringLiteral("Test");
+        OWLLiteral val = getFactory().getOWLLiteral("Test");
         OWLAnnotation anno = getFactory().getOWLAnnotation(ap, val);
         OWLOntology ont = getOWLOntology("Ont");
         getManager().applyChange(new AddOntologyAnnotation(ont, anno));

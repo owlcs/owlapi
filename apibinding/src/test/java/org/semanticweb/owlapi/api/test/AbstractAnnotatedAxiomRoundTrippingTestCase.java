@@ -39,7 +39,7 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends Abstra
 
     final protected Set<? extends OWLAxiom> createAxioms() {
         OWLAnnotationProperty prop = getOWLAnnotationProperty("prop");
-        OWLLiteral lit = getFactory().getOWLStringLiteral("Test", null);
+        OWLLiteral lit = getFactory().getOWLLiteral("Test", "");
         OWLAnnotation anno1 = getFactory().getOWLAnnotation(prop, lit);
         OWLAnnotationProperty prop2 = getOWLAnnotationProperty("prop2");
         OWLAnnotation anno2 = getFactory().getOWLAnnotation(prop2, lit);

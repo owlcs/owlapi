@@ -1463,7 +1463,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private void handleStreaming(IRI subject, IRI predicate, String literal, String datatype, String lang) {
         // Convert all literals to OWLConstants
-        OWLLiteral con = getOWLConstant(literal, datatype, lang);
+        OWLLiteral con = getOWLLiteral(literal, datatype, lang);
         AbstractLiteralTripleHandler skosHandler = skosTripleHandlers.get(predicate);
         if (skosHandler != null) {
             skosHandler.handleTriple(subject, predicate, con);
@@ -1486,12 +1486,12 @@ public class OWLRDFConsumer implements RDFConsumer {
      * @param lang The lang - may be <code>null</code>
      * @return The <code>OWLConstant</code> (either typed or untyped depending on the params)
      */
-    private OWLLiteral getOWLConstant(String literal, String datatype, String lang) {
+    private OWLLiteral getOWLLiteral(String literal, String datatype, String lang) {
         if (datatype != null) {
-            return dataFactory.getOWLTypedLiteral(literal, dataFactory.getOWLDatatype(getIRI(datatype)));
+            return dataFactory.getOWLLiteral(literal, dataFactory.getOWLDatatype(getIRI(datatype)));
         }
         else {
-            return dataFactory.getOWLStringLiteral(literal, lang);
+            return dataFactory.getOWLLiteral(literal, lang);
         }
     }
 
@@ -1500,26 +1500,17 @@ public class OWLRDFConsumer implements RDFConsumer {
         IRI oneOfObject = getResourceObject(iri, OWL_ONE_OF.getIRI(), true);
         if (oneOfObject != null) {
             Set<OWLLiteral> literals = translateToConstantSet(oneOfObject);
-            Set<OWLTypedLiteral> typedConstants = new HashSet<OWLTypedLiteral>(literals.size());
-            for (OWLLiteral con : literals) {
-                if (con.isOWLTypedLiteral()) {
-                    typedConstants.add((OWLTypedLiteral) con);
-                }
-                else {
-                    typedConstants.add(getDataFactory().getOWLTypedLiteral(con.getLiteral(), getDataFactory().getOWLDatatype(XSDVocabulary.STRING.getIRI())));
-                }
-            }
-            return getDataFactory().getOWLDataOneOf(typedConstants);
+            return dataFactory.getOWLDataOneOf(literals);
         }
         IRI intersectionOfObject = getResourceObject(iri, OWL_INTERSECTION_OF.getIRI(), true);
         if (intersectionOfObject != null) {
             Set<OWLDataRange> dataRanges = translateToDataRangeSet(intersectionOfObject);
-            return getDataFactory().getOWLDataIntersectionOf(dataRanges);
+            return dataFactory.getOWLDataIntersectionOf(dataRanges);
         }
         IRI unionOfObject = getResourceObject(iri, OWL_UNION_OF.getIRI(), true);
         if (unionOfObject != null) {
             Set<OWLDataRange> dataRanges = translateToDataRangeSet(unionOfObject);
-            return getDataFactory().getOWLDataUnionOf(dataRanges);
+            return dataFactory.getOWLDataUnionOf(dataRanges);
         }
         // The plain complement of triple predicate is in here for legacy reasons
         IRI complementOfObject = getResourceObject(iri, OWL_DATATYPE_COMPLEMENT_OF.getIRI(), true);
@@ -1528,7 +1519,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         if (complementOfObject != null) {
             OWLDataRange operand = translateDataRange(complementOfObject);
-            return getDataFactory().getOWLDataComplementOf(operand);
+            return dataFactory.getOWLDataComplementOf(operand);
         }
 
         IRI onDatatypeObject = getResourceObject(iri, OWL_ON_DATA_TYPE.getIRI(), true);
@@ -1560,7 +1551,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
             return dataFactory.getOWLDatatypeRestriction(restrictedDataRange, restrictions);
         }
-        return getDataFactory().getOWLDatatype(iri);
+        return dataFactory.getOWLDatatype(iri);
     }
 
 

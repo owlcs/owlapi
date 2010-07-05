@@ -13,250 +13,248 @@ public interface OWLFunctionalSyntaxParserConstants {
   /** RegularExpression Id. */
   int COMMENT_START = 5;
   /** RegularExpression Id. */
-  int STRING_LITERAL_START = 8;
+  int STRINGLITERAL = 8;
   /** RegularExpression Id. */
-  int STRINGLITERAL = 10;
+  int OPENPAR = 9;
   /** RegularExpression Id. */
-  int OPENPAR = 12;
+  int CLOSEPAR = 10;
   /** RegularExpression Id. */
-  int CLOSEPAR = 13;
+  int ONTOLOGY = 11;
   /** RegularExpression Id. */
-  int ONTOLOGY = 14;
+  int LABEL = 12;
   /** RegularExpression Id. */
-  int LABEL = 15;
+  int IMPORT = 13;
   /** RegularExpression Id. */
-  int IMPORT = 16;
+  int COMMENT = 14;
   /** RegularExpression Id. */
-  int COMMENT = 17;
+  int SUBCLASSOF = 15;
   /** RegularExpression Id. */
-  int SUBCLASSOF = 18;
+  int LANGIDENTIFIER = 16;
   /** RegularExpression Id. */
-  int LANGIDENTIFIER = 19;
+  int DATATYPEIDENTIFIER = 17;
   /** RegularExpression Id. */
-  int EQUIVALENTCLASSES = 20;
+  int EQUIVALENTCLASSES = 18;
   /** RegularExpression Id. */
-  int DISJOINTCLASSES = 21;
+  int DISJOINTCLASSES = 19;
   /** RegularExpression Id. */
-  int DISJOINTUNION = 22;
+  int DISJOINTUNION = 20;
   /** RegularExpression Id. */
-  int ANNOTATION = 23;
+  int ANNOTATION = 21;
   /** RegularExpression Id. */
-  int ANNOTATIONPROPERTY = 24;
+  int ANNOTATIONPROPERTY = 22;
   /** RegularExpression Id. */
-  int ANNOTATIONASSERTION = 25;
+  int ANNOTATIONASSERTION = 23;
   /** RegularExpression Id. */
-  int SUBANNOTATIONPROPERTYOF = 26;
+  int SUBANNOTATIONPROPERTYOF = 24;
   /** RegularExpression Id. */
-  int ANNOTATIONPROPERTYDOMAIN = 27;
+  int ANNOTATIONPROPERTYDOMAIN = 25;
   /** RegularExpression Id. */
-  int ANNOTATIONPROPERTYRANGE = 28;
+  int ANNOTATIONPROPERTYRANGE = 26;
   /** RegularExpression Id. */
-  int HASKEY = 29;
+  int HASKEY = 27;
   /** RegularExpression Id. */
-  int DECLARATION = 30;
+  int DECLARATION = 28;
   /** RegularExpression Id. */
-  int DOCUMENTATION = 31;
+  int DOCUMENTATION = 29;
   /** RegularExpression Id. */
-  int CLASS = 32;
+  int CLASS = 30;
   /** RegularExpression Id. */
-  int OBJECTPROP = 33;
+  int OBJECTPROP = 31;
   /** RegularExpression Id. */
-  int DATAPROP = 34;
+  int DATAPROP = 32;
   /** RegularExpression Id. */
-  int NAMEDINDIVIDUAL = 35;
+  int NAMEDINDIVIDUAL = 33;
   /** RegularExpression Id. */
-  int DATATYPE = 36;
+  int DATATYPE = 34;
   /** RegularExpression Id. */
-  int DATAONEOF = 37;
+  int DATAONEOF = 35;
   /** RegularExpression Id. */
-  int DATAUNIONOF = 38;
+  int DATAUNIONOF = 36;
   /** RegularExpression Id. */
-  int DATAINTERSECTIONOF = 39;
+  int DATAINTERSECTIONOF = 37;
   /** RegularExpression Id. */
-  int OBJECTONEOF = 40;
+  int OBJECTONEOF = 38;
   /** RegularExpression Id. */
-  int OBJECTUNIONOF = 41;
+  int OBJECTUNIONOF = 39;
   /** RegularExpression Id. */
-  int OBJECTHASVALUE = 42;
+  int OBJECTHASVALUE = 40;
   /** RegularExpression Id. */
-  int OBJECTINVERSEOF = 43;
+  int OBJECTINVERSEOF = 41;
   /** RegularExpression Id. */
-  int INVERSEOBJECTPROPERTIES = 44;
+  int INVERSEOBJECTPROPERTIES = 42;
   /** RegularExpression Id. */
-  int DATACOMPLEMENTOF = 45;
+  int DATACOMPLEMENTOF = 43;
   /** RegularExpression Id. */
-  int DATATYPERESTRICTION = 46;
+  int DATATYPERESTRICTION = 44;
   /** RegularExpression Id. */
-  int DATATYPEDEFINITION = 47;
+  int DATATYPEDEFINITION = 45;
   /** RegularExpression Id. */
-  int OBJECTINTERSECTIONOF = 48;
+  int OBJECTINTERSECTIONOF = 46;
   /** RegularExpression Id. */
-  int OBJECTCOMPLEMENTOF = 49;
+  int OBJECTCOMPLEMENTOF = 47;
   /** RegularExpression Id. */
-  int OBJECTALLVALUESFROM = 50;
+  int OBJECTALLVALUESFROM = 48;
   /** RegularExpression Id. */
-  int OBJECTSOMEVALUESFROM = 51;
+  int OBJECTSOMEVALUESFROM = 49;
   /** RegularExpression Id. */
-  int OBJECTHASSELF = 52;
+  int OBJECTHASSELF = 50;
   /** RegularExpression Id. */
-  int OBJECTMINCARDINALITY = 53;
+  int OBJECTMINCARDINALITY = 51;
   /** RegularExpression Id. */
-  int OBJECTMAXCARDINALITY = 54;
+  int OBJECTMAXCARDINALITY = 52;
   /** RegularExpression Id. */
-  int OBJECTEXACTCARDINALITY = 55;
+  int OBJECTEXACTCARDINALITY = 53;
   /** RegularExpression Id. */
-  int DATAALLVALUESFROM = 56;
+  int DATAALLVALUESFROM = 54;
   /** RegularExpression Id. */
-  int DATASOMEVALUESFROM = 57;
+  int DATASOMEVALUESFROM = 55;
   /** RegularExpression Id. */
-  int DATAHASVALUE = 58;
+  int DATAHASVALUE = 56;
   /** RegularExpression Id. */
-  int DATAMINCARDINALITY = 59;
+  int DATAMINCARDINALITY = 57;
   /** RegularExpression Id. */
-  int DATAMAXCARDINALITY = 60;
+  int DATAMAXCARDINALITY = 58;
   /** RegularExpression Id. */
-  int DATAEXACTCARDINALITY = 61;
+  int DATAEXACTCARDINALITY = 59;
   /** RegularExpression Id. */
-  int SUBOBJECTPROPERTYCHAIN = 62;
+  int SUBOBJECTPROPERTYCHAIN = 60;
   /** RegularExpression Id. */
-  int SUBOBJECTPROPERTYOF = 63;
+  int SUBOBJECTPROPERTYOF = 61;
   /** RegularExpression Id. */
-  int EQUIVALENTOBJECTPROPERTIES = 64;
+  int EQUIVALENTOBJECTPROPERTIES = 62;
   /** RegularExpression Id. */
-  int DISJOINTOBJECTPROPERTIES = 65;
+  int DISJOINTOBJECTPROPERTIES = 63;
   /** RegularExpression Id. */
-  int OBJECTPROPERTYDOMAIN = 66;
+  int OBJECTPROPERTYDOMAIN = 64;
   /** RegularExpression Id. */
-  int OBJECTPROPERTYRANGE = 67;
+  int OBJECTPROPERTYRANGE = 65;
   /** RegularExpression Id. */
-  int FUNCTIONALOBJECTPROPERTY = 68;
+  int FUNCTIONALOBJECTPROPERTY = 66;
   /** RegularExpression Id. */
-  int INVERSEFUNCTIONALOBJECTPROPERTY = 69;
+  int INVERSEFUNCTIONALOBJECTPROPERTY = 67;
   /** RegularExpression Id. */
-  int REFLEXIVEOBJECTPROPERTY = 70;
+  int REFLEXIVEOBJECTPROPERTY = 68;
   /** RegularExpression Id. */
-  int IRREFLEXIVEOBJECTPROPERTY = 71;
+  int IRREFLEXIVEOBJECTPROPERTY = 69;
   /** RegularExpression Id. */
-  int SYMMETRICOBJECTPROPERTY = 72;
+  int SYMMETRICOBJECTPROPERTY = 70;
   /** RegularExpression Id. */
-  int ASYMMETRICOBJECTPROPERTY = 73;
+  int ASYMMETRICOBJECTPROPERTY = 71;
   /** RegularExpression Id. */
-  int TRANSITIVEOBJECTPROPERTY = 74;
+  int TRANSITIVEOBJECTPROPERTY = 72;
   /** RegularExpression Id. */
-  int SUBDATAPROPERTYOF = 75;
+  int SUBDATAPROPERTYOF = 73;
   /** RegularExpression Id. */
-  int EQUIVALENTDATAPROPERTIES = 76;
+  int EQUIVALENTDATAPROPERTIES = 74;
   /** RegularExpression Id. */
-  int DISJOINTDATAPROPERTIES = 77;
+  int DISJOINTDATAPROPERTIES = 75;
   /** RegularExpression Id. */
-  int DATAPROPERTYDOMAIN = 78;
+  int DATAPROPERTYDOMAIN = 76;
   /** RegularExpression Id. */
-  int DATAPROPERTYRANGE = 79;
+  int DATAPROPERTYRANGE = 77;
   /** RegularExpression Id. */
-  int FUNCTIONALDATAPROPERTY = 80;
+  int FUNCTIONALDATAPROPERTY = 78;
   /** RegularExpression Id. */
-  int SAMEINDIVIDUAL = 81;
+  int SAMEINDIVIDUAL = 79;
   /** RegularExpression Id. */
-  int DIFFERENTINDIVIDUALS = 82;
+  int DIFFERENTINDIVIDUALS = 80;
   /** RegularExpression Id. */
-  int CLASSASSERTION = 83;
+  int CLASSASSERTION = 81;
   /** RegularExpression Id. */
-  int OBJECTPROPERTYASSERTION = 84;
+  int OBJECTPROPERTYASSERTION = 82;
   /** RegularExpression Id. */
-  int NEGATIVEOBJECTPROPERTYASSERTION = 85;
+  int NEGATIVEOBJECTPROPERTYASSERTION = 83;
   /** RegularExpression Id. */
-  int DATAPROPERTYASSERTION = 86;
+  int DATAPROPERTYASSERTION = 84;
   /** RegularExpression Id. */
-  int NEGATIVEDATAPROPERTYASSERTION = 87;
+  int NEGATIVEDATAPROPERTYASSERTION = 85;
   /** RegularExpression Id. */
-  int PREFIX = 88;
+  int PREFIX = 86;
   /** RegularExpression Id. */
-  int LENGTH = 89;
+  int LENGTH = 87;
   /** RegularExpression Id. */
-  int MINLENGTH = 90;
+  int MINLENGTH = 88;
   /** RegularExpression Id. */
-  int MAXLENGTH = 91;
+  int MAXLENGTH = 89;
   /** RegularExpression Id. */
-  int PATTERN = 92;
+  int PATTERN = 90;
   /** RegularExpression Id. */
-  int MININCLUSIVE = 93;
+  int MININCLUSIVE = 91;
   /** RegularExpression Id. */
-  int MAXINCLUSIVE = 94;
+  int MAXINCLUSIVE = 92;
   /** RegularExpression Id. */
-  int MINEXCLUSIVE = 95;
+  int MINEXCLUSIVE = 93;
   /** RegularExpression Id. */
-  int MAXEXCLUSIVE = 96;
+  int MAXEXCLUSIVE = 94;
   /** RegularExpression Id. */
-  int TOTALDIGITS = 97;
+  int TOTALDIGITS = 95;
   /** RegularExpression Id. */
-  int FRACTIONDIGITS = 98;
+  int FRACTIONDIGITS = 96;
   /** RegularExpression Id. */
-  int DLSAFERULE = 99;
+  int DLSAFERULE = 97;
   /** RegularExpression Id. */
-  int BODY = 100;
+  int BODY = 98;
   /** RegularExpression Id. */
-  int HEAD = 101;
+  int HEAD = 99;
   /** RegularExpression Id. */
-  int CLASSATOM = 102;
+  int CLASSATOM = 100;
   /** RegularExpression Id. */
-  int DATARANGEATOM = 103;
+  int DATARANGEATOM = 101;
   /** RegularExpression Id. */
-  int OBJECTPROPERTYATOM = 104;
+  int OBJECTPROPERTYATOM = 102;
   /** RegularExpression Id. */
-  int DATAPROPERTYATOM = 105;
+  int DATAPROPERTYATOM = 103;
   /** RegularExpression Id. */
-  int BUILTINATOM = 106;
+  int BUILTINATOM = 104;
   /** RegularExpression Id. */
-  int SAMEINDIVIDUALATOM = 107;
+  int SAMEINDIVIDUALATOM = 105;
   /** RegularExpression Id. */
-  int DIFFERENTINDIVIDUALSATOM = 108;
+  int DIFFERENTINDIVIDUALSATOM = 106;
   /** RegularExpression Id. */
-  int VARIABLE = 109;
+  int VARIABLE = 107;
   /** RegularExpression Id. */
-  int DGRULE = 110;
+  int DGRULE = 108;
   /** RegularExpression Id. */
-  int DESCRIPTIONGRAPH = 111;
+  int DESCRIPTIONGRAPH = 109;
   /** RegularExpression Id. */
-  int NODES = 112;
+  int NODES = 110;
   /** RegularExpression Id. */
-  int NODEASSERTION = 113;
+  int NODEASSERTION = 111;
   /** RegularExpression Id. */
-  int EDGES = 114;
+  int EDGES = 112;
   /** RegularExpression Id. */
-  int EDGEASSERTION = 115;
+  int EDGEASSERTION = 113;
   /** RegularExpression Id. */
-  int MAINCLASSES = 116;
+  int MAINCLASSES = 114;
   /** RegularExpression Id. */
-  int EQUALS = 117;
+  int EQUALS = 115;
   /** RegularExpression Id. */
-  int INT = 118;
+  int INT = 116;
   /** RegularExpression Id. */
-  int FULLIRI = 119;
+  int FULLIRI = 117;
   /** RegularExpression Id. */
-  int PNAME_NS = 120;
+  int PNAME_NS = 118;
   /** RegularExpression Id. */
-  int PN_LOCAL = 121;
+  int PN_LOCAL = 119;
   /** RegularExpression Id. */
-  int PNAME_LN = 122;
+  int PNAME_LN = 120;
   /** RegularExpression Id. */
-  int PN_PREFIX = 123;
+  int PN_PREFIX = 121;
   /** RegularExpression Id. */
-  int PN_CHARS_BASE = 124;
+  int PN_CHARS_BASE = 122;
   /** RegularExpression Id. */
-  int PN_CHARS = 125;
+  int PN_CHARS = 123;
   /** RegularExpression Id. */
-  int PN_CHARS_U = 126;
+  int PN_CHARS_U = 124;
   /** RegularExpression Id. */
-  int NODEID = 127;
+  int NODEID = 125;
   /** RegularExpression Id. */
-  int ERROR = 128;
+  int ERROR = 126;
 
   /** Lexical state. */
   int DEFAULT = 0;
   /** Lexical state. */
   int IN_COMMENT = 1;
-  /** Lexical state. */
-  int IN_STRING_LITERAL = 2;
 
   /** Literal token values. */
   String[] tokenImage = {
@@ -268,10 +266,7 @@ public interface OWLFunctionalSyntaxParserConstants {
     "\"//\"",
     "<token of kind 6>",
     "\"\\n\"",
-    "\"\\\"\"",
-    "\"\\\\\\\"\"",
-    "\"\\\"\"",
-    "<token of kind 11>",
+    "<STRINGLITERAL>",
     "\"(\"",
     "\")\"",
     "\"Ontology\"",
@@ -280,6 +275,7 @@ public interface OWLFunctionalSyntaxParserConstants {
     "\"Comment\"",
     "\"SubClassOf\"",
     "\"@\"",
+    "\"^^\"",
     "\"EquivalentClasses\"",
     "\"DisjointClasses\"",
     "\"DisjointUnion\"",
@@ -389,7 +385,6 @@ public interface OWLFunctionalSyntaxParserConstants {
     "<PN_CHARS_U>",
     "<NODEID>",
     "<ERROR>",
-    "\"^^\"",
   };
 
 }

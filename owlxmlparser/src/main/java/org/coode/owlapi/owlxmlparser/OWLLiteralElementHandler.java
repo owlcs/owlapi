@@ -62,10 +62,10 @@ public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiter
     }
 
     public void endElement() throws OWLParserException, UnloadableImportException {
-        if (iri != null) {
-            literal = getOWLDataFactory().getOWLTypedLiteral(getText(), getOWLDataFactory().getOWLDatatype(iri));
+        if (iri != null && !iri.isPlainLiteral()) {
+            literal = getOWLDataFactory().getOWLLiteral(getText(), getOWLDataFactory().getOWLDatatype(iri));
         } else {
-            literal = getOWLDataFactory().getOWLStringLiteral(getText(), lang);
+            literal = getOWLDataFactory().getOWLLiteral(getText(), lang);
         }
         lang = null;
         iri = null;

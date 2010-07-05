@@ -1,7 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLTypedLiteral;
 import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
@@ -45,7 +44,7 @@ public class TypedConstantListItemTranslator implements ListItemTranslator<OWLLi
     }
 
 
-    public OWLTypedLiteral translate(IRI firstObject) {
+    public OWLLiteral translate(IRI firstObject) {
         logger.info("Cannot translate list item to a constant because rdf:first triple is a resource triple");
         return null;
     }

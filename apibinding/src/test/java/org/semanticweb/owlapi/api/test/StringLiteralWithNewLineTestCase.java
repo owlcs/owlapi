@@ -1,9 +1,9 @@
 package org.semanticweb.owlapi.api.test;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLTypedLiteral;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -42,7 +42,7 @@ public class StringLiteralWithNewLineTestCase extends AbstractAxiomsRoundTrippin
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLNamedIndividual ind = getOWLIndividual("i");
         OWLDataProperty prop = getOWLDataProperty("prop");
-        OWLTypedLiteral literal = getFactory().getOWLTypedLiteral("Test \"literal\"\nStuff");
+        OWLLiteral literal = getFactory().getOWLLiteral("Test \"literal\"\nStuff");
         axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind, literal));
         return axioms;
     }

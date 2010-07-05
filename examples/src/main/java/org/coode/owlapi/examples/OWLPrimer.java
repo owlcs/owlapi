@@ -141,7 +141,7 @@ public class OWLPrimer {
             // Behind the scenes the OWL API will create a typed constant that it will use as the value
             // of the data property assertion.  We could have manually created the constant as follows:
             OWLDatatype intDatatype = factory.getIntegerOWLDatatype();
-            OWLTypedLiteral thirtyThree = factory.getOWLTypedLiteral("33", intDatatype);
+            OWLLiteral thirtyThree = factory.getOWLLiteral("33", intDatatype);
             // We would then create the axiom as follows:
             factory.getOWLDataPropertyAssertionAxiom(hasAge, john, thirtyThree);
             // However, the convenice method is much shorter!
@@ -370,7 +370,7 @@ public class OWLPrimer {
             // 13 and less than 20.  In Manchester Syntax this is written as Person and hasAge some int[>=13, <20]
             // We create a data range by taking the integer datatype and applying facet restrictions to it.
             // Note that we have statically imported the data range facet vocabulary OWLFacet
-            OWLFacetRestriction geq13 = factory.getOWLFacetRestriction(MIN_INCLUSIVE, factory.getOWLTypedLiteral(13));
+            OWLFacetRestriction geq13 = factory.getOWLFacetRestriction(MIN_INCLUSIVE, factory.getOWLLiteral(13));
             // We don't have to explicitly create the typed constant, there are convenience methods to do this
             OWLFacetRestriction lt20 = factory.getOWLFacetRestriction(MAX_EXCLUSIVE, 20);
             // Restrict the base type, integer (which is just an XML Schema Datatype) with the facet

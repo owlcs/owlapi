@@ -29,9 +29,9 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public class OWLDataValueRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLDataProperty, OWLTypedLiteral> {
+public class OWLDataValueRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLDataProperty, OWLLiteral> {
 
-    protected OWLRestriction createRestriction(OWLDataProperty prop, OWLTypedLiteral filler) throws Exception {
+    protected OWLRestriction createRestriction(OWLDataProperty prop, OWLLiteral filler) throws Exception {
         return getOWLDataFactory().getOWLDataHasValue(prop, filler);
     }
 
@@ -41,7 +41,7 @@ public class OWLDataValueRestrictionTestCase extends AbstractOWLRestrictionWithF
     }
 
 
-    protected OWLTypedLiteral createFiller() throws OWLException {
-        return createOWLTypedConstant();
+    protected OWLLiteral createFiller() throws OWLException {
+        return createOWLLiteral();
     }
 }

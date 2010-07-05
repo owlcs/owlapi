@@ -111,8 +111,8 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
         return 0;
     }
 
-    public Integer visit(OWLTypedLiteral node) {
-        return 0;
+    public Integer visit(OWLLiteral node) {
+        return null;
     }
 
     public Integer visit(OWLObjectIntersectionOf ce) {
@@ -131,10 +131,6 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     }
 
     public Integer visit(SWRLIndividualArgument node) {
-        return 0;
-    }
-
-    public Integer visit(OWLStringLiteral node) {
         return 0;
     }
 

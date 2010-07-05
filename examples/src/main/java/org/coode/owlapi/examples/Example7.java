@@ -3,7 +3,6 @@ package org.coode.owlapi.examples;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLFacet;
-import org.semanticweb.owlapi.vocab.XSDVocabulary;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -63,7 +62,7 @@ public class Example7 {
             // get hold of the int datatype and then restrict it with a minInclusive facet restriction.
             OWLDatatype intDatatype = factory.getIntegerOWLDatatype();
             // Create the value "18", which is an int.
-            OWLTypedLiteral eighteenConstant = factory.getOWLTypedLiteral(18);
+            OWLLiteral eighteenConstant = factory.getOWLLiteral(18);
             // Now create our custom datarange, which is int greater than or equal to 18.  To do this,
             // we need the minInclusive facet
             OWLFacet facet = OWLFacet.MIN_INCLUSIVE;

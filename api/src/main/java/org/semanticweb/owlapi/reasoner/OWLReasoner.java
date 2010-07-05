@@ -210,6 +210,22 @@ import java.util.List;
  * is equal to the interpretation of <code>owl:topDataProperty</code>
  * minus the interpretation of <code>pe</code>. In other words, <code>DataPropertyComplementOf(pe)</code> is the
  * set of pairs of individual and literals that are not in <code>pe</code>.
+ *
+ * <h2>Error Handling</h2>
+ * An <code>OWLReasoner</code> may throw the following exceptions to indicate errors.  More documentation for
+ * each type of exception can be found on the particular exception class.
+ * <ul>
+ * <li>{@link org.semanticweb.owlapi.reasoner.AxiomNotInProfileException}</li>
+ * <li>{@link org.semanticweb.owlapi.reasoner.ClassExpressionNotInProfileException}</li>
+ * <li>{@link org.semanticweb.owlapi.reasoner.FreshEntitiesException}</li>
+ * <li>{@link org.semanticweb.owlapi.reasoner.InconsistentOntologyException}</li>
+ * <li>{@link org.semanticweb.owlapi.reasoner.TimeOutException}</li>
+ * <li>{@link org.semanticweb.owlapi.reasoner.ReasonerInterruptedException}</li>
+ * <li>{@link org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException}</li>
+ * <li>{@link org.semanticweb.owlapi.reasoner.ReasonerInternalException}</li>
+ * </ul>
+ * Note that {@link org.semanticweb.owlapi.reasoner.ReasonerInternalException} may be throw by any of the reasoner
+ * methods below.
  */
 public interface OWLReasoner {
 

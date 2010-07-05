@@ -927,10 +927,10 @@ public class ManchesterOWLSyntaxEditorParser {
                         throw createException(OWLFacet.getFacets().toArray(new String[OWLFacet.getFacetIRIs().size()]));
                     }
                     OWLLiteral con = parseConstant();
-                    if (!con.isOWLTypedLiteral()) {
-                        con = dataFactory.getOWLTypedLiteral(con.getLiteral());
+                    if (!con.isRDFPlainLiteral()) {
+                        con = dataFactory.getOWLLiteral(con.getLiteral());
                     }
-                    facetRestrictions.add(dataFactory.getOWLFacetRestriction(fv, con.asOWLTypedLiteral()));
+                    facetRestrictions.add(dataFactory.getOWLFacetRestriction(fv, con));
                     sep = consumeToken();
                 }
                 if (!sep.equals("]")) {
@@ -1018,20 +1018,20 @@ public class ManchesterOWLSyntaxEditorParser {
                     throw createException("^");
                 }
                 consumeToken();
-                return dataFactory.getOWLTypedLiteral(lit, parseDatatype());
+                return dataFactory.getOWLLiteral(lit, parseDatatype());
             }
             else if (peekToken().startsWith("@")) {
                 String lang = consumeToken().substring(1);
-                return dataFactory.getOWLStringLiteral(lit, lang);
+                return dataFactory.getOWLLiteral(lit, lang);
             }
             else {
-                return dataFactory.getOWLTypedLiteral(lit);
+                return dataFactory.getOWLLiteral(lit);
             }
         }
         else {
             try {
                 int i = Integer.parseInt(tok);
-                return dataFactory.getOWLTypedLiteral(i);
+                return dataFactory.getOWLLiteral(i);
             }
             catch (NumberFormatException e) {
                 // Ignore - not interested
@@ -1039,7 +1039,7 @@ public class ManchesterOWLSyntaxEditorParser {
             if (tok.endsWith("f")) {
                 try {
                     float f = Float.parseFloat(tok);
-                    return dataFactory.getOWLTypedLiteral(f);
+                    return dataFactory.getOWLLiteral(f);
                 }
                 catch (NumberFormatException e) {
                     // Ignore - not interested
@@ -1047,17 +1047,17 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             try {
                 double d = Double.parseDouble(tok);
-                return dataFactory.getOWLTypedLiteral(d);
+                return dataFactory.getOWLLiteral(d);
             }
             catch (NumberFormatException e) {
                 // Ignore - not interested
             }
 
             if (tok.equals("true")) {
-                return dataFactory.getOWLTypedLiteral(true);
+                return dataFactory.getOWLLiteral(true);
             }
             else if (tok.equals("false")) {
-                return dataFactory.getOWLTypedLiteral(false);
+                return dataFactory.getOWLLiteral(false);
             }
         }
         throw createException(false, false, false, false, false, false, "true", "false", "$integer$", "$float$", "$double$", "\"$Literal$\"", "\"$Literal$\"^^<datatype>", "\"$Literal$\"@<lang>");

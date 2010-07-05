@@ -31,7 +31,6 @@ public interface OWLAnnotationValueVisitorEx<O> {
 
     O visit(OWLAnonymousIndividual individual);
 
-    O visit(OWLTypedLiteral literal);
+    O visit(OWLLiteral literal);
 
-    O visit(OWLStringLiteral literal);
 }

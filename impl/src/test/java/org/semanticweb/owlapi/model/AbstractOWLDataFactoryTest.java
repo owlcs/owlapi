@@ -74,8 +74,8 @@ public abstract class AbstractOWLDataFactoryTest extends AbstractOWLTestCase {
         return getOWLDataFactory().getOWLDatatype(createIRI());
     }
 
-    protected OWLTypedLiteral createOWLTypedConstant() throws OWLException {
-        return getOWLDataFactory().getOWLTypedLiteral("Test" + System.currentTimeMillis(), createOWLDatatype());
+    protected OWLLiteral createOWLLiteral() throws OWLException {
+        return getOWLDataFactory().getOWLLiteral("Test" + System.currentTimeMillis(), createOWLDatatype());
     }
 
 

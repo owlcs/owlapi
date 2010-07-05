@@ -566,24 +566,15 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
-    public void visit(OWLTypedLiteral node) {
+    public void visit(OWLLiteral node) {
         writer.writeStartElement(LITERAL);
+        if(node.hasLang()) {
+            writer.writeLangAttribute(node.getLang());
+        }
         writer.writeDatatypeAttribute(node.getDatatype());
         writer.writeTextContent(node.getLiteral());
         writer.writeEndElement();
     }
-
-
-    public void visit(OWLStringLiteral node) {
-        writer.writeStartElement(LITERAL);
-        if(node.getLang() != null) {
-            writer.writeLangAttribute(node.getLang());
-        }
-        writer.writeTextContent(node.getLiteral());
-        writer.writeEndElement();
-    }
-
 
     public void visit(OWLDataProperty property) {
         writer.writeStartElement(DATA_PROPERTY);

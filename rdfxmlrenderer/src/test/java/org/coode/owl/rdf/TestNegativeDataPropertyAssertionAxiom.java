@@ -47,7 +47,7 @@ public class TestNegativeDataPropertyAssertionAxiom extends AbstractRendererAndP
     protected Set<OWLAxiom> getAxioms() {
         OWLIndividual subj = createIndividual();
         OWLDataProperty prop = createDataProperty();
-        OWLLiteral obj = getDataFactory().getOWLTypedLiteral("TestConstant");
+        OWLLiteral obj = getDataFactory().getOWLLiteral("TestConstant");
         OWLAxiom ax = getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(prop, subj, obj);
         return Collections.singleton(ax);
     }

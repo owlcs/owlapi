@@ -29,20 +29,20 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public class OWLIndividualNotDataRelationshipAxiomTestCase extends AbstractOWLIndividualRelationshipAxiomTestCase<OWLDataProperty, OWLTypedLiteral> {
+public class OWLIndividualNotDataRelationshipAxiomTestCase extends AbstractOWLIndividualRelationshipAxiomTestCase<OWLDataProperty, OWLLiteral> {
 
     protected OWLDataProperty createProperty() throws Exception {
         return createOWLDataProperty();
     }
 
 
-    protected OWLTypedLiteral createObject() throws Exception {
-        return createOWLTypedConstant();
+    protected OWLLiteral createObject() throws Exception {
+        return createOWLLiteral();
     }
 
 
     protected OWLIndividualAxiom createAxiom(OWLIndividual subject, OWLDataProperty property,
-                                             OWLTypedLiteral object) throws OWLException {
+                                             OWLLiteral object) throws OWLException {
         return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(property, subject, object);
     }
 }

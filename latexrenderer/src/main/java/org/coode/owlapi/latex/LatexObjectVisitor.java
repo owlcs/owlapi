@@ -734,12 +734,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-    public void visit(OWLTypedLiteral node) {
+    public void visit(OWLLiteral node) {
     }
 
-
-    public void visit(OWLStringLiteral node) {
-    }
+    
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 

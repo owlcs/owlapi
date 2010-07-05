@@ -524,14 +524,8 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
         node.getFacetValue().accept(this);
     }
 
-
-    public void visit(OWLTypedLiteral node) {
-        node.getDatatype().accept((OWLEntityVisitor) this);
-    }
-
-
-    public void visit(OWLStringLiteral node) {
-        // No objects here - only a string
+    public void visit(OWLLiteral node) {
+        node.getDatatype().accept(this);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////

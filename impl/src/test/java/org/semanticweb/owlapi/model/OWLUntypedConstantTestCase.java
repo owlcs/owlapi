@@ -32,31 +32,31 @@ package org.semanticweb.owlapi.model;
 public class OWLUntypedConstantTestCase extends AbstractOWLDataFactoryTest {
 
     public void testCreation() throws Exception {
-        OWLStringLiteral conB = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
+        OWLLiteral conB = getOWLDataFactory().getOWLLiteral("TEST", "LANG");
         assertNotNull(conB);
     }
 
 
     public void testEqualsPositive() throws Exception {
-        OWLStringLiteral conC = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
-        OWLStringLiteral conD = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
+        OWLLiteral conC = getOWLDataFactory().getOWLLiteral("TEST", "LANG");
+        OWLLiteral conD = getOWLDataFactory().getOWLLiteral("TEST", "LANG");
         assertEquals(conC, conD);
     }
 
 
     public void testEqualsNegative() throws Exception {
-        OWLStringLiteral conC = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
-        OWLStringLiteral conD = getOWLDataFactory().getOWLStringLiteral("TEST", "OTHER_LANG");
+        OWLLiteral conC = getOWLDataFactory().getOWLLiteral("TEST", "LANG");
+        OWLLiteral conD = getOWLDataFactory().getOWLLiteral("TEST", "OTHER_LANG");
         assertNotEquals(conC, conD);
-        OWLStringLiteral conE = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
-        OWLStringLiteral conF = getOWLDataFactory().getOWLStringLiteral("OTHER", "LANG");
+        OWLLiteral conE = getOWLDataFactory().getOWLLiteral("TEST", "LANG");
+        OWLLiteral conF = getOWLDataFactory().getOWLLiteral("OTHER", "LANG");
         assertNotEquals(conE, conF);
     }
 
 
     public void testHashCode() throws Exception {
-        OWLStringLiteral conA = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
-        OWLStringLiteral conB = getOWLDataFactory().getOWLStringLiteral("TEST", "LANG");
+        OWLLiteral conA = getOWLDataFactory().getOWLLiteral("TEST", "LANG");
+        OWLLiteral conB = getOWLDataFactory().getOWLLiteral("TEST", "LANG");
         assertEquals(conA.hashCode(), conB.hashCode());
     }
 }

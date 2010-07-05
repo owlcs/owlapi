@@ -48,10 +48,7 @@ public class LabelExtractor implements OWLAnnotationObjectVisitor {
     public void visit(IRI iri) {
     }
 
-    public void visit(OWLStringLiteral literal) {
-    }
-
-    public void visit(OWLTypedLiteral literal) {
+    public void visit(OWLLiteral literal) {
     }
 
     public void visit(OWLAnnotation annotation) {

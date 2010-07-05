@@ -748,16 +748,10 @@ public class OWLObjectWalker<O extends OWLObject> {
             popDataRange();
         }
 
-
-        public void visit(OWLTypedLiteral node) {
+        public void visit(OWLLiteral node) {
             process(node);
             node.getDatatype().accept(this);
             popDataRange();
-        }
-
-
-        public void visit(OWLStringLiteral node) {
-            process(node);
         }
 
         public void visit(OWLAnnotationProperty property) {

@@ -39,11 +39,11 @@ public class StringLiteralWithQuotesTestCase extends AbstractAxiomsRoundTripping
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLNamedIndividual ind = getOWLIndividual("i");
         OWLDataProperty prop = getOWLDataProperty("prop");
-        OWLTypedLiteral literal = getFactory().getOWLTypedLiteral("Test \"literal\"");
+        OWLLiteral literal = getFactory().getOWLLiteral("Test \"literal\"");
         axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind, literal));
-        OWLTypedLiteral literal2 = getFactory().getOWLTypedLiteral("Test 'literal'");
+        OWLLiteral literal2 = getFactory().getOWLLiteral("Test 'literal'");
         axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind, literal2));
-        OWLTypedLiteral literal3 = getFactory().getOWLTypedLiteral("Test \"\"\"literal\"\"\"");
+        OWLLiteral literal3 = getFactory().getOWLLiteral("Test \"\"\"literal\"\"\"");
         axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind, literal3));
         return axioms;
     }

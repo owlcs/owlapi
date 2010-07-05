@@ -14,7 +14,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
 
     private OWLAnnotationAssertionAxiom createAnnotationAssertionAxiom() {
         OWLAnnotationProperty prop = getOWLAnnotationProperty("prop");
-        OWLAnnotationValue value = getFactory().getOWLStringLiteral("value");
+        OWLAnnotationValue value = getFactory().getOWLLiteral("value");
         return getFactory().getOWLAnnotationAssertionAxiom(prop, SUBJECT, value);
     }
 

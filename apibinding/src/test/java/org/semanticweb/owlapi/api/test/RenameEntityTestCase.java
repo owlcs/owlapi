@@ -58,7 +58,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         axioms1.add(getFactory().getOWLObjectPropertyRangeAxiom(propA, clsAIRI1));
         axioms1.add(getFactory().getOWLDataPropertyDomainAxiom(propB, clsAIRI1));
         axioms1.add(getFactory().getOWLClassAssertionAxiom(clsAIRI1, indA));
-        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, clsAIRI1.getIRI(), getFactory().getOWLTypedLiteral("X")));
+        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, clsAIRI1.getIRI(), getFactory().getOWLLiteral("X")));
         getManager().addAxioms(ont, axioms1);
 
         Set<OWLAxiom> axioms2 = new HashSet<OWLAxiom>();
@@ -69,7 +69,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         axioms2.add(getFactory().getOWLObjectPropertyRangeAxiom(propA, clsAIRI2));
         axioms2.add(getFactory().getOWLDataPropertyDomainAxiom(propB, clsAIRI2));
         axioms2.add(getFactory().getOWLClassAssertionAxiom(clsAIRI2, indA));
-        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, clsAIRI2.getIRI(), getFactory().getOWLTypedLiteral("X")));
+        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, clsAIRI2.getIRI(), getFactory().getOWLLiteral("X")));
 
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(), Collections.singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(clsAIRI1, clsAIRI2.getIRI());
@@ -110,7 +110,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         axioms1.add(getFactory().getOWLIrreflexiveObjectPropertyAxiom(propA));
         axioms1.add(getFactory().getOWLObjectPropertyAssertionAxiom(propA, indA, indB));
         axioms1.add(getFactory().getOWLNegativeObjectPropertyAssertionAxiom(propA, indA, indB));
-        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA.getIRI(), getFactory().getOWLTypedLiteral("X")));
+        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA.getIRI(), getFactory().getOWLLiteral("X")));
         getManager().addAxioms(ont, axioms1);
 
         Set<OWLAxiom> axioms2 = new HashSet<OWLAxiom>();
@@ -128,7 +128,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         axioms2.add(getFactory().getOWLIrreflexiveObjectPropertyAxiom(propA2));
         axioms2.add(getFactory().getOWLObjectPropertyAssertionAxiom(propA2, indA, indB));
         axioms2.add(getFactory().getOWLNegativeObjectPropertyAssertionAxiom(propA2, indA, indB));
-        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA2.getIRI(), getFactory().getOWLTypedLiteral("X")));
+        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA2.getIRI(), getFactory().getOWLLiteral("X")));
 
 
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(), Collections.singleton(ont));
@@ -161,9 +161,9 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         axioms1.add(getFactory().getOWLDataPropertyDomainAxiom(propA, clsA));
         axioms1.add(getFactory().getOWLDataPropertyRangeAxiom(propA, getFactory().getTopDatatype()));
         axioms1.add(getFactory().getOWLFunctionalDataPropertyAxiom(propA));
-        axioms1.add(getFactory().getOWLDataPropertyAssertionAxiom(propA, indA, getFactory().getOWLTypedLiteral(33)));
-        axioms1.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(propA, indA, getFactory().getOWLTypedLiteral(44)));
-        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA.getIRI(), getFactory().getOWLTypedLiteral("X")));
+        axioms1.add(getFactory().getOWLDataPropertyAssertionAxiom(propA, indA, getFactory().getOWLLiteral(33)));
+        axioms1.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(propA, indA, getFactory().getOWLLiteral(44)));
+        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA.getIRI(), getFactory().getOWLLiteral("X")));
         getManager().addAxioms(ont, axioms1);
 
         Set<OWLAxiom> axioms2 = new HashSet<OWLAxiom>();
@@ -173,9 +173,9 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         axioms2.add(getFactory().getOWLDataPropertyDomainAxiom(propA2, clsA));
         axioms2.add(getFactory().getOWLDataPropertyRangeAxiom(propA2, getFactory().getTopDatatype()));
         axioms2.add(getFactory().getOWLFunctionalDataPropertyAxiom(propA2));
-        axioms2.add(getFactory().getOWLDataPropertyAssertionAxiom(propA2, indA, getFactory().getOWLTypedLiteral(33)));
-        axioms2.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(propA2, indA, getFactory().getOWLTypedLiteral(44)));
-        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA2.getIRI(), getFactory().getOWLTypedLiteral("X")));
+        axioms2.add(getFactory().getOWLDataPropertyAssertionAxiom(propA2, indA, getFactory().getOWLLiteral(33)));
+        axioms2.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(propA2, indA, getFactory().getOWLLiteral(44)));
+        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA2.getIRI(), getFactory().getOWLLiteral("X")));
 
 
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(), Collections.singleton(ont));
@@ -201,9 +201,9 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         
         Set<OWLAxiom> axioms1 = new HashSet<OWLAxiom>();
         axioms1.add(getFactory().getOWLClassAssertionAxiom(clsA, indA));
-        axioms1.add(getFactory().getOWLDataPropertyAssertionAxiom(propA, indA, getFactory().getOWLTypedLiteral(33)));
-        axioms1.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(propA, indA, getFactory().getOWLTypedLiteral(44)));
-        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA.getIRI(), getFactory().getOWLTypedLiteral("X")));
+        axioms1.add(getFactory().getOWLDataPropertyAssertionAxiom(propA, indA, getFactory().getOWLLiteral(33)));
+        axioms1.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(propA, indA, getFactory().getOWLLiteral(44)));
+        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA.getIRI(), getFactory().getOWLLiteral("X")));
         axioms1.add(getFactory().getOWLObjectPropertyAssertionAxiom(propB, indA, indB));
         axioms1.add(getFactory().getOWLNegativeObjectPropertyAssertionAxiom(propB, indA, indB));
 
@@ -212,9 +212,9 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
 
         Set<OWLAxiom> axioms2 = new HashSet<OWLAxiom>();
         axioms2.add(getFactory().getOWLClassAssertionAxiom(clsA, indB));
-        axioms2.add(getFactory().getOWLDataPropertyAssertionAxiom(propA, indB, getFactory().getOWLTypedLiteral(33)));
-        axioms2.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(propA, indB, getFactory().getOWLTypedLiteral(44)));
-        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA.getIRI(), getFactory().getOWLTypedLiteral("X")));
+        axioms2.add(getFactory().getOWLDataPropertyAssertionAxiom(propA, indB, getFactory().getOWLLiteral(33)));
+        axioms2.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(propA, indB, getFactory().getOWLLiteral(44)));
+        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA.getIRI(), getFactory().getOWLLiteral("X")));
         axioms2.add(getFactory().getOWLObjectPropertyAssertionAxiom(propB, indB, indB));
         axioms2.add(getFactory().getOWLNegativeObjectPropertyAssertionAxiom(propB, indB, indB));
                         

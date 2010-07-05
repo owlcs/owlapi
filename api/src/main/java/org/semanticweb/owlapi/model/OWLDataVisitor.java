@@ -33,9 +33,7 @@ package org.semanticweb.owlapi.model;
  */
 public interface OWLDataVisitor extends OWLDataRangeVisitor {
 
-    void visit(OWLTypedLiteral node);
-
-    void visit(OWLStringLiteral node);
+    void visit(OWLLiteral node);
 
     void visit(OWLFacetRestriction node);
 }

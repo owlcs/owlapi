@@ -137,32 +137,9 @@ MORE:
 // When we encounter a double quote, we have found a string literal.  The end of the literal
 // is marked by an unescaped double quote
 //
-
-MORE:
-{
-    <STRING_LITERAL_START: "\""> : IN_STRING_LITERAL
+TOKEN: {
+    <STRINGLITERAL: "\""(("\\\"")|(~["\""]))*"\"">
 }
-
-// Escaped double quote - part of the literal
-<IN_STRING_LITERAL> MORE:
-{
-    <"\\\"">
-}
-
-// End of the literal
-<IN_STRING_LITERAL> TOKEN:
-{
-    <STRINGLITERAL: "\""> :DEFAULT
-}
-
-
-<IN_STRING_LITERAL> MORE:
-{
-    <~[]>
-}
-
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -205,6 +182,11 @@ TOKEN:
 TOKEN:
 {
     <LANGIDENTIFIER: "@">
+}
+
+TOKEN:
+{
+    <DATATYPEIDENTIFIER: "^^">
 }
 
 
@@ -1394,7 +1376,7 @@ OWLDataRange DataOneOf()  :
     OWLDataRange rng = null;
 }
 {
-    (<DATAONEOF><OPENPAR>con=Literal(){values.add(con);} (con=Literal(){values.add(con);})*<CLOSEPAR>) {
+    (<DATAONEOF><OPENPAR>((con=Literal(){values.add(con);})+)<CLOSEPAR>) {
         return dataFactory.getOWLDataOneOf(values);
     }
 }
@@ -1405,7 +1387,7 @@ OWLDataRange DataUnionOf() :
     Set<OWLDataRange> ranges = new HashSet<OWLDataRange>();
 }
 {
-    <DATAUNIONOF><OPENPAR>(dataRange=DataRange(){ranges.add(dataRange);})*<CLOSEPAR> {
+    <DATAUNIONOF><OPENPAR>(dataRange=DataRange(){ranges.add(dataRange);})+<CLOSEPAR> {
         return dataFactory.getOWLDataUnionOf(ranges);
     }
 }
@@ -1416,7 +1398,7 @@ OWLDataRange DataIntersectionOf() :
     Set<OWLDataRange> ranges = new HashSet<OWLDataRange>();
 }
 {
-    <DATAINTERSECTIONOF><OPENPAR>(dataRange=DataRange(){ranges.add(dataRange);})*<CLOSEPAR> {
+    <DATAINTERSECTIONOF><OPENPAR>(dataRange=DataRange(){ranges.add(dataRange);})+<CLOSEPAR> {
         return dataFactory.getOWLDataIntersectionOf(ranges);
     }
 }
@@ -2170,38 +2152,29 @@ OWLEntity Entity() :
 
 OWLLiteral Literal() :
 {
-    OWLLiteral con;
-}
-{
-    (con=TypedLiteral() | con=StringLiteral()) {
-        return con;
-    }
-}
-
-OWLTypedLiteral TypedLiteral() :
-{
+    boolean plain = true;
     String literal;
-    OWLDatatype datatype=null;
-
+    OWLDatatype datatype = null;
+    String lang = "";
 }
 {
-    (literal=QuotedString()"^^"datatype=DatatypeIRI()) {
 
-            return dataFactory.getOWLTypedLiteral(literal, datatype);
+    (literal=QuotedString()
+        (
+            (<DATATYPEIDENTIFIER>{plain=false;}datatype=DatatypeIRI())
+            |
+            ((<LANGIDENTIFIER>lang=LangTag()))
+        )?
 
-    }
-}
-
-
-OWLStringLiteral StringLiteral() :
-{
-    String literal;
-    String lang = null;
-}
-{
-        literal=QuotedString()(lang = LangTag())? {
-            return dataFactory.getOWLStringLiteral(literal, lang);
+        
+    ) {
+        if(plain) {
+            return dataFactory.getOWLLiteral(literal, lang);
         }
+        else {
+            return dataFactory.getOWLLiteral(literal, datatype);
+        }
+    }
 }
 
 
@@ -2222,7 +2195,7 @@ String LangTag() :
         Token t;
 }
 {
-    <LANGIDENTIFIER>((t=<PN_LOCAL>){lang += t.image;})? {
+    ((t=<PN_LOCAL>){lang += t.image;}) {
         return lang;
     }
 }

@@ -75,7 +75,7 @@ public class DataRanges {
             // To do this, we restrict the xsd:integer datatype using the xsd:minInclusive facet with a value
             // of 18.
             // Get hold of a literal that is an integer value 18
-            OWLTypedLiteral eighteen = factory.getOWLTypedLiteral(18);
+            OWLLiteral eighteen = factory.getOWLLiteral(18);
             // Now create the restriction.  The OWLFacet enum provides an enumeration of the various facets that can be used
             OWLDatatypeRestriction integerGE18 = factory.getOWLDatatypeRestriction(integer, OWLFacet.MIN_INCLUSIVE, eighteen);
 
