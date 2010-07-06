@@ -1045,7 +1045,7 @@ public interface OWLReasoner {
      * @param ind The individual that is the subject of the data property values
      * @param pe The data property whose values are to be retrieved for the specified individual
      * @return A set of <code>OWLLiteral</code>s containing literals such that for each literal <code>l</code> in the
-     *         set, either:
+     *         set, and any of the following hold:
      * <ul>
      * <li>there is an explicit data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(pe, ind, l)</code></li>
      * <li>there is an explicit data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(S, ind, l)</code> and
@@ -1056,7 +1056,15 @@ public interface OWLReasoner {
      *         the set of reasoner axioms entails <code>SubDataPropertyOf(S, pe)</code> and
      * the set of reasoner axioms entails <code>SameIndividual(ind, j)</code></li>
      * <li>there is an explicit data property assertion in the set of reasoner axioms <code>SubClassOf(C, DataHasValue(pe, l))</code> and
-     * entails <code>ClassAssertion(C, i)</code></li>
+     * the set of reasoner axioms entails <code>ClassAssertion(C, ind)</code></li>
+     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>SubClassOf(C, DataSomeValuesFrom(pe, DataOneOf(l)))</code> and
+     * the set of reasoner axioms entails <code>ClassAssertion(C, ind)</code></li>
+     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>SubClassOf(C, DataMinCardinality(n, pe, DataOneOf(l))</code> for
+     * n &gt; 0, and
+     * the set of reasoner axioms entails <code>ClassAssertion(C, ind)</code></li>
+     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>SubClassOf(C, DataExactCardinality(n, pe, DataOneOf(l))</code> for
+     * n &gt; 0 and
+     * the set of reasoner axioms entails <code>ClassAssertion(C, ind)</code></li>
      * </ul>
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
