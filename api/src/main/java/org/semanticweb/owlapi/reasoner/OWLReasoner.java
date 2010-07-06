@@ -343,6 +343,12 @@ public interface OWLReasoner {
     boolean isPrecomputed(InferenceType inferenceType);
 
     /**
+     * Returns the set of {@link org.semanticweb.owlapi.reasoner.InferenceType}s that are precomputable by reasoner.
+     * @return A set of {@link org.semanticweb.owlapi.reasoner.InferenceType}s that can be precomputed by this reasoner.
+     */
+    Set<InferenceType> getPrecomputableInferenceTypes();
+
+    /**
      * Determines if the set of reasoner axioms is consistent.  Note that this method
      * will NOT throw an {@link org.semanticweb.owlapi.reasoner.InconsistentOntologyException} even if the root ontology
      * imports closure is inconsistent.
@@ -385,8 +391,9 @@ public interface OWLReasoner {
      * @throws ReasonerInterruptedException if the reasoning process was interrupted for any particular reason (for example if
      *                                      reasoning was cancelled by a client process)
      * @throws TimeOutException             if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
+     * @throws InconsistentOntologyException if the set of reasoner axioms is inconsistent
      */
-    Node<OWLClass> getUnsatisfiableClasses() throws ReasonerInterruptedException, TimeOutException;
+    Node<OWLClass> getUnsatisfiableClasses() throws ReasonerInterruptedException, TimeOutException, InconsistentOntologyException;
 
     /**
      * A convenience method that determines if the specified axiom is entailed by the set of reasoner axioms.
@@ -405,9 +412,10 @@ public interface OWLReasoner {
      *                                      if the reasoner cannot perform a check to see if the specified
      *                                      axiom is entailed
      * @throws AxiomNotInProfileException   if <code>axiom</code> is not in the profile that is supported by this reasoner.
+     * @throws InconsistentOntologyException if the set of reasoner axioms is inconsistent
      * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType)
      */
-    boolean isEntailed(OWLAxiom axiom) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, FreshEntitiesException;
+    boolean isEntailed(OWLAxiom axiom) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, FreshEntitiesException, InconsistentOntologyException;
 
 
     /**
@@ -426,9 +434,10 @@ public interface OWLReasoner {
      *                                      if the reasoner cannot perform a check to see if the specified
      *                                      axiom is entailed
      * @throws AxiomNotInProfileException   if <code>axiom</code> is not in the profile that is supported by this reasoner.
+     * @throws InconsistentOntologyException if the set of reasoner axioms is inconsistent
      * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType)
      */
-    boolean isEntailed(Set<? extends OWLAxiom> axioms) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, FreshEntitiesException;
+    boolean isEntailed(Set<? extends OWLAxiom> axioms) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, FreshEntitiesException, InconsistentOntologyException;
 
 
     /**
@@ -496,8 +505,9 @@ public interface OWLReasoner {
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
+     * @throws InconsistentOntologyException if the set of reasoner axioms is inconsistent
      */
-    NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct) throws ReasonerInterruptedException, TimeOutException, FreshEntitiesException;
+    NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct) throws ReasonerInterruptedException, TimeOutException, FreshEntitiesException, InconsistentOntologyException;
     
 
     /**
@@ -575,8 +585,9 @@ public interface OWLReasoner {
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
+     * @throws InconsistentOntologyException if the set of reasoner axioms is inconsistent
      */
-    NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce) throws ReasonerInterruptedException, TimeOutException, FreshEntitiesException;
+    NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce) throws ReasonerInterruptedException, TimeOutException, FreshEntitiesException, InconsistentOntologyException;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
