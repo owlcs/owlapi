@@ -1045,10 +1045,17 @@ public interface OWLReasoner {
      * @param ind The individual that is the subject of the data property values
      * @param pe The data property whose values are to be retrieved for the specified individual
      * @return A set of <code>OWLLiteral</code>s containing literals such that for each literal <code>l</code> in the
-     *         set, either there is an explicit data property assertion in the set of reasoner axioms
-     *         <code>DataPropertyAssertion(pe, ind, l)</code>, or, there is an explicit
-     *         data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(S, ind, l)</code> and
-     *         the set of reasoner axioms entails <code>SubDataPropertyOf(S, pe)</code>.
+     *         set, either:
+     * <ul>
+     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(pe, ind, l)</code></li>
+     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(S, ind, l)</code> and
+     *         the set of reasoner axioms entails <code>SubDataPropertyOf(S, pe)</code>.</li>
+     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(pe, j, l)</code> and
+     * the set of reasoner axioms entails <code>SameIndividual(ind, j)</code></li>
+     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(S, j, l)</code> and
+     *         the set of reasoner axioms entails <code>SubDataPropertyOf(S, pe)</code> and
+     * the set of reasoner axioms entails <code>SameIndividual(ind, j)</code></li>
+     * </ul>
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws FreshEntitiesException   if the signature of the individual and property is not contained within the signature

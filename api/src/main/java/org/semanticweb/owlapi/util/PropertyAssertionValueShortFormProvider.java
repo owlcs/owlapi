@@ -121,13 +121,13 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
                     // Different property value but same prop, as previous candidate - look at lang tag for that URI
                     // and see if we take priority over the previous one
                     OWLObject obj = ax.getObject();
-                    if (obj instanceof OWLStringLiteral) {
-                        OWLStringLiteral untypedConstantVal = (OWLStringLiteral) obj;
+                    if (obj instanceof OWLLiteral) {
                         List<String> langList = preferredLanguageMap.get(ax.getProperty());
                         if (langList != null) {
                             // There is no need to check if lang is null.  It may well be that no
                             // lang is preferred over any other lang.
-                            int langIndex = langList.indexOf(untypedConstantVal.getLang());
+                            OWLLiteral lit = (OWLLiteral) obj;
+                            int langIndex = langList.indexOf(lit.getLang());
                             if (langIndex != -1 && langIndex < lastLangMatchIndex) {
                                 lastLangMatchIndex = langIndex;
                                 candidateValue = ax.getObject();

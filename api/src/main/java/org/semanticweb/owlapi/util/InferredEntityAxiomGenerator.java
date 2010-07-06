@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.reasoner.OWLReasonerException;
 
 import java.util.HashSet;
 import java.util.Set;

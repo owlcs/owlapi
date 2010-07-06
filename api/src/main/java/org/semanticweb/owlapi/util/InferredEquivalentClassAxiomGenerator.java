@@ -5,7 +5,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.reasoner.OWLReasonerException;
 
 import java.util.HashSet;
 import java.util.Set;

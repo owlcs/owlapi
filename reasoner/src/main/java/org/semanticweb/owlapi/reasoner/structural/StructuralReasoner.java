@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.reasoner.structural;
 import org.semanticweb.owlapi.reasoner.impl.*;
 import org.semanticweb.owlapi.reasoner.*;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.Version;
 
 import java.util.*;
@@ -123,6 +124,10 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     public boolean isPrecomputed(InferenceType inferenceType) {
         return true;
+    }
+
+    public Set<InferenceType> getPrecomputableInferenceTypes() {
+        return CollectionFactory.createSet(InferenceType.CLASS_HIERARCHY, InferenceType.OBJECT_PROPERTY_HIERARCHY, InferenceType.DATA_PROPERTY_HIERARCHY);
     }
 
     private void checkForInterrupt() {
