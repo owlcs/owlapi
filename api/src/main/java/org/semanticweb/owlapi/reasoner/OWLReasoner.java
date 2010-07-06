@@ -211,6 +211,13 @@ import java.util.List;
  * minus the interpretation of <code>pe</code>. In other words, <code>DataPropertyComplementOf(pe)</code> is the
  * set of pairs of individual and literals that are not in <code>pe</code>.
  *
+ * <h3 id="spe">Simple Object Property Expression</h3>
+ *
+ * A simple object property expression is either a named property <code>P</code>, or an object inverse property of the form
+ * <code>ObjectInverseOf(P)</code> where <code>P</code> is a named property.  In other words, there is no nesting
+ * of <code>ObjectInverseOf</code> operators.
+ *
+ *
  * <h2>Error Handling</h2>
  * An <code>OWLReasoner</code> may throw the following exceptions to indicate errors.  More documentation for
  * each type of exception can be found on the particular exception class.
@@ -623,17 +630,17 @@ public interface OWLReasoner {
 
 
     /**
-     * Gets the set of named object properties that are the strict (potentially direct) subproperties of the specified
+     * Gets the set of <a href="#spe">simple object property expressions</a> that are the strict (potentially direct) subproperties of the specified
      * object property expression with respect to the imports closure of the root ontology.
      * Note that the properties are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The object property expression whose strict (direct) subproperties are to be retrieved.
      * @param direct Specifies if the direct subproperties should be retrived (<code>true</code>) or if the all
      * subproperties (descendants) should be retrieved (<code>false</code>).
-     * @return If direct is <code>true</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
+     * @return If direct is <code>true</code>, a <code>NodeSet</code> of <a href="#spe">simple object property expressions</a>, such that for each <a href="#spe">simple object property expression</a>, <code>P</code>, in the
      *         <code>NodeSet</code> the set of reasoner axioms entails <code>DirectSubObjectPropertyOf(P, pe)</code>.
      *         </p>
-     *         If direct is <code>false</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
+     *         If direct is <code>false</code>, a <code>NodeSet</code> of <a href="#spe">simple object property expressions</a>, such that for each <a href="#spe">simple object property expression</a>, <code>P</code>, in the
      *         <code>NodeSet</code> the set of reasoner axioms entails <code>StrictSubObjectPropertyOf(P, pe)</code>.
      *         </p>
      *         If <code>pe</code> is equivalent to <code>owl:bottomObjectProperty</code> then the empty <code>NodeSet</code>
@@ -649,18 +656,20 @@ public interface OWLReasoner {
     NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
 
     /**
-     * Gets the set of named object properties that are the strict (potentially direct) super properties of the specified
+     * Gets the set of <a href="#spe">simple object property expressions</a> that are the strict (potentially direct) super properties of the specified
      * object property expression with respect to the imports closure of the root ontology.
      * Note that the properties are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The object property expression whose strict (direct) super properties are to be retrieved.
      * @param direct Specifies if the direct super properties should be retrived (<code>true</code>) or if the all
      * super properties (ancestors) should be retrieved (<code>false</code>).
-     * @return If direct is <code>true</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
-     *         <code>NodeSet</code> the set of reasoner axioms entails <code>DirectSubObjectPropertyOf(pe, P)</code>.
+     * @return If direct is <code>true</code>, a <code>NodeSet</code> of <a href="#spe">simple object property expressions</a>, such that for each <a href="#spe">simple object property expression</a>, <code>P</code>, in the
+     *         <code>NodeSet</code>, the set of reasoner axioms entails
+     *          <code>DirectSubObjectPropertyOf(pe, P)</code>.
      *         </p>
-     *         If direct is <code>false</code>, a <code>NodeSet</code> such that for each property <code>P</code> in the
-     *         <code>NodeSet</code> the set of reasoner axioms entails <code>StrictSubObjectPropertyOf(pe, P)</code>.
+     *         If direct is <code>false</code>, a <code>NodeSet</code> of <a href="#spe">simple object property expressions</a>, such that for each <a href="#spe">simple object property expression</a>, <code>P</code>, in the
+     *         <code>NodeSet</code>, 
+     *         the set of reasoner axioms entails <code>StrictSubObjectPropertyOf(pe, P)</code>.
      *         </p>
      *         If <code>pe</code> is equivalent to <code>owl:topObjectProperty</code> then the empty <code>NodeSet</code>
      *         will be returned.
@@ -676,20 +685,20 @@ public interface OWLReasoner {
 
 
     /**
-     * Gets the set of named object properties that are equivalent to the specified object property expression with
+     * Gets the set of <a href="#spe">simple object property expressions</a> that are equivalent to the specified object property expression with
      * respect to the set of reasoner axioms. The properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.Node}.
      *
      * @param pe The object property expression whose equivalent properties are to be retrieved.
-     * @return A node containing the named object properties such that for each named object property <code>P</code>
+     * @return A node containing the <a href="#spe">simple object property expressions</a> such that for each <a href="#spe">simple object property expression</a>, <code>P</code>,
      *         in the node, the set of reasoner axioms entails <code>EquivalentObjectProperties(pe P)</code>.
      *         </p>
-     *         If <code>pe</code> is a named object property then <code>pe</code> will be contained in the node.
+     *         If <code>pe</code> is a <a href="#spe">simple object property expression</a> then <code>pe</code> will be contained in the node.
      *         </p>
      *         If <code>pe</code> is unsatisfiable with respect to the set of reasoner axioms then the node
      *         representing and containing <code>owl:bottomObjectProperty</code>, i.e. the bottom node, will be returned.
      *         </p>
-     *         If <code>ce</code> is equivalent to <code>owl:topObjectProperty</code> with respect to the set of reasoner axioms
+     *         If <code>pe</code> is equivalent to <code>owl:topObjectProperty</code> with respect to the set of reasoner axioms
      *         then the node representing and containing <code>owl:topObjectProperty</code>, i.e. the top node, will be returned
      *         </p>.
      *
@@ -704,11 +713,11 @@ public interface OWLReasoner {
 
 
     /**
-     * Gets the object properties that are disjoint with the specified object property expression <code>pe</code>. The object properties are returned
+     * Gets the <a href="#spe">simple object property expressions</a> that are disjoint with the specified object property expression <code>pe</code>. The object properties are returned
      * as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The object property expression whose disjoint object properties are to be retrieved.
-     * @return The return value is a <code>NodeSet</code> such that for each object property <code>P</code> in the <code>NodeSet</code>
+     * @return The return value is a <code>NodeSet</code> of <a href="#spe">simple object property expressions</a>, such that for each <a href="#spe">simple object property expression</a>, <code>P</code>, in the <code>NodeSet</code>
      *         the set of reasoner axioms entails <code>EquivalentObjectProperties(P, ObjectPropertyComplementOf(pe))</code> or <code>StrictSubObjectPropertyOf(P, ObjectPropertyComplementOf(pe))</code>.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
@@ -725,12 +734,12 @@ public interface OWLReasoner {
 
 
     /**
-     * Gets the set of named object properties that are the inverses of the specified object property expression with
+     * Gets the set of <a href="#spe">simple object property expressions</a> that are the inverses of the specified object property expression with
      * respect to the imports closure of the root ontology.  The properties are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}
      *
      * @param pe The property expression whose inverse properties are to be retrieved.
-     * @return A <code>NodeSet</code> containing object properties such that for each object property <code>P</code> in
-     *         the nodes set, the set of reasoner axioms entails <code>InverseObjectProperties(pe, P)</code>
+     * @return A <code>NodeSet</code> of <a href="#spe">simple object property expressions</a>, such that for each simple object property expression <code>P</code> in
+     *         the nodes set, the set of reasoner axioms entails <code>InverseObjectProperties(pe, P)</code>.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws FreshEntitiesException   if the signature of the object property expression is not contained within the signature
@@ -748,6 +757,7 @@ public interface OWLReasoner {
      * @param pe The property expression whose domains are to be retrieved.
      * @param direct Specifies if the direct domains should be retrieved (<code>true</code>), or if all domains
      * should be retrieved (<code>false</code>).
+     * 
      * @return If <code>direct</code> is <code>true</code>, a <code>NodeSet</code> containing named classes such that for each named
      *         class <code>C</code> in the node set, the set of reasoner axioms entails <code>ObjectPropertyDomain(pe C)</code> and
      *         the set of reasoner axioms entails <code>DirectSubClassOf(ObjectSomeValuesFrom(pe owl:Thing) C)</code>
@@ -1001,6 +1011,7 @@ public interface OWLReasoner {
      *         If <code>direct</code> is <code>false</code>, a <code>NodeSet</code> containing named individuals such that for
      *         each named individual <code>j</code> in the node set, the set of reasoner axioms entails
      *         <code>ClassAssertion(ce, j)</code>.
+     *         </p>
      *         </p>
      *         If ce is unsatisfiable with respect to the set of reasoner axioms then the empty <code>NodeSet</code>
      *         is returned.
