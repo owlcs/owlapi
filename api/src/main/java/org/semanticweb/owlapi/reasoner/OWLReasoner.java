@@ -551,7 +551,9 @@ public interface OWLReasoner {
      *
      * @param ce The class expression whose equivalent classes are to be retrieved.
      * @return A node containing the named classes such that for each named class <code>C</code> in the node the root ontology
-     *         imports closure entails <code>EquivalentClasses(ce C)</code>.
+     *         imports closure entails <code>EquivalentClasses(ce C)</code>. If <code>ce</code> is not a class name (i.e. it
+     *         is an anonymous class expression) and there are no such classes <code>C</code> then 
+     *         the node will be empty.
      *         </p>
      *         If <code>ce</code> is a named class then <code>ce</code> will be contained in the node.
      *         </p>
@@ -758,13 +760,13 @@ public interface OWLReasoner {
      * @param direct Specifies if the direct domains should be retrieved (<code>true</code>), or if all domains
      * should be retrieved (<code>false</code>).
      * 
-     * @return If <code>direct</code> is <code>true</code>, a <code>NodeSet</code> containing named classes such that for each named
-     *         class <code>C</code> in the node set, the set of reasoner axioms entails <code>ObjectPropertyDomain(pe C)</code> and
-     *         the set of reasoner axioms entails <code>DirectSubClassOf(ObjectSomeValuesFrom(pe owl:Thing) C)</code>
-     *         </p>
-     *         If <code>direct</code> is <code>false</code>, a <code>NodeSet</code> containing named classes such that for each named class
-     *         <code>C</code> in the node set, the set of reasoner axioms entails <code>ObjectPropertyDomain(pe C)</code>, that is,
-     *         the set of reasoner axioms entails <code>StrictSubClassOf(ObjectSomeValuesFrom(pe owl:Thing) C)</code>
+     * @return Let <code>N = getEquivalentClasses(ObjectSomeValuesFrom(pe owl:Thing))</code>.
+     * <p>
+     * If <code>direct</code> is <code>true</code>: then if <code>N</code> is not empty then the return value is <code>N</code>,
+     * else the return value is the result of <code>getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), true)</code>.
+     * <p>
+     * If <code>direct</code> is <code>false</code>: then the result of <code>getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), false)</code> together with
+     * <code>N</code> if <code>N</code> is non-empty.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws FreshEntitiesException   if the signature of the object property expression is not contained within the signature
@@ -782,15 +784,14 @@ public interface OWLReasoner {
      * @param pe The property expression whose ranges are to be retrieved.
      * @param direct Specifies if the direct ranges should be retrieved (<code>true</code>), or if all ranges
      * should be retrieved (<code>false</code>).
-     * @return If <code>direct</code> is <code>true</code>, a <code>NodeSet</code> containing named classes such that for each named
-     *         class <code>C</code> in the node set, the set of reasoner axioms entails <code>ObjectPropertyRange(pe C)</code>
-     *         (<code>SubClassOf(owl:Thing ObjectAllValuesFrom(pe C))</code>) and there is no other class <code>D</code> in the
-     *         signature of the set of reasoner axioms such that the set of reasoner axioms entails
-     *         <code>StrictSubClassOf(D C)</code> and <code>SubClassOf(owl:Thing ObjectAllValuesFrom(pe D))</code>.
-     *         </p>
-     *         If <code>direct</code> is <code>false</code>, a <code>NodeSet</code> containing named classes such that for each named class
-     *         <code>C</code> in the node set, the set of reasoner axioms entails <code>ObjectPropertyRange(pe C)</code>, that is,
-     *         the set of reasoner axioms entails <code>SubClassOf(owl:Thing ObjectAllValuesFrom(pe C))</code>.
+     *
+     * @return Let <code>N = getEquivalentClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing))</code>.
+     * <p>
+     * If <code>direct</code> is <code>true</code>: then if <code>N</code> is not empty then the return value is <code>N</code>,
+     * else the return value is the result of <code>getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), true)</code>.
+     * <p>
+     * If <code>direct</code> is <code>false</code>: then the result of <code>getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), false)</code> together with
+     * <code>N</code> if <code>N</code> is non-empty.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
      * @throws FreshEntitiesException   if the signature of the object property expression is not contained within the signature
@@ -942,19 +943,22 @@ public interface OWLReasoner {
      * Gets the named classes that are the direct or indirect domains of this property with respect to the imports
      * closure of the root ontology.  The classes are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
-     * @param pe The property whose domains are to be retrieved.
+     * @param pe The property expression whose domains are to be retrieved.
      * @param direct Specifies if the direct domains should be retrieved (<code>true</code>), or if all domains
      * should be retrieved (<code>false</code>).
-     * @return If <code>direct</code> is <code>true</code>, a <code>NodeSet</code> containing named classes such that for each named
-     *         class <code>C</code> in the node set, the set of reasoner axioms entails <code>DataPropertyDomain(pe C)</code> and
-     *         the set of reasoner axioms entails <code>DirectSubClassOf(ObjectSomeValuesFrom(pe rdfs:Literal) C)</code>
-     *         </p>
-     *         If <code>direct</code> is <code>false</code>, a <code>NodeSet</code> containing named classes such that for each named class
-     *         <code>C</code> in the node set, the set of reasoner axioms entails <code>DataPropertyDomain(pe C)</code>, that is,
-     *         the set of reasoner axioms entails <code>StrictSubClassOf(ObjectSomeValuesFrom(pe rdfs:Literal) C)</code>
+     *
+     * @return Let <code>N = getEquivalentClasses(DataSomeValuesFrom(pe rdfs:Literal))</code>.
+     * <p>
+     * If <code>direct</code> is <code>true</code>: then if <code>N</code> is not empty then the return value is <code>N</code>,
+     * else the return value is the result of <code>getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), true)</code>.
+     * <p>
+     * If <code>direct</code> is <code>false</code>: then the result of <code>getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), false)</code> together with
+     * <code>N</code> if <code>N</code> is non-empty.
+     * <p>
+     * (Note, <code>rdfs:Literal</code> is the top datatype).
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException   if the signature of the data property is not contained within the signature
+     * @throws FreshEntitiesException   if the signature of the object property expression is not contained within the signature
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
