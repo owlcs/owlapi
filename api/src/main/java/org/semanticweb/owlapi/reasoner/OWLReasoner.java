@@ -1055,8 +1055,8 @@ public interface OWLReasoner {
      * <li>there is an explicit data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(S, j, l)</code> and
      *         the set of reasoner axioms entails <code>SubDataPropertyOf(S, pe)</code> and
      * the set of reasoner axioms entails <code>SameIndividual(ind, j)</code></li>
-     * <li>the set of reasoner axioms contains a sub-concept <code>DataHasValue(S, l)</code>, and entails
-     * <code>ClassAssertion(DataHasValue(S, l) ind)</code></li>
+     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>SubClassOf(C, DataHasValue(pe, l))</code> and
+     * entails <code>ClassAssertion(C, i)</code></li>
      * </ul>
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
