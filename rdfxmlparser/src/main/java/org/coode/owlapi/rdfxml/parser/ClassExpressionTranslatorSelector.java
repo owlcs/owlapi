@@ -1,11 +1,9 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -165,28 +163,13 @@ public class ClassExpressionTranslatorSelector {
      * Gets a translator for a class expression. The selector ensures that the necessary triples are present.
      * @param mainNode The main node of the class expression
      * @return The translator that should be used to translate the class expression
-     * @throws OWLException
      */
     public ClassExpressionTranslator getClassExpressionTranslator(IRI mainNode) {
 
 
         if (consumer.isRestriction(mainNode)) {
-            // Check that the necessary triples are there
-            IRI onPropertyIRI = consumer.getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), false);
-            if (onPropertyIRI == null) {
-                // Can't do anything
-                return namedClassTranslator;
-            }
-            if (isObjectRestriction(mainNode, onPropertyIRI)) {
-                return getObjectRestrictionTranslator(mainNode);
-            }
-            if (isDataRestriction(mainNode, onPropertyIRI)) {
-                return getDataRestrictionTranslator(mainNode);
-            }
-            // Don't do any repair?
-            return namedClassTranslator;
+            return getRestrictionTranslator(mainNode);
         }
-
         if (consumer.hasPredicate(mainNode, OWL_INTERSECTION_OF.getIRI())) {
             return intersectionOfTranslator;
         }
@@ -200,6 +183,66 @@ public class ClassExpressionTranslatorSelector {
             return oneOfTranslator;
         }
         return namedClassTranslator;
+    }
+
+    private ClassExpressionTranslator getRestrictionTranslator(IRI mainNode) {
+        // Check that the necessary triples are there
+        IRI onPropertyIRI = consumer.getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), false);
+        if (onPropertyIRI == null) {
+            // Can't do anything
+            return namedClassTranslator;
+        }
+        if (isObjectRestriction(mainNode, onPropertyIRI)) {
+            return getObjectRestrictionTranslator(mainNode);
+        }
+        if (isDataRestriction(mainNode, onPropertyIRI)) {
+            return getDataRestrictionTranslator(mainNode);
+        }
+        // Don't do any repair?
+        // Warnings?
+        // Guess at object restriction?
+        IRI filler = getRestrictionFiller(mainNode);
+        if(filler != null) {
+            if(consumer.isDataRange(filler)) {
+                return getDataRestrictionTranslator(mainNode);
+            }
+            else {
+                return getObjectRestrictionTranslator(mainNode);
+            }
+        }
+        return getObjectRestrictionTranslator(mainNode);
+    }
+
+    private IRI getRestrictionFiller(IRI mainNode) {
+        IRI filler = consumer.getResourceObject(mainNode, OWL_SOME_VALUES_FROM.getIRI(), false);
+        if(filler == null) {
+            filler = consumer.getResourceObject(mainNode, OWL_ALL_VALUES_FROM.getIRI(), false);
+        }
+        if(filler == null) {
+            filler = consumer.getResourceObject(mainNode, OWL_HAS_VALUE.getIRI(), false);
+        }
+        if(filler == null) {
+            filler = consumer.getResourceObject(mainNode, OWL_MIN_CARDINALITY.getIRI(), false);
+        }
+        if(filler == null) {
+            filler = consumer.getResourceObject(mainNode, OWL_MIN_QUALIFIED_CARDINALITY.getIRI(), false);
+        }
+        if(filler == null) {
+            filler = consumer.getResourceObject(mainNode, OWL_CARDINALITY.getIRI(), false);
+        }
+        if(filler == null) {
+            filler = consumer.getResourceObject(mainNode, OWL_QUALIFIED_CARDINALITY.getIRI(), false);
+        }
+        if(filler == null) {
+            filler = consumer.getResourceObject(mainNode, OWL_MAX_CARDINALITY.getIRI(), false);
+        }
+        if(filler == null) {
+            filler = consumer.getResourceObject(mainNode, OWL_MIN_QUALIFIED_CARDINALITY.getIRI(), false);
+        }
+        if(filler == null) {
+            filler = consumer.getResourceObject(mainNode, OWL_HAS_SELF.getIRI(), false);
+        }
+        return filler;
     }
 
     private ClassExpressionTranslator getObjectRestrictionTranslator(IRI mainNode) {

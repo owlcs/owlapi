@@ -290,12 +290,27 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return dt;
     }
 
-    public OWLLiteral getOWLLiteral(String literal, OWLDatatype datatype) {
-        return new OWLLiteralImpl(this, literal, datatype);
+    public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
+        OWLLiteral literal;
+        if(datatype.isRDFPlainLiteral()) {
+            int sep = lexicalValue.lastIndexOf('@');
+            if(sep != -1) {
+                String lex = lexicalValue.substring(0, sep);
+                String lang = lexicalValue.substring(sep + 1);
+                literal = new OWLLiteralImpl(this, lex, lang);
+            }
+            else {
+                literal = new OWLLiteralImpl(this, lexicalValue, datatype);
+            }
+        }
+        else {
+            literal = new OWLLiteralImpl(this, lexicalValue, datatype);
+        }
+        return literal;
     }
 
-    public OWLLiteral getOWLLiteral(String literal, OWL2Datatype datatype) {
-        return getOWLLiteral(literal, getOWLDatatype(datatype.getIRI()));
+    public OWLLiteral getOWLLiteral(String lexicalValue, OWL2Datatype datatype) {
+        return getOWLLiteral(lexicalValue, getOWLDatatype(datatype.getIRI()));
     }
 
     public OWLLiteral getOWLLiteral(int value) {

@@ -80,4 +80,10 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObj
      */
     boolean isBoolean();
 
+    /**
+     * Determines if this datatype has the IRI <code>rdf:PlainLiteral</code>
+     * @return <code>true</code> if this datatype has the IRI <code>rdf:PlainLiteral</code> otherwise <code>false</code>
+     */
+    boolean isRDFPlainLiteral();
+
 }

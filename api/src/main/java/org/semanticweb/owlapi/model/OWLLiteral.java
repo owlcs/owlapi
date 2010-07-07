@@ -80,8 +80,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
 
 
     /**
-     * Determines if this <code>OWLLiteral</code> has a particular language tag
-     * @param lang The specific lang to test for.
+     * Determines if this <code>OWLLiteral</code> has a particular language tag.
+     * @param lang The specific lang to test for. The tag will be normalised - white space will be trimmed from
+     * the end and it will be converted to lower case.
      * @return <code>true</code> if this literal has a language tag equal to <code>lang</code>, otherwise
      * <code>false</code>.
      */

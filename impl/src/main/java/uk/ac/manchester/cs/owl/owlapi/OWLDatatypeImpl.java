@@ -61,6 +61,14 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     }
 
     /**
+     * Determines if this datatype has the IRI <code>rdf:PlainLiteral</code>
+     * @return <code>true</code> if this datatype has the IRI <code>rdf:PlainLiteral</code> otherwise <code>false</code>
+     */
+    public boolean isRDFPlainLiteral() {
+        return iri.isPlainLiteral();
+    }
+
+    /**
      * Gets the entity type for this entity
      * @return The entity type
      */

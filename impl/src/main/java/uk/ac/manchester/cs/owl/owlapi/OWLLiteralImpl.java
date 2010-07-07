@@ -82,7 +82,19 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     public boolean parseBoolean() throws NumberFormatException {
-        return Boolean.parseBoolean(literal);
+        if(literal.equals("0")) {
+            return false;
+        }
+        if(literal.equals("1")) {
+            return true;
+        }
+        if(literal.equals("true")) {
+            return true;
+        }
+        if(literal.equals("false")) {
+            return false;
+        }
+        return false;
     }
 
     public boolean isDouble() {
@@ -106,7 +118,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     public boolean hasLang(String lang) {
-        return this.lang != null && this.lang.equals(lang);
+        return this.lang != null && this.lang.equalsIgnoreCase(lang.trim());
     }
 
     public OWLDatatype getDatatype() {

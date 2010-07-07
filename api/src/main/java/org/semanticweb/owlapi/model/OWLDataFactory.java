@@ -398,15 +398,29 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    OWLLiteral getOWLLiteral(String literal, OWLDatatype datatype);
+    /**
+     * Gets an <code>OWLLiteral</code>, which has the specified lexical value, and is typed with the specified
+     * datatype.
+     * @param lexicalValue The lexical value
+     * @param datatype The datatype.
+     * @return An OWLLiteral with the specified lexical value and specified datatype.  If the datatype is
+     * <code>rdf:PlainLiteral</code>, and the lexical value contains a language tag then the language tag will be
+     * parsed out of the lexical value.  For example, "abc@en"^^rdf:PlainLiteral would be parsed into a lexical
+     * value of "abc" and a language tag of "en".
+     */
+    OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype);
 
     /**
-     * Creates a typed literal that has the specified OWL 2 Datatype as its datatype
-     * @param literal The literal
-     * @param datatype The OWL 2 Datatype that will type the literal
-     * @return The typed literal
+     * Gets an <code>OWLLiteral</code>, which has the specified lexical value, and is typed with the specified
+     * datatype.
+     * @param lexicalValue The lexical value
+     * @param datatype The datatype.
+     * @return An OWLLiteral with the specified lexical value and specified datatype.  If the datatype is
+     * <code>rdf:PlainLiteral</code>, and the lexical value contains a language tag then the language tag will be
+     * parsed out of the lexical value.  For example, "abc@en"^^rdf:PlainLiteral would be parsed into a lexical
+     * value of "abc" and a language tag of "en".
      */
-    OWLLiteral getOWLLiteral(String literal, OWL2Datatype datatype);
+    OWLLiteral getOWLLiteral(String lexicalValue, OWL2Datatype datatype);
 
     /**
      * Convenience method that obtains a literal typed as an integer.
