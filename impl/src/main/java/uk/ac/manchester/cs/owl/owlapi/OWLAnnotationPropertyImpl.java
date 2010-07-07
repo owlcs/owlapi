@@ -81,7 +81,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
     }
 
     public boolean isDeprecated() {
-        return iri.toURI().equals(OWLRDFVocabulary.OWL_DEPRECATED.getURI());
+        return iri.equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
     }
 
     protected int compareObjectOfSameType(OWLObject object) {
@@ -97,11 +97,11 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
     }
 
     public boolean isComment() {
-        return iri.toURI().equals(OWLRDFVocabulary.RDFS_COMMENT.getURI());
+        return iri.equals(OWLRDFVocabulary.RDFS_COMMENT.getIRI());
     }
 
     public boolean isLabel() {
-        return iri.toURI().equals(OWLRDFVocabulary.RDFS_LABEL.getURI());
+        return iri.equals(OWLRDFVocabulary.RDFS_LABEL.getIRI());
     }
 
 

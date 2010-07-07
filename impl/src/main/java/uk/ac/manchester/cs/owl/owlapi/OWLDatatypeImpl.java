@@ -48,7 +48,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     public OWLDatatypeImpl(OWLDataFactory dataFactory, IRI iri) {
         super(dataFactory);
         this.iri = iri;
-        top = getURI().equals(OWLRDFVocabulary.RDFS_LITERAL.getURI());
+        top = iri.equals(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
         builtin = OWL2Datatype.isBuiltIn(iri) | top | iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
     }
 
@@ -116,31 +116,31 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     }
 
     public OWL2Datatype getBuiltInDatatype() {
-        if (!isBuiltIn()) {
+        if (!builtin) {
             throw new OWLRuntimeException("Not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
         } else {
-            return OWL2Datatype.getDatatype(getIRI());
+            return OWL2Datatype.getDatatype(iri);
         }
     }
 
     public boolean isDouble() {
-        return iri.toURI().equals(OWL2Datatype.XSD_DOUBLE.getURI());
+        return iri.equals(OWL2Datatype.XSD_DOUBLE.getIRI());
     }
 
     public boolean isFloat() {
-        return iri.toURI().equals(OWL2Datatype.XSD_FLOAT.getURI());
+        return iri.equals(OWL2Datatype.XSD_FLOAT.getIRI());
     }
 
     public boolean isInteger() {
-        return iri.toURI().equals(OWL2Datatype.XSD_INTEGER.getURI());
+        return iri.equals(OWL2Datatype.XSD_INTEGER.getIRI());
     }
 
     public boolean isString() {
-        return iri.toURI().equals(OWL2Datatype.XSD_STRING.getURI());
+        return iri.equals(OWL2Datatype.XSD_STRING.getIRI());
     }
 
     public boolean isBoolean() {
-        return iri.toURI().equals(OWL2Datatype.XSD_BOOLEAN.getURI());
+        return iri.equals(OWL2Datatype.XSD_BOOLEAN.getIRI());
     }
 
     public boolean isDatatype() {
