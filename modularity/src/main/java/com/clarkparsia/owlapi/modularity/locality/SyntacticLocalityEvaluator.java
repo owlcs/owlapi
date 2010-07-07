@@ -286,7 +286,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         // BUGFIX (TS): added the two cases where a disj union axiom *is* local:
         // - if LHS and all class expr on RHS are bot-equiv
-        // - if RHS is top-equiv, one expr on LHS is top-equiv and the others are bot-equiv
+        // - if LHS is top-equiv, one expr on RHS is top-equiv and the others are bot-equiv
         public void visit(OWLDisjointUnionAxiom axiom) {
             OWLClass lhs = axiom.getOWLClass();
             Collection<OWLClassExpression> rhs = axiom.getClassExpressions();
@@ -307,17 +307,17 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     break;
                 case TOP_BOTTOM:
                 case TOP_TOP:
-                    if (!signature.contains(rhs)) {
-                        boolean bottomEquivDescFound = false;
+                    if (!signature.contains(lhs)) {
+                        boolean topEquivDescFound = false;
                         for (OWLClassExpression desc : rhs) {
                             if (!bottomEvaluator.isBottomEquivalent(desc, signature, localityCls)) {
                                 if (topEvaluator.isTopEquivalent(desc, signature, localityCls)) {
-                                    if (bottomEquivDescFound) {
+                                    if (topEquivDescFound) {
                                         isLocal = false;
                                         return;
                                     }
                                     else {
-                                        bottomEquivDescFound = true;
+                                        topEquivDescFound = true;
                                     }
                                 }
                                 else {
