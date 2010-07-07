@@ -155,7 +155,7 @@ import java.util.List;
  * Given two object property expressions <code>OPE1</code> and <code>OPE2</code> and an ontology <code>O</code>,
  * <code>OPE1</code> is a strict subproperty of <code>OPE2</code>, written <code>StrictSubObjectPropertyOf(OPE1 OPE2)</code>
  * if <code>O</code> entails <code>SubObjectPropertyOf(OPE1 OPE2)</code> and <code>O</code> does not entail
- * <code>SubObjectPropertyOf(OPE1 OPE2)</code>
+ * <code>SubObjectPropertyOf(OPE2 OPE1)</code>
  * <p/>
  *
  *
