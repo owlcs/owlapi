@@ -43,12 +43,14 @@ public class ConsoleProgressMonitor implements ReasonerProgressMonitor {
     }
 
     public void reasonerTaskProgressChanged(int value, int max) {
-        int percent = (value * 100) / max;
-        if (lastPercentage != percent) {
-            System.out.print("    ");
-            System.out.print(percent);
-            System.out.println("%");
-            lastPercentage = percent;
+        if (max > 0) {
+            int percent = (value * 100) / max;
+            if (lastPercentage != percent) {
+                System.out.print("    ");
+                System.out.print(percent);
+                System.out.println("%");
+                lastPercentage = percent;
+            }
         }
     }
 
