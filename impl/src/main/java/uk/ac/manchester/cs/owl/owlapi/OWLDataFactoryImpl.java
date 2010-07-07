@@ -337,8 +337,101 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
         return new OWLLiteralImpl(this, literal, normalisedLang);
     }
 
+    /**
+     * @deprecated Use {@link #getOWLLiteral(String, org.semanticweb.owlapi.model.OWLDatatype)}
+     */
+    public OWLLiteral getOWLTypedLiteral(String literal, OWLDatatype datatype) {
+        return getOWLLiteral(literal, datatype);
+    }
+
+    /**
+     * @param literal The literal
+     * @param datatype The OWL 2 Datatype that will type the literal
+     * @return The typed literal
+     * @deprecated Use {@link #getOWLLiteral(String, org.semanticweb.owlapi.vocab.OWL2Datatype)}
+     *             Creates a typed literal that has the specified OWL 2 Datatype as its datatype
+     */
+    public OWLLiteral getOWLTypedLiteral(String literal, OWL2Datatype datatype) {
+        return getOWLLiteral(literal, datatype);
+    }
+
+    /**
+     * @param value The value of the literal
+     * @return An <code>OWLTypedConstant</code> whose literal is the lexical
+     *         value of the integer, and whose data type is xsd:integer.
+     * @deprecated Use {@link #getOWLLiteral(int)}
+     *             Convenience method that obtains a literal typed as an integer.
+     */
+    public OWLLiteral getOWLTypedLiteral(int value) {
+        return getOWLLiteral(value);
+    }
+
+    /**
+     * @param value The value of the literal
+     * @return An <code>OWLTypedConstant</code> whose literal is the lexical
+     *         value of the double, and whose data type is xsd:double.
+     * @deprecated Use {@link #getOWLLiteral(double)}
+     *             Convenience method that obtains a literal typed as a double.
+     */
+    public OWLLiteral getOWLTypedLiteral(double value) {
+        return getOWLLiteral(value);
+    }
+
+    /**
+     * @param value The value of the literal
+     * @return An <code>OWLTypedConstant</code> whose literal is the lexical
+     *         value of the boolean, and whose data type is xsd:boolean.
+     * @deprecated Use {@link #getOWLLiteral(boolean)}
+     *             Convenience method that obtains a literal typed as a boolean.
+     */
+    public OWLLiteral getOWLTypedLiteral(boolean value) {
+        return getOWLLiteral(value);
+    }
+
+    /**
+     * @param value The value of the literal
+     * @return An <code>OWLTypedConstant</code> whose literal is the lexical
+     *         value of the float, and whose data type is xsd:float.
+     * @deprecated Use {@link #getOWLLiteral(float)}
+     *             Convenience method that obtains a literal typed as a float.
+     */
+    public OWLLiteral getOWLTypedLiteral(float value) {
+        return getOWLLiteral(value);
+    }
+
+    /**
+     * @param value The value of the literal
+     * @return An <code>OWLTypedConstant</code> whose literal is the lexical
+     *         value of the string, and whose data type is xsd:string.
+     * @deprecated Use {@link #getOWLLiteral(String)}
+     *             Convenience method that obtains a literal typed as a string.
+     */
+    public OWLLiteral getOWLTypedLiteral(String value) {
+        return getOWLLiteral(value);
+    }
+
+    /**
+     * @param literal The string literal
+     * @param lang The language tag.  The tag is formed according to <a href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP47</a>
+     * but the OWL API will not check that the tag conforms to this specification - it is up to the caller to ensure this.  For backwards
+     * compatibility, if the value of lang is <code>null</code> then this is equivalent to calling the getOWLStringLiteral(String literal)
+     * method.
+     * @return The OWLStringLiteral that represents the string literal with a language tag.
+     * @deprecated Use {@link #getOWLLiteral(String, String)}
+     *             Gets an OWLStringLiteral with a language tag.
+     */
+    public OWLLiteral getOWLStringLiteral(String literal, String lang) {
+        return getOWLLiteral(literal, lang);
+    }
+
+    /**
+     * @param literal The string literal
+     * @return The string literal for the specfied string
+     * @deprecated Use {@link #getOWLLiteral(String, String)} with the second parameter as the empty string ("").
+     *             Gets a string literal without a language tag.
+     */
     public OWLLiteral getOWLStringLiteral(String literal) {
-        return new OWLLiteralImpl(this, literal, getOWLDatatype(XSDVocabulary.STRING.getIRI()));
+        return getOWLLiteral(literal, "");
     }
 
     public OWLDataOneOf getOWLDataOneOf(Set<? extends OWLLiteral> values) {
