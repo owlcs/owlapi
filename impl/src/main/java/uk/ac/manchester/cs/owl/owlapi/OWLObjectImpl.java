@@ -59,13 +59,11 @@ public abstract class OWLObjectImpl implements OWLObject {
 
     public Set<OWLEntity> getSignature() {
         if (signature == null) {
-            Set<OWLEntity> sig = new HashSet<OWLEntity>();
             OWLEntityCollector collector = new OWLEntityCollector();
             accept(collector);
-            sig.addAll(collector.getObjects());
-            signature = new HashSet<OWLEntity>(sig);
+            signature = Collections.unmodifiableSet(collector.getObjects());
         }
-        return Collections.unmodifiableSet(signature);
+        return signature;
     }
 
 
