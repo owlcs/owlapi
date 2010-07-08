@@ -2457,7 +2457,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     private static <K, V extends OWLAxiom> Set<V> getAxioms(K key, Map<K, Set<V>> map, boolean create) {
         Set<V> axioms = map.get(key);
         if (axioms == null) {
-            axioms = new FakeSet<V>();
+            axioms = createSet();
             if (create) {
                 map.put(key, axioms);
             }
@@ -2480,7 +2480,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
         Set<V> axioms = map.get(key);
         if (axioms == null) {
-            axioms = new FakeSet<V>();
+            axioms = createSet();
             map.put(key, axioms);
         }
         axioms.add(axiom);
