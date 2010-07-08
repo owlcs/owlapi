@@ -46,26 +46,11 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     private static OWLClass OWL_NOTHING = new OWLClassImpl(instance, OWLRDFVocabulary.OWL_NOTHING.getIRI());
 
-    private Map<IRI, OWLClass> classesByURI;
-
-    private Map<IRI, OWLObjectProperty> objectPropertiesByURI;
-
-    private Map<IRI, OWLDataProperty> dataPropertiesByURI;
-
-    private Map<IRI, OWLDatatype> datatypesByURI;
-
-    private Map<IRI, OWLNamedIndividual> individualsByURI;
-
-    private Map<IRI, OWLAnnotationProperty> annotationPropertiesByURI;
+    protected OWLDataFactoryInternals data;
 
 
     public OWLDataFactoryImpl() {
-        classesByURI = new WeakHashMap<IRI, OWLClass>();
-        objectPropertiesByURI = new HashMap<IRI, OWLObjectProperty>();
-        dataPropertiesByURI = new HashMap<IRI, OWLDataProperty>();
-        datatypesByURI = new HashMap<IRI, OWLDatatype>();
-        individualsByURI = new HashMap<IRI, OWLNamedIndividual>();
-        annotationPropertiesByURI = new HashMap<IRI, OWLAnnotationProperty>();
+    	data = new OWLDataFactoryInternalsImpl(this);
     }
 
     public static OWLDataFactory getInstance() {
@@ -74,11 +59,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public void purge() {
-        classesByURI.clear();
-        objectPropertiesByURI.clear();
-        dataPropertiesByURI.clear();
-        datatypesByURI.clear();
-        individualsByURI.clear();
+        data.purge();
     }
 
     /**
@@ -113,12 +94,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
     public OWLClass getOWLClass(IRI iri) {
-        OWLClass cls = classesByURI.get(iri);
-        if (cls == null) {
-            cls = new OWLClassImpl(this, iri);
-            classesByURI.put(iri, cls);
-        }
-        return cls;
+    	return data.getOWLClass(iri);
     }
 
     public OWLClass getOWLClass(String curi, PrefixManager prefixManager) {
@@ -224,30 +200,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
     public OWLObjectProperty getOWLObjectProperty(IRI iri) {
-        OWLObjectProperty prop = objectPropertiesByURI.get(iri);
-        if (prop == null) {
-            prop = new OWLObjectPropertyImpl(this, iri);
-            objectPropertiesByURI.put(iri, prop);
-        }
-        return prop;
+    	return data.getOWLObjectProperty(iri);
     }
 
     public OWLDataProperty getOWLDataProperty(IRI iri) {
-        OWLDataProperty prop = dataPropertiesByURI.get(iri);
-        if (prop == null) {
-            prop = new OWLDataPropertyImpl(this, iri);
-            dataPropertiesByURI.put(iri, prop);
-        }
-        return prop;
+    	return data.getOWLDataProperty(iri);
     }
 
     public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
-        OWLNamedIndividual ind = individualsByURI.get(iri);
-        if (ind == null) {
-            ind = new OWLNamedIndividualImpl(this, iri);
-            individualsByURI.put(iri, ind);
-        }
-        return ind;
+    	return data.getOWLNamedIndividual(iri);
     }
 
     public OWLDataProperty getOWLDataProperty(String curi, PrefixManager prefixManager) {
@@ -282,12 +243,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
     public OWLDatatype getOWLDatatype(IRI iri) {
-        OWLDatatype dt = datatypesByURI.get(iri);
-        if (dt == null) {
-            dt = new OWLDatatypeImpl(this, iri);
-            datatypesByURI.put(iri, dt);
-        }
-        return dt;
+        return data.getOWLDatatype(iri);
     }
 
     public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
@@ -1175,12 +1131,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
-        OWLAnnotationProperty prop = annotationPropertiesByURI.get(iri);
-        if (prop == null) {
-            prop = new OWLAnnotationPropertyImpl(this, iri);
-            annotationPropertiesByURI.put(iri, prop);
-        }
-        return prop;
+        return data.getOWLAnnotationProperty(iri);
     }
 
     /**
