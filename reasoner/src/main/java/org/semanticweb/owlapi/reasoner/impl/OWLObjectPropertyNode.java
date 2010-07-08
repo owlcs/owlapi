@@ -1,8 +1,10 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.vocab.OWLDataFactoryVocabulary;
 
 import java.util.Set;
 /*
@@ -37,11 +39,11 @@ import java.util.Set;
 public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
 
 
-    private static final OWLObjectProperty TOP_OBJECT_PROPERTY = OWLDataFactoryImpl.getInstance().getOWLTopObjectProperty();
+    private static final OWLObjectProperty TOP_OBJECT_PROPERTY = OWLDataFactoryVocabulary.OWLTopObjectProperty;
 
     private static final OWLObjectPropertyNode TOP_NODE = new OWLObjectPropertyNode(TOP_OBJECT_PROPERTY);
 
-    private static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = OWLDataFactoryImpl.getInstance().getOWLBottomObjectProperty();
+    private static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = OWLDataFactoryVocabulary.OWLBottomObjectProperty;
 
     private static final OWLObjectPropertyNode BOTTOM_NODE = new OWLObjectPropertyNode(BOTTOM_OBJECT_PROPERTY);
 

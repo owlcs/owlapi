@@ -5,6 +5,7 @@ import org.semanticweb.owlapi.reasoner.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.Version;
+import org.semanticweb.owlapi.vocab.OWLDataFactoryVocabulary;
 
 import java.util.*;
 
@@ -1074,7 +1075,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                 }
             }
             if (result.isEmpty() && !parent.isOWLNothing()) {
-                result.add(OWLDataFactoryImpl.getInstance().getOWLNothing());
+                result.add(OWLDataFactoryVocabulary.OWLNothing);
             }
             return result;
         }

@@ -1,6 +1,8 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.vocab.OWLDataFactoryVocabulary;
 
 import java.util.Set;
 
@@ -36,7 +38,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  */
 public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
 
-    private static final OWLDatatype TOP_DATATYPE = OWLDataFactoryImpl.getInstance().getTopDatatype();
+    private static final OWLDatatype TOP_DATATYPE = OWLDataFactoryVocabulary.TopDatatype;
 
     private static final OWLDatatypeNode topNode = new OWLDatatypeNode(TOP_DATATYPE);
 
