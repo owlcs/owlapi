@@ -21,7 +21,6 @@ public class OWLDataFactoryInternalsImpl implements OWLDataFactoryInternals {
 	private Map<IRI, WeakReference<OWLDatatype>> datatypesByURI;
 	private Map<IRI, WeakReference<OWLNamedIndividual>> individualsByURI;
 	private Map<IRI, WeakReference<OWLAnnotationProperty>> annotationPropertiesByURI;
-	
 	private final OWLDataFactory factory;
 
 	public OWLDataFactoryInternalsImpl(OWLDataFactory f) {
@@ -34,68 +33,92 @@ public class OWLDataFactoryInternalsImpl implements OWLDataFactoryInternals {
 		annotationPropertiesByURI = new WeakHashMap<IRI, WeakReference<OWLAnnotationProperty>>();
 	}
 
+	private <T> T unwrap(Map<IRI, WeakReference<T>> map, IRI iri,
+			BuildableObjects type) {
+		T toReturn = null;
+		while (toReturn == null) {
+			WeakReference<T> r = map.get(iri);
+			if (r == null || r.get() == null) {
+				toReturn = type.build(factory, iri);
+				r = new WeakReference<T>(toReturn);
+				map.put(iri, r);
+			} else {
+				toReturn = r.get();
+			}
+		}
+		return toReturn;
+	}
+
+	private enum BuildableObjects {
+		OWLCLASS {
+			@Override
+			<T> T build(OWLDataFactory f, IRI iri) {
+				return (T) new OWLClassImpl(f, iri);
+			}
+		},
+		OWLOBJECTPROPERTY {
+			@Override
+			<T> T build(OWLDataFactory f, IRI iri) {
+				return (T) new OWLObjectPropertyImpl(f, iri);
+			}
+		},
+		OWLDATAPROPERTY {
+			@Override
+			<T> T build(OWLDataFactory f, IRI iri) {
+				return (T) new OWLDataPropertyImpl(f, iri);
+			}
+		},
+		OWLNAMEDINDIVIDUAL {
+			@Override
+			<T> T build(OWLDataFactory f, IRI iri) {
+				return (T) new OWLNamedIndividualImpl(f, iri);
+			}
+		},
+		OWLDATATYPE {
+			@Override
+			<T> T build(OWLDataFactory f, IRI iri) {
+				return (T) new OWLDatatypeImpl(f, iri);
+			}
+		},
+		OWLANNOTATIONPROPERTY {
+			@Override
+			<T> T build(OWLDataFactory f, IRI iri) {
+				return (T) new OWLAnnotationPropertyImpl(f, iri);
+			}
+		};
+		abstract <T> T build(OWLDataFactory f, IRI iri);
+	}
 
 	public OWLClass getOWLClass(IRI iri) {
-        WeakReference<OWLClass> cls = classesByURI.get(iri);
-        if (cls == null) {
-            cls = new WeakReference<OWLClass>(new OWLClassImpl(factory, iri));
-            classesByURI.put(iri, cls);
-        }
-        return cls.get();
-    }
-
+		return unwrap(classesByURI, iri, BuildableObjects.OWLCLASS);
+	}
 
 	public void purge() {
 		classesByURI.clear();
-        objectPropertiesByURI.clear();
-        dataPropertiesByURI.clear();
-        datatypesByURI.clear();
-        individualsByURI.clear();
-        annotationPropertiesByURI.clear();
+		objectPropertiesByURI.clear();
+		dataPropertiesByURI.clear();
+		datatypesByURI.clear();
+		individualsByURI.clear();
+		annotationPropertiesByURI.clear();
 	}
 
 	public OWLObjectProperty getOWLObjectProperty(IRI iri) {
-		WeakReference<OWLObjectProperty> prop = objectPropertiesByURI.get(iri);
-        if (prop == null) {
-            prop = new WeakReference<OWLObjectProperty>(new OWLObjectPropertyImpl(factory, iri));
-            objectPropertiesByURI.put(iri, prop);
-        }
-        return prop.get();
-    }
+		return unwrap(objectPropertiesByURI, iri, BuildableObjects.OWLOBJECTPROPERTY);
+	}
 
-    public OWLDataProperty getOWLDataProperty(IRI iri) {
-    	WeakReference<OWLDataProperty> prop = dataPropertiesByURI.get(iri);
-        if (prop == null) {
-            prop = new WeakReference<OWLDataProperty>(new OWLDataPropertyImpl(factory, iri));
-            dataPropertiesByURI.put(iri, prop);
-        }
-        return prop.get();
-    }
+	public OWLDataProperty getOWLDataProperty(IRI iri) {
+		return unwrap(dataPropertiesByURI, iri, BuildableObjects.OWLDATAPROPERTY);
+	}
 
-    public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
-    	WeakReference<OWLNamedIndividual> ind = individualsByURI.get(iri);
-        if (ind == null) {
-            ind = new WeakReference<OWLNamedIndividual>( new OWLNamedIndividualImpl(factory, iri));
-            individualsByURI.put(iri, ind);
-        }
-        return ind.get();
-    }
+	public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
+		return unwrap(individualsByURI, iri, BuildableObjects.OWLNAMEDINDIVIDUAL);
+	}
 
-    public OWLDatatype getOWLDatatype(IRI iri) {
-    	WeakReference<OWLDatatype> dt = datatypesByURI.get(iri);
-        if (dt == null) {
-            dt = new WeakReference<OWLDatatype>( new OWLDatatypeImpl(factory, iri));
-            datatypesByURI.put(iri, dt);
-        }
-        return dt.get();
-    }
+	public OWLDatatype getOWLDatatype(IRI iri) {
+		return unwrap(datatypesByURI, iri, BuildableObjects.OWLDATATYPE);
+	}
 
-    public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
-    	WeakReference<OWLAnnotationProperty> prop = annotationPropertiesByURI.get(iri);
-        if (prop == null) {
-            prop = new WeakReference<OWLAnnotationProperty>( new OWLAnnotationPropertyImpl(factory, iri));
-            annotationPropertiesByURI.put(iri, prop);
-        }
-        return prop.get();
-    }
+	public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
+		return unwrap(annotationPropertiesByURI, iri, BuildableObjects.OWLANNOTATIONPROPERTY);
+	}
 }
