@@ -70,7 +70,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
      * @return An entity that has the same IRI as this entity and is of the specified type
      */
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
-        return getOWLDataFactory().getOWLEntity(entityType, getIRI());
+        return getOWLDataFactory().getOWLEntity(entityType, iri);
     }
 
     /**
@@ -234,7 +234,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     }
 
     protected int compareObjectOfSameType(OWLObject object) {
-        return getIRI().compareTo(((OWLObjectProperty) object).getIRI());
+        return iri.compareTo(((OWLObjectProperty) object).getIRI());
     }
 
     /**
@@ -242,7 +242,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
      * @return <code>true</code> if this property is the owl:topObjectProperty otherwise <code>false</code>
      */
     public boolean isOWLTopObjectProperty() {
-        return getIRI().equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI());
+        return iri.equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI());
     }
 
     /**
@@ -250,7 +250,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
      * @return <code>true</code> if this property is the owl:bottomObjectProperty otherwise <code>false</code>
      */
     public boolean isOWLBottomObjectProperty() {
-        return getIRI().equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
+        return iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
     }
 
     /**

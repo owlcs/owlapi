@@ -82,7 +82,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
      * @return An entity that has the same IRI as this entity and is of the specified type
      */
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
-        return getOWLDataFactory().getOWLEntity(entityType, getIRI());
+        return getOWLDataFactory().getOWLEntity(entityType, iri);
     }
 
     /**
