@@ -11,36 +11,37 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 public class OWLDataFactoryInternalsImpl implements OWLDataFactoryInternals {
-	private Map<IRI, WeakReference<OWLClass>> classesByURI;
-	private Map<IRI, WeakReference<OWLObjectProperty>> objectPropertiesByURI;
-	private Map<IRI, WeakReference<OWLDataProperty>> dataPropertiesByURI;
-	private Map<IRI, WeakReference<OWLDatatype>> datatypesByURI;
-	private Map<IRI, WeakReference<OWLNamedIndividual>> individualsByURI;
-	private Map<IRI, WeakReference<OWLAnnotationProperty>> annotationPropertiesByURI;
+	private Map<IRI, WeakReference<? extends OWLEntity>> classesByURI;
+	private Map<IRI, WeakReference<? extends OWLEntity>> objectPropertiesByURI;
+	private Map<IRI, WeakReference<? extends OWLEntity>> dataPropertiesByURI;
+	private Map<IRI, WeakReference<? extends OWLEntity>> datatypesByURI;
+	private Map<IRI, WeakReference<? extends OWLEntity>> individualsByURI;
+	private Map<IRI, WeakReference<? extends OWLEntity>> annotationPropertiesByURI;
 	private final OWLDataFactory factory;
 
 	public OWLDataFactoryInternalsImpl(OWLDataFactory f) {
 		factory = f;
-		classesByURI = new WeakHashMap<IRI, WeakReference<OWLClass>>();
-		objectPropertiesByURI = new WeakHashMap<IRI, WeakReference<OWLObjectProperty>>();
-		dataPropertiesByURI = new WeakHashMap<IRI, WeakReference<OWLDataProperty>>();
-		datatypesByURI = new WeakHashMap<IRI, WeakReference<OWLDatatype>>();
-		individualsByURI = new WeakHashMap<IRI, WeakReference<OWLNamedIndividual>>();
-		annotationPropertiesByURI = new WeakHashMap<IRI, WeakReference<OWLAnnotationProperty>>();
+		classesByURI = new WeakHashMap<IRI, WeakReference<? extends OWLEntity>>();
+		objectPropertiesByURI = new WeakHashMap<IRI, WeakReference<? extends OWLEntity>>();
+		dataPropertiesByURI = new WeakHashMap<IRI, WeakReference<? extends OWLEntity>>();
+		datatypesByURI = new WeakHashMap<IRI, WeakReference<? extends OWLEntity>>();
+		individualsByURI = new WeakHashMap<IRI, WeakReference<? extends OWLEntity>>();
+		annotationPropertiesByURI = new WeakHashMap<IRI, WeakReference<? extends OWLEntity>>();
 	}
 
-	private <T> T unwrap(Map<IRI, WeakReference<T>> map, IRI iri,
-			BuildableObjects type) {
-		T toReturn = null;
+	private OWLEntity unwrap(Map<IRI, WeakReference<? extends OWLEntity>> map,
+			IRI iri, BuildableObjects type) {
+		OWLEntity toReturn = null;
 		while (toReturn == null) {
-			WeakReference<T> r = map.get(iri);
+			WeakReference<? extends OWLEntity> r = map.get(iri);
 			if (r == null || r.get() == null) {
 				toReturn = type.build(factory, iri);
-				r = new WeakReference<T>(toReturn);
+				r = new WeakReference<OWLEntity>(toReturn);
 				map.put(iri, r);
 			} else {
 				toReturn = r.get();
@@ -52,45 +53,45 @@ public class OWLDataFactoryInternalsImpl implements OWLDataFactoryInternals {
 	private enum BuildableObjects {
 		OWLCLASS {
 			@Override
-			<T> T build(OWLDataFactory f, IRI iri) {
-				return (T) new OWLClassImpl(f, iri);
+			OWLEntity build(OWLDataFactory f, IRI iri) {
+				return new OWLClassImpl(f, iri);
 			}
 		},
 		OWLOBJECTPROPERTY {
 			@Override
-			<T> T build(OWLDataFactory f, IRI iri) {
-				return (T) new OWLObjectPropertyImpl(f, iri);
+			OWLEntity build(OWLDataFactory f, IRI iri) {
+				return new OWLObjectPropertyImpl(f, iri);
 			}
 		},
 		OWLDATAPROPERTY {
 			@Override
-			<T> T build(OWLDataFactory f, IRI iri) {
-				return (T) new OWLDataPropertyImpl(f, iri);
+			OWLEntity build(OWLDataFactory f, IRI iri) {
+				return new OWLDataPropertyImpl(f, iri);
 			}
 		},
 		OWLNAMEDINDIVIDUAL {
 			@Override
-			<T> T build(OWLDataFactory f, IRI iri) {
-				return (T) new OWLNamedIndividualImpl(f, iri);
+			OWLEntity build(OWLDataFactory f, IRI iri) {
+				return new OWLNamedIndividualImpl(f, iri);
 			}
 		},
 		OWLDATATYPE {
 			@Override
-			<T> T build(OWLDataFactory f, IRI iri) {
-				return (T) new OWLDatatypeImpl(f, iri);
+			OWLEntity build(OWLDataFactory f, IRI iri) {
+				return new OWLDatatypeImpl(f, iri);
 			}
 		},
 		OWLANNOTATIONPROPERTY {
 			@Override
-			<T> T build(OWLDataFactory f, IRI iri) {
-				return (T) new OWLAnnotationPropertyImpl(f, iri);
+			OWLEntity build(OWLDataFactory f, IRI iri) {
+				return new OWLAnnotationPropertyImpl(f, iri);
 			}
 		};
-		abstract <T> T build(OWLDataFactory f, IRI iri);
+		abstract OWLEntity build(OWLDataFactory f, IRI iri);
 	}
 
 	public OWLClass getOWLClass(IRI iri) {
-		return unwrap(classesByURI, iri, BuildableObjects.OWLCLASS);
+		return (OWLClass) unwrap(classesByURI, iri, BuildableObjects.OWLCLASS);
 	}
 
 	public void purge() {
@@ -103,22 +104,27 @@ public class OWLDataFactoryInternalsImpl implements OWLDataFactoryInternals {
 	}
 
 	public OWLObjectProperty getOWLObjectProperty(IRI iri) {
-		return unwrap(objectPropertiesByURI, iri, BuildableObjects.OWLOBJECTPROPERTY);
+		return (OWLObjectProperty) unwrap(objectPropertiesByURI, iri,
+				BuildableObjects.OWLOBJECTPROPERTY);
 	}
 
 	public OWLDataProperty getOWLDataProperty(IRI iri) {
-		return unwrap(dataPropertiesByURI, iri, BuildableObjects.OWLDATAPROPERTY);
+		return (OWLDataProperty) unwrap(dataPropertiesByURI, iri,
+				BuildableObjects.OWLDATAPROPERTY);
 	}
 
 	public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
-		return unwrap(individualsByURI, iri, BuildableObjects.OWLNAMEDINDIVIDUAL);
+		return (OWLNamedIndividual) unwrap(individualsByURI, iri,
+				BuildableObjects.OWLNAMEDINDIVIDUAL);
 	}
 
 	public OWLDatatype getOWLDatatype(IRI iri) {
-		return unwrap(datatypesByURI, iri, BuildableObjects.OWLDATATYPE);
+		return (OWLDatatype) unwrap(datatypesByURI, iri,
+				BuildableObjects.OWLDATATYPE);
 	}
 
 	public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
-		return unwrap(annotationPropertiesByURI, iri, BuildableObjects.OWLANNOTATIONPROPERTY);
+		return (OWLAnnotationProperty) unwrap(annotationPropertiesByURI, iri,
+				BuildableObjects.OWLANNOTATIONPROPERTY);
 	}
 }
