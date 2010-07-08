@@ -41,9 +41,7 @@ public abstract class OWLObjectImpl implements OWLObject {
 
     private int hashCode = 0;
 
-    private static OWLObjectTypeIndexProvider typeIndexProvider = new OWLObjectTypeIndexProvider();
 
-    private static AxiomSubjectProvider subjectProvider = new AxiomSubjectProvider();
 
     private Set<OWLEntity> signature;
 
@@ -159,6 +157,7 @@ public abstract class OWLObjectImpl implements OWLObject {
 //                return axDiff;
 //            }
 //        }
+        OWLObjectTypeIndexProvider typeIndexProvider = new OWLObjectTypeIndexProvider();
         int thisTypeIndex = typeIndexProvider.getTypeIndex(this);
         int otherTypeIndex = typeIndexProvider.getTypeIndex(o);
         int diff = thisTypeIndex - otherTypeIndex;
