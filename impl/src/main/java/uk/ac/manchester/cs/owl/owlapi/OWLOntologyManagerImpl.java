@@ -705,7 +705,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         ontologiesByID.remove(oldID);
         ontologiesByID.put(newID, ont);
         IRI documentIRI = documentIRIsByID.remove(oldID);
-        documentIRIsByID.put(newID, documentIRI);
+		if (documentIRI != null) {
+			documentIRIsByID.put(newID, documentIRI);
+		}
         resetImportsClosureCache();
     }
 
