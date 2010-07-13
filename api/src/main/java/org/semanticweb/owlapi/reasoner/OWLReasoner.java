@@ -332,6 +332,9 @@ public interface OWLReasoner {
      * whether inferences are precomputed or not.  For example, if the imports closure of the root ontology entails
      * <code>SubClassOf(A B)</code> then the result of <code>getSubClasses(B)</code> will contain <code>A</code>, regardless of whether
      * <code>precomputeInferences({@link InferenceType#CLASS_HIERARCHY})</code> has been called.
+     * <p>
+     * If the reasoner does not support the precomputation of a particular type of inference then it will silently ignore
+     * the request.
      * @param inferenceTypes Suggests a list of the types of inferences that should be precomputed.  If the list is empty then
      * the reasoner will determine which types of inferences are precomputed.  Note that the order of the list is
      * unimportant - the reasoner will determine the order in which inferences are computed.
