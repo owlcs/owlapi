@@ -21,19 +21,17 @@ package org.semanticweb.owlapi.apibinding.configurables;/*
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
-import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OWLParserFactory;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxParserFactory;
-import org.coode.owlapi.obo.parser.OBOParserFactory;
-import org.coode.owlapi.obo.renderer.OBOFlatFileOntologyStorer;
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParserFactory;
 import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxOntologyStorer;
 import org.coode.owlapi.latex.LatexOntologyStorer;
+import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxParserFactory;
+import org.coode.owlapi.obo.parser.OBOParserFactory;
+import org.coode.owlapi.obo.renderer.OBOFlatFileOntologyStorer;
+import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
 import org.coode.owlapi.owlxmlparser.OWLXMLParserFactory;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
-import org.coode.owlapi.turtle.TurtleOntologyStorer;
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
-import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
+import org.coode.owlapi.turtle.TurtleOntologyStorer;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -43,6 +41,8 @@ import uk.ac.manchester.cs.owl.owlapi.alternateimpls.AlternateEmptyInMemOWLOntol
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.AlternateParsableOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOntologyStorer;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleOntologyParserFactory;
+import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OWLParserFactory;
+import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
 
 /**
  * Author: Matthew Horridge<br>
