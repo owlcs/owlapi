@@ -6,7 +6,6 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.apibinding.configurables.ThreadSafeOWLManager;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;

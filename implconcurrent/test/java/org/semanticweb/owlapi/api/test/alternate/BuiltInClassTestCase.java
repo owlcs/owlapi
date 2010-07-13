@@ -8,8 +8,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-
 /*
  * Copyright (C) 2007, University of Manchester
  *

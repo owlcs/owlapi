@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.api.test.alternate;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.apibinding.configurables.ThreadSafeOWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;

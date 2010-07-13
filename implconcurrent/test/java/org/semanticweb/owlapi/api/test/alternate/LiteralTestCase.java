@@ -1,15 +1,15 @@
 package org.semanticweb.owlapi.api.test.alternate;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Author: Matthew Horridge<br>

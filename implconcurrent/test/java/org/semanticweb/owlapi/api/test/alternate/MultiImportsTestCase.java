@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.api.test.alternate;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.apibinding.configurables.ThreadSafeOWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -20,9 +19,9 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
 			OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI
 					.create("http://purl.obolibrary.org/obo/iao.owl"));
 		} catch (OWLOntologyCreationException e) {
-			Thread.dumpStack();
-			fail(e.getMessage());
 			e.printStackTrace();
+			fail(e.getMessage());
+			
 		}
 	}
 }
