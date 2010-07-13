@@ -1352,5 +1352,9 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub, OWLAnnotationProperty sup);
 
     OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub, OWLAnnotationProperty sup, Set<? extends OWLAnnotation> annotations);
+    
+    
+    /**Empty all caches*/
+    void purge();
 }
 
