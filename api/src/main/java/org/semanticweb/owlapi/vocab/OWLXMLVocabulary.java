@@ -271,13 +271,13 @@ public enum OWLXMLVocabulary {
     }
 
 
-    static Set<URI> BUILT_IN_URIS;
+    static Set<IRI> BUILT_IN_IRIS;
 
 
     static {
-        BUILT_IN_URIS = new HashSet<URI>();
+        BUILT_IN_IRIS = new HashSet<IRI>();
         for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
-            BUILT_IN_URIS.add(v.getURI());
+            BUILT_IN_IRIS.add(v.getIRI());
         }
     }
 }

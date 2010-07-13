@@ -51,7 +51,7 @@ public class DefaultPrefixManagerTestCase extends TestCase {
 	public void testPrefixIRIExpansion() {
 		PrefixManager pm = new DefaultPrefixManager();
 		IRI iri = pm.getIRI("rdfs:comment");
-		assertEquals(iri.toURI(), OWLRDFVocabulary.RDFS_COMMENT.getURI());
+		assertEquals(iri, OWLRDFVocabulary.RDFS_COMMENT.getIRI());
 	}
 
 	public void testDefaultPrefixExpansion() {

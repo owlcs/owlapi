@@ -288,8 +288,8 @@ public class ManchesterOWLSyntaxEditorParser {
             dataTypeNames.add(v.getIRI().getFragment());
             dataTypeNames.add("xsd:" + v.getIRI().getFragment());
         }
-        dataTypeNames.add(OWLRDFVocabulary.RDF_XML_LITERAL.getURI().getFragment());
-        dataTypeNames.add("rdf:" + OWLRDFVocabulary.RDF_XML_LITERAL.getURI().getFragment());
+        dataTypeNames.add(OWLRDFVocabulary.RDF_XML_LITERAL.getIRI().getFragment());
+        dataTypeNames.add("rdf:" + OWLRDFVocabulary.RDF_XML_LITERAL.getIRI().getFragment());
 
         dataTypeNames.add(dataFactory.getTopDatatype().getIRI().getFragment());
 

@@ -325,6 +325,9 @@ public enum OWLRDFVocabulary {
         this.iri = IRI.create(namespace.toString() + shortName);
     }
 
+    /**
+     * @deprecated Use getIRI() instead.
+     */
     public URI getURI() {
         return uri;
     }
