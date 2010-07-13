@@ -859,7 +859,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             if (childCycle != null) {
                 parents.removeAll(childCycle.getEntities());
             }
-            if (parents.isEmpty()) {
+            if (parents.isEmpty() && childCycle != null && !childCycle.contains(topEntity)) {
                 Node<T> topNode = cycles.get(topEntity);
                 if (topNode == null) {
                     ns.addEntity(topEntity);

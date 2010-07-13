@@ -100,7 +100,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
      * Gets the objects that are used by all axioms, class expressions etc. that this
      * collector has visited since it was constructed or reset.
      *
-     * @return A set of entities
+     * @return A set of entities.  This will be a copy.
      */
     public Set<OWLEntity> getObjects() {
         return new HashSet<OWLEntity>(objects);

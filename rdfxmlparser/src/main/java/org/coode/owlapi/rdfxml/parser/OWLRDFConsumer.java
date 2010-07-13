@@ -175,7 +175,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     // Handlers for build in predicates
     private Map<IRI, TriplePredicateHandler> predicateHandlers;
 
-    private Map<IRI, AbstractLiteralTripleHandler> skosTripleHandlers;
+    private Map<IRI, AbstractLiteralTripleHandler> skosLiteralTripleHandlers;
 
     // Handlers for general literal triples (i.e. triples which
     // have predicates that are not part of the built in OWL/RDFS/RDF
@@ -232,6 +232,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     private Set<IRI> swrlDifferentFromAtoms;
 
     private IRIProvider iriProvider;
+    
     private GTPObjectPropertyAssertionHandler objectPropertyAssertionHandler;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -334,7 +335,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         setupSynonymMap();
         setupSinglePredicateMaps();
 
-        setupSKOSTipleHandlers();
+        setupSKOSMachinery();
     }
 
     /**
@@ -461,22 +462,22 @@ public class OWLRDFConsumer implements RDFConsumer {
         synonymMap.put(IRI.create(Namespaces.OWL11.toString() + v.getShortName()), v.getIRI());
     }
 
-    private void setupSKOSTipleHandlers() {
-        skosTripleHandlers = new HashMap<IRI, AbstractLiteralTripleHandler>();
-        addSKOSTripleHandler(SKOSVocabulary.ALTLABEL);
-        addSKOSTripleHandler(SKOSVocabulary.CHANGENOTE);
-        addSKOSTripleHandler(SKOSVocabulary.COMMENT);
-        addSKOSTripleHandler(SKOSVocabulary.DEFINITION);
-        addSKOSTripleHandler(SKOSVocabulary.DOCUMENT);
-        addSKOSTripleHandler(SKOSVocabulary.EDITORIALNOTE);
-        addSKOSTripleHandler(SKOSVocabulary.HIDDENLABEL);
-        addSKOSTripleHandler(SKOSVocabulary.PREFLABEL);
-        addSKOSTripleHandler(SKOSVocabulary.SCOPENOTE);
+    private void setupSKOSMachinery() {
+        skosLiteralTripleHandlers = new HashMap<IRI, AbstractLiteralTripleHandler>();
+        for(SKOSVocabulary v : SKOSVocabulary.values()) {
+            if (v.getEntityType().equals(EntityType.ANNOTATION_PROPERTY)) {
+                annotationIRIs.add(v.getIRI());
+            }
+            else if(v.getEntityType().equals(EntityType.OBJECT_PROPERTY)) {
+                addPredicateHandler(new SKOSObjectTripleHandler(this, v));
+            }
+            else if(v.getEntityType().equals(EntityType.CLASS)) {
+                addBuiltInTypeTripleHandler(new SKOSClassTripleHandler(this, v));
+            }
+        }
     }
 
-    private void addSKOSTripleHandler(SKOSVocabulary dataPredicate) {
-        skosTripleHandlers.put(dataPredicate.getIRI(), new SKOSDataTripleHandler(this, dataPredicate.getIRI()));
-    }
+
 
     public OWLOntology getOntology() {
         return ontology;
@@ -550,7 +551,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addBuiltInTypeTripleHandler(new TypeSWRLSameIndividualAtomHandler(this));
         addBuiltInTypeTripleHandler(new TypeSWRLVariableHandler(this));
 
-        addBuiltInTypeTripleHandler(new SKOSConceptTripleHandler(this));
+
     }
 
     private void setupAxiomTypeHandlers() {
@@ -610,11 +611,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         addPredicateHandler(new TPAnnotatedSourceHandler(this));
         addPredicateHandler(new TPPropertyDisjointWithHandler(this));
 
-        addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.BROADER));
-        addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.NARROWER));
-        addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.RELATED));
-        addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.HASTOPCONCEPT));
-        addPredicateHandler(new SKOSObjectTripleHandler(this, SKOSVocabulary.SEMANTICRELATION));
 
 
     }
@@ -874,18 +870,6 @@ public class OWLRDFConsumer implements RDFConsumer {
                 for (OWLAnnotationProperty prop : ont.getAnnotationPropertiesInSignature()) {
                     annotationPropertyIRIs.add(prop.getIRI());
                 }
-//                if (ont.getAnnotationIRIs().contains(iri)) {
-//                     Cache IRI
-//                    annotationPropertyIRIs.addAll(ont.getAnnotationIRIs());
-//                    return annotationPropertyIRIs.contains(iri);
-//                } else {
-//                    OWLOntologyFormat format = owlOntologyManager.getOntologyFormat(ont);
-//                    if (format instanceof RDFXMLOntologyFormat) {
-//                        RDFXMLOntologyFormat rdfFormat = (RDFXMLOntologyFormat) format;
-//                        annotationPropertyIRIs.addAll(rdfFormat.getAnnotationIRIs());
-//                        return annotationPropertyIRIs.contains(iri);
-//                    }
-//                }
             }
         }
         return false;
@@ -1464,7 +1448,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     private void handleStreaming(IRI subject, IRI predicate, String literal, String datatype, String lang) {
         // Convert all literals to OWLConstants
         OWLLiteral con = getOWLLiteral(literal, datatype, lang);
-        AbstractLiteralTripleHandler skosHandler = skosTripleHandlers.get(predicate);
+        AbstractLiteralTripleHandler skosHandler = skosLiteralTripleHandlers.get(predicate);
         if (skosHandler != null) {
             skosHandler.handleTriple(subject, predicate, con);
             return;

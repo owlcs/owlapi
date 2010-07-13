@@ -38,9 +38,6 @@ import java.util.logging.Logger;
  */
 public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
 
-    private static final Logger logger = Logger.getLogger(GTPAnnotationLiteralHandler.class.getName());
-
-
     public GTPAnnotationLiteralHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }

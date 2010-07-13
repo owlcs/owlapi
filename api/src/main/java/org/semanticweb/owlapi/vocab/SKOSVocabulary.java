@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.vocab;
 
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.*;
 
 import java.net.URI;
 import java.util.HashSet;
@@ -37,54 +37,109 @@ import java.util.Set;
  */
 public enum SKOSVocabulary {
 
-    BROADER("broader"),
+    BROADMATCH("broadMatch", EntityType.OBJECT_PROPERTY),
 
-    NARROWER("narrower"),
+    BROADER("broader", EntityType.OBJECT_PROPERTY),
 
-    RELATED("related"),
+    BROADERTRANSITIVE("broaderTransitive", EntityType.OBJECT_PROPERTY),
 
-    HASTOPCONCEPT("hasTopConcept"),
+    CLOSEMATCH("closeMatch", EntityType.OBJECT_PROPERTY),
 
-    SEMANTICRELATION("semanticRelation"),
+    EXACTMATCH("exactMatch", EntityType.OBJECT_PROPERTY),
 
-    CONCPET("Concept"),
+    HASTOPCONCEPT("hasTopConcept", EntityType.OBJECT_PROPERTY),
 
-    CONCEPTSCHEME("ConceptScheme"),
+    INSCHEME("inScheme", EntityType.OBJECT_PROPERTY),
 
-    TOPCONCEPT("TopConcept"),
+    MAPPINGRELATION("mappingRelation", EntityType.OBJECT_PROPERTY),
 
-    DOCUMENT("Document"),
+    MEMBER("member", EntityType.OBJECT_PROPERTY),
 
-    IMAGE("Image"),
+    MEMBERLIST("memberList", EntityType.OBJECT_PROPERTY),
 
-    ORDEREDCOLLECTION("OrderedCollection"),
+    NARROWMATCH("narrowMatch", EntityType.OBJECT_PROPERTY),
 
-    COLLECTABLEPROPERTY("CollectableProperty"),
+    NARROWER("narrower", EntityType.OBJECT_PROPERTY),
 
-    RESOURCE("Resource"),
+    NARROWTRANSITIVE("narrowTransitive", EntityType.OBJECT_PROPERTY),
 
-    PREFLABEL("prefLabel"),
+    RELATED("related", EntityType.OBJECT_PROPERTY),
 
-    ALTLABEL("altLabel"),
+    RELATEDMATCH("relatedMatch", EntityType.OBJECT_PROPERTY),
 
-    COMMENT("comment"),
+    SEMANTICRELATION("semanticRelation", EntityType.OBJECT_PROPERTY),
 
-    SCOPENOTE("scopeNote"),
+    TOPCONCEPTOF("topConceptOf", EntityType.OBJECT_PROPERTY),
 
-    HIDDENLABEL("hiddenLabel"),
 
-    EDITORIALNOTE("editorialNote"),
 
-    DEFINITION("definition"),
 
-    CHANGENOTE("changeNote");
+    COLLECTION("Collection", EntityType.CLASS),
 
-    public static final Set<URI> ALL_URIS;
+    CONCPET("Concept", EntityType.CLASS),
+
+    CONCEPTSCHEME("ConceptScheme", EntityType.CLASS),
+
+    ORDEREDCOLLECTION("OrderedCollection", EntityType.CLASS),
+
+    TOPCONCEPT("TopConcept", EntityType.CLASS),
+
+
+    ALTLABEL("altLabel", EntityType.ANNOTATION_PROPERTY),
+
+    CHANGENOTE("changeNote", EntityType.ANNOTATION_PROPERTY),
+
+    DEFINITION("definition", EntityType.ANNOTATION_PROPERTY),
+
+    EDITORIALNOTE("editorialNote", EntityType.ANNOTATION_PROPERTY),
+
+    EXAMPLE("example", EntityType.ANNOTATION_PROPERTY),
+
+    HIDDENLABEL("hiddenLabel", EntityType.ANNOTATION_PROPERTY),
+
+    HISTORYNOTE("historyNote", EntityType.ANNOTATION_PROPERTY),
+
+    NOTE("note", EntityType.ANNOTATION_PROPERTY),
+
+    PREFLABEL("prefLabel", EntityType.ANNOTATION_PROPERTY),
+
+    SCOPENOTE("scopeNote", EntityType.ANNOTATION_PROPERTY),
+
+
+    /**
+     * @Deprecated No longer used
+     */
+    DOCUMENT("Document", EntityType.CLASS),
+
+
+     /**
+     * @Deprecated No longer used
+     */
+    IMAGE("Image", EntityType.CLASS),
+
+
+     /**
+     * @Deprecated No longer used
+     */
+    COLLECTABLEPROPERTY("CollectableProperty", EntityType.ANNOTATION_PROPERTY),
+
+     /**
+     * @Deprecated No longer used
+     */
+    RESOURCE("Resource", EntityType.CLASS),
+
+
+     /**
+     * @Deprecated No longer used
+     */
+    COMMENT("comment", EntityType.ANNOTATION_PROPERTY);
+
+    public static final Set<IRI> ALL_IRIS;
 
     static {
-        ALL_URIS = new HashSet<URI>();
+        ALL_IRIS = new HashSet<IRI>();
         for(SKOSVocabulary v : SKOSVocabulary.values()) {
-            ALL_URIS.add(v.getURI());
+            ALL_IRIS.add(v.getIRI());
         }
     }
 
@@ -92,11 +147,17 @@ public enum SKOSVocabulary {
 
     private IRI iri;
 
-    SKOSVocabulary(String localname) {
+    private EntityType entityType;
+
+    SKOSVocabulary(String localname, EntityType entityType) {
         this.localName = localname;
+        this.entityType = entityType;
         this.iri = IRI.create(Namespaces.SKOS.toString() + localname);
     }
 
+    public EntityType getEntityType() {
+        return entityType;
+    }
 
     public String getLocalName() {
         return localName;
@@ -108,6 +169,47 @@ public enum SKOSVocabulary {
 
     public URI getURI() {
         return iri.toURI();
+    }
+
+    public static Set<OWLAnnotationProperty> getAnnotationProperties(OWLDataFactory dataFactory) {
+        Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
+        for(SKOSVocabulary v : values()) {
+            if(v.entityType.equals(EntityType.ANNOTATION_PROPERTY)) {
+                result.add(dataFactory.getOWLAnnotationProperty(v.iri));
+            }
+        }
+        return result;
+    }
+
+
+    public static Set<OWLObjectProperty> getObjectProperties(OWLDataFactory dataFactory) {
+        Set<OWLObjectProperty> result = new HashSet<OWLObjectProperty>();
+        for(SKOSVocabulary v : values()) {
+            if(v.entityType.equals(EntityType.OBJECT_PROPERTY)) {
+                result.add(dataFactory.getOWLObjectProperty(v.iri));
+            }
+        }
+        return result;
+    }
+
+    public static Set<OWLDataProperty> getDataProperties(OWLDataFactory dataFactory) {
+        Set<OWLDataProperty> result = new HashSet<OWLDataProperty>();
+        for(SKOSVocabulary v : values()) {
+            if(v.entityType.equals(EntityType.DATA_PROPERTY)) {
+                result.add(dataFactory.getOWLDataProperty(v.iri));
+            }
+        }
+        return result;
+    }
+
+    public static Set<OWLClass> getClasses(OWLDataFactory dataFactory) {
+        Set<OWLClass> result = new HashSet<OWLClass>();
+        for(SKOSVocabulary v : values()) {
+            if(v.entityType.equals(EntityType.CLASS)) {
+                result.add(dataFactory.getOWLClass(v.iri));
+            }
+        }
+        return result;
     }
 
 }
