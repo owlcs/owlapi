@@ -63,23 +63,25 @@ public class LockingWeakReferencesOwlDataFactoryInternalsImpl implements
 	private WeakReference<? extends OWLEntity> safeRead(
 			Map<IRI, WeakReference<? extends OWLEntity>> map, IRI iri,
 			BuildableObjects type) {
-		type.getLock().lock();
+		ReentrantLock lock = type.getLock();
+		lock.lock();
 		try {
 			return map.get(iri);
 		} finally {
-			type.getLock().unlock();
+			lock.unlock();
 		}
 	}
 
 	private void safeWrite(Map<IRI, WeakReference<? extends OWLEntity>> map,
 			IRI iri, WeakReference<? extends OWLEntity> value,
 			BuildableObjects type) {
-		type.getLock().lock();
+		ReentrantLock lock = type.getLock();
+		lock.lock();
 		try {
 			map.put(iri, value);
 			return;
 		} finally {
-			type.getLock().unlock();
+			lock.unlock();
 		}
 	}
 
