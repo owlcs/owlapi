@@ -46,6 +46,36 @@ public class MemoizingCache<A, V> implements Map<A, V> {
 		}
 	}
 
+	public V get(final V computed, final A key) {
+		while (true) {
+			FutureTask<V> f = cache.get(key);
+			if (f == null) {
+				Callable<V> eval = new Callable<V>() {
+					public V call() {
+						return computed;
+					}
+				};
+				FutureTask<V> ft = new FutureTask<V>(eval);
+				f = cache.putIfAbsent(key, ft);
+				if (f == null) {
+					f = ft;
+					ft.run();
+				}
+			}
+			try {
+				return f.get();
+			} catch (CancellationException e) {
+				cache.remove(key, f);
+			} catch (ExecutionException e) {
+				throw new RuntimeException(e);
+			} catch (InterruptedException e) {
+				cache.remove(key);
+				throw new RuntimeException("Unexpected interrupted exception",
+						e);
+			}
+		}
+	}
+
 	public void clear() {
 		this.cache.clear();
 	}
@@ -105,19 +135,7 @@ public class MemoizingCache<A, V> implements Map<A, V> {
 	 */
 	public V put(A key, final V value) {
 		V toReturn = this.get(key);
-		this.get(new Computable<V>() {
-			public V compute() {
-				return value;
-			}
-
-			public boolean hasThrownException() {
-				return false;
-			}
-
-			public Throwable thrownException() {
-				return null;
-			}
-		}, key);
+		this.get(value, key);
 		return toReturn;
 	}
 

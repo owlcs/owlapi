@@ -7,7 +7,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.LockingOWLOntologyImpl;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.LockingOWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.SafeWeakRefsLocksOWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryLWR;
 
 public final class ThreadSafeWeakRefsBinding implements OWLImplementationBinding {
 	public OWLOntologyManager getOWLOntologyManager(OWLDataFactory d) {
@@ -19,6 +19,6 @@ public final class ThreadSafeWeakRefsBinding implements OWLImplementationBinding
 	}
 
 	public OWLDataFactory getOWLDataFactory() {
-		return SafeWeakRefsLocksOWLDataFactoryImpl.getInstance();
+		return DataFactoryLWR.getInstance();
 	}
 }
