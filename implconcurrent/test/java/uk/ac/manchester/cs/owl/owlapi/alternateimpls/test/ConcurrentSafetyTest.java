@@ -7,7 +7,11 @@ import org.semanticweb.owlapi.apibinding.configurables.ThreadSafeOWLManager;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.SafeStrongRefsOWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryCSR;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryCWR;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryFuture;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryLSR;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryLWR;
 
 public class ConcurrentSafetyTest extends TestCase {
 	private class CallBack1 implements TestMultithreadCallBack {
@@ -29,35 +33,22 @@ public class ConcurrentSafetyTest extends TestCase {
 	}
 
 	private Tester tester = new Tester();
+	private OWLDataFactory[] factories = new OWLDataFactory[] {
+			 new DataFactoryCSR(),
+			new DataFactoryCWR(), new DataFactoryFuture(),
+			new DataFactoryLSR(), new DataFactoryLWR(),new OWLDataFactoryImpl() };
 
-	@Override
-	protected void tearDown() throws Exception {
-		((OWLDataFactoryImpl) OWLManager.getOWLDataFactory()).purge();
-		((OWLDataFactoryImpl) ThreadSafeOWLManager.getOWLDataFactory()).purge();
-		SafeStrongRefsOWLDataFactoryImpl.getInstance().purge();
-		System.gc();
+	public void testSafeImplementation() {
+		for (OWLDataFactory d : factories) {
+			actualrun(d);
+			d.purge();
+		}
 	}
 
-//	public void testSafeImplementation() {
-//		MultiThreadChecker checker = new MultiThreadChecker();
-//		checker.check(new CallBack1(ThreadSafeOWLManager.getOWLDataFactory(),
-//				tester));
-//		System.out.println(checker.getTrace());
-//		assertTrue(checker.getTrace(), checker.isSuccessful());
-//	}
-	public void testSafeStrongRefsImplementation() {
+	private void actualrun(OWLDataFactory d) {
 		MultiThreadChecker checker = new MultiThreadChecker();
-		checker.check(new CallBack1(SafeStrongRefsOWLDataFactoryImpl.getInstance(),
-				tester));
+		checker.check(new CallBack1(d, tester));
 		System.out.println(checker.getTrace());
 		assertTrue(checker.getTrace(), checker.isSuccessful());
 	}
-	
-
-//	public void testDefaultImplementation() {
-//		MultiThreadChecker checker = new MultiThreadChecker();
-//		checker.check(new CallBack1(OWLManager.getOWLDataFactory(), tester));
-//		System.out.println(checker.getTrace());
-//		assertTrue(checker.getTrace(), checker.isSuccessful());
-//	}
 }

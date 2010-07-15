@@ -6,19 +6,21 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternals;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.ConcurrentHashMapStrongReferencesOWLDataFactoryInternalsImpl;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.FastLockingOWLDataFactoryInternals;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.LockingWeakReferencesOwlDataFactoryInternalsImpl;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.NonCachingOWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.NonCachingOWLDataFactoryInternals;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsCSR;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsCWR;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsFuture;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsFutureSmart;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsLSR;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsLWR;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryNoCache;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsNoCache;
 
 public class OWLDataFactoryInternalsPerformanceTest extends TestCase {
-	private final static OWLDataFactory factory = new NonCachingOWLDataFactoryImpl();
+	private final static OWLDataFactory factory = new DataFactoryNoCache();
 	private final InternalsTester tester = new InternalsTester();
 
 	public void testBaseline() {
-		OWLDataFactoryInternals i = new NonCachingOWLDataFactoryInternals(
-				factory);
+		OWLDataFactoryInternals i = new InternalsNoCache(factory);
 		tester.run(i);
 	}
 
@@ -28,14 +30,16 @@ public class OWLDataFactoryInternalsPerformanceTest extends TestCase {
 	}
 
 	public void testFastLock() {
-		OWLDataFactoryInternals i = new FastLockingOWLDataFactoryInternals(
-				factory);
+		OWLDataFactoryInternals i = new InternalsFuture(factory);
 		tester.run(i);
 	}
 
 	public void testLockWeakReferences() {
-		OWLDataFactoryInternals i = new LockingWeakReferencesOwlDataFactoryInternalsImpl(
-				factory);
+		OWLDataFactoryInternals i = new InternalsLWR(factory);
+		tester.run(i);
+	}
+	public void testLockStrongReferences() {
+		OWLDataFactoryInternals i = new InternalsLSR(factory);
 		tester.run(i);
 	}
 
@@ -45,8 +49,17 @@ public class OWLDataFactoryInternalsPerformanceTest extends TestCase {
 	//		tester.run(i);
 	//	}
 	public void testConcurrentHashMapsStrongRefs() {
-		OWLDataFactoryInternals i = new ConcurrentHashMapStrongReferencesOWLDataFactoryInternalsImpl(
-				factory);
+		OWLDataFactoryInternals i = new InternalsCSR(factory);
+		tester.run(i);
+	}
+
+	public void testConcurrentHashMapsWeakRefs() {
+		OWLDataFactoryInternals i = new InternalsCWR(factory);
+		tester.run(i);
+	}
+
+	public void testFutureSmart() {
+		OWLDataFactoryInternals i = new InternalsFutureSmart(factory);
 		tester.run(i);
 	}
 
@@ -57,51 +70,43 @@ public class OWLDataFactoryInternalsPerformanceTest extends TestCase {
 
 	public static void main(String[] args) {
 		OWLDataFactoryInternalsPerformanceTest t = new OWLDataFactoryInternalsPerformanceTest();
-		//for (int i = 0; i < 3; i++) {
 		t.testBaseline();
-		System.gc();
 		t.testDefault();
-		System.gc();
 		t.testFastLock();
-		System.gc();
+		t.testLockWeakReferences();
+		t.testLockStrongReferences();
 		t.testConcurrentHashMapsStrongRefs();
-		System.gc();
-		//}
+		t.testConcurrentHashMapsWeakRefs();
+		t.testFutureSmart();
 		long start = System.currentTimeMillis();
-		//		for (int i = 0; i < 10; i++) {
 		t.testBaseline();
-		//		}
-		System.out
-				.println("OWLDataFactoryInternalsPerformanceTest.main() baseline:\t"
-						+ (System.currentTimeMillis() - start));
+		System.out.println("baseline\t" + (System.currentTimeMillis() - start));
 		start = System.currentTimeMillis();
-		//for (int i = 0; i < 10; i++) {
 		t.testDefault();
-		//}
-		System.out
-				.println("OWLDataFactoryInternalsPerformanceTest.main() default:\t"
-						+ (System.currentTimeMillis() - start));
+		System.out.println("default:\t" + (System.currentTimeMillis() - start));
 		start = System.currentTimeMillis();
-		//for (int i = 0; i < 10; i++) {
 		t.testFastLock();
-		//}
-		System.out
-				.println("OWLDataFactoryInternalsPerformanceTest.main() fastlock:\t"
-						+ (System.currentTimeMillis() - start));
+		System.out.println("FUT:\t" + (System.currentTimeMillis() - start));
 		start = System.currentTimeMillis();
 		start = System.currentTimeMillis();
 		t.testLockWeakReferences();
-		System.out
-				.println("OWLDataFactoryInternalsPerformanceTest.main() lockweak:\t"
-						+ (System.currentTimeMillis() - start));
+		System.out.println("LWR:\t" + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
+		t.testLockStrongReferences();
+		System.out.println("LSR:\t" + (System.currentTimeMillis() - start));
 		start = System.currentTimeMillis();
 		t.testConcurrentHashMapsStrongRefs();
-		System.out
-				.println("OWLDataFactoryInternalsPerformanceTest.main() strongrefs:\t"
-						+ (System.currentTimeMillis() - start));
+		System.out.println("CSR:\t" + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
+		t.testConcurrentHashMapsWeakRefs();
+		System.out.println("CWR:\t" + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
+		t.testFutureSmart();
+		System.out.println("FUTS:\t" + (System.currentTimeMillis() - start));
 		System.out
 				.println("OWLDataFactoryInternalsPerformanceTest.main() waiting for you to capture the memory snapshot");
-		//		while (true) {
-		//		}
+//		while(true) {
+//			
+//		}
 	}
 }
