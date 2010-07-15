@@ -198,7 +198,12 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         }
 
         public IRI resolve(String s) {
-            return IRI.create(toURI().resolve(s));
+        	// shortcut: checking absolute and opaque here saves the creation of an extra URI object
+			URI uri = URI.create(s);
+			if (uri.isAbsolute() || uri.isOpaque()) {
+				return IRI.create(uri.toString());
+			}
+        	return IRI.create(toURI().resolve(uri).toString());
         }
 
         @Override
