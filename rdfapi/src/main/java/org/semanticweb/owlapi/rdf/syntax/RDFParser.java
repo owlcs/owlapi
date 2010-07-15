@@ -38,7 +38,12 @@ import java.io.StreamTokenizer;
 import java.io.StringReader;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * This class parses the RDF according to the syntax specified in <a href="http://www.w3.org/TR/rdf-syntax-grammar/">http://www.w3.org/TR/rdf-syntax-grammar/</a>.
@@ -66,8 +71,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     /**
      * Stack of base IRIs.
      */
-    protected Stack m_baseIRIs;
+    protected LinkedList<IRI> m_baseIRIs;
 
+    private Map<IRI, URI> m_baseURICache;
     /**
      * IRI of the document being parsed.
      */
@@ -76,7 +82,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     /**
      * The stack of languages.
      */
-    protected Stack m_languages;
+    protected LinkedList m_languages;
 
     /**
      * The current language.
@@ -114,8 +120,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     public RDFParser() {
         m_states = new ArrayList();
-        m_baseIRIs = new Stack();
-        m_languages = new Stack();
+        m_baseIRIs = new LinkedList<IRI>();
+        m_languages = new LinkedList();
+        m_baseURICache=new HashMap<IRI, URI>();
     }
 
 
@@ -249,7 +256,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
         m_state.endElement(namespaceIRI, localName, qName);
-        m_baseIRI = (IRI) m_baseIRIs.pop();
+        m_baseIRI = m_baseIRIs.pop();
         m_language = (String) m_languages.pop();
     }
 
@@ -338,6 +345,17 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     }
 
 
+    private IRI resolveFromDelegate(IRI iri, String value) {
+    	// cache the delegate URI if not there already
+    	if(!m_baseURICache.containsKey(m_baseIRI)) {
+        	m_baseURICache.put(m_baseIRI, m_baseIRI.toURI());
+        }
+    	// get hold of the delegate URI
+    	URI delegateURI=m_baseURICache.get(m_baseIRI);
+    	// resolve against delegate
+        return IRI.create(delegateURI.resolve(value));
+    }
+    
     /**
      * Processes xml:base reference if there is one.
      * @param atts the attributes potentially containing xml:base declaration
@@ -347,7 +365,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         String value = atts.getValue(XMLNS, "base");
         if (value != null) {
             try {
-                m_baseIRI = m_baseIRI.resolve(value);
+                m_baseIRI = resolveFromDelegate(m_baseIRI, value);
                 resolvedIRIs.clear();
             }
             catch (IllegalArgumentException e) {
@@ -401,7 +419,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
                     return resolved;
                 }
                 else {
-                    IRI theIRI = m_baseIRI.resolve(uri);
+                    IRI theIRI = resolveFromDelegate(m_baseIRI, uri);
                     String u = theIRI.toString();
                     uriCache.put(u, theIRI);
                     resolvedIRIs.put(uri, u);
