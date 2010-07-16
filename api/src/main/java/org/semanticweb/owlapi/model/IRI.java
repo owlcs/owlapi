@@ -53,6 +53,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
     public abstract boolean isAbsolute();
 
     public abstract String getScheme();
+    
+    public abstract String getStart();
 
     public abstract IRI resolve(String s);
 
@@ -246,6 +248,10 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             else {
                 return null;
             }
+        }
+        
+        public String getStart() {
+        	return prefix;
         }
        
 

@@ -1088,7 +1088,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
         protected int m_depth;
 
-        protected StringBuffer m_content;
+        protected StringBuilder m_content;
 
 
         public ParseTypeLiteralPropertyElement(NodeElement nodeElement) {
@@ -1101,7 +1101,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             if (m_depth == 0) {
                 m_propertyIRI = m_nodeElement.getPropertyIRI(namespaceIRI + localName);
                 m_reificationID = m_nodeElement.getReificationID(atts);
-                m_content = new StringBuffer();
+                m_content = new StringBuilder();
             }
             else {
                 m_content.append('<');
