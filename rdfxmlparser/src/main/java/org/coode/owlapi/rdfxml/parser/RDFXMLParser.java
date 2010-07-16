@@ -74,7 +74,7 @@ public class RDFXMLParser extends AbstractOWLParser {
             };
             consumer = new OWLRDFConsumer(owlOntologyManager, ontology, new AnonymousNodeChecker() {
                 public boolean isAnonymousNode(IRI IRI) {
-                    return parser.isAnonymousNodeIRI(IRI.getStart());
+                    return parser.isAnonymousNodeIRI(IRI.getFragment());
                 }
 
                 public boolean isAnonymousSharedNode(String iri) {
