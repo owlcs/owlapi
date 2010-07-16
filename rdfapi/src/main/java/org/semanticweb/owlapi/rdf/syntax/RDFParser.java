@@ -82,7 +82,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     /**
      * The stack of languages.
      */
-    protected LinkedList m_languages;
+    protected LinkedList<String> m_languages;
 
     /**
      * The current language.
@@ -102,7 +102,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     /**
      * Stack of parser states.
      */
-    protected List m_states;
+    protected List<State> m_states;
 
     /**
      * Number of the last generated IRI.
@@ -119,9 +119,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * Creates a RDF parser.
      */
     public RDFParser() {
-        m_states = new ArrayList();
+        m_states = new ArrayList<State>();
         m_baseIRIs = new LinkedList<IRI>();
-        m_languages = new LinkedList();
+        m_languages = new LinkedList<String>();
         m_baseURICache=new HashMap<IRI, URI>();
     }
 
@@ -256,8 +256,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
         m_state.endElement(namespaceIRI, localName, qName);
-        m_baseIRI = m_baseIRIs.pop();
-        m_language = (String) m_languages.pop();
+        m_baseIRI = m_baseIRIs.remove(0);
+        m_language = m_languages.remove(0);
     }
 
 
@@ -361,7 +361,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param atts the attributes potentially containing xml:base declaration
      */
     protected void processXMLBase(Attributes atts) throws SAXException {
-        m_baseIRIs.push(m_baseIRI);
+        m_baseIRIs.add(0,m_baseIRI);
         String value = atts.getValue(XMLNS, "base");
         if (value != null) {
             try {
@@ -383,7 +383,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param atts the attributes potentially containing xml:language declaration
      */
     protected void processXMLLanguage(Attributes atts) {
-        m_languages.push(m_language);
+        m_languages.add(0, m_language);
         String value = atts.getValue(XMLLANG);
         if (value != null)
             m_language = value;
