@@ -1056,39 +1056,23 @@ public interface OWLReasoner {
 
 
     /**
-     * Gets the data property values for the specified individual and data property.
+     * Gets the data property values for the specified individual and data property expression.  The values are
+     * a set of literals.  Note that the results are not guaranteed to be complete for this method.  The reasoner
+     * may also return canonical literals or they may be in a form that bears a resemblance to the syntax of the literals
+     * in the root ontology imports closure.
      *
      * @param ind The individual that is the subject of the data property values
-     * @param pe The data property whose values are to be retrieved for the specified individual
+     * @param pe The data property expression whose values are to be retrieved for the specified individual
      * @return A set of <code>OWLLiteral</code>s containing literals such that for each literal <code>l</code> in the
-     *         set, and any of the following hold:
-     * <ul>
-     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(pe, ind, l)</code></li>
-     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(S, ind, l)</code> and
-     *         the set of reasoner axioms entails <code>SubDataPropertyOf(S, pe)</code>.</li>
-     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(pe, j, l)</code> and
-     * the set of reasoner axioms entails <code>SameIndividual(ind, j)</code></li>
-     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(S, j, l)</code> and
-     *         the set of reasoner axioms entails <code>SubDataPropertyOf(S, pe)</code> and
-     * the set of reasoner axioms entails <code>SameIndividual(ind, j)</code></li>
-     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>SubClassOf(C, DataHasValue(pe, l))</code> and
-     * the set of reasoner axioms entails <code>ClassAssertion(C, ind)</code></li>
-     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>SubClassOf(C, DataSomeValuesFrom(pe, DataOneOf(l)))</code> and
-     * the set of reasoner axioms entails <code>ClassAssertion(C, ind)</code></li>
-     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>SubClassOf(C, DataMinCardinality(n, pe, DataOneOf(l))</code> for
-     * n &gt; 0, and
-     * the set of reasoner axioms entails <code>ClassAssertion(C, ind)</code></li>
-     * <li>there is an explicit data property assertion in the set of reasoner axioms <code>SubClassOf(C, DataExactCardinality(n, pe, DataOneOf(l))</code> for
-     * n &gt; 0 and
-     * the set of reasoner axioms entails <code>ClassAssertion(C, ind)</code></li>
-     * </ul>
+     *         set, the set of reasoner axioms entails <code>DataPropertyAssertion(pe ind l)</code>.
      *
      * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException   if the signature of the individual and property is not contained within the signature
+     * @throws FreshEntitiesException   if the signature of the individual and property expression is not contained within the signature
      *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
      * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
      *                                       reasoning was cancelled by a client process)
      * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
+     * @see {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy}
      */
     Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataProperty pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
 
