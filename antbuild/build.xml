@@ -53,7 +53,7 @@
          the build directory -->
     <target name="compile">
         <mkdir dir="${classesdir}"/>
-        <javac srcdir="./.." destdir="${classesdir}" debug="on">
+        <javac srcdir="./.." destdir="${classesdir}" debug="on" target="1.5" source="1.5" compiler="javac1.5" fork="yes" >
             <classpath refid="classpath"/>
             <include name="api/${sourcepath}"/>
             <include name="apibinding/${sourcepath}"/>
@@ -63,6 +63,7 @@
             <include name="functionalparser/${sourcepath}"/>
             <include name="functionalrenderer/${sourcepath}"/>
             <include name="impl/${sourcepath}"/>
+        	<include name="implconcurrent/${sourcepath}"/>
             <include name="krssparser/${sourcepath}"/>
             <include name="krssrenderer/${sourcepath}"/>
             <include name="latexrenderer/${sourcepath}"/>
@@ -117,6 +118,7 @@
                 <include name="debugging/${sourcepath}"/>
                 <include name="dlsyntax/${sourcepath}"/>
                 <include name="impl/${sourcepath}"/>
+            	<include name="implconcurrent/${sourcepath}"/>
                 <include name="functionalparser/${sourcepath}"/>
                 <include name="functionalrenderer/${sourcepath}"/>
                 <include name="krssparser/${sourcepath}"/>
@@ -163,6 +165,7 @@
             <fileset dir="../functionalparser/src/main/java"/>
             <fileset dir="../functionalrenderer/src/main/java"/>
             <fileset dir="../impl/src/main/java"/>
+        	<fileset dir="../implconcurrent/src/main/java"/>
             <fileset dir="../krssparser/src/main/java"/>
             <fileset dir="../krssrenderer/src/main/java"/>
             <fileset dir="../latexrenderer/src/main/java"/>
