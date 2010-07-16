@@ -53,17 +53,23 @@ import java.util.Comparator;
  */
 public class OWLXMLWriter {
 
-    private XMLWriter writer;
-
-    private Map<String, String> iriPrefixMap = new TreeMap<String, String>(new Comparator<String>() {
-        public int compare(String o1, String o2) {
+    /**String comparator that takes length into account before natural ordering.
+     * XXX stateless, might be used through a singleton*/
+	private static final class StringLengthComparator implements
+			Comparator<String> {
+		public int compare(String o1, String o2) {
             int diff = o1.length() - o2.length();
             if(diff != 0) {
                 return diff;
             }
             return o1.compareTo(o2);
         }
-    });
+	}
+
+
+	private XMLWriter writer;
+
+    private Map<String, String> iriPrefixMap = new TreeMap<String, String>(new StringLengthComparator());
 
     public OWLXMLWriter(Writer writer, OWLOntology ontology) {
         XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(Namespaces.OWL.toString());

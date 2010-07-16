@@ -529,11 +529,7 @@ public abstract class RDFRendererBase {
 
 
     private static <N extends OWLEntity> Set<N> toSortedSet(Set<N> entities) {
-        Set<N> results = new TreeSet<N>(new Comparator<OWLEntity>() {
-            public int compare(OWLEntity o1, OWLEntity o2) {
-                return o1.getIRI().compareTo(o2.getIRI());
-            }
-        });
+        Set<N> results = new TreeSet<N>(new OWLEntityIRIComparator());
         results.addAll(entities);
         return results;
     }
@@ -598,7 +594,17 @@ public abstract class RDFRendererBase {
     }
 
 
-    public static class TripleComparator implements Comparator<RDFTriple> {
+    /**Comparator that uses IRI ordering to order entities.
+     * XXX stateless, might be used through a singleton*/
+    private static final class OWLEntityIRIComparator implements
+			Comparator<OWLEntity> {
+		public int compare(OWLEntity o1, OWLEntity o2) {
+		    return o1.getIRI().compareTo(o2.getIRI());
+		}
+	}
+
+
+	public static class TripleComparator implements Comparator<RDFTriple> {
 
         private List<IRI> orderedURIs;
 

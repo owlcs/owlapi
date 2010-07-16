@@ -85,12 +85,7 @@ public class XMLWriterImpl implements XMLWriter {
 
     private void setupEntities() {
         List<String> namespaces = new ArrayList<String>(xmlWriterNamespaceManager.getNamespaces());
-        Collections.sort(namespaces, new Comparator<String>() {
-            public int compare(String o1, String o2) {
-                // Shortest string first
-                return o1.length() - o2.length();
-            }
-        });
+        Collections.sort(namespaces, new StringLengthOnlyComparator());
         entities = new LinkedHashMap<String, String>();
         for (String curNamespace : namespaces) {
             String curPrefix = "";
@@ -284,7 +279,16 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
 
-    public class XMLElement {
+    private static final class StringLengthOnlyComparator implements
+			Comparator<String> {
+		public int compare(String o1, String o2) {
+		    // Shortest string first
+		    return o1.length() - o2.length();
+		}
+	}
+
+
+	public class XMLElement {
 
         private String name;
 

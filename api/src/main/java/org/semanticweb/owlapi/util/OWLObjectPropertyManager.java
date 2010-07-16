@@ -36,7 +36,15 @@ import java.util.*;
  */
 public class OWLObjectPropertyManager {
 
-    private OWLOntologyManager man;
+    private static final class SetSizeComparator implements
+			Comparator<Set<OWLObjectPropertyExpression>> {
+		public int compare(Set<OWLObjectPropertyExpression> o1, Set<OWLObjectPropertyExpression> o2) {
+		    return o1.size() - o2.size();
+		}
+	}
+
+
+	private OWLOntologyManager man;
 
     private OWLOntology ontology;
 
@@ -370,12 +378,7 @@ public class OWLObjectPropertyManager {
         }
         // Get maximal
         List<Set<OWLObjectPropertyExpression>> equivs = new ArrayList<Set<OWLObjectPropertyExpression>>(result);
-        Collections.sort(equivs, new Comparator<Set<OWLObjectPropertyExpression>>() {
-
-            public int compare(Set<OWLObjectPropertyExpression> o1, Set<OWLObjectPropertyExpression> o2) {
-                return o1.size() - o2.size();
-            }
-        });
+        Collections.sort(equivs, new SetSizeComparator());
         for (int i = 0; i < equivs.size(); i++) {
             Set<OWLObjectPropertyExpression> first = equivs.get(i);
             for (int j = i; j < equivs.size(); j++) {

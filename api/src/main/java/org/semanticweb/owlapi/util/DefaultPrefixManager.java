@@ -36,7 +36,20 @@ import java.util.*;
  */
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, IRIShortFormProvider {
 
-    private Map<String, String> prefix2NamespaceMap;
+	/**String comparator that takes length into account before natural ordering.
+     * XXX stateless, might be used through a singleton*/
+	private static final class StringLengthComparator implements
+			Comparator<String> {
+		public int compare(String o1, String o2) {
+            int diff = o1.length() - o2.length();
+            if(diff != 0) {
+                return diff;
+            }
+            return o1.compareTo(o2);
+        }
+	}
+
+	private Map<String, String> prefix2NamespaceMap;
 
 
     /**
@@ -72,17 +85,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
      * @param defaultPrefix The namespace to be used as the default namespace.
      */
     public DefaultPrefixManager(String defaultPrefix) {
-        prefix2NamespaceMap = new TreeMap<String, String>(new Comparator<String>() {
-            public int compare(String o1, String o2) {
-                int diff = o1.length() - o2.length();
-                if(diff != 0) {
-                    return diff;
-                }
-                else {
-                    return o1.compareTo(o2);
-                }
-            }
-        });
+        prefix2NamespaceMap = new TreeMap<String, String>(new StringLengthComparator());
 
         if (defaultPrefix != null) {
             setDefaultPrefix(defaultPrefix);

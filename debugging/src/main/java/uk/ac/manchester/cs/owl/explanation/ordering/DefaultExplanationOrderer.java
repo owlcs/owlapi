@@ -208,41 +208,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
     private void sortChildrenAxioms(ExplanationTree tree) {
 
-        Comparator<Tree<OWLAxiom>> comparator = new Comparator<Tree<OWLAxiom>>() {
-
-            public int compare(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
-
-
-                OWLAxiom ax1 = o1.getUserObject();
-                OWLAxiom ax2 = o2.getUserObject();
-
-                // Equivalent classes axioms always come last
-                if (ax1 instanceof OWLEquivalentClassesAxiom) {
-                    return 1;
-                }
-                if (ax2 instanceof OWLEquivalentClassesAxiom) {
-                    return -1;
-                }
-                if (ax1 instanceof OWLPropertyAxiom) {
-                    return -1;
-                }
-                int childCount1 = o1.getChildCount();
-                childCount1 = childCount1 > 0 ? 0 : 1;
-                int childCount2 = o2.getChildCount();
-                childCount2 = childCount2 > 0 ? 0 : 1;
-                int diff = childCount1 - childCount2;
-                if (diff != 0) {
-                    return diff;
-                }
-                if (ax1 instanceof OWLSubClassOfAxiom && ax2 instanceof OWLSubClassOfAxiom) {
-                    OWLSubClassOfAxiom sc1 = (OWLSubClassOfAxiom) ax1;
-                    OWLSubClassOfAxiom sc2 = (OWLSubClassOfAxiom) ax2;
-                    return sc1.getSuperClass().compareTo(sc2.getSuperClass());
-                }
-
-                return 1;
-            }
-        };
+        Comparator<Tree<OWLAxiom>> comparator = new OWLAxiomTreeComparator();
         tree.sortChildren(comparator);
     }
 
@@ -320,7 +286,45 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    private class SeedExtractor implements OWLAxiomVisitor {
+    /**tree comparator
+     * XXX this class is stateless, a singleton might be used to access it*/
+    private static final class OWLAxiomTreeComparator implements
+			Comparator<Tree<OWLAxiom>> {
+		public int compare(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
+
+
+		    OWLAxiom ax1 = o1.getUserObject();
+		    OWLAxiom ax2 = o2.getUserObject();
+
+		    // Equivalent classes axioms always come last
+		    if (ax1 instanceof OWLEquivalentClassesAxiom) {
+		        return 1;
+		    }
+		    if (ax2 instanceof OWLEquivalentClassesAxiom) {
+		        return -1;
+		    }
+		    if (ax1 instanceof OWLPropertyAxiom) {
+		        return -1;
+		    }
+		    int childCount1 = o1.getChildCount();
+		    childCount1 = childCount1 > 0 ? 0 : 1;
+		    int childCount2 = o2.getChildCount();
+		    childCount2 = childCount2 > 0 ? 0 : 1;
+		    int diff = childCount1 - childCount2;
+		    if (diff != 0) {
+		        return diff;
+		    }
+		    if (ax1 instanceof OWLSubClassOfAxiom && ax2 instanceof OWLSubClassOfAxiom) {
+		        OWLSubClassOfAxiom sc1 = (OWLSubClassOfAxiom) ax1;
+		        OWLSubClassOfAxiom sc2 = (OWLSubClassOfAxiom) ax2;
+		        return sc1.getSuperClass().compareTo(sc2.getSuperClass());
+		    }
+
+		    return 1;
+		}
+	}
+
+	private class SeedExtractor implements OWLAxiomVisitor {
 
         private OWLEntity source;
 

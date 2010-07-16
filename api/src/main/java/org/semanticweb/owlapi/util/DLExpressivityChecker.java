@@ -154,7 +154,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
      */
     private class ConstructComparator implements Comparator<Construct> {
 
-        private List<Construct> order = new ArrayList<Construct>();
+        private final List<Construct> order = new ArrayList<Construct>();
 
 
         public ConstructComparator() {

@@ -136,7 +136,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
     }
 
 
-    private class OWLAxiomComparator implements Comparator<OWLAxiom> {
+    private static class OWLAxiomComparator implements Comparator<OWLAxiom> {
 
         public int compare(OWLAxiom o1, OWLAxiom o2) {
             AxiomTypeProvider provider = new AxiomTypeProvider();
