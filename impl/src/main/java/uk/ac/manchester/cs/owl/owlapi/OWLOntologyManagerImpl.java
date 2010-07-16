@@ -264,9 +264,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         if (ontologies == null) {
             ontologies = new HashSet<OWLOntology>();
             getImportsClosure(ontology, ontologies);
+            ontologies=Collections.unmodifiableSet(ontologies);
+            // store the wrapped set
+            // XXX verify if this happens often, a personalized immutable set implementation might be better, memory wise
             importsClosureCache.put(ontology, ontologies);
         }
-        return Collections.unmodifiableSet(ontologies);
+        return ontologies;
     }
 
 
