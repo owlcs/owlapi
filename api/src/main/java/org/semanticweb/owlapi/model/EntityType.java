@@ -57,7 +57,7 @@ public final class EntityType<E extends OWLEntity> {
 
     private OWLRDFVocabulary vocabulary;
 
-    EntityType(String name, OWLRDFVocabulary vocabulary) {
+    private EntityType(String name, OWLRDFVocabulary vocabulary) {
         this.name = name;
         this.vocabulary = vocabulary;
     }
