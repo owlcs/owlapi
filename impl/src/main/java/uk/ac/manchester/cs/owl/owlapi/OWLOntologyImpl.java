@@ -1324,13 +1324,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private OWLEntityCollector entityCollector = new OWLEntityCollector();
-
     private OWLNamedObjectReferenceAdder referenceAdder = new OWLNamedObjectReferenceAdder();
 
 
     private void handleAxiomAdded(OWLAxiom axiom) {
-        entityCollector.reset();
+    	OWLEntityCollector entityCollector = new OWLEntityCollector();
         axiom.accept(entityCollector);
         for (OWLEntity object : entityCollector.getObjects()) {
             referenceAdder.setAxiom(axiom);
@@ -1349,7 +1347,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     private void handleAxiomRemoved(OWLAxiom axiom) {
-        entityCollector.reset();
+    	OWLEntityCollector entityCollector = new OWLEntityCollector();
         axiom.accept(entityCollector);
         for (OWLEntity object : entityCollector.getObjects()) {
             referenceRemover.setAxiom(axiom);
@@ -2056,32 +2054,32 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
         public void visit(OWLClass cls) {
-            ref = containsReference(cls);
+            ref = OWLOntologyImpl.this.containsReference(cls);
         }
 
 
         public void visit(OWLDatatype datatype) {
-            ref = containsReference(datatype);
+            ref = OWLOntologyImpl.this.containsReference(datatype);
         }
 
 
         public void visit(OWLNamedIndividual individual) {
-            ref = containsReference(individual);
+            ref = OWLOntologyImpl.this.containsReference(individual);
         }
 
 
         public void visit(OWLDataProperty property) {
-            ref = containsReference(property);
+            ref = OWLOntologyImpl.this.containsReference(property);
         }
 
 
         public void visit(OWLObjectProperty property) {
-            ref = containsReference(property);
+            ref = OWLOntologyImpl.this.containsReference(property);
         }
 
 
         public void visit(OWLAnnotationProperty property) {
-            ref = containsReference(property);
+            ref = OWLOntologyImpl.this.containsReference(property);
         }
     }
 }
