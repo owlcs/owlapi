@@ -1,4 +1,26 @@
 package uk.ac.manchester.cs.owl.owlapi;
+/*
+ * Copyright (C) 2010, University of Manchester
+ *
+ * Modifications to the initial code base are copyright of their
+ * respective authors, or their employers as appropriate.  Authorship
+ * of the modifications may be determined from the ChangeLog placed at
+ * the end of this file.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
 
 import static org.semanticweb.owlapi.model.AxiomType.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
@@ -64,57 +86,57 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 public class OWLOntologyImplInternalsDefaultImpl implements OWLOntologyImplInternals {
-	private Set<OWLImportsDeclaration> importsDeclarations;
-	private Set<OWLAnnotation> ontologyAnnotations;
-	private Map<AxiomType, Set<OWLAxiom>> axiomsByType;
-	private Map<OWLAxiom, Set<OWLAxiom>> logicalAxiom2AnnotatedAxiomMap;
-	private Set<OWLClassAxiom> generalClassAxioms;
-	private Set<OWLSubPropertyChainOfAxiom> propertyChainSubPropertyAxioms;
-	private Map<OWLClass, Set<OWLAxiom>> owlClassReferences;
-	private Map<OWLObjectProperty, Set<OWLAxiom>> owlObjectPropertyReferences;
-	private Map<OWLDataProperty, Set<OWLAxiom>> owlDataPropertyReferences;
-	private Map<OWLNamedIndividual, Set<OWLAxiom>> owlIndividualReferences;
-	private Map<OWLAnonymousIndividual, Set<OWLAxiom>> owlAnonymousIndividualReferences;
-	private Map<OWLDatatype, Set<OWLAxiom>> owlDatatypeReferences;
-	private Map<OWLAnnotationProperty, Set<OWLAxiom>> owlAnnotationPropertyReferences;
-	private Map<OWLEntity, Set<OWLDeclarationAxiom>> declarationsByEntity;
-	private Map<OWLClass, Set<OWLClassAxiom>> classAxiomsByClass;
-	private Map<OWLClass, Set<OWLSubClassOfAxiom>> subClassAxiomsByLHS;
-	private Map<OWLClass, Set<OWLSubClassOfAxiom>> subClassAxiomsByRHS;
-	private Map<OWLClass, Set<OWLEquivalentClassesAxiom>> equivalentClassesAxiomsByClass;
-	private Map<OWLClass, Set<OWLDisjointClassesAxiom>> disjointClassesAxiomsByClass;
-	private Map<OWLClass, Set<OWLDisjointUnionAxiom>> disjointUnionAxiomsByClass;
-	private Map<OWLClass, Set<OWLHasKeyAxiom>> hasKeyAxiomsByClass;
-	private Map<OWLObjectPropertyExpression, Set<OWLSubObjectPropertyOfAxiom>> objectSubPropertyAxiomsByLHS;
-	private Map<OWLObjectPropertyExpression, Set<OWLSubObjectPropertyOfAxiom>> objectSubPropertyAxiomsByRHS;
-	private Map<OWLObjectPropertyExpression, Set<OWLEquivalentObjectPropertiesAxiom>> equivalentObjectPropertyAxiomsByProperty;
-	private Map<OWLObjectPropertyExpression, Set<OWLDisjointObjectPropertiesAxiom>> disjointObjectPropertyAxiomsByProperty;
-	private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyDomainAxiom>> objectPropertyDomainAxiomsByProperty;
-	private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyRangeAxiom>> objectPropertyRangeAxiomsByProperty;
-	private Map<OWLObjectPropertyExpression, Set<OWLFunctionalObjectPropertyAxiom>> functionalObjectPropertyAxiomsByProperty;
-	private Map<OWLObjectPropertyExpression, Set<OWLInverseFunctionalObjectPropertyAxiom>> inverseFunctionalPropertyAxiomsByProperty;
-	private Map<OWLObjectPropertyExpression, Set<OWLSymmetricObjectPropertyAxiom>> symmetricPropertyAxiomsByProperty;
-	private Map<OWLObjectPropertyExpression, Set<OWLAsymmetricObjectPropertyAxiom>> asymmetricPropertyAxiomsByProperty;
-	private Map<OWLObjectPropertyExpression, Set<OWLReflexiveObjectPropertyAxiom>> reflexivePropertyAxiomsByProperty;
-	private Map<OWLObjectPropertyExpression, Set<OWLIrreflexiveObjectPropertyAxiom>> irreflexivePropertyAxiomsByProperty;
-	private Map<OWLObjectPropertyExpression, Set<OWLTransitiveObjectPropertyAxiom>> transitivePropertyAxiomsByProperty;
-	private Map<OWLObjectPropertyExpression, Set<OWLInverseObjectPropertiesAxiom>> inversePropertyAxiomsByProperty;
-	private Map<OWLDataPropertyExpression, Set<OWLSubDataPropertyOfAxiom>> dataSubPropertyAxiomsByLHS;
-	private Map<OWLDataPropertyExpression, Set<OWLSubDataPropertyOfAxiom>> dataSubPropertyAxiomsByRHS;
-	private Map<OWLDataPropertyExpression, Set<OWLEquivalentDataPropertiesAxiom>> equivalentDataPropertyAxiomsByProperty;
-	private Map<OWLDataPropertyExpression, Set<OWLDisjointDataPropertiesAxiom>> disjointDataPropertyAxiomsByProperty;
-	private Map<OWLDataPropertyExpression, Set<OWLDataPropertyDomainAxiom>> dataPropertyDomainAxiomsByProperty;
-	private Map<OWLDataPropertyExpression, Set<OWLDataPropertyRangeAxiom>> dataPropertyRangeAxiomsByProperty;
-	private Map<OWLDataPropertyExpression, Set<OWLFunctionalDataPropertyAxiom>> functionalDataPropertyAxiomsByProperty;
-	private Map<OWLIndividual, Set<OWLClassAssertionAxiom>> classAssertionAxiomsByIndividual;
-	private Map<OWLClass, Set<OWLClassAssertionAxiom>> classAssertionAxiomsByClass;
-	private Map<OWLIndividual, Set<OWLObjectPropertyAssertionAxiom>> objectPropertyAssertionsByIndividual;
-	private Map<OWLIndividual, Set<OWLDataPropertyAssertionAxiom>> dataPropertyAssertionsByIndividual;
-	private Map<OWLIndividual, Set<OWLNegativeObjectPropertyAssertionAxiom>> negativeObjectPropertyAssertionAxiomsByIndividual;
-	private Map<OWLIndividual, Set<OWLNegativeDataPropertyAssertionAxiom>> negativeDataPropertyAssertionAxiomsByIndividual;
-	private Map<OWLIndividual, Set<OWLDifferentIndividualsAxiom>> differentIndividualsAxiomsByIndividual;
-	private Map<OWLIndividual, Set<OWLSameIndividualAxiom>> sameIndividualsAxiomsByIndividual;
-	private Map<OWLAnnotationSubject, Set<OWLAnnotationAssertionAxiom>> annotationAssertionAxiomsBySubject;
+	protected Set<OWLImportsDeclaration> importsDeclarations;
+	protected Set<OWLAnnotation> ontologyAnnotations;
+	protected Map<AxiomType, Set<OWLAxiom>> axiomsByType;
+	protected Map<OWLAxiom, Set<OWLAxiom>> logicalAxiom2AnnotatedAxiomMap;
+	protected Set<OWLClassAxiom> generalClassAxioms;
+	protected Set<OWLSubPropertyChainOfAxiom> propertyChainSubPropertyAxioms;
+	protected Map<OWLClass, Set<OWLAxiom>> owlClassReferences;
+	protected Map<OWLObjectProperty, Set<OWLAxiom>> owlObjectPropertyReferences;
+	protected Map<OWLDataProperty, Set<OWLAxiom>> owlDataPropertyReferences;
+	protected Map<OWLNamedIndividual, Set<OWLAxiom>> owlIndividualReferences;
+	protected Map<OWLAnonymousIndividual, Set<OWLAxiom>> owlAnonymousIndividualReferences;
+	protected Map<OWLDatatype, Set<OWLAxiom>> owlDatatypeReferences;
+	protected Map<OWLAnnotationProperty, Set<OWLAxiom>> owlAnnotationPropertyReferences;
+	protected Map<OWLEntity, Set<OWLDeclarationAxiom>> declarationsByEntity;
+	protected Map<OWLClass, Set<OWLClassAxiom>> classAxiomsByClass;
+	protected Map<OWLClass, Set<OWLSubClassOfAxiom>> subClassAxiomsByLHS;
+	protected Map<OWLClass, Set<OWLSubClassOfAxiom>> subClassAxiomsByRHS;
+	protected Map<OWLClass, Set<OWLEquivalentClassesAxiom>> equivalentClassesAxiomsByClass;
+	protected Map<OWLClass, Set<OWLDisjointClassesAxiom>> disjointClassesAxiomsByClass;
+	protected Map<OWLClass, Set<OWLDisjointUnionAxiom>> disjointUnionAxiomsByClass;
+	protected Map<OWLClass, Set<OWLHasKeyAxiom>> hasKeyAxiomsByClass;
+	protected Map<OWLObjectPropertyExpression, Set<OWLSubObjectPropertyOfAxiom>> objectSubPropertyAxiomsByLHS;
+	protected Map<OWLObjectPropertyExpression, Set<OWLSubObjectPropertyOfAxiom>> objectSubPropertyAxiomsByRHS;
+	protected Map<OWLObjectPropertyExpression, Set<OWLEquivalentObjectPropertiesAxiom>> equivalentObjectPropertyAxiomsByProperty;
+	protected Map<OWLObjectPropertyExpression, Set<OWLDisjointObjectPropertiesAxiom>> disjointObjectPropertyAxiomsByProperty;
+	protected Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyDomainAxiom>> objectPropertyDomainAxiomsByProperty;
+	protected Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyRangeAxiom>> objectPropertyRangeAxiomsByProperty;
+	protected Map<OWLObjectPropertyExpression, Set<OWLFunctionalObjectPropertyAxiom>> functionalObjectPropertyAxiomsByProperty;
+	protected Map<OWLObjectPropertyExpression, Set<OWLInverseFunctionalObjectPropertyAxiom>> inverseFunctionalPropertyAxiomsByProperty;
+	protected Map<OWLObjectPropertyExpression, Set<OWLSymmetricObjectPropertyAxiom>> symmetricPropertyAxiomsByProperty;
+	protected Map<OWLObjectPropertyExpression, Set<OWLAsymmetricObjectPropertyAxiom>> asymmetricPropertyAxiomsByProperty;
+	protected Map<OWLObjectPropertyExpression, Set<OWLReflexiveObjectPropertyAxiom>> reflexivePropertyAxiomsByProperty;
+	protected Map<OWLObjectPropertyExpression, Set<OWLIrreflexiveObjectPropertyAxiom>> irreflexivePropertyAxiomsByProperty;
+	protected Map<OWLObjectPropertyExpression, Set<OWLTransitiveObjectPropertyAxiom>> transitivePropertyAxiomsByProperty;
+	protected Map<OWLObjectPropertyExpression, Set<OWLInverseObjectPropertiesAxiom>> inversePropertyAxiomsByProperty;
+	protected Map<OWLDataPropertyExpression, Set<OWLSubDataPropertyOfAxiom>> dataSubPropertyAxiomsByLHS;
+	protected Map<OWLDataPropertyExpression, Set<OWLSubDataPropertyOfAxiom>> dataSubPropertyAxiomsByRHS;
+	protected Map<OWLDataPropertyExpression, Set<OWLEquivalentDataPropertiesAxiom>> equivalentDataPropertyAxiomsByProperty;
+	protected Map<OWLDataPropertyExpression, Set<OWLDisjointDataPropertiesAxiom>> disjointDataPropertyAxiomsByProperty;
+	protected Map<OWLDataPropertyExpression, Set<OWLDataPropertyDomainAxiom>> dataPropertyDomainAxiomsByProperty;
+	protected Map<OWLDataPropertyExpression, Set<OWLDataPropertyRangeAxiom>> dataPropertyRangeAxiomsByProperty;
+	protected Map<OWLDataPropertyExpression, Set<OWLFunctionalDataPropertyAxiom>> functionalDataPropertyAxiomsByProperty;
+	protected Map<OWLIndividual, Set<OWLClassAssertionAxiom>> classAssertionAxiomsByIndividual;
+	protected Map<OWLClass, Set<OWLClassAssertionAxiom>> classAssertionAxiomsByClass;
+	protected Map<OWLIndividual, Set<OWLObjectPropertyAssertionAxiom>> objectPropertyAssertionsByIndividual;
+	protected Map<OWLIndividual, Set<OWLDataPropertyAssertionAxiom>> dataPropertyAssertionsByIndividual;
+	protected Map<OWLIndividual, Set<OWLNegativeObjectPropertyAssertionAxiom>> negativeObjectPropertyAssertionAxiomsByIndividual;
+	protected Map<OWLIndividual, Set<OWLNegativeDataPropertyAssertionAxiom>> negativeDataPropertyAssertionAxiomsByIndividual;
+	protected Map<OWLIndividual, Set<OWLDifferentIndividualsAxiom>> differentIndividualsAxiomsByIndividual;
+	protected Map<OWLIndividual, Set<OWLSameIndividualAxiom>> sameIndividualsAxiomsByIndividual;
+	protected Map<OWLAnnotationSubject, Set<OWLAnnotationAssertionAxiom>> annotationAssertionAxiomsBySubject;
 
 	public OWLOntologyImplInternalsDefaultImpl() {
 		this.importsDeclarations = createSet();
@@ -453,10 +475,14 @@ public class OWLOntologyImplInternalsDefaultImpl implements OWLOntologyImplInter
 			boolean create) {
 		Set<V> axioms = map.get(key);
 		if (axioms == null) {
-			axioms = createSet();
 			if (create) {
+				axioms = createSet();
 				map.put(key, axioms);
+			} else {
+				axioms=Collections.emptySet();
 			}
+		} else {
+			axioms = Collections.unmodifiableSet(axioms);
 		}
 		return axioms;
 	}
@@ -648,7 +674,7 @@ public class OWLOntologyImplInternalsDefaultImpl implements OWLOntologyImplInter
         return getReturnSet(getAxioms(property, getDisjointObjectPropertyAxiomsByProperty()));
     }
 
-    private <T extends OWLObjectPropertyCharacteristicAxiom> Map<OWLObjectPropertyExpression, Set<T>> buildObjectPropertyCharacteristicsIndex(AxiomType<T> type) {
+    protected <T extends OWLObjectPropertyCharacteristicAxiom> Map<OWLObjectPropertyExpression, Set<T>> buildObjectPropertyCharacteristicsIndex(AxiomType<T> type) {
         Map<OWLObjectPropertyExpression, Set<T>> map = createMap();
         for(T ax : getAxiomsInternal(type)) {
             addToIndexedSet(ax.getProperty(), map, ax);
