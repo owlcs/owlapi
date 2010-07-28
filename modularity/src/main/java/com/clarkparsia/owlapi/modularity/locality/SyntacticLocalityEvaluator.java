@@ -54,15 +54,32 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     }
 
     /**
-     * This is a convenience method for determining whether a given data range expression is the top data range
+     * This is a convenience method for determining whether a given data range expression is the top datatype
+     * or a built-in datatype. This is used in the bottom- and top-equivalence evaluators
+     * for treating cardinality restrictions.
+     *
+     * @param dataRange a data range expression
+     * @return <code>true</code> if the specified data range expression is the top datatype
+     *         or a built-in datatype; <code>false</code> otherwise
+     */
+    protected static boolean isTopOrBuiltInDatatype(OWLDataRange dataRange) {
+        if (dataRange.isDatatype()){
+            OWLDatatype dataType = dataRange.asOWLDatatype();
+            return (dataType.isTopDatatype() || dataType.isBuiltIn());
+        }
+        else return false;
+    }
+
+    /**
+     * This is a convenience method for determining whether a given data range expression is the top datatype
      * or a built-in infinite datatype. This is used in the bottom- and top-equivalence evaluators
      * for treating cardinality restrictions.
      *
      * @param dataRange a data range expression
-     * @return <code>true</code> if the specified data range expression is the top data range
+     * @return <code>true</code> if the specified data range expression is the top datatype
      *         or a built-in infinite datatype; <code>false</code> otherwise
      */
-    protected static boolean isTopEquivalentDataRange(OWLDataRange dataRange) {
+    protected static boolean isTopOrBuiltInInfiniteDatatype(OWLDataRange dataRange) {
         if (dataRange.isDatatype()){
             OWLDatatype dataType = dataRange.asOWLDatatype();
             return (dataType.isTopDatatype() || (dataType.isBuiltIn() && !dataType.getBuiltInDatatype().isFinite()));
@@ -725,23 +742,23 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         // BUGFIX: (TS) Even in the TOP_TOP case, this is not bottom-equiv:
         //              "forall top.D" is not necessarily empty
+        // BUGFIX: (TS, 3): In the TOP_TOP case, there is a bottom-equiv possibility.
         public void visit(OWLDataAllValuesFrom desc) {
-//            switch (localityCls) {
-//                case BOTTOM_BOTTOM:
-//                case TOP_BOTTOM:
-//                    isBottomEquivalent = false;
-//                    break;
-//                case TOP_TOP:
-//                    // FIXME: This ignores TOP_DATA case
-//                    isBottomEquivalent = !signature.contains(desc.getProperty().asOWLDataProperty());
-//                    break;
-//            }
-            isBottomEquivalent = false;
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isBottomEquivalent = false;
+                    break;
+                case TOP_TOP:
+                    isBottomEquivalent = (!signature.contains(desc.getProperty().asOWLDataProperty()) && !desc.getFiller().isTopDatatype());
+                    break;
+            }
         }
 
 
         // BUGFIX: (TS) Corrected both conditions; included case n==0
         // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
+        // BUGFIX: (TS, 3) Repaired the cases where the filler is top-equiv
         public void visit(OWLDataExactCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
@@ -750,9 +767,18 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                             && (!signature.contains(desc.getProperty().asOWLDataProperty()));
                     break;
                 case TOP_TOP:
-                    isBottomEquivalent = (desc.getCardinality() > 0) && (
-                            (!signature.contains(desc.getProperty().asOWLDataProperty()))
-                            && isTopEquivalentDataRange(desc.getFiller())
+                    isBottomEquivalent = (
+                            (
+                                    (desc.getCardinality() == 0) && (
+                                            (!signature.contains(desc.getProperty().asOWLDataProperty()))
+                                                    && isTopOrBuiltInDatatype(desc.getFiller())
+                                    )
+                            ) || (
+                                    (desc.getCardinality() > 0) && (
+                                            (!signature.contains(desc.getProperty().asOWLDataProperty()))
+                                                    && isTopOrBuiltInInfiniteDatatype(desc.getFiller())
+                                    )
+                            )
                     );
                     break;
             }
@@ -761,6 +787,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         // BUGFIX: (TS) A data max card restriction is never bottom-equiv.
         // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
+        // BUGFIX: (TS, 3) Repaired the cases where the filler is top-equiv
         public void visit(OWLDataMaxCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
@@ -768,9 +795,24 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isBottomEquivalent = false;
                     break;
                 case TOP_TOP:
-                    isBottomEquivalent = (desc.getCardinality() > 0)
-                            && (!signature.contains(desc.getProperty().asOWLDataProperty()))
-                            && isTopEquivalentDataRange(desc.getFiller());
+                    isBottomEquivalent = (
+                            (
+                                    (desc.getCardinality() == 0) && (
+                                            (!signature.contains(desc.getProperty().asOWLDataProperty()))
+                                                    && isTopOrBuiltInDatatype(desc.getFiller())
+                                    )
+                            ) || (
+                                    (desc.getCardinality() == 1) && (
+                                            (!signature.contains(desc.getProperty().asOWLDataProperty()))
+                                                    && isTopOrBuiltInDatatype(desc.getFiller())
+                                    )
+                            ) || (
+                                    (desc.getCardinality() > 1) && (
+                                            (!signature.contains(desc.getProperty().asOWLDataProperty()))
+                                                    && isTopOrBuiltInInfiniteDatatype(desc.getFiller())
+                                    )
+                            )
+                    );
                     break;
             }
         }
@@ -1065,6 +1107,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // BUGFIX: (TS) A data min card restriction is top-equiv iff the cardinality is 0.
         // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
         // BUGFIX: (TS, 2) Left out redundant check cardinality > 0 in TOP_TOP case
+        // BUGFIX: (TS, 3) Extended the cases where the filler is top-equiv in TOP_TOP        
         public void visit(OWLDataMinCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
@@ -1072,9 +1115,16 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isTopEquivalent = (desc.getCardinality() == 0);
                     break;
                 case TOP_TOP:
-                    isTopEquivalent = (desc.getCardinality() == 0) || (
-                            (!signature.contains(desc.getProperty().asOWLDataProperty()))
-                            && isTopEquivalentDataRange(desc.getFiller())
+                    isTopEquivalent = (
+                            desc.getCardinality() == 0
+                    ) || (
+                            (desc.getCardinality() == 1)
+                            && (!signature.contains(desc.getProperty().asOWLDataProperty()))
+                                    && isTopOrBuiltInDatatype(desc.getFiller())
+                    ) || (
+                            (desc.getCardinality() > 1)
+                            && (!signature.contains(desc.getProperty().asOWLDataProperty()))
+                                    && isTopOrBuiltInInfiniteDatatype(desc.getFiller())
                     );
                     break;
             }
@@ -1082,6 +1132,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
+        // BUGFIX: (TS, 3) Extended the cases where the filler is top-equiv        
         public void visit(OWLDataSomeValuesFrom desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
@@ -1090,7 +1141,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     break;
                 case TOP_TOP:
                     isTopEquivalent = !signature.contains(desc.getProperty().asOWLDataProperty())
-                            && isTopEquivalentDataRange(desc.getFiller());
+                            && isTopOrBuiltInDatatype(desc.getFiller());
                     break;
             }
         }
