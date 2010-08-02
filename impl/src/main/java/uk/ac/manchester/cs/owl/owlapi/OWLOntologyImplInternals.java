@@ -316,5 +316,6 @@ public interface OWLOntologyImplInternals {
 	Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxiomsBySubject(
 			OWLAnnotationSubject subject);
 
-	void buildClassAxiomsByClassIndex();
+
+	Set<OWLClassAxiom> getAxioms(OWLClass cls);
 }

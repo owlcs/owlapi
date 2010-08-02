@@ -681,10 +681,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public Set<OWLClassAxiom> getAxioms(final OWLClass cls) {
-        if (internals.getClassAxiomsByClass() == null) {
-            internals.buildClassAxiomsByClassIndex();
-        }
-        return internals.getReturnSet(internals.getAxioms(cls, internals.getClassAxiomsByClass()));
+    	return internals.getAxioms(cls);
     }
 
 
