@@ -32,7 +32,7 @@ package org.semanticweb.owlapi.model;
  *
  * A high level interface to describe different types of data properties.
  */
-public interface OWLDataPropertyExpression extends OWLPropertyExpression<OWLDataPropertyExpression, OWLDataRange>, SWRLPredicate {
+public interface OWLDataPropertyExpression extends OWLPropertyExpression<OWLDataRange, OWLDataPropertyExpression>, SWRLPredicate {
 
     /**
      * If the property is a named data property then this method will

@@ -34,7 +34,7 @@ import java.util.TreeSet;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression, R extends OWLPropertyRange> extends OWLObjectImpl implements OWLPropertyExpression<P, R> {
+public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>> extends OWLObjectImpl implements OWLPropertyExpression<R, P> {
 
     public OWLPropertyExpressionImpl(OWLDataFactory dataFactory) {
         super(dataFactory);

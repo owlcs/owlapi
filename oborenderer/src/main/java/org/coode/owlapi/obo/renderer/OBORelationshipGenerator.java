@@ -94,8 +94,26 @@ public class OBORelationshipGenerator extends OWLClassExpressionVisitorAdapter {
 
     // TODO error handling for un-translatable class expressions
 
+    private OBORelationship getRelationship(OWLObjectCardinalityRestriction desc) {
+        if (desc.isAnonymous() && !desc.getFiller().isAnonymous()) {
+            final OWLObjectProperty p = desc.getProperty().asOWLObjectProperty();
+            final OWLClass f = desc.getFiller().asOWLClass();
 
-    private OBORelationship getRelationship(OWLQuantifiedRestriction<OWLObjectPropertyExpression, OWLClassExpression> desc) {
+            for (OBORelationship rel : relationships) {
+                if (rel.getProperty().equals(p) && rel.getFiller().equals(f)) {
+                    return rel;
+                }
+            }
+            final OBORelationship newRel = new OBORelationship(p, f);
+            relationships.add(newRel);
+            return newRel;
+        }
+
+        eHandler.addException(new OBOStorageException(cls, desc, "Anonymous filler of some restriction cannot be converted to OBO"));
+        return null;
+    }
+
+    private OBORelationship getRelationship(OWLQuantifiedObjectRestriction desc) {
         if (desc.isAnonymous() && !desc.getFiller().isAnonymous()) {
             final OWLObjectProperty p = desc.getProperty().asOWLObjectProperty();
             final OWLClass f = desc.getFiller().asOWLClass();

@@ -1154,7 +1154,10 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject, OWLAnnotation annotation) {
-        return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue());
+    	// PATCH: 	return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue(), annotation.getAnnotations());
+    	// ORIG: 	return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue());
+        // The patch makes a difference for the owl, owlfs, rdfxml and turtle serializations of Annotation2.
+        return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue(), annotation.getAnnotations());
     }
 
 

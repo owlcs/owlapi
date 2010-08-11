@@ -60,6 +60,10 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
     public OWLClass createClass() {
         return man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());
     }
+    
+    public OWLAnnotationProperty createAnnotationProperty() {
+        return getManager().getOWLDataFactory().getOWLAnnotationProperty(TestUtils.createIRI());
+    }
 
     public OWLObjectProperty createObjectProperty() {
         return man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createIRI());
@@ -94,7 +98,28 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
         man.saveOntology(ontA, IRI.create(tempFile.toURI()));
         man.removeOntology(ontA);
         OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI.create(tempFile.toURI()));
-        assertTrue(ontB.getAxioms().containsAll(ontA.getAxioms()));
+        
+        Set<OWLAxiom> AminusB = ontA.getAxioms();
+        AminusB.removeAll(ontB.getAxioms());
+       
+        Set<OWLAxiom> BminusA = ontB.getAxioms();
+        BminusA.removeAll(ontA.getAxioms());
+        
+        StringBuffer msg = new StringBuffer();
+        if (AminusB.isEmpty() && BminusA.isEmpty()) {
+			msg.append("Ontology save/load roundtripp OK.\n");
+		} else {
+			msg.append("Ontology save/load roundtripping error.\n");
+			msg.append("=> " + AminusB.size() + " axioms lost in roundtripping.\n");
+			for (OWLAxiom axiom : AminusB) {
+				msg.append(axiom.toString() + "\n");
+			}
+			msg.append("=> " + BminusA.size() + " axioms added after roundtripping.\n");
+			for (OWLAxiom axiom : BminusA) {
+				msg.append(axiom.toString() + "\n");
+			}
+		}
+        assertTrue(msg.toString(), AminusB.isEmpty() && BminusA.isEmpty());
     }
 
     protected abstract Set<OWLAxiom> getAxioms();

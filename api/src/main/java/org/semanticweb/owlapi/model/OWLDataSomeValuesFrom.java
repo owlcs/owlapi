@@ -31,6 +31,6 @@ package org.semanticweb.owlapi.model;
  * <p/>
  * Represents a <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Existential_Quantification_2">DataSomeValuesFrom</a> restriction in the OWL 2 Specification.
  */
-public interface OWLDataSomeValuesFrom extends OWLQuantifiedRestriction<OWLDataPropertyExpression, OWLDataRange> {
+public interface OWLDataSomeValuesFrom extends OWLQuantifiedDataRestriction {
 
 }

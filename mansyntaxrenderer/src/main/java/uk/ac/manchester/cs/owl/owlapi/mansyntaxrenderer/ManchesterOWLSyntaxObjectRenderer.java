@@ -103,8 +103,28 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         }
     }
 
-
-    private void writeRestriction(OWLQuantifiedRestriction restriction, ManchesterOWLSyntax keyword) {
+    private void writeRestriction(OWLQuantifiedDataRestriction restriction, ManchesterOWLSyntax keyword) {
+        restriction.getProperty().accept(this);
+        write(keyword);
+        boolean conjunctionOrDisjunction = false;
+        if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
+            if (restriction.getFiller() instanceof OWLObjectIntersectionOf || restriction.getFiller() instanceof OWLObjectUnionOf) {
+                conjunctionOrDisjunction = true;
+                incrementTab(4);
+                writeNewLine();
+            }
+            write("(");
+        }
+        restriction.getFiller().accept(this);
+        if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
+            write(")");
+            if (conjunctionOrDisjunction) {
+                popTab();
+            }
+        }
+    }
+    
+    private void writeRestriction(OWLQuantifiedObjectRestriction restriction, ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
         boolean conjunctionOrDisjunction = false;
@@ -126,14 +146,14 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    private void writeRestriction(OWLHasValueRestriction restriction) {
+    private <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject> void writeRestriction(OWLHasValueRestriction<R, P, V> restriction) {
         restriction.getProperty().accept(this);
         write(VALUE);
         restriction.getValue().accept(this);
     }
 
 
-    private void writeRestriction(OWLCardinalityRestriction restriction, ManchesterOWLSyntax keyword) {
+    private <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> void writeRestriction(OWLCardinalityRestriction<R, P, F> restriction, ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
         write(Integer.toString(restriction.getCardinality()));

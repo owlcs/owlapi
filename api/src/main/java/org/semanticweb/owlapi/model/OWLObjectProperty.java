@@ -32,6 +32,6 @@ package org.semanticweb.owlapi.model;
  * <p/>
  * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Object_Properties">Object Property</a> in the OWL 2 Specification.
  */
-public interface OWLObjectProperty extends OWLObjectPropertyExpression, OWLProperty<OWLObjectPropertyExpression, OWLClassExpression> {
+public interface OWLObjectProperty extends OWLObjectPropertyExpression, OWLProperty<OWLClassExpression, OWLObjectPropertyExpression> {
 
 }

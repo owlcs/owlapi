@@ -525,7 +525,19 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(desc.getOperand());
     }
 
-    private void writeCardinalityRestriction(OWLCardinalityRestriction restriction, DLSyntax keyword) {
+    private void writeCardinalityRestriction(OWLDataCardinalityRestriction restriction, DLSyntax keyword) {
+        write(keyword);
+        writeSpace();
+        write(restriction.getCardinality());
+        writeSpace();
+        restriction.getProperty().accept(this);
+//        if (restriction.isQualified()) {
+        writeRestrictionSeparator();
+        writeNested(restriction.getFiller());
+//        }
+    }
+    
+    private void writeCardinalityRestriction(OWLObjectCardinalityRestriction restriction, DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -537,7 +549,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 //        }
     }
 
-    private void writeQuantifiedRestriction(OWLQuantifiedRestriction restriction, DLSyntax keyword) {
+    private void writeQuantifiedRestriction(OWLQuantifiedDataRestriction restriction, DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -545,6 +557,14 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(restriction.getFiller());
     }
 
+    private void writeQuantifiedRestriction(OWLQuantifiedObjectRestriction restriction, DLSyntax keyword) {
+        write(keyword);
+        writeSpace();
+        restriction.getProperty().accept(this);
+        writeRestrictionSeparator();
+        writeNested(restriction.getFiller());
+    }
+    
     public void visit(OWLObjectSomeValuesFrom desc) {
         writeQuantifiedRestriction(desc, EXISTS);
 
@@ -556,7 +576,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
-    private void writeValueRestriction(OWLHasValueRestriction restriction) {
+    private <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject> void writeValueRestriction(OWLHasValueRestriction<R, P, V> restriction) {
         write(EXISTS);
         writeSpace();
         restriction.getProperty().accept(this);

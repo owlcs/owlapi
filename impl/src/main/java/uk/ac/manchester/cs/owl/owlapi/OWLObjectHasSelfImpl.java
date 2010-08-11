@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLObjectHasSelfImpl extends OWLRestrictionImpl<OWLObjectPropertyExpression> implements OWLObjectHasSelf {
+public class OWLObjectHasSelfImpl extends OWLRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObjectPropertyExpression> implements OWLObjectHasSelf {
 
     public OWLObjectHasSelfImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property) {
         super(dataFactory, property);

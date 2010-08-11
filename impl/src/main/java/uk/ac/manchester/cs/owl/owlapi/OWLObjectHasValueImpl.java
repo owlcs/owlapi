@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLObjectPropertyExpression, OWLIndividual> implements OWLObjectHasValue {
+public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLIndividual> implements OWLObjectHasValue {
 
     public OWLObjectHasValueImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLIndividual value) {
         super(dataFactory, property, value);

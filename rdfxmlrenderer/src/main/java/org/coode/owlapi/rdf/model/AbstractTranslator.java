@@ -140,15 +140,33 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
      * Add type triples and the owl:onProperty triples for an OWLRestriction
      * @param desc The restriction
      */
-    private void addRestrictionCommonTriples(OWLRestriction desc) {
+    private <R extends OWLPropertyRange, P extends OWLPropertyExpression<R,P>, F extends OWLPropertyRange> void addRestrictionCommonTriplePropertyRange(OWLRestriction<R, P, F> desc) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), desc.getProperty());
     }
+    
+    private <R extends OWLPropertyRange, P extends OWLPropertyExpression<R,P>, F extends OWLPropertyExpression<R,P>> void addRestrictionCommonTriplePropertyExpression(OWLRestriction<R, P, F> desc) {
+        translateAnonymousNode(desc);
+        addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        addTriple(desc, OWL_ON_PROPERTY.getIRI(), desc.getProperty());
+    }
+    
+    private void addObjectCardinalityRestrictionTriples(OWLCardinalityRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> ce, OWLRDFVocabulary cardiPredicate) {
+    	addRestrictionCommonTriplePropertyRange(ce);
+        addTriple(ce, cardiPredicate.getIRI(), toTypedConstant(ce.getCardinality()));
+        if (ce.isQualified()) {
+            if (ce.isObjectRestriction()) {
+                addTriple(ce, OWL_ON_CLASS.getIRI(), ce.getFiller());
+            } else {
+                addTriple(ce, OWL_ON_DATA_RANGE.getIRI(), ce.getFiller());
+            }
+        }
 
+    }
 
-    private void addCardinalityRestrictionTriples(OWLCardinalityRestriction ce, OWLRDFVocabulary cardiPredicate) {
-        addRestrictionCommonTriples(ce);
+    private void addDataCardinalityRestrictionTriples(OWLCardinalityRestriction<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> ce, OWLRDFVocabulary cardiPredicate) {
+    	addRestrictionCommonTriplePropertyRange(ce);
         addTriple(ce, cardiPredicate.getIRI(), toTypedConstant(ce.getCardinality()));
         if (ce.isQualified()) {
             if (ce.isObjectRestriction()) {
@@ -164,19 +182,19 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     //////////////////////////////////////////////////////////////////////////////////////
 
     public void visit(OWLObjectSomeValuesFrom desc) {
-        addRestrictionCommonTriples(desc);
+    	addRestrictionCommonTriplePropertyRange(desc);
         addTriple(desc, OWL_SOME_VALUES_FROM.getIRI(), desc.getFiller());
     }
 
 
     public void visit(OWLObjectAllValuesFrom desc) {
-        addRestrictionCommonTriples(desc);
+    	addRestrictionCommonTriplePropertyRange(desc);
         addTriple(desc, OWL_ALL_VALUES_FROM.getIRI(), desc.getFiller());
     }
 
 
     public void visit(OWLObjectHasValue desc) {
-        addRestrictionCommonTriples(desc);
+    	addRestrictionCommonTriplePropertyExpression(desc);
         addTriple(desc, OWL_HAS_VALUE.getIRI(), desc.getValue());
         processIfAnonymous(desc.getValue(), null);
     }
@@ -191,73 +209,73 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(OWLObjectMinCardinality desc) {
         if (desc.isQualified()) {
-            addCardinalityRestrictionTriples(desc, OWL_MIN_QUALIFIED_CARDINALITY);
+            addObjectCardinalityRestrictionTriples(desc, OWL_MIN_QUALIFIED_CARDINALITY);
         }
         else {
-            addCardinalityRestrictionTriples(desc, OWL_MIN_CARDINALITY);
+        	addObjectCardinalityRestrictionTriples(desc, OWL_MIN_CARDINALITY);
         }
     }
 
 
     public void visit(OWLObjectMaxCardinality desc) {
         if (desc.isQualified()) {
-            addCardinalityRestrictionTriples(desc, OWL_MAX_QUALIFIED_CARDINALITY);
+        	addObjectCardinalityRestrictionTriples(desc, OWL_MAX_QUALIFIED_CARDINALITY);
         }
         else {
-            addCardinalityRestrictionTriples(desc, OWL_MAX_CARDINALITY);
+        	addObjectCardinalityRestrictionTriples(desc, OWL_MAX_CARDINALITY);
         }
     }
 
     public void visit(OWLObjectExactCardinality desc) {
         if (desc.isQualified()) {
-            addCardinalityRestrictionTriples(desc, OWL_QUALIFIED_CARDINALITY);
+        	addObjectCardinalityRestrictionTriples(desc, OWL_QUALIFIED_CARDINALITY);
         }
         else {
-            addCardinalityRestrictionTriples(desc, OWL_CARDINALITY);
+        	addObjectCardinalityRestrictionTriples(desc, OWL_CARDINALITY);
         }
     }
 
 
     public void visit(OWLDataSomeValuesFrom desc) {
-        addRestrictionCommonTriples(desc);
+        addRestrictionCommonTriplePropertyRange(desc);
         addTriple(desc, OWL_SOME_VALUES_FROM.getIRI(), desc.getFiller());
     }
 
     public void visit(OWLDataAllValuesFrom desc) {
-        addRestrictionCommonTriples(desc);
+        addRestrictionCommonTriplePropertyRange(desc);
         addTriple(desc, OWL_ALL_VALUES_FROM.getIRI(), desc.getFiller());
     }
 
     public void visit(OWLDataHasValue desc) {
-        addRestrictionCommonTriples(desc);
+        addRestrictionCommonTriplePropertyExpression(desc);
         addTriple(desc, OWL_HAS_VALUE.getIRI(), desc.getValue());
     }
 
     public void visit(OWLDataMinCardinality desc) {
         if (desc.isQualified()) {
-            addCardinalityRestrictionTriples(desc, OWL_MIN_QUALIFIED_CARDINALITY);
+        	addDataCardinalityRestrictionTriples(desc, OWL_MIN_QUALIFIED_CARDINALITY);
         }
         else {
-            addCardinalityRestrictionTriples(desc, OWL_MIN_CARDINALITY);
+        	addDataCardinalityRestrictionTriples(desc, OWL_MIN_CARDINALITY);
         }
     }
 
     public void visit(OWLDataMaxCardinality desc) {
         if (desc.isQualified()) {
-            addCardinalityRestrictionTriples(desc, OWL_MAX_QUALIFIED_CARDINALITY);
+        	addDataCardinalityRestrictionTriples(desc, OWL_MAX_QUALIFIED_CARDINALITY);
         }
         else {
-            addCardinalityRestrictionTriples(desc, OWL_MAX_CARDINALITY);
+        	addDataCardinalityRestrictionTriples(desc, OWL_MAX_CARDINALITY);
         }
 
     }
 
     public void visit(OWLDataExactCardinality desc) {
         if (desc.isQualified()) {
-            addCardinalityRestrictionTriples(desc, OWL_QUALIFIED_CARDINALITY);
+        	addDataCardinalityRestrictionTriples(desc, OWL_QUALIFIED_CARDINALITY);
         }
         else {
-            addCardinalityRestrictionTriples(desc, OWL_CARDINALITY);
+        	addDataCardinalityRestrictionTriples(desc, OWL_CARDINALITY);
         }
     }
 
@@ -922,6 +940,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         addTriple(getResourceNode(subject), getPredicateNode(pred), getNode(object));
     }
 
+    private void addTriple(OWLObject subject, IRI pred, List<? extends OWLObject> objects) {
+        addTriple(getResourceNode(subject), getPredicateNode(pred), translateList(objects));
+    }
 
     private void addListTriples(OWLObject subject, IRI pred, Set<? extends OWLObject> objects) {
         addTriple(getResourceNode(subject), getPredicateNode(pred), translateList(new ArrayList<OWLObject>(objects)));

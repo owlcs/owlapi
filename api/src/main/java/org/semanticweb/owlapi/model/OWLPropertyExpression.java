@@ -32,7 +32,7 @@ import java.util.Set;
  * Date: 24-Oct-2006
  * Represents a property or possibly the inverse of a property.
  */
-public interface OWLPropertyExpression<P extends OWLPropertyExpression, R extends OWLPropertyRange> extends OWLObject {
+public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>> extends OWLObject {
 
     /**
      * Gets the asserted domains of this property.

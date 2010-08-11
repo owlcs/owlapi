@@ -3,6 +3,7 @@ package uk.ac.manchester.owl.owlapi.tutorial.io;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.QNameShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -529,8 +530,8 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write("<span class='cl'>" + labelFor(desc) + "</span>");
     }
 
-    private void writeRestriction(String str,
-                                  OWLCardinalityRestriction restriction) {
+    private <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> 
+    void writeRestriction(String str, OWLCardinalityRestriction<R, P, F> restriction) {
         write(str);
         writeOpenBracket();
         write(Integer.toString(restriction.getCardinality()));
@@ -544,10 +545,16 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private void writeRestriction(String str,
-                                  OWLQuantifiedRestriction restriction) {
+    							  OWLQuantifiedDataRestriction restriction) {
         writeRestriction(str, restriction.getProperty(), restriction
                 .getFiller());
     }
+    
+    private void writeRestriction(String str, 
+    							  OWLQuantifiedObjectRestriction restriction) {
+    		writeRestriction(str, restriction.getProperty(), restriction
+            .getFiller());
+}
 
     private void writeRestriction(String str, OWLPropertyExpression prop,
                                   OWLObject filler) throws OWLRuntimeException {

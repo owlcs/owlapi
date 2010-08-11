@@ -328,7 +328,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
-    private void checkCardinality(OWLCardinalityRestriction restriction) {
+    private void checkCardinality(OWLDataCardinalityRestriction restriction) {
         if (restriction.isQualified()) {
             constructs.add(Q);
         } else {
@@ -338,7 +338,16 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         restriction.getProperty().accept(this);
     }
 
-
+    private void checkCardinality(OWLObjectCardinalityRestriction restriction) {
+        if (restriction.isQualified()) {
+            constructs.add(Q);
+        } else {
+            constructs.add(N);
+        }
+        restriction.getFiller().accept(this);
+        restriction.getProperty().accept(this);
+    }
+    
     public void visit(OWLObjectMinCardinality desc) {
         checkCardinality(desc);
     }

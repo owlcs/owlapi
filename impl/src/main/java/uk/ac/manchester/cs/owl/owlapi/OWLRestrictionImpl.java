@@ -2,6 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLRestriction;
 /*
  * Copyright (C) 2006, University of Manchester
@@ -33,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLRestrictionImpl<P extends OWLPropertyExpression> extends OWLAnonymousClassExpressionImpl implements OWLRestriction<P> {
+public abstract class OWLRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F> extends OWLAnonymousClassExpressionImpl implements OWLRestriction<R, P, F> {
 
     private P property;
 

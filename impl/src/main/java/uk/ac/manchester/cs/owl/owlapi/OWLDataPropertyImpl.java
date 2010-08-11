@@ -34,7 +34,7 @@ import java.util.Set;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group<br> Date:
  * 26-Oct-2006<br><br>
  */
-public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataPropertyExpression, OWLDataRange> implements OWLDataProperty {
+public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange, OWLDataPropertyExpression> implements OWLDataProperty {
 
     private IRI iri;
 

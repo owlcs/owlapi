@@ -29,7 +29,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLCardinalityRestriction<P extends OWLPropertyExpression, F extends OWLPropertyRange> extends OWLQuantifiedRestriction<P, F> {
+public interface OWLCardinalityRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLQuantifiedRestriction<R, P, F> {
 
     /**
      * Gets the cardinality of this restriction

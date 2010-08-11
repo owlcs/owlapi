@@ -642,7 +642,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
     public void setPendingAnnotations(Set<OWLAnnotation> annotations) {
-        pendingAnnotations.clear();
+    	if (!pendingAnnotations.isEmpty()) throw new OWLRuntimeException(pendingAnnotations.size() + " pending annotations should have been used by now.");
         pendingAnnotations.addAll(annotations);
     }
 

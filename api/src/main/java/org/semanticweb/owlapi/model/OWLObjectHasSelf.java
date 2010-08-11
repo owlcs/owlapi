@@ -31,6 +31,6 @@ package org.semanticweb.owlapi.model;
  * <p/>
  * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Self-Restriction">ObjectHasSelf</a> class expression in the OWL 2 Specification.
  */
-public interface OWLObjectHasSelf extends OWLRestriction<OWLObjectPropertyExpression> {
+public interface OWLObjectHasSelf extends OWLRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLObjectPropertyExpression> {
 
 }

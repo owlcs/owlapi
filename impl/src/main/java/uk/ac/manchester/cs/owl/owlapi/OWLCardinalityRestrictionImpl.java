@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLCardinalityRestrictionImpl<P extends OWLPropertyExpression, F extends OWLPropertyRange> extends OWLRestrictionImpl<P> implements OWLCardinalityRestriction<P, F> {
+public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLRestrictionImpl<R, P, F> implements OWLCardinalityRestriction<R, P, F> {
 
     private int cardinality;
 
@@ -56,19 +56,20 @@ public abstract class OWLCardinalityRestrictionImpl<P extends OWLPropertyExpress
 
 
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLCardinalityRestriction)) {
-                return false;
+            if(super.equals(obj)) {
+                if(!(obj instanceof OWLCardinalityRestriction)) {
+                    return false;
+                }
+                OWLCardinalityRestriction<R, P, F> other = (OWLCardinalityRestriction<R, P, F>) obj;
+                return other.getCardinality() == cardinality &&
+                        other.getFiller().equals(filler);
             }
-            OWLCardinalityRestriction other = (OWLCardinalityRestriction) obj;
-            return other.getCardinality() == cardinality && other.getFiller().equals(filler);
-        }
         return false;
     }
 
 
     final protected int compareObjectOfSameType(OWLObject object) {
-        OWLCardinalityRestriction other = (OWLCardinalityRestriction) object;
+        OWLCardinalityRestriction<R, P, F> other = (OWLCardinalityRestriction<R, P, F>) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {
             return diff;

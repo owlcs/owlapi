@@ -4,6 +4,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLHasValueRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLPropertyRange;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -34,7 +35,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLValueRestrictionImpl<P extends OWLPropertyExpression, V extends OWLObject> extends OWLRestrictionImpl<P> implements OWLHasValueRestriction<P, V> {
+public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject> extends OWLRestrictionImpl<R, P, P> implements OWLHasValueRestriction<R, P, V> {
 
     private V value;
 
@@ -52,17 +53,17 @@ public abstract class OWLValueRestrictionImpl<P extends OWLPropertyExpression, V
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
-            if (!(obj instanceof OWLHasValueRestriction)) {
+            if (!(obj instanceof OWLHasValueRestriction<?, ?, ?>)) {
                 return false;
             }
-            return ((OWLHasValueRestriction) obj).getValue().equals(value);
+            return ((OWLHasValueRestriction<?, ?, ?>) obj).getValue().equals(value);
         }
         return false;
     }
 
 
     final protected int compareObjectOfSameType(OWLObject object) {
-        OWLHasValueRestriction other = (OWLHasValueRestriction) object;
+        OWLHasValueRestriction<?, ?, ?> other = (OWLHasValueRestriction<?, ?, ?>) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {
             return diff;

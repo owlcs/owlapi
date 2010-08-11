@@ -29,7 +29,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLHasValueRestriction<P extends OWLPropertyExpression, V extends OWLObject> extends OWLRestriction<P> {
+public interface OWLHasValueRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject> extends OWLRestriction<R, P, P> {
 
     /**
      * Gets the value which is the filler for this restriction.  In the

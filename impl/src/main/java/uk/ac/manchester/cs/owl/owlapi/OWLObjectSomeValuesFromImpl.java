@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLObjectSomeValuesFromImpl extends OWLQuantifiedRestrictionImpl<OWLObjectPropertyExpression, OWLClassExpression> implements OWLObjectSomeValuesFrom {
+public class OWLObjectSomeValuesFromImpl extends OWLQuantifiedObjectRestrictionImpl implements OWLObjectSomeValuesFrom {
 
     public OWLObjectSomeValuesFromImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLClassExpression filler) {
         super(dataFactory, property, filler);

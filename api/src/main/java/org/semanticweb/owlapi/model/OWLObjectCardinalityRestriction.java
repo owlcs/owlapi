@@ -29,6 +29,6 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public interface OWLObjectCardinalityRestriction extends OWLCardinalityRestriction<OWLObjectPropertyExpression, OWLClassExpression> {
+public interface OWLObjectCardinalityRestriction extends OWLCardinalityRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> {
 
 }

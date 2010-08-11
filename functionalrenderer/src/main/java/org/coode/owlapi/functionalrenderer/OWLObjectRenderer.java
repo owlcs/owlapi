@@ -651,7 +651,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    private void writeRestriction(OWLXMLVocabulary v, OWLCardinalityRestriction restriction) {
+    private <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> void writeRestriction(OWLXMLVocabulary v, OWLCardinalityRestriction<R, P, F> restriction) {
         write(v);
         writeOpenBracket();
         write(Integer.toString(restriction.getCardinality()));
@@ -664,8 +664,11 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-
-    private void writeRestriction(OWLXMLVocabulary v, OWLQuantifiedRestriction restriction) {
+    private void writeRestriction(OWLXMLVocabulary v, OWLQuantifiedDataRestriction restriction) {
+    	writeRestriction(v, restriction.getProperty(), restriction.getFiller());
+    }
+    
+    private void writeRestriction(OWLXMLVocabulary v, OWLQuantifiedObjectRestriction restriction) {
         writeRestriction(v, restriction.getProperty(), restriction.getFiller());
     }
 
