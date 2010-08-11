@@ -40,7 +40,7 @@ public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<O
     }
 
     public OWLDataPropertyDomainAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLDataPropertyDomainAxiom(getProperty(), getDomain());
@@ -50,7 +50,7 @@ public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<O
         return getOWLDataFactory().getOWLDataPropertyDomainAxiom(getProperty(), getDomain(), mergeAnnos(annotations));
     }
 
- 
+
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataPropertyDomainAxiom;

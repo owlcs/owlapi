@@ -43,7 +43,7 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
     }
 
     public OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLAnnotationPropertyDomainAxiom(getProperty(), getDomain());
@@ -96,13 +96,13 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
 
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLAnnotationPropertyDomainAxiom)) {
+        if (!(obj instanceof OWLAnnotationPropertyDomainAxiom)) {
             return false;
         }
         OWLAnnotationPropertyDomainAxiom other = (OWLAnnotationPropertyDomainAxiom) obj;
-        return property.equals(other.getProperty()) && domain.equals(other.getDomain())  && getAnnotations().equals(other.getAnnotations());
+        return property.equals(other.getProperty()) && domain.equals(other.getDomain()) && getAnnotations().equals(other.getAnnotations());
     }
 }

@@ -52,9 +52,7 @@ public class ImplUtils {
         return result;
     }
 
-    public static Set<OWLAnnotation> getAnnotations(OWLEntity entity,
-                                                    OWLAnnotationProperty annotationProperty,
-                                                    Set<OWLOntology> ontologies) {
+    public static Set<OWLAnnotation> getAnnotations(OWLEntity entity, OWLAnnotationProperty annotationProperty, Set<OWLOntology> ontologies) {
         Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
         for (OWLAnnotationAssertionAxiom ax : getAnnotationAxioms(entity, ontologies)) {
             if (ax.getAnnotation().getProperty().equals(annotationProperty)) {

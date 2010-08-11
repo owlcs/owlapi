@@ -64,7 +64,7 @@ public abstract class OWLValueRestrictionImpl<P extends OWLPropertyExpression, V
     final protected int compareObjectOfSameType(OWLObject object) {
         OWLHasValueRestriction other = (OWLHasValueRestriction) object;
         int diff = getProperty().compareTo(other.getProperty());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return value.compareTo(other.getValue());

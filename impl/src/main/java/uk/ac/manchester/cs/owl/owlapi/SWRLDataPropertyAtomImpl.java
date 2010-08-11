@@ -33,8 +33,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLDArgument> implements SWRLDataPropertyAtom {
 
-    public SWRLDataPropertyAtomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression predicate, SWRLIArgument arg0,
-                                          SWRLDArgument arg1) {
+    public SWRLDataPropertyAtomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression predicate, SWRLIArgument arg0, SWRLDArgument arg1) {
         super(dataFactory, predicate, arg0, arg1);
     }
 
@@ -61,15 +60,13 @@ public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, 
     }
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-            if(!(obj instanceof SWRLDataPropertyAtom)) {
-                return false;
-            }
-            SWRLDataPropertyAtom other = (SWRLDataPropertyAtom) obj;
-            return other.getPredicate().equals(getPredicate()) &&
-                    other.getFirstArgument().equals(getFirstArgument()) &&
-                    other.getSecondArgument().equals(getSecondArgument());
+        if (!(obj instanceof SWRLDataPropertyAtom)) {
+            return false;
+        }
+        SWRLDataPropertyAtom other = (SWRLDataPropertyAtom) obj;
+        return other.getPredicate().equals(getPredicate()) && other.getFirstArgument().equals(getFirstArgument()) && other.getSecondArgument().equals(getSecondArgument());
     }
 }

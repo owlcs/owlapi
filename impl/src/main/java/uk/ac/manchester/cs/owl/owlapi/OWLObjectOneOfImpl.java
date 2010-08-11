@@ -68,7 +68,8 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     public OWLClassExpression asObjectUnionOf() {
         if (values.size() == 1) {
             return this;
-        } else {
+        }
+        else {
             Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : values) {
                 ops.add(getOWLDataFactory().getOWLObjectOneOf(ind));

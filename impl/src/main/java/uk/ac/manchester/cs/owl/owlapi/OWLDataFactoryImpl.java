@@ -50,7 +50,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLDataFactoryImpl() {
-    	data = new OWLDataFactoryInternalsImpl(this);
+        data = new OWLDataFactoryInternalsImpl(this);
     }
 
     public static OWLDataFactory getInstance() {
@@ -64,7 +64,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets an entity that has the specified IRI and is of the specified type.
-     *
      * @param entityType The type of the entity that will be returned
      * @param iri The IRI of the entity that will be returned
      * @return An entity that has the same IRI as this entity and is of the specified type
@@ -94,7 +93,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
     public OWLClass getOWLClass(IRI iri) {
-    	return data.getOWLClass(iri);
+        return data.getOWLClass(iri);
     }
 
     public OWLClass getOWLClass(String curi, PrefixManager prefixManager) {
@@ -200,15 +199,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
     public OWLObjectProperty getOWLObjectProperty(IRI iri) {
-    	return data.getOWLObjectProperty(iri);
+        return data.getOWLObjectProperty(iri);
     }
 
     public OWLDataProperty getOWLDataProperty(IRI iri) {
-    	return data.getOWLDataProperty(iri);
+        return data.getOWLDataProperty(iri);
     }
 
     public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
-    	return data.getOWLNamedIndividual(iri);
+        return data.getOWLNamedIndividual(iri);
     }
 
     public OWLDataProperty getOWLDataProperty(String curi, PrefixManager prefixManager) {
@@ -227,7 +226,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLAnonymousIndividual getOWLAnonymousIndividual(String id) {
-        if(id == null) {
+        if (id == null) {
             throw new NullPointerException("ID for anonymous individual is null");
         }
         return new OWLAnonymousIndividualImpl(this, NodeID.getNodeID(id));
@@ -235,7 +234,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets an anonymous individual.  The node ID for the individual will be generated automatically
-     *
      * @return The anonymous individual
      */
     public OWLAnonymousIndividual getOWLAnonymousIndividual() {
@@ -248,9 +246,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
         OWLLiteral literal;
-        if(datatype.isRDFPlainLiteral()) {
+        if (datatype.isRDFPlainLiteral()) {
             int sep = lexicalValue.lastIndexOf('@');
-            if(sep != -1) {
+            if (sep != -1) {
                 String lex = lexicalValue.substring(0, sep);
                 String lang = lexicalValue.substring(sep + 1);
                 literal = new OWLLiteralImpl(this, lex, lang);
@@ -295,11 +293,11 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLLiteral getOWLLiteral(String literal, String lang) {
-        if(literal == null) {
+        if (literal == null) {
             throw new NullPointerException("literal argument is null");
         }
         String normalisedLang;
-        if(lang == null) {
+        if (lang == null) {
             normalisedLang = "";
         }
         else {
@@ -696,10 +694,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a declaration for an entity
-     *
      * @param owlEntity The declared entity.
      * @return The declaration axiom for the specified entity.
-     *
      * @throws NullPointerException if owlEntity is <code>null</code>
      */
 
@@ -1136,7 +1132,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets an annotation
-     *
      * @param property the annotation property
      * @param value The annotation value
      * @return The annotation on the specified property with the specified value
@@ -1148,7 +1143,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets an annotation
-     *
      * @param property the annotation property
      * @param value The annotation value
      * @param annotations Annotations on the annotation
@@ -1175,13 +1169,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationProperty property, OWLAnnotationSubject subject, OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations) {
-        if(property == null) {
+        if (property == null) {
             throw new NullPointerException("Annotation property is null");
         }
-        if(subject == null) {
+        if (subject == null) {
             throw new NullPointerException("Annotation subject is null");
         }
-        if(value == null) {
+        if (value == null) {
             throw new NullPointerException("Annotation value is null");
         }
         return new OWLAnnotationAssertionAxiomImpl(this, subject, property, value, annotations);
@@ -1192,7 +1186,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * owl:deprecated and the value of the annotation is <code>"true"^^xsd:boolean</code>.  (See
      * <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Properties">Annotation Properties</a> in
      * the OWL 2 Specification
-     *
      * @param subject The IRI to be deprecated.
      * @return The annotation assertion that deprecates the specified IRI.
      */
@@ -1228,7 +1221,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRL rule which is named with a URI
-     *
      * @param iri
      * @param body
      * @param head
@@ -1244,7 +1236,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRL rule which is not named with a URI - i.e. that is anonymous.
-     *
      * @param nodeID
      * @param body
      * @param head
@@ -1258,7 +1249,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets an anonymous SWRL Rule
-     *
      * @param body The atoms that make up the body
      * @param head The atoms that make up the head
      * @param annotations The annotations for the rule (may be an empty set)
@@ -1270,7 +1260,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRL rule which is anonymous - i.e. isn't named with a URI
-     *
      * @param antecendent The atoms that make up the antecedent
      * @param consequent The atoms that make up the consequent
      */
@@ -1283,7 +1272,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     /**
      * Gets a SWRL class atom, i.e.  C(x) where C is a class expression and
      * x is either an individual id or an i-variable
-     *
      * @param predicate
      * @param arg The argument (x)
      */
@@ -1296,7 +1284,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     /**
      * Gets a SWRL data range atom, i.e.  D(x) where D is an OWL data range and
      * x is either a constant or a d-variable
-     *
      * @param predicate
      * @param arg The argument (x)
      */
@@ -1310,7 +1297,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * Gets a SWRL object property atom, i.e. P(x, y) where P is an OWL object
      * property (expression) and x and y are are either an individual id or
      * an i-variable.
-     *
      * @param property The property (P)
      * @param arg0 The first argument (x)
      * @param arg1 The second argument (y)
@@ -1325,7 +1311,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * Gets a SWRL data property atom, i.e. R(x, y) where R is an OWL data
      * property (expression) and x and y are are either a constant or
      * a d-variable.
-     *
      * @param property The property (P)
      * @param arg0 The first argument (x)
      * @param arg1 The second argument (y)
@@ -1338,7 +1323,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Creates a SWRL Built-In atom.
-     *
      * @param builtInIRI The SWRL builtIn (see SWRL W3 member submission)
      * @param args A non-empty set of SWRL D-Objects
      */
@@ -1350,7 +1334,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRLVariable.
-     *
      * @param var The id (IRI) of the variable
      * @return A SWRLVariable that has the name specified by the IRI
      */
@@ -1360,7 +1343,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRL individual object.
-     *
      * @param individual The individual that is the object argument
      */
 
@@ -1371,7 +1353,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRL constant object.
-     *
      * @param literal The constant that is the object argument
      */
 

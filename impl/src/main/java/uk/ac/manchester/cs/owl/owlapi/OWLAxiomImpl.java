@@ -45,7 +45,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
         super(dataFactory);
         if (!annotations.isEmpty()) {
             this.annotations = Collections.unmodifiableSortedSet(new TreeSet<OWLAnnotation>(annotations));
-        } else {
+        }
+        else {
             this.annotations = Collections.emptySet();
         }
     }
@@ -59,13 +60,13 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
     }
 
     public Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
-        if(annotations.isEmpty()) {
+        if (annotations.isEmpty()) {
             return annotations;
         }
         else {
             Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
-            for(OWLAnnotation anno : annotations) {
-                if(anno.getProperty().equals(annotationProperty)) {
+            for (OWLAnnotation anno : annotations) {
+                if (anno.getProperty().equals(annotationProperty)) {
                     result.add(anno);
                 }
             }
@@ -75,7 +76,6 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
     /**
      * Determines if another axiom is equal to this axiom not taking into consideration the annotations on the axiom
-     *
      * @param axiom The axiom to test if equal
      * @return <code>true</code> if <code>axiom</code> without annotations is equal to this axiom without annotations
      *         otherwise <code>false</code>.
@@ -91,8 +91,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
      * @since 3.0
      */
     public boolean isOfType(AxiomType... axiomTypes) {
-        for(AxiomType type : axiomTypes) {
-            if(getAxiomType().equals(type)) {
+        for (AxiomType type : axiomTypes) {
+            if (getAxiomType().equals(type)) {
                 return true;
             }
         }

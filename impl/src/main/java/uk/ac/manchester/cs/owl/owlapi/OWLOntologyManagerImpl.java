@@ -148,7 +148,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     /**
      * Gets a previously loaded/created ontology that has the specified ontology IRI and no version IRI.
-     *
      * @param ontologyIRI The IRI of the ontology to be retrieved.
      * @return The ontology that has the specified IRI and no version IRI, or <code>null</code> if this manager does
      *         not manage an ontology with the specified IRI and no version IRI.
@@ -160,7 +159,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     /**
      * Gets a previously loaded/created ontology that has the specified ontology ID
-     *
      * @param ontologyID The ID of the ontology to retrieve
      * @return The ontology that has the specified ID, or <code>null</code> if this manager does not manage an ontology
      *         with the specified ontology ID.
@@ -182,7 +180,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     /**
      * Given an imports declaration, obtains the ontology that this import has been resolved to.
-     *
      * @param declaration The declaration that points to the imported ontology.
      * @return The ontology that the imports declaration resolves to, or <code>null</code> if the imports declaration
      *         could not be resolved to an ontology, because the ontology was not loaded or has been removed from this
@@ -202,11 +199,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Gets the set of <em>loaded</em> ontologies that the specified ontology is related to via the directlyImports relation as
      * defined in Section 3.4 of the OWL 2 Structural specification
-     *
      * @param ontology The ontology whose direct imports are to be retrieved.
      * @return The set of <em>loaded</em> ontologies that the specified ontology is related to via the directlyImports
      *         relation.
-     *
      * @throws org.semanticweb.owlapi.model.UnknownOWLOntologyException
      *          if there isn't an ontology in this manager which has the specified IRI.
      */
@@ -226,12 +221,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     /**
      * Gets the set of ontologies that are in the transitive closure of the directly imports relation.
-     *
      * @param ontology The ontology whose imports are to be retrieved.
      * @return A set of <code>OWLOntology</code>ies that are in the transitive closure of the directly imports relation
      *         of this ontology. If, for what ever reason, an imported ontology could not be loaded, then it will not be contained in the
      *         returned set of ontologies.
-     *
      * @throws org.semanticweb.owlapi.model.UnknownOWLOntologyException
      *          if there isn't an ontology in this manager which has the specified IRI.
      */
@@ -246,7 +239,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     /**
      * A method that gets the imports of a given ontology
-     *
      * @param ont The ontology whose (transitive) imports are to be retrieved.
      * @param result A place to store the result - the transitive closure of the imports will be stored in this
      * result set.
@@ -264,7 +256,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         if (ontologies == null) {
             ontologies = new HashSet<OWLOntology>();
             getImportsClosure(ontology, ontologies);
-            ontologies=Collections.unmodifiableSet(ontologies);
+            ontologies = Collections.unmodifiableSet(ontologies);
             // store the wrapped set
             // XXX verify if this happens often, a personalized immutable set implementation might be better, memory wise
             importsClosureCache.put(ontology, ontologies);
@@ -276,7 +268,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * A recursive method that gets the reflexive transitive closure of the ontologies that are imported
      * by this ontology.
-     *
      * @param ontology The ontology whose reflexive transitive closure is to be retrieved
      * @param ontologies a place to store the result
      */
@@ -310,7 +301,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Determines if a change is applicable.  A change may not be applicable
      * for a number of reasons.
-     *
      * @param change The change to be tested.
      * @return <code>true</code> if the change is applicable,
      *         otherwise, <code>false</code>.
@@ -328,10 +318,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Applies a change to an ontology and performs the necessary housekeeping
      * tasks.
-     *
      * @param change The change to be applied.
      * @return A list of changes that were actually applied.
-     *
      * @throws OWLOntologyChangeException
      */
     private List<OWLOntologyChange> enactChangeApplication(OWLOntologyChange change) {
@@ -377,7 +365,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     public List<OWLOntologyChange> addAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms) {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>(axioms.size() + 2);
-        for(OWLAxiom ax : axioms) {
+        for (OWLAxiom ax : axioms) {
             changes.add(new AddAxiom(ont, ax));
         }
         return applyChanges(changes);
@@ -389,7 +377,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     public List<OWLOntologyChange> removeAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms) {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>(axioms.size() + 2);
-        for(OWLAxiom ax : axioms) {
+        for (OWLAxiom ax : axioms) {
             changes.add(new RemoveAxiom(ont, ax));
             applyChanges(changes);
         }
@@ -404,11 +392,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     private void checkForImportsChange(OWLOntologyChange change) {
         if (change.isImportChange()) {
             resetImportsClosureCache();
-            if(change instanceof AddImport) {
+            if (change instanceof AddImport) {
                 // Do we contain the import already?
-                for(OWLOntologyID id : ontologiesByID.keySet()) {
+                for (OWLOntologyID id : ontologiesByID.keySet()) {
                     OWLImportsDeclaration addImportDeclaration = ((AddImport) change).getImportDeclaration();
-                    if(id.getDefaultDocumentIRI() != null && id.getDefaultDocumentIRI().equals(addImportDeclaration.getIRI())) {
+                    if (id.getDefaultDocumentIRI() != null && id.getDefaultDocumentIRI().equals(addImportDeclaration.getIRI())) {
                         // Yes we do
                         ontologyIDsByImportsDeclaration.put(addImportDeclaration, id);
                     }
@@ -451,7 +439,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     /**
      * Sets the format of an ontology
-     *
      * @param ontology The ontology
      * @param format The format of the ontology
      */
@@ -577,9 +564,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     private OWLOntology getOntologyByDocumentIRI(IRI documentIRI) {
-        for(OWLOntologyID ontID : documentIRIsByID.keySet()) {
+        for (OWLOntologyID ontID : documentIRIsByID.keySet()) {
             IRI docIRI = documentIRIsByID.get(ontID);
-            if(docIRI != null && docIRI.equals(documentIRI)) {
+            if (docIRI != null && docIRI.equals(documentIRI)) {
                 return getOntology(ontID);
             }
         }
@@ -607,12 +594,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     /**
      * This is the method that all the other load method delegate to.
-     *
      * @param ontologyIRI The URI of the ontology to be loaded.  This is only used to
      * report to listeners and may be <code>null</code>
      * @param documentSource The input source that specifies where the ontology should be loaded from.
      * @return The ontology that was loaded.
-     *
      * @throws OWLOntologyCreationException If the ontology could not be loaded.
      */
     protected OWLOntology loadOntology(IRI ontologyIRI, OWLOntologyDocumentSource documentSource) throws OWLOntologyCreationException {
@@ -696,7 +681,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     /**
      * Handles a rename of an ontology.  This method should only be called *after* the change has been applied
-     *
      * @param oldID The original ID of the ontology
      */
     private void renameOntology(OWLOntologyID oldID, OWLOntologyID newID) {
@@ -708,9 +692,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         ontologiesByID.remove(oldID);
         ontologiesByID.put(newID, ont);
         IRI documentIRI = documentIRIsByID.remove(oldID);
-		if (documentIRI != null) {
-			documentIRIsByID.put(newID, documentIRI);
-		}
+        if (documentIRI != null) {
+            documentIRIsByID.put(newID, documentIRI);
+        }
         resetImportsClosureCache();
     }
 
@@ -838,7 +822,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     /**
      * Uses the mapper mechanism to obtain an ontology document IRI from an ontology IRI.
-     *
      * @param ontologyID The ontology ID for which a document IRI is to be retrieved
      * @param quiet If set to <code>true</code> and a mapping can't be found then a value of <code>null</code>
      * is returned.  If set to <code>false</code> and a mapping can't be found then an exception {@link org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException}
@@ -897,7 +880,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Broadcasts to attached listeners, using the various broadcasting
      * strategies that were specified for each listener.
-     *
      * @param changes The ontology changes to broadcast
      */
     private void broadcastChanges(List<? extends OWLOntologyChange> changes) {
@@ -926,12 +908,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     private void broadcastImpendingChanges(List<? extends OWLOntologyChange> changes) throws OWLOntologyChangeVetoException {
-        if(!broadcastChanges) {
+        if (!broadcastChanges) {
             return;
         }
-        for(ImpendingOWLOntologyChangeListener listener : new ArrayList<ImpendingOWLOntologyChangeListener>(impendingChangeListenerMap.keySet())) {
+        for (ImpendingOWLOntologyChangeListener listener : new ArrayList<ImpendingOWLOntologyChangeListener>(impendingChangeListenerMap.keySet())) {
             ImpendingOWLOntologyChangeBroadcastStrategy strategy = impendingChangeListenerMap.get(listener);
-            if(strategy != null) {
+            if (strategy != null) {
                 strategy.broadcastChanges(listener, changes);
             }
         }
@@ -971,7 +953,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     private void broadcastOntologyChangesVetoed(List<? extends OWLOntologyChange> changes, OWLOntologyChangeVetoException veto) {
-        for(OWLOntologyChangesVetoedListener listener : new ArrayList<OWLOntologyChangesVetoedListener>(vetoListeners)) {
+        for (OWLOntologyChangesVetoedListener listener : new ArrayList<OWLOntologyChangesVetoedListener>(vetoListeners)) {
             listener.ontologyChangesVetoed(changes, veto);
         }
     }

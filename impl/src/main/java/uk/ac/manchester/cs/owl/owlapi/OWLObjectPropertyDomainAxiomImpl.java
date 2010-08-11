@@ -40,7 +40,7 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
     }
 
     public OWLObjectPropertyDomainAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(getProperty(), getDomain());

@@ -311,7 +311,6 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass {
 
     /**
      * Determines if this class has at least one equivalent class in the specified ontology.
-     *
      * @param ontology The ontology to examine for axioms.
      */
     public boolean isDefined(OWLOntology ontology) {

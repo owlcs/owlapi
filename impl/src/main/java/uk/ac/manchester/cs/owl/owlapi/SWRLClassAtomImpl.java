@@ -60,7 +60,7 @@ public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument> implemen
     }
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
         if (!(obj instanceof SWRLClassAtom)) {
@@ -73,7 +73,7 @@ public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument> implemen
     protected int compareObjectOfSameType(OWLObject object) {
         SWRLClassAtom other = (SWRLClassAtom) object;
         int diff = getPredicate().compareTo(other.getPredicate());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return getArgument().compareTo(other.getArgument());

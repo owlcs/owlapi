@@ -42,8 +42,7 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
     private Set<OWLFacetRestriction> facetRestrictions;
 
 
-    public OWLDatatypeRestrictionImpl(OWLDataFactory dataFactory, OWLDatatype datatype,
-                                      Set<OWLFacetRestriction> facetRestrictions) {
+    public OWLDatatypeRestrictionImpl(OWLDataFactory dataFactory, OWLDatatype datatype, Set<OWLFacetRestriction> facetRestrictions) {
         super(dataFactory);
         this.datatype = datatype;
         this.facetRestrictions = new HashSet<OWLFacetRestriction>(facetRestrictions);
@@ -75,7 +74,6 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
 
     /**
      * Gets the facet restrictions on this data range
-     *
      * @return A <code>Set</code> of facet restrictions that apply to
      *         this data range
      */

@@ -42,8 +42,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     private List<SWRLDArgument> args;
 
 
-    public SWRLBuiltInAtomImpl(OWLDataFactory dataFactory, IRI predicate,
-                               List<SWRLDArgument> args) {
+    public SWRLBuiltInAtomImpl(OWLDataFactory dataFactory, IRI predicate, List<SWRLDArgument> args) {
         super(dataFactory, predicate);
         this.args = new ArrayList<SWRLDArgument>(args);
     }
@@ -90,7 +89,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
 
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
         if (!(obj instanceof SWRLBuiltInAtom)) {
@@ -104,14 +103,14 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     protected int compareObjectOfSameType(OWLObject object) {
         SWRLBuiltInAtom other = (SWRLBuiltInAtom) object;
         int diff = getPredicate().compareTo(other.getPredicate());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         List<SWRLDArgument> otherArgs = other.getArguments();
         int i = 0;
-        while(i < args.size() && i < otherArgs.size()) {
+        while (i < args.size() && i < otherArgs.size()) {
             diff = args.get(i).compareTo(otherArgs.get(i));
-            if(diff != 0) {
+            if (diff != 0) {
                 return diff;
             }
             i++;

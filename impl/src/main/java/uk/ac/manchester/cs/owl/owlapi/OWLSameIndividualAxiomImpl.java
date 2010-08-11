@@ -56,7 +56,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
     public Set<OWLSameIndividualAxiom> asPairwiseAxioms() {
         List<OWLIndividual> inds = getIndividualsAsList();
         Set<OWLSameIndividualAxiom> result = new HashSet<OWLSameIndividualAxiom>();
-        for(int i = 0; i < inds.size() - 1; i++) {
+        for (int i = 0; i < inds.size() - 1; i++) {
             OWLIndividual indI = inds.get(i);
             OWLIndividual indJ = inds.get(i + 1);
             result.add(getOWLDataFactory().getOWLSameIndividualAxiom(indI, indJ));
@@ -67,7 +67,6 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
     /**
      * Determines whether this axiom contains anonymous individuals.  Anonymous individuals are not allowed in
      * same individuals axioms.
-     *
      * @return <code>true</code> if this axioms contains anonymous individual axioms
      */
     public boolean containsAnonymousIndividuals() {
@@ -97,7 +96,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
     public Set<OWLSameIndividualAxiom> asPairwiseSameIndividualAxioms() {
         List<OWLIndividual> individuals = new ArrayList<OWLIndividual>(getIndividuals());
         Set<OWLSameIndividualAxiom> result = new HashSet<OWLSameIndividualAxiom>();
-        for(int i = 0; i < individuals.size() - 1; i++) {
+        for (int i = 0; i < individuals.size() - 1; i++) {
             OWLIndividual indI = individuals.get(i);
             OWLIndividual indJ = individuals.get(i + 1);
             result.add(getOWLDataFactory().getOWLSameIndividualAxiom(indI, indJ));

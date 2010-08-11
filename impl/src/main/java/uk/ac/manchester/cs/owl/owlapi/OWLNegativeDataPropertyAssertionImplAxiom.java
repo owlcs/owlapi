@@ -35,23 +35,17 @@ import java.util.Set;
  */
 public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLNegativeDataPropertyAssertionAxiom {
 
-    public OWLNegativeDataPropertyAssertionImplAxiom(OWLDataFactory dataFactory, OWLIndividual subject, OWLDataPropertyExpression property,
-                                                     OWLLiteral object, Set<? extends OWLAnnotation> annotations) {
+    public OWLNegativeDataPropertyAssertionImplAxiom(OWLDataFactory dataFactory, OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral object, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, subject, property, object, annotations);
     }
 
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
-        return df.getOWLSubClassOfAxiom(
-                df.getOWLObjectOneOf(getSubject()),
-                df.getOWLObjectComplementOf(
-                        df.getOWLDataHasValue(getProperty(), getObject())
-                )
-        );
+        return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getSubject()), df.getOWLObjectComplementOf(df.getOWLDataHasValue(getProperty(), getObject())));
     }
 
     public OWLNegativeDataPropertyAssertionAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(), getObject());

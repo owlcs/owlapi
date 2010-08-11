@@ -41,7 +41,7 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyChar
     }
 
     public OWLIrreflexiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLIrreflexiveObjectPropertyAxiom(getProperty());
@@ -52,12 +52,7 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyChar
     }
 
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(
-                getOWLDataFactory().getOWLThing(),
-                getOWLDataFactory().getOWLObjectComplementOf(
-                        getOWLDataFactory().getOWLObjectHasSelf(getProperty())
-                )
-        );
+        return getOWLDataFactory().getOWLSubClassOfAxiom(getOWLDataFactory().getOWLThing(), getOWLDataFactory().getOWLObjectComplementOf(getOWLDataFactory().getOWLObjectHasSelf(getProperty())));
     }
 
     public boolean equals(Object obj) {

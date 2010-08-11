@@ -71,8 +71,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
                 return false;
             }
             OWLPropertyAssertionAxiom other = (OWLPropertyAssertionAxiom) obj;
-            return other.getSubject().equals(subject) && other.getProperty().equals(property) && other.getObject().equals(
-                    object);
+            return other.getSubject().equals(subject) && other.getProperty().equals(property) && other.getObject().equals(object);
         }
         return false;
     }

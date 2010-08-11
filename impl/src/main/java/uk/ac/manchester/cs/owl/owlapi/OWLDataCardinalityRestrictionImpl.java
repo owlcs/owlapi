@@ -36,8 +36,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  */
 public abstract class OWLDataCardinalityRestrictionImpl extends OWLCardinalityRestrictionImpl<OWLDataPropertyExpression, OWLDataRange> implements OWLDataCardinalityRestriction {
 
-    protected OWLDataCardinalityRestrictionImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property,
-                                                int cardinality, OWLDataRange filler) {
+    protected OWLDataCardinalityRestrictionImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
         super(dataFactory, property, cardinality, filler);
     }
 

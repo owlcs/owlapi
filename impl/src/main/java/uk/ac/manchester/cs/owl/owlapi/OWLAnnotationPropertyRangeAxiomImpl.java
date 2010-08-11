@@ -43,7 +43,7 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
     }
 
     public OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLAnnotationPropertyRangeAxiom(getProperty(), getRange());
@@ -96,13 +96,13 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
 
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLAnnotationPropertyRangeAxiom)) {
+        if (!(obj instanceof OWLAnnotationPropertyRangeAxiom)) {
             return false;
         }
         OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) obj;
-        return property.equals(other.getProperty()) && range.equals(other.getRange())  && getAnnotations().equals(other.getAnnotations());
+        return property.equals(other.getProperty()) && range.equals(other.getRange()) && getAnnotations().equals(other.getAnnotations());
     }
 }

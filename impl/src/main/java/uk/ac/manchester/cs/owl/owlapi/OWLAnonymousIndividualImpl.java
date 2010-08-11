@@ -105,10 +105,10 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
     }
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLAnonymousIndividual)) {
+        if (!(obj instanceof OWLAnonymousIndividual)) {
             return false;
         }
         return getID().equals(((OWLAnonymousIndividual) obj).getID());

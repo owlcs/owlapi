@@ -48,7 +48,7 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
     }
 
     public OWLClassAssertionAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLClassAssertionAxiom(getClassExpression(), getIndividual());
@@ -74,17 +74,13 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
                 return false;
             }
             OWLClassAssertionAxiom other = (OWLClassAssertionAxiom) obj;
-            return other.getIndividual().equals(individual) &&
-                    other.getClassExpression().equals(classExpression);
+            return other.getIndividual().equals(individual) && other.getClassExpression().equals(classExpression);
         }
         return false;
     }
 
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(
-                getOWLDataFactory().getOWLObjectOneOf(getIndividual()),
-                getClassExpression()
-        );
+        return getOWLDataFactory().getOWLSubClassOfAxiom(getOWLDataFactory().getOWLObjectOneOf(getIndividual()), getClassExpression());
     }
 
     public void accept(OWLAxiomVisitor visitor) {
@@ -113,7 +109,8 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
         int diff = getIndividual().compareTo(otherAx.getIndividual());
         if (diff != 0) {
             return diff;
-        } else {
+        }
+        else {
             return getClassExpression().compareTo(otherAx.getClassExpression());
         }
     }

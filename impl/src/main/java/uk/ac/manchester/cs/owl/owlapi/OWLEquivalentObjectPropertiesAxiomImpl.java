@@ -40,7 +40,7 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
     }
 
     public OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLEquivalentObjectPropertiesAxiom(getProperties());
@@ -82,8 +82,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>(getProperties());
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<OWLSubObjectPropertyOfAxiom>();
-        for(int i = 0; i < props.size() - 1; i++) {
-            for(int j = i + 1; j < props.size(); j++) {
+        for (int i = 0; i < props.size() - 1; i++) {
+            for (int j = i + 1; j < props.size(); j++) {
                 axs.add(getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(props.get(i), props.get(j)));
             }
         }

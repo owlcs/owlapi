@@ -40,16 +40,14 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
     private OWLDataRange dataRange;
 
 
-    public OWLDatatypeDefinitionAxiomImpl(OWLDataFactory dataFactory,
-                                     OWLDatatype datatype,
-                                     OWLDataRange dataRange, Collection<? extends OWLAnnotation> annotations) {
+    public OWLDatatypeDefinitionAxiomImpl(OWLDataFactory dataFactory, OWLDatatype datatype, OWLDataRange dataRange, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.datatype = datatype;
         this.dataRange = dataRange;
     }
 
     public OWLAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLDatatypeDefinitionAxiom(getDatatype(), getDataRange());
@@ -102,7 +100,7 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
     protected int compareObjectOfSameType(OWLObject object) {
         OWLDatatypeDefinitionAxiom other = (OWLDatatypeDefinitionAxiom) object;
         int diff = getDatatype().compareTo(other.getDatatype());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return getDataRange().compareTo(other.getDataRange());
@@ -110,10 +108,10 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
 
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLDatatypeDefinitionAxiom)) {
+        if (!(obj instanceof OWLDatatypeDefinitionAxiom)) {
             return false;
         }
         OWLDatatypeDefinitionAxiom other = (OWLDatatypeDefinitionAxiom) obj;

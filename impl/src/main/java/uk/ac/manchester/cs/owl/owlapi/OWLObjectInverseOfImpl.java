@@ -48,7 +48,6 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
         return inverseProperty;
     }
 
-    
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

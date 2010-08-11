@@ -84,11 +84,11 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
 
     @Override
     public boolean containsConjunct(OWLClassExpression ce) {
-        if(ce.equals(this)) {
+        if (ce.equals(this)) {
             return true;
         }
-        for(OWLClassExpression op : getOperands()) {
-            if(op.containsConjunct(ce)) {
+        for (OWLClassExpression op : getOperands()) {
+            if (op.containsConjunct(ce)) {
                 return true;
             }
         }

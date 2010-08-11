@@ -36,13 +36,12 @@ import java.util.Set;
  */
 public class OWLSubObjectPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLObjectPropertyExpression> implements OWLSubObjectPropertyOfAxiom {
 
-    public OWLSubObjectPropertyOfAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression subProperty,
-                                           OWLObjectPropertyExpression superProperty, Collection<? extends OWLAnnotation> annotations) {
+    public OWLSubObjectPropertyOfAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression subProperty, OWLObjectPropertyExpression superProperty, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, subProperty, superProperty, annotations);
     }
 
     public OWLSubObjectPropertyOfAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(getSubProperty(), getSuperProperty());

@@ -43,7 +43,7 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
 
     public Set<R> getRanges(OWLOntology ontology) {
         Set<R> result = new TreeSet<R>();
-        for(OWLPropertyRangeAxiom<P, R> axiom : getRangeAxioms(ontology)) {
+        for (OWLPropertyRangeAxiom<P, R> axiom : getRangeAxioms(ontology)) {
             result.add(axiom.getRange());
         }
         return result;
@@ -52,7 +52,7 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
 
     public Set<R> getRanges(Set<OWLOntology> ontologies) {
         Set<R> result = new TreeSet<R>();
-        for(OWLOntology ont : ontologies) {
+        for (OWLOntology ont : ontologies) {
             result.addAll(getRanges(ont));
         }
         return result;
@@ -61,7 +61,7 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
 
     public Set<OWLClassExpression> getDomains(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for(OWLPropertyDomainAxiom axiom : getDomainAxioms(ontology)) {
+        for (OWLPropertyDomainAxiom axiom : getDomainAxioms(ontology)) {
             result.add(axiom.getDomain());
         }
         return result;
@@ -70,7 +70,7 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
 
     public Set<OWLClassExpression> getDomains(Set<OWLOntology> ontologies) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for(OWLOntology ont : ontologies) {
+        for (OWLOntology ont : ontologies) {
             result.addAll(getDomains(ont));
         }
         return result;
@@ -79,7 +79,7 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
 
     public Set<P> getSuperProperties(OWLOntology ontology) {
         Set<P> result = new TreeSet<P>();
-        for(OWLSubPropertyAxiom<P> axiom : getSubPropertyAxioms(ontology)) {
+        for (OWLSubPropertyAxiom<P> axiom : getSubPropertyAxioms(ontology)) {
             result.add(axiom.getSuperProperty());
         }
         return result;
@@ -88,7 +88,7 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
 
     public Set<P> getSuperProperties(Set<OWLOntology> ontologies) {
         Set<P> results = new TreeSet<P>();
-        for(OWLOntology ont : ontologies) {
+        for (OWLOntology ont : ontologies) {
             results.addAll(getSuperProperties(ont));
         }
         return results;
@@ -97,7 +97,7 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
 
     public Set<P> getSubProperties(OWLOntology ontology) {
         Set<P> results = new TreeSet<P>();
-        for(OWLSubPropertyAxiom<P> axiom : getSubPropertyAxiomsForRHS(ontology)) {
+        for (OWLSubPropertyAxiom<P> axiom : getSubPropertyAxiomsForRHS(ontology)) {
             results.add(axiom.getSubProperty());
         }
         return results;
@@ -106,7 +106,7 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
 
     public Set<P> getSubProperties(Set<OWLOntology> ontologies) {
         Set<P> result = new TreeSet<P>();
-        for(OWLOntology ont : ontologies) {
+        for (OWLOntology ont : ontologies) {
             result.addAll(getSubProperties(ont));
         }
         return result;
@@ -123,7 +123,7 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
 
     public Set<P> getEquivalentProperties(Set<OWLOntology> ontologies) {
         Set<P> result = new TreeSet<P>();
-        for(OWLOntology ont : ontologies) {
+        for (OWLOntology ont : ontologies) {
             result.addAll(getEquivalentProperties(ont));
         }
         return result;
@@ -137,13 +137,13 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
 
     public Set<P> getDisjointProperties(Set<OWLOntology> ontologies) {
         Set<P> result = new TreeSet<P>();
-        for(OWLOntology ont : ontologies) {
+        for (OWLOntology ont : ontologies) {
             result.addAll(getDisjointProperties(ont));
         }
         return result;
     }
 
-    
+
     protected abstract Set<? extends OWLPropertyDomainAxiom> getDomainAxioms(OWLOntology ontology);
 
     protected abstract Set<? extends OWLPropertyRangeAxiom<P, R>> getRangeAxioms(OWLOntology ontology);
@@ -156,7 +156,7 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
 
     private <P extends OWLPropertyExpression> Set<P> getProperties(Set<? extends OWLNaryPropertyAxiom<P>> axioms) {
         Set<P> result = new TreeSet<P>();
-        for(OWLNaryPropertyAxiom<P> axiom : axioms) {
+        for (OWLNaryPropertyAxiom<P> axiom : axioms) {
             result.addAll(axiom.getProperties());
         }
         result.remove(this);
@@ -165,7 +165,7 @@ public abstract class OWLPropertyExpressionImpl<P extends OWLPropertyExpression,
 
 
     public boolean equals(Object obj) {
-        if(super.equals(obj)) {
+        if (super.equals(obj)) {
             return obj instanceof OWLPropertyExpression;
         }
         return false;

@@ -45,8 +45,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     public OWLDataPropertyImpl(OWLDataFactory dataFactory, IRI iri) {
         super(dataFactory);
         this.iri = iri;
-        this.builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()) ||
-                iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+        this.builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()) || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
     public boolean isTopEntity() {
@@ -129,8 +128,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     }
 
 
-    protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>> getDisjointPropertiesAxioms(
-            OWLOntology ontology) {
+    protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>> getDisjointPropertiesAxioms(OWLOntology ontology) {
         return ontology.getDisjointDataPropertiesAxioms(this);
     }
 
@@ -140,8 +138,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     }
 
 
-    protected Set<? extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>> getRangeAxioms(
-            OWLOntology ontology) {
+    protected Set<? extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>> getRangeAxioms(OWLOntology ontology) {
         return ontology.getDataPropertyRangeAxioms(this);
     }
 
@@ -151,14 +148,12 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataProper
     }
 
 
-    protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>> getEquivalentPropertiesAxioms(
-            OWLOntology ontology) {
+    protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>> getEquivalentPropertiesAxioms(OWLOntology ontology) {
         return ontology.getEquivalentDataPropertiesAxioms(this);
     }
 
 
-    protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>> getSubPropertyAxiomsForRHS(
-            OWLOntology ont) {
+    protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>> getSubPropertyAxiomsForRHS(OWLOntology ont) {
         return ont.getDataSubPropertyAxiomsForSuperProperty(this);
     }
 

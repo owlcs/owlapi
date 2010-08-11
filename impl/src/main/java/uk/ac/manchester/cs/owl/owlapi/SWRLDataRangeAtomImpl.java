@@ -55,7 +55,7 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> impl
     }
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
         if (!(obj instanceof SWRLDataRangeAtom)) {
@@ -74,7 +74,7 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> impl
 
         SWRLDataRangeAtom other = (SWRLDataRangeAtom) object;
         int diff = getPredicate().compareTo(other.getPredicate());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return getArgument().compareTo(other.getArgument());

@@ -82,16 +82,16 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     public boolean parseBoolean() throws NumberFormatException {
-        if(literal.equals("0")) {
+        if (literal.equals("0")) {
             return false;
         }
-        if(literal.equals("1")) {
+        if (literal.equals("1")) {
             return true;
         }
-        if(literal.equals("true")) {
+        if (literal.equals("true")) {
             return true;
         }
-        if(literal.equals("false")) {
+        if (literal.equals("false")) {
             return false;
         }
         return false;
@@ -156,11 +156,11 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     protected int compareObjectOfSameType(OWLObject object) {
         OWLLiteral other = (OWLLiteral) object;
         int diff = literal.compareTo(other.getLiteral());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         diff = datatype.compareTo(other.getDatatype());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return lang.compareTo(other.getLang());

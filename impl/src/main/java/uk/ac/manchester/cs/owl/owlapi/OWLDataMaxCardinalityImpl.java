@@ -33,8 +33,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLDataMaxCardinalityImpl extends OWLDataCardinalityRestrictionImpl implements OWLDataMaxCardinality {
 
-    public OWLDataMaxCardinalityImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, int cardinality,
-                                     OWLDataRange filler) {
+    public OWLDataMaxCardinalityImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
         super(dataFactory, property, cardinality, filler);
     }
 

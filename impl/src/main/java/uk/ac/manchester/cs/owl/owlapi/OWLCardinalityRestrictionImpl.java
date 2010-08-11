@@ -56,14 +56,13 @@ public abstract class OWLCardinalityRestrictionImpl<P extends OWLPropertyExpress
 
 
     public boolean equals(Object obj) {
-            if(super.equals(obj)) {
-                if(!(obj instanceof OWLCardinalityRestriction)) {
-                    return false;
-                }
-                OWLCardinalityRestriction other = (OWLCardinalityRestriction) obj;
-                return other.getCardinality() == cardinality &&
-                        other.getFiller().equals(filler);
+        if (super.equals(obj)) {
+            if (!(obj instanceof OWLCardinalityRestriction)) {
+                return false;
             }
+            OWLCardinalityRestriction other = (OWLCardinalityRestriction) obj;
+            return other.getCardinality() == cardinality && other.getFiller().equals(filler);
+        }
         return false;
     }
 
@@ -71,11 +70,11 @@ public abstract class OWLCardinalityRestrictionImpl<P extends OWLPropertyExpress
     final protected int compareObjectOfSameType(OWLObject object) {
         OWLCardinalityRestriction other = (OWLCardinalityRestriction) object;
         int diff = getProperty().compareTo(other.getProperty());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         diff = getCardinality() - other.getCardinality();
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return getFiller().compareTo(other.getFiller());

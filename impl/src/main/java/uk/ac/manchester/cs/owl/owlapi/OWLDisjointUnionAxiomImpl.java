@@ -41,8 +41,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
 
     private Set<OWLClassExpression> classExpressions;
 
-    public OWLDisjointUnionAxiomImpl(OWLDataFactory dataFactory, OWLClass owlClass,
-                                Set<? extends OWLClassExpression> classExpressions, Set<? extends OWLAnnotation> annotations) {
+    public OWLDisjointUnionAxiomImpl(OWLDataFactory dataFactory, OWLClass owlClass, Set<? extends OWLClassExpression> classExpressions, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.owlClass = owlClass;
         this.classExpressions = Collections.unmodifiableSortedSet(new TreeSet<OWLClassExpression>(classExpressions));
@@ -53,7 +52,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     }
 
     public OWLDisjointUnionAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLDisjointUnionAxiom(getOWLClass(), getClassExpressions());

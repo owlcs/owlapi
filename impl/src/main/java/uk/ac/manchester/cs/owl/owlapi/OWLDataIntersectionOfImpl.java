@@ -45,10 +45,10 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements O
     }
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLDataIntersectionOf)) {
+        if (!(obj instanceof OWLDataIntersectionOf)) {
             return false;
         }
         OWLDataIntersectionOf other = (OWLDataIntersectionOf) obj;

@@ -31,18 +31,18 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 public interface OWLDataFactoryInternals {
-	
-	OWLClass getOWLClass(IRI iri);
 
-	void purge();
+    OWLClass getOWLClass(IRI iri);
 
-	OWLObjectProperty getOWLObjectProperty(IRI iri);
+    void purge();
 
-	OWLDataProperty getOWLDataProperty(IRI iri);
+    OWLObjectProperty getOWLObjectProperty(IRI iri);
 
-	OWLNamedIndividual getOWLNamedIndividual(IRI iri);
+    OWLDataProperty getOWLDataProperty(IRI iri);
 
-	OWLDatatype getOWLDatatype(IRI iri);
+    OWLNamedIndividual getOWLNamedIndividual(IRI iri);
 
-	OWLAnnotationProperty getOWLAnnotationProperty(IRI iri);
+    OWLDatatype getOWLDatatype(IRI iri);
+
+    OWLAnnotationProperty getOWLAnnotationProperty(IRI iri);
 }

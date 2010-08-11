@@ -35,20 +35,16 @@ import java.util.Set;
  */
 public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLDataPropertyAssertionAxiom {
 
-    public OWLDataPropertyAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, OWLDataPropertyExpression property,
-                                             OWLLiteral value, Set<? extends OWLAnnotation> annotations) {
+    public OWLDataPropertyAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral value, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, subject, property, value, annotations);
     }
 
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(
-                getOWLDataFactory().getOWLObjectOneOf(getSubject()),
-                getOWLDataFactory().getOWLDataHasValue(getProperty(), getObject())
-        );
+        return getOWLDataFactory().getOWLSubClassOfAxiom(getOWLDataFactory().getOWLObjectOneOf(getSubject()), getOWLDataFactory().getOWLDataHasValue(getProperty(), getObject()));
     }
 
     public OWLDataPropertyAssertionAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(), getObject());

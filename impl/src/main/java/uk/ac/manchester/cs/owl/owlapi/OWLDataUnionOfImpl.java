@@ -45,10 +45,10 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
     }
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLDataUnionOf)) {
+        if (!(obj instanceof OWLDataUnionOf)) {
             return false;
         }
         OWLDataUnionOf other = (OWLDataUnionOf) obj;

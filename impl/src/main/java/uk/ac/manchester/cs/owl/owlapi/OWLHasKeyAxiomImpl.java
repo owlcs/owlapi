@@ -45,7 +45,7 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
     }
 
     public OWLHasKeyAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLHasKeyAxiom(getClassExpression(), getPropertyExpressions());
@@ -73,8 +73,8 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
 
     public Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
         Set<OWLDataPropertyExpression> props = new TreeSet<OWLDataPropertyExpression>();
-        for(OWLPropertyExpression prop : propertyExpressions) {
-            if(prop.isDataPropertyExpression()) {
+        for (OWLPropertyExpression prop : propertyExpressions) {
+            if (prop.isDataPropertyExpression()) {
                 props.add((OWLDataPropertyExpression) prop);
             }
         }
@@ -83,8 +83,8 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
 
     public Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
         Set<OWLObjectPropertyExpression> props = new TreeSet<OWLObjectPropertyExpression>();
-        for(OWLPropertyExpression prop : propertyExpressions) {
-            if(prop.isObjectPropertyExpression()) {
+        for (OWLPropertyExpression prop : propertyExpressions) {
+            if (prop.isObjectPropertyExpression()) {
                 props.add((OWLObjectPropertyExpression) prop);
             }
         }
@@ -118,10 +118,10 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
 
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLHasKeyAxiom)) {
+        if (!(obj instanceof OWLHasKeyAxiom)) {
             return false;
         }
         OWLHasKeyAxiom other = (OWLHasKeyAxiom) obj;

@@ -40,9 +40,7 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
     private OWLObjectPropertyExpression superProperty;
 
 
-    public OWLSubPropertyChainAxiomImpl(OWLDataFactory dataFactory,
-                                          List<? extends OWLObjectPropertyExpression> propertyChain,
-                                          OWLObjectPropertyExpression superProperty, Collection<? extends OWLAnnotation> annotations) {
+    public OWLSubPropertyChainAxiomImpl(OWLDataFactory dataFactory, List<? extends OWLObjectPropertyExpression> propertyChain, OWLObjectPropertyExpression superProperty, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.propertyChain = new ArrayList<OWLObjectPropertyExpression>(propertyChain);
         this.superProperty = superProperty;
@@ -53,7 +51,7 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
     }
 
     public OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLSubPropertyChainOfAxiom(getPropertyChain(), getSuperProperty());
@@ -71,9 +69,9 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
 
     public boolean isEncodingOfTransitiveProperty() {
         if (propertyChain.size() == 2) {
-            return superProperty.equals(propertyChain.get(0)) &&
-                    superProperty.equals(propertyChain.get(1));
-        } else {
+            return superProperty.equals(propertyChain.get(0)) && superProperty.equals(propertyChain.get(1));
+        }
+        else {
             return false;
         }
     }

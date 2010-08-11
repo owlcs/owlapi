@@ -42,7 +42,6 @@ public abstract class OWLObjectImpl implements OWLObject {
     private int hashCode = 0;
 
 
-
     private Set<OWLEntity> signature;
 
     public OWLObjectImpl(OWLDataFactory dataFactory) {
@@ -116,8 +115,8 @@ public abstract class OWLObjectImpl implements OWLObject {
      */
     public Set<OWLDatatype> getDatatypesInSignature() {
         Set<OWLDatatype> result = new HashSet<OWLDatatype>();
-        for(OWLEntity ent : getSignature()) {
-            if(ent.isOWLDatatype()) {
+        for (OWLEntity ent : getSignature()) {
+            if (ent.isOWLDatatype()) {
                 result.add(ent.asOWLDatatype());
             }
         }
@@ -141,9 +140,9 @@ public abstract class OWLObjectImpl implements OWLObject {
 
 
     public int hashCode() {
-    	if(hashCode==0) {
-    		hashCode = HashCode.hashCode(this);
-    	}
+        if (hashCode == 0) {
+            hashCode = HashCode.hashCode(this);
+        }
         return hashCode;
     }
 
@@ -164,7 +163,8 @@ public abstract class OWLObjectImpl implements OWLObject {
         if (diff == 0) {
             // Objects are the same type
             return compareObjectOfSameType(o);
-        } else {
+        }
+        else {
             return diff;
         }
     }
@@ -188,13 +188,15 @@ public abstract class OWLObjectImpl implements OWLObject {
         SortedSet<? extends OWLObject> ss1;
         if (set1 instanceof SortedSet) {
             ss1 = (SortedSet) set1;
-        } else {
+        }
+        else {
             ss1 = new TreeSet(set1);
         }
         SortedSet<? extends OWLObject> ss2;
         if (set2 instanceof SortedSet) {
             ss2 = (SortedSet) set2;
-        } else {
+        }
+        else {
             ss2 = new TreeSet(set2);
         }
         int i = 0;

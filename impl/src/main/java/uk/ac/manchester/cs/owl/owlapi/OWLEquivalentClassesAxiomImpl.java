@@ -41,7 +41,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
     }
 
     public OWLEquivalentClassesAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLEquivalentClassesAxiom(getClassExpressions());
@@ -55,7 +55,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
     public Set<OWLEquivalentClassesAxiom> asPairwiseAxioms() {
         List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(getClassExpressions());
         Set<OWLEquivalentClassesAxiom> result = new HashSet<OWLEquivalentClassesAxiom>();
-        for(int i = 0; i < classExpressions.size() - 1; i++) {
+        for (int i = 0; i < classExpressions.size() - 1; i++) {
             OWLClassExpression ceI = classExpressions.get(i);
             OWLClassExpression ceJ = classExpressions.get(i + 1);
             result.add(getOWLDataFactory().getOWLEquivalentClassesAxiom(ceI, ceJ));

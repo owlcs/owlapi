@@ -45,7 +45,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         return iri;
     }
 
-     /**
+    /**
      * Gets the entity type for this entity
      * @return The entity type
      */
@@ -196,10 +196,10 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
 
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLAnnotationProperty)) {
+        if (!(obj instanceof OWLAnnotationProperty)) {
             return false;
         }
         OWLAnnotationProperty other = (OWLAnnotationProperty) obj;

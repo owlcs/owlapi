@@ -41,7 +41,7 @@ public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl
     }
 
     public OWLDisjointDataPropertiesAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLDisjointDataPropertiesAxiom(getProperties());

@@ -40,8 +40,7 @@ public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactor
     }
 
 
-    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI,
-                                         OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
+    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
         OWLOntology ont = super.createOWLOntology(ontologyID, documentIRI, handler);
         handler.setOntologyFormat(ont, new DefaultOntologyFormat());
         return ont;

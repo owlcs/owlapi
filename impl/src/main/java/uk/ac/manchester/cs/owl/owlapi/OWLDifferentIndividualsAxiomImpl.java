@@ -43,7 +43,7 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
     }
 
     public OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getIndividuals());
@@ -56,8 +56,8 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
     public Set<OWLDifferentIndividualsAxiom> asPairwiseAxioms() {
         List<OWLIndividual> individuals = getIndividualsAsList();
         Set<OWLDifferentIndividualsAxiom> result = new HashSet<OWLDifferentIndividualsAxiom>();
-        for(int i = 0; i < individuals.size() - 1; i++) {
-            for(int j = i + 1; j < individuals.size(); j++) {
+        for (int i = 0; i < individuals.size() - 1; i++) {
+            for (int j = i + 1; j < individuals.size(); j++) {
                 OWLIndividual indI = individuals.get(i);
                 OWLIndividual indJ = individuals.get(j);
                 result.add(getOWLDataFactory().getOWLDifferentIndividualsAxiom(indI, indJ));
@@ -72,8 +72,8 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
      * @return <code>true</code> if this axioms contains anonymous individual axioms
      */
     public boolean containsAnonymousIndividuals() {
-        for(OWLIndividual ind : getIndividuals()) {
-            if(ind.isAnonymous()) {
+        for (OWLIndividual ind : getIndividuals()) {
+            if (ind.isAnonymous()) {
                 return true;
             }
         }
@@ -86,12 +86,12 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
 
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<OWLClassExpression>();
-        for(OWLIndividual individual : getIndividuals()) {
+        for (OWLIndividual individual : getIndividuals()) {
             nominalsList.add(getOWLDataFactory().getOWLObjectOneOf(individual));
         }
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
-        for(int i = 0; i < nominalsList.size() - 1; i++) {
-            for(int j = i + 1; j < nominalsList.size(); j++) {
+        for (int i = 0; i < nominalsList.size() - 1; i++) {
+            for (int j = i + 1; j < nominalsList.size(); j++) {
                 OWLClassExpression ceI = nominalsList.get(i);
                 OWLClassExpression ceJ = nominalsList.get(j).getObjectComplementOf();
                 result.add(getOWLDataFactory().getOWLSubClassOfAxiom(ceI, ceJ));

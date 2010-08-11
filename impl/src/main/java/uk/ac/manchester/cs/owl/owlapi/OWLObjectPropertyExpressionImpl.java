@@ -58,7 +58,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     }
 
     public boolean isFunctional(OWLOntology ontology) {
-		return ontology.getFunctionalObjectPropertyAxioms(this).size() > 0;
+        return ontology.getFunctionalObjectPropertyAxioms(this).size() > 0;
     }
 
 
@@ -161,26 +161,22 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     }
 
 
-    protected Set<? extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>> getRangeAxioms(
-            OWLOntology ontology) {
+    protected Set<? extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>> getRangeAxioms(OWLOntology ontology) {
         return ontology.getObjectPropertyRangeAxioms(this);
     }
 
 
-    protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>> getSubPropertyAxioms(
-            OWLOntology ontology) {
+    protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>> getSubPropertyAxioms(OWLOntology ontology) {
         return ontology.getObjectSubPropertyAxiomsForSubProperty(this);
     }
 
 
-    protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>> getEquivalentPropertiesAxioms(
-            OWLOntology ontology) {
+    protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>> getEquivalentPropertiesAxioms(OWLOntology ontology) {
         return ontology.getEquivalentObjectPropertiesAxioms(this);
     }
 
 
-    protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>> getDisjointPropertiesAxioms(
-            OWLOntology ontology) {
+    protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>> getDisjointPropertiesAxioms(OWLOntology ontology) {
         return ontology.getDisjointObjectPropertiesAxioms(this);
     }
 
@@ -188,7 +184,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     public Set<OWLObjectPropertyExpression> getInverses(OWLOntology ontology) {
         Set<OWLObjectPropertyExpression> result = new TreeSet<OWLObjectPropertyExpression>();
         for (OWLInverseObjectPropertiesAxiom ax : ontology.getInverseObjectPropertyAxioms(this)) {
-            if(ax.getFirstProperty().equals(this)) {
+            if (ax.getFirstProperty().equals(this)) {
                 result.add(ax.getSecondProperty());
             }
             else {
@@ -234,7 +230,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
         OWLObjectPropertyExpression simp = getSimplified();
         if (simp.isAnonymous()) {
             return ((OWLObjectInverseOf) simp).getInverse().asOWLObjectProperty();
-        } else {
+        }
+        else {
             return simp.asOWLObjectProperty();
         }
     }

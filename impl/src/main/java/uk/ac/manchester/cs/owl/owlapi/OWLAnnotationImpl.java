@@ -73,7 +73,6 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     /**
      * Determines if this annotation is an annotation used to deprecate an IRI.  This is the case if the annotation
      * property has an IRI of <code>owl:deprecated</code> and the value of the annotation is <code>"true"^^xsd:boolean</code>
-     *
      * @return <code>true</code> if this annotation is an annotation that can be used to deprecate an IRI, otherwise
      *         <code>false</code>.
      */
@@ -96,7 +95,8 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {
             return diff;
-        } else {
+        }
+        else {
             return getValue().compareTo(other.getValue());
         }
     }

@@ -40,10 +40,7 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
     private OWLAnnotationProperty superProperty;
 
 
-    public OWLSubAnnotationPropertyOfAxiomImpl(OWLDataFactory dataFactory,
-                                               OWLAnnotationProperty subProperty,
-                                               OWLAnnotationProperty superProperty,
-                                               Collection<? extends OWLAnnotation> annotations) {
+    public OWLSubAnnotationPropertyOfAxiomImpl(OWLDataFactory dataFactory, OWLAnnotationProperty subProperty, OWLAnnotationProperty superProperty, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.subProperty = subProperty;
         this.superProperty = superProperty;
@@ -54,7 +51,7 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
     }
 
     public OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLSubAnnotationPropertyOfAxiom(getSubProperty(), getSuperProperty());
@@ -103,7 +100,7 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
     protected int compareObjectOfSameType(OWLObject object) {
         OWLSubAnnotationPropertyOfAxiom other = (OWLSubAnnotationPropertyOfAxiom) object;
         int diff = subProperty.compareTo(other.getSubProperty());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return superProperty.compareTo(other.getSuperProperty());
@@ -111,10 +108,10 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
 
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLSubAnnotationPropertyOfAxiom)) {
+        if (!(obj instanceof OWLSubAnnotationPropertyOfAxiom)) {
             return false;
         }
         OWLSubAnnotationPropertyOfAxiom other = (OWLSubAnnotationPropertyOfAxiom) obj;

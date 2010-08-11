@@ -55,7 +55,7 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
 
     public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc) {
         Set<OWLClassExpression> classExpressions = getClassExpressions();
-        for(OWLClassExpression ce : desc) {
+        for (OWLClassExpression ce : desc) {
             classExpressions.remove(ce);
         }
         return classExpressions;

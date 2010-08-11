@@ -35,13 +35,12 @@ import java.util.Set;
  */
 public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual> implements OWLNegativeObjectPropertyAssertionAxiom {
 
-    public OWLNegativeObjectPropertyAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, OWLObjectPropertyExpression property,
-                                                       OWLIndividual object, Set<? extends OWLAnnotation> annotations) {
+    public OWLNegativeObjectPropertyAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, OWLObjectPropertyExpression property, OWLIndividual object, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, subject, property, object, annotations);
     }
 
     public OWLNegativeObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject());
@@ -53,10 +52,7 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
 
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
-        return df.getOWLSubClassOfAxiom(
-                df.getOWLObjectOneOf(getSubject()),
-                df.getOWLObjectComplementOf(df.getOWLObjectHasValue(getProperty(), getObject()))
-        );
+        return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getSubject()), df.getOWLObjectComplementOf(df.getOWLObjectHasValue(getProperty(), getObject())));
     }
 
     /**

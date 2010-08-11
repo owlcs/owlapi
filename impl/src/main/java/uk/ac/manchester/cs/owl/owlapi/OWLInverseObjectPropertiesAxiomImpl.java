@@ -39,15 +39,14 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
 
     private OWLObjectPropertyExpression second;
 
-    public OWLInverseObjectPropertiesAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression first,
-                                               OWLObjectPropertyExpression second, Collection<? extends OWLAnnotation> annotations) {
+    public OWLInverseObjectPropertiesAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression first, OWLObjectPropertyExpression second, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(first, second)), annotations);
         this.first = first;
         this.second = second;
     }
 
     public OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(getFirstProperty(), getSecondProperty());

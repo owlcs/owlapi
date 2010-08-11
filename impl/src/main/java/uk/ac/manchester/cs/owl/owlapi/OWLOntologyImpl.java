@@ -9,6 +9,7 @@ import org.semanticweb.owlapi.model.*;
 
 import static org.semanticweb.owlapi.model.AxiomType.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
+
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
 /*
@@ -36,7 +37,7 @@ import org.semanticweb.owlapi.util.OWLEntityCollector;
 
 /*
  *  based on OWLOntologyImpl svn revision 1294
- */ 
+ */
 
 
 /**
@@ -58,14 +59,14 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     protected OWLOntologyImplInternals internals;
 
-	private OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
+    private OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
 
     public OWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
         super(manager.getOWLDataFactory());
         this.manager = manager;
         this.ontologyID = ontologyID;
 
-        this.internals= new OWLOntologyImplInternalsDefaultImpl();
+        this.internals = new OWLOntologyImplInternalsDefaultImpl();
 
     }
 
@@ -91,9 +92,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public boolean isEmpty() {
-        for(AxiomType type : internals.getAxiomsByType().keySet()) {
+        for (AxiomType type : internals.getAxiomsByType().keySet()) {
             Set<OWLAxiom> axiomSet = internals.getAxiomsByType().get(type);
-            if(axiomSet != null && !axiomSet.isEmpty()) {
+            if (axiomSet != null && !axiomSet.isEmpty()) {
                 return false;
             }
         }
@@ -131,19 +132,19 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     /**
      * Gets the axioms which are of the specified type, possibly from the imports closure of this ontology
-     * @param axiomType             The type of axioms to be retrived.
+     * @param axiomType The type of axioms to be retrived.
      * @param includeImportsClosure if <code>true</code> then axioms of the specified type will also be retrieved from
-     *                              the imports closure of this ontology, if <code>false</code> then axioms of the specified type will only
-     *                              be retrieved from this ontology.
+     * the imports closure of this ontology, if <code>false</code> then axioms of the specified type will only
+     * be retrieved from this ontology.
      * @return A set containing the axioms which are of the specified type. The set that is returned is a copy of the
      *         axioms in the ontology (and its imports closure) - it will not be updated if the ontology changes.
      */
     public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return getAxioms(axiomType);
         }
         Set<T> result = createSet();
-        for(OWLOntology ont : getImportsClosure()) {
+        for (OWLOntology ont : getImportsClosure()) {
             result.addAll(ont.getAxioms(axiomType));
         }
         return result;
@@ -159,16 +160,16 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     /**
      * Gets the axiom count of a specific type of axiom, possibly in the imports closure of this ontology
-     * @param axiomType             The type of axiom to count
+     * @param axiomType The type of axiom to count
      * @param includeImportsClosure Specifies that the imports closure should be included when counting axioms
      * @return The number of the specified types of axioms in this ontology
      */
     public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType, boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return getAxiomCount(axiomType);
         }
         int result = 0;
-        for(OWLOntology ont : getImportsClosure()) {
+        for (OWLOntology ont : getImportsClosure()) {
             result += ont.getAxiomCount(axiomType);
         }
         return result;
@@ -210,8 +211,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLSubAnnotationPropertyOfAxiom> getSubAnnotationPropertyOfAxioms(OWLAnnotationProperty subProperty) {
         Set<OWLSubAnnotationPropertyOfAxiom> result = createSet();
-        for(OWLSubAnnotationPropertyOfAxiom ax : internals.getAxiomsInternal(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
-            if(ax.getSubProperty().equals(subProperty)) {
+        for (OWLSubAnnotationPropertyOfAxiom ax : internals.getAxiomsInternal(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
+            if (ax.getSubProperty().equals(subProperty)) {
                 result.add(ax);
             }
         }
@@ -221,7 +222,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLAnnotationPropertyDomainAxiom> getAnnotationPropertyDomainAxioms(OWLAnnotationProperty property) {
         Set<OWLAnnotationPropertyDomainAxiom> result = createSet();
-        for(OWLAnnotationPropertyDomainAxiom ax : internals.getAxiomsInternal(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
+        for (OWLAnnotationPropertyDomainAxiom ax : internals.getAxiomsInternal(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
             if (ax.getProperty().equals(property)) {
                 result.add(ax);
             }
@@ -232,8 +233,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLAnnotationPropertyRangeAxiom> getAnnotationPropertyRangeAxioms(OWLAnnotationProperty property) {
         Set<OWLAnnotationPropertyRangeAxiom> result = createSet();
-        for(OWLAnnotationPropertyRangeAxiom ax : internals.getAxiomsInternal(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
-            if(ax.getProperty().equals(property)) {
+        for (OWLAnnotationPropertyRangeAxiom ax : internals.getAxiomsInternal(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
+            if (ax.getProperty().equals(property)) {
                 result.add(ax);
             }
         }
@@ -274,33 +275,32 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     /**
      * Determines if this ontology, and possibly the imports closure, contains the specified axiom.
-     * @param axiom                 The axiom to test for.
+     * @param axiom The axiom to test for.
      * @param includeImportsClosure if <code>true</code> the imports closure of this ontology will be searched for the
-     *                              specific axiom, if <code>false</code> just this ontology will be searched.
+     * specific axiom, if <code>false</code> just this ontology will be searched.
      * @return <code>true</code> if the ontology contains the specified axioms, or <code>false</code> if the ontology
      *         doesn't contain the specified axiom.
      */
     public boolean containsAxiom(OWLAxiom axiom, boolean includeImportsClosure) {
-       if(!includeImportsClosure) {
-           return containsAxiom(axiom);
-       }
-       for(OWLOntology ont : getImportsClosure()) {
-           if(ont.containsAxiom(axiom)) {
-               return true;
-           }
-       }
-       return false;
+        if (!includeImportsClosure) {
+            return containsAxiom(axiom);
+        }
+        for (OWLOntology ont : getImportsClosure()) {
+            if (ont.containsAxiom(axiom)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
      * Determines if this ontology contains the specified axiom, ignoring any annotations on this
      * axiom.
-     *
      * @param axiom The axiom to test for.
      * @return <code>true</code> if this ontology contains this axiom with or without annotations.
      */
     public boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom) {
-        if(axiom.isAnnotated()) {
+        if (axiom.isAnnotated()) {
             return internals.getLogicalAxiom2AnnotatedAxiomMap().containsKey(axiom.getAxiomWithoutAnnotations());
         }
         else {
@@ -311,19 +311,18 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     /**
      * Determines if this ontology and possibly its imports closure contains the specified axiom,
      * ignoring any annotations on this axiom.
-     *
      * @param axiom The axiom to test for.
      * @param includeImportsClosure if <code>true</code> the imports closure of this ontology will be searched for the
      * specified axiom. If <code>false</code> only this ontology will be searched for the specifed axiom.
      * @return <code>true</code> if this ontology contains this axiom with or without annotations.
      */
     public boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom, boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return containsAxiomIgnoreAnnotations(axiom);
         }
         else {
-            for(OWLOntology ont : getImportsClosure()) {
-                if(ont.containsAxiomIgnoreAnnotations(axiom)) {
+            for (OWLOntology ont : getImportsClosure()) {
+                if (ont.containsAxiomIgnoreAnnotations(axiom)) {
                     return true;
                 }
             }
@@ -333,7 +332,6 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     /**
      * Gets the set of axioms that have the same "logical structure" as the specified axiom.
-     *
      * @param axiom The axiom that specifies the logical structure of the axioms to retrieve
      * @return A set of axioms such that for any two axioms, <code>axiomA</code> and
      *         <code>axiomB</code> in the set, <code>axiomA.getAxiomWithoutAnnotations()</code> is equal to
@@ -345,7 +343,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             result.add(axiom);
         }
         Set<OWLAxiom> annotated = internals.getLogicalAxiom2AnnotatedAxiomMap().get(axiom.getAxiomWithoutAnnotations());
-        if(annotated != null) {
+        if (annotated != null) {
             result.addAll(annotated);
         }
         return result;
@@ -354,7 +352,6 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     /**
      * Gets the set of axioms that have the same "logical structure" as the specified axiom, possibly searching
      * the imports closure of this ontology.
-     *
      * @param axiom The axiom that specifies the logical structure of the axioms to retrieve.  If this axiom is annotated
      * then the annotations are ignored.
      * @param includeImportsClosure if <code>true</code> then axioms in the imports closure of this ontology are returned,
@@ -364,11 +361,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      *         <code>axiomB.getAxiomWithoutAnnotations()</code>.  The specified axiom will be contained in the set.
      */
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom, boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return getAxiomsIgnoreAnnotations(axiom);
         }
         Set<OWLAxiom> result = createSet();
-        for(OWLOntology ont : getImportsClosure()) {
+        for (OWLOntology ont : getImportsClosure()) {
             result.addAll(ont.getAxiomsIgnoreAnnotations(axiom));
         }
         return result;
@@ -379,8 +376,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsClassInSignature(IRI owlClassIRI, boolean includeImportsClosure) {
-        for(OWLOntology ont : manager.getImportsClosure(this)) {
-            if(ont.containsClassInSignature(owlClassIRI)) {
+        for (OWLOntology ont : manager.getImportsClosure(this)) {
+            if (ont.containsClassInSignature(owlClassIRI)) {
                 return true;
             }
         }
@@ -392,8 +389,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsObjectPropertyInSignature(IRI propIRI, boolean includeImportsClosure) {
-        for(OWLOntology ont : manager.getImportsClosure(this)) {
-            if(ont.containsObjectPropertyInSignature(propIRI)) {
+        for (OWLOntology ont : manager.getImportsClosure(this)) {
+            if (ont.containsObjectPropertyInSignature(propIRI)) {
                 return true;
             }
         }
@@ -405,8 +402,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsDataPropertyInSignature(IRI propIRI, boolean includeImportsClosure) {
-        for(OWLOntology ont : manager.getImportsClosure(this)) {
-            if(ont.containsDataPropertyInSignature(propIRI)) {
+        for (OWLOntology ont : manager.getImportsClosure(this)) {
+            if (ont.containsDataPropertyInSignature(propIRI)) {
                 return true;
             }
         }
@@ -415,12 +412,12 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public boolean containsAnnotationPropertyInSignature(IRI propIRI) {
         boolean b = internals.getOwlAnnotationPropertyReferences().containsKey(getOWLDataFactory().getOWLAnnotationProperty(propIRI));
-        if(b) {
+        if (b) {
             return true;
         }
         else {
-            for(OWLAnnotation anno : internals.getOntologyAnnotations()) {
-                if(anno.getProperty().getIRI().equals(propIRI)) {
+            for (OWLAnnotation anno : internals.getOntologyAnnotations()) {
+                if (anno.getProperty().getIRI().equals(propIRI)) {
                     return true;
                 }
             }
@@ -429,8 +426,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsAnnotationPropertyInSignature(IRI propIRI, boolean includeImportsClosure) {
-        for(OWLOntology ont : manager.getImportsClosure(this)) {
-            if(ont.containsAnnotationPropertyInSignature(propIRI)) {
+        for (OWLOntology ont : manager.getImportsClosure(this)) {
+            if (ont.containsAnnotationPropertyInSignature(propIRI)) {
                 return true;
             }
         }
@@ -442,10 +439,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-
     public boolean containsIndividualInSignature(IRI individualIRI, boolean includeImportsClosure) {
-        for(OWLOntology ont : manager.getImportsClosure(this)) {
-            if(ont.containsIndividualInSignature(individualIRI)) {
+        for (OWLOntology ont : manager.getImportsClosure(this)) {
+            if (ont.containsIndividualInSignature(individualIRI)) {
                 return true;
             }
         }
@@ -457,8 +453,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsDatatypeInSignature(IRI datatypeIRI, boolean includeImportsClosure) {
-        for(OWLOntology ont : manager.getImportsClosure(this)) {
-            if(ont.containsDatatypeInSignature(datatypeIRI)) {
+        for (OWLOntology ont : manager.getImportsClosure(this)) {
+            if (ont.containsDatatypeInSignature(datatypeIRI)) {
                 return true;
             }
         }
@@ -473,22 +469,22 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      */
     public Set<OWLEntity> getEntitiesInSignature(IRI iri) {
         Set<OWLEntity> result = createSet(6);
-        if(containsClassInSignature(iri)) {
+        if (containsClassInSignature(iri)) {
             result.add(manager.getOWLDataFactory().getOWLClass(iri));
         }
-        if(containsObjectPropertyInSignature(iri)) {
+        if (containsObjectPropertyInSignature(iri)) {
             result.add(manager.getOWLDataFactory().getOWLObjectProperty(iri));
         }
-        if(containsDataPropertyInSignature(iri)) {
+        if (containsDataPropertyInSignature(iri)) {
             result.add(manager.getOWLDataFactory().getOWLDataProperty(iri));
         }
-        if(containsIndividualInSignature(iri)) {
+        if (containsIndividualInSignature(iri)) {
             result.add(manager.getOWLDataFactory().getOWLNamedIndividual(iri));
         }
-        if(containsDatatypeInSignature(iri)) {
+        if (containsDatatypeInSignature(iri)) {
             result.add(manager.getOWLDataFactory().getOWLDatatype(iri));
         }
-        if(containsAnnotationPropertyInSignature(iri)) {
+        if (containsAnnotationPropertyInSignature(iri)) {
             result.add(manager.getOWLDataFactory().getOWLAnnotationProperty(iri));
         }
         return result;
@@ -496,19 +492,19 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     /**
      * Gets the entities in the signature of this ontology, and possibly its imports closure, that have the specified IRI
-     * @param iri                   The IRI
+     * @param iri The IRI
      * @param includeImportsClosure Specifies if the imports closure signature should be taken into account
      * @return A set of entities that are in the signature of this ontology and possibly its imports closure
      *         that have the specified IRI.  The set will be empty if there are no entities in the signature of this ontology
      *         and possibly its imports closure with the specified IRI.
      */
     public Set<OWLEntity> getEntitiesInSignature(IRI iri, boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return getEntitiesInSignature(iri);
         }
         else {
             Set<OWLEntity> result = createSet(6);
-            for(OWLOntology ont : getImportsClosure()) {
+            for (OWLOntology ont : getImportsClosure()) {
                 result.addAll(ont.getEntitiesInSignature(iri));
             }
             return result;
@@ -551,12 +547,12 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean isDeclared(OWLEntity owlEntity, boolean includeImportsClosure) {
-        if(isDeclared(owlEntity)) {
+        if (isDeclared(owlEntity)) {
             return true;
         }
-        for(OWLOntology ont : manager.getImportsClosure(this)) {
-            if(!ont.equals(this)) {
-                if(ont.isDeclared(owlEntity)) {
+        for (OWLOntology ont : manager.getImportsClosure(this)) {
+            if (!ont.equals(this)) {
+                if (ont.isDeclared(owlEntity)) {
                     return true;
                 }
             }
@@ -570,19 +566,19 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     /**
      * Determines if the ontology, and possibly its imports closure, contains a reference to the specified entity.
-     * @param owlEntity             The entity
+     * @param owlEntity The entity
      * @param includeImportsClosure Specifies whether the imports closure should be examined for the entity reference
-     *                              or not.
+     * or not.
      * @return <code>true</code> if the ontology contains a reference to the specified entity, otherwise
      *         <code>false</code> The set that is returned is a copy - it will not be updated if the ontology changes.
      *         It is therefore safe to apply changes to this ontology while iterating over this set.
      */
     public boolean containsEntityInSignature(OWLEntity owlEntity, boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return containsEntityInSignature(owlEntity);
         }
-        for(OWLOntology ont : getImportsClosure()) {
-            if(ont.containsEntityInSignature(owlEntity)) {
+        for (OWLOntology ont : getImportsClosure()) {
+            if (ont.containsEntityInSignature(owlEntity)) {
                 return true;
             }
         }
@@ -590,33 +586,33 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsEntityInSignature(IRI entityIRI) {
-        if(containsClassInSignature(entityIRI)) {
+        if (containsClassInSignature(entityIRI)) {
             return true;
         }
-        if(containsObjectPropertyInSignature(entityIRI)) {
+        if (containsObjectPropertyInSignature(entityIRI)) {
             return true;
         }
-        if(containsDataPropertyInSignature(entityIRI)) {
+        if (containsDataPropertyInSignature(entityIRI)) {
             return true;
         }
-        if(containsIndividualInSignature(entityIRI)) {
+        if (containsIndividualInSignature(entityIRI)) {
             return true;
         }
-        if(containsDatatypeInSignature(entityIRI)) {
+        if (containsDatatypeInSignature(entityIRI)) {
             return true;
         }
-        if(containsAnnotationPropertyInSignature(entityIRI)) {
+        if (containsAnnotationPropertyInSignature(entityIRI)) {
             return true;
         }
         return false;
     }
 
     public boolean containsEntityInSignature(IRI entityIRI, boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return containsEntityInSignature(entityIRI);
         }
-        for(OWLOntology ont : getImportsClosure()) {
-            if(ont.containsEntityInSignature(entityIRI)) {
+        for (OWLOntology ont : getImportsClosure()) {
+            if (ont.containsEntityInSignature(entityIRI)) {
                 return true;
             }
         }
@@ -640,7 +636,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         else if (owlEntity instanceof OWLDatatype) {
             axioms = internals.getAxioms(owlEntity.asOWLDatatype(), internals.getOwlDatatypeReferences(), false);
         }
-        else if(owlEntity instanceof OWLAnnotationProperty) {
+        else if (owlEntity instanceof OWLAnnotationProperty) {
             axioms = internals.getAxioms(owlEntity.asOWLAnnotationProperty(), internals.getOwlAnnotationPropertyReferences(), false);
         }
         else {
@@ -653,19 +649,19 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     /**
      * Gets the axioms where the specified entity appears in the signature of the axiom. The set that is returned,
      * contains all axioms that directly reference the specified entity.
-     * @param owlEntity             The entity that should be directly referred to by an axiom that appears in the results set.
+     * @param owlEntity The entity that should be directly referred to by an axiom that appears in the results set.
      * @param includeImportsClosure Specifies if the axioms returned should just be from this ontology, or from the
-     *                              imports closure of this ontology.  If <code>true</code> the axioms returned will be from the imports closure
-     *                              of this ontology, if <code>false</code> the axioms returned will just be from this ontology.
+     * imports closure of this ontology.  If <code>true</code> the axioms returned will be from the imports closure
+     * of this ontology, if <code>false</code> the axioms returned will just be from this ontology.
      * @return The set that is returned is a copy - it will not be updated if the ontology changes.  It is therefore
      *         safe to apply changes to this ontology while iterating over this set.
      */
     public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity, boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return getReferencingAxioms(owlEntity);
         }
         Set<OWLAxiom> result = createSet();
-        for(OWLOntology ont : getImportsClosure()) {
+        for (OWLOntology ont : getImportsClosure()) {
             result.addAll(ont.getReferencingAxioms(owlEntity));
         }
         return result;
@@ -681,7 +677,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public Set<OWLClassAxiom> getAxioms(final OWLClass cls) {
-    	return internals.getAxioms(cls);
+        return internals.getAxioms(cls);
     }
 
 
@@ -706,18 +702,18 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLAnnotationAxiom> getAxioms(final OWLAnnotationProperty prop) {
         Set<OWLAnnotationAxiom> result = createSet();
-        for(OWLSubAnnotationPropertyOfAxiom ax : getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
-            if(ax.getSubProperty().equals(prop)) {
+        for (OWLSubAnnotationPropertyOfAxiom ax : getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
+            if (ax.getSubProperty().equals(prop)) {
                 result.add(ax);
             }
         }
-        for(OWLAnnotationPropertyRangeAxiom ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
-            if(ax.getProperty().equals(prop)) {
+        for (OWLAnnotationPropertyRangeAxiom ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
+            if (ax.getProperty().equals(prop)) {
                 result.add(ax);
             }
         }
-        for(OWLAnnotationPropertyDomainAxiom ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
-            if(ax.getProperty().equals(prop)) {
+        for (OWLAnnotationPropertyDomainAxiom ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
+            if (ax.getProperty().equals(prop)) {
                 result.add(ax);
             }
         }
@@ -784,9 +780,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLEntity> getSignature(boolean includeImportsClosure) {
         Set<OWLEntity> entities = getSignature();
-        if(includeImportsClosure) {
-            for(OWLOntology ont : getImportsClosure()) {
-                if(!ont.equals(this)) {
+        if (includeImportsClosure) {
+            for (OWLOntology ont : getImportsClosure()) {
+                if (!ont.equals(this)) {
                     entities.addAll(ont.getSignature());
                 }
             }
@@ -817,7 +813,6 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     /**
      * A convenience method that obtains the datatypes
      * that are in the signature of this object
-     *
      * @return A set containing the datatypes that are in the signature
      *         of this object.
      */
@@ -830,18 +825,18 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      * Gets the classes that are referenced by axioms in this ontology, and possibly the imports closure of this
      * ontology.
      * @param includeImportsClosure Specifies whether referenced classes should be drawn from this ontology or the imports
-     *                              closure.  If <code>true</code> then the set of referenced classes will be from the imports closure of this
-     *                              ontology, if <code>false</code> then the set of referenced classes will just be from this ontology.
+     * closure.  If <code>true</code> then the set of referenced classes will be from the imports closure of this
+     * ontology, if <code>false</code> then the set of referenced classes will just be from this ontology.
      * @return A set of named classes, which are referenced by any axiom in this ontology. The set that is returned is a
      *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
      *         ontology while iterating over this set.
      */
     public Set<OWLClass> getClassesInSignature(boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return getClassesInSignature();
         }
         Set<OWLClass> results = createSet();
-        for(OWLOntology ont : getImportsClosure()) {
+        for (OWLOntology ont : getImportsClosure()) {
             results.addAll(ont.getClassesInSignature());
         }
         return results;
@@ -851,18 +846,18 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      * Gets the object properties that are referenced by axioms in this ontology, and possibly the imports closure of this
      * ontology.
      * @param includeImportsClosure Specifies whether referenced object properties should be drawn from this ontology or the imports
-     *                              closure.  If <code>true</code> then the set of referenced object properties will be from the imports closure of this
-     *                              ontology, if <code>false</code> then the set of referenced object properties will just be from this ontology.
+     * closure.  If <code>true</code> then the set of referenced object properties will be from the imports closure of this
+     * ontology, if <code>false</code> then the set of referenced object properties will just be from this ontology.
      * @return A set of object properties, which are referenced by any axiom in this ontology. The set that is returned is a
      *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
      *         ontology while iterating over this set.
      */
     public Set<OWLObjectProperty> getObjectPropertiesInSignature(boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return getObjectPropertiesInSignature();
         }
         Set<OWLObjectProperty> results = createSet();
-        for(OWLOntology ont : getImportsClosure()) {
+        for (OWLOntology ont : getImportsClosure()) {
             results.addAll(ont.getObjectPropertiesInSignature());
         }
         return results;
@@ -872,18 +867,18 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      * Gets the data properties that are referenced by axioms in this ontology, and possibly the imports closure of this
      * ontology.
      * @param includeImportsClosure Specifies whether referenced data properties should be drawn from this ontology or the imports
-     *                              closure.  If <code>true</code> then the set of referenced data properties will be from the imports closure of this
-     *                              ontology, if <code>false</code> then the set of referenced data properties will just be from this ontology.
+     * closure.  If <code>true</code> then the set of referenced data properties will be from the imports closure of this
+     * ontology, if <code>false</code> then the set of referenced data properties will just be from this ontology.
      * @return A set of data properties, which are referenced by any axiom in this ontology. The set that is returned is a
      *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
      *         ontology while iterating over this set.
      */
     public Set<OWLDataProperty> getDataPropertiesInSignature(boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return getDataPropertiesInSignature();
         }
         Set<OWLDataProperty> results = createSet();
-        for(OWLOntology ont : getImportsClosure()) {
+        for (OWLOntology ont : getImportsClosure()) {
             results.addAll(ont.getDataPropertiesInSignature());
         }
         return results;
@@ -893,18 +888,18 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      * Gets the named individuals that are referenced by axioms in this ontology, and possibly the imports closure of this
      * ontology.
      * @param includeImportsClosure Specifies whether referenced named individuals should be drawn from this ontology or the imports
-     *                              closure.  If <code>true</code> then the set of referenced named individuals will be from the imports closure of this
-     *                              ontology, if <code>false</code> then the set of referenced named individuals will just be from this ontology.
+     * closure.  If <code>true</code> then the set of referenced named individuals will be from the imports closure of this
+     * ontology, if <code>false</code> then the set of referenced named individuals will just be from this ontology.
      * @return A set of named individuals, which are referenced by any axiom in this ontology. The set that is returned is a
      *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
      *         ontology while iterating over this set.
      */
     public Set<OWLNamedIndividual> getIndividualsInSignature(boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return getIndividualsInSignature();
         }
         Set<OWLNamedIndividual> results = createSet();
-        for(OWLOntology ont : getImportsClosure()) {
+        for (OWLOntology ont : getImportsClosure()) {
             results.addAll(ont.getIndividualsInSignature());
         }
         return results;
@@ -921,17 +916,17 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     /**
      * Gets the datatypes that are referenced by this ontology and possibly its imports closure
      * @param includeImportsClosure Specifies whether referenced named individuals should be drawn from this ontology or the imports
-     *                              closure of this ontology.  If <code>true</code> then the set of referenced named individuals will be from the
-     *                              imports closure of this ontology, if <code>false</code> then the set of referenced named individuals will just
-     *                              be from this ontology.
+     * closure of this ontology.  If <code>true</code> then the set of referenced named individuals will be from the
+     * imports closure of this ontology, if <code>false</code> then the set of referenced named individuals will just
+     * be from this ontology.
      * @return The set of datatypes that are referenced by axioms in this ontology and possibly its imports closure
      */
     public Set<OWLDatatype> getDatatypesInSignature(boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return getDatatypesInSignature();
         }
         Set<OWLDatatype> results = createSet();
-        for(OWLOntology ont : getImportsClosure()) {
+        for (OWLOntology ont : getImportsClosure()) {
             results.addAll(ont.getDatatypesInSignature());
         }
         return results;
@@ -939,18 +934,18 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
         Set<OWLAnnotationProperty> props = createSet(internals.getOwlAnnotationPropertyReferences().keySet());
-        for(OWLAnnotation anno : internals.getOntologyAnnotations()) {
+        for (OWLAnnotation anno : internals.getOntologyAnnotations()) {
             props.add(anno.getProperty());
         }
         return internals.getReturnSet(props);
     }
 
     public Set<OWLAnnotationProperty> getReferencedAnnotationProperties(boolean includeImportsClosure) {
-        if(!includeImportsClosure) {
+        if (!includeImportsClosure) {
             return getAnnotationPropertiesInSignature();
         }
         Set<OWLAnnotationProperty> results = createSet();
-        for(OWLOntology ont : getImportsClosure()) {
+        for (OWLOntology ont : getImportsClosure()) {
             results.addAll(ont.getAnnotationPropertiesInSignature());
         }
         return results;
@@ -972,7 +967,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      */
     public Set<IRI> getDirectImportsDocuments() throws UnknownOWLOntologyException {
         Set<IRI> result = createSet();
-        for(OWLImportsDeclaration importsDeclaration : internals.getImportsDeclarations()) {
+        for (OWLImportsDeclaration importsDeclaration : internals.getImportsDeclarations()) {
             result.add(importsDeclaration.getIRI());
         }
         return result;
@@ -1005,8 +1000,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     public Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype datatype) {
         Set<OWLDatatypeDefinitionAxiom> result = createSet();
         Set<OWLDatatypeDefinitionAxiom> axioms = internals.getAxiomsInternal(AxiomType.DATATYPE_DEFINITION);
-        for(OWLDatatypeDefinitionAxiom ax : axioms) {
-            if(ax.getDatatype().equals(datatype)) {
+        for (OWLDatatypeDefinitionAxiom ax : axioms) {
+            if (ax.getDatatype().equals(datatype)) {
                 result.add(ax);
             }
         }
@@ -1020,76 +1015,73 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSuperClass(OWLClass cls) {
-    	return internals.getSubClassAxiomsForSuperClass(cls);
+        return internals.getSubClassAxiomsForSuperClass(cls);
     }
 
 
     public Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(OWLClass cls) {
-    	return internals.getEquivalentClassesAxioms(cls);
+        return internals.getEquivalentClassesAxioms(cls);
     }
 
 
     public Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(OWLClass cls) {
-    	return internals.getDisjointClassesAxioms(cls);
+        return internals.getDisjointClassesAxioms(cls);
     }
 
 
     public Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(OWLClass owlClass) {
-    	return internals.getDisjointUnionAxioms(owlClass);
+        return internals.getDisjointUnionAxioms(owlClass);
     }
 
 
     public Set<OWLHasKeyAxiom> getHasKeyAxioms(OWLClass cls) {
-    	return internals.getHasKeyAxioms(cls);
+        return internals.getHasKeyAxioms(cls);
     }
 
 
-
     // Object properties
+
     public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSubProperty(OWLObjectPropertyExpression property) {
-    	return internals.getObjectSubPropertyAxiomsForSubProperty(property);
+        return internals.getObjectSubPropertyAxiomsForSubProperty(property);
     }
 
 
     public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSuperProperty(OWLObjectPropertyExpression property) {
-    	return internals.getObjectSubPropertyAxiomsForSuperProperty(property);
+        return internals.getObjectSubPropertyAxiomsForSuperProperty(property);
     }
 
 
     public Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(OWLObjectPropertyExpression property) {
-    	return internals.getObjectPropertyDomainAxioms(property);
+        return internals.getObjectPropertyDomainAxioms(property);
     }
 
 
     public Set<OWLObjectPropertyRangeAxiom> getObjectPropertyRangeAxioms(OWLObjectPropertyExpression property) {
-    	return internals.getObjectPropertyRangeAxioms(property);
+        return internals.getObjectPropertyRangeAxioms(property);
     }
 
 
     public Set<OWLInverseObjectPropertiesAxiom> getInverseObjectPropertyAxioms(OWLObjectPropertyExpression property) {
-    	return internals.getInverseObjectPropertyAxioms(property);
+        return internals.getInverseObjectPropertyAxioms(property);
     }
 
 
-    public Set<OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertiesAxioms(
-            OWLObjectPropertyExpression property) {
-    	return internals.getEquivalentObjectPropertiesAxioms(property);
+    public Set<OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertiesAxioms(OWLObjectPropertyExpression property) {
+        return internals.getEquivalentObjectPropertiesAxioms(property);
     }
 
 
-    public Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(
-            OWLObjectPropertyExpression property) {
-    	return internals.getDisjointObjectPropertiesAxioms(property);
+    public Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(OWLObjectPropertyExpression property) {
+        return internals.getDisjointObjectPropertiesAxioms(property);
     }
 
     public Set<OWLFunctionalObjectPropertyAxiom> getFunctionalObjectPropertyAxioms(OWLObjectPropertyExpression property) {
-    	return internals.getFunctionalObjectPropertyAxioms(property);
+        return internals.getFunctionalObjectPropertyAxioms(property);
     }
 
 
-    public Set<OWLInverseFunctionalObjectPropertyAxiom> getInverseFunctionalObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
-    	return internals.getInverseFunctionalObjectPropertyAxioms(property);
+    public Set<OWLInverseFunctionalObjectPropertyAxiom> getInverseFunctionalObjectPropertyAxioms(OWLObjectPropertyExpression property) {
+        return internals.getInverseFunctionalObjectPropertyAxioms(property);
     }
 
 
@@ -1104,47 +1096,47 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public Set<OWLReflexiveObjectPropertyAxiom> getReflexiveObjectPropertyAxioms(OWLObjectPropertyExpression property) {
-    	return internals.getReflexiveObjectPropertyAxioms(property);
+        return internals.getReflexiveObjectPropertyAxioms(property);
     }
 
 
     public Set<OWLIrreflexiveObjectPropertyAxiom> getIrreflexiveObjectPropertyAxioms(OWLObjectPropertyExpression property) {
-    	return internals.getIrreflexiveObjectPropertyAxioms(property);
+        return internals.getIrreflexiveObjectPropertyAxioms(property);
     }
 
 
     public Set<OWLTransitiveObjectPropertyAxiom> getTransitiveObjectPropertyAxioms(OWLObjectPropertyExpression property) {
-    	return internals.getTransitiveObjectPropertyAxioms(property);
+        return internals.getTransitiveObjectPropertyAxioms(property);
     }
 
 
     public Set<OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxioms(OWLDataPropertyExpression property) {
-    	return internals.getFunctionalDataPropertyAxioms(property);
+        return internals.getFunctionalDataPropertyAxioms(property);
     }
 
 
     public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSubProperty(OWLDataProperty lhsProperty) {
-    	return internals.getDataSubPropertyAxiomsForSubProperty(lhsProperty);
+        return internals.getDataSubPropertyAxiomsForSubProperty(lhsProperty);
     }
 
 
     public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSuperProperty(OWLDataPropertyExpression property) {
-    	return internals.getDataSubPropertyAxiomsForSuperProperty(property);
+        return internals.getDataSubPropertyAxiomsForSuperProperty(property);
     }
 
 
     public Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(OWLDataProperty property) {
-    	return internals.getDataPropertyDomainAxioms(property);
+        return internals.getDataPropertyDomainAxioms(property);
     }
 
 
     public Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(OWLDataProperty property) {
-    	return internals.getDataPropertyRangeAxioms(property);
+        return internals.getDataPropertyRangeAxioms(property);
     }
 
 
     public Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxioms(OWLDataProperty property) {
-    	return internals.getEquivalentDataPropertiesAxioms(property);
+        return internals.getEquivalentDataPropertiesAxioms(property);
     }
 
 
@@ -1161,12 +1153,12 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClass type) {
-    	return internals.getClassAssertionAxioms(type);
+        return internals.getClassAssertionAxioms(type);
     }
 
 
     public Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(OWLIndividual individual) {
-       return internals.getDataPropertyAssertionAxioms(individual);
+        return internals.getDataPropertyAssertionAxioms(individual);
     }
 
 
@@ -1175,24 +1167,23 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLNegativeObjectPropertyAssertionAxiom> getNegativeObjectPropertyAssertionAxioms(
-            OWLIndividual individual) {
-    	return internals.getNegativeObjectPropertyAssertionAxioms(individual);
+    public Set<OWLNegativeObjectPropertyAssertionAxiom> getNegativeObjectPropertyAssertionAxioms(OWLIndividual individual) {
+        return internals.getNegativeObjectPropertyAssertionAxioms(individual);
     }
 
 
     public Set<OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxioms(OWLIndividual individual) {
-    	return internals.getNegativeDataPropertyAssertionAxioms(individual);
+        return internals.getNegativeDataPropertyAssertionAxioms(individual);
     }
 
 
     public Set<OWLSameIndividualAxiom> getSameIndividualAxioms(OWLIndividual individual) {
-    	return internals.getSameIndividualAxioms(individual);
+        return internals.getSameIndividualAxioms(individual);
     }
 
 
     public Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(OWLIndividual individual) {
-    	return internals.getDifferentIndividualAxioms(individual);
+        return internals.getDifferentIndividualAxioms(individual);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1215,7 +1206,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         List<OWLOntologyChange> applied = changeFilter.getAppliedChanges();
         if (applied.size() == 1) {
             appliedChanges.add(change);
-        } else {
+        }
+        else {
             appliedChanges.addAll(applied);
         }
         return appliedChanges;
@@ -1266,7 +1258,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
         public void visit(SetOntologyID change) {
             OWLOntologyID id = change.getNewOntologyID();
-            if(!id.equals(ontologyID)) {
+            if (!id.equals(ontologyID)) {
                 appliedChanges.add(change);
                 ontologyID = id;
             }
@@ -1285,7 +1277,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
         public void visit(AddImport change) {
-            if(!internals.getImportsDeclarations().contains(change.getImportDeclaration())) {
+            if (!internals.getImportsDeclarations().contains(change.getImportDeclaration())) {
                 appliedChanges.add(change);
                 internals.getImportsDeclarations().add(change.getImportDeclaration());
             }
@@ -1293,7 +1285,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
         public void visit(RemoveImport change) {
-            if(internals.getImportsDeclarations().contains(change.getImportDeclaration())) {
+            if (internals.getImportsDeclarations().contains(change.getImportDeclaration())) {
                 appliedChanges.add(change);
                 internals.getImportsDeclarations().remove(change.getImportDeclaration());
             }
@@ -1301,14 +1293,14 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
         public void visit(AddOntologyAnnotation change) {
-            if(internals.getOntologyAnnotations().add(change.getAnnotation())) {
+            if (internals.getOntologyAnnotations().add(change.getAnnotation())) {
                 appliedChanges.add(change);
             }
         }
 
 
         public void visit(RemoveOntologyAnnotation change) {
-            if(internals.getOntologyAnnotations().remove(change.getAnnotation())) {
+            if (internals.getOntologyAnnotations().remove(change.getAnnotation())) {
                 appliedChanges.add(change);
             }
         }
@@ -1325,17 +1317,17 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     private void handleAxiomAdded(OWLAxiom axiom) {
-    	OWLEntityCollector entityCollector = new OWLEntityCollector();
+        OWLEntityCollector entityCollector = new OWLEntityCollector();
         axiom.accept(entityCollector);
         for (OWLEntity object : entityCollector.getObjects()) {
             referenceAdder.setAxiom(axiom);
             object.accept(referenceAdder);
         }
-        for(OWLAnonymousIndividual ind : entityCollector.getAnonymousIndividuals()) {
+        for (OWLAnonymousIndividual ind : entityCollector.getAnonymousIndividuals()) {
             internals.addToIndexedSet(ind, internals.getOwlAnonymousIndividualReferences(), axiom);
         }
-        if(axiom.isAnnotated()) {
-        	internals.addToIndexedSet(axiom.getAxiomWithoutAnnotations(), internals.getLogicalAxiom2AnnotatedAxiomMap(), axiom);
+        if (axiom.isAnnotated()) {
+            internals.addToIndexedSet(axiom.getAxiomWithoutAnnotations(), internals.getLogicalAxiom2AnnotatedAxiomMap(), axiom);
         }
     }
 
@@ -1344,17 +1336,17 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     private void handleAxiomRemoved(OWLAxiom axiom) {
-    	OWLEntityCollector entityCollector = new OWLEntityCollector();
+        OWLEntityCollector entityCollector = new OWLEntityCollector();
         axiom.accept(entityCollector);
         for (OWLEntity object : entityCollector.getObjects()) {
             referenceRemover.setAxiom(axiom);
             object.accept(referenceRemover);
         }
-        for(OWLAnonymousIndividual ind : entityCollector.getAnonymousIndividuals()) {
-        	internals.removeAxiomFromSet(ind, internals.getOwlAnonymousIndividualReferences(), axiom, true);
+        for (OWLAnonymousIndividual ind : entityCollector.getAnonymousIndividuals()) {
+            internals.removeAxiomFromSet(ind, internals.getOwlAnonymousIndividualReferences(), axiom, true);
         }
-        if(axiom.isAnnotated()) {
-        	internals.removeAxiomFromSet(axiom.getAxiomWithoutAnnotations(), internals.getLogicalAxiom2AnnotatedAxiomMap(), axiom, true);
+        if (axiom.isAnnotated()) {
+            internals.removeAxiomFromSet(axiom.getAxiomWithoutAnnotations(), internals.getLogicalAxiom2AnnotatedAxiomMap(), axiom, true);
         }
     }
 
@@ -1381,25 +1373,25 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
         public void visit(OWLObjectProperty property) {
-        	internals.addToIndexedSet(property, internals.getOwlObjectPropertyReferences(), axiom);
+            internals.addToIndexedSet(property, internals.getOwlObjectPropertyReferences(), axiom);
         }
 
 
         public void visit(OWLDataProperty property) {
-        	internals.addToIndexedSet(property, internals.getOwlDataPropertyReferences(), axiom);
+            internals.addToIndexedSet(property, internals.getOwlDataPropertyReferences(), axiom);
         }
 
 
         public void visit(OWLNamedIndividual owlIndividual) {
-        	internals.addToIndexedSet(owlIndividual, internals.getOwlIndividualReferences(), axiom);
+            internals.addToIndexedSet(owlIndividual, internals.getOwlIndividualReferences(), axiom);
         }
 
         public void visit(OWLAnnotationProperty property) {
-        	internals.addToIndexedSet(property, internals.getOwlAnnotationPropertyReferences(), axiom);
+            internals.addToIndexedSet(property, internals.getOwlAnnotationPropertyReferences(), axiom);
         }
 
         public void visit(OWLDatatype datatype) {
-        	internals.addToIndexedSet(datatype, internals.getOwlDatatypeReferences(), axiom);
+            internals.addToIndexedSet(datatype, internals.getOwlDatatypeReferences(), axiom);
         }
     }
 
@@ -1426,25 +1418,25 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
         public void visit(OWLObjectProperty property) {
-        	internals.removeAxiomFromSet(property, internals.getOwlObjectPropertyReferences(), axiom, true);
+            internals.removeAxiomFromSet(property, internals.getOwlObjectPropertyReferences(), axiom, true);
         }
 
 
         public void visit(OWLDataProperty property) {
-        	internals.removeAxiomFromSet(property, internals.getOwlDataPropertyReferences(), axiom, true);
+            internals.removeAxiomFromSet(property, internals.getOwlDataPropertyReferences(), axiom, true);
         }
 
 
         public void visit(OWLNamedIndividual owlIndividual) {
-        	internals.removeAxiomFromSet(owlIndividual, internals.getOwlIndividualReferences(), axiom, true);
+            internals.removeAxiomFromSet(owlIndividual, internals.getOwlIndividualReferences(), axiom, true);
         }
 
         public void visit(OWLAnnotationProperty property) {
-        	internals.removeAxiomFromSet(property, internals.getOwlAnnotationPropertyReferences(), axiom, true);
+            internals.removeAxiomFromSet(property, internals.getOwlAnnotationPropertyReferences(), axiom, true);
         }
 
         public void visit(OWLDatatype datatype) {
-        	internals.removeAxiomFromSet(datatype, internals.getOwlDatatypeReferences(), axiom, true);
+            internals.removeAxiomFromSet(datatype, internals.getOwlDatatypeReferences(), axiom, true);
         }
     }
 
@@ -1473,19 +1465,22 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                     OWLClass subClass = (OWLClass) axiom.getSubClass();
                     internals.addToIndexedSet(subClass, internals.getSubClassAxiomsByLHS(), axiom);
                     internals.addToIndexedSet(subClass, internals.getClassAxiomsByClass(), axiom);
-                } else {
+                }
+                else {
                     internals.getGeneralClassAxioms().add(axiom);
                 }
                 if (!axiom.getSuperClass().isAnonymous()) {
                     internals.addToIndexedSet((OWLClass) axiom.getSuperClass(), internals.getSubClassAxiomsByRHS(), axiom);
                 }
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(SUBCLASS_OF, internals.getAxiomsByType(), axiom, true);
                 if (!axiom.getSubClass().isAnonymous()) {
                     OWLClass subClass = (OWLClass) axiom.getSubClass();
                     internals.removeAxiomFromSet(subClass, internals.getSubClassAxiomsByLHS(), axiom, true);
                     internals.removeAxiomFromSet(subClass, internals.getClassAxiomsByClass(), axiom, true);
-                } else {
+                }
+                else {
                     internals.removeAxiomFromSet(axiom, internals.getGeneralClassAxioms());
                 }
                 if (!axiom.getSuperClass().isAnonymous()) {
@@ -1497,13 +1492,12 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
         public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
             if (addAxiom) {
-                internals.addToIndexedSet(axiom.getSubject(), internals
-						.getNegativeObjectPropertyAssertionAxiomsByIndividual(), axiom);
+                internals.addToIndexedSet(axiom.getSubject(), internals.getNegativeObjectPropertyAssertionAxiomsByIndividual(), axiom);
                 internals.addToIndexedSet(NEGATIVE_OBJECT_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(NEGATIVE_OBJECT_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getSubject(), internals
-						.getNegativeObjectPropertyAssertionAxiomsByIndividual(), axiom, true);
+                internals.removeAxiomFromSet(axiom.getSubject(), internals.getNegativeObjectPropertyAssertionAxiomsByIndividual(), axiom, true);
             }
         }
 
@@ -1512,7 +1506,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(axiom.getProperty(), internals.getAsymmetricPropertyAxiomsByProperty(), axiom);
                 internals.addToIndexedSet(ASYMMETRIC_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(ASYMMETRIC_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getProperty(), internals.getAsymmetricPropertyAxiomsByProperty(), axiom, true);
             }
@@ -1523,7 +1518,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(axiom.getProperty(), internals.getReflexivePropertyAxiomsByProperty(), axiom);
                 internals.addToIndexedSet(REFLEXIVE_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(REFLEXIVE_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getProperty(), internals.getReflexivePropertyAxiomsByProperty(), axiom, true);
             }
@@ -1546,7 +1542,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 if (allAnon) {
                     internals.getGeneralClassAxioms().add(axiom);
                 }
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(DISJOINT_CLASSES, internals.getAxiomsByType(), axiom, true);
                 boolean allAnon = true;
                 for (OWLClassExpression desc : axiom.getClassExpressions()) {
@@ -1568,7 +1565,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(DATA_PROPERTY_DOMAIN, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getProperty(), internals.getDataPropertyDomainAxiomsByProperty(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(DATA_PROPERTY_DOMAIN, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getProperty(), internals.getDataPropertyDomainAxiomsByProperty(), axiom, true);
             }
@@ -1578,19 +1576,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(OBJECT_PROPERTY_DOMAIN, internals.getAxiomsByType(), axiom);
                 if (axiom.getProperty() instanceof OWLObjectProperty) {
-                    internals.addToIndexedSet(axiom.getProperty(),
-                                    internals
-											.getObjectPropertyDomainAxiomsByProperty(),
-                                    axiom);
+                    internals.addToIndexedSet(axiom.getProperty(), internals.getObjectPropertyDomainAxiomsByProperty(), axiom);
                 }
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(OBJECT_PROPERTY_DOMAIN, internals.getAxiomsByType(), axiom, true);
                 if (axiom.getProperty() instanceof OWLObjectProperty) {
-                    internals.removeAxiomFromSet(axiom.getProperty(),
-                                       internals
-											.getObjectPropertyDomainAxiomsByProperty(),
-                                       axiom,
-                                       true);
+                    internals.removeAxiomFromSet(axiom.getProperty(), internals.getObjectPropertyDomainAxiomsByProperty(), axiom, true);
                 }
             }
         }
@@ -1602,7 +1594,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                     internals.addToIndexedSet(prop, internals.getEquivalentObjectPropertyAxiomsByProperty(), axiom);
                 }
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(EQUIVALENT_OBJECT_PROPERTIES, internals.getAxiomsByType(), axiom, true);
                 for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                     internals.removeAxiomFromSet(prop, internals.getEquivalentObjectPropertyAxiomsByProperty(), axiom, true);
@@ -1616,7 +1609,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 internals.addToIndexedSet(INVERSE_OBJECT_PROPERTIES, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getFirstProperty(), internals.getInversePropertyAxiomsByProperty(), axiom);
                 internals.addToIndexedSet(axiom.getSecondProperty(), internals.getInversePropertyAxiomsByProperty(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(INVERSE_OBJECT_PROPERTIES, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getFirstProperty(), internals.getInversePropertyAxiomsByProperty(), axiom, false);
                 internals.removeAxiomFromSet(axiom.getSecondProperty(), internals.getInversePropertyAxiomsByProperty(), axiom, false);
@@ -1628,7 +1622,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(axiom.getSubject(), internals.getNegativeDataPropertyAssertionAxiomsByIndividual(), axiom);
                 internals.addToIndexedSet(NEGATIVE_DATA_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(NEGATIVE_DATA_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getSubject(), internals.getNegativeDataPropertyAssertionAxiomsByIndividual(), axiom, true);
             }
@@ -1641,7 +1636,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                     internals.addToIndexedSet(ind, internals.getDifferentIndividualsAxiomsByIndividual(), axiom);
                     internals.addToIndexedSet(DIFFERENT_INDIVIDUALS, internals.getAxiomsByType(), axiom);
                 }
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(DIFFERENT_INDIVIDUALS, internals.getAxiomsByType(), axiom, true);
                 for (OWLIndividual ind : axiom.getIndividuals()) {
                     internals.removeAxiomFromSet(ind, internals.getDifferentIndividualsAxiomsByIndividual(), axiom, true);
@@ -1656,7 +1652,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 for (OWLDataPropertyExpression prop : axiom.getProperties()) {
                     internals.addToIndexedSet(prop, internals.getDisjointDataPropertyAxiomsByProperty(), axiom);
                 }
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(DISJOINT_DATA_PROPERTIES, internals.getAxiomsByType(), axiom, true);
                 for (OWLDataPropertyExpression prop : axiom.getProperties()) {
                     internals.removeAxiomFromSet(prop, internals.getDisjointDataPropertyAxiomsByProperty(), axiom, true);
@@ -1671,7 +1668,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                     internals.addToIndexedSet(prop, internals.getDisjointObjectPropertyAxiomsByProperty(), axiom);
                 }
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(DISJOINT_OBJECT_PROPERTIES, internals.getAxiomsByType(), axiom, true);
                 for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                     internals.removeAxiomFromSet(prop, internals.getDisjointObjectPropertyAxiomsByProperty(), axiom, true);
@@ -1684,7 +1682,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(OBJECT_PROPERTY_RANGE, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getProperty(), internals.getObjectPropertyRangeAxiomsByProperty(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(OBJECT_PROPERTY_RANGE, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getProperty(), internals.getObjectPropertyRangeAxiomsByProperty(), axiom, true);
             }
@@ -1695,7 +1694,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(OBJECT_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getSubject(), internals.getObjectPropertyAssertionsByIndividual(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(OBJECT_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getSubject(), internals.getObjectPropertyAssertionsByIndividual(), axiom, true);
             }
@@ -1706,7 +1706,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(FUNCTIONAL_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getProperty(), internals.getFunctionalObjectPropertyAxiomsByProperty(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(FUNCTIONAL_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getProperty(), internals.getFunctionalObjectPropertyAxiomsByProperty(), axiom, true);
             }
@@ -1718,7 +1719,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 internals.addToIndexedSet(SUB_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getSubProperty(), internals.getObjectSubPropertyAxiomsByLHS(), axiom);
                 internals.addToIndexedSet(axiom.getSuperProperty(), internals.getObjectSubPropertyAxiomsByRHS(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(SUB_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getSubProperty(), internals.getObjectSubPropertyAxiomsByLHS(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getSuperProperty(), internals.getObjectSubPropertyAxiomsByRHS(), axiom, true);
@@ -1731,7 +1733,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 internals.addToIndexedSet(DISJOINT_UNION, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getOWLClass(), internals.getDisjointUnionAxiomsByClass(), axiom);
                 internals.addToIndexedSet(axiom.getOWLClass(), internals.getClassAxiomsByClass(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(DISJOINT_UNION, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getOWLClass(), internals.getDisjointUnionAxiomsByClass(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getOWLClass(), internals.getClassAxiomsByClass(), axiom, true);
@@ -1743,7 +1746,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(DECLARATION, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getEntity(), internals.getDeclarationsByEntity(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(DECLARATION, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getEntity(), internals.getDeclarationsByEntity(), axiom, true);
             }
@@ -1754,7 +1758,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(ANNOTATION_ASSERTION, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getSubject(), internals.getAnnotationAssertionAxiomsBySubject(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(ANNOTATION_ASSERTION, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getSubject(), internals.getAnnotationAssertionAxiomsBySubject(), axiom, true);
             }
@@ -1763,7 +1768,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
             if (addAxiom) {
                 internals.addToIndexedSet(ANNOTATION_PROPERTY_DOMAIN, internals.getAxiomsByType(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(ANNOTATION_PROPERTY_DOMAIN, internals.getAxiomsByType(), axiom, true);
             }
         }
@@ -1771,7 +1777,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
             if (addAxiom) {
                 internals.addToIndexedSet(ANNOTATION_PROPERTY_RANGE, internals.getAxiomsByType(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(ANNOTATION_PROPERTY_RANGE, internals.getAxiomsByType(), axiom, true);
             }
         }
@@ -1779,7 +1786,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
             if (addAxiom) {
                 internals.addToIndexedSet(SUB_ANNOTATION_PROPERTY_OF, internals.getAxiomsByType(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(SUB_ANNOTATION_PROPERTY_OF, internals.getAxiomsByType(), axiom, true);
             }
         }
@@ -1790,7 +1798,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 if (!axiom.getClassExpression().isAnonymous()) {
                     internals.addToIndexedSet(axiom.getClassExpression().asOWLClass(), internals.getHasKeyAxiomsByClass(), axiom);
                 }
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(HAS_KEY, internals.getAxiomsByType(), axiom, true);
                 if (!axiom.getClassExpression().isAnonymous()) {
                     internals.removeAxiomFromSet(axiom.getClassExpression().asOWLClass(), internals.getHasKeyAxiomsByClass(), axiom, true);
@@ -1802,7 +1811,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(SYMMETRIC_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getProperty(), internals.getSymmetricPropertyAxiomsByProperty(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(SYMMETRIC_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getProperty(), internals.getSymmetricPropertyAxiomsByProperty(), axiom, true);
             }
@@ -1813,7 +1823,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(DATA_PROPERTY_RANGE, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getProperty(), internals.getDataPropertyRangeAxiomsByProperty(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(DATA_PROPERTY_RANGE, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getProperty(), internals.getDataPropertyRangeAxiomsByProperty(), axiom, true);
             }
@@ -1824,7 +1835,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(FUNCTIONAL_DATA_PROPERTY, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getProperty(), internals.getFunctionalDataPropertyAxiomsByProperty(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(FUNCTIONAL_DATA_PROPERTY, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getProperty(), internals.getFunctionalDataPropertyAxiomsByProperty(), axiom, true);
             }
@@ -1837,7 +1849,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 for (OWLDataPropertyExpression prop : axiom.getProperties()) {
                     internals.addToIndexedSet(prop, internals.getEquivalentDataPropertyAxiomsByProperty(), axiom);
                 }
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(EQUIVALENT_DATA_PROPERTIES, internals.getAxiomsByType(), axiom, true);
                 for (OWLDataPropertyExpression prop : axiom.getProperties()) {
                     internals.removeAxiomFromSet(prop, internals.getEquivalentDataPropertyAxiomsByProperty(), axiom, true);
@@ -1853,7 +1866,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 if (!axiom.getClassExpression().isAnonymous()) {
                     internals.addToIndexedSet((OWLClass) axiom.getClassExpression(), internals.getClassAssertionAxiomsByClass(), axiom);
                 }
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(CLASS_ASSERTION, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getIndividual(), internals.getClassAssertionAxiomsByIndividual(), axiom, true);
                 if (!axiom.getClassExpression().isAnonymous()) {
@@ -1877,7 +1891,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 if (allAnon) {
                     internals.getGeneralClassAxioms().add(axiom);
                 }
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(EQUIVALENT_CLASSES, internals.getAxiomsByType(), axiom, true);
                 boolean allAnon = true;
                 for (OWLClassExpression desc : axiom.getClassExpressions()) {
@@ -1898,7 +1913,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(DATA_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getSubject(), internals.getDataPropertyAssertionsByIndividual(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(DATA_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getSubject(), internals.getDataPropertyAssertionsByIndividual(), axiom, true);
             }
@@ -1909,7 +1925,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(TRANSITIVE_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getProperty(), internals.getTransitivePropertyAxiomsByProperty(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(TRANSITIVE_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getProperty(), internals.getTransitivePropertyAxiomsByProperty(), axiom, true);
             }
@@ -1920,7 +1937,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(IRREFLEXIVE_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getProperty(), internals.getIrreflexivePropertyAxiomsByProperty(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(IRREFLEXIVE_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getProperty(), internals.getIrreflexivePropertyAxiomsByProperty(), axiom, true);
             }
@@ -1932,7 +1950,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 internals.addToIndexedSet(SUB_DATA_PROPERTY, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getSubProperty(), internals.getDataSubPropertyAxiomsByLHS(), axiom);
                 internals.addToIndexedSet(axiom.getSuperProperty(), internals.getDataSubPropertyAxiomsByRHS(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(SUB_DATA_PROPERTY, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getSubProperty(), internals.getDataSubPropertyAxiomsByLHS(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getSuperProperty(), internals.getDataSubPropertyAxiomsByRHS(), axiom, true);
@@ -1944,7 +1963,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             if (addAxiom) {
                 internals.addToIndexedSet(INVERSE_FUNCTIONAL_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
                 internals.addToIndexedSet(axiom.getProperty(), internals.getInverseFunctionalPropertyAxiomsByProperty(), axiom);
-            } else {
+            }
+            else {
                 internals.removeAxiomFromSet(INVERSE_FUNCTIONAL_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
                 internals.removeAxiomFromSet(axiom.getProperty(), internals.getInverseFunctionalPropertyAxiomsByProperty(), axiom, true);
             }
@@ -1957,10 +1977,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
                 for (OWLIndividual ind : axiom.getIndividuals()) {
                     internals.addToIndexedSet(ind, internals.getSameIndividualsAxiomsByIndividual(), axiom);
                 }
-            } else {
-            	internals.removeAxiomFromSet(SAME_INDIVIDUAL, internals.getAxiomsByType(), axiom, true);
+            }
+            else {
+                internals.removeAxiomFromSet(SAME_INDIVIDUAL, internals.getAxiomsByType(), axiom, true);
                 for (OWLIndividual ind : axiom.getIndividuals()) {
-                	internals.removeAxiomFromSet(ind, internals.getSameIndividualsAxiomsByIndividual(), axiom, true);
+                    internals.removeAxiomFromSet(ind, internals.getSameIndividualsAxiomsByIndividual(), axiom, true);
                 }
             }
         }
@@ -1968,20 +1989,22 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
         public void visit(OWLSubPropertyChainOfAxiom axiom) {
             if (addAxiom) {
-            	internals.addToIndexedSet(SUB_PROPERTY_CHAIN_OF, internals.getAxiomsByType(), axiom);
+                internals.addToIndexedSet(SUB_PROPERTY_CHAIN_OF, internals.getAxiomsByType(), axiom);
                 internals.addAxiomToSet(axiom, internals.getPropertyChainSubPropertyAxioms());
-            } else {
-            	internals.removeAxiomFromSet(SUB_PROPERTY_CHAIN_OF, internals.getAxiomsByType(), axiom, true);
-            	internals.removeAxiomFromSet(axiom, internals.getPropertyChainSubPropertyAxioms());
+            }
+            else {
+                internals.removeAxiomFromSet(SUB_PROPERTY_CHAIN_OF, internals.getAxiomsByType(), axiom, true);
+                internals.removeAxiomFromSet(axiom, internals.getPropertyChainSubPropertyAxioms());
             }
         }
 
 
         public void visit(SWRLRule rule) {
             if (addAxiom) {
-            	internals.addToIndexedSet(SWRL_RULE, internals.getAxiomsByType(), rule);
-            } else {
-            	internals.removeAxiomFromSet(SWRL_RULE, internals.getAxiomsByType(), rule, true);
+                internals.addToIndexedSet(SWRL_RULE, internals.getAxiomsByType(), rule);
+            }
+            else {
+                internals.removeAxiomFromSet(SWRL_RULE, internals.getAxiomsByType(), rule, true);
             }
         }
 
@@ -1989,10 +2012,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         public void visit(OWLDatatypeDefinitionAxiom axiom) {
             // Just use general indexing (on the assumption that there won't be many
             // datatype definitions).  This could always be optimised at a later stage.
-            if(addAxiom) {
-            	internals.addToIndexedSet(DATATYPE_DEFINITION, internals.getAxiomsByType(), axiom);
-            } else {
-            	internals.removeAxiomFromSet(DATATYPE_DEFINITION, internals.getAxiomsByType(), axiom, true);
+            if (addAxiom) {
+                internals.addToIndexedSet(DATATYPE_DEFINITION, internals.getAxiomsByType(), axiom);
+            }
+            else {
+                internals.removeAxiomFromSet(DATATYPE_DEFINITION, internals.getAxiomsByType(), axiom, true);
             }
         }
     }
@@ -2019,11 +2043,6 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     ///
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-   
-
-
-    
 
 
     public boolean equals(Object obj) {

@@ -48,7 +48,7 @@ public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<O
     }
 
     public OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(getProperty(), getRange());

@@ -60,7 +60,7 @@ public abstract class OWLQuantifiedRestrictionImpl<P extends OWLPropertyExpressi
     protected int compareObjectOfSameType(OWLObject object) {
         OWLQuantifiedRestriction other = (OWLQuantifiedRestriction) object;
         int diff = getProperty().compareTo(other.getProperty());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return getFiller().compareTo(other.getFiller());

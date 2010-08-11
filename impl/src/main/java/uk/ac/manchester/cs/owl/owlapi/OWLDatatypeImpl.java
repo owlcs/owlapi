@@ -118,7 +118,8 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     public OWL2Datatype getBuiltInDatatype() {
         if (!builtin) {
             throw new OWLRuntimeException("Not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
-        } else {
+        }
+        else {
             return OWL2Datatype.getDatatype(iri);
         }
     }

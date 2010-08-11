@@ -70,10 +70,10 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SWRLVariable)) {
+        if (!(obj instanceof SWRLVariable)) {
             return false;
         }
         SWRLVariable other = (SWRLVariable) obj;

@@ -39,8 +39,7 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
     private OWLLiteral facetValue;
 
 
-    public OWLFacetRestrictionImpl(OWLDataFactory dataFactory, OWLFacet facet,
-                                   OWLLiteral facetValue) {
+    public OWLFacetRestrictionImpl(OWLDataFactory dataFactory, OWLFacet facet, OWLLiteral facetValue) {
         super(dataFactory);
         this.facet = facet;
         this.facetValue = facetValue;

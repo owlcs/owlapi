@@ -36,8 +36,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  */
 public abstract class OWLObjectCardinalityRestrictionImpl extends OWLCardinalityRestrictionImpl<OWLObjectPropertyExpression, OWLClassExpression> implements OWLObjectCardinalityRestriction {
 
-    protected OWLObjectCardinalityRestrictionImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, int cardinality,
-                                                  OWLClassExpression filler) {
+    protected OWLObjectCardinalityRestrictionImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, int cardinality, OWLClassExpression filler) {
         super(dataFactory, property, cardinality, filler);
     }
 
@@ -55,7 +54,7 @@ public abstract class OWLObjectCardinalityRestrictionImpl extends OWLCardinality
     }
 
     public boolean equals(Object obj) {
-        if(super.equals(obj)) {
+        if (super.equals(obj)) {
             return obj instanceof OWLObjectCardinalityRestriction;
         }
         return false;

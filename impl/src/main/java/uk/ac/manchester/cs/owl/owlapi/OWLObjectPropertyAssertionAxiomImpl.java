@@ -35,26 +35,19 @@ import java.util.Set;
  */
 public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual> implements OWLObjectPropertyAssertionAxiom {
 
-    public OWLObjectPropertyAssertionAxiomImpl(OWLDataFactory dataFactory,
-                                               OWLIndividual subject,
-                                               OWLObjectPropertyExpression property,
-                                               OWLIndividual object,
-                                               Set<? extends OWLAnnotation> annotations) {
+    public OWLObjectPropertyAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, OWLObjectPropertyExpression property, OWLIndividual object, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, subject, property, object, annotations);
     }
 
     public OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject());
     }
 
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(
-                getOWLDataFactory().getOWLObjectOneOf(getSubject()),
-                getOWLDataFactory().getOWLObjectHasValue(getProperty(), getObject())
-        );
+        return getOWLDataFactory().getOWLSubClassOfAxiom(getOWLDataFactory().getOWLObjectOneOf(getSubject()), getOWLDataFactory().getOWLObjectHasValue(getProperty(), getObject()));
     }
 
     public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
@@ -69,7 +62,7 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
     }
 
     public OWLObjectPropertyAssertionAxiom getSimplified() {
-        if(!getProperty().isAnonymous()) {
+        if (!getProperty().isAnonymous()) {
             return this;
         }
         else {

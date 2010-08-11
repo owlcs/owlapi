@@ -50,7 +50,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
     }
 
     public OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLAnnotationAssertionAxiom(getProperty(), getSubject(), getValue());
@@ -58,10 +58,8 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
 
     /**
      * Determines if this annotation assertion deprecates the IRI that is the subject of the annotation.
-     *
      * @return <code>true</code> if this annotation assertion deprecates the subject IRI of the assertion, otherwise
      *         <code>false</code>.
-     *
      * @see {@link org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()}
      */
     public boolean isDeprecatedIRIAssertion() {
@@ -100,7 +98,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
             return diff;
         }
         diff = property.compareTo(other.getProperty());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return value.compareTo(other.getValue());
@@ -130,20 +128,18 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
 
 
     public boolean equals(Object obj) {
-        if(obj == null) {
+        if (obj == null) {
             return false;
         }
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLAnnotationAssertionAxiom)) {
+        if (!(obj instanceof OWLAnnotationAssertionAxiom)) {
             return false;
         }
         OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) obj;
-        return subject.equals(other.getSubject()) && property.equals(other.getProperty()) && value.equals(other.getValue())  && getAnnotations().equals(other.getAnnotations());
+        return subject.equals(other.getSubject()) && property.equals(other.getProperty()) && value.equals(other.getValue()) && getAnnotations().equals(other.getAnnotations());
     }
-
-
 
 
 }

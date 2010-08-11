@@ -62,10 +62,10 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration {
 
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OWLImportsDeclaration)) {
+        if (!(obj instanceof OWLImportsDeclaration)) {
             return false;
         }
         OWLImportsDeclaration other = (OWLImportsDeclaration) obj;

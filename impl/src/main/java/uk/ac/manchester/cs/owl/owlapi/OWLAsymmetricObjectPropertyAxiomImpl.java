@@ -41,7 +41,7 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyChara
     }
 
     public OWLAsymmetricObjectPropertyAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(getProperty());
@@ -53,7 +53,7 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyChara
 
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
-            return obj instanceof OWLAsymmetricObjectPropertyAxiom  && getAnnotations().equals(((OWLAxiom) obj).getAnnotations());
+            return obj instanceof OWLAsymmetricObjectPropertyAxiom && getAnnotations().equals(((OWLAxiom) obj).getAnnotations());
         }
         return false;
     }

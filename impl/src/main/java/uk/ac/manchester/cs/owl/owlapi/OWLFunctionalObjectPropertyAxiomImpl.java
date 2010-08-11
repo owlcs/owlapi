@@ -41,7 +41,7 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyChara
     }
 
     public OWLFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations() {
-        if(!isAnnotated()) {
+        if (!isAnnotated()) {
             return this;
         }
         return getOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(getProperty());

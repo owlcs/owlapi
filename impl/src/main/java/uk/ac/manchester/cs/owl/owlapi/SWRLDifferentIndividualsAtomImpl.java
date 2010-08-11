@@ -34,8 +34,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements SWRLDifferentIndividualsAtom {
 
-    public SWRLDifferentIndividualsAtomImpl(OWLDataFactory dataFactory, SWRLIArgument arg0,
-                                     SWRLIArgument arg1) {
+    public SWRLDifferentIndividualsAtomImpl(OWLDataFactory dataFactory, SWRLIArgument arg0, SWRLIArgument arg1) {
         super(dataFactory, dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM.getIRI()), arg0, arg1);
     }
 
@@ -59,10 +58,10 @@ public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIAr
     }
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SWRLDifferentIndividualsAtom)) {
+        if (!(obj instanceof SWRLDifferentIndividualsAtom)) {
             return false;
         }
         SWRLDifferentIndividualsAtom other = (SWRLDifferentIndividualsAtom) obj;
