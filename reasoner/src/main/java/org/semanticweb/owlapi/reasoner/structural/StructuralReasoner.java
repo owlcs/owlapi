@@ -64,6 +64,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         if (pm == null) {
             pm = new NullReasonerProgressMonitor();
         }
+        prepareReasoner();
     }
 
     /**
@@ -191,7 +192,6 @@ public class StructuralReasoner extends OWLReasonerBase {
         OWLClassNodeSet ns = new OWLClassNodeSet();
         if (!ce.isAnonymous()) {
             ensurePrepared();
-
             return classHierarchyInfo.getNodeHierarchyChildren(ce.asOWLClass(), direct, ns);
         }
         return ns;
@@ -207,9 +207,13 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public Node<OWLClass> getEquivalentClasses(OWLClassExpression ce) throws InconsistentOntologyException, ClassExpressionNotInProfileException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-
         ensurePrepared();
-        return classHierarchyInfo.getEquivalents(ce.asOWLClass());
+        if (!ce.isAnonymous()) {
+            return classHierarchyInfo.getEquivalents(ce.asOWLClass());
+        }
+        else {
+            return new OWLClassNode();
+        }
     }
 
     public NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce) {
