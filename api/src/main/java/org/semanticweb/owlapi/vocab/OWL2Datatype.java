@@ -72,7 +72,7 @@ public enum OWL2Datatype {
 
     XSD_UNSIGNED_BYTE(XSDVocabulary.UNSIGNED_BYTE, Category.NUMBER, true, "(\\+)?([0-9]+)"),
 
-    XSD_DOUBLE(XSDVocabulary.DOUBLE, Category.NUMBER, true, "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)? |(\\+|-)?INF|NaN"),
+    XSD_DOUBLE(XSDVocabulary.DOUBLE, Category.NUMBER, true, "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"),
 
     XSD_FLOAT(XSDVocabulary.FLOAT, Category.NUMBER, true, "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"),
 
