@@ -33,7 +33,6 @@ import java.util.*;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 22-Jan-2008<br><br>
- *
  * Orders an explanation in a flat list, sorting axioms
  * alphabetically.
  */
@@ -55,7 +54,7 @@ public class AlphaExplanationOrderer implements ExplanationOrderer {
                 return renderer.render(o1).compareTo(renderer.render(o2));
             }
         });
-        for(OWLAxiom ax : sortedAxioms) {
+        for (OWLAxiom ax : sortedAxioms) {
             root.addChild(new ExplanationTree(ax));
         }
         return root;

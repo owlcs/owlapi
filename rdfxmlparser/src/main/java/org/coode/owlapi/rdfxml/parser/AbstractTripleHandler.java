@@ -72,7 +72,7 @@ public class AbstractTripleHandler {
 
     protected OWLDataFactory getDataFactory() {
         return consumer.getDataFactory();
-    }                           
+    }
 
 
     protected OWLClassExpression translateClassExpression(IRI IRI) {

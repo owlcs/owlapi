@@ -43,7 +43,7 @@ public interface OWLHasValueRestriction<R extends OWLPropertyRange, P extends OW
      * A convenience method that obtains this restriction as an existential
      * restriction with a nominal filler.
      * @return The existential equivalent of this value restriction.
-     * simp(HasValue(p a)) = some(p {a})
+     *         simp(HasValue(p a)) = some(p {a})
      */
     OWLClassExpression asSomeValuesFrom();
 }

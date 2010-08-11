@@ -40,7 +40,6 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObj
      * Gets the built in datatype information if this datatype is a built in
      * datatype.  This method should only be called if the isBuiltIn() method
      * returns <code>true</code>
-     *
      * @return The OWLDatatypeVocabulary that describes this built in datatype
      * @throws OWLRuntimeException if this datatype is not a built in datatype.
      */

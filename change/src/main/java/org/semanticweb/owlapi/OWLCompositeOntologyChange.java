@@ -32,7 +32,6 @@ import java.util.List;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 23-Jul-2007<br><br>
- *
  * A composite ontology change encapsulates a list of
  * ontology changes, which should be applied as a logical
  * unit.

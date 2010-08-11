@@ -8,7 +8,6 @@ package org.semanticweb.owlapi.model;
  * <p/>
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
- *
  * Represents an object in an atom (either a data object
  * or and individual object)
  */

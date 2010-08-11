@@ -41,16 +41,12 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(IRI subject,
-                                      IRI predicate,
-                                      IRI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return false;
     }
 
 
-    public void handleTriple(IRI subject,
-                             IRI predicate,
-                             IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
 
         // First check for object property chain
         if (!getConsumer().isStrict() && getConsumer().hasPredicate(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getIRI())) {
@@ -112,18 +108,14 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
     }
 
 
-    private void translateSubObjectProperty(IRI subject,
-                                            IRI predicate,
-                                            IRI object) throws OWLOntologyChangeException {
+    private void translateSubObjectProperty(IRI subject, IRI predicate, IRI object) throws OWLOntologyChangeException {
         // Object - object
         addAxiom(getDataFactory().getOWLSubObjectPropertyOfAxiom(translateObjectProperty(subject), translateObjectProperty(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 
 
-    private void translateSubDataProperty(IRI subject,
-                                          IRI predicate,
-                                          IRI object) throws OWLOntologyChangeException {
+    private void translateSubDataProperty(IRI subject, IRI predicate, IRI object) throws OWLOntologyChangeException {
         // Data - Data
         addAxiom(getDataFactory().getOWLSubDataPropertyOfAxiom(translateDataProperty(subject), translateDataProperty(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

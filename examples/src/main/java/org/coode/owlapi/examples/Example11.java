@@ -40,7 +40,6 @@ import java.util.List;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 10-Dec-2007<br><br>
- *
  * This example shows how to generate an ontology containing some inferred
  * information.
  */
@@ -93,7 +92,7 @@ public class Example11 {
         catch (OWLOntologyCreationException e) {
             e.printStackTrace();
         }
-        catch(OWLOntologyStorageException e) {
+        catch (OWLOntologyStorageException e) {
             e.printStackTrace();
         }
     }

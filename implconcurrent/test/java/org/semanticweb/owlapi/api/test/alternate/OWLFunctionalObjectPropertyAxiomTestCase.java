@@ -26,19 +26,18 @@ import org.semanticweb.owlapi.model.OWLPropertyAxiom;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
-public class OWLFunctionalObjectPropertyAxiomTestCase extends
-		AbstractOWLPropertyCharacteristicTestCase<OWLObjectProperty> {
-	protected OWLObjectProperty createProperty() throws Exception {
-		return createOWLObjectProperty();
-	}
+public class OWLFunctionalObjectPropertyAxiomTestCase extends AbstractOWLPropertyCharacteristicTestCase<OWLObjectProperty> {
+    protected OWLObjectProperty createProperty() throws Exception {
+        return createOWLObjectProperty();
+    }
 
-	protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property)
-			throws OWLException {
-		return getFactory().getOWLFunctionalObjectPropertyAxiom(property);
-	}
+    protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) throws OWLException {
+        return getFactory().getOWLFunctionalObjectPropertyAxiom(property);
+    }
 }

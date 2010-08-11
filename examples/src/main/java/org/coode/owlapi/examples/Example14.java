@@ -51,7 +51,7 @@ public class Example14 {
             // Uncomment the line below
 //            reasonerFactory = new PelletReasonerFactory();
             OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ont);
-            
+
 
             // Now we can query the reasoner, suppose we want to determine the properties that
             // instances of Marghertia pizza must have
@@ -76,11 +76,10 @@ public class Example14 {
 
     /**
      * Prints out the properties that instances of a class expression must have
-     *
-     * @param man      The manager
-     * @param ont      The ontology
+     * @param man The manager
+     * @param ont The ontology
      * @param reasoner The reasoner
-     * @param cls      The class expression
+     * @param cls The class expression
      */
     private static void printProperties(OWLOntologyManager man, OWLOntology ont, OWLReasoner reasoner, OWLClass cls) {
         if (!ont.containsClassInSignature(cls.getIRI())) {

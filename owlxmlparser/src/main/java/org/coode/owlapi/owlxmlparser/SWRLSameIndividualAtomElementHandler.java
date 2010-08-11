@@ -47,7 +47,7 @@ public class SWRLSameIndividualAtomElementHandler extends SWRLAtomElementHandler
         if (arg0 == null) {
             arg0 = handler.getOWLObject();
         }
-        else if(arg1 == null) {
+        else if (arg1 == null) {
             arg1 = handler.getOWLObject();
         }
     }
@@ -57,7 +57,7 @@ public class SWRLSameIndividualAtomElementHandler extends SWRLAtomElementHandler
         if (arg0 == null) {
             arg0 = getOWLDataFactory().getSWRLIndividualArgument(handler.getOWLObject());
         }
-        else if(arg1 == null) {
+        else if (arg1 == null) {
             arg1 = getOWLDataFactory().getSWRLIndividualArgument(handler.getOWLObject());
         }
     }

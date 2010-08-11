@@ -50,7 +50,7 @@ public class SWRLVariableElementHandler extends AbstractOWLElementHandler<SWRLVa
     }
 
     public SWRLVariable getOWLObject() throws OWLXMLParserException {
-        if(iri != null) {
+        if (iri != null) {
             return getOWLDataFactory().getSWRLVariable(iri);
         }
         return null;

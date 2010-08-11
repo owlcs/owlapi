@@ -91,8 +91,8 @@ public class OWLFunctionalSyntaxFactory {
     }
 
     public static OWLAnnotationProperty AnnotationProperty(String abbreviatedIRI, PrefixManager pm) {
-           return dataFactory.getOWLAnnotationProperty(abbreviatedIRI, pm);
-       }
+        return dataFactory.getOWLAnnotationProperty(abbreviatedIRI, pm);
+    }
 
 
     public static OWLNamedIndividual NamedIndividual(IRI iri) {
@@ -418,7 +418,7 @@ public class OWLFunctionalSyntaxFactory {
     }
 
 
-    public static OWLOntology Ontology(OWLOntologyManager man, OWLAxiom ... axioms) throws OWLOntologyCreationException {
+    public static OWLOntology Ontology(OWLOntologyManager man, OWLAxiom... axioms) throws OWLOntologyCreationException {
         return man.createOntology(CollectionFactory.createSet(axioms));
     }
 }

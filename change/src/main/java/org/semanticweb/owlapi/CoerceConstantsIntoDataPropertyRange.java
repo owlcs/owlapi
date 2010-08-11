@@ -90,7 +90,8 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
             OWLDatatype dt = map.get(prop);
             if (dt != null) {
                 return getDataFactory().getOWLLiteral(con.getLiteral(), dt);
-            } else {
+            }
+            else {
                 return con;
             }
         }
@@ -144,15 +145,13 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
 
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
             super.visit(axiom);
-            setLastObject(getDataFactory().getOWLDataPropertyAssertionAxiom(axiom.getProperty(), axiom.getSubject(), process(axiom.getProperty(),
-                            axiom.getObject())));
+            setLastObject(getDataFactory().getOWLDataPropertyAssertionAxiom(axiom.getProperty(), axiom.getSubject(), process(axiom.getProperty(), axiom.getObject())));
         }
 
 
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
             super.visit(axiom);
-            setLastObject(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(axiom.getProperty(), axiom.getSubject(), process(axiom.getProperty(),
-                            axiom.getObject())));
+            setLastObject(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(axiom.getProperty(), axiom.getSubject(), process(axiom.getProperty(), axiom.getObject())));
         }
     }
 }

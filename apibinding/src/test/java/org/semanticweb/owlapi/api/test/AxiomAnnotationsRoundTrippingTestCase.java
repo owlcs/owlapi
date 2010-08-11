@@ -46,10 +46,9 @@ public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTripping
         addAxiom(ont, factory.getOWLDeclarationAxiom(prop));
 
         Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
-        for(int i = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++) {
             OWLLiteral lit = getFactory().getOWLLiteral("Annotation " + (i + 1));
-            annotations.add(getFactory().getOWLAnnotation(getFactory().getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI()),
-                                                       lit));
+            annotations.add(getFactory().getOWLAnnotation(getFactory().getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI()), lit));
         }
 
         OWLEntity entity = factory.getOWLNamedIndividual(IRI.create("http://www.another.com/ont#peter"));

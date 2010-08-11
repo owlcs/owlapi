@@ -28,7 +28,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(cls.getAnnotationAssertionAxioms(ont).contains(ax));
         assertTrue(cls.getAnnotations(ont).contains(ax.getAnnotation()));
     }
-    
+
     public void testNamedIndividualAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
@@ -38,7 +38,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(cls.getAnnotationAssertionAxioms(ont).contains(ax));
         assertTrue(cls.getAnnotations(ont).contains(ax.getAnnotation()));
     }
-    
+
     public void testObjectPropertyAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
@@ -48,7 +48,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(cls.getAnnotationAssertionAxioms(ont).contains(ax));
         assertTrue(cls.getAnnotations(ont).contains(ax.getAnnotation()));
     }
-    
+
     public void testDataPropertyAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
@@ -58,7 +58,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(cls.getAnnotationAssertionAxioms(ont).contains(ax));
         assertTrue(cls.getAnnotations(ont).contains(ax.getAnnotation()));
     }
-    
+
     public void testDatatypeAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();

@@ -37,10 +37,7 @@ public class ObjectPropertyAssertionTestCase extends AbstractAxiomsRoundTripping
 
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLObjectPropertyAssertionAxiom(
-                getOWLObjectProperty("p"),
-                getOWLIndividual("i"),
-                getOWLIndividual("j")));
+        axioms.add(getFactory().getOWLObjectPropertyAssertionAxiom(getOWLObjectProperty("p"), getOWLIndividual("i"), getOWLIndividual("j")));
         return axioms;
     }
 }

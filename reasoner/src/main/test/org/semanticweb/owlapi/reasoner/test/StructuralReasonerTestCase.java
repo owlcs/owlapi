@@ -28,7 +28,7 @@ public class StructuralReasonerTestCase extends AbstractOWLAPITestCase {
         man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(getFactory().getOWLThing(), clsX));
         man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(clsB, clsA));
         man.addAxiom(ont, getFactory().getOWLEquivalentClassesAxiom(clsA, clsAp));
-        
+
         StructuralReasoner reasoner = new StructuralReasoner(ont, new SimpleConfiguration(), BufferingMode.NON_BUFFERING);
         testClassHierarchy(reasoner);
 

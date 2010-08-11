@@ -28,7 +28,6 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- *
  * The base interface for property axioms.
  */
 public interface OWLPropertyAxiom extends OWLLogicalAxiom {

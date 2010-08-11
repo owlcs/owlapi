@@ -100,7 +100,7 @@ public interface OWLElementHandler<O> {
 
 
     public void handleChild(SWRLAtomListElementHandler handler) throws OWLXMLParserException;
-        
+
 
     public String getText();
 

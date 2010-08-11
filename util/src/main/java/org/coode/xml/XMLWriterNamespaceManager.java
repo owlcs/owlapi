@@ -33,7 +33,6 @@ import java.util.*;
  * <p/>
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
- *
  * Developed as part of the CO-ODE project
  * http://www.co-ode.org
  */
@@ -96,7 +95,7 @@ public class XMLWriterNamespaceManager {
         if (namespace.equals(defaultNamespace)) {
             return;
         }
-        if(wellknownNamespaces.containsKey(namespace)) {
+        if (wellknownNamespaces.containsKey(namespace)) {
             setPrefix(wellknownNamespaces.get(namespace), namespace);
         }
         if (!namespacePrefixMap.containsKey(namespace)) {
@@ -124,7 +123,7 @@ public class XMLWriterNamespaceManager {
     }
 
 
-    public Map<String, String> getPrefixNamespaceMap(){
+    public Map<String, String> getPrefixNamespaceMap() {
         return new HashMap<String, String>(prefixNamespaceMap);
     }
 
@@ -134,10 +133,10 @@ public class XMLWriterNamespaceManager {
      * @return the first prefix found for the default namespace that is not ""
      */
     public String getDefaultPrefix() {
-        for (String prefix : prefixNamespaceMap.keySet()){
-            if (!prefix.equals("")){ // if the default has a blank entry then skip it
+        for (String prefix : prefixNamespaceMap.keySet()) {
+            if (!prefix.equals("")) { // if the default has a blank entry then skip it
                 final String ns = prefixNamespaceMap.get(prefix);
-                if (ns.equals(defaultNamespace)){
+                if (ns.equals(defaultNamespace)) {
                     return prefix;
                 }
             }

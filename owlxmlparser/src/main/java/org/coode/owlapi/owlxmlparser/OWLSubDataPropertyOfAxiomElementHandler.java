@@ -47,9 +47,11 @@ public class OWLSubDataPropertyOfAxiomElementHandler extends AbstractOWLAxiomEle
     public void handleChild(OWLDataPropertyElementHandler handler) throws OWLXMLParserException {
         if (subProperty == null) {
             subProperty = handler.getOWLObject();
-        } else if (superProperty == null) {
+        }
+        else if (superProperty == null) {
             superProperty = handler.getOWLObject();
-        } else {
+        }
+        else {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "two data property expression elements");
         }
     }

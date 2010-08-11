@@ -15,21 +15,20 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Date: 02-Feb-2009
  */
 public class DisjointClassesTestCase extends AbstractFileRoundTrippingTestCase {
-	public void testContains() {
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-		OWLClass clsA = getOWLClass("A");
-		OWLClass clsB = getOWLClass("B");
-		OWLClass clsC = getOWLClass("C");
-		axioms.add(getFactory().getOWLDisjointClassesAxiom(clsA, clsB, clsC));
-		assertEquals(getOnt().getAxioms(), axioms);
-	}
+    public void testContains() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLClass clsA = getOWLClass("A");
+        OWLClass clsB = getOWLClass("B");
+        OWLClass clsC = getOWLClass("C");
+        axioms.add(getFactory().getOWLDisjointClassesAxiom(clsA, clsB, clsC));
+        assertEquals(getOnt().getAxioms(), axioms);
+    }
 
-	protected void handleSaved(StringDocumentTarget target,
-			OWLOntologyFormat format) {
-		System.out.println(target);
-	}
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+        System.out.println(target);
+    }
 
-	protected String getFileName() {
-		return "DisjointClasses.rdf";
-	}
+    protected String getFileName() {
+        return "DisjointClasses.rdf";
+    }
 }

@@ -51,8 +51,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
     /**
      * Creates a composite change to split subclass axioms into multiple more
      * fine grained subclass axioms.
-     *
-     * @param ontologies  The ontologies whose subclass axioms should be processed.
+     * @param ontologies The ontologies whose subclass axioms should be processed.
      * @param dataFactory The data factory which should be used to create new axioms.
      */
     public SplitSubClassAxioms(Set<OWLOntology> ontologies, OWLDataFactory dataFactory) {

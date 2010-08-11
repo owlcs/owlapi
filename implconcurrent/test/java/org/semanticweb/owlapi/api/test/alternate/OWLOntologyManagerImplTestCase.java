@@ -34,6 +34,7 @@ import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -42,54 +43,48 @@ import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
  * <br>
  */
 public class OWLOntologyManagerImplTestCase extends TestCase {
-	private OWLOntologyManager manager;
+    private OWLOntologyManager manager;
 
-	protected void setUp() throws Exception {
-		super.setUp();
-		manager = ThreadSafeOWLManager.createOWLOntologyManager();
-		manager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
-		manager.addIRIMapper(new NonMappingOntologyIRIMapper());
-	}
+    protected void setUp() throws Exception {
+        super.setUp();
+        manager = ThreadSafeOWLManager.createOWLOntologyManager();
+        manager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
+        manager.addIRIMapper(new NonMappingOntologyIRIMapper());
+    }
 
-	public void testContains() throws Exception {
-		OWLOntology ont = manager.createOntology(TestUtils.createIRI());
-		assertTrue(manager.contains(ont.getOntologyID()));
-		assertNotNull(manager.getOntology(ont.getOntologyID()));
-		assertTrue(manager.getOntologies().contains(ont));
-		assertNotNull(manager.getOntologyDocumentIRI(ont));
-		manager.removeOntology(ont);
-		assertFalse(manager.contains(ont.getOntologyID()));
-	}
+    public void testContains() throws Exception {
+        OWLOntology ont = manager.createOntology(TestUtils.createIRI());
+        assertTrue(manager.contains(ont.getOntologyID()));
+        assertNotNull(manager.getOntology(ont.getOntologyID()));
+        assertTrue(manager.getOntologies().contains(ont));
+        assertNotNull(manager.getOntologyDocumentIRI(ont));
+        manager.removeOntology(ont);
+        assertFalse(manager.contains(ont.getOntologyID()));
+    }
 
-	public void testImports() throws Exception {
-		OWLOntology ontA = manager.createOntology(TestUtils.createIRI());
-		OWLOntology ontB = manager.createOntology(TestUtils.createIRI());
-		OWLImportsDeclaration decl = manager
-				.getOWLDataFactory()
-				.getOWLImportsDeclaration(ontB.getOntologyID().getOntologyIRI());
-		manager.applyChange(new AddImport(ontA, decl));
-		assertTrue(manager.getDirectImports(ontA).contains(ontB));
-		manager.removeOntology(ontB);
-		assertFalse(manager.getDirectImports(ontA).contains(ontB));
-	}
+    public void testImports() throws Exception {
+        OWLOntology ontA = manager.createOntology(TestUtils.createIRI());
+        OWLOntology ontB = manager.createOntology(TestUtils.createIRI());
+        OWLImportsDeclaration decl = manager.getOWLDataFactory().getOWLImportsDeclaration(ontB.getOntologyID().getOntologyIRI());
+        manager.applyChange(new AddImport(ontA, decl));
+        assertTrue(manager.getDirectImports(ontA).contains(ontB));
+        manager.removeOntology(ontB);
+        assertFalse(manager.getDirectImports(ontA).contains(ontB));
+    }
 
-	public void testImportsClosure() throws OWLException {
-		// OntA -> OntB -> OntC (-> means imports)
-		OWLOntology ontA = manager.createOntology(TestUtils.createIRI());
-		OWLOntology ontB = manager.createOntology(TestUtils.createIRI());
-		OWLOntology ontC = manager.createOntology(TestUtils.createIRI());
-		OWLImportsDeclaration declA = manager
-				.getOWLDataFactory()
-				.getOWLImportsDeclaration(ontB.getOntologyID().getOntologyIRI());
-		OWLImportsDeclaration declB = manager
-				.getOWLDataFactory()
-				.getOWLImportsDeclaration(ontC.getOntologyID().getOntologyIRI());
-		manager.applyChange(new AddImport(ontA, declA));
-		manager.applyChange(new AddImport(ontB, declB));
-		assertTrue(manager.getImportsClosure(ontA).contains(ontA));
-		assertTrue(manager.getImportsClosure(ontA).contains(ontB));
-		assertTrue(manager.getImportsClosure(ontA).contains(ontC));
-		assertTrue(manager.getImportsClosure(ontB).contains(ontB));
-		assertTrue(manager.getImportsClosure(ontB).contains(ontC));
-	}
+    public void testImportsClosure() throws OWLException {
+        // OntA -> OntB -> OntC (-> means imports)
+        OWLOntology ontA = manager.createOntology(TestUtils.createIRI());
+        OWLOntology ontB = manager.createOntology(TestUtils.createIRI());
+        OWLOntology ontC = manager.createOntology(TestUtils.createIRI());
+        OWLImportsDeclaration declA = manager.getOWLDataFactory().getOWLImportsDeclaration(ontB.getOntologyID().getOntologyIRI());
+        OWLImportsDeclaration declB = manager.getOWLDataFactory().getOWLImportsDeclaration(ontC.getOntologyID().getOntologyIRI());
+        manager.applyChange(new AddImport(ontA, declA));
+        manager.applyChange(new AddImport(ontB, declB));
+        assertTrue(manager.getImportsClosure(ontA).contains(ontA));
+        assertTrue(manager.getImportsClosure(ontA).contains(ontB));
+        assertTrue(manager.getImportsClosure(ontA).contains(ontC));
+        assertTrue(manager.getImportsClosure(ontB).contains(ontB));
+        assertTrue(manager.getImportsClosure(ontB).contains(ontC));
+    }
 }

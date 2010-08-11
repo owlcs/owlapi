@@ -15,25 +15,22 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Information Management Group<br>
  * Date: 02-Feb-2009
  */
-public class ObjectMinQualifiedCardinalityTestCase extends
-		AbstractFileRoundTrippingTestCase {
-	public void testCorrectAxioms() {
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-		OWLClass clsA = getOWLClass("A");
-		OWLClass clsB = getOWLClass("B");
-		OWLObjectProperty prop = getOWLObjectProperty("p");
-		axioms.add(getFactory().getOWLDeclarationAxiom(prop));
-		axioms.add(getFactory().getOWLSubClassOfAxiom(clsA,
-				getFactory().getOWLObjectMinCardinality(3, prop, clsB)));
-		assertEquals(getOnt().getAxioms(), axioms);
-	}
+public class ObjectMinQualifiedCardinalityTestCase extends AbstractFileRoundTrippingTestCase {
+    public void testCorrectAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLClass clsA = getOWLClass("A");
+        OWLClass clsB = getOWLClass("B");
+        OWLObjectProperty prop = getOWLObjectProperty("p");
+        axioms.add(getFactory().getOWLDeclarationAxiom(prop));
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectMinCardinality(3, prop, clsB)));
+        assertEquals(getOnt().getAxioms(), axioms);
+    }
 
-	protected void handleSaved(StringDocumentTarget target,
-			OWLOntologyFormat format) {
-		System.out.println(target);
-	}
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+        System.out.println(target);
+    }
 
-	protected String getFileName() {
-		return "ObjectMinQualifiedCardinality.rdf";
-	}
+    protected String getFileName() {
+        return "ObjectMinQualifiedCardinality.rdf";
+    }
 }

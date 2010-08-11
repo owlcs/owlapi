@@ -40,8 +40,7 @@ public class OWL2ProfileReport extends OWLProfileReport {
     private Set<OWLObjectPropertyExpression> simpleRoles;
 
 
-    public OWL2ProfileReport(OWLProfile profile, Set<OWLProfileViolation> disallowedConstructs, Set<OWLObjectPropertyExpression> nonSimpleRoles,
-                             Set<OWLObjectPropertyExpression> simpleRoles) {
+    public OWL2ProfileReport(OWLProfile profile, Set<OWLProfileViolation> disallowedConstructs, Set<OWLObjectPropertyExpression> nonSimpleRoles, Set<OWLObjectPropertyExpression> simpleRoles) {
         super(profile, disallowedConstructs);
         this.nonSimpleRoles = new TreeSet<OWLObjectPropertyExpression>(nonSimpleRoles);
         this.simpleRoles = new TreeSet<OWLObjectPropertyExpression>(simpleRoles);
@@ -61,13 +60,13 @@ public class OWL2ProfileReport extends OWLProfileReport {
     public String toString() {
         StringBuilder sb = new StringBuilder(super.toString());
         sb.append("\n[Simple properties]\n");
-        for(OWLObjectPropertyExpression prop : simpleRoles) {
+        for (OWLObjectPropertyExpression prop : simpleRoles) {
             sb.append("\t");
             sb.append(prop);
             sb.append("\n");
         }
         sb.append("\n[Non-simple properties]\n");
-        for(OWLObjectPropertyExpression prop : nonSimpleRoles) {
+        for (OWLObjectPropertyExpression prop : nonSimpleRoles) {
             sb.append("\t");
             sb.append(prop);
             sb.append("\n");

@@ -32,7 +32,7 @@ import java.net.URISyntaxException;/*
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 21-Jan-2009
  */
-public  abstract class AbstractFileTestCase extends AbstractOWLAPITestCase {
+public abstract class AbstractFileTestCase extends AbstractOWLAPITestCase {
 
     protected OWLOntology createOntology() {
         try {

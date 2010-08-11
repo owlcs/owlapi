@@ -45,8 +45,7 @@ public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer
     }
 
 
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
-                                                                                                                            OWLOntologyStorageException {
+    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
 
         ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(manager, ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(format));
         ren.writeOntology();

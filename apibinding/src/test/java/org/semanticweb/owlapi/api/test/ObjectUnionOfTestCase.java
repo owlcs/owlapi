@@ -35,13 +35,13 @@ import java.util.HashSet;/*
  */
 public class ObjectUnionOfTestCase extends AbstractFileRoundTrippingTestCase {
 
-     public void testCorrectAxioms() {
-         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-         OWLClass clsA = getOWLClass("A");
-         OWLClass clsB = getOWLClass("B");
-         OWLClass clsC = getOWLClass("C");
-         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectUnionOf(clsB, clsC)));
-         assertEquals(getOnt().getAxioms(), axioms);
+    public void testCorrectAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLClass clsA = getOWLClass("A");
+        OWLClass clsB = getOWLClass("B");
+        OWLClass clsC = getOWLClass("C");
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectUnionOf(clsB, clsC)));
+        assertEquals(getOnt().getAxioms(), axioms);
     }
 
     protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {

@@ -60,7 +60,7 @@ public class TurtleRenderer extends RDFRendererBase {
         this.writer = new PrintWriter(writer);
         pending = new HashSet<RDFResourceNode>();
         pm = new DefaultPrefixManager();
-        if(!ontology.isAnonymous()) {
+        if (!ontology.isAnonymous()) {
             pm.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI() + "#");
         }
         base = "";
@@ -130,7 +130,8 @@ public class TurtleRenderer extends RDFRendererBase {
         write("<");
         if (s.startsWith(base)) {
             write(s.substring(base.length()));
-        } else {
+        }
+        else {
             write(s);
         }
         write(">");
@@ -141,15 +142,18 @@ public class TurtleRenderer extends RDFRendererBase {
 
         if (iri.equals(getOntology().getOntologyID().getOntologyIRI())) {
             writeAsURI(iri.toString());
-        } else {
+        }
+        else {
             String name = pm.getPrefixIRI(iri);
             if (name == null) {
                 // No QName!
                 writeAsURI(iri.toString());
-            } else {
+            }
+            else {
                 if (name.indexOf(':') != -1) {
                     write(name);
-                } else {
+                }
+                else {
                     write(":");
                     write(name);
                 }
@@ -173,7 +177,8 @@ public class TurtleRenderer extends RDFRendererBase {
     private void write(RDFNode node) {
         if (node.isLiteral()) {
             write((RDFLiteralNode) node);
-        } else {
+        }
+        else {
             write((RDFResourceNode) node);
         }
     }
@@ -183,14 +188,17 @@ public class TurtleRenderer extends RDFRendererBase {
         if (node.isTyped()) {
             if (node.getDatatype().equals(manager.getOWLDataFactory().getIntegerOWLDatatype().getIRI())) {
                 write(node.getLiteral());
-            } else if (node.getDatatype().equals(XSDVocabulary.DECIMAL.getIRI())) {
+            }
+            else if (node.getDatatype().equals(XSDVocabulary.DECIMAL.getIRI())) {
                 write(node.getLiteral());
-            } else {
+            }
+            else {
                 writeStringLiteral(node.getLiteral());
                 write("^^");
                 write(node.getDatatype());
             }
-        } else {
+        }
+        else {
             writeStringLiteral(node.getLiteral());
             if (node.getLang() != null) {
                 write("@");
@@ -202,11 +210,11 @@ public class TurtleRenderer extends RDFRendererBase {
 
     private void writeStringLiteral(String literal) {
         String escapedLiteral;
-        if(literal.indexOf("\"") != -1) {
+        if (literal.indexOf("\"") != -1) {
             StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < literal.length(); i++) {
+            for (int i = 0; i < literal.length(); i++) {
                 char ch = literal.charAt(i);
-                if(ch == '\"') {
+                if (ch == '\"') {
                     sb.append("\\\"");
                 }
                 else {
@@ -222,7 +230,8 @@ public class TurtleRenderer extends RDFRendererBase {
             write("\"\"\"");
             write(escapedLiteral);
             write("\"\"\"");
-        } else {
+        }
+        else {
             write("\"");
             write(escapedLiteral);
             write("\"");
@@ -233,11 +242,13 @@ public class TurtleRenderer extends RDFRendererBase {
     private void write(RDFResourceNode node) {
         if (!node.isAnonymous()) {
             write(node.getIRI());
-        } else {
+        }
+        else {
             pushTab();
             if (!isObjectList(node)) {
                 render(node);
-            } else {
+            }
+            else {
                 // List - special syntax
                 List<RDFNode> list = new ArrayList<RDFNode>();
                 toJavaList(node, list);
@@ -347,7 +358,6 @@ public class TurtleRenderer extends RDFRendererBase {
 
     /**
      * Renders the triples whose subject is the specified node
-     *
      * @param node The node
      */
     public void render(RDFResourceNode node) {
@@ -373,7 +383,8 @@ public class TurtleRenderer extends RDFRendererBase {
                     write(" ,");
                     writeNewLine();
                     write(triple.getObject());
-                } else {
+                }
+                else {
                     // The predicate, object differ from previous triple
                     // Just write the predicate and object
                     write(" ;");
@@ -387,7 +398,8 @@ public class TurtleRenderer extends RDFRendererBase {
                     pushTab();
                     write(triple.getObject());
                 }
-            } else {
+            }
+            else {
                 if (!first) {
                     popTab();
                     popTab();
@@ -397,7 +409,8 @@ public class TurtleRenderer extends RDFRendererBase {
                 if (!node.isAnonymous()) {
                     write(triple.getSubject());
                     write(" ");
-                } else {
+                }
+                else {
                     pushTab();
                     write("[");
                     write(" ");
@@ -416,7 +429,7 @@ public class TurtleRenderer extends RDFRendererBase {
         if (node.isAnonymous()) {
             popTab();
             popTab();
-            if(triples.isEmpty()) {
+            if (triples.isEmpty()) {
                 write("[ ");
             }
             else {
@@ -424,7 +437,8 @@ public class TurtleRenderer extends RDFRendererBase {
             }
             write("]");
             popTab();
-        } else {
+        }
+        else {
             popTab();
             popTab();
         }

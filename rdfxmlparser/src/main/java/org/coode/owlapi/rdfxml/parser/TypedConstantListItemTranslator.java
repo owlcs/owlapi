@@ -34,7 +34,6 @@ import java.util.logging.Logger;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 10-Dec-2006<br><br>
- *
  */
 public class TypedConstantListItemTranslator implements ListItemTranslator<OWLLiteral> {
 

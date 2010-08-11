@@ -47,7 +47,7 @@ public abstract class AbstractRoundTrippingTest extends AbstractOWLAPITestCase {
     }
 
     protected void setUp() throws Exception {
-        ont = createOntology();    
+        ont = createOntology();
     }
 
     public void testRDFXML() throws Exception {

@@ -28,21 +28,19 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 30-Jun-2009
  */
-public class AnonymousIndividualsTestCase extends
-		AbstractAxiomsRoundTrippingTestCase {
-	protected Set<? extends OWLAxiom> createAxioms() {
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-		OWLAnonymousIndividual ind = getFactory().getOWLAnonymousIndividual();
-		axioms.add(getFactory().getOWLObjectPropertyAssertionAxiom(
-				getOWLObjectProperty("p"), getOWLIndividual("i1"), ind));
-		axioms.add(getFactory().getOWLObjectPropertyAssertionAxiom(
-				getOWLObjectProperty("p"), ind, getOWLIndividual("i2")));
-		return axioms;
-	}
+public class AnonymousIndividualsTestCase extends AbstractAxiomsRoundTrippingTestCase {
+    protected Set<? extends OWLAxiom> createAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLAnonymousIndividual ind = getFactory().getOWLAnonymousIndividual();
+        axioms.add(getFactory().getOWLObjectPropertyAssertionAxiom(getOWLObjectProperty("p"), getOWLIndividual("i1"), ind));
+        axioms.add(getFactory().getOWLObjectPropertyAssertionAxiom(getOWLObjectProperty("p"), ind, getOWLIndividual("i2")));
+        return axioms;
+    }
 }

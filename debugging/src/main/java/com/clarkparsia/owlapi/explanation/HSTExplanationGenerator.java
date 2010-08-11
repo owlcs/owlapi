@@ -35,6 +35,7 @@ import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
 * License along with this library; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
 /**
  * <p/>
  * Description: An implementation of MultipleExplanationGenerator interface
@@ -49,7 +50,6 @@ import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
  * <p/>
  * Company: Clark & Parsia, LLC. <http://www.clarkparsia.com>
  * </p>
- *
  * @author Evren Sirin
  */
 public class HSTExplanationGenerator implements MultipleExplanationGenerator {
@@ -95,6 +95,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 //    }
 
 //
+
     public OWLReasoner getReasoner() {
         return singleExplanationGenerator.getReasoner();
     }
@@ -105,6 +106,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 //    }
 //
 //
+
     public OWLReasonerFactory getReasonerFactory() {
         return singleExplanationGenerator.getReasonerFactory();
     }
@@ -172,7 +174,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /**
      * Orders the axioms in a single MUPS by the frequency of which they appear
      * in all MUPS.
-     *
      * @param mups The MUPS containing the axioms to be ordered
      * @param allMups The set of all MUPS which is used to calculate the ordering
      */
@@ -194,7 +195,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /**
      * Given an axiom and a set of axioms this method determines how many sets
      * contain the axiom.
-     *
      * @param ax The axiom that will be counted.
      * @param axiomSets The sets to count from
      */
@@ -210,7 +210,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
     /**
      * Returns the entities referenced in an axiom.
-     *
      * @param axiom axiom whose signature is being computed
      * @return the entities referenced in the axiom
      */
@@ -226,7 +225,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /**
      * This is a recursive method that builds a hitting set tree to obtain all
      * justifications for an unsatisfiable class.
-     *
      * @param mups The current justification for the current class. This
      * corresponds to a node in the hitting set tree.
      * @param allMups All of the MUPS that have been found - this set gets populated

@@ -27,19 +27,18 @@ import org.semanticweb.owlapi.model.OWLObject;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
-public class OWLDifferentIndividualsAxiomTestCase extends
-		AbstractOWLNaryOperandsObjectTestCase<OWLIndividual> {
-	protected OWLObject createObject(Set<OWLIndividual> operands)
-			throws Exception {
-		return getFactory().getOWLDifferentIndividualsAxiom(operands);
-	}
+public class OWLDifferentIndividualsAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLIndividual> {
+    protected OWLObject createObject(Set<OWLIndividual> operands) throws Exception {
+        return getFactory().getOWLDifferentIndividualsAxiom(operands);
+    }
 
-	protected OWLIndividual createOperand() throws Exception {
-		return createOWLIndividual();
-	}
+    protected OWLIndividual createOperand() throws Exception {
+        return createOWLIndividual();
+    }
 }

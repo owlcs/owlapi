@@ -41,8 +41,7 @@ import java.io.IOException;
 public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
 
 
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
-                                                                                                                            OWLOntologyStorageException {
+    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
             TurtleRenderer ren = new TurtleRenderer(ontology, manager, writer);
             ren.render();

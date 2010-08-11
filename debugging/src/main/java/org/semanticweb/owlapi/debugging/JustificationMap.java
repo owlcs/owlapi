@@ -92,7 +92,8 @@ public class JustificationMap {
             Set<OWLAxiom> ts = new TreeSet<OWLAxiom>(new OWLAxiomComparator());
             ts.addAll(axioms);
             return ts;
-        } else {
+        }
+        else {
             return Collections.emptySet();
         }
     }
@@ -102,7 +103,8 @@ public class JustificationMap {
         Set<OWLAxiom> axioms = axiomsByRHS.get(rhs);
         if (axioms != null) {
             return axioms;
-        } else {
+        }
+        else {
             return Collections.emptySet();
         }
     }
@@ -201,7 +203,8 @@ public class JustificationMap {
         Set<OWLAxiom> result = map.get(ax);
         if (result != null) {
             return result;
-        } else {
+        }
+        else {
             return Collections.emptySet();
         }
     }
@@ -443,7 +446,8 @@ public class JustificationMap {
             int diff = result2 - result1;
             if (diff != 0) {
                 return diff;
-            } else {
+            }
+            else {
                 return -1;
             }
         }

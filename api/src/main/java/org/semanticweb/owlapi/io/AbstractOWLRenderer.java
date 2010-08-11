@@ -69,8 +69,8 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
     /**
      * Renders the specified ontology using the specified writer.
      * @param writer The writer that should be used to write the ontology.
-     *               Note that this writer need not be wrapped with a <code>BufferedWriter</code>
-     *               because this is taken care of by this abstract implementation.
+     * Note that this writer need not be wrapped with a <code>BufferedWriter</code>
+     * because this is taken care of by this abstract implementation.
      */
     public abstract void render(OWLOntology ontology, Writer writer) throws OWLRendererException;
 }

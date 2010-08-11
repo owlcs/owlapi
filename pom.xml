@@ -56,7 +56,7 @@
             <url>http://owl.cs.manchester.ac.uk/maven/repos</url>
         </repository>
     </repositories>
-    
+
 
     <build>
         <plugins>
@@ -115,7 +115,8 @@
 
     <scm>
         <connection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/owl1_1/trunk/</connection>
-        <developerConnection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/owl1_1/trunk/</developerConnection>
+        <developerConnection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/owl1_1/trunk/
+        </developerConnection>
         <url>https://owlapi.svn.sourceforge.net/svnroot/owlapi/owl1_1/trunk/</url>
     </scm>
 

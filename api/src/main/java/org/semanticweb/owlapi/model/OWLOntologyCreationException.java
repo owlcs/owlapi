@@ -28,7 +28,6 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Apr-2007<br><br>
- *
  * An exception which describes an error during the creation of
  * an ontology.  If an ontology cannot be created then subclasses
  * of this class will describe the reasons.

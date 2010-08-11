@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 * License along with this library; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
 /**
  * <p/>
  * Title: ExplanationGenerator
@@ -72,9 +73,9 @@ public interface ExplanationGenerator {
      * as many explanations for the given concept. The returned set will be
      * empty if the given class is satisfiable,
      * @param unsatClass The class that is unsatisfiable for which an explanation
-     * will be generated. 
+     * will be generated.
      * @param maxExplanations Maximum number of explanations requested, or 0 to get all the
-     *                        explanations
+     * explanations
      * @return A specified number of explanations for the given unsatisfiable
      *         class, or an empty set if the concept is satisfiable
      */

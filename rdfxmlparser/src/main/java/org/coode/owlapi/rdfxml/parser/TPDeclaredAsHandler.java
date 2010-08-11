@@ -50,11 +50,14 @@ public class TPDeclaredAsHandler extends TriplePredicateHandler {
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (object.equals(OWLRDFVocabulary.OWL_CLASS.getIRI())) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLClass(subject), getPendingAnnotations()));
-        } else if (object.equals(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI())) {
+        }
+        else if (object.equals(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI())) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLObjectProperty(subject), getPendingAnnotations()));
-        } else if (object.equals(OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI())) {
+        }
+        else if (object.equals(OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI())) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDataProperty(subject), getPendingAnnotations()));
-        } else if (object.equals(OWLRDFVocabulary.OWL_DATATYPE.getIRI())) {
+        }
+        else if (object.equals(OWLRDFVocabulary.OWL_DATATYPE.getIRI())) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDatatype(subject), getPendingAnnotations()));
         }
     }

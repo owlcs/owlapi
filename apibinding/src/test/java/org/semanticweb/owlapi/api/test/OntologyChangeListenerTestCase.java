@@ -25,11 +25,11 @@ public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
         final Set<OWLAxiom> removals = new HashSet<OWLAxiom>();
         getManager().addImpendingOntologyChangeListener(new ImpendingOWLOntologyChangeListener() {
             public void handleImpendingOntologyChanges(List<? extends OWLOntologyChange> impendingChanges) {
-                for(OWLOntologyChange change : impendingChanges) {
-                    if(change instanceof AddAxiom) {
+                for (OWLOntologyChange change : impendingChanges) {
+                    if (change instanceof AddAxiom) {
                         impendingAdditions.add(change.getAxiom());
                     }
-                    else if(change instanceof RemoveAxiom) {
+                    else if (change instanceof RemoveAxiom) {
                         impendingRemovals.add(change.getAxiom());
                     }
                 }
@@ -37,11 +37,11 @@ public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
         });
         getManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
             public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
-                for(OWLOntologyChange change : changes) {
-                    if(change instanceof AddAxiom) {
+                for (OWLOntologyChange change : changes) {
+                    if (change instanceof AddAxiom) {
                         additions.add(change.getAxiom());
                     }
-                    else if(change instanceof RemoveAxiom) {
+                    else if (change instanceof RemoveAxiom) {
                         removals.add(change.getAxiom());
                     }
                 }

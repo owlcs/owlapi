@@ -55,8 +55,7 @@ import java.net.URI;
 public class ClosureAxiomsExample {
 
     public static void usage() {
-        System.out
-                .println("Usage: ClosureAxiomsExample --input=URL --output=URL --class=URL");
+        System.out.println("Usage: ClosureAxiomsExample --input=URL --output=URL --class=URL");
     }
 
     public static void main(String[] args) {
@@ -70,12 +69,9 @@ public class ClosureAxiomsExample {
             String classToClose = null;
 
             longopts[0] = new LongOpt("help", LongOpt.NO_ARGUMENT, null, '?');
-            longopts[1] = new LongOpt("input", LongOpt.REQUIRED_ARGUMENT, null,
-                    'i');
-            longopts[2] = new LongOpt("output", LongOpt.REQUIRED_ARGUMENT,
-                    null, 'o');
-            longopts[3] = new LongOpt("class", LongOpt.REQUIRED_ARGUMENT, null,
-                    'c');
+            longopts[1] = new LongOpt("input", LongOpt.REQUIRED_ARGUMENT, null, 'i');
+            longopts[2] = new LongOpt("output", LongOpt.REQUIRED_ARGUMENT, null, 'o');
+            longopts[3] = new LongOpt("class", LongOpt.REQUIRED_ARGUMENT, null, 'c');
 
             Getopt g = new Getopt("", args, "?:i:o:c", longopts);
             int c;
@@ -103,8 +99,7 @@ public class ClosureAxiomsExample {
             /* Create and Ontology Manager */
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
-            if (inputOntology == null || outputOntology == null
-                    || classToClose == null) {
+            if (inputOntology == null || outputOntology == null || classToClose == null) {
                 usage();
                 System.exit(1);
             }
@@ -115,13 +110,11 @@ public class ClosureAxiomsExample {
 
             /* Load an ontology */
             System.out.println("Loading: " + documentIRI);
-            OWLOntology ontology = manager
-                    .loadOntologyFromOntologyDocument(documentIRI);
+            OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);
             System.out.println("Ontology Loaded...");
             System.out.println("Logical URI : " + documentIRI);
             System.out.println("Document IRI: " + ontology.getOntologyID());
-            System.out.println("Format      : "
-                    + manager.getOntologyFormat(ontology));
+            System.out.println("Format      : " + manager.getOntologyFormat(ontology));
 
             ClosureAxioms closureAxioms = new ClosureAxioms(manager, ontology);
 
@@ -142,7 +135,8 @@ public class ClosureAxiomsExample {
             /* Remove the ontology from the manager */
             manager.removeOntology(ontology);
             System.out.println("Done");
-        } catch (OWLException e) {
+        }
+        catch (OWLException e) {
             e.printStackTrace();
         }
     }

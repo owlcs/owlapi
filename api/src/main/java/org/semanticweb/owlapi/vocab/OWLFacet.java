@@ -37,7 +37,6 @@ import java.util.Set;
  * Date: 24-Oct-2006
  * <p/>
  * Represents the facets that can be used for restricting a datatype.
- *
  * @see org.semanticweb.owlapi.model.OWLFacetRestriction
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction
  */
@@ -128,7 +127,6 @@ public enum OWLFacet {
 
     /**
      * Gets a facet by its short name
-     *
      * @param shortName The short name of the facet.
      * @return The facet or <code>null</code> if not facet by the specified name exists.
      */
@@ -158,5 +156,5 @@ public enum OWLFacet {
         return result;
     }
 
-    
+
 }

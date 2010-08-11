@@ -37,7 +37,7 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
     /**
      * Gets the asserted domains of this property.
      * @param ontology The ontology that should be examined for axioms which
-     *                 assert a domain of this property
+     * assert a domain of this property
      * @return A set of <code>OWLClassExpression</code>s corresponding to the
      *         domains of this property (the domain of the property is essentially the
      *         intersection of these class expressions).
@@ -58,7 +58,7 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
     /**
      * Gets the ranges of this property that have been asserted in the specified ontology.
      * @param ontology The ontology to be searched for axioms which assert a range
-     *                 for this property.
+     * for this property.
      * @return A set of ranges for this property.
      */
     Set<R> getRanges(OWLOntology ontology);
@@ -142,7 +142,7 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
      * Determines if this property is functional in the specified
      * ontology
      * @param ontology The ontology to be tested for a functional
-     *                 property axiom.
+     * property axiom.
      * @return <code>true</code> if the specified ontology contains
      *         an axiom stating that the property is functional, other wise
      *         <code>false</code>.
@@ -155,7 +155,7 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
      * is an axiom in one of the specified ontologies that assert this
      * to be the case.
      * @param ontologies The ontologies which will be searched for axioms
-     *                   which specify that this property is fuctional.
+     * which specify that this property is fuctional.
      * @return <code>true</code> if the property is functional, or <code>false</code>
      *         if the property is not functional.
      */

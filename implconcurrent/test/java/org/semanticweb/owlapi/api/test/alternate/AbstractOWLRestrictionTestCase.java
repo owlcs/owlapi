@@ -25,21 +25,20 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
-public abstract class AbstractOWLRestrictionTestCase<P extends OWLPropertyExpression>
-		extends AbstractOWLDataFactoryTest {
-	protected abstract OWLRestriction createRestriction(P prop)
-			throws Exception;
+public abstract class AbstractOWLRestrictionTestCase<P extends OWLPropertyExpression> extends AbstractOWLDataFactoryTest {
+    protected abstract OWLRestriction createRestriction(P prop) throws Exception;
 
-	protected abstract P createProperty() throws Exception;
+    protected abstract P createProperty() throws Exception;
 
-	public void testPropertyGetter() throws Exception {
-		P prop = createProperty();
-		OWLRestriction rest = createRestriction(prop);
-		assertEquals(rest.getProperty(), prop);
-	}
+    public void testPropertyGetter() throws Exception {
+        P prop = createProperty();
+        OWLRestriction rest = createRestriction(prop);
+        assertEquals(rest.getProperty(), prop);
+    }
 }

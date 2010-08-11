@@ -45,10 +45,7 @@ public class OWLObjectHasValueElementHandler extends AbstractObjectRestrictionEl
 
 
     protected OWLClassExpression createRestriction() {
-        return getOWLDataFactory().getOWLObjectHasValue(
-                getProperty(),
-                getFiller()
-        );
+        return getOWLDataFactory().getOWLObjectHasValue(getProperty(), getFiller());
     }
 
 }

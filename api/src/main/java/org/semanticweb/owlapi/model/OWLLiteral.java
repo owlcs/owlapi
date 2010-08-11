@@ -41,11 +41,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
 
     /**
      * Gets the lexical value of this literal
-     *
      * @return gets the lexical value of this literal
      */
     String getLiteral();
-
 
 
     boolean isInteger();
@@ -59,7 +57,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
     boolean isDouble();
 
     double parseDouble() throws NumberFormatException;
-    
+
     boolean isFloat();
 
     float parseFloat() throws NumberFormatException;
@@ -73,8 +71,8 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
     /**
      * Gets the language tag of this literal.
      * @return The language tag of this literal.  If the literal does not have a language tag, because it is
-     * not of the type <code>rdf:PlainLiteral</code>, or because its language tag is empty, then the empty string
-     * will be returned. (The <code>null</code> value is never returned).
+     *         not of the type <code>rdf:PlainLiteral</code>, or because its language tag is empty, then the empty string
+     *         will be returned. (The <code>null</code> value is never returned).
      */
     String getLang();
 
@@ -84,16 +82,14 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      * @param lang The specific lang to test for. The tag will be normalised - white space will be trimmed from
      * the end and it will be converted to lower case.
      * @return <code>true</code> if this literal has a language tag equal to <code>lang</code>, otherwise
-     * <code>false</code>.
+     *         <code>false</code>.
      */
     boolean hasLang(String lang);
 
     /**
      * Gets the <code>OWLDatatype</code> which types this literal.
-     *
-     * @return
-     * The <code>OWLDatatype</code> that types this literal.  Note that for strings with language tag (previously
-     * considered to be untyped literals) the datatype will be rdf:PlainLiteral.
+     * @return The <code>OWLDatatype</code> that types this literal.  Note that for strings with language tag (previously
+     *         considered to be untyped literals) the datatype will be rdf:PlainLiteral.
      */
     public OWLDatatype getDatatype();
 

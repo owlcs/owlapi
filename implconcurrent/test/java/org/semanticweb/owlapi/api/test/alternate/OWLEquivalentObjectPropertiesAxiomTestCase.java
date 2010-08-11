@@ -27,19 +27,18 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
-public class OWLEquivalentObjectPropertiesAxiomTestCase extends
-		AbstractOWLNaryOperandsObjectTestCase<OWLObjectProperty> {
-	protected OWLObject createObject(Set<OWLObjectProperty> operands)
-			throws Exception {
-		return getFactory().getOWLEquivalentObjectPropertiesAxiom(operands);
-	}
+public class OWLEquivalentObjectPropertiesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLObjectProperty> {
+    protected OWLObject createObject(Set<OWLObjectProperty> operands) throws Exception {
+        return getFactory().getOWLEquivalentObjectPropertiesAxiom(operands);
+    }
 
-	protected OWLObjectProperty createOperand() throws Exception {
-		return createOWLObjectProperty();
-	}
+    protected OWLObjectProperty createOperand() throws Exception {
+        return createOWLObjectProperty();
+    }
 }

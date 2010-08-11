@@ -59,7 +59,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     /**
      * Gets the annotations for this entity.  These are deemed to be annotations in annotation assertion
      * axioms that have a subject that is an IRI that is equal to the IRI of this entity.
-     *
      * @param ontology The ontology to be examined for annotation assertion axioms
      * @return The annotations that participate directly in an annotation assertion whose subject is an
      *         IRI corresponding to the IRI of this entity.
@@ -70,9 +69,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     /**
      * Obtains the annotations on this entity where the annotation has the specified
      * URI.
-     *
-     * @param ontology              The ontology to examine for annotation axioms
-     * @param annotationProperty    The annotation property
+     * @param ontology The ontology to examine for annotation axioms
+     * @param annotationProperty The annotation property
      * @return A set of <code>OWLAnnotation</code> objects that have the specified
      *         URI.
      */
@@ -98,7 +96,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
 
     /**
      * A convenience method that determines if this entity is an OWLClass
-     *
      * @return <code>true</code> if this entity is an OWLClass, otherwise <code>false</code>
      */
     boolean isOWLClass();
@@ -107,7 +104,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     /**
      * A convenience method that obtains this entity as an OWLClass (in order to
      * avoid explicit casting).
-     *
      * @return The entity as an OWLClass.
      * @throws OWLRuntimeException if this entity is not an OWLClass (check with the
      *                             isOWLClass method first).
@@ -116,7 +112,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
 
     /**
      * A convenience method that determines if this entity is an OWLObjectProperty
-     *
      * @return <code>true</code> if this entity is an OWLObjectProperty, otherwise <code>false</code>
      */
     boolean isOWLObjectProperty();
@@ -124,7 +119,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     /**
      * A convenience method that obtains this entity as an OWLObjectProperty (in order to
      * avoid explicit casting).
-     *
      * @return The entity as an OWLObjectProperty.
      * @throws OWLRuntimeException if this entity is not an OWLObjectProperty (check with the
      *                             isOWLObjectProperty method first).
@@ -133,7 +127,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
 
     /**
      * A convenience method that determines if this entity is an OWLDataProperty
-     *
      * @return <code>true</code> if this entity is an OWLDataProperty, otherwise <code>false</code>
      */
     boolean isOWLDataProperty();
@@ -141,7 +134,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     /**
      * A convenience method that obtains this entity as an OWLDataProperty (in order to
      * avoid explicit casting).
-     *
      * @return The entity as an OWLDataProperty.
      * @throws OWLRuntimeException if this entity is not an OWLDataProperty (check with the
      *                             isOWLDataProperty method first).
@@ -150,7 +142,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
 
     /**
      * A convenience method that determines if this entity is an OWLNamedIndividual
-     *
      * @return <code>true</code> if this entity is an OWLNamedIndividual, otherwise <code>false</code>
      */
     boolean isOWLNamedIndividual();
@@ -158,7 +149,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     /**
      * A convenience method that obtains this entity as an OWLNamedIndividual (in order to
      * avoid explicit casting).
-     *
      * @return The entity as an OWLNamedIndividual.
      * @throws OWLRuntimeException if this entity is not an OWLIndividual (check with the
      *                             isOWLIndividual method first).
@@ -167,7 +157,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
 
     /**
      * A convenience method that determines if this entity is an OWLDatatype
-     *
      * @return <code>true</code> if this entity is an OWLDatatype, otherwise <code>false</code>
      */
     boolean isOWLDatatype();
@@ -175,7 +164,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     /**
      * A convenience method that obtains this entity as an OWLDatatype (in order to
      * avoid explicit casting).
-     *
      * @return The entity as an OWLDatatype.
      * @throws OWLRuntimeException if this entity is not an OWLDatatype (check with the
      *                             isOWLDatatype method first).
@@ -184,7 +172,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
 
     /**
      * A convenience method that determines if this entity is an OWLAnnotationProperty
-     *
      * @return <code>true</code> if this entity is an OWLAnnotationProperty, otherwise <code>false</code>
      */
     boolean isOWLAnnotationProperty();
@@ -192,7 +179,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     /**
      * A convenience method that obtains this entity as an OWLAnnotationProperty (in order to
      * avoid explicit casting).
-     *
      * @return The entity as an OWLAnnotationProperty.
      * @throws OWLRuntimeException if this entity is not an OWLAnnotationProperty
      */

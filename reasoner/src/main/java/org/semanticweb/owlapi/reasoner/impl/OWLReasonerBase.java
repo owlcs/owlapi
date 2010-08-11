@@ -64,10 +64,10 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         manager.addOntologyChangeListener(ontologyChangeListener);
         reasonerAxioms = new HashSet<OWLAxiom>();
         for (OWLOntology ont : rootOntology.getImportsClosure()) {
-            for(OWLAxiom ax : ont.getLogicalAxioms()) {
+            for (OWLAxiom ax : ont.getLogicalAxioms()) {
                 reasonerAxioms.add(ax.getAxiomWithoutAnnotations());
             }
-            for(OWLAxiom ax : ont.getAxioms(AxiomType.DECLARATION)) {
+            for (OWLAxiom ax : ont.getAxioms(AxiomType.DECLARATION)) {
                 reasonerAxioms.add(ax.getAxiomWithoutAnnotations());
             }
         }
@@ -76,7 +76,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     public OWLReasonerConfiguration getReasonerConfiguration() {
         return configuration;
     }
-    
+
     public BufferingMode getBufferingMode() {
         return bufferingMode;
     }
@@ -98,7 +98,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     private void handleRawOntologyChanges(List<? extends OWLOntologyChange> changes) {
         rawChanges.addAll(changes);
         // We auto-flush the changes if the reasoner is non-buffering
-        if(bufferingMode.equals(BufferingMode.NON_BUFFERING)) {
+        if (bufferingMode.equals(BufferingMode.NON_BUFFERING)) {
             flush();
         }
     }
@@ -148,7 +148,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * ontology
      */
     private void computeDiff(Set<OWLAxiom> added, Set<OWLAxiom> removed) {
-        if(rawChanges.isEmpty()) {
+        if (rawChanges.isEmpty()) {
             return;
         }
         for (OWLOntology ont : rootOntology.getImportsClosure()) {
@@ -157,14 +157,14 @@ public abstract class OWLReasonerBase implements OWLReasoner {
                     added.add(ax);
                 }
             }
-            for(OWLAxiom ax : ont.getAxioms(AxiomType.DECLARATION)) {
-                if(!reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())) {
+            for (OWLAxiom ax : ont.getAxioms(AxiomType.DECLARATION)) {
+                if (!reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())) {
                     added.add(ax);
                 }
             }
         }
-        for(OWLAxiom ax : reasonerAxioms) {
-            if(!rootOntology.containsAxiomIgnoreAnnotations(ax, true)) {
+        for (OWLAxiom ax : reasonerAxioms) {
+            if (!rootOntology.containsAxiomIgnoreAnnotations(ax, true)) {
                 removed.add(ax);
             }
         }
@@ -173,8 +173,8 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     /**
      * Gets the axioms that should be currently being reasoned over.
      * @return A collections of axioms (not containing duplicates) that the reasoner should be taking into consideration
-     * when reasoning.  This set of axioms many not correspond to the current state of the imports closure of the
-     * reasoner root ontology if the reasoner is buffered.
+     *         when reasoning.  This set of axioms many not correspond to the current state of the imports closure of the
+     *         reasoner root ontology if the reasoner is buffered.
      */
     public Collection<OWLAxiom> getReasonerAxioms() {
         return new ArrayList<OWLAxiom>(reasonerAxioms);

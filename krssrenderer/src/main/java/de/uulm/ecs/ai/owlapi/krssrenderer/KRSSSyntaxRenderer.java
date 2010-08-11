@@ -31,8 +31,8 @@ import java.io.Writer;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
- *
  * Author: Olaf Noppens<br>
  * Ulm University<br>
  * Institute of Artificial Intelligence<br>
@@ -47,7 +47,8 @@ public class KRSSSyntaxRenderer extends AbstractOWLRenderer {
             KRSSObjectRenderer ren = new KRSSObjectRenderer(getOWLOntologyManager(), ontology, writer);
             ontology.accept(ren);
             writer.flush();
-        } catch (IOException io) {
+        }
+        catch (IOException io) {
             throw new OWLRendererIOException(io);
         }
     }

@@ -29,7 +29,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public interface OWLQuantifiedRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R,P>, F extends OWLPropertyRange> extends OWLRestriction<R, P, F> {
+public interface OWLQuantifiedRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLRestriction<R, P, F> {
 
     F getFiller();
 }

@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 18-Apr-2007<br><br>
- *
  * A short form provider produces renderings of entities.  These
  * renderings are strings which in general can be used for display
  * and serialisation purposes.  A given entity only has one short
@@ -46,7 +45,7 @@ public interface ShortFormProvider {
      * Gets the short form for the specified entity.
      * @param entity The entity.
      * @return A string which represents a short rendering
-     * of the speicified entity.
+     *         of the speicified entity.
      */
     String getShortForm(OWLEntity entity);
 

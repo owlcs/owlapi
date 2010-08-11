@@ -80,12 +80,11 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         consumeTriple(subject, predicate, object);
 
 
-
         IRI annotatedSource = getObjectOfSourceTriple(subject);
         IRI annotatedProperty = getObjectOfPropertyTriple(subject);
         IRI annotatedTarget = getObjectOfTargetTriple(subject);
         OWLLiteral annotatedTargetLiteral = null;
-        if(annotatedTarget == null) {
+        if (annotatedTarget == null) {
             annotatedTargetLiteral = getTargetLiteral(subject);
         }
 
@@ -93,7 +92,8 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         getConsumer().setPendingAnnotations(annotations);
         if (annotatedTarget != null) {
             getConsumer().handle(annotatedSource, annotatedProperty, annotatedTarget);
-        } else {
+        }
+        else {
             getConsumer().handle(annotatedSource, annotatedProperty, annotatedTargetLiteral);
         }
         if (!annotations.isEmpty()) {
@@ -147,8 +147,8 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
      * Gets the object of the target triple that has the specified main node
      * @param mainNode The main node
      * @return The object of the triple that has the specified mainNode as its subject and the IRI returned
-     * by the {@code TypeAxiomHandler#getSourceTriplePredicate()} method.  For backwards compatibility, a
-     * search will also be performed for triples whos subject is the specified mainNode and predicate rdf:object
+     *         by the {@code TypeAxiomHandler#getSourceTriplePredicate()} method.  For backwards compatibility, a
+     *         search will also be performed for triples whos subject is the specified mainNode and predicate rdf:object
      */
     private IRI getObjectOfTargetTriple(IRI mainNode) {
         IRI objectTripleObject = getConsumer().getResourceObject(mainNode, getTargetTriplePredicate(), true);
@@ -169,7 +169,6 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
 
     /**
      * Gets the source IRI for an annotated or reified axiom
-     *
      * @param mainNode The main node of the triple
      * @return The source object
      * @throws OWLRDFXMLParserMalformedNodeException

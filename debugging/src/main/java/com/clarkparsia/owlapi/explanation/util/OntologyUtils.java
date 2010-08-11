@@ -64,13 +64,12 @@ public class OntologyUtils {
     /**
      * Removes an axiom from all the given ontologies that contains the axiom
      * and returns those ontologies.
-     * @param axiom      axiom being removed
+     * @param axiom axiom being removed
      * @param ontologies ontologies from which axiom is being removed
-     * @param manager    manager to apply the actual change
+     * @param manager manager to apply the actual change
      * @return set of ontologies that have been affected
      */
-    public static Set<OWLOntology> removeAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies,
-                                               OWLOntologyManager manager) {
+    public static Set<OWLOntology> removeAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies, OWLOntologyManager manager) {
         Set<OWLOntology> modifiedOnts = new HashSet<OWLOntology>();
 
         for (OWLOntology ont : ontologies) {

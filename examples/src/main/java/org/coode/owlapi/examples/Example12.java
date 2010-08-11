@@ -35,7 +35,6 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 11-Apr-2008<br><br>
- *
  * This example shows how to merge to ontologies (by simply combining axioms from
  * one ontology into another ontology).
  */
@@ -54,7 +53,7 @@ public class Example12 {
             IRI mergedOntologyIRI = IRI.create("http://www.semanticweb.com/mymergedont");
             OWLOntology merged = merger.createMergedOntology(man, mergedOntologyIRI);
             // Print out the axioms in the merged ontology.
-            for(OWLAxiom ax : merged.getAxioms()) {
+            for (OWLAxiom ax : merged.getAxioms()) {
                 System.out.println(ax);
             }
             // Save to RDF/XML

@@ -255,7 +255,6 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-
     private static Set<String> individualFrameSections = new HashSet<String>();
 
     static {
@@ -528,9 +527,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
     /**
      * Parses an OWL class expression that is represented in Manchester OWL Syntax
-     *
      * @return The parsed class expression
-     *
      * @throws ParserException If a class expression could not be parsed.
      */
     public OWLClassExpression parseClassExpression() throws ParserException {
@@ -655,9 +652,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
     /**
      * Parses all class expressions except ObjectIntersectionOf and ObjectUnionOf
-     *
      * @return The class expression which was parsed
-     *
      * @throws ParserException if a non-nary class expression could not be parsed
      */
     public OWLClassExpression parseNonNaryClassExpression() throws ParserException {
@@ -1440,7 +1435,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     private boolean isAllowableEmptyClassFrameSection() {
-        if(!allowEmptyFrameSections) {
+        if (!allowEmptyFrameSections) {
             return false;
         }
         String next = peekToken();
@@ -1453,7 +1448,7 @@ public class ManchesterOWLSyntaxEditorParser {
             if (sect.equalsIgnoreCase(SUB_CLASS_OF)) {
                 consumeToken();
                 Set<OWLOntology> onts = getOntologies();
-                if(!isAllowableEmptyClassFrameSection()) {
+                if (!isAllowableEmptyClassFrameSection()) {
                     Map<OWLClassExpression, Set<OWLAnnotation>> descs = parseAnnotatedClassExpressionList();
                     for (OWLOntology ont : onts) {
                         for (OWLClassExpression desc : descs.keySet()) {
@@ -1566,7 +1561,7 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             else if (sect.equals(ANNOTATIONS)) {
 //                if (!isAllowableEmptyClassFrameSection()) {
-                    axioms.addAll(parseAnnotations(cls.getIRI()));
+                axioms.addAll(parseAnnotations(cls.getIRI()));
 //                }
             }
             else {

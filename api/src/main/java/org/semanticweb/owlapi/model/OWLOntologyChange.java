@@ -43,7 +43,7 @@ public abstract class OWLOntologyChange {
      * Determines if the change will cause the addition or
      * removal of an axiom from an ontology.
      * @return <code>true</code> if the change is an <code>OWLAddAxiomChange</code>
-     * or <code>OWLRemoveAxiomChange</code> otherwise <code>false</code>.
+     *         or <code>OWLRemoveAxiomChange</code> otherwise <code>false</code>.
      */
     public abstract boolean isAxiomChange();
 
@@ -52,7 +52,7 @@ public abstract class OWLOntologyChange {
      * this method obtains the axiom.
      * @return The Axiom if this change is an axiom change
      * @throws UnsupportedOperationException If the change is not an axiom change (check
-     * with the <code>isAxiomChange</code> method first).
+     *                                       with the <code>isAxiomChange</code> method first).
      */
     public abstract OWLAxiom getAxiom();
 
@@ -70,7 +70,6 @@ public abstract class OWLOntologyChange {
     public OWLOntology getOntology() {
         return ont;
     }
-
 
 
     public abstract void accept(OWLOntologyChangeVisitor visitor);

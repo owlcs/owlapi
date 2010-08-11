@@ -57,8 +57,7 @@ public class HiddenGCICount extends IntegerValuedMetric {
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange chg : changes) {
             if (chg.isAxiomChange()) {
-                if (chg.getAxiom() instanceof OWLEquivalentClassesAxiom ||
-                        chg.getAxiom() instanceof OWLSubClassOfAxiom) {
+                if (chg.getAxiom() instanceof OWLEquivalentClassesAxiom || chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                     return true;
                 }
             }
@@ -74,7 +73,8 @@ public class HiddenGCICount extends IntegerValuedMetric {
             for (OWLClass cls : ont.getClassesInSignature()) {
                 if (!processed.contains(cls)) {
                     processed.add(cls);
-                } else {
+                }
+                else {
                     continue;
                 }
                 boolean foundEquivalentClassesAxiom = false;

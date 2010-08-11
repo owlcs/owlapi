@@ -1154,8 +1154,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject, OWLAnnotation annotation) {
-    	// PATCH: 	return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue(), annotation.getAnnotations());
-    	// ORIG: 	return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue());
+        // PATCH: 	return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue(), annotation.getAnnotations());
+        // ORIG: 	return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue());
         // The patch makes a difference for the owl, owlfs, rdfxml and turtle serializations of Annotation2.
         return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue(), annotation.getAnnotations());
     }
@@ -1223,13 +1223,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     /**
-     * @deprecated Use either {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)} or
-     * {@link #getSWRLRule(java.util.Set, java.util.Set)} instead.
-     * Gets a SWRL rule which is named with a URI
      * @param iri The rule IRI - this parameter is IGNORED since OWL axioms do not have IRIs,
      * and is here for backwards compatability.
      * @param body The atoms that make up the body of the rule
      * @param head The atoms that make up the head of the rule
+     * @deprecated Use either {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)} or
+     *             {@link #getSWRLRule(java.util.Set, java.util.Set)} instead.
+     *             Gets a SWRL rule which is named with a URI
      */
     @Deprecated
     public SWRLRule getSWRLRule(IRI iri, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
@@ -1240,11 +1240,11 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     /**
-     * @deprecated Use either {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)} or
-     * {@link #getSWRLRule(java.util.Set, java.util.Set)} instead.
      * @param nodeID The node ID
      * @param body The atoms that make up the body of the rule
      * @param head The atoms that make up the head of the rule
+     * @deprecated Use either {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)} or
+     *             {@link #getSWRLRule(java.util.Set, java.util.Set)} instead.
      */
     @Deprecated
     public SWRLRule getSWRLRule(NodeID nodeID, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {

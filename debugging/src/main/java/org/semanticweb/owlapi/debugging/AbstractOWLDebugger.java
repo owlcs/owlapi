@@ -65,7 +65,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
                 changes.add(new AddAxiom(ontology, ax));
             }
         }
-            owlOntologyManager.applyChanges(changes);
+        owlOntologyManager.applyChanges(changes);
     }
 
 
@@ -105,16 +105,15 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     /**
      * This is a recursive method that builds a hitting set tree to obtain all justifications
      * for an unsatisfiable class.
-     * @param mups                The current justification for the current class.  This corresponds to a node
-     *                            in the hitting set tree.
-     * @param allMups             All of the MUPS that have been found - this set gets populated over the course
-     *                            of the tree building process.  Initially this should just contain the first justification
-     * @param satPaths            Paths that have been completed.
+     * @param mups The current justification for the current class.  This corresponds to a node
+     * in the hitting set tree.
+     * @param allMups All of the MUPS that have been found - this set gets populated over the course
+     * of the tree building process.  Initially this should just contain the first justification
+     * @param satPaths Paths that have been completed.
      * @param currentPathContents The contents of the current path.  Initially this should be an
-     *                            empty set.
+     * empty set.
      */
-    public void constructHittingSetTree(Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths,
-                                        Set<OWLAxiom> currentPathContents) throws OWLException {
+    public void constructHittingSetTree(Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents) throws OWLException {
 
         // We go through the current mups, axiom by axiom, and extend the tree
         // with edges for each axiom

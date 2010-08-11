@@ -53,8 +53,7 @@ public class OWLEntityRenamer {
     /**
      * Changes a IRI for another IRI.  This creates the appropriate changes to be
      * applied in order to change a IRI.
-     *
-     * @param uri    The IRI to be changed
+     * @param uri The IRI to be changed
      * @param newIRI The IRI that the IRI should be changed to.
      * @return A list of ontology changes that should be applied to change the
      *         specified IRI.
@@ -73,7 +72,6 @@ public class OWLEntityRenamer {
 
     /**
      * Changes the IRI of an entity for another IRI.
-     *
      * @param entity The entity whose IRI is to be changed.
      * @param newIRI The new IRI
      * @return A list of ontology changes that should be applied to change the
@@ -124,15 +122,13 @@ public class OWLEntityRenamer {
     /**
      * Fills a list with ontology changes which will replace a set of axioms with
      * duplicated/transformed axioms.
-     *
-     * @param changes    A list that will be filled with ontology changes which will remove the
-     *                   specified axioms from the specified ontology, and add the duplicated/transformed version
-     * @param axioms     The axioms to be duplicated/transformed
-     * @param ont        The ontology to which the changed should be applied
+     * @param changes A list that will be filled with ontology changes which will remove the
+     * specified axioms from the specified ontology, and add the duplicated/transformed version
+     * @param axioms The axioms to be duplicated/transformed
+     * @param ont The ontology to which the changed should be applied
      * @param duplicator The duplicator that will do the duplicating
      */
-    private static void fillListWithTransformChanges(List<OWLOntologyChange> changes, Set<OWLAxiom> axioms, OWLOntology ont,
-                                                     OWLObjectDuplicator duplicator) {
+    private static void fillListWithTransformChanges(List<OWLOntologyChange> changes, Set<OWLAxiom> axioms, OWLOntology ont, OWLObjectDuplicator duplicator) {
         for (OWLAxiom ax : axioms) {
             changes.add(new RemoveAxiom(ont, ax));
             OWLAxiom dupAx = duplicator.duplicateObject(ax);

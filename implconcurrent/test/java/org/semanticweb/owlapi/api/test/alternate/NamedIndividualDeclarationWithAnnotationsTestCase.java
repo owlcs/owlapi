@@ -14,21 +14,20 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 04-Jul-2010
  */
-public class NamedIndividualDeclarationWithAnnotationsTestCase extends
-		AbstractAnnotatedAxiomRoundTrippingTestCase {
-	@Override
-	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-		OWLEntity ent = getOWLIndividual("I");
-		return getFactory().getOWLDeclarationAxiom(ent);
-	}
+public class NamedIndividualDeclarationWithAnnotationsTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
+    @Override
+    protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
+        OWLEntity ent = getOWLIndividual("I");
+        return getFactory().getOWLDeclarationAxiom(ent);
+    }
 
-	@Override
-	protected Set<OWLAxiom> getDeclarationsToAdd(OWLAxiom ax) {
-		return Collections.emptySet();
-	}
+    @Override
+    protected Set<OWLAxiom> getDeclarationsToAdd(OWLAxiom ax) {
+        return Collections.emptySet();
+    }
 
-	@Override
-	protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
-		return false;
-	}
+    @Override
+    protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
+        return false;
+    }
 }

@@ -30,7 +30,6 @@ import java.util.Collections;/*
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 21-Jan-2009
- *
  * Indicates that a query whose signature contained fresh entities was posed to the reasoner. This exception is only thrown
  * if the fresh entity policy is set appropriately. (See {@link FreshEntityPolicy}
  * and {@link org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration}.

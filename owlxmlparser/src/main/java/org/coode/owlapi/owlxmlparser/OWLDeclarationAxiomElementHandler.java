@@ -93,7 +93,8 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
     public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
         if (entity == null) {
             super.handleChild(handler);
-        } else {
+        }
+        else {
             if (entityAnnotations == null) {
                 entityAnnotations = new HashSet<OWLAnnotation>();
             }
@@ -104,7 +105,8 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
     public Set<OWLAnnotation> getEntityAnnotations() {
         if (entityAnnotations == null) {
             return Collections.emptySet();
-        } else {
+        }
+        else {
             return entityAnnotations;
         }
     }

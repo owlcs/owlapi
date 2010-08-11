@@ -4,7 +4,6 @@ package org.coode.owl.krssparser;
  * <p/><b>OntoTrack</b> <br/>
  * Copyright (c) 2008 by Olaf Noppens. All rights reserved.<br/>
  * Ulm University, Germany
- *
  * @author Olaf Noppens (ON)
  * @version 1.0
  * @since 09.10.2008

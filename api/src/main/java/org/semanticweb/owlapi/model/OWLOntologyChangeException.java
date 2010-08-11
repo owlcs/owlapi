@@ -28,7 +28,6 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Apr-2007<br><br>
- *
  * A high level exception interface that describes errors that occurred when
  * applying changes to ontologies.
  */

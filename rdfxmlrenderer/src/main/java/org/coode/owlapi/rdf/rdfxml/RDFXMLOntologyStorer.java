@@ -43,15 +43,14 @@ import java.io.IOException;
 public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
 
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        if(ontologyFormat instanceof RDFXMLOntologyFormat) {
+        if (ontologyFormat instanceof RDFXMLOntologyFormat) {
             return true;
         }
         return false;
     }
 
 
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
-                                                                                                                            OWLOntologyStorageException {
+    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
             RDFXMLRenderer renderer = new RDFXMLRenderer(manager, ontology, writer, format);
             renderer.render();

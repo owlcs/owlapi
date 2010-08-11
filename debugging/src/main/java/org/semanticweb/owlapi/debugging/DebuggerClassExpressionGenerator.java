@@ -197,8 +197,7 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
         OWLClassExpression notD = dataFactory.getOWLObjectComplementOf(descD);
 
         OWLObjectIntersectionOf left = dataFactory.getOWLObjectIntersectionOf(CollectionFactory.createSet(descC, notD));
-        OWLObjectIntersectionOf right = dataFactory.getOWLObjectIntersectionOf(CollectionFactory.createSet(notC,
-                descD));
+        OWLObjectIntersectionOf right = dataFactory.getOWLObjectIntersectionOf(CollectionFactory.createSet(notC, descD));
         desc = dataFactory.getOWLObjectUnionOf(CollectionFactory.createSet(left, right));
     }
 

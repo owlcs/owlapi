@@ -38,7 +38,7 @@ public class UseOfUndeclaredClass extends OWLProfileViolation implements OWL2DLP
 
     public UseOfUndeclaredClass(OWLOntology ontology, OWLAxiom axiom, OWLClass cls) {
         super(ontology, axiom);
-        this.cls =  cls;
+        this.cls = cls;
     }
 
     public void accept(OWL2DLProfileViolationVisitor visitor) {

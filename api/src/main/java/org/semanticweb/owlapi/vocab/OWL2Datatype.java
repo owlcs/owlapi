@@ -33,7 +33,6 @@ import java.util.regex.Pattern;
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 11-Nov-2008<br><br>
- *
  * An enumeration of the datatypes in the OWL 2 specification.  These are the datatypes in the OWL 2 datatype map.
  */
 public enum OWL2Datatype {
@@ -84,9 +83,9 @@ public enum OWL2Datatype {
 
     XSD_LANGUAGE(XSDVocabulary.LANGUAGE, Category.STRING_WITHOUT_LANGUAGE_TAG, true, "[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*"),
 
-    XSD_NAME(XSDVocabulary.NAME,Category.STRING_WITHOUT_LANGUAGE_TAG,false,":|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD](:|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
+    XSD_NAME(XSDVocabulary.NAME, Category.STRING_WITHOUT_LANGUAGE_TAG, false, ":|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD](:|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
 
-    XSD_NCNAME(XSDVocabulary.NCNAME,Category.STRING_WITHOUT_LANGUAGE_TAG,false,"[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]([A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
+    XSD_NCNAME(XSDVocabulary.NCNAME, Category.STRING_WITHOUT_LANGUAGE_TAG, false, "[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]([A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
 
     XSD_NMTOKEN(XSDVocabulary.NMTOKEN, Category.STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
 
@@ -102,9 +101,8 @@ public enum OWL2Datatype {
 
     XSD_DATE_TIME_STAMP(XSDVocabulary.DATE_TIME_STAMP, Category.TIME, false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
 
-    
-    private static final Set<IRI> ALL_IRIS;
 
+    private static final Set<IRI> ALL_IRIS;
 
 
     static {
@@ -194,7 +192,6 @@ public enum OWL2Datatype {
 
     /**
      * Gets the short human readable name for this datatype
-     *
      * @return The short human readable name
      */
     public String getShortName() {
@@ -211,7 +208,6 @@ public enum OWL2Datatype {
 
     /**
      * Gets the URI of this datatype
-     *
      * @return The URI that identifies the datatype
      */
     public URI getURI() {
@@ -221,7 +217,6 @@ public enum OWL2Datatype {
 
     /**
      * Gets the category for this datatype
-     *
      * @return The category
      */
     public Category getCategory() {
@@ -238,7 +233,6 @@ public enum OWL2Datatype {
 
     /**
      * Determines whether or not this datatype is finite.
-     *
      * @return <code>true</code> if this datatype is finite, or
      *         <code>false</code> if this datatype is infinite.
      */
@@ -250,7 +244,6 @@ public enum OWL2Datatype {
     /**
      * Gets the facets that are allowed for facet restrictions of this
      * datatype
-     *
      * @return The allowed facets
      */
     public Collection<OWLFacet> getFacets() {
@@ -269,42 +262,19 @@ public enum OWL2Datatype {
 
     public enum Category {
 
-        NUMBER("Number",
-                OWLFacet.MIN_INCLUSIVE,
-                OWLFacet.MAX_INCLUSIVE,
-                OWLFacet.MIN_EXCLUSIVE,
-                OWLFacet.MAX_EXCLUSIVE),
+        NUMBER("Number", OWLFacet.MIN_INCLUSIVE, OWLFacet.MAX_INCLUSIVE, OWLFacet.MIN_EXCLUSIVE, OWLFacet.MAX_EXCLUSIVE),
 
-        STRING_WITH_LANGUAGE_TAG("String with a language tag",
-                OWLFacet.MIN_LENGTH,
-                OWLFacet.MAX_LENGTH,
-                OWLFacet.LENGTH,
-                OWLFacet.PATTERN,
-                OWLFacet.LANG_PATTERN),
+        STRING_WITH_LANGUAGE_TAG("String with a language tag", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH, OWLFacet.LENGTH, OWLFacet.PATTERN, OWLFacet.LANG_PATTERN),
 
-        STRING_WITHOUT_LANGUAGE_TAG("String without a language tag",
-                OWLFacet.MIN_LENGTH,
-                OWLFacet.MAX_LENGTH,
-                OWLFacet.LENGTH,
-                OWLFacet.PATTERN),
+        STRING_WITHOUT_LANGUAGE_TAG("String without a language tag", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH, OWLFacet.LENGTH, OWLFacet.PATTERN),
 
         BOOLEAN("Boolean value"),
 
-        BINARY("Binary data",
-                OWLFacet.MIN_LENGTH,
-                OWLFacet.MAX_LENGTH,
-                OWLFacet.LENGTH),
+        BINARY("Binary data", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH, OWLFacet.LENGTH),
 
-        URI("URI",
-                OWLFacet.MIN_LENGTH,
-                OWLFacet.MAX_LENGTH,
-                OWLFacet.PATTERN),
+        URI("URI", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH, OWLFacet.PATTERN),
 
-        TIME("Time instant",
-                OWLFacet.MIN_INCLUSIVE,
-                OWLFacet.MAX_INCLUSIVE,
-                OWLFacet.MIN_EXCLUSIVE,
-                OWLFacet.MAX_EXCLUSIVE);
+        TIME("Time instant", OWLFacet.MIN_INCLUSIVE, OWLFacet.MAX_INCLUSIVE, OWLFacet.MIN_EXCLUSIVE, OWLFacet.MAX_EXCLUSIVE);
 
         private String name;
 
@@ -331,12 +301,14 @@ public enum OWL2Datatype {
 
     public enum WhiteSpaceNormalisation {
 
-        /** No normalization is done, the value is not changed
+        /**
+         * No normalization is done, the value is not changed
          * (this is the behavior required by [XML] for element content)
          */
         PRESERVE,
 
-        /** All occurrences of #x9 (tab), #xA (line feed) and #xD (carriage return)
+        /**
+         * All occurrences of #x9 (tab), #xA (line feed) and #xD (carriage return)
          * are replaced with #x20 (space)
          */
         REPLACE,
@@ -344,7 +316,7 @@ public enum OWL2Datatype {
         /**
          * After the processing implied by replace, contiguous sequences of #x20's are collapsed
          * to a single #x20, and any #x20 at the start or end of the string is then removed.
-         * */
+         */
         COLLAPSE;
 
         /**

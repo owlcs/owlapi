@@ -61,15 +61,12 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOn
     private List<OWLOntologyChange> changes;
 
 
-    public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls,
-                                                   Set<OWLOntology> ontologies, OWLOntology targetOntology) {
+    public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls, Set<OWLOntology> ontologies, OWLOntology targetOntology) {
         this(dataFactory, cls, ontologies, targetOntology, false);
     }
 
 
-    public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls,
-                                                   Set<OWLOntology> ontologies, OWLOntology targetOntology,
-                                                   boolean usePairwiseDisjointAxioms) {
+    public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls, Set<OWLOntology> ontologies, OWLOntology targetOntology, boolean usePairwiseDisjointAxioms) {
         super(dataFactory);
         this.cls = cls;
         this.ontologies = ontologies;
@@ -92,10 +89,7 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOn
                 }
             }
         }
-        MakeClassesMutuallyDisjoint makeClassesMutuallyDisjoint = new MakeClassesMutuallyDisjoint(getDataFactory(),
-                subclasses,
-                usePairwiseDisjointAxioms,
-                targetOntology);
+        MakeClassesMutuallyDisjoint makeClassesMutuallyDisjoint = new MakeClassesMutuallyDisjoint(getDataFactory(), subclasses, usePairwiseDisjointAxioms, targetOntology);
         changes.addAll(makeClassesMutuallyDisjoint.getChanges());
     }
 

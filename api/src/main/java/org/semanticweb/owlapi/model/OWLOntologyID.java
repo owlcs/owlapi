@@ -59,8 +59,7 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
      * @param ontologyIRI The ontology IRI (may be <code>null</code>)
      * @param versionIRI The version IRI (must be <code>null</code> if the ontologyIRI is null)
      */
-    public OWLOntologyID(IRI ontologyIRI,
-                         IRI versionIRI) {
+    public OWLOntologyID(IRI ontologyIRI, IRI versionIRI) {
         this.ontologyIRI = ontologyIRI;
         hashCode = 17;
         if (ontologyIRI != null) {
@@ -144,7 +143,7 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
     /**
      * Determines if this ID names an ontology or whether it is an ID for an ontology without an IRI.
      * @return <code>true</code> if this ID is an ID for an ontology without an IRI, or <code>false</code>
-     * if this ID is an ID for an ontology with an IRI.
+     *         if this ID is an ID for an ontology with an IRI.
      */
     public boolean isAnonymous() {
         return ontologyIRI == null;
@@ -185,14 +184,14 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
         }
         OWLOntologyID other = (OWLOntologyID) obj;
         if (ontologyIRI != null) {
-            if(other.ontologyIRI == null) {
+            if (other.ontologyIRI == null) {
                 return false;
             }
-            if(!ontologyIRI.equals(other.ontologyIRI)) {
+            if (!ontologyIRI.equals(other.ontologyIRI)) {
                 return false;
             }
-            if(versionIRI != null) {
-                if(other.versionIRI == null) {
+            if (versionIRI != null) {
+                if (other.versionIRI == null) {
                     return false;
                 }
                 else {
@@ -204,7 +203,7 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
             }
         }
         else {
-            if(other.ontologyIRI != null) {
+            if (other.ontologyIRI != null) {
                 return false;
             }
             else {

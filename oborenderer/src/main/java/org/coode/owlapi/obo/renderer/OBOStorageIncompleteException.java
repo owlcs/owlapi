@@ -48,15 +48,15 @@ public class OBOStorageIncompleteException extends OWLRendererException {
 
     public String getMessage() {
         StringBuilder sb = new StringBuilder(super.getMessage());
-            for (OBOStorageException e : exceptions){
-                sb.append("\n");
-                sb.append(e.getMessage());
-            }
+        for (OBOStorageException e : exceptions) {
+            sb.append("\n");
+            sb.append(e.getMessage());
+        }
         return sb.toString();
     }
 
 
-    public List<OBOStorageException> getCauses(){
+    public List<OBOStorageException> getCauses() {
         return new ArrayList<OBOStorageException>(exceptions);
     }
 }

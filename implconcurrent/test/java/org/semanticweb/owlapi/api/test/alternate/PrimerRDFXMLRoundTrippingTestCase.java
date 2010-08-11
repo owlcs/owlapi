@@ -22,36 +22,36 @@ package org.semanticweb.owlapi.api.test.alternate;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 08-Dec-2009
  */
-public class PrimerRDFXMLRoundTrippingTestCase extends
-		AbstractFileRoundTrippingTestCase {
-	protected String getFileName() {
-		return "primer.rdfxml.xml";
-	}
+public class PrimerRDFXMLRoundTrippingTestCase extends AbstractFileRoundTrippingTestCase {
+    protected String getFileName() {
+        return "primer.rdfxml.xml";
+    }
 
-	@Override
-	public void testRDFXML() throws Exception {
-		super.testRDFXML();
-	}
+    @Override
+    public void testRDFXML() throws Exception {
+        super.testRDFXML();
+    }
 
-	@Override
-	public void testOWLXML() throws Exception {
-	}
+    @Override
+    public void testOWLXML() throws Exception {
+    }
 
-	@Override
-	public void testFunctionalSyntax() throws Exception {
-	}
+    @Override
+    public void testFunctionalSyntax() throws Exception {
+    }
 
-	@Override
-	public void testTurtle() throws Exception {
-	}
+    @Override
+    public void testTurtle() throws Exception {
+    }
 
-	@Override
-	public void testManchesterOWLSyntax() throws Exception {
-	}
+    @Override
+    public void testManchesterOWLSyntax() throws Exception {
+    }
 }

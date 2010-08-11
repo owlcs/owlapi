@@ -27,26 +27,22 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
-public class OWLIndividualNotObjectRelationshipAxiomTestCase
-		extends
-		AbstractOWLIndividualRelationshipAxiomTestCase<OWLObjectProperty, OWLIndividual> {
-	protected OWLObjectProperty createProperty() throws Exception {
-		return createOWLObjectProperty();
-	}
+public class OWLIndividualNotObjectRelationshipAxiomTestCase extends AbstractOWLIndividualRelationshipAxiomTestCase<OWLObjectProperty, OWLIndividual> {
+    protected OWLObjectProperty createProperty() throws Exception {
+        return createOWLObjectProperty();
+    }
 
-	protected OWLIndividual createObject() throws Exception {
-		return createOWLIndividual();
-	}
+    protected OWLIndividual createObject() throws Exception {
+        return createOWLIndividual();
+    }
 
-	protected OWLIndividualAxiom createAxiom(OWLIndividual subject,
-			OWLObjectProperty property, OWLIndividual object)
-			throws OWLException {
-		return getFactory().getOWLNegativeObjectPropertyAssertionAxiom(
-				property, subject, object);
-	}
+    protected OWLIndividualAxiom createAxiom(OWLIndividual subject, OWLObjectProperty property, OWLIndividual object) throws OWLException {
+        return getFactory().getOWLNegativeObjectPropertyAssertionAxiom(property, subject, object);
+    }
 }

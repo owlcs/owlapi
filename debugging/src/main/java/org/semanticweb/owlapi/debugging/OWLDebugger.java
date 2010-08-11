@@ -45,7 +45,7 @@ public interface OWLDebugger {
      */
     public OWLOntology getOWLOntology() throws OWLException;
 
-    
+
     /**
      * Gets the first set of supporting (SOS) axioms that are responsible for the specified class
      * being inconsistent.

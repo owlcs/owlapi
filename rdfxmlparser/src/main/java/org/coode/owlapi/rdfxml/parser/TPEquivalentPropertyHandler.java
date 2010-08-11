@@ -46,30 +46,26 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
 
 
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        return (getConsumer().isObjectPropertyOnly(subject) &&
-                getConsumer().isObjectPropertyOnly(object)) ||
-                (getConsumer().isDataPropertyOnly(subject) &&
-                        getConsumer().isDataPropertyOnly(object));
+        return (getConsumer().isObjectPropertyOnly(subject) && getConsumer().isObjectPropertyOnly(object)) || (getConsumer().isDataPropertyOnly(subject) && getConsumer().isDataPropertyOnly(object));
     }
 
 
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         // If either is an object property then translate as object properties
-        if (getConsumer().isObjectPropertyOnly(subject) ||
-                getConsumer().isObjectPropertyOnly(object)) {
+        if (getConsumer().isObjectPropertyOnly(subject) || getConsumer().isObjectPropertyOnly(object)) {
             translateEquivalentObjectProperties(subject, predicate, object);
-        } else if (getConsumer().isDataPropertyOnly(subject) ||
-                getConsumer().isDataPropertyOnly(object)) {
+        }
+        else if (getConsumer().isDataPropertyOnly(subject) || getConsumer().isDataPropertyOnly(object)) {
             Set<OWLDataPropertyExpression> props = new HashSet<OWLDataPropertyExpression>();
             props.add(translateDataProperty(subject));
             props.add(translateDataProperty(object));
             addAxiom(getDataFactory().getOWLEquivalentDataPropertiesAxiom(props, getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
-        } else {
+        }
+        else {
             // Assume object!?
             translateEquivalentObjectProperties(subject, predicate, object);
-            logger.fine("Assuming equivalent object properties because property types " +
-                    "are ambiguous: " + subject + " <-> " + object);
+            logger.fine("Assuming equivalent object properties because property types " + "are ambiguous: " + subject + " <-> " + object);
         }
     }
 

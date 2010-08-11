@@ -38,7 +38,7 @@ public interface OWLImportsDeclaration extends Comparable<OWLImportsDeclaration>
     /**
      * Gets the import IRI
      * @return The import IRI that points to the ontology to be imported.  The imported
-     * ontology should have this IRI as its IRI (although this isn't enforced).
+     *         ontology should have this IRI as its IRI (although this isn't enforced).
      */
     IRI getIRI();
 

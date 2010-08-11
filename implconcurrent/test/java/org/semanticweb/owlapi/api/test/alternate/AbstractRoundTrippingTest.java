@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -37,40 +38,39 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * <br>
  */
 public abstract class AbstractRoundTrippingTest extends AbstractOWLAPITestCase {
-	private OWLOntology ont;
+    private OWLOntology ont;
 
-	protected abstract OWLOntology createOntology() throws Exception;
+    protected abstract OWLOntology createOntology() throws Exception;
 
-	protected OWLOntology getOnt() {
-		return ont;
-	}
+    protected OWLOntology getOnt() {
+        return ont;
+    }
 
-	protected void setUp() throws Exception {
-		ont = createOntology();
-	}
+    protected void setUp() throws Exception {
+        ont = createOntology();
+    }
 
-	public void testRDFXML() throws Exception {
-		roundTripOntology(ont);
-	}
+    public void testRDFXML() throws Exception {
+        roundTripOntology(ont);
+    }
 
-	public void testOWLXML() throws Exception {
-		roundTripOntology(ont, new OWLXMLOntologyFormat());
-	}
+    public void testOWLXML() throws Exception {
+        roundTripOntology(ont, new OWLXMLOntologyFormat());
+    }
 
-	public void testFunctionalSyntax() throws Exception {
-		roundTripOntology(ont, new OWLFunctionalSyntaxOntologyFormat());
-	}
+    public void testFunctionalSyntax() throws Exception {
+        roundTripOntology(ont, new OWLFunctionalSyntaxOntologyFormat());
+    }
 
-	public void testTurtle() throws Exception {
-		roundTripOntology(ont, new TurtleOntologyFormat());
-	}
+    public void testTurtle() throws Exception {
+        roundTripOntology(ont, new TurtleOntologyFormat());
+    }
 
-	public void testManchesterOWLSyntax() throws Exception {
-		//        roundTripOntology(ont, new ManchesterOWLSyntaxOntologyFormat());
-	}
+    public void testManchesterOWLSyntax() throws Exception {
+        //        roundTripOntology(ont, new ManchesterOWLSyntaxOntologyFormat());
+    }
 
-	protected void handleSaved(StringDocumentTarget target,
-			OWLOntologyFormat format) {
-		super.handleSaved(target, format);
-	}
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+        super.handleSaved(target, format);
+    }
 }

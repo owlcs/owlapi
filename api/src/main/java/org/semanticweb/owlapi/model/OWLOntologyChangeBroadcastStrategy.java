@@ -30,7 +30,6 @@ import java.util.List;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 20-Nov-2006<br><br>
- *
  */
 public interface OWLOntologyChangeBroadcastStrategy {
 

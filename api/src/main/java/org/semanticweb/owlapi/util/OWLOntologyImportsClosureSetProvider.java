@@ -50,7 +50,7 @@ public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvi
     /**
      * Constructs an <code>OWLOntologySetProvider</code> which provides a set containing the imports
      * closure of a given ontology.
-     * @param manager      The manager which should be used to determine the imports closure.
+     * @param manager The manager which should be used to determine the imports closure.
      * @param rootOntology The ontology which is the "root" of the imports closure.
      */
     public OWLOntologyImportsClosureSetProvider(OWLOntologyManager manager, OWLOntology rootOntology) {

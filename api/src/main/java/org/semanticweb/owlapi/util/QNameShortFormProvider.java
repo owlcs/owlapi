@@ -34,7 +34,6 @@ import java.util.Map;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 18-Apr-2007<br><br>
- *
  * A short form provider which creates QNames for entities
  */
 public class QNameShortFormProvider implements ShortFormProvider {
@@ -45,7 +44,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
      * A place to store the result of splitting URIs into
      * namespaces and local names.
      */
-    private static String [] result = new String [2];
+    private static String[] result = new String[2];
 
 
     /**
@@ -65,7 +64,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
      */
     public QNameShortFormProvider(Map<String, String> prefix2NamespaceMap) {
         namespaceUtil = new NamespaceUtil();
-        for(String prefix : prefix2NamespaceMap.keySet()) {
+        for (String prefix : prefix2NamespaceMap.keySet()) {
             namespaceUtil.setPrefix(prefix2NamespaceMap.get(prefix), prefix);
         }
     }

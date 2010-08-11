@@ -93,14 +93,14 @@ public class LoadingOntologies {
         catch (OWLOntologyCreationIOException e) {
             // IOExceptions during loading get wrapped in an OWLOntologyCreationIOException
             IOException ioException = e.getCause();
-            if(ioException instanceof FileNotFoundException) {
+            if (ioException instanceof FileNotFoundException) {
                 System.out.println("Could not load ontology. File not found: " + ioException.getMessage());
             }
-            else if(ioException instanceof UnknownHostException) {
+            else if (ioException instanceof UnknownHostException) {
                 System.out.println("Could not load ontology. Unknown host: " + ioException.getMessage());
             }
             else {
-                System.out.println("Could not load ontology: " + ioException.getClass().getSimpleName() + " " + ioException.getMessage());    
+                System.out.println("Could not load ontology: " + ioException.getClass().getSimpleName() + " " + ioException.getMessage());
             }
         }
         catch (UnparsableOntologyException e) {
@@ -110,7 +110,7 @@ public class LoadingOntologies {
             // A map of errors can be obtained from the exception
             Map<OWLParser, OWLParserException> exceptions = e.getExceptions();
             // The map describes which parsers were tried and what the errors were
-            for(OWLParser parser : exceptions.keySet()) {
+            for (OWLParser parser : exceptions.keySet()) {
                 System.out.println("Tried to parse the ontology with the " + parser.getClass().getSimpleName() + " parser");
                 System.out.println("Failed because: " + exceptions.get(parser).getMessage());
             }

@@ -21,7 +21,6 @@ import java.util.logging.Logger;
  * Copyright: Copyright (c) 2007 </p>
  * <p/>
  * Company: Clark & Parsia, LLC. <http://www.clarkparsia.com> </p>
- *
  * @author Evren Sirin
  */
 public class SemanticLocalityEvaluator implements LocalityEvaluator {
@@ -142,6 +141,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         // Takes an OWLClassExpression and a signature replaces by bottom the
         // entities not in the signature
+
         public OWLClassExpression replaceBottom(OWLClassExpression desc) {
             newClassExpression = null;
             desc.accept(this);

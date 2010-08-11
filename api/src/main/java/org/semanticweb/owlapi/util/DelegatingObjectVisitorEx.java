@@ -41,7 +41,6 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
      * Constructs a visitor where the specified delegate will be used to
      * visit all objects unless one of the visit methods in this visitor
      * is overriden.
-     *
      * @param delegate The delegate.
      */
     public DelegatingObjectVisitorEx(OWLObjectVisitorEx<O> delegate) {

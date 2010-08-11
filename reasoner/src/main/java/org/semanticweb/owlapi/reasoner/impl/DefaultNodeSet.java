@@ -66,7 +66,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * @throws NullPointerException if <code>entity</code> is <code>null</code>.
      */
     public void addEntity(E entity) {
-        if(entity == null) {
+        if (entity == null) {
             throw new NullPointerException("Cannot add null to a NodeSet");
         }
         addNode(getNode(entity));
@@ -78,7 +78,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * @throws NullPointerException if <code>entity</code> is <code>null</code>.
      */
     public void addNode(Node<E> node) {
-        if(node == null) {
+        if (node == null) {
             throw new NullPointerException("Cannot add null to a NodeSet");
         }
         nodes.add(node);
@@ -112,7 +112,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * be added to this <code>NodeSet</code>.
      */
     public void addDifferentEntities(Set<E> entities) {
-        for(E e : entities) {
+        for (E e : entities) {
             addNode(getNode(e));
         }
     }
@@ -123,7 +123,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
 
     public Set<E> getFlattened() {
         Set<E> result = new HashSet<E>();
-        for(Node<E> node : nodes) {
+        for (Node<E> node : nodes) {
             result.addAll(node.getEntities());
         }
         return result;
@@ -134,8 +134,8 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     }
 
     public boolean containsEntity(E e) {
-        for(Node<E> node : nodes) {
-            if(node.contains(e)) {
+        for (Node<E> node : nodes) {
+            if (node.contains(e)) {
                 return true;
             }
         }

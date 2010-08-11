@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <rdf:RDF xmlns="http://Example.com#"
-     xml:base="http://Example.com"
-     xmlns:Annotations="http://annotations#"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+         xml:base="http://Example.com"
+         xmlns:Annotations="http://annotations#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 
     <!-- This ontology was submitted with bug report 3017636 -->
     <owl:Ontology rdf:about="http://Example.com"/>

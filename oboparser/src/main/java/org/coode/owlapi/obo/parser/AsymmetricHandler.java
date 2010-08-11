@@ -46,7 +46,8 @@ public class AsymmetricHandler extends AbstractTagValueHandler {
             OWLObjectProperty prop = getOWLObjectProperty(id);
             OWLAxiom ax = getDataFactory().getOWLAsymmetricObjectPropertyAxiom(prop);
             applyChange(new AddAxiom(getOntology(), ax));
-        } else {
+        }
+        else {
             addAnnotation(id, OBOVocabulary.IS_ASYMMETRIC.getName(), getBooleanConstant(false));
         }
     }

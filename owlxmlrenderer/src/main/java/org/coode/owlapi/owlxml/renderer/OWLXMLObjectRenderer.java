@@ -1,6 +1,7 @@
 package org.coode.owlapi.owlxml.renderer;
 
 import org.semanticweb.owlapi.model.*;
+
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.util.*;
@@ -53,21 +54,21 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
     private void writeAnnotations(OWLAxiom axiom) {
-        for(OWLAnnotation anno : axiom.getAnnotations()) {
+        for (OWLAnnotation anno : axiom.getAnnotations()) {
             anno.accept(this);
         }
     }
 
-     public void visit(OWLOntology ontology) {
+    public void visit(OWLOntology ontology) {
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
             writer.writeStartElement(IMPORT);
             writer.writeTextContent(decl.getURI().toString());
             writer.writeEndElement();
         }
-         for(OWLAnnotation annotation : ontology.getAnnotations()) {
-             annotation.accept(this);
-         }
-        
+        for (OWLAnnotation annotation : ontology.getAnnotations()) {
+            annotation.accept(this);
+        }
+
         List<OWLAxiom> axioms = new ArrayList<OWLAxiom>(ontology.getAxioms());
         Collections.sort(axioms);
         for (OWLAxiom ax : axioms) {
@@ -85,7 +86,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-  
+
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         writer.writeStartElement(ASYMMETRIC_OBJECT_PROPERTY);
         writeAnnotations(axiom);
@@ -236,7 +237,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         axiom.getProperty().accept(this);
         writer.writeEndElement();
     }
-    
+
 
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         writer.writeStartElement(INVERSE_FUNCTIONAL_OBJECT_PROPERTY);
@@ -568,7 +569,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLLiteral node) {
         writer.writeStartElement(LITERAL);
-        if(node.hasLang()) {
+        if (node.hasLang()) {
             writer.writeLangAttribute(node.getLang());
         }
         writer.writeDatatypeAttribute(node.getDatatype());
@@ -632,7 +633,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     public void visit(OWLAnnotation annotation) {
         writer.writeStartElement(ANNOTATION);
-        for(OWLAnnotation anno : annotation.getAnnotations()) {
+        for (OWLAnnotation anno : annotation.getAnnotations()) {
             anno.accept(this);
         }
         annotation.getProperty().accept(this);
@@ -674,12 +675,12 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(DL_SAFE_RULE);
         writeAnnotations(rule);
         writer.writeStartElement(BODY);
-        for(SWRLAtom atom : rule.getBody()) {
+        for (SWRLAtom atom : rule.getBody()) {
             atom.accept(this);
         }
         writer.writeEndElement();
         writer.writeStartElement(HEAD);
-        for(SWRLAtom atom : rule.getHead()) {
+        for (SWRLAtom atom : rule.getHead()) {
             atom.accept(this);
         }
         writer.writeEndElement();
@@ -693,7 +694,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         node.getArgument().accept(this);
         writer.writeEndElement();
     }
-
 
 
     public void visit(SWRLDataRangeAtom node) {
@@ -725,7 +725,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(SWRLBuiltInAtom node) {
         writer.writeStartElement(BUILT_IN_ATOM);
         writer.writeIRIAttribute(node.getPredicate());
-        for(SWRLDArgument arg : node.getArguments()) {
+        for (SWRLDArgument arg : node.getArguments()) {
             arg.accept(this);
         }
         writer.writeEndElement();

@@ -35,7 +35,7 @@ import java.util.HashSet;
  */
 public class ReflexiveObjectPropertyInverseTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-     protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(getFactory().getOWLReflexiveObjectPropertyAxiom(getOWLObjectProperty("p").getInverseProperty()));
         return axioms;

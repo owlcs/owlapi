@@ -85,10 +85,10 @@ public abstract class NodeID implements Comparable<NodeID> {
         }
 
         public boolean equals(Object obj) {
-            if(obj == this) {
+            if (obj == this) {
                 return true;
             }
-            if(!(obj instanceof NodeID)) {
+            if (!(obj instanceof NodeID)) {
                 return false;
             }
             NodeID other = (NodeID) obj;

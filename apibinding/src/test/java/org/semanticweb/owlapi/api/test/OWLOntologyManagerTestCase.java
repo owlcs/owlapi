@@ -86,7 +86,7 @@ public class OWLOntologyManagerTestCase extends TestCase {
         assertEquals(documentIRI, manager.getOntologyDocumentIRI(ontology));
     }
 
-     public void testCreateOntologyWithIRIAndVersionIRIWithMapper() throws Exception {
+    public void testCreateOntologyWithIRIAndVersionIRIWithMapper() throws Exception {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         IRI ontologyIRI = IRI.create("http://www.semanticweb.org/ontologies/ontology");
         IRI versionIRI = IRI.create("http://www.semanticweb.org/ontologies/ontology/version");

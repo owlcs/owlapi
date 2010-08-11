@@ -35,8 +35,7 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
     private OWLAnnotation annotation;
 
 
-    public AddOntologyAnnotation(OWLOntology ont,
-                                 OWLAnnotation annotation) {
+    public AddOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
         super(ont);
         this.annotation = annotation;
     }
@@ -77,10 +76,10 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
 
 
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof AddOntologyAnnotation)) {
+        if (!(obj instanceof AddOntologyAnnotation)) {
             return false;
         }
         AddOntologyAnnotation other = (AddOntologyAnnotation) obj;

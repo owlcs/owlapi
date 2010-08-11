@@ -26,22 +26,18 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
-public class OWLDataExactCardinalityTestCase extends
-		AbstractOWLDataCardinalityRestrictionTestCase {
-	protected OWLDataCardinalityRestriction createRestriction(
-			OWLDataProperty prop, int cardinality) throws Exception {
-		return getFactory().getOWLDataExactCardinality(cardinality, prop);
-	}
+public class OWLDataExactCardinalityTestCase extends AbstractOWLDataCardinalityRestrictionTestCase {
+    protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality) throws Exception {
+        return getFactory().getOWLDataExactCardinality(cardinality, prop);
+    }
 
-	protected OWLDataCardinalityRestriction createRestriction(
-			OWLDataProperty prop, int cardinality, OWLDataRange dataRange)
-			throws Exception {
-		return getFactory().getOWLDataExactCardinality(cardinality, prop,
-				dataRange);
-	}
+    protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality, OWLDataRange dataRange) throws Exception {
+        return getFactory().getOWLDataExactCardinality(cardinality, prop, dataRange);
+    }
 }

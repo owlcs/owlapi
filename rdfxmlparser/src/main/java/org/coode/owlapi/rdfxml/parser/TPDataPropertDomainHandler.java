@@ -47,11 +47,7 @@ public class TPDataPropertDomainHandler extends TriplePredicateHandler {
 
 
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        addAxiom(getDataFactory().getOWLDataPropertyDomainAxiom(
-                translateDataProperty(subject),
-                translateClassExpression(object),
-                getPendingAnnotations()
-        ));
+        addAxiom(getDataFactory().getOWLDataPropertyDomainAxiom(translateDataProperty(subject), translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 }

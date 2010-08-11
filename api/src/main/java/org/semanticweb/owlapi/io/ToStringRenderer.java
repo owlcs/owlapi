@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Jan-2008<br><br>
- *
  * A utility class which can be used by implementations to provide
  * a toString rendering of OWL API objects.  The idea is that this
  * is pluggable.
@@ -47,7 +46,7 @@ public class ToStringRenderer {
     }
 
     public static synchronized ToStringRenderer getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ToStringRenderer();
         }
         return instance;

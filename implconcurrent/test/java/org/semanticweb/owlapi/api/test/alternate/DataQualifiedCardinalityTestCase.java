@@ -30,21 +30,20 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 14-Jul-2009
  */
-public class DataQualifiedCardinalityTestCase extends
-		AbstractAxiomsRoundTrippingTestCase {
-	protected Set<? extends OWLAxiom> createAxioms() {
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-		OWLDataProperty prop = getOWLDataProperty("prop");
-		OWLDataRange dr = getFactory().getIntegerOWLDatatype();
-		OWLClass base = getOWLClass("A");
-		axioms.add(getFactory().getOWLSubClassOfAxiom(base,
-				getFactory().getOWLDataExactCardinality(3, prop, dr)));
-		return axioms;
-	}
+public class DataQualifiedCardinalityTestCase extends AbstractAxiomsRoundTrippingTestCase {
+    protected Set<? extends OWLAxiom> createAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLDataProperty prop = getOWLDataProperty("prop");
+        OWLDataRange dr = getFactory().getIntegerOWLDatatype();
+        OWLClass base = getOWLClass("A");
+        axioms.add(getFactory().getOWLSubClassOfAxiom(base, getFactory().getOWLDataExactCardinality(3, prop, dr)));
+        return axioms;
+    }
 }

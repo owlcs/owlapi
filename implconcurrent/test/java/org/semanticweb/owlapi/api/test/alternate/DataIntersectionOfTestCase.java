@@ -32,34 +32,31 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 02-Feb-2009
  */
-public class DataIntersectionOfTestCase extends
-		AbstractFileRoundTrippingTestCase {
-	public void testCorrectAxioms() {
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-		OWLDataRange intdr = getFactory().getIntegerOWLDatatype();
-		OWLDataRange floatdr = getFactory().getFloatOWLDatatype();
-		OWLDataRange intersection = getFactory().getOWLDataIntersectionOf(
-				intdr, floatdr);
-		OWLDataProperty p = getOWLDataProperty("p");
-		OWLDataPropertyRangeAxiom ax = getFactory()
-				.getOWLDataPropertyRangeAxiom(p, intersection);
-		axioms.add(ax);
-		axioms.add(getFactory().getOWLDeclarationAxiom(p));
-		assertEquals(getOnt().getAxioms(), axioms);
-	}
+public class DataIntersectionOfTestCase extends AbstractFileRoundTrippingTestCase {
+    public void testCorrectAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLDataRange intdr = getFactory().getIntegerOWLDatatype();
+        OWLDataRange floatdr = getFactory().getFloatOWLDatatype();
+        OWLDataRange intersection = getFactory().getOWLDataIntersectionOf(intdr, floatdr);
+        OWLDataProperty p = getOWLDataProperty("p");
+        OWLDataPropertyRangeAxiom ax = getFactory().getOWLDataPropertyRangeAxiom(p, intersection);
+        axioms.add(ax);
+        axioms.add(getFactory().getOWLDeclarationAxiom(p));
+        assertEquals(getOnt().getAxioms(), axioms);
+    }
 
-	protected void handleSaved(StringDocumentTarget target,
-			OWLOntologyFormat format) {
-		System.out.println(target);
-	}
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+        System.out.println(target);
+    }
 
-	protected String getFileName() {
-		return "DataIntersectionOf.rdf";
-	}
+    protected String getFileName() {
+        return "DataIntersectionOf.rdf";
+    }
 }

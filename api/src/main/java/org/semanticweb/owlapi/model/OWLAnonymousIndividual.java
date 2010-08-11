@@ -37,7 +37,6 @@ public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValu
 
     /**
      * Gets the ID of this individual.
-     *
      * @return The node ID of this individual.
      */
     NodeID getID();

@@ -46,28 +46,28 @@ import java.util.Comparator;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 12-Dec-2006<br><br>
- *
  * Writes OWL/XML.  In an OWL/XML documents written by this writer, the base is always the ontology URI, and
  * the default namespace is always the OWL namespace (http://www.w3.org/2002/07/owl#).  Unlike RDF/XML, entity
  * URIs aren't abbreviated using the XML namespace mechanism, instead they are encoded using 'prefix' elements.
  */
 public class OWLXMLWriter {
 
-    /**String comparator that takes length into account before natural ordering.
-     * XXX stateless, might be used through a singleton*/
-	private static final class StringLengthComparator implements
-			Comparator<String> {
-		public int compare(String o1, String o2) {
+    /**
+     * String comparator that takes length into account before natural ordering.
+     * XXX stateless, might be used through a singleton
+     */
+    private static final class StringLengthComparator implements Comparator<String> {
+        public int compare(String o1, String o2) {
             int diff = o1.length() - o2.length();
-            if(diff != 0) {
+            if (diff != 0) {
                 return diff;
             }
             return o1.compareTo(o2);
         }
-	}
+    }
 
 
-	private XMLWriter writer;
+    private XMLWriter writer;
 
     private Map<String, String> iriPrefixMap = new TreeMap<String, String>(new StringLengthComparator());
 
@@ -78,7 +78,7 @@ public class OWLXMLWriter {
         nsm.setPrefix("rdfs", Namespaces.RDFS.toString());
         nsm.setPrefix("xml", Namespaces.XML.toString());
         String base = Namespaces.OWL.toString();
-        if(ontology != null && !ontology.isAnonymous()) {
+        if (ontology != null && !ontology.isAnonymous()) {
             base = ontology.getOntologyID().getOntologyIRI().toString();
         }
         this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer, nsm, base);
@@ -119,8 +119,8 @@ public class OWLXMLWriter {
      */
     public String getIRIString(URI iri) {
         String fullIRI = iri.toString();
-        for(String prefixName : iriPrefixMap.keySet()) {
-            if(fullIRI.startsWith(prefixName)) {
+        for (String prefixName : iriPrefixMap.keySet()) {
+            if (fullIRI.startsWith(prefixName)) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(iriPrefixMap.get(prefixName));
                 sb.append(fullIRI.substring(prefixName.length()));
@@ -136,7 +136,7 @@ public class OWLXMLWriter {
             writer.startDocument(OWLXMLVocabulary.ONTOLOGY.toString());
             if (!ontology.isAnonymous()) {
                 writer.writeAttribute(Namespaces.OWL + "ontologyIRI", ontology.getOntologyID().getOntologyIRI().toString());
-                if(ontology.getOntologyID().getVersionIRI() != null) {
+                if (ontology.getOntologyID().getVersionIRI() != null) {
                     writer.writeAttribute(Namespaces.OWL + "versionIRI", ontology.getOntologyID().getVersionIRI().toString());
                 }
             }
@@ -209,11 +209,11 @@ public class OWLXMLWriter {
             }
             else {
                 String val = getIRIString(iri.toURI());
-                if(!val.equals(iri.toString())) {
+                if (!val.equals(iri.toString())) {
                     writer.writeAttribute(OWLXMLVocabulary.ABBREVIATED_IRI_ATTRIBUTE.getURI().toString(), val);
                 }
                 else {
-                    writer.writeAttribute(attName, val);   
+                    writer.writeAttribute(attName, val);
                 }
             }
         }
@@ -239,7 +239,7 @@ public class OWLXMLWriter {
             }
             else {
                 String val = getIRIString(iri.toURI());
-                if(!val.equals(iriString)) {
+                if (!val.equals(iriString)) {
                     writeStartElement(OWLXMLVocabulary.ABBREVIATED_IRI_ELEMENT);
                     writer.writeTextContent(val);
                     writeEndElement();
@@ -250,7 +250,8 @@ public class OWLXMLWriter {
                     writeEndElement();
                 }
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
 

@@ -30,7 +30,7 @@ public class DLQueryPrinter {
     }
 
     public void askQuery(String classExpression) {
-        if(classExpression.length()==0) {
+        if (classExpression.length() == 0) {
             System.out.println("No class expression specified");
         }
         else {
@@ -64,12 +64,12 @@ public class DLQueryPrinter {
     private void printEntities(String name, Set<? extends OWLEntity> entities, StringBuilder sb) {
         sb.append(name);
         int length = 50 - name.length();
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             sb.append(".");
         }
         sb.append("\n\n");
         if (!entities.isEmpty()) {
-            for(OWLEntity entity : entities) {
+            for (OWLEntity entity : entities) {
                 sb.append("\t");
                 sb.append(shortFormProvider.getShortForm(entity));
                 sb.append("\n");

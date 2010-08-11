@@ -49,8 +49,7 @@ public class ObjectCardinalityTranslator extends AbstractObjectCardinalityTransl
     }
 
 
-    protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi,
-                                                   OWLClassExpression filler) {
+    protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi, OWLClassExpression filler) {
         return getDataFactory().getOWLObjectExactCardinality(cardi, prop, filler);
     }
 

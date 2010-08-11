@@ -44,7 +44,7 @@ public class OWLDatatypeDefinitionElementHandler extends AbstractOWLAxiomElement
 
     public void handleChild(AbstractOWLDataRangeHandler handler) throws OWLXMLParserException {
         OWLDataRange handledDataRange = handler.getOWLObject();
-        if(handledDataRange.isDatatype() && datatype == null) {
+        if (handledDataRange.isDatatype() && datatype == null) {
             datatype = handledDataRange.asOWLDatatype();
         }
         else {

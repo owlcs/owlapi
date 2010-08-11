@@ -44,7 +44,7 @@ public class HasKeyListItemTranslator implements ListItemTranslator<OWLPropertyE
     }
 
     public OWLPropertyExpression translate(IRI firstObject) {
-        if(consumer.isObjectPropertyOnly(firstObject)) {
+        if (consumer.isObjectPropertyOnly(firstObject)) {
             return consumer.getDataFactory().getOWLObjectProperty(firstObject);
         }
         else {

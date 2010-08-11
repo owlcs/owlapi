@@ -38,7 +38,7 @@ import java.util.StringTokenizer;
 public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
 
     public String getShortForm(OWLOntology ont) {
-        if(!ont.isAnonymous()) {
+        if (!ont.isAnonymous()) {
             return getShortForm(ont.getOntologyID().getOntologyIRI());
         }
         else {
@@ -50,23 +50,23 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         String shortForm = iri.toString();
         URI uri = iri.toURI();
         String path = uri.getPath();
-        if(path != null && path.length() > 0) {
+        if (path != null && path.length() > 0) {
             StringTokenizer tokenizer = new StringTokenizer(path, "/", false);
             String lastPathComponent = "";
-            while(tokenizer.hasMoreTokens()) {
+            while (tokenizer.hasMoreTokens()) {
                 String tok = tokenizer.nextToken();
-                if(tok.length() > 0) {
+                if (tok.length() > 0) {
                     lastPathComponent = tok;
                 }
             }
-            if(lastPathComponent.endsWith(".owl")) {
+            if (lastPathComponent.endsWith(".owl")) {
                 shortForm = lastPathComponent.substring(0, lastPathComponent.length() - 4);
             }
             else {
                 shortForm = lastPathComponent;
             }
         }
-        else if(uri.getHost() != null) {
+        else if (uri.getHost() != null) {
             shortForm = iri.toString();
         }
 //        if(!Character.isUpperCase(shortForm.charAt(0))) {

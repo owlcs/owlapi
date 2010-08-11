@@ -70,7 +70,7 @@ public class OptimisedListTranslator<O extends OWLObject> {
             // I originally threw an exception here, but some ontologies
             // seem to have missing type triples for lists where it's obvious
             // that the node is a list
-            if(logger.isLoggable(Level.FINE)) {
+            if (logger.isLoggable(Level.FINE)) {
                 logger.fine("Untyped list found: " + mainNode);
             }
         }
@@ -102,9 +102,9 @@ public class OptimisedListTranslator<O extends OWLObject> {
     public List<O> translateList(IRI mainNode) {
         boolean shared = consumer.isSharedAnonymousNode(mainNode);
         List<O> list;
-        if(shared) {
+        if (shared) {
             Object o = consumer.getSharedAnonymousNode(mainNode);
-            if(o != null && o instanceof List) {
+            if (o != null && o instanceof List) {
                 list = (List<O>) o;
             }
             else {
@@ -117,7 +117,6 @@ public class OptimisedListTranslator<O extends OWLObject> {
             list = new ArrayList<O>();
             translateList(mainNode, list);
         }
-
 
 
         return list;

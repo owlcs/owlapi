@@ -30,7 +30,6 @@ import java.io.IOException;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Apr-2007<br><br>
- *
  * Describes a parse exception which was caused by an <code>IOException</code>
  */
 public class OWLParserIOException extends OWLParserException {

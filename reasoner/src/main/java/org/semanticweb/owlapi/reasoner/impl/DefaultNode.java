@@ -101,7 +101,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
     }
 
     public E getRepresentativeElement() {
-        if(entities.size() > 0) {
+        if (entities.size() > 0) {
             return entities.iterator().next();
         }
         else {
@@ -117,7 +117,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Node( ");
-        for(OWLObject entity : entities) {
+        for (OWLObject entity : entities) {
             sb.append(entity);
             sb.append(" ");
         }
@@ -127,10 +127,10 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof Node)) {
+        if (!(obj instanceof Node)) {
             return false;
         }
         Node other = (Node) obj;

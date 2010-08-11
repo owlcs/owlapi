@@ -87,7 +87,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
         writer.println("<html>");
-        
+
         writer.println("<body>");
         writer.print("<h1>");
         writer.print("Ontology: ");

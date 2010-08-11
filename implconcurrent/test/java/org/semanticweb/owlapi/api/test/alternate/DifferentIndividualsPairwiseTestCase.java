@@ -27,20 +27,18 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 02-Jul-2009
  */
-public class DifferentIndividualsPairwiseTestCase extends
-		AbstractAxiomsRoundTrippingTestCase {
-	protected Set<? extends OWLAxiom> createAxioms() {
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-		axioms.add(getFactory().getOWLDifferentIndividualsAxiom(
-				getOWLIndividual("i"), getOWLIndividual("j")));
-		axioms.add(getFactory().getOWLDifferentIndividualsAxiom(
-				getOWLIndividual("i"), getOWLIndividual("k")));
-		return axioms;
-	}
+public class DifferentIndividualsPairwiseTestCase extends AbstractAxiomsRoundTrippingTestCase {
+    protected Set<? extends OWLAxiom> createAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        axioms.add(getFactory().getOWLDifferentIndividualsAxiom(getOWLIndividual("i"), getOWLIndividual("j")));
+        axioms.add(getFactory().getOWLDifferentIndividualsAxiom(getOWLIndividual("i"), getOWLIndividual("k")));
+        return axioms;
+    }
 }

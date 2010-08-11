@@ -27,23 +27,22 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
-public class OWLDataSomeRestrictionTestCase extends
-		AbstractOWLRestrictionWithFillerTestCase<OWLDataProperty, OWLDataRange> {
-	protected OWLRestriction createRestriction(OWLDataProperty prop,
-			OWLDataRange filler) throws Exception {
-		return getFactory().getOWLDataSomeValuesFrom(prop, filler);
-	}
+public class OWLDataSomeRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLDataProperty, OWLDataRange> {
+    protected OWLRestriction createRestriction(OWLDataProperty prop, OWLDataRange filler) throws Exception {
+        return getFactory().getOWLDataSomeValuesFrom(prop, filler);
+    }
 
-	protected OWLDataProperty createProperty() throws OWLException {
-		return createOWLDataProperty();
-	}
+    protected OWLDataProperty createProperty() throws OWLException {
+        return createOWLDataProperty();
+    }
 
-	protected OWLDataRange createFiller() throws OWLException {
-		return createOWLDatatype();
-	}
+    protected OWLDataRange createFiller() throws OWLException {
+        return createOWLDatatype();
+    }
 }

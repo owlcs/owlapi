@@ -30,7 +30,6 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- *
  * Represents a <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Classes">Class</a> in the OWL 2 specification.
  */
 public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamedObject {
@@ -40,8 +39,8 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
      * and return the class expressions corresponding to super classes of this class.
      * @param ontology The ontology to be examined
      * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represent
-     * the superclasses of this class, which have been asserted in the specified
-     * ontology.
+     *         the superclasses of this class, which have been asserted in the specified
+     *         ontology.
      */
     Set<OWLClassExpression> getSuperClasses(OWLOntology ontology);
 
@@ -51,7 +50,7 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
      * of this class.
      * @param ontologies The set of ontologies to be examined.
      * @return A set of <code>OWLClassExpressions</code>s that represent the super classes
-     * of this class
+     *         of this class
      */
     Set<OWLClassExpression> getSuperClasses(Set<OWLOntology> ontologies);
 
@@ -61,7 +60,7 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
      * in the specified ontology.
      * @param ontology The ontology which should be examined for subclass axioms.
      * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represet the
-     * asserted subclasses of this class.
+     *         asserted subclasses of this class.
      */
     Set<OWLClassExpression> getSubClasses(OWLOntology ontology);
 
@@ -70,7 +69,7 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
      * in the specified ontologies.
      * @param ontologies The ontologies which should be examined for subclass axioms.
      * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represet the
-     * asserted subclasses of this class.
+     *         asserted subclasses of this class.
      */
     Set<OWLClassExpression> getSubClasses(Set<OWLOntology> ontologies);
 
@@ -80,8 +79,8 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
      * class.
      * @param ontology The ontology to be examined for axioms
      * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represent
-     * the equivalent classes of this class, that have been asserted in the specified
-     * ontology.
+     *         the equivalent classes of this class, that have been asserted in the specified
+     *         ontology.
      */
     Set<OWLClassExpression> getEquivalentClasses(OWLOntology ontology);
 
@@ -91,8 +90,8 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
      * class.
      * @param ontologies The ontologies to be examined for axioms
      * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represent
-     * the equivalent classes of this class, that have been asserted in the specified
-     * ontologies.
+     *         the equivalent classes of this class, that have been asserted in the specified
+     *         ontologies.
      */
     Set<OWLClassExpression> getEquivalentClasses(Set<OWLOntology> ontologies);
 
@@ -101,7 +100,7 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
      * axioms in the specified ontology.
      * @param ontology The ontology to search for disjoint class axioms
      * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represent
-     * the disjoint classes of this class.
+     *         the disjoint classes of this class.
      */
     Set<OWLClassExpression> getDisjointClasses(OWLOntology ontology);
 
@@ -110,7 +109,7 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
      * axioms in the specified ontologies.
      * @param ontologies The ontologies to search for disjoint class axioms
      * @return A <code>Set</code> of <code>OWLClassExpression</code>s that represent
-     * the disjoint classes of this class.
+     *         the disjoint classes of this class.
      */
     Set<OWLClassExpression> getDisjointClasses(Set<OWLOntology> ontologies);
 
@@ -121,7 +120,7 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
      * @param ontology The ontology to be examined for class assertion axioms that
      * assert an individual to be an instance of this class.
      * @return A <code>Set</code> of <code>OWLIndividual</code>s that represent
-     * the individual that have been asserted to be an instance of this class.
+     *         the individual that have been asserted to be an instance of this class.
      */
     Set<OWLIndividual> getIndividuals(OWLOntology ontology);
 
@@ -132,7 +131,7 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
      * @param ontologies The ontologies to be examined for class assertion axioms that
      * assert an individual to be an instance of this class.
      * @return A <code>Set</code> of <code>OWLIndividual</code>s that represent
-     * the individual that have been asserted to be an instance of this class.
+     *         the individual that have been asserted to be an instance of this class.
      */
     Set<OWLIndividual> getIndividuals(Set<OWLOntology> ontologies);
 
@@ -141,7 +140,7 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
      * in the specified ontology.
      * @param ontology The ontology to examine for axioms.
      * @return <code>true</code> if <code>ontology</code> contains an <code>EquivalentClassesAxiom</code> where this
-     * class is a top level class in the axiom, other wise <code>false</code>.
+     *         class is a top level class in the axiom, other wise <code>false</code>.
      */
     boolean isDefined(OWLOntology ontology);
 
@@ -151,8 +150,8 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamed
      * in at least one of the specified ontologies.
      * @param ontologies The ontologies to examine for axioms.
      * @return <code>true</code> if one or more of <code>ontologies</code> contains an <code>EquivalentClassesAxiom</code> where this
-     * class is a top level class in the axiom, other wise <code>false</code>.
+     *         class is a top level class in the axiom, other wise <code>false</code>.
      */
     boolean isDefined(Set<OWLOntology> ontologies);
-    
+
 }

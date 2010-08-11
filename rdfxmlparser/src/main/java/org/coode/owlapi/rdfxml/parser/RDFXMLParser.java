@@ -58,8 +58,7 @@ public class RDFXMLParser extends AbstractOWLParser {
                 }
 
 
-                public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
-                                                                                                               SAXException {
+                public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
                     super.startElement(namespaceIRI, localName, qName, atts);
                     String value = atts.getValue(XMLNS, "base");
                     if (value != null) {

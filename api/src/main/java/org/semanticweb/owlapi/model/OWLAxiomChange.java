@@ -61,8 +61,8 @@ public abstract class OWLAxiomChange extends OWLOntologyChange {
      * Determines if the change will add an axiom to an ontology,
      * or remove an axiom from an ontology.
      * @return <code>true</code> if the change will add an axiom
-     * to an ontology, <code>false</code> if the change will remove
-     * an axiom from an ontology.
+     *         to an ontology, <code>false</code> if the change will remove
+     *         an axiom from an ontology.
      */
     protected abstract boolean isAdd();
 
@@ -80,7 +80,7 @@ public abstract class OWLAxiomChange extends OWLOntologyChange {
      * A convenience method that obtains the entities which are
      * referenced in the axiom contained within this change.
      * @return A <code>Set</code> of entities which are referenced
-     * by the axiom contained within this change.
+     *         by the axiom contained within this change.
      */
     public Set<OWLEntity> getEntities() {
         OWLEntityCollector collector = new OWLEntityCollector();

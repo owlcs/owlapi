@@ -55,34 +55,28 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      * Constructs an annotation value short form provider. Using <code>SimpleShortFormProvider</code> as the
      * alternate short form provider (see other constructor for details).
      */
-    public AnnotationValueShortFormProvider(List<OWLAnnotationProperty> annotationProperties,
-                                            Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
-                                            OWLOntologySetProvider ontologySetProvider) {
+    public AnnotationValueShortFormProvider(List<OWLAnnotationProperty> annotationProperties, Map<OWLAnnotationProperty, List<String>> preferredLanguageMap, OWLOntologySetProvider ontologySetProvider) {
         this(annotationProperties, preferredLanguageMap, ontologySetProvider, new SimpleShortFormProvider());
     }
 
 
     /**
      * Constructs an annotation short form provider.
-     *
-     * @param annotationProperties       A <code>List</code> of preferred annotation properties.  The list is searched from
-     *                                   start to end, so that annotations that have a property at the start of the list have a higher
-     *                                   priority and are selected over annotations with properties that appear towards or at the end of the list.
-     * @param preferredLanguageMap       A map which maps annotation properties to preferred languages.  For any given
-     *                                   annotation property there may be a list of preferred languages.  Languages at the start of the list
-     *                                   have a higher priority over languages at the end of the list.  This parameter may be empty but it
-     *                                   must not be <code>null</code>.
-     * @param ontologySetProvider        An <code>OWLOntologySetProvider</code> which provides a set of ontology
-     *                                   from which candidate annotation axioms should be taken.  For a given entity, all ontologies are
-     *                                   examined.
+     * @param annotationProperties A <code>List</code> of preferred annotation properties.  The list is searched from
+     * start to end, so that annotations that have a property at the start of the list have a higher
+     * priority and are selected over annotations with properties that appear towards or at the end of the list.
+     * @param preferredLanguageMap A map which maps annotation properties to preferred languages.  For any given
+     * annotation property there may be a list of preferred languages.  Languages at the start of the list
+     * have a higher priority over languages at the end of the list.  This parameter may be empty but it
+     * must not be <code>null</code>.
+     * @param ontologySetProvider An <code>OWLOntologySetProvider</code> which provides a set of ontology
+     * from which candidate annotation axioms should be taken.  For a given entity, all ontologies are
+     * examined.
      * @param alternateShortFormProvider A short form provider which will be used to generate the short form
-     *                                   for an entity that does not have any annotations.  This provider will also be used in the case where
-     *                                   the value of an annotation is an <code>OWLIndividual</code> for providing the short form of the individual.
+     * for an entity that does not have any annotations.  This provider will also be used in the case where
+     * the value of an annotation is an <code>OWLIndividual</code> for providing the short form of the individual.
      */
-    public AnnotationValueShortFormProvider(List<OWLAnnotationProperty> annotationProperties,
-                                            Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
-                                            OWLOntologySetProvider ontologySetProvider,
-                                            ShortFormProvider alternateShortFormProvider) {
+    public AnnotationValueShortFormProvider(List<OWLAnnotationProperty> annotationProperties, Map<OWLAnnotationProperty, List<String>> preferredLanguageMap, OWLOntologySetProvider ontologySetProvider, ShortFormProvider alternateShortFormProvider) {
         this.annotationProperties = annotationProperties;
         this.preferredLanguageMap = preferredLanguageMap;
         this.ontologySetProvider = ontologySetProvider;
@@ -115,7 +109,6 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      * if the object is an individual then the rendering is equal to
      * the rendering of the individual as provided by the alternate
      * short form provider
-     *
      * @param object The object to the rendered
      * @return The rendering of the object.
      */
@@ -124,7 +117,8 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         // short form provider to render individuals.
         if (object instanceof OWLLiteral) {
             return ((OWLLiteral) object).getLiteral();
-        } else {
+        }
+        else {
             return alternateShortFormProvider.getShortForm((OWLEntity) object);
         }
     }
@@ -170,7 +164,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
 
         public void visit(OWLAnnotationAssertionAxiom anno) {
             if (lastLangMatchIndex > 0 && // a perfect match - no need to carry on search
-                anno.getProperty().equals(prop)){
+                    anno.getProperty().equals(prop)) {
                 anno.getValue().accept(this);
             }
         }
@@ -179,7 +173,8 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             if (preferredLanguages == null || preferredLanguages.isEmpty()) { // if there are no languages just match the first thing
                 lastLangMatchIndex = 0;
                 candidateValue = node;
-            } else {
+            }
+            else {
                 final int index = preferredLanguages.indexOf(node.getLang());
                 if (index >= 0 && index < lastLangMatchIndex) {
                     lastLangMatchIndex = index;

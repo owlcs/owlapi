@@ -47,8 +47,8 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
     /**
      * Simplifies this enumeration to a union of singleton nominals
      * @return This enumeration in a more standard DL form.
-     * simp({a}) = {a}
-     * simp({a0, ... , {an}) = unionOf({a0}, ... , {an})
+     *         simp({a}) = {a}
+     *         simp({a0, ... , {an}) = unionOf({a0}, ... , {an})
      */
     OWLClassExpression asObjectUnionOf();
 }

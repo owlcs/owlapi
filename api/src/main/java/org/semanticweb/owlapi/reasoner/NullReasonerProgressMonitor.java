@@ -27,7 +27,6 @@ package org.semanticweb.owlapi.reasoner;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 29-Nov-2009
- *
  * An implementation of a progress monitor that does nothing when it receives notification of progress events.
  */
 public class NullReasonerProgressMonitor implements ReasonerProgressMonitor {

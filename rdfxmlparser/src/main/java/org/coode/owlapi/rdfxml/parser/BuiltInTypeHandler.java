@@ -50,8 +50,7 @@ public abstract class BuiltInTypeHandler extends TriplePredicateHandler {
 
 
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
-        return predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) &&
-                object.equals(typeIRI);
+        return predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) && object.equals(typeIRI);
     }
 
 

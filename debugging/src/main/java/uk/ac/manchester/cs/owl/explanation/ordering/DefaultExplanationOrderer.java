@@ -163,7 +163,8 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
             public int compare(OWLObject o1, OWLObject o2) {
                 if (o1 instanceof OWLProperty) {
                     return -1;
-                } else {
+                }
+                else {
                     return 1;
                 }
             }
@@ -177,13 +178,17 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         Set<? extends OWLAxiom> axioms = Collections.emptySet();
         if (entity == null) {
 
-        } else if (entity.isOWLClass()) {
+        }
+        else if (entity.isOWLClass()) {
             axioms = ont.getAxioms(entity.asOWLClass());
-        } else if (entity.isOWLObjectProperty()) {
+        }
+        else if (entity.isOWLObjectProperty()) {
             axioms = ont.getAxioms(entity.asOWLObjectProperty());
-        } else if (entity.isOWLDataProperty()) {
+        }
+        else if (entity.isOWLDataProperty()) {
             axioms = ont.getAxioms(entity.asOWLDataProperty());
-        } else if (entity.isOWLNamedIndividual()) {
+        }
+        else if (entity.isOWLNamedIndividual()) {
             axioms = ont.getAxioms(entity.asOWLNamedIndividual());
         }
         for (OWLAxiom ax : axioms) {
@@ -241,11 +246,10 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
     /**
      * A utility method that obtains a set of axioms that are indexed by some object
-     *
-     * @param obj        The object that indexed the axioms
-     * @param map        The map that provides the index structure
+     * @param obj The object that indexed the axioms
+     * @param map The map that provides the index structure
      * @param addIfEmpty A flag that indicates whether an empty set of axiom should be
-     *                   added to the index if there is not value present for the indexing object.
+     * added to the index if there is not value present for the indexing object.
      * @return A set of axioms (may be empty)
      */
     private static <K, E> Set<E> getIndexedSet(K obj, Map<K, Set<E>> map, boolean addIfEmpty) {
@@ -262,7 +266,6 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
     /**
      * Gets axioms that have a LHS corresponding to the specified entity.
-     *
      * @param lhs The entity that occurs on the left hand side of the axiom.
      * @return A set of axioms that have the specified entity as their left hand side.
      */
@@ -286,45 +289,46 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    /**tree comparator
-     * XXX this class is stateless, a singleton might be used to access it*/
-    private static final class OWLAxiomTreeComparator implements
-			Comparator<Tree<OWLAxiom>> {
-		public int compare(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
+    /**
+     * tree comparator
+     * XXX this class is stateless, a singleton might be used to access it
+     */
+    private static final class OWLAxiomTreeComparator implements Comparator<Tree<OWLAxiom>> {
+        public int compare(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
 
 
-		    OWLAxiom ax1 = o1.getUserObject();
-		    OWLAxiom ax2 = o2.getUserObject();
+            OWLAxiom ax1 = o1.getUserObject();
+            OWLAxiom ax2 = o2.getUserObject();
 
-		    // Equivalent classes axioms always come last
-		    if (ax1 instanceof OWLEquivalentClassesAxiom) {
-		        return 1;
-		    }
-		    if (ax2 instanceof OWLEquivalentClassesAxiom) {
-		        return -1;
-		    }
-		    if (ax1 instanceof OWLPropertyAxiom) {
-		        return -1;
-		    }
-		    int childCount1 = o1.getChildCount();
-		    childCount1 = childCount1 > 0 ? 0 : 1;
-		    int childCount2 = o2.getChildCount();
-		    childCount2 = childCount2 > 0 ? 0 : 1;
-		    int diff = childCount1 - childCount2;
-		    if (diff != 0) {
-		        return diff;
-		    }
-		    if (ax1 instanceof OWLSubClassOfAxiom && ax2 instanceof OWLSubClassOfAxiom) {
-		        OWLSubClassOfAxiom sc1 = (OWLSubClassOfAxiom) ax1;
-		        OWLSubClassOfAxiom sc2 = (OWLSubClassOfAxiom) ax2;
-		        return sc1.getSuperClass().compareTo(sc2.getSuperClass());
-		    }
+            // Equivalent classes axioms always come last
+            if (ax1 instanceof OWLEquivalentClassesAxiom) {
+                return 1;
+            }
+            if (ax2 instanceof OWLEquivalentClassesAxiom) {
+                return -1;
+            }
+            if (ax1 instanceof OWLPropertyAxiom) {
+                return -1;
+            }
+            int childCount1 = o1.getChildCount();
+            childCount1 = childCount1 > 0 ? 0 : 1;
+            int childCount2 = o2.getChildCount();
+            childCount2 = childCount2 > 0 ? 0 : 1;
+            int diff = childCount1 - childCount2;
+            if (diff != 0) {
+                return diff;
+            }
+            if (ax1 instanceof OWLSubClassOfAxiom && ax2 instanceof OWLSubClassOfAxiom) {
+                OWLSubClassOfAxiom sc1 = (OWLSubClassOfAxiom) ax1;
+                OWLSubClassOfAxiom sc2 = (OWLSubClassOfAxiom) ax2;
+                return sc1.getSuperClass().compareTo(sc2.getSuperClass());
+            }
 
-		    return 1;
-		}
-	}
+            return 1;
+        }
+    }
 
-	private class SeedExtractor implements OWLAxiomVisitor {
+    private class SeedExtractor implements OWLAxiomVisitor {
 
         private OWLEntity source;
 
@@ -374,12 +378,12 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
 
         public void visit(OWLDisjointClassesAxiom axiom) {
-            for(OWLClassExpression ce : axiom.getClassExpressions()) {
-                if(!ce.isAnonymous()) {
-                    if(source == null) {
+            for (OWLClassExpression ce : axiom.getClassExpressions()) {
+                if (!ce.isAnonymous()) {
+                    if (source == null) {
                         source = ce.asOWLClass();
                     }
-                    else if(target == null) {
+                    else if (target == null) {
                         target = ce.asOWLClass();
                     }
                     else {
@@ -480,11 +484,11 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            for(OWLClass cls : axiom.getNamedClasses()) {
-                if(source == null) {
+            for (OWLClass cls : axiom.getNamedClasses()) {
+                if (source == null) {
                     source = cls;
                 }
-                else if(target == null) {
+                else if (target == null) {
                     target = cls;
                 }
                 else {

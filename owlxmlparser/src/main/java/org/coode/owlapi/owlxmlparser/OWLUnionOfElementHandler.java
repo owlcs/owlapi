@@ -50,8 +50,6 @@ public class OWLUnionOfElementHandler extends AbstractOWLElementHandler<OWLClass
     }
 
 
-
-
     public OWLClassExpression getOWLObject() {
         throw new OWLRuntimeException("getOWLObject should not be called on OWLUnionOfElementHandler");
     }

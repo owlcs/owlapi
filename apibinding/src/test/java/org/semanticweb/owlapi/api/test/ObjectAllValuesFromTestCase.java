@@ -38,14 +38,14 @@ public class ObjectAllValuesFromTestCase extends AbstractFileRoundTrippingTestCa
 
 
     public void testCorrectAxioms() {
-         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-         OWLClass clsA = getOWLClass("A");
-         OWLClass clsB = getOWLClass("B");
-         OWLObjectProperty propP = getOWLObjectProperty("p");
-         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectAllValuesFrom(propP, clsB)));
-         axioms.add(getFactory().getOWLDeclarationAxiom(clsB));
-         axioms.add(getFactory().getOWLDeclarationAxiom(propP));
-         assertEquals(getOnt().getAxioms(), axioms);
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLClass clsA = getOWLClass("A");
+        OWLClass clsB = getOWLClass("B");
+        OWLObjectProperty propP = getOWLObjectProperty("p");
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectAllValuesFrom(propP, clsB)));
+        axioms.add(getFactory().getOWLDeclarationAxiom(clsB));
+        axioms.add(getFactory().getOWLDeclarationAxiom(propP));
+        assertEquals(getOnt().getAxioms(), axioms);
     }
 
     protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {

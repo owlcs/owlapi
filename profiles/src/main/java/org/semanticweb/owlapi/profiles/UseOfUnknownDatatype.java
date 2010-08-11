@@ -34,7 +34,6 @@ import java.util.Collections;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 03-Aug-2009
- *
  * Use of an unknown datatype. That is, the datatype isn't in the OWL 2 datatype map,
  * the datatype IRI doesn't begin with the xsd: prefix, the datatype isn't rdfs:Literal, and the
  * datatype isn't defined with a DatatypeDefinition axiom

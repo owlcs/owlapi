@@ -142,7 +142,6 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
      * Saves the specified ontology in the specified format and reloads it. Calling this method from a test will cause
      * the test to fail if the ontology could not be stored, could not be reloaded, or was reloaded and the reloaded
      * version is not equal (in terms of ontology URI and axioms) with the original.
-     *
      * @param ont The ontology to be round tripped.
      * @param format The format to use when doing the round trip.
      */

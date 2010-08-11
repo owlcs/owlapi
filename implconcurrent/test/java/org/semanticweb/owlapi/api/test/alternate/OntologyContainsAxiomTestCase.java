@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -37,28 +38,24 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Date: 07-Dec-2009
  */
 public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
-	public void testOntologyContainsPlainAxiom() throws Exception {
-		OWLAxiom axiom = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
-				getOWLClass("B"));
-		OWLOntology ont = getOWLOntology("testont");
-		getManager().addAxiom(ont, axiom);
-		assertTrue(ont.containsAxiom(axiom));
-		assertTrue(ont.containsAxiomIgnoreAnnotations(axiom));
-	}
+    public void testOntologyContainsPlainAxiom() throws Exception {
+        OWLAxiom axiom = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getOWLClass("B"));
+        OWLOntology ont = getOWLOntology("testont");
+        getManager().addAxiom(ont, axiom);
+        assertTrue(ont.containsAxiom(axiom));
+        assertTrue(ont.containsAxiomIgnoreAnnotations(axiom));
+    }
 
-	public void testOntologyContainsAnnotatedAxiom() throws Exception {
-		OWLLiteral annoLiteral = getFactory().getOWLLiteral("value");
-		OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
-		OWLAnnotation anno = getFactory().getOWLAnnotation(annoProp,
-				annoLiteral);
-		OWLAxiom axiom = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
-				getOWLClass("B"), Collections.singleton(anno));
-		OWLOntology ont = getOWLOntology("testont");
-		getManager().addAxiom(ont, axiom);
-		assertTrue(ont.containsAxiom(axiom));
-		assertTrue(ont.containsAxiomIgnoreAnnotations(axiom));
-		assertFalse(ont.containsAxiom(axiom.getAxiomWithoutAnnotations()));
-		assertTrue(ont.containsAxiomIgnoreAnnotations(axiom
-				.getAxiomWithoutAnnotations()));
-	}
+    public void testOntologyContainsAnnotatedAxiom() throws Exception {
+        OWLLiteral annoLiteral = getFactory().getOWLLiteral("value");
+        OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
+        OWLAnnotation anno = getFactory().getOWLAnnotation(annoProp, annoLiteral);
+        OWLAxiom axiom = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getOWLClass("B"), Collections.singleton(anno));
+        OWLOntology ont = getOWLOntology("testont");
+        getManager().addAxiom(ont, axiom);
+        assertTrue(ont.containsAxiom(axiom));
+        assertTrue(ont.containsAxiomIgnoreAnnotations(axiom));
+        assertFalse(ont.containsAxiom(axiom.getAxiomWithoutAnnotations()));
+        assertTrue(ont.containsAxiomIgnoreAnnotations(axiom.getAxiomWithoutAnnotations()));
+    }
 }

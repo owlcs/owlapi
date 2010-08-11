@@ -30,6 +30,5 @@ package org.coode.owlapi.owlxmlparser;
  */
 class OWLXMLParserException2SAXExceptionTranslation {
 
-    
 
 }

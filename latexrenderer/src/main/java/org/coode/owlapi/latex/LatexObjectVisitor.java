@@ -327,7 +327,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
                             write(NOT);
                             writeSpace();
                             right.accept(this);
-                        } else {
+                        }
+                        else {
                             right.accept(this);
                             writeSpace();
                             write(SUBCLASS);
@@ -340,7 +341,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
                     }
                 }
             }
-        } else {
+        }
+        else {
             Iterator<OWLClassExpression> it = axiom.getClassExpressions().iterator();
             OWLClassExpression descA = it.next();
             OWLClassExpression descB = it.next();
@@ -349,7 +351,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
             if (descA.equals(subject)) {
                 lhs = descA;
                 rhs = descB;
-            } else {
+            }
+            else {
                 lhs = descB;
                 rhs = descA;
             }
@@ -383,7 +386,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
                     }
                 }
             }
-        } else if (axiom.getClassExpressions().size() == 2) {
+        }
+        else if (axiom.getClassExpressions().size() == 2) {
             Iterator<OWLClassExpression> it = axiom.getClassExpressions().iterator();
             OWLClassExpression descA = it.next();
             OWLClassExpression descB = it.next();
@@ -392,7 +396,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
             if (subject.equals(descA)) {
                 lhs = descA;
                 rhs = descB;
-            } else {
+            }
+            else {
                 lhs = descB;
                 rhs = descA;
             }
@@ -696,7 +701,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
 
-
     private String escapeName(String name) {
         return name.replace("_", "\\_");
     }
@@ -737,7 +741,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     public void visit(OWLLiteral node) {
     }
 
-    
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 

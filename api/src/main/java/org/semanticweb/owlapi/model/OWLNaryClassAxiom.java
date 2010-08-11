@@ -38,7 +38,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom, OWLSubCl
      * Gets all of the top level class expressions that appear in this
      * axiom.
      * @return A <code>Set</code> of class expressions that appear in the
-     * axiom.
+     *         axiom.
      */
     public Set<OWLClassExpression> getClassExpressions();
 
@@ -54,7 +54,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom, OWLSubCl
      * Determines if this class axiom contains the specified class expression as an operand
      * @param ce The class expression to test for
      * @return <code>true</code> if this axiom contains the specified class expression as an operand,
-     * otherwise <code>false</code>.
+     *         otherwise <code>false</code>.
      */
     boolean contains(OWLClassExpression ce);
 
@@ -64,7 +64,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom, OWLSubCl
      * class expressions.
      * @param desc The class expressions to subtract from the class expressions in this axiom
      * @return A set containing all of the class expressions in this axiom (the class expressions
-     * returned by getClassExpressions()) minus the specified list of class expressions
+     *         returned by getClassExpressions()) minus the specified list of class expressions
      */
     public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc);
 }

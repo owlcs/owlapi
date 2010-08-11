@@ -45,7 +45,8 @@ public class SymmetricTagValueHandler extends AbstractTagValueHandler {
             OWLObjectProperty prop = getOWLObjectProperty(id);
             OWLAxiom ax = getDataFactory().getOWLSymmetricObjectPropertyAxiom(prop);
             applyChange(new AddAxiom(getOntology(), ax));
-        } else {
+        }
+        else {
             addAnnotation(id, OBOVocabulary.IS_SYMMETRIC.getName(), getBooleanConstant(false));
         }
     }

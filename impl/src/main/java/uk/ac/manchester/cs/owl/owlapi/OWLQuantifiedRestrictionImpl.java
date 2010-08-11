@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.*;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLQuantifiedRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R,P>, F extends OWLPropertyRange> extends OWLRestrictionImpl<R, P, F> implements OWLQuantifiedRestriction<R, P, F> {
+public abstract class OWLQuantifiedRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLRestrictionImpl<R, P, F> implements OWLQuantifiedRestriction<R, P, F> {
 
     private F filler;
 

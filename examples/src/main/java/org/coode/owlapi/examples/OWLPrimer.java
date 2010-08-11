@@ -6,6 +6,7 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.*;
+
 import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
 import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
 
@@ -329,9 +330,7 @@ public class OWLPrimer {
 
             // Finally, we bundle these restrictions up into an intersection, since we want person
             // to be a subclass of the intersection of them
-            OWLObjectIntersectionOf intersection = factory.getOWLObjectIntersectionOf(hasAgeRestriction,
-                    hasGenderRestriction,
-                    hasGenderOnlyMaleFemale);
+            OWLObjectIntersectionOf intersection = factory.getOWLObjectIntersectionOf(hasAgeRestriction, hasGenderRestriction, hasGenderOnlyMaleFemale);
             // And now we set this anonymous intersection class to be a superclass of Person using a subclass axiom
             manager.addAxiom(ont, factory.getOWLSubClassOfAxiom(person, intersection));
 
@@ -340,11 +339,9 @@ public class OWLPrimer {
             // class that is the intersection of Person, and also, hasGender value male.  We need to create
             // the hasGender value male restriction - this describes the class of things that have a hasGender
             // relationship to the individual male.
-            OWLObjectHasValue hasGenderValueMaleRestriction = factory.getOWLObjectHasValue(hasGender,
-                    male);
+            OWLObjectHasValue hasGenderValueMaleRestriction = factory.getOWLObjectHasValue(hasGender, male);
             // Now combine this with Person in an intersection
-            OWLClassExpression personAndHasGenderValueMale = factory.getOWLObjectIntersectionOf(person,
-                    hasGenderValueMaleRestriction);
+            OWLClassExpression personAndHasGenderValueMale = factory.getOWLObjectIntersectionOf(person, hasGenderValueMaleRestriction);
             // Now specify this anonymous class as the range of hasSon using an object property range axioms
             manager.addAxiom(ont, factory.getOWLObjectPropertyRangeAxiom(hasSon, personAndHasGenderValueMale));
 
@@ -352,9 +349,7 @@ public class OWLPrimer {
             // of Person and hasGender value female.  This time, we will make things a little more compact by
             // not using so many variables
 
-            OWLClassExpression rangeOfHasDaughter = factory.getOWLObjectIntersectionOf(person,
-                    factory.getOWLObjectHasValue(hasGender,
-                            female));
+            OWLClassExpression rangeOfHasDaughter = factory.getOWLObjectIntersectionOf(person, factory.getOWLObjectHasValue(hasGender, female));
             manager.addAxiom(ont, factory.getOWLObjectPropertyRangeAxiom(hasDaughter, rangeOfHasDaughter));
 
             //////////////////////////////////////////////////////////////////////////////////////////////
@@ -389,8 +384,7 @@ public class OWLPrimer {
             manager.addAxiom(ont, teenagerDefinition);
 
             // Do the same for Adult that has an age greater than 21
-            OWLDataRange geq21 = factory.getOWLDatatypeRestriction(integerDatatype,
-                    factory.getOWLFacetRestriction(MIN_INCLUSIVE, 21));
+            OWLDataRange geq21 = factory.getOWLDatatypeRestriction(integerDatatype, factory.getOWLFacetRestriction(MIN_INCLUSIVE, 21));
             OWLClass adult = factory.getOWLClass(IRI.create(ontologyIRI + "#Adult"));
             OWLClassExpression adultAgeRestriction = factory.getOWLDataSomeValuesFrom(hasAge, geq21);
             OWLClassExpression adultPerson = factory.getOWLObjectIntersectionOf(person, adultAgeRestriction);

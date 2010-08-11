@@ -45,12 +45,14 @@ public class KRSS2SyntaxRenderer extends AbstractOWLRenderer {
 
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         try {
-            KRSS2ObjectRenderer ren = new KRSS2ObjectRenderer(getOWLOntologyManager(),ontology, writer);
+            KRSS2ObjectRenderer ren = new KRSS2ObjectRenderer(getOWLOntologyManager(), ontology, writer);
             ontology.accept(ren);
             writer.flush();
-        } catch (IOException io) {
+        }
+        catch (IOException io) {
             throw new OWLRendererIOException(io);
-        } catch (OWLRuntimeException e) {
+        }
+        catch (OWLRuntimeException e) {
             throw new OWLRendererException(e);
         }
     }

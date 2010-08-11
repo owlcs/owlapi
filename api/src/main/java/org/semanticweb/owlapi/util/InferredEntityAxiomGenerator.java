@@ -34,7 +34,6 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
- *
  * Generates axioms which relate to inferred information for a specific entity.
  */
 public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extends OWLAxiom> implements InferredAxiomGenerator<A> {
@@ -43,9 +42,9 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
     public Set<A> createAxioms(OWLOntologyManager manager, OWLReasoner reasoner) {
         Set<E> processedEntities = new HashSet<E>();
         Set<A> result = new HashSet<A>();
-        for(OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
-            for(E entity : getEntities(ont)) {
-                if(!processedEntities.contains(entity)) {
+        for (OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
+            for (E entity : getEntities(ont)) {
+                if (!processedEntities.contains(entity)) {
                     processedEntities.add(entity);
                     addAxioms(entity, reasoner, manager.getOWLDataFactory(), result);
                 }
@@ -74,7 +73,7 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
 
     protected Set<E> getAllEntities(OWLReasoner reasoner) {
         Set<E> results = new HashSet<E>();
-        for(OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
+        for (OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
             results.addAll(getEntities(ont));
         }
         return results;

@@ -30,28 +30,24 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 21-Sep-2009
  */
-public class StringLiteralWithQuotesTestCase extends
-		AbstractAxiomsRoundTrippingTestCase {
-	protected Set<? extends OWLAxiom> createAxioms() {
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-		OWLNamedIndividual ind = getOWLIndividual("i");
-		OWLDataProperty prop = getOWLDataProperty("prop");
-		OWLLiteral literal = getFactory().getOWLLiteral("Test \"literal\"");
-		axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind,
-				literal));
-		OWLLiteral literal2 = getFactory().getOWLLiteral("Test 'literal'");
-		axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind,
-				literal2));
-		OWLLiteral literal3 = getFactory().getOWLLiteral(
-				"Test \"\"\"literal\"\"\"");
-		axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind,
-				literal3));
-		return axioms;
-	}
+public class StringLiteralWithQuotesTestCase extends AbstractAxiomsRoundTrippingTestCase {
+    protected Set<? extends OWLAxiom> createAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLNamedIndividual ind = getOWLIndividual("i");
+        OWLDataProperty prop = getOWLDataProperty("prop");
+        OWLLiteral literal = getFactory().getOWLLiteral("Test \"literal\"");
+        axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind, literal));
+        OWLLiteral literal2 = getFactory().getOWLLiteral("Test 'literal'");
+        axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind, literal2));
+        OWLLiteral literal3 = getFactory().getOWLLiteral("Test \"\"\"literal\"\"\"");
+        axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind, literal3));
+        return axioms;
+    }
 }

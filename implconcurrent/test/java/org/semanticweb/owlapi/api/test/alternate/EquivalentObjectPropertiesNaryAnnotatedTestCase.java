@@ -27,27 +27,25 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 25-Nov-2009
  */
-public class EquivalentObjectPropertiesNaryAnnotatedTestCase extends
-		AbstractAnnotatedAxiomRoundTrippingTestCase {
-	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-		return getFactory().getOWLEquivalentObjectPropertiesAxiom(
-				getOWLObjectProperty("p"), getOWLObjectProperty("q"),
-				getOWLObjectProperty("r"));
-	}
+public class EquivalentObjectPropertiesNaryAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
+    protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
+        return getFactory().getOWLEquivalentObjectPropertiesAxiom(getOWLObjectProperty("p"), getOWLObjectProperty("q"), getOWLObjectProperty("r"));
+    }
 
-	@Override
-	public void testTurtle() throws Exception {
-		// Can't serialise nary equivalent properties axioms in RDF
-	}
+    @Override
+    public void testTurtle() throws Exception {
+        // Can't serialise nary equivalent properties axioms in RDF
+    }
 
-	@Override
-	public void testRDFXML() throws Exception {
-		// Can't serialise nary equivalent properties axioms in RDF
-	}
+    @Override
+    public void testRDFXML() throws Exception {
+        // Can't serialise nary equivalent properties axioms in RDF
+    }
 }

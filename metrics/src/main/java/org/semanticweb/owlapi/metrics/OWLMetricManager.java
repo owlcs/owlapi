@@ -44,7 +44,7 @@ public class OWLMetricManager {
     }
 
     public void setOntology(OWLOntology ontology) {
-        for(OWLMetric metric : metrics) {
+        for (OWLMetric metric : metrics) {
             metric.setOntology(ontology);
         }
     }
@@ -57,7 +57,7 @@ public class OWLMetricManager {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(OWLMetric m : metrics) {
+        for (OWLMetric m : metrics) {
             sb.append(m);
             sb.append("\n");
         }

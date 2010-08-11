@@ -33,7 +33,6 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 24-Apr-2007<br><br>
- *
  * A document source provides a point for loading an ontology.
  * A document source may provide three ways of obtaining an ontology document:
  * <ol>
@@ -56,8 +55,8 @@ public interface OWLOntologyDocumentSource {
      * Determines if a reader is available which an ontology document can be
      * parsed from.
      * @return <code>true</code> if a reader can be obtained from this
-     * document source, or <code>false</code> if a reader cannot be obtained
-     * from this document source.
+     *         document source, or <code>false</code> if a reader cannot be obtained
+     *         from this document source.
      */
     public boolean isReaderAvailable();
 
@@ -75,8 +74,8 @@ public interface OWLOntologyDocumentSource {
     /**
      * Determines if an input stream is available which an ontology document can be parsed from.
      * @return <code>true</code> if an input stream can be obtained,
-     * <code>false</code> if an input stream cannot be obtained from
-     * this document source.
+     *         <code>false</code> if an input stream cannot be obtained from
+     *         this document source.
      */
     public boolean isInputStreamAvailable();
 

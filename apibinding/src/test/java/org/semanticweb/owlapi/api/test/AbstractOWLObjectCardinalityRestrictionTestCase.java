@@ -82,7 +82,7 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends Ab
 
 
     public void testHashCode() throws Exception {
-         OWLObjectProperty prop = getFactory().getOWLObjectProperty(createIRI());
+        OWLObjectProperty prop = getFactory().getOWLObjectProperty(createIRI());
         int cardinality = 3;
         OWLClassExpression cls = getFactory().getOWLClass(createIRI());
         OWLObjectCardinalityRestriction restA = createRestriction(prop, cardinality, cls);

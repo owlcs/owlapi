@@ -40,11 +40,10 @@ public interface OWLOntologyFactory {
 
     /**
      * Creates an (empty) ontology.
-     *
-     * @param ontologyID  The ID of the ontology to create. This MUST NOT BE <code>null</code>.
+     * @param ontologyID The ID of the ontology to create. This MUST NOT BE <code>null</code>.
      * @param documentIRI The document IRI of the ontology
-     *@param handler     The ontology creation handler that will be notified when the
-     *                    ontology has been created.  @return The newly created ontology
+     * @param handler The ontology creation handler that will be notified when the
+     * ontology has been created.  @return The newly created ontology
      * @return The created ontology
      * @throws OWLOntologyCreationException if the ontology could not be created.
      */
@@ -54,11 +53,10 @@ public interface OWLOntologyFactory {
     /**
      * Creates and loads an <code>OWLOntology</code>.
      * be loaded into the ontology.
-     *
      * @param documentSource The input source
-     * @param handler     A pointer to an <code>OWLOntologyCreationHandler</code> which will be notified immediately
-     *                    after an emtpty ontology has been created, but before the source data is read and the ontology is loaded
-     *                    with axioms.
+     * @param handler A pointer to an <code>OWLOntologyCreationHandler</code> which will be notified immediately
+     * after an emtpty ontology has been created, but before the source data is read and the ontology is loaded
+     * with axioms.
      * @return The newly created and loaded ontology
      * @throws OWLOntologyCreationException if the ontology could not be created.
      */
@@ -66,7 +64,6 @@ public interface OWLOntologyFactory {
 
     /**
      * Determines if the factory can create an ontology for the specified ontology document IRI.
-     *
      * @param documentIRI The document IRI
      * @return <code>true</code> if the factory can create an ontology given the specified document IRI,
      *         or <code>false</code> if the factory cannot create an ontology given the specified document IRI.
@@ -76,7 +73,6 @@ public interface OWLOntologyFactory {
 
     /**
      * Determines if the factory can load an ontology for the specified input souce
-     *
      * @param documentSource The input source from which to load the ontology
      * @return <code>true</code> if the factory can load from the specified input source.
      */
@@ -97,7 +93,6 @@ public interface OWLOntologyFactory {
          * The factory calls this method as soon as it has created an ontology.  If the
          * factory is loading an ontology then the ontology will not have been populated with
          * axioms at this stage.
-         *
          * @param ontology The newly created ontology.
          */
         void ontologyCreated(OWLOntology ontology);

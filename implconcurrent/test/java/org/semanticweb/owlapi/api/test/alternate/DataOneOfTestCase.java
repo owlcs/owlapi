@@ -17,25 +17,21 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Date: 02-Feb-2009
  */
 public class DataOneOfTestCase extends AbstractFileRoundTrippingTestCase {
-	public void testCorrectAxioms() {
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-		OWLDataRange oneOf = getFactory()
-				.getOWLDataOneOf(getFactory().getOWLLiteral(30),
-						getFactory().getOWLLiteral(31f));
-		OWLDataProperty p = getOWLDataProperty("p");
-		OWLDataPropertyRangeAxiom ax = getFactory()
-				.getOWLDataPropertyRangeAxiom(p, oneOf);
-		axioms.add(ax);
-		axioms.add(getFactory().getOWLDeclarationAxiom(p));
-		assertEquals(getOnt().getAxioms(), axioms);
-	}
+    public void testCorrectAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLDataRange oneOf = getFactory().getOWLDataOneOf(getFactory().getOWLLiteral(30), getFactory().getOWLLiteral(31f));
+        OWLDataProperty p = getOWLDataProperty("p");
+        OWLDataPropertyRangeAxiom ax = getFactory().getOWLDataPropertyRangeAxiom(p, oneOf);
+        axioms.add(ax);
+        axioms.add(getFactory().getOWLDeclarationAxiom(p));
+        assertEquals(getOnt().getAxioms(), axioms);
+    }
 
-	protected void handleSaved(StringDocumentTarget target,
-			OWLOntologyFormat format) {
-		System.out.println(target);
-	}
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+        System.out.println(target);
+    }
 
-	protected String getFileName() {
-		return "DataOneOf.rdf";
-	}
+    protected String getFileName() {
+        return "DataOneOf.rdf";
+    }
 }

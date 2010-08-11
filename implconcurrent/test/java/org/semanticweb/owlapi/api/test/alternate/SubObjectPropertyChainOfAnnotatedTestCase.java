@@ -30,18 +30,16 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 25-Nov-2009
  */
-public class SubObjectPropertyChainOfAnnotatedTestCase extends
-		AbstractAnnotatedAxiomRoundTrippingTestCase {
-	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-		List<OWLObjectProperty> props = Arrays.asList(
-				getOWLObjectProperty("p"), getOWLObjectProperty("q"));
-		return getFactory().getOWLSubPropertyChainOfAxiom(props,
-				getOWLObjectProperty("r"));
-	}
+public class SubObjectPropertyChainOfAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
+    protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
+        List<OWLObjectProperty> props = Arrays.asList(getOWLObjectProperty("p"), getOWLObjectProperty("q"));
+        return getFactory().getOWLSubPropertyChainOfAxiom(props, getOWLObjectProperty("r"));
+    }
 }

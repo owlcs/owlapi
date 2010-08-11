@@ -45,15 +45,15 @@ public class TPAllValuesFromHandler extends TriplePredicateHandler {
         OWLRDFConsumer consumer = getConsumer();
         consumer.addRestriction(subject);
         IRI propIRI = consumer.getResourceObject(subject, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), false);
-        if(propIRI != null && (!consumer.isAnonymousNode(object) || consumer.getClassExpressionIfTranslated(object) != null)) {
+        if (propIRI != null && (!consumer.isAnonymousNode(object) || consumer.getClassExpressionIfTranslated(object) != null)) {
             // The filler is either a datatype or named class
-            if(consumer.isObjectPropertyOnly(propIRI)) {
+            if (consumer.isObjectPropertyOnly(propIRI)) {
                 consumer.addOWLClass(object);
                 consumer.addTriple(subject, predicate, object);
                 consumer.translateClassExpression(subject);
                 return true;
             }
-            else if(consumer.isDataPropertyOnly(propIRI)) {
+            else if (consumer.isDataPropertyOnly(propIRI)) {
 
             }
 

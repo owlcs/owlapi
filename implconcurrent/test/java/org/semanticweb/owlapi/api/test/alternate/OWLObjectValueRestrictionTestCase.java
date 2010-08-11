@@ -26,24 +26,22 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
-public class OWLObjectValueRestrictionTestCase
-		extends
-		AbstractOWLRestrictionWithFillerTestCase<OWLObjectProperty, OWLIndividual> {
-	protected OWLRestriction createRestriction(OWLObjectProperty prop,
-			OWLIndividual filler) throws Exception {
-		return getFactory().getOWLObjectHasValue(prop, filler);
-	}
+public class OWLObjectValueRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLObjectProperty, OWLIndividual> {
+    protected OWLRestriction createRestriction(OWLObjectProperty prop, OWLIndividual filler) throws Exception {
+        return getFactory().getOWLObjectHasValue(prop, filler);
+    }
 
-	protected OWLObjectProperty createProperty() throws Exception {
-		return createOWLObjectProperty();
-	}
+    protected OWLObjectProperty createProperty() throws Exception {
+        return createOWLObjectProperty();
+    }
 
-	protected OWLIndividual createFiller() throws Exception {
-		return createOWLIndividual();
-	}
+    protected OWLIndividual createFiller() throws Exception {
+        return createOWLIndividual();
+    }
 }
