@@ -843,6 +843,14 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager, OWLOnt
     }
 
     /**
+     * Gets the ontology factories that are registered with this manager.
+     * @return A collection of ontology factories.
+     */
+    public Collection<OWLOntologyFactory> getOntologyFactories() {
+        return new ArrayList<OWLOntologyFactory>(ontologyFactories);
+    }
+
+    /**
      * Uses the mapper mechanism to obtain an ontology document IRI from an
      * ontology IRI.
      * @param ontologyID The ontology ID for which a document IRI is to be retrieved

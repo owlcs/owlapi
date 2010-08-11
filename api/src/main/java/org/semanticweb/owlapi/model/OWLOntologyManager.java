@@ -6,6 +6,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 /*
@@ -658,6 +659,11 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     void removeOntologyFactory(OWLOntologyFactory factory);
 
+    /**
+     * Gets the ontology factories that are registered with this manager.
+     * @return A collection of ontology factories.
+     */
+    Collection<OWLOntologyFactory> getOntologyFactories();
 
     /**
      * Add an ontology storer.
