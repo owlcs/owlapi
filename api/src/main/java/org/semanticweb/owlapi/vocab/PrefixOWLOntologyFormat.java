@@ -63,6 +63,13 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
     }
 
     /**
+     * Clears any previously set prefixes
+     */
+    public void clearPrefixes() {
+        nsm.clear();
+    }
+
+    /**
      * Copies the prefix from another ontology format into this format
      * @param fromFormat The format that the prefixes should be copied from
      */
@@ -76,7 +83,7 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
 
     /**
      * Gets the prefix names that have a mapping in this prefix manager
-     * @return
+     * @return A set of string representing the prefix names
      */
     public Set<String> getPrefixNames() {
         return nsm.getPrefixNames();
@@ -112,8 +119,8 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
     }
 
 
-    public IRI getIRI(String curi) {       
-        return nsm.getIRI(curi);
+    public IRI getIRI(String iri) {
+        return nsm.getIRI(iri);
     }
 
     public String getPrefixIRI(IRI iri) {
