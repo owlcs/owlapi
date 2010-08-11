@@ -305,7 +305,7 @@ public class AxiomType<C extends OWLAxiom> {
 
         NAME_TYPE_MAP = new HashMap<String, AxiomType>();
         for(AxiomType type : AXIOM_TYPES) {
-            NAME_TYPE_MAP.put(type.getName(), type);
+            NAME_TYPE_MAP.put(type.name, type);
         }
     }
 

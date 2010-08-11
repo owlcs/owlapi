@@ -648,11 +648,12 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * Parses the string into a map of name-value pairs.
      * @param string string to be parsed
      * @return map of name-value pairs
+     * @throws SAXException if there was an IOException this will be wrapped in a parse exception
      */
     protected Map parseStringArguments(String string) throws SAXException {
         try {
             StreamTokenizer tokenizer = new StreamTokenizer(new StringReader(string));
-            Map result = new HashMap();
+            Map<String, String> result = new HashMap<String, String>();
             tokenizer.nextToken();
             while (tokenizer.ttype != StreamTokenizer.TT_EOF) {
                 if (tokenizer.ttype != StreamTokenizer.TT_WORD)

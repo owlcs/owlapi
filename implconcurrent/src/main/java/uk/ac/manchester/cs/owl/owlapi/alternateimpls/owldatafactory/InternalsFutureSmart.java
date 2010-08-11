@@ -45,104 +45,95 @@ import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
 
 public class InternalsFutureSmart implements OWLDataFactoryInternals {
-	private enum BuildableObjects {
-		OWLCLASS {
-			@Override
-			OWLEntity build(OWLDataFactory f, IRI iri) {
-				return new OWLClassImpl(f, iri);
-			}
-		},
-		OWLOBJECTPROPERTY {
-			@Override
-			OWLEntity build(OWLDataFactory f, IRI iri) {
-				return new OWLObjectPropertyImpl(f, iri);
-			}
-		},
-		OWLDATAPROPERTY {
-			@Override
-			OWLEntity build(OWLDataFactory f, IRI iri) {
-				return new OWLDataPropertyImpl(f, iri);
-			}
-		},
-		OWLNAMEDINDIVIDUAL {
-			@Override
-			OWLEntity build(OWLDataFactory f, IRI iri) {
-				return new OWLNamedIndividualImpl(f, iri);
-			}
-		},
-		OWLDATATYPE {
-			@Override
-			OWLEntity build(OWLDataFactory f, IRI iri) {
-				return new OWLDatatypeImpl(f, iri);
-			}
-		},
-		OWLANNOTATIONPROPERTY {
-			@Override
-			OWLEntity build(OWLDataFactory f, IRI iri) {
-				return new OWLAnnotationPropertyImpl(f, iri);
-			}
-		};
-		abstract OWLEntity build(OWLDataFactory f, IRI iri);
-	}
+    private enum BuildableObjects {
+        OWLCLASS {
+            @Override
+            OWLEntity build(OWLDataFactory f, IRI iri) {
+                return new OWLClassImpl(f, iri);
+            }
+        },
+        OWLOBJECTPROPERTY {
+            @Override
+            OWLEntity build(OWLDataFactory f, IRI iri) {
+                return new OWLObjectPropertyImpl(f, iri);
+            }
+        },
+        OWLDATAPROPERTY {
+            @Override
+            OWLEntity build(OWLDataFactory f, IRI iri) {
+                return new OWLDataPropertyImpl(f, iri);
+            }
+        },
+        OWLNAMEDINDIVIDUAL {
+            @Override
+            OWLEntity build(OWLDataFactory f, IRI iri) {
+                return new OWLNamedIndividualImpl(f, iri);
+            }
+        },
+        OWLDATATYPE {
+            @Override
+            OWLEntity build(OWLDataFactory f, IRI iri) {
+                return new OWLDatatypeImpl(f, iri);
+            }
+        },
+        OWLANNOTATIONPROPERTY {
+            @Override
+            OWLEntity build(OWLDataFactory f, IRI iri) {
+                return new OWLAnnotationPropertyImpl(f, iri);
+            }
+        };
 
-	private final MemoizingCache<IRI, OWLClass> classesByURI;
-	private final MemoizingCache<IRI, OWLObjectProperty> objectPropertiesByURI;
-	private final MemoizingCache<IRI, OWLDataProperty> dataPropertiesByURI;
-	private final MemoizingCache<IRI, OWLDatatype> datatypesByURI;
-	private final MemoizingCache<IRI, OWLNamedIndividual> individualsByURI;
-	private final MemoizingCache<IRI, OWLAnnotationProperty> annotationPropertiesByURI;
-	final OWLDataFactory factory;
+        abstract OWLEntity build(OWLDataFactory f, IRI iri);
+    }
 
-	public InternalsFutureSmart(OWLDataFactory f) {
-		factory = f;
-		classesByURI = new MemoizingCache<IRI, OWLClass>();
-		objectPropertiesByURI = new MemoizingCache<IRI, OWLObjectProperty>();
-		dataPropertiesByURI = new MemoizingCache<IRI, OWLDataProperty>();
-		datatypesByURI = new MemoizingCache<IRI, OWLDatatype>();
-		individualsByURI = new MemoizingCache<IRI, OWLNamedIndividual>();
-		annotationPropertiesByURI = new MemoizingCache<IRI, OWLAnnotationProperty>();
-	}
+    private final MemoizingCache<IRI, OWLClass> classesByURI;
+    private final MemoizingCache<IRI, OWLObjectProperty> objectPropertiesByURI;
+    private final MemoizingCache<IRI, OWLDataProperty> dataPropertiesByURI;
+    private final MemoizingCache<IRI, OWLDatatype> datatypesByURI;
+    private final MemoizingCache<IRI, OWLNamedIndividual> individualsByURI;
+    private final MemoizingCache<IRI, OWLAnnotationProperty> annotationPropertiesByURI;
+    final OWLDataFactory factory;
 
-	public void purge() {
-		classesByURI.clear();
-		objectPropertiesByURI.clear();
-		dataPropertiesByURI.clear();
-		datatypesByURI.clear();
-		individualsByURI.clear();
-		annotationPropertiesByURI.clear();
-	}
+    public InternalsFutureSmart(OWLDataFactory f) {
+        factory = f;
+        classesByURI = new MemoizingCache<IRI, OWLClass>();
+        objectPropertiesByURI = new MemoizingCache<IRI, OWLObjectProperty>();
+        dataPropertiesByURI = new MemoizingCache<IRI, OWLDataProperty>();
+        datatypesByURI = new MemoizingCache<IRI, OWLDatatype>();
+        individualsByURI = new MemoizingCache<IRI, OWLNamedIndividual>();
+        annotationPropertiesByURI = new MemoizingCache<IRI, OWLAnnotationProperty>();
+    }
 
-	public OWLClass getOWLClass(final IRI iri) {
-		return classesByURI.get((OWLClass) BuildableObjects.OWLCLASS.build(
-				factory, iri), iri);
-	}
+    public void purge() {
+        classesByURI.clear();
+        objectPropertiesByURI.clear();
+        dataPropertiesByURI.clear();
+        datatypesByURI.clear();
+        individualsByURI.clear();
+        annotationPropertiesByURI.clear();
+    }
 
-	public OWLObjectProperty getOWLObjectProperty(final IRI iri) {
-		return objectPropertiesByURI.get(
-				(OWLObjectProperty) BuildableObjects.OWLOBJECTPROPERTY.build(
-						factory, iri), iri);
-	}
+    public OWLClass getOWLClass(final IRI iri) {
+        return classesByURI.get((OWLClass) BuildableObjects.OWLCLASS.build(factory, iri), iri);
+    }
 
-	public OWLDataProperty getOWLDataProperty(final IRI iri) {
-		return dataPropertiesByURI.get(
-				(OWLDataProperty) BuildableObjects.OWLDATAPROPERTY.build(
-						factory, iri), iri);
-	}
+    public OWLObjectProperty getOWLObjectProperty(final IRI iri) {
+        return objectPropertiesByURI.get((OWLObjectProperty) BuildableObjects.OWLOBJECTPROPERTY.build(factory, iri), iri);
+    }
 
-	public OWLNamedIndividual getOWLNamedIndividual(final IRI iri) {
-		return individualsByURI.get(
-				(OWLNamedIndividual) BuildableObjects.OWLNAMEDINDIVIDUAL.build(
-						factory, iri), iri);
-	}
+    public OWLDataProperty getOWLDataProperty(final IRI iri) {
+        return dataPropertiesByURI.get((OWLDataProperty) BuildableObjects.OWLDATAPROPERTY.build(factory, iri), iri);
+    }
 
-	public OWLDatatype getOWLDatatype(final IRI iri) {
-		return datatypesByURI.get((OWLDatatype) BuildableObjects.OWLDATATYPE
-				.build(factory, iri), iri);
-	}
+    public OWLNamedIndividual getOWLNamedIndividual(final IRI iri) {
+        return individualsByURI.get((OWLNamedIndividual) BuildableObjects.OWLNAMEDINDIVIDUAL.build(factory, iri), iri);
+    }
 
-	public OWLAnnotationProperty getOWLAnnotationProperty(final IRI iri) {
-		return annotationPropertiesByURI.get(
-				(OWLAnnotationProperty) BuildableObjects.OWLANNOTATIONPROPERTY
-						.build(factory, iri), iri);
-	}
+    public OWLDatatype getOWLDatatype(final IRI iri) {
+        return datatypesByURI.get((OWLDatatype) BuildableObjects.OWLDATATYPE.build(factory, iri), iri);
+    }
+
+    public OWLAnnotationProperty getOWLAnnotationProperty(final IRI iri) {
+        return annotationPropertiesByURI.get((OWLAnnotationProperty) BuildableObjects.OWLANNOTATIONPROPERTY.build(factory, iri), iri);
+    }
 }

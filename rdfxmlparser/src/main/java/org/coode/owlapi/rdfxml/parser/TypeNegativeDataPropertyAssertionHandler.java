@@ -34,6 +34,7 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br><br>
  */
+@SuppressWarnings("deprecation")
 public class TypeNegativeDataPropertyAssertionHandler extends BuiltInTypeHandler {
 
     public TypeNegativeDataPropertyAssertionHandler(OWLRDFConsumer consumer) {

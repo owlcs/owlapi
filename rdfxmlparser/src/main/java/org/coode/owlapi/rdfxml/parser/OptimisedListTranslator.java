@@ -76,12 +76,12 @@ public class OptimisedListTranslator<O extends OWLObject> {
         }
 
 
-        IRI firstResource = getConsumer().getFirstResource(mainNode, true);
+        IRI firstResource = consumer.getFirstResource(mainNode, true);
         if (firstResource != null) {
             list.add(translator.translate(firstResource));
         }
         else {
-            OWLLiteral literal = getConsumer().getFirstLiteral(mainNode);
+            OWLLiteral literal = consumer.getFirstLiteral(mainNode);
             if (literal != null) {
                 list.add(translator.translate(literal));
             }
@@ -92,7 +92,7 @@ public class OptimisedListTranslator<O extends OWLObject> {
                 }
             }
         }
-        IRI rest = getConsumer().getRest(mainNode, true);
+        IRI rest = consumer.getRest(mainNode, true);
         if (rest != null) {
             translateList(rest, list);
         }

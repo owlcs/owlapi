@@ -38,7 +38,7 @@ import java.util.Set;
  */
 public class AxiomTypeMetric extends AxiomCountMetric {
 
-    private AxiomType axiomType;
+    private AxiomType<?> axiomType;
 
 
     public AxiomTypeMetric(OWLOntologyManager owlOntologyManager, AxiomType axiomType) {

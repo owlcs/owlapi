@@ -118,7 +118,7 @@ public enum ClassExpressionType {
     /**
      * Represents {@link org.semanticweb.owlapi.model.OWLObjectIntersectionOf}
      */
-    OBJECT_INTERSETION_OF("ObjectIntersectionOf"),
+    OBJECT_INTERSECTION_OF("ObjectIntersectionOf"),
 
 
     /**

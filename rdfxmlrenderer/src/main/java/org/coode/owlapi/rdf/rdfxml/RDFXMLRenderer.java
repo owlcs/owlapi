@@ -86,8 +86,6 @@ public class RDFXMLRenderer extends RDFRendererBase {
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_THING.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NOTHING.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ONTOLOGY.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.RDFS_DATATYPE.getIRI());

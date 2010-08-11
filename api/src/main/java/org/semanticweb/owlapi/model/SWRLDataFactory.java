@@ -18,22 +18,26 @@ import java.util.Set;
 public interface SWRLDataFactory {
 
     /**
-     * Gets a SWRL rule which is named with an IRI
-     * @param iri The rule identifier/name
+     * @deprecated Use either {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)} or
+     * {@link #getSWRLRule(java.util.Set, java.util.Set)} instead.
+     * @param iri The iri of the rule - NOTE THAT THIS PARAMETER WILL BE IGNORED
      * @param body The atoms that make up the body of the rule
      * @param head The atoms that make up the head of the rule
-     * @return The rule with the specified IRI, body and head
+     * @return A rule with the specified body and head
      */
+    @Deprecated
     SWRLRule getSWRLRule(IRI iri, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head);
 
 
     /**
-     * Gets a SWRL rule which is anonymous (the main node in the rule doesn't have an identifier in RDF)
-     * @param nodeID The anonymous node ID
+     * @deprecated Use either {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)} or
+     * {@link #getSWRLRule(java.util.Set, java.util.Set)} instead.
+     * @param nodeID The node ID - NOTE THAT THIS PARAMETER WILL BE IGNORED
      * @param body The atoms that make up the body of the rule
      * @param head The atoms that make up the head of the rule
-     * @return The rule with the specified node ID, body and head
+     * @return A rule with the specified body and heat
      */
+    @Deprecated
     SWRLRule getSWRLRule(NodeID nodeID, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head);
 
 

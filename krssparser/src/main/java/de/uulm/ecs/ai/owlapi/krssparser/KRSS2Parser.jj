@@ -18,6 +18,8 @@ import org.coode.owl.krssparser.NameResolverStrategy;
 import java.net.*;
 import java.util.*;
 
+// Suppress warnings in auto-generated code
+@SuppressWarnings("unchecked")
 public class KRSS2Parser {
 
     private OWLOntology ontology;

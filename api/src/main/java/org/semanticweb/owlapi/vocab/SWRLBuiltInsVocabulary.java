@@ -141,6 +141,7 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
      * @return The minimum arity of this built in.
      * @deprecated Use getMinArity and getMaxArity instead
      */
+    @Deprecated
     public int getArity() {
         return minArity;
     }
@@ -154,7 +155,7 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
      */
     public static SWRLBuiltInsVocabulary getBuiltIn(IRI iri) {
         for(SWRLBuiltInsVocabulary v : values()) {
-            if(v.getIRI().equals(iri)) {
+            if(v.iri.equals(iri)) {
                 return v;
             }
         }

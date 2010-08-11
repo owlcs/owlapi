@@ -664,6 +664,7 @@ public class OWLOntologyImplInternalsDefaultImpl implements OWLOntologyImplInter
         return axioms;
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> Set<T> getAxiomsInternal(AxiomType<T> axiomType) {
         return (Set<T>) getAxioms(axiomType, axiomsByType, false);
     }

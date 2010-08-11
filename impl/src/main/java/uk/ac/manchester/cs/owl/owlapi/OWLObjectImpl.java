@@ -129,13 +129,7 @@ public abstract class OWLObjectImpl implements OWLObject {
     }
 
     public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        return obj instanceof OWLObject;
+        return obj == this || obj != null && obj instanceof OWLObject;
     }
 
 
@@ -184,20 +178,21 @@ public abstract class OWLObjectImpl implements OWLObject {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     protected static int compareSets(Set<? extends OWLObject> set1, Set<? extends OWLObject> set2) {
         SortedSet<? extends OWLObject> ss1;
         if (set1 instanceof SortedSet) {
-            ss1 = (SortedSet) set1;
+            ss1 = (SortedSet<? extends OWLObject>) set1;
         }
         else {
-            ss1 = new TreeSet(set1);
+            ss1 = new TreeSet<OWLObject>(set1);
         }
         SortedSet<? extends OWLObject> ss2;
         if (set2 instanceof SortedSet) {
-            ss2 = (SortedSet) set2;
+            ss2 = (SortedSet<? extends OWLObject>) set2;
         }
         else {
-            ss2 = new TreeSet(set2);
+            ss2 = new TreeSet<OWLObject>(set2);
         }
         int i = 0;
         Iterator<? extends OWLObject> thisIt = ss1.iterator();

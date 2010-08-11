@@ -407,20 +407,10 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             IRIImpl other = (IRIImpl) obj;
             String otherRemainder = other.remainder;
             if (remainder == null) {
-                if (otherRemainder == null) {
-                    return prefix.equals(other.prefix);
-                }
-                else {
-                    return false;
-                }
+                return otherRemainder == null && prefix.equals(other.prefix);
             }
             else {
-                if (otherRemainder == null) {
-                    return false;
-                }
-                else {
-                    return remainder.equals(otherRemainder) && other.prefix.equals(this.prefix);
-                }
+                return otherRemainder != null && remainder.equals(otherRemainder) && other.prefix.equals(this.prefix);
             }
         }
     }

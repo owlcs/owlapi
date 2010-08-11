@@ -63,10 +63,10 @@ public class SWRLRuleTranslator {
         }
         SWRLRule rule = null;
         if (!consumer.isAnonymousNode(mainNode)) {
-            rule = consumer.getDataFactory().getSWRLRule(mainNode, antecedent, consequent);
+            rule = consumer.getDataFactory().getSWRLRule(antecedent, consequent);
         }
         else {
-            rule = consumer.getDataFactory().getSWRLRule(NodeID.getNodeID(mainNode.toString()), antecedent, consequent);
+            rule = consumer.getDataFactory().getSWRLRule(antecedent, consequent);
         }
         consumer.addAxiom(rule);
     }

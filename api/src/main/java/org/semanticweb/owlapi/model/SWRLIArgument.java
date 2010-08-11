@@ -11,7 +11,7 @@ package org.semanticweb.owlapi.model;
  *
  * Represents arguments in {@link org.semanticweb.owlapi.model.SWRLAtom}s that are either
  * {@link org.semanticweb.owlapi.model.OWLIndividual}s or variables for
- * individuals {@link org.semanticweb.owlapi.model.SWRLIndividualVariable}
+ * individuals {@link SWRLIndividualArgument}
  */
 public interface SWRLIArgument extends SWRLArgument {
 

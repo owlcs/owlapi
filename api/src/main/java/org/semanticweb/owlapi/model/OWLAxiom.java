@@ -103,7 +103,7 @@ public interface OWLAxiom extends OWLObject {
      *
      * @return The axiom type that corresponds to the type of this axiom.
      */
-    AxiomType getAxiomType();
+    AxiomType<?> getAxiomType();
 
     /**
      * Determines if this axiom is one of the specified types
@@ -111,7 +111,7 @@ public interface OWLAxiom extends OWLObject {
      * @return <code>true</code> if this axiom is one of the specified types, otherwise <code>false</code>
      * @since 3.0
      */
-    boolean isOfType(AxiomType ... axiomTypes);
+    boolean isOfType(AxiomType<?> ... axiomTypes);
 
     /**
      * Determines if this axiom is one of the specified types
@@ -119,7 +119,7 @@ public interface OWLAxiom extends OWLObject {
      * @return <code>true</code> if this axioms is one of the specified types, otherwise <code>false</code>
      * @since 3.0
      */
-    boolean isOfType(Set<AxiomType> types);
+    boolean isOfType(Set<AxiomType<?>> types);
 
     /**
      * Gets this axioms in negation normal form.  i.e. any class expressions involved in this

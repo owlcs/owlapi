@@ -68,6 +68,7 @@ public enum OWLRDFVocabulary {
     OWL_INVERSE_FUNCTIONAL_PROPERTY(Namespaces.OWL, "InverseFunctionalProperty"),
 
     /** @deprecated For backwards compatibility only */
+    @Deprecated
     OWL_ANTI_SYMMETRIC_PROPERTY(Namespaces.OWL, "AntisymmetricProperty"),
 
     OWL_ASYMMETRIC_PROPERTY(Namespaces.OWL, "AsymmetricProperty"),
@@ -99,6 +100,7 @@ public enum OWLRDFVocabulary {
     /**
      * @deprecated For backwards compatibility only
      */
+    @Deprecated
     OWL_SELF_RESTRICTION(Namespaces.OWL, "SelfRestriction"),
 
     OWL_HAS_SELF(Namespaces.OWL, "hasSelf"),
@@ -120,6 +122,7 @@ public enum OWLRDFVocabulary {
     /**
      * @deprecated For backwards compatibility only
      */
+    @Deprecated
     OWL_DECLARED_AS(Namespaces.OWL, "declaredAs"),
 
     OWL_INDIVIDUAL(Namespaces.OWL, "Individual"),
@@ -147,10 +150,12 @@ public enum OWLRDFVocabulary {
     OWL_MAX_QUALIFIED_CARDINALITY(Namespaces.OWL, "maxQualifiedCardinality"),
 
     /** @deprecated For backwards compatibility only */
+    @Deprecated
     OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION(
             Namespaces.OWL, "NegativeObjectPropertyAssertion"),
 
     /** @deprecated For backwards compatibility only */
+    @Deprecated
     OWL_NEGATIVE_DATA_PROPERTY_ASSERTION(
             Namespaces.OWL, "NegativeDataPropertyAssertion"),
 
@@ -326,8 +331,10 @@ public enum OWLRDFVocabulary {
     }
 
     /**
+     * @return The URI
      * @deprecated Use getIRI() instead.
      */
+    @Deprecated
     public URI getURI() {
         return uri;
     }

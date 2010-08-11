@@ -110,7 +110,7 @@ public enum OWL2Datatype {
     static {
         Set<IRI> uris = new HashSet<IRI>();
         for (OWL2Datatype v : OWL2Datatype.values()) {
-            uris.add(v.getIRI());
+            uris.add(v.iri);
         }
         ALL_IRIS = Collections.unmodifiableSet(new TreeSet<IRI>(uris));
     }
@@ -156,7 +156,7 @@ public enum OWL2Datatype {
             throw new OWLRuntimeException(datatype + " is not a built in datatype!");
         }
         for (OWL2Datatype v : values()) {
-            if (v.getIRI().equals(datatype)) {
+            if (v.iri.equals(datatype)) {
                 return v;
             }
         }
@@ -203,7 +203,7 @@ public enum OWL2Datatype {
 
     /**
      * Gets the IRI of this datatype
-     * @return
+     * @return The IRI of this datatype
      */
     public IRI getIRI() {
         return iri;
@@ -362,15 +362,5 @@ public enum OWL2Datatype {
                     return s;
             }
         }
-    }
-
-    public static void main(String[] args) {
-        for(OWL2Datatype v : OWL2Datatype.values()) {
-            System.out.println(v);
-        }
-
-        boolean matches =
-        OWL2Datatype.OWL_RATIONAL.getPattern().matcher("22/7").matches();
-        System.out.println("MATCH: " + matches);
     }
 }

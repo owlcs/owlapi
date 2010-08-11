@@ -52,7 +52,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
 
 
     public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
-        constant = (OWLLiteral) handler.getOWLObject();
+        constant = handler.getOWLObject();
     }
 
 

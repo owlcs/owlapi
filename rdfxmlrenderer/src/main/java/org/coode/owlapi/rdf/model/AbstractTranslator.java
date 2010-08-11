@@ -572,7 +572,6 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         addStrongTyping(individual);
     }
 
-    private Set<OWLAnonymousIndividual> processing = new HashSet<OWLAnonymousIndividual>();
 
     public void visit(OWLAnonymousIndividual individual) {
         translateAnonymousNode(individual);
@@ -728,7 +727,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     /**
      * Maps Objects to nodes
      */
-    private Map<Object, NODE> nodeMap = new IdentityHashMap<Object, NODE>();
+    private Map<OWLObject, NODE> nodeMap = new IdentityHashMap<OWLObject, NODE>();
 
 
     private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subject, IRI pred, OWLObject obj) {
@@ -822,6 +821,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     /**
      * Gets a resource that has a IRI
      * @param IRI The IRI of the resource
+     * @return The resource with the specified IRI
      */
     protected abstract RESOURCE getResourceNode(IRI IRI);
 
@@ -833,6 +833,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
      * Gets an anonymous resource.
      * @param key A key for the resource.  For a given key identity, the resources
      * that are returned should be equal and have the same hashcode.
+     * @return The resource
      */
     protected abstract RESOURCE getAnonymousNode(Object key);
 
@@ -841,6 +842,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
      * Gets a literal node that represents a typed literal.
      * @param literal The literal
      * @param datatype The datatype that types the literal
+     * @return The literal
      */
     protected abstract LITERAL getLiteralNode(String literal, IRI datatype);
 

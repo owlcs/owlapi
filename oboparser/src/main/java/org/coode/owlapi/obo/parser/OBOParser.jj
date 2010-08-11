@@ -5,12 +5,13 @@ options {
 
 PARSER_BEGIN(OBOParser)
 
-package org.coode.obo.parser;
+package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.*;
 import java.net.*;
 import java.util.*;
 
+@SuppressWarnings("all")
 public class OBOParser {
 
     private OBOParserHandler handler;

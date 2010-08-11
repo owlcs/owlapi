@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.io;
 
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLException;
 /*
  * Copyright (C) 2007, University of Manchester

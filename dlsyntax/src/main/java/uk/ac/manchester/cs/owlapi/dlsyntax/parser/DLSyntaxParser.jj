@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.util.*;
 
 import org.semanticweb.owlapi.model.*;
 
-
+@SuppressWarnings("all")
 public class DLSyntaxParser {
 
     private String defaultNamespace = "http://www.sematicweb.org/ontologies/Ontology" + System.nanoTime();
@@ -690,9 +690,9 @@ OWLLiteral parseLiteral() :
     Token t;
 }
 {
-    t=<INT>{return factory.getOWLTypedLiteral(Integer.parseInt(t.image));}
+    t=<INT>{return factory.getOWLLiteral(Integer.parseInt(t.image));}
     |
-    t=<DOUBLE>{return factory.getOWLTypedLiteral(Double.parseDouble(t.image));}
+    t=<DOUBLE>{return factory.getOWLLiteral(Double.parseDouble(t.image));}
 }
 
 IRI parseId() :

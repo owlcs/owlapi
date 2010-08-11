@@ -77,7 +77,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertNotNull(ont.getAxioms());
         assertNotNull(ont.getLogicalAxioms());
 
-        for (AxiomType type : AxiomType.AXIOM_TYPES) {
+        for (AxiomType<?> type : AxiomType.AXIOM_TYPES) {
             assertNotNull(ont.getAxioms(type));
         }
 

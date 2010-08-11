@@ -25,12 +25,14 @@ public enum ModuleType {
      * @deprecated
      * Module type representing bottom-of-top modules (aka upper-of-lower modules).
      */
+    @Deprecated
 	BOT_OF_TOP ("bottom-of-top"),
 
     /**
      * @deprecated
      * Module type representing top-of-bottom modules (aka lower-of-upper modules).
      */
+    @Deprecated
 	TOP_OF_BOT ("top-of-bottom"),
 
     /**

@@ -88,14 +88,12 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         this.replacementMap = new HashMap<OWLEntity, IRI>(entityIRIReplacementMap);
     }
 
+    @SuppressWarnings("unchecked")
     public <O extends OWLObject> O duplicateObject(OWLObject object) {
         object.accept(this);
         return (O) obj;
     }
 
-    protected Object getLastObject() {
-        return obj;
-    }
 
     protected void setLastObject(Object obj) {
         this.obj = obj;
@@ -103,8 +101,10 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
 
     /**
-     * Given an IRI, returns a IRI.  This may be the same IRI, or
+     * Given an IRI belonging to an entity, returns a IRI.  This may be the same IRI that the entity has, or
      * an alternative IRI if a replacement has been specified.
+     * @param entity The entity
+     * @return The IRI
      */
     private IRI getIRI(OWLEntity entity) {
         IRI replacement = replacementMap.get(entity);
@@ -795,26 +795,13 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     /**
      * A utility function that duplicates a set of objects.
      *
-     * @param objs The set of object to be duplicated
+     * @param objects The set of object to be duplicated
+     * @return The set of duplicated objects
      */
-    private <O extends OWLObject> Set<O> duplicateSet(Set<O> objs) {
+    @SuppressWarnings("unchecked")
+    private <O extends OWLObject> Set<O> duplicateSet(Set<O> objects) {
         Set<O> dup = new HashSet<O>();
-        for (O o : objs) {
-            o.accept(this);
-            dup.add((O) obj);
-        }
-        return dup;
-    }
-
-
-    /**
-     * A utility function that duplicates a set of objects.
-     *
-     * @param objs The set of object to be duplicated
-     */
-    private <O extends SWRLObject> Set<O> duplicateSWRLObjectSet(Set<O> objs) {
-        Set<O> dup = new HashSet<O>();
-        for (O o : objs) {
+        for (O o : objects) {
             o.accept(this);
             dup.add((O) obj);
         }

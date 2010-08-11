@@ -41,7 +41,7 @@ public interface OWLClassAssertionAxiom extends OWLIndividualAxiom, OWLSubClassO
 
     /**
      * Gets the class expression that is asserted to be a type for an individual by this axiom.
-     * @return
+     * @return The class expression
      */
     OWLClassExpression getClassExpression();
 

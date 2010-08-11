@@ -49,7 +49,7 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
 
     /**
      * Gets the annotation that was added to an ontology.
-     * @return
+     * @return The annotation that was added
      */
     public OWLAnnotation getAnnotation() {
         return annotation;
@@ -84,6 +84,6 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
             return false;
         }
         AddOntologyAnnotation other = (AddOntologyAnnotation) obj;
-        return annotation.equals(other.getAnnotation()) && getOntology().equals(other.getOntology());
+        return annotation.equals(other.annotation) && getOntology().equals(other.getOntology());
     }
 }

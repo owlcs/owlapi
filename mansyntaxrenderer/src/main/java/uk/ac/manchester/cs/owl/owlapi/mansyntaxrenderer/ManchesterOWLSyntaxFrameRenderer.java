@@ -1085,7 +1085,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     ((OWLObject) obj).accept(this);
                 }
                 else if (obj instanceof Collection) {
-                    for (Iterator<Object> listIt = ((Collection) obj).iterator(); listIt.hasNext();) {
+                    for (Iterator<?> listIt = ((Collection<?>) obj).iterator(); listIt.hasNext();) {
                         Object o = listIt.next();
                         if (o instanceof OWLObject) {
                             ((OWLObject) o).accept(this);

@@ -105,7 +105,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
      * @return <code>true</code> if this axioms is one of the specified types, otherwise <code>false</code>
      * @since 3.0
      */
-    public boolean isOfType(Set<AxiomType> types) {
+    public boolean isOfType(Set<AxiomType<?>> types) {
         return types.contains(getAxiomType());
     }
 

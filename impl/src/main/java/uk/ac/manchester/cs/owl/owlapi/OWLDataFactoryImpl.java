@@ -68,36 +68,36 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @param iri The IRI of the entity that will be returned
      * @return An entity that has the same IRI as this entity and is of the specified type
      */
+    @SuppressWarnings("unchecked")
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType, IRI iri) {
+        E ret = null;
         if (entityType.equals(EntityType.CLASS)) {
-            return (E) getOWLClass(iri);
+            ret = (E) getOWLClass(iri);
         }
         else if (entityType.equals(EntityType.OBJECT_PROPERTY)) {
-            return (E) getOWLObjectProperty(iri);
+            ret = (E) getOWLObjectProperty(iri);
         }
         else if (entityType.equals(EntityType.DATA_PROPERTY)) {
-            return (E) getOWLDataProperty(iri);
+            ret = (E) getOWLDataProperty(iri);
         }
         else if (entityType.equals(EntityType.ANNOTATION_PROPERTY)) {
-            return (E) getOWLAnnotationProperty(iri);
+            ret = (E) getOWLAnnotationProperty(iri);
         }
         else if (entityType.equals(EntityType.NAMED_INDIVIDUAL)) {
-            return (E) getOWLNamedIndividual(iri);
+            ret = (E) getOWLNamedIndividual(iri);
         }
         else if (entityType.equals(EntityType.DATATYPE)) {
-            return (E) getOWLDatatype(iri);
+            ret = (E) getOWLDatatype(iri);
         }
-        else {
-            throw new OWLRuntimeException("Unknown entity type: " + entityType);
-        }
+        return ret;
     }
 
     public OWLClass getOWLClass(IRI iri) {
         return data.getOWLClass(iri);
     }
 
-    public OWLClass getOWLClass(String curi, PrefixManager prefixManager) {
-        return getOWLClass(prefixManager.getIRI(curi));
+    public OWLClass getOWLClass(String iri, PrefixManager prefixManager) {
+        return getOWLClass(prefixManager.getIRI(iri));
     }
 
     public OWLAnnotationProperty getOWLAnnotationProperty(String abbreviatedIRI, PrefixManager prefixManager) {
@@ -598,7 +598,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality, OWLObjectPropertyExpression property) {
-        return new OWLObjectExactCardinalityImpl(this, property, cardinality, getOWLThing());
+        return new OWLObjectExactCardinalityImpl(this, property, cardinality, OWL_THING);
     }
 
 
@@ -608,7 +608,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality, OWLObjectPropertyExpression property) {
-        return new OWLObjectMinCardinalityImpl(this, property, cardinality, getOWLThing());
+        return new OWLObjectMinCardinalityImpl(this, property, cardinality, OWL_THING);
     }
 
 
@@ -618,7 +618,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality, OWLObjectPropertyExpression property) {
-        return new OWLObjectMaxCardinalityImpl(this, property, cardinality, getOWLThing());
+        return new OWLObjectMaxCardinalityImpl(this, property, cardinality, OWL_THING);
     }
 
 
@@ -1220,30 +1220,33 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     /**
+     * @deprecated Use either {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)} or
+     * {@link #getSWRLRule(java.util.Set, java.util.Set)} instead.
      * Gets a SWRL rule which is named with a URI
-     * @param iri
-     * @param body
-     * @param head
+     * @param iri The rule IRI - this parameter is IGNORED since OWL axioms do not have IRIs,
+     * and is here for backwards compatability.
+     * @param body The atoms that make up the body of the rule
+     * @param head The atoms that make up the head of the rule
      */
-
+    @Deprecated
     public SWRLRule getSWRLRule(IRI iri, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
-
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>(2);
-        annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/owlapi#iri")), getOWLStringLiteral(iri.toQuotedString())));
+        annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/owlapi#iri")), getOWLLiteral(iri.toQuotedString())));
         return new SWRLRuleImpl(this, body, head, annos);
     }
 
 
     /**
-     * Gets a SWRL rule which is not named with a URI - i.e. that is anonymous.
-     * @param nodeID
-     * @param body
-     * @param head
+     * @deprecated Use either {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)} or
+     * {@link #getSWRLRule(java.util.Set, java.util.Set)} instead.
+     * @param nodeID The node ID
+     * @param body The atoms that make up the body of the rule
+     * @param head The atoms that make up the head of the rule
      */
-
+    @Deprecated
     public SWRLRule getSWRLRule(NodeID nodeID, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>(2);
-        annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/owlapi#nodeID")), getOWLStringLiteral(nodeID.toString())));
+        annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/owlapi#nodeID")), getOWLLiteral(nodeID.toString())));
         return new SWRLRuleImpl(this, body, head, annos);
     }
 
@@ -1260,19 +1263,19 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     /**
      * Gets a SWRL rule which is anonymous - i.e. isn't named with a URI
-     * @param antecendent The atoms that make up the antecedent
+     * @param antecedent The atoms that make up the antecedent
      * @param consequent The atoms that make up the consequent
      */
 
-    public SWRLRule getSWRLRule(Set<? extends SWRLAtom> antecendent, Set<? extends SWRLAtom> consequent) {
-        return new SWRLRuleImpl(this, antecendent, consequent);
+    public SWRLRule getSWRLRule(Set<? extends SWRLAtom> antecedent, Set<? extends SWRLAtom> consequent) {
+        return new SWRLRuleImpl(this, antecedent, consequent);
     }
 
 
     /**
      * Gets a SWRL class atom, i.e.  C(x) where C is a class expression and
      * x is either an individual id or an i-variable
-     * @param predicate
+     * @param predicate The class expression that corresponds to the predicate
      * @param arg The argument (x)
      */
 
@@ -1284,7 +1287,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     /**
      * Gets a SWRL data range atom, i.e.  D(x) where D is an OWL data range and
      * x is either a constant or a d-variable
-     * @param predicate
+     * @param predicate The data range that corresponds to the predicate
      * @param arg The argument (x)
      */
 

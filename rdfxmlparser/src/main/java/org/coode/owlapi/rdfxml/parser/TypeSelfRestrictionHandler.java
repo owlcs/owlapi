@@ -33,6 +33,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Bio-Health Informatics Group<br>
  * Date: 13-Feb-2007<br><br>
  */
+@SuppressWarnings("deprecation")
 public class TypeSelfRestrictionHandler extends BuiltInTypeHandler {
 
     public TypeSelfRestrictionHandler(OWLRDFConsumer consumer) {

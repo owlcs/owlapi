@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeException;
  * Bio-Health Informatics Group<br>
  * Date: 21-Feb-2007<br><br>
  */
+@SuppressWarnings("deprecation")
 public class TPDeclaredAsHandler extends TriplePredicateHandler {
 
     public TPDeclaredAsHandler(OWLRDFConsumer consumer) {

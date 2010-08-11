@@ -6,6 +6,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import java.net.*;
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public class KRSSParser implements KRSSParserConstants {
 
     private OWLOntology ontology;

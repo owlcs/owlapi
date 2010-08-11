@@ -113,7 +113,7 @@ public class OBOTagValuePairList {
     public Set<String> getValues(OBOVocabulary key) {
         Set<String> values = knownTVPs.get(key.getName());
         if (values == null) {
-            values = Collections.EMPTY_SET;
+            values = Collections.emptySet();
         }
         return values;
     }

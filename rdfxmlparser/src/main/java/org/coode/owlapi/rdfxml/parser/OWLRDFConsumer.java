@@ -368,15 +368,12 @@ public class OWLRDFConsumer implements RDFConsumer {
         addSingleValuedResPredicate(OWL_ON_PROPERTY);
         addSingleValuedResPredicate(OWL_SOME_VALUES_FROM);
         addSingleValuedResPredicate(OWL_ALL_VALUES_FROM);
-//        addSingleValuedResPredicate(OWL_ONE_OF);
         addSingleValuedResPredicate(OWL_ON_CLASS);
         addSingleValuedResPredicate(OWL_ON_DATA_RANGE);
-//        addSingleValuedResPredicate(OWL_INTERSECTION_OF);
-//        addSingleValuedResPredicate(OWL_UNION_OF);
-//        addSingleValuedResPredicate(OWL_COMPLEMENT_OF);
     }
 
-
+    // Suppress deprecation warnings, because we use deprecated vocabulary for backwards compatibility
+    @SuppressWarnings("deprecation")
     private void setupSynonymMap() {
         // We can load legacy ontologies by providing synonyms for built in vocabulary
         // where the vocabulary has simply changed (e.g. DAML+OIL -> OWL)
@@ -393,6 +390,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         // Preliminary OWL 1.1 Vocab
         synonymMap.put(IRI.create(Namespaces.OWL + "cardinalityType"), OWL_ON_CLASS.getIRI());
         synonymMap.put(IRI.create(Namespaces.OWL + "dataComplementOf"), OWL_COMPLEMENT_OF.getIRI());
+
         synonymMap.put(OWL_ANTI_SYMMETRIC_PROPERTY.getIRI(), OWL_ASYMMETRIC_PROPERTY.getIRI());
 
         synonymMap.put(OWL_DATA_RANGE.getIRI(), OWL_DATATYPE.getIRI());
@@ -437,6 +435,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      * of the OWL 1.1 vocabulary.  We can map early versions of the vocabulary
      * to the current OWL 1.1 vocabulary.
      */
+    @SuppressWarnings("deprecation")
     private void setupLegacyOWLSpecStuff() {
         for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
             addLegacyMapping(v);
@@ -2049,7 +2048,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
             Set<IRI> objects = map.get(predicate);
             if (objects == null) {
-                objects = new FakeSet();
+                objects = new FakeSet<IRI>();
                 map.put(predicate, objects);
             }
             objects.add(object);
@@ -2070,7 +2069,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
             Set<OWLLiteral> objects = map.get(predicate);
             if (objects == null) {
-                objects = new FakeSet();
+                objects = new FakeSet<OWLLiteral>();
                 map.put(predicate, objects);
             }
             objects.add(con);

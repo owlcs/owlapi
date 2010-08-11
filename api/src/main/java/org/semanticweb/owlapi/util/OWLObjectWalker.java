@@ -40,7 +40,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     private Set<O> objects;
 
-    private OWLObjectVisitorEx visitor;
+    private OWLObjectVisitorEx<?> visitor;
 
     private boolean visitDuplicates;
 
@@ -116,10 +116,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * path is empty)
      */
     public boolean isFirstClassExpressionInPath(OWLClassExpression classExpression) {
-        if(classExpressionPath.isEmpty()) {
-            return false;
-        }
-        return classExpressionPath.get(0).equals(classExpression);
+        return !classExpressionPath.isEmpty() && classExpressionPath.get(0).equals(classExpression);
     }
 
     /**

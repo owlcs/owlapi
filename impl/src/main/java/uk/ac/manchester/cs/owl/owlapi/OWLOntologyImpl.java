@@ -126,6 +126,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {
         return (Set<T>) internals.getAxioms(axiomType, internals.getAxiomsByType(), false);
     }
@@ -2053,7 +2054,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             return false;
         }
         OWLOntology other = (OWLOntology) obj;
-        return getOntologyID().equals(other.getOntologyID());
+        return ontologyID.equals(other.getOntologyID());
     }
 
 

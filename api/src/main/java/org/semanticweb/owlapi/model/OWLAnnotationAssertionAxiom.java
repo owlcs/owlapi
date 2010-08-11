@@ -49,7 +49,7 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom {
 
     /**
      * Gets the annotation value.  This is either an {@link org.semanticweb.owlapi.model.IRI}, an {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual}
-     * or an {@link OWLTypedLiteral} or an {@link org.semanticweb.owlapi.model.OWLStringLiteral}. Annotation values can be visited with an {@link org.semanticweb.owlapi.model.OWLAnnotationValueVisitor}.
+     * or an {@link OWLLiteral}. Annotation values can be visited with an {@link org.semanticweb.owlapi.model.OWLAnnotationValueVisitor}.
      * @see {@link org.semanticweb.owlapi.model.OWLAnnotationValueVisitor}
      * @see {@link OWLAnnotationValueVisitorEx}
      * @return The annotation value.

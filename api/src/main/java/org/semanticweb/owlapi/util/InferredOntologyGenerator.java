@@ -80,7 +80,7 @@ public class InferredOntologyGenerator {
      * Adds a generator if it isn't already in the list of generators
      * @param generator The generator to be added.
      */
-    public void addGenerator(InferredAxiomGenerator generator) {
+    public void addGenerator(InferredAxiomGenerator<?> generator) {
         if (!axiomGenerators.contains(generator)) {
             axiomGenerators.add(generator);
         }

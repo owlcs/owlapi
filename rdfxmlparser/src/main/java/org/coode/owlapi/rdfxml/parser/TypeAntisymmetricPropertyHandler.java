@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeException;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
+@SuppressWarnings("deprecation")
 public class TypeAntisymmetricPropertyHandler extends BuiltInTypeHandler {
 
     public TypeAntisymmetricPropertyHandler(OWLRDFConsumer consumer) {

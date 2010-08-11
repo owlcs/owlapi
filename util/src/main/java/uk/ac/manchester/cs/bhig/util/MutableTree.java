@@ -261,16 +261,4 @@ public class MutableTree<N> implements Tree<N> {
         return maxChildDepth;
     }
 
-    public static void main(String[] args) {
-        MutableTree tree = new MutableTree("1");
-        for(int i = 0; i < 3; i++) {
-            MutableTree tree1 = new MutableTree("1." + i);
-            tree.addChild(tree1);
-            for(int j = 0; j < 2; j++) {
-                tree1.addChild(new MutableTree("2." + i + "." + j ));
-            }
-        }
-        System.out.println(tree.getSize());
-        System.out.println(tree.getMaxDepth());
-    }
 }

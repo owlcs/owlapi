@@ -53,11 +53,10 @@ public abstract class AlternateAbstractInMemOWLOntologyFactory implements OWLOnt
      * Creates an empty ontology that a concrete representation can be
      * parsed into.  Subclasses can override this method to change the implementation
      * of the ontology.
-     *
      * @param documentIRI
      */
     public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
-        if(ontologyManager == null) {
+        if (ontologyManager == null) {
             throw new NullPointerException();
         }
         OWLOntology ont = ThreadSafeOWLManager.getOWLImplementationBinding().getOWLOntology(ontologyManager, ontologyID);
