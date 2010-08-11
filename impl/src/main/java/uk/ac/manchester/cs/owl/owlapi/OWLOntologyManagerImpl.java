@@ -612,11 +612,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         try {
             for (OWLOntologyFactory factory : ontologyFactories) {
                 if (factory.canLoad(documentSource)) {
-                    OWLOntology ontology = null;
                     try {
                         // Note - there is no need to add the ontology here, because it will be added
                         // when the ontology is created.
-                        ontology = factory.loadOWLOntology(documentSource, this);
+                        OWLOntology ontology = factory.loadOWLOntology(documentSource, this);
                         idOfLoadedOntology = ontology.getOntologyID();
                         // Store the ontology to the document IRI mapping
                         documentIRIsByID.put(ontology.getOntologyID(), documentSource.getDocumentIRI());
@@ -650,16 +649,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         ontologiesByID.remove(ontology.getOntologyID());
         ontologyFormatsByOntology.remove(ontology);
         documentIRIsByID.remove(ontology.getOntologyID());
-        for (Iterator<OWLImportsDeclaration> it = ontologyIDsByImportsDeclaration.keySet().iterator(); it.hasNext();) {
-            if (ontologyIDsByImportsDeclaration.get(it.next()).equals(ontology.getOntologyID())) {
-                it.remove();
-            }
-        }
         resetImportsClosureCache();
     }
 
     private void addOntology(OWLOntology ont) {
         ontologiesByID.put(ont.getOntologyID(), ont);
+        resetImportsClosureCache();
     }
 
 
@@ -682,6 +677,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Handles a rename of an ontology.  This method should only be called *after* the change has been applied
      * @param oldID The original ID of the ontology
+     * @param newID The new ID of the ontology
      */
     private void renameOntology(OWLOntologyID oldID, OWLOntologyID newID) {
         OWLOntology ont = ontologiesByID.get(oldID);
