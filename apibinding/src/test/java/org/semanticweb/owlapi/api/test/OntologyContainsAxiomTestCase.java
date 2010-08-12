@@ -67,7 +67,9 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
     }
     
     public void testOntologyContainsAxiomsForRDFXML1() throws Exception {
-    	runTestOntologyContainsAxioms1(new RDFXMLOntologyFormat());
+        RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
+        format.setAddMissingTypes(false);
+        runTestOntologyContainsAxioms1(format);
     }
     
     public void testOntologyContainsAxiomsForOWLXML1() throws Exception {

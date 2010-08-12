@@ -185,7 +185,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
 
     private void write(RDFLiteralNode node) {
-        if (node.isTyped()) {
+        if (node.getDatatype() != null) {
             if (node.getDatatype().equals(manager.getOWLDataFactory().getIntegerOWLDatatype().getIRI())) {
                 write(node.getLiteral());
             }

@@ -64,17 +64,28 @@ public class RDFLiteralNode extends RDFNode {
         this.lang = lang;
     }
 
-
+    /**
+     * Gets the lexical form of this literal.
+     * @return The lexical form
+     */
     public String getLiteral() {
         return literal;
     }
 
 
+    /**
+     * Gets the lang
+     * @return The lang, or <code>null</code> if there is no lang
+     */
     public String getLang() {
         return lang;
     }
 
 
+    /**
+     * Gets the datatype, or <code>null</code> if there is no datatype
+     * @return
+     */
     public IRI getDatatype() {
         return datatype;
     }

@@ -40,11 +40,11 @@ public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLClass clsA = getOWLClass("A");
         OWLLiteral literal = getFactory().getOWLLiteral(3);
-        OWLLiteral untypedLiteral = getFactory().getOWLLiteral("A");
+        OWLLiteral stringLiteral = getFactory().getOWLLiteral("A", "");
         OWLDataProperty propP = getOWLDataProperty("p");
         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataHasValue(propP, literal)));
         axioms.add(getFactory().getOWLDeclarationAxiom(propP));
-        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataHasValue(propP, untypedLiteral)));
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataHasValue(propP, stringLiteral)));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

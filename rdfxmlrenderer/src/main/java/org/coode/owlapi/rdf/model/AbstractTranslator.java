@@ -552,12 +552,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     public void visit(OWLLiteral node) {
-        if (node.hasLang()) {
-            nodeMap.put(node, getLiteralNode(node.getLiteral(), node.getLang()));
-        }
-        else {
-            nodeMap.put(node, getLiteralNode(node.getLiteral(), node.getDatatype().getIRI()));
-        }
+        nodeMap.put(node, getLiteralNode(node));
     }
 
     public void visit(OWLDataProperty property) {
@@ -856,16 +851,17 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     protected abstract RESOURCE getAnonymousNode(Object key);
 
 
-    /**
-     * Gets a literal node that represents a typed literal.
-     * @param literal The literal
-     * @param datatype The datatype that types the literal
-     * @return The literal
-     */
-    protected abstract LITERAL getLiteralNode(String literal, IRI datatype);
-
-
-    protected abstract LITERAL getLiteralNode(String literal, String lang);
+    protected abstract LITERAL getLiteralNode(OWLLiteral literal);
+//    /**
+//     * Gets a literal node that represents a typed literal.
+//     * @param literal The literal
+//     * @param datatype The datatype that types the literal
+//     * @return The literal
+//     */
+//    protected abstract LITERAL getLiteralNode(String literal, IRI datatype);
+//
+//
+//    protected abstract LITERAL getLiteralNode(String literal, String lang);
 
 
     protected abstract void addTriple(RESOURCE subject, PREDICATE pred, NODE object);

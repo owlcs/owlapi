@@ -1,5 +1,6 @@
 package org.coode.owlapi.rdf.model;
 
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.IRI;
@@ -59,14 +60,14 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResourceNode, 
         return new RDFResourceNode(System.identityHashCode(key));
     }
 
-
-    protected RDFLiteralNode getLiteralNode(String literal, IRI datatype) {
-        return new RDFLiteralNode(literal, datatype);
-    }
-
-
-    protected RDFLiteralNode getLiteralNode(String literal, String lang) {
-        return new RDFLiteralNode(literal, lang);
+    @Override
+    protected RDFLiteralNode getLiteralNode(OWLLiteral literal) {
+        if (!literal.isRDFPlainLiteral()) {
+            return new RDFLiteralNode(literal.getLiteral(), literal.getDatatype().getIRI());
+        }
+        else {
+            return new RDFLiteralNode(literal.getLiteral(), literal.hasLang() ? literal.getLang() : null);
+        }
     }
 
 

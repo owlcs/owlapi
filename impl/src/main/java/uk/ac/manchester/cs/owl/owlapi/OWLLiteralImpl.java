@@ -1,6 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +61,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     public String getLiteral() {
         return literal;
     }
-
+    
     public boolean isRDFPlainLiteral() {
         return datatype.equals(getOWLDataFactory().getRDFPlainLiteral());
     }
