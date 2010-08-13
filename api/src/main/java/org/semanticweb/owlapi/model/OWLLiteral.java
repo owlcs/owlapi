@@ -51,7 +51,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
 
     /**
      * Gets the lexical value of this literal.  Note that if the datatype is <code>rdf:PlainLiteral</code> then the
-     * abbreviated lexical form will be returned.
+     * abbreviated lexical form will be returned.  That is, the language tag is not included.
      * @return The lexical value of this literal. If the datatype is <code>rdf:PlainLiteral</code> then the return
      *         values are as follows: If the literal is of the form <code>"abc@"^^rdf:PlainLiteral</code> then the return value
      *         will be "abc" (without the language tag included).  If the literal is of the form
