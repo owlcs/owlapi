@@ -62,9 +62,34 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
     /**
      * Gets the <code>OWLDatatype</code> which types this literal.
      * @return The <code>OWLDatatype</code> that types this literal.  Note that for strings with language tag (previously
-     *         considered to be untyped literals) the datatype will be rdf:PlainLiteral.
+     *         considered to be untyped literals) the datatype will be rdf:PlainLiteral.  The return value is
+     *         never <code>null</code>.
      */
     OWLDatatype getDatatype();
+
+    /**
+     * Determines if this literal has a language tag.
+     * @return <code>true</code> if this literal has a non-empty language tag, otherwise <code>false</code>
+     */
+    boolean hasLang();
+
+    /**
+     * Gets the language tag of this literal.
+     * @return The language tag of this literal.  If the literal does not have a language tag, because it is
+     *         not of the type <code>rdf:PlainLiteral</code>, or because its language tag is empty, then the empty string
+     *         will be returned. (The <code>null</code> value is never returned).
+     */
+    String getLang();
+
+
+    /**
+     * Determines if this <code>OWLLiteral</code> has a particular language tag.
+     * @param lang The specific lang to test for. The tag will be normalised - white space will be trimmed from
+     * the end and it will be converted to lower case.
+     * @return <code>true</code> if this literal has a language tag equal to <code>lang</code>, otherwise
+     *         <code>false</code>.
+     */
+    boolean hasLang(String lang);
 
 
     /**
@@ -134,32 +159,6 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *                               the lexical space of the float datatype.
      */
     float parseFloat() throws NumberFormatException;
-
-    /**
-     * Determines if this literal has a language tag.
-     * @return <code>true</code> if this literal has a non-empty language tag, otherwise <code>false</code>
-     */
-    boolean hasLang();
-
-    /**
-     * Gets the language tag of this literal.
-     * @return The language tag of this literal.  If the literal does not have a language tag, because it is
-     *         not of the type <code>rdf:PlainLiteral</code>, or because its language tag is empty, then the empty string
-     *         will be returned. (The <code>null</code> value is never returned).
-     */
-    String getLang();
-
-
-    /**
-     * Determines if this <code>OWLLiteral</code> has a particular language tag.
-     * @param lang The specific lang to test for. The tag will be normalised - white space will be trimmed from
-     * the end and it will be converted to lower case.
-     * @return <code>true</code> if this literal has a language tag equal to <code>lang</code>, otherwise
-     *         <code>false</code>.
-     */
-    boolean hasLang(String lang);
-
-
 
     void accept(OWLDataVisitor visitor);
 
