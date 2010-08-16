@@ -99,7 +99,9 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 parser.parseOntology(getOWLOntologyManager(), ontology);
             }
             finally {
-                br.close();
+            	if(br!=null) {
+            		br.close();
+                }
             }
             return new ManchesterOWLSyntaxOntologyFormat();
         }
