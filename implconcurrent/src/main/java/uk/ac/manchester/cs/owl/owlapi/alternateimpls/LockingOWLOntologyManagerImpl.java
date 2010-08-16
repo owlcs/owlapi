@@ -104,7 +104,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager, OWLOnt
     private Map<OWLOntologyID, OWLOntology> ontologiesByID;
     private Map<OWLOntologyID, IRI> documentIRIsByID;
     private Map<OWLOntology, OWLOntologyFormat> ontologyFormatsByOntology;
-    private Map<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration;
+    private ConcurrentHashMap<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration;
     private List<OWLOntologyIRIMapper> documentMappers;
     private List<OWLOntologyFactory> ontologyFactories;
     private List<OWLOntologyStorer> ontologyStorers;
@@ -138,7 +138,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager, OWLOnt
         ontologyFormatsByOntology = createMap();
         documentMappers = createList();
         ontologyFactories = createList();
-        ontologyIDsByImportsDeclaration = createMap();
+        ontologyIDsByImportsDeclaration = (ConcurrentHashMap)createMap();
         installDefaultURIMappers();
         installDefaultOntologyFactories();
 
@@ -688,11 +688,17 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager, OWLOnt
         ontologiesByID.remove(ontology.getOntologyID());
         ontologyFormatsByOntology.remove(ontology);
         documentIRIsByID.remove(ontology.getOntologyID());
-        for (Iterator<OWLImportsDeclaration> it = ontologyIDsByImportsDeclaration.keySet().iterator(); it.hasNext();) {
-            if (ontologyIDsByImportsDeclaration.get(it.next()).equals(ontology.getOntologyID())) {
-                it.remove();
-            }
+        for(Iterator<Map.Entry<OWLImportsDeclaration, OWLOntologyID>> it=ontologyIDsByImportsDeclaration.entrySet().iterator();it.hasNext();) {
+        	Map.Entry<OWLImportsDeclaration, OWLOntologyID> e=it.next();
+        	if(ontology.getOntologyID().equals(e.getValue())) {
+        		it.remove();
+        	}
         }
+//        for (Iterator<OWLImportsDeclaration> it = ontologyIDsByImportsDeclaration.keySet().iterator(); it.hasNext();) {
+//            if (ontologyIDsByImportsDeclaration.get(it.next()).equals(ontology.getOntologyID())) {
+//                it.remove();
+//            }
+//        }
         resetImportsClosureCache();
     }
 

@@ -1,6 +1,8 @@
 package uk.ac.manchester.cs.owl.owlapi.alternateimpls;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.*;
@@ -106,7 +108,7 @@ public class ThreadSafeOWLReasoner implements OWLReasoner {
     }
 
     public synchronized Node<OWLClass> getEquivalentClasses(OWLClassExpression ce) throws InconsistentOntologyException, ClassExpressionNotInProfileException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getEquivalentClasses(ce);
+    	return this.delegate.getEquivalentClasses(ce);
     }
 
     public synchronized NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce) throws ReasonerInterruptedException, TimeOutException, FreshEntitiesException, InconsistentOntologyException {
