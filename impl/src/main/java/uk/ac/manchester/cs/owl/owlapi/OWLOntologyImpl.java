@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.util.OWLEntityCollector;
  */
 public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology {
 
-    private OWLOntologyManager manager;
+    private final OWLOntologyManager manager;
 
     private OWLOntologyID ontologyID;
 
@@ -59,7 +59,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     protected OWLOntologyImplInternals internals;
 
-    private OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
+    //private OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
 
     public OWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
         super(manager.getOWLDataFactory());
@@ -562,6 +562,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
+    	OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
         return entityReferenceChecker.containsReference(owlEntity);
     }
 
@@ -1195,14 +1196,15 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private ChangeAxiomVisitor changeVisitor = new ChangeAxiomVisitor();
+    //private ChangeAxiomVisitor changeVisitor = new ChangeAxiomVisitor();
 
-    private OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
+    //private OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
 
 
     public List<OWLOntologyChange> applyChange(OWLOntologyChange change) {
         List<OWLOntologyChange> appliedChanges = new ArrayList<OWLOntologyChange>(2);
-        changeFilter.reset();
+        OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
+//        changeFilter.reset();
         change.accept(changeFilter);
         List<OWLOntologyChange> applied = changeFilter.getAppliedChanges();
         if (applied.size() == 1) {
@@ -1217,6 +1219,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     public List<OWLOntologyChange> applyChanges(List<OWLOntologyChange> changes) {
         List<OWLOntologyChange> appliedChanges = new ArrayList<OWLOntologyChange>();
+        OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
         for (OWLOntologyChange change : changes) {
             change.accept(changeFilter);
             appliedChanges.addAll(changeFilter.getAppliedChanges());
@@ -1249,6 +1252,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         public void visit(RemoveAxiom change) {
             OWLAxiom axiom = change.getAxiom();
             if (containsAxiom(axiom)) {
+            	ChangeAxiomVisitor changeVisitor = new ChangeAxiomVisitor();
                 changeVisitor.setAddAxiom(false);
                 axiom.accept(changeVisitor);
                 appliedChanges.add(change);
@@ -1269,6 +1273,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         public void visit(AddAxiom change) {
             OWLAxiom axiom = change.getAxiom();
             if (!containsAxiom(axiom)) {
+            	ChangeAxiomVisitor changeVisitor = new ChangeAxiomVisitor();
                 changeVisitor.setAddAxiom(true);
                 axiom.accept(changeVisitor);
                 appliedChanges.add(change);
@@ -1314,11 +1319,12 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private OWLNamedObjectReferenceAdder referenceAdder = new OWLNamedObjectReferenceAdder();
+    //private OWLNamedObjectReferenceAdder referenceAdder = new OWLNamedObjectReferenceAdder();
 
 
     private void handleAxiomAdded(OWLAxiom axiom) {
         OWLEntityCollector entityCollector = new OWLEntityCollector();
+        OWLNamedObjectReferenceAdder referenceAdder = new OWLNamedObjectReferenceAdder();
         axiom.accept(entityCollector);
         for (OWLEntity object : entityCollector.getObjects()) {
             referenceAdder.setAxiom(axiom);
@@ -1333,11 +1339,12 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    private OWLNamedObjectReferenceRemover referenceRemover = new OWLNamedObjectReferenceRemover();
+    //private OWLNamedObjectReferenceRemover referenceRemover = new OWLNamedObjectReferenceRemover();
 
 
     private void handleAxiomRemoved(OWLAxiom axiom) {
         OWLEntityCollector entityCollector = new OWLEntityCollector();
+        OWLNamedObjectReferenceRemover referenceRemover = new OWLNamedObjectReferenceRemover();
         axiom.accept(entityCollector);
         for (OWLEntity object : entityCollector.getObjects()) {
             referenceRemover.setAxiom(axiom);
