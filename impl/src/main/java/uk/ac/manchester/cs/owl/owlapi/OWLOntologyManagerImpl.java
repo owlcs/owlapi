@@ -331,8 +331,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             throw new ImmutableOWLOntologyChangeException(change);
         }
         checkForOntologyIDChange(change);
-        System.out.println("OWLOntologyManagerImpl.enactChangeApplication() "+change);
-        //new Exception().printStackTrace(System.out);
         List<OWLOntologyChange> appliedChanges = ((OWLMutableOntology) ont).applyChange(change);
 
         checkForImportsChange(change);
