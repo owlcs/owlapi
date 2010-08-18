@@ -7,7 +7,8 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.*;/*
+import java.util.*;import java.util.concurrent.ConcurrentHashMap;
+/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
@@ -146,7 +147,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         return create("owlapi:ontology" + System.nanoTime());
     }
 
-    private static Map<String, String> prefixCache = new HashMap<String, String>();
+    private static Map<String, String> prefixCache = new ConcurrentHashMap<String, String>();
 
 
     private static class IRIImpl extends IRI {
