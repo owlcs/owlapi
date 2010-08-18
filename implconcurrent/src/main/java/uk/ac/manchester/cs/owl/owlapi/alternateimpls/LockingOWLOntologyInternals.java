@@ -23,8 +23,6 @@ package uk.ac.manchester.cs.owl.owlapi.alternateimpls;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-import static org.semanticweb.owlapi.model.AxiomType.*;
-
 import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.Map;
