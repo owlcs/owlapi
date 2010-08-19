@@ -4,12 +4,10 @@ import org.semanticweb.owlapi.reasoner.impl.*;
 import org.semanticweb.owlapi.reasoner.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 import org.semanticweb.owlapi.util.Version;
-import org.semanticweb.owlapi.vocab.OWLDataFactoryVocabulary;
 
 import java.util.*;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 /*
  * Copyright (C) 2009, University of Manchester
  *
@@ -105,7 +103,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     private <T extends OWLObject> void handleChanges(Set<OWLAxiom> added, Set<OWLAxiom> removed, HierarchyInfo<T> hierarchyInfo) {
         Set<T> sig = hierarchyInfo.getEntitiesInSignature(added);
         sig.addAll(hierarchyInfo.getEntitiesInSignature(removed));
-        hierarchyInfo.processChanges(sig);
+        hierarchyInfo.processChanges(sig, added, removed);
 
     }
 
@@ -120,9 +118,9 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public void prepareReasoner() throws ReasonerInterruptedException, TimeOutException {
-        classHierarchyInfo.prepare();
-        objectPropertyHierarchyInfo.prepare();
-        dataPropertyHierarchyInfo.prepare();
+        classHierarchyInfo.computeHierarchy();
+        objectPropertyHierarchyInfo.computeHierarchy();
+        dataPropertyHierarchyInfo.computeHierarchy();
         prepared = true;
     }
 
@@ -138,7 +136,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         return CollectionFactory.createSet(InferenceType.CLASS_HIERARCHY, InferenceType.OBJECT_PROPERTY_HIERARCHY, InferenceType.DATA_PROPERTY_HIERARCHY);
     }
 
-    private void checkForInterrupt() {
+    private void throwExceptionIfInterrupted() {
         if (interrupted) {
             interrupted = false;
             throw new ReasonerInterruptedException();
@@ -154,7 +152,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public boolean isSatisfiable(OWLClassExpression classExpression) throws ReasonerInterruptedException, TimeOutException, ClassExpressionNotInProfileException, FreshEntitiesException, InconsistentOntologyException {
-        return true;
+        return !classExpression.isAnonymous() && !getEquivalentClasses(classExpression.asOWLClass()).contains(getDataFactory().getOWLNothing());
     }
 
     public Node<OWLClass> getUnsatisfiableClasses() throws ReasonerInterruptedException, TimeOutException {
@@ -245,29 +243,20 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     public NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
         OWLObjectPropertyNodeSet ns = new OWLObjectPropertyNodeSet();
-        if (!pe.isAnonymous()) {
-            ensurePrepared();
-            return objectPropertyHierarchyInfo.getNodeHierarchyChildren(pe.asOWLObjectProperty(), direct, ns);
-        }
-        return ns;
+        ensurePrepared();
+        return objectPropertyHierarchyInfo.getNodeHierarchyChildren(pe, direct, ns);
     }
 
     public NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
         OWLObjectPropertyNodeSet ns = new OWLObjectPropertyNodeSet();
-        if (!pe.isAnonymous()) {
-            ensurePrepared();
-            return objectPropertyHierarchyInfo.getNodeHierarchyParents(pe.asOWLObjectProperty(), direct, ns);
-        }
-        return ns;
+        ensurePrepared();
+        return objectPropertyHierarchyInfo.getNodeHierarchyParents(pe, direct, ns);
     }
 
     public Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
         OWLObjectPropertyNode nd = new OWLObjectPropertyNode();
-        if (!pe.isAnonymous()) {
-            ensurePrepared();
-            return objectPropertyHierarchyInfo.getEquivalents(pe.asOWLObjectProperty());
-        }
-        return nd;
+        ensurePrepared();
+        return objectPropertyHierarchyInfo.getEquivalents(pe);
     }
 
     public NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
@@ -276,22 +265,8 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     public Node<OWLObjectPropertyExpression> getInverseObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
         ensurePrepared();
-        Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
-        Set<OWLObjectPropertyExpression> equivalentObjectProperties = getEquivalentObjectProperties(pe).getEntities();
-        for (OWLObjectPropertyExpression property : equivalentObjectProperties) {
-            for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
-                for (OWLInverseObjectPropertiesAxiom axiom : ontology.getInverseObjectPropertyAxioms(property)) {
-                    for (OWLObjectPropertyExpression invProp : axiom.getPropertiesMinus(property)) {
-                        OWLObjectPropertyExpression invPropSimp = invProp.getSimplified();
-                        if (!invProp.isAnonymous()) {
-                            props.add(invPropSimp.asOWLObjectProperty());
-                            props.addAll(getEquivalentObjectProperties(invPropSimp).getEntities());
-                        }
-                    }
-                }
-            }
-        }
-        return new OWLObjectPropertyNode(props);
+        OWLObjectPropertyExpression inv = pe.getInverseProperty().getSimplified();
+        return getEquivalentObjectProperties(inv);
     }
 
     public NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
@@ -604,39 +579,78 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////
+    //////  HierarchyInfo
+    //////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private abstract class HierarchyInfo<T extends OWLObject> {
 
+        private RawHierarchyProvider<T> rawParentChildProvider;
+
+        /**
+         * The entity that always appears in the top node in the hierarchy
+         */
         private T topEntity;
 
+        /**
+         * The entity that always appears as the bottom node in the hierarchy
+         */
         private T bottomEntity;
 
-        private Set<T> roots = new HashSet<T>();
+        private Set<T> directChildrenOfTopNode = new HashSet<T>();
 
-        private Map<T, Node<T>> cycles = new HashMap<T, Node<T>>();
+        private Set<T> directParentsOfBottomNode = new HashSet<T>();
 
-        private RawHierarchyProvider<T> rawHierarchyProvider;
+        private NodeCache<T> nodeCache;
+
 
         private String name;
 
         private int classificationSize;
 
-        public HierarchyInfo(String name, T topEntity, T bottomEntity, RawHierarchyProvider<T> rawHierarchyProvider) {
+        public HierarchyInfo(String name, T topEntity, T bottomEntity, RawHierarchyProvider<T> rawParentChildProvider) {
             this.topEntity = topEntity;
             this.bottomEntity = bottomEntity;
-            this.rawHierarchyProvider = rawHierarchyProvider;
+            this.nodeCache = new NodeCache<T>(this);
+            this.rawParentChildProvider = rawParentChildProvider;
             this.name = name;
         }
 
+        public RawHierarchyProvider<T> getRawParentChildProvider() {
+            return rawParentChildProvider;
+        }
+
+        /**
+         * Gets the set of relevant entities from the specified ontology
+         * @param ont The ontology
+         * @return A set of entities to be "classified"
+         */
         protected abstract Set<T> getEntities(OWLOntology ont);
 
+        /**
+         * Creates a node for a given set of entities
+         * @param cycle The set of entities
+         * @return A node
+         */
         protected abstract DefaultNode<T> createNode(Set<T> cycle);
 
         protected abstract DefaultNode<T> createNode();
 
+        /**
+         * Gets the set of relevant entities in a particular axiom
+         * @param ax The axiom
+         * @return The set of relevant entities in the signature of the specified axiom
+         */
         protected abstract Set<? extends T> getEntitiesInSignature(OWLAxiom ax);
 
-        public Set<T> getEntitiesInSignature(Set<OWLAxiom> axioms) {
+
+        private Set<T> getEntitiesInSignature(Set<OWLAxiom> axioms) {
             Set<T> result = new HashSet<T>();
             for (OWLAxiom ax : axioms) {
                 result.addAll(getEntitiesInSignature(ax));
@@ -644,163 +658,151 @@ public class StructuralReasoner extends OWLReasonerBase {
             return result;
         }
 
-        private Collection<T> getChildrenInternal(T parent) {
-            Collection<T> result = rawHierarchyProvider.getChildren(parent);
-            Node<T> parentCycle = cycles.get(parent);
-            if (parentCycle != null) {
-                for (T t : parentCycle.getEntities()) {
-                    if (!t.equals(parent)) {
-                        if (t.isTopEntity()) {
-                            result.addAll(roots);
-                        }
-                        else {
-                            result.addAll(rawHierarchyProvider.getChildren(t));
-                        }
-
-                    }
-                }
-            }
-            return result;
-        }
-
-        private Collection<T> getParentsInternal(T child, Map<T, Collection<T>> cache) {
-            Collection<T> result = null;
-            if (cache != null) {
-                result = cache.get(child);
-            }
-            if (result == null) {
-                result = rawHierarchyProvider.getParents(child);
-                Node<T> cycleNode = cycles.get(child);
-                if (cycleNode != null) {
-                    for (T t : cycleNode) {
-                        if (!t.equals(child)) {
-                            result.addAll(rawHierarchyProvider.getParents(child));
-                        }
-                    }
-                }
-                if (result.isEmpty()) {
-                    roots.add(child);
-                    result.add(topEntity);
-                }
-                if (cache != null) {
-                    cache.put(child, result);
-                }
-            }
-            return result;
-        }
-
-
-        public void prepare() {
+        public void computeHierarchy() {
             pm.reasonerTaskStarted("Computing " + name + " hierarchy");
             pm.reasonerTaskBusy();
-            cycles.clear();
+            nodeCache.clear();
             Map<T, Collection<T>> cache = new HashMap<T, Collection<T>>();
-            Set<T> processed = new HashSet<T>();
-            HashSet<Set<T>> result = new HashSet<Set<T>>();
             Set<T> entities = new HashSet<T>();
             for (OWLOntology ont : getRootOntology().getImportsClosure()) {
                 entities.addAll(getEntities(ont));
             }
             classificationSize = entities.size();
             pm.reasonerTaskProgressChanged(0, classificationSize);
-            computeCyclesForSignature(entities, cache, processed, result);
-            addCycles(result);
+            updateForSignature(entities, cache);
             pm.reasonerTaskStopped();
         }
 
-        private void computeCyclesForSignature(Set<T> signature, Map<T, Collection<T>> cache, Set<T> processed, HashSet<Set<T>> result) {
+
+        private void updateForSignature(Set<T> signature, Map<T, Collection<T>> cache) {
+            HashSet<Set<T>> cyclesResult = new HashSet<Set<T>>();
+            Set<T> processed = new HashSet<T>();
+            nodeCache.clearTopNode();
+            nodeCache.clearBottomNode();
+            nodeCache.clearNodes(signature);
+
+            directChildrenOfTopNode.removeAll(signature);
+
+            Set<T> equivTopOrChildrenOfTop = new HashSet<T>();
+            Set<T> equivBottomOrParentsOfBottom = new HashSet<T>();
             for (T entity : signature) {
                 if (!processed.contains(entity)) {
                     pm.reasonerTaskProgressChanged(processed.size(), signature.size());
-                    tarjan(entity, 0, new Stack<T>(), new HashMap<T, Integer>(), new HashMap<T, Integer>(), result, processed, new HashSet<T>(), cache);
-                    checkForInterrupt();
+                    tarjan(entity, 0, new Stack<T>(), new HashMap<T, Integer>(), new HashMap<T, Integer>(), cyclesResult, processed, new HashSet<T>(), cache, equivTopOrChildrenOfTop, equivBottomOrParentsOfBottom);
+                    throwExceptionIfInterrupted();
                 }
             }
-        }
+            // Store new cycles
+            for (Set<T> cycle : cyclesResult) {
+                nodeCache.addNode(cycle);
+            }
 
-        private void addCycles(HashSet<Set<T>> forCycles) {
-            for (Set<T> entity : forCycles) {
-                DefaultNode<T> node = createNode(entity);
-                for (T cls : entity) {
-                    cycles.put(cls, node);
-                    Set<T> rawSupers = new HashSet<T>(rawHierarchyProvider.getParents(cls));
-                    rawSupers.removeAll(node.getEntities());
-                    if (rawSupers.isEmpty()) {
-                        roots.add(cls);
+            directChildrenOfTopNode.addAll(equivTopOrChildrenOfTop);
+            directChildrenOfTopNode.removeAll(nodeCache.getTopNode().getEntities());
+
+            directParentsOfBottomNode.addAll(equivBottomOrParentsOfBottom);
+            directParentsOfBottomNode.removeAll(nodeCache.getBottomNode().getEntities());
+
+
+            // Now check that each found cycle has a proper parent an child
+            for (Set<T> node : cyclesResult) {
+                if (!node.contains(topEntity) && !node.contains(bottomEntity)) {
+                    boolean childOfTop = true;
+                    for (T element : node) {
+                        Collection<T> parents = rawParentChildProvider.getParents(element);
+                        parents.removeAll(node);
+                        parents.removeAll(nodeCache.getTopNode().getEntities());
+                        if (!parents.isEmpty()) {
+                            childOfTop = false;
+                            break;
+                        }
+                    }
+                    if (childOfTop) {
+                        directChildrenOfTopNode.addAll(node);
+                    }
+
+                    boolean parentOfBottom = true;
+                    for (T element : node) {
+                        Collection<T> children = rawParentChildProvider.getChildren(element);
+                        children.removeAll(node);
+                        children.removeAll(nodeCache.getBottomNode().getEntities());
+                        if (!children.isEmpty()) {
+                            parentOfBottom = false;
+                            break;
+                        }
+                    }
+                    if (parentOfBottom) {
+                        directParentsOfBottomNode.addAll(node);
                     }
                 }
+
             }
-            roots.remove(topEntity);
+
         }
 
         /**
          * Processes the specified signature that represents the signature of potential changes
          * @param signature The signature
          */
-        public void processChanges(Set<T> signature) {
-            for (T entity : signature) {
-                if (roots.contains(entity)) {
-                    if (!rawHierarchyProvider.getParents(entity).isEmpty()) {
-                        roots.remove(entity);
-                    }
-                }
-            }
-            // Break existing cycles - they will be reformed if necessary
-            removeCyclesForSignature(signature);
-            // Compute new cycles
-            HashSet<Set<T>> result = new HashSet<Set<T>>();
-            computeCyclesForSignature(signature, new HashMap<T, Collection<T>>(), new HashSet<T>(), result);
-            // Add them
-            addCycles(result);
-
+        public void processChanges(Set<T> signature, Set<OWLAxiom> added, Set<OWLAxiom> removed) {
+            updateForSignature(signature, null);
         }
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /**
-         * Removes all cycles that contain entities in the specified signature
-         * @param signature The signature - cycles that contain any part of the signature will be removed.
+         * Applies the tarjan algorithm for a given entity.  This computes the cycle that the entity is involved in (if
+         * any).
+         * @param entity The entity
+         * @param cache A cache of children to parents - may be <code>null</code> if no caching is to take place.
+         * @param childrenOfTop A set of entities that have a raw parent that is the top entity
+         * @param parentsOfBottom A set of entities that have a raw parent that is the bottom entity
          */
-        private void removeCyclesForSignature(Set<T> signature) {
-            for (Iterator<T> it = cycles.keySet().iterator(); it.hasNext();) {
-                T entity = it.next();
-                if (signature.contains(entity)) {
-                    it.remove();
+        public void tarjan(T entity, int index, Stack<T> stack, Map<T, Integer> indexMap, Map<T, Integer> lowlinkMap, Set<Set<T>> result, Set<T> processed, Set<T> stackEntities, Map<T, Collection<T>> cache, Set<T> childrenOfTop, Set<T> parentsOfBottom) {
+            throwExceptionIfInterrupted();
+            if (processed.add(entity)) {
+                Collection<T> rawChildren = rawParentChildProvider.getChildren(entity);
+                if (rawChildren.isEmpty() || rawChildren.contains(bottomEntity)) {
+                    parentsOfBottom.add(entity);
                 }
             }
-            for (T entity : signature) {
-                roots.remove(entity);
-            }
-
-
-        }
-
-        public Set<Set<T>> computeCycleForEntites(Set<T> entities) {
-            Map<T, Collection<T>> cache = new HashMap<T, Collection<T>>();
-            Set<T> processed = new HashSet<T>();
-            HashSet<Set<T>> result = new HashSet<Set<T>>();
-            for (T entity : entities) {
-                tarjan(entity, 0, new Stack<T>(), new HashMap<T, Integer>(), new HashMap<T, Integer>(), result, processed, new HashSet<T>(), cache);
-            }
-            return result;
-        }
-
-        public void tarjan(T entity, int index, Stack<T> stack, Map<T, Integer> indexMap, Map<T, Integer> lowlinkMap, Set<Set<T>> result, Set<T> processed, Set<T> stackEntities, Map<T, Collection<T>> cache) {
-            checkForInterrupt();
-            processed.add(entity);
             pm.reasonerTaskProgressChanged(processed.size(), classificationSize);
             indexMap.put(entity, index);
             lowlinkMap.put(entity, index);
             index = index + 1;
             stack.push(entity);
             stackEntities.add(entity);
-            // First call to getParents - cache roots
-            Collection<T> parents = getParentsInternal(entity, cache);
-            if (parents.isEmpty() || parents.contains(topEntity)) {
-                roots.add(entity);
+
+            // Get the raw parents - cache if necessary
+            Collection<T> rawParents = null;
+            if (cache != null) {
+                // We are therefore caching raw parents of children.
+                rawParents = cache.get(entity);
+                if (rawParents == null) {
+                    // Not in cache!
+                    rawParents = rawParentChildProvider.getParents(entity);
+                    // Note down if our entity is a
+                    if (rawParents.isEmpty() || rawParents.contains(topEntity)) {
+                        childrenOfTop.add(entity);
+                    }
+                    cache.put(entity, rawParents);
+
+                }
+            }
+            else {
+                rawParents = rawParentChildProvider.getParents(entity);
+                // Note down if our entity is a
+                if (rawParents.isEmpty() || rawParents.contains(topEntity)) {
+                    childrenOfTop.add(entity);
+                }
             }
 
-            for (T superEntity : parents) {
+
+            for (T superEntity : rawParents) {
                 if (!indexMap.containsKey(superEntity)) {
-                    tarjan(superEntity, index, stack, indexMap, lowlinkMap, result, processed, stackEntities, cache);
+                    tarjan(superEntity, index, stack, indexMap, lowlinkMap, result, processed, stackEntities, cache, childrenOfTop, parentsOfBottom);
                     lowlinkMap.put(entity, Math.min(lowlinkMap.get(entity), lowlinkMap.get(superEntity)));
                 }
                 else if (stackEntities.contains(superEntity)) {
@@ -818,88 +820,196 @@ public class StructuralReasoner extends OWLReasonerBase {
                     }
                 }
                 if (scc.size() > 1) {
+                    // We ADD a cycle
                     result.add(scc);
                 }
             }
         }
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
         public NodeSet<T> getNodeHierarchyChildren(T parent, boolean direct, DefaultNodeSet<T> ns) {
-            if (parent.equals(bottomEntity)) {
+            Node<T> node = nodeCache.getNode(parent);
+
+            if (node.isBottomNode()) {
                 return ns;
             }
-            Collection<T> children = getChildrenInternal(parent);
-            // Children MAY contain CYCLES
-            Node<T> parentCycle = cycles.get(parent);
-            if (parentCycle != null) {
-                children.removeAll(parentCycle.getEntities());
+
+
+            Set<T> directChildren = new HashSet<T>();
+            for (T equiv : node) {
+                directChildren.addAll(rawParentChildProvider.getChildren(equiv));
+                if(directParentsOfBottomNode.contains(equiv)) {
+                    ns.addNode(nodeCache.getBottomNode());
+                }
             }
-            for (Iterator<T> childIt = children.iterator(); childIt.hasNext();) {
-                T child = childIt.next();
-                Node<T> cycleNode = cycles.get(child);
-                if (cycleNode != null) {
-                    if (!cycleNode.contains(parent)) {
-                        ns.addNode(cycleNode);
-                    }
-                    childIt.remove();
-                }
-                else {
-                    ns.addEntity(child);
-                }
-                if (!direct) {
-                    if (cycleNode == null || (!(cycleNode.contains(parent) && cycleNode.contains(child)))) {
-                        getNodeHierarchyChildren(child, direct, ns);
-                    }
+            directChildren.removeAll(node.getEntities());
+
+            if (node.isTopNode()) {
+                // Special treatment
+                directChildren.addAll(directChildrenOfTopNode);
+            }
+
+            for (Node<T> childNode : nodeCache.getNodes(directChildren)) {
+                ns.addNode(childNode);
+            }
+
+
+            if (!direct) {
+                for (T child : directChildren) {
+                    getNodeHierarchyChildren(child, direct, ns);
                 }
             }
             return ns;
         }
 
         public NodeSet<T> getNodeHierarchyParents(T child, boolean direct, DefaultNodeSet<T> ns) {
-            if (child.equals(topEntity)) {
+            Node<T> node = nodeCache.getNode(child);
+
+            if (node.isTopNode()) {
                 return ns;
             }
-            Collection<T> parents = getParentsInternal(child, null);
-            Node<T> childCycle = cycles.get(child);
-            if (childCycle != null) {
-                parents.removeAll(childCycle.getEntities());
-            }
-            if (parents.isEmpty() && childCycle != null && !childCycle.contains(topEntity)) {
-                Node<T> topNode = cycles.get(topEntity);
-                if (topNode == null) {
-                    ns.addEntity(topEntity);
-                }
-                else {
-                    ns.addNode(topNode);
-                }
-            }
-            for (Iterator<T> parIt = parents.iterator(); parIt.hasNext();) {
-                T par = parIt.next();
-                Node<T> cycleNode = cycles.get(par);
-                if (cycleNode != null) {
-                    ns.addNode(cycleNode);
-                    parIt.remove();
-                }
-                else {
-                    ns.addEntity(par);
-                }
-                if (!direct) {
-                    if (cycleNode == null || !(cycleNode.contains(child) && cycleNode.contains(par))) {
-                        getNodeHierarchyParents(par, direct, ns);
-                    }
-                }
 
+
+            Set<T> directParents = new HashSet<T>();
+            for (T equiv : node) {
+                directParents.addAll(rawParentChildProvider.getParents(equiv));
+                if(directChildrenOfTopNode.contains(equiv)) {
+                    ns.addNode(nodeCache.getTopNode());
+                }
+            }
+            directParents.removeAll(node.getEntities());
+
+            if (node.isBottomNode()) {
+                // Special treatment
+                directParents.addAll(directParentsOfBottomNode);
+            }
+            
+            for (Node<T> parentNode : nodeCache.getNodes(directParents)) {
+                ns.addNode(parentNode);
+            }
+
+            if (!direct) {
+                for(T parent : directParents) {
+                    getNodeHierarchyParents(parent, direct, ns);
+                }
             }
             return ns;
         }
 
         public Node<T> getEquivalents(T element) {
-            Node<T> node = cycles.get(element);
-            if (node == null) {
-                DefaultNode<T> newNode = createNode();
-                newNode.add(element);
-                node = newNode;
+            return nodeCache.getNode(element);
+        }
+    }
+
+
+    private class NodeCache<T extends OWLObject> {
+
+        private HierarchyInfo<T> hierarchyInfo;
+
+        private Node<T> topNode;
+
+        private Node<T> bottomNode;
+
+        private Map<T, Node<T>> map = new HashMap<T, Node<T>>();
+
+        protected NodeCache(HierarchyInfo<T> hierarchyInfo) {
+            this.hierarchyInfo = hierarchyInfo;
+            clearTopNode();
+            clearBottomNode();
+        }
+
+        public void addNode(Node<T> node) {
+            for (T element : node.getEntities()) {
+                map.put(element, node);
+                if (element.isTopEntity()) {
+                    topNode = node;
+                }
+                else if (element.isBottomEntity()) {
+                    bottomNode = node;
+                }
             }
-            return node;
+        }
+
+        public Set<Node<T>> getNodes(Set<T> elements) {
+            Set<Node<T>> result = new HashSet<Node<T>>();
+            for (T element : elements) {
+                result.add(getNode(element));
+            }
+            return result;
+        }
+
+        public Set<T> getTopEntities() {
+            return topNode.getEntities();
+        }
+
+        public Set<T> getBottomEntities() {
+            return bottomNode.getEntities();
+        }
+
+        public Node<T> getNode(T containing) {
+            Node<T> parentNode = map.get(containing);
+            if (parentNode != null) {
+                return parentNode;
+            }
+            else {
+                return hierarchyInfo.createNode(Collections.singleton(containing));
+            }
+        }
+
+        public void addNode(Set<T> elements) {
+            addNode(hierarchyInfo.createNode(elements));
+        }
+
+        public Node<T> getTopNode() {
+            return topNode;
+        }
+
+        public Node<T> getBottomNode() {
+            return bottomNode;
+        }
+
+        public void setTopNode(Node<T> topNode) {
+            this.topNode = topNode;
+        }
+
+        public void setBottomNode(Node<T> bottomNode) {
+            this.bottomNode = bottomNode;
+        }
+
+        public void clearTopNode() {
+            removeNode(hierarchyInfo.topEntity);
+            topNode = hierarchyInfo.createNode(Collections.singleton(hierarchyInfo.topEntity));
+            addNode(topNode);
+        }
+
+        public void clearBottomNode() {
+            removeNode(hierarchyInfo.bottomEntity);
+            bottomNode = hierarchyInfo.createNode(Collections.singleton(hierarchyInfo.bottomEntity));
+            addNode(bottomNode);
+        }
+
+        public void clearNodes(Set<T> containing) {
+            for (T entity : containing) {
+                removeNode(entity);
+            }
+        }
+
+        public void clear() {
+            map.clear();
+            clearTopNode();
+            clearBottomNode();
+        }
+
+        public void removeNode(T containing) {
+            Node<T> node = map.remove(containing);
+            if (node != null) {
+                for (T object : node.getEntities()) {
+                    map.remove(object);
+                }
+            }
         }
     }
 
@@ -966,6 +1076,33 @@ public class StructuralReasoner extends OWLReasonerBase {
         protected DefaultNode<OWLObjectPropertyExpression> createNode() {
             return new OWLObjectPropertyNode();
         }
+
+        /**
+         * Processes the specified signature that represents the signature of potential changes
+         * @param signature The signature
+         */
+        @Override
+        public void processChanges(Set<OWLObjectPropertyExpression> signature, Set<OWLAxiom> added, Set<OWLAxiom> removed) {
+            boolean rebuild = false;
+            for (OWLAxiom ax : added) {
+                if(ax instanceof OWLObjectPropertyAxiom) {
+                    rebuild = true;
+                    break;
+                }
+            }
+            if(!rebuild) {
+                for(OWLAxiom ax : removed) {
+                    if(ax instanceof OWLObjectPropertyAxiom) {
+                        rebuild = true;
+                        break;
+                    }
+                }
+            }
+            if(rebuild) {
+                ((RawObjectPropertyHierarchyProvider) getRawParentChildProvider()).rebuild();
+            }
+            super.processChanges(signature, added, removed);
+        }
     }
 
     private class DataPropertyHierarchyInfo extends HierarchyInfo<OWLDataProperty> {
@@ -1006,8 +1143,19 @@ public class StructuralReasoner extends OWLReasonerBase {
      */
     private interface RawHierarchyProvider<T> {
 
+        /**
+         * Gets the parents as asserted.  These parents may also be children (resulting in equivalences).
+         * @param child The child whose parents are to be retrieved
+         * @return The raw asserted parents of the specified child.  If the child does not have any parents
+         *         then the empty set can be returned.
+         */
         Collection<T> getParents(T child);
 
+        /**
+         * Gets the children as asserted
+         * @param parent The parent whose children are to be retrieved
+         * @return The raw asserted children of the speicified parent
+         */
         Collection<T> getChildren(T parent);
 
     }
@@ -1078,9 +1226,6 @@ public class StructuralReasoner extends OWLReasonerBase {
                     }
                 }
             }
-            if (result.isEmpty() && !parent.isOWLNothing()) {
-                result.add(OWLDataFactoryVocabulary.OWLNothing);
-            }
             return result;
         }
     }
@@ -1088,22 +1233,58 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private class RawObjectPropertyHierarchyProvider implements RawHierarchyProvider<OWLObjectPropertyExpression> {
 
-        public Collection<OWLObjectPropertyExpression> getParents(OWLObjectPropertyExpression child) {
-            Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
-            for (OWLObjectPropertyExpression prop : child.getSuperProperties(getRootOntology().getImportsClosure())) {
-                OWLObjectPropertyExpression simplifiedProp = prop.getSimplified();
-                properties.add(simplifiedProp);
+        private OWLObjectPropertyManager propertyManager;
+
+        private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> sub2Super;
+
+        private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> super2Sub;
+
+        private RawObjectPropertyHierarchyProvider() {
+            rebuild();
+        }
+
+        public void rebuild() {
+            propertyManager = new OWLObjectPropertyManager(getRootOntology().getOWLOntologyManager(), getRootOntology());
+            sub2Super = propertyManager.getPropertyHierarchy();
+            super2Sub = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
+            for(OWLObjectPropertyExpression sub : sub2Super.keySet()) {
+                for(OWLObjectPropertyExpression superProp : sub2Super.get(sub)) {
+                    Set<OWLObjectPropertyExpression> subs = super2Sub.get(superProp);
+                    if(subs == null) {
+                        subs = new HashSet<OWLObjectPropertyExpression>();
+                        super2Sub.put(superProp, subs);
+                    }
+                    subs.add(sub);
+                }
             }
-            return properties;
+        }
+
+        public Collection<OWLObjectPropertyExpression> getParents(OWLObjectPropertyExpression child) {
+            if(child.isBottomEntity()) {
+                return Collections.emptySet();
+            }
+            Set<OWLObjectPropertyExpression> propertyExpressions = sub2Super.get(child);
+            if(propertyExpressions == null) {
+                return Collections.emptySet();
+            }
+            else {
+                return new HashSet<OWLObjectPropertyExpression>(propertyExpressions);
+            }
+
         }
 
         public Collection<OWLObjectPropertyExpression> getChildren(OWLObjectPropertyExpression parent) {
-            Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
-            for (OWLObjectPropertyExpression prop : parent.getSubProperties(getRootOntology().getImportsClosure())) {
-                OWLObjectPropertyExpression simplifiedProp = prop.getSimplified();
-                properties.add(simplifiedProp.asOWLObjectProperty());
+            if(parent.isTopEntity()) {
+                return Collections.emptySet();
             }
-            return properties;
+            Set<OWLObjectPropertyExpression> propertyExpressions = super2Sub.get(parent);
+            if(propertyExpressions == null) {
+                return Collections.emptySet();
+            }
+            else {
+                return new HashSet<OWLObjectPropertyExpression>(propertyExpressions);
+            }
+
         }
     }
 
@@ -1125,4 +1306,5 @@ public class StructuralReasoner extends OWLReasonerBase {
             return properties;
         }
     }
+
 }

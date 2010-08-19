@@ -533,6 +533,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange) {
+        if(dataRange == null) {
+            throw new NullPointerException("The filler of the restriction (dataRange) must not be null");
+        }
         return new OWLDataAllValuesFromImpl(this, property, dataRange);
     }
 
@@ -543,6 +546,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLDataExactCardinality getOWLDataExactCardinality(int cardinality, OWLDataPropertyExpression property, OWLDataRange dataRange) {
+        if(dataRange == null) {
+            throw new NullPointerException("The filler of the restriction (dataRange) must not be null");
+        }
         return new OWLDataExactCardinalityImpl(this, property, cardinality, dataRange);
     }
 
@@ -553,6 +559,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality, OWLDataPropertyExpression property, OWLDataRange dataRange) {
+        if(dataRange == null) {
+            throw new NullPointerException("The filler of the restriction (dataRange) must not be null");
+        }
         return new OWLDataMaxCardinalityImpl(this, property, cardinality, dataRange);
     }
 
@@ -563,11 +572,17 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLDataMinCardinality getOWLDataMinCardinality(int cardinality, OWLDataPropertyExpression property, OWLDataRange dataRange) {
+        if(dataRange == null) {
+            throw new NullPointerException("The filler of the restriction (dataRange) must not be null");
+        }
         return new OWLDataMinCardinalityImpl(this, property, cardinality, dataRange);
     }
 
 
     public OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange) {
+        if(dataRange == null) {
+            throw new NullPointerException("The filler of the restriction (dataRange) must not be null");
+        }
         return new OWLDataSomeValuesFromImpl(this, property, dataRange);
     }
 
@@ -583,6 +598,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectAllValuesFrom getOWLObjectAllValuesFrom(OWLObjectPropertyExpression property, OWLClassExpression classExpression) {
+        if(classExpression == null) {
+            throw new NullPointerException("The filler of the restriction (classExpression) must not be null");
+        }
         return new OWLObjectAllValuesFromImpl(this, property, classExpression);
     }
 
@@ -603,6 +621,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality, OWLObjectPropertyExpression property, OWLClassExpression classExpression) {
+        if(classExpression == null) {
+            throw new NullPointerException("The filler of the restriction (classExpression) must not be null");
+        }
         return new OWLObjectExactCardinalityImpl(this, property, cardinality, classExpression);
     }
 
@@ -613,6 +634,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality, OWLObjectPropertyExpression property, OWLClassExpression classExpression) {
+        if(classExpression == null) {
+            throw new NullPointerException("The filler of the restriction (classExpression) must not be null");
+        }
         return new OWLObjectMinCardinalityImpl(this, property, cardinality, classExpression);
     }
 
@@ -623,6 +647,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality, OWLObjectPropertyExpression property, OWLClassExpression classExpression) {
+        if(classExpression == null) {
+            throw new NullPointerException("The filler of the restriction (classExpression) must not be null");
+        }
         return new OWLObjectMaxCardinalityImpl(this, property, cardinality, classExpression);
     }
 
@@ -633,6 +660,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLObjectSomeValuesFrom getOWLObjectSomeValuesFrom(OWLObjectPropertyExpression property, OWLClassExpression classExpression) {
+        if(classExpression == null) {
+            throw new NullPointerException("The filler of the restriction (classExpression) must not be null");
+        }
         return new OWLObjectSomeValuesFromImpl(this, property, classExpression);
     }
 

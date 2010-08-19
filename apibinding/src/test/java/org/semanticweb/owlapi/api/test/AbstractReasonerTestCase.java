@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.api.test;
 
-import org.semanticweb.owlapi.api.test.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.*;
 
@@ -47,11 +46,9 @@ public class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(clsD, clsA));
         man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(clsD, clsF));
         man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(clsF, clsD));
-        man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(clsD, clsG));
         man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(clsE, clsC));
         man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(clsK, clsD));
         man.addAxiom(ont, getFactory().getOWLEquivalentClassesAxiom(clsK, getFactory().getOWLNothing()));
-//        man.addAxiom(ont, getFactory().getOWLDisjointClassesAxiom(clsK, clsF));
 
         OWLObjectPropertyExpression propP = getPropP();
         OWLObjectPropertyExpression propQ = getPropQ();

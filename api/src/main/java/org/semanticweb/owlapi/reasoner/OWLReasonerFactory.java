@@ -1,11 +1,6 @@
 package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.util.Version;
-
-import java.util.Set;
 
 /*
  * Copyright (C) 2008, University of Manchester
