@@ -10,7 +10,7 @@
           the zip file produced by the build.  For release builds this
           should be of the format <major>.<minor>.<revision>.  Note that the svn
             revision number will automatically be appended to this build number! -->
-    <property name="version" value="3.0.0"/>
+    <property name="version" value="3.1.0"/>
 
     <!-- The directory that contains the jar file dependencies for
          the class path and building a release -->
@@ -63,7 +63,6 @@
             <include name="functionalparser/${sourcepath}"/>
             <include name="functionalrenderer/${sourcepath}"/>
             <include name="impl/${sourcepath}"/>
-        	<include name="implconcurrent/${sourcepath}"/>
             <include name="krssparser/${sourcepath}"/>
             <include name="krssrenderer/${sourcepath}"/>
             <include name="latexrenderer/${sourcepath}"/>
@@ -118,7 +117,6 @@
                 <include name="debugging/${sourcepath}"/>
                 <include name="dlsyntax/${sourcepath}"/>
                 <include name="impl/${sourcepath}"/>
-            	<include name="implconcurrent/${sourcepath}"/>
                 <include name="functionalparser/${sourcepath}"/>
                 <include name="functionalrenderer/${sourcepath}"/>
                 <include name="krssparser/${sourcepath}"/>
@@ -165,7 +163,6 @@
             <fileset dir="../functionalparser/src/main/java"/>
             <fileset dir="../functionalrenderer/src/main/java"/>
             <fileset dir="../impl/src/main/java"/>
-        	<fileset dir="../implconcurrent/src/main/java"/>
             <fileset dir="../krssparser/src/main/java"/>
             <fileset dir="../krssrenderer/src/main/java"/>
             <fileset dir="../latexrenderer/src/main/java"/>
