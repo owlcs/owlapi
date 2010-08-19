@@ -55,8 +55,8 @@ public class TurtleRenderer extends RDFRendererBase {
     private String base;
 
 
-    public TurtleRenderer(OWLOntology ontology, OWLOntologyManager manager, Writer writer) {
-        super(ontology, manager);
+    public TurtleRenderer(OWLOntology ontology, OWLOntologyManager manager, Writer writer, OWLOntologyFormat format) {
+        super(ontology, manager, format);
         this.writer = new PrintWriter(writer);
         pending = new HashSet<RDFResourceNode>();
         pm = new DefaultPrefixManager();

@@ -477,7 +477,7 @@ public abstract class RDFRendererBase {
                 createGraph(axioms);
             }
         });
-        addTypeTriple(entity);
+//        addTypeTriple(entity);
         return !axioms.isEmpty();
     }
 
@@ -491,39 +491,38 @@ public abstract class RDFRendererBase {
     }
 
 
-    private void addTypeTriple(OWLEntity entity) {
-//        graph = new RDFGraph();
-        entity.accept(new OWLEntityVisitor() {
-            public void visit(OWLClass cls) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(cls.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_CLASS.getIRI())));
-            }
-
-
-            public void visit(OWLDatatype datatype) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(datatype.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDFS_DATATYPE.getIRI())));
-            }
-
-
-            public void visit(OWLNamedIndividual individual) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(individual.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI())));
-            }
-
-
-            public void visit(OWLDataProperty property) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI())));
-            }
-
-
-            public void visit(OWLObjectProperty property) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI())));
-            }
-
-            public void visit(OWLAnnotationProperty property) {
-                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI())));
-            }
-        });
-    }
-
+//    private void addTypeTriple(OWLEntity entity) {
+//        entity.accept(new OWLEntityVisitor() {
+//            public void visit(OWLClass cls) {
+//                graph.addTriple(new RDFTriple(new RDFResourceNode(cls.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_CLASS.getIRI())));
+//            }
+//
+//
+//            public void visit(OWLDatatype datatype) {
+//                graph.addTriple(new RDFTriple(new RDFResourceNode(datatype.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDFS_DATATYPE.getIRI())));
+//            }
+//
+//
+//            public void visit(OWLNamedIndividual individual) {
+//                graph.addTriple(new RDFTriple(new RDFResourceNode(individual.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI())));
+//            }
+//
+//
+//            public void visit(OWLDataProperty property) {
+//                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI())));
+//            }
+//
+//
+//            public void visit(OWLObjectProperty property) {
+//                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI())));
+//            }
+//
+//            public void visit(OWLAnnotationProperty property) {
+//                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI())));
+//            }
+//        });
+//    }
+//
 
     protected abstract void writeBanner(String name) throws IOException;
 

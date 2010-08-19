@@ -43,7 +43,7 @@ public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
 
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
-            TurtleRenderer ren = new TurtleRenderer(ontology, manager, writer);
+            TurtleRenderer ren = new TurtleRenderer(ontology, manager, writer, format);
             ren.render();
         }
         catch (IOException e) {

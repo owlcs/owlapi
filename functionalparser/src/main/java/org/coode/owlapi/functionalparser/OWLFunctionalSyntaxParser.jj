@@ -834,6 +834,7 @@ void Ontology() throws OWLParserException, UnloadableImportException :
         }
     (
     (decl = ImportsDeclaration() {
+        applyChange(new AddImport(ontology, decl));
         man.makeLoadImportRequest(decl);
     })
     |
