@@ -119,14 +119,6 @@ public class EscapeUtils {
                 sb.append(Integer.toString(ch, 10));
                 sb.append(';');
             }
-            else if (ch > 0x7F) {
-                // Borrowed from Apache StringEscapeUtils - I've
-                // no idea the significance of characters above 0x7F
-                // but it works!
-                sb.append("&#");
-                sb.append(Integer.toString(ch, 10));
-                sb.append(';');
-            }
             else {
                 sb.append(ch);
             }
