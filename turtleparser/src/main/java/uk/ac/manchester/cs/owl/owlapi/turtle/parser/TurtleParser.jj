@@ -487,8 +487,6 @@ IRI parseBlankNode() :
 {
     (iri=parseNodeID()
     |
-    t=<NODEID>{iri = getNextBlankNode(t.image.trim());}
-    |
     <OPEN_SQUARE_BRACKET> ({iri = getNextBlankNode(null);} parsePredicateObjectList(iri) (<DOT>)?)? <CLOSE_SQUARE_BRACKET> {if (iri == null) {iri = getNextBlankNode(null); }}
     |
     iri = parseCollection()) {
@@ -502,7 +500,7 @@ IRI parseNodeID() :
 }
 {
     t=<NODEID> {
-        return getIRIFromQName(t.image);
+        return getNextBlankNode(t.image);
     }
 }
 

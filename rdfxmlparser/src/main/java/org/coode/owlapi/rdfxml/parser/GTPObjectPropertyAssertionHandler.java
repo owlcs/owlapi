@@ -40,8 +40,7 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
 
 
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
-        boolean b = !getConsumer().isAnnotationProperty(predicate) && !OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(predicate) && !getConsumer().isOntology(subject);
-        return b;
+        return !getConsumer().isAnnotationProperty(predicate) && !OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(predicate) && !getConsumer().isOntology(subject);
     }
 
 
@@ -51,8 +50,6 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
 
 
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        boolean b = getConsumer().isAnnotationProperty(predicate);
-        System.out.println("ANNO PROP? " + b);
         consumeTriple(subject, predicate, object);
         addAxiom(getDataFactory().getOWLObjectPropertyAssertionAxiom(translateObjectProperty(predicate), translateIndividual(subject), translateIndividual(object), getPendingAnnotations()));
     }

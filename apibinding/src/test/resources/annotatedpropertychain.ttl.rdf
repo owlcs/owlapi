@@ -1,0 +1,25 @@
+_:ont a <http://www.w3.org/2002/07/owl#Ontology> .
+_:x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+<http://www.w3.org/2002/07/owl#Axiom> .
+_:x <http://www.w3.org/2002/07/owl#annotatedSource>
+<http://example.org/myOnt/hasAunt> .
+_:x <http://www.w3.org/2002/07/owl#annotatedProperty>
+<http://www.w3.org/2002/07/owl#propertyChainAxiom> .
+_:x <http://www.w3.org/2002/07/owl#annotatedTarget> _:y1 .
+_:x <http://www.w3.org/2000/01/rdf-schema#comment> "An aunt is a
+mother's sister." .
+<http://example.org/myOnt/hasAunt>
+<http://www.w3.org/2002/07/owl#propertyChainAxiom> _:y1 .
+_:y1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>
+<http://example.org/myOnt/hasMother> .
+_:y1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:y2 .
+_:y2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>
+<http://example.org/myOnt/hasSister> .
+_:y2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+<http://example.org/myOnt/hasAunt> a
+<http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://example.org/myOnt/hasMother> a
+<http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://example.org/myOnt/hasSister> a
+<http://www.w3.org/2002/07/owl#ObjectProperty> .

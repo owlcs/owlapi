@@ -155,6 +155,9 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         if (objectTripleObject == null) {
             objectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
         }
+        if (objectTripleObject == null) {
+            objectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getIRI(), true);
+        }
         return objectTripleObject;
     }
 
