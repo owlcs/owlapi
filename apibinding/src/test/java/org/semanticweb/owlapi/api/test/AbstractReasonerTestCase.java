@@ -13,7 +13,7 @@ import org.semanticweb.owlapi.reasoner.*;
  * isn't designed to test the correctness of reasoning results, rather it is designed to test the reasoner returns
  * the results in the form required by the OWL API reasoner interface.
  */
-public class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
+public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
 
     private OWLReasonerFactory reasonerFactory;
 
