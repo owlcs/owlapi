@@ -1,4 +1,68 @@
 ----------------------------------------------------------------------
+Release 3.1.0
+----------------------------------------------------------------------
+
+
+This version of the API includes various bug fixes and enhancements since version 3.0.0.
+
+Changes to the representation of literals:
+
+Please note that there is a slight incompatibility between version 3.1.0 and version 3.0.0.  This is due to some changes
+in the way that literals are represented and handled in the API.  There was a disparity between how they are described
+in the OWL 2 specification and how they are represented in version 3.0.0 of the API.  The changes bring 3.1.0 inline
+with the OWL 2 specification.  The changes are as follows: OWLStringLiteral and OWLTypedLiteral have been removed and
+replaced OWLLiteral.  In version 3.0.0 OWLLiteral was a super-interface of OWLStringLiteral and OWLTypedLiteral.
+Clients therefore need to replace occurrences of OWLStringLiteral and OWLTypedLiteral with OWLLiteral.  Method calls
+need not be changed - methods on OWLStringLiteral and OWLTypedLiteral have corresponding methods on OWLLiteral.  Note
+that all literals are now typed.  What used to be regarded as OWLStringLiterals are now OWLLiterals with the datatype
+rdf:PlainLiteral.  Although this change introduces a slight backward incompatibility with the previous version of the
+API we believe that the handling of literals in 3.1.0 is much cleaner and follows the specification more closely.
+
+Changes to the OWLReasoner interface:
+
+The OWLReasoner interface has been updated.  There are now methods which allow for fine-grained control over reasoning
+tasks.  For example, it is now possible to request that a reasoner just classifies the class hierarchy, when in version
+3.0.0 the prepare reasoner method caused realisation to occur as well.  The prepareReasoner method has been removed from
+the interface due to the huge amount of confusion it caused (it was not necessary to call this method to get correct
+results, but the name suggested that it was necessary).  Clients should update their code to replace any calls to
+prepareReasoner with appropriate calls to precomputeInferences.
+
+JavaDoc for various methods has been cleaned up.
+
+Main Bug Fixes:
+
+- Annotations on Declaration axioms were not save.  Fixed.
+- OWLObjectMaxCardinality restrictions incorrectly resulted in a profile violation of the OWL2RL profile. Fixed.
+- OWLOntology.containsAxiom() failed various round trip tests. Fixed.
+- OWLObjectPropertyExpression.getInverses() did not include properties that were asserted to be inverses of themselves. Fixed.
+- Writing large rdf:Lists can cause a stack overflow on saving. Fixed.
+- System.out is closed when using SystemOutDocumentTarget. Fixed.
+- An OWLOntologyAlreadyExists exception is thrown when an imports graph contains multiple imports of the same ontology. Fixed.
+- OWLReasoner.getSubclasses() is missing declarations in the throws list for runtime exceptions that get thrown. Fixed.
+- Parsing RDF graphs containing blank nodes with NodeIDs is broken.  Fixed.
+- Some methods on OWLOntology return sets of object that change with ontology changes. Fixed.
+- Double dashes (--) are not escaped in XML comments output by the XMLWriter. Fixed.
+- The API sometimes prints to System.err.  Fixed.
+- The functional syntax writer writes out annotation assertions twice. Fixed.
+- Ontologies with DataSomeValuesFrom restrictions are incorrectly considered non-OWL2QL. Fixed.
+- Ontologies with Functional data properties are incorrectly considered non-OWL2RL. Fixed.
+- OWL2Datatype.XSD_NAME has the wrong regex pattern. Fixed.
+- RDF rendering of GCIs with multiple elements is broken. Fixed.
+- SubObjectPropertyOf axioms with annotations and property chains don't get parsed correctly from RDF.  Fixed.
+- StructuralReasoner sometimes crashes when determining superclasses. Fixed.
+- SimpleRenderer renders declarations incorrectly.  Fixed.
+- Object property characteristics are not answered correctly.  Fixed.
+- OWLOntology.getReferencingAxioms gives mutable and incorrect results.  Fixed.
+- StructuralReasoner call OWLClassExpression.asOWLClass() on anonymous classes. Fixed.
+- SKOSVocabulary is not up to date.  Fixed.
+- Regular expression for xsd:double has extra white space. Fixed.
+- Structural reasoner sometimes misses subclasses of owl:Thing. Fixed.
+- OWLOntologyManager.getImportsClosure() fails on reload. Fixed.
+- PrefixOWLOntologyFormat has not methods to remove prefixes.  Fixed.
+- RDF/XML rendering of unicode characters is ugly. Fixed.
+- Turtle parser does parse shared blank nodes correctly. Fixed.
+
+----------------------------------------------------------------------
 Release 3.0.0
 ----------------------------------------------------------------------
 
