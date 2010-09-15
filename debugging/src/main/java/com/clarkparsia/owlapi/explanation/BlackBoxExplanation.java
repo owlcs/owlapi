@@ -396,8 +396,10 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
         OWLReasoner reasoner = getReasonerFactory().createNonBufferingReasoner(debuggingOntology);
 
-        if (OntologyUtils.containsUnreferencedEntity(debuggingOntology, unsatClass))
+        if (OntologyUtils.containsUnreferencedEntity(debuggingOntology, unsatClass)) {
+        	reasoner.dispose();
             return true;
+        }
         satTestCount++;
         boolean sat = reasoner.isSatisfiable(unsatClass);
         reasoner.dispose();
