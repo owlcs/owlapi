@@ -23,14 +23,33 @@ package uk.ac.manchester.cs.owl.owlapi.alternateimpls;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
+import uk.ac.manchester.cs.owl.owlapi.ChangeAxiomVisitor;
+import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceAdder;
+import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceAdderImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceRemover;
+import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceRemoverImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
 public class LockingOWLOntologyImpl extends OWLOntologyImpl {
     public LockingOWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
         super(manager, ontologyID);
         this.internals = new LockingOWLOntologyInternals();
+    }
+    
+    protected OWLAxiomVisitor getAxiomVisitor(boolean add) {
+		SyncChangeAxiomVisitor toReturn =new SyncChangeAxiomVisitor(internals, add, ((LockingOWLOntologyInternals)internals).getAxiomTypeLock());
+		return toReturn;
+	}
+    
+    protected OWLNamedObjectReferenceAdder getReferenceAdder() {
+    	return new SyncOWLNamedObjectReferenceAdderImpl(internals,((LockingOWLOntologyInternals)internals).getAxiomTypeLock());
+    }
+    
+    protected OWLNamedObjectReferenceRemover getReferenceRemover() {
+    	return new SyncOWLNamedObjectReferenceRemoverImpl(internals, ((LockingOWLOntologyInternals)internals).getAxiomTypeLock());
     }
 }

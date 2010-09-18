@@ -38,6 +38,7 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLAnnotationPropertyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
@@ -92,12 +93,12 @@ public final class InternalsCWR implements OWLDataFactoryInternals {
 
     public InternalsCWR(OWLDataFactory f) {
         factory = f;
-        classesByURI = new ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>>();
-        objectPropertiesByURI = new ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>>();
-        dataPropertiesByURI = new ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>>();
-        datatypesByURI = new ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>>();
-        individualsByURI = new ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>>();
-        annotationPropertiesByURI = new ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>>();
+        classesByURI = CollectionFactory.createSyncMap();
+        objectPropertiesByURI = CollectionFactory.createSyncMap();
+        dataPropertiesByURI = CollectionFactory.createSyncMap();
+        datatypesByURI = CollectionFactory.createSyncMap();
+        individualsByURI = CollectionFactory.createSyncMap();
+        annotationPropertiesByURI = CollectionFactory.createSyncMap();
         reaper.setDaemon(true);
         reaper.start();
     }

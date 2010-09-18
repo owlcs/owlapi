@@ -79,7 +79,7 @@ import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
  * RDF parser for example).
  */
 public class ThreadSafeOWLManager {
-	private static OWLImplementationBinding binding = new ThreadSafeWeakRefsBinding();
+	private static OWLImplementationBinding binding = new ThreadSafeBinding();
 	static {
 		// Register useful parsers
 		OWLParserFactoryRegistry registry = OWLParserFactoryRegistry

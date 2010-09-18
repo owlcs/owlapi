@@ -33,7 +33,6 @@ public class DataFactoryFuture extends OWLDataFactoryImpl {
     }
 
     public DataFactoryFuture() {
-        //data=new ConcurrentHashMapStrongReferencesOWLDataFactoryInternalsImpl(this);
         data = new InternalsFuture(this);
     }
 }

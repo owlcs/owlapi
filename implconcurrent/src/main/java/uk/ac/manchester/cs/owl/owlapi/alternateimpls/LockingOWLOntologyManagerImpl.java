@@ -123,7 +123,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager, OWLOnt
     private ImpendingOWLOntologyChangeBroadcastStrategy defaultImpendingChangeBroadcastStrategy;
 
     private <K, V> Map<K, V> createMap() {
-        return new ConcurrentHashMap<K, V>();
+        return CollectionFactory.createSyncMap();
     }
 
     private <V> List<V> createList() {

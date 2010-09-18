@@ -24,12 +24,13 @@ package org.semanticweb.owlapi.apibinding.configurables;
  */
 
 
-public abstract class ComputableAdapter<V> implements Computable<V> {
+public abstract class ComputableAllThrowables<V> implements Computable<V> {
+	protected Throwable exception;
     public boolean hasThrownException() {
-        return false;
+        return exception!=null;
     }
 
     public Throwable thrownException() {
-        return null;
+        return exception;
     }
 }

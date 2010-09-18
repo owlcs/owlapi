@@ -36,8 +36,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
+import org.semanticweb.owlapi.util.CollectionFactory;
+
 public class MemoizingCache<A, V> implements Map<A, V> {
-	private final ConcurrentHashMap<A, FutureTask<V>> cache = new ConcurrentHashMap<A, FutureTask<V>>();
+	private final ConcurrentHashMap<A, FutureTask<V>> cache = CollectionFactory.createSyncMap();
 
 	public V get(final Computable<V> computant, final A key) {
 		while (true) {

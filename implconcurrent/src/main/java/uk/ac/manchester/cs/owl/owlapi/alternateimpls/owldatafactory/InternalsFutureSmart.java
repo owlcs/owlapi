@@ -24,7 +24,6 @@ package uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory;
  */
 
 import org.semanticweb.owlapi.apibinding.configurables.Computable;
-import org.semanticweb.owlapi.apibinding.configurables.ComputableAdapter;
 import org.semanticweb.owlapi.apibinding.configurables.MemoizingCache;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;

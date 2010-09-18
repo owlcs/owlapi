@@ -24,7 +24,7 @@ package uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory;
  */
 
 import org.semanticweb.owlapi.apibinding.configurables.Computable;
-import org.semanticweb.owlapi.apibinding.configurables.ComputableAdapter;
+import org.semanticweb.owlapi.apibinding.configurables.ComputableAllThrowables;
 import org.semanticweb.owlapi.apibinding.configurables.MemoizingCache;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -210,7 +210,7 @@ public class InternalsFuture implements OWLDataFactoryInternals {
     }
 
     public OWLClass getOWLClass(final IRI iri) {
-        return classesByURI.get(new ComputableAdapter<OWLClass>() {
+        return classesByURI.get(new ComputableAllThrowables<OWLClass>() {
             public OWLClass compute() {
                 return (OWLClass) BuildableObjects.OWLCLASS.build(factory, iri);
             }
@@ -218,7 +218,7 @@ public class InternalsFuture implements OWLDataFactoryInternals {
     }
 
     public OWLObjectProperty getOWLObjectProperty(final IRI iri) {
-        return objectPropertiesByURI.get(new ComputableAdapter<OWLObjectProperty>() {
+        return objectPropertiesByURI.get(new ComputableAllThrowables<OWLObjectProperty>() {
             public OWLObjectProperty compute() {
                 return (OWLObjectProperty) BuildableObjects.OWLOBJECTPROPERTY.build(factory, iri);
             }
@@ -226,7 +226,8 @@ public class InternalsFuture implements OWLDataFactoryInternals {
     }
 
     public OWLDataProperty getOWLDataProperty(final IRI iri) {
-        return dataPropertiesByURI.get(new ComputableAdapter<OWLDataProperty>() {
+    	//TODO check ComputableAdapter implementations
+        return dataPropertiesByURI.get(new ComputableAllThrowables<OWLDataProperty>() {
             public OWLDataProperty compute() {
                 return (OWLDataProperty) BuildableObjects.OWLDATAPROPERTY.build(factory, iri);
             }
@@ -234,7 +235,7 @@ public class InternalsFuture implements OWLDataFactoryInternals {
     }
 
     public OWLNamedIndividual getOWLNamedIndividual(final IRI iri) {
-        return individualsByURI.get(new ComputableAdapter<OWLNamedIndividual>() {
+        return individualsByURI.get(new ComputableAllThrowables<OWLNamedIndividual>() {
             public OWLNamedIndividual compute() {
                 return (OWLNamedIndividual) BuildableObjects.OWLNAMEDINDIVIDUAL.build(factory, iri);
             }
@@ -242,7 +243,7 @@ public class InternalsFuture implements OWLDataFactoryInternals {
     }
 
     public OWLDatatype getOWLDatatype(final IRI iri) {
-        return datatypesByURI.get(new ComputableAdapter<OWLDatatype>() {
+        return datatypesByURI.get(new ComputableAllThrowables<OWLDatatype>() {
             public OWLDatatype compute() {
                 return (OWLDatatype) BuildableObjects.OWLDATATYPE.build(factory, iri);
             }
@@ -250,7 +251,7 @@ public class InternalsFuture implements OWLDataFactoryInternals {
     }
 
     public OWLAnnotationProperty getOWLAnnotationProperty(final IRI iri) {
-        return annotationPropertiesByURI.get(new ComputableAdapter<OWLAnnotationProperty>() {
+        return annotationPropertiesByURI.get(new ComputableAllThrowables<OWLAnnotationProperty>() {
             public OWLAnnotationProperty compute() {
                 return (OWLAnnotationProperty) BuildableObjects.OWLANNOTATIONPROPERTY.build(factory, iri);
             }

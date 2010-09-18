@@ -1,5 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi.alternateimpls;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,212 +11,625 @@ import org.semanticweb.owlapi.reasoner.*;
 import org.semanticweb.owlapi.util.Version;
 
 public class ThreadSafeOWLReasoner implements OWLReasoner {
-    private final OWLReasoner delegate;
+	private final OWLReasoner delegate;
+	private boolean log = false;
 
-    public ThreadSafeOWLReasoner(OWLReasoner reasoner) {
-        if (reasoner == null) {
-            throw new IllegalArgumentException("The input reasoner cannot be null");
-        }
-        delegate = reasoner;
-    }
+	public ThreadSafeOWLReasoner(OWLReasoner reasoner, boolean log) {
+		this(reasoner);
+		this.log=log;
+	}
+	public ThreadSafeOWLReasoner(OWLReasoner reasoner) {
+		if (reasoner == null) {
+			throw new IllegalArgumentException(
+					"The input reasoner cannot be null");
+		}
+		delegate = reasoner;
+	}
 
-    public synchronized String getReasonerName() {
-        return this.delegate.getReasonerName();
-    }
+	public String getReasonerName() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getReasonerName()");
+				System.out.flush();
+			}
+			return this.delegate.getReasonerName();
+		}
+	}
 
-    public synchronized Version getReasonerVersion() {
-        return this.delegate.getReasonerVersion();
-    }
+	public Version getReasonerVersion() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getReasonerVersion()");
+				System.out.flush();
+			}
+			return this.delegate.getReasonerVersion();
+		}
+	}
 
-    public synchronized BufferingMode getBufferingMode() {
-        return this.delegate.getBufferingMode();
-    }
+	public BufferingMode getBufferingMode() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getBufferingMode()");
+				System.out.flush();
+			}
+			return this.delegate.getBufferingMode();
+		}
+	}
 
-    public synchronized void flush() {
-        this.delegate.flush();
-    }
+	public void flush() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.flush()");
+				System.out.flush();
+			}
+			this.delegate.flush();
+		}
+	}
 
-    public synchronized List<OWLOntologyChange> getPendingChanges() {
-        return this.delegate.getPendingChanges();
-    }
+	public List<OWLOntologyChange> getPendingChanges() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getPendingChanges()");
+				System.out.flush();
+			}
+			return this.delegate.getPendingChanges();
+		}
+	}
 
-    public synchronized Set<OWLAxiom> getPendingAxiomAdditions() {
-        return this.delegate.getPendingAxiomAdditions();
-    }
+	public Set<OWLAxiom> getPendingAxiomAdditions() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getPendingAxiomAdditions()");
+				System.out.flush();
+			}
+			return this.delegate.getPendingAxiomAdditions();
+		}
+	}
 
-    public synchronized Set<OWLAxiom> getPendingAxiomRemovals() {
-        return this.delegate.getPendingAxiomRemovals();
-    }
+	public Set<OWLAxiom> getPendingAxiomRemovals() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getPendingAxiomRemovals()");
+				System.out.flush();
+			}
+			return this.delegate.getPendingAxiomRemovals();
+		}
+	}
 
-    public synchronized OWLOntology getRootOntology() {
-        return this.delegate.getRootOntology();
-    }
+	public OWLOntology getRootOntology() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getRootOntology()");
+				System.out.flush();
+			}
+			return this.delegate.getRootOntology();
+		}
+	}
 
-    public synchronized void interrupt() {
-        this.delegate.interrupt();
-    }
+	public void interrupt() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.interrupt()");
+				System.out.flush();
+			}
+			this.delegate.interrupt();
+		}
+	}
 
-    public synchronized void precomputeInferences(InferenceType... inferenceTypes) throws ReasonerInterruptedException, TimeOutException, InconsistentOntologyException {
-        this.delegate.precomputeInferences(inferenceTypes);
-    }
+	public void precomputeInferences(InferenceType... inferenceTypes)
+			throws ReasonerInterruptedException, TimeOutException,
+			InconsistentOntologyException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.precomputeInferences() "
+						+ Arrays.toString(inferenceTypes));
+				System.out.flush();
+			}
+			this.delegate.precomputeInferences(inferenceTypes);
+		}
+	}
 
-    public synchronized boolean isPrecomputed(InferenceType inferenceType) {
-        return this.delegate.isPrecomputed(inferenceType);
-    }
+	public boolean isPrecomputed(InferenceType inferenceType) {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.isPrecomputed() " + inferenceType);
+				System.out.flush();
+			}
+			return this.delegate.isPrecomputed(inferenceType);
+		}
+	}
 
-    public synchronized Set<InferenceType> getPrecomputableInferenceTypes() {
-        return this.delegate.getPrecomputableInferenceTypes();
-    }
+	public Set<InferenceType> getPrecomputableInferenceTypes() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getPrecomputableInferenceTypes()");
+				System.out.flush();
+			}
+			return this.delegate.getPrecomputableInferenceTypes();
+		}
+	}
 
-    public synchronized boolean isConsistent() throws ReasonerInterruptedException, TimeOutException {
-        return this.delegate.isConsistent();
-    }
+	public boolean isConsistent() throws ReasonerInterruptedException,
+			TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.isConsistent()");
+				System.out.flush();
+			}
+			return this.delegate.isConsistent();
+		}
+	}
 
-    public synchronized boolean isSatisfiable(OWLClassExpression classExpression) throws ReasonerInterruptedException, TimeOutException, ClassExpressionNotInProfileException, FreshEntitiesException, InconsistentOntologyException {
-        return this.delegate.isSatisfiable(classExpression);
-    }
+	public boolean isSatisfiable(OWLClassExpression classExpression)
+			throws ReasonerInterruptedException, TimeOutException,
+			ClassExpressionNotInProfileException, FreshEntitiesException,
+			InconsistentOntologyException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.isSatisfiable() " + classExpression);
+				System.out.flush();
+			}
+			return this.delegate.isSatisfiable(classExpression);
+		}
+	}
 
-    public synchronized Node<OWLClass> getUnsatisfiableClasses() throws ReasonerInterruptedException, TimeOutException, InconsistentOntologyException {
-        return this.delegate.getUnsatisfiableClasses();
-    }
+	public Node<OWLClass> getUnsatisfiableClasses()
+			throws ReasonerInterruptedException, TimeOutException,
+			InconsistentOntologyException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getUnsatisfiableClasses()");
+				System.out.flush();
+			}
+			return this.delegate.getUnsatisfiableClasses();
+		}
+	}
 
-    public synchronized boolean isEntailed(OWLAxiom axiom) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, FreshEntitiesException, InconsistentOntologyException {
-        return this.delegate.isEntailed(axiom);
-    }
+	public boolean isEntailed(OWLAxiom axiom)
+			throws ReasonerInterruptedException,
+			UnsupportedEntailmentTypeException, TimeOutException,
+			AxiomNotInProfileException, FreshEntitiesException,
+			InconsistentOntologyException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.isEntailed() " + axiom);
+				System.out.flush();
+			}
+			try {
+			return this.delegate.isEntailed(axiom);
+			}catch (RuntimeException e) {
+				throw new RuntimeException("Exception checking entailment of axiom: "+axiom, e);
+			}
+		}
+	}
 
-    public synchronized boolean isEntailed(Set<? extends OWLAxiom> axioms) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, FreshEntitiesException, InconsistentOntologyException {
-        return this.delegate.isEntailed(axioms);
-    }
+	public boolean isEntailed(Set<? extends OWLAxiom> axioms)
+			throws ReasonerInterruptedException,
+			UnsupportedEntailmentTypeException, TimeOutException,
+			AxiomNotInProfileException, FreshEntitiesException,
+			InconsistentOntologyException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.isEntailed() " + axioms);
+				System.out.flush();
+			}
+			return this.delegate.isEntailed(axioms);
+		}
+	}
 
-    public synchronized boolean isEntailmentCheckingSupported(AxiomType<?> axiomType) {
-        return this.delegate.isEntailmentCheckingSupported(axiomType);
-    }
+	public boolean isEntailmentCheckingSupported(AxiomType<?> axiomType) {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.isEntailmentCheckingSupported() "
+						+ axiomType);
+				System.out.flush();
+			}
+			return this.delegate.isEntailmentCheckingSupported(axiomType);
+		}
+	}
 
-    public synchronized Node<OWLClass> getTopClassNode() {
-        return this.delegate.getTopClassNode();
-    }
+	public Node<OWLClass> getTopClassNode() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getTopClassNode()");
+				System.out.flush();
+			}
+			return this.delegate.getTopClassNode();
+		}
+	}
 
-    public synchronized Node<OWLClass> getBottomClassNode() {
-        return this.delegate.getBottomClassNode();
-    }
+	public Node<OWLClass> getBottomClassNode() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getBottomClassNode()");
+				System.out.flush();
+			}
+			return this.delegate.getBottomClassNode();
+		}
+	}
 
-    public synchronized NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct) throws ReasonerInterruptedException, TimeOutException, FreshEntitiesException, InconsistentOntologyException, ClassExpressionNotInProfileException {
-        return this.delegate.getSubClasses(ce, direct);
-    }
+	public NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct)
+			throws ReasonerInterruptedException, TimeOutException,
+			FreshEntitiesException, InconsistentOntologyException,
+			ClassExpressionNotInProfileException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getSubClasses() " + ce + " " + direct);
+				System.out.flush();
+			}
+			NodeSet<OWLClass> subClasses = this.delegate.getSubClasses(ce,
+					direct);
+			return subClasses;
+		}
+	}
 
-    public synchronized NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getSuperClasses(ce, direct);
-    }
+	public NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce,
+			boolean direct) throws InconsistentOntologyException,
+			ClassExpressionNotInProfileException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getSuperClasses()" + ce + " " + direct);
+				System.out.flush();
+			}
+			NodeSet<OWLClass> superClasses = this.delegate.getSuperClasses(ce,
+					direct);
+			return superClasses;
+		}
+	}
 
-    public synchronized Node<OWLClass> getEquivalentClasses(OWLClassExpression ce) throws InconsistentOntologyException, ClassExpressionNotInProfileException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-    	return this.delegate.getEquivalentClasses(ce);
-    }
+	public Node<OWLClass> getEquivalentClasses(OWLClassExpression ce)
+			throws InconsistentOntologyException,
+			ClassExpressionNotInProfileException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getEquivalentClasses() " + ce);
+				System.out.flush();
+			}
+			Node<OWLClass> equivalentClasses = this.delegate
+					.getEquivalentClasses(ce);
+			return equivalentClasses;
+		}
+	}
 
-    public synchronized NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce) throws ReasonerInterruptedException, TimeOutException, FreshEntitiesException, InconsistentOntologyException {
-        return this.delegate.getDisjointClasses(ce);
-    }
+	public NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce)
+			throws ReasonerInterruptedException, TimeOutException,
+			FreshEntitiesException, InconsistentOntologyException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getDisjointClasses() " + ce);
+				System.out.flush();
+			}
+			NodeSet<OWLClass> disjointClasses = this.delegate
+					.getDisjointClasses(ce);
+			return disjointClasses;
+		}
+	}
 
-    public synchronized Node<OWLObjectPropertyExpression> getTopObjectPropertyNode() {
-        return this.delegate.getTopObjectPropertyNode();
-    }
+	public Node<OWLObjectPropertyExpression> getTopObjectPropertyNode() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getTopObjectPropertyNode()");
+				System.out.flush();
+			}
+			return this.delegate.getTopObjectPropertyNode();
+		}
+	}
 
-    public synchronized Node<OWLObjectPropertyExpression> getBottomObjectPropertyNode() {
-        return this.delegate.getBottomObjectPropertyNode();
-    }
+	public Node<OWLObjectPropertyExpression> getBottomObjectPropertyNode() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getBottomObjectPropertyNode()");
+				System.out.flush();
+			}
+			return this.delegate.getBottomObjectPropertyNode();
+		}
+	}
 
-    public synchronized NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getSubObjectProperties(pe, direct);
-    }
+	public NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(
+			OWLObjectPropertyExpression pe, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getSubObjectProperties() " + pe + " "
+						+ direct);
+				System.out.flush();
+			}
+			NodeSet<OWLObjectPropertyExpression> subObjectProperties = this.delegate
+					.getSubObjectProperties(pe, direct);
+			return subObjectProperties;
+		}
+	}
 
-    public synchronized NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getSuperObjectProperties(pe, direct);
-    }
+	public NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(
+			OWLObjectPropertyExpression pe, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getSuperObjectProperties() " + pe + " "
+						+ direct);
+				System.out.flush();
+			}
+			NodeSet<OWLObjectPropertyExpression> superObjectProperties = this.delegate
+					.getSuperObjectProperties(pe, direct);
+			return superObjectProperties;
+		}
+	}
 
-    public synchronized Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getEquivalentObjectProperties(pe);
-    }
+	public Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(
+			OWLObjectPropertyExpression pe)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getEquivalentObjectProperties() " + pe);
+				System.out.flush();
+			}
+			Node<OWLObjectPropertyExpression> equivalentObjectProperties = this.delegate
+					.getEquivalentObjectProperties(pe);
+			return equivalentObjectProperties;
+		}
+	}
 
-    public synchronized NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getDisjointObjectProperties(pe);
-    }
+	public NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(
+			OWLObjectPropertyExpression pe)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getDisjointObjectProperties() " + pe);
+				System.out.flush();
+			}
+			return this.delegate.getDisjointObjectProperties(pe);
+		}
+	}
 
-    public synchronized Node<OWLObjectPropertyExpression> getInverseObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getInverseObjectProperties(pe);
-    }
+	public Node<OWLObjectPropertyExpression> getInverseObjectProperties(
+			OWLObjectPropertyExpression pe)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getInverseObjectProperties() " + pe);
+				System.out.flush();
+			}
+			return this.delegate.getInverseObjectProperties(pe);
+		}
+	}
 
-    public synchronized NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getObjectPropertyDomains(pe, direct);
-    }
+	public NodeSet<OWLClass> getObjectPropertyDomains(
+			OWLObjectPropertyExpression pe, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getObjectPropertyDomains() " + pe + " "
+						+ direct);
+				System.out.flush();
+			}
+			return this.delegate.getObjectPropertyDomains(pe, direct);
+		}
+	}
 
-    public synchronized NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getObjectPropertyRanges(pe, direct);
-    }
+	public NodeSet<OWLClass> getObjectPropertyRanges(
+			OWLObjectPropertyExpression pe, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getObjectPropertyRanges() " + pe + " "
+						+ direct);
+				System.out.flush();
+			}
+			return this.delegate.getObjectPropertyRanges(pe, direct);
+		}
+	}
 
-    public synchronized Node<OWLDataProperty> getTopDataPropertyNode() {
-        return this.delegate.getTopDataPropertyNode();
-    }
+	public Node<OWLDataProperty> getTopDataPropertyNode() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getTopDataPropertyNode()");
+				System.out.flush();
+			}
+			return this.delegate.getTopDataPropertyNode();
+		}
+	}
 
-    public synchronized Node<OWLDataProperty> getBottomDataPropertyNode() {
-        return this.delegate.getBottomDataPropertyNode();
-    }
+	public Node<OWLDataProperty> getBottomDataPropertyNode() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getBottomDataPropertyNode()");
+				System.out.flush();
+			}
+			return this.delegate.getBottomDataPropertyNode();
+		}
+	}
 
-    public synchronized NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getSubDataProperties(pe, direct);
-    }
+	public NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe,
+			boolean direct) throws InconsistentOntologyException,
+			FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getSubDataProperties() " + pe + " "
+						+ direct);
+				System.out.flush();
+			}
+			return this.delegate.getSubDataProperties(pe, direct);
+		}
+	}
 
-    public synchronized NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getSuperDataProperties(pe, direct);
-    }
+	public NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe,
+			boolean direct) throws InconsistentOntologyException,
+			FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getSuperDataProperties() " + pe + " "
+						+ direct);
+				System.out.flush();
+			}
+			return this.delegate.getSuperDataProperties(pe, direct);
+		}
+	}
 
-    public synchronized Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getEquivalentDataProperties(pe);
-    }
+	public Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty pe)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getEquivalentDataProperties() " + pe);
+				System.out.flush();
+			}
+			return this.delegate.getEquivalentDataProperties(pe);
+		}
+	}
 
-    public synchronized NodeSet<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getDisjointDataProperties(pe);
-    }
+	public NodeSet<OWLDataProperty> getDisjointDataProperties(
+			OWLDataPropertyExpression pe) throws InconsistentOntologyException,
+			FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getDisjointDataProperties() " + pe);
+				System.out.flush();
+			}
+			return this.delegate.getDisjointDataProperties(pe);
+		}
+	}
 
-    public synchronized NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getDataPropertyDomains(pe, direct);
-    }
+	public NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe,
+			boolean direct) throws InconsistentOntologyException,
+			FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getDataPropertyDomains() " + pe + " "
+						+ direct);
+				System.out.flush();
+			}
+			return this.delegate.getDataPropertyDomains(pe, direct);
+		}
+	}
 
-    public synchronized NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getTypes(ind, direct);
-    }
+	public NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getTypes() " + ind + " " + direct);
+				System.out.flush();
+			}
+			return this.delegate.getTypes(ind, direct);
+		}
+	}
 
-    public synchronized NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, boolean direct) throws InconsistentOntologyException, ClassExpressionNotInProfileException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getInstances(ce, direct);
-    }
+	public NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce,
+			boolean direct) throws InconsistentOntologyException,
+			ClassExpressionNotInProfileException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getInstances() " + ce + " " + direct);
+				System.out.flush();
+			}
+			return this.delegate.getInstances(ce, direct);
+		}
+	}
 
-    public synchronized NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual ind, OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getObjectPropertyValues(ind, pe);
-    }
+	public NodeSet<OWLNamedIndividual> getObjectPropertyValues(
+			OWLNamedIndividual ind, OWLObjectPropertyExpression pe)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getObjectPropertyValues() " + ind + " "
+						+ pe);
+				System.out.flush();
+			}
+			return this.delegate.getObjectPropertyValues(ind, pe);
+		}
+	}
 
-    public synchronized Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataProperty pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getDataPropertyValues(ind, pe);
-    }
+	public Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind,
+			OWLDataProperty pe) throws InconsistentOntologyException,
+			FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getDataPropertyValues() " + ind + " "
+						+ pe);
+				System.out.flush();
+			}
+			return this.delegate.getDataPropertyValues(ind, pe);
+		}
+	}
 
-    public synchronized Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getSameIndividuals(ind);
-    }
+	public Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getSameIndividuals() " + ind);
+				System.out.flush();
+			}
+			return this.delegate.getSameIndividuals(ind);
+		}
+	}
 
-    public synchronized NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        return this.delegate.getDifferentIndividuals(ind);
-    }
+	public NodeSet<OWLNamedIndividual> getDifferentIndividuals(
+			OWLNamedIndividual ind) throws InconsistentOntologyException,
+			FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getDifferentIndividuals() " + ind);
+				System.out.flush();
+			}
+			return this.delegate.getDifferentIndividuals(ind);
+		}
+	}
 
-    public synchronized long getTimeOut() {
-        return this.delegate.getTimeOut();
-    }
+	public long getTimeOut() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getTimeOut()");
+				System.out.flush();
+			}
+			return this.delegate.getTimeOut();
+		}
+	}
 
-    public synchronized FreshEntityPolicy getFreshEntityPolicy() {
-        return this.delegate.getFreshEntityPolicy();
-    }
+	public FreshEntityPolicy getFreshEntityPolicy() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getFreshEntityPolicy()");
+				System.out.flush();
+			}
+			return this.delegate.getFreshEntityPolicy();
+		}
+	}
 
-    public synchronized IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
-        return this.delegate.getIndividualNodeSetPolicy();
-    }
+	public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.getIndividualNodeSetPolicy()");
+				System.out.flush();
+			}
+			return this.delegate.getIndividualNodeSetPolicy();
+		}
+	}
 
-    public synchronized void dispose() {
-        this.delegate.dispose();
-    }
+	public void dispose() {
+		synchronized (delegate) {
+			if (log) {
+				System.out.println(Thread.currentThread().getName()+" reasoner.dispose()");
+				System.out.flush();
+			}
+			this.delegate.dispose();
+		}
+	}
 }

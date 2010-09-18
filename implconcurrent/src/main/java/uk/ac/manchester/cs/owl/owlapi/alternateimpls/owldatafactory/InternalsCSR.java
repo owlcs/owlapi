@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLAnnotationPropertyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
@@ -55,12 +56,12 @@ public class InternalsCSR implements OWLDataFactoryInternals {
 
     public InternalsCSR(OWLDataFactory f) {
         factory = f;
-        classesByURI = new ConcurrentHashMap<IRI, OWLEntity>();
-        objectPropertiesByURI = new ConcurrentHashMap<IRI, OWLEntity>();
-        dataPropertiesByURI = new ConcurrentHashMap<IRI, OWLEntity>();
-        datatypesByURI = new ConcurrentHashMap<IRI, OWLEntity>();
-        individualsByURI = new ConcurrentHashMap<IRI, OWLEntity>();
-        annotationPropertiesByURI = new ConcurrentHashMap<IRI, OWLEntity>();
+        classesByURI = CollectionFactory.createSyncMap();
+        objectPropertiesByURI = CollectionFactory.createSyncMap();
+        dataPropertiesByURI = CollectionFactory.createSyncMap();
+        datatypesByURI = CollectionFactory.createSyncMap();
+        individualsByURI = CollectionFactory.createSyncMap();
+        annotationPropertiesByURI = CollectionFactory.createSyncMap();
     }
 
     private OWLEntity unwrap(Map<IRI, OWLEntity> map, IRI iri, BuildableObjects type) {
