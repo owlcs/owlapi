@@ -66,11 +66,6 @@ public class OWLDataFactoryInternalsPerformanceTest extends TestCase {
 		tester.run(i);
 	}
 
-	//	public void testConcurrentHashMaps() {
-	//		OWLDataFactoryInternals i = new ConcurrentHashMapOWLDataFactoryInternalsImpl(
-	//				factory);
-	//		tester.run(i);
-	//	}
 	public void testConcurrentHashMapsStrongRefs() {
 		OWLDataFactoryInternals i = new InternalsCSR(factory);
 		tester.run(i);
