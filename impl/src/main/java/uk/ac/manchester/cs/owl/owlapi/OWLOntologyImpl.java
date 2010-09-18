@@ -57,7 +57,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    protected OWLOntologyImplInternals internals;
+    protected Internals internals;
 
     //private OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
 
@@ -66,7 +66,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         this.manager = manager;
         this.ontologyID = ontologyID;
 
-        this.internals = new OWLOntologyImplInternalsDefaultImpl();
+        this.internals = new InternalsImpl();
 
     }
 
@@ -92,72 +92,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public boolean isEmpty() {
-        for (AxiomType type : internals.getAxiomsByType().keySet()) {
-            Set<OWLAxiom> axiomSet = internals.getAxiomsByType().get(type);
-            if (axiomSet != null && !axiomSet.isEmpty()) {
-                return false;
-            }
-        }
-        return internals.getOntologyAnnotations().isEmpty();
+    	return internals.isEmpty();
     }
 
-
-    public int getAxiomCount() {
-        int count = 0;
-        for (AxiomType type : AXIOM_TYPES) {
-            Set<OWLAxiom> axiomSet = internals.getAxiomsByType().get(type);
-            if (axiomSet != null) {
-                count += axiomSet.size();
-            }
-        }
-        return count;
-    }
-
-
-    public Set<OWLAxiom> getAxioms() {
-        Set<OWLAxiom> axioms = createSet();
-        for (AxiomType type : AXIOM_TYPES) {
-            Set<OWLAxiom> owlAxiomSet = internals.getAxiomsByType().get(type);
-            if (owlAxiomSet != null) {
-                axioms.addAll(owlAxiomSet);
-            }
-        }
-        return axioms;
-    }
-
-
-    @SuppressWarnings("unchecked")
-    public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {
-        return (Set<T>) internals.getAxioms(axiomType, internals.getAxiomsByType(), false);
-    }
-
-    /**
-     * Gets the axioms which are of the specified type, possibly from the imports closure of this ontology
-     * @param axiomType The type of axioms to be retrived.
-     * @param includeImportsClosure if <code>true</code> then axioms of the specified type will also be retrieved from
-     * the imports closure of this ontology, if <code>false</code> then axioms of the specified type will only
-     * be retrieved from this ontology.
-     * @return A set containing the axioms which are of the specified type. The set that is returned is a copy of the
-     *         axioms in the ontology (and its imports closure) - it will not be updated if the ontology changes.
-     */
-    public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, boolean includeImportsClosure) {
-        if (!includeImportsClosure) {
-            return getAxioms(axiomType);
-        }
-        Set<T> result = createSet();
-        for (OWLOntology ont : getImportsClosure()) {
-            result.addAll(ont.getAxioms(axiomType));
-        }
-        return result;
-    }
-
-    public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType) {
-        Set<OWLAxiom> axioms = internals.getAxiomsByType().get(axiomType);
-        if (axioms == null) {
-            return 0;
-        }
-        return axioms.size();
-    }
 
     /**
      * Gets the axiom count of a specific type of axiom, possibly in the imports closure of this ontology
@@ -176,83 +113,69 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return result;
     }
 
-    public Set<OWLLogicalAxiom> getLogicalAxioms() {
-        Set<OWLLogicalAxiom> axioms = createSet();
-        for (AxiomType type : AXIOM_TYPES) {
-            if (type.isLogical()) {
-                Set<OWLAxiom> axiomSet = internals.getAxiomsByType().get(type);
-                if (axiomSet != null) {
-                    for (OWLAxiom ax : axiomSet) {
-                        axioms.add((OWLLogicalAxiom) ax);
-                    }
-                }
-            }
-        }
-        return axioms;
-    }
+	public boolean containsAxiom(OWLAxiom axiom) {
+		return internals.containsAxiom(axiom);
+	}
 
+	public int getAxiomCount() {
+		return internals.getAxiomCount();
+	}
 
-    public int getLogicalAxiomCount() {
-        int count = 0;
-        for (AxiomType type : AXIOM_TYPES) {
-            if (type.isLogical()) {
-                Set<OWLAxiom> axiomSet = internals.getAxiomsByType().get(type);
-                if (axiomSet != null) {
-                    count += axiomSet.size();
-                }
-            }
-        }
-        return count;
-    }
+	public Set<OWLAxiom> getAxioms() {
+		return internals.getAxioms();
+	}
 
+	public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {
+		return internals.getAxioms(axiomType);
+	}
 
-    public Set<OWLAnnotation> getAnnotations() {
-        return internals.getReturnSet(internals.getOntologyAnnotations());
-    }
+	/**
+	 * Gets the axioms which are of the specified type, possibly from the
+	 * imports closure of this ontology
+	 * 
+	 * @param axiomType
+	 *            The type of axioms to be retrived.
+	 * @param includeImportsClosure
+	 *            if <code>true</code> then axioms of the specified type will
+	 *            also be retrieved from the imports closure of this ontology,
+	 *            if <code>false</code> then axioms of the specified type will
+	 *            only be retrieved from this ontology.
+	 * @return A set containing the axioms which are of the specified type. The
+	 *         set that is returned is a copy of the axioms in the ontology (and
+	 *         its imports closure) - it will not be updated if the ontology
+	 *         changes.
+	 */
+	public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType,
+			boolean includeImportsClosure) {
+		return internals.getAxioms(axiomType, includeImportsClosure?getImportsClosure():null);
+	}
 
-    public Set<OWLSubAnnotationPropertyOfAxiom> getSubAnnotationPropertyOfAxioms(OWLAnnotationProperty subProperty) {
-        Set<OWLSubAnnotationPropertyOfAxiom> result = createSet();
-        for (OWLSubAnnotationPropertyOfAxiom ax : internals.getAxiomsInternal(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
-            if (ax.getSubProperty().equals(subProperty)) {
-                result.add(ax);
-            }
-        }
-        return result;
-    }
+	public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType) {
+		return internals.getAxiomCount(axiomType);
+	}
 
+	public Set<OWLLogicalAxiom> getLogicalAxioms() {
+		return internals.getLogicalAxioms();
+	}
 
-    public Set<OWLAnnotationPropertyDomainAxiom> getAnnotationPropertyDomainAxioms(OWLAnnotationProperty property) {
-        Set<OWLAnnotationPropertyDomainAxiom> result = createSet();
-        for (OWLAnnotationPropertyDomainAxiom ax : internals.getAxiomsInternal(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
-            if (ax.getProperty().equals(property)) {
-                result.add(ax);
-            }
-        }
-        return result;
-    }
+	public int getLogicalAxiomCount() {
+		return internals.getLogicalAxiomCount();
+	}
 
+	public Set<OWLAnnotation> getAnnotations() {
+		return internals.getOntologyAnnotations();
+	}
 
-    public Set<OWLAnnotationPropertyRangeAxiom> getAnnotationPropertyRangeAxioms(OWLAnnotationProperty property) {
-        Set<OWLAnnotationPropertyRangeAxiom> result = createSet();
-        for (OWLAnnotationPropertyRangeAxiom ax : internals.getAxiomsInternal(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
-            if (ax.getProperty().equals(property)) {
-                result.add(ax);
-            }
-        }
-        return result;
-    }
+	public Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity entity) {
+		return internals.getDeclarationAxioms(entity);
+	}
 
-    public Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity entity) {
-        return internals.getReturnSet(internals.getAxioms(entity, internals.getDeclarationsByEntity(), false));
-    }
-
-
-    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLAnnotationSubject subject) {
-        Set<OWLAnnotationAssertionAxiom> axioms = createSet();
-        axioms.addAll(internals.getAnnotationAssertionAxiomsBySubject(subject));
-        return axioms;
-    }
-
+	public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
+			OWLAnnotationSubject subject) {
+		Set<OWLAnnotationAssertionAxiom> axioms = createSet();
+		axioms.addAll(internals.getAnnotationAssertionAxiomsBySubject(subject));
+		return axioms;
+	}
 
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(IRI subject) {
         return internals.getAnnotationAssertionAxiomsBySubject(subject);
@@ -260,19 +183,15 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public Set<OWLClassAxiom> getGeneralClassAxioms() {
-        return internals.getReturnSet(internals.getGeneralClassAxioms());
+        return internals.getGeneralClassAxioms();
     }
 
 
     public Set<OWLSubPropertyChainOfAxiom> getPropertyChainSubPropertyAxioms() {
-        return internals.getReturnSet(internals.getPropertyChainSubPropertyAxioms());
+        return internals.getPropertyChainSubPropertyAxioms();
     }
 
 
-    public boolean containsAxiom(OWLAxiom axiom) {
-        Set<OWLAxiom> axioms = internals.getAxiomsByType().get(axiom.getAxiomType());
-        return axioms != null && axioms.contains(axiom);
-    }
 
     /**
      * Determines if this ontology, and possibly the imports closure, contains the specified axiom.
@@ -302,10 +221,10 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      */
     public boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom) {
         if (axiom.isAnnotated()) {
-            return internals.getLogicalAxiom2AnnotatedAxiomMap().containsKey(axiom.getAxiomWithoutAnnotations());
+            return internals.containsLogicalAxiom2AnnotatedAxiomMap(axiom);
         }
         else {
-            return containsAxiom(axiom) || internals.getLogicalAxiom2AnnotatedAxiomMap().containsKey(axiom);
+            return containsAxiom(axiom) || internals.containsLogicalAxiom2AnnotatedAxiomMap(axiom);
         }
     }
 
@@ -343,7 +262,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if (containsAxiom(axiom)) {
             result.add(axiom);
         }
-        Set<OWLAxiom> annotated = internals.getLogicalAxiom2AnnotatedAxiomMap().get(axiom.getAxiomWithoutAnnotations());
+        Set<OWLAxiom> annotated = internals.getLogicalAxiom2AnnotatedAxiom(axiom);
         if (annotated != null) {
             result.addAll(annotated);
         }
@@ -373,7 +292,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsClassInSignature(IRI owlClassIRI) {
-        return internals.getOwlClassReferences().containsKey(getOWLDataFactory().getOWLClass(owlClassIRI));
+        return internals.containsOwlClassReferences(getOWLDataFactory().getOWLClass(owlClassIRI));
     }
 
     public boolean containsClassInSignature(IRI owlClassIRI, boolean includeImportsClosure) {
@@ -386,7 +305,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsObjectPropertyInSignature(IRI propIRI) {
-        return internals.getOwlObjectPropertyReferences().containsKey(getOWLDataFactory().getOWLObjectProperty(propIRI));
+        return internals.containsOwlObjectPropertyReferences(getOWLDataFactory().getOWLObjectProperty(propIRI));
     }
 
     public boolean containsObjectPropertyInSignature(IRI propIRI, boolean includeImportsClosure) {
@@ -399,7 +318,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsDataPropertyInSignature(IRI propIRI) {
-        return internals.getOwlDataPropertyReferences().containsKey(getOWLDataFactory().getOWLDataProperty(propIRI));
+        return internals.containsOwlDataPropertyReferences(getOWLDataFactory().getOWLDataProperty(propIRI));
     }
 
     public boolean containsDataPropertyInSignature(IRI propIRI, boolean includeImportsClosure) {
@@ -412,7 +331,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsAnnotationPropertyInSignature(IRI propIRI) {
-        boolean b = internals.getOwlAnnotationPropertyReferences().containsKey(getOWLDataFactory().getOWLAnnotationProperty(propIRI));
+        boolean b = internals.containsOwlAnnotationPropertyReferences(getOWLDataFactory().getOWLAnnotationProperty(propIRI));
         if (b) {
             return true;
         }
@@ -436,7 +355,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsIndividualInSignature(IRI individualIRI) {
-        return internals.getOwlIndividualReferences().containsKey(getOWLDataFactory().getOWLNamedIndividual(individualIRI));
+        return internals.containsOwlIndividualReferences(getOWLDataFactory().getOWLNamedIndividual(individualIRI));
     }
 
 
@@ -450,7 +369,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsDatatypeInSignature(IRI datatypeIRI) {
-        return internals.getOwlDatatypeReferences().containsKey(getOWLDataFactory().getOWLDatatype(datatypeIRI));
+        return internals.containsOwlDatatypeReferences(getOWLDataFactory().getOWLDatatype(datatypeIRI));
     }
 
     public boolean containsDatatypeInSignature(IRI datatypeIRI, boolean includeImportsClosure) {
@@ -513,50 +432,69 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsReference(OWLClass owlClass) {
-        return internals.getOwlClassReferences().containsKey(owlClass);
+        return internals.containsOwlClassReferences(owlClass);
     }
 
 
     public boolean containsReference(OWLObjectProperty prop) {
-        return internals.getOwlObjectPropertyReferences().containsKey(prop);
+        return internals.containsOwlObjectPropertyReferences(prop);
     }
 
 
     public boolean containsReference(OWLDataProperty prop) {
-        return internals.getOwlDataPropertyReferences().containsKey(prop);
+        return internals.containsOwlDataPropertyReferences(prop);
     }
 
 
     public boolean containsReference(OWLNamedIndividual ind) {
-        return internals.getOwlIndividualReferences().containsKey(ind);
+        return internals.containsOwlIndividualReferences(ind);
     }
 
 
     public boolean containsReference(OWLDatatype dt) {
-        return internals.getOwlDatatypeReferences().containsKey(dt);
+        return internals.containsOwlDatatypeReferences(dt);
     }
 
 
     public boolean containsReference(OWLAnnotationProperty property) {
-        return internals.getOwlAnnotationPropertyReferences().containsKey(property);
+        return internals.containsOwlAnnotationPropertyReferences(property);
     }
 
 
-    public boolean isDeclared(OWLEntity owlEntity) {
-        OWLDeclarationAxiom ax = getOWLDataFactory().getOWLDeclarationAxiom(owlEntity);
-        return internals.getAxiomsInternal(DECLARATION).contains(ax);
+    public boolean isDeclared(OWLEntity entity) {
+        return internals.isDeclared(getOWLDataFactory().getOWLDeclarationAxiom(entity));
+    }
+	
+	 public Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype datatype) {
+		 return internals.getDatatypeDefinitions(datatype);
+    }
+	
+	public Set<OWLSubAnnotationPropertyOfAxiom> getSubAnnotationPropertyOfAxioms(OWLAnnotationProperty subProperty) {
+        return internals.getSubAnnotationPropertyOfAxioms(subProperty);
+    }
+
+
+    public Set<OWLAnnotationPropertyDomainAxiom> getAnnotationPropertyDomainAxioms(OWLAnnotationProperty property) {
+    	return internals.getAnnotationPropertyDomainAxioms(property);
+    }
+
+
+    public Set<OWLAnnotationPropertyRangeAxiom> getAnnotationPropertyRangeAxioms(OWLAnnotationProperty property) {
+        return internals.getAnnotationPropertyRangeAxioms(property);
     }
 
     public boolean isDeclared(OWLEntity owlEntity, boolean includeImportsClosure) {
         if (isDeclared(owlEntity)) {
             return true;
         }
-        for (OWLOntology ont : manager.getImportsClosure(this)) {
-            if (!ont.equals(this)) {
-                if (ont.isDeclared(owlEntity)) {
-                    return true;
-                }
-            }
+        if(includeImportsClosure) {
+		    for (OWLOntology ont : manager.getImportsClosure(this)) {
+		        if (!ont.equals(this)) {
+		            if (ont.isDeclared(owlEntity)) {
+		                return true;
+		            }
+		        }
+		    }
         }
         return false;
     }
@@ -622,30 +560,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
-        Set<OWLAxiom> axioms;
-        if (owlEntity instanceof OWLClass) {
-            axioms = internals.getAxioms(owlEntity.asOWLClass(), internals.getOwlClassReferences(), false);
-        }
-        else if (owlEntity instanceof OWLObjectProperty) {
-            axioms = internals.getAxioms(owlEntity.asOWLObjectProperty(), internals.getOwlObjectPropertyReferences(), false);
-        }
-        else if (owlEntity instanceof OWLDataProperty) {
-            axioms = internals.getAxioms(owlEntity.asOWLDataProperty(), internals.getOwlDataPropertyReferences(), false);
-        }
-        else if (owlEntity instanceof OWLNamedIndividual) {
-            axioms = internals.getAxioms(owlEntity.asOWLNamedIndividual(), internals.getOwlIndividualReferences(), false);
-        }
-        else if (owlEntity instanceof OWLDatatype) {
-            axioms = internals.getAxioms(owlEntity.asOWLDatatype(), internals.getOwlDatatypeReferences(), false);
-        }
-        else if (owlEntity instanceof OWLAnnotationProperty) {
-            axioms = internals.getAxioms(owlEntity.asOWLAnnotationProperty(), internals.getOwlAnnotationPropertyReferences(), false);
-        }
-        else {
-            axioms = Collections.emptySet();
-        }
-
-        return createSet(axioms);
+    	return internals.getReferencingAxioms(owlEntity);
     }
 
     /**
@@ -675,7 +590,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
      * @return The axioms that reference the specified anonymous individual
      */
     public Set<OWLAxiom> getReferencingAxioms(OWLAnonymousIndividual individual) {
-        return internals.getReturnSet(internals.getAxioms(individual, internals.getOwlAnonymousIndividualReferences(), false));
+        return internals.getReferencingAxioms(individual);
     }
 
     public Set<OWLClassAxiom> getAxioms(final OWLClass cls) {
@@ -804,7 +719,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        return internals.getReturnSet(internals.getOwlObjectPropertyReferences().keySet());
+        return internals.getOwlObjectPropertyReferences().keySet();
     }
 
     @Override
@@ -954,7 +869,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public Set<OWLImportsDeclaration> getImportsDeclarations() {
-        return internals.getReturnSet(internals.getImportsDeclarations());
+        return internals.getImportsDeclarations();
     }
 
     /**
@@ -999,16 +914,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return getOWLOntologyManager().getImportsClosure(this);
     }
 
-    public Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype datatype) {
-        Set<OWLDatatypeDefinitionAxiom> result = createSet();
-        Set<OWLDatatypeDefinitionAxiom> axioms = internals.getAxiomsInternal(AxiomType.DATATYPE_DEFINITION);
-        for (OWLDatatypeDefinitionAxiom ax : axioms) {
-            if (ax.getDatatype().equals(datatype)) {
-                result.add(ax);
-            }
-        }
-        return result;
-    }
+   
 
 
     public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(OWLClass cls) {
@@ -1252,14 +1158,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         public void visit(RemoveAxiom change) {
             OWLAxiom axiom = change.getAxiom();
             if (containsAxiom(axiom)) {
-            	ChangeAxiomVisitor changeVisitor = new ChangeAxiomVisitor();
-                changeVisitor.setAddAxiom(false);
+            	OWLAxiomVisitor changeVisitor = getAxiomVisitor(false);
+                
                 axiom.accept(changeVisitor);
                 appliedChanges.add(change);
                 handleAxiomRemoved(axiom);
             }
         }
-
 
         public void visit(SetOntologyID change) {
             OWLOntologyID id = change.getNewOntologyID();
@@ -1273,8 +1178,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         public void visit(AddAxiom change) {
             OWLAxiom axiom = change.getAxiom();
             if (!containsAxiom(axiom)) {
-            	ChangeAxiomVisitor changeVisitor = new ChangeAxiomVisitor();
-                changeVisitor.setAddAxiom(true);
+            	OWLAxiomVisitor changeVisitor = getAxiomVisitor(true);
                 axiom.accept(changeVisitor);
                 appliedChanges.add(change);
                 handleAxiomAdded(axiom);
@@ -1283,30 +1187,30 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
         public void visit(AddImport change) {
-            if (!internals.getImportsDeclarations().contains(change.getImportDeclaration())) {
+        	//TODO change this to be done inside
+            if (internals.addImportsDeclaration(change.getImportDeclaration())) {
                 appliedChanges.add(change);
-                internals.getImportsDeclarations().add(change.getImportDeclaration());
             }
         }
 
 
         public void visit(RemoveImport change) {
-            if (internals.getImportsDeclarations().contains(change.getImportDeclaration())) {
+            if (internals.removeImportsDeclaration(change.getImportDeclaration())) {
                 appliedChanges.add(change);
-                internals.getImportsDeclarations().remove(change.getImportDeclaration());
+                
             }
         }
 
 
         public void visit(AddOntologyAnnotation change) {
-            if (internals.getOntologyAnnotations().add(change.getAnnotation())) {
+            if (internals.addOntologyAnnotation(change.getAnnotation())) {
                 appliedChanges.add(change);
             }
         }
 
 
         public void visit(RemoveOntologyAnnotation change) {
-            if (internals.getOntologyAnnotations().remove(change.getAnnotation())) {
+            if (internals.removeOntologyAnnotation(change.getAnnotation())) {
                 appliedChanges.add(change);
             }
         }
@@ -1324,129 +1228,49 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     private void handleAxiomAdded(OWLAxiom axiom) {
         OWLEntityCollector entityCollector = new OWLEntityCollector();
-        OWLNamedObjectReferenceAdder referenceAdder = new OWLNamedObjectReferenceAdder();
+        OWLNamedObjectReferenceAdder referenceAdder = getReferenceAdder();
         axiom.accept(entityCollector);
         for (OWLEntity object : entityCollector.getObjects()) {
             referenceAdder.setAxiom(axiom);
             object.accept(referenceAdder);
         }
         for (OWLAnonymousIndividual ind : entityCollector.getAnonymousIndividuals()) {
-            internals.addToIndexedSet(ind, internals.getOwlAnonymousIndividualReferences(), axiom);
+            internals.addOwlAnonymousIndividualReferences(ind, axiom);
         }
         if (axiom.isAnnotated()) {
-            internals.addToIndexedSet(axiom.getAxiomWithoutAnnotations(), internals.getLogicalAxiom2AnnotatedAxiomMap(), axiom);
+        	internals.addLogicalAxiom2AnnotatedAxiomMap(axiom);
         }
     }
-
+    
+    protected OWLNamedObjectReferenceAdder getReferenceAdder() {
+    	return new OWLNamedObjectReferenceAdderImpl(internals);
+    }
+    
+    protected OWLNamedObjectReferenceRemover getReferenceRemover() {
+    	return new OWLNamedObjectReferenceRemoverImpl(internals);
+    }
 
     //private OWLNamedObjectReferenceRemover referenceRemover = new OWLNamedObjectReferenceRemover();
 
 
     private void handleAxiomRemoved(OWLAxiom axiom) {
         OWLEntityCollector entityCollector = new OWLEntityCollector();
-        OWLNamedObjectReferenceRemover referenceRemover = new OWLNamedObjectReferenceRemover();
+        OWLNamedObjectReferenceRemover referenceRemover = getReferenceRemover();
         axiom.accept(entityCollector);
         for (OWLEntity object : entityCollector.getObjects()) {
             referenceRemover.setAxiom(axiom);
             object.accept(referenceRemover);
         }
         for (OWLAnonymousIndividual ind : entityCollector.getAnonymousIndividuals()) {
-            internals.removeAxiomFromSet(ind, internals.getOwlAnonymousIndividualReferences(), axiom, true);
+            internals.removeOwlAnonymousIndividualReferences(ind, axiom);
         }
         if (axiom.isAnnotated()) {
-            internals.removeAxiomFromSet(axiom.getAxiomWithoutAnnotations(), internals.getLogicalAxiom2AnnotatedAxiomMap(), axiom, true);
+            internals.removeLogicalAxiom2AnnotatedAxiomMap(axiom);
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    // An inner helper class that adds the appropriate references indexes for a given axiom
-    //
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+    
 
-
-    private class OWLNamedObjectReferenceAdder implements OWLEntityVisitor {
-
-        private OWLAxiom axiom;
-
-
-        public void setAxiom(OWLAxiom axiom) {
-            this.axiom = axiom;
-        }
-
-
-        public void visit(OWLClass owlClass) {
-            internals.addToIndexedSet(owlClass, internals.getOwlClassReferences(), axiom);
-        }
-
-
-        public void visit(OWLObjectProperty property) {
-            internals.addToIndexedSet(property, internals.getOwlObjectPropertyReferences(), axiom);
-        }
-
-
-        public void visit(OWLDataProperty property) {
-            internals.addToIndexedSet(property, internals.getOwlDataPropertyReferences(), axiom);
-        }
-
-
-        public void visit(OWLNamedIndividual owlIndividual) {
-            internals.addToIndexedSet(owlIndividual, internals.getOwlIndividualReferences(), axiom);
-        }
-
-        public void visit(OWLAnnotationProperty property) {
-            internals.addToIndexedSet(property, internals.getOwlAnnotationPropertyReferences(), axiom);
-        }
-
-        public void visit(OWLDatatype datatype) {
-            internals.addToIndexedSet(datatype, internals.getOwlDatatypeReferences(), axiom);
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    // An inner helper class that removes the appropriate references indexes for a given axiom
-    //
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    private class OWLNamedObjectReferenceRemover implements OWLEntityVisitor {
-
-        private OWLAxiom axiom;
-
-
-        public void setAxiom(OWLAxiom axiom) {
-            this.axiom = axiom;
-        }
-
-
-        public void visit(OWLClass owlClass) {
-            internals.removeAxiomFromSet(owlClass, internals.getOwlClassReferences(), axiom, true);
-        }
-
-
-        public void visit(OWLObjectProperty property) {
-            internals.removeAxiomFromSet(property, internals.getOwlObjectPropertyReferences(), axiom, true);
-        }
-
-
-        public void visit(OWLDataProperty property) {
-            internals.removeAxiomFromSet(property, internals.getOwlDataPropertyReferences(), axiom, true);
-        }
-
-
-        public void visit(OWLNamedIndividual owlIndividual) {
-            internals.removeAxiomFromSet(owlIndividual, internals.getOwlIndividualReferences(), axiom, true);
-        }
-
-        public void visit(OWLAnnotationProperty property) {
-            internals.removeAxiomFromSet(property, internals.getOwlAnnotationPropertyReferences(), axiom, true);
-        }
-
-        public void visit(OWLDatatype datatype) {
-            internals.removeAxiomFromSet(datatype, internals.getOwlDatatypeReferences(), axiom, true);
-        }
-    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -1455,579 +1279,13 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
+	protected OWLAxiomVisitor getAxiomVisitor(boolean add) {
+		ChangeAxiomVisitor toReturn =new ChangeAxiomVisitor(internals, add);
+		return toReturn;
+	}
 
-    private class ChangeAxiomVisitor implements OWLAxiomVisitor {
 
-        private boolean addAxiom = false;
 
-
-        public void setAddAxiom(boolean addAxiom) {
-            this.addAxiom = addAxiom;
-        }
-
-
-        public void visit(OWLSubClassOfAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(SUBCLASS_OF, internals.getAxiomsByType(), axiom);
-                if (!axiom.getSubClass().isAnonymous()) {
-                    OWLClass subClass = (OWLClass) axiom.getSubClass();
-                    internals.addToIndexedSet(subClass, internals.getSubClassAxiomsByLHS(), axiom);
-                    internals.addToIndexedSet(subClass, internals.getClassAxiomsByClass(), axiom);
-                }
-                else {
-                    internals.getGeneralClassAxioms().add(axiom);
-                }
-                if (!axiom.getSuperClass().isAnonymous()) {
-                    internals.addToIndexedSet((OWLClass) axiom.getSuperClass(), internals.getSubClassAxiomsByRHS(), axiom);
-                }
-            }
-            else {
-                internals.removeAxiomFromSet(SUBCLASS_OF, internals.getAxiomsByType(), axiom, true);
-                if (!axiom.getSubClass().isAnonymous()) {
-                    OWLClass subClass = (OWLClass) axiom.getSubClass();
-                    internals.removeAxiomFromSet(subClass, internals.getSubClassAxiomsByLHS(), axiom, true);
-                    internals.removeAxiomFromSet(subClass, internals.getClassAxiomsByClass(), axiom, true);
-                }
-                else {
-                    internals.removeAxiomFromSet(axiom, internals.getGeneralClassAxioms());
-                }
-                if (!axiom.getSuperClass().isAnonymous()) {
-                    internals.removeAxiomFromSet(axiom.getSuperClass().asOWLClass(), internals.getSubClassAxiomsByRHS(), axiom, true);
-                }
-            }
-        }
-
-
-        public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(axiom.getSubject(), internals.getNegativeObjectPropertyAssertionAxiomsByIndividual(), axiom);
-                internals.addToIndexedSet(NEGATIVE_OBJECT_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(NEGATIVE_OBJECT_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getSubject(), internals.getNegativeObjectPropertyAssertionAxiomsByIndividual(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(axiom.getProperty(), internals.getAsymmetricPropertyAxiomsByProperty(), axiom);
-                internals.addToIndexedSet(ASYMMETRIC_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(ASYMMETRIC_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getProperty(), internals.getAsymmetricPropertyAxiomsByProperty(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(axiom.getProperty(), internals.getReflexivePropertyAxiomsByProperty(), axiom);
-                internals.addToIndexedSet(REFLEXIVE_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(REFLEXIVE_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getProperty(), internals.getReflexivePropertyAxiomsByProperty(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLDisjointClassesAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(DISJOINT_CLASSES, internals.getAxiomsByType(), axiom);
-                boolean allAnon = true;
-                // Index against each named class in the axiom
-                for (OWLClassExpression desc : axiom.getClassExpressions()) {
-                    if (!desc.isAnonymous()) {
-                        OWLClass cls = (OWLClass) desc;
-                        internals.addToIndexedSet(cls, internals.getDisjointClassesAxiomsByClass(), axiom);
-                        internals.addToIndexedSet(cls, internals.getClassAxiomsByClass(), axiom);
-                        allAnon = false;
-                    }
-                }
-                if (allAnon) {
-                    internals.getGeneralClassAxioms().add(axiom);
-                }
-            }
-            else {
-                internals.removeAxiomFromSet(DISJOINT_CLASSES, internals.getAxiomsByType(), axiom, true);
-                boolean allAnon = true;
-                for (OWLClassExpression desc : axiom.getClassExpressions()) {
-                    if (!desc.isAnonymous()) {
-                        OWLClass cls = (OWLClass) desc;
-                        internals.removeAxiomFromSet(cls, internals.getDisjointClassesAxiomsByClass(), axiom, true);
-                        internals.removeAxiomFromSet(cls, internals.getClassAxiomsByClass(), axiom, true);
-                        allAnon = false;
-                    }
-                }
-                if (allAnon) {
-                    internals.getGeneralClassAxioms().remove(axiom);
-                }
-            }
-        }
-
-
-        public void visit(OWLDataPropertyDomainAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(DATA_PROPERTY_DOMAIN, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getProperty(), internals.getDataPropertyDomainAxiomsByProperty(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(DATA_PROPERTY_DOMAIN, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getProperty(), internals.getDataPropertyDomainAxiomsByProperty(), axiom, true);
-            }
-        }
-
-        public void visit(OWLObjectPropertyDomainAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(OBJECT_PROPERTY_DOMAIN, internals.getAxiomsByType(), axiom);
-                if (axiom.getProperty() instanceof OWLObjectProperty) {
-                    internals.addToIndexedSet(axiom.getProperty(), internals.getObjectPropertyDomainAxiomsByProperty(), axiom);
-                }
-            }
-            else {
-                internals.removeAxiomFromSet(OBJECT_PROPERTY_DOMAIN, internals.getAxiomsByType(), axiom, true);
-                if (axiom.getProperty() instanceof OWLObjectProperty) {
-                    internals.removeAxiomFromSet(axiom.getProperty(), internals.getObjectPropertyDomainAxiomsByProperty(), axiom, true);
-                }
-            }
-        }
-
-
-        public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(EQUIVALENT_OBJECT_PROPERTIES, internals.getAxiomsByType(), axiom);
-                for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-                    internals.addToIndexedSet(prop, internals.getEquivalentObjectPropertyAxiomsByProperty(), axiom);
-                }
-            }
-            else {
-                internals.removeAxiomFromSet(EQUIVALENT_OBJECT_PROPERTIES, internals.getAxiomsByType(), axiom, true);
-                for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-                    internals.removeAxiomFromSet(prop, internals.getEquivalentObjectPropertyAxiomsByProperty(), axiom, true);
-                }
-            }
-        }
-
-
-        public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(INVERSE_OBJECT_PROPERTIES, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getFirstProperty(), internals.getInversePropertyAxiomsByProperty(), axiom);
-                internals.addToIndexedSet(axiom.getSecondProperty(), internals.getInversePropertyAxiomsByProperty(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(INVERSE_OBJECT_PROPERTIES, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getFirstProperty(), internals.getInversePropertyAxiomsByProperty(), axiom, false);
-                internals.removeAxiomFromSet(axiom.getSecondProperty(), internals.getInversePropertyAxiomsByProperty(), axiom, false);
-            }
-        }
-
-
-        public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(axiom.getSubject(), internals.getNegativeDataPropertyAssertionAxiomsByIndividual(), axiom);
-                internals.addToIndexedSet(NEGATIVE_DATA_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(NEGATIVE_DATA_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getSubject(), internals.getNegativeDataPropertyAssertionAxiomsByIndividual(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLDifferentIndividualsAxiom axiom) {
-            if (addAxiom) {
-                for (OWLIndividual ind : axiom.getIndividuals()) {
-                    internals.addToIndexedSet(ind, internals.getDifferentIndividualsAxiomsByIndividual(), axiom);
-                    internals.addToIndexedSet(DIFFERENT_INDIVIDUALS, internals.getAxiomsByType(), axiom);
-                }
-            }
-            else {
-                internals.removeAxiomFromSet(DIFFERENT_INDIVIDUALS, internals.getAxiomsByType(), axiom, true);
-                for (OWLIndividual ind : axiom.getIndividuals()) {
-                    internals.removeAxiomFromSet(ind, internals.getDifferentIndividualsAxiomsByIndividual(), axiom, true);
-                }
-            }
-        }
-
-
-        public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(DISJOINT_DATA_PROPERTIES, internals.getAxiomsByType(), axiom);
-                for (OWLDataPropertyExpression prop : axiom.getProperties()) {
-                    internals.addToIndexedSet(prop, internals.getDisjointDataPropertyAxiomsByProperty(), axiom);
-                }
-            }
-            else {
-                internals.removeAxiomFromSet(DISJOINT_DATA_PROPERTIES, internals.getAxiomsByType(), axiom, true);
-                for (OWLDataPropertyExpression prop : axiom.getProperties()) {
-                    internals.removeAxiomFromSet(prop, internals.getDisjointDataPropertyAxiomsByProperty(), axiom, true);
-                }
-            }
-        }
-
-
-        public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(DISJOINT_OBJECT_PROPERTIES, internals.getAxiomsByType(), axiom);
-                for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-                    internals.addToIndexedSet(prop, internals.getDisjointObjectPropertyAxiomsByProperty(), axiom);
-                }
-            }
-            else {
-                internals.removeAxiomFromSet(DISJOINT_OBJECT_PROPERTIES, internals.getAxiomsByType(), axiom, true);
-                for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-                    internals.removeAxiomFromSet(prop, internals.getDisjointObjectPropertyAxiomsByProperty(), axiom, true);
-                }
-            }
-        }
-
-
-        public void visit(OWLObjectPropertyRangeAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(OBJECT_PROPERTY_RANGE, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getProperty(), internals.getObjectPropertyRangeAxiomsByProperty(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(OBJECT_PROPERTY_RANGE, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getProperty(), internals.getObjectPropertyRangeAxiomsByProperty(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(OBJECT_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getSubject(), internals.getObjectPropertyAssertionsByIndividual(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(OBJECT_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getSubject(), internals.getObjectPropertyAssertionsByIndividual(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(FUNCTIONAL_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getProperty(), internals.getFunctionalObjectPropertyAxiomsByProperty(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(FUNCTIONAL_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getProperty(), internals.getFunctionalObjectPropertyAxiomsByProperty(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(SUB_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getSubProperty(), internals.getObjectSubPropertyAxiomsByLHS(), axiom);
-                internals.addToIndexedSet(axiom.getSuperProperty(), internals.getObjectSubPropertyAxiomsByRHS(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(SUB_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getSubProperty(), internals.getObjectSubPropertyAxiomsByLHS(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getSuperProperty(), internals.getObjectSubPropertyAxiomsByRHS(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLDisjointUnionAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(DISJOINT_UNION, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getOWLClass(), internals.getDisjointUnionAxiomsByClass(), axiom);
-                internals.addToIndexedSet(axiom.getOWLClass(), internals.getClassAxiomsByClass(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(DISJOINT_UNION, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getOWLClass(), internals.getDisjointUnionAxiomsByClass(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getOWLClass(), internals.getClassAxiomsByClass(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLDeclarationAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(DECLARATION, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getEntity(), internals.getDeclarationsByEntity(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(DECLARATION, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getEntity(), internals.getDeclarationsByEntity(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLAnnotationAssertionAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(ANNOTATION_ASSERTION, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getSubject(), internals.getAnnotationAssertionAxiomsBySubject(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(ANNOTATION_ASSERTION, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getSubject(), internals.getAnnotationAssertionAxiomsBySubject(), axiom, true);
-            }
-        }
-
-        public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(ANNOTATION_PROPERTY_DOMAIN, internals.getAxiomsByType(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(ANNOTATION_PROPERTY_DOMAIN, internals.getAxiomsByType(), axiom, true);
-            }
-        }
-
-        public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(ANNOTATION_PROPERTY_RANGE, internals.getAxiomsByType(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(ANNOTATION_PROPERTY_RANGE, internals.getAxiomsByType(), axiom, true);
-            }
-        }
-
-        public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(SUB_ANNOTATION_PROPERTY_OF, internals.getAxiomsByType(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(SUB_ANNOTATION_PROPERTY_OF, internals.getAxiomsByType(), axiom, true);
-            }
-        }
-
-        public void visit(OWLHasKeyAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(HAS_KEY, internals.getAxiomsByType(), axiom);
-                if (!axiom.getClassExpression().isAnonymous()) {
-                    internals.addToIndexedSet(axiom.getClassExpression().asOWLClass(), internals.getHasKeyAxiomsByClass(), axiom);
-                }
-            }
-            else {
-                internals.removeAxiomFromSet(HAS_KEY, internals.getAxiomsByType(), axiom, true);
-                if (!axiom.getClassExpression().isAnonymous()) {
-                    internals.removeAxiomFromSet(axiom.getClassExpression().asOWLClass(), internals.getHasKeyAxiomsByClass(), axiom, true);
-                }
-            }
-        }
-
-        public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(SYMMETRIC_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getProperty(), internals.getSymmetricPropertyAxiomsByProperty(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(SYMMETRIC_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getProperty(), internals.getSymmetricPropertyAxiomsByProperty(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLDataPropertyRangeAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(DATA_PROPERTY_RANGE, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getProperty(), internals.getDataPropertyRangeAxiomsByProperty(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(DATA_PROPERTY_RANGE, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getProperty(), internals.getDataPropertyRangeAxiomsByProperty(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(FUNCTIONAL_DATA_PROPERTY, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getProperty(), internals.getFunctionalDataPropertyAxiomsByProperty(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(FUNCTIONAL_DATA_PROPERTY, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getProperty(), internals.getFunctionalDataPropertyAxiomsByProperty(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(EQUIVALENT_DATA_PROPERTIES, internals.getAxiomsByType(), axiom);
-                for (OWLDataPropertyExpression prop : axiom.getProperties()) {
-                    internals.addToIndexedSet(prop, internals.getEquivalentDataPropertyAxiomsByProperty(), axiom);
-                }
-            }
-            else {
-                internals.removeAxiomFromSet(EQUIVALENT_DATA_PROPERTIES, internals.getAxiomsByType(), axiom, true);
-                for (OWLDataPropertyExpression prop : axiom.getProperties()) {
-                    internals.removeAxiomFromSet(prop, internals.getEquivalentDataPropertyAxiomsByProperty(), axiom, true);
-                }
-            }
-        }
-
-
-        public void visit(OWLClassAssertionAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(axiom.getIndividual(), internals.getClassAssertionAxiomsByIndividual(), axiom);
-                internals.addToIndexedSet(CLASS_ASSERTION, internals.getAxiomsByType(), axiom);
-                if (!axiom.getClassExpression().isAnonymous()) {
-                    internals.addToIndexedSet((OWLClass) axiom.getClassExpression(), internals.getClassAssertionAxiomsByClass(), axiom);
-                }
-            }
-            else {
-                internals.removeAxiomFromSet(CLASS_ASSERTION, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getIndividual(), internals.getClassAssertionAxiomsByIndividual(), axiom, true);
-                if (!axiom.getClassExpression().isAnonymous()) {
-                    internals.removeAxiomFromSet((OWLClass) axiom.getClassExpression(), internals.getClassAssertionAxiomsByClass(), axiom, true);
-                }
-            }
-        }
-
-
-        public void visit(OWLEquivalentClassesAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(EQUIVALENT_CLASSES, internals.getAxiomsByType(), axiom);
-                boolean allAnon = true;
-                for (OWLClassExpression desc : axiom.getClassExpressions()) {
-                    if (!desc.isAnonymous()) {
-                        internals.addToIndexedSet((OWLClass) desc, internals.getEquivalentClassesAxiomsByClass(), axiom);
-                        internals.addToIndexedSet((OWLClass) desc, internals.getClassAxiomsByClass(), axiom);
-                        allAnon = false;
-                    }
-                }
-                if (allAnon) {
-                    internals.getGeneralClassAxioms().add(axiom);
-                }
-            }
-            else {
-                internals.removeAxiomFromSet(EQUIVALENT_CLASSES, internals.getAxiomsByType(), axiom, true);
-                boolean allAnon = true;
-                for (OWLClassExpression desc : axiom.getClassExpressions()) {
-                    if (!desc.isAnonymous()) {
-                        internals.removeAxiomFromSet((OWLClass) desc, internals.getEquivalentClassesAxiomsByClass(), axiom, true);
-                        internals.removeAxiomFromSet((OWLClass) desc, internals.getClassAxiomsByClass(), axiom, true);
-                        allAnon = false;
-                    }
-                }
-                if (allAnon) {
-                    internals.getGeneralClassAxioms().remove(axiom);
-                }
-            }
-        }
-
-
-        public void visit(OWLDataPropertyAssertionAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(DATA_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getSubject(), internals.getDataPropertyAssertionsByIndividual(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(DATA_PROPERTY_ASSERTION, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getSubject(), internals.getDataPropertyAssertionsByIndividual(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(TRANSITIVE_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getProperty(), internals.getTransitivePropertyAxiomsByProperty(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(TRANSITIVE_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getProperty(), internals.getTransitivePropertyAxiomsByProperty(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(IRREFLEXIVE_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getProperty(), internals.getIrreflexivePropertyAxiomsByProperty(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(IRREFLEXIVE_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getProperty(), internals.getIrreflexivePropertyAxiomsByProperty(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLSubDataPropertyOfAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(SUB_DATA_PROPERTY, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getSubProperty(), internals.getDataSubPropertyAxiomsByLHS(), axiom);
-                internals.addToIndexedSet(axiom.getSuperProperty(), internals.getDataSubPropertyAxiomsByRHS(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(SUB_DATA_PROPERTY, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getSubProperty(), internals.getDataSubPropertyAxiomsByLHS(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getSuperProperty(), internals.getDataSubPropertyAxiomsByRHS(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(INVERSE_FUNCTIONAL_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom);
-                internals.addToIndexedSet(axiom.getProperty(), internals.getInverseFunctionalPropertyAxiomsByProperty(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(INVERSE_FUNCTIONAL_OBJECT_PROPERTY, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom.getProperty(), internals.getInverseFunctionalPropertyAxiomsByProperty(), axiom, true);
-            }
-        }
-
-
-        public void visit(OWLSameIndividualAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(SAME_INDIVIDUAL, internals.getAxiomsByType(), axiom);
-                for (OWLIndividual ind : axiom.getIndividuals()) {
-                    internals.addToIndexedSet(ind, internals.getSameIndividualsAxiomsByIndividual(), axiom);
-                }
-            }
-            else {
-                internals.removeAxiomFromSet(SAME_INDIVIDUAL, internals.getAxiomsByType(), axiom, true);
-                for (OWLIndividual ind : axiom.getIndividuals()) {
-                    internals.removeAxiomFromSet(ind, internals.getSameIndividualsAxiomsByIndividual(), axiom, true);
-                }
-            }
-        }
-
-
-        public void visit(OWLSubPropertyChainOfAxiom axiom) {
-            if (addAxiom) {
-                internals.addToIndexedSet(SUB_PROPERTY_CHAIN_OF, internals.getAxiomsByType(), axiom);
-                internals.addAxiomToSet(axiom, internals.getPropertyChainSubPropertyAxioms());
-            }
-            else {
-                internals.removeAxiomFromSet(SUB_PROPERTY_CHAIN_OF, internals.getAxiomsByType(), axiom, true);
-                internals.removeAxiomFromSet(axiom, internals.getPropertyChainSubPropertyAxioms());
-            }
-        }
-
-
-        public void visit(SWRLRule rule) {
-            if (addAxiom) {
-                internals.addToIndexedSet(SWRL_RULE, internals.getAxiomsByType(), rule);
-            }
-            else {
-                internals.removeAxiomFromSet(SWRL_RULE, internals.getAxiomsByType(), rule, true);
-            }
-        }
-
-
-        public void visit(OWLDatatypeDefinitionAxiom axiom) {
-            // Just use general indexing (on the assumption that there won't be many
-            // datatype definitions).  This could always be optimised at a later stage.
-            if (addAxiom) {
-                internals.addToIndexedSet(DATATYPE_DEFINITION, internals.getAxiomsByType(), axiom);
-            }
-            else {
-                internals.removeAxiomFromSet(DATATYPE_DEFINITION, internals.getAxiomsByType(), axiom, true);
-            }
-        }
-    }
 
 
     public void accept(OWLObjectVisitor visitor) {
