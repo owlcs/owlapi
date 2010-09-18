@@ -29,6 +29,7 @@ import java.util.Set;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Author: Matthew Horridge<br>
@@ -38,6 +39,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * <br>
  */
 public class CollectionFactory {
+	
+	private static AtomicInteger expectedThreads=new AtomicInteger(16);
+	
+	public static void setExpectedThreads(int value) {
+		expectedThreads.set(value);
+	}
+	
 	public static <T> Set<T> createSet() {
 		return new HashSet<T>();
 	}
@@ -66,8 +74,8 @@ public class CollectionFactory {
 		return new SyncSet<T>();
 	}
 	
-	public static <K,V> Map<K,V> createSyncMap(){
-		return new ConcurrentHashMap<K, V>();
+	public static <K,V> ConcurrentHashMap<K,V> createSyncMap(){
+		return new ConcurrentHashMap<K, V>(16, 0.75F, expectedThreads.get());
 	}
 
 	/**
