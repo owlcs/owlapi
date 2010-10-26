@@ -54,7 +54,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
     }
 
 
-    public String render(OWLObject object) {
+    public synchronized String render(OWLObject object) {
         writerDelegate.reset();
         object.accept(ren);
         return writerDelegate.toString();
