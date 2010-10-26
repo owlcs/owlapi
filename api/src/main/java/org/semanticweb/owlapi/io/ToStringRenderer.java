@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -37,7 +38,7 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
  */
 public class ToStringRenderer {
 
-    private static ToStringRenderer instance;
+	private static ToStringRenderer instance;
 
     private OWLObjectRenderer renderer;
 
@@ -52,15 +53,22 @@ public class ToStringRenderer {
         return instance;
     }
 
-    public OWLObjectRenderer getRenderer() {
+    /**Deprecated: this method returns internal mutable state, it is not safe to use in a multithreaded environment. Use ToStringRenderer::getInstance().setShortFormProvider() to set the ShortFormProvider instead.
+     * @return the current OWLObjectRenderer */
+    @Deprecated
+    public synchronized OWLObjectRenderer getRenderer() {
         return renderer;
     }
+    
+    public synchronized void setShortFormProvider(ShortFormProvider provider) {
+    	renderer.setShortFormProvider(provider);
+    }
 
-    public void setRenderer(OWLObjectRenderer renderer) {
+    public synchronized void setRenderer(OWLObjectRenderer renderer) {
         this.renderer = renderer;
     }
 
-    public String getRendering(OWLObject object) {
+    public synchronized String getRendering(OWLObject object) {
         return renderer.render(object);
     }
 }
