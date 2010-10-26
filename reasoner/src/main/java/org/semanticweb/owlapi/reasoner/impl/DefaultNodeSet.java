@@ -157,4 +157,10 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     public Iterator<Node<E>> iterator() {
         return nodes.iterator();
     }
+    
+    @Override
+    public String toString() {
+    	
+    	return "Nodeset"+this.nodes.toString();
+    }
 }
