@@ -38,7 +38,8 @@ public interface OWLObject extends Comparable<OWLObject> {
     /**
      * Gets the signature of this object
      * @return A set of entities that correspond to the
-     *         signature of this object.
+     *         signature of this object. The set is an 
+     *         unmodifiable collection.
      */
     Set<OWLEntity> getSignature();
 
@@ -47,7 +48,9 @@ public interface OWLObject extends Comparable<OWLObject> {
      * A convenience method that obtains the classes
      * that are in the signature of this object
      * @return A set containing the classes that are in the signature
-     *         of this object.
+     *         of this object. The set is a subset of the signature, and
+     *         is not backed by the signature; it is a modifiable collection 
+     *         and changes are not reflected by the signature.
      */
     Set<OWLClass> getClassesInSignature();
 
@@ -55,7 +58,9 @@ public interface OWLObject extends Comparable<OWLObject> {
      * A convenience method that obtains the data properties
      * that are in the signature of this object
      * @return A set containing the data properties that are in the signature
-     *         of this object.
+     *         of this object.The set is a subset of the signature, and
+     *         is not backed by the signature; it is a modifiable collection 
+     *         and changes are not reflected by the signature.
      */
     Set<OWLDataProperty> getDataPropertiesInSignature();
 
@@ -63,7 +68,9 @@ public interface OWLObject extends Comparable<OWLObject> {
      * A convenience method that obtains the object properties
      * that are in the signature of this object
      * @return A set containing the object properties that are in the signature
-     *         of this object.
+     *         of this object.The set is a subset of the signature, and
+     *         is not backed by the signature; it is a modifiable collection 
+     *         and changes are not reflected by the signature.
      */
     Set<OWLObjectProperty> getObjectPropertiesInSignature();
 
@@ -72,7 +79,9 @@ public interface OWLObject extends Comparable<OWLObject> {
      * A convenience method that obtains the individuals
      * that are in the signature of this object
      * @return A set containing the individuals that are in the signature
-     *         of this object.
+     *         of this object.The set is a subset of the signature, and
+     *         is not backed by the signature; it is a modifiable collection 
+     *         and changes are not reflected by the signature.
      */
     Set<OWLNamedIndividual> getIndividualsInSignature();
 
@@ -80,7 +89,9 @@ public interface OWLObject extends Comparable<OWLObject> {
      * A convenience method that obtains the datatypes
      * that are in the signature of this object
      * @return A set containing the datatypes that are in the signature
-     *         of this object.
+     *         of this object.The set is a subset of the signature, and
+     *         is not backed by the signature; it is a modifiable collection 
+     *         and changes are not reflected by the signature.
      */
     Set<OWLDatatype> getDatatypesInSignature();
 
