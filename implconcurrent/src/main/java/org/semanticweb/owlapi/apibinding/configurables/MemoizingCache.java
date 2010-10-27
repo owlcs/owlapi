@@ -135,7 +135,11 @@ public class MemoizingCache<A, V> implements Map<A, V> {
 		}
 		// the run for the future task is supposed to have already been performed, so no exceptions are expected or managed here
 		try {
-			return cache.get(key).get();
+			FutureTask<V> futureTask = cache.get(key);
+			if(futureTask!=null) {
+			return futureTask.get();}else {
+				throw new NullPointerException("Unexpected null value in the map");
+			}
 		} catch (CancellationException e) {
 			throw new RuntimeException(e);
 		} catch (ExecutionException e) {

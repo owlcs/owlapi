@@ -61,11 +61,11 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
     }
 
 
-    public void setShortFormProvider(ShortFormProvider shortFormProvider) {
+    public synchronized void setShortFormProvider(ShortFormProvider shortFormProvider) {
         ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate, shortFormProvider);
     }
 
-    private class WriterDelegate extends Writer {
+    private static class WriterDelegate extends Writer {
 
         private StringWriter delegate;
 
