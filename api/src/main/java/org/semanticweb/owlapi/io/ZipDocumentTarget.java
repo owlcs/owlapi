@@ -51,7 +51,7 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
 
 
     public Writer getWriter() throws IOException {
-        return new BufferedWriter(new OutputStreamWriter(getOutputStream()));
+        return new BufferedWriter(new OutputStreamWriter(getOutputStream(), "UTF-8"));
     }
 
 

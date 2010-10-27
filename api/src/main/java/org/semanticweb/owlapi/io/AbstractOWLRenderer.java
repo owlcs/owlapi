@@ -56,7 +56,7 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
 
     public void render(OWLOntology ontology, OutputStream os) throws OWLRendererException {
         try {
-            Writer writer = new BufferedWriter(new OutputStreamWriter(os));
+            Writer writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
             render(ontology, writer);
             writer.flush();
         }
