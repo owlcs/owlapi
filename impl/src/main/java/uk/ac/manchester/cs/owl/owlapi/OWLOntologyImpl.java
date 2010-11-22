@@ -2,6 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -148,6 +149,30 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 	public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType,
 			boolean includeImportsClosure) {
 		return internals.getAxioms(axiomType, includeImportsClosure?getImportsClosure():null);
+	}
+
+	public Set<OWLAxiom> getTBoxAxioms(boolean includeImportsClosure) {
+		Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
+		for (AxiomType<OWLAxiom> type : AxiomType.TBoxAxiomTypes) {
+			toReturn.addAll(getAxioms(type, includeImportsClosure));
+		}
+		return toReturn;
+	}
+
+	public Set<OWLAxiom> getABoxAxioms(boolean includeImportsClosure) {
+		Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
+		for (AxiomType<OWLAxiom> type : AxiomType.ABoxAxiomTypes) {
+			toReturn.addAll(getAxioms(type, includeImportsClosure));
+		}
+		return toReturn;
+	}
+	public Set<OWLAxiom> getRBoxAxioms(
+			boolean includeImportsClosure) {
+		Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
+		for (AxiomType<OWLAxiom> type : AxiomType.RBoxAxiomTypes) {
+			toReturn.addAll(getAxioms(type, includeImportsClosure));
+		}
+		return toReturn;
 	}
 
 	public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType) {

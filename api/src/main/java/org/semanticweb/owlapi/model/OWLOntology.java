@@ -233,6 +233,38 @@ public interface OWLOntology extends OWLObject {
      *         axioms in the ontology (and its imports closure) - it will not be updated if the ontology changes.
      */
     <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, boolean includeImportsClosure);
+    
+    /**
+     * Gets the axioms that form the TBox for this ontology, i.e., the ones whose type is in the AxiomType::TBoxAxiomTypes
+     * 
+     *
+     * @param includeImportsClosure if <code>true</code> then axioms of the specified type will also be retrieved from
+     * the imports closure of this ontology, if <code>false</code> then axioms of the specified type will only
+     * be retrieved from this ontology.
+     * @return A set containing the axioms which are of the specified type. The set that is returned is a copy of the
+     *         axioms in the ontology (and its imports closure) - it will not be updated if the ontology changes.
+     */
+    Set<OWLAxiom> getTBoxAxioms(boolean includeImportsClosure);
+    /**
+     * Gets the axioms that form the ABox for this ontology, i.e., the ones whose type is in the AxiomType::ABoxAxiomTypes
+     *
+     * @param includeImportsClosure if <code>true</code> then axioms of the specified type will also be retrieved from
+     * the imports closure of this ontology, if <code>false</code> then axioms of the specified type will only
+     * be retrieved from this ontology.
+     * @return A set containing the axioms which are of the specified type. The set that is returned is a copy of the
+     *         axioms in the ontology (and its imports closure) - it will not be updated if the ontology changes.
+     */
+    Set<OWLAxiom> getABoxAxioms(boolean includeImportsClosure);
+    /**
+     * Gets the axioms that form the RBox for this ontology, i.e., the ones whose type is in the AxiomType::RBoxAxiomTypes
+     *
+     * @param includeImportsClosure if <code>true</code> then axioms of the specified type will also be retrieved from
+     * the imports closure of this ontology, if <code>false</code> then axioms of the specified type will only
+     * be retrieved from this ontology.
+     * @return A set containing the axioms which are of the specified type. The set that is returned is a copy of the
+     *         axioms in the ontology (and its imports closure) - it will not be updated if the ontology changes.
+     */
+    Set<OWLAxiom> getRBoxAxioms(boolean includeImportsClosure);
 
 
     /**
