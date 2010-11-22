@@ -163,4 +163,24 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     	
     	return "Nodeset"+this.nodes.toString();
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof NodeSet)) {
+            return false;
+        }
+        NodeSet other = (NodeSet) obj;
+        return nodes.equals(other.getNodes());
+    }
+
+    @Override
+    public int hashCode() {
+        return nodes.hashCode();
+    }
 }
