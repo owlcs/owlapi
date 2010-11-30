@@ -1,5 +1,6 @@
 package org.coode.owlapi.owlxmlparser;
 
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -44,10 +45,10 @@ public class LegacyEntityAnnotationElementHandler extends AbstractOWLAxiomElemen
     }
 
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        OWLAnnotation anno = annotation;
+        OWLAnnotationAssertionAxiom toReturn = getOWLDataFactory().getOWLAnnotationAssertionAxiom(annotation.getProperty(), entity.getIRI(), annotation.getValue());
         annotation = null;
         entity = null;
-        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(anno.getProperty(), entity.getIRI(), anno.getValue());
+		return toReturn;
     }
 
     public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException {
