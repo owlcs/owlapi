@@ -330,12 +330,13 @@ public abstract class RDFRendererBase {
                 }
 
                 public RDFNode visit(OWLLiteral literal) {
-                    if(literal.hasLang()) {
-                        return new RDFLiteralNode(literal.getLiteral(), literal.getLang());
-                    }
-                    else {
-                        return new RDFLiteralNode(literal.getLiteral(), literal.getDatatype().getIRI());
-                    }
+                	return RDFTranslator.translateLiteralNode(literal);
+//                    if(literal.hasLang()) {
+//                        return new RDFLiteralNode(literal.getLiteral(), literal.getLang());
+//                    }
+//                    else {
+//                        return new RDFLiteralNode(literal.getLiteral(), literal.getDatatype().getIRI());
+//                    }
                 }
             };
             RDFNode node = anno.getValue().accept(valVisitor);
