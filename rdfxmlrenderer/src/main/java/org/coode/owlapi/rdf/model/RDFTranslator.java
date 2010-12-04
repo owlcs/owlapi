@@ -62,6 +62,16 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResourceNode, 
 
     @Override
     protected RDFLiteralNode getLiteralNode(OWLLiteral literal) {
+    	return translateLiteralNode(literal);
+//        if (!literal.isRDFPlainLiteral()) {
+//            return new RDFLiteralNode(literal.getLiteral(), literal.getDatatype().getIRI());
+//        }
+//        else {
+//            return new RDFLiteralNode(literal.getLiteral(), literal.hasLang() ? literal.getLang() : null);
+//        }
+    }
+    
+    public static RDFLiteralNode translateLiteralNode(OWLLiteral literal) {
         if (!literal.isRDFPlainLiteral()) {
             return new RDFLiteralNode(literal.getLiteral(), literal.getDatatype().getIRI());
         }
