@@ -25,11 +25,8 @@ package org.semanticweb.owlapi.api.test.alternate;
 
 import junit.framework.TestCase;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.apibinding.configurables.ThreadSafeOWLManager;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryCSR;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryCWR;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryFuture;

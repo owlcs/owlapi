@@ -27,11 +27,8 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-import uk.ac.manchester.cs.owl.owlapi.ChangeAxiomVisitor;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceAdder;
-import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceAdderImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceRemover;
-import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceRemoverImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
 public class LockingOWLOntologyImpl extends OWLOntologyImpl {

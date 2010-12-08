@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.semanticweb.owlapi.model.IRI;

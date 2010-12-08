@@ -6,28 +6,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-/*
- * Copyright (C) 2007, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
-
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -39,13 +17,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <br>
  */
 public class CollectionFactory {
-	
-	private static AtomicInteger expectedThreads=new AtomicInteger(16);
-	
+	private static AtomicInteger expectedThreads = new AtomicInteger(16);
+
 	public static void setExpectedThreads(int value) {
 		expectedThreads.set(value);
 	}
-	
+
 	public static <T> Set<T> createSet() {
 		return new HashSet<T>();
 	}
@@ -69,12 +46,12 @@ public class CollectionFactory {
 		}
 		return result;
 	}
-	
-	public static <T> Set<T> createSyncSet(){
+
+	public static <T> Set<T> createSyncSet() {
 		return new SyncSet<T>();
 	}
-	
-	public static <K,V> ConcurrentHashMap<K,V> createSyncMap(){
+
+	public static <K, V> ConcurrentHashMap<K, V> createSyncMap() {
 		return new ConcurrentHashMap<K, V>(16, 0.75F, expectedThreads.get());
 	}
 
@@ -167,6 +144,102 @@ public class CollectionFactory {
 
 		public <T> T[] toArray(T[] a) {
 			return backingMap.keySet().toArray(a);
+		}
+	}
+
+	public static <T> Set<T> getCopyOnWriteSet(Set<T> source) {
+		return new ConditionalCopySet<T>(source);
+	}
+
+	/**
+	 * a set implementation that uses a delegate set for all read-only
+	 * operations and makes a copy if changes are attempted. Useful for cheap
+	 * defensive copies: no costly rehashing on the original set is made unless
+	 * changes are attempted. Changes are not mirrored back to the original set,
+	 * although changes to the original set BEFORE changes to the copy are
+	 * reflected in the copy. This is not the expected behaviour for regular
+	 * defensive copies, so it needs to be documented; it is irrelevant for
+	 * copies of sets that never change, i.e., signatures of OWL objects.
+	 * 
+	 * This implementation is not threadsafe even if the source set is: there is
+	 * no lock during the copy, and the new set is not threadsafe
+	 */
+	public static class ConditionalCopySet<T> implements Set<T> {
+		private boolean copyDone = false;
+		private Set<T> delegate;
+
+		public ConditionalCopySet(Set<T> source) {
+			this.delegate = source;
+		}
+
+		public boolean add(T arg0) {
+			if (!copyDone) {
+				delegate = new HashSet<T>(delegate);
+			}
+			return delegate.add(arg0);
+		}
+
+		public boolean addAll(Collection<? extends T> arg0) {
+			if (!copyDone) {
+				delegate = new HashSet<T>(delegate);
+			}
+			return delegate.addAll(arg0);
+		}
+
+		public void clear() {
+			if (!copyDone) {
+				delegate = new HashSet<T>(delegate);
+			}
+			delegate.clear();
+		}
+
+		public boolean contains(Object arg0) {
+			return delegate.contains(arg0);
+		}
+
+		public boolean containsAll(Collection<?> arg0) {
+			return delegate.containsAll(arg0);
+		}
+
+		public boolean isEmpty() {
+			return delegate.isEmpty();
+		}
+
+		public Iterator<T> iterator() {
+			return delegate.iterator();
+		}
+
+		public boolean remove(Object arg0) {
+			if (!copyDone) {
+				delegate = new HashSet<T>(delegate);
+			}
+			return delegate.remove(arg0);
+		}
+
+		public boolean removeAll(Collection<?> arg0) {
+			if (!copyDone) {
+				delegate = new HashSet<T>(delegate);
+			}
+			return delegate.removeAll(arg0);
+		}
+
+		public boolean retainAll(Collection<?> arg0) {
+			if (!copyDone) {
+				delegate = new HashSet<T>(delegate);
+			}
+			return delegate.retainAll(arg0);
+		}
+
+		public int size() {
+			return delegate.size();
+		}
+
+		public Object[] toArray() {
+			return delegate.toArray();
+		}
+
+		public <T> T[] toArray(T[] arg0) {
+			return delegate.toArray(arg0);
 		}
 	}
 }

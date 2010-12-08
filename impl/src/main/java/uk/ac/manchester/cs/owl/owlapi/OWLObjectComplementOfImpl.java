@@ -1,6 +1,14 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.ClassExpressionType;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /*
  * Copyright (C) 2006, University of Manchester

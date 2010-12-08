@@ -4,7 +4,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.IRI;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

@@ -4,7 +4,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import java.net.URI;
 import java.util.Set;
 
 /*

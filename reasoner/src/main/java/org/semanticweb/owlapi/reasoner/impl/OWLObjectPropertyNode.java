@@ -1,8 +1,6 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.vocab.OWLDataFactoryVocabulary;
 

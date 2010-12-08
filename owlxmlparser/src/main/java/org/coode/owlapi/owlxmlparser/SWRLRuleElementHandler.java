@@ -3,8 +3,6 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.SWRLAtom;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 /*

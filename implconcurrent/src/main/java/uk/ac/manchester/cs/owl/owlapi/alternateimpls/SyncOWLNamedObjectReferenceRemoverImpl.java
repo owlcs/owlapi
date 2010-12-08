@@ -11,9 +11,9 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
+import uk.ac.manchester.cs.owl.owlapi.Internals;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceRemover;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceRemoverImpl;
-import uk.ac.manchester.cs.owl.owlapi.Internals;
 
 public class SyncOWLNamedObjectReferenceRemoverImpl implements
 		OWLNamedObjectReferenceRemover {

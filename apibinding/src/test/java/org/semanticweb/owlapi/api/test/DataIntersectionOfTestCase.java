@@ -1,10 +1,14 @@
 package org.semanticweb.owlapi.api.test;
 
-import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.*;
-
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
+
+import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /*
  * Copyright (C) 2008, University of Manchester

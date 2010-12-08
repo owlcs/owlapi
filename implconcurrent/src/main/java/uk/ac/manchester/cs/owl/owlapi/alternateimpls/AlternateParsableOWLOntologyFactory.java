@@ -31,6 +31,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -72,17 +73,12 @@ public class AlternateParsableOWLOntologyFactory extends AlternateAbstractInMemO
 
     private static final Logger logger = Logger.getLogger(AlternateParsableOWLOntologyFactory.class.getName());
 
-    private Set<String> parsableSchemes;
+    private final static Set<String> parsableSchemes= new HashSet<String>(Arrays.asList("http","https","file","ftp"));
 
     /**
      * Creates an ontology factory.
      */
     public AlternateParsableOWLOntologyFactory() {
-        parsableSchemes = new HashSet<String>();
-        parsableSchemes.add("http");
-        parsableSchemes.add("https");
-        parsableSchemes.add("file");
-        parsableSchemes.add("ftp");
     }
 
 

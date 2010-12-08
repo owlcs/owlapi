@@ -1,9 +1,6 @@
 package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
-
 import java.util.List;
-
 
 /**
  * Author: Matthew Horridge<br>

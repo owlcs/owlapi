@@ -5,7 +5,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.IRI;
 
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *

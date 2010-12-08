@@ -2,9 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 /*
  * Copyright (C) 2006, University of Manchester

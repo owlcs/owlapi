@@ -1,11 +1,12 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.*;
-////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// An inner helper class that removes the appropriate references indexes for a given axiom
-//
-////////////////////////////////////////////////////////////////////////////////////////////////
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 
 public class OWLNamedObjectReferenceRemoverImpl implements OWLNamedObjectReferenceRemover {

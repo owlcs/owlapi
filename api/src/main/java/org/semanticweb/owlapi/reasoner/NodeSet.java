@@ -1,10 +1,8 @@
 package org.semanticweb.owlapi.reasoner;
 
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLogicalEntity;
-import org.semanticweb.owlapi.model.OWLObject;
-
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.OWLObject;
 
 /*
  * Copyright (C) 2009, University of Manchester

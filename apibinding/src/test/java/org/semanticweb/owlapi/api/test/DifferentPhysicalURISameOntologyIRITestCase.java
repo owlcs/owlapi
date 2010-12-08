@@ -1,9 +1,11 @@
 package org.semanticweb.owlapi.api.test;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-import java.net.URI;
 /*
  * Copyright (C) 2009, University of Manchester
  *

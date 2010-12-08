@@ -2,6 +2,8 @@ package org.semanticweb.owlapi.api.test;
 
 import java.io.ByteArrayOutputStream;
 
+import junit.framework.TestCase;
+
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
@@ -15,8 +17,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
-import junit.framework.TestCase;
 
 public class TestPlainLiteral extends TestCase {
 	public void testPlainLiteral() {

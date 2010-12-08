@@ -114,10 +114,10 @@ public class AxiomType<C extends OWLAxiom> {
      *         will not be modified.  The returned set is a copy.
      */
     public static Set<OWLAxiom> getAxiomsWithoutTypes(Set<OWLAxiom> sourceAxioms, AxiomType... axiomType) {
-        Set<OWLAxiom> result = new HashSet<OWLAxiom>(sourceAxioms);
-        for (Iterator<OWLAxiom> it = result.iterator(); it.hasNext();) {
-            if (it.next().isOfType(axiomType)) {
-                it.remove();
+        Set<OWLAxiom> result = new HashSet<OWLAxiom>();
+        for (OWLAxiom ax:sourceAxioms) {
+            if (!ax.isOfType(axiomType)) {
+                result.add(ax);
             }
         }
         return result;
@@ -131,10 +131,10 @@ public class AxiomType<C extends OWLAxiom> {
      *         will not be modified.  The returned set is a copy.
      */
     public static Set<OWLAxiom> getAxiomsOfTypes(Set<OWLAxiom> sourceAxioms, AxiomType... axiomType) {
-        Set<OWLAxiom> result = new HashSet<OWLAxiom>(sourceAxioms);
-        for (Iterator<OWLAxiom> it = result.iterator(); it.hasNext();) {
-            if (!it.next().isOfType(axiomType)) {
-                it.remove();
+    	Set<OWLAxiom> result = new HashSet<OWLAxiom>();
+        for (OWLAxiom ax:sourceAxioms) {
+            if (ax.isOfType(axiomType)) {
+                result.add(ax);
             }
         }
         return result;

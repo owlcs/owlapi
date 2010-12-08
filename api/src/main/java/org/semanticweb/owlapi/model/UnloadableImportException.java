@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 /*
  * Copyright (C) 2009, University of Manchester
  *

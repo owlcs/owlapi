@@ -15,7 +15,6 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
 
 import java.io.Writer;
 import java.io.IOException;
-import java.net.URI;
 import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester

@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
-import org.semanticweb.owlapi.model.OWLLogicalEntity;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.reasoner.Node;
 
@@ -9,7 +7,6 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 /*
  * Copyright (C) 2009, University of Manchester
  *

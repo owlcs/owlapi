@@ -1,13 +1,20 @@
 package org.semanticweb.owlapi.profiles;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
-import org.semanticweb.owlapi.vocab.Namespaces;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.util.OWLOntologyWalker;
+import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /*
  * Copyright (C) 2008, University of Manchester

@@ -1,13 +1,20 @@
 package org.semanticweb.owlapi.api.test;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StreamDocumentTarget;
-import org.semanticweb.owlapi.model.*;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.io.StreamDocumentTarget;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
  * Author: Matthew Horridge<br>

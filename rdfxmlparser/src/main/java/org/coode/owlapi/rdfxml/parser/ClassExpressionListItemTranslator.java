@@ -4,7 +4,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.IRI;
 
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *

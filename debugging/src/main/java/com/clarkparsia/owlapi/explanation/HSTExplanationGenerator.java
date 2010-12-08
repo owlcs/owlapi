@@ -214,6 +214,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @return the entities referenced in the axiom
      */
     private Set<OWLEntity> getSignature(OWLAxiom axiom) {
+    	// could use a stateless collector and spare the defensive copy
         collector.reset();
 
         axiom.accept(collector);

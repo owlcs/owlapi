@@ -1,11 +1,16 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataVisitor;
+import org.semanticweb.owlapi.model.OWLDataVisitorEx;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 /*
  * Copyright (C) 2006, University of Manchester
  *

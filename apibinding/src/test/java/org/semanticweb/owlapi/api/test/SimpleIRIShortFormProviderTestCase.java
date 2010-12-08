@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 

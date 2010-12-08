@@ -23,7 +23,6 @@ package uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-import org.semanticweb.owlapi.apibinding.configurables.Computable;
 import org.semanticweb.owlapi.apibinding.configurables.ComputableAllThrowables;
 import org.semanticweb.owlapi.apibinding.configurables.MemoizingCache;
 import org.semanticweb.owlapi.model.IRI;
@@ -226,7 +225,6 @@ public class InternalsFuture implements OWLDataFactoryInternals {
     }
 
     public OWLDataProperty getOWLDataProperty(final IRI iri) {
-    	//TODO check ComputableAdapter implementations
         return dataPropertiesByURI.get(new ComputableAllThrowables<OWLDataProperty>() {
             public OWLDataProperty compute() {
                 return (OWLDataProperty) BuildableObjects.OWLDATAPROPERTY.build(factory, iri);

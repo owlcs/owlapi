@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.io;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;

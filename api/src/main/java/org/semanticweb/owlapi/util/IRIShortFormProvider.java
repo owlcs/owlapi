@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.IRI;
 
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *

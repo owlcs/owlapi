@@ -3,7 +3,6 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.*;
 import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
 
-import java.net.URI;
 import java.util.List;
 import java.util.logging.Logger;
 /*

@@ -3,11 +3,17 @@ package uk.ac.manchester.cs.owl.owlapi.alternateimpls;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 
+import uk.ac.manchester.cs.owl.owlapi.Internals;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceAdder;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceAdderImpl;
-import uk.ac.manchester.cs.owl.owlapi.Internals;
 
 public class SyncOWLNamedObjectReferenceAdderImpl implements OWLNamedObjectReferenceAdder{
 	private final OWLNamedObjectReferenceAdderImpl delegate;

@@ -95,7 +95,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * through to the change filter and passed on to the reasoner.
      * @param changes The list of raw changes.
      */
-    private void handleRawOntologyChanges(List<? extends OWLOntologyChange> changes) {
+    private final boolean log=false;
+    private synchronized void handleRawOntologyChanges(List<? extends OWLOntologyChange> changes) {
+    	if(log) {System.out.println(Thread.currentThread().getName()+ " OWLReasonerBase.handleRawOntologyChanges() "+changes);}
         rawChanges.addAll(changes);
         // We auto-flush the changes if the reasoner is non-buffering
         if (bufferingMode.equals(BufferingMode.NON_BUFFERING)) {

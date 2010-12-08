@@ -167,7 +167,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
         int remainingSpace = expansionLimit;
         // System.out.println("Expansion limit: " + expansionLimit);
-        for (OWLAxiom ax : new HashSet<OWLAxiom>(debuggingAxioms)) {
+        for (OWLAxiom ax : new ArrayList<OWLAxiom>(debuggingAxioms)) {
             if (expandedWithDefiningAxioms.contains(ax)) {
                 // Skip if already done
                 continue;
@@ -200,7 +200,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
         // No axioms added at this point. Start adding axioms that reference
         // entities contained in the current set of debugging axioms
-        for (OWLAxiom ax : new HashSet<OWLAxiom>(debuggingAxioms)) {
+        for (OWLAxiom ax : new ArrayList<OWLAxiom>(debuggingAxioms)) {
             if (expandedWithReferencingAxioms.contains(ax)) {
                 // Skip - already done this one
                 continue;
@@ -367,7 +367,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         // Simply remove axioms one at a time. If the class
         // being debugged turns satisfiable then we know we have
         // an SOS axiom.
-        Set<OWLAxiom> axiomsCopy = new HashSet<OWLAxiom>(debuggingAxioms);
+        List<OWLAxiom> axiomsCopy = new ArrayList<OWLAxiom>(debuggingAxioms);
         for (OWLAxiom ax : axiomsCopy) {
             debuggingAxioms.remove(ax);
             if (isSatisfiable(unsatClass)) {

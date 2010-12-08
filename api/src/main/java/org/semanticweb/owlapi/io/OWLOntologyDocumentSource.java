@@ -4,7 +4,7 @@ import org.semanticweb.owlapi.model.IRI;
 
 import java.io.InputStream;
 import java.io.Reader;
-import java.net.URI;
+
 /*
  * Copyright (C) 2007, University of Manchester
  *

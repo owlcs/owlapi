@@ -1,6 +1,12 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 public class OWLNamedObjectReferenceAdderImpl implements OWLNamedObjectReferenceAdder{
         private OWLAxiom axiom;

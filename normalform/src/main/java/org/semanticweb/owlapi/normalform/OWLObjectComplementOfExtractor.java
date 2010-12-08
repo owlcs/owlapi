@@ -48,6 +48,7 @@ public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor
     }
 
     public Set<OWLClassExpression> getComplementedClassExpressions(OWLClassExpression desc) {
+    	// XXX a stateless visitor would not need copies
         reset();
         desc.accept(this);
         return new HashSet<OWLClassExpression>(result);

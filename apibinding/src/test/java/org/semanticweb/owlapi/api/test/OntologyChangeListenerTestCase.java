@@ -1,10 +1,19 @@
 package org.semanticweb.owlapi.api.test;
 
-import org.semanticweb.owlapi.model.*;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeListener;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
  * Author: Matthew Horridge<br>

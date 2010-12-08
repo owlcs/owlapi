@@ -1,12 +1,5 @@
 package org.semanticweb.owlapi.io;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-
-import java.net.URI;
-import java.util.*;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -42,8 +35,4 @@ public class RDFXMLOntologyFormat extends RDFOntologyFormat {
     public String toString() {
         return "RDF/XML";
     }
-
-
-
-
 }

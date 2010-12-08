@@ -1,31 +1,80 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.model.*;
-
 import java.util.HashSet;
 import java.util.Set;
-/*
- * Copyright (C) 2008, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDataVisitorEx;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLRule;
 
 
 /**

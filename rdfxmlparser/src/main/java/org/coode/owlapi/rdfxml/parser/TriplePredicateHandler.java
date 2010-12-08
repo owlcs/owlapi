@@ -2,7 +2,6 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *

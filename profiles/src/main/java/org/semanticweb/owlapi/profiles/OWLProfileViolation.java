@@ -1,12 +1,14 @@
 package org.semanticweb.owlapi.profiles;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
-import java.util.*;
-import java.net.URI;
 /*
  * Copyright (C) 2009, University of Manchester
  *

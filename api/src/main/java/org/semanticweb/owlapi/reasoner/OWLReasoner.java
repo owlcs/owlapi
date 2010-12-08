@@ -1,10 +1,20 @@
 package org.semanticweb.owlapi.reasoner;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.Version;
-
-import java.util.Set;
 import java.util.List;
+import java.util.Set;
+
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.util.Version;
 
 /*
  * Copyright (C) 2008, University of Manchester

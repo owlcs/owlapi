@@ -1,9 +1,13 @@
 package org.semanticweb.owlapi.api.test;
 
-import org.semanticweb.owlapi.model.*;
-
-import java.io.File;
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * Author: Matthew Horridge<br>

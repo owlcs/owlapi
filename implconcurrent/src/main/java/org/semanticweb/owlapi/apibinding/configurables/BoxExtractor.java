@@ -1,8 +1,14 @@
 package org.semanticweb.owlapi.apibinding.configurables;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter;
 
 /*

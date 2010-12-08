@@ -44,7 +44,6 @@ public class Race extends TestCase {
 		try {
 			callback= new SubClassLHSCallback();
 		} catch (OWLOntologyCreationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

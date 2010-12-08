@@ -1,9 +1,9 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.model.OWLEntity;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.semanticweb.owlapi.model.OWLEntity;
 
 /*
  * Copyright (C) 2007, University of Manchester

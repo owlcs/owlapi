@@ -5,7 +5,7 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-import java.net.URI;/*
+/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their

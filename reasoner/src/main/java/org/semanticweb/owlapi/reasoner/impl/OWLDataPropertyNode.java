@@ -1,10 +1,7 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.vocab.OWLDataFactoryVocabulary;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 import java.util.Set;
 /*

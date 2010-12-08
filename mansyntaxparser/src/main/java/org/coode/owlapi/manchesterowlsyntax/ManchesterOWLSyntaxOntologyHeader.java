@@ -5,6 +5,8 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Set;
 import java.util.HashSet;
 /*
@@ -40,9 +42,9 @@ public class ManchesterOWLSyntaxOntologyHeader {
 
     private OWLOntologyID ontologyID;
 
-    private Set<OWLAnnotation> annotations;
+    private Collection<OWLAnnotation> annotations;
 
-    private Set<OWLImportsDeclaration> importsDeclarations;
+    private Collection<OWLImportsDeclaration> importsDeclarations;
 
 
     public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI,
@@ -50,8 +52,8 @@ public class ManchesterOWLSyntaxOntologyHeader {
                                              Set<OWLAnnotation> annotations,
                                              Set<OWLImportsDeclaration> importsDeclarations) {
         this.ontologyID = new OWLOntologyID(ontologyIRI, versionIRI);
-        this.annotations = new HashSet<OWLAnnotation>(annotations);
-        this.importsDeclarations = new HashSet<OWLImportsDeclaration>(importsDeclarations);
+        this.annotations = new ArrayList<OWLAnnotation>(annotations);
+        this.importsDeclarations = new ArrayList<OWLImportsDeclaration>(importsDeclarations);
     }
 
 
@@ -60,12 +62,12 @@ public class ManchesterOWLSyntaxOntologyHeader {
     }
 
 
-    public Set<OWLAnnotation> getAnnotations() {
+    public Collection<OWLAnnotation> getAnnotations() {
         return annotations;
     }
 
 
-    public Set<OWLImportsDeclaration> getImportsDeclarations() {
+    public Collection<OWLImportsDeclaration> getImportsDeclarations() {
         return importsDeclarations;
     }
 }

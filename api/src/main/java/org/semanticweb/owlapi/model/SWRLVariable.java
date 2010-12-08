@@ -1,8 +1,5 @@
 package org.semanticweb.owlapi.model;
 
-import java.net.URI;
-
-
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -12,7 +9,7 @@ import java.net.URI;
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
  *
- * Represents a varaible that can appear in an atom. Variable can either be place holders for individuals
+ * Represents a variable that can appear in an atom. Variable can either be place holders for individuals
  * or literals. Variables are named with IRIs.
  */
 public interface SWRLVariable extends SWRLIArgument, SWRLDArgument {

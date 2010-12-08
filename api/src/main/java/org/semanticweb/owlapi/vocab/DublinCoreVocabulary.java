@@ -84,13 +84,13 @@ public enum DublinCoreVocabulary {
         return iri;
     }
 
-    public static final Set<URI> ALL_URIS;
+    public static final Set<IRI> ALL_URIS;
 
 
     static {
-        ALL_URIS = new HashSet<URI>();
+        ALL_URIS = new HashSet<IRI>();
         for (DublinCoreVocabulary v : DublinCoreVocabulary.values()) {
-            ALL_URIS.add(v.getURI());
+            ALL_URIS.add(v.getIRI());
         }
     }
 

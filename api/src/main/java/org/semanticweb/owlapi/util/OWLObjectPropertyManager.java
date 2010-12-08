@@ -1,8 +1,27 @@
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.model.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
 
-import java.util.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /*
  * Copyright (C) 2007, University of Manchester
@@ -289,7 +308,7 @@ public class OWLObjectPropertyManager {
                     nonSimpleProperties.addAll(rtc);
                 }
             }
-            for (OWLObjectPropertyExpression prop : new HashSet<OWLObjectPropertyExpression>(nonSimpleProperties)) {
+            for (OWLObjectPropertyExpression prop : new ArrayList<OWLObjectPropertyExpression>(nonSimpleProperties)) {
                 nonSimpleProperties.add(prop.getInverseProperty().getSimplified());
             }
             simpleDirty = false;

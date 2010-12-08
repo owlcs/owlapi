@@ -1,7 +1,13 @@
 package org.semanticweb.owlapi.api.test;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.reasoner.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.reasoner.BufferingMode;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 
 /**

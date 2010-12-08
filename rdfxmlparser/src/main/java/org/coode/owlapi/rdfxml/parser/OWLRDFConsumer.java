@@ -1145,18 +1145,18 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
 
         for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
-            Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
+            Map<IRI, Collection<IRI>> map = resTriplesBySubject.get(subject);
             for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                Set<IRI> objects = map.get(predicate);
+            	Collection<IRI> objects = map.get(predicate);
                 for (IRI object : objects) {
                     printTriple(subject, predicate, object, w);
                 }
             }
         }
         for (IRI subject : new ArrayList<IRI>(litTriplesBySubject.keySet())) {
-            Map<IRI, Set<OWLLiteral>> map = litTriplesBySubject.get(subject);
+            Map<IRI, Collection<OWLLiteral>> map = litTriplesBySubject.get(subject);
             for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                Set<OWLLiteral> objects = map.get(predicate);
+            	Collection<OWLLiteral> objects = map.get(predicate);
                 for (OWLLiteral object : objects) {
                     printTriple(subject, predicate, object, w);
                 }
@@ -1694,11 +1694,11 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     public Set<IRI> getPredicatesBySubject(IRI subject) {
         Set<IRI> IRIs = new HashSet<IRI>();
-        Map<IRI, Set<IRI>> predObjMap = resTriplesBySubject.get(subject);
+        Map<IRI, Collection<IRI>> predObjMap = resTriplesBySubject.get(subject);
         if (predObjMap != null) {
             IRIs.addAll(predObjMap.keySet());
         }
-        Map<IRI, Set<OWLLiteral>> predObjMapLit = litTriplesBySubject.get(subject);
+        Map<IRI, Collection<OWLLiteral>> predObjMapLit = litTriplesBySubject.get(subject);
         if (predObjMapLit != null) {
             IRIs.addAll(predObjMapLit.keySet());
         }
@@ -1714,9 +1714,9 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
             return obj;
         }
-        Map<IRI, Set<IRI>> predObjMap = resTriplesBySubject.get(subject);
+        Map<IRI, Collection<IRI>> predObjMap = resTriplesBySubject.get(subject);
         if (predObjMap != null) {
-            Set<IRI> objects = predObjMap.get(predicate);
+        	Collection<IRI> objects = predObjMap.get(predicate);
             if (objects != null) {
                 if (!objects.isEmpty()) {
                     IRI object = objects.iterator().next();
@@ -1746,9 +1746,9 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
             return obj;
         }
-        Map<IRI, Set<OWLLiteral>> predObjMap = litTriplesBySubject.get(subject);
+        Map<IRI, Collection<OWLLiteral>> predObjMap = litTriplesBySubject.get(subject);
         if (predObjMap != null) {
-            Set<OWLLiteral> objects = predObjMap.get(predicate);
+        	Collection<OWLLiteral> objects = predObjMap.get(predicate);
             if (objects != null) {
                 if (!objects.isEmpty()) {
                     OWLLiteral object = objects.iterator().next();
@@ -1775,9 +1775,9 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
             return obj != null;
         }
-        Map<IRI, Set<IRI>> predObjMap = resTriplesBySubject.get(subject);
+        Map<IRI, Collection<IRI>> predObjMap = resTriplesBySubject.get(subject);
         if (predObjMap != null) {
-            Set<IRI> objects = predObjMap.get(predicate);
+        	Collection<IRI> objects = predObjMap.get(predicate);
             if (objects != null) {
                 if (objects.contains(object)) {
                     if (consume) {
@@ -1807,9 +1807,9 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
             return obj != null;
         }
-        Map<IRI, Set<OWLLiteral>> predObjMap = litTriplesBySubject.get(subject);
+        Map<IRI, Collection<OWLLiteral>> predObjMap = litTriplesBySubject.get(subject);
         if (predObjMap != null) {
-            Set<OWLLiteral> objects = predObjMap.get(predicate);
+        	Collection<OWLLiteral> objects = predObjMap.get(predicate);
             if (objects != null) {
                 if (objects.contains(object)) {
                     if (consume) {
@@ -1839,14 +1839,14 @@ public class OWLRDFConsumer implements RDFConsumer {
         if (litPredMap != null) {
             return litPredMap.containsKey(subject);
         }
-        Map<IRI, Set<IRI>> resPredObjMap = resTriplesBySubject.get(subject);
+        Map<IRI, Collection<IRI>> resPredObjMap = resTriplesBySubject.get(subject);
         if (resPredObjMap != null) {
             boolean b = resPredObjMap.containsKey(predicate);
             if (b) {
                 return true;
             }
         }
-        Map<IRI, Set<OWLLiteral>> litPredObjMap = litTriplesBySubject.get(subject);
+        Map<IRI, Collection<OWLLiteral>> litPredObjMap = litTriplesBySubject.get(subject);
         if (litPredObjMap != null) {
             return litPredObjMap.containsKey(predicate);
         }
@@ -1863,9 +1863,9 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
             return objectIRI.equals(object);
         }
-        Map<IRI, Set<IRI>> predObjMap = resTriplesBySubject.get(subject);
+        Map<IRI, Collection<IRI>> predObjMap = resTriplesBySubject.get(subject);
         if (predObjMap != null) {
-            Set<IRI> objects = predObjMap.get(predicate);
+            Collection<IRI> objects = predObjMap.get(predicate);
             if (objects != null) {
                 return objects.contains(object);
             }
@@ -1981,12 +1981,12 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     public <E extends Throwable> void iterateResourceTriples(ResourceTripleIterator<E> iterator) throws E {
         for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
-            Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
+            Map<IRI, Collection<IRI>> map = resTriplesBySubject.get(subject);
             if (map == null) {
                 continue;
             }
             for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                Set<IRI> objects = map.get(predicate);
+                Collection<IRI> objects = map.get(predicate);
                 if (objects == null) {
                     continue;
                 }
@@ -1999,12 +1999,12 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     public <E extends Throwable> void iterateLiteralTriples(LiteralTripleIterator<E> iterator) throws E {
         for (IRI subject : new ArrayList<IRI>(litTriplesBySubject.keySet())) {
-            Map<IRI, Set<OWLLiteral>> map = litTriplesBySubject.get(subject);
+            Map<IRI, Collection<OWLLiteral>> map = litTriplesBySubject.get(subject);
             if (map == null) {
                 continue;
             }
             for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                Set<OWLLiteral> objects = map.get(predicate);
+            	Collection<OWLLiteral> objects = map.get(predicate);
                 for (OWLLiteral object : new ArrayList<OWLLiteral>(objects)) {
                     iterator.handleLiteralTriple(subject, predicate, object);
                 }
@@ -2023,13 +2023,13 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     // Subject, predicate, object
 
-    private Map<IRI, Map<IRI, Set<IRI>>> resTriplesBySubject = CollectionFactory.createMap();
+    private Map<IRI, Map<IRI, Collection<IRI>>> resTriplesBySubject = CollectionFactory.createMap();
 
     // Predicate, subject, object
     private Map<IRI, Map<IRI, IRI>> singleValuedResTriplesByPredicate = CollectionFactory.createMap();
 
     // Literal triples
-    private Map<IRI, Map<IRI, Set<OWLLiteral>>> litTriplesBySubject = CollectionFactory.createMap();
+    private Map<IRI, Map<IRI, Collection<OWLLiteral>>> litTriplesBySubject = CollectionFactory.createMap();
 
     // Predicate, subject, object
     private Map<IRI, Map<IRI, OWLLiteral>> singleValuedLitTriplesByPredicate = CollectionFactory.createMap();
@@ -2041,14 +2041,14 @@ public class OWLRDFConsumer implements RDFConsumer {
             subjObjMap.put(subject, object);
         }
         else {
-            Map<IRI, Set<IRI>> map = resTriplesBySubject.get(subject);
+            Map<IRI, Collection<IRI>> map = resTriplesBySubject.get(subject);
             if (map == null) {
                 map = CollectionFactory.createMap();
                 resTriplesBySubject.put(subject, map);
             }
-            Set<IRI> objects = map.get(predicate);
+            Collection<IRI> objects = map.get(predicate);
             if (objects == null) {
-                objects = new FakeSet<IRI>();
+                objects = new HashSet<IRI>();
                 map.put(predicate, objects);
             }
             objects.add(object);
@@ -2062,14 +2062,14 @@ public class OWLRDFConsumer implements RDFConsumer {
             subjObjMap.put(subject, con);
         }
         else {
-            Map<IRI, Set<OWLLiteral>> map = litTriplesBySubject.get(subject);
+            Map<IRI, Collection<OWLLiteral>> map = litTriplesBySubject.get(subject);
             if (map == null) {
                 map = CollectionFactory.createMap();
                 litTriplesBySubject.put(subject, map);
             }
-            Set<OWLLiteral> objects = map.get(predicate);
+            Collection<OWLLiteral> objects = map.get(predicate);
             if (objects == null) {
-                objects = new FakeSet<OWLLiteral>();
+                objects = new HashSet<OWLLiteral>();
                 map.put(predicate, objects);
             }
             objects.add(con);
@@ -2082,14 +2082,14 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    private static class FakeSet<O> extends ArrayList<O> implements Set<O> {
-
-        public FakeSet() {
-        }
-
-
-        public FakeSet(Collection<? extends O> c) {
-            super(c);
-        }
-    }
+//    private static class FakeSet<O> extends ArrayList<O> implements Set<O> {
+//
+//        public FakeSet() {
+//        }
+//
+//
+//        public FakeSet(Collection<? extends O> c) {
+//            super(c);
+//        }
+//    }
 }

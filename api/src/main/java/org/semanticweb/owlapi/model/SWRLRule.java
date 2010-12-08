@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.model;
 
-import java.net.URI;
 import java.util.Set;
 
 

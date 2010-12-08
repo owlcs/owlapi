@@ -2,9 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *

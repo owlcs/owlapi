@@ -7,7 +7,6 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;

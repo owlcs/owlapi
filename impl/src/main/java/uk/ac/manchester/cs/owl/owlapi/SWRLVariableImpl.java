@@ -1,8 +1,14 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.SWRLObjectVisitor;
+import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
+import org.semanticweb.owlapi.model.SWRLVariable;
 
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *

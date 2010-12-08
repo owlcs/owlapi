@@ -4,8 +4,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import java.net.URI;
-
 /*
  * Copyright (C) 2006, University of Manchester
  *

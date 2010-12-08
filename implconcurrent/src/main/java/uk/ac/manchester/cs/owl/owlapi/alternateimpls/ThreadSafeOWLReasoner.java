@@ -1,13 +1,34 @@
 package uk.ac.manchester.cs.owl.owlapi.alternateimpls;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.reasoner.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.reasoner.AxiomNotInProfileException;
+import org.semanticweb.owlapi.reasoner.BufferingMode;
+import org.semanticweb.owlapi.reasoner.ClassExpressionNotInProfileException;
+import org.semanticweb.owlapi.reasoner.FreshEntitiesException;
+import org.semanticweb.owlapi.reasoner.FreshEntityPolicy;
+import org.semanticweb.owlapi.reasoner.InconsistentOntologyException;
+import org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy;
+import org.semanticweb.owlapi.reasoner.InferenceType;
+import org.semanticweb.owlapi.reasoner.Node;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.ReasonerInterruptedException;
+import org.semanticweb.owlapi.reasoner.TimeOutException;
+import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
 import org.semanticweb.owlapi.util.Version;
 
 public class ThreadSafeOWLReasoner implements OWLReasoner {

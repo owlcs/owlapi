@@ -1,37 +1,74 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.io.*;
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
-/*
- * Copyright (C) 2006, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+import org.semanticweb.owlapi.io.FileDocumentSource;
+import org.semanticweb.owlapi.io.IRIDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
+import org.semanticweb.owlapi.io.OWLOntologyStorageIOException;
+import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
+import org.semanticweb.owlapi.io.StreamDocumentSource;
+import org.semanticweb.owlapi.io.StreamDocumentTarget;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.DefaultChangeBroadcastStrategy;
+import org.semanticweb.owlapi.model.DefaultImpendingChangeBroadcastStrategy;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.ImmutableOWLOntologyChangeException;
+import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeBroadcastStrategy;
+import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeListener;
+import org.semanticweb.owlapi.model.MissingImportEvent;
+import org.semanticweb.owlapi.model.MissingImportListener;
+import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLMutableOntology;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeBroadcastStrategy;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
+import org.semanticweb.owlapi.model.OWLOntologyChangeProgressListener;
+import org.semanticweb.owlapi.model.OWLOntologyChangeVetoException;
+import org.semanticweb.owlapi.model.OWLOntologyChangesVetoedListener;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyDocumentAlreadyExistsException;
+import org.semanticweb.owlapi.model.OWLOntologyFactory;
+import org.semanticweb.owlapi.model.OWLOntologyFactoryNotFoundException;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
+import org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderListener;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyManagerProperties;
+import org.semanticweb.owlapi.model.OWLOntologyRenameException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLOntologyStorer;
+import org.semanticweb.owlapi.model.OWLOntologyStorerNotFoundException;
+import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.RemoveImport;
+import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
+import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
 
 /**

@@ -2,7 +2,6 @@ package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.*;
 
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *

@@ -1,8 +1,8 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 
-import java.util.*;
 /*
  * Copyright (C) 2009, University of Manchester
  *

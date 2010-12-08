@@ -2,9 +2,6 @@ package org.semanticweb.owlapi.vocab;
 
 import org.semanticweb.owlapi.model.IRI;
 
-import java.net.URI;
-import java.util.HashSet;
-import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *

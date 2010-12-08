@@ -24,7 +24,6 @@ package org.coode.xml;
  */
 
 import java.io.IOException;
-import java.net.URI;
 
 /**
  * User: matthewhorridge<br>

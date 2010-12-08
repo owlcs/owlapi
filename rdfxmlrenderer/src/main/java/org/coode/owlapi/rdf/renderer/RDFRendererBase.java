@@ -94,8 +94,7 @@ public abstract class RDFRendererBase {
         // Annotation properties
 
         boolean first;
-
-        Set<OWLAnnotationProperty> annotationProperties = new HashSet<OWLAnnotationProperty>(ontology.getAnnotationPropertiesInSignature());
+        List<OWLAnnotationProperty> annotationProperties = new ArrayList<OWLAnnotationProperty>(ontology.getAnnotationPropertiesInSignature());
         if (!annotationProperties.isEmpty()) {
             writeBanner("Annotation properties");
             for (OWLAnnotationProperty prop : annotationProperties) {
@@ -109,7 +108,7 @@ public abstract class RDFRendererBase {
         }
 
         Set<OWLDatatype> datatypes = ontology.getDatatypesInSignature();
-        for (OWLDatatype datatype : new HashSet<OWLDatatype>(datatypes)) {
+        for (OWLDatatype datatype : new ArrayList<OWLDatatype>(datatypes)) {
             if (datatype.isBuiltIn()) {
                 datatypes.remove(datatype);
             }

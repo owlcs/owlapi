@@ -285,8 +285,7 @@ public enum OWL2Datatype {
 
         Category(String name, OWLFacet... facets) {
             this.name = name;
-            Set<OWLFacet> f = new HashSet<OWLFacet>(facets.length);
-            f.addAll(Arrays.asList(facets));
+            Set<OWLFacet> f = new HashSet<OWLFacet>(Arrays.asList(facets));
             this.facets = Collections.unmodifiableSet(f);
         }
 

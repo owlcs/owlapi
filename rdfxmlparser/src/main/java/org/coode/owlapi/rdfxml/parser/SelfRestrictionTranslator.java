@@ -3,7 +3,6 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import java.net.URI;
 /*
  * Copyright (C) 2006, University of Manchester
  *

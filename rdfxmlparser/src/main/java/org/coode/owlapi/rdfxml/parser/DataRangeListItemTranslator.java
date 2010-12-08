@@ -4,7 +4,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.IRI;
 
-import java.net.URI;/*
+/*
  * Copyright (C) 2008, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
