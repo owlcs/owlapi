@@ -46,9 +46,7 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends Abstra
 
     protected Set<OWLAxiom> getDeclarationsToAdd(OWLAxiom ax) {
         Set<OWLAxiom> declarations = new HashSet<OWLAxiom>();
-        OWLEntityCollector entityCollector = new OWLEntityCollector();
-        ax.accept(entityCollector);
-        for(OWLEntity ent : entityCollector.getObjects()) {
+        for(OWLEntity ent : ax.getSignature()) {
             declarations.add(getFactory().getOWLDeclarationAxiom(ent));
         }
         return declarations;

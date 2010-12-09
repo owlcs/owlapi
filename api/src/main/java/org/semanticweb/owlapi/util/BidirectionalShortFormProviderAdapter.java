@@ -72,15 +72,9 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
      * references to entities or not.
      */
     public BidirectionalShortFormProviderAdapter(OWLOntologyManager man, Set<OWLOntology> ontologies, ShortFormProvider shortFormProvider) {
-    	// XXX bogus: no copy for the set as in the previous constructor, double assignment to man for no reason
-    	// can be replaced with call to this()
     	this(ontologies, shortFormProvider);
-//        this.man = man;
-//        this.ontologies = ontologies;
-//        this.shortFormProvider = shortFormProvider;
         this.man = man;
         this.man.addOntologyChangeListener(changeListener);
-//        rebuild(new ReferencedEntitySetProvider(ontologies));
     }
 
 

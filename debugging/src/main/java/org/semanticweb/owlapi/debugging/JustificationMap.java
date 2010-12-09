@@ -68,18 +68,20 @@ public class JustificationMap {
         for (OWLAxiom ax : axioms) {
             OWLAxiomPartExtractor extractor = new OWLAxiomPartExtractor();
             ax.accept(extractor);
-            OWLEntityCollector rhsCollector = new OWLEntityCollector();
+            Set<OWLEntity> rhscollected=new HashSet<OWLEntity>();
+            OWLEntityCollector rhsCollector = new OWLEntityCollector(rhscollected);
             for (OWLObject rhsObject : extractor.getRHS()) {
                 rhsObject.accept(rhsCollector);
             }
-            for (OWLEntity rhsEntity : rhsCollector.getObjects()) {
+            for (OWLEntity rhsEntity : rhscollected) {
                 index(rhsEntity, axiomsByRHS, ax);
             }
-            OWLEntityCollector lhsCollector = new OWLEntityCollector();
+            Set<OWLEntity> lhscollected=new HashSet<OWLEntity>();
+            OWLEntityCollector lhsCollector = new OWLEntityCollector(lhscollected);
             for (OWLObject lhsObject : extractor.getLHS()) {
                 lhsObject.accept(lhsCollector);
             }
-            for (OWLEntity lhsEntity : lhsCollector.getObjects()) {
+            for (OWLEntity lhsEntity : lhscollected) {
                 index(lhsEntity, axiomsByLHS, ax);
             }
         }
@@ -111,10 +113,8 @@ public class JustificationMap {
 
     private void buildChildren(OWLClassExpression seed) {
         // Return the axioms that have the entity on the LHS
-        OWLEntityCollector collector = new OWLEntityCollector();
-        seed.accept(collector);
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
-        for (OWLEntity ent : collector.getObjects()) {
+        for (OWLEntity ent : seed.getSignature()) {
             Set<OWLAxiom> axs = getAxiomsByLHS(ent);
             for (OWLAxiom ax : axs) {
                 result.add(ax);
@@ -147,9 +147,7 @@ public class JustificationMap {
         parentAxiom.accept(extractor);
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
         for (OWLObject obj : extractor.getRHS()) {
-            OWLEntityCollector collector = new OWLEntityCollector();
-            obj.accept(collector);
-            for (OWLEntity ent : collector.getObjects()) {
+            for (OWLEntity ent : obj.getSignature()) {
                 Set<OWLAxiom> axs = getAxiomsByLHS(ent);
                 for (OWLAxiom ax : axs) {
                     if (!usedAxioms.contains(ax)) {

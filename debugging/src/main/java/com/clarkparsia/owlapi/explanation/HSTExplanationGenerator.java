@@ -60,12 +60,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
     private ExplanationProgressMonitor progressMonitor = new SilentExplanationProgressMonitor();
 
-    private static OWLEntityCollector collector;
-
     public HSTExplanationGenerator(TransactionAwareSingleExpGen singleExplanationGenerator) {
         this.singleExplanationGenerator = singleExplanationGenerator;
-        collector = new OWLEntityCollector();
-        collector.setCollectDatatypes(false);
     }
 
 
@@ -213,14 +209,13 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @param axiom axiom whose signature is being computed
      * @return the entities referenced in the axiom
      */
-    private Set<OWLEntity> getSignature(OWLAxiom axiom) {
-    	// could use a stateless collector and spare the defensive copy
-        collector.reset();
-
-        axiom.accept(collector);
-
-        return new HashSet<OWLEntity>(collector.getObjects());
-    }
+	private Set<OWLEntity> getSignature(OWLAxiom axiom) {
+		Set<OWLEntity> toReturn = new HashSet<OWLEntity>();
+		OWLEntityCollector collector = new OWLEntityCollector(toReturn);
+		collector.setCollectDatatypes(false);
+		axiom.accept(collector);
+		return toReturn;
+	}
 
 
     /**

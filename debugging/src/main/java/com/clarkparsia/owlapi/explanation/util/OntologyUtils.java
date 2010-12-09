@@ -47,9 +47,7 @@ public class OntologyUtils {
      *         otherwise <code>false</code>
      */
     public static boolean containsUnreferencedEntity(OWLOntology ontology, OWLClassExpression desc) {
-        OWLEntityCollector entityCollector = new OWLEntityCollector();
-        desc.accept(entityCollector);
-        for (OWLEntity entity : entityCollector.getObjects()) {
+        for (OWLEntity entity : desc.getSignature()) {
             if (!ontology.containsEntityInSignature(entity)) {
                 if (entity instanceof OWLClass && (((OWLClass) entity).isOWLThing() || ((OWLClass) entity).isOWLNothing())) {
                     continue;

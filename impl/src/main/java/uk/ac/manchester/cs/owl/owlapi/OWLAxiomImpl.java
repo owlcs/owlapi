@@ -122,9 +122,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
 
     public Set<OWLEntity> getReferencedEntities() {
-        OWLEntityCollector collector = new OWLEntityCollector();
-        this.accept(collector);
-        return collector.getObjects();
+    	return getSignature();
     }
 
 

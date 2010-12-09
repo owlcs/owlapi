@@ -280,9 +280,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
 
     private void indexAxiomsByRHSEntities(OWLObject rhs, OWLAxiom axiom) {
-        OWLEntityCollector collector = new OWLEntityCollector();
-        rhs.accept(collector);
-        getIndexedSet(axiom, entitiesByAxiomRHS, true).addAll(collector.getObjects());
+        getIndexedSet(axiom, entitiesByAxiomRHS, true).addAll(rhs.getSignature());
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////

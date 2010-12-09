@@ -68,8 +68,6 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      */
     private Map<OWLEntity, Integer> referenceCounts = new HashMap<OWLEntity, Integer>();
 
-    private OWLEntityCollector entityCollector = new OWLEntityCollector();
-
     private OWLOntology ontology;
 
 	private Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
@@ -115,9 +113,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
 
 
     private Set<OWLEntity> getEntities(OWLObject obj) {
-        entityCollector.reset();
-        obj.accept(entityCollector);
-        return entityCollector.getObjects();
+    	return obj.getSignature();
     }
 
 	private void removeAxiom(OWLAxiom axiom) {

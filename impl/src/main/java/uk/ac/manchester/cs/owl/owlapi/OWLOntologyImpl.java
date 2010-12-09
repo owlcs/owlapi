@@ -1324,14 +1324,16 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     private void handleAxiomAdded(OWLAxiom axiom) {
-        OWLEntityCollector entityCollector = new OWLEntityCollector();
+    	Set<OWLEntity> sig=new HashSet<OWLEntity>();
+    	Set<OWLAnonymousIndividual> anons=new HashSet<OWLAnonymousIndividual>();
+        OWLEntityCollector entityCollector = new OWLEntityCollector(sig, anons);
         OWLNamedObjectReferenceAdder referenceAdder = getReferenceAdder();
         axiom.accept(entityCollector);
-        for (OWLEntity object : entityCollector.getObjects()) {
+        for (OWLEntity object : sig) {
             referenceAdder.setAxiom(axiom);
             object.accept(referenceAdder);
         }
-        for (OWLAnonymousIndividual ind : entityCollector.getAnonymousIndividuals()) {
+        for (OWLAnonymousIndividual ind : anons) {
             internals.addOwlAnonymousIndividualReferences(ind, axiom);
         }
         if (axiom.isAnnotated()) {
@@ -1351,14 +1353,16 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     private void handleAxiomRemoved(OWLAxiom axiom) {
-        OWLEntityCollector entityCollector = new OWLEntityCollector();
-        OWLNamedObjectReferenceRemover referenceRemover = getReferenceRemover();
+    	Set<OWLEntity> sig=new HashSet<OWLEntity>();
+    	Set<OWLAnonymousIndividual> anons=new HashSet<OWLAnonymousIndividual>();
+        OWLEntityCollector entityCollector = new OWLEntityCollector(sig, anons);
+            OWLNamedObjectReferenceRemover referenceRemover = getReferenceRemover();
         axiom.accept(entityCollector);
-        for (OWLEntity object : entityCollector.getObjects()) {
+        for (OWLEntity object : sig) {
             referenceRemover.setAxiom(axiom);
             object.accept(referenceRemover);
         }
-        for (OWLAnonymousIndividual ind : entityCollector.getAnonymousIndividuals()) {
+        for (OWLAnonymousIndividual ind : anons) {
             internals.removeOwlAnonymousIndividualReferences(ind, axiom);
         }
         if (axiom.isAnnotated()) {

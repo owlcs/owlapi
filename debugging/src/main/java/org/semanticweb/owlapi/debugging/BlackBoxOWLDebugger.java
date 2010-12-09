@@ -191,9 +191,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                 continue;
             }
             // Collect the entities that have been used in the axiom
-            OWLEntityCollector collector = new OWLEntityCollector();
-            ax.accept(collector);
-            for (OWLEntity curObj : collector.getObjects()) {
+
+            for (OWLEntity curObj : ax.getSignature()) {
                 if (!objectsExpandedWithDefiningAxioms.contains(curObj)) {
                     int added = expandWithDefiningAxioms(curObj, remainingSpace);
                     axiomsAdded += added;
@@ -223,10 +222,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                 // Skip - already done this one
                 continue;
             }
-            OWLEntityCollector collector = new OWLEntityCollector();
-            ax.accept(collector);
             // Keep track of the number of axioms that have been added
-            for (OWLEntity curObj : collector.getObjects()) {
+            for (OWLEntity curObj : ax.getSignature()) {
                 if (!objectsExpandedWithReferencingAxioms.contains(curObj)) {
                     int added = expandWithReferencingAxioms(curObj, expansionLimit);
                     axiomsAdded += added;

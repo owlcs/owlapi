@@ -83,8 +83,6 @@ public abstract class OWLAxiomChange extends OWLOntologyChange {
      *         by the axiom contained within this change.
      */
     public Set<OWLEntity> getEntities() {
-        OWLEntityCollector collector = new OWLEntityCollector();
-        axiom.accept(collector);
-        return collector.getObjects();
+    	return axiom.getSignature();
     }
 }
