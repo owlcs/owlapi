@@ -499,10 +499,10 @@ public class StructuralReasoner extends OWLReasonerBase {
                         processed.add(axiom);
                         for (OWLIndividual i : axiom.getIndividuals()) {
                             if (!i.isAnonymous()) {
-                                OWLNamedIndividual namedInd = ind.asOWLNamedIndividual();
+                                OWLNamedIndividual namedInd = i.asOWLNamedIndividual();
                                 if (!inds.contains(namedInd)) {
                                     inds.add(namedInd);
-                                    stack.add(ind);
+                                    stack.add(namedInd);
                                 }
                             }
                         }
