@@ -76,7 +76,7 @@ public enum SKOSVocabulary {
 
     COLLECTION("Collection", EntityType.CLASS),
 
-    CONCPET("Concept", EntityType.CLASS),
+    CONCEPT("Concept", EntityType.CLASS),
 
     CONCEPTSCHEME("ConceptScheme", EntityType.CLASS),
 
