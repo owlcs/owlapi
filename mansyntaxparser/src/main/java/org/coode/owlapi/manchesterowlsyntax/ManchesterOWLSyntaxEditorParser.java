@@ -921,11 +921,11 @@ public class ManchesterOWLSyntaxEditorParser {
                     if (fv == null) {
                         throw createException(OWLFacet.getFacets().toArray(new String[OWLFacet.getFacetIRIs().size()]));
                     }
-                    OWLLiteral con = parseConstant();
-                    if (!con.isRDFPlainLiteral()) {
-                        con = dataFactory.getOWLLiteral(con.getLiteral());
-                    }
-                    facetRestrictions.add(dataFactory.getOWLFacetRestriction(fv, con));
+					OWLLiteral con = parseConstant();
+					// if (!con.isRDFPlainLiteral()) {
+					// con = dataFactory.getOWLLiteral(con.getLiteral());
+					// }
+					facetRestrictions.add(dataFactory.getOWLFacetRestriction(fv, con));
                     sep = consumeToken();
                 }
                 if (!sep.equals("]")) {
