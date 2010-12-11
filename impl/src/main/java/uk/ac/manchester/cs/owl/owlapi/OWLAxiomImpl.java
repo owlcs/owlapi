@@ -105,7 +105,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
     protected Set<OWLAnnotation> mergeAnnos(Set<OWLAnnotation> annos) {
         Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(annos);
         merged.addAll(getAnnotations());
-        return annos;
+        return merged;
     }
 
 
