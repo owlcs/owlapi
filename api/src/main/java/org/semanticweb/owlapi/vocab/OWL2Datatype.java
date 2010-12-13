@@ -266,7 +266,7 @@ public enum OWL2Datatype {
 
         NUMBER("Number", OWLFacet.MIN_INCLUSIVE, OWLFacet.MAX_INCLUSIVE, OWLFacet.MIN_EXCLUSIVE, OWLFacet.MAX_EXCLUSIVE),
 
-        STRING_WITH_LANGUAGE_TAG("String with a language tag", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH, OWLFacet.LENGTH, OWLFacet.PATTERN, OWLFacet.LANG_PATTERN),
+        STRING_WITH_LANGUAGE_TAG("String with a language tag", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH, OWLFacet.LENGTH, OWLFacet.PATTERN, OWLFacet.LANG_RANGE),
 
         STRING_WITHOUT_LANGUAGE_TAG("String without a language tag", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH, OWLFacet.LENGTH, OWLFacet.PATTERN),
 

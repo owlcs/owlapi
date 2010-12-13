@@ -62,7 +62,7 @@ public enum OWLFacet {
 
     FRACTION_DIGITS(Namespaces.XSD, "fractionDigits", "fractionDigits"),
 
-    LANG_PATTERN(Namespaces.RDF, "langPattern", "langPattern");
+    LANG_RANGE(Namespaces.RDF, "langRange", "langRange");
 
 
     public final static Set<IRI> FACET_IRIS;
