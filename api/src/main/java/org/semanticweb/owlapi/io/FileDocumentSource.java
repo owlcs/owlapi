@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.io;
 import org.semanticweb.owlapi.model.IRI;
 
 import java.io.*;
+
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -25,59 +26,58 @@ import java.io.*;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-
-
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 17-Nov-2007<br><br>
- *
- * A convenience class which will prepare an input source
- * from a file.
+ * Date: 17-Nov-2007<br>
+ * <br>
+ * 
+ * A convenience class which will prepare an input source from a file.
  */
 public class FileDocumentSource implements OWLOntologyDocumentSource {
+	private File file;
 
-    private File file;
+	/**
+	 * Constructs an ontology input source using the specified file.
+	 * 
+	 * @param file
+	 *            The file from which a concrete representation of an ontology
+	 *            will be obtained.
+	 */
+	public FileDocumentSource(File file) {
+		this.file = file;
+	}
 
+	public IRI getDocumentIRI() {
+		return IRI.create(file);
+	}
 
-    /**
-     * Constructs an ontology input source using the specified
-     * file.
-     * @param file The file from which a concrete representation of
-     * an ontology will be obtained.
-     */
-    public FileDocumentSource(File file) {
-        this.file = file;
-    }
+	public boolean isInputStreamAvailable() {
+		return true;
+	}
 
+	public InputStream getInputStream() {
+		try {
+			return new BufferedInputStream(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			throw new OWLOntologyInputSourceException(e);
+		}
+	}
 
-    public IRI getDocumentIRI() {
-        return IRI.create(file);
-    }
+	public boolean isReaderAvailable() {
+		return true;
+	}
 
-
-    public boolean isInputStreamAvailable() {
-        return true;
-    }
-
-
-    public InputStream getInputStream() {
-        try {
-            return new BufferedInputStream(new FileInputStream(file));
-        }
-        catch (FileNotFoundException e) {
-            throw new OWLOntologyInputSourceException(e);
-        }
-    }
-
-
-    public boolean isReaderAvailable() {
-        return true;
-    }
-
-
-    public Reader getReader() {
-        return new InputStreamReader(getInputStream());
-    }
+	public Reader getReader() {
+		//return new InputStreamReader(getInputStream());
+		// XXX the assumption here is that the input format is UTF-8
+		try {
+			return new InputStreamReader(getInputStream(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// it cannot not support UTF-8
+			e.printStackTrace();
+			throw new OWLOntologyInputSourceException(e);
+		}
+	}
 }
