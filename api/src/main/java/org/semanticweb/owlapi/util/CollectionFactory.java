@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Author: Matthew Horridge<br>
@@ -70,6 +73,13 @@ public class CollectionFactory {
 
 		public SyncSet() {
 			this(new ConcurrentHashMap<T, Set<T>>());
+		}
+
+		public SyncSet(Set<T> delegate) {
+			this();
+			for (T d : delegate) {
+				add(d);
+			}
 		}
 
 		public boolean add(T e) {
@@ -147,8 +157,12 @@ public class CollectionFactory {
 		}
 	}
 
-	public static <T> Set<T> getCopyOnWriteSet(Set<T> source) {
+	public static <T> Set<T> getCopyOnRequestSet(Set<T> source) {
 		return new ConditionalCopySet<T>(source);
+	}
+
+	public static <T> Set<T> getThreadSafeCopyOnRequestSet(Set<T> source) {
+		return new ThreadSafeConditionalCopySet<T>(source);
 	}
 
 	/**
@@ -174,6 +188,7 @@ public class CollectionFactory {
 
 		public boolean add(T arg0) {
 			if (!copyDone) {
+				copyDone = true;
 				delegate = new HashSet<T>(delegate);
 			}
 			return delegate.add(arg0);
@@ -181,6 +196,7 @@ public class CollectionFactory {
 
 		public boolean addAll(Collection<? extends T> arg0) {
 			if (!copyDone) {
+				copyDone = true;
 				delegate = new HashSet<T>(delegate);
 			}
 			return delegate.addAll(arg0);
@@ -188,6 +204,7 @@ public class CollectionFactory {
 
 		public void clear() {
 			if (!copyDone) {
+				copyDone = true;
 				delegate = new HashSet<T>(delegate);
 			}
 			delegate.clear();
@@ -211,6 +228,7 @@ public class CollectionFactory {
 
 		public boolean remove(Object arg0) {
 			if (!copyDone) {
+				copyDone = true;
 				delegate = new HashSet<T>(delegate);
 			}
 			return delegate.remove(arg0);
@@ -218,6 +236,7 @@ public class CollectionFactory {
 
 		public boolean removeAll(Collection<?> arg0) {
 			if (!copyDone) {
+				copyDone = true;
 				delegate = new HashSet<T>(delegate);
 			}
 			return delegate.removeAll(arg0);
@@ -225,6 +244,7 @@ public class CollectionFactory {
 
 		public boolean retainAll(Collection<?> arg0) {
 			if (!copyDone) {
+				copyDone = true;
 				delegate = new HashSet<T>(delegate);
 			}
 			return delegate.retainAll(arg0);
@@ -240,6 +260,165 @@ public class CollectionFactory {
 
 		public <T> T[] toArray(T[] arg0) {
 			return delegate.toArray(arg0);
+		}
+	}
+
+	/**
+	 * this class behaves like ConditionalCopySet except it is designed to be
+	 * threadsafe; multiple thread access is regulated by a readwritelock;
+	 * modifications will create a copy based on SyncSet.
+	 * 
+	 * */
+	public static class ThreadSafeConditionalCopySet<T> implements Set<T> {
+		private boolean copyDone = false;
+		private Set<T> delegate;
+		private final ReadWriteLock lock = new ReentrantReadWriteLock();
+		private final Lock readLock = lock.readLock();
+		private final Lock writeLock = lock.writeLock();
+
+		public ThreadSafeConditionalCopySet(Set<T> source) {
+			this.delegate = source;
+		}
+
+		public boolean add(T arg0) {
+			try {
+				writeLock.lock();
+				if (!copyDone) {
+					copyDone = true;
+					delegate = new SyncSet<T>(delegate);
+				}
+				return delegate.add(arg0);
+			} finally {
+				writeLock.unlock();
+			}
+		}
+
+		public boolean addAll(Collection<? extends T> arg0) {
+			try {
+				writeLock.lock();
+				if (!copyDone) {
+					copyDone = true;
+					delegate = new SyncSet<T>(delegate);
+				}
+				return delegate.addAll(arg0);
+			} finally {
+				writeLock.unlock();
+			}
+		}
+
+		public void clear() {
+			try {
+				writeLock.lock();
+				if (!copyDone) {
+					copyDone = true;
+					delegate = new SyncSet<T>(delegate);
+				}
+				delegate.clear();
+			} finally {
+				writeLock.unlock();
+			}
+		}
+
+		public boolean contains(Object arg0) {
+			try {
+				readLock.lock();
+				return delegate.contains(arg0);
+			} finally {
+				readLock.unlock();
+			}
+		}
+
+		public boolean containsAll(Collection<?> arg0) {
+			try {
+				readLock.lock();
+				return delegate.containsAll(arg0);
+			} finally {
+				readLock.unlock();
+			}
+		}
+
+		public boolean isEmpty() {
+			try {
+				readLock.lock();
+				return delegate.isEmpty();
+			} finally {
+				readLock.unlock();
+			}
+		}
+
+		public Iterator<T> iterator() {
+			try {
+				readLock.lock();
+				return delegate.iterator();
+			} finally {
+				readLock.unlock();
+			}
+		}
+
+		public boolean remove(Object arg0) {
+			try {
+				writeLock.lock();
+				if (!copyDone) {
+					copyDone = true;
+					delegate = new SyncSet<T>(delegate);
+				}
+				return delegate.remove(arg0);
+			} finally {
+				writeLock.unlock();
+			}
+		}
+
+		public boolean removeAll(Collection<?> arg0) {
+			try {
+				writeLock.lock();
+				if (!copyDone) {
+					copyDone = true;
+					delegate = new SyncSet<T>(delegate);
+				}
+				return delegate.removeAll(arg0);
+			} finally {
+				writeLock.unlock();
+			}
+		}
+
+		public boolean retainAll(Collection<?> arg0) {
+			try {
+				writeLock.lock();
+				if (!copyDone) {
+					copyDone = true;
+					delegate = new SyncSet<T>(delegate);
+				}
+				return delegate.retainAll(arg0);
+			} finally {
+				writeLock.unlock();
+			}
+		}
+
+		public int size() {
+			try {
+				readLock.lock();
+				return delegate.size();
+			} finally {
+				readLock.unlock();
+			}
+		}
+
+		public Object[] toArray() {
+			try {
+				readLock.lock();
+				return delegate.toArray();
+			} finally {
+				readLock.unlock();
+			}
+		}
+
+		public <Type> Type[] toArray(Type[] arg0) {
+			try {
+				readLock.lock();
+				return delegate.toArray(arg0);
+			} finally {
+				readLock.unlock();
+			}
 		}
 	}
 }
