@@ -70,8 +70,6 @@ public class FileDocumentSource implements OWLOntologyDocumentSource {
 	}
 
 	public Reader getReader() {
-		//return new InputStreamReader(getInputStream());
-		// XXX the assumption here is that the input format is UTF-8
 		try {
 			return new InputStreamReader(getInputStream(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
