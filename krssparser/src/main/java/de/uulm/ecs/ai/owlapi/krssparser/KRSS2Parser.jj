@@ -1,5 +1,6 @@
 //KRSS2Parser by Olaf Noppens, based on KRSSParser by Matthew Horridge
 options {
+JAVA_UNICODE_ESCAPE=true;
     STATIC=false;
     LOOKAHEAD=2;
     //FORCE_LA_CHECK=true;

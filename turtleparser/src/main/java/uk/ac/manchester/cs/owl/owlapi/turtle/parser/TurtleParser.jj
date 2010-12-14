@@ -1,4 +1,5 @@
 options {
+JAVA_UNICODE_ESCAPE=true;
     STATIC=false;
     LOOKAHEAD=2;
     //DEBUG_TOKEN_MANAGER=true;

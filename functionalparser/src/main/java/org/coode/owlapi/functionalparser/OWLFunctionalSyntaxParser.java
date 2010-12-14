@@ -4448,7 +4448,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   /** Generated Token Manager. */
   public OWLFunctionalSyntaxParserTokenManager token_source;
-  SimpleCharStream jj_input_stream;
+  JavaCharStream jj_input_stream;
   /** Current token. */
   public Token token;
   /** Next token. */
@@ -4490,7 +4490,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
   }
   /** Constructor with InputStream and supplied encoding */
   public OWLFunctionalSyntaxParser(java.io.InputStream stream, String encoding) {
-    try { jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
+    try { jj_input_stream = new JavaCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source = new OWLFunctionalSyntaxParserTokenManager(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
@@ -4516,7 +4516,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
   /** Constructor. */
   public OWLFunctionalSyntaxParser(java.io.Reader stream) {
-    jj_input_stream = new SimpleCharStream(stream, 1, 1);
+    jj_input_stream = new JavaCharStream(stream, 1, 1);
     token_source = new OWLFunctionalSyntaxParserTokenManager(jj_input_stream);
     token = new Token();
     jj_ntk = -1;

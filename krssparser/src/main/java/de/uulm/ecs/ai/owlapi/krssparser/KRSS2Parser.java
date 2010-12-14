@@ -1452,11 +1452,6 @@ OWLObjectPropertyExpression superProp;
     finally { jj_save(76, xla); }
   }
 
-  private boolean jj_3_58() {
-    if (jj_3R_36()) return true;
-    return false;
-  }
-
   private boolean jj_3_19() {
     if (jj_3R_23()) return true;
     return false;
@@ -2206,9 +2201,14 @@ OWLObjectPropertyExpression superProp;
     return false;
   }
 
+  private boolean jj_3_58() {
+    if (jj_3R_36()) return true;
+    return false;
+  }
+
   /** Generated Token Manager. */
   public KRSS2ParserTokenManager token_source;
-  SimpleCharStream jj_input_stream;
+  JavaCharStream jj_input_stream;
   /** Current token. */
   public Token token;
   /** Next token. */
@@ -2245,7 +2245,7 @@ OWLObjectPropertyExpression superProp;
   }
   /** Constructor with InputStream and supplied encoding */
   public KRSS2Parser(java.io.InputStream stream, String encoding) {
-    try { jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
+    try { jj_input_stream = new JavaCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source = new KRSS2ParserTokenManager(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
@@ -2271,7 +2271,7 @@ OWLObjectPropertyExpression superProp;
 
   /** Constructor. */
   public KRSS2Parser(java.io.Reader stream) {
-    jj_input_stream = new SimpleCharStream(stream, 1, 1);
+    jj_input_stream = new JavaCharStream(stream, 1, 1);
     token_source = new KRSS2ParserTokenManager(jj_input_stream);
     token = new Token();
     jj_ntk = -1;

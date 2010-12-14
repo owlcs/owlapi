@@ -1214,6 +1214,9 @@ private int jjMoveNfa_0(int startState, int curPos)
       }
       else
       {
+         int hiByte = (int)(curChar >> 8);
+         int i1 = hiByte >> 6;
+         long l1 = 1L << (hiByte & 077);
          int i2 = (curChar & 0xff) >> 6;
          long l2 = 1L << (curChar & 077);
          do
@@ -1324,25 +1327,25 @@ static final long[] jjtoSkip = {
 static final long[] jjtoMore = {
    0x5da0L, 
 };
-protected SimpleCharStream input_stream;
+protected JavaCharStream input_stream;
 private final int[] jjrounds = new int[2];
 private final int[] jjstateSet = new int[4];
 protected char curChar;
 /** Constructor. */
-public KRSSParserTokenManager(SimpleCharStream stream){
-   if (SimpleCharStream.staticFlag)
+public KRSSParserTokenManager(JavaCharStream stream){
+   if (JavaCharStream.staticFlag)
       throw new Error("ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
    input_stream = stream;
 }
 
 /** Constructor. */
-public KRSSParserTokenManager(SimpleCharStream stream, int lexState){
+public KRSSParserTokenManager(JavaCharStream stream, int lexState){
    this(stream);
    SwitchTo(lexState);
 }
 
 /** Reinitialise parser. */
-public void ReInit(SimpleCharStream stream)
+public void ReInit(JavaCharStream stream)
 {
    jjmatchedPos = jjnewStateCnt = 0;
    curLexState = defaultLexState;
@@ -1358,7 +1361,7 @@ private void ReInitRounds()
 }
 
 /** Reinitialise parser. */
-public void ReInit(SimpleCharStream stream, int lexState)
+public void ReInit(JavaCharStream stream, int lexState)
 {
    ReInit(stream);
    SwitchTo(lexState);

@@ -1006,25 +1006,25 @@ static final long[] jjtoToken = {
 static final long[] jjtoSkip = {
    0xeL, 
 };
-protected SimpleCharStream input_stream;
+protected JavaCharStream input_stream;
 private final int[] jjrounds = new int[118];
 private final int[] jjstateSet = new int[236];
 protected char curChar;
 /** Constructor. */
-public DLSyntaxParserTokenManager(SimpleCharStream stream){
-   if (SimpleCharStream.staticFlag)
+public DLSyntaxParserTokenManager(JavaCharStream stream){
+   if (JavaCharStream.staticFlag)
       throw new Error("ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
    input_stream = stream;
 }
 
 /** Constructor. */
-public DLSyntaxParserTokenManager(SimpleCharStream stream, int lexState){
+public DLSyntaxParserTokenManager(JavaCharStream stream, int lexState){
    this(stream);
    SwitchTo(lexState);
 }
 
 /** Reinitialise parser. */
-public void ReInit(SimpleCharStream stream)
+public void ReInit(JavaCharStream stream)
 {
    jjmatchedPos = jjnewStateCnt = 0;
    curLexState = defaultLexState;
@@ -1040,7 +1040,7 @@ private void ReInitRounds()
 }
 
 /** Reinitialise parser. */
-public void ReInit(SimpleCharStream stream, int lexState)
+public void ReInit(JavaCharStream stream, int lexState)
 {
    ReInit(stream);
    SwitchTo(lexState);

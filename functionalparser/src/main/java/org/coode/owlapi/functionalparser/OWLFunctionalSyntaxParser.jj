@@ -1,5 +1,6 @@
 options {
     STATIC=false;
+    JAVA_UNICODE_ESCAPE=true;
     LOOKAHEAD=2;
     //DEBUG_TOKEN_MANAGER=true;
 }
