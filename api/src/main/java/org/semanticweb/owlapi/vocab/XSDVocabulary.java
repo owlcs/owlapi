@@ -63,7 +63,7 @@ public enum XSDVocabulary {
     LANGUAGE("language"),
     NAME("Name"),
     NCNAME("NCName"),
-    NMTOKEN("NMToken"),
+    NMTOKEN("NMTOKEN"),
     ID("ID"),
     IDREF("IDREF"),
     IDREFS("IDREFS"),
