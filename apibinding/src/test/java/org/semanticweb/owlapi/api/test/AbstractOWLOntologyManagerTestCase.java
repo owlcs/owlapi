@@ -15,7 +15,8 @@ public abstract class AbstractOWLOntologyManagerTestCase extends AbstractOWLData
 
     private OWLOntologyManager manager;
 
-    protected void setUp() throws Exception {
+    @Override
+	protected void setUp() throws Exception {
         super.setUp();
         String factoryName = System.getProperty(SYSTEM_PARAM_NAME);
         if (factoryName == null) {
@@ -32,22 +33,26 @@ public abstract class AbstractOWLOntologyManagerTestCase extends AbstractOWLData
     }
 
 
-    public void testCreation() throws Exception {
+    @Override
+	public void testCreation() throws Exception {
         // Ignore
     }
 
 
-    public void testEqualsPositive() throws Exception {
+    @Override
+	public void testEqualsPositive() throws Exception {
         // Ignore
     }
 
 
-    public void testEqualsNegative() throws Exception {
+    @Override
+	public void testEqualsNegative() throws Exception {
         // Ignore
     }
 
 
-    public void testHashCode() throws Exception {
+    @Override
+	public void testHashCode() throws Exception {
         // Ignore
     }
 }

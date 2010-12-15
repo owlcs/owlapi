@@ -17,7 +17,8 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends AbstractRoundT
     private Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 
 
-    final protected OWLOntology createOntology() {
+    @Override
+	final protected OWLOntology createOntology() {
             OWLOntology ont = getOWLOntology("Ont");
             axioms.clear();
             axioms.addAll(createAxioms());
@@ -25,23 +26,28 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends AbstractRoundT
             return ont;
     }
 
-    public void testRDFXML() throws Exception {
+    @Override
+	public void testRDFXML() throws Exception {
         super.testRDFXML();
     }
 
-    public void testOWLXML() throws Exception {
+    @Override
+	public void testOWLXML() throws Exception {
         super.testOWLXML();
     }
 
-    public void testFunctionalSyntax() throws Exception {
+    @Override
+	public void testFunctionalSyntax() throws Exception {
         super.testFunctionalSyntax();
     }
 
-    public void testTurtle() throws Exception {
+    @Override
+	public void testTurtle() throws Exception {
         super.testTurtle();
     }
 
-    public void testManchesterOWLSyntax() throws Exception {
+    @Override
+	public void testManchesterOWLSyntax() throws Exception {
         super.testManchesterOWLSyntax();
     }
 

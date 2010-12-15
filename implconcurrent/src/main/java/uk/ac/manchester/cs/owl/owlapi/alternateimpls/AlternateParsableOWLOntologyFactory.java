@@ -82,7 +82,8 @@ public class AlternateParsableOWLOntologyFactory extends AlternateAbstractInMemO
     }
 
 
-    public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
+    @Override
+	public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
         super.setOWLOntologyManager(owlOntologyManager);
     }
 
@@ -107,7 +108,8 @@ public class AlternateParsableOWLOntologyFactory extends AlternateAbstractInMemO
      * Overriden - We don't create new empty ontologies - this isn't our responsibility
      * @param documentIRI
      */
-    public boolean canCreateFromDocumentIRI(IRI documentIRI) {
+    @Override
+	public boolean canCreateFromDocumentIRI(IRI documentIRI) {
         return false;
     }
 

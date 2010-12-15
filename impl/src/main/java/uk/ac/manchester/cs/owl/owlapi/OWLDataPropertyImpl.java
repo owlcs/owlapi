@@ -54,11 +54,13 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
         this.builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()) || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
-    public boolean isTopEntity() {
+    @Override
+	public boolean isTopEntity() {
         return isOWLTopDataProperty();
     }
 
-    public boolean isBottomEntity() {
+    @Override
+	public boolean isBottomEntity() {
         return isOWLBottomDataProperty();
     }
 
@@ -134,37 +136,44 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
     }
 
 
-    protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>> getDisjointPropertiesAxioms(OWLOntology ontology) {
+    @Override
+	protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>> getDisjointPropertiesAxioms(OWLOntology ontology) {
         return ontology.getDisjointDataPropertiesAxioms(this);
     }
 
 
-    protected Set<? extends OWLPropertyDomainAxiom> getDomainAxioms(OWLOntology ontology) {
+    @Override
+	protected Set<? extends OWLPropertyDomainAxiom> getDomainAxioms(OWLOntology ontology) {
         return ontology.getDataPropertyDomainAxioms(this);
     }
 
 
-    protected Set<? extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>> getRangeAxioms(OWLOntology ontology) {
+    @Override
+	protected Set<? extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>> getRangeAxioms(OWLOntology ontology) {
         return ontology.getDataPropertyRangeAxioms(this);
     }
 
 
-    protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>> getSubPropertyAxioms(OWLOntology ontology) {
+    @Override
+	protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>> getSubPropertyAxioms(OWLOntology ontology) {
         return ontology.getDataSubPropertyAxiomsForSubProperty(this);
     }
 
 
-    protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>> getEquivalentPropertiesAxioms(OWLOntology ontology) {
+    @Override
+	protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>> getEquivalentPropertiesAxioms(OWLOntology ontology) {
         return ontology.getEquivalentDataPropertiesAxioms(this);
     }
 
 
-    protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>> getSubPropertyAxiomsForRHS(OWLOntology ont) {
+    @Override
+	protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>> getSubPropertyAxiomsForRHS(OWLOntology ont) {
         return ont.getDataSubPropertyAxiomsForSuperProperty(this);
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLDataProperty)) {
                 return false;
@@ -329,7 +338,8 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
         return ontology.getReferencingAxioms(this, includeImports);
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         return iri.compareTo(((OWLDataProperty) object).getIRI());
     }
 }

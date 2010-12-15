@@ -1,7 +1,7 @@
 package de.uulm.ecs.ai.owlapi.krssparser;
 
-import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /*

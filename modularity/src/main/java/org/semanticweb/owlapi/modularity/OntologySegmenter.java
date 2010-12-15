@@ -1,9 +1,14 @@
 package org.semanticweb.owlapi.modularity;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
-
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
  * An interface for any class implementing ontology segmentation or modularisation.

@@ -11,20 +11,23 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  */
 public class OWLUntypedConstantTestCase extends AbstractOWLDataFactoryTest {
 
-    public void testCreation() throws Exception {
+    @Override
+	public void testCreation() throws Exception {
         OWLLiteral conB = getFactory().getOWLLiteral("TEST", "LANG");
         assertNotNull(conB);
     }
 
 
-    public void testEqualsPositive() throws Exception {
+    @Override
+	public void testEqualsPositive() throws Exception {
         OWLLiteral conC = getFactory().getOWLLiteral("TEST", "LANG");
         OWLLiteral conD = getFactory().getOWLLiteral("TEST", "LANG");
         assertEquals(conC, conD);
     }
 
 
-    public void testEqualsNegative() throws Exception {
+    @Override
+	public void testEqualsNegative() throws Exception {
         OWLLiteral conC = getFactory().getOWLLiteral("TEST", "LANG");
         OWLLiteral conD = getFactory().getOWLLiteral("TEST", "OTHER_LANG");
         assertNotEquals(conC, conD);
@@ -34,7 +37,8 @@ public class OWLUntypedConstantTestCase extends AbstractOWLDataFactoryTest {
     }
 
 
-    public void testHashCode() throws Exception {
+    @Override
+	public void testHashCode() throws Exception {
         OWLLiteral conA = getFactory().getOWLLiteral("TEST", "LANG");
         OWLLiteral conB = getFactory().getOWLLiteral("TEST", "LANG");
         assertEquals(conA.hashCode(), conB.hashCode());

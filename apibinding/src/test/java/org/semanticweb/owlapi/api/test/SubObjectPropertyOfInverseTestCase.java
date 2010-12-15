@@ -14,7 +14,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  */
 public class SubObjectPropertyOfInverseTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLObjectPropertyExpression propA = getOWLObjectProperty("p").getInverseProperty();
         OWLObjectPropertyExpression propB = getOWLObjectProperty("q").getInverseProperty();

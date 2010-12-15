@@ -1,43 +1,31 @@
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.model.*;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+
+import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.io.OWLParserURISyntaxException;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
-import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
-import org.semanticweb.owlapi.io.OWLParserURISyntaxException;
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.*;
-/*
- * Copyright (C) 2006, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
-
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
 
 
 /**
@@ -77,7 +65,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
 
-    public void setDocumentLocator(Locator locator) {
+    @Override
+	public void setDocumentLocator(Locator locator) {
         super.setDocumentLocator(locator);
         this.locator = locator;
 
@@ -748,17 +737,20 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
 
-    public void startDocument() throws SAXException {
+    @Override
+	public void startDocument() throws SAXException {
 
     }
 
 
-    public void endDocument() throws SAXException {
+    @Override
+	public void endDocument() throws SAXException {
 
     }
 
 
-    public void characters(char ch[], int start, int length) throws SAXException {
+    @Override
+	public void characters(char ch[], int start, int length) throws SAXException {
         if (!handlerStack.isEmpty()) {
             try {
                 OWLElementHandler handler = handlerStack.get(0);
@@ -773,7 +765,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
 
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    @Override
+	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         try {
             processXMLBase(attributes);
             if (localName.equals(OWLXMLVocabulary.PREFIX.getShortName())) {
@@ -829,7 +822,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
 
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    @Override
+	public void endElement(String uri, String localName, String qName) throws SAXException {
         try {
             if (localName.equals(OWLXMLVocabulary.PREFIX.getShortName())) {
                 return;
@@ -851,12 +845,14 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
 
-    public void startPrefixMapping(String prefix, String uri) throws SAXException {
+    @Override
+	public void startPrefixMapping(String prefix, String uri) throws SAXException {
         prefixName2PrefixMap.put(prefix, uri);
     }
 
 
-    public InputSource resolveEntity(String publicId, String systemId) throws IOException, SAXException {
+    @Override
+	public InputSource resolveEntity(String publicId, String systemId) throws IOException, SAXException {
         return super.resolveEntity(publicId, systemId);
     }
 

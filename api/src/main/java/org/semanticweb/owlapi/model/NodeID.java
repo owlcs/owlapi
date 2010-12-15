@@ -76,7 +76,8 @@ public abstract class NodeID implements Comparable<NodeID> {
             this(NODE_ID_PREFIX + Long.toString(++counter));
         }
 
-        public String toString() {
+        @Override
+		public String toString() {
             return id;
         }
 
@@ -84,7 +85,8 @@ public abstract class NodeID implements Comparable<NodeID> {
             return toString().compareTo(o.toString());
         }
 
-        public boolean equals(Object obj) {
+        @Override
+		public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
             }
@@ -95,7 +97,8 @@ public abstract class NodeID implements Comparable<NodeID> {
             return id.equals(other.getID());
         }
 
-        public int hashCode() {
+        @Override
+		public int hashCode() {
             return id.hashCode();
         }
 
@@ -103,7 +106,8 @@ public abstract class NodeID implements Comparable<NodeID> {
          * Gets the string representation of the node ID.  This will begin with _:
          * @return The string representation of the node ID.
          */
-        public String getID() {
+        @Override
+		public String getID() {
             return id;
         }
     }

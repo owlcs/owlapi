@@ -43,7 +43,8 @@ public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationship
         return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataPropertyAssertionAxiom;
         }

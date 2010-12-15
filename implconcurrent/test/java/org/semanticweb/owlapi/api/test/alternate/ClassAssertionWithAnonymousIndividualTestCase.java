@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  */
 public class ClassAssertionWithAnonymousIndividualTestCase extends
 		AbstractAxiomsRoundTrippingTestCase {
+	@Override
 	protected Set<? extends OWLAxiom> createAxioms() {
 		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 		OWLIndividual ind = getFactory().getOWLAnonymousIndividual("a");

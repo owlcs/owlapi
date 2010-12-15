@@ -52,7 +52,8 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
         return getSubject().isAnonymous() || getObject().isAnonymous();
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLNegativeObjectPropertyAssertionAxiom;
         }

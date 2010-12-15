@@ -1,35 +1,72 @@
 package org.semanticweb.owlapi.reasoner.structural;
 
-import org.semanticweb.owlapi.reasoner.impl.*;
-import org.semanticweb.owlapi.reasoner.*;
-import org.semanticweb.owlapi.model.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
+
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.reasoner.AxiomNotInProfileException;
+import org.semanticweb.owlapi.reasoner.BufferingMode;
+import org.semanticweb.owlapi.reasoner.ClassExpressionNotInProfileException;
+import org.semanticweb.owlapi.reasoner.FreshEntitiesException;
+import org.semanticweb.owlapi.reasoner.FreshEntityPolicy;
+import org.semanticweb.owlapi.reasoner.InconsistentOntologyException;
+import org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy;
+import org.semanticweb.owlapi.reasoner.InferenceType;
+import org.semanticweb.owlapi.reasoner.Node;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.reasoner.NullReasonerProgressMonitor;
+import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
+import org.semanticweb.owlapi.reasoner.ReasonerInterruptedException;
+import org.semanticweb.owlapi.reasoner.ReasonerProgressMonitor;
+import org.semanticweb.owlapi.reasoner.TimeOutException;
+import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
+import org.semanticweb.owlapi.reasoner.impl.DefaultNode;
+import org.semanticweb.owlapi.reasoner.impl.DefaultNodeSet;
+import org.semanticweb.owlapi.reasoner.impl.OWLClassNode;
+import org.semanticweb.owlapi.reasoner.impl.OWLClassNodeSet;
+import org.semanticweb.owlapi.reasoner.impl.OWLDataPropertyNode;
+import org.semanticweb.owlapi.reasoner.impl.OWLDataPropertyNodeSet;
+import org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNode;
+import org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNodeSet;
+import org.semanticweb.owlapi.reasoner.impl.OWLObjectPropertyNode;
+import org.semanticweb.owlapi.reasoner.impl.OWLObjectPropertyNodeSet;
+import org.semanticweb.owlapi.reasoner.impl.OWLReasonerBase;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 import org.semanticweb.owlapi.util.Version;
-
-import java.util.*;
-/*
- * Copyright (C) 2009, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
-
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
 
 /**
  * Author: Matthew Horridge<br>
@@ -52,7 +89,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private boolean interrupted = false;
 
-    private ReasonerProgressMonitor pm;
+    protected ReasonerProgressMonitor pm;
 
     private boolean prepared = false;
 
@@ -74,7 +111,8 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
 
-    public FreshEntityPolicy getFreshEntityPolicy() {
+    @Override
+	public FreshEntityPolicy getFreshEntityPolicy() {
         return FreshEntityPolicy.ALLOW;
     }
 
@@ -82,7 +120,8 @@ public class StructuralReasoner extends OWLReasonerBase {
      * Gets the IndividualNodeSetPolicy  in use by this reasoner.  The policy is set at reasoner creation time.
      * @return The policy.
      */
-    public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
+    @Override
+	public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
         return IndividualNodeSetPolicy.BY_NAME;
     }
 
@@ -94,7 +133,8 @@ public class StructuralReasoner extends OWLReasonerBase {
         return version;
     }
 
-    protected void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms) {
+    @Override
+	protected void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms) {
         handleChanges(addAxioms, removeAxioms, classHierarchyInfo);
         handleChanges(addAxioms, removeAxioms, objectPropertyHierarchyInfo);
         handleChanges(addAxioms, removeAxioms, dataPropertyHierarchyInfo);

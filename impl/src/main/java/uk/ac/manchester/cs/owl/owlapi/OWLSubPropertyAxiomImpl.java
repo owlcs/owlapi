@@ -39,7 +39,8 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> e
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLSubPropertyAxiom)) {
                 return false;
@@ -51,7 +52,8 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> e
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLSubPropertyAxiom other = (OWLSubPropertyAxiom) object;
         int diff = subProperty.compareTo(other.getSubProperty());
         if (diff != 0) {

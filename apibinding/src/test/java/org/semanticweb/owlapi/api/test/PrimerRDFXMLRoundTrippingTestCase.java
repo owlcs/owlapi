@@ -31,7 +31,8 @@ package org.semanticweb.owlapi.api.test;
 public class PrimerRDFXMLRoundTrippingTestCase extends AbstractFileRoundTrippingTestCase {
 
 
-    protected String getFileName() {
+    @Override
+	protected String getFileName() {
         return "primer.rdfxml.xml";
     }
 

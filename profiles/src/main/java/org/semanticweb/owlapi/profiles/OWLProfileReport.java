@@ -38,7 +38,8 @@ public class OWLProfileReport {
     }
 
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(profile.getName());
         sb.append(" Profile Report: ");

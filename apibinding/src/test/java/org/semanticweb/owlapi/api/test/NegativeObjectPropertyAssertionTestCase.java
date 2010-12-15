@@ -15,7 +15,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class NegativeObjectPropertyAssertionTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLObjectProperty prop = getOWLObjectProperty("prop");
         OWLIndividual subject = getOWLIndividual("iA");

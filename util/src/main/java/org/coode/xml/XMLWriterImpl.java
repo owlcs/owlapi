@@ -23,13 +23,21 @@ package org.coode.xml;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-import org.coode.string.EscapeUtils;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
-
 import java.io.IOException;
 import java.io.Writer;
-import java.util.*;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+import java.util.StringTokenizer;
+
+import org.coode.string.EscapeUtils;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * Author: Matthew Horridge<br>
@@ -48,9 +56,9 @@ public class XMLWriterImpl implements XMLWriter {
 
     private Stack<XMLElement> elementStack;
 
-    private Writer writer;
+    protected Writer writer;
 
-    private String encoding;
+    private String encoding = "";
 
     private String xmlBase;
 
@@ -66,18 +74,14 @@ public class XMLWriterImpl implements XMLWriter {
 
     private static final String PERCENT_ENTITY = "&#37;";
 
-
-    public XMLWriterImpl(Writer writer, XMLWriterNamespaceManager xmlWriterNamespaceManager) {
-        this(writer, xmlWriterNamespaceManager, "UTF-8");
-    }
-
-
     public XMLWriterImpl(Writer writer, XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase) {
         this.writer = writer;
         this.xmlWriterNamespaceManager = xmlWriterNamespaceManager;
         this.xmlBase = xmlBase;
         this.xmlBaseURI = URI.create(xmlBase);
-        this.encoding = "";
+        // no need to set it to UTF-8: it's supposed to be the default encoding for XML. 
+        //Must be set correctly for the Writer anyway, or bugs will ensue.
+        //this.encoding = "UTF-8";
         elementStack = new Stack<XMLElement>();
         setupEntities();
     }

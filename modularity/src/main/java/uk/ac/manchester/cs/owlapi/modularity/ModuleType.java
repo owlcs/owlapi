@@ -59,6 +59,7 @@ public enum ModuleType {
 	 *
 	 * @return name (in bottom/top notation), followed by alternative name (in upper/lower notation)
 	 */
+	@Override
 	public String toString(){
 		return name;
 	}

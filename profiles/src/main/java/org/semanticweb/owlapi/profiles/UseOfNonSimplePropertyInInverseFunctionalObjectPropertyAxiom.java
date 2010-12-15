@@ -19,7 +19,8 @@ public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom extend
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-simple property in ");
         sb.append(getAxiom().getAxiomType().getName());

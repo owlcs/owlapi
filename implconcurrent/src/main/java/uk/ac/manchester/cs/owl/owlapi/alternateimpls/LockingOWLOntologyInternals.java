@@ -246,18 +246,21 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		}
 	}
 
+	@Override
 	public Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity entity) {
 		//TODO lock
 		return getReturnSet(getAxioms(entity,
 				declarationsByEntity, false));
 	}
 	
+	@Override
 	public Set<OWLAxiom> getReferencingAxioms(OWLAnonymousIndividual individual) {
 		
 		//TODO lock
 	    return getReturnSet(getAxioms(individual, owlAnonymousIndividualReferences, false));
 	}
 	
+	@Override
 	public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
 		//TODO lock
         Set<OWLAxiom> axioms;
@@ -743,7 +746,6 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {
 		return super.getAxioms(axiomType);
 	}

@@ -13,6 +13,7 @@ public abstract class OWLQuantifiedObjectRestrictionImpl extends
 		super(dataFactory, property, filler);
 	}
 	
+	@Override
 	protected int compareObjectOfSameType(OWLObject object) {
         @SuppressWarnings("unchecked")
 		OWLQuantifiedRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> other = (OWLQuantifiedRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression>) object;

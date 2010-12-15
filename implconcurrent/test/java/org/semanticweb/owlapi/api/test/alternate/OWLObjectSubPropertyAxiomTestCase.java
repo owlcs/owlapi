@@ -33,14 +33,17 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class OWLObjectSubPropertyAxiomTestCase
 		extends
 		AbstractOWLBinaryOperandAxiomTestCase<OWLObjectProperty, OWLObjectProperty> {
+	@Override
 	protected OWLObjectProperty createLeftOperand() throws Exception {
 		return createOWLObjectProperty();
 	}
 
+	@Override
 	protected OWLObjectProperty createRightOperand() throws Exception {
 		return createOWLObjectProperty();
 	}
 
+	@Override
 	protected OWLAxiom createAxiom(OWLObjectProperty leftOperand,
 			OWLObjectProperty rightOperand) throws Exception {
 		return getFactory().getOWLSubObjectPropertyOfAxiom(leftOperand,

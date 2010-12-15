@@ -208,7 +208,8 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
         return true;
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (!(obj instanceof SWRLRule)) {
             return false;
         }
@@ -222,7 +223,8 @@ public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         SWRLRule other = (SWRLRule) object;
 
         int diff = compareSets(getBody(), other.getBody());

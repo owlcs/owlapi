@@ -1,9 +1,7 @@
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.OWLEntity;
 
 /*
  * Copyright (C) 2007, University of Manchester

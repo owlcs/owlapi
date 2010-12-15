@@ -18,7 +18,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public class InferredSubObjectPropertyAxiomGenerator extends InferredObjectPropertyAxiomGenerator<OWLSubObjectPropertyOfAxiom> {
 
 
-    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLSubObjectPropertyOfAxiom> result) {
+    @Override
+	protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLSubObjectPropertyOfAxiom> result) {
         for (OWLObjectPropertyExpression prop : reasoner.getSuperObjectProperties(entity, true).getFlattened()) {
             result.add(dataFactory.getOWLSubObjectPropertyOfAxiom(entity, prop));
         }

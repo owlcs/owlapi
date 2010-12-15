@@ -27,7 +27,8 @@ public class UseOfDefinedDatatypeInDatatypeRestriction extends OWLProfileViolati
         return restriction;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of defined datatype in datatype restriction: ");
         sb.append(getAxiom());

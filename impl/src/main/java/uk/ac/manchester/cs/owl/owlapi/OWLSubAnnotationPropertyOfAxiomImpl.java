@@ -84,7 +84,8 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLSubAnnotationPropertyOfAxiom other = (OWLSubAnnotationPropertyOfAxiom) object;
         int diff = subProperty.compareTo(other.getSubProperty());
         if (diff != 0) {
@@ -94,7 +95,8 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

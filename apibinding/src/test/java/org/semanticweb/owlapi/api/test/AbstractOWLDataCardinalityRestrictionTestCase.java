@@ -20,17 +20,20 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends Abst
     protected abstract OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality, OWLDataRange dataRange) throws Exception;
 
 
-    protected OWLRestriction createRestriction(OWLDataProperty prop) throws Exception {
+    @Override
+	protected OWLRestriction createRestriction(OWLDataProperty prop) throws Exception {
         return createRestriction(prop, 3);
     }
 
 
-    protected OWLDataProperty createProperty() throws OWLException {
+    @Override
+	protected OWLDataProperty createProperty() throws OWLException {
         return createOWLDataProperty();
     }
 
 
-    public void testCreation() throws Exception {
+    @Override
+	public void testCreation() throws Exception {
         OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
         int cardinality = 3;
         OWLDataCardinalityRestriction restA = createRestriction(prop, cardinality);
@@ -41,7 +44,8 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends Abst
     }
 
 
-    public void testEqualsPositive() throws Exception {
+    @Override
+	public void testEqualsPositive() throws Exception {
         OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
         int cardinality = 3;
         OWLDataCardinalityRestriction restA = createRestriction(prop, cardinality);
@@ -54,7 +58,8 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends Abst
     }
 
 
-    public void testEqualsNegative() throws Exception {
+    @Override
+	public void testEqualsNegative() throws Exception {
         OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
         // Different cardinality
         OWLDataCardinalityRestriction restA = createRestriction(prop, 3);
@@ -71,7 +76,8 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends Abst
     }
 
 
-    public void testHashCode() throws Exception {
+    @Override
+	public void testHashCode() throws Exception {
         OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
         int cardinality = 3;
         OWLDataRange dataRange = getFactory().getOWLDatatype(createIRI());

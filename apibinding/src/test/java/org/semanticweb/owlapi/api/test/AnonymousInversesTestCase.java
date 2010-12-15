@@ -29,7 +29,8 @@ package org.semanticweb.owlapi.api.test;
  */
 public class AnonymousInversesTestCase extends AbstractFileRoundTrippingTestCase {
 
-    protected String getFileName() {
+    @Override
+	protected String getFileName() {
         return "AnonymousInverses.rdf";
     }
 
@@ -39,12 +40,14 @@ public class AnonymousInversesTestCase extends AbstractFileRoundTrippingTestCase
         once the OWL 2 spec has stabilised.
      */
 
-    public void testManchesterOWLSyntax() throws Exception {
+    @Override
+	public void testManchesterOWLSyntax() throws Exception {
 //        super.testManchesterOWLSyntax();
     }
 
 
-    public void testFunctionalSyntax() throws Exception {
+    @Override
+	public void testFunctionalSyntax() throws Exception {
 //        super.testFunctionalSyntax();
     }
 }

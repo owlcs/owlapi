@@ -42,11 +42,13 @@ public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends O
 	protected abstract OWLIndividualAxiom createAxiom(OWLIndividual subject,
 			P property, O object) throws OWLException;
 
+	@Override
 	public void testCreation() throws Exception {
 		assertNotNull(createAxiom(createOWLIndividual(), createProperty(),
 				createObject()));
 	}
 
+	@Override
 	public void testEqualsPositive() throws Exception {
 		OWLIndividual subject = createOWLIndividual();
 		P property = createProperty();
@@ -56,6 +58,7 @@ public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends O
 		assertEquals(axiomA, axiomB);
 	}
 
+	@Override
 	public void testEqualsNegative() throws Exception {
 		// Different subject
 		P property = createProperty();
@@ -80,6 +83,7 @@ public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends O
 		assertNotEquals(axiomE, axiomF);
 	}
 
+	@Override
 	public void testHashCode() throws Exception {
 		OWLIndividual subject = createOWLIndividual();
 		P property = createProperty();

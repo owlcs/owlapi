@@ -9,7 +9,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.util.OWLEntityCollector;
 
 /**
  * Author: Matthew Horridge<br>
@@ -19,7 +18,8 @@ import org.semanticweb.owlapi.util.OWLEntityCollector;
  */
 public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    final protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	final protected Set<? extends OWLAxiom> createAxioms() {
         OWLAnnotationProperty prop = getOWLAnnotationProperty("prop");
         OWLLiteral lit = getFactory().getOWLLiteral("Test", "");
         OWLAnnotation anno1 = getFactory().getOWLAnnotation(prop, lit);

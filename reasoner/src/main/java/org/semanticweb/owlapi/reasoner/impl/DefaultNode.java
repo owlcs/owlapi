@@ -1,11 +1,11 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.reasoner.Node;
-
-import java.util.Set;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
+
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.reasoner.Node;
 
 /*
  * Copyright (C) 2009, University of Manchester

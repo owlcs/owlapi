@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Date: 23-Nov-2009
  */
 public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTest {
+	@Override
 	protected OWLOntology createOntology() {
 		OWLOntology ont = getOWLOntology("AnnotationOntology");
 		OWLAnnotationProperty prop = getFactory()

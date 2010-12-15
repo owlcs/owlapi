@@ -25,11 +25,13 @@ public class HasKeyTestCase extends AbstractFileRoundTrippingTestCase {
         assertEquals(axioms, getOnt().getAxioms());
     }
 
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    @Override
+	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }
 
-    protected String getFileName() {
+    @Override
+	protected String getFileName() {
         return "HasKey.rdf";
     }
 }

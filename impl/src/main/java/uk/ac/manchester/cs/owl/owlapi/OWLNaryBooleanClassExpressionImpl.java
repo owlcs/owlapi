@@ -42,7 +42,8 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLNaryBooleanClassExpression)) {
                 return false;
@@ -53,7 +54,8 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
     }
 
 
-    final protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	final protected int compareObjectOfSameType(OWLObject object) {
         return compareSets(operands, ((OWLNaryBooleanClassExpression) object).getOperands());
     }
 }

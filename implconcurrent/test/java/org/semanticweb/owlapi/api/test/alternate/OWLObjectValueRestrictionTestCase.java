@@ -33,15 +33,18 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
 public class OWLObjectValueRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLObjectProperty, OWLIndividual> {
-    protected OWLRestriction createRestriction(OWLObjectProperty prop, OWLIndividual filler) throws Exception {
+    @Override
+	protected OWLRestriction createRestriction(OWLObjectProperty prop, OWLIndividual filler) throws Exception {
         return getFactory().getOWLObjectHasValue(prop, filler);
     }
 
-    protected OWLObjectProperty createProperty() throws Exception {
+    @Override
+	protected OWLObjectProperty createProperty() throws Exception {
         return createOWLObjectProperty();
     }
 
-    protected OWLIndividual createFiller() throws Exception {
+    @Override
+	protected OWLIndividual createFiller() throws Exception {
         return createOWLIndividual();
     }
 }

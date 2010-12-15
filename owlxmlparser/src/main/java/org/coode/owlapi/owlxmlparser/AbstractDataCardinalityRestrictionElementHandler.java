@@ -42,14 +42,16 @@ public abstract class AbstractDataCardinalityRestrictionElementHandler extends A
     }
 
 
-    public void attribute(String localName, String value) throws OWLParserException {
+    @Override
+	public void attribute(String localName, String value) throws OWLParserException {
         if (localName.equals("cardinality")) {
             cardinality = Integer.parseInt(value);
         }
     }
 
 
-    public void startElement(String name) throws OWLXMLParserException {
+    @Override
+	public void startElement(String name) throws OWLXMLParserException {
         super.startElement(name);
         setFiller(getOWLDataFactory().getTopDatatype());
     }

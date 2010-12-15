@@ -1,11 +1,11 @@
 package com.clarkparsia.owlapi.explanation.io;
 
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLException;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLException;
 
 /*
 * Copyright (C) 2007, Clark & Parsia

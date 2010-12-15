@@ -42,11 +42,13 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class BuiltInClassTestCase extends TestCase {
 	private OWLDataFactory dataFactory;
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		dataFactory = ThreadSafeOWLManager.getOWLDataFactory();
 	}
 
+	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
 		dataFactory = null;

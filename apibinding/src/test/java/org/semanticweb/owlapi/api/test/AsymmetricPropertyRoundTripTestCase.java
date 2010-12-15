@@ -9,14 +9,16 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class AsymmetricPropertyRoundTripTestCase extends AbstractRoundTrippingTest {
 
-    protected OWLOntology createOntology() {
+    @Override
+	protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("Test");
         getManager().addAxiom(ont, getFactory().getOWLAsymmetricObjectPropertyAxiom(getOWLObjectProperty("p")));
         return ont;
     }
 
 
-    public void testFunctionalSyntax() throws Exception {
+    @Override
+	public void testFunctionalSyntax() throws Exception {
 
     }
 }

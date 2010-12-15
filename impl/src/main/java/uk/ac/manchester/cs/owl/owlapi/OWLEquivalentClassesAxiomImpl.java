@@ -104,7 +104,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         return result;
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLEquivalentClassesAxiom;
         }

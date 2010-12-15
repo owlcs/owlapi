@@ -19,7 +19,8 @@ public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends OWLProf
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of owl:topDataProperty as sub-property in SubDataPropertyOf axiom: ");
         sb.append(" [");

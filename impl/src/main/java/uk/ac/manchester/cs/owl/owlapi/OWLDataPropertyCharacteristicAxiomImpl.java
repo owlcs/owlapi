@@ -30,7 +30,8 @@ public abstract class OWLDataPropertyCharacteristicAxiomImpl extends OWLProperty
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLDataPropertyCharacteristicAxiom)) {
                 return false;

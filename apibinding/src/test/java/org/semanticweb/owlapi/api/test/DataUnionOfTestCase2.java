@@ -23,7 +23,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  */
 public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         OWLDataFactory factory = getFactory();
         OWLDatatype dt = factory.getOWLDatatype(IRI.create("file:/c/test.owlapi#SSN"));
         OWLFacetRestriction fr = factory.getOWLFacetRestriction(OWLFacet.PATTERN, factory.getOWLLiteral("[0-9]{3}-[0-9]{2}-[0-9]{4}"));

@@ -57,7 +57,8 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLClassAssertionAxiom)) {
                 return false;
@@ -93,7 +94,8 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
         return AxiomType.CLASS_ASSERTION;
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLClassAssertionAxiom otherAx = (OWLClassAssertionAxiom) object;
         int diff = getIndividual().compareTo(otherAx.getIndividual());
         if (diff != 0) {

@@ -31,6 +31,7 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
 public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
+	@Override
 	public void testCreation() throws Exception {
 		OWLClassExpression operand = getFactory().getOWLClass(createIRI());
 		OWLObjectComplementOf not = getFactory().getOWLObjectComplementOf(
@@ -38,6 +39,7 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 		assertNotNull(not);
 	}
 
+	@Override
 	public void testEqualsPositive() throws Exception {
 		OWLClassExpression operand = getFactory().getOWLClass(createIRI());
 		OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(
@@ -47,6 +49,7 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 		assertEquals(notA, notB);
 	}
 
+	@Override
 	public void testEqualsNegative() throws Exception {
 		OWLClassExpression operandA = getFactory().getOWLClass(createIRI());
 		OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(
@@ -57,6 +60,7 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 		assertNotEquals(notA, notB);
 	}
 
+	@Override
 	public void testHashCode() throws Exception {
 		OWLClassExpression operand = getFactory().getOWLClass(createIRI());
 		OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(

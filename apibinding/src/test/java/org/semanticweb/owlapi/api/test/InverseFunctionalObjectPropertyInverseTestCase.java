@@ -13,7 +13,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class InverseFunctionalObjectPropertyInverseTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(getFactory().getOWLInverseFunctionalObjectPropertyAxiom(getOWLObjectProperty("p").getInverseProperty()));
         return axioms;

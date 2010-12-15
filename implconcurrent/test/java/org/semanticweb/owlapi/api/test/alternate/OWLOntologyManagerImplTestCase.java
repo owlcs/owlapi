@@ -45,7 +45,8 @@ import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 public class OWLOntologyManagerImplTestCase extends TestCase {
     private OWLOntologyManager manager;
 
-    protected void setUp() throws Exception {
+    @Override
+	protected void setUp() throws Exception {
         super.setUp();
         manager = ThreadSafeOWLManager.createOWLOntologyManager();
         manager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());

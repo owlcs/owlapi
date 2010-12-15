@@ -33,7 +33,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
         super(dataFactory);
     }
 
-    protected Set<? extends OWLPropertyDomainAxiom> getDomainAxioms(OWLOntology ontology) {
+    @Override
+	protected Set<? extends OWLPropertyDomainAxiom> getDomainAxioms(OWLOntology ontology) {
         return ontology.getObjectPropertyDomainAxioms(this);
     }
 
@@ -149,22 +150,26 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     }
 
 
-    protected Set<? extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>> getRangeAxioms(OWLOntology ontology) {
+    @Override
+	protected Set<? extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>> getRangeAxioms(OWLOntology ontology) {
         return ontology.getObjectPropertyRangeAxioms(this);
     }
 
 
-    protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>> getSubPropertyAxioms(OWLOntology ontology) {
+    @Override
+	protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>> getSubPropertyAxioms(OWLOntology ontology) {
         return ontology.getObjectSubPropertyAxiomsForSubProperty(this);
     }
 
 
-    protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>> getEquivalentPropertiesAxioms(OWLOntology ontology) {
+    @Override
+	protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>> getEquivalentPropertiesAxioms(OWLOntology ontology) {
         return ontology.getEquivalentObjectPropertiesAxioms(this);
     }
 
 
-    protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>> getDisjointPropertiesAxioms(OWLOntology ontology) {
+    @Override
+	protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>> getDisjointPropertiesAxioms(OWLOntology ontology) {
         return ontology.getDisjointObjectPropertiesAxioms(this);
     }
 
@@ -192,7 +197,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLObjectPropertyExpression;
     }
 

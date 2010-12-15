@@ -28,11 +28,14 @@ public class ComplexSubPropertyAxiomTestCase extends AbstractFileRoundTrippingTe
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    @Override
+    @SuppressWarnings("unused")
+	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }
 
-    protected String getFileName() {
+    @Override
+	protected String getFileName() {
         return "ComplexSubProperty.rdf";
     }
 }

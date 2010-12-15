@@ -38,6 +38,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  */
 public abstract class AbstractFileRoundTrippingTestCase extends
 		AbstractRoundTrippingTest {
+	@Override
 	protected OWLOntology createOntology() {
 		try {
 			String fileName = getFileName();

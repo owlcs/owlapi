@@ -1,10 +1,13 @@
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.io.OWLParserException;
-
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
+
+import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -49,7 +52,8 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
     }
 
 
-    public void startElement(String name) throws OWLXMLParserException {
+    @Override
+	public void startElement(String name) throws OWLXMLParserException {
         super.startElement(name);
     }
 
@@ -57,26 +61,31 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
         getParentHandler().handleChild(this);
     }
 
-    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
+    @Override
+	public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
         if(annotations == null) {
             annotations = new HashSet<OWLAnnotation>();
         }
         annotations.add(handler.getOWLObject());
     }
 
-    public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException {
+    @Override
+	public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException {
         object = handler.getOWLObject();
     }
 
-    public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
+    @Override
+	public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
         object = handler.getOWLObject();
     }
 
-    public void handleChild(OWLAnnotationPropertyElementHandler handler) throws OWLXMLParserException {
+    @Override
+	public void handleChild(OWLAnnotationPropertyElementHandler handler) throws OWLXMLParserException {
         property = handler.getOWLObject();
     }
 
-    public void handleChild(AbstractIRIElementHandler handler) throws OWLXMLParserException {
+    @Override
+	public void handleChild(AbstractIRIElementHandler handler) throws OWLXMLParserException {
         object = handler.getOWLObject();
     }
 
@@ -90,7 +99,8 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
     }
 
 
-    public boolean isTextContentPossible() {
+    @Override
+	public boolean isTextContentPossible() {
         return false;
     }
 }

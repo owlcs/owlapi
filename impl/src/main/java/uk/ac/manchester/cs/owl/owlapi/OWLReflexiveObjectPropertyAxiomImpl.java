@@ -42,7 +42,8 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
         return getOWLDataFactory().getOWLReflexiveObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLReflexiveObjectPropertyAxiom;
         }

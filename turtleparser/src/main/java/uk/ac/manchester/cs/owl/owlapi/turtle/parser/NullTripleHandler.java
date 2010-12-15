@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group<br>
  * Date: 17-Apr-2008<br><br>
  */
+@SuppressWarnings("unused")
 public class NullTripleHandler implements TripleHandler {
 
 

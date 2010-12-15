@@ -1,7 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -43,7 +43,8 @@ public class TPIntersectionOfHandler extends AbstractNamedEquivalentClassAxiomHa
     }
 
 
-    protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
+    @Override
+	protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
         return getDataFactory().getOWLObjectIntersectionOf(getConsumer().translateToClassExpressionSet(mainNode));
     }
 }

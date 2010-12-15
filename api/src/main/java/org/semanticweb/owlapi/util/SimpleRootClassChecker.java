@@ -63,7 +63,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
     private RootClassCheckerHelper checker = new RootClassCheckerHelper();
 
-    private NamedSuperChecker superChecker = new NamedSuperChecker();
+    protected NamedSuperChecker superChecker = new NamedSuperChecker();
 
 
     /**
@@ -95,12 +95,14 @@ public class SimpleRootClassChecker implements RootClassChecker {
             namedSuper = false;
         }
 
-        public void visit(OWLClass desc) {
+        @Override
+		public void visit(OWLClass desc) {
             namedSuper = true;
         }
 
 
-        public void visit(OWLObjectIntersectionOf desc) {
+        @Override
+		public void visit(OWLObjectIntersectionOf desc) {
             for (OWLClassExpression op : desc.getOperands()) {
                 op.accept(this);
                 if (namedSuper) {
@@ -137,7 +139,8 @@ public class SimpleRootClassChecker implements RootClassChecker {
         }
 
 
-        public void visit(OWLSubClassOfAxiom axiom) {
+        @Override
+		public void visit(OWLSubClassOfAxiom axiom) {
             if (axiom.getSubClass().equals(cls)) {
                 superChecker.reset();
                 axiom.getSuperClass().accept(superChecker);
@@ -146,7 +149,8 @@ public class SimpleRootClassChecker implements RootClassChecker {
         }
 
 
-        public void visit(OWLEquivalentClassesAxiom axiom) {
+        @Override
+		public void visit(OWLEquivalentClassesAxiom axiom) {
             Set<OWLClassExpression> descs = axiom.getClassExpressions();
             if (!descs.contains(cls)) {
                 return;

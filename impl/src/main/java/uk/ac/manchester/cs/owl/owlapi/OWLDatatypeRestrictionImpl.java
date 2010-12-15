@@ -72,7 +72,8 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLDatatypeRestriction)) {
                 return false;
@@ -111,7 +112,8 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
         return visitor.visit(this);
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLDatatypeRestriction other = (OWLDatatypeRestriction) object;
         int diff = datatype.compareTo(other.getDatatype());
         if (diff != 0) {

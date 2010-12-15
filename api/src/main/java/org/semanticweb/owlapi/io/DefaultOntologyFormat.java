@@ -32,12 +32,14 @@ package org.semanticweb.owlapi.io;
  */
 public class DefaultOntologyFormat extends RDFXMLOntologyFormat {
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         return obj instanceof RDFXMLOntologyFormat;
     }
 
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return super.getClass().hashCode();
     }
 }

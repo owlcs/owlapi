@@ -1,16 +1,38 @@
 package com.clarkparsia.owlapi.explanation;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
-import org.semanticweb.owlapi.util.OWLEntityCollector;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-
 import java.net.URI;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
 
@@ -546,7 +568,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
     private void removeDeclarations() {
         OWLAxiomVisitor declarationRemover = new OWLAxiomVisitorAdapter() {
-            public void visit(OWLDeclarationAxiom axiom) {
+            @Override
+			public void visit(OWLDeclarationAxiom axiom) {
                 debuggingAxioms.remove(axiom);
             }
         };
@@ -560,7 +583,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     }
 
 
-    public String toString() {
+    @Override
+	public String toString() {
         return "BlackBox";
     }
 }

@@ -35,7 +35,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Date: 02-Jul-2009
  */
 public class NegativeDataPropertyAssertionTestCase extends AbstractAxiomsRoundTrippingTestCase {
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(getOWLDataProperty("p"), getOWLIndividual("i"), getFactory().getOWLLiteral(33.3)));
         return axioms;

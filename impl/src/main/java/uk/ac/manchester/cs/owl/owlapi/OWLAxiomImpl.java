@@ -13,7 +13,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.NNF;
-import org.semanticweb.owlapi.util.OWLEntityCollector;
 
 
 /**
@@ -109,7 +108,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (!super.equals(obj)) {
             return false;
         }

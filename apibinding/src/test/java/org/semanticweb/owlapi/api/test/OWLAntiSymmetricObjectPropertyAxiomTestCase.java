@@ -13,7 +13,8 @@ import org.semanticweb.owlapi.model.OWLPropertyAxiom;
  */
 public class OWLAntiSymmetricObjectPropertyAxiomTestCase extends AbstractOWLObjectPropertyCharacteristicAxiomTestCase {
 
-    protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) throws OWLException {
+    @Override
+	protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) throws OWLException {
         return getFactory().getOWLAsymmetricObjectPropertyAxiom(property);
     }
 }

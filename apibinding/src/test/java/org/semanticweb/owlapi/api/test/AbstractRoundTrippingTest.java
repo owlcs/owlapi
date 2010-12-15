@@ -24,7 +24,8 @@ public abstract class AbstractRoundTrippingTest extends AbstractOWLAPITestCase {
         return ont;
     }
 
-    protected void setUp() throws Exception {
+    @Override
+	protected void setUp() throws Exception {
         ont = createOntology();
     }
 
@@ -48,7 +49,8 @@ public abstract class AbstractRoundTrippingTest extends AbstractOWLAPITestCase {
 //        roundTripOntology(ont, new ManchesterOWLSyntaxOntologyFormat());
     }
 
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    @Override
+	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         super.handleSaved(target, format);
     }
 

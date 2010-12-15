@@ -38,7 +38,8 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * Date: 14-Jul-2009
  */
 public class DataQualifiedCardinalityTestCase extends AbstractAxiomsRoundTrippingTestCase {
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLDataProperty prop = getOWLDataProperty("prop");
         OWLDataRange dr = getFactory().getIntegerOWLDatatype();

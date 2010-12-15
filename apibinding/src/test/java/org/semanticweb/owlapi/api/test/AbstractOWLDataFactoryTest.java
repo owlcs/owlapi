@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public abstract class AbstractOWLDataFactoryTest extends AbstractOWLAPITestCase {
 
-    protected void setUp() throws Exception {
+    @Override
+	protected void setUp() throws Exception {
         super.setUp();
     }
 

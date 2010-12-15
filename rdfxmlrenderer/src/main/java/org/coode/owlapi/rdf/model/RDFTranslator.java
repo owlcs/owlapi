@@ -1,9 +1,9 @@
 package org.coode.owlapi.rdf.model;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.IRI;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -50,12 +50,14 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResourceNode, 
     }
 
 
-    protected void addTriple(RDFResourceNode subject, RDFResourceNode pred, RDFNode object) {
+    @Override
+	protected void addTriple(RDFResourceNode subject, RDFResourceNode pred, RDFNode object) {
         graph.addTriple(new RDFTriple(subject, pred, object));
     }
 
 
-    protected RDFResourceNode getAnonymousNode(Object key) {
+    @Override
+	protected RDFResourceNode getAnonymousNode(Object key) {
         return new RDFResourceNode(System.identityHashCode(key));
     }
 
@@ -80,12 +82,14 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResourceNode, 
     }
 
 
-    protected RDFResourceNode getPredicateNode(IRI uri) {
+    @Override
+	protected RDFResourceNode getPredicateNode(IRI uri) {
         return new RDFResourceNode(uri);
     }
 
 
-    protected RDFResourceNode getResourceNode(IRI uri) {
+    @Override
+	protected RDFResourceNode getResourceNode(IRI uri) {
         return new RDFResourceNode(uri);
     }
 

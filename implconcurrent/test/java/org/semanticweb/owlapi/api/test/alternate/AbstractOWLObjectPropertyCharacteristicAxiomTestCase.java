@@ -31,6 +31,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public abstract class AbstractOWLObjectPropertyCharacteristicAxiomTestCase
 		extends AbstractOWLPropertyCharacteristicTestCase<OWLObjectProperty> {
+	@Override
 	protected OWLObjectProperty createProperty() throws Exception {
 		return createOWLObjectProperty();
 	}

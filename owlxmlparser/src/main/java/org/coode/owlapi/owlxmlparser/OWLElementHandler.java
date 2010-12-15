@@ -1,7 +1,6 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /*

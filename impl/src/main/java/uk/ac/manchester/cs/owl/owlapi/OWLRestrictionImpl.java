@@ -33,7 +33,8 @@ public abstract class OWLRestrictionImpl<R extends OWLPropertyRange, P extends O
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLRestriction)) {
                 return false;

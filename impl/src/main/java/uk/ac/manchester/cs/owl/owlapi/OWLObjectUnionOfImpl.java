@@ -33,7 +33,8 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl impl
         return ClassExpressionType.OBJECT_UNION_OF;
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectUnionOf;
         }
@@ -41,7 +42,8 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl impl
     }
 
 
-    public Set<OWLClassExpression> asDisjunctSet() {
+    @Override
+	public Set<OWLClassExpression> asDisjunctSet() {
         Set<OWLClassExpression> disjuncts = new HashSet<OWLClassExpression>();
         for (OWLClassExpression op : getOperands()) {
             disjuncts.addAll(op.asDisjunctSet());

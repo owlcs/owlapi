@@ -15,7 +15,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public abstract class InferredDataPropertyAxiomGenerator<A extends OWLDataPropertyAxiom> extends InferredEntityAxiomGenerator<OWLDataProperty, A> {
 
-    protected Set<OWLDataProperty> getEntities(OWLOntology ont) {
+    @Override
+	protected Set<OWLDataProperty> getEntities(OWLOntology ont) {
         return ont.getDataPropertiesInSignature();
     }
 }

@@ -41,7 +41,8 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
     }
 
 
-    public boolean isAxiomChange() {
+    @Override
+	public boolean isAxiomChange() {
         return false;
     }
 
@@ -55,27 +56,32 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
     }
 
 
-    public OWLAxiom getAxiom() {
+    @Override
+	public OWLAxiom getAxiom() {
         return null;
     }
 
 
-    public boolean isImportChange() {
+    @Override
+	public boolean isImportChange() {
         return false;
     }
 
 
-    public void accept(OWLOntologyChangeVisitor visitor) {
+    @Override
+	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return annotation.hashCode() + getOntology().hashCode() + 317;
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

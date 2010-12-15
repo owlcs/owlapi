@@ -46,7 +46,8 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
     }
 
 
-    protected void setUp() throws Exception {
+    @Override
+	protected void setUp() throws Exception {
         manager = OWLManager.createOWLOntologyManager();
     }
 

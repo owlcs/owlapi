@@ -36,7 +36,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
 public class OWLIndividualTestCase extends AbstractOWLEntityTestCase {
 
 
-    protected OWLEntity createEntity(IRI iri) throws Exception {
+    @Override
+	protected OWLEntity createEntity(IRI iri) throws Exception {
         return getFactory().getOWLNamedIndividual(iri);
     }
 }

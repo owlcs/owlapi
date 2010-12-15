@@ -122,10 +122,6 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager, OWLOnt
     private OWLOntologyChangeBroadcastStrategy defaultChangeBroadcastStrategy;
     private ImpendingOWLOntologyChangeBroadcastStrategy defaultImpendingChangeBroadcastStrategy;
 
-    private <K, V> Map<K, V> createMap() {
-        return CollectionFactory.createSyncMap();
-    }
-
     private <V> List<V> createList() {
         return new CopyOnWriteArrayList<V>();
     }
@@ -133,17 +129,17 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager, OWLOnt
     public LockingOWLOntologyManagerImpl(OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
         properties = new OWLOntologyManagerProperties();
-        ontologiesByID = createMap();
-        documentIRIsByID = createMap();
-        ontologyFormatsByOntology = createMap();
+        ontologiesByID = CollectionFactory.createSyncMap();
+        documentIRIsByID = CollectionFactory.createSyncMap();
+        ontologyFormatsByOntology = CollectionFactory.createSyncMap();
         documentMappers = createList();
         ontologyFactories = createList();
-        ontologyIDsByImportsDeclaration = (ConcurrentHashMap)createMap();
+        ontologyIDsByImportsDeclaration = CollectionFactory.createSyncMap();
         installDefaultURIMappers();
         installDefaultOntologyFactories();
 
         ontologyStorers = createList();
-        importsClosureCache = createMap();
+        importsClosureCache = CollectionFactory.createSyncMap();
         missingImportsListeners = createList();
         loaderListeners = createList();
         progressListeners = createList();

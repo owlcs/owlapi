@@ -28,7 +28,8 @@ public class UseOfUndeclaredObjectProperty extends OWLProfileViolation implement
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of undeclared object property: ");
         sb.append(property);

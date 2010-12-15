@@ -1,9 +1,9 @@
 package org.semanticweb.owlapi.io;
 
-import org.semanticweb.owlapi.model.IRI;
-
 import java.io.InputStream;
 import java.io.Reader;
+
+import org.semanticweb.owlapi.model.IRI;
 
 /*
  * Copyright (C) 2007, University of Manchester

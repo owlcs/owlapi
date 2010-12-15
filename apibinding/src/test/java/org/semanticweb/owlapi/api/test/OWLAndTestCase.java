@@ -14,12 +14,14 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLAndTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLClassExpression> {
 
-    protected OWLObject createObject(Set<OWLClassExpression> objects) throws Exception {
+    @Override
+	protected OWLObject createObject(Set<OWLClassExpression> objects) throws Exception {
         return getFactory().getOWLObjectIntersectionOf(objects);
     }
 
 
-    protected OWLClassExpression createOperand() throws Exception {
+    @Override
+	protected OWLClassExpression createOperand() throws Exception {
         return createOWLClass();
     }
 }

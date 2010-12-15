@@ -18,19 +18,22 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
 
-    public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
+    @Override
+	public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
         return !isAnonymous(subject) && !getConsumer().isAnnotation(subject) && getConsumer().isAnnotationProperty(predicate);
     }
 
 
-    public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
+    @Override
+	public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
         boolean axiom = getConsumer().isAxiom(subject);
         boolean annotation = getConsumer().isAnnotation(subject);
         return !axiom && !annotation && getConsumer().isAnnotationProperty(predicate);
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
+    @Override
+	public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
         consumeTriple(subject, predicate, object);
         if(getConsumer().isOntology(subject)) {
         	// PATCH:	getConsumer().addOntologyAnnotation(getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), object, getPendingAnnotations()));

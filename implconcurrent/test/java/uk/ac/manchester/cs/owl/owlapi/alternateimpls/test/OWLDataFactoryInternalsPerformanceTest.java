@@ -29,13 +29,13 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternals;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl;
+import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryNoCache;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsCSR;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsCWR;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsFuture;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsFutureSmart;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsLSR;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsLWR;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryNoCache;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsNoCache;
 
 public class OWLDataFactoryInternalsPerformanceTest extends TestCase {

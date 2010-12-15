@@ -38,6 +38,7 @@ import org.semanticweb.owlapi.model.OWLDatatype;
  */
 public class DatatypeDefinitionTestCase extends
 		AbstractAxiomsRoundTrippingTestCase {
+	@Override
 	protected Set<? extends OWLAxiom> createAxioms() {
 		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 		OWLDatatype datatype = getFactory().getOWLDatatype(

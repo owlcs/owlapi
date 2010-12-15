@@ -1,13 +1,13 @@
 package de.uulm.ecs.ai.owlapi.krssrenderer;
 
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import java.io.IOException;
+import java.io.Writer;
+
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
-
-import java.io.IOException;
-import java.io.Writer;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /*
  * Copyright (C) 2008, Ulm University
@@ -42,7 +42,8 @@ public class KRSSSyntaxRenderer extends AbstractOWLRenderer {
         super(owlOntologyManager);
     }
 
-    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    @Override
+	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         try {
             KRSSObjectRenderer ren = new KRSSObjectRenderer(getOWLOntologyManager(), ontology, writer);
             ontology.accept(ren);

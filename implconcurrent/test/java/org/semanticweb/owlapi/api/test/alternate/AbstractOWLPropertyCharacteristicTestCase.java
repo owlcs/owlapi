@@ -33,11 +33,13 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  */
 public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPropertyExpression>
 		extends AbstractOWLDataFactoryTest {
+	@Override
 	public void testCreation() throws Exception {
 		OWLPropertyAxiom axiom = createOWLPropertyAxiom(createProperty());
 		assertNotNull(axiom);
 	}
 
+	@Override
 	public void testEqualsPositive() throws Exception {
 		P prop = createProperty();
 		OWLPropertyAxiom axiomA = createOWLPropertyAxiom(prop);
@@ -45,6 +47,7 @@ public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPro
 		assertEquals(axiomA, axiomB);
 	}
 
+	@Override
 	public void testEqualsNegative() throws Exception {
 		OWLPropertyAxiom axiomA = createOWLPropertyAxiom(createProperty());
 		OWLPropertyAxiom axiomB = createOWLPropertyAxiom(createProperty());
@@ -56,6 +59,7 @@ public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPro
 	protected abstract OWLPropertyAxiom createOWLPropertyAxiom(P property)
 			throws OWLException;
 
+	@Override
 	public void testHashCode() throws Exception {
 		P prop = createProperty();
 		OWLPropertyAxiom axiomA = createOWLPropertyAxiom(prop);

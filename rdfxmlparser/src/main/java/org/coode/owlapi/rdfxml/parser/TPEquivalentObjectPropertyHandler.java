@@ -1,13 +1,12 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -46,12 +45,14 @@ public class TPEquivalentObjectPropertyHandler extends TriplePredicateHandler {
     }
 
 
-    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    @Override
+	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return true;
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    @Override
+	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
         properties.add(translateObjectProperty(subject));
         properties.add(translateObjectProperty(object));

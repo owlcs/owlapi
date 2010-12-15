@@ -212,7 +212,8 @@ public enum ManchesterOWLSyntax {
     }
 
 
-    public String toString() {
+    @Override
+	public String toString() {
         return rendering;
     }
 }

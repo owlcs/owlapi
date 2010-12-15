@@ -131,7 +131,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return datatype;
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLLiteral)) {
                 return false;

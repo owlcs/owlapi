@@ -27,7 +27,8 @@ public class UseOfReservedVocabularyForAnnotationPropertyIRI extends OWLProfileV
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of reserved vocabulary for annotation property IRI: ");
         sb.append(property);

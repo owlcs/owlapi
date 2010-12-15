@@ -25,11 +25,13 @@ public class ObjectComplementOfTestCase extends
 		assertEquals(getOnt().getAxioms(), axioms);
 	}
 
+	@Override
 	protected void handleSaved(StringDocumentTarget target,
 			OWLOntologyFormat format) {
 		System.out.println(target);
 	}
 
+	@Override
 	protected String getFileName() {
 		return "ObjectComplementOf.rdf";
 	}

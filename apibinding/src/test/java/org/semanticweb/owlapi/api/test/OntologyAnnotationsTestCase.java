@@ -15,7 +15,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTest {
 
-    protected OWLOntology createOntology() {
+    @Override
+	protected OWLOntology createOntology() {
             OWLOntology ont = getOWLOntology("AnnotationOntology");
             OWLAnnotationProperty prop = getFactory().getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
             OWLLiteral value = getFactory().getOWLLiteral(33);

@@ -13,7 +13,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class EquivalentClassesAxiomNaryAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
-    protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
+    @Override
+	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         return getFactory().getOWLEquivalentClassesAxiom(getOWLClass("A"), getOWLClass("B"), getOWLClass("C"), getOWLClass("D"));
     }
 

@@ -25,7 +25,8 @@ public class DeprecatedTestCase extends AbstractFileTestCase {
         }
     }
 
-    protected String getFileName() {
+    @Override
+	protected String getFileName() {
         return "Deprecated.rdf";
     }
 }

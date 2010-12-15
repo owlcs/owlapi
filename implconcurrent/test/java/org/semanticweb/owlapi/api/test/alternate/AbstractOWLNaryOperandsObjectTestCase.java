@@ -38,6 +38,7 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
 
 	protected abstract O createOperand() throws Exception;
 
+	@Override
 	public void testCreation() throws Exception {
 		Set<O> operands = new HashSet<O>();
 		operands.add(createOperand());
@@ -47,6 +48,7 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
 		assertNotNull(obj);
 	}
 
+	@Override
 	public void testEqualsPositive() throws Exception {
 		Set<O> operands = new HashSet<O>();
 		operands.add(createOperand());
@@ -57,6 +59,7 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
 		assertEquals(objA, objB);
 	}
 
+	@Override
 	public void testEqualsNegative() throws Exception {
 		Set<O> operands = new HashSet<O>();
 		operands.add(createOperand());
@@ -67,6 +70,7 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
 		assertNotEquals(objA, objB);
 	}
 
+	@Override
 	public void testHashCode() throws Exception {
 		Set<O> operands = new HashSet<O>();
 		operands.add(createOperand());

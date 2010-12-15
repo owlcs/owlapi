@@ -1,6 +1,10 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -94,7 +98,8 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
     }
 
 
-    protected OWLClassExpression translateRestriction(IRI mainNode) {
+    @Override
+	protected OWLClassExpression translateRestriction(IRI mainNode) {
         int cardinality = translateCardinality(mainNode);
         if(cardinality < 0) {
             return getConsumer().getOWLClass(mainNode);

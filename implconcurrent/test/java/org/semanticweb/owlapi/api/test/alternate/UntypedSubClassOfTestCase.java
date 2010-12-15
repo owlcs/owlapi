@@ -24,11 +24,13 @@ public class UntypedSubClassOfTestCase extends
 		assertEquals(axioms, getOnt().getAxioms());
 	}
 
+	@Override
 	protected void handleSaved(StringDocumentTarget target,
 			OWLOntologyFormat format) {
 		System.out.println(target);
 	}
 
+	@Override
 	protected String getFileName() {
 		return "UntypedSubClassOf.rdf";
 	}

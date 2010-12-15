@@ -28,7 +28,8 @@ public class UseOfIllegalAxiom extends OWLProfileViolation implements OWL2ELProf
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getAxiom().getAxiomType());
         sb.append(" axioms are not allowed in profile. ");

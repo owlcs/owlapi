@@ -1,9 +1,9 @@
 package org.coode.owlapi.rdfxml.parser;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -43,12 +43,14 @@ public class DataCardinalityTranslator extends AbstractDataCardinalityTranslator
     }
 
 
-    protected OWLClassExpression createRestriction(OWLDataPropertyExpression prop, int cardi, OWLDataRange filler) {
+    @Override
+	protected OWLClassExpression createRestriction(OWLDataPropertyExpression prop, int cardi, OWLDataRange filler) {
         return getDataFactory().getOWLDataExactCardinality(cardi, prop, filler);
     }
 
 
-    protected IRI getCardinalityTriplePredicate() {
+    @Override
+	protected IRI getCardinalityTriplePredicate() {
         return OWLRDFVocabulary.OWL_CARDINALITY.getIRI();
     }
 
@@ -56,7 +58,8 @@ public class DataCardinalityTranslator extends AbstractDataCardinalityTranslator
      * Gets the predicate of the qualified cardinality triple.
      * @return The predicate IRI
      */
-    protected IRI getQualifiedCardinalityTriplePredicate() {
+    @Override
+	protected IRI getQualifiedCardinalityTriplePredicate() {
         return OWLRDFVocabulary.OWL_QUALIFIED_CARDINALITY.getIRI();
     }
 }

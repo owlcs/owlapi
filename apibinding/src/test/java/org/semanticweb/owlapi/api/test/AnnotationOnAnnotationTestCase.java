@@ -15,7 +15,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class AnnotationOnAnnotationTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLAnnotation annoOuterOuter1 = getFactory().getOWLAnnotation(getOWLAnnotationProperty("myOuterOuterLabel1"), getFactory().getOWLLiteral("Outer Outer label 1"));
         OWLAnnotation annoOuterOuter2 = getFactory().getOWLAnnotation(getOWLAnnotationProperty("myOuterOuterLabel2"), getFactory().getOWLLiteral("Outer Outer label 2"));

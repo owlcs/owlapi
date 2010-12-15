@@ -33,6 +33,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class AsymmetricPropertyRoundTripTestCase extends
 		AbstractRoundTrippingTest {
+	@Override
 	protected OWLOntology createOntology() {
 		OWLOntology ont = getOWLOntology("Test");
 		getManager().addAxiom(
@@ -42,6 +43,7 @@ public class AsymmetricPropertyRoundTripTestCase extends
 		return ont;
 	}
 
+	@Override
 	public void testFunctionalSyntax() throws Exception {
 	}
 }

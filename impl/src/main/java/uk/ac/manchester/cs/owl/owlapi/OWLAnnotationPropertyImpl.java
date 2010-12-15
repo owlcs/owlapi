@@ -83,7 +83,8 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         return iri.equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         return iri.compareTo(((OWLAnnotationProperty) object).getIRI());
     }
 
@@ -194,7 +195,8 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

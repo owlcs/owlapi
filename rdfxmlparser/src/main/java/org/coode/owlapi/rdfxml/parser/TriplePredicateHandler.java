@@ -42,7 +42,8 @@ public abstract class TriplePredicateHandler extends AbstractResourceTripleHandl
     }
 
 
-    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+    @Override
+	public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         return predicate.equals(predicateIRI);
     }
 

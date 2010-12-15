@@ -49,7 +49,8 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
         return false;
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         return obj instanceof OWLIndividual;
     }
 

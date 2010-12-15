@@ -95,6 +95,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * Bio-Health Informatics Group<br>
  * Date: 09-Feb-2008<br><br>
  */
+@SuppressWarnings("unused")
 public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
     public static final int ENTITY_TYPE_INDEX_BASE = 1000;

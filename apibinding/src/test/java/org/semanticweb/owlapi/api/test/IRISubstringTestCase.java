@@ -17,7 +17,8 @@ import org.semanticweb.owlapi.model.OWLClass;
  */
 public class IRISubstringTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         XMLWriterPreferences.getInstance().setUseNamespaceEntities(true);
         IRI iriA = IRI.create("http://owlapi.sourceforge.net/properties#propA");
         IRI iriB = IRI.create("http://owlapi.sourceforge.net/properties2#propB");

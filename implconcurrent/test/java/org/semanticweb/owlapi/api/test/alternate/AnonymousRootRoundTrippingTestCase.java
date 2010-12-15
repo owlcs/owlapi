@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class AnonymousRootRoundTrippingTestCase extends
 		AbstractRoundTrippingTest {
+	@Override
 	protected OWLOntology createOntology() {
 		OWLOntology ont = getOWLOntology("OntA");
 		Set<OWLIndividual> inds = new HashSet<OWLIndividual>();

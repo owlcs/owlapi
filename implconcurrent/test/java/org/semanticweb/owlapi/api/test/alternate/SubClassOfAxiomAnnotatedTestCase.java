@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.model.OWLClass;
  */
 public class SubClassOfAxiomAnnotatedTestCase extends
 		AbstractAnnotatedAxiomRoundTrippingTestCase {
+	@Override
 	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
 		OWLClass clsA = getOWLClass("A");
 		OWLClass clsB = getOWLClass("B");

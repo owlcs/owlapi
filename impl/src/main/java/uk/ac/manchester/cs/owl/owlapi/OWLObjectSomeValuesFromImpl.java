@@ -33,7 +33,8 @@ public class OWLObjectSomeValuesFromImpl extends OWLQuantifiedObjectRestrictionI
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectSomeValuesFrom;
         }

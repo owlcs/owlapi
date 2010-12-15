@@ -55,7 +55,8 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLDataComplementOf)) {
                 return false;
@@ -92,7 +93,8 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
         return visitor.visit(this);
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLDataComplementOf other = (OWLDataComplementOf) object;
         return getDataRange().compareTo(other.getDataRange());
     }

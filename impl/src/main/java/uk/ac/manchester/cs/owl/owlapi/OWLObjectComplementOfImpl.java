@@ -68,7 +68,8 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl i
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLObjectComplementOf)) {
                 return false;
@@ -97,7 +98,8 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl i
         return visitor.visit(this);
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLObjectComplementOf other = (OWLObjectComplementOf) object;
         return operand.compareTo(other.getOperand());
     }

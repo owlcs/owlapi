@@ -39,12 +39,14 @@ public class AddImport extends ImportChange {
 
 
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return getOntology().hashCode() * 37 + getImportDeclaration().hashCode();
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if(obj == this) {
             return true;
         }
@@ -56,14 +58,16 @@ public class AddImport extends ImportChange {
     }
 
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("ADD IMPORT: ");
         sb.append(getImportDeclaration().toString());
         return sb.toString();
     }
 
-    public void accept(OWLOntologyChangeVisitor visitor) {
+    @Override
+	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 }

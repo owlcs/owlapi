@@ -55,11 +55,13 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         builtin = top || OWL2Datatype.isBuiltIn(iri) || iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
     }
 
-    public boolean isTopEntity() {
+    @Override
+	public boolean isTopEntity() {
         return top;
     }
 
-    public boolean isBottomEntity() {
+    @Override
+	public boolean isBottomEntity() {
         return false;
     }
 
@@ -162,7 +164,8 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (obj instanceof OWLDatatype) {
                 return ((OWLDatatype) obj).getIRI().equals(getIRI());
@@ -284,7 +287,8 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         return visitor.visit(this);
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         return iri.compareTo(((OWLDatatype) object).getIRI());
     }
 

@@ -24,13 +24,15 @@ public class BuiltInClassTestCase extends TestCase {
     private OWLDataFactory dataFactory;
 
 
-    protected void setUp() throws Exception {
+    @Override
+	protected void setUp() throws Exception {
         super.setUp();
         dataFactory = OWLDataFactoryImpl.getInstance();
     }
 
 
-    protected void tearDown() throws Exception {
+    @Override
+	protected void tearDown() throws Exception {
         super.tearDown();
         dataFactory = null;
     }

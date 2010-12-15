@@ -35,12 +35,14 @@ public class RemoveImport extends ImportChange {
         super(ont, importDeclaration);
     }
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return getOntology().hashCode() * 37 + getImportDeclaration().hashCode() + 3;
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if(obj == this) {
             return true;
         }
@@ -52,7 +54,8 @@ public class RemoveImport extends ImportChange {
     }
 
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("REMOVE IMPORT: ");
         sb.append(getImportDeclaration().toString());
@@ -60,7 +63,8 @@ public class RemoveImport extends ImportChange {
     }
 
 
-    public void accept(OWLOntologyChangeVisitor visitor) {
+    @Override
+	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 }

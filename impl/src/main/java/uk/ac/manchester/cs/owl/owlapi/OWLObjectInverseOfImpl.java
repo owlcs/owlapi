@@ -38,7 +38,8 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLObjectInverseOf)) {
                 return false;
@@ -49,7 +50,8 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
     }
 
 
-    protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>> getSubPropertyAxiomsForRHS(OWLOntology ont) {
+    @Override
+	protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>> getSubPropertyAxiomsForRHS(OWLOntology ont) {
         return ont.getObjectSubPropertyAxiomsForSuperProperty(this);
     }
 
@@ -82,7 +84,8 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         return inverseProperty.compareTo(((OWLObjectInverseOf) object).getInverse());
     }
 

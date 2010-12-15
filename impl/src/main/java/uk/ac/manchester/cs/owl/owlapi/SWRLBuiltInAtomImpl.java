@@ -34,7 +34,8 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
         this.args = new ArrayList<SWRLDArgument>(args);
     }
 
-    public IRI getPredicate() {
+    @Override
+	public IRI getPredicate() {
         return (IRI) super.getPredicate();
     }
 
@@ -75,7 +76,8 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -87,7 +89,8 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         SWRLBuiltInAtom other = (SWRLBuiltInAtom) object;
         int diff = getPredicate().compareTo(other.getPredicate());
         if (diff != 0) {

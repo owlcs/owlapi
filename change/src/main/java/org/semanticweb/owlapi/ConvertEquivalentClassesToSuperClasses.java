@@ -22,13 +22,21 @@ package org.semanticweb.owlapi;/*
 */
 
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
 /**
  * Author: Matthew Horridge<br>
@@ -95,7 +103,8 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
         if (splitIntersections) {
             desc.accept(new OWLClassExpressionVisitorAdapter() {
 
-                public void visit(OWLObjectIntersectionOf desc) {
+                @Override
+				public void visit(OWLObjectIntersectionOf desc) {
                     for (OWLClassExpression op : desc.getOperands()) {
                         result.add(op);
                     }

@@ -54,7 +54,8 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLNaryClassAxiom)) {
                 return false;
@@ -65,7 +66,8 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         return compareSets(classExpressions, ((OWLNaryClassAxiom) object).getClassExpressions());
     }
 }

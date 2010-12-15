@@ -1,6 +1,10 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -85,7 +89,8 @@ public abstract class AbstractObjectCardinalityTranslator extends AbstractObject
     }
 
 
-    protected OWLClassExpression translateRestriction(IRI mainNode) {
+    @Override
+	protected OWLClassExpression translateRestriction(IRI mainNode) {
         OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
         if(prop == null) {
             return getConsumer().getOWLClass(mainNode);

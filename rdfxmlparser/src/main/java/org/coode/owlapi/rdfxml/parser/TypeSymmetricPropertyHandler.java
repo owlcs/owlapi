@@ -1,9 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -41,13 +40,15 @@ public class TypeSymmetricPropertyHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY.getIRI());
     }
 
-    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    @Override
+	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         getConsumer().addOWLObjectProperty(subject);
         return !isAnonymous(subject);
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    @Override
+	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().addOWLObjectProperty(subject);
         addAxiom(getDataFactory().getOWLSymmetricObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

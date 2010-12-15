@@ -13,7 +13,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class ObjectPropertyRangeAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
-    protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
+    @Override
+	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         return getFactory().getOWLObjectPropertyRangeAxiom(getOWLObjectProperty("p"), getOWLClass("A"));
     }
 }

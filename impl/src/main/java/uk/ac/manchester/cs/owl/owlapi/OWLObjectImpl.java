@@ -118,10 +118,12 @@ public abstract class OWLObjectImpl implements OWLObject {
 		return this.accept(collector);
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		return obj == this || obj != null && obj instanceof OWLObject;
 	}
 
+	@Override
 	public int hashCode() {
 		if (hashCode == 0) {
 			hashCode = HashCode.hashCode(this);
@@ -152,6 +154,7 @@ public abstract class OWLObjectImpl implements OWLObject {
 
 	protected abstract int compareObjectOfSameType(OWLObject object);
 
+	@Override
 	public String toString() {
 		return ToStringRenderer.getInstance().getRendering(this);
 	}
@@ -164,7 +167,6 @@ public abstract class OWLObjectImpl implements OWLObject {
 		return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	protected static int compareSets(Set<? extends OWLObject> set1,
 			Set<? extends OWLObject> set2) {
 		SortedSet<? extends OWLObject> ss1;

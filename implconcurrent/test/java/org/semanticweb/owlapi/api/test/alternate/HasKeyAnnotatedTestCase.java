@@ -43,6 +43,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  */
 public class HasKeyAnnotatedTestCase extends
 		AbstractAxiomsRoundTrippingTestCase {
+	@Override
 	protected Set<? extends OWLAxiom> createAxioms() {
 		OWLAnnotationProperty ap = getFactory().getOWLAnnotationProperty(
 				IRI.create("http://annotation.com/annos#prop"));

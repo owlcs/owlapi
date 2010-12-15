@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.model.OWLClass;
  */
 public class LargeDisjointClassesAxiomTestCase extends
 		AbstractAxiomsRoundTrippingTestCase {
+	@Override
 	protected Set<? extends OWLAxiom> createAxioms() {
 		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 		Set<OWLClass> clses = new HashSet<OWLClass>();

@@ -34,7 +34,8 @@ public class OWL2ProfileReport extends OWLProfileReport {
     }
 
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder(super.toString());
         sb.append("\n[Simple properties]\n");
         for (OWLObjectPropertyExpression prop : simpleRoles) {

@@ -53,7 +53,8 @@ public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRela
         return getSubject().isAnonymous();
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLNegativeDataPropertyAssertionAxiom;
         }

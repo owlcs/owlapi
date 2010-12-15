@@ -1,8 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.IRI;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -41,7 +41,8 @@ public abstract class AbstractObjectQuantifiedRestrictionTranslator extends Abst
     }
 
 
-    final protected OWLClassExpression translateRestriction(IRI mainNode) {
+    @Override
+	final protected OWLClassExpression translateRestriction(IRI mainNode) {
         IRI fillerObject = getResourceObject(mainNode, getFillerTriplePredicate(), true);
         OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
         OWLClassExpression desc = translateToClassExpression(fillerObject);

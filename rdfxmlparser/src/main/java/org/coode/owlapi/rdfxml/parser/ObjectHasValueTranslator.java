@@ -1,6 +1,10 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -40,7 +44,8 @@ public class ObjectHasValueTranslator extends AbstractObjectRestrictionTranslato
     }
 
 
-    protected OWLClassExpression translateRestriction(IRI mainNode) {
+    @Override
+	protected OWLClassExpression translateRestriction(IRI mainNode) {
         IRI hasValueObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getIRI(), true);
         OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
         OWLIndividual ind = getConsumer().getOWLIndividual(hasValueObject);

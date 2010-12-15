@@ -13,12 +13,14 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class OWLObjectExactCardinalityTestCase extends AbstractOWLObjectCardinalityRestrictionTestCase {
 
-    protected OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop, int cardinality) throws Exception {
+    @Override
+	protected OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop, int cardinality) throws Exception {
         return getFactory().getOWLObjectExactCardinality(cardinality, prop);
     }
 
 
-    protected OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop, int cardinality,
+    @Override
+	protected OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop, int cardinality,
                                                                 OWLClassExpression classExpression) throws Exception {
         return getFactory().getOWLObjectExactCardinality(cardinality, prop, classExpression);
     }

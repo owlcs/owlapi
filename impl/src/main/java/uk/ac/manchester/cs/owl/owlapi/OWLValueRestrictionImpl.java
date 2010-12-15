@@ -29,7 +29,8 @@ public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P exte
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLHasValueRestriction<?, ?, ?>)) {
                 return false;
@@ -40,7 +41,8 @@ public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P exte
     }
 
 
-    final protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	final protected int compareObjectOfSameType(OWLObject object) {
         OWLHasValueRestriction<?, ?, ?> other = (OWLHasValueRestriction<?, ?, ?>) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {

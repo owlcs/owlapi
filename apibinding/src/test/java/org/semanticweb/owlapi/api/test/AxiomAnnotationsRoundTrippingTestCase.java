@@ -24,7 +24,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTrippingTest {
 
-    protected OWLOntology createOntology() {
+    @Override
+	protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("OntA");
         OWLDataFactory factory = getFactory();
 
@@ -45,7 +46,8 @@ public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTripping
         return ont;
     }
 
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    @Override
+	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }
 

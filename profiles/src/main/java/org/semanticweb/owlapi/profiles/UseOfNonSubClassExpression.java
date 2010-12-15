@@ -31,7 +31,8 @@ public class UseOfNonSubClassExpression extends OWLProfileViolation implements O
         return classExpression;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-subclass expression in position that requires a subclass expression: ");
         sb.append(classExpression);

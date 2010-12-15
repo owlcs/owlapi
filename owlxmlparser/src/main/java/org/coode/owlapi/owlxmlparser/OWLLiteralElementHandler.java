@@ -1,10 +1,10 @@
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
-import org.semanticweb.owlapi.io.OWLParserException;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -48,11 +48,13 @@ public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiter
         super(handler);
     }
 
-    public void startElement(String name) throws OWLXMLParserException {
+    @Override
+	public void startElement(String name) throws OWLXMLParserException {
         super.startElement(name);
     }
 
-    public void attribute(String localName, String value) throws OWLParserException {
+    @Override
+	public void attribute(String localName, String value) throws OWLParserException {
         if (localName.equals(OWLXMLVocabulary.DATATYPE_IRI.getShortName())) {
             iri = getIRI(value);
         }
@@ -78,7 +80,8 @@ public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiter
     }
 
 
-    public boolean isTextContentPossible() {
+    @Override
+	public boolean isTextContentPossible() {
         return true;
     }
 }

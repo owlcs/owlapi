@@ -110,7 +110,8 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         return false;
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLNamedIndividual)) {
                 return false;
@@ -145,7 +146,8 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         return ontology.getReferencingAxioms(this, includeImports);
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLNamedIndividual other = (OWLNamedIndividual) object;
         return iri.compareTo(other.getIRI());
     }

@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class TransitiveObjectPropertyTestCase extends
 		AbstractAxiomsRoundTrippingTestCase {
+	@Override
 	protected Set<? extends OWLAxiom> createAxioms() {
 		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 		axioms.add(getFactory().getOWLTransitiveObjectPropertyAxiom(

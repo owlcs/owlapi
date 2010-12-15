@@ -41,7 +41,8 @@ public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation imple
         visitor.visit(this);
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of undeclared annotation property: ");
         sb.append(property);

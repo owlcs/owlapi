@@ -39,17 +39,20 @@ public class RemoveAxiom extends OWLAxiomChange {
     }
 
 
-    protected boolean isAdd() {
+    @Override
+	protected boolean isAdd() {
         return false;
     }
 
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return 37 + getOntology().hashCode() * 13 + getAxiom().hashCode() * 13;
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
 
         if(obj == this) {
             return true;
@@ -63,11 +66,13 @@ public class RemoveAxiom extends OWLAxiomChange {
     }
 
 
-    public void accept(OWLOntologyChangeVisitor visitor) {
+    @Override
+	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("REMOVE AXIOM: ");
         sb.append(getAxiom().toString());

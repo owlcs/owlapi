@@ -86,7 +86,8 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLDatatypeDefinitionAxiom other = (OWLDatatypeDefinitionAxiom) object;
         int diff = getDatatype().compareTo(other.getDatatype());
         if (diff != 0) {
@@ -96,7 +97,8 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

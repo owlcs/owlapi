@@ -51,7 +51,8 @@ public class ImportChange extends OWLOntologyChange {
      * Determines if this change is an import change
      * @return <code>true</code> if this change is an import change, otherwise <code>false</code>.
      */
-    public boolean isImportChange() {
+    @Override
+	public boolean isImportChange() {
         return true;
     }
 
@@ -62,7 +63,8 @@ public class ImportChange extends OWLOntologyChange {
      * @return <code>true</code> if the change is an <code>OWLAddAxiomChange</code>
      *         or <code>OWLRemoveAxiomChange</code> otherwise <code>false</code>.
      */
-    public boolean isAxiomChange() {
+    @Override
+	public boolean isAxiomChange() {
         return false;
     }
 
@@ -74,12 +76,14 @@ public class ImportChange extends OWLOntologyChange {
      * @throws UnsupportedOperationException If the change is not an axiom change (check
      * with the <code>isAxiomChange</code> method first).
      */
-    public OWLAxiom getAxiom() {
+    @Override
+	public OWLAxiom getAxiom() {
         throw new UnsupportedOperationException("Not an axiom");
     }
 
 
-    public void accept(OWLOntologyChangeVisitor visitor) {
+    @Override
+	public void accept(OWLOntologyChangeVisitor visitor) {
 
     }
 }

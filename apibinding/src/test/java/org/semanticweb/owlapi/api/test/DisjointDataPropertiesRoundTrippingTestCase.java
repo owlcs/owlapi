@@ -14,7 +14,8 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
  */
 public class DisjointDataPropertiesRoundTrippingTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLDataProperty propA = getOWLDataProperty("pA");
         OWLDataProperty propB = getOWLDataProperty("pB");

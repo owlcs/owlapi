@@ -515,71 +515,85 @@ public abstract class AbstractInternalsImpl implements
 		},
 		ImportsDeclarations {
 			@Override
+		    @SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
 		OntologyAnnotations {
 			@Override
+			@SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
 		AxiomsByType {
 			@Override
+		    @SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
 		LogicalAxiom2AnnotatedAxiomMap {
 			@Override
+		    @SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
 		GeneralClassAxioms {
 			@Override
+		    @SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
 		PropertyChainSubPropertyAxioms {
 			@Override
+		    @SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
 		OwlClassReferences {
 			@Override
+		    @SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
 		OwlObjectPropertyReferences {
 			@Override
+		    @SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
 		OwlDataPropertyReferences {
 			@Override
+		    @SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
 		OwlIndividualReferences {
 			@Override
+		    @SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
 		OwlAnonymousIndividualReferences {
 			@Override
+		    @SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
 		OwlDatatypeReferences {
 			@Override
+		    @SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
 		OwlAnnotationPropertyReferences {
 			@Override
+		    @SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
 		DeclarationsByEntity {
 			@Override
+		    @SuppressWarnings("unused")
 			public void initMap(AbstractInternalsImpl impl) {
 			}
 		},
@@ -650,29 +664,29 @@ public abstract class AbstractInternalsImpl implements
 			//            }
 		}
 
-		private static final InitVisitorFactory.InitVisitor<OWLClass> classsubnamed = new InitVisitorFactory.InitVisitor<OWLClass>(
+		protected static final InitVisitorFactory.InitVisitor<OWLClass> classsubnamed = new InitVisitorFactory.InitVisitor<OWLClass>(
 				true, true);
-		private static final InitVisitorFactory.InitVisitor<OWLClass> classsupernamed = new InitVisitorFactory.InitVisitor<OWLClass>(
+		protected static final InitVisitorFactory.InitVisitor<OWLClass> classsupernamed = new InitVisitorFactory.InitVisitor<OWLClass>(
 				false, true);
-		private static final InitVisitorFactory.InitCollectionVisitor<OWLClass> classcollections = new InitVisitorFactory.InitCollectionVisitor<OWLClass>(
+		protected static final InitVisitorFactory.InitCollectionVisitor<OWLClass> classcollections = new InitVisitorFactory.InitCollectionVisitor<OWLClass>(
 				true);
-		private static final InitVisitorFactory.InitCollectionVisitor<OWLObjectPropertyExpression> opcollections = new InitVisitorFactory.InitCollectionVisitor<OWLObjectPropertyExpression>(
+		protected static final InitVisitorFactory.InitCollectionVisitor<OWLObjectPropertyExpression> opcollections = new InitVisitorFactory.InitCollectionVisitor<OWLObjectPropertyExpression>(
 				true);
-		private static final InitVisitorFactory.InitCollectionVisitor<OWLDataPropertyExpression> dpcollections = new InitVisitorFactory.InitCollectionVisitor<OWLDataPropertyExpression>(
+		protected static final InitVisitorFactory.InitCollectionVisitor<OWLDataPropertyExpression> dpcollections = new InitVisitorFactory.InitCollectionVisitor<OWLDataPropertyExpression>(
 				true);
-		private static final InitVisitorFactory.InitCollectionVisitor<OWLIndividual> icollections = new InitVisitorFactory.InitCollectionVisitor<OWLIndividual>(
+		protected static final InitVisitorFactory.InitCollectionVisitor<OWLIndividual> icollections = new InitVisitorFactory.InitCollectionVisitor<OWLIndividual>(
 				true);
-		private static final InitVisitorFactory.InitVisitor<OWLObjectPropertyExpression> opsubnamed = new InitVisitorFactory.InitVisitor<OWLObjectPropertyExpression>(
+		protected static final InitVisitorFactory.InitVisitor<OWLObjectPropertyExpression> opsubnamed = new InitVisitorFactory.InitVisitor<OWLObjectPropertyExpression>(
 				true, true);
-		private static final InitVisitorFactory.InitVisitor<OWLObjectPropertyExpression> opsupernamed = new InitVisitorFactory.InitVisitor<OWLObjectPropertyExpression>(
+		protected static final InitVisitorFactory.InitVisitor<OWLObjectPropertyExpression> opsupernamed = new InitVisitorFactory.InitVisitor<OWLObjectPropertyExpression>(
 				false, true);
-		private static final InitVisitorFactory.InitVisitor<OWLDataPropertyExpression> dpsubnamed = new InitVisitorFactory.InitVisitor<OWLDataPropertyExpression>(
+		protected static final InitVisitorFactory.InitVisitor<OWLDataPropertyExpression> dpsubnamed = new InitVisitorFactory.InitVisitor<OWLDataPropertyExpression>(
 				true, true);
-		private static final InitVisitorFactory.InitVisitor<OWLDataPropertyExpression> dpsupernamed = new InitVisitorFactory.InitVisitor<OWLDataPropertyExpression>(
+		protected static final InitVisitorFactory.InitVisitor<OWLDataPropertyExpression> dpsupernamed = new InitVisitorFactory.InitVisitor<OWLDataPropertyExpression>(
 				false, true);
-		private static final InitVisitorFactory.InitVisitor<OWLIndividual> individualsubnamed = new InitVisitorFactory.InitIndividualVisitor<OWLIndividual>(
+		protected static final InitVisitorFactory.InitVisitor<OWLIndividual> individualsubnamed = new InitVisitorFactory.InitIndividualVisitor<OWLIndividual>(
 				true, true);
-		private static final InitVisitorFactory.InitVisitor<OWLAnnotationSubject> annotsupernamed = new InitVisitorFactory.InitVisitor<OWLAnnotationSubject>(
+		protected static final InitVisitorFactory.InitVisitor<OWLAnnotationSubject> annotsupernamed = new InitVisitorFactory.InitVisitor<OWLAnnotationSubject>(
 				true, true);
 	}
 

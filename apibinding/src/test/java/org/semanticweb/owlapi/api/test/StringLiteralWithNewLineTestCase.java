@@ -16,7 +16,8 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
  */
 public class StringLiteralWithNewLineTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLNamedIndividual ind = getOWLIndividual("i");
         OWLDataProperty prop = getOWLDataProperty("prop");

@@ -4,8 +4,8 @@ package org.coode.owlapi.manchesterowlsyntax;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.expression.ParserException;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /*
  * Copyright (C) 2007, University of Manchester

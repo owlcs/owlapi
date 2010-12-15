@@ -27,7 +27,8 @@ public class LexicalNotInLexicalSpace extends OWLProfileViolation implements OWL
         return literal;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Literal lexical value not in lexical space: ");
         sb.append(literal);

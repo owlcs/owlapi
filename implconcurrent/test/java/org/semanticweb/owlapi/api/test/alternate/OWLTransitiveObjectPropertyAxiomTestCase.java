@@ -33,6 +33,7 @@ import org.semanticweb.owlapi.model.OWLPropertyAxiom;
  */
 public class OWLTransitiveObjectPropertyAxiomTestCase extends
 		AbstractOWLObjectPropertyCharacteristicAxiomTestCase {
+	@Override
 	protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property)
 			throws OWLException {
 		return getFactory().getOWLTransitiveObjectPropertyAxiom(property);

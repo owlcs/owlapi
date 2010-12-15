@@ -34,7 +34,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 public class KRSS2OntologyFormat extends OWLOntologyFormat {
     public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
 
-    public String toString() {
+    @Override
+	public String toString() {
         return "KRSS2 Syntax";
     }
 

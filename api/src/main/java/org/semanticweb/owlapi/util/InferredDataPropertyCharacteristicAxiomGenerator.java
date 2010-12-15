@@ -20,7 +20,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public class InferredDataPropertyCharacteristicAxiomGenerator extends InferredDataPropertyAxiomGenerator<OWLDataPropertyCharacteristicAxiom> {
 
 
-    protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLDataPropertyCharacteristicAxiom> result) {
+    @Override
+	protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLDataPropertyCharacteristicAxiom> result) {
         OWLFunctionalDataPropertyAxiom axiom = dataFactory.getOWLFunctionalDataPropertyAxiom(entity);
         if (reasoner.isEntailed(axiom) && reasoner.isEntailed(axiom)) {
             result.add(axiom);

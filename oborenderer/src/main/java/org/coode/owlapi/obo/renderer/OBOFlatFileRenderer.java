@@ -1,41 +1,52 @@
 package org.coode.owlapi.obo.renderer;
 
-import org.coode.owlapi.obo.parser.OBOVocabulary;
-import org.semanticweb.owlapi.io.AbstractOWLRenderer;
-import org.semanticweb.owlapi.io.OWLRendererException;
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.NamespaceUtil;
-import org.semanticweb.owlapi.util.SimpleShortFormProvider;
-import org.semanticweb.owlapi.util.VersionInfo;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
-/*
-* Copyright (C) 2008, University of Manchester
-*
-* Modifications to the initial code base are copyright of their
-* respective authors, or their employers as appropriate.  Authorship
-* of the modifications may be determined from the ChangeLog placed at
-* the end of this file.
-*
-* This library is free software; you can redistribute it and/or
-* modify it under the terms of the GNU Lesser General Public
-* License as published by the Free Software Foundation; either
-* version 2.1 of the License, or (at your option) any later version.
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-* This library is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* Lesser General Public License for more details.
-
-* You should have received a copy of the GNU Lesser General Public
-* License along with this library; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+import org.coode.owlapi.obo.parser.OBOVocabulary;
+import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLProperty;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLRestriction;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.util.NamespaceUtil;
+import org.semanticweb.owlapi.util.SimpleShortFormProvider;
+import org.semanticweb.owlapi.util.VersionInfo;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * Author: Nick Drummond<br>
@@ -87,7 +98,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
     }
 
 
-    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    @Override
+	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         exceptions.clear();
 
         final String ontURIStr = ontology.getOntologyID().getOntologyIRI().toString();

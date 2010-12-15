@@ -105,18 +105,22 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLClassExpression>> {
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(IRI iri) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLDatatype node) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLObjectProperty property) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLAnonymousIndividual individual) {
         return Collections.emptySet();
     }
@@ -125,38 +129,47 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return node.getPredicate().accept(this);
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLObjectInverseOf property) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(SWRLDataRangeAtom node) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLAnnotation node) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLDataOneOf node) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLDataProperty property) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(SWRLObjectPropertyAtom node) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLDataIntersectionOf node) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLNamedIndividual individual) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLDataUnionOf node) {
         return Collections.emptySet();
     }
@@ -168,6 +181,7 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return result;
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLAnnotationPropertyRangeAxiom axiom) {
         return Collections.emptySet();
     }
@@ -180,14 +194,17 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return result;
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLDatatypeRestriction node) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(SWRLBuiltInAtom node) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLAnnotationProperty property) {
         return Collections.emptySet();
     }
@@ -196,10 +213,12 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return Collections.<OWLClassExpression>singleton(ce);
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(SWRLVariable node) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLLiteral node) {
         return Collections.emptySet();
     }
@@ -213,10 +232,12 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return result;
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(SWRLIndividualArgument node) {
         return Collections.emptySet();
     }
@@ -231,14 +252,17 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return result;
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLFacetRestriction node) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(SWRLLiteralArgument node) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
@@ -250,6 +274,7 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return result;
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(SWRLSameIndividualAtom node) {
         return Collections.emptySet();
     }
@@ -261,10 +286,12 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return result;
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLReflexiveObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(SWRLDifferentIndividualsAtom node) {
         return Collections.emptySet();
     }
@@ -310,6 +337,7 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return result;
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         return Collections.emptySet();
     }
@@ -325,6 +353,7 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return Collections.<OWLClassExpression>singleton(ce);
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         return Collections.emptySet();
     }
@@ -333,6 +362,7 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return Collections.<OWLClassExpression>singleton(ce);
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLDifferentIndividualsAxiom axiom) {
         return Collections.emptySet();
     }
@@ -345,6 +375,7 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return Collections.<OWLClassExpression>singleton(ce);
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLDisjointDataPropertiesAxiom axiom) {
         return Collections.emptySet();
     }
@@ -353,6 +384,7 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return Collections.<OWLClassExpression>singleton(ce);
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLDisjointObjectPropertiesAxiom axiom) {
         return Collections.emptySet();
     }
@@ -373,14 +405,17 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return Collections.<OWLClassExpression>singleton(ce);
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLObjectPropertyAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLFunctionalObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLSubObjectPropertyOfAxiom axiom) {
         return Collections.emptySet();
     }
@@ -398,22 +433,27 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return axiom.getEntity().accept(this);
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLAnnotationAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLSymmetricObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLDataPropertyRangeAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLFunctionalDataPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLEquivalentDataPropertiesAxiom axiom) {
         return Collections.emptySet();
     }
@@ -430,34 +470,42 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return result;
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLDataPropertyAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLTransitiveObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLSubDataPropertyOfAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLSameIndividualAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLSubPropertyChainOfAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLInverseObjectPropertiesAxiom axiom) {
         return Collections.emptySet();
     }
@@ -465,7 +513,7 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
     public Set<OWLClassExpression> visit(OWLHasKeyAxiom axiom) {
         return axiom.getClassExpression().accept(this);
     }
-
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLDatatypeDefinitionAxiom axiom) {
         return Collections.emptySet();
     }
@@ -480,19 +528,19 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         }
         return result;
     }
-
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         return Collections.emptySet();
     }
-
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLAnnotationPropertyDomainAxiom axiom) {
         return Collections.emptySet();
     }
-
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(OWLDataComplementOf node) {
         return Collections.emptySet();
     }
-
+    @SuppressWarnings("unused")
     public Set<OWLClassExpression> visit(SWRLDataPropertyAtom node) {
         return Collections.emptySet();
     }

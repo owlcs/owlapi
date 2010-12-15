@@ -1,9 +1,9 @@
 package com.clarkparsia.owlapi.modularity.locality;
 
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
-
-import java.util.Set;
 
 /**
  * <p>Copyright: Copyright (c) 2007</p>

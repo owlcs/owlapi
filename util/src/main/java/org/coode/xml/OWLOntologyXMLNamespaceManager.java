@@ -23,15 +23,21 @@ package org.coode.xml;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.NamespaceUtil;
-import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
-import org.semanticweb.owlapi.vocab.Namespaces;
-import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
-
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedObject;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.util.NamespaceUtil;
+import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
+import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 
 /**
@@ -173,7 +179,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
      *
      * @return The QName representation or <code>null</code> if a QName could not be generated.
      */
-    public String getQName(String name) {
+    @Override
+	public String getQName(String name) {
         namespaceUtil.split(name, splitResults);
         if (splitResults[0].equals(getDefaultNamespace())) {
             return splitResults[1];

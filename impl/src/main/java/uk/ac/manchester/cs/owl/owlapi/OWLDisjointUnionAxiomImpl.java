@@ -57,7 +57,8 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLDisjointUnionAxiom)) {
                 return false;
@@ -98,7 +99,8 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
         return getOWLDataFactory().getOWLDisjointClassesAxiom(getClassExpressions());
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLDisjointUnionAxiom other = (OWLDisjointUnionAxiom) object;
         int diff = owlClass.compareTo(other.getOWLClass());
         if (diff != 0) {

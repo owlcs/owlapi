@@ -38,6 +38,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * <br>
  */
 public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
+	@Override
 	protected String getFileName() {
 		return "SubClassOf.rdf";
 	}

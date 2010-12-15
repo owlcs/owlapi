@@ -19,7 +19,8 @@ public class UseOfBuiltInDatatypeInDatatypeDefinition extends OWLProfileViolatio
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of OWL 2 datatype in datatype definition: ");
         sb.append(getAxiom());

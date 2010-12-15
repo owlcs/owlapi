@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * Date: 28-Jun-2009
  */
 public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
+	@Override
 	protected Set<? extends OWLAxiom> createAxioms() {
 		OWLDataFactory factory = getFactory();
 		OWLDatatype dt = factory.getOWLDatatype(IRI

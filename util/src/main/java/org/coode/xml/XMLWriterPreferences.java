@@ -37,7 +37,7 @@ package org.coode.xml;
  */
 public class XMLWriterPreferences {
 
-    private static XMLWriterPreferences instance;
+    private static XMLWriterPreferences instance = new XMLWriterPreferences();
 
     private boolean useNamespaceEntities;
 
@@ -54,9 +54,6 @@ public class XMLWriterPreferences {
 
 
     public static XMLWriterPreferences getInstance() {
-        if (instance == null) {
-            instance = new XMLWriterPreferences();
-        }
         return instance;
     }
 

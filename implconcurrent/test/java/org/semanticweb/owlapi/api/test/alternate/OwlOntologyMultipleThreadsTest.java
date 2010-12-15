@@ -24,13 +24,26 @@ package org.semanticweb.owlapi.api.test.alternate;
  */
 import java.util.Set;
 
+import junit.framework.TestCase;
+
 import org.semanticweb.owlapi.apibinding.configurables.ThreadSafeOWLManager;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.test.MultiThreadChecker;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.test.TestMultithreadCallBack;
-
-import junit.framework.TestCase;
 
 public class OwlOntologyMultipleThreadsTest extends TestCase {
 	private static class TestCallback implements TestMultithreadCallBack {

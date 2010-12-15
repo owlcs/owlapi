@@ -31,7 +31,8 @@ public class UseOfAnonymousIndividual extends OWLProfileViolation implements OWL
         return individual;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of anonymous individual: ");
         sb.append(individual);

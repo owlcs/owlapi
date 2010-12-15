@@ -37,7 +37,8 @@ public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl
         return getOWLDataFactory().getOWLDisjointDataPropertiesAxiom(getProperties(), mergeAnnos(annotations));
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDisjointDataPropertiesAxiom;
         }

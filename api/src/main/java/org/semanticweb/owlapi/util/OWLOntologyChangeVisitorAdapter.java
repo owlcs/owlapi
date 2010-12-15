@@ -16,6 +16,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * Bio-Health Informatics Group<br>
  * Date: 12-Dec-2006<br><br>
  */
+@SuppressWarnings("unused")
 public class OWLOntologyChangeVisitorAdapter implements OWLOntologyChangeVisitor {
 
     public void visit(RemoveAxiom change) {

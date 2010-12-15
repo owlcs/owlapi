@@ -27,7 +27,8 @@ public class UseOfReservedVocabularyForObjectPropertyIRI extends OWLProfileViola
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of reserved vocabulary for object property IRI: ");
         sb.append(property);

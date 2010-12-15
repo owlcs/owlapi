@@ -1,5 +1,15 @@
 package org.coode.owlapi.rdf.rdfxml;
 
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.coode.owlapi.rdf.model.RDFLiteralNode;
 import org.coode.owlapi.rdf.model.RDFNode;
 import org.coode.owlapi.rdf.model.RDFResourceNode;
@@ -8,36 +18,18 @@ import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.coode.string.EscapeUtils;
 import org.coode.xml.OWLOntologyXMLNamespaceManager;
 import org.coode.xml.XMLWriterFactory;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
-
-import java.io.Writer;
-import java.io.IOException;
-import java.util.*;
-/*
- * Copyright (C) 2006, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
-
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
 
 
 /**
@@ -93,51 +85,61 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
 
-    protected void beginDocument() throws IOException  {
+    @Override
+	protected void beginDocument() throws IOException  {
         writer.startDocument();
     }
 
 
-    protected void endDocument() throws IOException  {
+    @Override
+	protected void endDocument() throws IOException  {
         writer.endDocument();
         writer.writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
     }
 
 
-    protected void writeIndividualComments(OWLNamedIndividual ind) throws IOException  {
+    @Override
+	protected void writeIndividualComments(OWLNamedIndividual ind) throws IOException  {
         writer.writeComment(EscapeUtils.escapeXML(ind.getIRI().toString()));
     }
 
 
-    protected void writeClassComment(OWLClass cls) throws IOException  {
+    @Override
+	protected void writeClassComment(OWLClass cls) throws IOException  {
         writer.writeComment(EscapeUtils.escapeXML(cls.getIRI().toString()));
     }
 
 
-    protected void writeDataPropertyComment(OWLDataProperty prop) throws IOException  {
+    @Override
+	protected void writeDataPropertyComment(OWLDataProperty prop) throws IOException  {
         writer.writeComment(EscapeUtils.escapeXML(prop.getIRI().toString()));
     }
 
 
-    protected void writeObjectPropertyComment(OWLObjectProperty prop) throws IOException  {
+    @Override
+	protected void writeObjectPropertyComment(OWLObjectProperty prop) throws IOException  {
         writer.writeComment(EscapeUtils.escapeXML(prop.getIRI().toString()));
     }
 
-    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) throws IOException  {
+    @Override
+	protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) throws IOException  {
         writer.writeComment(EscapeUtils.escapeXML(prop.getIRI().toString()));
     }
 
-    protected void writeDatatypeComment(OWLDatatype datatype) throws IOException  {
+    @Override
+	protected void writeDatatypeComment(OWLDatatype datatype) throws IOException  {
         writer.writeComment(EscapeUtils.escapeXML(datatype.getIRI().toString()));
     }
 
-    protected void writeBanner(String name) throws IOException  {
+    @Override
+	protected void writeBanner(String name) throws IOException  {
         writer.writeComment(
                 "\n///////////////////////////////////////////////////////////////////////////////////////\n" + "//\n" + "// " + name + "\n" + "//\n" + "///////////////////////////////////////////////////////////////////////////////////////\n");
     }
 
 
-    public void render(RDFResourceNode node) throws IOException {
+    @Override
+	public void render(RDFResourceNode node) throws IOException {
         if (pending.contains(node)) {
             // We essentially remove all structure sharing during parsing - any cycles therefore indicate a bug!
 //            throw new IllegalStateException("Rendering cycle!  This indicates structure sharing and should not happen! (Node: " + node.toString() + ")");

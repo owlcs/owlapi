@@ -33,7 +33,8 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
         return ClassExpressionType.OBJECT_INTERSECTION_OF;
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectIntersectionOf;
         }
@@ -58,7 +59,8 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
     }
 
 
-    public Set<OWLClassExpression> asConjunctSet() {
+    @Override
+	public Set<OWLClassExpression> asConjunctSet() {
         Set<OWLClassExpression> conjuncts = new HashSet<OWLClassExpression>();
         for (OWLClassExpression op : getOperands()) {
             conjuncts.addAll(op.asConjunctSet());

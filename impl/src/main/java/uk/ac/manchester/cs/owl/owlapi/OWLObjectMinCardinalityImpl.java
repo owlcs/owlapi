@@ -32,7 +32,8 @@ public class OWLObjectMinCardinalityImpl extends OWLObjectCardinalityRestriction
         return ClassExpressionType.OBJECT_MIN_CARDINALITY;
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectMinCardinality;
         }

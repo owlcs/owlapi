@@ -69,7 +69,8 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         return property.isDeprecated() && value instanceof OWLLiteral && ((OWLLiteral) value).isBoolean() && ((OWLLiteral) value).parseBoolean();
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (obj instanceof OWLAnnotation) {
                 OWLAnnotation other = (OWLAnnotation) obj;
@@ -79,7 +80,8 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         return false;
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLAnnotation other = (OWLAnnotation) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {

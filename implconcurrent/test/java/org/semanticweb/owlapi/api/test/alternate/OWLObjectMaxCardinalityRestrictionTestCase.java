@@ -33,11 +33,13 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class OWLObjectMaxCardinalityRestrictionTestCase extends
 		AbstractOWLObjectCardinalityRestrictionTestCase {
+	@Override
 	protected OWLObjectCardinalityRestriction createRestriction(
 			OWLObjectProperty prop, int cardinality) throws Exception {
 		return getFactory().getOWLObjectMaxCardinality(cardinality, prop);
 	}
 
+	@Override
 	protected OWLObjectCardinalityRestriction createRestriction(
 			OWLObjectProperty prop, int cardinality,
 			OWLClassExpression classExpression) throws Exception {

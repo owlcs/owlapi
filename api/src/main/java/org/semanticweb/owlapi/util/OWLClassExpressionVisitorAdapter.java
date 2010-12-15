@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * Bio-Health Informatics Group<br>
  * Date: 22-Nov-2006<br><br>
  */
+@SuppressWarnings("unused")
 public class OWLClassExpressionVisitorAdapter implements OWLClassExpressionVisitor {
 
     public void visit(OWLClass desc) {

@@ -20,7 +20,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public class InferredPropertyAssertionGenerator extends InferredIndividualAxiomGenerator<OWLPropertyAssertionAxiom> {
 
 
-    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLPropertyAssertionAxiom> result) {
+    @Override
+	protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLPropertyAssertionAxiom> result) {
         for (OWLObjectProperty prop : reasoner.getRootOntology().getObjectPropertiesInSignature(true)) {
             for (OWLNamedIndividual value : reasoner.getObjectPropertyValues(entity, prop).getFlattened()) {
                 result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(prop, entity, value));

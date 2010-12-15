@@ -48,9 +48,10 @@ import org.semanticweb.owlapi.model.SWRLRule;
  * Bio-Health Informatics Group<br>
  * Date: 17-Nov-2006<br><br>
  */
+@SuppressWarnings("unused")
 public class OWLAxiomVisitorAdapter implements OWLAxiomVisitor {
 
-    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+	public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
     }
 
     public void visit(OWLClassAssertionAxiom axiom) {

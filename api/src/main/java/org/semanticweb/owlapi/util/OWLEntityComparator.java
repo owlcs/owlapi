@@ -22,6 +22,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * by their type (in the following order: Class, Object property, Data property, Individual,
  * Datatype) then by their short form (using the specified short form provider).
  */
+@SuppressWarnings("unused")
 public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor {
 
     int lastValue;

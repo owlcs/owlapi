@@ -32,7 +32,8 @@ public class OWLDataSomeValuesFromImpl extends OWLQuantifiedDataRestrictionImpl 
         return ClassExpressionType.DATA_SOME_VALUES_FROM;
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataSomeValuesFrom;
         }

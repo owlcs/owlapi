@@ -36,12 +36,14 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration {
     }
 
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return iri.hashCode();
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

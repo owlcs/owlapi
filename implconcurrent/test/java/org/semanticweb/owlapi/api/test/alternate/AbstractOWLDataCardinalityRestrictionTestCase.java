@@ -42,15 +42,18 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends
 			OWLDataProperty prop, int cardinality, OWLDataRange dataRange)
 			throws Exception;
 
+	@Override
 	protected OWLRestriction createRestriction(OWLDataProperty prop)
 			throws Exception {
 		return createRestriction(prop, 3);
 	}
 
+	@Override
 	protected OWLDataProperty createProperty() throws OWLException {
 		return createOWLDataProperty();
 	}
 
+	@Override
 	public void testCreation() throws Exception {
 		OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
 		int cardinality = 3;
@@ -63,6 +66,7 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends
 		assertNotNull(restB);
 	}
 
+	@Override
 	public void testEqualsPositive() throws Exception {
 		OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
 		int cardinality = 3;
@@ -79,6 +83,7 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends
 		assertEquals(restC, restD);
 	}
 
+	@Override
 	public void testEqualsNegative() throws Exception {
 		OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
 		// Different cardinality
@@ -99,6 +104,7 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends
 		assertNotEquals(restE, restF);
 	}
 
+	@Override
 	public void testHashCode() throws Exception {
 		OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
 		int cardinality = 3;

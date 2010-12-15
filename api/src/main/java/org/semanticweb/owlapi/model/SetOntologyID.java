@@ -54,17 +54,20 @@ public class SetOntologyID extends OWLOntologyChange {
      * Determines if this change is an import change
      * @return <code>true</code> if this change is an import change, otherwise <code>false</code>.
      */
-    public boolean isImportChange() {
+    @Override
+	public boolean isImportChange() {
         return false;
     }
 
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return 57 + ontologyID.hashCode() + newOntologyID.hashCode() * 3;
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -76,7 +79,8 @@ public class SetOntologyID extends OWLOntologyChange {
     }
 
 
-    public boolean isAxiomChange() {
+    @Override
+	public boolean isAxiomChange() {
         return false;
     }
 
@@ -89,7 +93,8 @@ public class SetOntologyID extends OWLOntologyChange {
      * @throws UnsupportedOperationException If the change is not an axiom change (check
      *                                       with the <code>isAxiomChange</code> method first).
      */
-    public OWLAxiom getAxiom() {
+    @Override
+	public OWLAxiom getAxiom() {
         throw new UnsupportedOperationException("Not an axiom change");
     }
 
@@ -112,7 +117,8 @@ public class SetOntologyID extends OWLOntologyChange {
     }
 
 
-    public void accept(OWLOntologyChangeVisitor visitor) {
+    @Override
+	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 }

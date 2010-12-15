@@ -19,7 +19,8 @@ public class CycleInDatatypeDefinition extends OWLProfileViolation implements OW
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Cycle in datatype definition");
         sb.append(" [");

@@ -31,11 +31,13 @@ import org.semanticweb.owlapi.model.OWLDatatype;
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
 public class OWLDatatypeTestCase extends AbstractOWLDataFactoryTest {
+	@Override
 	public void testCreation() throws Exception {
 		OWLDatatype typeA = getFactory().getOWLDatatype(createIRI());
 		assertNotNull(typeA);
 	}
 
+	@Override
 	public void testEqualsPositive() throws Exception {
 		IRI iri = createIRI();
 		OWLDatatype typeA = getFactory().getOWLDatatype(iri);
@@ -43,12 +45,14 @@ public class OWLDatatypeTestCase extends AbstractOWLDataFactoryTest {
 		assertEquals(typeA, typeB);
 	}
 
+	@Override
 	public void testEqualsNegative() throws Exception {
 		OWLDatatype typeA = getFactory().getOWLDatatype(createIRI());
 		OWLDatatype typeB = getFactory().getOWLDatatype(createIRI());
 		assertNotEquals(typeA, typeB);
 	}
 
+	@Override
 	public void testHashCode() throws Exception {
 		IRI iri = createIRI();
 		OWLDatatype typeA = getFactory().getOWLDatatype(iri);

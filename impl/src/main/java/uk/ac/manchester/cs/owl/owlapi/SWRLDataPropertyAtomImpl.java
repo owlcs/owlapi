@@ -23,7 +23,8 @@ public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, 
         super(dataFactory, predicate, arg0, arg1);
     }
 
-    public OWLDataPropertyExpression getPredicate() {
+    @Override
+	public OWLDataPropertyExpression getPredicate() {
         return (OWLDataPropertyExpression) super.getPredicate();
     }
 
@@ -45,7 +46,8 @@ public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, 
         return visitor.visit(this);
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

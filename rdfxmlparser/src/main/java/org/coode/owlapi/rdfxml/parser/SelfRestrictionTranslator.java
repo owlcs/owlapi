@@ -1,6 +1,9 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -40,7 +43,8 @@ public class SelfRestrictionTranslator extends AbstractObjectRestrictionTranslat
     }
 
 
-    protected OWLClassExpression translateRestriction(IRI mainNode) {
+    @Override
+	protected OWLClassExpression translateRestriction(IRI mainNode) {
         // Consume the triple that specifies the description is a has self
         OWLLiteral lit = getConsumer().getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_SELF.getIRI(), true);
         OWLObjectPropertyExpression prop = translateOnProperty(mainNode);

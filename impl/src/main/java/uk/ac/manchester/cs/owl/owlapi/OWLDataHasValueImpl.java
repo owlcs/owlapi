@@ -41,7 +41,8 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLDataRange, O
         return true;
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataHasValue;
         }

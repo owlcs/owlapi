@@ -34,11 +34,13 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
 public class OWLDifferentIndividualsAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLIndividual> {
-    protected OWLObject createObject(Set<OWLIndividual> operands) throws Exception {
+    @Override
+	protected OWLObject createObject(Set<OWLIndividual> operands) throws Exception {
         return getFactory().getOWLDifferentIndividualsAxiom(operands);
     }
 
-    protected OWLIndividual createOperand() throws Exception {
+    @Override
+	protected OWLIndividual createOperand() throws Exception {
         return createOWLIndividual();
     }
 }

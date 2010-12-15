@@ -12,7 +12,8 @@ public abstract class OWLQuantifiedDataRestrictionImpl extends OWLQuantifiedRest
         super(dataFactory, property, filler);
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         @SuppressWarnings("unchecked") OWLQuantifiedRestriction<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> other = (OWLQuantifiedRestriction<OWLDataRange, OWLDataPropertyExpression, OWLDataRange>) object;
         OWLDataPropertyExpression p1 = this.getProperty();
         OWLDataPropertyExpression p2 = other.getProperty();

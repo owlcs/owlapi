@@ -32,7 +32,8 @@ package org.semanticweb.owlapi.io;
  */
 public class RDFXMLOntologyFormat extends RDFOntologyFormat {
 
-    public String toString() {
+    @Override
+	public String toString() {
         return "RDF/XML";
     }
 }

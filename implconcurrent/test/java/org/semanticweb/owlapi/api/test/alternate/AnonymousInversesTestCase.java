@@ -31,6 +31,7 @@ package org.semanticweb.owlapi.api.test.alternate;
  */
 public class AnonymousInversesTestCase extends
 		AbstractFileRoundTrippingTestCase {
+	@Override
 	protected String getFileName() {
 		return "AnonymousInverses.rdf";
 	}
@@ -40,10 +41,12 @@ public class AnonymousInversesTestCase extends
 	    in the Manchester syntax (current spec) and the functional syntax parser needs fixing
 	    once the OWL 2 spec has stabilised.
 	 */
+	@Override
 	public void testManchesterOWLSyntax() throws Exception {
 		//        super.testManchesterOWLSyntax();
 	}
 
+	@Override
 	public void testFunctionalSyntax() throws Exception {
 		//        super.testFunctionalSyntax();
 	}

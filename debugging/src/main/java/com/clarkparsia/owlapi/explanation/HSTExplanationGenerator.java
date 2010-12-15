@@ -1,17 +1,31 @@
 package com.clarkparsia.owlapi.explanation;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.OWLEntityCollector;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.util.OWLEntityCollector;
+
 import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
-import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
 import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
+import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
 
 /*
 * Copyright (C) 2007, Clark & Parsia

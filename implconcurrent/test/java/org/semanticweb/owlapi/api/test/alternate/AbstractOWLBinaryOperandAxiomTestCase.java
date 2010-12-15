@@ -39,10 +39,12 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
 	protected abstract OWLAxiom createAxiom(L leftOperand, R rightOperand)
 			throws Exception;
 
+	@Override
 	public void testCreation() throws Exception {
 		assertNotNull(createAxiom(createLeftOperand(), createRightOperand()));
 	}
 
+	@Override
 	public void testEqualsPositive() throws Exception {
 		L leftOp = createLeftOperand();
 		R rightOp = createRightOperand();
@@ -51,6 +53,7 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
 		assertEquals(axiomA, axiomB);
 	}
 
+	@Override
 	public void testEqualsNegative() throws Exception {
 		L leftOp = createLeftOperand();
 		R rightOp = createRightOperand();
@@ -64,6 +67,7 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
 		assertNotEquals(axiomC, axiomD);
 	}
 
+	@Override
 	public void testHashCode() throws Exception {
 		L leftOperand = createLeftOperand();
 		R rightOperand = createRightOperand();

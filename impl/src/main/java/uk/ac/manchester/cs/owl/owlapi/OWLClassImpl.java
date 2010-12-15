@@ -59,11 +59,13 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass {
         isNothing = getIRI().equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
     }
 
-    public boolean isTopEntity() {
+    @Override
+	public boolean isTopEntity() {
         return isOWLThing();
     }
 
-    public boolean isBottomEntity() {
+    @Override
+	public boolean isBottomEntity() {
         return isOWLNothing();
     }
 
@@ -389,7 +391,8 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass {
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLClass)) {
                 return false;
@@ -437,7 +440,8 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass {
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLClass other = (OWLClass) object;
         return iri.compareTo(other.getIRI());
     }

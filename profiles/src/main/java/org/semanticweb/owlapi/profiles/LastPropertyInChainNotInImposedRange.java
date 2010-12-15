@@ -34,7 +34,8 @@ public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation im
         return rangeAxiom;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Last property in chain not in imposed data range: ");
         sb.append(axiom);

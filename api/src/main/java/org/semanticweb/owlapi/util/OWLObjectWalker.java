@@ -117,7 +117,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     private boolean visitDuplicates;
 
-    private OWLAxiom axiom;
+    protected OWLAxiom axiom;
 
     private OWLAnnotation annotation;
 
@@ -135,8 +135,8 @@ public class OWLObjectWalker<O extends OWLObject> {
         this.visitDuplicates = visitDuplicates;
     }
 
-    public void walkStructure(OWLObjectVisitorEx visitor) {
-        this.visitor = visitor;
+    public void walkStructure(OWLObjectVisitorEx<?> v) {
+        this.visitor = v;
         StructureWalker walker = new StructureWalker();
         for (O o : objects) {
             o.accept(walker);
@@ -196,7 +196,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * Pushes a class expression onto the class expression path
      * @param ce The class expression to be pushed onto the path
      */
-    private void pushClassExpression(OWLClassExpression ce) {
+    protected void pushClassExpression(OWLClassExpression ce) {
         classExpressionPath.add(ce);
     }
 
@@ -204,7 +204,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * Pops a class expression from the class expression path.  If the path
      * is empty then this method has no effect.
      */
-    private void popClassExpression() {
+    protected void popClassExpression() {
         if (!classExpressionPath.isEmpty()) {
             classExpressionPath.remove(classExpressionPath.size() - 1);
         }
@@ -227,7 +227,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * Pushes a data range on to the data range path
      * @param dr The data range to be pushed onto the path
      */
-    private void pushDataRange(OWLDataRange dr) {
+    protected void pushDataRange(OWLDataRange dr) {
         dataRangePath.add(dr);
     }
 
@@ -235,7 +235,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * Pops a data range from the data range expression path.  If the path
      * is empty then this method has no effect.
      */
-    private void popDataRange() {
+    protected void popDataRange() {
         if (!dataRangePath.isEmpty()) {
             dataRangePath.remove(dataRangePath.size() - 1);
         }

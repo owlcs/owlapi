@@ -59,7 +59,8 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLDataOneOf)) {
                 return false;
@@ -96,7 +97,8 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
         return visitor.visit(this);
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         return compareSets(values, ((OWLDataOneOf) object).getValues());
     }
 }

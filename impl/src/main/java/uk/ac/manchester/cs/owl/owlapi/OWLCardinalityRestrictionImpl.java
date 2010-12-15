@@ -37,7 +37,8 @@ public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, 
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
             if(super.equals(obj)) {
                 if(!(obj instanceof OWLCardinalityRestriction)) {
                     return false;
@@ -50,7 +51,8 @@ public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, 
     }
 
 
-    final protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	final protected int compareObjectOfSameType(OWLObject object) {
         OWLCardinalityRestriction<R, P, F> other = (OWLCardinalityRestriction<R, P, F>) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {

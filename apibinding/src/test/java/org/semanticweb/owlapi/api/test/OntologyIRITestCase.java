@@ -17,7 +17,8 @@ public class OntologyIRITestCase extends AbstractFileTestCase {
         assertEquals("http://www.test.com/right.owl", id.getOntologyIRI().toString());
     }
 
-    protected String getFileName() {
+    @Override
+	protected String getFileName() {
         return "ontologyIRI.rdf";
     }
 }

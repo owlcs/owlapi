@@ -27,7 +27,8 @@ public class UseOfUndeclaredClass extends OWLProfileViolation implements OWL2DLP
         return cls;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of undeclared class: ");
         sb.append(cls);

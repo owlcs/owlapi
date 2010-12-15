@@ -12,17 +12,20 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class OWLObjectSubPropertyAxiomTestCase extends AbstractOWLBinaryOperandAxiomTestCase<OWLObjectProperty, OWLObjectProperty> {
 
-    protected OWLObjectProperty createLeftOperand() throws Exception {
+    @Override
+	protected OWLObjectProperty createLeftOperand() throws Exception {
         return createOWLObjectProperty();
     }
 
 
-    protected OWLObjectProperty createRightOperand() throws Exception {
+    @Override
+	protected OWLObjectProperty createRightOperand() throws Exception {
         return createOWLObjectProperty();
     }
 
 
-    protected OWLAxiom createAxiom(OWLObjectProperty leftOperand, OWLObjectProperty rightOperand) throws Exception {
+    @Override
+	protected OWLAxiom createAxiom(OWLObjectProperty leftOperand, OWLObjectProperty rightOperand) throws Exception {
         return getFactory().getOWLSubObjectPropertyOfAxiom(leftOperand, rightOperand);
     }
 }

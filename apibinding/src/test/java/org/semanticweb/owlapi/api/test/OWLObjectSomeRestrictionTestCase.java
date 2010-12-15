@@ -14,17 +14,20 @@ import org.semanticweb.owlapi.model.OWLRestriction;
 public class OWLObjectSomeRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLObjectProperty, OWLClassExpression> {
 
 
-    protected OWLRestriction createRestriction(OWLObjectProperty prop, OWLClassExpression filler) throws Exception {
+    @Override
+	protected OWLRestriction createRestriction(OWLObjectProperty prop, OWLClassExpression filler) throws Exception {
         return getFactory().getOWLObjectSomeValuesFrom(prop, filler);
     }
 
 
-    protected OWLObjectProperty createProperty() throws Exception {
+    @Override
+	protected OWLObjectProperty createProperty() throws Exception {
         return createOWLObjectProperty();
     }
 
 
-    protected OWLClassExpression createFiller() throws Exception {
+    @Override
+	protected OWLClassExpression createFiller() throws Exception {
         return createOWLClass();
     }
 }

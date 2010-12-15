@@ -52,6 +52,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
  * Bio-Health Informatics Group<br>
  * Date: 27-Jan-2008<br><br>
  */
+//XXX visitorEx?
+@SuppressWarnings("unused")
 public class AxiomTypeProvider implements OWLAxiomVisitor {
 
     private AxiomType axiomType;

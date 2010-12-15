@@ -148,6 +148,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 		return result;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	protected <T extends OWLAxiom> Set<T> getAxiomsInternal(AxiomType<T> axiomType) {
 		return (Set<T>) getAxioms(axiomType, axiomsByType, false);

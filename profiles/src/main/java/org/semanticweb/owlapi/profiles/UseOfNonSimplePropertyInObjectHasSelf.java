@@ -28,7 +28,8 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation i
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-simple property in ");
         sb.append(ClassExpressionType.OBJECT_HAS_SELF.getName());

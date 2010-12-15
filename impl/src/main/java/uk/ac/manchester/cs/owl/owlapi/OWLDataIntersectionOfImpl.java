@@ -28,12 +28,14 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements O
         return DataRangeType.DATA_INTERSECTION_OF;
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLDataIntersectionOf other = (OWLDataIntersectionOf) object;
         return compareSets(getOperands(), other.getOperands());
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

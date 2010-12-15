@@ -92,7 +92,8 @@ public class NamedConjunctChecker {
 
     private class NamedConjunctCheckerVisitor extends OWLClassExpressionVisitorAdapter {
 
-        public void visit(OWLClass desc) {
+        @Override
+		public void visit(OWLClass desc) {
             if (conjunct == null) {
                 found = true;
                 if (collect) {
@@ -108,7 +109,8 @@ public class NamedConjunctChecker {
         }
 
 
-        public void visit(OWLObjectIntersectionOf desc) {
+        @Override
+		public void visit(OWLObjectIntersectionOf desc) {
             for (OWLClassExpression op : desc.getOperands()) {
                 op.accept(this);
                 // Early termination if we have found a named conjunct

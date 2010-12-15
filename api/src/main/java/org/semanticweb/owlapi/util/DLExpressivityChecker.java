@@ -111,6 +111,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * Bio-Health Informatics Group<br>
  * Date: 26-Feb-2007<br><br>
  */
+@SuppressWarnings("unused")
 public class DLExpressivityChecker implements OWLObjectVisitor {
 
     private Set<Construct> constructs;
@@ -151,7 +152,8 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         private String s;
 
 
-        public String toString() {
+        @Override
+		public String toString() {
             return s;
         }
     }

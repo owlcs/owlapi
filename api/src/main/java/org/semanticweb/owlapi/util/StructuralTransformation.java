@@ -81,11 +81,11 @@ import org.semanticweb.owlapi.model.SWRLRule;
  */
 public class StructuralTransformation {
 
-    private OWLDataFactory df;
+	protected OWLDataFactory df;
 
     private int nameCounter = 0;
 
-    private Set<OWLEntity> signature;
+    protected Set<OWLEntity> signature;
 
     public StructuralTransformation(OWLDataFactory dataFactory) {
         this.df = dataFactory;
@@ -93,7 +93,7 @@ public class StructuralTransformation {
     }
 
 
-    private OWLClass createNewName() {
+    protected OWLClass createNewName() {
         OWLClass cls = df.getOWLClass(IRI.create("http://www.semanticweb.org/ontology#X" + nameCounter));
         nameCounter++;
         return cls;

@@ -26,12 +26,14 @@ public class DeclarationsTestCase extends AbstractFileRoundTrippingTestCase {
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    @Override
+	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
         super.handleSaved(target, format);
     }
 
-    protected String getFileName() {
+    @Override
+	protected String getFileName() {
         return "TestDeclarations.rdf";
     }
 }

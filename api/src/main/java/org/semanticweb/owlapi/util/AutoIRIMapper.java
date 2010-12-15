@@ -5,9 +5,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -232,7 +232,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     private void parseManchesterSyntaxFile(File file) {
         try {
             // Ontology: <URI>
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
             String line;
             IRI ontologyIRI = null;
             while((line = br.readLine()) != null) {
@@ -255,7 +255,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         }
     }
 
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    @Override
+	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         OntologyRootElementHandler handler = handlerMap.get(uri + localName);
         if (handler != null) {
             IRI ontologyIRI = handler.handle(attributes);
@@ -267,7 +268,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     }
 
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("AutoURIMapper: (");
         sb.append(ontologyIRI2PhysicalURIMap.size());

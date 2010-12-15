@@ -18,7 +18,8 @@ public class OntologyIRINotAbsolute extends OWLProfileViolation implements OWL2P
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Ontology IRI not absolute: ");
         sb.append(getOntologyID());

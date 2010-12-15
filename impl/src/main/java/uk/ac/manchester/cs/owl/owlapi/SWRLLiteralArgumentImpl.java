@@ -49,7 +49,8 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLitera
         return visitor.visit(this);
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -61,7 +62,8 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLitera
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         return literal.compareTo(((SWRLLiteralArgument) object).getLiteral());
     }
 }

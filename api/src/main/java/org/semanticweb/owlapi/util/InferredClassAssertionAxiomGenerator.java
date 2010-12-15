@@ -20,7 +20,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public class InferredClassAssertionAxiomGenerator extends InferredIndividualAxiomGenerator<OWLClassAssertionAxiom> {
 
 
-    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLClassAssertionAxiom> result) {
+    @Override
+	protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLClassAssertionAxiom> result) {
         for (OWLClass type : reasoner.getTypes(entity, false).getFlattened()) {
             result.add(dataFactory.getOWLClassAssertionAxiom(type, entity));
         }

@@ -31,12 +31,14 @@ import org.semanticweb.owlapi.model.OWLDatatype;
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
 public class OWLDataRangeNotTestCase extends AbstractOWLDataFactoryTest {
+	@Override
 	public void testCreation() throws Exception {
 		OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
 		OWLDataComplementOf rng = getFactory().getOWLDataComplementOf(dt);
 		assertNotNull(rng);
 	}
 
+	@Override
 	public void testEqualsPositive() throws Exception {
 		OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
 		OWLDataComplementOf rngA = getFactory().getOWLDataComplementOf(dt);
@@ -44,6 +46,7 @@ public class OWLDataRangeNotTestCase extends AbstractOWLDataFactoryTest {
 		assertEquals(rngA, rngB);
 	}
 
+	@Override
 	public void testEqualsNegative() throws Exception {
 		OWLDatatype dtA = getFactory().getOWLDatatype(createIRI());
 		OWLDataComplementOf rngA = getFactory().getOWLDataComplementOf(dtA);
@@ -52,6 +55,7 @@ public class OWLDataRangeNotTestCase extends AbstractOWLDataFactoryTest {
 		assertNotEquals(rngA, rngB);
 	}
 
+	@Override
 	public void testHashCode() throws Exception {
 		OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
 		OWLDataComplementOf rngA = getFactory().getOWLDataComplementOf(dt);

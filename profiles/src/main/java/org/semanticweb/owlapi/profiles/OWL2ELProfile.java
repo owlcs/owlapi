@@ -127,158 +127,188 @@ public class OWL2ELProfile implements OWLProfile {
             return propertyManager;
         }
 
-        public Object visit(OWLDatatype node) {
+        @Override
+		public Object visit(OWLDatatype node) {
             if (!allowedDatatypes.contains(node.getIRI())) {
                 profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
             }
             return null;
         }
 
-        public Object visit(OWLAnonymousIndividual individual) {
+        @Override
+		public Object visit(OWLAnonymousIndividual individual) {
             profileViolations.add(new UseOfAnonymousIndividual(getCurrentOntology(), getCurrentAxiom(), individual));
             return null;
         }
 
-        public Object visit(OWLObjectInverseOf property) {
+        @Override
+		public Object visit(OWLObjectInverseOf property) {
             profileViolations.add(new UseOfObjectPropertyInverse(getCurrentOntology(), getCurrentAxiom(), property));
             return null;
         }
 
-        public Object visit(OWLDataAllValuesFrom desc) {
+        @Override
+		public Object visit(OWLDataAllValuesFrom desc) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), desc));
             return null;
         }
 
-        public Object visit(OWLDataExactCardinality desc) {
+        @Override
+		public Object visit(OWLDataExactCardinality desc) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), desc));
             return null;
         }
 
-        public Object visit(OWLDataMaxCardinality desc) {
+        @Override
+		public Object visit(OWLDataMaxCardinality desc) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), desc));
             return null;
         }
 
-        public Object visit(OWLDataMinCardinality desc) {
+        @Override
+		public Object visit(OWLDataMinCardinality desc) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), desc));
             return null;
         }
 
-        public Object visit(OWLObjectAllValuesFrom desc) {
+        @Override
+		public Object visit(OWLObjectAllValuesFrom desc) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), desc));
             return null;
         }
 
-        public Object visit(OWLObjectComplementOf desc) {
+        @Override
+		public Object visit(OWLObjectComplementOf desc) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), desc));
             return null;
         }
 
-        public Object visit(OWLObjectExactCardinality desc) {
+        @Override
+		public Object visit(OWLObjectExactCardinality desc) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), desc));
             return null;
         }
 
-        public Object visit(OWLObjectMaxCardinality desc) {
+        @Override
+		public Object visit(OWLObjectMaxCardinality desc) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), desc));
             return null;
         }
 
-        public Object visit(OWLObjectMinCardinality desc) {
+        @Override
+		public Object visit(OWLObjectMinCardinality desc) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), desc));
             return null;
         }
 
-        public Object visit(OWLObjectOneOf desc) {
+        @Override
+		public Object visit(OWLObjectOneOf desc) {
             if (desc.getIndividuals().size() != 1) {
                 profileViolations.add(new UseOfObjectOneOfWithMultipleIndividuals(getCurrentOntology(), getCurrentAxiom(), desc));
             }
             return null;
         }
 
-        public Object visit(OWLObjectUnionOf desc) {
+        @Override
+		public Object visit(OWLObjectUnionOf desc) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), desc));
             return null;
         }
 
-        public Object visit(OWLDataComplementOf node) {
+        @Override
+		public Object visit(OWLDataComplementOf node) {
             profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
             return null;
         }
 
-        public Object visit(OWLDataOneOf node) {
+        @Override
+		public Object visit(OWLDataOneOf node) {
             if (node.getValues().size() != 1) {
                 profileViolations.add(new UseOfDataOneOfWithMultipleLiterals(getCurrentOntology(), getCurrentAxiom(), node));
             }
             return null;
         }
 
-        public Object visit(OWLDatatypeRestriction node) {
+        @Override
+		public Object visit(OWLDatatypeRestriction node) {
             profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
             return null;
         }
 
-        public Object visit(OWLDataUnionOf node) {
+        @Override
+		public Object visit(OWLDataUnionOf node) {
             profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
             return null;
         }
 
-        public Object visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        @Override
+		public Object visit(OWLAsymmetricObjectPropertyAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
-        public Object visit(OWLDisjointDataPropertiesAxiom axiom) {
+        @Override
+		public Object visit(OWLDisjointDataPropertiesAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
-        public Object visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        @Override
+		public Object visit(OWLDisjointObjectPropertiesAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
-        public Object visit(OWLDisjointUnionAxiom axiom) {
+        @Override
+		public Object visit(OWLDisjointUnionAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
-        public Object visit(OWLFunctionalObjectPropertyAxiom axiom) {
+        @Override
+		public Object visit(OWLFunctionalObjectPropertyAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
-        public Object visit(OWLHasKeyAxiom axiom) {
+        @Override
+		public Object visit(OWLHasKeyAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
-        public Object visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        @Override
+		public Object visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
-        public Object visit(OWLInverseObjectPropertiesAxiom axiom) {
+        @Override
+		public Object visit(OWLInverseObjectPropertiesAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
-        public Object visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        @Override
+		public Object visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
-        public Object visit(OWLSymmetricObjectPropertyAxiom axiom) {
+        @Override
+		public Object visit(OWLSymmetricObjectPropertyAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
-        public Object visit(SWRLRule rule) {
+        @Override
+		public Object visit(SWRLRule rule) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), rule));
             return super.visit(rule);
         }
 
-        public Object visit(OWLSubPropertyChainOfAxiom axiom) {
+        @Override
+		public Object visit(OWLSubPropertyChainOfAxiom axiom) {
             Set<OWLObjectPropertyRangeAxiom> rangeAxioms = getCurrentOntology().getAxioms(AxiomType.OBJECT_PROPERTY_RANGE, true);
             if (rangeAxioms.isEmpty()) {
                 return false;
@@ -314,7 +344,8 @@ public class OWL2ELProfile implements OWLProfile {
             return null;
         }
 
-        public Object visit(OWLOntology ontology) {
+        @Override
+		public Object visit(OWLOntology ontology) {
             propertyManager = null;
             return null;
         }

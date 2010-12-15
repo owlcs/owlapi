@@ -31,7 +31,8 @@ public class OWLDataMinCardinalityImpl extends OWLDataCardinalityRestrictionImpl
         return ClassExpressionType.DATA_MIN_CARDINALITY;
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataMinCardinality;
         }

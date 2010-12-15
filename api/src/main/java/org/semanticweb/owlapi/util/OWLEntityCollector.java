@@ -682,7 +682,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 			obj.accept(this);
 		}
 	}
-
+    @SuppressWarnings("unused")
 	public void visit(SWRLVariable node) {
 	}
 
@@ -703,14 +703,15 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 	}
 	
 	private static final List<OWLAnonymousIndividual> fake=new List<OWLAnonymousIndividual>() {
+	    @SuppressWarnings("unused")
 		public <T> T[] toArray(T[] arg0) {
-			return null;
+			return arg0;
 		}
 		
 		public Object[] toArray() {
-			return null;
+			return new Object[0];
 		}
-		
+	    @SuppressWarnings("unused")
 		public List<OWLAnonymousIndividual> subList(int arg0, int arg1) {
 			return null;
 		}
@@ -718,27 +719,27 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 		public int size() {
 			return 0;
 		}
-		
+	    @SuppressWarnings("unused")
 		public OWLAnonymousIndividual set(int arg0, OWLAnonymousIndividual arg1) {
 			return null;
 		}
-		
+	    @SuppressWarnings("unused")
 		public boolean retainAll(Collection<?> arg0) {
 			return false;
 		}
-		
+	    @SuppressWarnings("unused")
 		public boolean removeAll(Collection<?> arg0) {
 			return false;
 		}
-		
+	    @SuppressWarnings("unused")
 		public OWLAnonymousIndividual remove(int arg0) {
 			return null;
 		}
-		
+	    @SuppressWarnings("unused")
 		public boolean remove(Object arg0) {
 			return false;
 		}
-		
+	    @SuppressWarnings("unused")
 		public ListIterator<OWLAnonymousIndividual> listIterator(int arg0) {
 			return null;
 		}
@@ -746,7 +747,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 		public ListIterator<OWLAnonymousIndividual> listIterator() {
 			return null;
 		}
-		
+	    @SuppressWarnings("unused")
 		public int lastIndexOf(Object arg0) {
 			return 0;
 		}
@@ -758,38 +759,38 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 		public boolean isEmpty() {
 			return false;
 		}
-		
+	    @SuppressWarnings("unused")
 		public int indexOf(Object arg0) {
 			return 0;
 		}
-		
+	    @SuppressWarnings("unused")
 		public OWLAnonymousIndividual get(int arg0) {
 			return null;
 		}
-		
+	    @SuppressWarnings("unused")
 		public boolean containsAll(Collection<?> arg0) {
 			return false;
 		}
-		
+	    @SuppressWarnings("unused")
 		public boolean contains(Object arg0) {
 			return false;
 		}
 		
 		public void clear() {
 		}
-		
+	    @SuppressWarnings("unused")
 		public boolean addAll(int arg0,
 				Collection<? extends OWLAnonymousIndividual> arg1) {
 			return false;
 		}
-		
+	    @SuppressWarnings("unused")
 		public boolean addAll(Collection<? extends OWLAnonymousIndividual> arg0) {
 			return false;
 		}
-		
+	    @SuppressWarnings("unused")
 		public void add(int arg0, OWLAnonymousIndividual arg1) {
 		}
-		
+	    @SuppressWarnings("unused")
 		public boolean add(OWLAnonymousIndividual arg0) {
 			return false;
 		}

@@ -18,7 +18,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public class InferredInverseObjectPropertiesAxiomGenerator extends InferredObjectPropertyAxiomGenerator<OWLInverseObjectPropertiesAxiom> {
 
 
-    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLInverseObjectPropertiesAxiom> result) {
+    @Override
+	protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLInverseObjectPropertiesAxiom> result) {
         for (OWLObjectPropertyExpression prop : reasoner.getInverseObjectProperties(entity)) {
             result.add(dataFactory.getOWLInverseObjectPropertiesAxiom(entity, prop));
         }

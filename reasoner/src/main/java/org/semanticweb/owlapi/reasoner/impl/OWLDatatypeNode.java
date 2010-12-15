@@ -1,9 +1,9 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWLDataFactoryVocabulary;
-
-import java.util.Set;
 
 /*
  * Copyright (C) 2009, University of Manchester
@@ -51,11 +51,13 @@ public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
         super(entities);
     }
 
-    protected OWLDatatype getTopEntity() {
+    @Override
+	protected OWLDatatype getTopEntity() {
         return TOP_DATATYPE;
     }
 
-    protected OWLDatatype getBottomEntity() {
+    @Override
+	protected OWLDatatype getBottomEntity() {
         return null;
     }
 }

@@ -63,7 +63,8 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
         return visitor.visit(this);
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLFacetRestriction other = (OWLFacetRestriction) object;
         int diff = facet.compareTo(other.getFacet());
         if (diff != 0) {

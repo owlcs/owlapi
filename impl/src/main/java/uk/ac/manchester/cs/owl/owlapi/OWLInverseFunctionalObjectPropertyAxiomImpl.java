@@ -38,7 +38,8 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends OWLObjectProper
         return getOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLInverseFunctionalObjectPropertyAxiom;
         }

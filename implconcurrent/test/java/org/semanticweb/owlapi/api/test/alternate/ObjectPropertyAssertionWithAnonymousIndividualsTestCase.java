@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class ObjectPropertyAssertionWithAnonymousIndividualsTestCase extends
 		AbstractAxiomsRoundTrippingTestCase {
+	@Override
 	protected Set<? extends OWLAxiom> createAxioms() {
 		OWLIndividual subject = getFactory().getOWLAnonymousIndividual();
 		OWLIndividual object = getFactory().getOWLAnonymousIndividual();

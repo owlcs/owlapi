@@ -54,7 +54,8 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
     }
 
 
-    final protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	final protected int compareObjectOfSameType(OWLObject object) {
         return iri.compareTo(((SWRLVariable) object).getIRI());
     }
 

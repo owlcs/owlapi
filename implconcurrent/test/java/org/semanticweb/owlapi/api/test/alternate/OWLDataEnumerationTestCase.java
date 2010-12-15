@@ -34,11 +34,13 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
 public class OWLDataEnumerationTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLLiteral> {
-    protected OWLObject createObject(Set<OWLLiteral> operands) throws Exception {
+    @Override
+	protected OWLObject createObject(Set<OWLLiteral> operands) throws Exception {
         return getFactory().getOWLDataOneOf(operands);
     }
 
-    protected OWLLiteral createOperand() throws Exception {
+    @Override
+	protected OWLLiteral createOperand() throws Exception {
         return createOWLLiteral();
     }
 }

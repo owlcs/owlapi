@@ -1,8 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -47,16 +47,19 @@ public class ObjectCardinalityTranslator extends AbstractObjectCardinalityTransl
     }
 
 
-    protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi, OWLClassExpression filler) {
+    @Override
+	protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi, OWLClassExpression filler) {
         return getDataFactory().getOWLObjectExactCardinality(cardi, prop, filler);
     }
 
 
-    protected IRI getCardinalityTriplePredicate() {
+    @Override
+	protected IRI getCardinalityTriplePredicate() {
         return OWLRDFVocabulary.OWL_CARDINALITY.getIRI();
     }
 
-    protected IRI getQualifiedCardinalityTriplePredicate() {
+    @Override
+	protected IRI getQualifiedCardinalityTriplePredicate() {
         return OWLRDFVocabulary.OWL_QUALIFIED_CARDINALITY.getIRI();
     }
 }

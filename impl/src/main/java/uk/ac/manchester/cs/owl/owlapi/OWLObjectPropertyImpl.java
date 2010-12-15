@@ -50,11 +50,13 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
         this.builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI()) || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
     }
 
-    public boolean isTopEntity() {
+    @Override
+	public boolean isTopEntity() {
         return isOWLTopObjectProperty();
     }
 
-    public boolean isBottomEntity() {
+    @Override
+	public boolean isBottomEntity() {
         return isOWLBottomObjectProperty();
     }
 
@@ -107,7 +109,8 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLObjectProperty)) {
                 return false;
@@ -164,7 +167,8 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     }
 
 
-    protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>> getSubPropertyAxiomsForRHS(OWLOntology ont) {
+    @Override
+	protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>> getSubPropertyAxiomsForRHS(OWLOntology ont) {
         return ont.getObjectSubPropertyAxiomsForSuperProperty(this);
     }
 
@@ -235,7 +239,8 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
         return false;
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         return iri.compareTo(((OWLObjectProperty) object).getIRI());
     }
 

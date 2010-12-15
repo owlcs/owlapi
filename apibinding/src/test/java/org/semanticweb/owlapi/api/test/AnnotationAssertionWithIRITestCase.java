@@ -16,7 +16,8 @@ import org.semanticweb.owlapi.model.OWLClass;
  */
 public class AnnotationAssertionWithIRITestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLClass cls = getOWLClass("ClsA");
         axioms.add(getFactory().getOWLDeclarationAxiom(cls));

@@ -1009,7 +1009,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
-    public String toString() {
+    @Override
+	public String toString() {
         return sb.toString();
     }
 }

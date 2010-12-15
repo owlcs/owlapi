@@ -10,7 +10,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class InversePropertiesAxiomTestCase extends AbstractRoundTrippingTest {
 
 
-    protected OWLOntology createOntology() {
+    @Override
+	protected OWLOntology createOntology() {
             OWLOntology ont = getOWLOntology("ont");
             getManager().addAxiom(ont, getFactory().getOWLInverseObjectPropertiesAxiom(getOWLObjectProperty("p"), getOWLObjectProperty("q")));
             return ont;

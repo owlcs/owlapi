@@ -1,7 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -41,7 +41,8 @@ public class TPUnionOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
     }
 
 
-    protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
+    @Override
+	protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
         return getDataFactory().getOWLObjectUnionOf(getConsumer().translateToClassExpressionSet(mainNode));
     }
 }

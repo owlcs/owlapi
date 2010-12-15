@@ -19,7 +19,8 @@ public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassEx
         this.oneOf = oneOf;
     }
 
-    public void accept(OWL2ELProfileViolationVisitor visitor) {
+    @Override
+	public void accept(OWL2ELProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -27,7 +28,8 @@ public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassEx
         return oneOf;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of ObjectOneOf with multiple individuals: ");
         sb.append(getAxiom());

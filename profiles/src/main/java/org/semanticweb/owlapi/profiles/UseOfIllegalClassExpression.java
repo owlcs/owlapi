@@ -29,7 +29,8 @@ public class UseOfIllegalClassExpression extends OWLProfileViolation implements 
         return classExpression;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(classExpression.getClassExpressionType().getName());
         sb.append(" class expressions are not allowed in profile: ");

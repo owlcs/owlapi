@@ -40,6 +40,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class ObjectPropertyChainAnnotatedRoundTrippingTestCase extends
 		AbstractAxiomsRoundTrippingTestCase {
+	@Override
 	protected Set<? extends OWLAxiom> createAxioms() {
 		OWLObjectProperty propA = getOWLObjectProperty("propA");
 		OWLObjectProperty propB = getOWLObjectProperty("propB");

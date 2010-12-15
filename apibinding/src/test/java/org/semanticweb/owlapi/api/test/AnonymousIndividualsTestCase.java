@@ -14,7 +14,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class AnonymousIndividualsTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLAnonymousIndividual ind = getFactory().getOWLAnonymousIndividual();
         axioms.add(getFactory().getOWLObjectPropertyAssertionAxiom(

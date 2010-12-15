@@ -34,7 +34,8 @@ public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionIm
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataExactCardinality;
         }

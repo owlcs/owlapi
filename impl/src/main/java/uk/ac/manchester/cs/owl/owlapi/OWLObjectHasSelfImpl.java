@@ -40,7 +40,8 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl<OWLClassExpression,
         return false;
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectHasSelf;
         }
@@ -64,7 +65,8 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl<OWLClassExpression,
         return visitor.visit(this);
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         return getProperty().compareTo(((OWLObjectHasSelf) object).getProperty());
     }
 }

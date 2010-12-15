@@ -16,7 +16,8 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
  */
 public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         addAxiomForLiteral(getFactory().getOWLLiteral(3), axioms);
         addAxiomForLiteral(getFactory().getOWLLiteral(33.3), axioms);

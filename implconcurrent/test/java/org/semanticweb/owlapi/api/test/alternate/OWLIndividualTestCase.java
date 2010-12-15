@@ -32,7 +32,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
 public class OWLIndividualTestCase extends AbstractOWLEntityTestCase {
-    protected OWLEntity createEntity(IRI iri) throws Exception {
+    @Override
+	protected OWLEntity createEntity(IRI iri) throws Exception {
         return getFactory().getOWLNamedIndividual(iri);
     }
 }

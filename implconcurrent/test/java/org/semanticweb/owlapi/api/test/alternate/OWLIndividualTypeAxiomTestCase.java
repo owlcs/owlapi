@@ -34,14 +34,17 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 public class OWLIndividualTypeAxiomTestCase
 		extends
 		AbstractOWLBinaryOperandAxiomTestCase<OWLIndividual, OWLClassExpression> {
+	@Override
 	protected OWLIndividual createLeftOperand() throws Exception {
 		return createOWLIndividual();
 	}
 
+	@Override
 	protected OWLClassExpression createRightOperand() throws Exception {
 		return createOWLClass();
 	}
 
+	@Override
 	protected OWLAxiom createAxiom(OWLIndividual leftOperand,
 			OWLClassExpression rightOperand) throws Exception {
 		return getFactory()

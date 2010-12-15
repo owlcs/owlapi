@@ -1,13 +1,13 @@
 package de.uulm.ecs.ai.owlapi.krssrenderer;
 
+import java.io.Writer;
+
 import org.coode.owl.krssparser.KRSSOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
-
-import java.io.Writer;
 
 /**
  * See {@link de.uulm.ecs.ai.owlapi.krssrenderer.KRSSObjectRenderer KRSSObjectRenderer}
@@ -24,7 +24,8 @@ public class KRSSSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
 
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer,
+    @Override
+	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer,
                                  OWLOntologyFormat format) throws OWLOntologyStorageException {
         KRSSSyntaxRenderer renderer = new KRSSSyntaxRenderer(manager);
         renderer.render(ontology, writer);

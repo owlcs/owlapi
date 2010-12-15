@@ -14,13 +14,15 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPropertyExpression> extends AbstractOWLDataFactoryTest {
 
 
-    public void testCreation() throws Exception {
+    @Override
+	public void testCreation() throws Exception {
         OWLPropertyAxiom axiom = createOWLPropertyAxiom(createProperty());
         assertNotNull(axiom);
     }
 
 
-    public void testEqualsPositive() throws Exception {
+    @Override
+	public void testEqualsPositive() throws Exception {
         P prop = createProperty();
         OWLPropertyAxiom axiomA = createOWLPropertyAxiom(prop);
         OWLPropertyAxiom axiomB = createOWLPropertyAxiom(prop);
@@ -28,7 +30,8 @@ public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPro
     }
 
 
-    public void testEqualsNegative() throws Exception {
+    @Override
+	public void testEqualsNegative() throws Exception {
         OWLPropertyAxiom axiomA = createOWLPropertyAxiom(createProperty());
         OWLPropertyAxiom axiomB = createOWLPropertyAxiom(createProperty());
         assertNotEquals(axiomA, axiomB);
@@ -39,7 +42,8 @@ public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPro
     protected abstract OWLPropertyAxiom createOWLPropertyAxiom(P property) throws OWLException;
 
 
-    public void testHashCode() throws Exception {
+    @Override
+	public void testHashCode() throws Exception {
         P prop = createProperty();
         OWLPropertyAxiom axiomA = createOWLPropertyAxiom(prop);
         OWLPropertyAxiom axiomB = createOWLPropertyAxiom(prop);

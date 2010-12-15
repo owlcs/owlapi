@@ -14,12 +14,14 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 public class OWLDataMinCardinalityTestCase extends AbstractOWLDataCardinalityRestrictionTestCase {
 
 
-    protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality) throws Exception {
+    @Override
+	protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality) throws Exception {
         return getFactory().getOWLDataMinCardinality(cardinality, prop);
     }
 
 
-    protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality,
+    @Override
+	protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality,
                                                               OWLDataRange dataRange) throws Exception {
         return getFactory().getOWLDataMinCardinality(cardinality, prop, dataRange);
     }

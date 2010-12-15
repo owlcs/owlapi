@@ -19,7 +19,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
-    public void testCreation() throws Exception {
+    @Override
+	public void testCreation() throws Exception {
         OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
         OWLLiteral facetValue = getFactory().getOWLLiteral("3", getFactory().getOWLDatatype(createIRI()));
         Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
@@ -29,7 +30,8 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
     }
 
 
-    public void testEqualsPositive() throws Exception {
+    @Override
+	public void testEqualsPositive() throws Exception {
         OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
         OWLLiteral facetValue = getFactory().getOWLLiteral("3", getFactory().getOWLDatatype(createIRI()));
         Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
@@ -40,7 +42,8 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
     }
 
 
-    public void testEqualsNegative() throws Exception {
+    @Override
+	public void testEqualsNegative() throws Exception {
         OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
         OWLLiteral facetValue = getFactory().getOWLLiteral("3", getFactory().getOWLDatatype(createIRI()));
         Set<OWLFacetRestriction> restrictionsA = OWLDataUtil.getFacetRestrictionSet(getFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
@@ -52,7 +55,8 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
     }
 
 
-    public void testHashCode() throws Exception {
+    @Override
+	public void testHashCode() throws Exception {
         OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
         OWLLiteral facetValue = getFactory().getOWLLiteral("3", getFactory().getOWLDatatype(createIRI()));
         Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);

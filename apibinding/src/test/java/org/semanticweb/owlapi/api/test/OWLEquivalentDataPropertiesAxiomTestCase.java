@@ -15,12 +15,14 @@ import org.semanticweb.owlapi.model.OWLObject;
 public class OWLEquivalentDataPropertiesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLDataProperty> {
 
 
-    protected OWLObject createObject(Set<OWLDataProperty> operands) throws Exception {
+    @Override
+	protected OWLObject createObject(Set<OWLDataProperty> operands) throws Exception {
         return getFactory().getOWLEquivalentDataPropertiesAxiom(operands);
     }
 
 
-    protected OWLDataProperty createOperand() throws Exception {
+    @Override
+	protected OWLDataProperty createOperand() throws Exception {
         return createOWLDataProperty();
     }
 }

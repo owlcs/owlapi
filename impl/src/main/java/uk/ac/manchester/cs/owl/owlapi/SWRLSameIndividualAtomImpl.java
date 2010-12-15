@@ -41,7 +41,8 @@ public class SWRLSameIndividualAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
         return visitor.visit(this);
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

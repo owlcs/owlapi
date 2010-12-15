@@ -34,7 +34,8 @@ public class UseOfUnknownDatatype extends OWLProfileViolation implements OWL2Pro
         return datatype;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of unknown datatype: ");
         sb.append(datatype);

@@ -150,7 +150,8 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLPropertyExpression;
         }

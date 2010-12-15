@@ -14,7 +14,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  */
 public abstract class AbstractFileRoundTrippingTestCase extends AbstractRoundTrippingTest {
 
-    protected OWLOntology createOntology() {
+    @Override
+	protected OWLOntology createOntology() {
         try {
             String fileName = getFileName();
             IRI iri = IRI.create(getClass().getResource("/" + fileName).toURI());

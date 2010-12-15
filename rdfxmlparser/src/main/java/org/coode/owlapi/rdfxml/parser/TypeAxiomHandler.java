@@ -1,9 +1,14 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -45,7 +50,8 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         super(consumer, typeIRI);
     }
 
-    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    @Override
+	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         // We can't handle this is a streaming fashion, because we can't
         // be sure that the subject, predicate, object triples have been parsed.
         return false;
@@ -76,7 +82,8 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    @Override
+	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
 
 

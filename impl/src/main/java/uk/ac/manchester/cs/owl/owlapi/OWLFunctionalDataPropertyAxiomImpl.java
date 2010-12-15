@@ -39,7 +39,8 @@ public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacter
         return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(getProperty(), mergeAnnos(annotations));
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLFunctionalDataPropertyAxiom;
         }
@@ -68,7 +69,8 @@ public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacter
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         return getProperty().compareTo(((OWLFunctionalDataPropertyAxiom) object).getProperty());
     }
 

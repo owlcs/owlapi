@@ -13,7 +13,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class SubDataPropertyOfTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(getFactory().getOWLSubDataPropertyOfAxiom(getOWLDataProperty("p"), getOWLDataProperty("q")));
         return axioms;

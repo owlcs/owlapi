@@ -23,7 +23,8 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> impl
         super(dataFactory, predicate, arg);
     }
 
-    public OWLDataRange getPredicate() {
+    @Override
+	public OWLDataRange getPredicate() {
         return (OWLDataRange) super.getPredicate();
     }
 
@@ -40,7 +41,8 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> impl
         return visitor.visit(this);
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -56,7 +58,8 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> impl
         return visitor.visit(this);
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
 
         SWRLDataRangeAtom other = (SWRLDataRangeAtom) object;
         int diff = getPredicate().compareTo(other.getPredicate());

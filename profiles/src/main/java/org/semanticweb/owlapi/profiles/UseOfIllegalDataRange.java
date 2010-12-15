@@ -35,7 +35,8 @@ public class UseOfIllegalDataRange extends OWLProfileViolation implements OWL2EL
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of data range not in profile: ");
         sb.append(dataRange);

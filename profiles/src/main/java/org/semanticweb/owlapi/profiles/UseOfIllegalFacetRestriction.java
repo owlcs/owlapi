@@ -35,7 +35,8 @@ public class UseOfIllegalFacetRestriction extends OWLProfileViolation implements
         return facet;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Facet in datatype restriction does not belong to restricted datatype: ");
         sb.append(facet);

@@ -48,7 +48,8 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         SWRLBinaryAtom other = (SWRLBinaryAtom) object;
         int diff = ((OWLObject) getPredicate()).compareTo((OWLObject) other.getPredicate());
         if (diff != 0) {

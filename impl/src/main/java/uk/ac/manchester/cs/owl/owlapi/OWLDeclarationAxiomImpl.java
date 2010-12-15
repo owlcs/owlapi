@@ -59,7 +59,8 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (obj instanceof OWLDeclarationAxiom) {
                 return ((OWLDeclarationAxiom) obj).getEntity().equals(entity);
@@ -92,7 +93,8 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         return entity.compareTo(((OWLDeclarationAxiom) object).getEntity());
     }
 }

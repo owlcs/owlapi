@@ -39,7 +39,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
         return new ArrayList<OWLIndividual>(individuals);
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLNaryIndividualAxiom)) {
                 return false;
@@ -50,7 +51,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         return compareSets(individuals, ((OWLNaryIndividualAxiom) object).getIndividuals());
     }
 }

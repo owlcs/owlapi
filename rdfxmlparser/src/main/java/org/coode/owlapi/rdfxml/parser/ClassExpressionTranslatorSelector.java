@@ -1,8 +1,9 @@
 package org.coode.owlapi.rdfxml.parser;
 
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /*
  * Copyright (C) 2006, University of Manchester

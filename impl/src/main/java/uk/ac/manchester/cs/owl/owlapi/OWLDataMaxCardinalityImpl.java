@@ -32,7 +32,8 @@ public class OWLDataMaxCardinalityImpl extends OWLDataCardinalityRestrictionImpl
         return ClassExpressionType.DATA_MAX_CARDINALITY;
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataMaxCardinality;
         }

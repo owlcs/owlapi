@@ -1,35 +1,19 @@
 package uk.ac.manchester.cs.owlapi.dlsyntax;
 
-import org.semanticweb.owlapi.io.OWLObjectRenderer;
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
-import org.semanticweb.owlapi.util.IRIShortFormProvider;
-import org.semanticweb.owlapi.util.*;
 import static uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntax.*;
 
-import java.util.*;
-/*
- * Copyright (C) 2007, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.TreeSet;
 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+import org.semanticweb.owlapi.io.OWLObjectRenderer;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.IRIShortFormProvider;
+import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
+import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
 
 /**
@@ -199,7 +183,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     }
 
-
+    @SuppressWarnings("unused")
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
     }
 
@@ -256,7 +240,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeDomainAxiom(axiom);
     }
 
-
+    @SuppressWarnings("unused")
     public void visit(OWLImportsDeclaration axiom) {
 
     }
@@ -345,11 +329,11 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         write(axiom.getClassExpressions(), OR, false);
     }
 
-
+    @SuppressWarnings("unused")
     public void visit(OWLDeclarationAxiom axiom) {
     }
 
-
+    @SuppressWarnings("unused")
     public void visit(OWLAnnotationAssertionAxiom axiom) {
     }
 
@@ -717,38 +701,38 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeEntity(individual);
     }
 
-
+    @SuppressWarnings("unused")
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
     }
 
-
+    @SuppressWarnings("unused")
     public void visit(OWLHasKeyAxiom axiom) {
     }
-
+    @SuppressWarnings("unused")
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
     }
-
+    @SuppressWarnings("unused")
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
     }
-
+    @SuppressWarnings("unused")
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
     }
-
+    @SuppressWarnings("unused")
     public void visit(OWLDataIntersectionOf node) {
     }
-
+    @SuppressWarnings("unused")
     public void visit(OWLDataUnionOf node) {
     }
-
+    @SuppressWarnings("unused")
     public void visit(OWLAnnotationProperty property) {
     }
-
+    @SuppressWarnings("unused")
     public void visit(OWLAnonymousIndividual individual) {
     }
-
+    @SuppressWarnings("unused")
     public void visit(IRI iri) {
     }
-
+    @SuppressWarnings("unused")
     public void visit(OWLAnnotation node) {
     }
 

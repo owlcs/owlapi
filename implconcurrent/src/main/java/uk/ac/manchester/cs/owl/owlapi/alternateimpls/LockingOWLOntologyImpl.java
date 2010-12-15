@@ -37,16 +37,19 @@ public class LockingOWLOntologyImpl extends OWLOntologyImpl {
         this.internals = new LockingOWLOntologyInternals();
     }
     
-    protected OWLAxiomVisitor getAxiomVisitor(boolean add) {
+    @Override
+	protected OWLAxiomVisitor getAxiomVisitor(boolean add) {
 		SyncChangeAxiomVisitor toReturn =new SyncChangeAxiomVisitor(internals, add, ((LockingOWLOntologyInternals)internals).getAxiomTypeLock());
 		return toReturn;
 	}
     
-    protected OWLNamedObjectReferenceAdder getReferenceAdder() {
+    @Override
+	protected OWLNamedObjectReferenceAdder getReferenceAdder() {
     	return new SyncOWLNamedObjectReferenceAdderImpl(internals,((LockingOWLOntologyInternals)internals).getAxiomTypeLock());
     }
     
-    protected OWLNamedObjectReferenceRemover getReferenceRemover() {
+    @Override
+	protected OWLNamedObjectReferenceRemover getReferenceRemover() {
     	return new SyncOWLNamedObjectReferenceRemoverImpl(internals, ((LockingOWLOntologyInternals)internals).getAxiomTypeLock());
     }
 }

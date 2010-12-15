@@ -27,7 +27,8 @@ public class UseOfReservedVocabularyForIndividualIRI extends OWLProfileViolation
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of reserved vocabulary for individual IRI: ");
         sb.append(ind);

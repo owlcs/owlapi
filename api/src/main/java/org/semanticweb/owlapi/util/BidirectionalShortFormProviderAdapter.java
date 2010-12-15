@@ -78,7 +78,8 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
     }
 
 
-    protected String generateShortForm(OWLEntity entity) {
+    @Override
+	protected String generateShortForm(OWLEntity entity) {
         return shortFormProvider.getShortForm(entity);
     }
 
@@ -87,7 +88,8 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
      * Disposes of this short form provider.  Note that this method MUST be called
      * if the constructor that specifies an ontology manager was used.
      */
-    public void dispose() {
+    @Override
+	public void dispose() {
         if(man != null) {
             man.removeOntologyChangeListener(changeListener);
         }

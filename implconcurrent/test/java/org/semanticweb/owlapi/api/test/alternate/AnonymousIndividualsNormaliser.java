@@ -68,7 +68,8 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
         return normalised;
     }
 
-    public void visit(OWLAnonymousIndividual individual) {
+    @Override
+	public void visit(OWLAnonymousIndividual individual) {
         OWLAnonymousIndividual ind = renamingMap.get(individual);
         if (ind == null) {
             counter++;

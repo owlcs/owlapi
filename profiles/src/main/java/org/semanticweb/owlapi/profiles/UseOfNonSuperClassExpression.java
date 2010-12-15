@@ -31,7 +31,8 @@ public class UseOfNonSuperClassExpression extends OWLProfileViolation implements
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-superclass expression in position that requires a superclass expression: ");
         sb.append(classExpression);

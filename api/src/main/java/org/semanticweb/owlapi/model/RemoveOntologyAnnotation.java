@@ -45,32 +45,38 @@ public class RemoveOntologyAnnotation extends OWLOntologyChange {
     }
 
 
-    public boolean isAxiomChange() {
+    @Override
+	public boolean isAxiomChange() {
         return false;
     }
 
 
-    public OWLAxiom getAxiom() {
+    @Override
+	public OWLAxiom getAxiom() {
         return null;
     }
 
 
-    public boolean isImportChange() {
+    @Override
+	public boolean isImportChange() {
         return false;
     }
 
 
-    public void accept(OWLOntologyChangeVisitor visitor) {
+    @Override
+	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return 23 + getOntology().hashCode() + getAnnotation().hashCode();
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if(obj == this) {
             return true;
         }

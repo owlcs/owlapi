@@ -34,15 +34,18 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
 public class OWLDataSomeRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLDataProperty, OWLDataRange> {
-    protected OWLRestriction createRestriction(OWLDataProperty prop, OWLDataRange filler) throws Exception {
+    @Override
+	protected OWLRestriction createRestriction(OWLDataProperty prop, OWLDataRange filler) throws Exception {
         return getFactory().getOWLDataSomeValuesFrom(prop, filler);
     }
 
-    protected OWLDataProperty createProperty() throws OWLException {
+    @Override
+	protected OWLDataProperty createProperty() throws OWLException {
         return createOWLDataProperty();
     }
 
-    protected OWLDataRange createFiller() throws OWLException {
+    @Override
+	protected OWLDataRange createFiller() throws OWLException {
         return createOWLDatatype();
     }
 }

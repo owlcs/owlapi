@@ -23,7 +23,8 @@ public class UseOfDataOneOfWithMultipleLiterals extends UseOfIllegalDataRange {
         return dataOneOf;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of DataOneOf with multiple literals: ");
         sb.append(getAxiom());

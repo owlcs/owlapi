@@ -12,14 +12,16 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
  */
 public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 
-    public void testCreation() throws Exception {
+    @Override
+	public void testCreation() throws Exception {
         OWLClassExpression operand = getFactory().getOWLClass(createIRI());
         OWLObjectComplementOf not = getFactory().getOWLObjectComplementOf(operand);
         assertNotNull(not);
     }
 
 
-    public void testEqualsPositive() throws Exception {
+    @Override
+	public void testEqualsPositive() throws Exception {
         OWLClassExpression operand = getFactory().getOWLClass(createIRI());
         OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(operand);
         OWLObjectComplementOf notB = getFactory().getOWLObjectComplementOf(operand);
@@ -27,7 +29,8 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
     }
 
 
-    public void testEqualsNegative() throws Exception {
+    @Override
+	public void testEqualsNegative() throws Exception {
         OWLClassExpression operandA = getFactory().getOWLClass(createIRI());
         OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(operandA);
         OWLClassExpression operandB = getFactory().getOWLClass(createIRI());
@@ -36,7 +39,8 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
     }
 
 
-    public void testHashCode() throws Exception {
+    @Override
+	public void testHashCode() throws Exception {
         OWLClassExpression operand = getFactory().getOWLClass(createIRI());
         OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(operand);
         OWLObjectComplementOf notB = getFactory().getOWLObjectComplementOf(operand);

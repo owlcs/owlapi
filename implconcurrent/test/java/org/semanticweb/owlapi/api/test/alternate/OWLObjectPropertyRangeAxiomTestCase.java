@@ -34,14 +34,17 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class OWLObjectPropertyRangeAxiomTestCase
 		extends
 		AbstractOWLBinaryOperandAxiomTestCase<OWLObjectProperty, OWLClassExpression> {
+	@Override
 	protected OWLObjectProperty createLeftOperand() throws Exception {
 		return createOWLObjectProperty();
 	}
 
+	@Override
 	protected OWLClassExpression createRightOperand() throws Exception {
 		return createOWLClass();
 	}
 
+	@Override
 	protected OWLAxiom createAxiom(OWLObjectProperty leftOperand,
 			OWLClassExpression rightOperand) throws Exception {
 		return getFactory().getOWLObjectPropertyRangeAxiom(leftOperand,

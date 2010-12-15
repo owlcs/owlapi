@@ -37,7 +37,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * <br>
  */
 public class NestedClassExpressionRoundTrippingTestCase extends AbstractRoundTrippingTest {
-    protected OWLOntology createOntology() {
+    @Override
+	protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("OntA");
         OWLObjectProperty prop = getOWLObjectProperty("propP");
         OWLClass clsA = getOWLClass("A");

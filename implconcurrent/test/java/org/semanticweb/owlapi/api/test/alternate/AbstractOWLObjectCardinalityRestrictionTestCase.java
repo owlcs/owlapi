@@ -40,6 +40,7 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends
 			OWLObjectProperty prop, int cardinality,
 			OWLClassExpression classExpression) throws Exception;
 
+	@Override
 	public void testCreation() throws Exception {
 		OWLObjectProperty prop = getFactory().getOWLObjectProperty(createIRI());
 		int cardinality = 3;
@@ -52,6 +53,7 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends
 		assertNotNull(restB);
 	}
 
+	@Override
 	public void testEqualsPositive() throws Exception {
 		OWLObjectProperty prop = getFactory().getOWLObjectProperty(createIRI());
 		int cardinality = 3;
@@ -68,6 +70,7 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends
 		assertEquals(restC, restD);
 	}
 
+	@Override
 	public void testEqualsNegative() throws Exception {
 		OWLObjectProperty prop = getFactory().getOWLObjectProperty(createIRI());
 		// Different cardinality
@@ -88,6 +91,7 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends
 		assertNotEquals(restE, restF);
 	}
 
+	@Override
 	public void testHashCode() throws Exception {
 		OWLObjectProperty prop = getFactory().getOWLObjectProperty(createIRI());
 		int cardinality = 3;

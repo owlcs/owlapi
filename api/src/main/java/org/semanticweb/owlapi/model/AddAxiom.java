@@ -41,12 +41,14 @@ public class AddAxiom extends OWLAxiomChange {
     }
 
 
-    protected boolean isAdd() {
+    @Override
+	protected boolean isAdd() {
         return true;
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if(obj == this) {
             return true;
         }
@@ -59,16 +61,19 @@ public class AddAxiom extends OWLAxiomChange {
     }
 
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return 17 + getOntology().hashCode() * 13 + getAxiom().hashCode() * 13;
     }
 
 
-    public void accept(OWLOntologyChangeVisitor visitor) {
+    @Override
+	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("ADD AXIOM: ");
         sb.append(getAxiom().toString());

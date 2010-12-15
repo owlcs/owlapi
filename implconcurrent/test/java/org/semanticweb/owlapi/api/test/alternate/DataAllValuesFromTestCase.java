@@ -51,11 +51,13 @@ public class DataAllValuesFromTestCase extends AbstractFileRoundTrippingTestCase
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
-    protected String getFileName() {
+    @Override
+	protected String getFileName() {
         return "DataAllValuesFrom.rdf";
     }
 
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    @Override
+	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }
 }

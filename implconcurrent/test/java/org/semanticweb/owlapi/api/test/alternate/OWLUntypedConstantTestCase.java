@@ -30,17 +30,20 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
 public class OWLUntypedConstantTestCase extends AbstractOWLDataFactoryTest {
+	@Override
 	public void testCreation() throws Exception {
 		OWLLiteral conB = getFactory().getOWLLiteral("TEST", "LANG");
 		assertNotNull(conB);
 	}
 
+	@Override
 	public void testEqualsPositive() throws Exception {
 		OWLLiteral conC = getFactory().getOWLLiteral("TEST", "LANG");
 		OWLLiteral conD = getFactory().getOWLLiteral("TEST", "LANG");
 		assertEquals(conC, conD);
 	}
 
+	@Override
 	public void testEqualsNegative() throws Exception {
 		OWLLiteral conC = getFactory().getOWLLiteral("TEST", "LANG");
 		OWLLiteral conD = getFactory().getOWLLiteral("TEST", "OTHER_LANG");
@@ -50,6 +53,7 @@ public class OWLUntypedConstantTestCase extends AbstractOWLDataFactoryTest {
 		assertNotEquals(conE, conF);
 	}
 
+	@Override
 	public void testHashCode() throws Exception {
 		OWLLiteral conA = getFactory().getOWLLiteral("TEST", "LANG");
 		OWLLiteral conB = getFactory().getOWLLiteral("TEST", "LANG");

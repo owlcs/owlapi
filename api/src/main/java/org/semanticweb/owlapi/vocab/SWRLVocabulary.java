@@ -1,8 +1,8 @@
 package org.semanticweb.owlapi.vocab;
 
-import org.semanticweb.owlapi.model.IRI;
-
 import java.net.URI;
+
+import org.semanticweb.owlapi.model.IRI;
 
 
 /**

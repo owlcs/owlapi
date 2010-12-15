@@ -62,7 +62,8 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
     }
 
 
-    public String toString() {
+    @Override
+	public String toString() {
         return getLabel();
     }
 }

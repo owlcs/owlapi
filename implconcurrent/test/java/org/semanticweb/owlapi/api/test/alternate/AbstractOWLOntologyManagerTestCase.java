@@ -36,6 +36,7 @@ public abstract class AbstractOWLOntologyManagerTestCase extends
 	public static final String SYSTEM_PARAM_NAME = "OntologyManagerFactory";
 	private OWLOntologyManager manager;
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		String factoryName = System.getProperty(SYSTEM_PARAM_NAME);
@@ -53,18 +54,22 @@ public abstract class AbstractOWLOntologyManagerTestCase extends
 		return manager;
 	}
 
+	@Override
 	public void testCreation() throws Exception {
 		// Ignore
 	}
 
+	@Override
 	public void testEqualsPositive() throws Exception {
 		// Ignore
 	}
 
+	@Override
 	public void testEqualsNegative() throws Exception {
 		// Ignore
 	}
 
+	@Override
 	public void testHashCode() throws Exception {
 		// Ignore
 	}

@@ -161,7 +161,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return getOntologyID().isAnonymous();
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         if (object == this) {
             return 0;
         }
@@ -463,6 +464,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public boolean containsIndividualInSignature(IRI individualIRI, boolean includeImportsClosure) {
+    	//XXX imports closure should be taken into account
         for (OWLOntology ont : manager.getImportsClosure(this)) {
             if (ont.containsIndividualInSignature(individualIRI)) {
                 return true;
@@ -785,7 +787,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLEntity> getSignature() {
+    @Override
+	public Set<OWLEntity> getSignature() {
         // We might want to cache this for performance reasons,
         // but I'm not sure right now.
         Set<OWLEntity> entities = createSet();
@@ -1412,7 +1415,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

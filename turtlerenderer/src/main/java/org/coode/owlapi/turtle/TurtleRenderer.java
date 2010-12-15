@@ -1,41 +1,34 @@
 package org.coode.owlapi.turtle;
 
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.Stack;
+import java.util.TreeSet;
+
 import org.coode.owlapi.rdf.model.RDFLiteralNode;
 import org.coode.owlapi.rdf.model.RDFNode;
 import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTriple;
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.VersionInfo;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
-import org.semanticweb.owlapi.vocab.XSDVocabulary;
+import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.Namespaces;
-
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.*;
-/*
- * Copyright (C) 2007, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
-
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 
 /**
@@ -272,7 +265,8 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
 
-    protected void beginDocument() {
+    @Override
+	protected void beginDocument() {
         // Namespaces
         writeNamespaces();
         write("@base ");
@@ -290,7 +284,8 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
 
-    protected void endDocument() {
+    @Override
+	protected void endDocument() {
         writer.flush();
         writer.println();
         writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
@@ -298,30 +293,36 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
 
-    protected void writeClassComment(OWLClass cls) {
+    @Override
+	protected void writeClassComment(OWLClass cls) {
         writeComment(cls.getIRI().toString());
     }
 
 
-    protected void writeObjectPropertyComment(OWLObjectProperty prop) {
+    @Override
+	protected void writeObjectPropertyComment(OWLObjectProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
 
-    protected void writeDataPropertyComment(OWLDataProperty prop) {
+    @Override
+	protected void writeDataPropertyComment(OWLDataProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
 
-    protected void writeIndividualComments(OWLNamedIndividual ind) {
+    @Override
+	protected void writeIndividualComments(OWLNamedIndividual ind) {
         writeComment(ind.getIRI().toString());
     }
 
-    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
+    @Override
+	protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
-    protected void writeDatatypeComment(OWLDatatype datatype) {
+    @Override
+	protected void writeDatatypeComment(OWLDatatype datatype) {
         writeComment(datatype.getIRI().toString());
     }
 
@@ -333,14 +334,16 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
 
-    protected void endObject() {
+    @Override
+	protected void endObject() {
         writeNewLine();
         writeNewLine();
         writeNewLine();
     }
 
 
-    protected void writeBanner(String name) {
+    @Override
+	protected void writeBanner(String name) {
         writeNewLine();
         writeNewLine();
         writer.println("#################################################################");
@@ -360,7 +363,8 @@ public class TurtleRenderer extends RDFRendererBase {
      * Renders the triples whose subject is the specified node
      * @param node The node
      */
-    public void render(RDFResourceNode node) {
+    @Override
+	public void render(RDFResourceNode node) {
         level++;
         if (pending.contains(node)) {
             // We essentially remove all structure sharing during parsing - any cycles therefore indicate a bug!

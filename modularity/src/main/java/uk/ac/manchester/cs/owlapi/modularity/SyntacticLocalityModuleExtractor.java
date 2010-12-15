@@ -1,16 +1,28 @@
 package uk.ac.manchester.cs.owlapi.modularity;
 
-import com.clarkparsia.owlapi.modularity.locality.LocalityClass;
-import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.modularity.OntologySegmenter;
-import org.semanticweb.owlapi.reasoner.NodeSet;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
-
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.modularity.OntologySegmenter;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+
+import com.clarkparsia.owlapi.modularity.locality.LocalityClass;
+import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
 
 /**
  * Implementation of module extraction based on syntactic locality.

@@ -30,7 +30,8 @@ public class UseOfUndeclaredDatatype extends OWLProfileViolation implements OWL2
         return datatype;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of undeclared datatype: ");
         sb.append(datatype);

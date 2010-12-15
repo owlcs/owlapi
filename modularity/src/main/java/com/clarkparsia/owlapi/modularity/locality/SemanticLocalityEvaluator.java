@@ -1,15 +1,43 @@
 package com.clarkparsia.owlapi.modularity.locality;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 
 /**
@@ -28,7 +56,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
     public static final Logger log = Logger.getLogger(SemanticLocalityEvaluator.class.getName());
 
-    private OWLDataFactory df;
+    protected OWLDataFactory df;
 
     private AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
 
@@ -74,7 +102,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLDisjointClassesAxiom axiom) {
+        @Override
+		public void visit(OWLDisjointClassesAxiom axiom) {
             Set<OWLClassExpression> disjClasses = axiom.getClassExpressions();
             OWLClassExpression conjunction = df.getOWLObjectIntersectionOf(disjClasses);
 
@@ -88,7 +117,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLEquivalentClassesAxiom axiom) {
+        @Override
+		public void visit(OWLEquivalentClassesAxiom axiom) {
             Set<OWLClassExpression> eqClasses = axiom.getClassExpressions();
             if (eqClasses.size() != 2)
                 return;
@@ -105,7 +135,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLSubClassOfAxiom axiom) {
+        @Override
+		public void visit(OWLSubClassOfAxiom axiom) {
 
             if (log.isLoggable(Level.FINE))
                 log.fine("Calling the Reasoner");
@@ -117,7 +148,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
-
+    @SuppressWarnings("unused")
     private class BottomReplacer extends OWLAxiomVisitorAdapter implements OWLAxiomVisitor, OWLClassExpressionVisitor {
 
         private OWLAxiom newAxiom;
@@ -221,13 +252,15 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLDisjointClassesAxiom ax) {
+        @Override
+		public void visit(OWLDisjointClassesAxiom ax) {
             Set<OWLClassExpression> disjointclasses = replaceBottom(ax.getClassExpressions());
             newAxiom = df.getOWLDisjointClassesAxiom(disjointclasses);
         }
 
 
-        public void visit(OWLEquivalentClassesAxiom ax) {
+        @Override
+		public void visit(OWLEquivalentClassesAxiom ax) {
             Set<OWLClassExpression> eqclasses = replaceBottom(ax.getClassExpressions());
             newAxiom = df.getOWLEquivalentClassesAxiom(eqclasses);
         }
@@ -306,7 +339,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void visit(OWLSubClassOfAxiom ax) {
+        @Override
+		public void visit(OWLSubClassOfAxiom ax) {
             OWLClassExpression sup = replaceBottom(ax.getSuperClass());
             OWLClassExpression sub = replaceBottom(ax.getSubClass());
             newAxiom = df.getOWLSubClassOfAxiom(sub, sup);

@@ -13,14 +13,16 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 public class OWLDataRangeNotTestCase extends AbstractOWLDataFactoryTest {
 
 
-    public void testCreation() throws Exception {
+    @Override
+	public void testCreation() throws Exception {
         OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
         OWLDataComplementOf rng = getFactory().getOWLDataComplementOf(dt);
         assertNotNull(rng);
     }
 
 
-    public void testEqualsPositive() throws Exception {
+    @Override
+	public void testEqualsPositive() throws Exception {
         OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
         OWLDataComplementOf rngA = getFactory().getOWLDataComplementOf(dt);
         OWLDataComplementOf rngB = getFactory().getOWLDataComplementOf(dt);
@@ -28,7 +30,8 @@ public class OWLDataRangeNotTestCase extends AbstractOWLDataFactoryTest {
     }
 
 
-    public void testEqualsNegative() throws Exception {
+    @Override
+	public void testEqualsNegative() throws Exception {
         OWLDatatype dtA = getFactory().getOWLDatatype(createIRI());
         OWLDataComplementOf rngA = getFactory().getOWLDataComplementOf(dtA);
         OWLDatatype dtB = getFactory().getOWLDatatype(createIRI());
@@ -37,7 +40,8 @@ public class OWLDataRangeNotTestCase extends AbstractOWLDataFactoryTest {
     }
 
 
-    public void testHashCode() throws Exception {
+    @Override
+	public void testHashCode() throws Exception {
         OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
         OWLDataComplementOf rngA = getFactory().getOWLDataComplementOf(dt);
         OWLDataComplementOf rngB = getFactory().getOWLDataComplementOf(dt);

@@ -25,7 +25,8 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
     private OWLOntologyManager manager;
 
 
-    protected void setUp() throws Exception {
+    @Override
+	protected void setUp() throws Exception {
         super.setUp();
         manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         manager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());

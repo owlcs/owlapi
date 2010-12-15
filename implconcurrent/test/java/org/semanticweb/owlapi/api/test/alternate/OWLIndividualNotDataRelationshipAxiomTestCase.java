@@ -36,14 +36,17 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 public class OWLIndividualNotDataRelationshipAxiomTestCase
 		extends
 		AbstractOWLIndividualRelationshipAxiomTestCase<OWLDataProperty, OWLLiteral> {
+	@Override
 	protected OWLDataProperty createProperty() throws Exception {
 		return createOWLDataProperty();
 	}
 
+	@Override
 	protected OWLLiteral createObject() throws Exception {
 		return createOWLLiteral();
 	}
 
+	@Override
 	protected OWLIndividualAxiom createAxiom(OWLIndividual subject,
 			OWLDataProperty property, OWLLiteral object) throws OWLException {
 		return getFactory().getOWLNegativeDataPropertyAssertionAxiom(property,

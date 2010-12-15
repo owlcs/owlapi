@@ -34,11 +34,13 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLSameIndividualsAxiomTestCase extends
 		AbstractOWLNaryOperandsObjectTestCase<OWLIndividual> {
+	@Override
 	protected OWLObject createObject(Set<OWLIndividual> operands)
 			throws Exception {
 		return getFactory().getOWLSameIndividualAxiom(operands);
 	}
 
+	@Override
 	protected OWLIndividual createOperand() throws Exception {
 		return createOWLIndividual();
 	}

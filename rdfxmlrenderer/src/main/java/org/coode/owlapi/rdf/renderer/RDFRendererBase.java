@@ -1,37 +1,57 @@
 package org.coode.owlapi.rdf.renderer;
 
-import org.coode.owlapi.rdf.model.*;
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.SWRLVariableExtractor;
-import org.semanticweb.owlapi.util.AxiomSubjectProvider;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.io.RDFOntologyFormat;
-
 import java.io.IOException;
 import java.net.URI;
-import java.util.*;
-/*
- * Copyright (C) 2007, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+import org.coode.owlapi.rdf.model.RDFGraph;
+import org.coode.owlapi.rdf.model.RDFLiteralNode;
+import org.coode.owlapi.rdf.model.RDFNode;
+import org.coode.owlapi.rdf.model.RDFResourceNode;
+import org.coode.owlapi.rdf.model.RDFTranslator;
+import org.coode.owlapi.rdf.model.RDFTriple;
+import org.semanticweb.owlapi.io.RDFOntologyFormat;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEntityVisitor;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.util.AxiomSubjectProvider;
+import org.semanticweb.owlapi.util.SWRLVariableExtractor;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 
 /**
@@ -482,7 +502,7 @@ public abstract class RDFRendererBase {
     }
 
 
-    private void createGraph(Set<? extends OWLObject> objects) {
+    protected void createGraph(Set<? extends OWLObject> objects) {
         RDFTranslator translator = new RDFTranslator(manager, ontology, insertDeclarationAxioms);
         for (OWLObject obj : objects) {
             obj.accept(translator);

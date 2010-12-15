@@ -49,15 +49,16 @@ import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
 
 public final class InternalsCWR implements OWLDataFactoryInternals {
-    private ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> classesByURI;
-    private ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> objectPropertiesByURI;
-    private ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> dataPropertiesByURI;
-    private ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> datatypesByURI;
-    private ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> individualsByURI;
-    private ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> annotationPropertiesByURI;
-    private final OWLDataFactory factory;
+	protected ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> classesByURI;
+	protected ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> objectPropertiesByURI;
+	protected ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> dataPropertiesByURI;
+	protected ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> datatypesByURI;
+	protected ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> individualsByURI;
+	protected ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> annotationPropertiesByURI;
+	protected final OWLDataFactory factory;
     private final Thread reaper = new Thread() {
-        public void run() {
+        @Override
+		public void run() {
             this.setPriority(MIN_PRIORITY);
             while (true) {
                 clean(classesByURI);

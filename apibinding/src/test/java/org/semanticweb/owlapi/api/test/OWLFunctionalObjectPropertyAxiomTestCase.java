@@ -14,12 +14,14 @@ import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 public class OWLFunctionalObjectPropertyAxiomTestCase extends AbstractOWLPropertyCharacteristicTestCase<OWLObjectProperty> {
 
 
-    protected OWLObjectProperty createProperty() throws Exception {
+    @Override
+	protected OWLObjectProperty createProperty() throws Exception {
         return createOWLObjectProperty();
     }
 
 
-    protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) throws OWLException {
+    @Override
+	protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) throws OWLException {
         return getFactory().getOWLFunctionalObjectPropertyAxiom(property);
     }
 }

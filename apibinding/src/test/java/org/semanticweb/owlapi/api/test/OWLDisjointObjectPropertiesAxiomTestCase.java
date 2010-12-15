@@ -15,12 +15,14 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class OWLDisjointObjectPropertiesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLObjectProperty> {
 
 
-    protected OWLObject createObject(Set<OWLObjectProperty> operands) throws Exception {
+    @Override
+	protected OWLObject createObject(Set<OWLObjectProperty> operands) throws Exception {
         return getFactory().getOWLDisjointObjectPropertiesAxiom(operands);
     }
 
 
-    protected OWLObjectProperty createOperand() throws Exception {
+    @Override
+	protected OWLObjectProperty createOperand() throws Exception {
         return createOWLObjectProperty();
     }
 }

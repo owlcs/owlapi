@@ -1,10 +1,10 @@
 package org.semanticweb.owlapi.vocab;
 
-import org.semanticweb.owlapi.model.IRI;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.IRI;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -105,7 +105,8 @@ public enum OWLFacet {
     }
 
 
-    public String toString() {
+    @Override
+	public String toString() {
         return shortName;
     }
 

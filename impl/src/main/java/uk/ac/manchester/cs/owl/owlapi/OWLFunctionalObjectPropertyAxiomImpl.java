@@ -34,7 +34,8 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         return getOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(getProperty());
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLFunctionalObjectPropertyAxiom;
         }

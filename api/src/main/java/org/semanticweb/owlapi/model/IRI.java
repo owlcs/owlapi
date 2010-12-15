@@ -1,35 +1,16 @@
 package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.vocab.Namespaces;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.*;import java.util.concurrent.ConcurrentHashMap;
-/*
- * Copyright (C) 2008, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
@@ -188,7 +169,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             this(uri.toString());
         }
 
-        public URI toURI() {
+        @Override
+		public URI toURI() {
             if (remainder != null) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(prefix);
@@ -200,7 +182,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             }
         }
 
-        public IRI resolve(String s) {
+        @Override
+		public IRI resolve(String s) {
         	// shortcut: checking absolute and opaque here saves the creation of an extra URI object
 			URI uri = URI.create(s);
 			if (uri.isAbsolute() || uri.isOpaque()) {
@@ -223,7 +206,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
          *
          * @return <code>true</code> if this IRI is absolute or <code>false</code> if this IRI is not absolute
          */
-        public boolean isAbsolute() {
+        @Override
+		public boolean isAbsolute() {
             int colonIndex = prefix.indexOf(':');
             if (colonIndex == -1) {
                 return false;
@@ -242,7 +226,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
          *
          * @return The IRI fragment, or <code>null</code> if the IRI does not have a fragment
          */
-        public String getFragment() {
+        @Override
+		public String getFragment() {
             if(prefix.endsWith("#")) {
                 return remainder;
             }
@@ -251,20 +236,24 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             }
         }
         
-        public String getStart() {
+        @Override
+		public String getStart() {
         	return prefix;
         }
        
 
-        public boolean isNothing() {
+        @Override
+		public boolean isNothing() {
             return this.equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
         }
 
-        public boolean isReservedVocabulary() {
+        @Override
+		public boolean isReservedVocabulary() {
             return prefix.startsWith(Namespaces.OWL.toString()) || prefix.startsWith(Namespaces.RDF.toString()) || prefix.startsWith(Namespaces.RDFS.toString()) || prefix.startsWith(Namespaces.XSD.toString());
         }
 
-        public boolean isThing() {
+        @Override
+		public boolean isThing() {
             return remainder != null && remainder.equals("Thing") && prefix.equals(Namespaces.OWL.toString());
         }
 
@@ -348,7 +337,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             }
         }
 
-        public String toString() {
+        @Override
+		public String toString() {
             if (remainder != null) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(prefix);
@@ -360,7 +350,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             }
         }
 
-        public String toQuotedString() {
+        @Override
+		public String toQuotedString() {
             StringBuilder sb = new StringBuilder();
             sb.append("<");
             sb.append(prefix);
@@ -372,7 +363,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             return sb.toString();
         }
 
-        public int hashCode() {
+        @Override
+		public int hashCode() {
             if (hashCode == 0) {
                 hashCode = prefix.hashCode() + (remainder != null ? remainder.hashCode() : 0);
             }
@@ -395,7 +387,8 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             return false;
         }
 
-        public boolean equals(Object obj) {
+        @Override
+		public boolean equals(Object obj) {
             if (obj == null) {
                 return false;
             }

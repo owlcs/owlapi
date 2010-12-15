@@ -66,7 +66,8 @@ public enum KRSSVocabulary {
         return shortName;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         return shortName;
     }
 }

@@ -82,7 +82,8 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
         return props;
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLHasKeyAxiom other = (OWLHasKeyAxiom) object;
         int diff = expression.compareTo(other.getClassExpression());
         if (diff != 0) {
@@ -108,7 +109,8 @@ public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

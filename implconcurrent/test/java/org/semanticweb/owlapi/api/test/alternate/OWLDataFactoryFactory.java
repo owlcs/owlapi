@@ -33,6 +33,8 @@ import org.semanticweb.owlapi.model.OWLException;
  * Date: 12-Dec-2006<br>
  * <br>
  */
+
+// XXX is this class used?
 public abstract class OWLDataFactoryFactory {
     private static OWLDataFactoryFactory factory;
 

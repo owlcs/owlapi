@@ -27,7 +27,8 @@ public class UseOfObjectPropertyInverse extends OWLProfileViolation implements  
         return propertyExpression;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of inverse property: ");
         sb.append(propertyExpression);

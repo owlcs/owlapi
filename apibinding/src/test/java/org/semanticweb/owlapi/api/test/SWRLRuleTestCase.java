@@ -23,7 +23,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLDataFactory df = getFactory();
         SWRLVariable varX = df.getSWRLVariable(IRI.create("http://www.owlapi#x"));

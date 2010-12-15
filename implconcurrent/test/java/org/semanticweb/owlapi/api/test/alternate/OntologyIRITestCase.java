@@ -39,6 +39,7 @@ public class OntologyIRITestCase extends AbstractFileTestCase {
 				.toString());
 	}
 
+	@Override
 	protected String getFileName() {
 		return "ontologyIRI.rdf";
 	}

@@ -50,7 +50,8 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLInd
         return visitor.visit(this);
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -62,7 +63,8 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLInd
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         return individual.compareTo(((SWRLIndividualArgument) object).getIndividual());
     }
 }

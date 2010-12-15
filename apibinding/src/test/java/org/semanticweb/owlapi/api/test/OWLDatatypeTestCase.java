@@ -36,13 +36,15 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 public class OWLDatatypeTestCase extends AbstractOWLDataFactoryTest {
 
 
-    public void testCreation() throws Exception {
+    @Override
+	public void testCreation() throws Exception {
         OWLDatatype typeA = getFactory().getOWLDatatype(createIRI());
         assertNotNull(typeA);
     }
 
 
-    public void testEqualsPositive() throws Exception {
+    @Override
+	public void testEqualsPositive() throws Exception {
         IRI iri = createIRI();
         OWLDatatype typeA = getFactory().getOWLDatatype(iri);
         OWLDatatype typeB = getFactory().getOWLDatatype(iri);
@@ -50,14 +52,16 @@ public class OWLDatatypeTestCase extends AbstractOWLDataFactoryTest {
     }
 
 
-    public void testEqualsNegative() throws Exception {
+    @Override
+	public void testEqualsNegative() throws Exception {
         OWLDatatype typeA = getFactory().getOWLDatatype(createIRI());
         OWLDatatype typeB = getFactory().getOWLDatatype(createIRI());
         assertNotEquals(typeA, typeB);
     }
 
 
-    public void testHashCode() throws Exception {
+    @Override
+	public void testHashCode() throws Exception {
         IRI iri = createIRI();
         OWLDatatype typeA = getFactory().getOWLDatatype(iri);
         OWLDatatype typeB = getFactory().getOWLDatatype(iri);

@@ -38,7 +38,8 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLAsymmetricObjectPropertyAxiom && getAnnotations().equals(((OWLAxiom) obj).getAnnotations());
         }

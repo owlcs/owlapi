@@ -1,15 +1,15 @@
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
-import org.semanticweb.owlapi.io.OWLRendererException;
-import org.semanticweb.owlapi.io.OWLRendererIOException;
-import org.semanticweb.owlapi.util.ShortFormProvider;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
+import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.io.OWLRendererIOException;
+import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /*
  * Copyright (C) 2007, University of Manchester

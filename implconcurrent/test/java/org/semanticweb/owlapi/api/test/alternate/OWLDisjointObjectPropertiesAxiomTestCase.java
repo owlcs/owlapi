@@ -34,11 +34,13 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class OWLDisjointObjectPropertiesAxiomTestCase extends
 		AbstractOWLNaryOperandsObjectTestCase<OWLObjectProperty> {
+	@Override
 	protected OWLObject createObject(Set<OWLObjectProperty> operands)
 			throws Exception {
 		return getFactory().getOWLDisjointObjectPropertiesAxiom(operands);
 	}
 
+	@Override
 	protected OWLObjectProperty createOperand() throws Exception {
 		return createOWLObjectProperty();
 	}

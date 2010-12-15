@@ -35,7 +35,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Date: 02-Jul-2009
  */
 public class SameIndividualsTestCase extends AbstractAxiomsRoundTrippingTestCase {
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         // Can't round trip more than two in RDF!
         axioms.add(getFactory().getOWLSameIndividualAxiom(getOWLIndividual("i"), getOWLIndividual("j")));

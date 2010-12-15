@@ -1,33 +1,11 @@
 package org.semanticweb.owlapi.model;
 
 
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
-import org.semanticweb.owlapi.vocab.OWLFacet;
-
 import java.util.List;
 import java.util.Set;
-/*
- * Copyright (C) 2006, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLFacet;
 
 
 /**
@@ -259,49 +237,42 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * Gets an annotation property that has an IRI corresponding to <code>rdfs:comment</code>.
      * @return An annotation property with an IRI of <code>rdfs:comment</code>.
      */
-    @SuppressWarnings("unused")
     OWLAnnotationProperty getRDFSComment();
 
     /**
      * Gets an annotation property that has an IRI corresponding to <code>rdfs:seeAlso</code>.
      * @return An annotation property with an IRI of <code>rdfs:seeAlso</code>.
      */
-    @SuppressWarnings("unused")
     OWLAnnotationProperty getRDFSSeeAlso();
 
     /**
      * Gets an annotation property that has an IRI corresponding to <code>rdfs:isDefinedBy</code>.
      * @return An annotation property with an IRI of <code>rdfs:isDefinedBy</code>.
      */
-    @SuppressWarnings("unused")
     OWLAnnotationProperty getRDFSIsDefinedBy();
 
     /**
      * Gets an annotation property that has an IRI corresponding to <code>owl:versionInfo</code>.
      * @return An annotation property with an IRI of <code>owl:versionInfo</code>.
      */
-    @SuppressWarnings("unused")
     OWLAnnotationProperty getOWLVersionInfo();
 
     /**
      * Gets an annotation property that has an IRI corresponding to <code>owl:backwardCompatibleWith</code>.
      * @return An annotation property with an IRI of <code>owl:backwardCompatibleWith</code>.
      */
-    @SuppressWarnings("unused")
     OWLAnnotationProperty getOWLBackwardCompatibleWith();
 
     /**
      * Gets an annotation property that has an IRI corresponding to <code>owl:incompatibleWith</code>.
      * @return An annotation property with an IRI of <code>owl:incompatibleWith</code>.
      */
-    @SuppressWarnings("unused")
     OWLAnnotationProperty getOWLIncompatibleWith();
 
     /**
      * Gets an annotation property that has an IRI corresponding to <code>owl:backwardCompatibleWith</code>.
      * @return An annotation property with an IRI of <code>owl:backwardCompatibleWith</code>.
      */
-    @SuppressWarnings("unused")
     OWLAnnotationProperty getOWLDeprecated();
 
     /**
@@ -470,7 +441,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @deprecated Use {@link #getOWLLiteral(String, OWLDatatype)}
      */
     @Deprecated
-    @SuppressWarnings("unused")
     OWLLiteral getOWLTypedLiteral(String literal, OWLDatatype datatype);
 
     /**
@@ -481,7 +451,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *             Creates a typed literal that has the specified OWL 2 Datatype as its datatype
      */
     @Deprecated
-    @SuppressWarnings("unused")
     OWLLiteral getOWLTypedLiteral(String literal, OWL2Datatype datatype);
 
     /**
@@ -492,7 +461,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *             Convenience method that obtains a literal typed as an integer.
      */
     @Deprecated
-    @SuppressWarnings("unused")
     OWLLiteral getOWLTypedLiteral(int value);
 
 
@@ -504,7 +472,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *             Convenience method that obtains a literal typed as a double.
      */
     @Deprecated
-    @SuppressWarnings("unused")
     OWLLiteral getOWLTypedLiteral(double value);
 
 
@@ -516,7 +483,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *             Convenience method that obtains a literal typed as a boolean.
      */
     @Deprecated
-    @SuppressWarnings("unused")
     OWLLiteral getOWLTypedLiteral(boolean value);
 
 
@@ -528,7 +494,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *             Convenience method that obtains a literal typed as a float.
      */
     @Deprecated
-    @SuppressWarnings("unused")
     OWLLiteral getOWLTypedLiteral(float value);
 
 
@@ -540,7 +505,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *             Convenience method that obtains a literal typed as a string.
      */
     @Deprecated
-    @SuppressWarnings("unused")
     OWLLiteral getOWLTypedLiteral(String value);
 
 
@@ -555,7 +519,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *             Gets an OWLStringLiteral with a language tag.
      */
     @Deprecated
-    @SuppressWarnings("unused")
     OWLLiteral getOWLStringLiteral(String literal, String lang);
 
     /**
@@ -565,7 +528,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *             Gets a string literal without a language tag.
      */
     @Deprecated
-    @SuppressWarnings("unused")
     OWLLiteral getOWLStringLiteral(String literal);
 
 
@@ -625,7 +587,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *         a {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet value specified by the <code>maxInclusive</code>
      *         parameter.
      */
-    @SuppressWarnings("unused")
     OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(int maxInclusive);
 
     /**
@@ -637,7 +598,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *         parameter and a {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet value specified by the <code>maxInclusive</code>
      *         parameter.
      */
-    @SuppressWarnings("unused")
     OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(int minInclusive, int maxInclusive);
 
 
@@ -648,7 +608,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *         a {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet value specified by the <code>minExclusive</code>
      *         parameter.
      */
-    @SuppressWarnings("unused")
     OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(int minExclusive);
 
     /**
@@ -658,7 +617,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *         a {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet value specified by the <code>maxExclusive</code>
      *         parameter.
      */
-    @SuppressWarnings("unused")
     OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(int maxExclusive);
 
     /**
@@ -670,7 +628,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *         parameter and a {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet value specified by the <code>maxExclusive</code>
      *         parameter.
      */
-    @SuppressWarnings("unused")
     OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(int minExclusive, int maxExclusive);
 
 
@@ -681,7 +638,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *         a {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE} facet value specified by the <code>minInclusive</code>
      *         parameter.
      */
-    @SuppressWarnings("unused")
     OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(double minInclusive);
 
     /**
@@ -691,7 +647,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *         a {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet value specified by the <code>maxInclusive</code>
      *         parameter.
      */
-    @SuppressWarnings("unused")
     OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(double maxInclusive);
 
     /**
@@ -703,7 +658,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *         parameter and a {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet value specified by the <code>maxInclusive</code>
      *         parameter.
      */
-    @SuppressWarnings("unused")
     OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(double minInclusive, double maxInclusive);
 
 
@@ -714,7 +668,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *         a {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet value specified by the <code>minExclusive</code>
      *         parameter.
      */
-    @SuppressWarnings("unused")
     OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(double minExclusive);
 
     /**
@@ -724,7 +677,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *         a {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet value specified by the <code>maxExclusive</code>
      *         parameter.
      */
-    @SuppressWarnings("unused")
     OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(double maxExclusive);
 
     /**
@@ -736,7 +688,6 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *         parameter and a {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet value specified by the <code>maxExclusive</code>
      *         parameter.
      */
-    @SuppressWarnings("unused")
     OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(double minExclusive, double maxExclusive);
 
 

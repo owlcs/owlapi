@@ -34,11 +34,13 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
 public class OWLEquivalentObjectPropertiesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLObjectProperty> {
-    protected OWLObject createObject(Set<OWLObjectProperty> operands) throws Exception {
+    @Override
+	protected OWLObject createObject(Set<OWLObjectProperty> operands) throws Exception {
         return getFactory().getOWLEquivalentObjectPropertiesAxiom(operands);
     }
 
-    protected OWLObjectProperty createOperand() throws Exception {
+    @Override
+	protected OWLObjectProperty createOperand() throws Exception {
         return createOWLObjectProperty();
     }
 }

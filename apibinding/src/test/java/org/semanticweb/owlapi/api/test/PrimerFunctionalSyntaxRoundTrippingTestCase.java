@@ -30,7 +30,8 @@ package org.semanticweb.owlapi.api.test;
  */
 public class PrimerFunctionalSyntaxRoundTrippingTestCase extends AbstractFileRoundTrippingTestCase {
 
-    protected String getFileName() {
+    @Override
+	protected String getFileName() {
         return "primer.functionalsyntax.txt";
     }
 

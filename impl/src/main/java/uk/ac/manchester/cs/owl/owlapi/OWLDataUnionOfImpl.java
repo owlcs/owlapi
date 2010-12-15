@@ -28,12 +28,14 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
         return DataRangeType.DATA_UNION_OF;
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLDataUnionOf other = (OWLDataUnionOf) object;
         return compareSets(getOperands(), other.getOperands());
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

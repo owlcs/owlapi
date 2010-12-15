@@ -21,7 +21,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public class InferredEquivalentClassAxiomGenerator extends InferredClassAxiomGenerator<OWLEquivalentClassesAxiom> {
 
 
-    protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLEquivalentClassesAxiom> result) {
+    @Override
+	protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLEquivalentClassesAxiom> result) {
         Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>(reasoner.getEquivalentClasses(entity).getEntities());
         equivalentClasses.add(entity);
         if (equivalentClasses.size() > 1) {

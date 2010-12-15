@@ -146,14 +146,16 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             return candidateValue;
         }
 
-        public void visit(OWLAnnotationAssertionAxiom anno) {
+        @Override
+		public void visit(OWLAnnotationAssertionAxiom anno) {
             if (lastLangMatchIndex > 0 && // a perfect match - no need to carry on search
                     anno.getProperty().equals(prop)) {
                 anno.getValue().accept(this);
             }
         }
 
-        public void visit(OWLLiteral node) {
+        @Override
+		public void visit(OWLLiteral node) {
             if (preferredLanguages == null || preferredLanguages.isEmpty()) { // if there are no languages just match the first thing
                 lastLangMatchIndex = 0;
                 candidateValue = node;

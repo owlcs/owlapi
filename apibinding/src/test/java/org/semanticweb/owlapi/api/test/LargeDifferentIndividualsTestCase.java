@@ -14,7 +14,8 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
  */
 public class LargeDifferentIndividualsTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
-    protected Set<? extends OWLAxiom> createAxioms() {
+    @Override
+	protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         Set<OWLNamedIndividual> inds = new HashSet<OWLNamedIndividual>();
         for (int i = 0; i < 1000; i++) {

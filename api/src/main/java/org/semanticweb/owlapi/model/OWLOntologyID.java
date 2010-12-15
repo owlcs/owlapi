@@ -155,7 +155,8 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
     }
 
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         if (ontologyIRI != null) {
             sb.append(ontologyIRI.toQuotedString());
@@ -170,12 +171,14 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
     }
 
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return hashCode;
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

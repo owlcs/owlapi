@@ -53,10 +53,12 @@ public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
 		assertEquals(getOnt().getAxioms(), axioms);
 	}
 
+	@Override
 	protected String getFileName() {
 		return "DataHasValue.rdf";
 	}
 
+	@Override
 	protected void handleSaved(StringDocumentTarget target,
 			OWLOntologyFormat format) {
 		System.out.println(target);

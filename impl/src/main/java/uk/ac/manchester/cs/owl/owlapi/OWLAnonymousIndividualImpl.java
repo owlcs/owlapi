@@ -57,7 +57,8 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
         throw new OWLRuntimeException("Not a named individual! This method should only be called on named individuals");
     }
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLAnonymousIndividual other = (OWLAnonymousIndividual) object;
         return nodeId.compareTo(other.getID());
     }
@@ -96,7 +97,8 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
         return visitor.visit(this);
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

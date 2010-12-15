@@ -1,32 +1,53 @@
 package org.semanticweb.owlapi.debugging;
 
-import org.semanticweb.owlapi.model.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
-
-import java.util.*;
-/*
- * Copyright (C) 2007, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
-
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
 
 
 /**
@@ -231,103 +252,120 @@ public class JustificationMap {
         }
 
 
-        public void visit(OWLSubClassOfAxiom axiom) {
+        @Override
+		public void visit(OWLSubClassOfAxiom axiom) {
             rhs.add(axiom.getSuperClass());
             lhs.add(axiom.getSubClass());
         }
 
 
-        public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        @Override
+		public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
             rhs.add(axiom.getObject());
             rhs.add(axiom.getProperty());
             lhs.add(axiom.getSubject());
         }
 
 
-        public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        @Override
+		public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
             rhs.add(axiom.getProperty());
         }
 
 
-        public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+        @Override
+		public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
             rhs.add(axiom.getProperty());
         }
 
 
-        public void visit(OWLDisjointClassesAxiom axiom) {
+        @Override
+		public void visit(OWLDisjointClassesAxiom axiom) {
             rhs.addAll(axiom.getClassExpressions());
             lhs.addAll(axiom.getClassExpressions());
         }
 
 
-        public void visit(OWLDataPropertyDomainAxiom axiom) {
+        @Override
+		public void visit(OWLDataPropertyDomainAxiom axiom) {
             rhs.add(axiom.getDomain());
             lhs.add(axiom.getProperty());
         }
 
 
-        public void visit(OWLObjectPropertyDomainAxiom axiom) {
+        @Override
+		public void visit(OWLObjectPropertyDomainAxiom axiom) {
             rhs.add(axiom.getDomain());
             lhs.add(axiom.getProperty());
         }
 
 
-        public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        @Override
+		public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
             rhs.addAll(axiom.getProperties());
             lhs.addAll(axiom.getProperties());
         }
 
 
-        public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        @Override
+		public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
             rhs.add(axiom.getProperty());
             rhs.add(axiom.getObject());
             lhs.add(axiom.getSubject());
         }
 
 
-        public void visit(OWLDifferentIndividualsAxiom axiom) {
+        @Override
+		public void visit(OWLDifferentIndividualsAxiom axiom) {
             rhs.addAll(axiom.getIndividuals());
             lhs.addAll(axiom.getIndividuals());
         }
 
 
-        public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+        @Override
+		public void visit(OWLDisjointDataPropertiesAxiom axiom) {
             rhs.addAll(axiom.getProperties());
             lhs.addAll(axiom.getProperties());
         }
 
 
-        public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        @Override
+		public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
             rhs.addAll(axiom.getProperties());
             lhs.addAll(axiom.getProperties());
         }
 
 
-        public void visit(OWLObjectPropertyRangeAxiom axiom) {
+        @Override
+		public void visit(OWLObjectPropertyRangeAxiom axiom) {
             rhs.add(axiom.getRange());
             lhs.add(axiom.getProperty());
         }
 
 
-        public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+        @Override
+		public void visit(OWLObjectPropertyAssertionAxiom axiom) {
             rhs.add(axiom.getProperty());
             rhs.add(axiom.getObject());
             lhs.add(axiom.getSubject());
         }
 
 
-        public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+        @Override
+		public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
             rhs.add(axiom.getProperty());
         }
 
 
-        public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+        @Override
+		public void visit(OWLSubObjectPropertyOfAxiom axiom) {
             rhs.add(axiom.getSuperProperty());
             lhs.add(axiom.getSubProperty());
         }
 
 
-        public void visit(OWLDisjointUnionAxiom axiom) {
+        @Override
+		public void visit(OWLDisjointUnionAxiom axiom) {
             rhs.addAll(axiom.getClassExpressions());
             rhs.add(axiom.getOWLClass());
             lhs.add(axiom.getOWLClass());
@@ -335,100 +373,118 @@ public class JustificationMap {
         }
 
 
-        public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+        @Override
+		public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
             rhs.add(axiom.getProperty());
         }
 
 
-        public void visit(OWLDataPropertyRangeAxiom axiom) {
+        @Override
+		public void visit(OWLDataPropertyRangeAxiom axiom) {
             rhs.add(axiom.getRange());
             lhs.add(axiom.getProperty());
         }
 
 
-        public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+        @Override
+		public void visit(OWLFunctionalDataPropertyAxiom axiom) {
             rhs.add(axiom.getProperty());
         }
 
 
-        public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        @Override
+		public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
             rhs.addAll(axiom.getProperties());
             lhs.addAll(axiom.getProperties());
         }
 
 
-        public void visit(OWLClassAssertionAxiom axiom) {
+        @Override
+		public void visit(OWLClassAssertionAxiom axiom) {
             rhs.add(axiom.getClassExpression());
             lhs.add(axiom.getIndividual());
         }
 
 
-        public void visit(OWLEquivalentClassesAxiom axiom) {
+        @Override
+		public void visit(OWLEquivalentClassesAxiom axiom) {
             rhs.addAll(axiom.getClassExpressions());
             lhs.addAll(axiom.getClassExpressions());
         }
 
 
-        public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        @Override
+		public void visit(OWLDataPropertyAssertionAxiom axiom) {
             rhs.add(axiom.getProperty());
             lhs.add(axiom.getSubject());
         }
 
 
-        public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+        @Override
+		public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
             rhs.add(axiom.getProperty());
         }
 
 
-        public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        @Override
+		public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
             rhs.add(axiom.getProperty());
         }
 
 
-        public void visit(OWLSubDataPropertyOfAxiom axiom) {
+        @Override
+		public void visit(OWLSubDataPropertyOfAxiom axiom) {
             rhs.add(axiom.getSuperProperty());
         }
 
 
-        public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        @Override
+		public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
             rhs.add(axiom.getProperty());
         }
 
 
-        public void visit(OWLSameIndividualAxiom axiom) {
+        @Override
+		public void visit(OWLSameIndividualAxiom axiom) {
             rhs.addAll(axiom.getIndividuals());
             lhs.addAll(axiom.getIndividuals());
         }
 
 
-        public void visit(OWLSubPropertyChainOfAxiom axiom) {
+        @Override
+		public void visit(OWLSubPropertyChainOfAxiom axiom) {
             rhs.add(axiom.getSuperProperty());
             lhs.addAll(axiom.getPropertyChain());
         }
 
 
-        public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+        @Override
+		public void visit(OWLInverseObjectPropertiesAxiom axiom) {
             rhs.addAll(axiom.getProperties());
             lhs.addAll(axiom.getProperties());
         }
 
 
-        public void visit(SWRLRule rule) {
+        @Override
+		public void visit(SWRLRule rule) {
         }
     }
 
     private class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements Comparator<OWLAxiom> {
 
 
-        public void visit(OWLSubClassOfAxiom axiom) {
+        @Override
+		public void visit(OWLSubClassOfAxiom axiom) {
             result = 0;
         }
 
-        public void visit(OWLEquivalentClassesAxiom axiom) {
+        @Override
+		public void visit(OWLEquivalentClassesAxiom axiom) {
             result = 1;
         }
 
-        public void visit(OWLDisjointClassesAxiom axiom) {
+        @Override
+		public void visit(OWLDisjointClassesAxiom axiom) {
             result = 2;
         }
 

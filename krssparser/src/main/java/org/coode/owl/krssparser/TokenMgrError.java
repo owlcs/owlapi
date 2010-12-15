@@ -116,7 +116,8 @@ public class TokenMgrError extends Error {
      * "Internal Error : Please file a bug report .... "
      * from this method for such cases in the release version of your parser.
      */
-    public String getMessage() {
+    @Override
+	public String getMessage() {
         return super.getMessage();
     }
 

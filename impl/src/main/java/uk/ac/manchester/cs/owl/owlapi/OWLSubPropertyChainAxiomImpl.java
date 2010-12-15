@@ -86,7 +86,8 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
         return visitor.visit(this);
     }
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (!super.equals(obj)) {
             return false;
         }
@@ -103,7 +104,8 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLSubPropertyChainOfAxiom other = (OWLSubPropertyChainOfAxiom) object;
 
         for (int i = 0; i < propertyChain.size() && i < other.getPropertyChain().size(); i++) {

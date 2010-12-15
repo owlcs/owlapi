@@ -26,10 +26,12 @@ public class ObjectHasSelfTestCase extends AbstractFileRoundTrippingTestCase {
 		assertEquals(getOnt().getAxioms(), axioms);
 	}
 
+	@Override
 	protected String getFileName() {
 		return "ObjectHasSelf.rdf";
 	}
 
+	@Override
 	protected void handleSaved(StringDocumentTarget target,
 			OWLOntologyFormat format) {
 		System.out.println(target);

@@ -1,31 +1,33 @@
 package org.semanticweb.owlapi;
 
-import org.semanticweb.owlapi.model.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
-
-import java.util.*;
-/*
- * Copyright (C) 2007, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
-
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
 
 
 /**
@@ -96,13 +98,15 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
             }
         }
 
-        public void visit(OWLDataHasValue desc) {
+        @Override
+		public void visit(OWLDataHasValue desc) {
             super.visit(desc);
             setLastObject(getDataFactory().getOWLDataHasValue(desc.getProperty(), process(desc.getProperty(), desc.getValue())));
         }
 
 
-        public void visit(OWLDataSomeValuesFrom desc) {
+        @Override
+		public void visit(OWLDataSomeValuesFrom desc) {
             super.visit(desc);
             if (desc instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataSomeValuesFrom(desc.getProperty(), process(desc.getProperty(), (OWLDataOneOf) desc.getFiller())));
@@ -110,7 +114,8 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         }
 
 
-        public void visit(OWLDataMinCardinality desc) {
+        @Override
+		public void visit(OWLDataMinCardinality desc) {
             super.visit(desc);
             if (desc instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataMinCardinality(desc.getCardinality(), desc.getProperty(), process(desc.getProperty(), (OWLDataOneOf) desc.getFiller())));
@@ -119,7 +124,8 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         }
 
 
-        public void visit(OWLDataMaxCardinality desc) {
+        @Override
+		public void visit(OWLDataMaxCardinality desc) {
             super.visit(desc);
             if (desc instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataMaxCardinality(desc.getCardinality(), desc.getProperty(), process(desc.getProperty(), (OWLDataOneOf) desc.getFiller())));
@@ -127,7 +133,8 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         }
 
 
-        public void visit(OWLDataExactCardinality desc) {
+        @Override
+		public void visit(OWLDataExactCardinality desc) {
             super.visit(desc);
             if (desc instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataExactCardinality(desc.getCardinality(), desc.getProperty(), process(desc.getProperty(), (OWLDataOneOf) desc.getFiller())));
@@ -135,7 +142,8 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         }
 
 
-        public void visit(OWLDataAllValuesFrom desc) {
+        @Override
+		public void visit(OWLDataAllValuesFrom desc) {
             super.visit(desc);
             if (desc instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataAllValuesFrom(desc.getProperty(), process(desc.getProperty(), (OWLDataOneOf) desc.getFiller())));
@@ -143,13 +151,15 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         }
 
 
-        public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        @Override
+		public void visit(OWLDataPropertyAssertionAxiom axiom) {
             super.visit(axiom);
             setLastObject(getDataFactory().getOWLDataPropertyAssertionAxiom(axiom.getProperty(), axiom.getSubject(), process(axiom.getProperty(), axiom.getObject())));
         }
 
 
-        public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        @Override
+		public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
             super.visit(axiom);
             setLastObject(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(axiom.getProperty(), axiom.getSubject(), process(axiom.getProperty(), axiom.getObject())));
         }

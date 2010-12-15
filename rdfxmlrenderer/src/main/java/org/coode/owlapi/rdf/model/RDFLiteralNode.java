@@ -42,12 +42,14 @@ public class RDFLiteralNode extends RDFNode {
 
     private int hashCode = 0;
 
-    public IRI getIRI() {
+    @Override
+	public IRI getIRI() {
         return null;
     }
 
 
-    public boolean isAnonymous() {
+    @Override
+	public boolean isAnonymous() {
         return false;
     }
 
@@ -94,12 +96,14 @@ public class RDFLiteralNode extends RDFNode {
         return datatype != null;
     }
 
-    public boolean isLiteral() {
+    @Override
+	public boolean isLiteral() {
         return true;
     }
 
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\"");
         sb.append(literal);
@@ -117,7 +121,8 @@ public class RDFLiteralNode extends RDFNode {
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if(!(obj instanceof RDFLiteralNode)) {
             return false;
         }
@@ -143,7 +148,8 @@ public class RDFLiteralNode extends RDFNode {
     }
 
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         if (hashCode == 0) {
             hashCode = 37;
             hashCode = hashCode * 37 + literal.hashCode();

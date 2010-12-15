@@ -20,7 +20,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public class InferredDisjointClassesAxiomGenerator extends InferredClassAxiomGenerator<OWLDisjointClassesAxiom> {
 
 
-    protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLDisjointClassesAxiom> result) {
+    @Override
+	protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLDisjointClassesAxiom> result) {
         for (OWLClass cls : getAllEntities(reasoner)) {
             if (!cls.equals(entity)) {
                 if (!reasoner.isSatisfiable(dataFactory.getOWLObjectIntersectionOf(CollectionFactory.createSet(entity, cls)))) {

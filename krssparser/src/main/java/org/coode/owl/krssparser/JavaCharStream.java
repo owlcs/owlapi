@@ -457,14 +457,7 @@ class JavaCharStream
   public JavaCharStream(java.io.InputStream dstream, String encoding, int startline,
   int startcolumn, int buffersize) throws java.io.UnsupportedEncodingException
   {
-    this(encoding == null ? new java.io.InputStreamReader(dstream) : new java.io.InputStreamReader(dstream, encoding), startline, startcolumn, buffersize);
-  }
-
-/** Constructor. */
-  public JavaCharStream(java.io.InputStream dstream, int startline,
-  int startcolumn, int buffersize)
-  {
-    this(new java.io.InputStreamReader(dstream), startline, startcolumn, 4096);
+    this(encoding == null ? new java.io.InputStreamReader(dstream, "UTF-8") : new java.io.InputStreamReader(dstream, encoding), startline, startcolumn, buffersize);
   }
 
 /** Constructor. */
@@ -475,59 +468,29 @@ class JavaCharStream
   }
 
 /** Constructor. */
-  public JavaCharStream(java.io.InputStream dstream, int startline,
-                        int startcolumn)
-  {
-    this(dstream, startline, startcolumn, 4096);
-  }
-
-/** Constructor. */
   public JavaCharStream(java.io.InputStream dstream, String encoding) throws java.io.UnsupportedEncodingException
   {
     this(dstream, encoding, 1, 1, 4096);
-  }
-
-/** Constructor. */
-  public JavaCharStream(java.io.InputStream dstream)
-  {
-    this(dstream, 1, 1, 4096);
   }
 
 /** Reinitialise. */
   public void ReInit(java.io.InputStream dstream, String encoding, int startline,
   int startcolumn, int buffersize) throws java.io.UnsupportedEncodingException
   {
-    ReInit(encoding == null ? new java.io.InputStreamReader(dstream) : new java.io.InputStreamReader(dstream, encoding), startline, startcolumn, buffersize);
+    ReInit(encoding == null ? new java.io.InputStreamReader(dstream, "UTF-8") : new java.io.InputStreamReader(dstream, encoding), startline, startcolumn, buffersize);
   }
 
-/** Reinitialise. */
-  public void ReInit(java.io.InputStream dstream, int startline,
-  int startcolumn, int buffersize)
-  {
-    ReInit(new java.io.InputStreamReader(dstream), startline, startcolumn, buffersize);
-  }
 /** Reinitialise. */
   public void ReInit(java.io.InputStream dstream, String encoding, int startline,
                      int startcolumn) throws java.io.UnsupportedEncodingException
   {
     ReInit(dstream, encoding, startline, startcolumn, 4096);
   }
-/** Reinitialise. */
-  public void ReInit(java.io.InputStream dstream, int startline,
-                     int startcolumn)
-  {
-    ReInit(dstream, startline, startcolumn, 4096);
-  }
+
 /** Reinitialise. */
   public void ReInit(java.io.InputStream dstream, String encoding) throws java.io.UnsupportedEncodingException
   {
     ReInit(dstream, encoding, 1, 1, 4096);
-  }
-
-/** Reinitialise. */
-  public void ReInit(java.io.InputStream dstream)
-  {
-    ReInit(dstream, 1, 1, 4096);
   }
 
   /** @return token image as String */

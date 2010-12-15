@@ -14,12 +14,14 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLSameIndividualsAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLIndividual> {
 
-    protected OWLObject createObject(Set<OWLIndividual> operands) throws Exception {
+    @Override
+	protected OWLObject createObject(Set<OWLIndividual> operands) throws Exception {
         return getFactory().getOWLSameIndividualAxiom(operands);
     }
 
 
-    protected OWLIndividual createOperand() throws Exception {
+    @Override
+	protected OWLIndividual createOperand() throws Exception {
         return createOWLIndividual();
     }
 }

@@ -49,7 +49,8 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLPropertyAssertionAxiom)) {
                 return false;
@@ -61,7 +62,8 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
     }
 
 
-    final protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	final protected int compareObjectOfSameType(OWLObject object) {
         OWLPropertyAssertionAxiom other = (OWLPropertyAssertionAxiom) object;
         int diff = subject.compareTo(other.getSubject());
         if (diff != 0) {

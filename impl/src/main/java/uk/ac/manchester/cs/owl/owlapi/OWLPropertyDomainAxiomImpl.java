@@ -32,7 +32,8 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLPropertyDomainAxiom)) {
                 return false;
@@ -43,12 +44,13 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLPropertyDomainAxiom other = (OWLPropertyDomainAxiom) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {
             return diff;
         }
-        return diff = domain.compareTo(other.getDomain());
+        return domain.compareTo(other.getDomain());
     }
 }

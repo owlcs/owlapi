@@ -33,11 +33,13 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  */
 public class OWLDataMinCardinalityTestCase extends
 		AbstractOWLDataCardinalityRestrictionTestCase {
+	@Override
 	protected OWLDataCardinalityRestriction createRestriction(
 			OWLDataProperty prop, int cardinality) throws Exception {
 		return getFactory().getOWLDataMinCardinality(cardinality, prop);
 	}
 
+	@Override
 	protected OWLDataCardinalityRestriction createRestriction(
 			OWLDataProperty prop, int cardinality, OWLDataRange dataRange)
 			throws Exception {

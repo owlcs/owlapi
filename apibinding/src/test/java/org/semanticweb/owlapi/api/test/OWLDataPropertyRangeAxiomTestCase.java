@@ -13,17 +13,20 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  */
 public class OWLDataPropertyRangeAxiomTestCase extends AbstractOWLBinaryOperandAxiomTestCase<OWLDataProperty, OWLDataRange> {
 
-    protected OWLDataProperty createLeftOperand() throws Exception {
+    @Override
+	protected OWLDataProperty createLeftOperand() throws Exception {
         return createOWLDataProperty();
     }
 
 
-    protected OWLDataRange createRightOperand() throws Exception {
+    @Override
+	protected OWLDataRange createRightOperand() throws Exception {
         return createOWLDatatype();
     }
 
 
-    protected OWLAxiom createAxiom(OWLDataProperty leftOperand, OWLDataRange rightOperand) throws Exception {
+    @Override
+	protected OWLAxiom createAxiom(OWLDataProperty leftOperand, OWLDataRange rightOperand) throws Exception {
         return getFactory().getOWLDataPropertyRangeAxiom(leftOperand, rightOperand);
     }
 }

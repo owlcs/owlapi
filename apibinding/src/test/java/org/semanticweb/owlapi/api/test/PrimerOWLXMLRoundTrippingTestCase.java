@@ -30,7 +30,8 @@ package org.semanticweb.owlapi.api.test;
  */
 public class PrimerOWLXMLRoundTrippingTestCase extends AbstractFileRoundTrippingTestCase {
 
-    protected String getFileName() {
+    @Override
+	protected String getFileName() {
         return "primer.owlxml.xml";
     }
 

@@ -32,7 +32,8 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLPropertyRangeAxiom)) {
                 return false;
@@ -42,7 +43,8 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
         return false;
     }
 
-    final protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	final protected int compareObjectOfSameType(OWLObject object) {
         int diff = getProperty().compareTo(((OWLPropertyRangeAxiom) object).getProperty());
         if (diff != 0) {
             return diff;

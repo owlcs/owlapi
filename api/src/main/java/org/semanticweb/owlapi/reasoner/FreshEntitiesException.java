@@ -40,7 +40,8 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
      * @return the detail message string of this <tt>Throwable</tt> instance
      *         (which may be <tt>null</tt>).
      */
-    public String getMessage() {
+    @Override
+	public String getMessage() {
         return entities + " not in signature";
     }
 }

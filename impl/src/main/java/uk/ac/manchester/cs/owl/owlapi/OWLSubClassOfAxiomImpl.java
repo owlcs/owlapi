@@ -80,7 +80,8 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -113,7 +114,8 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
     }
 
 
-    protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+	protected int compareObjectOfSameType(OWLObject object) {
         OWLSubClassOfAxiom other = (OWLSubClassOfAxiom) object;
         int diff = subClass.compareTo(other.getSubClass());
         if (diff != 0) {

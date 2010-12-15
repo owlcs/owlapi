@@ -27,7 +27,8 @@ public class UseOfNonEquivalentClassExpression extends OWLProfileViolation imple
         visitor.visit(this);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-equivalent class expression in position that requires an equivalent class expression: ");
         sb.append(classExpression);

@@ -28,10 +28,12 @@ public class ObjectHasValueTestCase extends AbstractFileRoundTrippingTestCase {
 		assertEquals(getOnt().getAxioms(), axioms);
 	}
 
+	@Override
 	protected String getFileName() {
 		return "ObjectHasValue.rdf";
 	}
 
+	@Override
 	protected void handleSaved(StringDocumentTarget target,
 			OWLOntologyFormat format) {
 		System.out.println(target);

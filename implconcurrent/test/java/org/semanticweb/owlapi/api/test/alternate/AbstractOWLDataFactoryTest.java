@@ -39,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * The base for test cases that need a data factory.
  */
 public abstract class AbstractOWLDataFactoryTest extends AbstractOWLAPITestCase {
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 	}

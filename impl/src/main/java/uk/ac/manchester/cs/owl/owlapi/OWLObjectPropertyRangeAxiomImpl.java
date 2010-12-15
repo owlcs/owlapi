@@ -28,7 +28,8 @@ public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<O
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectPropertyRangeAxiom;
         }

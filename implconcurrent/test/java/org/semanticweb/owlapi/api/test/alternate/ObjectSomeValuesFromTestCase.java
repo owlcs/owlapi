@@ -29,10 +29,12 @@ public class ObjectSomeValuesFromTestCase extends
 		assertEquals(getOnt().getAxioms(), axioms);
 	}
 
+	@Override
 	protected String getFileName() {
 		return "ObjectSomeValuesFrom.rdf";
 	}
 
+	@Override
 	protected void handleSaved(StringDocumentTarget target,
 			OWLOntologyFormat format) {
 		System.out.println(target);

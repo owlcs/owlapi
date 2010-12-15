@@ -67,7 +67,8 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
         uriBase = IRI.create("http://www.semanticweb.org/owlapi/test");
     }
 
-    protected void setUp() throws Exception {
+    @Override
+	protected void setUp() throws Exception {
         manager = ThreadSafeOWLManager.createOWLOntologyManager();
     }
 

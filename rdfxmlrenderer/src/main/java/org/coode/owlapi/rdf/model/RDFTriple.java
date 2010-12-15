@@ -64,7 +64,8 @@ public class RDFTriple {
     }
 
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         if (hashCode == 0) {
             hashCode = 17;
             hashCode = hashCode * 37 + subject.hashCode();
@@ -75,7 +76,8 @@ public class RDFTriple {
     }
 
 
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if(!(obj instanceof RDFTriple)) {
             return false;
         }
@@ -86,7 +88,8 @@ public class RDFTriple {
     }
 
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(subject.toString());
         sb.append(" -> ");

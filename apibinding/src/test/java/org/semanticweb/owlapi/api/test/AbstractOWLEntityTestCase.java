@@ -38,12 +38,14 @@ public abstract class AbstractOWLEntityTestCase extends AbstractOWLDataFactoryTe
 
     protected abstract OWLEntity createEntity(IRI iri) throws Exception;
 
-    public void testCreation() throws Exception {
+    @Override
+	public void testCreation() throws Exception {
         assertNotNull(createEntity(createIRI()));
     }
 
 
-    public void testEqualsPositive() throws Exception {
+    @Override
+	public void testEqualsPositive() throws Exception {
         IRI iri = createIRI();
         OWLEntity entityA = createEntity(iri);
         OWLEntity entityB = createEntity(iri);
@@ -51,14 +53,16 @@ public abstract class AbstractOWLEntityTestCase extends AbstractOWLDataFactoryTe
     }
 
 
-    public void testEqualsNegative() throws Exception {
+    @Override
+	public void testEqualsNegative() throws Exception {
         OWLEntity entityA = createEntity(createIRI());
         OWLEntity entityB = createEntity(createIRI());
         assertNotEquals(entityA, entityB);
     }
 
 
-    public void testHashCode() throws Exception {
+    @Override
+	public void testHashCode() throws Exception {
         IRI iri = createIRI();
         int hashCodeA = createEntity(iri).hashCode();
         int hashCodeB = createEntity(iri).hashCode();

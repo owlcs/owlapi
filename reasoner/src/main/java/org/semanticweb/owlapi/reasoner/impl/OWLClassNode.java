@@ -1,9 +1,9 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.vocab.OWLDataFactoryVocabulary;
-
-import java.util.Set;
 
 /*
  * Copyright (C) 2009, University of Manchester
@@ -55,11 +55,13 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
     public OWLClassNode() {
     }
 
-    protected OWLClass getTopEntity() {
+    @Override
+	protected OWLClass getTopEntity() {
         return TOP_CLASS;
     }
 
-    protected OWLClass getBottomEntity() {
+    @Override
+	protected OWLClass getBottomEntity() {
         return BOTTOM_CLASS;
     }
 

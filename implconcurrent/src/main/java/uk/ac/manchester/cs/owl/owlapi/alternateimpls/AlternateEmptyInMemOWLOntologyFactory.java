@@ -42,7 +42,8 @@ public class AlternateEmptyInMemOWLOntologyFactory extends AlternateAbstractInMe
     }
 
 
-    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
+    @Override
+	public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
         OWLOntology ont = super.createOWLOntology(ontologyID, documentIRI, handler);
         handler.setOntologyFormat(ont, new DefaultOntologyFormat());
         return ont;

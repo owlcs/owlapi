@@ -36,16 +36,19 @@ public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLProp
 	protected abstract OWLRestriction createRestriction(P prop, F filler)
 			throws Exception;
 
+	@Override
 	protected OWLRestriction createRestriction(P prop) throws Exception {
 		return createRestriction(prop, createFiller());
 	}
 
 	protected abstract F createFiller() throws Exception;
 
+	@Override
 	public void testCreation() throws Exception {
 		assertNotNull(createRestriction(createProperty(), createFiller()));
 	}
 
+	@Override
 	public void testEqualsPositive() throws Exception {
 		P prop = createProperty();
 		F filler = createFiller();
@@ -54,6 +57,7 @@ public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLProp
 		assertEquals(restA, restB);
 	}
 
+	@Override
 	public void testEqualsNegative() throws Exception {
 		// Different filler
 		P prop = createProperty();
@@ -67,6 +71,7 @@ public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLProp
 		assertNotEquals(restC, restD);
 	}
 
+	@Override
 	public void testHashCode() throws Exception {
 		P prop = createProperty();
 		F filler = createFiller();

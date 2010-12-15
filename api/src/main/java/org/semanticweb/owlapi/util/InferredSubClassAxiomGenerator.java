@@ -16,7 +16,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  */
 public class InferredSubClassAxiomGenerator extends InferredClassAxiomGenerator<OWLSubClassOfAxiom> {
 
-    protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLSubClassOfAxiom> result) {
+    @Override
+	protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLSubClassOfAxiom> result) {
         if (reasoner.isSatisfiable(entity)) {
             for (OWLClass sup : reasoner.getSuperClasses(entity, true).getFlattened()) {
                 result.add(dataFactory.getOWLSubClassOfAxiom(entity, sup));
