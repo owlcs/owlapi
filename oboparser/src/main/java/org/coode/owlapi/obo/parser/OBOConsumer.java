@@ -6,23 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 
@@ -35,6 +19,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class OBOConsumer implements OBOParserHandler {
 
     private static final Logger logger = Logger.getLogger(OBOConsumer.class.getName());
+
+    private OWLOntologyLoaderConfiguration configuration;
 
     private OWLOntologyManager owlOntologyManager;
 
@@ -65,7 +51,8 @@ public class OBOConsumer implements OBOParserHandler {
     private Map<String, IRI> uriCache;
 
 
-    public OBOConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology) {
+    public OBOConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+        this.configuration = configuration;
         this.owlOntologyManager = owlOntologyManager;
         this.ontology = ontology;
         defaultNamespace = OBOVocabulary.ONTOLOGY_URI_BASE;
@@ -257,7 +244,7 @@ public class OBOConsumer implements OBOParserHandler {
                 if (tag.equals("import")) {
                     IRI uri = IRI.create(value.trim());
                     OWLImportsDeclaration decl = owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(uri);
-                    owlOntologyManager.makeLoadImportRequest(decl);
+                    owlOntologyManager.makeLoadImportRequest(decl, configuration);
                     owlOntologyManager.applyChange(new AddImport(ontology, decl));
                 }
                 else {
@@ -270,12 +257,14 @@ public class OBOConsumer implements OBOParserHandler {
             }
             else if (currentId != null) {
                 // Add as annotation
-                IRI subject = getIRI(currentId);
-                OWLLiteral con = getDataFactory().getOWLLiteral(value, "");
-                OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getIRI(tag));
-                OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
-                OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
-                owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
+                if (configuration.isLoadAnnotationAxioms()) {
+                    IRI subject = getIRI(currentId);
+                    OWLLiteral con = getDataFactory().getOWLLiteral(value, "");
+                    OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getIRI(tag));
+                    OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
+                    OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
+                    owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
+                }
             }
 
         }

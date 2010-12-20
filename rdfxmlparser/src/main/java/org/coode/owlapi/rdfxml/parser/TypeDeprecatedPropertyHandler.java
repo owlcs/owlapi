@@ -18,7 +18,6 @@ public class TypeDeprecatedPropertyHandler extends BuiltInTypeHandler {
 
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        getConsumer().addOWLClass(subject);
         consumeTriple(subject, predicate, object);
         addAxiom(getDataFactory().getDeprecatedOWLAnnotationAssertionAxiom(subject));
     }

@@ -8,8 +8,7 @@ import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserIOException;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.*;
 
 
 /**
@@ -20,7 +19,11 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public class TurtleOntologyParser extends AbstractOWLParser {
 
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, UnloadableImportException, IOException {
+        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+    }
+
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         try {
             TurtleParser parser;
             if(documentSource.isReaderAvailable()) {
@@ -33,7 +36,7 @@ public class TurtleOntologyParser extends AbstractOWLParser {
                 parser = new TurtleParser(new BufferedInputStream(documentSource.getDocumentIRI().toURI().toURL().openStream()), new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
             }
 
-            OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(getOWLOntologyManager(), ontology, parser);
+            OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(getOWLOntologyManager(), ontology, parser, configuration);
             parser.setTripleHandler(consumer);
             parser.parseDocument();
             return new TurtleOntologyFormat();

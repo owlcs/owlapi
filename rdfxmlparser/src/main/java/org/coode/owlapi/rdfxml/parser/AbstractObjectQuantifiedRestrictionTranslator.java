@@ -1,8 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -34,25 +34,38 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public abstract class AbstractObjectQuantifiedRestrictionTranslator extends AbstractObjectRestrictionTranslator {
+public abstract class
+        AbstractObjectQuantifiedRestrictionTranslator extends AbstractObjectRestrictionTranslator {
 
-    public AbstractObjectQuantifiedRestrictionTranslator(OWLRDFConsumer consumer) {
+    private IRI fillerPredicate;
+
+    public AbstractObjectQuantifiedRestrictionTranslator(OWLRDFConsumer consumer, IRI fillerPredicate) {
         super(consumer);
+        this.fillerPredicate = fillerPredicate;
     }
-
 
     @Override
-	final protected OWLClassExpression translateRestriction(IRI mainNode) {
-        IRI fillerObject = getResourceObject(mainNode, getFillerTriplePredicate(), true);
-        OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
-        OWLClassExpression desc = translateToClassExpression(fillerObject);
-        return createRestriction(prop, desc);
+    public boolean matches(IRI mainNode) {
+        if(!super.matches(mainNode)) {
+            return false;
+        }
+        IRI fillerIRI = getConsumer().getResourceObject(mainNode, fillerPredicate, false);
+        if(fillerIRI == null) {
+            return false;
+        }
+        if(!getConsumer().getConfiguration().isStrict() && !getConsumer().isClassExpression(fillerIRI)) {
+            if(!getConsumer().isDataRange(fillerIRI)) {
+                IRI onPropertyObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY, false);
+                if(getConsumer().isObjectPropertyOnly(onPropertyObject)) {
+                    return true;
+                }
+            }
+        }
+        return getConsumer().isClassExpression(fillerIRI);
     }
 
-
-    protected abstract IRI getFillerTriplePredicate();
-
-
-    protected abstract OWLClassExpression createRestriction(OWLObjectPropertyExpression property,
-                                                        OWLClassExpression filler);
+    final protected OWLClassExpression translateFiller(IRI mainNode) {
+        IRI fillerObject = getConsumer().getResourceObject(mainNode, fillerPredicate, true);
+        return getConsumer().translateClassExpression(fillerObject);
+    }
 }

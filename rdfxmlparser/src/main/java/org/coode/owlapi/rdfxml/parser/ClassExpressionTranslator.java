@@ -42,6 +42,8 @@ import org.semanticweb.owlapi.model.OWLException;
  */
 public interface ClassExpressionTranslator {
 
+    boolean matches(IRI mainNode);
+
     /**
      * Translates the specified main node into an <code>OWLClassExpression</code>.
      * All triples used in the translation are consumed.

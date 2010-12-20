@@ -17,28 +17,21 @@ public class TypeFunctionalPropertyHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_FUNCTIONAL_PROPERTY.getIRI());
     }
 
-
     @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        return getConsumer().isObjectPropertyOnly(subject) ||
-                getConsumer().isDataPropertyOnly(subject);
+        return false;
     }
 
 
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        if (getConsumer().isObjectPropertyOnly(subject)) {
-            addAxiom(getDataFactory().getOWLFunctionalObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
-            consumeTriple(subject, predicate, object);
-        } else if (getConsumer().isDataPropertyOnly(subject)) {
-            addAxiom(getDataFactory().getOWLFunctionalDataPropertyAxiom(translateDataProperty(subject), getPendingAnnotations()));
-            consumeTriple(subject, predicate, object);
-        } else {
-            // Assume object property! :(
-            // I suppose that we could check where the predicate is used, but I'm losing the will to live!
+        if (getConsumer().isObjectProperty(subject)) {
             addAxiom(getDataFactory().getOWLFunctionalObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
-
+        if (getConsumer().isDataProperty(subject)) {
+            addAxiom(getDataFactory().getOWLFunctionalDataPropertyAxiom(translateDataProperty(subject), getPendingAnnotations()));
+            consumeTriple(subject, predicate, object);
+        }
     }
 }

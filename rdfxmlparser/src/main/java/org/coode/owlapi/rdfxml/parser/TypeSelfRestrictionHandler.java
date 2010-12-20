@@ -22,7 +22,7 @@ public class TypeSelfRestrictionHandler extends BuiltInTypeHandler {
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
-        getConsumer().addRestriction(subject);
+        getConsumer().addOWLRestriction(subject, false);
         // Patch to new OWL syntax
         getConsumer().addTriple(subject, OWLRDFVocabulary.OWL_HAS_SELF.getIRI(), getDataFactory().getOWLLiteral(true));
     }

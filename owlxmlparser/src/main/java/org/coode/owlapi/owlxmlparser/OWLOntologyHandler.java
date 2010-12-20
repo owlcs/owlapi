@@ -1,13 +1,7 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.SetOntologyID;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 
 
 /**
@@ -43,7 +37,10 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
 
     @Override
 	public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException {
-        getOWLOntologyManager().applyChange(new AddAxiom(getOntology(), handler.getOWLObject()));
+        OWLAxiom axiom = handler.getOWLObject();
+        if(!axiom.isAnnotationAxiom() || getConfiguration().isLoadAnnotationAxioms()) {
+            getOWLOntologyManager().applyChange(new AddAxiom(getOntology(), axiom));
+        }
     }
 
 

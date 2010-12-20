@@ -20,19 +20,22 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
 
     @Override
 	public boolean canHandle(IRI subject, IRI predicate, IRI object) {
-        return !getConsumer().isAnnotationProperty(predicate) && !OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(predicate) && !getConsumer().isOntology(subject);
+        OWLRDFConsumer consumer = getConsumer();
+        return consumer.isObjectProperty(predicate);
     }
 
 
     @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        return false;
+        return getConsumer().isObjectProperty(predicate);
     }
 
 
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        consumeTriple(subject, predicate, object);
-        addAxiom(getDataFactory().getOWLObjectPropertyAssertionAxiom(translateObjectProperty(predicate), translateIndividual(subject), translateIndividual(object), getPendingAnnotations()));
+        if (getConsumer().isObjectProperty(predicate)) {
+            consumeTriple(subject, predicate, object);
+            addAxiom(getDataFactory().getOWLObjectPropertyAssertionAxiom(translateObjectProperty(predicate), translateIndividual(subject), translateIndividual(object), getPendingAnnotations()));
+        }
     }
 }

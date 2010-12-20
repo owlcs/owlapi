@@ -41,17 +41,18 @@ public abstract class AbstractObjectRestrictionTranslator extends AbstractRestri
         super(consumer);
     }
 
+    @Override
+    public boolean matchesOnPropertyObject(IRI onPropertyObject) {
+        return !getConsumer().getConfiguration().isStrict() || getConsumer().isObjectProperty(onPropertyObject);
+    }
+
     /**
      * Translates and consumes the onProperty triple, creating an object property (expression) corresponding to the object
      * of the onProperty triple.
      * @param mainNode The subject of the triple (the main node of the restriction)
-     * @throws OWLException If the on property triple doesn't exist.
      */
-    protected OWLObjectPropertyExpression translateOnProperty(IRI mainNode) {
+    public OWLObjectPropertyExpression translateProperty(IRI mainNode) {
         IRI onPropertyIRI = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), true);
-        if(onPropertyIRI == null) {
-            return null;
-        }
         return getConsumer().translateObjectPropertyExpression(onPropertyIRI);
     }
 

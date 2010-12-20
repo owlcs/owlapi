@@ -1,9 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -37,34 +35,47 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  */
 public abstract class AbstractDataQuantifiedRestrictionTranslator extends AbstractDataRestrictionTranslator {
 
+    private IRI fillerPredicate;
 
-    public AbstractDataQuantifiedRestrictionTranslator(OWLRDFConsumer consumer) {
+    public AbstractDataQuantifiedRestrictionTranslator(OWLRDFConsumer consumer, IRI fillerPredicate) {
         super(consumer);
+        this.fillerPredicate = fillerPredicate;
     }
-
 
     @Override
-	final protected OWLClassExpression translateRestriction(IRI mainNode) {
-        OWLDataPropertyExpression prop = translateOnProperty(mainNode);
-        if(prop == null) {
-            return getConsumer().getOWLClass(mainNode);
+    public boolean matches(IRI mainNode) {
+        if(!super.matches(mainNode)) {
+            return false;
         }
-        IRI fillerObject = getResourceObject(mainNode, getFillerTriplePredicate(), true);
-        OWLDataRange dataRange;
-        if(fillerObject != null) {
-            dataRange = getConsumer().translateDataRange(fillerObject);
-        }
-        else {
-            dataRange = getConsumer().getDataFactory().getTopDatatype();
-        }
-        return createRestriction(prop, dataRange);
+        IRI filler = getConsumer().getResourceObject(mainNode, fillerPredicate, false);
+        return filler != null && getConsumer().isDataRange(filler);
     }
 
+    public OWLDataRange translateDataRange(IRI mainNode) {
+        IRI fillerPredicateObject = getConsumer().getResourceObject(mainNode, fillerPredicate, true);
+        return getConsumer().translateDataRange(fillerPredicateObject);
+    }
 
-    /**
-     * Gets the filler triple predicate IRI (e.g. owl:someValuesFrom)
-     */
-    protected abstract IRI getFillerTriplePredicate();
+    //    final protected OWLClassExpression translateRestriction(IRI mainNode) {
+//        OWLDataPropertyExpression prop = translateOnProperty(mainNode);
+//        if(prop == null) {
+//            return getConsumer().getOWLClass(mainNode);
+//        }
+//        IRI fillerObject = getResourceObject(mainNode, fillerPredicate, true);
+//        OWLDataRange dataRange;
+//        if(fillerObject != null) {
+//            dataRange = getConsumer().translateDataRange(fillerObject);
+//        }
+//        else {
+//            dataRange = getConsumer().getDataFactory().getTopDatatype();
+//        }
+//        return createRestriction(prop, dataRange);
+//    }
 
-    protected abstract OWLClassExpression createRestriction(OWLDataPropertyExpression prop, OWLDataRange filler);
+//    @Override
+//    protected OWLClassExpression translateRestriction(IRI mainNode, IRI onPropertyObject, IRI fillerObject, OWLLiteral cardinalityObject) {
+//        OWLDataPropertyExpression propertyExpression = getConsumer().translateDataPropertyExpression(iri)
+//    }
+
+//    protected abstract OWLQuantifiedDataRestriction createRestriction(OWLDataPropertyExpression prop, OWLDataRange filler);
 }

@@ -22,7 +22,7 @@ public class TPHasValueHandler extends TriplePredicateHandler {
 
     @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        getConsumer().addRestriction(subject);   
+        getConsumer().addOWLRestriction(subject, false);
         return false;
     }
 }

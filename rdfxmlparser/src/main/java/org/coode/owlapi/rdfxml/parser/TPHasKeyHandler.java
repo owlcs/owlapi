@@ -23,14 +23,17 @@ public class TPHasKeyHandler extends TriplePredicateHandler {
 
     @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+        getConsumer().addClassExpression(subject, false);
         return false;
     }
 
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        consumeTriple(subject, predicate, object);
-        OWLClassExpression ce = translateClassExpression(subject);
-        Set<OWLPropertyExpression> props = listTranslator.translateToSet(object);
-        addAxiom(getDataFactory().getOWLHasKeyAxiom(ce, props, getPendingAnnotations()));
+        if (getConsumer().isClassExpression(subject)) {
+            consumeTriple(subject, predicate, object);
+            OWLClassExpression ce = translateClassExpression(subject);
+            Set<OWLPropertyExpression> props = listTranslator.translateToSet(object);
+            addAxiom(getDataFactory().getOWLHasKeyAxiom(ce, props, getPendingAnnotations()));
+        }
     }
 }

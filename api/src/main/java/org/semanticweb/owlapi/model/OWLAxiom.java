@@ -71,6 +71,13 @@ public interface OWLAxiom extends OWLObject {
     boolean isLogicalAxiom();
 
     /**
+     * Determines if this axioms in an annotation axiom (an instance of <code>OWLAnnotationAxiom</code>)
+     * @return <code>true</code> if this axiom is an instance of <code>OWLAnnotationAxiom</code>, otherwise <code>false</code>.
+     * @since 3.2
+     */
+    boolean isAnnotationAxiom();
+
+    /**
      * Determines if this axiom has any annotations on it
      * @return <code>true</code> if this axiom has annotations on it, otherwise <code>false</code>
      */

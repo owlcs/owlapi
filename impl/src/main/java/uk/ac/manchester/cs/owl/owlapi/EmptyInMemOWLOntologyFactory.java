@@ -2,11 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.io.DefaultOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 
 
 /**
@@ -21,6 +17,9 @@ public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactor
         throw new OWLRuntimeException(new UnsupportedOperationException("Cannot load OWL ontologies."));
     }
 
+    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler handler, OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
+        return loadOWLOntology(documentSource, handler);
+    }
 
     @Override
 	public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
@@ -28,6 +27,7 @@ public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactor
         handler.setOntologyFormat(ont, new DefaultOntologyFormat());
         return ont;
     }
+
 
 
     public boolean canLoad(OWLOntologyDocumentSource documentSource) {

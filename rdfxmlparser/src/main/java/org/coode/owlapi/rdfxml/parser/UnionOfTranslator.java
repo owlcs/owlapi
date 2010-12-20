@@ -1,10 +1,10 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import java.util.Set;
-
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import java.util.Set;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -41,20 +41,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class UnionOfTranslator extends AbstractNaryBooleanClassExpressionTranslator {
 
     public UnionOfTranslator(OWLRDFConsumer consumer) {
-        super(consumer);
+        super(consumer, OWLRDFVocabulary.OWL_UNION_OF.getIRI());
     }
 
-
-    @Override
-	protected OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) {
-        return getDataFactory().getOWLObjectUnionOf(operands);
+    public OWLClassExpression translate(IRI mainNode) {
+        return getDataFactory().getOWLObjectUnionOf(translateClassExpressions(mainNode));
     }
-
-
-    @Override
-	protected IRI getPredicateIRI() {
-        return OWLRDFVocabulary.OWL_UNION_OF.getIRI();
-    }
-
-
 }

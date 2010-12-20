@@ -24,37 +24,32 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
 	public boolean canHandleStreaming(IRI subject,
                                       IRI predicate,
                                       IRI object) {
-        // Need to parse everything to make sure
         return false;
     }
-
 
     @Override
 	public void handleTriple(IRI subject,
                              IRI predicate,
                              IRI object) throws UnloadableImportException {
-        if (getConsumer().isObjectPropertyOnly(subject)) {
+        if (getConsumer().isObjectProperty(subject) && getConsumer().isClassExpression(object)) {
             translateObjectPropertyDomain(subject, predicate, object);
         }
-        else if (getConsumer().isDataPropertyOnly(subject)) {
+        else if (getConsumer().isDataPropertyOnly(subject) && getConsumer().isClassExpression(object)) {
             translateDataPropertyDomain(subject, predicate, object);
         }
-        else if (getConsumer().isAnnotationProperty(subject)) {
-            OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(subject);
-            addAxiom(getDataFactory().getOWLAnnotationPropertyDomainAxiom(prop, object, getPendingAnnotations()));
-            consumeTriple(subject, predicate, object);
+        else if (getConsumer().isAnnotationProperty(subject) && getConsumer().isClassExpression(object) && !getConsumer().isAnonymousNode(object)) {
+            translateAnnotationPropertyDomain(subject, predicate, object);
         }
-        else {
-            // See if there are any range triples that we can peek at
-            IRI rangeIRI = getConsumer().getResourceObject(subject, predicate, false);
-            if (getConsumer().isDataRange(rangeIRI)) {
-                translateDataPropertyDomain(subject, predicate, object);
-            }
-            else {
-                // Oh well, let's just assume object property
-                translateObjectPropertyDomain(subject, predicate, object);
-            }
+        else if(!isStrict()) {
+            translateAnnotationPropertyDomain(subject, predicate, object);
         }
+    }
+
+    private void translateAnnotationPropertyDomain(IRI subject, IRI predicate, IRI object) {
+        OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(subject);
+        addAxiom(getDataFactory().getOWLAnnotationPropertyDomainAxiom(prop, object, getPendingAnnotations()));
+        // TODO: Handle anonymous domain - error?
+        consumeTriple(subject, predicate, object);
     }
 
 

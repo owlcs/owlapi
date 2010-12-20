@@ -32,17 +32,26 @@ package org.semanticweb.owlapi.model;
  */
 public class OWLOntologyManagerProperties {
 
-    private boolean loadAnnotationAxioms;
+    private boolean loadAnnotationAxioms = true;
+
+    private boolean treatDublinCoreVocabularyAsBuiltInVocabulary = true;
 
     public OWLOntologyManagerProperties() {
-        loadAnnotationAxioms = true;
+        restoreDefaults();
     }
 
+    /**
+     * Restores the various properties to their default values.
+     */
+    public void restoreDefaults() {
+        loadAnnotationAxioms = true;
+        treatDublinCoreVocabularyAsBuiltInVocabulary = true;
+    }
 
     /**
      * Determines if annotation axioms should be loaded or discarded.
      * @return <code>true</code> if annotation axioms should be loaded
-     * or <code>false</code> if annotation axioms should be ignored.
+     *         or <code>false</code> if annotation axioms should be ignored.
      */
     public boolean isLoadAnnotationAxioms() {
         return loadAnnotationAxioms;
@@ -58,5 +67,26 @@ public class OWLOntologyManagerProperties {
      */
     public void setLoadAnnotationAxioms(boolean loadAnnotationAxioms) {
         this.loadAnnotationAxioms = loadAnnotationAxioms;
+    }
+
+    /**
+     * Determines if the various parsers, for formats such as RDF based formats that do not require strong typing,
+     * should treat Dublin Core Vocabulary as built in vocabulary, so that
+     * Dublin Core metadata properties are interpreted as annotation properties.
+     * @return <code>true</code> if the Dublin Core Vocabulary should be treated as built in vocabulary and
+     *         Dublin Core properties are interpreted as annotation properties, otherwise <code>false</code>.  The
+     *         defaut is <code>true</code>.
+     */
+    public boolean isTreatDublinCoreVocabularyAsBuiltInVocabulary() {
+        return treatDublinCoreVocabularyAsBuiltInVocabulary;
+    }
+
+    /**
+     * Specifies if the various parsers, for formats such as RDF based formats that do not require strong typing,
+     * should treat Dublin Core Vocabulary as built in vocabulary, so that
+     * Dublin Core metadata properties are interpreted as annotation properties.
+     */
+    public void setTreatDublinCoreVocabularyAsBuiltInVocabulary(boolean treatDublinCoreVocabularyAsBuiltInVocabulary) {
+        this.treatDublinCoreVocabularyAsBuiltInVocabulary = treatDublinCoreVocabularyAsBuiltInVocabulary;
     }
 }

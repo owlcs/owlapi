@@ -18,26 +18,20 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class TPSubClassOfHandler extends TriplePredicateHandler {
 
-    public static int potentiallyConsumedTiples = 0;
 
     public TPSubClassOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDFS_SUBCLASS_OF.getIRI());
     }
 
+    @Override
+    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+        return super.canHandle(subject, predicate, object) && getConsumer().isClassExpression(subject) && getConsumer().isClassExpression(object);
+    }
 
     @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        if (!getConsumer().isAnonymousNode(subject)) {
-            if (getConsumer().isAnonymousNode(object)) {
-                OWLClassExpression superClass = getConsumer().getClassExpressionIfTranslated(object);
-                if (superClass != null) {
-                    potentiallyConsumedTiples++;
-                    return true;
-                }
-            }
-        }
-        getConsumer().addOWLClass(subject);
-        getConsumer().addOWLClass(object);
+        getConsumer().addClassExpression(subject, false);
+        getConsumer().addClassExpression(object, false);
         return !isSubjectOrObjectAnonymous(subject, object);
     }
 

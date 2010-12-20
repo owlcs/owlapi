@@ -1,12 +1,31 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import java.util.logging.Logger;
-
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import java.util.logging.Logger;
+/*
+ * Copyright (C) 2006, University of Manchester
+ *
+ * Modifications to the initial code base are copyright of their
+ * respective authors, or their employers as appropriate.  Authorship
+ * of the modifications may be determined from the ChangeLog placed at
+ * the end of this file.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
 
 
 /**
@@ -17,71 +36,45 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class TPPropertyRangeHandler extends TriplePredicateHandler {
 
-    private static final Logger logger = Logger.getLogger(TPPropertyRangeHandler.class.getName());
-
 
     public TPPropertyRangeHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDFS_RANGE.getIRI());
     }
 
 
-    @Override
-	public boolean canHandleStreaming(IRI subject,
+    public boolean canHandleStreaming(IRI subject,
                                       IRI predicate,
                                       IRI object) {
-        if (!isAnonymous(object)) {
-            if (getConsumer().isObjectPropertyOnly(subject)) {
-                return true;
-            }
-            else if (getConsumer().isDataPropertyOnly(subject)) {
-                return true;
-            }
-        }
         return false;
     }
 
 
-    @Override
-	public void handleTriple(IRI subject,
+    public void handleTriple(IRI subject,
                              IRI predicate,
                              IRI object) throws UnloadableImportException {
-        if (getConsumer().isObjectPropertyOnly(subject)) {
-            translateObjectPropertyRange(subject, object, predicate);
-        }
-        else if (getConsumer().isDataPropertyOnly(subject)) {
-            addAxiom(getDataFactory().getOWLDataPropertyRangeAxiom(translateDataProperty(subject), translateDataRange(object), getPendingAnnotations()));
+        if (getConsumer().isObjectProperty(subject) && getConsumer().isClassExpression(object)) {
+            OWLObjectPropertyExpression property = translateObjectProperty(subject);
+            OWLClassExpression range = translateClassExpression(object);
+            addAxiom(getDataFactory().getOWLObjectPropertyRangeAxiom(property, range, getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
-        else if(getConsumer().isAnnotationProperty(subject)) {
+        else if (getConsumer().isDataProperty(subject) && getConsumer().isDataRange(object)) {
+            OWLDataPropertyExpression property = translateDataProperty(subject);
+            OWLDataRange dataRange = translateDataRange(object);
+            addAxiom(getDataFactory().getOWLDataPropertyRangeAxiom(property, dataRange, getPendingAnnotations()));
+            consumeTriple(subject, predicate, object);
+        }
+        else if (getConsumer().isAnnotationProperty(subject) && !getConsumer().isAnonymousNode(object)) {
             OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(subject);
             addAxiom(getDataFactory().getOWLAnnotationPropertyRangeAxiom(prop, object, getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
-        else {
-            if (getConsumer().isDataRange(object)) {
-                // Assume data property
-                logger.fine("Assuming data property because range appears to be datatype: " + subject + " -> " + predicate + " -> " + object);
-                addAxiom(getDataFactory().getOWLDataPropertyRangeAxiom(translateDataProperty(subject), translateDataRange(object), getPendingAnnotations()));
-                consumeTriple(subject, predicate, object);
-            }
-            else if (getConsumer().isClass(object)) {
-                // Assume object property
-                logger.fine("Assuming object property because range appears to be a class: " + subject + " -> " + predicate + " -> " + object);
-                translateObjectPropertyRange(subject, object, predicate);
-            }
-            else {
-                // Right - just assume an object property!
-                logger.fine("Unable to determine range type.  Assuming object property: " + subject + " -> " + predicate + " -> " + object);
-                translateObjectPropertyRange(subject, object, predicate);
-            }
+        else if(!isStrict()) {
+            // TODO: Handle the case where the object is anonymous
+            OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(subject);
+            addAxiom(getDataFactory().getOWLAnnotationPropertyRangeAxiom(prop, object, getPendingAnnotations()));
+            consumeTriple(subject, predicate, object);
         }
     }
 
-
-    private void translateObjectPropertyRange(IRI subject,
-                                              IRI object,
-                                              IRI predicate) throws OWLOntologyChangeException {
-        addAxiom(getDataFactory().getOWLObjectPropertyRangeAxiom(translateObjectProperty(subject), translateClassExpression(object), getPendingAnnotations()));
-        consumeTriple(subject, predicate, object);
-    }
 }

@@ -23,6 +23,8 @@ public class OWLFunctionalSyntaxParser {
 
     private OWLOntologyManager man;
 
+    private OWLOntologyLoaderConfiguration configuration;
+
     private OWLOntology ontology;
 
     private OWLDataFactory dataFactory;
@@ -37,9 +39,10 @@ public class OWLFunctionalSyntaxParser {
 
     private Set<OWLAnnotation> currentAnnotations;
 
-    public void setUp(OWLOntologyManager man, OWLOntology ontology) {
+    public void setUp(OWLOntologyManager man, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         this.man = man;
         this.ontology = ontology;
+        this.configuration = configuration;
         this.dataFactory = man.getOWLDataFactory();
         this.currentAnnotations = new HashSet<OWLAnnotation>();
         if(prefixMap == null) {
@@ -88,8 +91,10 @@ public class OWLFunctionalSyntaxParser {
     }
 
     protected void addAxiom(OWLAxiom ax) {
-        AddAxiom addAxiom = new AddAxiom(ontology, ax);
-        applyChange(addAxiom);
+        if (!(ax instanceof OWLAnnotationAxiom) || configuration.isLoadAnnotations()) {
+            AddAxiom addAxiom = new AddAxiom(ontology, ax);
+            applyChange(addAxiom);
+        }
     }
 
     public void setPrefixes(PrefixManager nsm) {
@@ -836,7 +841,7 @@ void Ontology() throws OWLParserException, UnloadableImportException :
     (
     (decl = ImportsDeclaration() {
         applyChange(new AddImport(ontology, decl));
-        man.makeLoadImportRequest(decl);
+        man.makeLoadImportRequest(decl, configuration);
     })
     |
     (anno=Annotation(){

@@ -5,8 +5,7 @@ import java.io.IOException;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.*;
 
 
 /**
@@ -17,7 +16,11 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public class OWLOBOParser extends AbstractOWLParser {
 
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+    }
+
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         OBOParser parser;
         if (documentSource.isReaderAvailable()) {
             parser = new OBOParser(documentSource.getReader());
@@ -28,7 +31,7 @@ public class OWLOBOParser extends AbstractOWLParser {
         else {
             parser = new OBOParser(getInputStream(documentSource.getDocumentIRI()));
         }
-        parser.setHandler(new OBOConsumer(getOWLOntologyManager(), ontology));
+        parser.setHandler(new OBOConsumer(getOWLOntologyManager(), ontology, configuration));
         try {
             parser.parse();
         }

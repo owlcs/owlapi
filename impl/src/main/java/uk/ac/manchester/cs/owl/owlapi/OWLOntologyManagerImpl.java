@@ -24,50 +24,7 @@ import org.semanticweb.owlapi.io.OWLOntologyStorageIOException;
 import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.DefaultChangeBroadcastStrategy;
-import org.semanticweb.owlapi.model.DefaultImpendingChangeBroadcastStrategy;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.ImmutableOWLOntologyChangeException;
-import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeBroadcastStrategy;
-import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeListener;
-import org.semanticweb.owlapi.model.MissingImportEvent;
-import org.semanticweb.owlapi.model.MissingImportListener;
-import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLMutableOntology;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeBroadcastStrategy;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
-import org.semanticweb.owlapi.model.OWLOntologyChangeProgressListener;
-import org.semanticweb.owlapi.model.OWLOntologyChangeVetoException;
-import org.semanticweb.owlapi.model.OWLOntologyChangesVetoedListener;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyDocumentAlreadyExistsException;
-import org.semanticweb.owlapi.model.OWLOntologyFactory;
-import org.semanticweb.owlapi.model.OWLOntologyFactoryNotFoundException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderListener;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyManagerProperties;
-import org.semanticweb.owlapi.model.OWLOntologyRenameException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
-import org.semanticweb.owlapi.model.OWLOntologyStorerNotFoundException;
-import org.semanticweb.owlapi.model.RemoveAxiom;
-import org.semanticweb.owlapi.model.RemoveImport;
-import org.semanticweb.owlapi.model.SetOntologyID;
-import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
 
@@ -572,10 +529,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     public OWLOntology loadOntology(IRI ontologyIRI) throws OWLOntologyCreationException {
-        return loadOntology(ontologyIRI, false);
+        return loadOntology(ontologyIRI, false, new OWLOntologyLoaderConfiguration());
     }
 
-    private OWLOntology loadOntology(IRI ontologyIRI, boolean allowExists) throws OWLOntologyCreationException {
+    private OWLOntology loadOntology(IRI ontologyIRI, boolean allowExists, OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
         OWLOntologyID id = new OWLOntologyID(ontologyIRI);
         OWLOntology ontByID = ontologiesByID.get(id);
         if (ontByID != null) {
@@ -598,7 +555,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             // the ontology from.
             throw new OntologyIRIMappingNotFoundException(ontologyIRI);
         }
-        return loadOntology(ontologyIRI, new IRIDocumentSource(documentIRI));
+        return loadOntology(ontologyIRI, new IRIDocumentSource(documentIRI), configuration);
     }
 
     private OWLOntology getOntologyByDocumentIRI(IRI documentIRI) {
@@ -614,12 +571,16 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     public OWLOntology loadOntologyFromOntologyDocument(IRI documentIRI) throws OWLOntologyCreationException {
         // Ontology URI not known in advance
-        return loadOntology(null, new IRIDocumentSource(documentIRI));
+        return loadOntology(null, new IRIDocumentSource(documentIRI), new OWLOntologyLoaderConfiguration());
     }
 
     public OWLOntology loadOntologyFromOntologyDocument(OWLOntologyDocumentSource documentSource) throws OWLOntologyCreationException {
         // Ontology URI not known in advance
-        return loadOntology(null, documentSource);
+        return loadOntology(null, documentSource,new OWLOntologyLoaderConfiguration());
+    }
+
+    public OWLOntology loadOntologyFromOntologyDocument(OWLOntologyDocumentSource documentSource, OWLOntologyLoaderConfiguration config) throws OWLOntologyCreationException {
+        return loadOntology(null, documentSource, config);
     }
 
     public OWLOntology loadOntologyFromOntologyDocument(File file) throws OWLOntologyCreationException {
@@ -638,7 +599,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
      * @return The ontology that was loaded.
      * @throws OWLOntologyCreationException If the ontology could not be loaded.
      */
-    protected OWLOntology loadOntology(IRI ontologyIRI, OWLOntologyDocumentSource documentSource) throws OWLOntologyCreationException {
+    protected OWLOntology loadOntology(IRI ontologyIRI, OWLOntologyDocumentSource documentSource, OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
         if (loadCount != importsLoadCount) {
             System.err.println("Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
         }
@@ -653,7 +614,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
                     try {
                         // Note - there is no need to add the ontology here, because it will be added
                         // when the ontology is created.
-                        OWLOntology ontology = factory.loadOWLOntology(documentSource, this);
+                        OWLOntology ontology = factory.loadOWLOntology(documentSource, this, configuration);
                         idOfLoadedOntology = ontology.getOntologyID();
                         // Store the ontology to the document IRI mapping
                         documentIRIsByID.put(ontology.getOntologyID(), documentSource.getDocumentIRI());
@@ -1005,11 +966,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private OWLOntology loadImports(OWLImportsDeclaration declaration) throws OWLOntologyCreationException {
+    private OWLOntology loadImports(OWLImportsDeclaration declaration, OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
         importsLoadCount++;
         OWLOntology ont = null;
         try {
-            ont = loadOntology(declaration.getIRI(), true);
+            ont = loadOntology(declaration.getIRI(), true, configuration);
         }
         catch (OWLOntologyCreationException e) {
             if (!silentMissingImportsHandling) {
@@ -1027,10 +988,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         return ont;
     }
 
-
     public void makeLoadImportRequest(OWLImportsDeclaration declaration) throws UnloadableImportException {
+        makeLoadImportRequest(declaration, new OWLOntologyLoaderConfiguration());
+    }
+
+    public void makeLoadImportRequest(OWLImportsDeclaration declaration, OWLOntologyLoaderConfiguration configuration) throws UnloadableImportException {
         try {
-            OWLOntology ont = loadImports(declaration);
+            OWLOntology ont = loadImports(declaration, configuration);
             if (ont != null) {
                 ontologyIDsByImportsDeclaration.put(declaration, ont.getOntologyID());
             }

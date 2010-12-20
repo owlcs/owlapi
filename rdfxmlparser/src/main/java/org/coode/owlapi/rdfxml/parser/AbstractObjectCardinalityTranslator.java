@@ -1,10 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -39,71 +36,41 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public abstract class AbstractObjectCardinalityTranslator extends AbstractObjectRestrictionTranslator {
 
-    public AbstractObjectCardinalityTranslator(OWLRDFConsumer consumer) {
+    private IRI cardinalityPredicate;
+
+    public AbstractObjectCardinalityTranslator(OWLRDFConsumer consumer, IRI cardinalityPredicate) {
         super(consumer);
+        this.cardinalityPredicate = cardinalityPredicate;
     }
 
+    @Override
+    public boolean matches(IRI mainNode) {
+        if(!super.matches(mainNode)) {
+            return false;
+        }
+        OWLLiteral lit = getConsumer().getLiteralObject(mainNode, cardinalityPredicate, false);
+        if(lit == null) {
+            return false;
+        }
+        if(getConsumer().getConfiguration().isStrict()) {
+            OWL2Datatype xsdNNI = OWL2Datatype.XSD_NON_NEGATIVE_INTEGER;
+            return xsdNNI.getIRI().equals(lit.getDatatype().getIRI()) && xsdNNI.isInLexicalSpace(lit.getLiteral());
+        }
+        return true;
+    }
 
-    /**
-     * Gets the predicate of the cardinality triple (e.g. minCardinality, cardinality,
-     * maxCardinality)
-     * @return The IRI corresponding to the predicate of the triple that identifies
-     * the cardinality of the restriction.
-     */
-    protected abstract IRI getCardinalityTriplePredicate();
-
-    protected abstract IRI getQualifiedCardinalityTriplePredicate();
+    @Override
+    public boolean matchesOnPropertyObject(IRI onPropertyObject) {
+        return getConsumer().isObjectProperty(onPropertyObject);
+    }
 
     /**
      * Translates and consumes the cardinality triple.
      * @param mainNode The main node of the restriction.
      * @return The cardinality of the restriction or -1 if the cardinality triple was not found
-     * @throws OWLException
      */
-    private int translateCardinality(IRI mainNode) {
-        OWLLiteral con = getLiteralObject(mainNode, getCardinalityTriplePredicate(), true);
-        if(con == null) {
-            con = getLiteralObject(mainNode, getQualifiedCardinalityTriplePredicate(), true);
-        }
-        if(con == null) {
-            return -1;
-        }
+    protected int translateCardinality(IRI mainNode) {
+        OWLLiteral con = getConsumer().getLiteralObject(mainNode, cardinalityPredicate, true);
         return Integer.parseInt(con.getLiteral().trim());
     }
-
-
-    /**
-     * Translates and consumes the triple that identifies the filler/quantifier for the
-     * restriction (the onClass triple at the time of writing). If there is no filler
-     * triple then owl:Thing is returned.
-     * @param mainNode The main node of the restriction
-     * @return The class expression corresponding to the filler (not <code>null</code>)
-     * @throws OWLException
-     */
-    private OWLClassExpression translateFiller(IRI mainNode) {
-        IRI onClassObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_CLASS.getIRI(), true);
-        if(onClassObject == null) {
-            return getDataFactory().getOWLThing();
-        }
-        return translateToClassExpression(onClassObject);
-    }
-
-
-    @Override
-	protected OWLClassExpression translateRestriction(IRI mainNode) {
-        OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
-        if(prop == null) {
-            return getConsumer().getOWLClass(mainNode);
-        }
-        int cardi = translateCardinality(mainNode);
-        OWLClassExpression filler = translateFiller(mainNode);
-        return createRestriction(prop, cardi, filler);
-    }
-
-
-    /**
-     * Given a property expression, cardinality and filler, this method creates the appropriate
-     * OWLAPI object
-     */
-    protected abstract OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi, OWLClassExpression filler);
 }

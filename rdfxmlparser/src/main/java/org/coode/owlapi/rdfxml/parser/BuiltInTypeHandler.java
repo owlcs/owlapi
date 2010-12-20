@@ -1,7 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.IRI;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -43,14 +44,12 @@ public abstract class BuiltInTypeHandler extends TriplePredicateHandler {
     }
 
 
-    @Override
-	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException{
         return true;
     }
 
 
-    @Override
-	public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         return predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) && object.equals(typeIRI);
     }
 

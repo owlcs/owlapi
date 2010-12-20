@@ -23,6 +23,7 @@ public class TPPropertyChainAxiomHandler extends TriplePredicateHandler {
 
     @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+        getConsumer().addObjectProperty(object, false);
         return false;
     }
 

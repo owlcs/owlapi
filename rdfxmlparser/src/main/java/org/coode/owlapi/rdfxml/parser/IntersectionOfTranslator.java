@@ -1,10 +1,10 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import java.util.Set;
-
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import java.util.Set;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -43,17 +43,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class IntersectionOfTranslator extends AbstractNaryBooleanClassExpressionTranslator {
 
     public IntersectionOfTranslator(OWLRDFConsumer consumer) {
-        super(consumer);
+        super(consumer, OWLRDFVocabulary.OWL_INTERSECTION_OF.getIRI());
     }
 
-    @Override
-	protected OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) {
-        return getDataFactory().getOWLObjectIntersectionOf(operands);
-    }
-
-
-    @Override
-	protected IRI getPredicateIRI() {
-        return OWLRDFVocabulary.OWL_INTERSECTION_OF.getIRI();
+    public OWLClassExpression translate(IRI mainNode) {
+        return getDataFactory().getOWLObjectIntersectionOf(translateClassExpressions(mainNode));
     }
 }

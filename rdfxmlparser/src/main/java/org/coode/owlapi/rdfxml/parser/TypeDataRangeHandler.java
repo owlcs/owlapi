@@ -21,7 +21,6 @@ public class TypeDataRangeHandler extends BuiltInTypeHandler {
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (!isAnonymous(subject)) {
-            getConsumer().addOWLDataRange(subject);
             consumeTriple(subject, predicate, object);
         }
     }

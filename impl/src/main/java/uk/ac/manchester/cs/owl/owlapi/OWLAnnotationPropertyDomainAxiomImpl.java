@@ -58,8 +58,12 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
         return false;
     }
 
+    public boolean isAnnotationAxiom() {
+        return true;
+    }
+
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLAnnotationPropertyDomainAxiom other = (OWLAnnotationPropertyDomainAxiom) object;
         int diff = property.compareTo(other.getProperty());
         if (diff != 0) {

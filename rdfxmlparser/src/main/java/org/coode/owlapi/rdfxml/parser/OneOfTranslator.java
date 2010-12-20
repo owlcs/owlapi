@@ -47,19 +47,13 @@ public class OneOfTranslator extends AbstractClassExpressionTranslator {
         super(consumer);
     }
 
+    public boolean matches(IRI mainNode) {
+        return getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getIRI(), false) != null;
+    }
 
     public OWLClassExpression translate(IRI mainNode) {
-        IRI oneOfObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getIRI(), true);
-        Set<OWLIndividual> individuals = translateToIndividualSet(oneOfObject);
-        for (OWLIndividual ind : individuals) {
-            if (!ind.isAnonymous()) {
-                getConsumer().addIndividual(((OWLNamedIndividual) ind).getIRI());
-            }
-        }
-        if (individuals.isEmpty()) {
-            logger.info("Empty set in owl:oneOf class expression - converting to owl:Nothing");
-            return getDataFactory().getOWLNothing();
-        }
+        IRI oneOfObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getIRI(), true);
+        Set<OWLIndividual> individuals = getConsumer().translateToIndividualSet(oneOfObject);
         return getDataFactory().getOWLObjectOneOf(individuals);
     }
 }

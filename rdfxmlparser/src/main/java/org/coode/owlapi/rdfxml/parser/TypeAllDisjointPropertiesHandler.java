@@ -31,7 +31,7 @@ public class TypeAllDisjointPropertiesHandler extends BuiltInTypeHandler {
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
         IRI listNode = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS.getIRI(), true);
-        if (getConsumer().isObjectPropertyOnly(getConsumer().getFirstResource(listNode, false))) {
+        if (getConsumer().isObjectProperty(getConsumer().getFirstResource(listNode, false))) {
             Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
             List<OWLObjectPropertyExpression> props = getConsumer().translateToObjectPropertyList(listNode);
             getConsumer().addAxiom(getDataFactory().getOWLDisjointObjectPropertiesAxiom(new HashSet<OWLObjectPropertyExpression>(props), annotations));
@@ -42,8 +42,6 @@ public class TypeAllDisjointPropertiesHandler extends BuiltInTypeHandler {
         }
 
     }
-
-
 
     @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {

@@ -1,7 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -41,7 +41,13 @@ public class TPComplementOfHandler extends AbstractNamedEquivalentClassAxiomHand
     }
 
     @Override
-	protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+        getConsumer().addClassExpression(subject, false);
+        getConsumer().addClassExpression(object, false);
+        return super.canHandleStreaming(subject, predicate, object);
+    }
+
+    protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
         return getDataFactory().getOWLObjectComplementOf(getConsumer().translateClassExpression(mainNode));
     }
 }

@@ -38,29 +38,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class ObjectMaxCardinalityTranslator extends AbstractObjectCardinalityTranslator {
 
     public ObjectMaxCardinalityTranslator(OWLRDFConsumer consumer) {
-        super(consumer);
+        super(consumer, OWLRDFVocabulary.OWL_MAX_CARDINALITY.getIRI());
     }
 
-
-    protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi) {
-        return getDataFactory().getOWLObjectMaxCardinality(cardi, prop);
-    }
-
-
-    @Override
-	protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi,
-                                                   OWLClassExpression filler) {
-        return getDataFactory().getOWLObjectMaxCardinality(cardi, prop, filler);
-    }
-
-
-    @Override
-	protected IRI getCardinalityTriplePredicate() {
-        return OWLRDFVocabulary.OWL_MAX_CARDINALITY.getIRI();
-    }
-
-    @Override
-	protected IRI getQualifiedCardinalityTriplePredicate() {
-        return OWLRDFVocabulary.OWL_MAX_QUALIFIED_CARDINALITY.getIRI();
+    public OWLClassExpression translate(IRI mainNode) {
+        return getDataFactory().getOWLObjectMaxCardinality(translateCardinality(mainNode), translateProperty(mainNode));
     }
 }

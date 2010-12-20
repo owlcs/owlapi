@@ -29,6 +29,9 @@ public enum OWLRDFVocabulary {
 
     OWL_ONTOLOGY(Namespaces.OWL, "Ontology"),
 
+    @Deprecated
+    OWL_ONTOLOGY_PROPERTY(Namespaces.OWL, "OntologyProperty"),
+
     OWL_IMPORTS(Namespaces.OWL, "imports"),
 
     OWL_VERSION_IRI(Namespaces.OWL, "versionIRI"),
@@ -45,7 +48,6 @@ public enum OWLRDFVocabulary {
 
     OWL_INVERSE_FUNCTIONAL_PROPERTY(Namespaces.OWL, "InverseFunctionalProperty"),
 
-    /** @deprecated For backwards compatibility only */
     @Deprecated
     OWL_ANTI_SYMMETRIC_PROPERTY(Namespaces.OWL, "AntisymmetricProperty"),
 
@@ -55,8 +57,10 @@ public enum OWLRDFVocabulary {
 
     OWL_RESTRICTION(Namespaces.OWL, "Restriction"),
 
+    @Deprecated
     OWL_DATA_RESTRICTION(Namespaces.OWL, "DataRestriction"),
 
+    @Deprecated
     OWL_OBJECT_RESTRICTION(Namespaces.OWL, "ObjectRestriction"),
 
     OWL_ON_PROPERTY(Namespaces.OWL, "onProperty"),
@@ -75,9 +79,6 @@ public enum OWLRDFVocabulary {
 
     OWL_ONE_OF(Namespaces.OWL, "oneOf"),
 
-    /**
-     * @deprecated For backwards compatibility only
-     */
     @Deprecated
     OWL_SELF_RESTRICTION(Namespaces.OWL, "SelfRestriction"),
 
@@ -97,9 +98,6 @@ public enum OWLRDFVocabulary {
 
     OWL_ANNOTATION(Namespaces.OWL, "Annotation"),
 
-    /**
-     * @deprecated For backwards compatibility only
-     */
     @Deprecated
     OWL_DECLARED_AS(Namespaces.OWL, "declaredAs"),
 
@@ -127,12 +125,10 @@ public enum OWLRDFVocabulary {
 
     OWL_MAX_QUALIFIED_CARDINALITY(Namespaces.OWL, "maxQualifiedCardinality"),
 
-    /** @deprecated For backwards compatibility only */
     @Deprecated
     OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION(
             Namespaces.OWL, "NegativeObjectPropertyAssertion"),
 
-    /** @deprecated For backwards compatibility only */
     @Deprecated
     OWL_NEGATIVE_DATA_PROPERTY_ASSERTION(
             Namespaces.OWL, "NegativeDataPropertyAssertion"),
@@ -192,16 +188,22 @@ public enum OWLRDFVocabulary {
 
     RDF_PROPERTY(Namespaces.RDF, "Property"),
 
+    @Deprecated
     RDF_SUBJECT(Namespaces.RDF, "subject"),
 
+    @Deprecated
     RDF_PREDICATE(Namespaces.RDF, "predicate"),
 
+    @Deprecated
     RDF_OBJECT(Namespaces.RDF, "object"),
 
+    @Deprecated
     OWL_SUBJECT(Namespaces.OWL, "subject"),
 
+    @Deprecated
     OWL_PREDICATE(Namespaces.OWL, "predicate"),
 
+    @Deprecated
     OWL_OBJECT(Namespaces.OWL, "object"),
 
     RDF_DESCRIPTION(Namespaces.RDF, "Description"),
@@ -218,34 +220,46 @@ public enum OWLRDFVocabulary {
 
     OWL_OBJECT_PROPERTY_DOMAIN(Namespaces.OWL, "objectPropertyDomain"),
 
+    @Deprecated
     OWL_DATA_PROPERTY_DOMAIN(Namespaces.OWL, "dataPropertyDomain"),
 
+    @Deprecated
     OWL_DATA_PROPERTY_RANGE(Namespaces.OWL, "dataPropertyRange"),
 
+    @Deprecated
     OWL_OBJECT_PROPERTY_RANGE(Namespaces.OWL, "objectPropertyRange"),
 
+    @Deprecated
     OWL_SUB_OBJECT_PROPERTY_OF(Namespaces.OWL, "subObjectPropertyOf"),
 
+    @Deprecated
     OWL_SUB_DATA_PROPERTY_OF(Namespaces.OWL, "subDataPropertyOf"),
 
+    @Deprecated
     OWL_DISJOINT_DATA_PROPERTIES(Namespaces.OWL, "disjointDataProperties"),
 
+    @Deprecated
     OWL_DISJOINT_OBJECT_PROPERTIES(Namespaces.OWL, "disjointObjectProperties"),
 
     OWL_PROPERTY_DISJOINT_WITH(Namespaces.OWL, "propertyDisjointWith"),
 
+    @Deprecated
     OWL_EQUIVALENT_DATA_PROPERTIES(Namespaces.OWL, "equivalentDataProperty"),
 
+    @Deprecated
     OWL_EQUIVALENT_OBJECT_PROPERTIES(Namespaces.OWL, "equivalentObjectProperty"),
 
+    @Deprecated
     OWL_FUNCTIONAL_DATA_PROPERTY(Namespaces.OWL, "FunctionalDataProperty"),
 
+    @Deprecated
     OWL_FUNCTIONAL_OBJECT_PROPERTY(Namespaces.OWL, "FunctionalObjectProperty"),
 
     OWL_ON_CLASS(Namespaces.OWL, "onClass"),
 
     OWL_ON_DATA_RANGE(Namespaces.OWL, "onDataRange"),
 
+    @Deprecated
     OWL_ON_DATA_TYPE(Namespaces.OWL, "onDatatype"),
 
     OWL_WITH_RESTRICTIONS(Namespaces.OWL, "withRestrictions"),
@@ -255,7 +269,7 @@ public enum OWLRDFVocabulary {
     OWL_AXIOM(Namespaces.OWL, "Axiom"),
 
     /**
-     * @Deprecated
+     * @deprecated
      */
     OWL_PROPERTY_CHAIN(Namespaces.OWL, "propertyChain"),
 

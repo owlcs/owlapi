@@ -70,6 +70,9 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
         return true;
     }
 
+    public boolean isAnnotationAxiom() {
+        return false;
+    }
 
     public AxiomType getAxiomType() {
         return AxiomType.DATATYPE_DEFINITION;

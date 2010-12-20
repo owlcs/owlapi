@@ -1,8 +1,9 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -38,18 +39,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class ObjectSomeValuesFromTranslator extends AbstractObjectQuantifiedRestrictionTranslator {
 
     public ObjectSomeValuesFromTranslator(OWLRDFConsumer consumer) {
-        super(consumer);
+        super(consumer, OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getIRI());
     }
 
-
-    @Override
-	protected OWLClassExpression createRestriction(OWLObjectPropertyExpression property, OWLClassExpression filler) {
-        return getDataFactory().getOWLObjectSomeValuesFrom(property, filler);
-    }
-
-
-    @Override
-	protected IRI getFillerTriplePredicate() {
-        return OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getIRI();
+    public OWLClassExpression translate(IRI mainNode) {
+        return getDataFactory().getOWLObjectSomeValuesFrom(translateProperty(mainNode), translateFiller(mainNode));
     }
 }

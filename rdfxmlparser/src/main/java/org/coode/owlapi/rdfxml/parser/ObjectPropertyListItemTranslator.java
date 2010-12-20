@@ -33,6 +33,7 @@ public class ObjectPropertyListItemTranslator implements ListItemTranslator<OWLO
      * @return The translated item.
      */
     public OWLObjectPropertyExpression translate(IRI firstObject) {
+        consumer.addObjectProperty(firstObject, false);
         return consumer.translateObjectPropertyExpression(firstObject);
     }
 

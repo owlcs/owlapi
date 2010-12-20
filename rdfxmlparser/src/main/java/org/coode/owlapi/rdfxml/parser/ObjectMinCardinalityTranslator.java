@@ -1,8 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -38,29 +38,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class ObjectMinCardinalityTranslator extends AbstractObjectCardinalityTranslator {
 
     public ObjectMinCardinalityTranslator(OWLRDFConsumer consumer) {
-        super(consumer);
+        super(consumer, OWLRDFVocabulary.OWL_MIN_CARDINALITY.getIRI());
     }
 
-
-    protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi) {
-        return getDataFactory().getOWLObjectMinCardinality(cardi, prop);
-    }
-
-
-    @Override
-	protected OWLClassExpression createRestriction(OWLObjectPropertyExpression prop, int cardi,
-                                                   OWLClassExpression filler) {
-        return getDataFactory().getOWLObjectMinCardinality(cardi, prop, filler);
-    }
-
-
-    @Override
-	protected IRI getCardinalityTriplePredicate() {
-        return OWLRDFVocabulary.OWL_MIN_CARDINALITY.getIRI();
-    }
-
-    @Override
-	protected IRI getQualifiedCardinalityTriplePredicate() {
-        return OWLRDFVocabulary.OWL_MIN_QUALIFIED_CARDINALITY.getIRI();
+    public OWLClassExpression translate(IRI mainNode) {
+        return getDataFactory().getOWLObjectMinCardinality(translateCardinality(mainNode), translateProperty(mainNode));
     }
 }

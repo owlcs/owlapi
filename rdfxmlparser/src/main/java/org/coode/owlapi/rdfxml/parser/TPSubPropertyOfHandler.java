@@ -25,69 +25,55 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
 
     @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+        if(getConsumer().isObjectProperty(object)) {
+            getConsumer().addObjectProperty(subject, false);
+        }
+        else if(getConsumer().isDataProperty(object)) {
+            getConsumer().addDataProperty(object, false);
+        }
+        else if(getConsumer().isAnnotationProperty(object)) {
+            getConsumer().addAnnotationProperty(subject, false);
+        }
+        else if(getConsumer().isObjectProperty(subject)) {
+            getConsumer().addObjectProperty(object, false);
+        }
+        else if(getConsumer().isDataProperty(subject)) {
+            getConsumer().addDataProperty(object, false);
+        }
+        else if(getConsumer().isAnnotationProperty(subject)) {
+            getConsumer().addAnnotationProperty(object, false);
+        }
         return false;
     }
-
 
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
 
         // First check for object property chain
-        if (!getConsumer().isStrict() && getConsumer().hasPredicate(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getIRI())) {
+        if (!isStrict() && getConsumer().hasPredicate(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getIRI())) {
             // Property chain
             IRI chainList = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getIRI(), true);
             List<OWLObjectPropertyExpression> properties = getConsumer().translateToObjectPropertyList(chainList);
             addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(properties, translateObjectProperty(object), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
-        else if (!getConsumer().isStrict() && getConsumer().isList(subject, false)) {
+        else if (!isStrict() && getConsumer().hasPredicate(subject, OWLRDFVocabulary.RDF_FIRST.getIRI())) {
             // Legacy object property chain representation
             List<OWLObjectPropertyExpression> properties = getConsumer().translateToObjectPropertyList(subject);
             addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(properties, translateObjectProperty(object), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
-        // If any one of the properties is an object property then assume both are
-        else if (getConsumer().isObjectPropertyOnly(subject) || getConsumer().isObjectPropertyOnly(object)) {
+        else if (getConsumer().isObjectProperty(subject) && getConsumer().isObjectProperty(object)) {
             translateSubObjectProperty(subject, predicate, object);
         }
-        // If any one of the properties is a data property then assume both are
-        else if (getConsumer().isDataPropertyOnly(subject) && getConsumer().isDataPropertyOnly(object)) {
+        else if (getConsumer().isDataProperty(subject) && getConsumer().isDataProperty(object)) {
             translateSubDataProperty(subject, predicate, object);
         }
-        else if (!getConsumer().isStrict() && getConsumer().isAnnotationProperty(subject)) {
+        else if(!isStrict()) {
             OWLAnnotationProperty subAnnoProp = getDataFactory().getOWLAnnotationProperty(subject);
             OWLAnnotationProperty superAnnoProp = getDataFactory().getOWLAnnotationProperty(object);
             addAxiom(getDataFactory().getOWLSubAnnotationPropertyOfAxiom(subAnnoProp, superAnnoProp, getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
-        }
-        else {
-            // Check for range statements
-            IRI subPropRange = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDFS_RANGE.getIRI(), false);
-            if (subPropRange != null) {
-                if (getConsumer().isDataRange(subPropRange)) {
-                    // Data - Data
-                    translateSubDataProperty(subject, predicate, object);
-                }
-                else {
-                    translateSubObjectProperty(subject, predicate, object);
-                }
-                return;
-            }
-
-            IRI supPropRange = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDFS_RANGE.getIRI(), false);
-            if (supPropRange != null) {
-                if (getConsumer().isDataRange(supPropRange)) {
-                    // Data - Data
-                    translateSubDataProperty(subject, predicate, object);
-                }
-                else {
-                    translateSubObjectProperty(subject, predicate, object);
-                }
-                return;
-            }
-
-            // Can't  guess from range - assume object, object!
-            translateSubObjectProperty(subject, predicate, object);
         }
     }
 

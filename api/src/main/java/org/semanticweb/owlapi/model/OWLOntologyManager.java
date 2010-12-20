@@ -471,6 +471,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     OWLOntology loadOntologyFromOntologyDocument(OWLOntologyDocumentSource documentSource) throws OWLOntologyCreationException;
 
+    OWLOntology loadOntologyFromOntologyDocument(OWLOntologyDocumentSource documentSource, OWLOntologyLoaderConfiguration config) throws OWLOntologyCreationException;
+
+
     /**
      * Attempts to remove an ontology.  The ontology which is identified by the specified IRI is removed regardless of
      * whether it is referenced by other ontologies via imports statements.
@@ -697,7 +700,6 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     void removeOntologyChangeListener(OWLOntologyChangeListener listener);
 
-
     /**
      * Requests that the manager loads an imported ontology that is described by an imports statement.  This method is
      * generally used by parsers and other kinds of loaders.  For simply loading an ontology, use the loadOntologyXXX
@@ -706,8 +708,21 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws UnloadableImportException if there was a problem creating and loading the import and
      * silent missing imports handling is not turned on.  If silent missing import handling is turned on then
      * this exception will not be thrown.
+     * @deprecated use {@link OWLOntologyManager#makeLoadImportRequest(OWLImportsDeclaration, OWLOntologyLoaderConfiguration)} instead.
      */
     void makeLoadImportRequest(OWLImportsDeclaration declaration) throws UnloadableImportException;
+
+    /**
+     * Requests that the manager loads an imported ontology that is described by an imports statement.  This method is
+     * generally used by parsers and other kinds of loaders.  For simply loading an ontology, use the loadOntologyXXX
+     * methods.
+     * @param declaration The declaration that describes the import to be loaded.
+     * @param configuration The configuration object that passes arguments to the mechanism used for loading.
+     * @throws UnloadableImportException if there was a problem creating and loading the import and
+     * silent missing imports handling is not turned on.  If silent missing import handling is turned on then
+     * this exception will not be thrown.
+     */
+    void makeLoadImportRequest(OWLImportsDeclaration declaration, OWLOntologyLoaderConfiguration configuration) throws UnloadableImportException;
 
 
     /**
@@ -764,6 +779,5 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @param listener The listener to be removed.
      */
     void removeOntologyChangeProgessListener(OWLOntologyChangeProgressListener listener);
-
 
 }

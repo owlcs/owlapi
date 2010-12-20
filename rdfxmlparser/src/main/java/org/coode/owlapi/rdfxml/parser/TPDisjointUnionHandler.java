@@ -21,20 +21,25 @@ public class TPDisjointUnionHandler extends TriplePredicateHandler {
         super(consumer, OWLRDFVocabulary.OWL_DISJOINT_UNION_OF.getIRI());
     }
 
+    @Override
+    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+        return super.canHandle(subject, predicate, object) && !getConsumer().isAnonymousNode(subject) && getConsumer().isClassExpression(subject);
+    }
 
     @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        // The list might contain anonymous classes - better not handle it
-        // whilst streaming triples!
+        getConsumer().addClassExpression(subject, false);
         return false;
     }
 
 
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        OWLClass cls = (OWLClass) translateClassExpression(subject);
-        Set<OWLClassExpression> classExpressions = getConsumer().translateToClassExpressionSet(object);
-        addAxiom(getDataFactory().getOWLDisjointUnionAxiom(cls, classExpressions, getPendingAnnotations()));
-        consumeTriple(subject, predicate, object);
+        if (!getConsumer().isAnonymousNode(subject)) {
+            OWLClass cls = (OWLClass) translateClassExpression(subject);
+            Set<OWLClassExpression> classExpressions = getConsumer().translateToClassExpressionSet(object);
+            addAxiom(getDataFactory().getOWLDisjointUnionAxiom(cls, classExpressions, getPendingAnnotations()));
+            consumeTriple(subject, predicate, object);
+        }
     }
 }

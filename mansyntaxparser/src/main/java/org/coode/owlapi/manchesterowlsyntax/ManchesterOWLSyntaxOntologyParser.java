@@ -8,9 +8,7 @@ import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 
 
 /**
@@ -22,9 +20,10 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
 
     private static final String COMMENT_START_CHAR = "#";
+    
+    private static final String DEFAULT_FILE_ENCODING = "UTF-8";
 
-
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         try {
             BufferedReader br = null;
             try {
@@ -32,10 +31,10 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     br = new BufferedReader(documentSource.getReader());
                 }
                 else if (documentSource.isInputStreamAvailable()) {
-                    br = new BufferedReader(new InputStreamReader(documentSource.getInputStream(), "UTF-8"));
+                    br = new BufferedReader(new InputStreamReader(documentSource.getInputStream(), DEFAULT_FILE_ENCODING));
                 }
                 else {
-                    br = new BufferedReader(new InputStreamReader(getInputStream(documentSource.getDocumentIRI()), "UTF-8"));
+                    br = new BufferedReader(new InputStreamReader(getInputStream(documentSource.getDocumentIRI()), DEFAULT_FILE_ENCODING));
                 }
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -75,7 +74,8 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     lineCount++;
                 }
                 String s = sb.toString();
-                ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(getOWLOntologyManager().getOWLDataFactory(), s);
+                OWLDataFactory df = getOWLOntologyManager().getOWLDataFactory();
+                ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(configuration, df, s);
                 parser.parseOntology(getOWLOntologyManager(), ontology);
             }
             finally {
@@ -89,6 +89,12 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
             throw new ManchesterOWLSyntaxParserException(e.getMessage(), e.getLineNumber(), e.getColumnNumber());
         }
     }
+
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+        return  parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+    }
+
+
 
     private boolean startsWithMagicNumber(String line) {
         return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1 || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;

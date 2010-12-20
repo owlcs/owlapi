@@ -38,6 +38,10 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
         return false;
     }
 
+    public boolean isAnnotationAxiom() {
+        return false;
+    }
+
     public OWLDeclarationAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;

@@ -1,7 +1,12 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import uk.ac.manchester.cs.owl.owlapi.Internals;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -39,11 +44,22 @@ public abstract class AbstractRestrictionTranslator extends AbstractClassExpress
         super(consumer);
     }
 
-
-
-    final public OWLClassExpression translate(IRI mainNode) {
-        return translateRestriction(mainNode);
+    public boolean matches(IRI mainNode) {
+        if(!getConsumer().isRestriction(mainNode)) {
+            return false;
+        }
+        IRI onPropertyObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY, false);
+        if(onPropertyObject == null) {
+            return false;
+        }
+        if(!matchesOnPropertyObject(onPropertyObject)) {
+            return false;
+        }
+        return true;
     }
 
-    protected abstract OWLClassExpression translateRestriction(IRI mainNode);
+    public abstract OWLPropertyExpression translateProperty(IRI mainNode);
+
+    public abstract boolean matchesOnPropertyObject(IRI onPropertyObject);
+
 }

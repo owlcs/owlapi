@@ -2,10 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.owlapi.rdfxml.parser.OWLRDFConsumer;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.xml.sax.SAXException;
 
 /*
@@ -41,8 +38,8 @@ import org.xml.sax.SAXException;
 public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
 
 
-    public OWLRDFConsumerAdapter(OWLOntologyManager owlOntologyManager, OWLOntology ontology, AnonymousNodeChecker checker) {
-        super(owlOntologyManager, ontology, checker);
+    public OWLRDFConsumerAdapter(OWLOntologyManager owlOntologyManager, OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
+        super(owlOntologyManager, ontology, checker, configuration);
     }
 
 

@@ -13,12 +13,7 @@ import java.util.Stack;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserURISyntaxException;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.xml.sax.Attributes;
@@ -52,6 +47,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     private Stack<URI> bases;
 
+    private OWLOntologyLoaderConfiguration configuration;
+
+    public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology) {
+        this(owlOntologyManager, ontology, null, new OWLOntologyLoaderConfiguration());
+    }
 
     /**
      * Creates an OWLXML handler.
@@ -60,8 +60,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
      * imported ontologies etc.
      * @param ontology The ontology that the XML representation will be parsed into.
      */
-    public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology) {
-        this(owlOntologyManager, ontology, null);
+    public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+        this(owlOntologyManager, ontology, null, configuration);
     }
 
 
@@ -82,6 +82,10 @@ public class OWLXMLParserHandler extends DefaultHandler {
         bases.push(base);
     }
 
+    public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLElementHandler topHandler) {
+        this(owlOntologyManager, ontology, topHandler, new OWLOntologyLoaderConfiguration());
+    }
+
 
     /**
      * Creates an OWLXML handler with the specified top level handler.  This allows OWL/XML
@@ -95,10 +99,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
      * @param topHandler The handler for top level elements - may be <code>null</code>, in which
      * case the parser will expect an Ontology element to be the root element.
      */
-    public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLElementHandler topHandler) {
+    public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLElementHandler topHandler, OWLOntologyLoaderConfiguration configuration) {
         this.owlOntologyManager = owlOntologyManager;
         this.ontology = ontology;
         this.bases = new Stack<URI>();
+        this.configuration = configuration;
         handlerStack = new ArrayList<OWLElementHandler>();
         prefixName2PrefixMap = new HashMap<String, String>();
         prefixName2PrefixMap.put("owl:", Namespaces.OWL.toString());
@@ -143,6 +148,24 @@ public class OWLXMLParserHandler extends DefaultHandler {
         addFactory(new AbstractElementHandlerFactory(ANNOTATION_PROPERTY) {
             public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
                 return new OWLAnnotationPropertyElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(ANNOTATION_PROPERTY_DOMAIN) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new OWLAnnotationPropertyDomainElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(ANNOTATION_PROPERTY_RANGE) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new OWLAnnotationPropertyRangeElementHandler(handler);
+            }
+        });
+
+        addFactory(new AbstractElementHandlerFactory(SUB_ANNOTATION_PROPERTY_OF) {
+            public OWLElementHandler createHandler(OWLXMLParserHandler handler) {
+                return new OWLSubAnnotationPropertyOfElementHandler(handler);
             }
         });
 
@@ -635,9 +658,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 return new SWRLSameIndividualAtomElementHandler(handler);
             }
         });
-
     }
 
+    public OWLOntologyLoaderConfiguration getConfiguration() {
+        return configuration;
+    }
 
     /**
      * Gets the line number that the parser is at.

@@ -40,6 +40,10 @@ public class NamedClassTranslator implements ClassExpressionTranslator {
         this.consumer = consumer;
     }
 
+    public boolean matches(IRI mainNode) {
+        return !consumer.isAnonymousNode(mainNode) && consumer.isClassExpression(mainNode);
+    }
+
     /**
      * Translates the specified main node into an <code>OWLClassExpression</code>.
      * All triples used in the translation are consumed.

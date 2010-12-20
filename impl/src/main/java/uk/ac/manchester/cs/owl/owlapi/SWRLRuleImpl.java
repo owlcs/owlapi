@@ -41,7 +41,7 @@ import org.semanticweb.owlapi.util.SWRLVariableExtractor;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
-public class SWRLRuleImpl extends OWLAxiomImpl implements SWRLRule {
+public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     private Set<SWRLAtom> head;
 

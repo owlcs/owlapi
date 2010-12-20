@@ -23,30 +23,48 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
         super(consumer, OWLRDFVocabulary.OWL_EQUIVALENT_CLASS.getIRI());
     }
 
+    @Override
+    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+        return super.canHandle(subject, predicate, object) && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject, object);
+    }
+
+
 
     @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        // Can handle when streaming if the subject or object are named
-        boolean named = (getConsumer().isClass(subject)) && !isSubjectOrObjectAnonymous(subject, object);
-        return named || getConsumer().getClassExpressionIfTranslated(subject) != null && getConsumer().getClassExpressionIfTranslated(object) != null;
+        if(getConsumer().isClassExpression(object)) {
+            getConsumer().addClassExpression(subject, false);
+        }
+        else if(getConsumer().isDataRange(object)) {
+            getConsumer().addDataRange(subject, false);
+        }
+        else if(getConsumer().isClassExpression(subject)) {
+            getConsumer().addClassExpression(object, false);
+        }
+        else if(getConsumer().isDataRange(subject)) {
+            getConsumer().addDataRange(object, false);
+        }
+        return !isSubjectOrObjectAnonymous(subject, object) && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject, object);
     }
 
 
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        // Can handle because the IRIs can easily be translated to classes
-        if(getConsumer().isDataRange(object) || getConsumer().isDataRange(subject)) {
+        if(getConsumer().isDataRange(subject) && getConsumer().isDataRange(object)) {
             OWLDatatype datatype = getDataFactory().getOWLDatatype(subject);
             OWLDataRange dataRange = getConsumer().translateDataRange(object);
             addAxiom(getDataFactory().getOWLDatatypeDefinitionAxiom(datatype, dataRange, getPendingAnnotations()));
+            consumeTriple(subject, predicate, object);
         }
-        else {
+        else if(getConsumer().isClassExpression(subject) && getConsumer().isClassExpression(object)) {
             Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
             operands.add(translateClassExpression(subject));
             operands.add(translateClassExpression(object));
             addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands, getPendingAnnotations()));
+            consumeTriple(subject, predicate, object);
         }
-        consumeTriple(subject, predicate, object);
+        // TODO: LOG ERROR
+
 
     }
 }

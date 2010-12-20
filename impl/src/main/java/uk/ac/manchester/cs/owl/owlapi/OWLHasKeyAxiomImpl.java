@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 17-Jan-2009
  */
-public class OWLHasKeyAxiomImpl extends OWLAxiomImpl implements OWLHasKeyAxiom {
+public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKeyAxiom {
 
     private OWLClassExpression expression;
 

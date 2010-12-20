@@ -21,6 +21,5 @@ public class TypeListHandler extends BuiltInTypeHandler {
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
-        getConsumer().addList(subject);
     }
 }

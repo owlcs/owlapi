@@ -1,9 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -39,27 +36,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class DataMaxCardinalityTranslator extends AbstractDataCardinalityTranslator {
 
     public DataMaxCardinalityTranslator(OWLRDFConsumer consumer) {
-        super(consumer);
+        super(consumer, OWLRDFVocabulary.OWL_MAX_CARDINALITY.getIRI());
     }
 
-
-    @Override
-	protected OWLClassExpression createRestriction(OWLDataPropertyExpression prop, int cardi, OWLDataRange filler) {
-        return getDataFactory().getOWLDataMaxCardinality(cardi, prop, filler);
-    }
-
-
-    @Override
-	protected IRI getCardinalityTriplePredicate() {
-        return OWLRDFVocabulary.OWL_MAX_CARDINALITY.getIRI();
-    }
-
-    /**
-     * Gets the predicate of the qualified cardinality triple.
-     * @return The predicate IRI
-     */
-    @Override
-	protected IRI getQualifiedCardinalityTriplePredicate() {
-        return OWLRDFVocabulary.OWL_MAX_QUALIFIED_CARDINALITY.getIRI();
+    public OWLDataMaxCardinality translate(IRI mainNode) {
+        return getDataFactory().getOWLDataMaxCardinality(translateCardinality(mainNode), translateProperty(mainNode));
     }
 }

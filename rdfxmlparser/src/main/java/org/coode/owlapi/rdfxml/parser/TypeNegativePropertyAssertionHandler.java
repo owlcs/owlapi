@@ -33,51 +33,46 @@ public class TypeNegativePropertyAssertionHandler extends BuiltInTypeHandler {
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         IRI source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SOURCE_INDIVIDUAL.getIRI(), true);
         if (source == null) {
-            source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SUBJECT.getIRI(), true);
-        }
-        if (source == null) {
             source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_SUBJECT.getIRI(), true);
         }
-
         IRI property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_ASSERTION_PROPERTY.getIRI(), true);
-        if (property == null) {
-            property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PREDICATE.getIRI(), true);
-        }
         if (property == null) {
             property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_PREDICATE.getIRI(), true);
         }
         Object target = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_TARGET_INDIVIDUAL.getIRI(), true);
         if (target == null) {
-            target = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_OBJECT.getIRI(), true);
+            target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_TARGET_VALUE.getIRI(), true);
         }
         if (target == null) {
             target = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
         }
         if (target == null) {
-            target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_OBJECT.getIRI(), true);
-        }
-        if (target == null) {
             target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
         }
-        if (target == null) {
-            target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_TARGET_VALUE.getIRI(), true);
-        }
 
-        Set<OWLAnnotation> annos = getConsumer().translateAnnotations(subject);//getConsumer().getPendingAnnotations();
-        if (target instanceof OWLLiteral) {
-            OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
-            OWLDataPropertyExpression prop = getConsumer().translateDataPropertyExpression(property);
-            OWLLiteral lit = (OWLLiteral) target;
-            consumeTriple(subject, predicate, object);
-            addAxiom(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(prop, sourceInd, lit, annos));
+        Set<OWLAnnotation> annos = getConsumer().translateAnnotations(subject);
+        if (target instanceof OWLLiteral && (!isStrict() || getConsumer().isDataProperty(property))) {
+            translateNegativeDataPropertyAssertion(subject, predicate, object, source, property, (OWLLiteral) target, annos);
         }
-        else {
-            OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
-            OWLObjectPropertyExpression prop = getConsumer().translateObjectPropertyExpression(property);
-            OWLIndividual targetInd = getConsumer().getOWLIndividual((IRI) target);
-            consumeTriple(subject, predicate, object);
-            addAxiom(getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(prop, sourceInd, targetInd, annos));
+        else if(target instanceof IRI && (!isStrict() || getConsumer().isObjectProperty(property))) {
+            translateNegativeObjectPropertyAssertion(subject, predicate, object, source, property, (IRI) target, annos);
         }
+        // TODO LOG ERROR
+    }
 
+    private void translateNegativeObjectPropertyAssertion(IRI subject, IRI predicate, IRI object, IRI source, IRI property, IRI target, Set<OWLAnnotation> annos) {
+        OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
+        OWLObjectPropertyExpression prop = getConsumer().translateObjectPropertyExpression(property);
+        OWLIndividual targetInd = getConsumer().getOWLIndividual((IRI) target);
+        consumeTriple(subject, predicate, object);
+        addAxiom(getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(prop, sourceInd, targetInd, annos));
+    }
+
+    private void translateNegativeDataPropertyAssertion(IRI subject, IRI predicate, IRI object, IRI source, IRI property, OWLLiteral target, Set<OWLAnnotation> annos) {
+        OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
+        OWLDataPropertyExpression prop = getConsumer().translateDataPropertyExpression(property);
+        OWLLiteral lit = (OWLLiteral) target;
+        consumeTriple(subject, predicate, object);
+        addAxiom(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(prop, sourceInd, lit, annos));
     }
 }

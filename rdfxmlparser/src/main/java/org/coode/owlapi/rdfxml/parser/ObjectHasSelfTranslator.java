@@ -1,11 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -38,25 +34,30 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public class TPEquivalentObjectPropertyHandler extends TriplePredicateHandler {
+public class ObjectHasSelfTranslator extends AbstractObjectRestrictionTranslator {
 
-    public TPEquivalentObjectPropertyHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_EQUIVALENT_OBJECT_PROPERTIES.getIRI());
+    public ObjectHasSelfTranslator(OWLRDFConsumer consumer) {
+        super(consumer);
     }
 
-
     @Override
-	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    public boolean matches(IRI mainNode) {
+        OWLLiteral literal = getConsumer().getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_SELF.getIRI(), false);
+        if(literal == null) {
+            return false;
+        }
+        if(getConsumer().getConfiguration().isStrict()) {
+            if(!OWL2Datatype.XSD_BOOLEAN.getIRI().equals(literal.getDatatype().getIRI())) {
+                return false;
+            }
+            return literal.getLiteral().toLowerCase().equals("true");
+        }
         return true;
+
     }
 
-
-    @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
-        properties.add(translateObjectProperty(subject));
-        properties.add(translateObjectProperty(object));
-        addAxiom(getDataFactory().getOWLEquivalentObjectPropertiesAxiom(properties, getPendingAnnotations()));
-        consumeTriple(subject, predicate, object);
+    public OWLClassExpression translate(IRI mainNode) {
+        return getDataFactory().getOWLObjectHasSelf(translateProperty(mainNode));
     }
+
 }

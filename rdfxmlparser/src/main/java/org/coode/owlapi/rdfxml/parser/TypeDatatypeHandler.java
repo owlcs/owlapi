@@ -26,11 +26,9 @@ public class TypeDatatypeHandler extends BuiltInTypeHandler {
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (!getConsumer().isAnonymousNode(subject)) {
             OWLDatatype dt = getDataFactory().getOWLDatatype(subject);
-            if (!dt.isBuiltIn()) {
-                Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
-                addAxiom(getDataFactory().getOWLDeclarationAxiom(dt, annos));
-            }
+            Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(dt, annos));
         }
-        getConsumer().addOWLDatatype(subject);
+        getConsumer().addDataRange(subject, true);
     }
 }

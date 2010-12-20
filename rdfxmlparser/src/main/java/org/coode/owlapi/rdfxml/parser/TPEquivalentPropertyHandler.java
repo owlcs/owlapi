@@ -4,11 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 
@@ -20,8 +16,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
 
-    private static final Logger logger = Logger.getLogger(TPEquivalentPropertyHandler.class.getName());
-
     public TPEquivalentPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_EQUIVALENT_PROPERTY.getIRI());
     }
@@ -29,36 +23,28 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
 
     @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        return (getConsumer().isObjectPropertyOnly(subject) && getConsumer().isObjectPropertyOnly(object)) || (getConsumer().isDataPropertyOnly(subject) && getConsumer().isDataPropertyOnly(object));
+        return false;
     }
 
 
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        // If either is an object property then translate as object properties
-        if (getConsumer().isObjectPropertyOnly(subject) || getConsumer().isObjectPropertyOnly(object)) {
-            translateEquivalentObjectProperties(subject, predicate, object);
+        Set<OWLAnnotation> pendingAnnotations = getPendingAnnotations();
+        if (getConsumer().isObjectProperty(subject) && getConsumer().isObjectProperty(object)) {
+            Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
+            props.add(translateObjectProperty(subject));
+            props.add(translateObjectProperty(object));
+            addAxiom(getDataFactory().getOWLEquivalentObjectPropertiesAxiom(props, pendingAnnotations));
+            consumeTriple(subject, predicate, object);
         }
-        else if (getConsumer().isDataPropertyOnly(subject) || getConsumer().isDataPropertyOnly(object)) {
+        if (getConsumer().isDataProperty(subject) && getConsumer().isDataProperty(object)) {
             Set<OWLDataPropertyExpression> props = new HashSet<OWLDataPropertyExpression>();
             props.add(translateDataProperty(subject));
             props.add(translateDataProperty(object));
-            addAxiom(getDataFactory().getOWLEquivalentDataPropertiesAxiom(props, getPendingAnnotations()));
+            addAxiom(getDataFactory().getOWLEquivalentDataPropertiesAxiom(props, pendingAnnotations));
             consumeTriple(subject, predicate, object);
         }
-        else {
-            // Assume object!?
-            translateEquivalentObjectProperties(subject, predicate, object);
-            logger.fine("Assuming equivalent object properties because property types " + "are ambiguous: " + subject + " <-> " + object);
-        }
+        // TODO: LOG ERROR
     }
 
-
-    private void translateEquivalentObjectProperties(IRI subject, IRI predicate, IRI object) throws OWLOntologyChangeException {
-        Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
-        props.add(translateObjectProperty(subject));
-        props.add(translateObjectProperty(object));
-        addAxiom(getDataFactory().getOWLEquivalentObjectPropertiesAxiom(props, getPendingAnnotations()));
-        consumeTriple(subject, predicate, object);
-    }
 }

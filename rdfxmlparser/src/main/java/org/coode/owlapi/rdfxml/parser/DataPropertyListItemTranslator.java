@@ -45,7 +45,7 @@ public class DataPropertyListItemTranslator implements ListItemTranslator<OWLDat
 
 
     public OWLDataPropertyExpression translate(IRI firstObject) {
-        consumer.addOWLDataProperty(firstObject);
+        consumer.addDataProperty(firstObject, false);
         return consumer.getOWLDataProperty(firstObject);
     }
 

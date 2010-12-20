@@ -43,10 +43,17 @@ public class ComplementOfTranslator extends AbstractClassExpressionTranslator {
         super(consumer);
     }
 
+    public boolean matches(IRI mainNode) {
+        IRI complementOf = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF.getIRI(), false);
+        if(complementOf == null) {
+            return false;
+        }
+        return !getConsumer().getConfiguration().isStrict() || getConsumer().isClassExpression(complementOf);
+    }
 
     public OWLClassExpression translate(IRI mainNode) {
-        IRI complementOfObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF.getIRI(), true);
-        OWLClassExpression operand = translateToClassExpression(complementOfObject);
+        IRI complementOfObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF.getIRI(), true);
+        OWLClassExpression operand = getConsumer().translateClassExpression(complementOfObject);
         return getDataFactory().getOWLObjectComplementOf(operand);
     }
 }

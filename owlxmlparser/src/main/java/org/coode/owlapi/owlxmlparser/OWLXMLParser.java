@@ -12,10 +12,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserSAXException;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -30,6 +27,10 @@ public class OWLXMLParser extends AbstractOWLParser {
 
 
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+    }
+
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         try {
             System.setProperty("entityExpansionLimit", "100000000");
             OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
@@ -37,7 +38,7 @@ public class OWLXMLParser extends AbstractOWLParser {
             factory.setNamespaceAware(true);
             SAXParser parser = factory.newSAXParser();
             InputSource isrc = getInputSource(documentSource);
-            OWLXMLParserHandler handler = new OWLXMLParserHandler(getOWLOntologyManager(), ontology);
+            OWLXMLParserHandler handler = new OWLXMLParserHandler(getOWLOntologyManager(), ontology, configuration);
             parser.parse(isrc, handler);
             Map<String, String> prefix2NamespaceMap = handler.getPrefixName2PrefixMap();
             for(String prefix : prefix2NamespaceMap.keySet()) {

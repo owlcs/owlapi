@@ -6,12 +6,7 @@ import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.syntax.RDFParser;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -32,6 +27,10 @@ public class RDFXMLParser extends AbstractOWLParser {
 
 
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+    }
+
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         try {
             final RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
             if (owlOntologyManager == null) {
@@ -71,7 +70,7 @@ public class RDFXMLParser extends AbstractOWLParser {
                 public boolean isAnonymousNode(String IRI) {
                     return parser.isAnonymousNodeIRI(IRI);
                 }
-            });
+            }, configuration);
             consumer.setIRIProvider(prov);
             consumer.setOntologyFormat(format);
             InputSource is = getInputSource(documentSource);
@@ -88,7 +87,6 @@ public class RDFXMLParser extends AbstractOWLParser {
             throw new OWLRDFXMLParserSAXException(e);
         }
     }
-
 
     @Override
 	public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {

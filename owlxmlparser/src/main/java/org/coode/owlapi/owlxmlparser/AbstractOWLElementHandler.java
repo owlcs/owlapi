@@ -1,10 +1,7 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 
@@ -28,6 +25,10 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
 
     protected AbstractOWLElementHandler(OWLXMLParserHandler handler) {
         this.handler = handler;
+    }
+
+    public OWLOntologyLoaderConfiguration getConfiguration() {
+        return handler.getConfiguration();
     }
 
     public IRI getIRIFromAttribute(String localName, String value) throws OWLParserException {

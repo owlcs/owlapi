@@ -48,7 +48,7 @@ public class ClassExpressionTranslatorSelector {
 
     private OneOfTranslator oneOfTranslator;
 
-    private SelfRestrictionTranslator selfRestrictionTranslator;
+    private ObjectHasSelfTranslator objectHasSelfTranslator;
 
     private ObjectAllValuesFromTranslator objectAllValuesFromTranslator;
 
@@ -83,7 +83,7 @@ public class ClassExpressionTranslatorSelector {
         unionOfTranslator = new UnionOfTranslator(con);
         complementOfTranslator = new ComplementOfTranslator(con);
         oneOfTranslator = new OneOfTranslator(con);
-        selfRestrictionTranslator = new SelfRestrictionTranslator(con);
+        objectHasSelfTranslator = new ObjectHasSelfTranslator(con);
         objectAllValuesFromTranslator = new ObjectAllValuesFromTranslator(con);
         objectSomeValuesFromTranslator = new ObjectSomeValuesFromTranslator(con);
         objectHasValueTranslator = new ObjectHasValueTranslator(con);
@@ -127,7 +127,7 @@ public class ClassExpressionTranslatorSelector {
 
     private boolean isClassExpressionObject(IRI mainNode, IRI predicate) {
         IRI object = consumer.getResourceObject(mainNode, predicate, false);
-        return object != null && (consumer.isClass(object) || consumer.isRestriction(object));
+        return object != null && (consumer.isClassExpression(object) || consumer.isRestriction(object));
     }
 
     public boolean isDataRestriction(IRI mainNode, IRI property) {
@@ -266,7 +266,7 @@ public class ClassExpressionTranslatorSelector {
             return objectMaxCardinalityTranslator;
         }
         if (consumer.hasPredicate(mainNode, OWL_HAS_SELF.getIRI())) {
-            return selfRestrictionTranslator;
+            return objectHasSelfTranslator;
         }
         return namedClassTranslator;
     }

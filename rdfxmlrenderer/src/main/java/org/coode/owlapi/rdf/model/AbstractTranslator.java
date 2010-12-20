@@ -66,7 +66,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     public void visit(OWLDataComplementOf node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), RDFS_DATATYPE.getIRI());
-        addTriple(node, OWL_COMPLEMENT_OF.getIRI(), node.getDataRange());
+        addTriple(node, OWL_DATATYPE_COMPLEMENT_OF.getIRI(), node.getDataRange());
     }
 
     public void visit(OWLDataOneOf node) {

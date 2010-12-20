@@ -44,8 +44,9 @@ public class ClassExpressionListItemTranslator implements ListItemTranslator<OWL
     }
 
 
-    public OWLClassExpression translate(IRI IRI) {
-        return consumer.translateClassExpression(IRI);
+    public OWLClassExpression translate(IRI iri) {
+        consumer.addClassExpression(iri, false);
+        return consumer.translateClassExpression(iri);
     }
 
 

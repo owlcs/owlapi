@@ -47,4 +47,21 @@ public class TPIntersectionOfHandler extends AbstractNamedEquivalentClassAxiomHa
 	protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
         return getDataFactory().getOWLObjectIntersectionOf(getConsumer().translateToClassExpressionSet(mainNode));
     }
+
+    @Override
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+        if(getConsumer().isClassExpression(subject)) {
+            getConsumer().addClassExpression(object, false);
+        }
+        else if (getConsumer().isClassExpression(object)) {
+            getConsumer().addClassExpression(subject, false);
+        }
+        else if (getConsumer().isDataRange(subject)) {
+            getConsumer().addDataRange(object, false);
+        }
+        else if( getConsumer().isDataRange(object)) {
+            getConsumer().addDataRange(subject, false);
+        }
+        return super.canHandleStreaming(subject, predicate, object);
+    }
 }

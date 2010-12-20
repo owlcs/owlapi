@@ -68,6 +68,9 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
         return false;
     }
 
+    public boolean isAnnotationAxiom() {
+        return true;
+    }
 
     public AxiomType getAxiomType() {
         return AxiomType.SUB_ANNOTATION_PROPERTY_OF;

@@ -43,16 +43,7 @@ public class OptimisedListTranslator<O extends OWLObject> {
 
 
     private void translateList(IRI mainNode, List<O> list) {
-        if (!consumer.isList(mainNode, true)) {
-            // I originally threw an exception here, but some ontologies
-            // seem to have missing type triples for lists where it's obvious
-            // that the node is a list
-            if (logger.isLoggable(Level.FINE)) {
-                logger.fine("Untyped list found: " + mainNode);
-            }
-        }
-
-
+        
         IRI firstResource = consumer.getFirstResource(mainNode, true);
         if (firstResource != null) {
             list.add(translator.translate(firstResource));

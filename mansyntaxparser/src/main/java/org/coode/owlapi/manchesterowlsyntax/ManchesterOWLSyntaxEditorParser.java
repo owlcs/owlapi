@@ -1,75 +1,39 @@
 package org.coode.owlapi.manchesterowlsyntax;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.expression.ParserException;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
-import org.semanticweb.owlapi.model.SWRLDArgument;
-import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
-import org.semanticweb.owlapi.model.SWRLIArgument;
-import org.semanticweb.owlapi.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
-import org.semanticweb.owlapi.model.SWRLVariable;
-import org.semanticweb.owlapi.model.SetOntologyID;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.NamespaceUtil;
-import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
-import org.semanticweb.owlapi.vocab.Namespaces;
-import org.semanticweb.owlapi.vocab.OWLFacet;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
-import org.semanticweb.owlapi.vocab.XSDVocabulary;
+import org.semanticweb.owlapi.vocab.*;
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+/*
+ * Copyright (C) 2007, University of Manchester
+ *
+ * Modifications to the initial code base are copyright of their
+ * respective authors, or their employers as appropriate.  Authorship
+ * of the modifications may be determined from the ChangeLog placed at
+ * the end of this file.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
 
 
 /**
@@ -91,7 +55,9 @@ public class ManchesterOWLSyntaxEditorParser {
     // are specific to the Manchester OWL Syntax and are such that it should
     // be easy to use this parser in tools such as editors.
 
-	protected OWLDataFactory dataFactory;
+    private OWLOntologyLoaderConfiguration configuration;
+
+    private OWLDataFactory dataFactory;
 
     private List<ManchesterOWLSyntaxTokenizer.Token> tokens;
 
@@ -304,6 +270,11 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     public ManchesterOWLSyntaxEditorParser(OWLDataFactory dataFactory, String s) {
+        this(new OWLOntologyLoaderConfiguration(), dataFactory, s);
+    }
+
+    public ManchesterOWLSyntaxEditorParser(OWLOntologyLoaderConfiguration configuration, OWLDataFactory dataFactory, String s) {
+        this.configuration = configuration;
         this.dataFactory = dataFactory;
         potentialKeywords = new HashSet<String>();
 
@@ -332,9 +303,12 @@ public class ManchesterOWLSyntaxEditorParser {
             String[] res = u.split(iri.toString(), null);
             annotationPropertyNames.add(u.getPrefix(res[0]) + ":" + res[1]);
         }
-        for (DublinCoreVocabulary v : DublinCoreVocabulary.values()) {
-            annotationPropertyNames.add(v.getQName());
-        }
+        // TODO
+//        if (configuration.isBuiltInVocabularyEnabled(BuiltInVocabulary.DUBLIN_CORE)) {
+//            for (DublinCoreVocabulary v : DublinCoreVocabulary.values()) {
+//                annotationPropertyNames.add(v.getQName());
+//            }
+//        }
         base = "http://www.semanticweb.org#";
         owlEntityChecker = new DefaultEntityChecker();
         tokens = new ArrayList<ManchesterOWLSyntaxTokenizer.Token>();
@@ -345,7 +319,6 @@ public class ManchesterOWLSyntaxEditorParser {
             ruleBuiltIns.put(v.getIRI().toQuotedString(), v);
         }
     }
-
 
     protected ManchesterOWLSyntaxTokenizer getTokenizer(String s) {
         return new ManchesterOWLSyntaxTokenizer(s);
@@ -1354,8 +1327,10 @@ public class ManchesterOWLSyntaxEditorParser {
             Set<OWLAnnotation> annos = parseAnnotationList();
             for (OWLOntology ont : onts) {
                 for (OWLAnnotation anno : annos) {
-                    OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
-                    pairs.add(new OntologyAxiomPair(ont, ax));
+                    if (configuration.isLoadAnnotationAxioms()) {
+                        OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
+                        pairs.add(new OntologyAxiomPair(ont, ax));
+                    }
                 }
             }
         }
@@ -3125,7 +3100,7 @@ public class ManchesterOWLSyntaxEditorParser {
             if (section.equals(ONTOLOGY)) {
                 ManchesterOWLSyntaxOntologyHeader header = parseOntologyHeader(false);
                 for (OWLImportsDeclaration decl : header.getImportsDeclarations()) {
-                    manager.makeLoadImportRequest(decl);
+                    manager.makeLoadImportRequest(decl, configuration);
                     imports.add(new AddImport(ont, decl));
                 }
                 for (OWLAnnotation anno : header.getAnnotations()) {
@@ -3157,7 +3132,7 @@ public class ManchesterOWLSyntaxEditorParser {
             else if (section.equalsIgnoreCase(IMPORT)) {
                 OWLImportsDeclaration decl = parseImportsDeclaration(ont);
                 imports.add(new AddImport(ont, decl));
-                manager.makeLoadImportRequest(decl);
+                manager.makeLoadImportRequest(decl, configuration);
             }
             else if (section.equalsIgnoreCase(PREFIX)) {
                 Map<String, IRI> nsMap = parsePrefixDeclaration();

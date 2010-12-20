@@ -1,10 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -43,15 +39,17 @@ public class ObjectHasValueTranslator extends AbstractObjectRestrictionTranslato
         super(consumer);
     }
 
-
     @Override
-	protected OWLClassExpression translateRestriction(IRI mainNode) {
-        IRI hasValueObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getIRI(), true);
-        OWLObjectPropertyExpression prop = translateOnProperty(mainNode);
-        OWLIndividual ind = getConsumer().getOWLIndividual(hasValueObject);
-        if (!ind.isAnonymous()) {
-            getConsumer().addIndividual(((OWLNamedIndividual) ind).getIRI());
+    public boolean matches(IRI mainNode) {
+        if(!super.matches(mainNode)) {
+            return false;
         }
-        return getDataFactory().getOWLObjectHasValue(prop, ind);
+        return getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE, false) != null;
+    }
+
+    public OWLClassExpression translate(IRI mainNode) {
+        IRI value = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE, true);
+        OWLIndividual individual = getConsumer().translateIndividual(value);
+        return getDataFactory().getOWLObjectHasValue(translateProperty(mainNode), individual);
     }
 }

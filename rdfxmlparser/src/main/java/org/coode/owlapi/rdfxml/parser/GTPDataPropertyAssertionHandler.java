@@ -21,10 +21,7 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
 
     @Override
 	public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
-        if (getConsumer().isAnnotationProperty(predicate) || getConsumer().isOntology(subject)) {
-            return false;
-        }
-        return !OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(predicate) && !OWLFacet.FACET_IRIS.contains(predicate);
+        return getConsumer().isDataProperty(predicate);
     }
 
 
@@ -36,8 +33,7 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
 
     @Override
 	public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
-        addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(translateDataProperty(predicate), translateIndividual(subject), object, getPendingAnnotations()
-        ));
+        addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(translateDataProperty(predicate), translateIndividual(subject), object, getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 }

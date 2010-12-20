@@ -58,8 +58,12 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
         return false;
     }
 
+    public boolean isAnnotationAxiom() {
+        return true;
+    }
+
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) object;
         int diff = property.compareTo(other.getProperty());
         if (diff != 0) {

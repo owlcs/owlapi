@@ -3,6 +3,7 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -41,16 +42,15 @@ public abstract class AbstractDataRestrictionTranslator extends AbstractRestrict
         super(consumer);
     }
 
+    @Override
+    final public boolean matchesOnPropertyObject(IRI onPropertyObject) {
+        return !getConsumer().getConfiguration().isStrict() || getConsumer().isDataProperty(onPropertyObject);
+    }
 
-    /**
-     * Translates and consumes the onProperty triple, creating a data property corresponding to the object
-     * of the onProperty triple.
-     * @param mainNode The subject of the triple (the main node of the restriction)
-     * @throws OWLException If the on property triple doesn't exist.
-     */
-    protected OWLDataPropertyExpression translateOnProperty(IRI mainNode) {
-        IRI onPropertyObject = getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), true);
-        return getDataFactory().getOWLDataProperty(onPropertyObject);
+    @Override
+    public OWLDataPropertyExpression translateProperty(IRI mainNode) {
+        IRI onPropertyValue = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ON_PROPERTY, true);
+        return getConsumer().translateDataPropertyExpression(onPropertyValue);
     }
 
 }

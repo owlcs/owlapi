@@ -25,7 +25,7 @@ public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
         IRI ontIRI = getIRI(getText().trim());
         OWLImportsDeclaration decl = getOWLDataFactory().getOWLImportsDeclaration(ontIRI);
         getOWLOntologyManager().applyChange(new AddImport(getOntology(), decl));
-        getOWLOntologyManager().makeLoadImportRequest(decl);
+        getOWLOntologyManager().makeLoadImportRequest(decl, getConfiguration());
     }
 
 

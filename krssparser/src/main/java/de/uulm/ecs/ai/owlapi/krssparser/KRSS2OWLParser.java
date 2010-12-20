@@ -1,12 +1,11 @@
 package de.uulm.ecs.ai.owlapi.krssparser;
 
-import java.io.IOException;
-
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.*;
+
+import java.io.IOException;
 
 /*
 * Copyright (C) 2008, Ulm University
@@ -273,7 +272,11 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 public class KRSS2OWLParser extends AbstractOWLParser {
 
 
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+    }
+
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         try {
             KRSS2OntologyFormat format = new KRSS2OntologyFormat();
             KRSS2Parser parser;
