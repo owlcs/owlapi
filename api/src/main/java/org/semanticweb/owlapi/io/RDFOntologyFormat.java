@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
 
-    private boolean addMissingTypes = false;
+    private boolean addMissingTypes = true;
 
     /**
      * Determines if untyped entities should automatically be typed (declared) during rendering.  (This is a hint to an RDF
