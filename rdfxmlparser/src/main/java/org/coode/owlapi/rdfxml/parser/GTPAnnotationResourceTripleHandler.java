@@ -60,12 +60,20 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
         }
         OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(predicate);
         OWLAnnotation anno = getDataFactory().getOWLAnnotation(prop, value);
+        OWLAnnotationSubject annoSubject;
+        if(isAnonymous(subject)) {
+            annoSubject = getDataFactory().getOWLAnonymousIndividual(subject.toString());
+        }
+        else {
+            annoSubject = subject;
+        }
+
         if (getConsumer().isOntology(subject)) {
             // Assume we annotation our ontology?
             getConsumer().addOntologyAnnotation(anno);
         }
         else {
-            OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno, getPendingAnnotations());
+            OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(annoSubject, anno, getPendingAnnotations());
             addAxiom(decAx);
         }
 
