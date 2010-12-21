@@ -1,16 +1,16 @@
 package org.coode.owlapi.rdfxml.parser;
 
+import org.semanticweb.owlapi.api.test.OWLDatatypeTestCase;
+import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.rdf.syntax.RDFConsumer;
-import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.rdf.syntax.RDFParserException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.*;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import org.xml.sax.SAXException;
-import sun.awt.image.SunWritableRaster;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -1305,10 +1305,12 @@ public class OWLRDFConsumer implements RDFConsumer {
             // Now axiom annotations
             consumeAnnotatedAxioms();
 
+            final Set<RDFTriple> remainingTriples = getRemainingTriples();
+
 
             if (format != null) {
-                RDFOntologyFormat.ParserMetaData metaData = new RDFOntologyFormat.ParserMetaData(count, RDFOntologyFormat.OntologyHeaderStatus.PARSED_ONE_HEADER);
-                format.setParserMetaData(metaData);
+                RDFParserMetaData metaData = new RDFParserMetaData(RDFOntologyHeaderStatus.PARSED_ONE_HEADER, count, remainingTriples);
+                format.setOntologyLoaderMetaData(metaData);
             }
 
 
@@ -1330,6 +1332,22 @@ public class OWLRDFConsumer implements RDFConsumer {
         catch (UnloadableImportException e) {
             throw new TranslatedUnloadedImportException(e);
         }
+    }
+
+    private Set<RDFTriple> getRemainingTriples() {
+        final Set<RDFTriple> remainingTriples = new HashSet<RDFTriple>();
+        iterateResourceTriples(new ResourceTripleIterator<RuntimeException>() {
+            public void handleResourceTriple(IRI subject, IRI predicate, IRI object) {
+                remainingTriples.add(new RDFTriple(subject, isAnonymousNode(subject), predicate, isAnonymousNode(predicate), object, isAnonymousNode(object)));
+            }
+        });
+
+        iterateLiteralTriples(new LiteralTripleIterator<RuntimeException>() {
+            public void handleLiteralTriple(IRI subject, IRI predicate, OWLLiteral object) {
+                remainingTriples.add(new RDFTriple(subject, isAnonymousNode(subject), predicate, isAnonymousNode(predicate), object));
+            }
+        });
+        return remainingTriples;
     }
 
     private void consumeNonReservedPredicateTriples() throws UnloadableImportException {
@@ -1564,33 +1582,36 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     /**
      * Given a main node, translated data ranges according to Table 12
-     * @param iri The main node
+     * @param mainNode The main node
      * @return The translated data range.  If the data range could not be translated then
      *         an OWLDatatype with the given IRI is returned.
      */
-    public OWLDataRange translateDataRange(IRI iri) {
-        if (!isDataRange(iri) && configuration.isStrict()) {
+    public OWLDataRange translateDataRange(IRI mainNode) {
+        if (!isDataRange(mainNode) && configuration.isStrict()) {
             // Can't translated ANY according to Table 12
-            // TODO: LOG ERROR
-            return dataFactory.getOWLDatatype(iri);
+            return generateAndLogParseError(EntityType.DATATYPE, mainNode);
         }
 
-        IRI intersectionOfObject = getResourceObject(iri, OWL_INTERSECTION_OF.getIRI(), true);
+        if(!isAnonymousNode(mainNode) && isDataRange(mainNode)) {
+            return dataFactory.getOWLDatatype(mainNode);
+        }
+
+        IRI intersectionOfObject = getResourceObject(mainNode, OWL_INTERSECTION_OF.getIRI(), true);
         if (intersectionOfObject != null) {
             Set<OWLDataRange> dataRanges = translateToDataRangeSet(intersectionOfObject);
             return dataFactory.getOWLDataIntersectionOf(dataRanges);
         }
 
-        IRI unionOfObject = getResourceObject(iri, OWL_UNION_OF.getIRI(), true);
+        IRI unionOfObject = getResourceObject(mainNode, OWL_UNION_OF.getIRI(), true);
         if (unionOfObject != null) {
             Set<OWLDataRange> dataRanges = translateToDataRangeSet(unionOfObject);
             return dataFactory.getOWLDataUnionOf(dataRanges);
         }
 
         // The plain complement of triple predicate is in here for legacy reasons
-        IRI complementOfObject = getResourceObject(iri, OWL_DATATYPE_COMPLEMENT_OF.getIRI(), true);
+        IRI complementOfObject = getResourceObject(mainNode, OWL_DATATYPE_COMPLEMENT_OF.getIRI(), true);
         if (!configuration.isStrict() && complementOfObject == null) {
-            complementOfObject = getResourceObject(iri, OWL_COMPLEMENT_OF.getIRI(), true);
+            complementOfObject = getResourceObject(mainNode, OWL_COMPLEMENT_OF.getIRI(), true);
         }
         if (complementOfObject != null) {
             OWLDataRange operand = translateDataRange(complementOfObject);
@@ -1598,19 +1619,19 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
 
 
-        IRI oneOfObject = getResourceObject(iri, OWL_ONE_OF.getIRI(), true);
+        IRI oneOfObject = getResourceObject(mainNode, OWL_ONE_OF.getIRI(), true);
         if (oneOfObject != null) {
             Set<OWLLiteral> literals = translateToConstantSet(oneOfObject);
             return dataFactory.getOWLDataOneOf(literals);
         }
 
 
-        IRI onDatatypeObject = getResourceObject(iri, OWL_ON_DATA_TYPE.getIRI(), true);
+        IRI onDatatypeObject = getResourceObject(mainNode, OWL_ON_DATA_TYPE.getIRI(), true);
         if (onDatatypeObject != null) {
 
             if (isAnonymousNode(onDatatypeObject)) {
                 // TODO LOG ERROR
-                return dataFactory.getOWLDatatype(iri);
+                return dataFactory.getOWLDatatype(mainNode);
             }
             OWLDatatype restrictedDataRange = (OWLDatatype) translateDataRange(onDatatypeObject);
 
@@ -1619,7 +1640,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             // by the facet.  Originally, there just used to be multiple facet-"facet value" triples
             Set<OWLFacetRestriction> restrictions = new HashSet<OWLFacetRestriction>();
 
-            IRI facetRestrictionList = getResourceObject(iri, OWL_WITH_RESTRICTIONS.getIRI(), true);
+            IRI facetRestrictionList = getResourceObject(mainNode, OWL_WITH_RESTRICTIONS.getIRI(), true);
             if (facetRestrictionList != null) {
                 restrictions = translateToFacetRestrictionSet(facetRestrictionList);
             }
@@ -1627,7 +1648,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                 // Try the legacy encoding
                 for (IRI facetIRI : OWLFacet.FACET_IRIS) {
                     OWLLiteral val;
-                    while ((val = getLiteralObject(iri, facetIRI, true)) != null) {
+                    while ((val = getLiteralObject(mainNode, facetIRI, true)) != null) {
                         restrictions.add(dataFactory.getOWLFacetRestriction(OWLFacet.getFacet(facetIRI), val));
                     }
                 }
@@ -1638,8 +1659,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
 
         // Could not translated ANYTHING!
-        // TODO: LOG ERROR
-        return dataFactory.getOWLDatatype(iri);
+        return generateAndLogParseError(EntityType.DATATYPE, mainNode);
     }
 
 
@@ -1748,24 +1768,13 @@ public class OWLRDFConsumer implements RDFConsumer {
     private int errorCounter = 0;
 
 
-    private OWLClass getErrorClass(IRI mainNode, OWLRDFVocabulary classExpressionType, OWLRDFVocabulary... expectedPredicates) {
-        return getErrorClass(mainNode, classExpressionType, "");
-    }
-
-    private OWLClass getErrorClass(IRI mainNode, OWLRDFVocabulary classExpressionType, String errorMessage) {
+    private <E extends OWLEntity> E getErrorEntity(EntityType<E> entityType) {
         errorCounter++;
-        StringBuilder sb = new StringBuilder();
-        sb.append("http://owlapi.sourceforge.net/rdf/parse/error#ErrorClass?");
-        sb.append("id=");
-        sb.append(errorCounter);
-        IRI errorIRI = IRI.create(sb.toString());
-        // TODO: ERRORS - MAP ID to message and triples on main node
-        return dataFactory.getOWLClass(errorIRI);
+        IRI iri = IRI.create("http://org.semanticweb.owlapi/error#Error" + errorCounter);
+        return dataFactory.getOWLEntity(entityType, iri);
     }
 
-    private OWLClass getRestrictionErrorClass(IRI mainNode, String errorMessage) {
-        return getErrorClass(mainNode, OWL_RESTRICTION, errorMessage);
-    }
+
 
 
     private OWLClassExpression translateClassExpressionInternal(IRI mainNode) {
@@ -1775,25 +1784,9 @@ public class OWLRDFConsumer implements RDFConsumer {
             // We MUST have an owl:onProperty triple whether strict parsing or not
             IRI onPropertyObject = getResourceObject(mainNode, OWL_ON_PROPERTY, false);
             if (onPropertyObject == null) {
-                return getErrorClass(mainNode, OWL_RESTRICTION, OWL_ON_PROPERTY);
+                return generateAndLogParseError(EntityType.CLASS, mainNode);
             }
-            // If strict parsing, the owl:onProperty triple must be exclusively an object property or a data property
-            boolean objectPropertyOnly = isObjectPropertyOnly(onPropertyObject);
-            boolean dataPropertyOnly = isDataPropertyOnly(onPropertyObject);
-            if (configuration.isStrict()) {
-                if (!(objectPropertyOnly || dataPropertyOnly)) {
-                    if (isObjectProperty(onPropertyObject) && isDataProperty(onPropertyObject)) {
-                        // Both
-                        return getRestrictionErrorClass(mainNode, "owl:onProperty value (" + onPropertyObject.toQuotedString() + ") is both an object property and a data property");
-                    }
-                    else {
-                        // Neither
-                        return getRestrictionErrorClass(mainNode, "owl:onProperty value (" + onPropertyObject.toQuotedString() + ") is neither an object property or a data property.");
-                    }
-                }
-            }
-
-
+            
             for (ClassExpressionTranslator translator : objectRestrictionTranslators) {
                 if (translator.matches(mainNode)) {
                     return translator.translate(mainNode);
@@ -1805,9 +1798,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                 }
             }
 
-
         }
-        // Boolean
         else if (isClassExpression(mainNode)) {
             for(ClassExpressionTranslator translator : nonRestrictionTranslators) {
                 if(translator.matches(mainNode)) {
@@ -1815,31 +1806,54 @@ public class OWLRDFConsumer implements RDFConsumer {
                 }
             }
 
-            return getErrorClass(mainNode, OWL_CLASS, OWL_INTERSECTION_OF, OWL_UNION_OF, OWL_COMPLEMENT_OF, OWL_ONE_OF);
+            return generateAndLogParseError(EntityType.CLASS, mainNode);
         }
-        return getErrorClass(mainNode, null, "Expected an rdf:type triple with an object of either owl:Class or owl:Restriction");
+        return generateAndLogParseError(EntityType.CLASS, mainNode);
     }
 
 
-//    public OWLClassExpression translateClassExpression(IRI mainNode) {
-//        if (!isAnonymousNode(mainNode)) {
-//            return dataFactory.getOWLClass(mainNode);
-//        }
-//        OWLClassExpression desc = translatedClassExpression.get(mainNode);
-//        if (desc == null) {
-//            ClassExpressionTranslator translator = classExpressionTranslatorSelector.getClassExpressionTranslator(mainNode);
-//            if (translator != null) {
-//                desc = translator.translate(mainNode);
-//                translatedClassExpression.put(mainNode, desc);
-//                restrictionIRIs.remove(mainNode);
-//            }
-//            else {
-//                return dataFactory.getOWLClass(mainNode);
-//            }
-//        }
-//        return desc;
-//    }
 
+    private RDFResource getRDFResource(IRI iri) {
+        return new RDFResource(iri, isAnonymousNode(iri));
+    }
+
+    private RDFTriple getRDFTriple(IRI subject, IRI predicate, IRI object) {
+        return new RDFTriple(getRDFResource(subject), getRDFResource(predicate), getRDFResource(object));
+    }
+
+
+    private RDFTriple getRDFTriple(IRI subject, IRI predicate, OWLLiteral object) {
+        return new RDFTriple(getRDFResource(subject), getRDFResource(predicate), new RDFLiteral(object));
+    }
+
+    private Set<RDFTriple> getTriplesForMainNode(IRI mainNode, IRI ... augmentingTypes) {
+        Set<RDFTriple> triples = new HashSet<RDFTriple>();
+        for(IRI predicate : getPredicatesBySubject(mainNode)) {
+            for(IRI object : getResourceObjects(mainNode, predicate)) {
+                triples.add(getRDFTriple(mainNode, predicate, object));
+            }
+            for(OWLLiteral object : getLiteralObjects(mainNode, predicate)) {
+                triples.add(getRDFTriple(mainNode, predicate, object));
+            }
+        }
+        for(IRI augmentingType : augmentingTypes) {
+            triples.add(getRDFTriple(mainNode, OWLRDFVocabulary.RDF_TYPE.getIRI(), augmentingType));
+        }
+        return triples;
+    }
+
+    private void logError(RDFResourceParseError error) {
+
+    }
+
+    private <E extends OWLEntity> E generateAndLogParseError(EntityType<E> entityType, IRI mainNode) {
+        E entity = getErrorEntity(entityType);
+        RDFResource mainNodeResource = getRDFResource(mainNode);
+        Set<RDFTriple> mainNodeTriples = getTriplesForMainNode(mainNode);
+        RDFResourceParseError error =  new RDFResourceParseError(entity, mainNodeResource, mainNodeTriples);
+        logError(error);
+        return entity;
+    }
 
     public OWLClassExpression getClassExpressionIfTranslated(IRI mainNode) {
         return translatedClassExpression.get(mainNode);
@@ -1928,6 +1942,25 @@ public class OWLRDFConsumer implements RDFConsumer {
         return null;//searchGeneralResourceTriples(subject, predicate, null, consume);
     }
 
+    public Set<IRI> getResourceObjects(IRI subject, IRI predicate) {
+        Set<IRI> result = new HashSet<IRI>();
+        Map<IRI, IRI> subjPredMap = singleValuedResTriplesByPredicate.get(predicate);
+        if (subjPredMap != null) {
+            IRI obj = subjPredMap.get(subject);
+            if(obj != null) {
+                result.add(obj);
+            }
+        }
+        Map<IRI, Collection<IRI>> predObjMap = resTriplesBySubject.get(subject);
+        if (predObjMap != null) {
+            Collection<IRI> objects = predObjMap.get(predicate);
+            if (objects != null) {
+                result.addAll(objects);
+            }
+        }
+        return result;
+    }
+
 
     public OWLLiteral getLiteralObject(IRI subject, IRI predicate, boolean consume) {
         Map<IRI, OWLLiteral> subjPredMap = singleValuedLitTriplesByPredicate.get(predicate);
@@ -1955,6 +1988,25 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
         }
         return null;
+    }
+
+    public Set<OWLLiteral> getLiteralObjects(IRI subject, IRI predicate) {
+        Set<OWLLiteral> result = new HashSet<OWLLiteral>();
+        Map<IRI, OWLLiteral> subjPredMap = singleValuedLitTriplesByPredicate.get(predicate);
+        if (subjPredMap != null) {
+            OWLLiteral obj = subjPredMap.get(subject);
+            if(obj != null) {
+                result.add(obj);
+            }
+        }
+        Map<IRI, Collection<OWLLiteral>> predObjMap = litTriplesBySubject.get(subject);
+        if (predObjMap != null) {
+            Collection<OWLLiteral> objects = predObjMap.get(predicate);
+            if (objects != null) {
+                result.addAll(objects);
+            }
+        }
+        return result;
     }
 
 

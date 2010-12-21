@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 
@@ -20,6 +21,8 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 public abstract class OWLOntologyFormat {
 
     private Map<Object, Object> paramaterMap;
+
+    private OWLOntologyLoaderMetaData loaderMetaData = new NullLoaderMetaData();
 
     private Map<Object, Object> getParameterMap() {
         if(paramaterMap == null) {
@@ -61,6 +64,25 @@ public abstract class OWLOntologyFormat {
         return (PrefixOWLOntologyFormat) this;
     }
 
+    /**
+     * If this format describes an ontology that was loaded from some ontology document (rather than created programmatically)
+     * there may be some meta data about the loading process.  Subclasses of <code>OWLOntologyFormat</code> will provide
+     * accessors etc. to details pertaining to the meta data about loading.
+     * @return An object containing the meta data about loading.  Not <code>null</code>.
+     */
+    public OWLOntologyLoaderMetaData getOntologyLoaderMetaData() {
+        return loaderMetaData;
+    }
+
+    /**
+     * Sets the meta data for the ontology loader.
+     * @param loaderMetaData The metadata. Must not be <code>null</code>.
+     * @throws NullPointerException if the <code>loaderMetaData</code> is <code>null</code>.
+     */
+    public void setOntologyLoaderMetaData(OWLOntologyLoaderMetaData loaderMetaData) {
+        this.loaderMetaData = loaderMetaData;
+    }
+
     @Override
 	public boolean equals(Object obj) {
         return obj != null && (obj == this || obj.getClass().equals(getClass()));
@@ -70,6 +92,10 @@ public abstract class OWLOntologyFormat {
     @Override
 	public int hashCode() {
         return getClass().hashCode();
+    }
+
+    private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData {
+
     }
 }
 
