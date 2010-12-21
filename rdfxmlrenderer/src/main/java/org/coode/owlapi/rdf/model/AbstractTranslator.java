@@ -493,6 +493,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(OWLAnnotationAssertionAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getSubject(), axiom.getProperty(), axiom.getValue());
+        if (axiom.getValue() instanceof OWLAnonymousIndividual) {
+            processIfAnonymous((OWLAnonymousIndividual) axiom.getValue(), axiom);
+        }
     }
 
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
@@ -572,14 +575,6 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(OWLAnonymousIndividual individual) {
         translateAnonymousNode(individual);
-//        if(!processing.contains(individual)) {
-//            processing.add(individual);
-//            for (OWLAxiom ax : ontology.getAxioms(individual)) {
-//                ax.accept(this);
-//            }
-//            processing.remove(individual);
-//        }
-
     }
 
     public void visit(OWLOntology ontology) {
