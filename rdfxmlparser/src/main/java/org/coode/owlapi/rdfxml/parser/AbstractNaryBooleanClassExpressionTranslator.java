@@ -38,7 +38,7 @@ import java.util.Set;
  * A base class for translators that translate a set of triples to an Nary boolean class expressions -
  * i.e. an OWLIntersectionOf or OWLUnionOf class expression.
  */
-public abstract class AbstractNaryBooleanClassExpressionTranslator extends AbstractClassExpressionTranslator {
+public abstract class AbstractNaryBooleanClassExpressionTranslator extends AbstractBooleanClassExpressionTranslator {
 
 
     private IRI predicate;
@@ -54,11 +54,7 @@ public abstract class AbstractNaryBooleanClassExpressionTranslator extends Abstr
     }
 
     public boolean matches(IRI mainNode) {
-        IRI typeClassObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.RDF_TYPE, false);
-        if(typeClassObject == null) {
-            return false;
-        }
-        if(!getConsumer().isClassExpression(typeClassObject)) {
+        if(!getConsumer().isClassExpression(mainNode)) {
             return false;
         }
         IRI operandsList = getConsumer().getResourceObject(mainNode, predicate, false);

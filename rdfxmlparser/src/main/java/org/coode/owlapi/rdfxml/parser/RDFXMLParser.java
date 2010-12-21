@@ -49,7 +49,7 @@ public class RDFXMLParser extends AbstractOWLParser {
                     super.startElement(namespaceIRI, localName, qName, atts);
                     String value = atts.getValue(XMLNS, "base");
                     if (value != null) {
-                        consumer.setXMLBase(value);
+//                        consumer.setXMLBase(value);
                     }
                 }
             };

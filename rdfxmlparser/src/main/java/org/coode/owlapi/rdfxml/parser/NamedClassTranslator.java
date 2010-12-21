@@ -1,6 +1,7 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /*
@@ -32,16 +33,15 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * Information Management Group<br>
  * Date: 28-Jun-2009
  */
-public class NamedClassTranslator implements ClassExpressionTranslator {
+public class NamedClassTranslator extends AbstractClassExpressionTranslator {
 
-    private OWLRDFConsumer consumer;
 
     public NamedClassTranslator(OWLRDFConsumer consumer) {
-        this.consumer = consumer;
+        super(consumer);
     }
 
     public boolean matches(IRI mainNode) {
-        return !consumer.isAnonymousNode(mainNode) && consumer.isClassExpression(mainNode);
+        return !getConsumer().isAnonymousNode(mainNode) && getConsumer().isClassExpression(mainNode);
     }
 
     /**
@@ -50,11 +50,8 @@ public class NamedClassTranslator implements ClassExpressionTranslator {
      * @param mainNode The main node of the set of triples that represent the
      *                 class expression.
      * @return The class expression that represents the translation.
-     * @throws org.semanticweb.owlapi.model.OWLException
-     *          If the translation could not take place, possibly because the
-     *          class expression (set of triples) was malformed.
      */
-    public OWLClassExpression translate(IRI mainNode) {
-        return consumer.getOWLClass(mainNode);
+    public OWLClass translate(IRI mainNode) {
+        return getConsumer().getOWLClass(mainNode);
     }
 }

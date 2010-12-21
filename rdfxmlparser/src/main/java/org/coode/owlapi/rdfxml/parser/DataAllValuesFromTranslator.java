@@ -1,9 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -42,7 +39,7 @@ public class DataAllValuesFromTranslator extends AbstractDataQuantifiedRestricti
         super(consumer, OWLRDFVocabulary.OWL_ALL_VALUES_FROM.getIRI());
     }
 
-    public OWLClassExpression translate(IRI mainNode) {
+    public OWLDataAllValuesFrom translate(IRI mainNode) {
         return getDataFactory().getOWLDataAllValuesFrom(translateProperty(mainNode), translateDataRange(mainNode));
     }
 }

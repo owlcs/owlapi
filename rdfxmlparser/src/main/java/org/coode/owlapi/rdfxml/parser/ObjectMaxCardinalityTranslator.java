@@ -2,6 +2,7 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -41,7 +42,7 @@ public class ObjectMaxCardinalityTranslator extends AbstractObjectCardinalityTra
         super(consumer, OWLRDFVocabulary.OWL_MAX_CARDINALITY.getIRI());
     }
 
-    public OWLClassExpression translate(IRI mainNode) {
+    public OWLObjectMaxCardinality translate(IRI mainNode) {
         return getDataFactory().getOWLObjectMaxCardinality(translateCardinality(mainNode), translateProperty(mainNode));
     }
 }

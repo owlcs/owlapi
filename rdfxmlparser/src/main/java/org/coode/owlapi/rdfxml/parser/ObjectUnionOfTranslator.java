@@ -1,12 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import java.util.Set;
-import java.util.logging.Logger;
-
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -38,22 +34,16 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
+ * <p/>
+ * Translates a set of triples to an <code>OWLUnionOf</code>.
  */
-public class OneOfTranslator extends AbstractClassExpressionTranslator {
+public class ObjectUnionOfTranslator extends AbstractNaryBooleanClassExpressionTranslator {
 
-    Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
-
-    public OneOfTranslator(OWLRDFConsumer consumer) {
-        super(consumer);
+    public ObjectUnionOfTranslator(OWLRDFConsumer consumer) {
+        super(consumer, OWLRDFVocabulary.OWL_UNION_OF.getIRI());
     }
 
-    public boolean matches(IRI mainNode) {
-        return getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getIRI(), false) != null;
-    }
-
-    public OWLClassExpression translate(IRI mainNode) {
-        IRI oneOfObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getIRI(), true);
-        Set<OWLIndividual> individuals = getConsumer().translateToIndividualSet(oneOfObject);
-        return getDataFactory().getOWLObjectOneOf(individuals);
+    public OWLObjectUnionOf translate(IRI mainNode) {
+        return getDataFactory().getOWLObjectUnionOf(translateClassExpressions(mainNode));
     }
 }

@@ -1,9 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -42,7 +39,7 @@ public class DataMinCardinalityTranslator extends AbstractDataCardinalityTransla
         super(consumer, OWLRDFVocabulary.OWL_MIN_CARDINALITY.getIRI());
     }
 
-    public OWLClassExpression translate(IRI mainNode) {
+    public OWLDataMinCardinality translate(IRI mainNode) {
         return getDataFactory().getOWLDataMinCardinality(translateCardinality(mainNode), translateProperty(mainNode));
     }
 }

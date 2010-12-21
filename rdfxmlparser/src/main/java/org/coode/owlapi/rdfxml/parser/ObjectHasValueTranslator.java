@@ -47,7 +47,7 @@ public class ObjectHasValueTranslator extends AbstractObjectRestrictionTranslato
         return getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE, false) != null;
     }
 
-    public OWLClassExpression translate(IRI mainNode) {
+    public OWLObjectHasValue translate(IRI mainNode) {
         IRI value = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE, true);
         OWLIndividual individual = getConsumer().translateIndividual(value);
         return getDataFactory().getOWLObjectHasValue(translateProperty(mainNode), individual);

@@ -73,7 +73,6 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private OWLOntologyManager owlOntologyManager;
 
-    private IRI xmlBase;
 
     // A call back interface, which is used to check whether a node
     // is anonymous or not.
@@ -174,7 +173,6 @@ public class OWLRDFConsumer implements RDFConsumer {
     // Handlers for build in predicates
     private Map<IRI, TriplePredicateHandler> predicateHandlers;
 
-    private Map<IRI, AbstractLiteralTripleHandler> skosLiteralTripleHandlers = new HashMap<IRI, AbstractLiteralTripleHandler>();
 
     // Handlers for general literal triples (i.e. triples which
     // have predicates that are not part of the built in OWL/RDFS/RDF
@@ -202,11 +200,15 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private OWLDataFactory dataFactory;
 
-//    private List<ClassExpressionTranslator> restrictionTranslators = new ArrayList<ClassExpressionTranslator>();
 
-    private List<ClassExpressionTranslator> objectRestrictionTranslators = new ArrayList<ClassExpressionTranslator>();
+    private List<AbstractObjectRestrictionTranslator> objectRestrictionTranslators = new ArrayList<AbstractObjectRestrictionTranslator>();
 
-    private List<ClassExpressionTranslator> dataRestrictionTranslators = new ArrayList<ClassExpressionTranslator>();
+    private List<AbstractDataRestrictionTranslator> dataRestrictionTranslators = new ArrayList<AbstractDataRestrictionTranslator>();
+
+    private List<ClassExpressionTranslator> nonRestrictionTranslators = new ArrayList<ClassExpressionTranslator>();
+    
+
+
 
     private OWLAxiom lastAddedAxiom;
 
@@ -271,6 +273,12 @@ public class OWLRDFConsumer implements RDFConsumer {
         dataRestrictionTranslators.add(new DataMinCardinalityTranslator(this));
         dataRestrictionTranslators.add(new DataMaxCardinalityTranslator(this));
         dataRestrictionTranslators.add(new DataCardinalityTranslator(this));
+
+        nonRestrictionTranslators.add(new NamedClassTranslator(this));
+        nonRestrictionTranslators.add(new ObjectIntersectionOfTranslator(this));
+        nonRestrictionTranslators.add(new ObjectUnionOfTranslator(this));
+        nonRestrictionTranslators.add(new ObjectComplementOfTranslator(this));
+        nonRestrictionTranslators.add(new ObjectOneOfTranslator(this));
 
 
         classExpressionIRIs = CollectionFactory.createSet();
@@ -1527,11 +1535,6 @@ public class OWLRDFConsumer implements RDFConsumer {
     private void handleStreaming(IRI subject, IRI predicate, String literal, String datatype, String lang) {
         // Convert all literals to OWLConstants
         OWLLiteral con = getOWLLiteral(literal, datatype, lang);
-        AbstractLiteralTripleHandler skosHandler = skosLiteralTripleHandlers.get(predicate);
-        if (skosHandler != null) {
-            skosHandler.handleTriple(subject, predicate, con);
-            return;
-        }
         for (AbstractLiteralTripleHandler handler : literalTripleHandlers) {
             if (handler.canHandleStreaming(subject, predicate, con)) {
                 handler.handleTriple(subject, predicate, con);
@@ -1806,37 +1809,10 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         // Boolean
         else if (isClassExpression(mainNode)) {
-            // Named class
-            if (!isAnonymousNode(mainNode)) {
-                return dataFactory.getOWLClass(mainNode);
-            }
-
-            // Intersection
-            IRI intersectionOfObject = getResourceObject(mainNode, OWL_INTERSECTION_OF, true);
-            if (intersectionOfObject != null) {
-                Set<OWLClassExpression> operands = translateToClassExpressionSet(intersectionOfObject);
-                return dataFactory.getOWLObjectIntersectionOf(operands);
-            }
-
-            // Union
-            IRI unionOfObject = getResourceObject(mainNode, OWL_UNION_OF, true);
-            if (unionOfObject != null) {
-                Set<OWLClassExpression> operands = translateToClassExpressionSet(unionOfObject);
-                return dataFactory.getOWLObjectUnionOf(operands);
-            }
-
-            // Complement
-            IRI complementOfObject = getResourceObject(mainNode, OWL_COMPLEMENT_OF, true);
-            if (complementOfObject != null) {
-                OWLClassExpression operand = translateClassExpression(complementOfObject);
-                return dataFactory.getOWLObjectComplementOf(operand);
-            }
-
-            // OneOf
-            IRI oneOfObject = getResourceObject(mainNode, OWL_ONE_OF, true);
-            if (oneOfObject != null) {
-                Set<OWLIndividual> individuals = translateToIndividualSet(oneOfObject);
-                return dataFactory.getOWLObjectOneOf(individuals);
+            for(ClassExpressionTranslator translator : nonRestrictionTranslators) {
+                if(translator.matches(mainNode)) {
+                    return translator.translate(mainNode);
+                }
             }
 
             return getErrorClass(mainNode, OWL_CLASS, OWL_INTERSECTION_OF, OWL_UNION_OF, OWL_COMPLEMENT_OF, OWL_ONE_OF);
@@ -2289,53 +2265,4 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
-
-    public void setXMLBase(String base) {
-        this.xmlBase = IRI.create(base);
-    }
-
-
-//    private class ResourceTriple {
-//
-//        private IRI subject;
-//
-//        private IRI predicate;
-//
-//        private IRI object;
-//
-//        private ResourceTriple(IRI subject, IRI predicate, IRI object) {
-//            this.subject = subject;
-//            this.predicate = predicate;
-//            this.object = object;
-//        }
-//
-//        public IRI getSubject() {
-//            return subject;
-//        }
-//
-//        public IRI getPredicate() {
-//            return predicate;
-//        }
-//
-//        public IRI getObject() {
-//            return object;
-//        }
-//
-//        @Override
-//        public int hashCode() {
-//            return subject.hashCode() * 31 + predicate.hashCode() * 7 + object.hashCode();
-//        }
-//
-//        @Override
-//        public boolean equals(Object o) {
-//            if(o == this) {
-//                return true;
-//            }
-//            if(!(o instanceof ResourceTriple)) {
-//                return false;
-//            }
-//            ResourceTriple other = (ResourceTriple) o;
-//            return other.subject.equals(this.subject) && other.predicate.equals(this.predicate) && other.object.equals(this.object);
-//        }
-//    }
 }

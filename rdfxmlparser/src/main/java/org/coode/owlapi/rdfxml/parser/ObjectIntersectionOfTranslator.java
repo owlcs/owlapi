@@ -1,7 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -34,26 +35,17 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  * <p/>
- * Translates a set of triples that represent an <code>OWLComplementOf</code>
- * class expression.
+ * A class expression translator which produces an <code>OWLIntersectionOf</code>.  
+ * This relies on the main node having an intersectionOf
+ * triple.
  */
-public class ComplementOfTranslator extends AbstractClassExpressionTranslator {
+public class ObjectIntersectionOfTranslator extends AbstractNaryBooleanClassExpressionTranslator {
 
-    public ComplementOfTranslator(OWLRDFConsumer consumer) {
-        super(consumer);
+    public ObjectIntersectionOfTranslator(OWLRDFConsumer consumer) {
+        super(consumer, OWLRDFVocabulary.OWL_INTERSECTION_OF.getIRI());
     }
 
-    public boolean matches(IRI mainNode) {
-        IRI complementOf = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF.getIRI(), false);
-        if(complementOf == null) {
-            return false;
-        }
-        return !getConsumer().getConfiguration().isStrict() || getConsumer().isClassExpression(complementOf);
-    }
-
-    public OWLClassExpression translate(IRI mainNode) {
-        IRI complementOfObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF.getIRI(), true);
-        OWLClassExpression operand = getConsumer().translateClassExpression(complementOfObject);
-        return getDataFactory().getOWLObjectComplementOf(operand);
+    public OWLObjectIntersectionOf translate(IRI mainNode) {
+        return getDataFactory().getOWLObjectIntersectionOf(translateClassExpressions(mainNode));
     }
 }

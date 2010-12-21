@@ -1,10 +1,10 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
 import java.util.Set;
+import java.util.logging.Logger;
+
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -35,18 +35,22 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
- * <p/>
- * A class expression translator which produces an <code>OWLIntersectionOf</code>.  
- * This relies on the main node having an intersectionOf
- * triple.
  */
-public class IntersectionOfTranslator extends AbstractNaryBooleanClassExpressionTranslator {
+public class ObjectOneOfTranslator extends AbstractClassExpressionTranslator {
 
-    public IntersectionOfTranslator(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_INTERSECTION_OF.getIRI());
+    Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
+
+    public ObjectOneOfTranslator(OWLRDFConsumer consumer) {
+        super(consumer);
     }
 
-    public OWLClassExpression translate(IRI mainNode) {
-        return getDataFactory().getOWLObjectIntersectionOf(translateClassExpressions(mainNode));
+    public boolean matches(IRI mainNode) {
+        return getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getIRI(), false) != null;
+    }
+
+    public OWLObjectOneOf translate(IRI mainNode) {
+        IRI oneOfObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getIRI(), true);
+        Set<OWLIndividual> individuals = getConsumer().translateToIndividualSet(oneOfObject);
+        return getDataFactory().getOWLObjectOneOf(individuals);
     }
 }

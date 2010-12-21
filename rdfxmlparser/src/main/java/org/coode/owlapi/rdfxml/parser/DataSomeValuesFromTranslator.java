@@ -39,7 +39,7 @@ public class DataSomeValuesFromTranslator extends AbstractDataQuantifiedRestrict
         super(consumer, OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getIRI());
     }
 
-    public OWLClassExpression translate(IRI mainNode) {
+    public OWLDataSomeValuesFrom translate(IRI mainNode) {
         return getDataFactory().getOWLDataSomeValuesFrom(translateProperty(mainNode), translateDataRange(mainNode));
     }
 }

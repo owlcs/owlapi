@@ -56,7 +56,7 @@ public class ObjectHasSelfTranslator extends AbstractObjectRestrictionTranslator
 
     }
 
-    public OWLClassExpression translate(IRI mainNode) {
+    public OWLObjectHasSelf translate(IRI mainNode) {
         return getDataFactory().getOWLObjectHasSelf(translateProperty(mainNode));
     }
 

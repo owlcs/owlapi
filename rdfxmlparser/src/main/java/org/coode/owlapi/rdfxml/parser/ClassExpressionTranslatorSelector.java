@@ -40,13 +40,13 @@ public class ClassExpressionTranslatorSelector {
 
     private OWLRDFConsumer consumer;
 
-    private IntersectionOfTranslator intersectionOfTranslator;
+    private ObjectIntersectionOfTranslator intersectionOfTranslator;
 
-    private UnionOfTranslator unionOfTranslator;
+    private ObjectUnionOfTranslator unionOfTranslator;
 
-    private ComplementOfTranslator complementOfTranslator;
+    private ObjectComplementOfTranslator complementOfTranslator;
 
-    private OneOfTranslator oneOfTranslator;
+    private ObjectOneOfTranslator oneOfTranslator;
 
     private ObjectHasSelfTranslator objectHasSelfTranslator;
 
@@ -79,10 +79,10 @@ public class ClassExpressionTranslatorSelector {
 
     public ClassExpressionTranslatorSelector(OWLRDFConsumer con) {
         this.consumer = con;
-        intersectionOfTranslator = new IntersectionOfTranslator(con);
-        unionOfTranslator = new UnionOfTranslator(con);
-        complementOfTranslator = new ComplementOfTranslator(con);
-        oneOfTranslator = new OneOfTranslator(con);
+        intersectionOfTranslator = new ObjectIntersectionOfTranslator(con);
+        unionOfTranslator = new ObjectUnionOfTranslator(con);
+        complementOfTranslator = new ObjectComplementOfTranslator(con);
+        oneOfTranslator = new ObjectOneOfTranslator(con);
         objectHasSelfTranslator = new ObjectHasSelfTranslator(con);
         objectAllValuesFromTranslator = new ObjectAllValuesFromTranslator(con);
         objectSomeValuesFromTranslator = new ObjectSomeValuesFromTranslator(con);

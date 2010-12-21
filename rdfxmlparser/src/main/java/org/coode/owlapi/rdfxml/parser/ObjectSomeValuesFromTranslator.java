@@ -1,9 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*
@@ -42,7 +39,7 @@ public class ObjectSomeValuesFromTranslator extends AbstractObjectQuantifiedRest
         super(consumer, OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getIRI());
     }
 
-    public OWLClassExpression translate(IRI mainNode) {
+    public OWLObjectSomeValuesFrom translate(IRI mainNode) {
         return getDataFactory().getOWLObjectSomeValuesFrom(translateProperty(mainNode), translateFiller(mainNode));
     }
 }
