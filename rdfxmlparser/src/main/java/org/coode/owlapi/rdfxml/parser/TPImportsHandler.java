@@ -17,18 +17,9 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class TPImportsHandler extends TriplePredicateHandler {
 
-    private Set<IRI> schemaImportsIRIs;
-
 
     public TPImportsHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_IMPORTS.getIRI());
-        schemaImportsIRIs = new HashSet<IRI>();
-        for (Namespaces n : Namespaces.values()) {
-            String ns = n.toString();
-            schemaImportsIRIs.add(IRI.create(ns.substring(0, ns.length() - 1)));
-        }
-        schemaImportsIRIs.add(IRI.create("http://www.daml.org/rules/proposal/swrlb.owlapi"));
-        schemaImportsIRIs.add(IRI.create("http://www.daml.org/rules/proposal/swrl.owlapi"));
     }
 
 
@@ -40,20 +31,13 @@ public class TPImportsHandler extends TriplePredicateHandler {
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
 
-        // NOTE:
-        // For backwards compatibility with OWL 1 DL, if G contains an owl:imports triple pointing to an RDF
-        // document encoding an RDF graph G' where G' does not have an ontology header, this owl:imports triple
-        // is interpreted as an include rather than an import — that is, the triples of G' are included into G and are
-        // not parsed into a separate ontology.
-        // WHAT A LOAD OF RUBBISH!!
-
-
         consumeTriple(subject, predicate, object);
         getConsumer().addOntology(subject);
         getConsumer().addOntology(object);
-        if (!schemaImportsIRIs.contains(object)) {
-            OWLImportsDeclaration importsDeclaration = getDataFactory().getOWLImportsDeclaration(object);
-            getConsumer().addImport(importsDeclaration);
+        OWLImportsDeclaration importsDeclaration = getDataFactory().getOWLImportsDeclaration(object);
+        getConsumer().addImport(importsDeclaration);
+
+        if (!getConsumer().getConfiguration().isIgnoredImport(object)) {
             OWLOntologyManager man = getConsumer().getOWLOntologyManager();
             man.makeLoadImportRequest(importsDeclaration, getConsumer().getConfiguration());
 

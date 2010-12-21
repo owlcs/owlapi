@@ -1,8 +1,7 @@
 package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.vocab.BuiltInVocabulary;
+import org.semanticweb.owlapi.vocab.Namespaces;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +21,7 @@ import java.util.Set;
  * creates an <code>OWLOntologyLoaderConfiguration</code> object with the load annotation axioms set to <code>false</code>.
  */
 public final class OWLOntologyLoaderConfiguration {
+
 
     public enum MissingOntologyHeaderStrategy {
 
@@ -46,9 +46,18 @@ public final class OWLOntologyLoaderConfiguration {
 
     private boolean strict = false;
 
+    private Set<IRI> ignoredImports = new HashSet<IRI>();
     
     public OWLOntologyLoaderConfiguration() {
+        ignoredImports.add(IRI.create(Namespaces.OWL.toString()));
+        ignoredImports.add(IRI.create(Namespaces.RDF.toString()));
+        ignoredImports.add(IRI.create(Namespaces.RDFS.toString()));
+        ignoredImports.add(IRI.create(Namespaces.SWRL.toString()));
+        ignoredImports.add(IRI.create(Namespaces.SWRLB.toString()));
+        ignoredImports.add(IRI.create(Namespaces.XML.toString()));
+        ignoredImports.add(IRI.create(Namespaces.XSD.toString()));
     }
+
 
 
     public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
@@ -56,7 +65,7 @@ public final class OWLOntologyLoaderConfiguration {
     }
 
     public OWLOntologyLoaderConfiguration setMissingOntologyHeaderStrategy(MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
-        OWLOntologyLoaderConfiguration copy = copy();
+        OWLOntologyLoaderConfiguration copy = copyConfiguration();
         copy.missingOntologyHeaderStrategy = missingOntologyHeaderStrategy;
         return copy;
     }
@@ -70,7 +79,7 @@ public final class OWLOntologyLoaderConfiguration {
      * @return An <code>OWLOntologyLoaderConfiguration</code> object with the option set.
      */
     public OWLOntologyLoaderConfiguration setLoadAnnotationAxioms(boolean b) {
-        OWLOntologyLoaderConfiguration copy = copy();
+        OWLOntologyLoaderConfiguration copy = copyConfiguration();
         copy.loadAnnotations = b;
         return copy;
     }
@@ -90,9 +99,35 @@ public final class OWLOntologyLoaderConfiguration {
     }
 
     public OWLOntologyLoaderConfiguration setStrict(boolean strict) {
-        OWLOntologyLoaderConfiguration copy = copy();
+        OWLOntologyLoaderConfiguration copy = copyConfiguration();
         copy.strict = strict;
         return copy;
+    }
+
+    public boolean isIgnoredImport(IRI iri) {
+        return ignoredImports.contains(iri);
+    }
+
+    public Set<IRI> getIgnoredImports() {
+        return new HashSet<IRI>(ignoredImports);
+    }
+
+    public OWLOntologyLoaderConfiguration addIgnoredImport(IRI iri) {
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.ignoredImports.add(iri);
+        return configuration;
+    }
+
+    public OWLOntologyLoaderConfiguration removeIgnoredImport(IRI iri) {
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.ignoredImports.remove(iri);
+        return configuration;
+    }
+
+    public OWLOntologyLoaderConfiguration clearIgnoredImports() {
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.ignoredImports.clear();
+        return configuration;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -103,9 +138,11 @@ public final class OWLOntologyLoaderConfiguration {
      * Internally copies this configuaration object
      * @return The copied configuration
      */
-    private OWLOntologyLoaderConfiguration copy() {
+    private OWLOntologyLoaderConfiguration copyConfiguration() {
         OWLOntologyLoaderConfiguration copy = new OWLOntologyLoaderConfiguration();
         copy.loadAnnotations = this.loadAnnotations;
+        copy.ignoredImports.clear();
+        copy.ignoredImports.addAll(this.ignoredImports);
         return copy;
     }
 

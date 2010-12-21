@@ -49,7 +49,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
 
 
     public void handleBaseDirective(String base) {
-        setXMLBase(base);
+//        setXMLBase(base);
     }
 
 
