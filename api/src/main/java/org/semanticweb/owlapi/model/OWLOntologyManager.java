@@ -715,7 +715,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     /**
      * Requests that the manager loads an imported ontology that is described by an imports statement.  This method is
      * generally used by parsers and other kinds of loaders.  For simply loading an ontology, use the loadOntologyXXX
-     * methods.
+     * methods.  The method respects the list of ignored imports in the specified configuration.  In other words, if this
+     * methods is called for an ignored import as specified by the configuration object then the import won't be loaded.
      * @param declaration The declaration that describes the import to be loaded.
      * @param configuration The configuration object that passes arguments to the mechanism used for loading.
      * @throws UnloadableImportException if there was a problem creating and loading the import and

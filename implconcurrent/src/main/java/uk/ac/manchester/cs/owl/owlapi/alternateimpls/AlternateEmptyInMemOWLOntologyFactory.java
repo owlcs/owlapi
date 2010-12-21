@@ -25,11 +25,7 @@ package uk.ac.manchester.cs.owl.owlapi.alternateimpls;
 
 import org.semanticweb.owlapi.io.DefaultOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 
 public class AlternateEmptyInMemOWLOntologyFactory extends AlternateAbstractInMemOWLOntologyFactory {
 
@@ -41,6 +37,9 @@ public class AlternateEmptyInMemOWLOntologyFactory extends AlternateAbstractInMe
         throw new OWLRuntimeException(new UnsupportedOperationException("Cannot load OWL ontologies."));
     }
 
+    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler handler, OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
+        throw new OWLRuntimeException(new UnsupportedOperationException("Cannot load OWL ontologies."));
+    }
 
     @Override
 	public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {

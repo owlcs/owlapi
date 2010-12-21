@@ -46,14 +46,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 
 
 /**
@@ -156,6 +149,10 @@ public class AlternateParsableOWLOntologyFactory extends AlternateAbstractInMemO
 
 
     public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, final OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
+        return loadOWLOntology(documentSource, mediator, new OWLOntologyLoaderConfiguration());
+    }
+
+    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler mediator, OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
         // Attempt to parse the ontology by looping through the parsers.  If the
         // ontology is parsed successfully then we break out and return the ontology.
         // I think that this is more reliable than selecting a parser based on a file extension

@@ -993,15 +993,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     public void makeLoadImportRequest(OWLImportsDeclaration declaration, OWLOntologyLoaderConfiguration configuration) throws UnloadableImportException {
-        try {
-            OWLOntology ont = loadImports(declaration, configuration);
-            if (ont != null) {
-                ontologyIDsByImportsDeclaration.put(declaration, ont.getOntologyID());
+        if (!configuration.isIgnoredImport(declaration.getIRI())) {
+            try {
+                OWLOntology ont = loadImports(declaration, configuration);
+                if (ont != null) {
+                    ontologyIDsByImportsDeclaration.put(declaration, ont.getOntologyID());
+                }
             }
-        }
-        catch (OWLOntologyCreationException e) {
-            // Wrap as UnloadableImportException and throw
-            throw new UnloadableImportException(e, declaration);
+            catch (OWLOntologyCreationException e) {
+                // Wrap as UnloadableImportException and throw
+                throw new UnloadableImportException(e, declaration);
+            }
         }
     }
 
