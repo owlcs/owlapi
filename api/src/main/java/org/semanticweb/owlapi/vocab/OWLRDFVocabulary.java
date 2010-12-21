@@ -259,7 +259,6 @@ public enum OWLRDFVocabulary {
 
     OWL_ON_DATA_RANGE(Namespaces.OWL, "onDataRange"),
 
-    @Deprecated
     OWL_ON_DATA_TYPE(Namespaces.OWL, "onDatatype"),
 
     OWL_WITH_RESTRICTIONS(Namespaces.OWL, "withRestrictions"),
