@@ -22,10 +22,10 @@ public class ClassDeclarationWithAnnotationsTestCase extends AbstractAnnotatedAx
         return getFactory().getOWLDeclarationAxiom(ent);
     }
 
-    @Override
-    protected Set<OWLAxiom> getDeclarationsToAdd(OWLAxiom ax) {
-        return Collections.emptySet();
-    }
+//    @Override
+//    protected Set<OWLAxiom> getDeclarationsToAdd(OWLAxiom ax) {
+//        return Collections.emptySet();
+//    }
 
     @Override
     protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {

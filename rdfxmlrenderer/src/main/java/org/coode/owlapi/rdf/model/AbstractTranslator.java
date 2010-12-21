@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -1001,7 +1002,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!useStrongTyping) {
             return;
         }
-        if (entity.isBuiltIn()) {
+        if(!RDFOntologyFormat.isMissingType(entity, ontology)) {
             return;
         }
         addTriple(entity, RDF_TYPE.getIRI(), entity.accept(OWLEntityTypeProvider.INSTANCE));

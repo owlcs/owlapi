@@ -62,9 +62,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public abstract class RDFRendererBase {
 
-    public static final String RENDER_DECLARATION_AXIOMS_KEY = "RENDER_DECLARATION_AXIOMS_KEY";
-
-
     protected OWLOntologyManager manager;
 
     protected OWLOntology ontology;
@@ -72,8 +69,6 @@ public abstract class RDFRendererBase {
     private RDFGraph graph;
 
     protected Set<IRI> prettyPrintedTypes;
-
-    private boolean insertDeclarationAxioms;
 
     private OWLOntologyFormat format;
 
@@ -87,7 +82,6 @@ public abstract class RDFRendererBase {
         this.ontology = ontology;
         this.manager = manager;
         this.format = format;
-        insertDeclarationAxioms = !(format instanceof RDFOntologyFormat) || ((RDFOntologyFormat) format).isAddMissingTypes();
     }
 
 
@@ -417,9 +411,6 @@ public abstract class RDFRendererBase {
 
     private boolean createGraph(OWLEntity entity) {
         final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        if (insertDeclarationAxioms) {
-            axioms.add(manager.getOWLDataFactory().getOWLDeclarationAxiom(entity));
-        }
         axioms.addAll(entity.getAnnotationAssertionAxioms(ontology));
         axioms.addAll(ontology.getDeclarationAxioms(entity));
 
@@ -501,48 +492,17 @@ public abstract class RDFRendererBase {
         return !axioms.isEmpty();
     }
 
+    protected boolean shouldInsertDeclarations() {
+        return !(format instanceof RDFOntologyFormat) || ((RDFOntologyFormat) format).isAddMissingTypes();
+    }
 
     protected void createGraph(Set<? extends OWLObject> objects) {
-        RDFTranslator translator = new RDFTranslator(manager, ontology, insertDeclarationAxioms);
+        RDFTranslator translator = new RDFTranslator(manager, ontology, shouldInsertDeclarations());
         for (OWLObject obj : objects) {
             obj.accept(translator);
         }
         graph = translator.getGraph();
     }
-
-
-//    private void addTypeTriple(OWLEntity entity) {
-//        entity.accept(new OWLEntityVisitor() {
-//            public void visit(OWLClass cls) {
-//                graph.addTriple(new RDFTriple(new RDFResourceNode(cls.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_CLASS.getIRI())));
-//            }
-//
-//
-//            public void visit(OWLDatatype datatype) {
-//                graph.addTriple(new RDFTriple(new RDFResourceNode(datatype.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDFS_DATATYPE.getIRI())));
-//            }
-//
-//
-//            public void visit(OWLNamedIndividual individual) {
-//                graph.addTriple(new RDFTriple(new RDFResourceNode(individual.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI())));
-//            }
-//
-//
-//            public void visit(OWLDataProperty property) {
-//                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI())));
-//            }
-//
-//
-//            public void visit(OWLObjectProperty property) {
-//                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI())));
-//            }
-//
-//            public void visit(OWLAnnotationProperty property) {
-//                graph.addTriple(new RDFTriple(new RDFResourceNode(property.getIRI()), new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI())));
-//            }
-//        });
-//    }
-//
 
     protected abstract void writeBanner(String name) throws IOException;
 
@@ -639,15 +599,6 @@ public abstract class RDFRendererBase {
             orderedURIs.add(OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI());
             orderedURIs.add(OWLRDFVocabulary.OWL_DATA_RANGE.getIRI());
             orderedURIs.add(OWLRDFVocabulary.OWL_ON_CLASS.getIRI());
-
-            orderedURIs.add(OWLRDFVocabulary.RDF_SUBJECT.getIRI());
-            orderedURIs.add(OWLRDFVocabulary.RDF_PREDICATE.getIRI());
-            orderedURIs.add(OWLRDFVocabulary.RDF_OBJECT.getIRI());
-
-            orderedURIs.add(OWLRDFVocabulary.OWL_SUBJECT.getIRI());
-            orderedURIs.add(OWLRDFVocabulary.OWL_PREDICATE.getIRI());
-            orderedURIs.add(OWLRDFVocabulary.OWL_OBJECT.getIRI());
-
         }
 
 

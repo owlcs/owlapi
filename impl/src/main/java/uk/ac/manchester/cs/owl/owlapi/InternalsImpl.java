@@ -91,7 +91,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 	}
 
 	public boolean isDeclared(OWLDeclarationAxiom ax) {
-		return getAxiomsInternal(DECLARATION).contains(ax);
+		return declarationsByEntity.containsKey(ax.getEntity());
 	}
 
 	public boolean isEmpty() {

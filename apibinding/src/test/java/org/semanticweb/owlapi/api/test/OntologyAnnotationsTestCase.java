@@ -16,12 +16,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTest {
 
     @Override
-	protected OWLOntology createOntology() {
-            OWLOntology ont = getOWLOntology("AnnotationOntology");
-            OWLAnnotationProperty prop = getFactory().getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
-            OWLLiteral value = getFactory().getOWLLiteral(33);
-            OWLAnnotation annotation = getFactory().getOWLAnnotation(prop, value);
-            getManager().applyChange(new AddOntologyAnnotation(ont, annotation));
-            return ont;
+    protected OWLOntology createOntology() {
+        OWLOntology ont = getOWLOntology("AnnotationOntology");
+        OWLAnnotationProperty prop = getFactory().getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
+        OWLLiteral value = getFactory().getOWLLiteral(33);
+        OWLAnnotation annotation = getFactory().getOWLAnnotation(prop, value);
+        getManager().applyChange(new AddOntologyAnnotation(ont, annotation));
+        getManager().addAxiom(ont, getFactory().getOWLDeclarationAxiom(prop));
+        return ont;
     }
 }
