@@ -239,6 +239,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     private IRIProvider iriProvider;
 
     private TPInverseOfHandler inverseOfHandler;
+    private TPTypeHandler nonBuiltInTypeHandler;
 
 //    private GTPObjectPropertyAssertionHandler objectPropertyAssertionHandler;
 
@@ -615,7 +616,8 @@ public class OWLRDFConsumer implements RDFConsumer {
         addPredicateHandler(new TPSameAsHandler(this));
         addPredicateHandler(new TPSubClassOfHandler(this));
         addPredicateHandler(new TPSubPropertyOfHandler(this));
-        addPredicateHandler(new TPTypeHandler(this));
+        nonBuiltInTypeHandler = new TPTypeHandler(this);
+        addPredicateHandler(nonBuiltInTypeHandler);
         addPredicateHandler(new TPDistinctMembersHandler(this));
         addPredicateHandler(new TPImportsHandler(this));
         addPredicateHandler(new TPIntersectionOfHandler(this));
@@ -1530,6 +1532,10 @@ public class OWLRDFConsumer implements RDFConsumer {
             else if (axiomTypeTripleHandlers.get(object) == null) {
                 // Not a built in type
                 addOWLNamedIndividual(subject, false);
+                if(nonBuiltInTypeHandler.canHandleStreaming(subject, predicate, object)) {
+                    nonBuiltInTypeHandler.handleTriple(subject, predicate, object);
+                    consumed = true;
+                }
             }
             else {
                 addAxiom(subject);

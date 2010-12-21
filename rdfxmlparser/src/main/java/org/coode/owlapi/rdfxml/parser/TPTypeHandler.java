@@ -26,9 +26,14 @@ public class TPTypeHandler extends TriplePredicateHandler {
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         // Can handle if object isn;t anonymous and either the object
         // IRI is owl:Thing, or it is not part of the build in vocabulary
-        return !isAnonymous(object) &&
-                (object.equals(OWLRDFVocabulary.OWL_THING.getIRI()) ||
-                        !OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(object));
+        getConsumer().addClassExpression(object, false);
+        if(isAnonymous(object)) {
+            return false;
+        }
+        if(object.isReservedVocabulary()) {
+            return object.equals(OWLRDFVocabulary.OWL_THING.getIRI());
+        }
+        return true;
     }
 
 
