@@ -7,10 +7,7 @@ import java.util.Set;
 import junit.framework.TestCase;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.io.UnparsableOntologyException;
+import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -148,6 +145,9 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
             PrefixOWLOntologyFormat fromPrefixFormat = (PrefixOWLOntologyFormat) fromFormat;
             PrefixOWLOntologyFormat toPrefixFormat = (PrefixOWLOntologyFormat) format;
             toPrefixFormat.copyPrefixesFrom(fromPrefixFormat);
+        }
+        if(format instanceof RDFOntologyFormat) {
+            ((RDFOntologyFormat) format).setAddMissingTypes(false);
         }
         manager.saveOntology(ont, format, target);
         handleSaved(target, format);
