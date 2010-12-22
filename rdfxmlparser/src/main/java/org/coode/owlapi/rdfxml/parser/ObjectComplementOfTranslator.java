@@ -45,7 +45,7 @@ public class ObjectComplementOfTranslator extends AbstractBooleanClassExpression
     }
 
     public boolean matches(IRI mainNode) {
-        IRI complementOf = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF.getIRI(), false);
+        IRI complementOf = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF, false);
         if(complementOf == null) {
             return false;
         }
@@ -53,7 +53,7 @@ public class ObjectComplementOfTranslator extends AbstractBooleanClassExpression
     }
 
     public OWLObjectComplementOf translate(IRI mainNode) {
-        IRI complementOfObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF.getIRI(), true);
+        IRI complementOfObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF, true);
         OWLClassExpression operand = getConsumer().translateClassExpression(complementOfObject);
         return getDataFactory().getOWLObjectComplementOf(operand);
     }

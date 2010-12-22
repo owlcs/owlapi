@@ -200,7 +200,7 @@
          <owl:onProperty rdf:resource="hasAge"/>
          <owl:someValuesFrom>
            <rdfs:Datatype>
-             <owl:onDatatype rdf:resource="&xsd;integer"/>
+             <owl:onDataType rdf:resource="&xsd;integer"/>
              <owl:withRestrictions rdf:parseType="Collection">
                <rdf:Description>
                  <xsd:minExclusive rdf:datatype="&xsd;integer">12</xsd:minExclusive>

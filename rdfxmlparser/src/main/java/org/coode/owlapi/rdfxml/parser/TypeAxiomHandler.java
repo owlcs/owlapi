@@ -61,24 +61,24 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
      * Gets the IRI of the predicate of the triple that specifies the target of a reified axiom
      * @return The IRI, by default this is owl:annotatedTarget
      */
-    protected IRI getTargetTriplePredicate() {
-        return OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI();
+    protected OWLRDFVocabulary getTargetTriplePredicate() {
+        return OWLRDFVocabulary.OWL_ANNOTATED_TARGET;
     }
 
     /**
      * Gets the IRI of the predicate of the triple that specifies that predicate of a reified axiom
      * @return The IRI, by default this is owl:annotatedProperty
      */
-    protected IRI getPropertyTriplePredicate() {
-        return OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY.getIRI();
+    protected OWLRDFVocabulary getPropertyTriplePredicate() {
+        return OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY;
     }
 
     /**
      * Gets the IRI of the predicate of the triple that specifies the source of a reified axiom
      * @return The IRI, by default this is owl:annotatedSource
      */
-    protected IRI getSourceTriplePredicate() {
-        return OWLRDFVocabulary.OWL_ANNOTATED_SOURCE.getIRI();
+    protected OWLRDFVocabulary getSourceTriplePredicate() {
+        return OWLRDFVocabulary.OWL_ANNOTATED_SOURCE;
     }
 
 
@@ -160,10 +160,10 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
     private IRI getObjectOfTargetTriple(IRI mainNode) {
         IRI objectTripleObject = getConsumer().getResourceObject(mainNode, getTargetTriplePredicate(), true);
         if (objectTripleObject == null) {
-            objectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
+            objectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.RDF_OBJECT, true);
         }
         if (objectTripleObject == null) {
-            objectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getIRI(), true);
+            objectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_PROPERTY_CHAIN, true);
         }
         return objectTripleObject;
     }
@@ -171,7 +171,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
     private IRI getObjectOfPropertyTriple(IRI subject) {
         IRI predicateTripleObject = getConsumer().getResourceObject(subject, getPropertyTriplePredicate(), true);
         if (predicateTripleObject == null) {
-            predicateTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_PREDICATE.getIRI(), true);
+            predicateTripleObject = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_PREDICATE, true);
         }
         return predicateTripleObject;
     }
@@ -187,7 +187,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
     private IRI getObjectOfSourceTriple(IRI mainNode) {
         IRI subjectTripleObject = getConsumer().getResourceObject(mainNode, getSourceTriplePredicate(), true);
         if (subjectTripleObject == null) {
-            subjectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.RDF_SUBJECT.getIRI(), true);
+            subjectTripleObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.RDF_SUBJECT, true);
         }
         return subjectTripleObject;
     }

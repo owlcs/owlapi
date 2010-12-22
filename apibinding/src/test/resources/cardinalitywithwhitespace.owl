@@ -1,0 +1,23 @@
+<!DOCTYPE rdf:RDF [
+<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+]>
+<rdf:RDF
+xml:base="http://www.example.org/ISA14#"
+xmlns:owl ="http://www.w3.org/2002/07/owl#"
+xmlns:rdf ="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+xmlns:xsd ="http://www.w3.org/2001/XMLSchema#"
+xmlns:ibs ="http://www.example.org/ISA14#"
+>
+<owl:Ontology rdf:about="#" />
+<owl:DatatypeProperty rdf:about="http://www.example.org/ISA14#wrotePhDThesis" />
+<owl:Class rdf:about="http://www.example.org/ISA14#Researcher">
+<rdfs:subClassOf>
+<owl:Restriction>
+<owl:onProperty rdf:resource="http://www.example.org/ISA14#wrotePhDThesis" />
+<owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1
+</owl:maxCardinality>
+</owl:Restriction>
+</rdfs:subClassOf>
+</owl:Class>
+</rdf:RDF>

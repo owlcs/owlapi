@@ -75,7 +75,7 @@ public abstract class AbstractDataCardinalityTranslator extends AbstractDataRest
      */
     public int translateCardinality(IRI mainNode) {
         OWLLiteral cardiObject = getConsumer().getLiteralObject(mainNode, cardinalityPredicate, true);
-        return Integer.parseInt(cardiObject.getLiteral());
+        return Integer.parseInt(cardiObject.getLiteral().trim());
     }
 
 
