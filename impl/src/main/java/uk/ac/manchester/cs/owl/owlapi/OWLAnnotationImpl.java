@@ -1,6 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -48,6 +49,15 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
     public OWLAnnotationValue getValue() {
         return value;
+    }
+
+    public OWLAnnotation getAnnotatedAnnotation(Set<OWLAnnotation> annotations) {
+        if(annotations.isEmpty()) {
+            return this;
+        }
+        Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(this.annotations);
+        merged.addAll(annotations);
+        return new OWLAnnotationImpl(getOWLDataFactory(), property, value, merged);
     }
 
     public boolean isComment() {

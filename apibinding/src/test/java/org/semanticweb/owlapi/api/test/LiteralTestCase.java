@@ -27,6 +27,7 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
         OWLAnnotationAssertionAxiom ax = getFactory().getOWLAnnotationAssertionAxiom(prop, cls.getIRI(), literalWithLang);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(ax);
+        axioms.add(getFactory().getOWLDeclarationAxiom(cls));
         return axioms;
     }
 

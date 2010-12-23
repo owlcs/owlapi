@@ -1,8 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.*;
 
 
 /**
@@ -35,14 +33,19 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     @Override
 	public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
         consumeTriple(subject, predicate, object);
-        if(getConsumer().isOntology(subject)) {
-        	// PATCH:	getConsumer().addOntologyAnnotation(getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), object, getPendingAnnotations()));
-        	// ORIG:	getConsumer().addOntologyAnnotation(getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), object));
-            // This change makes sense given the else clause; however, I haven't been able to create or find a test that excercises this change.
-        	getConsumer().addOntologyAnnotation(getDataFactory().getOWLAnnotation(getDataFactory().getOWLAnnotationProperty(predicate), object, getPendingAnnotations()));
+        OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(predicate);
+        OWLAnnotationSubject annotationSubject;
+        if(isAnonymous(subject)) {
+            annotationSubject = getDataFactory().getOWLAnonymousIndividual(subject.toString());
         }
         else {
-            OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getOWLAnnotationProperty(predicate), subject, object, getPendingAnnotations());
+            annotationSubject = subject;
+        }
+        if(getConsumer().isOntology(subject)) {
+        	getConsumer().addOntologyAnnotation(getDataFactory().getOWLAnnotation(prop, object, getPendingAnnotations()));
+        }
+        else {
+            OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(prop, annotationSubject, object, getPendingAnnotations());
             addAxiom(ax);
         }
     }

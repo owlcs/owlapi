@@ -19,6 +19,7 @@ public class ChainedAnonymousIndividualsTestCase extends AbstractAxiomsRoundTrip
         IRI annoPropIRI = IRI.create("http://owlapi.sourceforge.net/ontology#annoProp");
         OWLAnnotationProperty property = getFactory().getOWLAnnotationProperty(annoPropIRI);
         IRI subject = IRI.create("http://owlapi.sourceforge.net/ontology#subject");
+        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLNamedIndividual(subject)));
         OWLAnonymousIndividual individual1 = getFactory().getOWLAnonymousIndividual();
         OWLAnonymousIndividual individual2 = getFactory().getOWLAnonymousIndividual();
         OWLAnonymousIndividual individual3 = getFactory().getOWLAnonymousIndividual();

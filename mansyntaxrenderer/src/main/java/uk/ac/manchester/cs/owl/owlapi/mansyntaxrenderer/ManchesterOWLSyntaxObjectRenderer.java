@@ -319,9 +319,11 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     public void visit(OWLAnnotation node) {
+        writeAnnotations(node.getAnnotations());
         node.getProperty().accept(this);
         writeSpace();
         node.getValue().accept(this);
+
     }
 
 //    private String escape(String s) {
@@ -977,6 +979,31 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
         
+    }
+
+    protected void writeAnnotations(Set<OWLAnnotation> annos) {
+        if(annos.isEmpty()) {
+            return;
+        }
+        writeNewLine();
+        write(ANNOTATIONS.toString());
+        write(": ");
+        pushTab(getIndent());
+        for (Iterator<OWLAnnotation> annoIt = annos.iterator(); annoIt.hasNext();) {
+            OWLAnnotation anno = annoIt.next();
+//            if (!anno.getAnnotations().isEmpty()) {
+//                writeAnnotations(anno.getAnnotations());
+//            }
+            anno.accept(this);
+            if (annoIt.hasNext()) {
+                write(", ");
+                writeNewLine();
+            }
+
+        }
+        writeNewLine();
+        writeNewLine();
+        popTab();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////

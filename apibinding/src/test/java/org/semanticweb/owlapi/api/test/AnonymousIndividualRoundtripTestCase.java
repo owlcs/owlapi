@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -19,10 +20,13 @@ public class AnonymousIndividualRoundtripTestCase extends AbstractAxiomsRoundTri
 
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLAnonymousIndividual ind = getFactory().getOWLAnonymousIndividual();
         OWLClass cls = getOWLClass("A");
         OWLAnnotationProperty prop = getOWLAnnotationProperty("prop");
         OWLAnnotationAssertionAxiom ax = getFactory().getOWLAnnotationAssertionAxiom(prop, cls.getIRI(), ind);
-        return Collections.singleton(ax);
+        axioms.add(ax);
+        axioms.add(getFactory().getOWLDeclarationAxiom(cls));
+        return axioms;
     }
 }

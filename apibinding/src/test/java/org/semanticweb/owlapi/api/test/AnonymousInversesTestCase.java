@@ -40,7 +40,7 @@ public class AnonymousInversesTestCase extends AbstractFileRoundTrippingTestCase
         once the OWL 2 spec has stabilised.
      */
 
-    @Override
+//    @Override
 	public void testManchesterOWLSyntax() throws Exception {
 //        super.testManchesterOWLSyntax();
     }
@@ -48,6 +48,6 @@ public class AnonymousInversesTestCase extends AbstractFileRoundTrippingTestCase
 
     @Override
 	public void testFunctionalSyntax() throws Exception {
-//        super.testFunctionalSyntax();
+        super.testFunctionalSyntax();
     }
 }

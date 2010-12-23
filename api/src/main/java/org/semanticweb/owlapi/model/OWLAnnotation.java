@@ -51,6 +51,13 @@ public interface OWLAnnotation extends OWLObject {
      */
     Set<OWLAnnotation> getAnnotations();
 
+    /**
+     * Gets an OWLAnnotation which is a copy of this annotation but which has the specified annotations.
+     * @param annotations The annotations
+     * @return A copy of this annotation with the specified annotations annotating it
+     */
+    OWLAnnotation getAnnotatedAnnotation(Set<OWLAnnotation> annotations);
+
     void accept(OWLAnnotationObjectVisitor visitor);
 
     <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor);

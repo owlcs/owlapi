@@ -23,13 +23,14 @@ public class AnnotationPropertyDeclarationWithAnnotationsTestCase extends Abstra
         return getFactory().getOWLDeclarationAxiom(ent);
     }
 
-//    @Override
-//    protected Set<OWLAxiom> getDeclarationsToAdd(OWLAxiom ax) {
-//        return Collections.emptySet();
-//    }
-
     @Override
     protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
         return false;
+    }
+
+    @Override
+    public void testManchesterOWLSyntax() throws Exception {
+        // Can't represent this in Manchester Syntax
+//        super.testManchesterOWLSyntax();
     }
 }

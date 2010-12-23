@@ -76,6 +76,7 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
             OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(annoSubject, anno, getPendingAnnotations());
             addAxiom(decAx);
         }
-
     }
+
+
 }
