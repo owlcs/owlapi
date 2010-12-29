@@ -108,22 +108,44 @@ public final class OWLOntologyLoaderConfiguration {
         return ignoredImports.contains(iri);
     }
 
+    /**
+     * Gets the list of ontology document IRIs that are ignored during ontology loading if they are encountered as
+     * imported ontologies.
+     * @return A set of IRIs that represent ontology document IRI to be ignored during ontology loading.
+     */
     public Set<IRI> getIgnoredImports() {
         return new HashSet<IRI>(ignoredImports);
     }
 
-    public OWLOntologyLoaderConfiguration addIgnoredImport(IRI iri) {
+    /**
+     * Adds an ontology document IRI to the list of ontology imports that will be ignored during ontology loading.
+     * @param ontologyDocumentIRI The ontology document IRI that will be ignored if it is encountered as an imported
+     * ontology during loading.
+     * @return An <code>OWLOntologyLoaderConfiguration</code> with the ignored ontology document IRI set.
+     */
+    public OWLOntologyLoaderConfiguration addIgnoredImport(IRI ontologyDocumentIRI) {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.ignoredImports.add(iri);
+        configuration.ignoredImports.add(ontologyDocumentIRI);
         return configuration;
     }
 
-    public OWLOntologyLoaderConfiguration removeIgnoredImport(IRI iri) {
+    /**
+     * Removes an ontology document IRI from the list of ontology imports that will be ignored during ontology loading.
+     * @param ontologyDocumentIRI The ontology document IRI that would be ignored if it is encountered as an imported
+     * ontology during loading.
+     * @return An <code>OWLOntologyLoaderConfiguration</code> with the ignored ontology document IRI removed.
+     */
+    public OWLOntologyLoaderConfiguration removeIgnoredImport(IRI ontologyDocumentIRI) {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.ignoredImports.remove(iri);
+        configuration.ignoredImports.remove(ontologyDocumentIRI);
         return configuration;
     }
 
+    /**
+     * Clears all ontology document IRIs from the list of ignored ontology document IRIs.
+     * @return An <code>OWLOntologyLoaderConfiguration</code> with the list of ignored ontology document IRIs set to
+     * be empty.
+     */
     public OWLOntologyLoaderConfiguration clearIgnoredImports() {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.ignoredImports.clear();
