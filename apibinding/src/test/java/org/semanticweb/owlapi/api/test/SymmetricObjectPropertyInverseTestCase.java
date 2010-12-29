@@ -19,4 +19,10 @@ public class SymmetricObjectPropertyInverseTestCase extends AbstractAxiomsRoundT
         axioms.add(getFactory().getOWLSymmetricObjectPropertyAxiom(getOWLObjectProperty("p").getInverseProperty()));
         return axioms;
     }
+
+    @Override
+    public void testManchesterOWLSyntax() throws Exception {
+        // Can't represent inverse object property frames in Manchester OWL Syntax
+//        super.testManchesterOWLSyntax();
+    }
 }
