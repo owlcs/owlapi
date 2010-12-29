@@ -1024,11 +1024,13 @@ public class ManchesterOWLSyntaxEditorParser {
                 return dataFactory.getOWLLiteral(lit, parseDatatype());
             }
             else if (peekToken().startsWith("@")) {
+                // Plain literal with a language tag
                 String lang = consumeToken().substring(1);
                 return dataFactory.getOWLLiteral(lit, lang);
             }
             else {
-                return dataFactory.getOWLLiteral(lit);
+                // Plain literal without a language tag
+                return dataFactory.getOWLLiteral(lit, "");
             }
         }
         else {

@@ -815,7 +815,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
             write("@");
             write(node.getLang());
         }
-        else {
+        else if(!node.isRDFPlainLiteral()) {
             write("^^");
             write(node.getDatatype().getIRI());
         }

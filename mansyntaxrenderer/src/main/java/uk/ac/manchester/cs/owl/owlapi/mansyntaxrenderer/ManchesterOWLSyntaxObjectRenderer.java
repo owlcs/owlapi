@@ -402,9 +402,6 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         else if (node.getDatatype().isInteger()) {
             write(node.getLiteral());
         }
-        else if (node.getDatatype().isString()) {
-            writeLiteral(node.getLiteral());
-        }
         else if (node.getDatatype().isBoolean()) {
             write(node.getLiteral());
         }
@@ -415,7 +412,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
                 write("@");
                 write(node.getLang());
             }
-            else {
+            else if(!node.isRDFPlainLiteral()) {
                 write("^^");
                 node.getDatatype().accept(this);
             }
