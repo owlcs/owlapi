@@ -131,15 +131,15 @@ public enum SKOSVocabulary {
 
     private IRI iri;
 
-    private EntityType entityType;
+    private EntityType<?> entityType;
 
-    SKOSVocabulary(String localname, EntityType entityType) {
+    SKOSVocabulary(String localname, EntityType<?> entityType) {
         this.localName = localname;
         this.entityType = entityType;
         this.iri = IRI.create(Namespaces.SKOS.toString() + localname);
     }
 
-    public EntityType getEntityType() {
+    public EntityType<?> getEntityType() {
         return entityType;
     }
 
