@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
@@ -12,7 +13,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
  */
-public class ReferencedIndividualCount extends ObjectCountMetric {
+public class ReferencedIndividualCount extends ObjectCountMetric<OWLNamedIndividual> {
 
 
     public ReferencedIndividualCount(OWLOntologyManager owlOntologyManager) {
@@ -27,7 +28,7 @@ public class ReferencedIndividualCount extends ObjectCountMetric {
 
 
     @Override
-	protected Set getObjects(OWLOntology ont) {
+	protected Set<OWLNamedIndividual> getObjects(OWLOntology ont) {
         return ont.getIndividualsInSignature();
     }
 }

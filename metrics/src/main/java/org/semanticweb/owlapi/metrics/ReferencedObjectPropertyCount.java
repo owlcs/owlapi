@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
@@ -12,7 +13,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
  */
-public class ReferencedObjectPropertyCount extends ObjectCountMetric {
+public class ReferencedObjectPropertyCount extends ObjectCountMetric<OWLObjectProperty> {
 
 
     public ReferencedObjectPropertyCount(OWLOntologyManager owlOntologyManager) {
@@ -27,7 +28,7 @@ public class ReferencedObjectPropertyCount extends ObjectCountMetric {
 
 
     @Override
-	protected Set getObjects(OWLOntology ont) {
+	protected Set<OWLObjectProperty> getObjects(OWLOntology ont) {
         return ont.getObjectPropertiesInSignature();
     }
 }

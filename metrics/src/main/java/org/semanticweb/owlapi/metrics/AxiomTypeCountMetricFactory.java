@@ -15,9 +15,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public class AxiomTypeCountMetricFactory {
 
-    public static Set<OWLMetric> createMetrics(OWLOntologyManager manager) {
-        Set<OWLMetric> metrics = new HashSet<OWLMetric>();
-        for(AxiomType axiomType : AxiomType.AXIOM_TYPES) {
+    public static Set<OWLMetric<?>> createMetrics(OWLOntologyManager manager) {
+        Set<OWLMetric<?>> metrics = new HashSet<OWLMetric<?>>();
+        for(AxiomType<?> axiomType : AxiomType.AXIOM_TYPES) {
             metrics.add(new AxiomTypeMetric(manager, axiomType));
         }
         return metrics;

@@ -47,6 +47,7 @@ public abstract class ObjectCountMetric<E extends Object> extends IntegerValuedM
 
 
     @Override
+    @SuppressWarnings("unused")
 	protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         return true;
     }

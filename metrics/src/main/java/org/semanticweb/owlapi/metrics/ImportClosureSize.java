@@ -29,7 +29,7 @@ public class ImportClosureSize extends IntegerValuedMetric {
     @Override
 	protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         for(OWLOntologyChange change : changes) {
-            
+            //XXX is this correct?
         }
         return false;
     }

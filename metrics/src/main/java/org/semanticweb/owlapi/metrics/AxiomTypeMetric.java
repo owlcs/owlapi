@@ -19,7 +19,7 @@ public class AxiomTypeMetric extends AxiomCountMetric {
     private AxiomType<?> axiomType;
 
 
-    public AxiomTypeMetric(OWLOntologyManager owlOntologyManager, AxiomType axiomType) {
+    public AxiomTypeMetric(OWLOntologyManager owlOntologyManager, AxiomType<?> axiomType) {
         super(owlOntologyManager);
         this.axiomType = axiomType;
     }
@@ -37,7 +37,7 @@ public class AxiomTypeMetric extends AxiomCountMetric {
     }
 
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return axiomType;
     }
 }

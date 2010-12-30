@@ -14,29 +14,29 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OWLMetricManager {
 
-    private List<OWLMetric> metrics;
+    private List<OWLMetric<?>> metrics;
 
 
-    public OWLMetricManager(List<OWLMetric> metrics) {
-        this.metrics = new ArrayList<OWLMetric>(metrics);
+    public OWLMetricManager(List<OWLMetric<?>> metrics) {
+        this.metrics = new ArrayList<OWLMetric<?>>(metrics);
     }
 
     public void setOntology(OWLOntology ontology) {
-        for (OWLMetric metric : metrics) {
+        for (OWLMetric<?> metric : metrics) {
             metric.setOntology(ontology);
         }
     }
 
 
-    public List<OWLMetric> getMetrics() {
-        return new ArrayList<OWLMetric>(metrics);
+    public List<OWLMetric<?>> getMetrics() {
+        return new ArrayList<OWLMetric<?>>(metrics);
     }
 
 
     @Override
 	public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (OWLMetric m : metrics) {
+        for (OWLMetric<?> m : metrics) {
             sb.append(m);
             sb.append("\n");
         }
