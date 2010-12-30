@@ -111,9 +111,9 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
         }
 
 
-        public void reset() {
-            fillers.clear();
-        }
+//        public void reset() {
+//            fillers.clear();
+//        }
 
 
         @Override
