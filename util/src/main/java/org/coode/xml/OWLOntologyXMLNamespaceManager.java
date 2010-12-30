@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  */
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
-    private OWLOntologyManager man;
+    //private OWLOntologyManager man;
 
     private OWLOntology ontology;
 
@@ -66,13 +66,13 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
 
     public OWLOntologyXMLNamespaceManager(OWLOntologyManager man, OWLOntology ontology) {
-        this(man, ontology, man.getOntologyFormat(ontology));
+        this(ontology, man.getOntologyFormat(ontology));
     }
 
 
-    public OWLOntologyXMLNamespaceManager(OWLOntologyManager man, OWLOntology ontology, OWLOntologyFormat format) {
+    public OWLOntologyXMLNamespaceManager(OWLOntology ontology, OWLOntologyFormat format) {
         super(getDefaultNamespace(ontology, format));
-        this.man = man;
+        //this.man = man;
         this.ontology = ontology;
         namespaceUtil = new NamespaceUtil();
         ontologyFormat = format;
