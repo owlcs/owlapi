@@ -34,7 +34,7 @@ public class ObjectSomeValuesFromTestCase extends
 		return "ObjectSomeValuesFrom.rdf";
 	}
 
-	@Override
+	@Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target,
 			OWLOntologyFormat format) {
 		System.out.println(target);

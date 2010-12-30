@@ -14,6 +14,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 01-Jul-2010
  */
+@SuppressWarnings("unused")
 public class ClassDeclarationWithAnnotationsTestCase extends
 		AbstractAnnotatedAxiomRoundTrippingTestCase {
 	@Override

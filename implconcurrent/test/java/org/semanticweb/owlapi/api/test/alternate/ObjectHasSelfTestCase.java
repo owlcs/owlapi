@@ -31,7 +31,7 @@ public class ObjectHasSelfTestCase extends AbstractFileRoundTrippingTestCase {
 		return "ObjectHasSelf.rdf";
 	}
 
-	@Override
+	@Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target,
 			OWLOntologyFormat format) {
 		System.out.println(target);

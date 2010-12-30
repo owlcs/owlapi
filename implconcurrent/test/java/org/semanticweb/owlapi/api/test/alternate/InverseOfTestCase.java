@@ -24,7 +24,7 @@ public class InverseOfTestCase extends AbstractFileRoundTrippingTestCase {
 		assertEquals(axioms, getOnt().getAxioms());
 	}
 
-	@Override
+	@Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target,
 			OWLOntologyFormat format) {
 		System.out.println(target);

@@ -56,7 +56,7 @@ public class DataAllValuesFromTestCase extends AbstractFileRoundTrippingTestCase
         return "DataAllValuesFrom.rdf";
     }
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }

@@ -71,7 +71,7 @@ public class AxiomAnnotationsRoundTrippingTestCase extends
 		return ont;
 	}
 
-	@Override
+	@Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target,
 			OWLOntologyFormat format) {
 		System.out.println(target);

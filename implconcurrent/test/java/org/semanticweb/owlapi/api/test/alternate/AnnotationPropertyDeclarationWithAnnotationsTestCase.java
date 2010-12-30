@@ -14,8 +14,10 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 04-Jul-2010
  */
+@SuppressWarnings("unused")
 public class AnnotationPropertyDeclarationWithAnnotationsTestCase extends
 		AbstractAnnotatedAxiomRoundTrippingTestCase {
+	
 	@Override
 	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
 		OWLEntity ent = getOWLAnnotationProperty("propA");
@@ -28,6 +30,7 @@ public class AnnotationPropertyDeclarationWithAnnotationsTestCase extends
 	}
 
 	@Override
+	
 	protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
 		return false;
 	}

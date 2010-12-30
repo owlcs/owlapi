@@ -212,11 +212,11 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
         //            fail(e.getMessage() + " " + e.getStackTrace().toString());
         //        }
     }
-
+    @SuppressWarnings("unused")
     protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
         return true;
     }
-
+    @SuppressWarnings("unused")
     protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println("Saved: ");
         System.out.println(target.toString());

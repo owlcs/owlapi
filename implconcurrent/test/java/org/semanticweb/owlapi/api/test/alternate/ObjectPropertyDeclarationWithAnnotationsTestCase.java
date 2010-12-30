@@ -13,7 +13,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 04-Jul-2010
- */
+ */@SuppressWarnings("unused")
 public class ObjectPropertyDeclarationWithAnnotationsTestCase extends
 		AbstractAnnotatedAxiomRoundTrippingTestCase {
 	@Override

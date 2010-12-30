@@ -25,6 +25,7 @@ public class UntypedSubClassOfTestCase extends
 	}
 
 	@Override
+	@SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target,
 			OWLOntologyFormat format) {
 		System.out.println(target);

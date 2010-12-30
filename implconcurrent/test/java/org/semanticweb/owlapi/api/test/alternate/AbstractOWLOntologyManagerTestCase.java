@@ -44,7 +44,7 @@ public abstract class AbstractOWLOntologyManagerTestCase extends
 			throw new RuntimeException("System property '" + SYSTEM_PARAM_NAME
 					+ " must be set in order to run the tests");
 		}
-		Class cls = Class.forName(factoryName);
+		Class<?> cls = Class.forName(factoryName);
 		OWLOntologyManagerFactory factory = (OWLOntologyManagerFactory) cls
 				.newInstance();
 		manager = factory.createOWLOntologyManager(getFactory());

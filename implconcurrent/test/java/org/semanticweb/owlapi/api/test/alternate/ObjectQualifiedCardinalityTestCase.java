@@ -28,7 +28,7 @@ public class ObjectQualifiedCardinalityTestCase extends
 		assertEquals(getOnt().getAxioms(), axioms);
 	}
 
-	@Override
+	@Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target,
 			OWLOntologyFormat format) {
 		System.out.println(target);
