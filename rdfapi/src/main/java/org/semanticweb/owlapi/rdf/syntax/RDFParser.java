@@ -296,18 +296,18 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     @Override
 	public void processingInstruction(String target, String data) throws SAXException {
         if ("include-rdf".equals(target)) {
-            Map arguments = parseStringArguments(data);
+            Map<String, String> arguments = parseStringArguments(data);
             if (arguments.size() > 2)
                 throw new RDFParserException("Incorrect number of arguments for 'include-rdf' processing instruction.",
                                              m_documentLocator);
-            String logicalIRI = (String) arguments.get("logicalIRI");
-            String physicalIRI = (String) arguments.get("physicalIRI");
+            String logicalIRI = arguments.get("logicalIRI");
+            String physicalIRI = arguments.get("physicalIRI");
             if (physicalIRI != null)
                 physicalIRI = resolveIRI(physicalIRI);
             m_consumer.includeModel(logicalIRI, physicalIRI);
         }
         else if ("model-attribute".equals(target)) {
-            Map arguments = parseStringArguments(data);
+            Map<String, String> arguments = parseStringArguments(data);
             if (arguments.size() != 2)
                 throw new RDFParserException(
                         "Incorrect number of arguments for 'model-attribute' processing instruction.",
@@ -345,7 +345,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         if (size == 1)
             m_state = null;
         else
-            m_state = (State) m_states.get(size - 2);
+            m_state = m_states.get(size - 2);
         m_states.remove(size - 1);
     }
 
@@ -668,7 +668,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @return map of name-value pairs
      * @throws SAXException if there was an IOException this will be wrapped in a parse exception
      */
-    protected Map parseStringArguments(String string) throws SAXException {
+    protected Map<String, String> parseStringArguments(String string) throws SAXException {
         try {
             StreamTokenizer tokenizer = new StreamTokenizer(new StringReader(string));
             Map<String, String> result = new HashMap<String, String>();
