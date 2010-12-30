@@ -232,7 +232,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 	public Set<OWLAxiom> getTBoxAxioms(boolean includeImportsClosure) {
 		Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
-		for (AxiomType<OWLAxiom> type : AxiomType.TBoxAxiomTypes) {
+		for (AxiomType<?> type : AxiomType.TBoxAxiomTypes) {
 			toReturn.addAll(getAxioms(type, includeImportsClosure));
 		}
 		return toReturn;
@@ -240,7 +240,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 	public Set<OWLAxiom> getABoxAxioms(boolean includeImportsClosure) {
 		Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
-		for (AxiomType<OWLAxiom> type : AxiomType.ABoxAxiomTypes) {
+		for (AxiomType<?> type : AxiomType.ABoxAxiomTypes) {
 			toReturn.addAll(getAxioms(type, includeImportsClosure));
 		}
 		return toReturn;
@@ -248,7 +248,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 	public Set<OWLAxiom> getRBoxAxioms(
 			boolean includeImportsClosure) {
 		Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
-		for (AxiomType<OWLAxiom> type : AxiomType.RBoxAxiomTypes) {
+		for (AxiomType<?> type : AxiomType.RBoxAxiomTypes) {
 			toReturn.addAll(getAxioms(type, includeImportsClosure));
 		}
 		return toReturn;

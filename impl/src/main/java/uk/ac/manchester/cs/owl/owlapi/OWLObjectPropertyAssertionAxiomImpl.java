@@ -86,7 +86,7 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
     }
 
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.OBJECT_PROPERTY_ASSERTION;
     }
 }

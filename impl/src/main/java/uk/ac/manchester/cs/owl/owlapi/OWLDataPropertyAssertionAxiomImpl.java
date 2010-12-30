@@ -68,7 +68,7 @@ public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationship
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.DATA_PROPERTY_ASSERTION;
     }
 }

@@ -64,7 +64,7 @@ public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacter
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.FUNCTIONAL_DATA_PROPERTY;
     }
 

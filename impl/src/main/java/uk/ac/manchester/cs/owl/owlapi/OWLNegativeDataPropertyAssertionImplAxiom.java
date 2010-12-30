@@ -78,7 +78,7 @@ public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRela
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.NEGATIVE_DATA_PROPERTY_ASSERTION;
     }
 }

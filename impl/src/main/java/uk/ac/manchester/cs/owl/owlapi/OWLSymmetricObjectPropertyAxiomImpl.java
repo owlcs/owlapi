@@ -72,7 +72,7 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.SYMMETRIC_OBJECT_PROPERTY;
     }
 }

@@ -62,7 +62,7 @@ public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.DISJOINT_DATA_PROPERTIES;
     }
 }

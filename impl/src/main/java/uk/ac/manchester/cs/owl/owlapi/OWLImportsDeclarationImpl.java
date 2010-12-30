@@ -3,7 +3,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.net.URI;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
 
@@ -17,7 +16,7 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration {
 
     private IRI iri;
 
-    public OWLImportsDeclarationImpl(OWLDataFactory dataFactory, IRI iri) {
+    public OWLImportsDeclarationImpl(IRI iri) {
         this.iri = iri;
     }
 

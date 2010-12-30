@@ -109,7 +109,7 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.SUBCLASS_OF;
     }
 

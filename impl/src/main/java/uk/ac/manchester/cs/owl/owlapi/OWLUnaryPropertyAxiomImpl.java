@@ -36,7 +36,7 @@ public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
             if (!(obj instanceof OWLUnaryPropertyAxiom)) {
                 return false;
             }
-            return ((OWLUnaryPropertyAxiom) obj).getProperty().equals(property);
+            return ((OWLUnaryPropertyAxiom<?>) obj).getProperty().equals(property);
         }
         return false;
     }

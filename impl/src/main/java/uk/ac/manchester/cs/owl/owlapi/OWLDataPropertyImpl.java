@@ -68,7 +68,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
      * Gets the entity type for this entity
      * @return The entity type
      */
-    public EntityType getEntityType() {
+    public EntityType<?> getEntityType() {
         return EntityType.DATA_PROPERTY;
     }
 
@@ -86,7 +86,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
      * @param entityType The entity type
      * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
      */
-    public boolean isType(EntityType entityType) {
+    public boolean isType(EntityType<?> entityType) {
         return getEntityType().equals(entityType);
     }
 

@@ -62,7 +62,7 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.EQUIVALENT_DATA_PROPERTIES;
     }
 }

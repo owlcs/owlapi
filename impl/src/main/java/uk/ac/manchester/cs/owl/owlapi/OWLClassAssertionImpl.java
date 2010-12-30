@@ -90,7 +90,7 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.CLASS_ASSERTION;
     }
 

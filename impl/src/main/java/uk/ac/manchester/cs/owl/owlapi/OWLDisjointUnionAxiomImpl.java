@@ -87,7 +87,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.DISJOINT_UNION;
     }
 

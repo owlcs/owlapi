@@ -99,7 +99,7 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
     }
 
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.SUB_PROPERTY_CHAIN_OF;
     }
 

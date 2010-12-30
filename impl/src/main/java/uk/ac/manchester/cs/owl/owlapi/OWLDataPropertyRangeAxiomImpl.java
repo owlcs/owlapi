@@ -65,7 +65,7 @@ public class OWLDataPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWL
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.DATA_PROPERTY_RANGE;
     }
 

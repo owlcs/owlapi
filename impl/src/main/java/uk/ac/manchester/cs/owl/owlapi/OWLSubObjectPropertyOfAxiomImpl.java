@@ -62,7 +62,7 @@ public class OWLSubObjectPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWL
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.SUB_OBJECT_PROPERTY;
     }
 }

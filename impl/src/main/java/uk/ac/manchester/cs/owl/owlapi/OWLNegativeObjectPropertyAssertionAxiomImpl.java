@@ -77,7 +77,7 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION;
     }
 }

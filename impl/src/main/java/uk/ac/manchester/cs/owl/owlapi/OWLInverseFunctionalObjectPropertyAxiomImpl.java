@@ -63,7 +63,7 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends OWLObjectProper
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.INVERSE_FUNCTIONAL_OBJECT_PROPERTY;
     }
 

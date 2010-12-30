@@ -45,7 +45,7 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> e
             if (!(obj instanceof OWLSubPropertyAxiom)) {
                 return false;
             }
-            OWLSubPropertyAxiom other = (OWLSubPropertyAxiom) obj;
+            OWLSubPropertyAxiom<?> other = (OWLSubPropertyAxiom<?>) obj;
             return other.getSubProperty().equals(subProperty) && other.getSuperProperty().equals(superProperty);
         }
         return false;
@@ -54,7 +54,7 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> e
 
     @Override
 	protected int compareObjectOfSameType(OWLObject object) {
-        OWLSubPropertyAxiom other = (OWLSubPropertyAxiom) object;
+        OWLSubPropertyAxiom<?> other = (OWLSubPropertyAxiom<?>) object;
         int diff = subProperty.compareTo(other.getSubProperty());
         if (diff != 0) {
             return diff;

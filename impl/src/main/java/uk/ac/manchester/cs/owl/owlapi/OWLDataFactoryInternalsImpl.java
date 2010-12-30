@@ -70,11 +70,11 @@ public class OWLDataFactoryInternalsImpl implements OWLDataFactoryInternals {
         }
         return toReturn;
     }
-
+    @SuppressWarnings("unused")
     private WeakReference<? extends OWLEntity> safeRead(Map<IRI, WeakReference<? extends OWLEntity>> map, IRI iri, BuildableObjects type) {
         return map.get(iri);
     }
-
+    @SuppressWarnings("unused")
     private void safeWrite(Map<IRI, WeakReference<? extends OWLEntity>> map, IRI iri, WeakReference<? extends OWLEntity> value, BuildableObjects type) {
         map.put(iri, value);
     }

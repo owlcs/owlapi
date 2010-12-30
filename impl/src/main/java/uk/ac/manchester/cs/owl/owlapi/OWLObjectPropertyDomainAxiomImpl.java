@@ -63,7 +63,7 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.OBJECT_PROPERTY_DOMAIN;
     }
 

@@ -68,7 +68,7 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyChar
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.IRREFLEXIVE_OBJECT_PROPERTY;
     }
 }

@@ -76,8 +76,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
      * @return <code>true</code> if this axiom is one of the specified types, otherwise <code>false</code>
      * @since 3.0
      */
-    public boolean isOfType(AxiomType... axiomTypes) {
-        for (AxiomType type : axiomTypes) {
+    public boolean isOfType(AxiomType<?>... axiomTypes) {
+        for (AxiomType<?> type : axiomTypes) {
             if (getAxiomType().equals(type)) {
                 return true;
             }

@@ -117,7 +117,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.SAME_INDIVIDUAL;
     }
 }

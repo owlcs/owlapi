@@ -885,7 +885,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 
     public OWLImportsDeclaration getOWLImportsDeclaration(IRI importedOntologyIRI) {
-        return new OWLImportsDeclarationImpl(this, importedOntologyIRI);
+        return new OWLImportsDeclarationImpl(importedOntologyIRI);
     }
 
     public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object, Set<? extends OWLAnnotation> annotations) {

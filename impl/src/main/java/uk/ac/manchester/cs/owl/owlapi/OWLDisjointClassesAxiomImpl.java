@@ -61,7 +61,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.DISJOINT_CLASSES;
     }
 

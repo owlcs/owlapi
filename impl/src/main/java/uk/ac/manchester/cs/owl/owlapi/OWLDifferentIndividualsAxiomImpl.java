@@ -108,7 +108,7 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
     }
 
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.DIFFERENT_INDIVIDUALS;
     }
 }

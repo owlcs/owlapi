@@ -45,7 +45,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
             if (!(obj instanceof OWLNaryPropertyAxiom)) {
                 return false;
             }
-            return ((OWLNaryPropertyAxiom) obj).getProperties().equals(properties);
+            return ((OWLNaryPropertyAxiom<?>) obj).getProperties().equals(properties);
         }
         return false;
     }
@@ -53,6 +53,6 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
 
     @Override
 	final protected int compareObjectOfSameType(OWLObject object) {
-        return compareSets(properties, ((OWLNaryPropertyAxiom) object).getProperties());
+        return compareSets(properties, ((OWLNaryPropertyAxiom<?>) object).getProperties());
     }
 }

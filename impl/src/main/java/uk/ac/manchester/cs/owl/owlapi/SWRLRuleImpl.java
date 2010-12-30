@@ -49,9 +49,9 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     private Set<SWRLVariable> variables;
 
-    private Set<SWRLVariable> dVariables;
-
-    private Set<SWRLVariable> iVariables;
+//    private Set<SWRLVariable> dVariables;
+//
+//    private Set<SWRLVariable> iVariables;
 
     private Boolean containsAnonymousClassExpressions = null;
 
@@ -71,7 +71,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         }
         return getOWLDataFactory().getSWRLRule(getBody(), getHead());
     }
-
+    @SuppressWarnings("unused")
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getSWRLRule(getBody(), getHead());
     }
@@ -218,7 +218,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.SWRL_RULE;
     }
 

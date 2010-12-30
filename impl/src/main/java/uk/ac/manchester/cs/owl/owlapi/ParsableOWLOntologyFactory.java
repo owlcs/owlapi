@@ -81,7 +81,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      * Overriden - We don't create new empty ontologies - this isn't our responsibility
      * @param documentIRI
      */
-    @Override
+    @Override  @SuppressWarnings("unused")
 	public boolean canCreateFromDocumentIRI(IRI documentIRI) {
         return false;
     }
@@ -90,6 +90,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     /**
      * Overriden - This method will throw an OWLException which wraps an UnsupportedOperationException.
      */
+    @SuppressWarnings("unused")
     public OWLOntology createOWLOntology(URI ontologyURI, URI physicalURI) {
         throw new OWLRuntimeException(new UnsupportedOperationException("Cannot create new empty ontologes!"));
     }

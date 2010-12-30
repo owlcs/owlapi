@@ -89,7 +89,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass {
      * Gets the entity type for this entity
      * @return The entity type
      */
-    public EntityType getEntityType() {
+    public EntityType<?> getEntityType() {
         return EntityType.CLASS;
     }
 
@@ -107,7 +107,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass {
      * @param entityType The entity type
      * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
      */
-    public boolean isType(EntityType entityType) {
+    public boolean isType(EntityType<?> entityType) {
         return getEntityType().equals(entityType);
     }
 

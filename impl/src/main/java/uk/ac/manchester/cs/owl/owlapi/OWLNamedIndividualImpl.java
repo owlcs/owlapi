@@ -47,7 +47,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
      * Gets the entity type for this entity
      * @return The entity type
      */
-    public EntityType getEntityType() {
+    public EntityType<?> getEntityType() {
         return EntityType.NAMED_INDIVIDUAL;
     }
 
@@ -65,7 +65,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
      * @param entityType The entity type
      * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
      */
-    public boolean isType(EntityType entityType) {
+    public boolean isType(EntityType<?> entityType) {
         return getEntityType().equals(entityType);
     }
 

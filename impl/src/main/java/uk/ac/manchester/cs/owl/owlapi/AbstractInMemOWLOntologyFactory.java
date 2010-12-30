@@ -27,7 +27,7 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
         return ontologyManager;
     }
 
-
+    @SuppressWarnings("unused")
     public boolean canCreateFromDocumentIRI(IRI documentIRI) {
         return true;
     }
@@ -37,7 +37,7 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
      * parsed into.  Subclasses can override this method to change the implementation
      * of the ontology.
      * @param documentIRI
-     */
+     */  @SuppressWarnings("unused")
     public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
         if (ontologyManager == null) {
             throw new NullPointerException();

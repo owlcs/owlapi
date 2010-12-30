@@ -66,7 +66,7 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.EQUIVALENT_OBJECT_PROPERTIES;
     }
 

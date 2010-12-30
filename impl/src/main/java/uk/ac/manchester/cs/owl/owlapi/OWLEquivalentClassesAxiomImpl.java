@@ -133,7 +133,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
     }
 
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.EQUIVALENT_CLASSES;
     }
 }

@@ -85,7 +85,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
     }
 
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.INVERSE_OBJECT_PROPERTIES;
     }
 
