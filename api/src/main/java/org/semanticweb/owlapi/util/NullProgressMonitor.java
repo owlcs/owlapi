@@ -28,7 +28,7 @@ package org.semanticweb.owlapi.util;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 04-Jan-2007<br><br>
- */
+ */@SuppressWarnings("unused")
 public class NullProgressMonitor implements ProgressMonitor {
 
     public void setStarted() {

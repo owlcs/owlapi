@@ -598,7 +598,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 		// But store them in a set anyway for utility
 		anonymousIndividuals.add(individual);
 	}
-
+	  @SuppressWarnings("unused")
 	public void visit(IRI iri) {
 	}
 
@@ -703,7 +703,6 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 	}
 	
 	private static final List<OWLAnonymousIndividual> fake=new List<OWLAnonymousIndividual>() {
-	    @SuppressWarnings("unused")
 		public <T> T[] toArray(T[] arg0) {
 			return arg0;
 		}

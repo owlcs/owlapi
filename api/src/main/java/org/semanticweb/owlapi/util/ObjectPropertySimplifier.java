@@ -67,9 +67,9 @@ public class ObjectPropertySimplifier {
         }
 
 
-        public int getDepth() {
-            return depth;
-        }
+//        public int getDepth() {
+//            return depth;
+//        }
 
         public boolean isInverse() {
             return depth % 2 != 0;

@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
  */
 public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
 
-    protected abstract void process(OWLAxiom axiom, AxiomType type);
+    protected abstract void process(OWLAxiom axiom, AxiomType<?> type);
 
     public void visit(OWLSubClassOfAxiom axiom) {
         process(axiom, SUBCLASS_OF);

@@ -412,7 +412,7 @@ public class OWLObjectPropertyManager {
         }
         for (OWLOntology ont : ontologies) {
             for (OWLEquivalentObjectPropertiesAxiom ax : ont.getAxioms(AxiomType.EQUIVALENT_OBJECT_PROPERTIES)) {
-
+// XXX should anything be done about this?
             }
         }
         return equivs;

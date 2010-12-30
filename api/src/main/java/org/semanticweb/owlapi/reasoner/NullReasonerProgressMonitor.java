@@ -30,13 +30,13 @@ package org.semanticweb.owlapi.reasoner;
  * An implementation of a progress monitor that does nothing when it receives notification of progress events.
  */
 public class NullReasonerProgressMonitor implements ReasonerProgressMonitor {
-
+	  @SuppressWarnings("unused")
     public void reasonerTaskStarted(String taskName) {
     }
 
     public void reasonerTaskStopped() {
     }
-
+    @SuppressWarnings("unused")
     public void reasonerTaskProgressChanged(int value, int max) {
     }
 

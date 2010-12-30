@@ -89,12 +89,12 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
         variables.add(node);
     }
 
-
+    @SuppressWarnings("unused")
     public void visit(SWRLIndividualArgument node) {
 
     }
 
-
+    @SuppressWarnings("unused")
     public void visit(SWRLLiteralArgument node) {
     }
 

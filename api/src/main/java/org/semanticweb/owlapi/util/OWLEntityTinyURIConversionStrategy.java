@@ -106,35 +106,36 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
         }
 
 
-        public void visit(OWLClass cls) {
+        @SuppressWarnings("unused")
+		public void visit(OWLClass cls) {
             classCount++;
             name = "C" + classCount;
         }
 
-
+        @SuppressWarnings("unused")
         public void visit(OWLDatatype datatype) {
             datatypeCount++;
             name = "dt" + datatypeCount;
         }
 
-
+        @SuppressWarnings("unused")
         public void visit(OWLNamedIndividual individual) {
             individualCount++;
             name = "i" + individualCount;
         }
 
-
+        @SuppressWarnings("unused")
         public void visit(OWLDataProperty property) {
             dataPropertyCount++;
             name = "dp" + dataPropertyCount;
         }
 
-
+        @SuppressWarnings("unused")
         public void visit(OWLObjectProperty property) {
             objectPropertyCount++;
             name = "op" + objectPropertyCount;
         }
-
+        @SuppressWarnings("unused")
         public void visit(OWLAnnotationProperty property) {
             annotationPropertyCount++;
             name = "ap" + annotationPropertyCount;

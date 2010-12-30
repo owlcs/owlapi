@@ -393,7 +393,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
             return dataFactory.getOWLDataUnionOf(ops);
         }
     }
-
+    @SuppressWarnings("unused")
     public OWLAxiom visit(OWLHasKeyAxiom axiom) {
         return null;
     }
@@ -405,11 +405,11 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
             return node;
         }
     }
-
+    @SuppressWarnings("unused")
     public OWLDataRange visit(OWLLiteral node) {
         return null;
     }
-
+    @SuppressWarnings("unused")
     public OWLDataRange visit(OWLFacetRestriction node) {
         return null;
     }

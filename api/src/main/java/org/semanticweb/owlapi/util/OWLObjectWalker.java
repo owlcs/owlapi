@@ -109,7 +109,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 public class OWLObjectWalker<O extends OWLObject> {
 
-    private OWLOntology ontology;
+    protected OWLOntology ontology;
 
     private Collection<O> objects;
 
@@ -117,7 +117,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     private boolean visitDuplicates;
 
-    protected OWLAxiom axiom;
+    protected OWLAxiom ax;
 
     private OWLAnnotation annotation;
 
@@ -156,7 +156,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @return The last axiom to be visited, or <code>null</code> if an axiom has not be visited
      */
     public OWLAxiom getAxiom() {
-        return axiom;
+        return ax;
     }
 
     /**
@@ -264,27 +264,27 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLOntology ontology) {
             OWLObjectWalker.this.ontology = ontology;
-            OWLObjectWalker.this.axiom = null;
+            OWLObjectWalker.this.ax = null;
             process(ontology);
             for(OWLAnnotation anno : ontology.getAnnotations()) {
                 anno.accept(this);
             }
-            for (OWLAxiom ax : ontology.getAxioms()) {
-                ax.accept(this);
+            for (OWLAxiom a : ontology.getAxioms()) {
+                a.accept(this);
             }
         }
 
 
         public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
         }
 
 
         public void visit(OWLClassAssertionAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getIndividual().accept(this);
             axiom.getClassExpression().accept(this);
         }
@@ -292,7 +292,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getSubject().accept(this);
             axiom.getProperty().accept(this);
             axiom.getObject().accept(this);
@@ -301,7 +301,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLDataPropertyDomainAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getDomain().accept(this);
             axiom.getProperty().accept(this);
         }
@@ -309,7 +309,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLDataPropertyRangeAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getRange().accept(this);
             axiom.getProperty().accept(this);
         }
@@ -317,7 +317,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLSubDataPropertyOfAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getSubProperty().accept(this);
             axiom.getSuperProperty().accept(this);
         }
@@ -325,14 +325,14 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLDeclarationAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getEntity().accept(this);
         }
 
 
         public void visit(OWLDifferentIndividualsAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 ind.accept(this);
             }
@@ -341,7 +341,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLDisjointClassesAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 desc.accept(this);
             }
@@ -350,7 +350,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLDisjointDataPropertiesAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             for (OWLDataPropertyExpression prop : axiom.getProperties()) {
                 prop.accept(this);
             }
@@ -359,7 +359,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                 prop.accept(this);
             }
@@ -368,7 +368,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLDisjointUnionAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getOWLClass().accept(this);
             for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 desc.accept(this);
@@ -378,28 +378,28 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLAnnotationAssertionAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getSubject().accept(this);
             axiom.getAnnotation().accept(this);
         }
 
         public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
             axiom.getDomain().accept(this);
         }
 
         public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
             axiom.getRange().accept(this);
         }
 
         public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getSubProperty().accept(this);
             axiom.getSuperProperty().accept(this);
         }
@@ -413,7 +413,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLEquivalentClassesAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 desc.accept(this);
             }
@@ -422,7 +422,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             for (OWLDataPropertyExpression prop : axiom.getProperties()) {
                 prop.accept(this);
             }
@@ -431,7 +431,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                 prop.accept(this);
             }
@@ -440,27 +440,27 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLFunctionalDataPropertyAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
         }
 
 
         public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
         }
 
         public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
         }
 
 
         public void visit(OWLInverseObjectPropertiesAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getFirstProperty().accept(this);
             axiom.getSecondProperty().accept(this);
         }
@@ -468,14 +468,14 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
         }
 
 
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getSubject().accept(this);
             axiom.getProperty().accept(this);
             axiom.getObject().accept(this);
@@ -484,7 +484,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getSubject().accept(this);
             axiom.getProperty().accept(this);
             axiom.getObject().accept(this);
@@ -493,7 +493,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLObjectPropertyAssertionAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getSubject().accept(this);
             axiom.getProperty().accept(this);
             axiom.getObject().accept(this);
@@ -502,7 +502,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLSubPropertyChainOfAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
                 prop.accept(this);
             }
@@ -512,7 +512,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getDomain().accept(this);
             axiom.getProperty().accept(this);
         }
@@ -520,7 +520,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLObjectPropertyRangeAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
             axiom.getRange().accept(this);
         }
@@ -528,7 +528,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLSubObjectPropertyOfAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getSubProperty().accept(this);
             axiom.getSuperProperty().accept(this);
         }
@@ -536,14 +536,14 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
         }
 
 
         public void visit(OWLSameIndividualAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 ind.accept(this);
             }
@@ -552,7 +552,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLSubClassOfAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             // -ve polarity
             axiom.getSubClass().accept(this);
             // +ve polarity
@@ -562,21 +562,21 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
         }
 
 
         public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
         }
 
 
         public void visit(SWRLRule rule) {
             process(rule);
-            OWLObjectWalker.this.axiom = rule;
+            OWLObjectWalker.this.ax = rule;
             for (SWRLAtom at : rule.getBody()) {
                 at.accept(this);
             }
@@ -587,7 +587,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLHasKeyAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getClassExpression().accept(this);
             for (OWLObjectPropertyExpression prop : axiom.getObjectPropertyExpressions()) {
                 prop.accept(this);
@@ -927,7 +927,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public void visit(OWLDatatypeDefinitionAxiom axiom) {
             process(axiom);
-            OWLObjectWalker.this.axiom = axiom;
+            OWLObjectWalker.this.ax = axiom;
             axiom.getDatatype().accept(this);
             axiom.getDataRange().accept(this);
         }

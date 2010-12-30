@@ -152,7 +152,7 @@ public class CollectionFactory {
 			return backingMap.keySet().toArray();
 		}
 
-		public <T> T[] toArray(T[] a) {
+		public <Type> Type[] toArray(Type[] a) {
 			return backingMap.keySet().toArray(a);
 		}
 	}
@@ -294,7 +294,7 @@ public class CollectionFactory {
 			return delegate.toArray();
 		}
 
-		public <T> T[] toArray(T[] arg0) {
+		public <Type> Type[] toArray(Type[] arg0) {
 			return delegate.toArray(arg0);
 		}
 	}

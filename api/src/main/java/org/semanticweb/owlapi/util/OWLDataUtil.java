@@ -30,11 +30,11 @@ public class OWLDataUtil {
 
     private static final IRI INT_URI = XSDVocabulary.INT.getIRI();
 
-    private static Map<Class, XSDVocabulary> numberTypeMap;
+    private static Map<Class<?>, XSDVocabulary> numberTypeMap;
 
 
     static {
-        numberTypeMap = new HashMap<Class, XSDVocabulary>();
+        numberTypeMap = new HashMap<Class<?>, XSDVocabulary>();
         numberTypeMap.put(Byte.class, XSDVocabulary.BYTE);
         numberTypeMap.put(Double.class, XSDVocabulary.DOUBLE);
         numberTypeMap.put(Float.class, XSDVocabulary.FLOAT);

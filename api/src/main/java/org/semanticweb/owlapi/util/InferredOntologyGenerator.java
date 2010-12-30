@@ -54,8 +54,8 @@ public class InferredOntologyGenerator {
     }
 
 
-    public List<InferredAxiomGenerator> getAxiomGenerators() {
-        return new ArrayList<InferredAxiomGenerator>(axiomGenerators);
+    public List<InferredAxiomGenerator<?>> getAxiomGenerators() {
+        return new ArrayList<InferredAxiomGenerator<?>>(axiomGenerators);
     }
 
 
@@ -74,7 +74,7 @@ public class InferredOntologyGenerator {
      * Removes a generator
      * @param generator the generator to be removed
      */
-    public void removeGenerator(InferredAxiomGenerator generator) {
+    public void removeGenerator(InferredAxiomGenerator<?> generator) {
         axiomGenerators.remove(generator);
     }
 

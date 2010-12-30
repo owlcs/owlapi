@@ -80,7 +80,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
         }
     }
 
-
+    @SuppressWarnings("unused")
     public boolean passes(OWLAxiom axiom) {
         return true;
     }

@@ -56,14 +56,14 @@ import org.semanticweb.owlapi.model.SWRLRule;
 @SuppressWarnings("unused")
 public class AxiomTypeProvider implements OWLAxiomVisitor {
 
-    private AxiomType axiomType;
+    private AxiomType<?> axiomType;
 
     public void visit(OWLSubClassOfAxiom axiom) {
         axiomType = SUBCLASS_OF;
     }
 
 
-    public AxiomType getAxiomType(OWLAxiom axiom) {
+    public AxiomType<?> getAxiomType(OWLAxiom axiom) {
         axiom.accept(this);
         return axiomType;
     }

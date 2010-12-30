@@ -95,7 +95,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * Date: 22-Nov-2006<br><br>
  */
 public class OWLObjectVisitorAdapter implements OWLObjectVisitor {
-
+	  @SuppressWarnings("unused")
     protected void handleDefault(OWLObject owlObject) {
 
     }

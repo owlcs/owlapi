@@ -184,7 +184,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
                 processFile(file);
             }
             else {
-                boolean parsedFile = false;
+                //boolean parsedFile = false;
                 if (file.getName().endsWith(".obo")) {
                     oboFileMap.put(file.getName(), IRI.create(file));
                 }
@@ -195,7 +195,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
                     for (String ext : fileExtensions) {
                         if (file.getName().endsWith(ext)) {
                             parseFile(file);
-                            parsedFile = true;
+                            //parsedFile = true;
+                            break;
                         }
                     }
                 }
@@ -255,7 +256,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         }
     }
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         OntologyRootElementHandler handler = handlerMap.get(uri + localName);
         if (handler != null) {

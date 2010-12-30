@@ -551,7 +551,7 @@ public class StructuralTransformation {
             return toSet(axiom);
         }
 
-
+        @SuppressWarnings("unused")
         public Set<OWLAxiom> visit(OWLSameIndividualAxiom axiom) {
             return null;
         }

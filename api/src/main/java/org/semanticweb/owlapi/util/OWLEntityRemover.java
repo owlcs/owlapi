@@ -48,7 +48,7 @@ public class OWLEntityRemover implements OWLEntityVisitor {
      * @param owlOntologyManager The <code>OWLOntologyManager</code> which contains the ontologies
      *                           that contain entities to be removed.
      * @param ontologies         The set of ontologies that contain references to axioms to be removed.
-     */
+     */  @SuppressWarnings("unused")
     public OWLEntityRemover(OWLOntologyManager owlOntologyManager, Set<OWLOntology> ontologies) {
         changes = new ArrayList<OWLOntologyChange>();
         this.ontologies = new ArrayList<OWLOntology>(ontologies);

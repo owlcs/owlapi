@@ -106,6 +106,7 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
      * @param object The object that was visited.
      * @return The default return value
      */
+    @SuppressWarnings("unused")
     protected O getDefaultReturnValue(OWLObject object) {
         return defaultReturnValue;
     }
