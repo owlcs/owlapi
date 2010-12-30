@@ -262,9 +262,9 @@ public class SatisfiabilityConverter {
         }
 
 
-        public void visit(OWLImportsDeclaration axiom) {
-            throw new OWLRuntimeException("Not implemented: Cannot generate explanation for " + axiom);
-        }
+//        public void visit(OWLImportsDeclaration axiom) {
+//            throw new OWLRuntimeException("Not implemented: Cannot generate explanation for " + axiom);
+//        }
 
 
         public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {

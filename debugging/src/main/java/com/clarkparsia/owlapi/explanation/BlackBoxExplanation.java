@@ -1,6 +1,5 @@
 package com.clarkparsia.owlapi.explanation;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -578,9 +577,9 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         }
     }
 
-    private static URI createURI() {
-        return URI.create("http://debugging.blackbox#" + System.nanoTime());
-    }
+//    private static URI createURI() {
+//        return URI.create("http://debugging.blackbox#" + System.nanoTime());
+//    }
 
 
     @Override
