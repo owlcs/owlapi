@@ -3,6 +3,7 @@
 package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
 
 /** Token Manager Error. */
+@SuppressWarnings("unused")
 public class TokenMgrError extends Error
 {
 

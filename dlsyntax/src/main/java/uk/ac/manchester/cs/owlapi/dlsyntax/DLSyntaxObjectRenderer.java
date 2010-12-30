@@ -667,7 +667,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         }
     }
 
-
+    @SuppressWarnings("unused")
     public void visit(OWLDatatypeRestriction node) {
 
     }
@@ -676,7 +676,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         write(node.getLiteral());
     }
 
-
+    @SuppressWarnings("unused")
     public void visit(OWLFacetRestriction node) {
     }
 
