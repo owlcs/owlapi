@@ -14,6 +14,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 public class DisjointClassesAxiomNaryAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
     @Override
+    @SuppressWarnings("unused")
 	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         return getFactory().getOWLDisjointClassesAxiom(getOWLClass("A"), getOWLClass("B"), getOWLClass("C"), getOWLClass("D"));
     }

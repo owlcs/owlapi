@@ -18,14 +18,14 @@ public class ObjectCardinalityTestCase extends AbstractFileRoundTrippingTestCase
     public void testCorrectAxioms() {
          Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
          OWLClass clsA = getOWLClass("A");
-         OWLClass clsB = getOWLClass("B");
+        // OWLClass clsB = getOWLClass("B");
          OWLObjectProperty prop = getOWLObjectProperty("p");
         axioms.add(getFactory().getOWLDeclarationAxiom(prop));
          axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectExactCardinality(3, prop)));
          assertEquals(getOnt().getAxioms(), axioms);
     }
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }

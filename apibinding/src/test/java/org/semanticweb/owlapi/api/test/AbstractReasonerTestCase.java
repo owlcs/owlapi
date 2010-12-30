@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -27,8 +26,6 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
     private OWLReasonerFactory reasonerFactory;
 
     private OWLOntology ont;
-
-    private OWLDataFactory df;
 
     private OWLReasoner reasoner;
 

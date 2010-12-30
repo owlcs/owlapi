@@ -90,7 +90,7 @@ public class OWLOntologyManagerTestCase extends TestCase {
         try {
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
             IRI ontologyIRI = IRI.create("http://www.semanticweb.org/ontologies/ontology");
-            OWLOntology ontology = manager.createOntology(ontologyIRI);
+            manager.createOntology(ontologyIRI);
             manager.createOntology(ontologyIRI);
             fail("OWLOntologyAlreadyExistsException Not Thrown");
         }
@@ -104,7 +104,7 @@ public class OWLOntologyManagerTestCase extends TestCase {
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
             IRI ontologyIRI = IRI.create("http://www.semanticweb.org/ontologies/ontology");
             IRI versionIRI = IRI.create("http://www.semanticweb.org/ontologies/ontology");
-            OWLOntology ontology = manager.createOntology(new OWLOntologyID(ontologyIRI, versionIRI));
+            manager.createOntology(new OWLOntologyID(ontologyIRI, versionIRI));
             manager.createOntology(new OWLOntologyID(ontologyIRI, versionIRI));
             fail("OWLOntologyAlreadyExistsException Not Thrown");
         }

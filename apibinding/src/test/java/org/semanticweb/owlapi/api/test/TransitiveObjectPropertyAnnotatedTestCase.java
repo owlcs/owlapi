@@ -13,6 +13,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class TransitiveObjectPropertyAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
+    @SuppressWarnings("unused")
 	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         return getFactory().getOWLTransitiveObjectPropertyAxiom(getOWLObjectProperty("p"));
     }

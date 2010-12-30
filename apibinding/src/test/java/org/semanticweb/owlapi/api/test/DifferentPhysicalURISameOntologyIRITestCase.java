@@ -50,7 +50,7 @@ public class DifferentPhysicalURISameOntologyIRITestCase extends AbstractOWLAPIT
             OWLOntology ontologyA = manager.loadOntologyFromOntologyDocument(ontologyADocumentIRI);
             OWLOntology ontologyALoad2 = manager.loadOntologyFromOntologyDocument(ontologyADocumentIRI);
             assertEquals(ontologyA, ontologyALoad2);
-            OWLOntology ontologyAEmpty = manager.loadOntologyFromOntologyDocument(ontologyADocumentIRIB);
+            manager.loadOntologyFromOntologyDocument(ontologyADocumentIRIB);
             fail("Expected an exception to say that the ontology already exists");
         }
         catch (OWLOntologyAlreadyExistsException e) {

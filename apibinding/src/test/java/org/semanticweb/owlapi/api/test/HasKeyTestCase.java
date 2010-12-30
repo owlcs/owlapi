@@ -6,6 +6,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLProperty;
 
@@ -18,14 +19,14 @@ public class HasKeyTestCase extends AbstractFileRoundTrippingTestCase {
 
     public void testCorrectAxioms() {
         OWLClass cls = getOWLClass("A");
-        OWLProperty propP = getOWLDataProperty("p");
-        OWLProperty propQ = getOWLDataProperty("q");
+        OWLDataProperty propP = getOWLDataProperty("p");
+        OWLDataProperty propQ = getOWLDataProperty("q");
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(getFactory().getOWLHasKeyAxiom(cls, propP, propQ));
         assertEquals(axioms, getOnt().getAxioms());
     }
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }

@@ -25,7 +25,7 @@ public abstract class OWLDataFactoryFactory {
                 if(factoryName == null) {
                     throw new RuntimeException("System property 'DataFactoryFactory' must be set in order to run the tests");
                 }
-                Class cls = Class.forName(factoryName);
+                Class<?> cls = Class.forName(factoryName);
                 factory = (OWLDataFactoryFactory) cls.newInstance();
             }
             catch (ClassNotFoundException e) {

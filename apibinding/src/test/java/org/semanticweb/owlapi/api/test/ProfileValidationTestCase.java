@@ -2,11 +2,6 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.profiles.OWLProfile;
-import org.semanticweb.owlapi.profiles.OWLProfileReport;
-
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -16,27 +11,27 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 public class ProfileValidationTestCase extends TestCase {
 
 
-    private static final String TEST_NAMESPACE = "http://www.w3.org/2007/OWL/testOntology#";
+//    private static final String TEST_NAMESPACE = "http://www.w3.org/2007/OWL/testOntology#";
 
-    private static final IRI TEST_CASE_IRI = IRI.create(TEST_NAMESPACE + "TestCase");
-
-    private static final IRI PROFILE_IDENTIFICATION_TEST_IRI = IRI.create(TEST_NAMESPACE + "ProfileIdentificationTest");
-
-    private static final IRI PROFILE_IRI = IRI.create(TEST_NAMESPACE + "profile");
-
-    private static final IRI SPECIES_IRI = IRI.create(TEST_NAMESPACE + "species");
-
-    private static final IRI FULL_IRI = IRI.create(TEST_NAMESPACE + "FULL");
-
-    private static final IRI DL_IRI = IRI.create(TEST_NAMESPACE + "DL");
-
-    private static final IRI EL_IRI = IRI.create(TEST_NAMESPACE + "EL");
-
-    private static final IRI QL_IRI = IRI.create(TEST_NAMESPACE + "QL");
-
-    private static final IRI RL_IRI = IRI.create(TEST_NAMESPACE + "RL");
-
-    private static final IRI RDF_XML_PREMISE_ONTOLOGY_IRI = IRI.create(TEST_NAMESPACE + "rdfXmlPremiseOntology");
+//    private static final IRI TEST_CASE_IRI = IRI.create(TEST_NAMESPACE + "TestCase");
+//
+//    private static final IRI PROFILE_IDENTIFICATION_TEST_IRI = IRI.create(TEST_NAMESPACE + "ProfileIdentificationTest");
+//
+//    private static final IRI PROFILE_IRI = IRI.create(TEST_NAMESPACE + "profile");
+//
+//    private static final IRI SPECIES_IRI = IRI.create(TEST_NAMESPACE + "species");
+//
+//    private static final IRI FULL_IRI = IRI.create(TEST_NAMESPACE + "FULL");
+//
+//    private static final IRI DL_IRI = IRI.create(TEST_NAMESPACE + "DL");
+//
+//    private static final IRI EL_IRI = IRI.create(TEST_NAMESPACE + "EL");
+//
+//    private static final IRI QL_IRI = IRI.create(TEST_NAMESPACE + "QL");
+//
+//    private static final IRI RL_IRI = IRI.create(TEST_NAMESPACE + "RL");
+//
+//    private static final IRI RDF_XML_PREMISE_ONTOLOGY_IRI = IRI.create(TEST_NAMESPACE + "rdfXmlPremiseOntology");
 
 
     public void testProfiles() throws Exception {
@@ -142,16 +137,16 @@ public class ProfileValidationTestCase extends TestCase {
 //        }
     }
 
-    private void checkProfile(OWLOntology ontology, OWLProfile profile, boolean shouldBeInProfile) {
-        OWLProfileReport report = profile.checkOntology(ontology);
-        if (report.isInProfile() != shouldBeInProfile) {
-            if (shouldBeInProfile) {
-                System.out.println("FAIL: " + ontology.getOntologyID() + " should be in the " + profile.getName() + " profile. Report: " + report);
-            }
-            else {
-                System.out.println("FAIL: " + ontology.getOntologyID() + " should not be in the " + profile.getName() + " profile. Report: " + report);
-            }
-        }
-    }
+//    private void checkProfile(OWLOntology ontology, OWLProfile profile, boolean shouldBeInProfile) {
+//        OWLProfileReport report = profile.checkOntology(ontology);
+//        if (report.isInProfile() != shouldBeInProfile) {
+//            if (shouldBeInProfile) {
+//                System.out.println("FAIL: " + ontology.getOntologyID() + " should be in the " + profile.getName() + " profile. Report: " + report);
+//            }
+//            else {
+//                System.out.println("FAIL: " + ontology.getOntologyID() + " should not be in the " + profile.getName() + " profile. Report: " + report);
+//            }
+//        }
+//    }
 
 }

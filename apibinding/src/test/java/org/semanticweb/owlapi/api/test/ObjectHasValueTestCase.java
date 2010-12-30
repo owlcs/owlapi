@@ -31,7 +31,7 @@ public class ObjectHasValueTestCase extends AbstractFileRoundTrippingTestCase {
         return "ObjectHasValue.rdf";
     }
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }

@@ -13,6 +13,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class SymmetricObjectPropertyAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
+    @SuppressWarnings("unused")
 	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         return getFactory().getOWLSymmetricObjectPropertyAxiom(getOWLObjectProperty("p"));
     }

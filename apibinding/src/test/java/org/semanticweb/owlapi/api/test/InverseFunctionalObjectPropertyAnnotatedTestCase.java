@@ -13,7 +13,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class InverseFunctionalObjectPropertyAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
-    @Override
+    @Override@SuppressWarnings("unused")
 	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         return getFactory().getOWLInverseFunctionalObjectPropertyAxiom(getOWLObjectProperty("p"));
     }

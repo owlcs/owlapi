@@ -6,7 +6,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
-import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 
@@ -30,8 +29,8 @@ public class StructuralReasonerRecursionTestCase extends AbstractFileTestCase {
             OWLDataFactory factory = getFactory();
             StructuralReasoner reasoner = new StructuralReasoner(ontology, new SimpleConfiguration(), BufferingMode.BUFFERING);
             OWLClass cls = factory.getOWLClass(IRI.create(ontName + "#Koala"));
-            NodeSet<OWLClass> subClasses = reasoner.getSubClasses((OWLClassExpression) cls, false);
-            NodeSet<OWLClass> superClasses = reasoner.getSuperClasses((OWLClassExpression) cls, false);
+            reasoner.getSubClasses(cls, false);
+            reasoner.getSuperClasses(cls, false);
         }
         catch (RuntimeException e) {
             fail(e.getMessage());

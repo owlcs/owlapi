@@ -19,7 +19,7 @@ public class RenameToExistingOntologyTestCase extends AbstractOWLAPITestCase {
         try {
             OWLOntologyManager manager = getManager();
             IRI ontologyAIRI = IRI.create("http://www.semanticweb.org/ontologies/ontologyA");
-            OWLOntology ontologyA = manager.createOntology(ontologyAIRI);
+            manager.createOntology(ontologyAIRI);
             IRI ontologyBIRI = IRI.create("http://www.semanticweb.org/ontologies/ontologyB");
             OWLOntology ontologyB = manager.createOntology(ontologyBIRI);
             manager.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(ontologyAIRI)));

@@ -31,7 +31,7 @@ public class ObjectSomeValuesFromTestCase extends AbstractFileRoundTrippingTestC
         return "ObjectSomeValuesFrom.rdf";
     }
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }

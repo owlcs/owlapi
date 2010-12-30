@@ -23,7 +23,7 @@ public class ObjectUnionOfTestCase extends AbstractFileRoundTrippingTestCase {
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println(target);
     }

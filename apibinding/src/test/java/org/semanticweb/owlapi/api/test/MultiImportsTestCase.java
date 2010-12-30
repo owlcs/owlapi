@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.api.test;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
@@ -17,7 +16,7 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
     public void testImports() {
         try {
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-            OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create("http://purl.obolibrary.org/obo/iao.owl"));
+            manager.loadOntologyFromOntologyDocument(IRI.create("http://purl.obolibrary.org/obo/iao.owl"));
         }
         catch (OWLOntologyCreationException e) {
             Thread.dumpStack();
