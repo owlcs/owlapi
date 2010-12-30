@@ -19,13 +19,13 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
     }
 
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
         return getConsumer().isDataProperty(predicate);
     }
 
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
         return false;
     }

@@ -31,6 +31,7 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
 
 
     @Override
+    @SuppressWarnings("unused")
 	public boolean canHandleStreaming(IRI subject,
                                       IRI predicate,
                                       IRI object) {
@@ -40,6 +41,7 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
 
 
     @Override
+    @SuppressWarnings("unused")
 	public boolean canHandle(IRI subject,
                              IRI predicate,
                              IRI object) {

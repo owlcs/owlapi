@@ -49,7 +49,7 @@ public class DataPropertyListItemTranslator implements ListItemTranslator<OWLDat
         return consumer.getOWLDataProperty(firstObject);
     }
 
-
+    @SuppressWarnings("unused")
     public OWLDataPropertyExpression translate(OWLLiteral firstObject) {
         return null;
     }

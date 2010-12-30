@@ -19,13 +19,13 @@ public class TPFirstLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
 
-    @Override
+    @Override@SuppressWarnings("unused")
 	public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
         return predicate.equals(OWLRDFVocabulary.RDF_FIRST.getIRI());
     }
 
 
-    @Override
+    @Override@SuppressWarnings("unused")
 	public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
         return predicate.equals(OWLRDFVocabulary.RDF_FIRST.getIRI());
     }

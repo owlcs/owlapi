@@ -15,6 +15,7 @@ public class TypeAnnotationHandler extends BuiltInTypeHandler {
     }
 
     @Override
+    @SuppressWarnings("unused")
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().addAnnotationIRI(subject);
     }

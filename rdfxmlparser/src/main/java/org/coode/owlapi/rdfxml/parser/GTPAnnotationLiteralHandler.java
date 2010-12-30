@@ -16,13 +16,13 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
         return !isAnonymous(subject) && !getConsumer().isAnnotation(subject) && getConsumer().isAnnotationProperty(predicate);
     }
 
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
         boolean axiom = getConsumer().isAxiom(subject);
         boolean annotation = getConsumer().isAnnotation(subject);

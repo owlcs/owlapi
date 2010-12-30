@@ -39,7 +39,7 @@ public class OWLFacetRestrictionListItemTranslator implements ListItemTranslator
     public OWLFacetRestrictionListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
-
+    @SuppressWarnings("unused")
     public OWLFacetRestriction translate(OWLLiteral firstObject) {
         return null;
     }

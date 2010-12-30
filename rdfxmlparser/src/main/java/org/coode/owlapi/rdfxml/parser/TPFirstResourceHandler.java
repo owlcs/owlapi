@@ -18,7 +18,7 @@ public class TPFirstResourceHandler extends TriplePredicateHandler {
     }
 
 
-    @Override
+    @Override@SuppressWarnings("unused")
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return true;
     }

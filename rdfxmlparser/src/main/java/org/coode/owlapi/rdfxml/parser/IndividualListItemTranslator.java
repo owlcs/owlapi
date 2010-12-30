@@ -30,7 +30,7 @@ public class IndividualListItemTranslator implements ListItemTranslator<OWLIndiv
         return consumer.translateIndividual(IRI);
     }
 
-
+    @SuppressWarnings("unused")
     public OWLIndividual translate(OWLLiteral firstObject) {
         logger.info("Cannot translate list item to individual, because rdf:first triple is a literal triple");
         return null;

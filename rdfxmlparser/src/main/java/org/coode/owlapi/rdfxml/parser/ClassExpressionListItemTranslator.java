@@ -49,7 +49,7 @@ public class ClassExpressionListItemTranslator implements ListItemTranslator<OWL
         return consumer.translateClassExpression(iri);
     }
 
-
+    @SuppressWarnings("unused")
     public OWLClassExpression translate(OWLLiteral firstObject) {
         return consumer.getDataFactory().getOWLThing();
     }

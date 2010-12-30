@@ -25,6 +25,7 @@ public class TypeNegativeDataPropertyAssertionHandler extends BuiltInTypeHandler
     }
 
     @Override
+    @SuppressWarnings("unused")
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return false;
     }

@@ -38,7 +38,7 @@ public class HasKeyListItemTranslator implements ListItemTranslator<OWLPropertyE
     public HasKeyListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
-
+    @SuppressWarnings("unused")
     public OWLPropertyExpression translate(OWLLiteral firstObject) {
         return null;
     }

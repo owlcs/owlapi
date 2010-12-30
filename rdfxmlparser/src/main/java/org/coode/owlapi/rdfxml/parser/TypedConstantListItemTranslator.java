@@ -16,10 +16,11 @@ public class TypedConstantListItemTranslator implements ListItemTranslator<OWLLi
 
     private static final Logger logger = Logger.getLogger(TypedConstantListItemTranslator.class.getName());
 
+    @SuppressWarnings("unused")
     public TypedConstantListItemTranslator(OWLRDFConsumer consumer) {
     }
 
-
+    @SuppressWarnings("unused")
     public OWLLiteral translate(IRI firstObject) {
         logger.info("Cannot translate list item to a constant because rdf:first triple is a resource triple");
         return null;
