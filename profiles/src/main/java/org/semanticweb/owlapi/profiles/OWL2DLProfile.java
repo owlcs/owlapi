@@ -75,7 +75,7 @@ public class OWL2DLProfile implements OWLProfile {
     }
 
 
-    private class OWL2DLProfileObjectVisitor extends OWLOntologyWalkerVisitor {
+    private class OWL2DLProfileObjectVisitor extends OWLOntologyWalkerVisitor<Object> {
 
         private OWLObjectPropertyManager objectPropertyManager = null;
 

@@ -56,9 +56,9 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class OWL2ELProfile implements OWLProfile {
 
-    private Set<IRI> allowedDatatypes;
+    protected Set<IRI> allowedDatatypes;
 
-    private OWLOntology ont;
+    //private OWLOntology ont;
 
 
     public OWL2ELProfile() {
@@ -91,7 +91,7 @@ public class OWL2ELProfile implements OWLProfile {
 
 
     public OWLProfileReport checkOntology(OWLOntology ontology) {
-        this.ont = ontology;
+        //this.ont = ontology;
         OWL2DLProfile profile = new OWL2DLProfile();
         OWLProfileReport report = profile.checkOntology(ontology);
         Set<OWLProfileViolation> violations = new HashSet<OWLProfileViolation>();
@@ -103,7 +103,7 @@ public class OWL2ELProfile implements OWLProfile {
         return new OWLProfileReport(this, violations);
     }
 
-    protected class OWL2ELProfileObjectVisitor extends OWLOntologyWalkerVisitor {
+    protected class OWL2ELProfileObjectVisitor extends OWLOntologyWalkerVisitor<Object> {
 
         private OWLOntologyManager man;
 
@@ -345,6 +345,7 @@ public class OWL2ELProfile implements OWLProfile {
         }
 
         @Override
+        @SuppressWarnings("unused")
 		public Object visit(OWLOntology ontology) {
             propertyManager = null;
             return null;

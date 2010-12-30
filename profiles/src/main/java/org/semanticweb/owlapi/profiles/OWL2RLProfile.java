@@ -125,7 +125,7 @@ public class OWL2RLProfile implements OWLProfile {
     }
 
 
-    private class OWL2RLObjectVisitor extends OWLOntologyWalkerVisitor {
+    private class OWL2RLObjectVisitor extends OWLOntologyWalkerVisitor<Object> {
 
         private Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 
@@ -192,6 +192,7 @@ public class OWL2RLProfile implements OWLProfile {
         }
 
         @Override
+        @SuppressWarnings("unused")
 		public Object visit(OWLFunctionalDataPropertyAxiom axiom) {
             return null;
         }
@@ -281,6 +282,7 @@ public class OWL2RLProfile implements OWLProfile {
         }
 
         @Override
+        @SuppressWarnings("unused")
 		public Object visit(OWLDatatypeDefinitionAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), getCurrentAxiom()));
             return null;

@@ -115,7 +115,7 @@ public class OWL2QLProfile implements OWLProfile {
         return new OWLProfileReport(this, violations);
     }
     
-    private class OWL2QLObjectVisitor extends OWLOntologyWalkerVisitor {
+    private class OWL2QLObjectVisitor extends OWLOntologyWalkerVisitor<Object> {
 
         private Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 
