@@ -1,7 +1,6 @@
 package org.coode.owlapi.obo.parser;
 
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
@@ -26,7 +25,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  */
 public abstract class AbstractTagValueHandler implements TagValueHandler {
 
-    private Logger logger = Logger.getLogger(AbstractTagValueHandler.class.getName());
+    //private Logger logger = Logger.getLogger(AbstractTagValueHandler.class.getName());
 
     private String tag;
 

@@ -29,7 +29,7 @@ package org.coode.owlapi.obo.parser;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 10-Jan-2007<br><br>
- */
+ */  @SuppressWarnings("unused")
 public class OBOParserHandlerAdapter implements OBOParserHandler {
 
     public void endHeader() {

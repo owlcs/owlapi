@@ -22,7 +22,7 @@ public class OBOFlatFileOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
             OWLOntologyStorageException {
         OBOFlatFileRenderer renderer = new OBOFlatFileRenderer(manager);

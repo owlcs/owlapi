@@ -62,7 +62,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
             }
 
 
-            OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(ontology, w);
+            OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(w);
             ontology.accept(ren);
             w.endDocument();
             writer.flush();

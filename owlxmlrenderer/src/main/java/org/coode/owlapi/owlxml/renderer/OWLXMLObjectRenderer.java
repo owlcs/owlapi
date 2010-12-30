@@ -110,18 +110,18 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     private OWLXMLWriter writer;
 
-    private OWLOntology ontology;
+    //private OWLOntology ontology;
 
 
-    public OWLXMLObjectRenderer(OWLOntology ontology, OWLXMLWriter writer) {
-        this.writer = writer;
-        this.ontology = ontology;
-    }
+    //public OWLXMLObjectRenderer(OWLOntology ontology, OWLXMLWriter writer) {
+        //this.writer = writer;
+        //this.ontology = ontology;
+    //}
 
 
     public OWLXMLObjectRenderer(OWLXMLWriter writer) {
         this.writer = writer;
-        this.ontology = null;
+        //this.ontology = null;
     }
 
     private void writeAnnotations(OWLAxiom axiom) {
