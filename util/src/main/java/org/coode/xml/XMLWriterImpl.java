@@ -323,7 +323,9 @@ public class XMLWriterImpl implements XMLWriter {
 
 
         public void setWrapAttributes(boolean b) {
-            wrapAttributes = true;
+        	//XXX it was:
+            //wrapAttributes = true;
+        	wrapAttributes = b;
         }
 
 
@@ -426,8 +428,8 @@ public class XMLWriterImpl implements XMLWriter {
 
 
         private void writeAttributes() throws IOException {
-            for (Iterator it = attributes.keySet().iterator(); it.hasNext();) {
-                String attr = (String) it.next();
+            for (Iterator<String> it = attributes.keySet().iterator(); it.hasNext();) {
+                String attr = it.next();
                 String val = attributes.get(attr);
                 writer.write(' ');
                 writeAttribute(attr, val);
