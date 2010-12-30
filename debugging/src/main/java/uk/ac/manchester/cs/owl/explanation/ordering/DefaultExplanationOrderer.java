@@ -102,7 +102,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
     private Set<OWLAxiom> consumedAxioms;
 
-    private Set<AxiomType> passTypes;
+    private Set<AxiomType<?>> passTypes;
 
     private OWLEntity currentSource;
 
@@ -122,7 +122,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         });
         mappedAxioms = new HashMap<OWLObject, Set<OWLAxiom>>();
 
-        passTypes = new HashSet<AxiomType>();
+        passTypes = new HashSet<AxiomType<?>>();
         // I'm not sure what to do with disjoint classes yet.  At the
         // moment, we just shove them at the end at the top level.
         passTypes.add(AxiomType.DISJOINT_CLASSES);

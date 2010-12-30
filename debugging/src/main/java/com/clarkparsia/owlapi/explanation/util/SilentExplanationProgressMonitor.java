@@ -13,7 +13,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class SilentExplanationProgressMonitor implements ExplanationProgressMonitor {
 
-
+	@SuppressWarnings("unused")
     public void foundExplanation(Set<OWLAxiom> axioms) {
     }
 

@@ -18,9 +18,9 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Orders an explanation in a flat list, sorting axioms
  * alphabetically.
  */
-public class AlphaExplanationOrderer implements ExplanationOrderer {
+public final class AlphaExplanationOrderer implements ExplanationOrderer {
 
-    private OWLObjectRenderer renderer;
+    protected OWLObjectRenderer renderer;
 
 
     public AlphaExplanationOrderer(OWLObjectRenderer renderer) {
@@ -30,6 +30,7 @@ public class AlphaExplanationOrderer implements ExplanationOrderer {
     public ExplanationTree getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
         EntailedAxiomTree root = new EntailedAxiomTree(entailment);
         List<OWLAxiom> sortedAxioms = new ArrayList<OWLAxiom>();
+        // XXX sorting an empty list and not using the input parameter = bug?
         Collections.sort(sortedAxioms, new Comparator<OWLAxiom>() {
 
             public int compare(OWLAxiom o1, OWLAxiom o2) {

@@ -17,6 +17,7 @@ import org.semanticweb.owlapi.model.OWLException;
  * <p>Company: Clark & Parsia, LLC. <http://www.clarkparsia.com></p>
  * @author Evren Sirin
  */
+@SuppressWarnings("unused")
 public class SilentExplanationRenderer implements ExplanationRenderer {
 
     public void endRendering() {
