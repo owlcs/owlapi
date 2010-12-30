@@ -122,15 +122,15 @@ public class JustificationMap {
     }
 
 
-    private Set<OWLAxiom> getAxiomsByRHS(OWLEntity rhs) {
-        Set<OWLAxiom> axioms = axiomsByRHS.get(rhs);
-        if (axioms != null) {
-            return axioms;
-        }
-        else {
-            return Collections.emptySet();
-        }
-    }
+//    private Set<OWLAxiom> getAxiomsByRHS(OWLEntity rhs) {
+//        Set<OWLAxiom> axioms = axiomsByRHS.get(rhs);
+//        if (axioms != null) {
+//            return axioms;
+//        }
+//        else {
+//            return Collections.emptySet();
+//        }
+//    }
 
     private void buildChildren(OWLClassExpression seed) {
         // Return the axioms that have the entity on the LHS
@@ -466,10 +466,11 @@ public class JustificationMap {
 
 
         @Override
+        @SuppressWarnings("unused")
 		public void visit(SWRLRule rule) {
         }
     }
-
+    @SuppressWarnings("unused")
     private class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements Comparator<OWLAxiom> {
 
 

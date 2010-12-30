@@ -185,9 +185,9 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
 
-    private static List<OWLAxiom> toList(Set<OWLAxiom> axioms) {
-        return new ArrayList<OWLAxiom>(axioms);
-    }
+//    private static List<OWLAxiom> toList(Set<OWLAxiom> axioms) {
+//        return new ArrayList<OWLAxiom>(axioms);
+//    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     //
