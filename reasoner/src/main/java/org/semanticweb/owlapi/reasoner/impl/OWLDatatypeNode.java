@@ -38,7 +38,7 @@ public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
 
     private static final OWLDatatype TOP_DATATYPE = OWLDataFactoryVocabulary.TopDatatype;
 
-    private static final OWLDatatypeNode topNode = new OWLDatatypeNode(TOP_DATATYPE);
+    //private static final OWLDatatypeNode topNode = new OWLDatatypeNode(TOP_DATATYPE);
 
     public OWLDatatypeNode() {
     }

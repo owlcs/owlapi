@@ -701,14 +701,14 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-    private void processAnonymousIndividual(OWLIndividual ind) {
-        if (!ind.isAnonymous()) {
-            return;
-        }
-        for (OWLAxiom ax : ontology.getAxioms(ind)) {
-            ax.accept(this);
-        }
-    }
+//    private void processAnonymousIndividual(OWLIndividual ind) {
+//        if (!ind.isAnonymous()) {
+//            return;
+//        }
+//        for (OWLAxiom ax : ontology.getAxioms(ind)) {
+//            ax.accept(this);
+//        }
+//    }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -800,7 +800,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
             translateAnnotation(annotation, anno);
         }
     }
-
+    @SuppressWarnings("unused")
     public void visit(OWLAnnotation node) {
         throw new OWLRuntimeException("The translator should not be used directly on instances of OWLAnnotation because an annotation cannot be translated without a subject.");
     }
@@ -915,10 +915,6 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         addTriple(getResourceNode(subject), getPredicateNode(pred), getNode(object));
     }
 
-    private void addTriple(OWLObject subject, IRI pred, List<? extends OWLObject> objects) {
-        addTriple(getResourceNode(subject), getPredicateNode(pred), translateList(objects));
-    }
-
     private void addListTriples(OWLObject subject, IRI pred, Set<? extends OWLObject> objects) {
         addTriple(getResourceNode(subject), getPredicateNode(pred), translateList(new ArrayList<OWLObject>(objects)));
     }
@@ -956,9 +952,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         }
     }
 
-    private boolean isAnonymous(OWLObject object) {
-        return !(object instanceof OWLEntity || object instanceof IRI);
-    }
+//    private boolean isAnonymous(OWLObject object) {
+//        return !(object instanceof OWLEntity || object instanceof IRI);
+//    }
 
     private void addPairwise(OWLAxiom axiom, Collection<? extends OWLObject> objects, IRI IRI) {
         List<? extends OWLObject> objectList = new ArrayList<OWLObject>(objects);

@@ -42,7 +42,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     private Set<RDFResourceNode> pending;
 
-    private Set<RDFResourceNode> renderedAnonymousNodes;
+    //private Set<RDFResourceNode> renderedAnonymousNodes;
 
     public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w) {
         this(manager, ontology, w, manager.getOntologyFormat(ontology));
@@ -52,9 +52,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
     public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w, OWLOntologyFormat format) {
         super(ontology, manager, format);
         pending = new HashSet<RDFResourceNode>();
-        renderedAnonymousNodes = new HashSet<RDFResourceNode>();
+        //renderedAnonymousNodes = new HashSet<RDFResourceNode>();
 
-        OWLOntologyXMLNamespaceManager nsm = new OWLOntologyXMLNamespaceManager(manager,
+        OWLOntologyXMLNamespaceManager nsm = new OWLOntologyXMLNamespaceManager(
                 ontology,
                 format);
         String defaultNamespace = nsm.getDefaultNamespace();

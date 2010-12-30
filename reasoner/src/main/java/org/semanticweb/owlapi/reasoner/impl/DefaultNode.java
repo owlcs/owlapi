@@ -133,7 +133,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         if (!(obj instanceof Node)) {
             return false;
         }
-        Node other = (Node) obj;
+        Node<?> other = (Node<?>) obj;
         return entities.equals(other.getEntities());
     }
 

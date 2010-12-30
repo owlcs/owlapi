@@ -13,14 +13,14 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
-
+@SuppressWarnings("unused")
 public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants {
 
-    private OWLDataFactory dataFactory;
+    //private OWLDataFactory dataFactory;
 
     private Map<String, IRI> string2IRI;
 
-    private boolean ignoreAnnotationsAndDeclarations = false;
+    //private boolean ignoreAnnotationsAndDeclarations = false;
 
     private String base;
 
@@ -122,9 +122,9 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         return iri;
     }
 
-    public void setIgnoreAnnotationsAndDeclarations(boolean b) {
-        ignoreAnnotationsAndDeclarations = b;
-    }
+//    public void setIgnoreAnnotationsAndDeclarations(boolean b) {
+//        ignoreAnnotationsAndDeclarations = b;
+//    }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 

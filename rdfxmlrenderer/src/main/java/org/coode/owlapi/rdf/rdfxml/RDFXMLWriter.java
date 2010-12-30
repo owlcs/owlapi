@@ -61,7 +61,7 @@ public class RDFXMLWriter {
 //            URI s = writer.getXMLBaseAsURI().relativize(value);
             writer.writeAttribute(attributeName, value.toString());
     }
-
+    @SuppressWarnings("unused")
     public void writeOWLObject(OWLObject owlObject) {
 
     }

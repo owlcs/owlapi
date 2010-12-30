@@ -42,7 +42,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
         super(owlOntologyManager, ontology, checker, configuration);
     }
 
-
+    @SuppressWarnings("unused")
     public void handlePrefixDirective(String prefixName, String prefix) {
         
     }
@@ -52,7 +52,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
 //        setXMLBase(base);
     }
 
-
+    @SuppressWarnings("unused")
     public void handleComment(String comment) {
 
     }

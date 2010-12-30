@@ -1,13 +1,10 @@
 package org.coode.owlapi.rdf.renderer;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -356,9 +353,9 @@ public abstract class RDFRendererBase {
     }
 
 
-    private OWLOntologyFormat getOntologyFormat() {
-        return format;
-    }
+//    private OWLOntologyFormat getOntologyFormat() {
+//        return format;
+//    }
 
 
     protected abstract void endDocument() throws IOException;
@@ -392,15 +389,15 @@ public abstract class RDFRendererBase {
     }
 
 
-    private Set<OWLAnnotation> getAnnotationsForURIViaHack(Map<URI, Set<OWLAnnotation>> annoURIAnnotations, URI uri) {
-        Set<OWLAnnotation> annos = annoURIAnnotations.get(uri);
-        if (annos != null) {
-            return annos;
-        }
-        else {
-            return Collections.emptySet();
-        }
-    }
+//    private Set<OWLAnnotation> getAnnotationsForURIViaHack(Map<URI, Set<OWLAnnotation>> annoURIAnnotations, URI uri) {
+//        Set<OWLAnnotation> annos = annoURIAnnotations.get(uri);
+//        if (annos != null) {
+//            return annos;
+//        }
+//        else {
+//            return Collections.emptySet();
+//        }
+//    }
 
 
     private boolean createGraph(OWLEntity entity) {

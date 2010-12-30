@@ -155,7 +155,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         if (!(obj instanceof NodeSet)) {
             return false;
         }
-        NodeSet other = (NodeSet) obj;
+        NodeSet<?> other = (NodeSet<?>) obj;
         return nodes.equals(other.getNodes());
     }
 
