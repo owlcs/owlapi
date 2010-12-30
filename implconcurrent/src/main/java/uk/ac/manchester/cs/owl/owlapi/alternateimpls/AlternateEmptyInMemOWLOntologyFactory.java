@@ -32,7 +32,7 @@ public class AlternateEmptyInMemOWLOntologyFactory extends AlternateAbstractInMe
     public AlternateEmptyInMemOWLOntologyFactory() {
 
     }
-
+    @SuppressWarnings("unused")
     public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
         throw new OWLRuntimeException(new UnsupportedOperationException("Cannot load OWL ontologies."));
     }
@@ -48,7 +48,7 @@ public class AlternateEmptyInMemOWLOntologyFactory extends AlternateAbstractInMe
         return ont;
     }
 
-
+    @SuppressWarnings("unused")
     public boolean canLoad(OWLOntologyDocumentSource documentSource) {
         return false;
     }

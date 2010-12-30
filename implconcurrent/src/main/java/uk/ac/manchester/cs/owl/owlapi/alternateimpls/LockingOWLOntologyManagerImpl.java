@@ -64,7 +64,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager, OWLOnt
     private List<OWLOntologyIRIMapper> documentMappers;
     private List<OWLOntologyFactory> ontologyFactories;
     private List<OWLOntologyStorer> ontologyStorers;
-    private final Set broadcastChanges = CollectionFactory.createSyncSet();
+    private final Set<Object> broadcastChanges = CollectionFactory.createSyncSet();
     //TODO doublecheck 
     private int loadCount = 0;
     private int importsLoadCount = 0;

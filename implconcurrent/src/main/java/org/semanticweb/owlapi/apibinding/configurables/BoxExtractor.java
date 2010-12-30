@@ -45,22 +45,22 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter;
  * */
 public class BoxExtractor extends OWLObjectVisitorExAdapter<Set<OWLAxiom>>
 		implements OWLObjectVisitorEx<Set<OWLAxiom>> {
-	private Collection<AxiomType> types;
+	private Collection<AxiomType<?>> types;
 	private boolean closure;
 
 	/**@param types the set of AxiomType objects to use for selection
 	 * @param importsClosure if true, the imports closure is included in the search, otherwise only the visited ontology is included 
 	 * */
-	public BoxExtractor(Collection<AxiomType> types,
+	public BoxExtractor(Collection<AxiomType<?>> types,
 			boolean importsClosure) {
-		this.types = new ArrayList<AxiomType>(types);
+		this.types = new ArrayList<AxiomType<?>>(types);
 		this.closure = importsClosure;
 	}
 
 	@Override
 	public Set<OWLAxiom> visit(OWLOntology ontology) {
 		Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
-		for (AxiomType<OWLAxiom> t : types) {
+		for (AxiomType<?> t : types) {
 			toReturn.addAll(ontology.getAxioms(t, closure));
 		}
 		return toReturn;

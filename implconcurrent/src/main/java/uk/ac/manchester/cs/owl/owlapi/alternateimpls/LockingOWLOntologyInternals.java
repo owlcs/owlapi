@@ -767,7 +767,7 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		Lock l = locks.get(axiomsByType).readLock();
 		l.lock();
 		try {
-			return super.getAxiomCount();
+			return super.getAxiomCount(axiomType);
 		} finally {
 			l.unlock();
 		}
