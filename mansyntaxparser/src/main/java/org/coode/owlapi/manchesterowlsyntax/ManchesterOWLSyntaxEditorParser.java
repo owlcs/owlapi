@@ -46,6 +46,7 @@ import java.util.regex.Pattern;
  * expected that hasPart will have been defined at the top of the file before it is used in any class expressions or
  * property assertions (e.g.  ObjectProperty: hasPart)
  */
+@SuppressWarnings("unused")
 public class ManchesterOWLSyntaxEditorParser {
 
     // This parser was built by hand!  After stuggling with terrible

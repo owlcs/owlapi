@@ -63,7 +63,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     protected void write(Set<? extends OWLClassExpression> objects, boolean newline) {
-        boolean lastWasNamed = false;
+        //boolean lastWasNamed = false;
         boolean first = true;
 
         for (Iterator<? extends OWLObject> it = sort(objects).iterator(); it.hasNext();) {
@@ -84,7 +84,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
                 write(")");
             }
 
-            lastWasNamed = desc instanceof OWLClass;
+            //lastWasNamed = desc instanceof OWLClass;
         }
     }
 
@@ -519,12 +519,12 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
 
-    private void writePropertyCharacteristic(ManchesterOWLSyntax characteristic) {
-        setAxiomWriting();
-        writeSectionKeyword(CHARACTERISTICS);
-        write(characteristic);
-        restore();
-    }
+//    private void writePropertyCharacteristic(ManchesterOWLSyntax characteristic) {
+//        setAxiomWriting();
+//        writeSectionKeyword(CHARACTERISTICS);
+//        write(characteristic);
+//        restore();
+//    }
 
 
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
@@ -973,7 +973,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         write(")");
     }
 
-
+    @SuppressWarnings("unused")
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
         
     }
@@ -1009,7 +1009,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-
+    @SuppressWarnings("unused")
     public void visit(OWLOntology ontology) {
 
     }

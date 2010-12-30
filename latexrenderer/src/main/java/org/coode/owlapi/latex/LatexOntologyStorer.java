@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
 
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
                                                                                                                             OWLOntologyStorageException {
         try {

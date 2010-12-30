@@ -33,19 +33,20 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  */
 public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectRenderer implements OWLEntityVisitor {
 
-    private OWLOntology defaultOntology;
+    //private OWLOntology defaultOntology;
 
     private Set<OWLOntology> ontologies;
 
     private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
 
-    private Set<AxiomType> filteredAxiomTypes = new HashSet<AxiomType>();
+    private Set<AxiomType<?>> filteredAxiomTypes = new HashSet<AxiomType<?>>();
 
     private boolean renderExtensions = false;
 
     private List<RendererListener> listeners = new ArrayList<RendererListener>();
 
     private OWLAxiomFilter axiomFilter = new OWLAxiomFilter() {
+    	@SuppressWarnings("unused")
         public boolean passes(OWLAxiom axiom) {
             return true;
         }
@@ -56,11 +57,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, Writer writer, ShortFormProvider entityShortFormProvider) {
         this(owlOntologyManager, Collections.singleton(ontology), ontology, writer, entityShortFormProvider);
     }
-
+    @SuppressWarnings("unused")
     public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager, Set<OWLOntology> ontologies, OWLOntology defaultOntology, Writer writer, ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
         this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);
-        this.defaultOntology = defaultOntology;
+        //this.defaultOntology = defaultOntology;
 
     }
 
@@ -85,7 +86,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         filteredAxiomTypes.clear();
     }
 
-    public void addFilteredAxiomType(AxiomType axiomType) {
+    public void addFilteredAxiomType(AxiomType<?> axiomType) {
         filteredAxiomTypes.add(axiomType);
     }
 
@@ -272,7 +273,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 //        }
 //    }
 
-    public boolean isFiltered(AxiomType axiomType) {
+    public boolean isFiltered(AxiomType<?> axiomType) {
         return filteredAxiomTypes.contains(axiomType);
     }
 
