@@ -1,5 +1,9 @@
 package org.semanticweb.owlapi.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -25,10 +29,12 @@ public final class EntityType<E extends OWLEntity> {
     public static final EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>("Datatype", OWLRDFVocabulary.RDFS_DATATYPE);
 
 
-    private static EntityType [] values;
+    private static List<EntityType<?>> values;
 
     static {
-        values = new EntityType [] {CLASS, OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY, NAMED_INDIVIDUAL, DATATYPE};
+    	List<EntityType<?>> l=new ArrayList<EntityType<?>>();
+    	l.add(CLASS);l.add(OBJECT_PROPERTY);l.add( DATA_PROPERTY);l.add( ANNOTATION_PROPERTY);l.add( NAMED_INDIVIDUAL);l.add( DATATYPE);
+        values = Collections.unmodifiableList(l);
     }
 
     private String name;
@@ -61,7 +67,7 @@ public final class EntityType<E extends OWLEntity> {
         return name;
     }
 
-    public static EntityType [] values() {
+    public static List<EntityType<?>> values() {
         return values;
     }
     

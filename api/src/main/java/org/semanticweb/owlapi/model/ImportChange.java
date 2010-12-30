@@ -83,6 +83,7 @@ public class ImportChange extends OWLOntologyChange {
 
 
     @Override
+    @SuppressWarnings("unused")
 	public void accept(OWLOntologyChangeVisitor visitor) {
 
     }

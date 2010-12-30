@@ -18,7 +18,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * Gets the entity type for this entity
      * @return The entity type
      */
-    EntityType getEntityType();
+    EntityType<?> getEntityType();
 
     /**
      * Gets an entity that has the same IRI as this entity but is of the specified type.
@@ -32,7 +32,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * @param entityType The entity type
      * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
      */
-    boolean isType(EntityType entityType);
+    boolean isType(EntityType<?> entityType);
 
     /**
      * Gets the annotations for this entity.  These are deemed to be annotations in annotation assertion

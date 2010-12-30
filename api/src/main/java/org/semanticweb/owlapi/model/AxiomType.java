@@ -29,9 +29,9 @@ public class AxiomType<C extends OWLAxiom> {
 
     final public int index;
 
-    public static final Set<AxiomType> AXIOM_TYPES;
+    public static final Set<AxiomType<?>> AXIOM_TYPES= new HashSet<AxiomType<?>>();
 
-    private static final Map<String, AxiomType> NAME_TYPE_MAP;
+    private static final Map<String, AxiomType<?>> NAME_TYPE_MAP= new HashMap<String, AxiomType<?>>();
 
     private static int count = 0;
 
@@ -96,7 +96,7 @@ public class AxiomType<C extends OWLAxiom> {
      * @return A set of axioms that represents the sourceAxioms without the specified types.  Note that sourceAxioms
      *         will not be modified.  The returned set is a copy.
      */
-    public static Set<OWLAxiom> getAxiomsWithoutTypes(Set<OWLAxiom> sourceAxioms, AxiomType... axiomType) {
+    public static Set<OWLAxiom> getAxiomsWithoutTypes(Set<OWLAxiom> sourceAxioms, AxiomType<?>... axiomType) {
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
         for (OWLAxiom ax:sourceAxioms) {
             if (!ax.isOfType(axiomType)) {
@@ -113,7 +113,7 @@ public class AxiomType<C extends OWLAxiom> {
      * @return A set of axioms that represents the sourceAxioms that have the specified types.  Note that sourceAxioms
      *         will not be modified.  The returned set is a copy.
      */
-    public static Set<OWLAxiom> getAxiomsOfTypes(Set<OWLAxiom> sourceAxioms, AxiomType... axiomType) {
+    public static Set<OWLAxiom> getAxiomsOfTypes(Set<OWLAxiom> sourceAxioms, AxiomType<?>... axiomType) {
     	Set<OWLAxiom> result = new HashSet<OWLAxiom>();
         for (OWLAxiom ax:sourceAxioms) {
             if (ax.isOfType(axiomType)) {
@@ -129,18 +129,18 @@ public class AxiomType<C extends OWLAxiom> {
      * @return The axiom type with the specified name, or <code>null</code> if there is no such axiom type with the
      * specified name
      */
-    public static AxiomType getAxiomType(String name) {
+    public static AxiomType<?> getAxiomType(String name) {
         return NAME_TYPE_MAP.get(name);
     }
 
     /**
      * Determines if there is an axiom type with the specified name
-     * @param name The name to test for
+     * @param _name The name to test for
      * @return <code>true</code> if there is an axiom type with the specified name, or <code>false</code> if there
      * is no axiom type with the specified name.
      */
-    public boolean isAxiomType(String name) {
-        return NAME_TYPE_MAP.containsKey(name);
+    public boolean isAxiomType(String _name) {
+        return NAME_TYPE_MAP.containsKey(_name);
     }
 
 
@@ -245,7 +245,7 @@ public class AxiomType<C extends OWLAxiom> {
     public static final AxiomType<OWLDatatypeDefinitionAxiom> DATATYPE_DEFINITION = new AxiomType<OWLDatatypeDefinitionAxiom>("DatatypeDefinition", true, true, true);
 
     static {
-        AXIOM_TYPES = new HashSet<AxiomType>();
+
         AXIOM_TYPES.add(SUBCLASS_OF);
         AXIOM_TYPES.add(EQUIVALENT_CLASSES);
         AXIOM_TYPES.add(DISJOINT_CLASSES);
@@ -286,13 +286,13 @@ public class AxiomType<C extends OWLAxiom> {
         AXIOM_TYPES.add(ANNOTATION_PROPERTY_RANGE);
         AXIOM_TYPES.add(HAS_KEY);
 
-        NAME_TYPE_MAP = new HashMap<String, AxiomType>();
-        for(AxiomType type : AXIOM_TYPES) {
+
+        for(AxiomType<?> type : AXIOM_TYPES) {
             NAME_TYPE_MAP.put(type.name, type);
         }
     }
 
-	public static final Set<AxiomType> TBoxAxiomTypes = new HashSet<AxiomType>(
+	public static final Set<AxiomType<?>> TBoxAxiomTypes = new HashSet<AxiomType<?>>(
 			Arrays.asList(SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES,
 					OBJECT_PROPERTY_DOMAIN, OBJECT_PROPERTY_RANGE,
 					INVERSE_OBJECT_PROPERTIES, FUNCTIONAL_OBJECT_PROPERTY,
@@ -302,13 +302,13 @@ public class AxiomType<C extends OWLAxiom> {
 					IRREFLEXIVE_OBJECT_PROPERTY, DATA_PROPERTY_DOMAIN,
 					DATA_PROPERTY_RANGE, FUNCTIONAL_DATA_PROPERTY,
 					DATATYPE_DEFINITION, DISJOINT_UNION, HAS_KEY));
-	public static final Set<AxiomType> ABoxAxiomTypes = new HashSet<AxiomType>(
+	public static final Set<AxiomType<?>> ABoxAxiomTypes = new HashSet<AxiomType<?>>(
 			Arrays.asList(CLASS_ASSERTION, SAME_INDIVIDUAL,
 					DIFFERENT_INDIVIDUALS, OBJECT_PROPERTY_ASSERTION,
 					NEGATIVE_OBJECT_PROPERTY_ASSERTION,
 					DATA_PROPERTY_ASSERTION, NEGATIVE_DATA_PROPERTY_ASSERTION,
 					DATATYPE_DEFINITION));
-	public static final Set<AxiomType> RBoxAxiomTypes = new HashSet<AxiomType>(
+	public static final Set<AxiomType<?>> RBoxAxiomTypes = new HashSet<AxiomType<?>>(
 			Arrays.asList(TRANSITIVE_OBJECT_PROPERTY, DISJOINT_DATA_PROPERTIES,
 					SUB_DATA_PROPERTY, EQUIVALENT_DATA_PROPERTIES,
 					DISJOINT_OBJECT_PROPERTIES, SUB_OBJECT_PROPERTY,
