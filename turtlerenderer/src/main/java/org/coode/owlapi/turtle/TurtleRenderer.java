@@ -112,11 +112,11 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
 
-    private void writeIndent(int indent) {
-        for (int i = 1; i < indent; i++) {
-            write(" ");
-        }
-    }
+//    private void writeIndent(int indent) {
+//        for (int i = 1; i < indent; i++) {
+//            write(" ");
+//        }
+//    }
 
 
     private void writeAsURI(String s) {
