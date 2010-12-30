@@ -9,7 +9,7 @@ import org.semanticweb.owlapi.model.*;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br><br>
- */
+ */  @SuppressWarnings("unused")
 public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
 
     public OWLOntologyHandler(OWLXMLParserHandler handler) {
@@ -70,7 +70,7 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
 
 
     @Override
-	public void setParentHandler(OWLElementHandler handler) {
+	public void setParentHandler(OWLElementHandler<?> handler) {
 
     }
 }

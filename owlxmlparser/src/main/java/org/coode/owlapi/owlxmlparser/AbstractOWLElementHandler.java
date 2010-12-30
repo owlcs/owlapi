@@ -15,7 +15,7 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
 
     private OWLXMLParserHandler handler;
 
-    private OWLElementHandler parentHandler;
+    private OWLElementHandler<?> parentHandler;
 
 
     private StringBuilder sb;
@@ -72,16 +72,16 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
     }
 
 
-    public void setParentHandler(OWLElementHandler handler) {
+    public void setParentHandler(OWLElementHandler<?> handler) {
         this.parentHandler = handler;
     }
 
 
-    protected OWLElementHandler getParentHandler() {
+    protected OWLElementHandler<?> getParentHandler() {
         return parentHandler;
     }
 
-
+    @SuppressWarnings("unused")
     public void attribute(String localName, String value) throws OWLParserException {
 
     }

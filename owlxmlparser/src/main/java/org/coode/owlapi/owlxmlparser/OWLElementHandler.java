@@ -47,7 +47,7 @@ public interface OWLElementHandler<O> {
     public O getOWLObject() throws OWLXMLParserException;
 
 
-    public void setParentHandler(OWLElementHandler handler) throws OWLXMLParserException;
+    public void setParentHandler(OWLElementHandler<?> handler) throws OWLXMLParserException;
 
 
     public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException;

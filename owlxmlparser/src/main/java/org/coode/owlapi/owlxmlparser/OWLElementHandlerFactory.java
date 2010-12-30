@@ -34,5 +34,5 @@ public interface OWLElementHandlerFactory {
 
     public String getElementName();
 
-    public OWLElementHandler createHandler(OWLXMLParserHandler handler);
+    public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler);
 }

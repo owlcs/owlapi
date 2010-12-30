@@ -63,7 +63,7 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
 
     @Override
 	public void handleChild(OWLAnnotationPropertyElementHandler handler) throws OWLXMLParserException {
-        entity = (OWLEntity) handler.getOWLObject();
+        entity = handler.getOWLObject();
     }
 
 
