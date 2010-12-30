@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Date: 15-Nov-2006<br><br>
  */
 public class KRSSOWLParserFactory implements OWLParserFactory {
-
+	  @SuppressWarnings("unused")
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new KRSSOWLParser();
     }

@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 // Suppress warnings in auto-generated code
+@SuppressWarnings("unused")
 public class KRSS2Parser implements KRSS2ParserConstants {
 
     private OWLOntology ontology;
@@ -34,7 +35,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
 
     private Map<String, IRI> string2IRI;
 
-    private boolean ignoreAnnotationsAndDeclarations = false;
+    //private boolean ignoreAnnotationsAndDeclarations = false;
 
     private String base;
 
@@ -114,9 +115,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         this.nameResolution = nameResolution;
     }
 
-    public void setIgnoreAnnotationsAndDeclarations(boolean b) {
-        ignoreAnnotationsAndDeclarations = b;
-    }
+//    public void setIgnoreAnnotationsAndDeclarations(boolean b) {
+//        ignoreAnnotationsAndDeclarations = b;
+//    }
 
   final public void parse() throws ParseException, KRSS2OWLParserException {
     label_1:

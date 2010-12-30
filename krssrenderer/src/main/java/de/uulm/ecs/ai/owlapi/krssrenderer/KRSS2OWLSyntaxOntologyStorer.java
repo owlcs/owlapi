@@ -25,7 +25,7 @@ public class KRSS2OWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
 
     // I changed this class to extend AbstractOWLOntologyStorer - Matthew Horridge
 
-    @Override
+    @Override  @SuppressWarnings("unused")
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
                                                                                                                             OWLOntologyStorageException {
             KRSS2OWLSyntaxRenderer renderer = new KRSS2OWLSyntaxRenderer(manager);
