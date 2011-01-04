@@ -82,12 +82,7 @@ public class DLQueryExample {
     private static String readInput() throws IOException {
         InputStream is = System.in;
         InputStreamReader reader;
-        try {
         reader = new InputStreamReader(is, "UTF-8");
-        }catch (UnsupportedEncodingException e) {
-        	// impossible: UTF-8 MUST be supported
-        	e.printStackTrace();
-		}
         BufferedReader br = new BufferedReader(reader);
         return br.readLine();
 
