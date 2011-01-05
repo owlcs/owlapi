@@ -46,7 +46,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
 
     /**
      * Obtains the annotations on this entity where the annotation has the specified
-     * URI.
+     * annotation property.
      * @param ontology The ontology to examine for annotation axioms
      * @param annotationProperty The annotation property
      * @return A set of <code>OWLAnnotation</code> objects that have the specified

@@ -2,29 +2,10 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.net.URI;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -194,6 +175,56 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         return ontology.getReferencingAxioms(this, includeImports);
     }
 
+    public Set<OWLAnnotationProperty> getSubProperties(OWLOntology ontology) {
+        return getSubProperties(Collections.singleton(ontology));
+    }
+
+    public Set<OWLAnnotationProperty> getSubProperties(OWLOntology ontology, boolean includeImportsClosure) {
+        if (includeImportsClosure) {
+            return getSubProperties(ontology.getImportsClosure());
+        }
+        else {
+            return getSubProperties(Collections.singleton(ontology));
+        }
+    }
+
+    public Set<OWLAnnotationProperty> getSubProperties(Set<OWLOntology> ontologies) {
+        Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
+        for(OWLOntology ont : ontologies) {
+            for(OWLSubAnnotationPropertyOfAxiom ax : ont.getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
+                if (ax.getSuperProperty().equals(this)) {
+                    result.add(ax.getSubProperty());
+                }
+            }
+        }
+        return result;
+    }
+    
+    
+    public Set<OWLAnnotationProperty> getSuperProperties(OWLOntology ontology) {
+        return getSuperProperties(Collections.singleton(ontology));
+    }
+
+    public Set<OWLAnnotationProperty> getSuperProperties(OWLOntology ontology, boolean includeImportsClosure) {
+        if (includeImportsClosure) {
+            return getSuperProperties(ontology.getImportsClosure());
+        }
+        else {
+            return getSuperProperties(Collections.singleton(ontology));
+        }
+    }
+
+    public Set<OWLAnnotationProperty> getSuperProperties(Set<OWLOntology> ontologies) {
+        Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
+        for(OWLOntology ont : ontologies) {
+            for(OWLSubAnnotationPropertyOfAxiom ax : ont.getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
+                if (ax.getSubProperty().equals(this)) {
+                    result.add(ax.getSuperProperty());
+                }
+            }
+        }
+        return result;
+    }
 
     @Override
 	public boolean equals(Object obj) {
