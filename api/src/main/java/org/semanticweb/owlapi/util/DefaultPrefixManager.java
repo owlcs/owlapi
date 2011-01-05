@@ -83,7 +83,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
         setPrefix("rdfs:", Namespaces.RDFS.toString());
         setPrefix("rdf:", Namespaces.RDF.toString());
         setPrefix("xsd:", Namespaces.XSD.toString());
-        setPrefix("skos:", Namespaces.SKOS.toString());
         setPrefix("xml:", Namespaces.XML.toString());
     }
 

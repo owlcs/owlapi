@@ -986,6 +986,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     Set<OWLAnnotation> annos = annosSetIt.next();
                     fireSectionItemPrepared(sec);
                     if (!annos.isEmpty()) {
+                        incrementTab(4);
                         writeNewLine();
                         write(ManchesterOWLSyntax.ANNOTATIONS.toString());
                         write(": ");
@@ -997,7 +998,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                                 writeNewLine();
                             }
                         }
-                        writeNewLine();
+                        popTab();
+                        popTab();
                         writeNewLine();
                     }
                     // Write actual object
@@ -1035,10 +1037,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     else {
                         fireSectionItemFinished(sec);
                     }
-                    if (!annos.isEmpty()) {
-                        popTab();
 
-                    }
                     if (annosSetIt.hasNext()) {
                         write(",");
                         writeNewLine();
@@ -1052,7 +1051,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
-    public void writeSection(ManchesterOWLSyntax keyword, Collection<? extends Object> content, String delimeter, boolean newline, OWLOntology... ontologies) {
+    public void writeSection(ManchesterOWLSyntax keyword, Collection<?> content, String delimeter, boolean newline, OWLOntology... ontologies) {
 
         String sec = keyword.toString();
         if (!content.isEmpty() || renderingDirector.renderEmptyFrameSection(keyword, ontologies)) {
@@ -1062,7 +1061,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             incrementTab(4);
             writeNewLine();
             fireSectionRenderingStarted(sec);
-            for (Iterator<? extends Object> it = content.iterator(); it.hasNext();) {
+            for (Iterator<?> it = content.iterator(); it.hasNext();) {
                 Object obj = it.next();
                 fireSectionItemPrepared(sec);
                 if (obj instanceof OWLObject) {

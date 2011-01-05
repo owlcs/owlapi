@@ -26,6 +26,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         try {
             BufferedReader br = null;
+            ManchesterOWLSyntaxOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
             try {
                 if (documentSource.isReaderAvailable()) {
                     br = new BufferedReader(documentSource.getReader());
@@ -76,14 +77,14 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 String s = sb.toString();
                 OWLDataFactory df = getOWLOntologyManager().getOWLDataFactory();
                 ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(configuration, df, s);
-                parser.parseOntology(getOWLOntologyManager(), ontology);
+                format = parser.parseOntology(getOWLOntologyManager(), ontology);
             }
             finally {
             	if(br!=null) {
             		br.close();
                 }
             }
-            return new ManchesterOWLSyntaxOntologyFormat();
+            return format;
         }
         catch (ParserException e) {
             throw new ManchesterOWLSyntaxParserException(e.getMessage(), e.getLineNumber(), e.getColumnNumber());

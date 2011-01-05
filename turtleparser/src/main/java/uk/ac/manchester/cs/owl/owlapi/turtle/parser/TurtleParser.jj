@@ -56,6 +56,10 @@ public class TurtleParser implements AnonymousNodeChecker {
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
+    public DefaultPrefixManager getPrefixManager() {
+        return pm;
+    }
+
     public void setTripleHandler(TripleHandler handler) {
         this.handler = handler;
     }

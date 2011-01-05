@@ -136,7 +136,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
      * @param ont The ontology to be round tripped.
      * @param format The format to use when doing the round trip.
      */
-    public void roundTripOntology(OWLOntology ont, OWLOntologyFormat format) throws Exception {
+    public OWLOntology roundTripOntology(OWLOntology ont, OWLOntologyFormat format) throws Exception {
 //        try {
         UnparsableOntologyException.setIncludeStackTraceInMessage(true);
         StringDocumentTarget target = new StringDocumentTarget();
@@ -190,15 +190,9 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
             }
             fail(sb.toString());
         }
-        // Now for ontology annotations
+
         assertEquals(ont.getAnnotations(), ont2.getAnnotations());
-//        }
-//        catch (OWLOntologyStorageException e) {
-//            fail(e.getMessage() + " " + e.getStackTrace().toString());
-//        }
-//        catch (OWLOntologyCreationException e) {
-//            fail(e.getMessage() + " " + e.getStackTrace().toString());
-//        }
+        return ont2;
     }
 
     protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {

@@ -219,6 +219,14 @@ public class ManchesterOWLSyntaxEditorParser {
         this(new OWLOntologyLoaderConfiguration(), dataFactory, s);
     }
 
+    public boolean isAllowEmptyFrameSections() {
+        return allowEmptyFrameSections;
+    }
+
+    public void setAllowEmptyFrameSections(boolean allowEmptyFrameSections) {
+        this.allowEmptyFrameSections = allowEmptyFrameSections;
+    }
+
     public ManchesterOWLSyntaxEditorParser(OWLOntologyLoaderConfiguration configuration, OWLDataFactory dataFactory, String s) {
         this.configuration = configuration;
         this.dataFactory = dataFactory;
@@ -262,6 +270,7 @@ public class ManchesterOWLSyntaxEditorParser {
         tokens = new ArrayList<ManchesterOWLSyntaxTokenizer.Token>();
         tokens.addAll(getTokenizer(s).tokenize());
         tokenIndex = 0;
+
         for (SWRLBuiltInsVocabulary v : SWRLBuiltInsVocabulary.values()) {
             ruleBuiltIns.put(v.getShortName(), v);
             ruleBuiltIns.put(v.getIRI().toQuotedString(), v);
@@ -302,6 +311,8 @@ public class ManchesterOWLSyntaxEditorParser {
         initialiseSection(new ObjectPropertyInverseOfListItemParser(), objectPropertyFrameSections);
         initialiseSection(new ObjectPropertyCharacteristicsItemParser(), objectPropertyFrameSections);
         initialiseSection(new ObjectPropertySubPropertyChainListItemParser(), objectPropertyFrameSections);
+        // Extensions
+        initialiseSection(new ObjectPropertySuperPropertyOfListItemParser(), objectPropertyFrameSections);
     }
 
     private void initialiseDataPropertyFrameSections() {
@@ -332,6 +343,8 @@ public class ManchesterOWLSyntaxEditorParser {
         initialiseSection(new IndividualFactsItemParser(), individualFrameSections);
         initialiseSection(new IndividualSameAsItemParser(), individualFrameSections);
         initialiseSection(new IndividualDifferentFromItemParser(), individualFrameSections);
+        // Extensions
+        initialiseSection(new IndividualDifferentIndividualsItemParser(), individualFrameSections);
     }
 
 
@@ -501,7 +514,10 @@ public class ManchesterOWLSyntaxEditorParser {
 
     protected String consumeToken() {
         String token = getToken().getToken();
-        tokenIndex++;
+        if (tokenIndex < tokens.size() - 1) {
+            tokenIndex++;
+        }
+
         return token;
     }
 
@@ -1337,7 +1353,7 @@ public class ManchesterOWLSyntaxEditorParser {
         Set<OWLOntology> onts = getOntologies();
         Set<OntologyAxiomPair> pairs = new HashSet<OntologyAxiomPair>();
 
-        if (!isEmptyClassFrameSection()) {
+//        if (!isEmptyClassFrameSection()) {
             Set<OWLAnnotation> annos = parseAnnotationList();
             for (OWLOntology ont : onts) {
                 for (OWLAnnotation anno : annos) {
@@ -1347,7 +1363,7 @@ public class ManchesterOWLSyntaxEditorParser {
                     }
                 }
             }
-        }
+//        }
 
         return pairs;
     }
@@ -1477,12 +1493,12 @@ public class ManchesterOWLSyntaxEditorParser {
         this.defaultOntology = defaultOntology;
     }
 
-    private boolean isEmptyClassFrameSection() {
+    private boolean isEmptyFrameSection(Map<String, ?> parsers) {
         if (!allowEmptyFrameSections) {
             return false;
         }
         String next = peekToken();
-        return classFrameSections.containsKey(next) || next.equals(ManchesterOWLSyntaxTokenizer.EOF);
+        return !next.equals(ANNOTATIONS) && (parsers.containsKey(next) || next.equals(ManchesterOWLSyntaxTokenizer.EOF));
     }
 
     private boolean isClassFrameSection(String token) {
@@ -1497,8 +1513,8 @@ public class ManchesterOWLSyntaxEditorParser {
                 AnnotatedListItemParser<F, ?> parser = sectionParsers.get(sect);
                 if(parser != null) {
                     consumeToken();
-                    if (!isEmptyClassFrameSection()) {
-                        Set<OWLOntology> onts = getOntologies();
+                    Set<OWLOntology> onts = getOntologies();
+                    if (!isEmptyFrameSection(sectionParsers)) {
                         axioms.addAll(parseAnnotatedListItems(frameSubject, parser, onts));
                     }
                 }
@@ -2668,7 +2684,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
 
-    public void parseOntology(OWLOntologyManager manager, OWLOntology ont) throws ParserException, UnloadableImportException {
+    public ManchesterOWLSyntaxOntologyFormat parseOntology(OWLOntologyManager manager, OWLOntology ont) throws ParserException, UnloadableImportException {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
         OWLOntologyID ontologyID = new OWLOntologyID();
         Set<AddImport> imports = new HashSet<AddImport>();
@@ -2758,6 +2774,9 @@ public class ManchesterOWLSyntaxEditorParser {
         }
         changes.add(new SetOntologyID(ont, ontologyID));
         manager.applyChanges(changes);
+        ManchesterOWLSyntaxOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
+        format.copyPrefixesFrom(pm);
+        return format;
     }
 
 
@@ -3686,6 +3705,25 @@ public class ManchesterOWLSyntaxEditorParser {
 
         public String getFrameSectionKeyword() {
             return DIFFERENT_FROM;
+        }
+    }
+
+    private class IndividualDifferentIndividualsItemParser implements AnnotatedListItemParser<OWLIndividual, Set<OWLIndividual>> {
+
+        public Set<OWLIndividual> parseItem(OWLIndividual subject) throws ParserException {
+            return parseIndividualList();
+        }
+
+        public OWLAxiom createAxiom(OWLIndividual subject, Set<OWLIndividual> object, Set<OWLAnnotation> annotations) {
+            Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
+            individuals.add(subject);
+            individuals.addAll(object);
+            return dataFactory.getOWLDifferentIndividualsAxiom(individuals, annotations);
+        }
+
+
+        public String getFrameSectionKeyword() {
+            return DIFFERENT_INDIVIDUALS;
         }
     }
 

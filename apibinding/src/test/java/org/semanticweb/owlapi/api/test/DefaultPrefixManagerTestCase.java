@@ -22,7 +22,6 @@ public class DefaultPrefixManagerTestCase extends TestCase {
         assertTrue(pm.containsPrefixMapping("rdfs:"));
         assertTrue(pm.containsPrefixMapping("xml:"));
         assertTrue(pm.containsPrefixMapping("xsd:"));
-        assertTrue(pm.containsPrefixMapping("skos:"));
         assertTrue(!pm.containsPrefixMapping(":"));
         assertNull(pm.getDefaultPrefix());
     }

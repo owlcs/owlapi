@@ -17,6 +17,7 @@ import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
+import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 
 /**
@@ -50,6 +51,15 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
             String defPrefix = ontology.getOntologyID().getOntologyIRI() + "#";
             prefixManager.setDefaultPrefix(defPrefix);
         }
+        OWLOntologyFormat ontologyFormat = man.getOntologyFormat(ontology);
+        if(ontologyFormat instanceof PrefixOWLOntologyFormat) {
+            PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) ontologyFormat;
+            for(String prefixName : prefixFormat.getPrefixNames()) {
+                String prefix = prefixFormat.getPrefix(prefixName);
+                prefixManager.setPrefix(prefixName, prefix);
+            }
+        }
+
         focusedObject = man.getOWLDataFactory().getOWLThing();
     }
 

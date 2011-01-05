@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class ManchesterOWLSyntaxTokenizer {
 
-    public static final String EOF = "<EOF>";
+    public static final String EOF = "|EOF|";
 
     protected Set<Character> skip = new HashSet<Character>();
 

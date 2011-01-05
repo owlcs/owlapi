@@ -9,6 +9,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserIOException;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 
 /**
@@ -39,7 +40,12 @@ public class TurtleOntologyParser extends AbstractOWLParser {
             OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(getOWLOntologyManager(), ontology, parser, configuration);
             parser.setTripleHandler(consumer);
             parser.parseDocument();
-            return new TurtleOntologyFormat();
+            TurtleOntologyFormat format = new TurtleOntologyFormat();
+            DefaultPrefixManager prefixManager = parser.getPrefixManager();
+            for(String prefixName : prefixManager.getPrefixNames()) {
+                format.setPrefix(prefixName, prefixManager.getPrefix(prefixName));
+            }
+            return format;
 
         }
         catch(ParseException e) {

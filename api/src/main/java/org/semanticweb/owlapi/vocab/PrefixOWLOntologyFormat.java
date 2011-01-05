@@ -59,6 +59,13 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
         }
     }
 
+    public void copyPrefixesFrom(PrefixManager prefixManager) {
+        for(String prefixName : prefixManager.getPrefixNames()) {
+            String prefix = prefixManager.getPrefix(prefixName);
+            nsm.setPrefix(prefixName, prefix);
+        }
+    }
+
     /**
      * Gets the prefix names that have a mapping in this prefix manager
      * @return A set of string representing the prefix names
@@ -92,8 +99,8 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
     }
 
 
-    public String getPrefix(String prefix) {
-        return nsm.getPrefix(prefix);
+    public String getPrefix(String prefixName) {
+        return nsm.getPrefix(prefixName);
     }
 
 

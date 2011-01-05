@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 
@@ -55,6 +56,12 @@ public class TurtleRenderer extends RDFRendererBase {
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
             pm.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI() + "#");
+        }
+        if(format instanceof PrefixOWLOntologyFormat) {
+            PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
+            for(String prefixName : prefixFormat.getPrefixNames()) {
+                pm.setPrefix(prefixName, prefixFormat.getPrefix(prefixName));
+            }
         }
         base = "";
     }
