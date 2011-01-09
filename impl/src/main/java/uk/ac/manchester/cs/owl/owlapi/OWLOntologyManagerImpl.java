@@ -348,7 +348,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             fireChangeApplied(change);
         }
         fireEndChanges();
-        broadcastChanges(changes);
+        broadcastChanges(appliedChanges);
         return appliedChanges;
     }
 
