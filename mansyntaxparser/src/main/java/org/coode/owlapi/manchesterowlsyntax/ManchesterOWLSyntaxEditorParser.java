@@ -1030,8 +1030,7 @@ public class ManchesterOWLSyntaxEditorParser {
         return dataFactory.getOWLDataComplementOf(complementedDataRange);
     }
 
-
-    public OWLLiteral parseConstant() throws ParserException {
+    public OWLLiteral parseLiteral() throws ParserException {
         String tok = consumeToken();
         if (tok.startsWith("\"")) {
             String lit = "";
@@ -1059,7 +1058,7 @@ public class ManchesterOWLSyntaxEditorParser {
         else {
             try {
                 int i = Integer.parseInt(tok);
-                return dataFactory.getOWLLiteral(i);
+                return dataFactory.getOWLLiteral(tok, OWL2Datatype.XSD_INTEGER);
             }
             catch (NumberFormatException e) {
                 // Ignore - not interested
@@ -1067,7 +1066,7 @@ public class ManchesterOWLSyntaxEditorParser {
             if (tok.endsWith("f")) {
                 try {
                     float f = Float.parseFloat(tok);
-                    return dataFactory.getOWLLiteral(f);
+                    return dataFactory.getOWLLiteral(tok, OWL2Datatype.XSD_FLOAT);
                 }
                 catch (NumberFormatException e) {
                     // Ignore - not interested
@@ -1075,7 +1074,7 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             try {
                 double d = Double.parseDouble(tok);
-                return dataFactory.getOWLLiteral(d);
+                return dataFactory.getOWLLiteral(tok, OWL2Datatype.XSD_DOUBLE);
             }
             catch (NumberFormatException e) {
                 // Ignore - not interested
@@ -1089,6 +1088,14 @@ public class ManchesterOWLSyntaxEditorParser {
             }
         }
         throw createException(false, false, false, false, false, false, "true", "false", "$integer$", "$float$", "$double$", "\"$Literal$\"", "\"$Literal$\"^^<datatype>", "\"$Literal$\"@<lang>");
+    }
+
+    /**
+     * @deprecated Use {@link #parseLiteral()} instead
+     */
+    @Deprecated
+    public OWLLiteral parseConstant() throws ParserException {
+        return parseLiteral();
     }
 
 
@@ -1417,7 +1424,7 @@ public class ManchesterOWLSyntaxEditorParser {
             anno = dataFactory.getOWLAnnotation(annoProp, value);
         }
         else {
-            OWLLiteral con = parseConstant();
+            OWLLiteral con = parseLiteral();
             anno = dataFactory.getOWLAnnotation(annoProp, con);
         }
         return anno;
@@ -1902,7 +1909,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
 
     public SWRLLiteralArgument parseLiteralObject() throws ParserException {
-        OWLLiteral lit = parseConstant();
+        OWLLiteral lit = parseLiteral();
         return dataFactory.getSWRLLiteralArgument(lit);
     }
 
