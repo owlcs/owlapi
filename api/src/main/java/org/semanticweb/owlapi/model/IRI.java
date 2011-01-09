@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
+import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.semanticweb.owlapi.vocab.Namespaces;
@@ -128,9 +129,6 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         return create("owlapi:ontology" + System.nanoTime());
     }
 
-    private static Map<String, String> prefixCache = new ConcurrentHashMap<String, String>();
-
-
     private static class IRIImpl extends IRI {
 
         private String remainder;
@@ -155,13 +153,6 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
                     remainder = null;
                     prefix = s;
                 }
-            }
-            String cached = prefixCache.get(prefix);
-            if (cached == null) {
-                prefixCache.put(prefix, prefix);
-            }
-            else {
-                prefix = cached;
             }
         }
 
