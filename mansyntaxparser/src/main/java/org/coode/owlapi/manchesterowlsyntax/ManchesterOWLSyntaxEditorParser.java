@@ -1063,10 +1063,10 @@ public class ManchesterOWLSyntaxEditorParser {
             catch (NumberFormatException e) {
                 // Ignore - not interested
             }
-            if (tok.endsWith("f")) {
+            if (tok.endsWith("f")||tok.endsWith("F")) {
                 try {
                     float f = Float.parseFloat(tok);
-                    return dataFactory.getOWLLiteral(tok, OWL2Datatype.XSD_FLOAT);
+                    return dataFactory.getOWLLiteral(tok.substring(0, tok.length()-1), OWL2Datatype.XSD_FLOAT);
                 }
                 catch (NumberFormatException e) {
                     // Ignore - not interested

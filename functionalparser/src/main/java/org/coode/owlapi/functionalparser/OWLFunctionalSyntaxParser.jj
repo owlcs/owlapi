@@ -91,7 +91,7 @@ public class OWLFunctionalSyntaxParser {
     }
 
     protected void addAxiom(OWLAxiom ax) {
-        if (!(ax instanceof OWLAnnotationAxiom) || configuration.isLoadAnnotations()) {
+        if (!(ax instanceof OWLAnnotationAxiom) || configuration.isLoadAnnotationAxioms()) {
             AddAxiom addAxiom = new AddAxiom(ontology, ax);
             applyChange(addAxiom);
         }
@@ -2179,6 +2179,10 @@ OWLLiteral Literal() :
             return dataFactory.getOWLLiteral(literal, lang);
         }
         else {
+        	// a float value in this syntax has an extra 'f' or 'F' character that must be removed to make a valid OWL literal
+            if(datatype.isFloat() && (literal.endsWith("f")||literal.endsWith("F"))){
+                    literal=literal.substring(0, literal.length()-1);
+            }
             return dataFactory.getOWLLiteral(literal, datatype);
         }
     }
