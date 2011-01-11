@@ -523,7 +523,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!nodeMap.containsKey(node)) {
             nodeMap.put(node, getResourceNode(node.getIRI()));
         }
-        addTriple(node, RDF_TYPE.getIRI(), RDFS_DATATYPE.getIRI());
+        addStrongTyping(node);
     }
 
 

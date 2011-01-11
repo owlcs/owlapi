@@ -25,6 +25,7 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
 
     @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+    	inferTypes(subject, object);
         return super.canHandle(subject, predicate, object) && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject, object);
     }
 
@@ -32,7 +33,12 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
 
     @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        if(getConsumer().isClassExpression(object)) {
+        inferTypes(subject, object);
+        return !isSubjectOrObjectAnonymous(subject, object) && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject, object);
+    }
+
+	public void inferTypes(IRI subject, IRI object) {
+		if(getConsumer().isClassExpression(object)) {
             getConsumer().addClassExpression(subject, false);
         }
         else if(getConsumer().isDataRange(object)) {
@@ -44,8 +50,7 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
         else if(getConsumer().isDataRange(subject)) {
             getConsumer().addDataRange(object, false);
         }
-        return !isSubjectOrObjectAnonymous(subject, object) && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject, object);
-    }
+	}
 
 
     @Override

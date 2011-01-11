@@ -42,6 +42,7 @@ public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
 
     @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+        inferTypes(subject, object);
         return super.canHandle(subject, predicate, object) && ((getConsumer().isObjectProperty(subject) && getConsumer().isObjectProperty(object)) || (getConsumer().isDataProperty(subject) && getConsumer().isDataProperty(object)));
     }
 
@@ -57,7 +58,12 @@ public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
     }
 
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        if(getConsumer().isObjectProperty(object)) {
+        inferTypes(subject, object);
+        return false;
+    }
+
+	public void inferTypes(IRI subject, IRI object) {
+		if(getConsumer().isObjectProperty(object)) {
             getConsumer().addObjectProperty(subject, false);
         }
         else if(getConsumer().isDataProperty(object)) {
@@ -69,6 +75,5 @@ public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
         else if(getConsumer().isDataProperty(subject)) {
             getConsumer().addDataProperty(object, false);
         }
-        return false;
-    }
+	}
 }
