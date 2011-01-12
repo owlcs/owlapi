@@ -432,14 +432,33 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         if (change.isImportChange()) {
             resetImportsClosureCache();
             if (change instanceof AddImport) {
-                // Do we contain the import already?
-                for (OWLOntologyID id : ontologiesByID.keySet()) {
-                    OWLImportsDeclaration addImportDeclaration = ((AddImport) change).getImportDeclaration();
-                    if (id.getDefaultDocumentIRI() != null && id.getDefaultDocumentIRI().equals(addImportDeclaration.getIRI())) {
-                        // Yes we do
-                        ontologyIDsByImportsDeclaration.put(addImportDeclaration, id);
-                    }
-                }
+            	OWLImportsDeclaration addImportDeclaration = ((AddImport) change).getImportDeclaration();
+            	boolean found=false;
+            	IRI iri = addImportDeclaration.getIRI();
+				for(OWLOntologyID id:ontologiesByID.keySet()) {
+            		if(iri.equals(id.getDefaultDocumentIRI())||iri.equals(id.getOntologyIRI())) {
+            			found=true;
+            			ontologyIDsByImportsDeclaration.put(addImportDeclaration, id);
+            		}
+            	}
+            	if(!found) {
+            		// then the import does not refer to a known IRI for ontologies; check for a document IRI
+            		for(Map.Entry<OWLOntologyID, IRI> e:documentIRIsByID.entrySet()) {
+            			if(e.getValue().equals(iri)) {
+            				// found the ontology id corresponding to the file location
+            				ontologyIDsByImportsDeclaration.put(addImportDeclaration, e.getKey());
+            			}
+            			
+            		}
+            	}
+//                // Do we contain the import already?
+//                for (OWLOntologyID id : ontologiesByID.keySet()) {
+//                	    
+//                    if ((id.getDefaultDocumentIRI() != null && id.getDefaultDocumentIRI().equals(iri))||(id.getOntologyIRI() != null && id.getOntologyIRI().equals(iri))) {
+//                        // Yes we do
+//                        ontologyIDsByImportsDeclaration.put(addImportDeclaration, id);
+//                    }
+//                }
             }
             else {
                 // Remove the mapping from declaration to ontology
@@ -1039,6 +1058,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     public void makeLoadImportRequest(OWLImportsDeclaration declaration, OWLOntologyLoaderConfiguration configuration) throws UnloadableImportException {
         if (!configuration.isIgnoredImport(declaration.getIRI())) {
             try {
+            	System.out
+						.println("OWLOntologyManagerImpl.makeLoadImportRequest() "+declaration);
                 OWLOntology ont = loadImports(declaration, configuration);
                 if (ont != null) {
                     ontologyIDsByImportsDeclaration.put(declaration, ont.getOntologyID());
