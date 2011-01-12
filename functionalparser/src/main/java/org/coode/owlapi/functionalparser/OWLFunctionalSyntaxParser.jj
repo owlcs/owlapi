@@ -965,8 +965,8 @@ Set<OWLIndividual> IndividualMinOneSet() :
 
 }
 {
-    (ind=IndividualIRI() {individuals.add(ind);}
-    (ind=IndividualIRI() {individuals.add(ind);})*) {
+    (ind=Individual() {individuals.add(ind);}
+    (ind=Individual() {individuals.add(ind);})*) {
         return individuals;
     }
 }
@@ -1039,7 +1039,7 @@ OWLClassExpression ObjectHasValue()  :
     OWLIndividual ind;
 }
 {
-    <OBJECTHASVALUE><OPENPAR>prop=ObjectPropertyExpression() ind=IndividualIRI()<CLOSEPAR> {
+    <OBJECTHASVALUE><OPENPAR>prop=ObjectPropertyExpression() ind=Individual()<CLOSEPAR> {
         return dataFactory.getOWLObjectHasValue(prop, ind);
     }
 }
