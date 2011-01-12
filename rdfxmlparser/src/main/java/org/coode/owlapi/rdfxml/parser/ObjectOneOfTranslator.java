@@ -3,7 +3,9 @@ package org.coode.owlapi.rdfxml.parser;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /*

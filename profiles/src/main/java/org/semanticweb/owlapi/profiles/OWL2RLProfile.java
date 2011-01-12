@@ -470,7 +470,7 @@ public class OWL2RLProfile implements OWLProfile {
     }
 
     @SuppressWarnings("unused")
-    private class OWL2RLEquivalentClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
+    private static class OWL2RLEquivalentClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
         public Boolean visit(OWLClass desc) {
             return !desc.isOWLThing();

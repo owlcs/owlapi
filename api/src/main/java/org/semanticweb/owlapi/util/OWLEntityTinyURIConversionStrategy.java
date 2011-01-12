@@ -80,7 +80,7 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
     }
 
 
-    private class OWLEntityFragmentProvider implements OWLEntityVisitor {
+    private static class OWLEntityFragmentProvider implements OWLEntityVisitor {
 
         private String name;
 

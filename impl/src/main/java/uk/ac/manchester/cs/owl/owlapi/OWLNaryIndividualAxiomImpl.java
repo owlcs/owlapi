@@ -2,7 +2,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -12,6 +11,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 
 /**
@@ -27,12 +27,12 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
 
     public OWLNaryIndividualAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> individuals, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
-        this.individuals = Collections.unmodifiableSortedSet(new TreeSet<OWLIndividual>(individuals));
+        this.individuals = new TreeSet<OWLIndividual>(individuals);
     }
 
 
     public Set<OWLIndividual> getIndividuals() {
-        return individuals;
+        return CollectionFactory.getCopyOnRequestSet(individuals);
     }
 
     public List<OWLIndividual> getIndividualsAsList() {

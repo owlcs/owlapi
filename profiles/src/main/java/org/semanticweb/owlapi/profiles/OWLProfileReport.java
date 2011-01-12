@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.profiles;
 
-import java.util.Collections;
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 
@@ -15,12 +15,12 @@ public class OWLProfileReport {
 
     private OWLProfile profile;
 
-    private Set<OWLProfileViolation> violations;
+    private List<OWLProfileViolation> violations;
 
 
     public OWLProfileReport(OWLProfile profile, Set<OWLProfileViolation> violations) {
         this.profile = profile;
-        this.violations = Collections.unmodifiableSet(new LinkedHashSet<OWLProfileViolation>(violations));
+        this.violations = new ArrayList<OWLProfileViolation>(violations);
     }
 
 
@@ -33,7 +33,7 @@ public class OWLProfileReport {
     }
 
 
-    public Set<OWLProfileViolation> getViolations() {
+    public List<OWLProfileViolation> getViolations() {
         return violations;
     }
 

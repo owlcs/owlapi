@@ -27,6 +27,7 @@ public abstract class AbstractRoundTrippingTest extends AbstractOWLAPITestCase {
 
     @Override
 	protected void setUp() throws Exception {
+    	super.setUp();
         ont = createOntology();
     }
 

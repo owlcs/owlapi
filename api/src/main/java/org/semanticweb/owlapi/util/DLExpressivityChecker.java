@@ -230,7 +230,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
      * A comparator that orders DL constucts to produce a traditional DL
      * name.
      */
-    private class ConstructComparator implements Comparator<Construct> {
+    private static class ConstructComparator implements Comparator<Construct> {
 
         private final List<Construct> order = new ArrayList<Construct>();
 

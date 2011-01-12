@@ -1,10 +1,10 @@
 package org.semanticweb.owlapi.io;
 
-import org.semanticweb.owlapi.model.OWLEntity;
-
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Author: Matthew Horridge<br>
@@ -21,17 +21,16 @@ import java.util.Set;
  */
 public class RDFResourceParseError {
 
-    private OWLEntity parserGeneratedErrorEntity;
+    private final OWLEntity parserGeneratedErrorEntity;
 
-    private RDFNode mainNode;
+    private final RDFNode mainNode;
 
-    Set<RDFTriple> mainNodeTriples = new HashSet<RDFTriple>();
-
+    private final Set<RDFTriple> mainNodeTriples = new HashSet<RDFTriple>();
 
     public RDFResourceParseError(OWLEntity parserGeneratedErrorEntity, RDFNode mainNode, Set<RDFTriple> mainNodeTriples) {
         this.parserGeneratedErrorEntity = parserGeneratedErrorEntity;
         this.mainNode = mainNode;
-        this.mainNodeTriples = new HashSet<RDFTriple>(mainNodeTriples);
+        this.mainNodeTriples.addAll(mainNodeTriples);
     }
 
     public OWLEntity getParserGeneratedErrorEntity() {
@@ -43,9 +42,7 @@ public class RDFResourceParseError {
     }
 
     public Set<RDFTriple> getMainNodeTriples() {
-        return Collections.unmodifiableSet(mainNodeTriples);
+        return CollectionFactory.getCopyOnRequestSet(mainNodeTriples);
     }
-
-
 
 }

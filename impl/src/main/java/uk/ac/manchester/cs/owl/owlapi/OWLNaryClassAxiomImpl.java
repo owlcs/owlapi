@@ -2,7 +2,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +12,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 
 /**
@@ -28,12 +28,12 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
 
     public OWLNaryClassAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
-        this.classExpressions = Collections.unmodifiableSortedSet(new TreeSet<OWLClassExpression>(classExpressions));
+        this.classExpressions = new TreeSet<OWLClassExpression>(classExpressions);
     }
 
 
     public Set<OWLClassExpression> getClassExpressions() {
-        return classExpressions;
+        return CollectionFactory.getCopyOnRequestSet(classExpressions);
     }
 
     public List<OWLClassExpression> getClassExpressionsAsList() {

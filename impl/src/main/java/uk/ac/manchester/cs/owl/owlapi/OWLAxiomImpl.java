@@ -12,6 +12,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NNF;
 
 
@@ -25,12 +26,12 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
     private OWLAxiom nnf;
 
-    private Set<OWLAnnotation> annotations;
+    private final Set<OWLAnnotation> annotations;
 
     public OWLAxiomImpl(OWLDataFactory dataFactory, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory);
         if (!annotations.isEmpty()) {
-            this.annotations = Collections.unmodifiableSortedSet(new TreeSet<OWLAnnotation>(annotations));
+            this.annotations = CollectionFactory.getCopyOnRequestSet(new TreeSet<OWLAnnotation>(annotations));
         }
         else {
             this.annotations = Collections.emptySet();

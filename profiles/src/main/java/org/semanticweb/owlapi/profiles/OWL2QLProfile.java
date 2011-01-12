@@ -302,7 +302,7 @@ public class OWL2QLProfile implements OWLProfile {
     }
 
     @SuppressWarnings("unused")
-    private class OWL2QLSubClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
+    private static class OWL2QLSubClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
         public Boolean visit(OWLClass desc) {
             return true;

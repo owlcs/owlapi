@@ -1,10 +1,9 @@
 package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
-import org.semanticweb.owlapi.model.OWLDataFactory;
+
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**
  * Author: Matthew Horridge<br>

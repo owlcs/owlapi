@@ -18,6 +18,7 @@ import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 
 /**
@@ -89,7 +90,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
             }
             namedClasses = Collections.unmodifiableSet(clses);
         }
-        return namedClasses;
+        return CollectionFactory.getCopyOnRequestSet(namedClasses);
     }
 
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {

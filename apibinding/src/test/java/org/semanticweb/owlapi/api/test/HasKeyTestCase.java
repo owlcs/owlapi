@@ -8,7 +8,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLProperty;
 
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>

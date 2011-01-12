@@ -1,7 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -20,6 +19,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
@@ -51,9 +51,9 @@ public abstract class OWLObjectImpl implements OWLObject {
 			List<OWLAnonymousIndividual> anons = new ArrayList<OWLAnonymousIndividual>();
 			OWLEntityCollector collector = new OWLEntityCollector(sig, anons);
 			accept(collector);
-			signature = Collections.unmodifiableSet(sig);
+			signature = sig;
 		}
-		return signature;
+		return CollectionFactory.getCopyOnRequestSet(signature);
 	}
 
 	public Set<OWLClass> getClassesInSignature() {

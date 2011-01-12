@@ -63,7 +63,7 @@ public class TypeNegativePropertyAssertionHandler extends BuiltInTypeHandler {
     private void translateNegativeObjectPropertyAssertion(IRI subject, IRI predicate, IRI object, IRI source, IRI property, IRI target, Set<OWLAnnotation> annos) {
         OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
         OWLObjectPropertyExpression prop = getConsumer().translateObjectPropertyExpression(property);
-        OWLIndividual targetInd = getConsumer().getOWLIndividual((IRI) target);
+        OWLIndividual targetInd = getConsumer().getOWLIndividual(target);
         consumeTriple(subject, predicate, object);
         addAxiom(getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(prop, sourceInd, targetInd, annos));
     }
@@ -71,7 +71,7 @@ public class TypeNegativePropertyAssertionHandler extends BuiltInTypeHandler {
     private void translateNegativeDataPropertyAssertion(IRI subject, IRI predicate, IRI object, IRI source, IRI property, OWLLiteral target, Set<OWLAnnotation> annos) {
         OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
         OWLDataPropertyExpression prop = getConsumer().translateDataPropertyExpression(property);
-        OWLLiteral lit = (OWLLiteral) target;
+        OWLLiteral lit = target;
         consumeTriple(subject, predicate, object);
         addAxiom(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(prop, sourceInd, lit, annos));
     }

@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -9,6 +8,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Author: Matthew Horridge<br>
@@ -36,7 +36,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     }
 
     public Set<Node<E>> getNodes() {
-        return Collections.unmodifiableSet(nodes);
+        return CollectionFactory.getCopyOnRequestSet(nodes);
     }
 
     /**

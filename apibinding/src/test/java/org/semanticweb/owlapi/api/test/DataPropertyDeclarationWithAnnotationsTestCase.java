@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.api.test;
 
-import java.util.Collections;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;

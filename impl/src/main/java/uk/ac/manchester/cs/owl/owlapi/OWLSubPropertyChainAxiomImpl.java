@@ -2,7 +2,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -49,7 +48,7 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
     }
 
     public List<OWLObjectPropertyExpression> getPropertyChain() {
-        return Collections.unmodifiableList(propertyChain);
+        return new ArrayList<OWLObjectPropertyExpression>(propertyChain);
     }
 
 

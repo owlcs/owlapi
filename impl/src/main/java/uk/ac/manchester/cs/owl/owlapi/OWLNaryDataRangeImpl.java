@@ -1,6 +1,5 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -9,6 +8,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNaryDataRange;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
@@ -20,11 +20,11 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLN
 
     protected OWLNaryDataRangeImpl(OWLDataFactory dataFactory, Set<? extends OWLDataRange> operands) {
         super(dataFactory);
-        this.operands = Collections.unmodifiableSet(new TreeSet<OWLDataRange>(operands));
+        this.operands = new TreeSet<OWLDataRange>(operands);
     }
 
     public Set<OWLDataRange> getOperands() {
-        return operands;
+        return CollectionFactory.getCopyOnRequestSet(operands);
     }
 
     public boolean isTopDatatype() {

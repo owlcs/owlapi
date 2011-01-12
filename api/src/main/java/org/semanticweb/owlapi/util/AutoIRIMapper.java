@@ -231,9 +231,10 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     }
 
     private void parseManchesterSyntaxFile(File file) {
+    	BufferedReader br=null;
         try {
             // Ontology: <URI>
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
             String line;
             IRI ontologyIRI = null;
             while((line = br.readLine()) != null) {
@@ -253,6 +254,12 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         }
         catch (IOException e) {
             // Ignore - don't care
+        }finally {
+        	try {
+				br.close();
+			} catch (IOException e2) {
+				// no operation
+			}
         }
     }
 
@@ -307,7 +314,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      * A handler to handle RDF/XML files.  The xml:base (if present) is taken to be
      * the ontology URI of the ontology document being parsed.
      */
-    private class RDFXMLOntologyRootElementHandler implements OntologyRootElementHandler {
+    private static class RDFXMLOntologyRootElementHandler implements OntologyRootElementHandler {
 
         public IRI handle(Attributes attributes) {
             String baseValue = attributes.getValue(Namespaces.XML.toString(), "base");
@@ -322,7 +329,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     /**
      * A handler that can handle OWL/XML files.
      */
-    private class OWLXMLOntologyRootElementHandler implements OntologyRootElementHandler {
+    private static class OWLXMLOntologyRootElementHandler implements OntologyRootElementHandler {
 
         public IRI handle(Attributes attributes) {
             String ontURI = attributes.getValue(Namespaces.OWL.toString(), "URI");

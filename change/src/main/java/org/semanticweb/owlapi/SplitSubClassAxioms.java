@@ -83,7 +83,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
     }
 
 
-    private class ConjunctSplitter implements OWLClassExpressionVisitor {
+    private static class ConjunctSplitter implements OWLClassExpressionVisitor {
 
         private Set<OWLClassExpression> result;
 

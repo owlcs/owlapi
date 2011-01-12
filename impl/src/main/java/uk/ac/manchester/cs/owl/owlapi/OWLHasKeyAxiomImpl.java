@@ -1,7 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -18,6 +17,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
@@ -32,7 +32,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     public OWLHasKeyAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression expression, Set<? extends OWLPropertyExpression> propertyExpressions, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.expression = expression;
-        this.propertyExpressions = Collections.unmodifiableSortedSet(new TreeSet<OWLPropertyExpression>(propertyExpressions));
+        this.propertyExpressions = new TreeSet<OWLPropertyExpression>(propertyExpressions);
     }
 
     public OWLHasKeyAxiom getAxiomWithoutAnnotations() {
@@ -46,7 +46,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         return getOWLDataFactory().getOWLHasKeyAxiom(getClassExpression(), getPropertyExpressions(), mergeAnnos(annotations));
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.HAS_KEY;
     }
 
@@ -59,7 +59,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     }
 
     public Set<OWLPropertyExpression> getPropertyExpressions() {
-        return propertyExpressions;
+        return CollectionFactory.getCopyOnRequestSet(propertyExpressions);
     }
 
     public Set<OWLDataPropertyExpression> getDataPropertyExpressions() {

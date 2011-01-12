@@ -87,7 +87,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
         return true;
     }
 
-    private class NamedSuperChecker extends OWLClassExpressionVisitorAdapter {
+    private static class NamedSuperChecker extends OWLClassExpressionVisitorAdapter {
 
         private boolean namedSuper;
 

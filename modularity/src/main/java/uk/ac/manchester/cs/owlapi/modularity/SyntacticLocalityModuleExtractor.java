@@ -42,7 +42,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @author School of Computer Science
      * @author University of Manchester
      */
-    class OntologyAxiomSet {
+    static class OntologyAxiomSet {
 
         /**
          * Array representing all axioms of the associated ontology.

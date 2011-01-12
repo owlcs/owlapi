@@ -1,6 +1,5 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +13,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 
 /**
@@ -43,7 +43,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
 
 
     public Set<OWLIndividual> getIndividuals() {
-        return Collections.unmodifiableSet(values);
+        return CollectionFactory.getCopyOnRequestSet(values);
     }
 
 

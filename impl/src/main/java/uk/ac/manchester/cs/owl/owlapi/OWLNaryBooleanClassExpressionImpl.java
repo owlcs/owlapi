@@ -1,7 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -10,6 +9,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 
 /**
@@ -25,7 +25,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
 
     public OWLNaryBooleanClassExpressionImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> operands) {
         super(dataFactory);
-        this.operands = Collections.unmodifiableSet(new TreeSet<OWLClassExpression>(operands));
+        this.operands = new TreeSet<OWLClassExpression>(operands);
     }
 
     public List<OWLClassExpression> getOperandsAsList() {
@@ -33,7 +33,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
     }
 
     public Set<OWLClassExpression> getOperands() {
-        return operands;
+        return CollectionFactory.getCopyOnRequestSet(operands);
     }
 
 

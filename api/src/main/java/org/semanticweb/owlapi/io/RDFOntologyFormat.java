@@ -1,10 +1,10 @@
 package org.semanticweb.owlapi.io;
 
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
-
-import java.util.Set;
 
 /**
  * Author: Matthew Horridge<br>

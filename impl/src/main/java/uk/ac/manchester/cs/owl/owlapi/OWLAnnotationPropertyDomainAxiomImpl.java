@@ -50,7 +50,7 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
         return property;
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.ANNOTATION_PROPERTY_DOMAIN;
     }
 

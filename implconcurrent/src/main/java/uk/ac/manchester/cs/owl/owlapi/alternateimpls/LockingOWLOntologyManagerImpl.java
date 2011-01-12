@@ -51,7 +51,51 @@ import org.semanticweb.owlapi.io.OWLOntologyStorageIOException;
 import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.DefaultChangeBroadcastStrategy;
+import org.semanticweb.owlapi.model.DefaultImpendingChangeBroadcastStrategy;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.ImmutableOWLOntologyChangeException;
+import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeBroadcastStrategy;
+import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeListener;
+import org.semanticweb.owlapi.model.MissingImportEvent;
+import org.semanticweb.owlapi.model.MissingImportListener;
+import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLMutableOntology;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeBroadcastStrategy;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
+import org.semanticweb.owlapi.model.OWLOntologyChangeProgressListener;
+import org.semanticweb.owlapi.model.OWLOntologyChangeVetoException;
+import org.semanticweb.owlapi.model.OWLOntologyChangesVetoedListener;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyDocumentAlreadyExistsException;
+import org.semanticweb.owlapi.model.OWLOntologyFactory;
+import org.semanticweb.owlapi.model.OWLOntologyFactoryNotFoundException;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
+import org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderListener;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyManagerProperties;
+import org.semanticweb.owlapi.model.OWLOntologyRenameException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLOntologyStorer;
+import org.semanticweb.owlapi.model.OWLOntologyStorerNotFoundException;
+import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.RemoveImport;
+import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
@@ -259,10 +303,9 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager, OWLOnt
         if (ontologies == null) {
             ontologies = new HashSet<OWLOntology>();
             getImportsClosure(ontology, ontologies);
-            ontologies = Collections.unmodifiableSet(ontologies);
             importsClosureCache.put(ontology, ontologies);
         }
-        return ontologies;
+        return CollectionFactory.getCopyOnRequestSet(ontologies);
     }
 
     /**

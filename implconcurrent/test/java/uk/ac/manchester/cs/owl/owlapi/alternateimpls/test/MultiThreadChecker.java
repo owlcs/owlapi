@@ -36,7 +36,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class MultiThreadChecker {
-	public static int defaultRep=10;
+	public static final int defaultRep=10;
 	private int rep = defaultRep;
 	private final PrintStream p;
 	private final ByteArrayOutputStream out = new ByteArrayOutputStream();

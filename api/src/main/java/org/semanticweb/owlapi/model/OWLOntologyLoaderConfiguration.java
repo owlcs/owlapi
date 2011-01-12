@@ -1,9 +1,9 @@
 package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.vocab.Namespaces;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
  * Author: Matthew Horridge<br>

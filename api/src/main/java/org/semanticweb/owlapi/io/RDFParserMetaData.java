@@ -1,10 +1,9 @@
 package org.semanticweb.owlapi.io;
 
-import org.semanticweb.owlapi.model.IRI;
-
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Author: Matthew Horridge<br>
@@ -15,16 +14,16 @@ import java.util.Set;
  */
 public class RDFParserMetaData implements OWLOntologyLoaderMetaData {
 
-    private int tripleCount;
+    private final int tripleCount;
 
-    private RDFOntologyHeaderStatus headerStatus;
+    private final RDFOntologyHeaderStatus headerStatus;
 
-    private Set<RDFTriple> unparsedTriples = new HashSet<RDFTriple>();
+    private final Set<RDFTriple> unparsedTriples = new HashSet<RDFTriple>();
 
     public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount, Set<RDFTriple> unparsedTriples) {
         this.tripleCount = tripleCount;
         this.headerStatus = headerStatus;
-        this.unparsedTriples = new HashSet<RDFTriple>(unparsedTriples);
+        this.unparsedTriples.addAll(unparsedTriples);
     }
 
     /**
@@ -40,7 +39,7 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData {
     }
 
     public Set<RDFTriple> getUnparsedTriples() {
-        return Collections.unmodifiableSet(unparsedTriples);
+        return CollectionFactory.getCopyOnRequestSet(unparsedTriples);
     }
 
 }

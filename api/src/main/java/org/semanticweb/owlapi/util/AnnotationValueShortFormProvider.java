@@ -3,7 +3,14 @@ package org.semanticweb.owlapi.util;
 import java.util.List;
 import java.util.Map;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 
 
 /**
@@ -128,7 +135,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     }
 
 
-    private class AnnotationLanguageFilter extends OWLObjectVisitorAdapter {
+    private static class AnnotationLanguageFilter extends OWLObjectVisitorAdapter {
 
         private OWLAnnotationProperty prop;
 

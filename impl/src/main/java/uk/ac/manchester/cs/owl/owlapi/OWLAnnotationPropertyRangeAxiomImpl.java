@@ -50,7 +50,7 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
         return range;
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.ANNOTATION_PROPERTY_RANGE;
     }
 

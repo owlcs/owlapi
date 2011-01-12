@@ -1,6 +1,5 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -15,6 +14,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 
 /**
@@ -35,7 +35,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         super(dataFactory);
         this.property = property;
         this.value = value;
-        this.annotations = Collections.unmodifiableSortedSet(new TreeSet<OWLAnnotation>(annotations));
+        this.annotations = CollectionFactory.getCopyOnRequestSet(new TreeSet<OWLAnnotation>(annotations));
     }
 
     public Set<OWLAnnotation> getAnnotations() {

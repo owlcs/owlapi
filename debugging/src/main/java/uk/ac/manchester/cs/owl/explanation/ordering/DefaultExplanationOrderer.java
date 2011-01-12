@@ -371,7 +371,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         }
     }
     @SuppressWarnings("unused")
-    private class SeedExtractor implements OWLAxiomVisitor {
+    private static class SeedExtractor implements OWLAxiomVisitor {
 
         private OWLEntity source;
 

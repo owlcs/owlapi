@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.util;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -96,7 +95,6 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -128,7 +126,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
     public Set<OWLObject> getResult() {
-        return Collections.unmodifiableSet(result);
+        return CollectionFactory.getCopyOnRequestSet(result);
     }
 
     private void process(Set<? extends OWLObject> objects) {

@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.util;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -53,6 +52,6 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements OWLOn
      * Gets the entities which were referenced in the last change set.
      */
     public Set<OWLEntity> getEntities() {
-        return Collections.unmodifiableSet(entities);
+        return CollectionFactory.getCopyOnRequestSet(entities);
     }
 }

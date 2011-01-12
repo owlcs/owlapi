@@ -1,6 +1,5 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +16,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 
 /**
@@ -68,7 +68,7 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
      *         this data range
      */
     public Set<OWLFacetRestriction> getFacetRestrictions() {
-        return Collections.unmodifiableSet(facetRestrictions);
+        return CollectionFactory.getCopyOnRequestSet(facetRestrictions);
     }
 
 

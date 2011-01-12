@@ -1,10 +1,10 @@
 package org.semanticweb.owlapi.api.test;
 
+import java.util.Collections;
+
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-
-import java.util.Collections;
 
 /**
  * Author: Matthew Horridge<br>

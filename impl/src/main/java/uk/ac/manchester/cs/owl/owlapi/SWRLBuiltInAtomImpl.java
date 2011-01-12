@@ -2,7 +2,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -48,7 +47,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     }
 
     public List<SWRLDArgument> getArguments() {
-        return Collections.unmodifiableList(args);
+        return new ArrayList<SWRLDArgument>(args);
     }
 
 

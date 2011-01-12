@@ -1,11 +1,9 @@
 package org.semanticweb.owlapi.api.test;
 
-import java.net.URI;
+import junit.framework.TestCase;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
-
-import junit.framework.TestCase;
 
 
 public class TurtleUTF8BOMTest extends TestCase{

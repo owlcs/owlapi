@@ -2,7 +2,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -32,6 +31,7 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 
@@ -164,7 +164,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
      *         in the antecedent of the rule.
      */
     public Set<SWRLAtom> getBody() {
-        return Collections.unmodifiableSet(body);
+        return CollectionFactory.getCopyOnRequestSet(body);
     }
 
 
@@ -174,7 +174,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
      *         in the consequent of the rule
      */
     public Set<SWRLAtom> getHead() {
-        return Collections.unmodifiableSet(head);
+        return CollectionFactory.getCopyOnRequestSet(head);
     }
 
 

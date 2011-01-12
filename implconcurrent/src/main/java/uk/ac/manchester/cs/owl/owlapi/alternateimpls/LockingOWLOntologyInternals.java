@@ -105,6 +105,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	}
 
 	public LockingOWLOntologyInternals() {
+		//This LOOKS like an unitialized read. Actually the locks map is 
+		//initialized in the super() constructor that calls this.initMaps()
 		lazyIndexLock = locks.get(axiomsByType);
 	}
 

@@ -206,6 +206,28 @@ public class CollectionFactory {
 			this.delegate = source;
 		}
 
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == null) {
+				return false;
+			}
+			if (this == obj) {
+				return true;
+			}
+			if (obj instanceof ConditionalCopySet) {
+				return delegate.equals(((ConditionalCopySet<?>) obj).delegate);
+			}
+			if (obj instanceof Set) {
+				return delegate.equals(obj);
+			}
+			return false;
+		}
+
+		@Override
+		public int hashCode() {
+			return delegate.hashCode();
+		}
+
 		public boolean add(T arg0) {
 			if (!copyDone) {
 				copyDone = true;
@@ -316,6 +338,38 @@ public class CollectionFactory {
 
 		public ThreadSafeConditionalCopySet(Collection<T> source) {
 			this.delegate = source;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			try {
+				readLock.lock();
+				if (obj == null) {
+					return false;
+				}
+				if (this == obj) {
+					return true;
+				}
+				if (obj instanceof ConditionalCopySet) {
+					return delegate.equals(((ConditionalCopySet<?>) obj).delegate);
+				}
+				if (obj instanceof Set) {
+					return delegate.equals(obj);
+				}
+				return false;
+			} finally {
+				readLock.unlock();
+			}
+		}
+
+		@Override
+		public int hashCode() {
+			try {
+				readLock.lock();
+				return delegate.hashCode();
+			} finally {
+				readLock.unlock();
+			}
 		}
 
 		public boolean add(T arg0) {

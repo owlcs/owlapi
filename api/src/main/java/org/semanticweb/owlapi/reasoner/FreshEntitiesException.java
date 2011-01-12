@@ -1,7 +1,8 @@
 package org.semanticweb.owlapi.reasoner;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -15,14 +16,14 @@ import org.semanticweb.owlapi.model.OWLEntity;
  */
 public class FreshEntitiesException extends OWLReasonerRuntimeException {
 
-    private Set<OWLEntity> entities;
+    private List<OWLEntity> entities;
 
     public FreshEntitiesException(Set<OWLEntity> entities) {
-        this.entities = Collections.unmodifiableSet(new LinkedHashSet<OWLEntity>(entities));
+        this.entities = Collections.unmodifiableList(new ArrayList<OWLEntity>(entities));
     }
 
     public FreshEntitiesException(OWLEntity entity) {
-        this.entities = Collections.singleton(entity);
+        this.entities = Collections.singletonList(entity);
     }
 
 
@@ -30,7 +31,7 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
      * Gets the entities
      * @return The entities, none of which are contained in the signature of the union of a set of ontologies.
      */
-    public Set<OWLEntity> getEntities() {
+    public List<OWLEntity> getEntities() {
         return entities;
     }
 

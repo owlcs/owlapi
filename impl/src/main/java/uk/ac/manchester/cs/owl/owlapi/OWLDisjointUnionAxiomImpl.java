@@ -1,6 +1,5 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -17,6 +16,7 @@ import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 
 /**
@@ -34,11 +34,11 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     public OWLDisjointUnionAxiomImpl(OWLDataFactory dataFactory, OWLClass owlClass, Set<? extends OWLClassExpression> classExpressions, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.owlClass = owlClass;
-        this.classExpressions = Collections.unmodifiableSortedSet(new TreeSet<OWLClassExpression>(classExpressions));
+        this.classExpressions = new TreeSet<OWLClassExpression>(classExpressions);
     }
 
     public Set<OWLClassExpression> getClassExpressions() {
-        return classExpressions;
+        return CollectionFactory.getCopyOnRequestSet(classExpressions);
     }
 
     public OWLDisjointUnionAxiom getAxiomWithoutAnnotations() {

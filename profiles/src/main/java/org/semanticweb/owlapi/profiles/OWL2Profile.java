@@ -73,7 +73,7 @@ public class OWL2Profile implements OWLProfile {
         return new OWLProfileReport(this, pv);
     }
 
-    private class OWL2ProfileObjectWalker extends OWLOntologyWalkerVisitor<Object> {
+    private static class OWL2ProfileObjectWalker extends OWLOntologyWalkerVisitor<Object> {
 
         private OWLOntologyManager man;
 

@@ -312,11 +312,11 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
                 throw new RDFParserException(
                         "Incorrect number of arguments for 'model-attribute' processing instruction.",
                         m_documentLocator);
-            String key = (String) arguments.get("key");
+            String key = arguments.get("key");
             if (key == null)
                 throw new RDFParserException("Mising the 'key' argument for 'model-attribute' processing instruction.",
                                              m_documentLocator);
-            String value = (String) arguments.get("value");
+            String value = arguments.get("value");
             if (value == null)
                 throw new RDFParserException("Mising the 'value' argument for 'model-attribute' processing instruction.",
                                              m_documentLocator);
@@ -1237,7 +1237,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     protected static class ReificationManager {
 
-        public static ReificationManager INSTANCE = new ReificationManager();
+        public static final ReificationManager INSTANCE = new ReificationManager();
 
 
         public String getReificationID(String reificationID) throws SAXException {

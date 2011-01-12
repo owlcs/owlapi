@@ -229,7 +229,7 @@ public class JustificationMap {
     }
 
 
-    private class OWLAxiomPartExtractor extends OWLAxiomVisitorAdapter {
+    private static class OWLAxiomPartExtractor extends OWLAxiomVisitorAdapter {
 
         private Set<OWLObject> rhs;
 
@@ -471,7 +471,7 @@ public class JustificationMap {
         }
     }
     @SuppressWarnings("unused")
-    private class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements Comparator<OWLAxiom> {
+    private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements Comparator<OWLAxiom> {
 
 
         @Override

@@ -22,7 +22,7 @@ package uk.ac.manchester.cs.owl.owlapi;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-import static org.semanticweb.owlapi.model.AxiomType.*;
+import static org.semanticweb.owlapi.model.AxiomType.AXIOM_TYPES;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 
 import java.util.Collection;
@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 public class InternalsImpl extends AbstractInternalsImpl {
 	protected Set<OWLImportsDeclaration> importsDeclarations;
 	protected Set<OWLAnnotation> ontologyAnnotations;
-	protected Map<AxiomType, Set<OWLAxiom>> axiomsByType;
+	protected Map<AxiomType<?>, Set<OWLAxiom>> axiomsByType;
 	protected Map<OWLAxiom, Set<OWLAxiom>> logicalAxiom2AnnotatedAxiomMap;
 	protected Set<OWLClassAxiom> generalClassAxioms;
 	protected Set<OWLSubPropertyChainOfAxiom> propertyChainSubPropertyAxioms;
@@ -230,7 +230,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
 	public int getAxiomCount() {
 		int count = 0;
-		for (AxiomType type : AXIOM_TYPES) {
+		for (AxiomType<?> type : AXIOM_TYPES) {
 			Set<OWLAxiom> axiomSet = axiomsByType.get(type);
 			if (axiomSet != null) {
 				count += axiomSet.size();
@@ -241,7 +241,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
 	public Set<OWLAxiom> getAxioms() {
 		Set<OWLAxiom> axioms = createSet();
-		for (AxiomType type : AXIOM_TYPES) {
+		for (AxiomType<?> type : AXIOM_TYPES) {
 			Set<OWLAxiom> owlAxiomSet = axiomsByType.get(type);
 			if (owlAxiomSet != null) {
 				axioms.addAll(owlAxiomSet);
@@ -293,7 +293,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
 	public Set<OWLLogicalAxiom> getLogicalAxioms() {
 		Set<OWLLogicalAxiom> axioms = createSet();
-		for (AxiomType type : AXIOM_TYPES) {
+		for (AxiomType<?> type : AXIOM_TYPES) {
 			if (type.isLogical()) {
 				Set<OWLAxiom> axiomSet = axiomsByType.get(type);
 				if (axiomSet != null) {
@@ -308,7 +308,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
 	public int getLogicalAxiomCount() {
 		int count = 0;
-		for (AxiomType type : AXIOM_TYPES) {
+		for (AxiomType<?> type : AXIOM_TYPES) {
 			if (type.isLogical()) {
 				Set<OWLAxiom> axiomSet = axiomsByType.get(type);
 				if (axiomSet != null) {

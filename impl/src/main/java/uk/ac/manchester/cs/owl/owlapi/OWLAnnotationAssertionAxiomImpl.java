@@ -116,7 +116,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         return visitor.visit(this);
     }
 
-    public AxiomType getAxiomType() {
+    public AxiomType<?> getAxiomType() {
         return AxiomType.ANNOTATION_ASSERTION;
     }
 

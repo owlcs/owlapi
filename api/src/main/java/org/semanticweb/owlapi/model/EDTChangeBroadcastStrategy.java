@@ -34,7 +34,7 @@ public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStr
         }
     }
 
-    private class BroadcastException extends RuntimeException {
+    private static class BroadcastException extends RuntimeException {
 
         private BroadcastException(OWLException cause) {
             super(cause);

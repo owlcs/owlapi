@@ -1,9 +1,13 @@
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
-
-import java.util.*;
 
 /**
  * Author: Matthew Horridge<br>

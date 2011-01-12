@@ -789,7 +789,7 @@ public abstract class AbstractInternalsImpl implements
 			Map<K, Set<V>> map) {
 		Set<V> axioms = map.get(key);
 		if (axioms != null) {
-			return Collections.unmodifiableSet(axioms);
+			return CollectionFactory.getCopyOnRequestSet(axioms);
 		} else {
 			return Collections.emptySet();
 		}
@@ -806,7 +806,7 @@ public abstract class AbstractInternalsImpl implements
 				axioms = Collections.emptySet();
 			}
 		} else {
-			axioms = Collections.unmodifiableSet(axioms);
+			axioms = CollectionFactory.getCopyOnRequestSet(axioms);
 		}
 		return axioms;
 	}
