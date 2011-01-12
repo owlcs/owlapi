@@ -864,6 +864,10 @@ public class ManchesterOWLSyntaxEditorParser {
         String kw = consumeToken();
         if (kw.equalsIgnoreCase(SOME)) {
             OWLDataRange rng = parseDataRange();
+            if(rng==null) {
+            	throw new ParserException(getTokenSequence(), getTokenPos(), getTokenRow(), getTokenCol(), true, false, false, false, true, false, Collections.<String>emptySet());
+//            	return dataFactory.getOWLDataSomeValuesFrom(prop, rng)
+            }
             return dataFactory.getOWLDataSomeValuesFrom(prop, rng);
         }
         else if (kw.equalsIgnoreCase(ONLY)) {
