@@ -1,0 +1,13 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> . 
+@prefix owl: <http://www.w3.org/2002/07/owl#> . 
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> . 
+
+<urn:P> rdf:type owl:DatatypeProperty .
+
+[<urn:P> "007"^^xsd:int] .
+
+[<urn:P> "007"^^xsd:int] .
+
+[<urn:P> "008"^^xsd:int] .
+   
+[<urn:P> "008"^^xsd:int] .

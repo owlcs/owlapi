@@ -1,0 +1,43 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> . 
+@prefix owl: <http://www.w3.org/2002/07/owl#> . 
+@prefix xml: <http://www.w3.org/XML/1998/namespace> . 
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> . 
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . 
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> . 
+@base <http://www.w3.org/2002/07/owl#> .
+
+xsd:date rdf:type rdfs:Datatype .
+
+<urn:ApplNo> rdf:type owl:DatatypeProperty .
+
+<urn:PED> rdf:type owl:DatatypeProperty .
+
+<urn:PN> rdf:type owl:DatatypeProperty .
+
+<urn:P> rdf:type owl:DatatypeProperty .
+
+[
+<urn:P> "007"^^xsd:int ; 
+<urn:ApplNo> "0"^^xsd:int ; 
+<urn:PN> "6A"^^xsd:string ; 
+<urn:PED> "Jul 6, 2020"^^xsd:date ] .
+   
+
+[
+<urn:P> "007"^^xsd:int ; 
+<urn:ApplNo> "0"^^xsd:int ; 
+<urn:PN> "6PED"^^xsd:string ; 
+<urn:PED> "Jan 6, 2021"^^xsd:date ] .
+   
+
+[
+<urn:P> "008"^^xsd:int ; 
+<urn:ApplNo> "0"^^xsd:int ; 
+<urn:PN> "6A"^^xsd:string ; 
+<urn:PED> "Jul 6, 2020"^^xsd:date ] .
+   
+[
+<urn:P> "008"^^xsd:int ;
+<urn:ApplNo> "0"^^xsd:int ; 
+<urn:PN> "6PED"^^xsd:string ; 
+<urn:PED> "Jan 6, 2021"^^xsd:date ] .

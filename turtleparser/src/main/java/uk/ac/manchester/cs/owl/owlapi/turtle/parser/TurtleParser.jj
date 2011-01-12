@@ -492,7 +492,10 @@ IRI parseBlankNode() :
 {
     (iri=parseNodeID()
     |
-    <OPEN_SQUARE_BRACKET> ({iri = getNextBlankNode(null);} parsePredicateObjectList(iri) (<DOT>)?)? <CLOSE_SQUARE_BRACKET> {if (iri == null) {iri = getNextBlankNode(null); }}
+    <EMPTY_BLANK_NODE>{if(iri==null){iri = getNextBlankNode(null);}} (parsePredicateObjectList(iri))
+
+    |
+    <OPEN_SQUARE_BRACKET> ({if(iri==null){iri = getNextBlankNode(null);}} parsePredicateObjectList(iri) (<DOT>)?)? <CLOSE_SQUARE_BRACKET> {if (iri == null) {iri = getNextBlankNode(null); }}    
     |
     iri = parseCollection()) {
         return iri;
