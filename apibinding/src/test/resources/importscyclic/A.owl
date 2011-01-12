@@ -18,7 +18,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <owl:Ontology rdf:about="http://test.org/compleximports/A.owl">
-    <owl:imports rdf:resource="http://test.org/compleximports/D.owl"/>
+        <owl:imports rdf:resource="http://test.org/compleximports/D.owl"/>
     </owl:Ontology>
 
     <owl:Class rdf:about="&A;AClass"/>
