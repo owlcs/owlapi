@@ -34,7 +34,9 @@ public class TPSameAsHandler extends TriplePredicateHandler {
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         inds.add(translateIndividual(subject));
         inds.add(translateIndividual(object));
-        addAxiom(getDataFactory().getOWLSameIndividualAxiom(inds));
+        addAxiom(getDataFactory().getOWLSameIndividualAxiom(inds, getConsumer().getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
+        
+        
     }
 }
