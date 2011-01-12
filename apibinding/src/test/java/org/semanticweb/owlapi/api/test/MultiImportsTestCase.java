@@ -16,7 +16,7 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
  * Date: 01-Jul-2010
  */
 public class MultiImportsTestCase extends AbstractOWLAPITestCase {
-	public void _testImports() throws Exception {
+	public void testImports() throws Exception {
 		try {
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 			manager.addIRIMapper(new AutoIRIMapper(new File(
