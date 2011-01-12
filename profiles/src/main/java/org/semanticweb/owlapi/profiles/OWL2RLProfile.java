@@ -233,12 +233,6 @@ public class OWL2RLProfile implements OWLProfile {
         }
 
         @Override
-		public Object visit(OWLSubDataPropertyOfAxiom axiom) {
-            profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
-            return null;
-        }
-
-        @Override
 		public Object visit(SWRLRule rule) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), rule));
             return super.visit(rule);

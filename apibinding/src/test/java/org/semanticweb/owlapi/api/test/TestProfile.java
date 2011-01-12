@@ -24,18 +24,20 @@ public class TestProfile extends TestCase {
 				+ "xmlns:owl=\"http://www.w3.org/2002/07/owl#\">\n"
 				+ "<owl:Ontology rdf:about=\"http://ex.com\"/>\n"
 				+ "<rdf:Property rdf:about=\"http://ex.com#p1\">\n"
-				+ "<rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#ObjectProperty\"/>\n"
+				+ "<rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/>\n"
 				+ "</rdf:Property>\n"
 				+ "<rdf:Property rdf:about=\"http://ex.com#p2\">\n"
-				+ "<rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#ObjectProperty\"/>\n"
+				+ "<rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/>\n"
 				+ "<rdfs:subPropertyOf rdf:resource=\"http://ex.com#p1\"/>\n"
 				+ "</rdf:Property>\n" + "</rdf:RDF>";
 		OWLOntologyManager m=OWLManager.createOWLOntologyManager();
 		OWLOntology o=m.loadOntologyFromOntologyDocument(new StringDocumentSource(onto));
 		OWL2RLProfile p=new OWL2RLProfile();
 		OWLProfileReport report=p.checkOntology(o);
+		
 		for(OWLProfileViolation v: report.getViolations()) {
 			System.out.println("TestProfile.testOWLEL() "+v);
 		}
+		assertTrue("unexpected violations! "+report.getViolations(),report.getViolations().size()==0);
 	}
 }
