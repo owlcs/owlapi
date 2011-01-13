@@ -28,7 +28,7 @@ package org.semanticweb.owlapi.model;
  * Information Management Group<br>
  * Date: 18-Mar-2009
  */
-public class ImportChange extends OWLOntologyChange {
+public abstract class ImportChange extends OWLOntologyChange {
 
     private OWLImportsDeclaration declaration;
 
@@ -81,10 +81,4 @@ public class ImportChange extends OWLOntologyChange {
         throw new UnsupportedOperationException("Not an axiom");
     }
 
-
-    @Override
-    @SuppressWarnings("unused")
-	public void accept(OWLOntologyChangeVisitor visitor) {
-
-    }
 }

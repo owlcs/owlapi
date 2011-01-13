@@ -71,6 +71,11 @@ public class AddAxiom extends OWLAxiomChange {
 	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
+    
+    @Override
+    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
+    	return visitor.visit(this);
+    }
 
     @Override
 	public String toString() {

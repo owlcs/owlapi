@@ -67,4 +67,9 @@ public class RemoveImport extends ImportChange {
 	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
+    
+    @Override
+    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
+    	return visitor.visit(this);
+    }
 }

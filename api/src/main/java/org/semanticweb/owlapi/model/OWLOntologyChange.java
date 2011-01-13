@@ -73,5 +73,6 @@ public abstract class OWLOntologyChange {
 
 
     public abstract void accept(OWLOntologyChangeVisitor visitor);
+    public abstract <O> O accept(OWLOntologyChangeVisitorEx<O> visitor);
 
 }
