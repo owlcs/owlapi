@@ -3067,57 +3067,107 @@ public class ManchesterOWLSyntaxEditorParser {
     //
 
 
-    public OWLAxiom parseAxiom() throws ParserException {
+	public OWLAxiom parseAxiom() throws ParserException {
+		String token = peekToken();
+		if (isClassName(token)) {
+			return parseAxiomWithClassExpressionStart();
+		} else if (isObjectPropertyName(token)) {
+			return parseAxiomWithObjectPropertyStart();
+		} else if (isDataPropertyName(token)) {
+			return parseAxiomWithDataPropertyStart();
+		} else if (isIndividualName(token)) {
+		} else if (token.equalsIgnoreCase("inv")) {
+			return parseAxiomWithObjectPropertyStart();
+		} else if (token.equalsIgnoreCase("(")) {
+			return parseAxiomWithClassExpressionStart();
+		} else if (token.equalsIgnoreCase("{")) {
+			return parseAxiomWithClassExpressionStart();
+		} else if (token.equalsIgnoreCase(FUNCTIONAL)) {
+			return parseFunctionPropertyAxiom();
+		} else if (token.equalsIgnoreCase(INVERSE_FUNCTIONAL)) {
+			return parseInverseFunctionalPropertyAxiom();
+		} else if (token.equalsIgnoreCase(SYMMETRIC)) {
+			return parseSymmetricPropertyAxiom();
+		} else if (token.equalsIgnoreCase(ASYMMETRIC)) {
+			return parseAsymmetricPropertyAxiom();
+		} else if (token.equalsIgnoreCase(TRANSITIVE)) {
+			return parseTransitivePropertyAxiom();
+		} else if (token.equalsIgnoreCase(REFLEXIVE)) {
+			return parseReflexivePropertyAxiom();
+		} else if (token.equalsIgnoreCase(IRREFLEXIVE)) {
+			return parseIrreflexivePropertyAxiom();
+		} else {
+			throw createException(true, true, true, true, false, false, "(",
+					"{", "inv", FUNCTIONAL, INVERSE_FUNCTIONAL, SYMMETRIC,
+					ASYMMETRIC, TRANSITIVE, REFLEXIVE, IRREFLEXIVE);
+		}
+		return null;
+	}
 
-        String token = peekToken();
-        if (isClassName(token)) {
-            return parseAxiomWithClassExpressionStart();
-        }
-        else if (isObjectPropertyName(token)) {
-            return parseAxiomWithObjectPropertyStart();
-        }
-        else if (isDataPropertyName(token)) {
-            return parseAxiomWithDataPropertyStart();
-        }
-        else if (isIndividualName(token)) {
+	public OWLAxiom parseAxiomWithDataPropertyStart() throws ParserException {
+		OWLDataPropertyExpression prop = parseDataProperty();
+		String kw = consumeToken();
+		if (kw.equalsIgnoreCase(SOME)) {
+			OWLDataRange dataRange = parseDataIntersectionOf();
+			return parseClassAxiomRemainder(getDataFactory()
+					.getOWLDataSomeValuesFrom(prop, dataRange));
+		} else if (kw.equalsIgnoreCase(ONLY)) {
+			OWLDataRange dataRange = parseDataIntersectionOf();
+			return parseClassAxiomRemainder(getDataFactory()
+					.getOWLDataAllValuesFrom(prop, dataRange));
+		} else if (kw.equalsIgnoreCase(MIN)) {
+			int cardi = parseInteger();
+			OWLDataRange dataRange = parseDataIntersectionOf();
+			return parseClassAxiomRemainder(getDataFactory()
+					.getOWLDataMinCardinality(cardi, prop, dataRange));
+		} else if (kw.equalsIgnoreCase(MAX)) {
+			int cardi = parseInteger();
+			OWLDataRange dataRange = parseDataIntersectionOf();
+			return parseClassAxiomRemainder(getDataFactory()
+					.getOWLDataMaxCardinality(cardi, prop, dataRange));
+		} else if (kw.equalsIgnoreCase(EXACTLY)) {
+			int cardi = parseInteger();
+			OWLDataRange dataRange = parseDataIntersectionOf();
+			return parseClassAxiomRemainder(getDataFactory()
+					.getOWLDataExactCardinality(cardi, prop, dataRange));
+		} else if (kw.equalsIgnoreCase(SUB_PROPERTY_OF)) {
+			OWLDataPropertyExpression superProperty = parseDataPropertyExpression();
+			return getDataFactory().getOWLSubDataPropertyOfAxiom(prop,
+					superProperty);
+		} else if (kw.equalsIgnoreCase(EQUIVALENT_TO)) {
+			OWLDataPropertyExpression equivProp = parseDataPropertyExpression();
+			return getDataFactory().getOWLEquivalentDataPropertiesAxiom(prop,
+					equivProp);
+		} else if (kw.equalsIgnoreCase(DISJOINT_WITH)) {
+			OWLDataPropertyExpression disjProp = parseDataPropertyExpression();
+			return getDataFactory().getOWLDisjointDataPropertiesAxiom(prop,
+					disjProp);
+		} else if (kw.equals(DOMAIN)) {
+			OWLClassExpression domain = parseClassExpression();
+			return getDataFactory().getOWLDataPropertyDomainAxiom(prop, domain);
+		} else if (kw.equals(RANGE)) {
+			OWLDataRange range = parseDataRange();
+			return getDataFactory().getOWLDataPropertyRangeAxiom(prop, range);
+		} else {
+			throw createException(SOME, ONLY, MIN, MAX, EXACTLY,
+					SUB_PROPERTY_OF, EQUIVALENT_TO, DISJOINT_WITH, DOMAIN,
+					RANGE);
+		}
+	}
 
-        }
-        else if (token.equalsIgnoreCase("inv")) {
-            return parseAxiomWithObjectPropertyStart();
-        }
-        else if (token.equalsIgnoreCase("(")) {
-            return parseAxiomWithClassExpressionStart();
-        }
-        else if (token.equalsIgnoreCase("{")) {
-            return parseAxiomWithClassExpressionStart();
-        }
-        else if (token.equalsIgnoreCase(FUNCTIONAL)) {
-            return parseFunctionPropertyAxiom();
-        }
-        else if (token.equalsIgnoreCase(INVERSE_FUNCTIONAL)) {
-            return parseInverseFunctionalPropertyAxiom();
-        }
-        else if (token.equalsIgnoreCase(SYMMETRIC)) {
-            return parseSymmetricPropertyAxiom();
-        }
-        else if (token.equalsIgnoreCase(ASYMMETRIC)) {
-            return parseAsymmetricPropertyAxiom();
-        }
-        else if (token.equalsIgnoreCase(TRANSITIVE)) {
-            return parseTransitivePropertyAxiom();
-        }
-        else if (token.equalsIgnoreCase(REFLEXIVE)) {
-            return parseReflexivePropertyAxiom();
-        }
-        else if (token.equalsIgnoreCase(IRREFLEXIVE)) {
-            return parseIrreflexivePropertyAxiom();
-        }
-        else {
-            throw createException(true, true, true, true, false, false, "(", "{", "inv", FUNCTIONAL, INVERSE_FUNCTIONAL, SYMMETRIC, ASYMMETRIC, TRANSITIVE, REFLEXIVE, IRREFLEXIVE);
-        }
-        return null;
-    }
+	public OWLDataPropertyExpression parseDataPropertyExpression()
+			throws ParserException {
+		return parseDataPropertyExpression(false);
+	}
 
+	public OWLDataPropertyExpression parseDataPropertyExpression(
+			boolean allowUndeclared) throws ParserException {
+		String tok = consumeToken();
+		if (!allowUndeclared && !isDataPropertyName(tok)) {
+			throw createException(false, false, true, false, false, false);
+		}
+		return getOWLDataProperty(tok);
+	}
 
     public OWLAxiom parseAxiomWithClassExpressionStart() throws ParserException {
         OWLClassExpression ce = parseIntersection();
@@ -3235,10 +3285,10 @@ public class ManchesterOWLSyntaxEditorParser {
         }
     }
 
-    public OWLAxiom parseAxiomWithDataPropertyStart() throws ParserException {
-        OWLDataPropertyExpression prop = parseDataProperty();
-        return null;
-    }
+//    public OWLAxiom parseAxiomWithDataPropertyStart() throws ParserException {
+//        OWLDataPropertyExpression prop = parseDataProperty();
+//        return null;
+//    }
 
 
     public OWLAxiom parseInverseFunctionalPropertyAxiom() throws ParserException {
