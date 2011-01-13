@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.api.test;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
@@ -36,14 +37,21 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
         assertEquals(ont.getOntologyID(), ontID);
     }
 
-    public void testDuplicateOntologyURI() throws Exception {
+    public void testDuplicateOntologyURI() throws Exception{
         IRI uri = IRI.create("http://www.another.com/ont");
         getManager().createOntology(uri);
+        boolean rightException=false;
         try {
             getManager().createOntology(uri);
+        } catch (OWLOntologyAlreadyExistsException e) {
+            // as expected
+        	rightException=true;
+        	//e.printStackTrace();
         } catch (OWLOntologyCreationException e) {
-            e.printStackTrace();
-        }
+
+			e.printStackTrace();
+		}
+        assertTrue("an OntologyAlreadyExistsException has not been thrown",rightException);
     }
 
 

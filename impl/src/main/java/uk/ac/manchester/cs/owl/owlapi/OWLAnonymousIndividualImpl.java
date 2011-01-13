@@ -105,6 +105,10 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
         if (!(obj instanceof OWLAnonymousIndividual)) {
             return false;
         }
-        return getID().equals(((OWLAnonymousIndividual) obj).getID());
+        return nodeId.equals(((OWLAnonymousIndividual) obj).getID());
+    }
+    @Override
+    public int hashCode() {
+    	return nodeId.hashCode();
     }
 }

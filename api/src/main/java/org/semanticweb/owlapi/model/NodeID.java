@@ -82,7 +82,7 @@ public abstract class NodeID implements Comparable<NodeID> {
         }
 
         public int compareTo(NodeID o) {
-            return toString().compareTo(o.toString());
+            return id.compareTo(o.toString());
         }
 
         @Override
@@ -93,8 +93,11 @@ public abstract class NodeID implements Comparable<NodeID> {
             if (!(obj instanceof NodeID)) {
                 return false;
             }
+            if(obj instanceof NodeID) {
             NodeID other = (NodeID) obj;
             return id.equals(other.getID());
+            }
+            return false;
         }
 
         @Override

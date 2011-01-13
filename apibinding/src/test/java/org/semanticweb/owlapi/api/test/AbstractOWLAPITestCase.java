@@ -177,7 +177,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
         AnonymousIndividualsNormaliser normaliser2 = new AnonymousIndividualsNormaliser(manager.getOWLDataFactory());
         axioms2 = normaliser2.getNormalisedAxioms(axioms2);
         if (!axioms1.equals(axioms2)) {
-            StringBuilder sb = new StringBuilder();
+        	StringBuilder sb = new StringBuilder();
             for (OWLAxiom ax : axioms1) {
                 if (!axioms2.contains(ax)) {
                     sb.append("Rem axiom: ");
