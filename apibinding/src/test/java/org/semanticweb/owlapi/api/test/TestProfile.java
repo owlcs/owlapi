@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.api.test;
 
+import junit.framework.TestCase;
+
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -7,8 +9,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
-
-import junit.framework.TestCase;
 
 public class TestProfile extends TestCase {
 	public void testOWLEL() throws Exception{

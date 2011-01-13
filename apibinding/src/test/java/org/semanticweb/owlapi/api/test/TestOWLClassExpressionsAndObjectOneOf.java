@@ -1,12 +1,12 @@
 package org.semanticweb.owlapi.api.test;
 
+import junit.framework.TestCase;
+
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-import junit.framework.TestCase;
 
 public class TestOWLClassExpressionsAndObjectOneOf extends TestCase{
 	public void testAnonymous() throws Exception{

@@ -1,11 +1,11 @@
 package org.semanticweb.owlapi.api.test;
 
+import junit.framework.TestCase;
+
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-import junit.framework.TestCase;
 
 public class AllDifferentTestCase extends TestCase {
 	private String onto1 = "<?xml version=\"1.0\"?>\n"

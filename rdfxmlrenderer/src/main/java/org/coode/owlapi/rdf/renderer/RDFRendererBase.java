@@ -229,6 +229,7 @@ public abstract class RDFRendererBase {
                 }
             }
             if(anonRoot) {
+            	//TODO check this: in some cases it seems to cause a StackOverflow error.
                 createGraph(axioms);
                 renderAnonRoots();
             }
