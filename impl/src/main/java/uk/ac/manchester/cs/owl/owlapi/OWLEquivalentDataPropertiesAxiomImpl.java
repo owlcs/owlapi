@@ -1,6 +1,9 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
@@ -10,8 +13,11 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
 
 /**
@@ -64,5 +70,16 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
 
     public AxiomType<?> getAxiomType() {
         return AxiomType.EQUIVALENT_DATA_PROPERTIES;
+    }
+    
+    public Set<OWLSubDataPropertyOfAxiom> asSubDataPropertyOfAxioms() {
+        List<OWLDataPropertyExpression> props = new ArrayList<OWLDataPropertyExpression>(getProperties());
+        Set<OWLSubDataPropertyOfAxiom> axs = new HashSet<OWLSubDataPropertyOfAxiom>();
+        for (int i = 0; i < props.size() - 1; i++) {
+            for (int j = i + 1; j < props.size(); j++) {
+                axs.add(getOWLDataFactory().getOWLSubDataPropertyOfAxiom(props.get(i), props.get(j)));
+            }
+        }
+        return axs;
     }
 }

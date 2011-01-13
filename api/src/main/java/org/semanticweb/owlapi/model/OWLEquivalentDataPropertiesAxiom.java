@@ -1,4 +1,6 @@
 package org.semanticweb.owlapi.model;
+
+import java.util.Set;
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -34,4 +36,5 @@ package org.semanticweb.owlapi.model;
 public interface OWLEquivalentDataPropertiesAxiom extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
     OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations();
+    Set<OWLSubDataPropertyOfAxiom> asSubDataPropertyOfAxioms();
 }
