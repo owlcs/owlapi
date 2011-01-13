@@ -613,7 +613,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addAxiomTypeTripleHandler(new TypeAllDifferentHandler(this));
         addAxiomTypeTripleHandler(new TypeAllDisjointClassesHandler(this));
         addAxiomTypeTripleHandler(new TypeAllDisjointPropertiesHandler(this));
-        addAxiomTypeTripleHandler(new TypeAllDifferentHandler(this));
+       // addAxiomTypeTripleHandler(new TypeAllDifferentHandler(this));
         addAxiomTypeTripleHandler(new TypeNegativePropertyAssertionHandler(this));
     }
 
@@ -638,6 +638,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         nonBuiltInTypeHandler = new TPTypeHandler(this);
         addPredicateHandler(nonBuiltInTypeHandler);
         addPredicateHandler(new TPDistinctMembersHandler(this));
+      //  addPredicateHandler(new TPDistinctMembersHandlerAlternateForm(this));
         addPredicateHandler(new TPImportsHandler(this));
         addPredicateHandler(new TPIntersectionOfHandler(this));
         addPredicateHandler(new TPUnionOfHandler(this));

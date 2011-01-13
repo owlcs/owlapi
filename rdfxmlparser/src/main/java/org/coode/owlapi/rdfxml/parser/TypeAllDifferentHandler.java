@@ -1,6 +1,11 @@
 package org.coode.owlapi.rdfxml.parser;
 
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -18,8 +23,26 @@ public class TypeAllDifferentHandler extends BuiltInTypeHandler {
     }
 
 
+    
+    
+    @Override
+    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+        return super.canHandle(subject, predicate, object)&& getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS, false) != null;
+    }
+
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        consumeTriple(subject, predicate, object);
+        IRI listNode = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS.getIRI(), true);
+        if (listNode != null) {
+        	Set<OWLIndividual> inds = getConsumer().translateToIndividualSet(listNode);
+            addAxiom(getDataFactory().getOWLDifferentIndividualsAxiom(inds, getPendingAnnotations()));
+            consumeTriple(subject, predicate, object);
+        }
+    }
+
+
+    @Override
+	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+        return false;
     }
 }
