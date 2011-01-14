@@ -316,7 +316,6 @@ public abstract class RDFRendererBase {
         int count = 0;
         if (ontID.getOntologyIRI() != null) {
             ontologyNode = new RDFResourceNode(ontID.getOntologyIRI());
-            graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getIRI())));
             count++;
             if (ontID.getVersionIRI() != null) {
                 graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.OWL_VERSION_IRI.getIRI()), new RDFResourceNode(ontID.getVersionIRI())));
@@ -326,6 +325,7 @@ public abstract class RDFRendererBase {
         else {
             ontologyNode = new RDFResourceNode(System.identityHashCode(ontology));
         }
+        graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getIRI())));
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
             graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.OWL_IMPORTS.getIRI()), new RDFResourceNode(decl.getIRI())));
             count++;
