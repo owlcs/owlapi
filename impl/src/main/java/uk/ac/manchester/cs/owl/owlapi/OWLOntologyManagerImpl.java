@@ -1058,8 +1058,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     public void makeLoadImportRequest(OWLImportsDeclaration declaration, OWLOntologyLoaderConfiguration configuration) throws UnloadableImportException {
         if (!configuration.isIgnoredImport(declaration.getIRI())) {
             try {
-            	System.out
-						.println("OWLOntologyManagerImpl.makeLoadImportRequest() "+declaration);
                 OWLOntology ont = loadImports(declaration, configuration);
                 if (ont != null) {
                     ontologyIDsByImportsDeclaration.put(declaration, ont.getOntologyID());
