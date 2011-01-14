@@ -1,4 +1,24 @@
 ----------------------------------------------------------------------
+Release 3.2.0
+----------------------------------------------------------------------
+
+This version of the API includes various bug fixes and performance enhancements since version 3.1.0
+
+Main Bug Fixes:
+
+- Various round tripping problems for various syntaxes (3155509, 3154524, 3149789, 3141366, 3140693, 3137303, 3121903)
+- Plain Literals are rendered incorrectly. Fixed.
+- Cyclic imports cause an OntologyAlreadyExistsException to be thrown. Fixed.
+- OWLAxiom.getAnnotatedAxiom() does not merge annotations.  Fixed.
+- OWLObject.getSignature() returns an unmodifiable collection. Fixed.
+- Various problems with character encodings (3068076, 3077637, 3096546, 3140693). Fixed.
+- IRI.create resulted in a memory leak.  Fixed.
+- Imports by location does not work. Fixed.
+- Various problems with anonymous individuals (2998616, 2943908, 3073742). Fixed.
+- Dublin Core Vocabulary is built into OWL API parsers.  Fixed.
+- Files are left open on parse errors.  Fixed.
+
+----------------------------------------------------------------------
 Release 3.1.0
 ----------------------------------------------------------------------
 
