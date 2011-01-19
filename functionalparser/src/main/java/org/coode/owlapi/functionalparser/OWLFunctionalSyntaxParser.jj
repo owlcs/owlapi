@@ -2180,7 +2180,7 @@ OWLLiteral Literal() :
         }
         else {
         	// a float value in this syntax has an extra 'f' or 'F' character that must be removed to make a valid OWL literal
-            if(datatype.isFloat() && (literal.endsWith("f")||literal.endsWith("F"))){
+            if(datatype.isFloat() && (literal.endsWith("f")||literal.endsWith("F")) && !(literal.endsWith("inf")||literal.endsWith("INF"))){
                     literal=literal.substring(0, literal.length()-1);
             }
             return dataFactory.getOWLLiteral(literal, datatype);

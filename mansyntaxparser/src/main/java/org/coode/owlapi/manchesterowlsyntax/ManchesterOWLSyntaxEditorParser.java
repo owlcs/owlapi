@@ -1112,8 +1112,9 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             if (tok.endsWith("f")||tok.endsWith("F")) {
                 try {
-                    float f = Float.parseFloat(tok);
-                    return dataFactory.getOWLLiteral(tok.substring(0, tok.length()-1), OWL2Datatype.XSD_FLOAT);
+                	// XXX this extra F might qualify as Float a Double INF/-INF
+                    float f = Float.parseFloat(tok.replace("INF", "Infinity").replace("inf", "Infinity"));
+                    return dataFactory.getOWLLiteral(Float.toString(f).replace("Infinity", "INF"), OWL2Datatype.XSD_FLOAT);
                 }
                 catch (NumberFormatException e) {
                     // Ignore - not interested
