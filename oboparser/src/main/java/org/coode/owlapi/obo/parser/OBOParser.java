@@ -80,7 +80,11 @@ public class OBOParser implements OBOParserConstants {
     String value;
     tag = Tag();
     value = Value();
+    try {
         handler.handleTagValue(tag, value);
+    }catch (RuntimeException e) {
+		throw new ParseException(e.getMessage()+"\nTag: "+tag+" Value: "+value);
+	}
   }
 
   final public String Tag() throws ParseException {
