@@ -40,7 +40,15 @@ public class OWLOBOParser extends AbstractOWLParser {
             parser.parse();
         }
         catch (ParseException e) {
-            throw new OWLParserException(e, e.currentToken.beginLine, e.currentToken.beginColumn);
+            Token currentToken = e.currentToken;
+            if (currentToken != null) {
+                int beginLine = currentToken.beginLine;
+                int beginColumn = currentToken.beginColumn;
+                throw new OWLParserException(e, beginLine, beginColumn);
+            }
+            else {
+                throw new OWLParserException(e);
+            }
         }
         catch(TokenMgrError e) {
             throw new OWLParserException(e);
