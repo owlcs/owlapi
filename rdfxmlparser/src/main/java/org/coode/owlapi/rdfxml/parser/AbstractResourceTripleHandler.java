@@ -63,4 +63,20 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
     public abstract boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException;
 
     public abstract boolean canHandle(IRI subject, IRI predicate, IRI object);
+    
+    public void inferTypes(IRI subject, IRI object) {
+		if(getConsumer().isClassExpression(object)) {
+            getConsumer().addClassExpression(subject, false);
+        }
+        else if(getConsumer().isDataRange(object)) {
+            getConsumer().addDataRange(subject, false);
+        }
+        else if(getConsumer().isClassExpression(subject)) {
+            getConsumer().addClassExpression(object, false);
+        }
+        else if(getConsumer().isDataRange(subject)) {
+            getConsumer().addDataRange(object, false);
+        }
+	}
+  
 }

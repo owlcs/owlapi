@@ -37,23 +37,7 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
         return !isSubjectOrObjectAnonymous(subject, object) && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject, object);
     }
 
-	public void inferTypes(IRI subject, IRI object) {
-		if(getConsumer().isClassExpression(object)) {
-            getConsumer().addClassExpression(subject, false);
-        }
-        else if(getConsumer().isDataRange(object)) {
-            getConsumer().addDataRange(subject, false);
-        }
-        else if(getConsumer().isClassExpression(subject)) {
-            getConsumer().addClassExpression(object, false);
-        }
-        else if(getConsumer().isDataRange(subject)) {
-            getConsumer().addDataRange(object, false);
-        }
-	}
-
-
-    @Override
+	@Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if(getConsumer().isDataRange(subject) && getConsumer().isDataRange(object)) {
             OWLDatatype datatype = getDataFactory().getOWLDatatype(subject);
