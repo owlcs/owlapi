@@ -512,7 +512,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         synonymMap.put(OWL_OBJECT_RESTRICTION.getIRI(), OWL_RESTRICTION.getIRI());
         synonymMap.put(OWL_DATA_RESTRICTION.getIRI(), OWL_RESTRICTION.getIRI());
 
-        synonymMap.put(OWL_DATA_RANGE.getIRI(), OWL_DATATYPE.getIRI());
+        synonymMap.put(OWL_DATA_RANGE.getIRI(), RDFS_DATATYPE.getIRI());
 
         synonymMap.put(OWL_SUBJECT.getIRI(), OWL_SOURCE_INDIVIDUAL.getIRI());
         synonymMap.put(OWL_PREDICATE.getIRI(), OWL_ASSERTION_PROPERTY.getIRI());
