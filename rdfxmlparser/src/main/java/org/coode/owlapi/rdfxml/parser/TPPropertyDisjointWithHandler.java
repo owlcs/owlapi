@@ -38,19 +38,4 @@ public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
         inferTypes(subject, object);
         return false;
     }
-
-	public void inferTypes(IRI subject, IRI object) {
-		if(getConsumer().isObjectProperty(object)) {
-            getConsumer().addObjectProperty(subject, false);
-        }
-        else if(getConsumer().isDataProperty(object)) {
-            getConsumer().addDataProperty(subject, false);
-        }
-        else if(getConsumer().isObjectProperty(subject)) {
-            getConsumer().addObjectProperty(object, false);
-        }
-        else if(getConsumer().isDataProperty(subject)) {
-            getConsumer().addDataProperty(object, false);
-        }
-	}
 }
