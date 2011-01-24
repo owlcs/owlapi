@@ -27,6 +27,7 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
     public boolean canHandleStreaming(IRI subject,
                                       IRI predicate,
                                       IRI object) {
+    	inferTypes(subject, object);
         return false;
     }
 
