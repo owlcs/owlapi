@@ -43,8 +43,8 @@ public abstract class TriplePredicateHandler extends AbstractResourceTripleHandl
 
 
     @Override
-    @SuppressWarnings("unused")
 	public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+    	inferTypes(subject, object);
         return predicate.equals(predicateIRI);
     }
 
