@@ -2,6 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -253,11 +254,7 @@ public class InitVisitorFactory {
 
         @Override
         public Collection<K> visit(OWLDisjointUnionAxiom axiom) {
-            List<OWLClassExpression> list = new ArrayList<OWLClassExpression>(axiom.getClassExpressions());
-            if (named) {
-                deleteAnonymousClasses(list);
-            }
-            return (Collection<K>) list;
+        	return (Collection<K>)Collections.singleton(axiom.getOWLClass());
         }
 
         @Override
