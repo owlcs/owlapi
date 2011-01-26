@@ -41,6 +41,9 @@ public class OWLOBOParser extends AbstractOWLParser {
             parser.parse();
         }
         catch (ParseException e) {
+        	if(e.getCause()!=null && e.getCause() instanceof OWLOntologyChangeException) {
+        		throw (OWLOntologyChangeException)e.getCause();
+        	}
         	if(e.getCause()!=null && e.getCause() instanceof OWLOntologyAlreadyExistsException) {
         		OWLOntologyAlreadyExistsException ex=(OWLOntologyAlreadyExistsException)e.getCause();
         		throw new UnloadableImportException(ex, getOWLOntologyManager().getOWLDataFactory().getOWLImportsDeclaration(ex.getOntologyID().getOntologyIRI()));
