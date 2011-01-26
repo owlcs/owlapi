@@ -6,6 +6,7 @@ import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -40,6 +41,10 @@ public class OWLOBOParser extends AbstractOWLParser {
             parser.parse();
         }
         catch (ParseException e) {
+        	if(e.getCause()!=null && e.getCause() instanceof OWLOntologyAlreadyExistsException) {
+        		OWLOntologyAlreadyExistsException ex=(OWLOntologyAlreadyExistsException)e.getCause();
+        		throw new UnloadableImportException(ex, getOWLOntologyManager().getOWLDataFactory().getOWLImportsDeclaration(ex.getOntologyID().getOntologyIRI()));
+        	}
             Token currentToken = e.currentToken;
             if (currentToken != null) {
                 int beginLine = currentToken.beginLine;

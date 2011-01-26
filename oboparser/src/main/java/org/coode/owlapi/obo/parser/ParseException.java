@@ -53,8 +53,11 @@ public class ParseException extends Exception {
 
   /** Constructor with message. */
   public ParseException(String message) {
-    super(message);
-  }
+	    super(message);
+	  }
+  public ParseException(String message, Throwable t) {
+	    super(message, t);
+	  }
 
 
   /**
