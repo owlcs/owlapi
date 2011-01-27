@@ -36,7 +36,7 @@ public class OWLOBOParser extends AbstractOWLParser {
         else {
             parser = new OBOParser(getInputStream(documentSource.getDocumentIRI()));
         }
-        parser.setHandler(new OBOConsumer(getOWLOntologyManager(), ontology, configuration));
+        parser.setHandler(new OBOConsumer(ontology, configuration));
         try {
             parser.parse();
         }
@@ -46,7 +46,7 @@ public class OWLOBOParser extends AbstractOWLParser {
         	}
         	if(e.getCause()!=null && e.getCause() instanceof OWLOntologyAlreadyExistsException) {
         		OWLOntologyAlreadyExistsException ex=(OWLOntologyAlreadyExistsException)e.getCause();
-        		throw new UnloadableImportException(ex, getOWLOntologyManager().getOWLDataFactory().getOWLImportsDeclaration(ex.getOntologyID().getOntologyIRI()));
+        		throw new UnloadableImportException(ex, ontology.getOWLOntologyManager().getOWLDataFactory().getOWLImportsDeclaration(ex.getOntologyID().getOntologyIRI()));
         	}
             Token currentToken = e.currentToken;
             if (currentToken != null) {

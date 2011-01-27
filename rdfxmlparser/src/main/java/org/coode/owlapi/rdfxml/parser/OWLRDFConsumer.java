@@ -267,8 +267,8 @@ public class OWLRDFConsumer implements RDFConsumer {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public OWLRDFConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
-        this.owlOntologyManager = owlOntologyManager;
+    public OWLRDFConsumer(OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
+        this.owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         this.dataFactory = owlOntologyManager.getOWLDataFactory();
         this.anonymousNodeChecker = checker;
@@ -391,6 +391,11 @@ public class OWLRDFConsumer implements RDFConsumer {
 
         // Cache anything in the existing imports closure
         importsClosureChanged();
+    }
+
+    @Deprecated
+    public OWLRDFConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
+        this(ontology, checker, configuration);
     }
 
     public void setIRIProvider(IRIProvider iriProvider) {

@@ -80,9 +80,9 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     lineCount++;
                 }
                 String s = sb.toString();
-                OWLDataFactory df = getOWLOntologyManager().getOWLDataFactory();
+                OWLDataFactory df = ontology.getOWLOntologyManager().getOWLDataFactory();
                 ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(configuration, df, s);
-                format = parser.parseOntology(getOWLOntologyManager(), ontology);
+                format = parser.parseOntology(ontology);
             }
             finally {
             	if(br!=null) {

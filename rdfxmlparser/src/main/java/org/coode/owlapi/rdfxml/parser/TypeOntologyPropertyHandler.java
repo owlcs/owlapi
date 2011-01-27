@@ -12,6 +12,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class TypeOntologyPropertyHandler extends BuiltInTypeHandler {
 
+    @SuppressWarnings("deprecation")
     public TypeOntologyPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ONTOLOGY_PROPERTY.getIRI());
     }

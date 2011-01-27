@@ -42,11 +42,17 @@ public abstract class AbstractOWLParser implements OWLParser {
         
     }
 
-
+    @Deprecated
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
         this.owlOntologyManager = owlOntologyManager;
     }
 
+    /**
+     * @deprecated Parser implementors should obtain ontology managers from the ontology that gets supplied
+     * in the parse method.
+     * @return An ontology manager that was set with {@link #setOWLOntologyManager(org.semanticweb.owlapi.model.OWLOntologyManager)}
+     */
+    @Deprecated
     public OWLOntologyManager getOWLOntologyManager() {
         return owlOntologyManager;
     }

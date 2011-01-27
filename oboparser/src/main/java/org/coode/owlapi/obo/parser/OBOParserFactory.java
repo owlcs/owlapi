@@ -14,8 +14,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class OBOParserFactory implements OWLParserFactory {
 
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
-        OWLOBOParser parser =  new OWLOBOParser();
-        parser.setOWLOntologyManager(owlOntologyManager);
-        return parser;
+        return new OWLOBOParser();
     }
 }

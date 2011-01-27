@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
  */
 public class RDFXMLParser extends AbstractOWLParser {
 
-    private OWLOntologyManager owlOntologyManager;
+//    private OWLOntologyManager owlOntologyManager;
 
     private OWLRDFConsumer consumer;
 
@@ -40,9 +40,6 @@ public class RDFXMLParser extends AbstractOWLParser {
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         try {
             final RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
-            if (owlOntologyManager == null) {
-                throw new OWLRuntimeException("Cannot parse because OWLOntologyManager is null!");
-            }
             final RDFParser parser = new RDFParser() {
                 @Override
 				public void startPrefixMapping(String prefix, String IRI) throws SAXException {
@@ -65,7 +62,7 @@ public class RDFXMLParser extends AbstractOWLParser {
                     return parser.getIRI(s);
                 }
             };
-            consumer = new OWLRDFConsumer(owlOntologyManager, ontology, new AnonymousNodeChecker() {
+            consumer = new OWLRDFConsumer(ontology, new AnonymousNodeChecker() {
                 public boolean isAnonymousNode(IRI IRI) {
                     return parser.isAnonymousNodeIRI(IRI.getFragment());
                 }
@@ -95,8 +92,5 @@ public class RDFXMLParser extends AbstractOWLParser {
         }
     }
 
-    @Override
-	public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
-        this.owlOntologyManager = owlOntologyManager;
-    }
+
 }

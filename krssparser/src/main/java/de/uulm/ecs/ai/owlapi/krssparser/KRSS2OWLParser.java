@@ -291,7 +291,7 @@ public class KRSS2OWLParser extends AbstractOWLParser {
             } else {
                 parser = new KRSS2Parser(getInputStream(documentSource.getDocumentIRI()));
             }
-            parser.setOntology(ontology, getOWLOntologyManager().getOWLDataFactory());
+            parser.setOntology(ontology, ontology.getOWLOntologyManager().getOWLDataFactory());
             parser.parse();
             return format;
         }

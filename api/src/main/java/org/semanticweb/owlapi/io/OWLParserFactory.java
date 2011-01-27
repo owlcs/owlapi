@@ -13,5 +13,11 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public interface OWLParserFactory {
 
+    /**
+     * Creates a parser
+     * @param owlOntologyManager This parameter is here for legacy reasons.  Parser factories should not use it.
+     * @return The parser created by this parser factory.
+     */
     OWLParser createParser(OWLOntologyManager owlOntologyManager);
+
 }

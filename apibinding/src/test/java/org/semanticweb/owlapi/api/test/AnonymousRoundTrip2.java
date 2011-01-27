@@ -72,7 +72,7 @@ class AnonymousRoundTrip {
         manager.addAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1));
         manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(a, h));
         manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(q, h, i));
-        OWLAnnotation annotation2 = factory.getOWLAnnotation(factory.getRDFSLabel(), factory.getOWLStringLiteral("Second", "en"));
+        OWLAnnotation annotation2 = factory.getOWLAnnotation(factory.getRDFSLabel(), factory.getOWLLiteral("Second", "en"));
         manager.addAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(h, annotation2));
     }
     

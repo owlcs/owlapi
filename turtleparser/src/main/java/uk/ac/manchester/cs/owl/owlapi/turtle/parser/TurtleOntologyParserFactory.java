@@ -15,8 +15,6 @@ public class TurtleOntologyParserFactory implements OWLParserFactory {
 
 
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
-        TurtleOntologyParser parser = new TurtleOntologyParser();
-        parser.setOWLOntologyManager(owlOntologyManager);
-        return parser;
+        return new TurtleOntologyParser();
     }
 }

@@ -43,7 +43,11 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
 
 
     public OWLRDFConsumerAdapter(OWLOntologyManager owlOntologyManager, OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
-        super(owlOntologyManager, ontology, checker, configuration);
+        this(ontology, checker, configuration);
+    }
+
+    public OWLRDFConsumerAdapter(OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
+        super(ontology, checker, configuration);
     }
 
     @SuppressWarnings("unused")

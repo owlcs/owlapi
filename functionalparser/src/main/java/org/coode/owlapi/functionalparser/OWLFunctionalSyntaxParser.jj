@@ -39,8 +39,13 @@ public class OWLFunctionalSyntaxParser {
 
     private Set<OWLAnnotation> currentAnnotations;
 
+    @Deprecated
     public void setUp(OWLOntologyManager man, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
-        this.man = man;
+        setUp(ontology, configuration);
+    }
+
+    public void setUp(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+        this.man = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         this.configuration = configuration;
         this.dataFactory = man.getOWLDataFactory();

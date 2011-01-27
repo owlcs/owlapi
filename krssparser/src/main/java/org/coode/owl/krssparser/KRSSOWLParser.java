@@ -34,7 +34,7 @@ public class KRSSOWLParser extends AbstractOWLParser {
             else {
                 parser = new KRSSParser(getInputStream(documentSource.getDocumentIRI()));
             }
-            parser.setOntology(ontology, getOWLOntologyManager().getOWLDataFactory());
+            parser.setOntology(ontology, ontology.getOWLOntologyManager().getOWLDataFactory());
             parser.parse();
             return format;
         }

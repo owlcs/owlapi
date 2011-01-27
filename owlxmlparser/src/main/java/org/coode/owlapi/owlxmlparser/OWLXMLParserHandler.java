@@ -55,8 +55,14 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     private OWLOntologyLoaderConfiguration configuration;
 
+
+    @Deprecated
     public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology) {
         this(owlOntologyManager, ontology, null, new OWLOntologyLoaderConfiguration());
+    }
+
+    public OWLXMLParserHandler(OWLOntology ontology) {
+        this(ontology, null, new OWLOntologyLoaderConfiguration());
     }
 
     /**
@@ -65,9 +71,15 @@ public class OWLXMLParserHandler extends DefaultHandler {
      * @param owlOntologyManager The manager that should be used to obtain a data factory,
      * imported ontologies etc.
      * @param ontology The ontology that the XML representation will be parsed into.
+     * @deprecated
      */
+    @Deprecated
     public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         this(owlOntologyManager, ontology, null, configuration);
+    }
+
+    public OWLXMLParserHandler(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+        this(ontology, null, configuration);
     }
 
 
@@ -88,25 +100,26 @@ public class OWLXMLParserHandler extends DefaultHandler {
         bases.push(base);
     }
 
+    @Deprecated
     public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLElementHandler<?> topHandler) {
         this(owlOntologyManager, ontology, topHandler, new OWLOntologyLoaderConfiguration());
     }
 
 
-    /**
+    public OWLXMLParserHandler(OWLOntology ontology, OWLElementHandler<?> topHandler) {
+        this(ontology, topHandler, new OWLOntologyLoaderConfiguration());
+    }
+
+     /**
      * Creates an OWLXML handler with the specified top level handler.  This allows OWL/XML
      * representations of axioms to be embedded in abitrary XML documents e.g. DIG 2.0 documents.
      * (The default handler behaviour expects the top level element to be an Ontology
      * element).
      *
-     * @param owlOntologyManager The manager that should be used to obtain a data factory,
-     * imported ontologies etc.
      * @param ontology The ontology object that the XML representation should be parsed into.
-     * @param topHandler The handler for top level elements - may be <code>null</code>, in which
-     * case the parser will expect an Ontology element to be the root element.
      */
-    public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLElementHandler<?> topHandler, OWLOntologyLoaderConfiguration configuration) {
-        this.owlOntologyManager = owlOntologyManager;
+    public OWLXMLParserHandler(OWLOntology ontology, OWLElementHandler<?> topHandler, OWLOntologyLoaderConfiguration configuration) {
+        this.owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         this.bases = new Stack<URI>();
         this.configuration = configuration;
@@ -664,6 +677,24 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 return new SWRLSameIndividualAtomElementHandler(handler);
             }
         });
+    }
+
+    /**
+     * Creates an OWLXML handler with the specified top level handler.  This allows OWL/XML
+     * representations of axioms to be embedded in abitrary XML documents e.g. DIG 2.0 documents.
+     * (The default handler behaviour expects the top level element to be an Ontology
+     * element).
+     *
+     * @param owlOntologyManager The manager that should be used to obtain a data factory,
+     * imported ontologies etc.
+     * @param ontology The ontology object that the XML representation should be parsed into.
+     * @param topHandler The handler for top level elements - may be <code>null</code>, in which
+     * case the parser will expect an Ontology element to be the root element.
+     * @deprecated
+     */
+    @Deprecated
+    public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLElementHandler<?> topHandler, OWLOntologyLoaderConfiguration configuration) {
+        this(ontology, topHandler, configuration);
     }
 
     public OWLOntologyLoaderConfiguration getConfiguration() {

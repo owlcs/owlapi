@@ -47,6 +47,7 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
 
         // First check for object property chain

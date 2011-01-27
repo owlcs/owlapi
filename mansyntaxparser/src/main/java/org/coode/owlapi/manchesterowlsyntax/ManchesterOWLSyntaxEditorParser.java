@@ -2738,8 +2738,12 @@ public class ManchesterOWLSyntaxEditorParser {
         }
     }
 
-
+    @Deprecated
     public ManchesterOWLSyntaxOntologyFormat parseOntology(OWLOntologyManager manager, OWLOntology ont) throws ParserException, UnloadableImportException {
+        return parseOntology(ont);
+    }
+
+    public ManchesterOWLSyntaxOntologyFormat parseOntology(OWLOntology ont) throws ParserException, UnloadableImportException {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
         OWLOntologyID ontologyID = new OWLOntologyID();
         Set<AddImport> imports = new HashSet<AddImport>();
@@ -2751,7 +2755,7 @@ public class ManchesterOWLSyntaxEditorParser {
             if (section.equals(ONTOLOGY)) {
                 ManchesterOWLSyntaxOntologyHeader header = parseOntologyHeader(false);
                 for (OWLImportsDeclaration decl : header.getImportsDeclarations()) {
-                    manager.makeLoadImportRequest(decl, configuration);
+                    ont.getOWLOntologyManager().makeLoadImportRequest(decl, configuration);
                     imports.add(new AddImport(ont, decl));
                 }
                 for (OWLAnnotation anno : header.getAnnotations()) {
@@ -2783,7 +2787,7 @@ public class ManchesterOWLSyntaxEditorParser {
             else if (section.equalsIgnoreCase(IMPORT)) {
                 OWLImportsDeclaration decl = parseImportsDeclaration(ont);
                 imports.add(new AddImport(ont, decl));
-                manager.makeLoadImportRequest(decl, configuration);
+                ont.getOWLOntologyManager().makeLoadImportRequest(decl, configuration);
             }
             else if (section.equalsIgnoreCase(PREFIX)) {
                 Map<String, IRI> nsMap = parsePrefixDeclaration();
@@ -2828,7 +2832,7 @@ public class ManchesterOWLSyntaxEditorParser {
             changes.add(new AddAxiom(ont, pair.getAxiom()));
         }
         changes.add(new SetOntologyID(ont, ontologyID));
-        manager.applyChanges(changes);
+        ont.getOWLOntologyManager().applyChanges(changes);
         ManchesterOWLSyntaxOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
         format.copyPrefixesFrom(pm);
         return format;

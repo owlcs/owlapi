@@ -68,9 +68,9 @@ public class OBOConsumer implements OBOParserHandler {
     private Map<String, IRI> uriCache;
 
 
-    public OBOConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+    public OBOConsumer(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         this.configuration = configuration;
-        this.owlOntologyManager = owlOntologyManager;
+        this.owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         defaultNamespace = OBOVocabulary.ONTOLOGY_URI_BASE;
         intersectionOfOperands = new HashSet<OWLClassExpression>();
@@ -78,6 +78,10 @@ public class OBOConsumer implements OBOParserHandler {
         uriCache = new HashMap<String, IRI>();
         loadBuiltinURIs();
         setupTagHandlers();
+    }
+
+    public OBOConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+        this(ontology, configuration);
     }
 
 

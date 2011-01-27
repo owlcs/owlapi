@@ -25,8 +25,14 @@ public interface OWLParser {
     /**
      * Sets the <code>OWLOntologyManager</code> which should be used to load
      * imports etc.
-     * @param owlOntologyManager
+     * @param owlOntologyManager The ontology manager to be set
+     * @deprecated Each <code>OWLOntology</code> contains a reference to its manager.  This method is no longer
+     * necessary.  Parsers will obtain the manager from the ontology in the various parse methods i.e.
+     * {@link #parse(OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)},
+     * {@link #parse(OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)},
+     * {@link #parse(OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration)}
      */
+    @Deprecated
     void setOWLOntologyManager(OWLOntologyManager owlOntologyManager);
 
     /**

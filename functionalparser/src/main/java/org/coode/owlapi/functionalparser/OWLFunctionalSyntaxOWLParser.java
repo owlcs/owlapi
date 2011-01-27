@@ -36,7 +36,7 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
             else {
                 parser = new OWLFunctionalSyntaxParser(getInputStream(documentSource.getDocumentIRI()));
             }
-            parser.setUp(getOWLOntologyManager(), ontology, configuration);
+            parser.setUp(ontology, configuration);
             return parser.parse();
         }
         catch (ParseException e) {

@@ -73,6 +73,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      * Gets a list of parsers that this factory uses when it tries to
      * create an ontology from a concrete representation.
      */
+    @SuppressWarnings("deprecation")
     public List<OWLParser> getParsers() {
         List<OWLParser> parsers = new ArrayList<OWLParser>();
         List<OWLParserFactory> factories = OWLParserFactoryRegistry.getInstance().getParserFactories();
