@@ -158,7 +158,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean isAnonymous() {
-        return getOntologyID().isAnonymous();
+        return ontologyID.isAnonymous();
     }
 
     @Override
@@ -167,7 +167,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             return 0;
         }
         OWLOntology other = (OWLOntology) object;
-        return getOntologyID().compareTo(other.getOntologyID());
+        return ontologyID.compareTo(other.getOntologyID());
     }
 
 
