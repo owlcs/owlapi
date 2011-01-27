@@ -104,7 +104,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 			.getLogger(LockingOWLOntologyManagerImpl.class.getName());
 	private Map<OWLOntologyID, OWLOntology> ontologiesByID;
 	private Map<OWLOntologyID, IRI> documentIRIsByID;
-	private Map<OWLOntology, OWLOntologyFormat> ontologyFormatsByOntology;
+	private Map<OWLOntologyID, OWLOntologyFormat> ontologyFormatsByOntology;
 	private ConcurrentHashMap<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration;
 	private List<OWLOntologyIRIMapper> documentMappers;
 	private List<OWLOntologyFactory> ontologyFactories;
@@ -116,7 +116,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	private int importsLoadCount = 0;
 	private boolean silentMissingImportsHandling;
 	private final OWLDataFactory dataFactory;
-	private Map<OWLOntology, Set<OWLOntology>> importsClosureCache;
+	private Map<OWLOntologyID, Set<OWLOntology>> importsClosureCache;
 	private OWLOntologyManagerProperties properties;
 	private List<MissingImportListener> missingImportsListeners;
 	private List<OWLOntologyLoaderListener> loaderListeners;
@@ -316,11 +316,11 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	}
 
 	public Set<OWLOntology> getImportsClosure(OWLOntology ontology) {
-		Set<OWLOntology> ontologies = importsClosureCache.get(ontology);
+		Set<OWLOntology> ontologies = importsClosureCache.get(ontology.getOntologyID());
 		if (ontologies == null) {
 			ontologies = new HashSet<OWLOntology>();
 			getImportsClosure(ontology, ontologies);
-			importsClosureCache.put(ontology, ontologies);
+			importsClosureCache.put(ontology.getOntologyID(), ontologies);
 		}
 		return CollectionFactory.getCopyOnRequestSet(ontologies);
 	}
@@ -542,11 +542,11 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	 *            The format of the ontology
 	 */
 	public void setOntologyFormat(OWLOntology ontology, OWLOntologyFormat format) {
-		ontologyFormatsByOntology.put(ontology, format);
+		ontologyFormatsByOntology.put(ontology.getOntologyID(), format);
 	}
 
 	public OWLOntologyFormat getOntologyFormat(OWLOntology ontology) {
-		return ontologyFormatsByOntology.get(ontology);
+		return ontologyFormatsByOntology.get(ontology.getOntologyID());
 	}
 
 	public OWLOntology createOntology() throws OWLOntologyCreationException {
@@ -783,7 +783,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 
 	public void removeOntology(OWLOntology ontology) {
 		ontologiesByID.remove(ontology.getOntologyID());
-		ontologyFormatsByOntology.remove(ontology);
+		ontologyFormatsByOntology.remove(ontology.getOntologyID());
 		documentIRIsByID.remove(ontology.getOntologyID());
 		for (Iterator<Map.Entry<OWLImportsDeclaration, OWLOntologyID>> it = ontologyIDsByImportsDeclaration
 				.entrySet().iterator(); it.hasNext();) {
@@ -835,6 +835,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 		}
 		ontologiesByID.remove(oldID);
 		ontologiesByID.put(newID, ont);
+        ontologyFormatsByOntology.put(newID, ontologyFormatsByOntology.remove(oldID));
 		IRI documentIRI = documentIRIsByID.remove(oldID);
 		if (documentIRI != null) {
 			documentIRIsByID.put(newID, documentIRI);

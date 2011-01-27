@@ -1426,6 +1426,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         OWLOntology other = (OWLOntology) obj;
         return ontologyID.equals(other.getOntologyID());
     }
+    
+    @Override
+    public int hashCode() {
+    	return ontologyID.hashCode();
+    }
 
 
     private class OWLEntityReferenceChecker implements OWLEntityVisitor {

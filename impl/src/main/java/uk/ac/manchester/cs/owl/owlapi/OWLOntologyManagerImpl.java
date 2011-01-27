@@ -87,7 +87,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     private Map<OWLOntologyID, IRI> documentIRIsByID;
 
-    private Map<OWLOntology, OWLOntologyFormat> ontologyFormatsByOntology;
+    private Map<OWLOntologyID, OWLOntologyFormat> ontologyFormatsByOntology;
 
     private Map<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration;
 
@@ -107,7 +107,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     private OWLDataFactory dataFactory;
 
-    private Map<OWLOntology, Set<OWLOntology>> importsClosureCache;
+    private Map<OWLOntologyID, Set<OWLOntology>> importsClosureCache;
 
     private OWLOntologyManagerProperties properties;
 
@@ -129,7 +129,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         properties = new OWLOntologyManagerProperties();
         ontologiesByID = new HashMap<OWLOntologyID, OWLOntology>();
         documentIRIsByID = new HashMap<OWLOntologyID, IRI>();
-        ontologyFormatsByOntology = new HashMap<OWLOntology, OWLOntologyFormat>();
+        ontologyFormatsByOntology = new HashMap<OWLOntologyID, OWLOntologyFormat>();
         documentMappers = new ArrayList<OWLOntologyIRIMapper>();
         ontologyFactories = new ArrayList<OWLOntologyFactory>();
         ontologyIDsByImportsDeclaration = new HashMap<OWLImportsDeclaration, OWLOntologyID>();
@@ -137,7 +137,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         installDefaultOntologyFactories();
         broadcastChanges = true;
         ontologyStorers = new ArrayList<OWLOntologyStorer>();
-        importsClosureCache = new HashMap<OWLOntology, Set<OWLOntology>>();
+        importsClosureCache = new HashMap<OWLOntologyID, Set<OWLOntology>>();
         missingImportsListeners = new ArrayList<MissingImportListener>();
         loaderListeners = new ArrayList<OWLOntologyLoaderListener>();
         progressListeners = new ArrayList<OWLOntologyChangeProgressListener>();
@@ -291,12 +291,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     public Set<OWLOntology> getImportsClosure(OWLOntology ontology) {
-        Set<OWLOntology> ontologies = importsClosureCache.get(ontology);
+        Set<OWLOntology> ontologies = importsClosureCache.get(ontology.getOntologyID());
         if (ontologies == null) {
             ontologies = new HashSet<OWLOntology>();
             getImportsClosure(ontology, ontologies);
             // store the wrapped set
-            importsClosureCache.put(ontology, ontologies);
+            importsClosureCache.put(ontology.getOntologyID(), ontologies);
         }
         // the returned set can be mutated, but changes will not be propagated back
         return CollectionFactory.getCopyOnRequestSet(ontologies);
@@ -501,12 +501,14 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
      * @param format The format of the ontology
      */
     public void setOntologyFormat(OWLOntology ontology, OWLOntologyFormat format) {
-        ontologyFormatsByOntology.put(ontology, format);
+        OWLOntologyID ontologyID = ontology.getOntologyID();
+		ontologyFormatsByOntology.put(ontologyID, format);
     }
 
 
     public OWLOntologyFormat getOntologyFormat(OWLOntology ontology) {
-        return ontologyFormatsByOntology.get(ontology);
+        OWLOntologyID ontologyID = ontology.getOntologyID();
+		return ontologyFormatsByOntology.get(ontologyID);
     }
 
 
@@ -709,7 +711,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     public void removeOntology(OWLOntology ontology) {
         ontologiesByID.remove(ontology.getOntologyID());
-        ontologyFormatsByOntology.remove(ontology);
+        ontologyFormatsByOntology.remove(ontology.getOntologyID());
         documentIRIsByID.remove(ontology.getOntologyID());
         resetImportsClosureCache();
     }
@@ -749,6 +751,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         }
         ontologiesByID.remove(oldID);
         ontologiesByID.put(newID, ont);
+        ontologyFormatsByOntology.put(newID, ontologyFormatsByOntology.remove(oldID));
+        
         IRI documentIRI = documentIRIsByID.remove(oldID);
         if (documentIRI != null) {
             documentIRIsByID.put(newID, documentIRI);
