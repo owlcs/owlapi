@@ -1,4 +1,19 @@
 ----------------------------------------------------------------------
+Release 3.2.1
+----------------------------------------------------------------------
+
+This version of the API includes various bug fixes
+
+- Issues with -INF as serialisation for -infinity for floating point literals. Fixed.
+- Null pointer exception can be thrown by OBO parser (3162800). Fixed.
+- OWLOntologyManager.loadOntology() can throw unchecked exceptions (IllegalArgumentException) (3158293). Fixed.
+- OWLOntologyAlreadyExistsException get wrapped as as a parse exception by the OBO parser. (3165446). Fixed.
+- OWLRDFConsumer (OWL RDFParser) used owl:Datatype instead of rdfs:Datatype. Fixed.
+- OWLOntology.getDisjointUnionAxioms() does not work as expected. (3165000). Fixed.
+- Anonymous ontologies do not get typed as owl:Ontology during saving in RDF. (3158177). Fixed.
+- OWLOntology hashCode is not implemented properly. (3165583). Fixed.
+
+----------------------------------------------------------------------
 Release 3.2.0
 ----------------------------------------------------------------------
 
