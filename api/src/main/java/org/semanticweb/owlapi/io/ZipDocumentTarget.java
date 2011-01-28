@@ -31,13 +31,14 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
 
 
     public boolean isWriterAvailable() {
-        return true;
+        return false;
     }
 
 
-    public Writer getWriter() throws IOException {
-        return new BufferedWriter(new OutputStreamWriter(getOutputStream(), "UTF-8"));
+    public Writer getWriter() {
+        throw new OWLRuntimeException("Writer not available.  getWriter() should not be called if isWriterAvailable() returns false.");
     }
+
 
 
     public boolean isOutputStreamAvailable() {
@@ -46,13 +47,15 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
 
 
     public OutputStream getOutputStream() throws IOException {
-        if(file.getParentFile().mkdirs()) {
+        File parentFile = file.getAbsoluteFile().getParentFile();
+        
+		if(parentFile.exists() || parentFile.mkdirs()) {
             ZipOutputStream os = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
             os.putNextEntry(new ZipEntry("ontology.txt"));
             return os;
         }
         else {
-            throw new IOException("Could not create directories: " + file.getParentFile());
+            throw new IOException("Could not create directories: " + parentFile);
         }
     }
 

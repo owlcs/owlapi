@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorer;
 public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
 
-    public void storeOntology(OWLOntologyManager manager, OWLOntology ontology, IRI documentIRI, OWLOntologyFormat ontologyFormat) throws
+    public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology, IRI documentIRI, OWLOntologyFormat ontologyFormat) throws
             OWLOntologyStorageException {
         try {
             if (!documentIRI.isAbsolute()) {
@@ -98,13 +98,13 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     }
 
 
-    public void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OWLOntologyDocumentTarget target,
+    public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OWLOntologyDocumentTarget target,
                               OWLOntologyFormat format) throws OWLOntologyStorageException {
         if (target.isWriterAvailable()) {
             try {
                 Writer writer = target.getWriter();
                 storeOntology(manager, ontology, writer, format);
-                writer.close();
+                writer.flush();
             }
             catch (IOException e) {
                 throw new OWLOntologyStorageException(e);
@@ -114,19 +114,12 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             try {
                 writer = new BufferedWriter(new OutputStreamWriter(target.getOutputStream(), "UTF-8"));
                 storeOntology(manager, ontology, writer, format);
+                writer.flush();
 
             }
             catch (IOException e) {
                 throw new OWLOntologyStorageException(e);
             }
-            finally {
-				try {
-					writer.close();
-				} catch (IOException e) {
-					// no operation
-				}
-            }
-
         } else if (target.isDocumentIRIAvailable()) {
             storeOntology(manager, ontology, target.getDocumentIRI(), format);
         } else {
