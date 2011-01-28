@@ -10,7 +10,8 @@
           the zip file produced by the build.  For release builds this
           should be of the format <major>.<minor>.<revision>.  Note that the svn
             revision number will automatically be appended to this build number! -->
-    <property name="version" value="3.2.1"/>
+
+    <property name="version" value="3.2.2"/>
 
     <!-- The directory that contains the jar file dependencies for
          the class path and building a release -->
@@ -60,29 +61,22 @@
             <include name="change/${sourcepath}"/>
             <include name="debugging/${sourcepath}"/>
             <include name="dlsyntax/${sourcepath}"/>
-            <include name="functionalparser/${sourcepath}"/>
-            <include name="functionalrenderer/${sourcepath}"/>
+            <include name="functional/${sourcepath}"/>
             <include name="impl/${sourcepath}"/>
-            <include name="krssparser/${sourcepath}"/>
-            <include name="krssrenderer/${sourcepath}"/>
-            <include name="latexrenderer/${sourcepath}"/>
-            <include name="mansyntaxparser/${sourcepath}"/>
-            <include name="mansyntaxrenderer/${sourcepath}"/>
+            <include name="krss/${sourcepath}"/>
+            <include name="latex/${sourcepath}"/>
+            <include name="mansyntax/${sourcepath}"/>
             <include name="metrics/${sourcepath}"/>
             <include name="modularity/${sourcepath}"/>
             <include name="normalform/${sourcepath}"/>
-            <include name="oboparser/${sourcepath}"/>
-            <include name="oborenderer/${sourcepath}"/>
+            <include name="obo/${sourcepath}"/>
             <include name="owlexpression/${sourcepath}"/>
-            <include name="owlxmlparser/${sourcepath}"/>
-            <include name="owlxmlrenderer/${sourcepath}"/>
+            <include name="owlxml/${sourcepath}"/>
             <include name="profiles/${sourcepath}"/>
             <include name="rdfapi/${sourcepath}"/>
-            <include name="rdfxmlparser/${sourcepath}"/>
-            <include name="rdfxmlrenderer/${sourcepath}"/>
+            <include name="rdfxml/${sourcepath}"/>
             <include name="reasoner/${sourcepath}"/>
-            <include name="turtlerenderer/${sourcepath}"/>
-            <include name="turtleparser/${sourcepath}"/>
+            <include name="turtle/${sourcepath}"/>
             <include name="util/${sourcepath}"/>
         </javac>
     </target>
@@ -110,36 +104,29 @@
         <mkdir dir="${javadocdir}"/>
         <javadoc destdir="${javadocdir}" verbose="no" windowtitle="The OWL API">
             <fileset dir="./.." defaultexcludes="yes">
-                <include name="api/${sourcepath}"/>
+            	<include name="api/${sourcepath}"/>
                 <include name="api/javadoc"/>
-                <include name="apibinding/${sourcepath}"/>
-                <include name="change/${sourcepath}"/>
-                <include name="debugging/${sourcepath}"/>
-                <include name="dlsyntax/${sourcepath}"/>
-                <include name="impl/${sourcepath}"/>
-                <include name="functionalparser/${sourcepath}"/>
-                <include name="functionalrenderer/${sourcepath}"/>
-                <include name="krssparser/${sourcepath}"/>
-                <include name="krssrenderer/${sourcepath}"/>
-                <include name="latexrenderer/${sourcepath}"/>
-                <include name="mansyntaxparser/${sourcepath}"/>
-                <include name="mansyntaxrenderer/${sourcepath}"/>
-                <include name="metrics/${sourcepath}"/>
-                <include name="modularity/${sourcepath}"/>
-                <include name="normalform/${sourcepath}"/>
-                <include name="oboparser/${sourcepath}"/>
-                <include name="oborenderer/${sourcepath}"/>
-                <include name="owlexpression/${sourcepath}"/>
-                <include name="owlxmlparser/${sourcepath}"/>
-                <include name="owlxmlrenderer/${sourcepath}"/>
-                <include name="profiles/${sourcepath}"/>
-                <include name="rdfapi/${sourcepath}"/>
-                <include name="rdfxmlparser/${sourcepath}"/>
-                <include name="rdfxmlrenderer/${sourcepath}"/>
-                <include name="turtleparser/${sourcepath}"/>
-                <include name="turtlerenderer/${sourcepath}"/>
-                <include name="reasoner/${sourcepath}"/>
-                <include name="util/${sourcepath}"/>
+	            <include name="apibinding/${sourcepath}"/>
+	            <include name="change/${sourcepath}"/>
+	            <include name="debugging/${sourcepath}"/>
+	            <include name="dlsyntax/${sourcepath}"/>
+	            <include name="functional/${sourcepath}"/>
+	            <include name="impl/${sourcepath}"/>
+	            <include name="krss/${sourcepath}"/>
+	            <include name="latex/${sourcepath}"/>
+	            <include name="mansyntax/${sourcepath}"/>
+	            <include name="metrics/${sourcepath}"/>
+	            <include name="modularity/${sourcepath}"/>
+	            <include name="normalform/${sourcepath}"/>
+	            <include name="obo/${sourcepath}"/>
+	            <include name="owlexpression/${sourcepath}"/>
+	            <include name="owlxml/${sourcepath}"/>
+	            <include name="profiles/${sourcepath}"/>
+	            <include name="rdfapi/${sourcepath}"/>
+	            <include name="rdfxml/${sourcepath}"/>
+	            <include name="reasoner/${sourcepath}"/>
+	            <include name="turtle/${sourcepath}"/>
+	            <include name="util/${sourcepath}"/>
             </fileset>
         </javadoc>
         <copy todir="${javadocdir}/doc-files">
@@ -160,29 +147,22 @@
             <fileset dir="../change/src/main/java"/>
             <fileset dir="../debugging/src/main/java"/>
             <fileset dir="../dlsyntax/src/main/java"/>
-            <fileset dir="../functionalparser/src/main/java"/>
-            <fileset dir="../functionalrenderer/src/main/java"/>
+            <fileset dir="../functional/src/main/java"/>
             <fileset dir="../impl/src/main/java"/>
-            <fileset dir="../krssparser/src/main/java"/>
-            <fileset dir="../krssrenderer/src/main/java"/>
-            <fileset dir="../latexrenderer/src/main/java"/>
-            <fileset dir="../mansyntaxparser/src/main/java"/>
-            <fileset dir="../mansyntaxrenderer/src/main/java"/>
+            <fileset dir="../krss/src/main/java"/>
+            <fileset dir="../latex/src/main/java"/>
+            <fileset dir="../mansyntax/src/main/java"/>
             <fileset dir="../metrics/src/main/java"/>
             <fileset dir="../modularity/src/main/java"/>
             <fileset dir="../normalform/src/main/java"/>
-            <fileset dir="../oboparser/src/main/java"/>
-            <fileset dir="../oborenderer/src/main/java"/>
+            <fileset dir="../obo/src/main/java"/>
             <fileset dir="../owlexpression/src/main/java"/>
-            <fileset dir="../owlxmlparser/src/main/java"/>
-            <fileset dir="../owlxmlrenderer/src/main/java"/>
+            <fileset dir="../owlxml/src/main/java"/>
             <fileset dir="../profiles/src/main/java"/>
             <fileset dir="../rdfapi/src/main/java"/>
-            <fileset dir="../rdfxmlparser/src/main/java"/>
-            <fileset dir="../rdfxmlrenderer/src/main/java"/>
+            <fileset dir="../rdfxml/src/main/java"/>
             <fileset dir="../reasoner/src/main/java"/>
-            <fileset dir="../turtlerenderer/src/main/java"/>
-            <fileset dir="../turtleparser/src/main/java"/>
+            <fileset dir="../turtle/src/main/java"/>
             <fileset dir="../util/src/main/java"/>
         </jar>
     </target>
