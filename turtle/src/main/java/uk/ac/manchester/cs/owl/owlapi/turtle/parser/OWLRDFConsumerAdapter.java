@@ -1,0 +1,119 @@
+package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
+
+import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
+import org.coode.owlapi.rdfxml.parser.OWLRDFConsumer;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.xml.sax.SAXException;
+
+/*
+ * Copyright (C) 2007, University of Manchester
+ *
+ * Modifications to the initial code base are copyright of their
+ * respective authors, or their employers as appropriate.  Authorship
+ * of the modifications may be determined from the ChangeLog placed at
+ * the end of this file.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
+
+/**
+ * Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 24-Feb-2008<br><br>
+ */
+public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
+
+
+    public OWLRDFConsumerAdapter(OWLOntologyManager owlOntologyManager, OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
+        this(ontology, checker, configuration);
+    }
+
+    public OWLRDFConsumerAdapter(OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
+        super(ontology, checker, configuration);
+    }
+
+    @SuppressWarnings("unused")
+    public void handlePrefixDirective(String prefixName, String prefix) {
+        
+    }
+
+
+    public void handleBaseDirective(String base) {
+//        setXMLBase(base);
+    }
+
+    @SuppressWarnings("unused")
+    public void handleComment(String comment) {
+
+    }
+
+
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+        try {
+            statementWithResourceValue(subject.toString(), predicate.toString(), object.toString());
+        }
+        catch (SAXException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+
+    public void handleTriple(IRI subject, IRI predicate, String object) {
+        try {
+            statementWithLiteralValue(subject.toString(), predicate.toString(), object, null, null);
+        }
+        catch (SAXException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+
+    public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
+        try {
+            statementWithLiteralValue(subject.toString(), predicate.toString(), object, lang, null);
+        }
+        catch (SAXException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+
+    public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
+        try {
+            statementWithLiteralValue(subject.toString(), predicate.toString(), object, null, datatype.toString());
+        }
+        catch (SAXException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+
+    public void handleEnd() {
+        try {
+            endModel();
+        }
+        catch (SAXException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+}
+
+

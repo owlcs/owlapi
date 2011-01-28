@@ -1,0 +1,66 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>owlapi</groupId>
+    <artifactId>rdfxmlparser</artifactId>
+    <packaging>jar</packaging>
+    <version>3.0.0</version>
+    <name>RDF/XML Parser</name>
+
+    <parent>
+        <groupId>owlapi</groupId>
+        <artifactId>owlapi-parent</artifactId>
+        <version>3.0.0</version>
+    </parent>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>owlapi</groupId>
+            <artifactId>api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>owlapi</groupId>
+            <artifactId>rdfapi</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>owlapi</groupId>
+            <artifactId>impl</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>../sources</outputDirectory>
+                    <finalName>owlapi-${artifactId}</finalName>
+                    <attach>false</attach>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <ReleaseVersionNumber>${project.version}</ReleaseVersionNumber>
+                        </manifestEntries>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

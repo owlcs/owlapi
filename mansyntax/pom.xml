@@ -1,0 +1,51 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>owlapi</groupId>
+    <artifactId>mansyntaxparser</artifactId>
+    <packaging>jar</packaging>
+    <version>3.0.0</version>
+    <name>Manchester Syntax Parser</name>
+
+    <parent>
+        <groupId>owlapi</groupId>
+        <artifactId>owlapi-parent</artifactId>
+        <version>3.0.0</version>
+    </parent>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>owlapi</groupId>
+            <artifactId>api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>owlapi</groupId>
+            <artifactId>owlexpression</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>owlapi</groupId>
+            <artifactId>change</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>owlapi</groupId>
+            <artifactId>util</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>owlapi</groupId>
+            <artifactId>impl</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+          </dependency>
+
+    </dependencies>
+
+</project>

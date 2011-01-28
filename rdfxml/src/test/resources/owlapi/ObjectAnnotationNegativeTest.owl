@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+        <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+        <!ENTITY owl11 "http://www.w3.org/2006/12/owl11#" >
+        <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+        <!ENTITY owl11xml "http://www.w3.org/2006/12/owl11-xml#" >
+        <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+        <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+        <!ENTITY ObjectAnnotationTest "http://www.semanticweb.org/ontologies/2007/6/ObjectAnnotationTest.owl#" >
+        ]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/ontologies/2007/6/ObjectAnnotationTest.owl#"
+         xml:base="http://www.semanticweb.org/ontologies/2007/6/ObjectAnnotationTest.owl"
+         xmlns:owl11="http://www.w3.org/2006/12/owl11#"
+         xmlns:owl11xml="http://www.w3.org/2006/12/owl11-xml#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:ObjectAnnotationTest="http://www.semanticweb.org/ontologies/2007/6/ObjectAnnotationTest.owl#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#">
+    <owl:Ontology rdf:about=""/>
+
+
+    <!-- http://www.w3.org/2002/07/owlapi#Thing -->
+
+    <owl:Class rdf:about="&owl;Thing"/>
+
+
+    <!--
+   ///////////////////////////////////////////////////////////////////////////////////////
+   //
+   // Individuals
+   //
+   ///////////////////////////////////////////////////////////////////////////////////////
+    -->
+
+
+    <!-- http://www.semanticweb.org/ontologies/2007/6/ObjectAnnotationTest.owlapi#a -->
+
+    <rdf:Description rdf:about="#a">
+        <rdfs:seeAlso
+                rdf:resource="http://www.semanticweb.org/ontologies/2007/6/ObjectAnnotationTest.owl#a"/>
+    </rdf:Description>
+
+
+    <!-- http://www.semanticweb.org/ontologies/2007/6/ObjectAnnotationTest.owlapi#b -->
+
+    <rdf:Description rdf:about="#b"/>
+</rdf:RDF>

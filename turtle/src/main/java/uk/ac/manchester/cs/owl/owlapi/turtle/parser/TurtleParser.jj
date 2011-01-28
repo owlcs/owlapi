@@ -1,0 +1,723 @@
+options {
+JAVA_UNICODE_ESCAPE=true;
+    STATIC=false;
+    LOOKAHEAD=2;
+    //DEBUG_TOKEN_MANAGER=true;
+    //DEBUG_PARSER=true;
+}
+
+PARSER_BEGIN(TurtleParser)
+
+package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
+
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
+import org.semanticweb.owlapi.model.*;
+import java.net.*;
+import java.util.*;
+import java.io.Reader;
+import java.io.InputStream;
+import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
+import org.coode.string.EscapeUtils;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
+
+public class TurtleParser implements AnonymousNodeChecker {
+
+    private OWLDataFactory dataFactory;
+
+    private Map<String, IRI> string2IRI;
+
+    private boolean ignoreAnnotationsAndDeclarations = false;
+
+    private String base;
+
+    private int blankNodeId;
+
+    private TripleHandler handler;
+
+    private DefaultPrefixManager pm = new DefaultPrefixManager();
+
+
+    public TurtleParser(Reader reader, TripleHandler handler, String base) {
+        this(reader);
+        this.handler = handler;
+        this.base = base;
+        string2IRI = new HashMap<String, IRI>();
+        blankNodeId = 0;
+        pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
+    }
+
+    public TurtleParser(InputStream is, TripleHandler handler, String base) {
+        this(is);
+        this.handler = handler;
+        this.base = base;
+        string2IRI = new HashMap<String, IRI>();
+        blankNodeId = 0;
+        pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
+    }
+
+    public DefaultPrefixManager getPrefixManager() {
+        return pm;
+    }
+
+    public void setTripleHandler(TripleHandler handler) {
+        this.handler = handler;
+    }
+
+    public boolean isAnonymousNode(String iri) {
+        return iri.indexOf("genid") != -1;
+    }
+
+
+    public boolean isAnonymousNode(IRI iri) {
+        return iri.toString().indexOf("genid") != -1;
+    }
+
+    public boolean isAnonymousSharedNode(String iri) {
+        return iri.indexOf("genid-nodeid") != -1;
+    }
+
+    protected IRI getNextBlankNode(String id) {
+        IRI iri;
+        if(id == null) {
+            iri = getIRI("genid" + blankNodeId);
+            blankNodeId++;
+        }
+        else {
+            iri = getIRI("genid-nodeid-" + id);
+        }
+
+        return iri;
+    }
+
+    protected IRI getIRIFromQName(String qname) throws ParseException  {
+        int colonIndex = qname.indexOf(':');
+        if(colonIndex == -1) {
+            throw new ParseException("Not a valid qname (missing ':') " + qname);
+        }
+        String prefix = qname.substring(0, colonIndex + 1);
+        if(prefix.equals("_:")) {
+            return getIRI("genid" + qname.substring(colonIndex + 1));
+        }
+        if(!pm.containsPrefixMapping(prefix)) {
+            throw new ParseException("Prefix not declared: " + prefix);
+        }
+        return pm.getIRI(qname);
+    }
+
+    public IRI getIRI(String s) {
+         if(s.charAt(0) == '<') {
+            s = s.substring(1, s.length() - 1);
+        }
+
+        IRI iri = string2IRI.get(s);
+        if(iri == null) {
+                iri = IRI.create(s);
+          //      if(!iri.isAbsolute()) {
+          //          String iriString = iri.toString();
+          //          if(iri.getFragment() != null) {
+          //              iri = new IRI(base + iriString);
+          //          }
+          //          else {
+          //              if(base.endsWith("/")) {
+          //                  iri = new IRI(base + iriString);
+          //              }
+          //              else {
+          //                  iri = new IRI(base + "#" + iriString);
+          //              }
+          //          }
+          //
+          //      }
+                string2IRI.put(s, iri);
+        }
+        return iri;
+    }
+
+    public void setIgnoreAnnotationsAndDeclarations(boolean b) {
+        ignoreAnnotationsAndDeclarations = b;
+    }
+
+}
+
+PARSER_END(TurtleParser)
+
+SKIP: {" " | "\n" | "\t" | "\r"}
+
+SKIP:
+{
+    <COMMENT: "#" (~["\n"])*>
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+MORE : {
+    "\"": IN_STRING
+}
+
+<IN_STRING> MORE :
+{
+    <  ("\\\"")|~["\""] >
+}
+
+<IN_STRING> TOKEN:
+{
+    <STRING: "\""> : DEFAULT
+}
+
+MORE : {
+    "\"\"\"" : IN_LONG_STRING
+}
+
+<IN_LONG_STRING> MORE :
+{
+    <  ~[] >
+}
+
+
+<IN_LONG_STRING> TOKEN :
+{
+    <LONG_STRING: "\"\"\""> : DEFAULT
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+TOKEN:
+{
+    <DIGIT: ["0"-"9"]>
+}
+
+TOKEN:
+{
+    <INTEGER: ("+" | "-")? (<DIGIT>)+>
+}
+
+TOKEN:
+{
+    <DOUBLE: ("-" | "+") ? (<DIGIT>)+ "." (<DIGIT>)* (<EXPONENT> | "." (<DIGIT>)+ <EXPONENT> | (<DIGIT>)+ <EXPONENT>)>
+}
+
+TOKEN:
+{
+    <DECIMAL: ("-" | "+")? ( (<DIGIT>)+ "." (<DIGIT>)* | "." (<DIGIT>)+ | (<DIGIT>)+ )>
+}
+
+
+TOKEN:
+{
+    <EXPONENT: 	("e" | "E") ("-" | "+")? (<DIGIT>)+>
+}
+
+
+TOKEN:
+{
+    <OPENPAR: "(">
+}
+
+TOKEN:
+{
+    <CLOSEPAR: ")">
+}
+
+TOKEN:
+{
+    <OPEN_SQUARE_BRACKET: "[">
+}
+
+TOKEN:
+{
+    <CLOSE_SQUARE_BRACKET: "]">
+}
+
+
+
+TOKEN:
+{
+    <COMMA: ",">
+}
+
+TOKEN:
+{
+    <DOT: ".">
+}
+
+TOKEN:
+{
+    <SEMICOLON: ";">
+}
+
+TOKEN:
+{
+    <PREFIX: "@prefix">
+}
+
+TOKEN:
+{
+    <DOUBLE_CARET: "^^">
+}
+
+TOKEN:
+{
+    <BASE: "@base">
+}
+
+TOKEN:
+{
+    <AT: "@">
+}
+
+
+TOKEN:
+{
+    <A: "a">
+}
+
+
+TOKEN:
+{
+    <EMPTY_BLANK_NODE: <OPEN_SQUARE_BRACKET><CLOSE_SQUARE_BRACKET>>
+}
+
+TOKEN:
+{
+    <NODE_ID_START: "_:">
+}
+
+TOKEN:
+{
+    <TRUE: "true">
+}
+
+TOKEN:
+{
+    <FALSE: "false">
+}
+
+TOKEN:
+{
+    <SELECT: "SELECT">
+}
+
+TOKEN:
+{
+    <WHERE: "WHERE">
+}
+
+TOKEN:
+{
+    <FILTER: "FILTER">
+}
+
+TOKEN:
+{
+    <LETTER: ["a"-"z"] | ["A"-"Z"]>
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//
+// IRIs
+
+TOKEN:
+{
+    <FULLIRI: "<"(~[">", " "])*">">
+}
+
+TOKEN:
+{
+    <PNAME_NS: (<PN_PREFIX>)? ":">
+}
+
+
+TOKEN:
+{
+    <PN_LOCAL: ( <PN_CHARS_U> | ["0"-"9"] ) ((<PN_CHARS>|".")* <PN_CHARS>)?>
+}
+
+TOKEN:
+{
+    <PNAME_LN: <PNAME_NS> <PN_LOCAL>>
+}
+
+TOKEN:
+{
+    <PN_PREFIX: <PN_CHARS_BASE>((<PN_CHARS>|".")* <PN_CHARS>)?>
+}
+
+TOKEN:
+{
+    <PN_CHARS_BASE:   ["A"-"Z"]
+                    | ["a"-"z"]
+                    | ["\u00C0"-"\u00D6"]
+                    | ["\u00D8"-"\u00F6"]
+                    | ["\u00F8"-"\u02FF"]
+                    | ["\u0370"-"\u037D"]
+                    | ["\u037F"-"\u1FFF"]
+                    | ["\u200C"-"\u200D"]
+                    | ["\u2070"-"\u218F"]
+                    | ["\u2C00"-"\u2FEF"]
+                    | ["\u3001"-"\uD7FF"]
+                    | ["\uF900"-"\uFDCF"]
+                    | ["\uFDF0"-"\uFFFD"]>
+}
+
+
+TOKEN:
+{
+    <PN_CHARS:   <PN_CHARS_U>
+               | "-"
+               | ["0"-"9"]
+               | "\u00B7"
+               | ["\u0300"-"\u036F"]
+               | ["\u203F"-"\u2040"]>
+}
+
+TOKEN:
+{
+    <PN_CHARS_U: <PN_CHARS_BASE> | "_">
+}
+
+
+
+TOKEN:
+{
+    <NODEID: "_:"<PN_LOCAL>>
+}
+
+
+TOKEN:
+{
+    <ERROR: ~[]>
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+//TOKEN:
+//{
+//    <LONG_STRING: (<QUOTE><QUOTE><QUOTE>~["\""]<QUOTE><QUOTE><QUOTE>)>
+//}
+
+
+
+void parseDocument() :
+{
+}
+{
+    
+    (parseDirective()<DOT> | parseStatement()<DOT>)+<EOF> {handler.handleEnd();}
+}
+
+void parseDirective() :
+{
+}
+{
+    parsePrefixDirective() | parseBaseDirective()
+}
+
+void parsePrefixDirective() :
+{
+    Token t;
+    String prefix = "";
+    IRI ns;
+}
+{
+    <PREFIX> t=<PNAME_NS>{prefix=t.image;} ns=parseIRI() {
+        pm.setPrefix(prefix, ns.toString());
+        handler.handlePrefixDirective(prefix, ns.toString());
+    }
+}
+
+void parseBaseDirective() :
+{
+    IRI baseIRI;
+    Token t;
+}
+{
+    <BASE> t=<FULLIRI> {base = t.image.substring(1, t.image.length() - 1);} {
+        handler.handleBaseDirective(base);
+    }
+}
+
+void parseStatement() :
+{
+}
+{
+    parseTriples()
+}
+
+void parseTriples() :
+{
+    IRI subject;
+}
+{
+    subject = parseSubject() (parsePredicateObjectList(subject))?
+}
+
+IRI parseSubject() :
+{
+    IRI iri;
+}
+{
+    (iri=parseResource() | iri=parseBlankNode()) {
+        return iri;
+    }
+}
+
+IRI parseAbbreviatedIRI() :
+{
+    IRI iri;
+    Token t;
+}
+{
+    t=<PNAME_LN> {
+        return getIRIFromQName(t.image);
+    }
+}
+
+IRI parseIRI() :
+{
+    Token t;
+    IRI iri;
+}
+{
+    t=<FULLIRI> {return getIRI(t.image);}
+}
+
+IRI parseBlankNode() :
+{
+    IRI iri = null;
+    Token t;
+}
+{
+    (iri=parseNodeID()
+    |
+    <EMPTY_BLANK_NODE>{if(iri==null){iri = getNextBlankNode(null);}} (parsePredicateObjectList(iri))
+
+    |
+    <OPEN_SQUARE_BRACKET> ({if(iri==null){iri = getNextBlankNode(null);}} parsePredicateObjectList(iri) (<DOT>)?)? <CLOSE_SQUARE_BRACKET> {if (iri == null) {iri = getNextBlankNode(null); }}    
+    |
+    iri = parseCollection()) {
+        return iri;
+    }
+}
+
+IRI parseNodeID() :
+{
+    Token t;
+}
+{
+    t=<NODEID> {
+        return getNextBlankNode(t.image);
+    }
+}
+
+void parsePredicateObjectList(IRI subject) :
+{
+    IRI predicate;
+}
+{
+    (predicate=parseVerb() parseObjectList(subject, predicate) (<SEMICOLON> predicate=parseVerb() parseObjectList(subject, predicate) )*) (<SEMICOLON>)?
+}
+
+IRI parseVerb() :
+{
+    IRI iri;
+}
+{
+    (<A>{iri = OWLRDFVocabulary.RDF_TYPE.getIRI();} | iri=parsePredicate()) {
+        return iri;
+    }
+}
+
+IRI parsePredicate() :
+{
+    IRI iri;
+}
+{
+    iri=parseResource() {
+        return iri;
+    }
+}
+
+IRI parseResource() :
+{
+    IRI iri;
+}
+{
+    (iri=parseIRI() | iri=parseAbbreviatedIRI()) {
+        return iri;
+    }
+}
+
+
+void parseObjectList(IRI subject, IRI predicate) :
+{
+    
+}
+{
+    parseObject(subject, predicate) ( <COMMA> parseObject(subject, predicate) )*
+}
+
+void parseObject(IRI subject, IRI predicate) :
+{
+    IRI resObject;
+}
+{
+    (parseLiteral(subject, predicate) 
+    |
+    ((resObject=parseResource()
+    |
+    resObject=parseBlankNode())) {
+        handler.handleTriple(subject, predicate, resObject);
+    })
+}
+
+IRI parseCollection() :
+{
+    IRI iri;
+}
+{
+    <OPENPAR> iri=parseItemList() <CLOSEPAR> {
+        return iri;
+    }
+}
+
+IRI parseItemList() :
+{
+    //  _x  rdf:type rdf:List
+    //  _x  rdf:first
+    //  _x  rdf:next
+    IRI firstSubject = null;
+    IRI subject = null;
+    IRI type = OWLRDFVocabulary.RDF_TYPE.getIRI();
+    IRI first = OWLRDFVocabulary.RDF_FIRST.getIRI();
+    IRI rest = OWLRDFVocabulary.RDF_REST.getIRI();
+    IRI list = OWLRDFVocabulary.RDF_LIST.getIRI();
+    IRI nil = OWLRDFVocabulary.RDF_NIL.getIRI();
+}
+{
+    (
+    {
+        IRI prevSubject = subject;
+        subject=getNextBlankNode(null);
+        if(prevSubject != null) {
+            handler.handleTriple(prevSubject, rest, subject);
+        }
+        else {
+            firstSubject = subject;
+        }
+        handler.handleTriple(subject, type, list);
+    }
+        parseObject(subject, first))* {
+        // Terminate list
+        handler.handleTriple(subject, rest, nil);
+        return firstSubject;
+    }
+}
+
+
+void parseLiteral(IRI subject, IRI predicate) :
+{
+    String literal;
+    String lang = null;
+    IRI datatype = null;
+    Token t;
+}
+{
+    (literal=parseQuotedString() ((<DOUBLE_CARET> datatype=parseResource()) | (("@" (t=<PN_LOCAL>)){lang=t.image;}))?
+        {
+            if(datatype != null) {
+                handler.handleTriple(subject, predicate, literal, datatype);
+            }
+            else if(lang != null) {
+                handler.handleTriple(subject, predicate, literal, lang);
+            }
+            else {
+                handler.handleTriple(subject, predicate, literal);
+            }
+
+        }
+    )
+    |
+    (literal=parseInteger(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.INTEGER.getIRI());})
+    |
+    (literal=parseDouble(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.DOUBLE.getIRI());})
+    |
+    (literal=parseDecimal(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.DECIMAL.getIRI());})
+    |
+    (literal=parseBoolean(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.BOOLEAN.getIRI());})
+}
+
+
+String parseInteger() :
+{
+    Token t;
+}
+{
+    t=<INTEGER> {
+        return t.image;
+    }
+    |
+    t=<DIGIT> {
+        return t.image;
+    }
+}
+
+String parseDouble() :
+{
+    Token t;
+}
+{
+    t=<DOUBLE> {
+        return t.image;
+    }
+}
+
+String parseDecimal() :
+{
+    Token t;
+}
+{
+    t=<DECIMAL> {
+        return t.image;
+    }
+}
+
+String parseBoolean() :
+{
+    Token t;
+}
+{
+    (t=<TRUE> | t=<FALSE>) {
+        return t.image;
+    }
+}
+
+String parseQuotedString() :
+{
+    String s;
+}
+{
+    s=parseString() {
+        return s;
+    }
+}
+
+
+String parseString() :
+{
+    Token t;
+    String rawString = "";
+}
+{
+    (t=<STRING> {
+        rawString = t.image.substring(1, t.image.length() - 1);
+    }
+    | t=<LONG_STRING> {
+        rawString = t.image.substring(3, t.image.length() - 3);
+     }) {
+        return EscapeUtils.unescapeString(rawString);
+     }
+}
+
