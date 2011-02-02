@@ -1,10 +1,11 @@
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.*;
+
+import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
  * Copyright (C) 2007, University of Manchester
@@ -38,18 +39,35 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class RelationshipTagValueHandler extends AbstractTagValueHandler {
 
+    private Pattern tagValuePattern = Pattern.compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");
+
     public RelationshipTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
     }
 
 
     public void handle(String id, String value) {
-        IRI propIRI = getIRIFromValue(value.substring(0, value.indexOf(' ')).trim());
-        IRI fillerIRI = getIRIFromValue(value.substring(value.indexOf(' '), value.length()).trim());
-        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propIRI);
-        OWLClass filler = getDataFactory().getOWLClass(fillerIRI);
-        OWLClassExpression restriction = getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
-        OWLClass subCls = getDataFactory().getOWLClass(getIRIFromValue(id));
-        applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassOfAxiom(subCls, restriction)));
+        Matcher matcher = tagValuePattern.matcher(value);
+        if(matcher.matches()) {
+            IRI propIRI = getIRIFromValue(matcher.group(1));
+            IRI fillerIRI = getIRIFromValue(matcher.group(2));
+            String modifier = matcher.group(3);
+            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propIRI);
+            OWLClass filler = getDataFactory().getOWLClass(fillerIRI);
+            OWLClassExpression restriction = getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
+            OWLClass subCls = getDataFactory().getOWLClass(getIRIFromValue(id));
+            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassOfAxiom(subCls, restriction)));
+        }
+
+    }
+
+    public static void main(String[] args) {
+        try {
+            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+            manager.loadOntologyFromOntologyDocument(new File("/tmp/uberon_vunknown.obo"));
+        }
+        catch (OWLOntologyCreationException e) {
+            e.printStackTrace();
+        }
     }
 }
