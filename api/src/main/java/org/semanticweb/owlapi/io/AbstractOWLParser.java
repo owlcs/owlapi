@@ -4,7 +4,11 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
@@ -23,7 +27,6 @@ import org.xml.sax.InputSource;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Nov-2006<br><br>
- *
  * A convenience base class for parsers, which provides a mechanism to
  * manage the setting and getting of the <code>OWLOntologyManager</code> that
  * should be associated with the parser
@@ -32,14 +35,19 @@ public abstract class AbstractOWLParser implements OWLParser {
 
     private static Logger logger = Logger.getLogger(AbstractOWLParser.class.getName());
 
+    private static final String ZIP_FILE_EXTENSION = ".zip";
+
+    private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
+
+    private static final Pattern CONTENT_DISPOSITION_FILE_NAME_PATTERN = Pattern.compile(".*filename=\"([^\\s;]*)\".*");
+
+    private static final int CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP = 1;
+
     private OWLOntologyManager owlOntologyManager;
 
 
-    
-
-
     protected AbstractOWLParser() {
-        
+
     }
 
     @Deprecated
@@ -48,9 +56,9 @@ public abstract class AbstractOWLParser implements OWLParser {
     }
 
     /**
-     * @deprecated Parser implementors should obtain ontology managers from the ontology that gets supplied
-     * in the parse method.
      * @return An ontology manager that was set with {@link #setOWLOntologyManager(org.semanticweb.owlapi.model.OWLOntologyManager)}
+     * @deprecated Parser implementors should obtain ontology managers from the ontology that gets supplied
+     *             in the parse method.
      */
     @Deprecated
     public OWLOntologyManager getOWLOntologyManager() {
@@ -70,37 +78,65 @@ public abstract class AbstractOWLParser implements OWLParser {
      * @throws IOException if there was an <code>IOException</code> in obtaining the input stream from the URI.
      */
     protected InputStream getInputStream(IRI documentIRI) throws IOException {
-            String requestType = getRequestTypes();
-            URLConnection conn = documentIRI.toURI().toURL().openConnection();
-            conn.addRequestProperty("Accept", requestType);
-            if (IOProperties.getInstance().isConnectionAcceptHTTPCompression()) {
-                conn.setRequestProperty("Accept-Encoding","gzip, deflate");
+        String requestType = getRequestTypes();
+        URLConnection conn = documentIRI.toURI().toURL().openConnection();
+        conn.addRequestProperty("Accept", requestType);
+        if (IOProperties.getInstance().isConnectionAcceptHTTPCompression()) {
+            conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
+        }
+        conn.setConnectTimeout(IOProperties.getInstance().getConnectionTimeout());
+        InputStream is;
+        String contentEncoding = conn.getContentEncoding();
+        if ("gzip".equals(contentEncoding)) {
+            logger.fine("URL connection input stream is compressed using gzip");
+            is = new BufferedInputStream(new GZIPInputStream(conn.getInputStream()));
+        }
+        else if ("deflate".equals(contentEncoding)) {
+            logger.fine("URL connection input stream is compressed using deflate");
+            is = new BufferedInputStream(new InflaterInputStream(conn.getInputStream(), new Inflater(true)));
+        }
+        else {
+            is = new BufferedInputStream(conn.getInputStream());
+        }
+        if (isZipName(documentIRI, conn)) {
+            ZipInputStream zis = new ZipInputStream(is);
+            zis.getNextEntry();
+            is = new BufferedInputStream(zis);
+        }
+        return is;
+    }
+
+    private boolean isZipName(IRI documentIRI, URLConnection connection) {
+        if(isZipFileName(documentIRI.toString())) {
+            return true;
+        }
+        else {
+            String fileName = getFileNameFromContentDisposition(connection);
+            return fileName != null && isZipFileName(fileName);
+        }
+    }
+
+    private String getFileNameFromContentDisposition(URLConnection connection) {
+        String contentDispositionHeaderValue = connection.getHeaderField(CONTENT_DISPOSITION_HEADER);
+        if(contentDispositionHeaderValue != null) {
+            Matcher matcher = CONTENT_DISPOSITION_FILE_NAME_PATTERN.matcher(contentDispositionHeaderValue);
+            if(matcher.matches()) {
+                return matcher.group(CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP);
             }
-            conn.setConnectTimeout(IOProperties.getInstance().getConnectionTimeout());
-            InputStream is;
-            if ("gzip".equals(conn.getContentEncoding())) { // test works OK even if CE is null
-				logger.fine("URL connection input stream is compressed using gzip");
-				is = new BufferedInputStream(new GZIPInputStream(conn.getInputStream()));
-			} else if ("deflate".equals(conn.getContentEncoding())) {
-				logger.fine("URL connection input stream is compressed using deflate");
-                is = new BufferedInputStream(new InflaterInputStream(conn.getInputStream(), new Inflater(true)));
-			} else {
-			    is = new BufferedInputStream(conn.getInputStream());
-			}
-            if (documentIRI.toString().endsWith(".zip")) {
-            	ZipInputStream zis = new ZipInputStream(is);
-                zis.getNextEntry();
-                is = new BufferedInputStream(zis);
-            }
-            return is;
+        }
+        return null;
+    }
+
+    private boolean isZipFileName(String fileName) {
+        return fileName.toLowerCase().endsWith(ZIP_FILE_EXTENSION);
     }
 
     protected InputSource getInputSource(OWLOntologyDocumentSource documentSource) throws IOException {
         InputSource is;
-        if(documentSource.isReaderAvailable()) {
+        if (documentSource.isReaderAvailable()) {
             is = new InputSource(documentSource.getReader());
         }
-        else if(documentSource.isInputStreamAvailable()) {
+        else if (documentSource.isInputStreamAvailable()) {
             is = new InputSource(documentSource.getInputStream());
         }
         else {
