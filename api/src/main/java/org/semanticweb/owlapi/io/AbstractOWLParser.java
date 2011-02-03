@@ -85,8 +85,18 @@ public abstract class AbstractOWLParser implements OWLParser {
             conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
         }
         conn.setConnectTimeout(IOProperties.getInstance().getConnectionTimeout());
-        InputStream is;
         String contentEncoding = conn.getContentEncoding();
+        InputStream is = getInputStreamFromContentEncoding(conn, contentEncoding);
+        if (isZipName(documentIRI, conn)) {
+            ZipInputStream zis = new ZipInputStream(is);
+            zis.getNextEntry();
+            is = new BufferedInputStream(zis);
+        }
+        return is;
+    }
+
+    private InputStream getInputStreamFromContentEncoding(URLConnection conn, String contentEncoding) throws IOException {
+        InputStream is;
         if ("gzip".equals(contentEncoding)) {
             logger.fine("URL connection input stream is compressed using gzip");
             is = new BufferedInputStream(new GZIPInputStream(conn.getInputStream()));
@@ -97,11 +107,6 @@ public abstract class AbstractOWLParser implements OWLParser {
         }
         else {
             is = new BufferedInputStream(conn.getInputStream());
-        }
-        if (isZipName(documentIRI, conn)) {
-            ZipInputStream zis = new ZipInputStream(is);
-            zis.getNextEntry();
-            is = new BufferedInputStream(zis);
         }
         return is;
     }
