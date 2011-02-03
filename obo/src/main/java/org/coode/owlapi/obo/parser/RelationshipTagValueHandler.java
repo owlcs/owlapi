@@ -1,9 +1,7 @@
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 
-import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,15 +57,5 @@ public class RelationshipTagValueHandler extends AbstractTagValueHandler {
             applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassOfAxiom(subCls, restriction)));
         }
 
-    }
-
-    public static void main(String[] args) {
-        try {
-            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-            manager.loadOntologyFromOntologyDocument(new File("/tmp/uberon_vunknown.obo"));
-        }
-        catch (OWLOntologyCreationException e) {
-            e.printStackTrace();
-        }
     }
 }
