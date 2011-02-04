@@ -835,7 +835,8 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 		}
 		ontologiesByID.remove(oldID);
 		ontologiesByID.put(newID, ont);
-        ontologyFormatsByOntology.put(newID, ontologyFormatsByOntology.remove(oldID));
+		if(ontologyFormatsByOntology.containsKey(oldID)) {
+        ontologyFormatsByOntology.put(newID, ontologyFormatsByOntology.remove(oldID));}
 		IRI documentIRI = documentIRIsByID.remove(oldID);
 		if (documentIRI != null) {
 			documentIRIsByID.put(newID, documentIRI);
