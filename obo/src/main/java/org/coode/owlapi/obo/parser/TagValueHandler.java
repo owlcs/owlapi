@@ -6,6 +6,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
+import java.util.List;
+
+
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -40,7 +43,7 @@ public interface TagValueHandler {
 
     String getTag();
 
-    void handle(String id, String value);
+    void handle(String id, String value, String comment);
 
     OWLOntologyManager getOWLOntologyManager();
 
@@ -50,7 +53,9 @@ public interface TagValueHandler {
 
     OBOConsumer getConsumer();
 
-    IRI getIRIFromValue(String s);
+    IRI getTagIRI(String tagName);
+
+    IRI getIdIRI(String id);
 
     OWLDataFactory getDataFactory();
 }

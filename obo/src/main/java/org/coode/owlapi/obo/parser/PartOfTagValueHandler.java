@@ -1,9 +1,6 @@
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.*;
 
 
 /**
@@ -19,16 +16,15 @@ public class PartOfTagValueHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value) {
+    public void handle(String id, String value, String comment) {
         int index = value.indexOf(' ');
         String propLocalName = value.substring(0, index);
         String val = value.substring(index + 1, value.length());
-        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getIRIFromValue(propLocalName));
-        OWLClassExpression desc = getDataFactory().getOWLObjectSomeValuesFrom(prop, getClassFromId(val));
-        OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(
-                getCurrentClass(),
-                desc
-        );
+        OWLDataFactory df = getDataFactory();
+        OWLObjectProperty prop = df.getOWLObjectProperty(getIdIRI(propLocalName));
+        OWLClass filler = getClassFromId(val);
+        OWLClassExpression desc = df.getOWLObjectSomeValuesFrom(prop, filler);
+        OWLAxiom ax = df.getOWLSubClassOfAxiom(getCurrentClass(), desc);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }

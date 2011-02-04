@@ -18,9 +18,9 @@ public class TransitiveTagValueHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value) {
+    public void handle(String id, String value, String comment) {
         if (Boolean.parseBoolean(value)) {
-            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getIRIFromValue(id));
+            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getIdIRI(id));
             OWLAxiom ax = getDataFactory().getOWLTransitiveObjectPropertyAxiom(prop);
             applyChange(new AddAxiom(getOntology(), ax));
         }

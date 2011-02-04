@@ -179,24 +179,27 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         if (f.isHidden()) {
             return;
         }
-        for (File file : f.listFiles()) {
-            if (file.isDirectory() && recursive) {
-                processFile(file);
-            }
-            else {
-                //boolean parsedFile = false;
-                if (file.getName().endsWith(".obo")) {
-                    oboFileMap.put(file.getName(), IRI.create(file));
-                }
-                else if(file.getName().endsWith(".omn")) {
-                    parseManchesterSyntaxFile(file);
+        File[] files = f.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory() && recursive) {
+                    processFile(file);
                 }
                 else {
-                    for (String ext : fileExtensions) {
-                        if (file.getName().endsWith(ext)) {
-                            parseFile(file);
-                            //parsedFile = true;
-                            break;
+                    //boolean parsedFile = false;
+                    if (file.getName().endsWith(".obo")) {
+                        oboFileMap.put(file.getName(), IRI.create(file));
+                    }
+                    else if(file.getName().endsWith(".omn")) {
+                        parseManchesterSyntaxFile(file);
+                    }
+                    else {
+                        for (String ext : fileExtensions) {
+                            if (file.getName().endsWith(ext)) {
+                                parseFile(file);
+                                //parsedFile = true;
+                                break;
+                            }
                         }
                     }
                 }

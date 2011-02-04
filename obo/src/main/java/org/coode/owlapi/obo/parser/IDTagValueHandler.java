@@ -40,7 +40,7 @@ public class IDTagValueHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value) {
+    public void handle(String id, String value, String comment) {
         getConsumer().setCurrentId(value);
         final OWLEntity entity = getConsumer().getCurrentEntity();
         if (entity != null){

@@ -44,17 +44,18 @@ public class RelationshipTagValueHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value) {
+    public void handle(String id, String value, String comment) {
         Matcher matcher = tagValuePattern.matcher(value);
         if(matcher.matches()) {
-            IRI propIRI = getIRIFromValue(matcher.group(1));
-            IRI fillerIRI = getIRIFromValue(matcher.group(2));
+            IRI propIRI = getIdIRI(matcher.group(1));
+            IRI fillerIRI = getIdIRI(matcher.group(2));
             String modifier = matcher.group(3);
             OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propIRI);
             OWLClass filler = getDataFactory().getOWLClass(fillerIRI);
             OWLClassExpression restriction = getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
-            OWLClass subCls = getDataFactory().getOWLClass(getIRIFromValue(id));
+            OWLClass subCls = getDataFactory().getOWLClass(getIdIRI(id));
             applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassOfAxiom(subCls, restriction)));
+            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLDeclarationAxiom(prop)));
         }
 
     }

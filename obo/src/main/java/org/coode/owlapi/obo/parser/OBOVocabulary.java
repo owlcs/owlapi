@@ -3,8 +3,11 @@ package org.coode.owlapi.obo.parser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.semanticweb.owlapi.model.IRI;
+import sun.misc.Regexp;
 
 
 /**
@@ -15,14 +18,18 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public enum OBOVocabulary {
 
+
+
     DATA_VERSION("data-version"),
     VERSION("version"),
     DATE("date"),
     SAVED_BY("saved-by"),
     AUTO_GENERATED_BY("auto-generated-by"),
+    ONTOLOGY("ontology"),
     SUBSETDEF("subsetdef"),
     IMPORT("import"),
     SYNONYM_TYPE_DEF("synonymtypedef"),
+    SYNONYM_TYPE("synonymtype"),
     ID_SPACE("id_space"),
     DEFAULT_RELATIONSHIP_ID_PREFIX("default-relationship-id-prefix"),
     ID_MAPPING("id-mapping"),
@@ -76,11 +83,94 @@ public enum OBOVocabulary {
     PROPERTY_VALUE("property_value"),
     IS_ANONYMOUS("is_anonymous");
 
+/**
+     * @deprecated Use {@link #OBO_IRI_BASE}
+     */
+    @Deprecated
+    public static final String ONTOLOGY_URI_BASE = "http://purl.org/obo/owl";
 
-    public static final String ONTOLOGY_URI_BASE = "http://purl.org/obo/owlapi";
+    /**
+     * @deprecated Use {@link #OBO_IRI_BASE}
+     */
+    @Deprecated
+    public static final String ANNOTATION_URI_BASE = "http://www.geneontology.org/formats/oboInOwl";
+
+
+    public static final String OBO_IRI_BASE = "http://purl.obolibrary.org/obo/";
+
+
+    public static final String LEGACY_OBO_IRI_BASE = "http://purl.org/obo/owl/";//
+
+    /**
+     * The pattern for OBO IDs.
+     * Specified at <a href="http://www.obofoundry.org/id-policy.shtml">http://www.obofoundry.org/id-policy.shtml</a>
+     */
+    public static final Pattern OBO_ID_PATTERN = Pattern.compile("(([^:]+):)?(.+)");
+
+    private static final String bases = Pattern.quote(OBO_IRI_BASE) + "|" + Pattern.quote(ONTOLOGY_URI_BASE + "/") + "|" + Pattern.quote(LEGACY_OBO_IRI_BASE) + "|" + Pattern.quote(ANNOTATION_URI_BASE + "/");
+
+    public static final Pattern OBO_IRI_PATTERN = Pattern.compile("(" + bases + ")" + "(([^\\_]*)\\_)?([A-Za-z0-9\\_\\-]*)");
 
     
-    public static final String ANNOTATION_URI_BASE = "http://www.geneontology.org/formats/oboInOwl";
+
+
+
+    /**
+     * Converts OBO Ids to IRIs.  The conversion is defined at
+     * <a href="http://www.obofoundry.org/id-policy.shtml">http://www.obofoundry.org/id-policy.shtml</a>
+     * @param oboId The Id to convert
+     * @return The IRI of the converted Id
+     */
+    public static IRI ID2IRI(String oboId) {
+        Matcher matcher = OBO_ID_PATTERN.matcher(oboId);
+        if(matcher.matches()) {
+            String idSpace = matcher.group(2);
+            String localId = matcher.group(3);
+            StringBuilder sb = new StringBuilder();
+            sb.append(OBO_IRI_BASE);
+            if (idSpace != null) {
+                sb.append(idSpace);
+                sb.append("_");
+            }
+            sb.append(localId);
+            return IRI.create(sb.toString());
+        }
+        else {
+            return IRI.create(oboId);
+        }
+    }
+
+//    Format of Foundry-compliant URIs
+//
+//    FOUNDRY_OBO_URI ::= "http://purl.obolibrary.org/obo/" IDSPACE "_" LOCALID
+//    Format of OBO legacy URIs
+//
+//    Those are found in documents that were natively authored using the OBO format and which were converted using the NCBOoboInOwl script before this policy was put in place.
+//
+//    LEGACY_OBO_URI ::= "http://purl.org/obo/owl/" IDSPACE "#" IDSPACE "_" LOCALID
+
+    public static String IRI2ID(IRI oboIRI) {
+        Matcher matcher = OBO_IRI_PATTERN.matcher(oboIRI.toString());
+        if(matcher.matches()) {
+            String idSpace = matcher.group(3);
+            String localId = matcher.group(4);
+            StringBuilder sb = new StringBuilder();
+            if (idSpace != null) {
+                sb.append(idSpace);
+                sb.append(":");
+            }
+            sb.append(localId);
+            return sb.toString();
+        }
+        else {
+            throw new RuntimeException("Not an OBO IRI");
+        }
+    }
+
+    public static boolean isOBOIRI(IRI oboIRI) {
+        return OBO_ID_PATTERN.matcher(oboIRI.toString()).matches();
+    }
+
 
 
     private static final List<OBOVocabulary> headerTags =
@@ -117,12 +207,9 @@ public enum OBOVocabulary {
 
     OBOVocabulary(String name) {
         this.name = name;
-        iri = IRI.create(ANNOTATION_URI_BASE + "#" + name);
     }
 
     private String name;
-
-    private IRI iri;
 
 
     public String getName() {
@@ -131,7 +218,7 @@ public enum OBOVocabulary {
 
 
     public IRI getIRI() {
-        return iri;
+        return ID2IRI(name);
     }
 
 

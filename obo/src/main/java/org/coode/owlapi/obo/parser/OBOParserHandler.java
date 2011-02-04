@@ -24,6 +24,8 @@ package org.coode.owlapi.obo.parser;
  */
 
 
+import java.util.List;
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -44,5 +46,5 @@ public interface OBOParserHandler {
     void endStanza();
 
 
-    void handleTagValue(String tag, String value);
+    void handleTagValue(String tag, String value, String comment);
 }

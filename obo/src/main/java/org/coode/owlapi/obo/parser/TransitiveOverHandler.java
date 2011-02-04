@@ -21,7 +21,7 @@ public class TransitiveOverHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value) {
+    public void handle(String id, String value, String comment) {
         OWLObjectProperty first = getOWLObjectProperty(id);
         OWLObjectProperty second = getOWLObjectProperty(value);
         List<OWLObjectProperty> chain = new ArrayList<OWLObjectProperty>();

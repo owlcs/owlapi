@@ -37,7 +37,7 @@ public class UnionOfHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value) {
+    public void handle(String id, String value, String comment) {
         getConsumer().addUnionOfOperand(getOWLClassOrRestriction(value));
     }
 }

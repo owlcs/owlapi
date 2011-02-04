@@ -24,6 +24,8 @@ package org.coode.owlapi.obo.parser;
  */
 
 
+import java.util.List;
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -40,7 +42,7 @@ public class OBOParserHandlerAdapter implements OBOParserHandler {
     }
 
 
-    public void handleTagValue(String tag, String value) {
+    public void handleTagValue(String tag, String value, String comment) {
     }
 
 

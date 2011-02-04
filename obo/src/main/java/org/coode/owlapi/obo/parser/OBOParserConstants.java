@@ -11,40 +11,59 @@ public interface OBOParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int VALUE_START = 6;
+  int LINE_COMMENTED_OUT = 5;
   /** RegularExpression Id. */
-  int VALUE_END = 7;
+  int OPEN_SQUARE_BRACKET = 6;
   /** RegularExpression Id. */
-  int OPEN_SQUARE_BRACKET = 9;
+  int STANZA_TYPE = 7;
   /** RegularExpression Id. */
-  int CLOSE_SQUARE_BRACKET = 10;
+  int CLOSE_SQUARE_BRACKET = 8;
   /** RegularExpression Id. */
-  int CHAR = 11;
+  int TAG_NAME = 9;
   /** RegularExpression Id. */
-  int STRING = 12;
+  int TAG_COLON = 10;
   /** RegularExpression Id. */
-  int ERROR = 13;
+  int TAG_VALUE = 11;
+  /** RegularExpression Id. */
+  int TAG_VALUE_END = 12;
+  /** RegularExpression Id. */
+  int COMMENT_START = 13;
+  /** RegularExpression Id. */
+  int COMMENT = 14;
+  /** RegularExpression Id. */
+  int COMMENT_END = 15;
+  /** RegularExpression Id. */
+  int ERROR = 16;
 
   /** Lexical state. */
   int DEFAULT = 0;
   /** Lexical state. */
-  int IN_VALUE = 1;
+  int IN_STANZA_HEADER = 1;
+  /** Lexical state. */
+  int IN_TAG_VALUE_PAIR = 2;
+  /** Lexical state. */
+  int IN_TAG_VALUE = 3;
+  /** Lexical state. */
+  int IN_COMMENT = 4;
 
   /** Literal token values. */
   String[] tokenImage = {
     "<EOF>",
-    "<token of kind 1>",
     "\"\\n\"",
     "\"\\r\"",
     "\"\\t\"",
     "\" \"",
-    "\":\"",
-    "\"\\n\"",
-    "<token of kind 8>",
+    "<LINE_COMMENTED_OUT>",
     "\"[\"",
+    "<STANZA_TYPE>",
     "\"]\"",
-    "<CHAR>",
-    "<STRING>",
+    "<TAG_NAME>",
+    "<TAG_COLON>",
+    "<TAG_VALUE>",
+    "<TAG_VALUE_END>",
+    "\"!\"",
+    "<COMMENT>",
+    "<COMMENT_END>",
     "<ERROR>",
   };
 

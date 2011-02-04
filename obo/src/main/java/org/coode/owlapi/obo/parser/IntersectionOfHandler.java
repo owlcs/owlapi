@@ -37,7 +37,7 @@ public class IntersectionOfHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value) {
+    public void handle(String id, String value, String comment) {
         getConsumer().addIntersectionOfOperand(getOWLClassOrRestriction(value));
     }
 }

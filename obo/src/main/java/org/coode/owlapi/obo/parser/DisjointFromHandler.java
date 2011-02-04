@@ -18,7 +18,7 @@ public class DisjointFromHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value) {
+    public void handle(String id, String value, String comment) {
         OWLAxiom ax = getDataFactory().getOWLDisjointClassesAxiom(CollectionFactory.createSet(getCurrentClass(),
                 getOWLClass(value)));
         applyChange(new AddAxiom(getOntology(), ax));

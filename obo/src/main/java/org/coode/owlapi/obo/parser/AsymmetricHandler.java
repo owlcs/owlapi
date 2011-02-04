@@ -19,7 +19,7 @@ public class AsymmetricHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value) {
+    public void handle(String id, String value, String comment) {
         if (Boolean.parseBoolean(value)) {
             OWLObjectProperty prop = getOWLObjectProperty(id);
             OWLAxiom ax = getDataFactory().getOWLAsymmetricObjectPropertyAxiom(prop);

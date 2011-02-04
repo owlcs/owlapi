@@ -46,6 +46,16 @@ public class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
         arg1 = getOWLDataFactory().getSWRLLiteralArgument(handler.getOWLObject());
     }
 
+    @Override
+    public void handleChild(OWLIndividualElementHandler _handler) throws OWLXMLParserException {
+        arg0 = getOWLDataFactory().getSWRLIndividualArgument(_handler.getOWLObject());
+    }
+
+    @Override
+    public void handleChild(OWLAnonymousIndividualElementHandler _handler) throws OWLXMLParserException {
+        arg0 = getOWLDataFactory().getSWRLIndividualArgument(_handler.getOWLObject());
+    }
+
     public void endElement() throws OWLParserException, UnloadableImportException {
         setAtom(getOWLDataFactory().getSWRLDataPropertyAtom(prop, arg0, arg1));
         getParentHandler().handleChild(this);

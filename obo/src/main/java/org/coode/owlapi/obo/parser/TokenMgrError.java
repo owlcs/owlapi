@@ -103,7 +103,7 @@ public class TokenMgrError extends Error
    *    errorAfter  : prefix that was seen before this error occurred
    *    curchar     : the offending character
    * Note: You can customize the lexical error message by modifying this method.
-   */@SuppressWarnings("unused")
+   */
   protected static String LexicalError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, char curChar) {
     return("Lexical error at line " +
           errorLine + ", column " +
@@ -121,8 +121,7 @@ public class TokenMgrError extends Error
    *
    * from this method for such cases in the release version of your parser.
    */
-  @Override
-public String getMessage() {
+  public String getMessage() {
     return super.getMessage();
   }
 

@@ -1,29 +1,10 @@
 package org.coode.owlapi.obo.parser;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.coode.string.EscapeUtils;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 
@@ -36,6 +17,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class OBOConsumer implements OBOParserHandler {
 
     private static final Logger logger = Logger.getLogger(OBOConsumer.class.getName());
+
+    private static final String IMPORT_TAG_NAME = "import";
 
     private OWLOntologyLoaderConfiguration configuration;
 
@@ -163,6 +146,7 @@ public class OBOConsumer implements OBOParserHandler {
 
     private void setupTagHandlers() {
         handlerMap = new HashMap<String, TagValueHandler>();
+        addTagHandler(new OntologyTagValueHandler(this));
         addTagHandler(new IDTagValueHandler(this));
         addTagHandler(new NameTagValueHandler(this));
         addTagHandler(new IsATagValueHandler(this));
@@ -178,6 +162,7 @@ public class OBOConsumer implements OBOParserHandler {
         addTagHandler(new ReflexiveHandler(this));
         addTagHandler(new TransitiveOverHandler(this));
         addTagHandler(new DefaultNamespaceTagValueHandler(this));
+        addTagHandler(new SynonymTagValueHandler(this));
     }
 
 
@@ -255,14 +240,14 @@ public class OBOConsumer implements OBOParserHandler {
     }
 
 
-    public void handleTagValue(String tag, String value) {
+    public void handleTagValue(String tag, String value, String comment) {
         try {
             TagValueHandler handler = handlerMap.get(tag);
             if (handler != null) {
-                handler.handle(currentId, value);
+                handler.handle(currentId, value, comment);
             }
             else if (inHeader) {
-                if (tag.equals("import")) {
+                if (tag.equals(IMPORT_TAG_NAME)) {
                     IRI uri = IRI.create(value.trim());
                     OWLImportsDeclaration decl = owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(uri);
                     owlOntologyManager.makeLoadImportRequest(decl, configuration);
@@ -284,7 +269,9 @@ public class OBOConsumer implements OBOParserHandler {
                     OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getIRI(tag));
                     OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
                     OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
-                    owlOntologyManager.applyChange(new AddAxiom(ontology, ax));
+                    owlOntologyManager.addAxiom(ontology, ax);
+                    OWLDeclarationAxiom annotationPropertyDeclaration = getDataFactory().getOWLDeclarationAxiom(property);
+                    owlOntologyManager.addAxiom(ontology, annotationPropertyDeclaration);
                 }
             }
 
@@ -316,31 +303,34 @@ public class OBOConsumer implements OBOParserHandler {
         }
     }
 
+    public IRI getTagIRI(String tagName) {
+        return getIRI(tagName);
+    }
 
-    public IRI getIRI(String s) {
-        if (s == null) {
-            for (StackTraceElement e : Thread.currentThread().getStackTrace()) {
-                System.out.println(e);
-            }
+    public IRI getIdIRI(String identifier) {
+        if(identifier == null) {
+            Thread.dumpStack();
         }
+        if(identifier.indexOf(":") != -1) {
+            return getIRI(identifier);
+        }
+        else {
+            StringBuilder sb = new StringBuilder();
+            sb.append(defaultNamespace);
+            sb.append(":");
+            sb.append(identifier);
+            return getIRI(sb.toString());
+        }
+    }
+
+    private IRI getIRI(String s) {
         IRI iri = uriCache.get(s);
         if (iri != null) {
             return iri;
         }
-        String localName = s;
-        String namespace = getDefaultNamespace();
-//        int sepIndex = s.indexOf(':');
-//        if (sepIndex != -1) {
-        localName = s.replace(':', '_');
-//            localName = s.substring(sepIndex + 1, localName.length());
-//        }
-        if (currentNamespace != null) {
-            namespace = currentNamespace;
-        }
-        localName = localName.replace(' ', '-');
-        iri = IRI.create(namespace + localName);
+        String escapedString = s.replace(" ", "%20");
+        iri = OBOVocabulary.ID2IRI(escapedString);
         uriCache.put(s, iri);
-
         return iri;
     }
 }

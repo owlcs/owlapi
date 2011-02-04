@@ -16,7 +16,7 @@ public class IsATagValueHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value) {
+    public void handle(String id, String value, String comment) {
         if (getConsumer().isTerm()) {
             // We simply add a subclass axiom
             applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassOfAxiom(

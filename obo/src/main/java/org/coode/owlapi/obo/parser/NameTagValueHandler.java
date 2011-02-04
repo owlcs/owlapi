@@ -20,15 +20,15 @@ public class NameTagValueHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value) {
+    public void handle(String id, String value, String comment) {
         // This is an annotation - but add as a label
         OWLEntity ent;
         if (getConsumer().isTerm()) {
-            ent = getDataFactory().getOWLClass(getIRIFromValue(id));
+            ent = getDataFactory().getOWLClass(getIdIRI(id));
         } else if (getConsumer().isTypedef()) {
-            ent = getDataFactory().getOWLObjectProperty(getIRIFromValue(id));
+            ent = getDataFactory().getOWLObjectProperty(getIdIRI(id));
         } else {
-            ent = getDataFactory().getOWLNamedIndividual(getIRIFromValue(id));
+            ent = getDataFactory().getOWLNamedIndividual(getIdIRI(id));
         }
         OWLLiteral con = getDataFactory().getOWLLiteral(value);
         OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI()), ent.getIRI(), con);

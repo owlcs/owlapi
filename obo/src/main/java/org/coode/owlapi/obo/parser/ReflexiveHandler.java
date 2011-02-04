@@ -18,7 +18,7 @@ public class ReflexiveHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value) {
+    public void handle(String id, String value, String comment) {
         if (Boolean.parseBoolean(value)) {
             OWLObjectProperty prop = getOWLObjectProperty(id);
             OWLAxiom ax = getDataFactory().getOWLReflexiveObjectPropertyAxiom(prop);

@@ -1,5 +1,6 @@
 package org.coode.owlapi.obo.parser;
 
+import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
@@ -17,10 +18,23 @@ public class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value) {
+    public void handle(String id, String value, String comment) {
         // Set the base to be the default base + default prefix
-        String uri = OBOVocabulary.ONTOLOGY_URI_BASE + "/" + value.toLowerCase();
-        getConsumer().setDefaultNamespace(uri + "#");
-        applyChange(new SetOntologyID(getOntology(), new OWLOntologyID(IRI.create(uri))));
+        String unescaped = EscapeUtils.unescapeString(value);
+
+        String stripped = unescaped.replace(" ", "-");
+        if (!stripped.startsWith("http:")) {
+            getConsumer().setDefaultNamespace(value.toUpperCase());
+            IRI iri = getIdIRI(stripped);
+            applyChange(new SetOntologyID(getOntology(), new OWLOntologyID(iri)));
+        }
+        else {
+            if(stripped.endsWith("/")) {
+                stripped = stripped.substring(0, stripped.length() - 1);
+            }
+            IRI iri = IRI.create(stripped);
+            applyChange(new SetOntologyID(getOntology(), new OWLOntologyID(iri)));
+        }
+
     }
 }
