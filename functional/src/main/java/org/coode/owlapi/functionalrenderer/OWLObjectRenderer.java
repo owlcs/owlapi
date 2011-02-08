@@ -72,7 +72,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    private void writePrefix(String prefix, String namespace) {
+    public void writePrefix(String prefix, String namespace) {
         write("Prefix");
         writeOpenBracket();
         write(prefix);
@@ -85,7 +85,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    private void writePrefixes() {
+    public void writePrefixes() {
         for (String prefix : prefixManager.getPrefixName2PrefixMap().keySet()) {
             writePrefix(prefix, prefixManager.getPrefix(prefix));
         }
