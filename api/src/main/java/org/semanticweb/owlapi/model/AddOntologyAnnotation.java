@@ -96,4 +96,12 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
         AddOntologyAnnotation other = (AddOntologyAnnotation) obj;
         return annotation.equals(other.annotation) && getOntology().equals(other.getOntology());
     }
+
+    @Override
+	public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ADD ONTOLOGY ANNOTATION: ");
+        sb.append(getAnnotation().toString());
+        return sb.toString();
+    }
 }

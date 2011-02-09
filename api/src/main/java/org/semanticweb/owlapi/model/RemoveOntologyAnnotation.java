@@ -91,4 +91,12 @@ public class RemoveOntologyAnnotation extends OWLOntologyChange {
         RemoveOntologyAnnotation other = (RemoveOntologyAnnotation) obj;
         return getAnnotation().equals(other.getAnnotation()) && getOntology().equals(other.getOntology());
     }
+
+    @Override
+	public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("REMOVE ONTOLOGY ANNOTATION: ");
+        sb.append(getAnnotation().toString());
+        return sb.toString();
+    }
 }

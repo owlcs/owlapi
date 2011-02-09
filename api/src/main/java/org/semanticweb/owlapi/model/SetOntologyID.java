@@ -126,4 +126,12 @@ public class SetOntologyID extends OWLOntologyChange {
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
     	return visitor.visit(this);
     }
+
+    @Override
+	public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SET ONTOLOGY ID: ");
+        sb.append(getNewOntologyID().toString());
+        return sb.toString();
+    }
 }
