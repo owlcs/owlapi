@@ -48,7 +48,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             BufferedWriter w=null;
             try {
                 tempOutputStream = new FileOutputStream(tempFile);
-				BufferedWriter tempWriter = new BufferedWriter(new OutputStreamWriter(tempOutputStream, "UTF-8"));
+                BufferedWriter tempWriter = new BufferedWriter(new OutputStreamWriter(tempOutputStream, "UTF-8"));
                 storeOntology(manager, ontology, tempWriter, ontologyFormat);
                 tempWriter.flush();
                 tempWriter.close();
@@ -69,10 +69,10 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
 
                 tempInputStream = new FileInputStream(tempFile);
-				inputStreamReader = new InputStreamReader(tempInputStream, "UTF-8");
-				br = new BufferedReader(inputStreamReader);
+                inputStreamReader = new InputStreamReader(tempInputStream, "UTF-8");
+                br = new BufferedReader(inputStreamReader);
                 outputStreamWriter = new OutputStreamWriter(os, "UTF-8");
-				w = new BufferedWriter(outputStreamWriter);
+                w = new BufferedWriter(outputStreamWriter);
                 String line;
                 while((line = br.readLine()) != null) {
                     w.write(line);
@@ -80,15 +80,27 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                 }
             }
             finally {
-            	
-                tempFile.delete();
-                br.close();
-                w.close();
-                tempOutputStream.close();
-                tempInputStream.close();
-                inputStreamReader.close();
-                outputStreamWriter.close();
 
+                tempFile.delete();
+
+                if (br != null){
+                    br.close();
+                }
+                if (w != null){
+                    w.close();
+                }
+                if (tempOutputStream != null){
+                    tempOutputStream.close();
+                }
+                if (tempInputStream != null){
+                    tempInputStream.close();
+                }
+                if (inputStreamReader != null){
+                    inputStreamReader.close();
+                }
+                if (outputStreamWriter != null){
+                    outputStreamWriter.close();
+                }
             }
 
         }
@@ -99,7 +111,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
 
     public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OWLOntologyDocumentTarget target,
-                              OWLOntologyFormat format) throws OWLOntologyStorageException {
+                                    OWLOntologyFormat format) throws OWLOntologyStorageException {
         if (target.isWriterAvailable()) {
             try {
                 Writer writer = target.getWriter();
@@ -110,7 +122,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                 throw new OWLOntologyStorageException(e);
             }
         } else if (target.isOutputStreamAvailable()) {
-        	BufferedWriter writer=null;
+            BufferedWriter writer=null;
             try {
                 writer = new BufferedWriter(new OutputStreamWriter(target.getOutputStream(), "UTF-8"));
                 storeOntology(manager, ontology, writer, format);
