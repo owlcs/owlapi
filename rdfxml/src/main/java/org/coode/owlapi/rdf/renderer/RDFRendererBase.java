@@ -15,6 +15,7 @@ import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTranslator;
 import org.coode.owlapi.rdf.model.RDFTriple;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
+import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -119,11 +120,11 @@ public abstract class RDFRendererBase {
         }
 
         Set<OWLDatatype> datatypes = ontology.getDatatypesInSignature();
-        for (OWLDatatype datatype : new ArrayList<OWLDatatype>(datatypes)) {
-            if (datatype.isBuiltIn()) {
-                datatypes.remove(datatype);
-            }
-        }
+//        for (OWLDatatype datatype : new ArrayList<OWLDatatype>(datatypes)) {
+//            if (datatype.isBuiltIn()) {
+//                datatypes.remove(datatype);
+//            }
+//        }
 
         if (!datatypes.isEmpty()) {
             writeBanner("Datatypes");
@@ -422,7 +423,7 @@ public abstract class RDFRendererBase {
                         axioms.add(ax);
                     }
                 }
-                createGraph(axioms);
+
             }
 
 
@@ -439,8 +440,6 @@ public abstract class RDFRendererBase {
                     }
                     axioms.add(ax);
                 }
-
-                createGraph(axioms);
             }
 
 
@@ -453,7 +452,6 @@ public abstract class RDFRendererBase {
                     }
                     axioms.add(ax);
                 }
-                createGraph(axioms);
             }
 
 
@@ -472,15 +470,20 @@ public abstract class RDFRendererBase {
                     }
                 }
                 axioms.addAll(ontology.getAxioms(manager.getOWLDataFactory().getOWLObjectInverseOf(property)));
-                createGraph(axioms);
             }
 
             public void visit(OWLAnnotationProperty property) {
                 axioms.addAll(ontology.getAxioms(property));
-                createGraph(axioms);
             }
         });
-//        addTypeTriple(entity);
+
+        if(axioms.isEmpty() && shouldInsertDeclarations()) {
+            if(RDFXMLOntologyFormat.isMissingType(entity, ontology)) {
+                axioms.add(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(entity));
+            }
+        }
+        createGraph(axioms);
+
         return !axioms.isEmpty();
     }
 

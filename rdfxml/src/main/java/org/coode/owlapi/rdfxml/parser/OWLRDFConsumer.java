@@ -57,10 +57,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.rdf.syntax.RDFConsumer;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.vocab.Namespaces;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
-import org.semanticweb.owlapi.vocab.OWLFacet;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.*;
 import org.xml.sax.SAXException;
 
 
@@ -113,6 +110,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     // Same as classExpressionIRIs but for data properties
     private Set<IRI> dataPropertyExpressionIRIs;
 
+    // Same as classExpressionIRIs but for rdf properties
     // Same as classExpressionIRIs but for rdf properties
     // things neither typed as a data or object property - bad!
     private Set<IRI> propertyIRIs;
@@ -362,8 +360,11 @@ public class OWLRDFConsumer implements RDFConsumer {
             dataRangeIRIs.add(dt.getIRI());
         }
         dataRangeIRIs.add(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
-        for (OWL2Datatype dt : OWL2Datatype.values()) {
-            dataRangeIRIs.add(dt.getIRI());
+
+        if(!configuration.isStrict()) {
+            for(XSDVocabulary vocabulary : XSDVocabulary.values()) {
+                dataRangeIRIs.add(vocabulary.getIRI());
+            }
         }
 
         swrlRules = new HashSet<IRI>();
