@@ -530,9 +530,14 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         if (ontology != null) {
             throw new OWLOntologyAlreadyExistsException(ontologyID);
         }
-        IRI documentIRI = getDocumentIRIFromMappers(ontologyID, false);
+        IRI documentIRI = getDocumentIRIFromMappers(ontologyID, true);
         if (documentIRI == null) {
-            documentIRI = IRI.generateDocumentIRI();
+            if(!ontologyID.isAnonymous()) {
+                documentIRI = ontologyID.getDefaultDocumentIRI();
+            }
+            else {
+                documentIRI = IRI.generateDocumentIRI();
+            }
             Collection<IRI> existingDocumentIRIs = documentIRIsByID.values();
             while (existingDocumentIRIs.contains(documentIRI)) {
                 documentIRI = IRI.generateDocumentIRI();
