@@ -1,4 +1,17 @@
 ----------------------------------------------------------------------
+Release 3.2.2
+----------------------------------------------------------------------
+
+This version of the API includes various bug fixe:
+
+- In RDF based serialisations, type triples for entities that don't have "defining axioms" don't get added even if the
+renderer is instructed to type undeclared entities (related to 3184131). Fixed.
+- The RDF parser would not recognise XSD datatypes that aren't OWL 2 Datatypes even in lax parsing mode (related to 3184131). Fixed.
+- OWLOntologyManager.createOntology() methods don't set the document IRI of the created ontologies as adverstised if
+there aren't any ontology IRI mappers installed (3184878). Fixed.
+
+
+----------------------------------------------------------------------
 Release 3.2.1
 ----------------------------------------------------------------------
 
