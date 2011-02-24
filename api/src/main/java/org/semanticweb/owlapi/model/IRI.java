@@ -216,13 +216,13 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
          */
         @Override
 		public String getFragment() {
-            if(prefix.endsWith("#")) {
-                return remainder;
-            }
-            else {
-                return null;
-            }
-        }
+			//if(prefix.endsWith("#")) {
+			return remainder;
+			//}
+			//else {
+			//    return null;
+			//}
+      }
         
         @Override
 		public String getStart() {
