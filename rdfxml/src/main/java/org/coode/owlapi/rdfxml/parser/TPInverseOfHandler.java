@@ -28,19 +28,20 @@ public class TPInverseOfHandler extends TriplePredicateHandler {
     public void setAxiomParsingMode(boolean axiomParsingMode) {
         this.axiomParsingMode = axiomParsingMode;
     }
-
+    
+    @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         getConsumer().addObjectProperty(subject, false);
         getConsumer().addObjectProperty(object, false);
         return false;
     }
 
-
+    @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         return super.canHandle(subject, predicate, object) && getConsumer().isObjectProperty(subject) && getConsumer().isObjectProperty(object);
     }
 
-
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         // Only do axiom translation
         if (axiomParsingMode && getConsumer().isObjectProperty(subject) && getConsumer().isObjectProperty(object)) {

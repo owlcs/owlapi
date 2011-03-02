@@ -17,7 +17,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject> extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
+public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression<?,?>, O extends OWLPropertyAssertionObject> extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
 
     private OWLIndividual subject;
 
@@ -55,7 +55,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
             if (!(obj instanceof OWLPropertyAssertionAxiom)) {
                 return false;
             }
-            OWLPropertyAssertionAxiom other = (OWLPropertyAssertionAxiom) obj;
+            OWLPropertyAssertionAxiom<?,?> other = (OWLPropertyAssertionAxiom<?,?>) obj;
             return other.getSubject().equals(subject) && other.getProperty().equals(property) && other.getObject().equals(object);
         }
         return false;
@@ -63,8 +63,8 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
 
 
     @Override
-	final protected int compareObjectOfSameType(OWLObject object) {
-        OWLPropertyAssertionAxiom other = (OWLPropertyAssertionAxiom) object;
+	final protected int compareObjectOfSameType(OWLObject o) {
+        OWLPropertyAssertionAxiom<?,?> other = (OWLPropertyAssertionAxiom<?,?>) o;
         int diff = subject.compareTo(other.getSubject());
         if (diff != 0) {
             return diff;
@@ -73,6 +73,6 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
         if (diff != 0) {
             return diff;
         }
-        return object.compareTo(other.getObject());
+        return o.compareTo(other.getObject());
     }
 }

@@ -13,6 +13,7 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  */
 public class OWLObjectValueRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLObjectProperty, OWLIndividual> {
 
+    @SuppressWarnings("rawtypes")
     @Override
 	protected OWLRestriction createRestriction(OWLObjectProperty prop, OWLIndividual filler) throws Exception {
         return getFactory().getOWLObjectHasValue(prop, filler);

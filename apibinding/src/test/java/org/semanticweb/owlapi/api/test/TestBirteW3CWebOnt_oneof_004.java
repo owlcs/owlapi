@@ -1,17 +1,15 @@
 package org.semanticweb.owlapi.api.test;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import junit.framework.TestCase;
+
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-import junit.framework.TestCase;
 
 public class TestBirteW3CWebOnt_oneof_004 extends TestCase {
 	public void testWebOnt() throws Exception {

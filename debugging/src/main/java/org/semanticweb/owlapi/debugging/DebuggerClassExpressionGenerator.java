@@ -206,9 +206,9 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
 
     public void visit(OWLEquivalentClassesAxiom axiom) {
         if (axiom.getClassExpressions().size() == 2 && axiom.getClassExpressions().contains(dataFactory.getOWLNothing())) {
-            for (OWLClassExpression desc : axiom.getClassExpressions()) {
-                if (!desc.isOWLNothing()) {
-                    this.desc = desc;
+            for (OWLClassExpression c : axiom.getClassExpressions()) {
+                if (!c.isOWLNothing()) {
+                    this.desc = c;
                     return;
                 }
             }

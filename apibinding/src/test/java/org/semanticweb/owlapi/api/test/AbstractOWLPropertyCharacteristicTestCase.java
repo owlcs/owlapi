@@ -11,7 +11,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPropertyExpression> extends AbstractOWLDataFactoryTest {
+public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPropertyExpression<?,?>> extends AbstractOWLDataFactoryTest {
 
 
     @Override

@@ -24,7 +24,6 @@ package org.coode.owlapi.obo.parser;
  */
 
 
-import java.util.List;
 
 /**
  * Author: Matthew Horridge<br>

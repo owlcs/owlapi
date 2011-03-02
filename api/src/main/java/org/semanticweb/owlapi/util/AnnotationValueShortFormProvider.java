@@ -146,7 +146,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         int lastLangMatchIndex = Integer.MAX_VALUE;
 
 
-        private AnnotationLanguageFilter(OWLAnnotationProperty prop, List<String> preferredLanguages) {
+        AnnotationLanguageFilter(OWLAnnotationProperty prop, List<String> preferredLanguages) {
             this.prop = prop;
             this.preferredLanguages = preferredLanguages;
         }

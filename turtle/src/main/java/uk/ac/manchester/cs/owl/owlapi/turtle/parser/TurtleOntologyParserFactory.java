@@ -14,7 +14,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class TurtleOntologyParserFactory implements OWLParserFactory {
 
 
-    public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
+    @SuppressWarnings("unused")
+	public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new TurtleOntologyParser();
     }
 }

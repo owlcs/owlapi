@@ -11,6 +11,7 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
+@SuppressWarnings("rawtypes")
 public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLPropertyExpression, F extends OWLObject> extends AbstractOWLRestrictionTestCase<P> {
 
 

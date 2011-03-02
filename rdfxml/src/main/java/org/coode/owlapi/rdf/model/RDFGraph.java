@@ -38,12 +38,12 @@ public class RDFGraph {
         // Reset the computation of root anon nodes
         rootAnonymousNodes = null;
         triples.add(triple);
-        Set<RDFTriple> triples = triplesBySubject.get(triple.getSubject());
-        if (triples == null) {
-            triples = new HashSet<RDFTriple>();
-            triplesBySubject.put(triple.getSubject(), triples);
+        Set<RDFTriple> tripleSet = triplesBySubject.get(triple.getSubject());
+        if (tripleSet == null) {
+            tripleSet = new HashSet<RDFTriple>();
+            triplesBySubject.put(triple.getSubject(), tripleSet);
         }
-        triples.add(triple);
+        tripleSet.add(triple);
 //
 //        Set<RDFTriple> triples2 = triplesByObject.get(triple.getResourceObject());
 //        if(triples2 == null) {

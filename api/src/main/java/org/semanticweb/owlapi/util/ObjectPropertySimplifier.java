@@ -57,7 +57,11 @@ public class ObjectPropertySimplifier {
 
         private int depth;
 
-        public void reset() {
+        public Simplifier() {
+			// TODO Auto-generated constructor stub
+		}
+
+		public void reset() {
             depth = 0;
             property = null;
         }

@@ -21,13 +21,13 @@ public class TPSomeValuesFromHandler extends TriplePredicateHandler {
     //    count = 0;
     }
 
-
+    @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         getConsumer().addOWLRestriction(subject, false);
         return false;
     }
 
-
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
     }
 }

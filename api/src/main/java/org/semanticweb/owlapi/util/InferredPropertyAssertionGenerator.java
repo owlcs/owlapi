@@ -17,11 +17,11 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
  */
-public class InferredPropertyAssertionGenerator extends InferredIndividualAxiomGenerator<OWLPropertyAssertionAxiom> {
+public class InferredPropertyAssertionGenerator extends InferredIndividualAxiomGenerator<OWLPropertyAssertionAxiom<?,?>> {
 
 
     @Override
-	protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLPropertyAssertionAxiom> result) {
+	protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLPropertyAssertionAxiom<?,?>> result) {
         for (OWLObjectProperty prop : reasoner.getRootOntology().getObjectPropertiesInSignature(true)) {
             for (OWLNamedIndividual value : reasoner.getObjectPropertyValues(entity, prop).getFlattened()) {
                 result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(prop, entity, value));

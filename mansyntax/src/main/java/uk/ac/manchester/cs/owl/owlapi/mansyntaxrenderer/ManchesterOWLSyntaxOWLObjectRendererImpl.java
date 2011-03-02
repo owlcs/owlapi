@@ -47,7 +47,12 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
 
         private StringWriter delegate;
 
-        private void reset() {
+        public WriterDelegate() {
+			// TODO Auto-generated constructor stub
+		}
+
+
+		private void reset() {
             delegate = new StringWriter();
         }
 

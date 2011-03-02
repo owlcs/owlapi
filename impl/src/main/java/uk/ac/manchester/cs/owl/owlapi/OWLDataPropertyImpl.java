@@ -143,7 +143,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
 
 
     @Override
-	protected Set<? extends OWLPropertyDomainAxiom> getDomainAxioms(OWLOntology ontology) {
+	protected Set<? extends OWLPropertyDomainAxiom<?>> getDomainAxioms(OWLOntology ontology) {
         return ontology.getDataPropertyDomainAxioms(this);
     }
 

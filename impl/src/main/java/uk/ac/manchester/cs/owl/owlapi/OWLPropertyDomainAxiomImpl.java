@@ -16,7 +16,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression> extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyDomainAxiom<P> {
+public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression<?,?>> extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyDomainAxiom<P> {
 
     private OWLClassExpression domain;
 
@@ -38,7 +38,7 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
             if (!(obj instanceof OWLPropertyDomainAxiom)) {
                 return false;
             }
-            return ((OWLPropertyDomainAxiom) obj).getDomain().equals(domain);
+            return ((OWLPropertyDomainAxiom<?>) obj).getDomain().equals(domain);
         }
         return false;
     }
@@ -46,7 +46,7 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
 
     @Override
 	protected int compareObjectOfSameType(OWLObject object) {
-        OWLPropertyDomainAxiom other = (OWLPropertyDomainAxiom) object;
+        OWLPropertyDomainAxiom<?> other = (OWLPropertyDomainAxiom<?>) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {
             return diff;

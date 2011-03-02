@@ -18,7 +18,7 @@ public class SimpleIRIShortFormProvider implements IRIShortFormProvider {
 
     public String getShortForm(IRI iri) {
         String rendering = iri.getFragment();
-        if (rendering != null) {
+        if (rendering != null && rendering.length()>0) {
             return rendering;
         }
         else {

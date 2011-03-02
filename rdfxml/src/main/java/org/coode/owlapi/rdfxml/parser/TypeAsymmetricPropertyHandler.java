@@ -15,7 +15,8 @@ public class TypeAsymmetricPropertyHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY.getIRI());
     }
 
-    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    @Override
+	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         getConsumer().addObjectProperty(subject, false);
         return !isAnonymous(subject);
     }

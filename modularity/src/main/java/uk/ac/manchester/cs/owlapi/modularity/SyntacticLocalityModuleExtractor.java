@@ -541,7 +541,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         return extract(sig, superClassLevel, subClassLevel, reasoner, false);
     }
 
-    Set<OWLAxiom> extract(Set<OWLEntity> sig, int superClassLevel, int subClassLevel, OWLReasoner reasoner, boolean verbose) {
+    public Set<OWLAxiom> extract(Set<OWLEntity> sig, int superClassLevel, int subClassLevel, OWLReasoner reasoner, boolean verbose) {
         Set<OWLEntity> enrichedSig = enrichSignature(sig, superClassLevel, subClassLevel, reasoner);
         switch (moduleType) {
             case TOP: {

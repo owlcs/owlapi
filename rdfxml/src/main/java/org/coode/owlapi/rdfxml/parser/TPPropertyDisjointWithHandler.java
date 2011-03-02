@@ -23,6 +23,7 @@ public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
         return super.canHandle(subject, predicate, object) && ((getConsumer().isObjectProperty(subject) && getConsumer().isObjectProperty(object)) || (getConsumer().isDataProperty(subject) && getConsumer().isDataProperty(object)));
     }
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if(getConsumer().isDataProperty(subject) && getConsumer().isDataProperty(object)) {
             addAxiom(getDataFactory().getOWLDisjointDataPropertiesAxiom(CollectionFactory.createSet(translateDataProperty(subject), translateDataProperty(object)), getPendingAnnotations()));
@@ -34,6 +35,7 @@ public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
         }
     }
 
+    @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         inferTypes(subject, object);
         return false;

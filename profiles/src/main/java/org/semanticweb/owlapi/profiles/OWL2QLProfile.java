@@ -119,7 +119,7 @@ public class OWL2QLProfile implements OWLProfile {
 
         private Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 
-        private OWL2QLObjectVisitor(OWLOntologyWalker walker) {
+         OWL2QLObjectVisitor(OWLOntologyWalker walker) {
             super(walker);
         }
 
@@ -304,6 +304,9 @@ public class OWL2QLProfile implements OWLProfile {
     @SuppressWarnings("unused")
     private static class OWL2QLSubClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
+    	public OWL2QLSubClassExpressionChecker() {
+		
+		}
         public Boolean visit(OWLClass desc) {
             return true;
         }
@@ -386,6 +389,9 @@ public class OWL2QLProfile implements OWLProfile {
     @SuppressWarnings("unused")
     private class OWL2QLSuperClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
+    	public OWL2QLSuperClassExpressionChecker() {
+		
+		}
         public Boolean visit(OWLClass desc) {
             return true;
         }

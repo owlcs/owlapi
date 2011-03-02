@@ -21,7 +21,7 @@ public class TPDisjointWithHandler extends TriplePredicateHandler {
         super(consumer, OWLRDFVocabulary.OWL_DISJOINT_WITH.getIRI());
     }
 
-
+    @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         getConsumer().addClassExpression(subject, false);
         getConsumer().addClassExpression(object, false);
@@ -35,6 +35,7 @@ public class TPDisjointWithHandler extends TriplePredicateHandler {
         return super.canHandle(subject, predicate, object) && isSubjectAndObjectClassExpression(subject, object);
     }
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateClassExpression(subject));

@@ -191,7 +191,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         ind.accept(this);
     }
 
-    public final void write(OWLPropertyExpression obj) {
+    public final void write(OWLPropertyExpression<?,?> obj) {
         writeSpace();
         obj.accept(this);
     }
@@ -217,15 +217,15 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    public final void visit(OWLOntology ontology) {
-        for (final OWLClass eachClass : ontology.getClassesInSignature()) {
-            final boolean primitive = !eachClass.isDefined(ontology);//!eachClass.getSuperClasses(ontology).isEmpty();
+    public final void visit(OWLOntology onto) {
+        for (final OWLClass eachClass : onto.getClassesInSignature()) {
+            final boolean primitive = !eachClass.isDefined(onto);//!eachClass.getSuperClasses(ontology).isEmpty();
             if (primitive) {
                 writeOpenBracket();
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                Set<OWLClassExpression> superClasses = eachClass.getSuperClasses(ontology);
+                Set<OWLClassExpression> superClasses = eachClass.getSuperClasses(onto);
                 if (superClasses.size() == 1) {
                     write(superClasses.iterator().next());
                 } else {
@@ -233,7 +233,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 }
                 writeCloseBracket(); //==> end definition of primitive-concept
                 writeln();
-                for (OWLClassExpression classExpression : eachClass.getEquivalentClasses(ontology)) {
+                for (OWLClassExpression classExpression : eachClass.getEquivalentClasses(onto)) {
                     writeOpenBracket();
                     write(eachClass);
                     write(EQUIVALENT);
@@ -246,7 +246,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Set<OWLClassExpression> equivalentClasses = eachClass.getEquivalentClasses(ontology);
+                Set<OWLClassExpression> equivalentClasses = eachClass.getEquivalentClasses(onto);
                 if (equivalentClasses.isEmpty()) {
                     //?
                     writeCloseBracket();
@@ -273,36 +273,36 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
 
             }
         }
-        for (final OWLClassAxiom axiom : ontology.getGeneralClassAxioms()) {
+        for (final OWLClassAxiom axiom : onto.getGeneralClassAxioms()) {
             axiom.accept(this);
         }
 
-        for (final OWLObjectProperty property : ontology.getObjectPropertiesInSignature()) {
+        for (final OWLObjectProperty property : onto.getObjectPropertiesInSignature()) {
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);
 
-            if (property.isTransitive(ontology)) {
+            if (property.isTransitive(onto)) {
                 writeAttribute(TRANSITIVE_ATTR);
                 writeSpace();
                 write(TRUE);
             }
-            if (property.isSymmetric(ontology)) {
+            if (property.isSymmetric(onto)) {
                 writeAttribute(SYMMETRIC_ATTR);
                 writeSpace();
                 write(TRUE);
             }
-            final Set<OWLClassExpression> domains = property.getDomains(ontology);
+            final Set<OWLClassExpression> domains = property.getDomains(onto);
             if (!domains.isEmpty()) {
                 writeAttribute(DOMAIN);
                 flatten(domains);
             }
-            final Set<OWLClassExpression> ranges = property.getDomains(ontology);
+            final Set<OWLClassExpression> ranges = property.getDomains(onto);
             if (!ranges.isEmpty()) {
                 writeAttribute(RANGE_ATTR);
                 flatten(ranges);
             }
-            final Set<OWLObjectPropertyExpression> superProperties = property.getSuperProperties(ontology);
+            final Set<OWLObjectPropertyExpression> superProperties = property.getSuperProperties(onto);
             if (!superProperties.isEmpty()) {
                 writeAttribute(PARENTS_ATTR);
                 writeOpenBracket();

@@ -291,6 +291,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     /**
      * @deprecated Use {@link #getOWLLiteral(String, org.semanticweb.owlapi.model.OWLDatatype)}
      */
+    @Deprecated
     public OWLLiteral getOWLTypedLiteral(String literal, OWLDatatype datatype) {
         return getOWLLiteral(literal, datatype);
     }
@@ -302,6 +303,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @deprecated Use {@link #getOWLLiteral(String, org.semanticweb.owlapi.vocab.OWL2Datatype)}
      *             Creates a typed literal that has the specified OWL 2 Datatype as its datatype
      */
+    @Deprecated
     public OWLLiteral getOWLTypedLiteral(String literal, OWL2Datatype datatype) {
         return getOWLLiteral(literal, datatype);
     }
@@ -313,7 +315,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @deprecated Use {@link #getOWLLiteral(int)}
      *             Convenience method that obtains a literal typed as an integer.
      */
-    public OWLLiteral getOWLTypedLiteral(int value) {
+    @Deprecated
+	public OWLLiteral getOWLTypedLiteral(int value) {
         return getOWLLiteral(value);
     }
 
@@ -324,7 +327,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @deprecated Use {@link #getOWLLiteral(double)}
      *             Convenience method that obtains a literal typed as a double.
      */
-    public OWLLiteral getOWLTypedLiteral(double value) {
+    @Deprecated
+	public OWLLiteral getOWLTypedLiteral(double value) {
         return getOWLLiteral(value);
     }
 
@@ -335,7 +339,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @deprecated Use {@link #getOWLLiteral(boolean)}
      *             Convenience method that obtains a literal typed as a boolean.
      */
-    public OWLLiteral getOWLTypedLiteral(boolean value) {
+    @Deprecated
+	public OWLLiteral getOWLTypedLiteral(boolean value) {
         return getOWLLiteral(value);
     }
 
@@ -346,7 +351,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @deprecated Use {@link #getOWLLiteral(float)}
      *             Convenience method that obtains a literal typed as a float.
      */
-    public OWLLiteral getOWLTypedLiteral(float value) {
+    @Deprecated
+	public OWLLiteral getOWLTypedLiteral(float value) {
         return getOWLLiteral(value);
     }
 
@@ -357,6 +363,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @deprecated Use {@link #getOWLLiteral(String)}
      *             Convenience method that obtains a literal typed as a string.
      */
+    @Deprecated
     public OWLLiteral getOWLTypedLiteral(String value) {
         return getOWLLiteral(value);
     }
@@ -371,6 +378,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @deprecated Use {@link #getOWLLiteral(String, String)}
      *             Gets an OWLStringLiteral with a language tag.
      */
+    @Deprecated
     public OWLLiteral getOWLStringLiteral(String literal, String lang) {
         return getOWLLiteral(literal, lang);
     }
@@ -380,7 +388,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
      * @return The string literal for the specfied string
      * @deprecated Use {@link #getOWLLiteral(String, String)} with the second parameter as the empty string ("").
      *             Gets a string literal without a language tag.
-     */
+     */    
+    @Deprecated
     public OWLLiteral getOWLStringLiteral(String literal) {
         return getOWLLiteral(literal, "");
     }
@@ -1090,17 +1099,17 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
     }
 
 
-    public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, Set<? extends OWLPropertyExpression> properties, Set<? extends OWLAnnotation> annotations) {
+    public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, Set<? extends OWLPropertyExpression<?,?>> properties, Set<? extends OWLAnnotation> annotations) {
         return new OWLHasKeyAxiomImpl(this, ce, properties, annotations);
     }
 
 
-    public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, Set<? extends OWLPropertyExpression> properties) {
+    public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, Set<? extends OWLPropertyExpression<?,?>> properties) {
         return getOWLHasKeyAxiom(ce, properties, EMPTY_ANNOTATIONS_SET);
     }
 
 
-    public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, OWLPropertyExpression... properties) {
+    public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, OWLPropertyExpression<?,?>... properties) {
         return getOWLHasKeyAxiom(ce, CollectionFactory.createSet(properties));
     }
 

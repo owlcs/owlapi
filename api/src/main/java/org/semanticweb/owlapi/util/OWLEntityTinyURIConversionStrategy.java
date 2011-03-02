@@ -97,7 +97,12 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
         private int datatypeCount = 0;
 
 
-        public String getName(OWLEntity entity) {
+        public OWLEntityFragmentProvider() {
+			// TODO Auto-generated constructor stub
+		}
+
+
+		public String getName(OWLEntity entity) {
             if (entity.isBuiltIn()) {
                 return entity.getIRI().toString();
             }

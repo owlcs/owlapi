@@ -42,6 +42,7 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends
 			OWLDataProperty prop, int cardinality, OWLDataRange dataRange)
 			throws Exception;
 
+    @SuppressWarnings("rawtypes")
 	@Override
 	protected OWLRestriction createRestriction(OWLDataProperty prop)
 			throws Exception {

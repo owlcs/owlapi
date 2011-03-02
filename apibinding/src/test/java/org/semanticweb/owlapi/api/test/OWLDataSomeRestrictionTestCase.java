@@ -14,7 +14,7 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  */
 public class OWLDataSomeRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLDataProperty, OWLDataRange> {
 
-
+    @SuppressWarnings("rawtypes")
     @Override
 	protected OWLRestriction createRestriction(OWLDataProperty prop, OWLDataRange filler) throws Exception {
         return getFactory().getOWLDataSomeValuesFrom(prop, filler);

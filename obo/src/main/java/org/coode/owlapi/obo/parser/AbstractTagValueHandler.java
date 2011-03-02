@@ -1,6 +1,5 @@
 package org.coode.owlapi.obo.parser;
 
-import java.util.List;
 import java.util.StringTokenizer;
 
 import org.semanticweb.owlapi.model.AddAxiom;

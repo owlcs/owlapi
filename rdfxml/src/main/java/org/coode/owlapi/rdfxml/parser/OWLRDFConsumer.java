@@ -57,7 +57,11 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.rdf.syntax.RDFConsumer;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.vocab.*;
+import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLFacet;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.xml.sax.SAXException;
 
 
@@ -126,7 +130,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private Set<IRI> annotationIRIs;
 
-    private Map<IRI, OWLAnnotation> annotationIRI2Annotation;
+//    private Map<IRI, OWLAnnotation> annotationIRI2Annotation;
 
 
     // IRIs that had a type triple to rdfs:Datatange
@@ -155,7 +159,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private Set<IRI> axioms = new HashSet<IRI>();
 
-    private Map<IRI, Set<OWLAnnotation>> annotationsBySubject;
+//    private Map<IRI, Set<OWLAnnotation>> annotationsBySubject;
 
     private Map<IRI, Object> sharedAnonymousNodes = new HashMap<IRI, Object>();
 
@@ -310,8 +314,8 @@ public class OWLRDFConsumer implements RDFConsumer {
             annotationPropertyIRIs.add(iri);
         }
         annotationIRIs = new HashSet<IRI>();
-        annotationIRI2Annotation = new HashMap<IRI, OWLAnnotation>();
-        annotationsBySubject = new HashMap<IRI, Set<OWLAnnotation>>();
+//        annotationIRI2Annotation = new HashMap<IRI, OWLAnnotation>();
+//        annotationsBySubject = new HashMap<IRI, Set<OWLAnnotation>>();
 
         dataRangeIRIs = CollectionFactory.createSet();
         propertyIRIs = CollectionFactory.createSet();
@@ -1534,7 +1538,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    private int addCount = 0;
+//    private int addCount = 0;
 
 
     /**
@@ -1944,7 +1948,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 //    private IRI cachedPredicate = null;
 //    private IRI cachedObject = null;
 
-    private static int cacheHit = 0;
+//    private static int cacheHit = 0;
 
     public IRI getResourceObject(IRI subject, IRI predicate, boolean consume) {
 //        if (!consume) {

@@ -165,7 +165,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         axiom.getSuperClass().accept(this);
     }
 
-    private void writePropertyAssertion(OWLPropertyAssertionAxiom ax) {
+    private void writePropertyAssertion(OWLPropertyAssertionAxiom<?, ?> ax) {
         if (ax instanceof OWLNegativeObjectPropertyAssertionAxiom || ax instanceof OWLNegativeDataPropertyAssertionAxiom) {
             write(NOT);
         }
@@ -218,7 +218,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 //        write(axiom.getClassExpressions(), DISJOINT_WITH, true);
     }
 
-    private void writeDomainAxiom(OWLPropertyDomainAxiom axiom) {
+    private void writeDomainAxiom(OWLPropertyDomainAxiom<?> axiom) {
         write(EXISTS);
         writeSpace();
         axiom.getProperty().accept(this);
@@ -276,7 +276,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         write(axiom.getProperties(), DISJOINT_WITH, false);
     }
 
-    private void writeRangeAxiom(OWLPropertyRangeAxiom axiom) {
+    private void writeRangeAxiom(OWLPropertyRangeAxiom<?,?> axiom) {
         write(TOP);
         writeSpace();
         write(SUBCLASS);
@@ -297,7 +297,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writePropertyAssertion(axiom);
     }
 
-    private void writeFunctionalProperty(OWLPropertyExpression property) {
+    private void writeFunctionalProperty(OWLPropertyExpression<?,?> property) {
         write(TOP);
         writeSpace();
         write(SUBCLASS);

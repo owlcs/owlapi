@@ -112,16 +112,16 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    private int getIndent() {
-        return pos - lastNewLinePos - 1;
-    }
-
-
-    private void writeIndent(int indent) {
-        for (int i = 0; i < indent; i++) {
-            writeSpace();
-        }
-    }
+//    private int getIndent() {
+//        return pos - lastNewLinePos - 1;
+//    }
+//
+//
+//    private void writeIndent(int indent) {
+//        for (int i = 0; i < indent; i++) {
+//            writeSpace();
+//        }
+//    }
 
 
     private void write(IRI iri) {
@@ -290,7 +290,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     private void write(Collection<? extends OWLObject> objects) {
         if (objects.size() > 2) {
-            int indent = getIndent();
+            //int indent = getIndent();
             for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
                 it.next().accept(this);
                 if (it.hasNext()) {
@@ -361,7 +361,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    public void writePropertyCharacteristic(OWLXMLVocabulary v, OWLAxiom ax, OWLPropertyExpression prop) {
+    public void writePropertyCharacteristic(OWLXMLVocabulary v, OWLAxiom ax, OWLPropertyExpression<?,?> prop) {
         writeAxiomStart(v, ax);
         prop.accept(this);
         writeAxiomEnd();
@@ -669,7 +669,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
 
-    private void writeRestriction(OWLXMLVocabulary v, OWLPropertyExpression prop, OWLObject filler) {
+    private void writeRestriction(OWLXMLVocabulary v, OWLPropertyExpression<?,?> prop, OWLObject filler) {
         write(v);
         writeOpenBracket();
         prop.accept(this);
@@ -880,16 +880,16 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         axiom.getClassExpression().accept(this);
         write(" ");
         write("(");
-        for (Iterator<? extends OWLPropertyExpression> it = axiom.getObjectPropertyExpressions().iterator(); it.hasNext();) {
-            OWLPropertyExpression prop = it.next();
+        for (Iterator<? extends OWLPropertyExpression<?,?>> it = axiom.getObjectPropertyExpressions().iterator(); it.hasNext();) {
+            OWLPropertyExpression<?,?> prop = it.next();
             prop.accept(this);
             if (it.hasNext()) {
                 write(" ");
             }
         }
         write(") (");
-        for (Iterator<? extends OWLPropertyExpression> it = axiom.getDataPropertyExpressions().iterator(); it.hasNext();) {
-            OWLPropertyExpression prop = it.next();
+        for (Iterator<? extends OWLPropertyExpression<?,?>> it = axiom.getDataPropertyExpressions().iterator(); it.hasNext();) {
+            OWLPropertyExpression<?,?> prop = it.next();
             prop.accept(this);
             if (it.hasNext()) {
                 write(" ");

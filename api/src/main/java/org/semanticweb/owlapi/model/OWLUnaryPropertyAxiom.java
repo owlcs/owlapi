@@ -29,7 +29,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression> extends OWLPropertyAxiom {
+public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression<?,?>> extends OWLPropertyAxiom {
 
     /**
      * Gets the property expression that this axiom describes.

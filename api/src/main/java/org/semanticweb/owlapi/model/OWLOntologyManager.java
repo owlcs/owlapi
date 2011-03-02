@@ -710,6 +710,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * this exception will not be thrown.
      * @deprecated use {@link OWLOntologyManager#makeLoadImportRequest(OWLImportsDeclaration, OWLOntologyLoaderConfiguration)} instead.
      */
+    @Deprecated
     void makeLoadImportRequest(OWLImportsDeclaration declaration) throws UnloadableImportException;
 
     /**

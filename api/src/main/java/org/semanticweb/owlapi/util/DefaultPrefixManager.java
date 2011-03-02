@@ -25,6 +25,10 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
      * XXX stateless, might be used through a singleton*/
 	private static final class StringLengthComparator implements
 			Comparator<String> {
+		public StringLengthComparator() {
+		
+		}
+		
 		public int compare(String o1, String o2) {
             int diff = o1.length() - o2.length();
             if(diff != 0) {

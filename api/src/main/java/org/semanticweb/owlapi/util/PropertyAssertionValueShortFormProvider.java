@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  */
 public class PropertyAssertionValueShortFormProvider implements ShortFormProvider {
 
-    private List<OWLPropertyExpression> properties;
+    private List<OWLPropertyExpression<?,?>> properties;
 
     private Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap;
 
@@ -44,7 +44,7 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
      * Constructs a property value short form provider. Using <code>SimpleShortFormProvider</code> as the
      * alternate short form provider (see other constructor for details).
      */
-    public PropertyAssertionValueShortFormProvider(List<OWLPropertyExpression> properties, Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
+    public PropertyAssertionValueShortFormProvider(List<OWLPropertyExpression<?,?>> properties, Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
                                                    OWLOntologySetProvider ontologySetProvider) {
         this(properties, preferredLanguageMap, ontologySetProvider, new SimpleShortFormProvider());
     }
@@ -68,7 +68,7 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
      *                                   for an entity that does not have any property values (e.g. class, property).  This provider will also be used in the case where
      *                                   the value of an annotation is an <code>OWLIndividual</code> for providing the short form of the individual.
      */
-    public PropertyAssertionValueShortFormProvider(List<OWLPropertyExpression> properties, Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
+    public PropertyAssertionValueShortFormProvider(List<OWLPropertyExpression<?,?>> properties, Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
                                                    OWLOntologySetProvider ontologySetProvider,
                                                    ShortFormProvider alternateShortFormProvider) {
         this.properties = properties;
@@ -161,7 +161,7 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     }
 
 
-    public List<OWLPropertyExpression> getProperties() {
+    public List<OWLPropertyExpression<?,?>> getProperties() {
         return properties;
     }
 

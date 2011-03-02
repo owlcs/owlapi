@@ -51,12 +51,12 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         return value;
     }
 
-    public OWLAnnotation getAnnotatedAnnotation(Set<OWLAnnotation> annotations) {
-        if(annotations.isEmpty()) {
+    public OWLAnnotation getAnnotatedAnnotation(Set<OWLAnnotation> annotationsToAdd) {
+        if(annotationsToAdd.isEmpty()) {
             return this;
         }
         Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(this.annotations);
-        merged.addAll(annotations);
+        merged.addAll(annotationsToAdd);
         return new OWLAnnotationImpl(getOWLDataFactory(), property, value, merged);
     }
 

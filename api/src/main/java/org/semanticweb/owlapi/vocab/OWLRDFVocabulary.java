@@ -270,6 +270,7 @@ public enum OWLRDFVocabulary {
     /**
      * @deprecated
      */
+    @Deprecated
     OWL_PROPERTY_CHAIN(Namespaces.OWL, "propertyChain"),
 
     OWL_PROPERTY_CHAIN_AXIOM(Namespaces.OWL, "propertyChainAxiom"),

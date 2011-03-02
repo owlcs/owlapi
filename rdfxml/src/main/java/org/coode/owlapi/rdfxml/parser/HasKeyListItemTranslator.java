@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 02-Feb-2009
  */
-public class HasKeyListItemTranslator implements ListItemTranslator<OWLPropertyExpression> {
+public class HasKeyListItemTranslator implements ListItemTranslator<OWLPropertyExpression<?,?>> {
 
     private OWLRDFConsumer consumer;
 
@@ -39,11 +39,11 @@ public class HasKeyListItemTranslator implements ListItemTranslator<OWLPropertyE
         this.consumer = consumer;
     }
     @SuppressWarnings("unused")
-    public OWLPropertyExpression translate(OWLLiteral firstObject) {
+    public OWLPropertyExpression<?,?> translate(OWLLiteral firstObject) {
         return null;
     }
 
-    public OWLPropertyExpression translate(IRI firstObject) {
+    public OWLPropertyExpression<?,?> translate(IRI firstObject) {
         if (consumer.isObjectPropertyOnly(firstObject)) {
             return consumer.getDataFactory().getOWLObjectProperty(firstObject);
         }

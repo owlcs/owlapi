@@ -17,7 +17,7 @@ public class TPAllValuesFromHandler extends TriplePredicateHandler {
         super(consumer, OWLRDFVocabulary.OWL_ALL_VALUES_FROM.getIRI());
     }
 
-
+    @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         OWLRDFConsumer consumer = getConsumer();
         consumer.addOWLRestriction(subject, false);
@@ -38,7 +38,7 @@ public class TPAllValuesFromHandler extends TriplePredicateHandler {
         return false;
     }
 
-
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
     }
 }

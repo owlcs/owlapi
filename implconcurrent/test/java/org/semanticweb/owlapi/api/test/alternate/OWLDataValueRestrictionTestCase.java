@@ -34,7 +34,9 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  */
 public class OWLDataValueRestrictionTestCase extends
 		AbstractOWLRestrictionWithFillerTestCase<OWLDataProperty, OWLLiteral> {
-	@Override
+	
+    @SuppressWarnings("rawtypes")
+    @Override
 	protected OWLRestriction createRestriction(OWLDataProperty prop,
 			OWLLiteral filler) throws Exception {
 		return getFactory().getOWLDataHasValue(prop, filler);

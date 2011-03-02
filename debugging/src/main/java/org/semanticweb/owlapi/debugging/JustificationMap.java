@@ -110,10 +110,10 @@ public class JustificationMap {
     }
 
     private Set<OWLAxiom> getAxiomsByLHS(OWLEntity lhs) {
-        Set<OWLAxiom> axioms = axiomsByLHS.get(lhs);
-        if (axioms != null) {
+        Set<OWLAxiom> axiomSet = axiomsByLHS.get(lhs);
+        if (axiomSet != null) {
             Set<OWLAxiom> ts = new TreeSet<OWLAxiom>(new OWLAxiomComparator());
-            ts.addAll(axioms);
+            ts.addAll(axiomSet);
             return ts;
         }
         else {
@@ -147,9 +147,9 @@ public class JustificationMap {
     }
 
 
-    private void buildChildren(Set<OWLAxiom> axioms) {
+    private void buildChildren(Set<OWLAxiom> axiomSet) {
         List<Set<OWLAxiom>> axiomChildren = new ArrayList<Set<OWLAxiom>>();
-        for (OWLAxiom ax : axioms) {
+        for (OWLAxiom ax : axiomSet) {
             Set<OWLAxiom> children = build(ax);
             for (OWLAxiom childAx : children) {
                 index(ax, map, childAx);
@@ -473,8 +473,10 @@ public class JustificationMap {
     @SuppressWarnings("unused")
     private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements Comparator<OWLAxiom> {
 
+		public OWLAxiomComparator() {
+		}
 
-        @Override
+		@Override
 		public void visit(OWLSubClassOfAxiom axiom) {
             result = 0;
         }

@@ -9,18 +9,17 @@ import java.util.Map;
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants {
 
-    private OWLDataFactory dataFactory;
+//    private OWLDataFactory dataFactory;
 
     private Map<String, IRI> string2IRI;
 
-    private boolean ignoreAnnotationsAndDeclarations = false;
+//    private boolean ignoreAnnotationsAndDeclarations = false;
 
     private String base;
 
@@ -126,9 +125,9 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         return iri;
     }
 
-    public void setIgnoreAnnotationsAndDeclarations(boolean b) {
-        ignoreAnnotationsAndDeclarations = b;
-    }
+//    public void setIgnoreAnnotationsAndDeclarations(boolean b) {
+//        ignoreAnnotationsAndDeclarations = b;
+//    }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -183,7 +182,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
   }
 
   final public void parseBaseDirective() throws ParseException {
-    IRI baseIRI;
+    //IRI baseIRI;
     Token t;
     jj_consume_token(BASE);
     t = jj_consume_token(FULLIRI);
@@ -220,7 +219,7 @@ return iri;
   }
 
   final public IRI parseAbbreviatedIRI() throws ParseException {
-    IRI iri;
+    //IRI iri;
     Token t;
     t = jj_consume_token(PNAME_LN);
     return getIRIFromQName(t.image);
@@ -229,7 +228,7 @@ return iri;
 
   final public IRI parseIRI() throws ParseException {
     Token t;
-    IRI iri;
+   // IRI iri;
     t = jj_consume_token(FULLIRI);
     return getIRI(t.image);
     
@@ -237,7 +236,7 @@ return iri;
 
   final public IRI parseBlankNode() throws ParseException {
     IRI iri = null;
-    Token t;
+ //   Token t;
     if (jj_2_11(2)) {
       iri = parseNodeID();
     } else if (jj_2_12(2)) {
@@ -1405,12 +1404,12 @@ return iri;
     return t;
   }
 
-  private int jj_ntk() {
-    if ((jj_nt=token.next) == null)
-      return (jj_ntk = (token.next=token_source.getNextToken()).kind);
-    else
-      return (jj_ntk = jj_nt.kind);
-  }
+//  private int jj_ntk() {
+//    if ((jj_nt=token.next) == null)
+//      return (jj_ntk = (token.next=token_source.getNextToken()).kind);
+//    else
+//      return (jj_ntk = jj_nt.kind);
+//  }
 
   private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
   private int[] jj_expentry;

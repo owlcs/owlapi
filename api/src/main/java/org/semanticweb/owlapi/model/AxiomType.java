@@ -292,6 +292,7 @@ public class AxiomType<C extends OWLAxiom> {
         }
     }
 
+	@SuppressWarnings("unchecked")
 	public static final Set<AxiomType<?>> TBoxAxiomTypes = new HashSet<AxiomType<?>>(
 			Arrays.asList(SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES,
 					OBJECT_PROPERTY_DOMAIN, OBJECT_PROPERTY_RANGE,
@@ -302,12 +303,14 @@ public class AxiomType<C extends OWLAxiom> {
 					IRREFLEXIVE_OBJECT_PROPERTY, DATA_PROPERTY_DOMAIN,
 					DATA_PROPERTY_RANGE, FUNCTIONAL_DATA_PROPERTY,
 					DATATYPE_DEFINITION, DISJOINT_UNION, HAS_KEY));
+	@SuppressWarnings("unchecked")
 	public static final Set<AxiomType<?>> ABoxAxiomTypes = new HashSet<AxiomType<?>>(
 			Arrays.asList(CLASS_ASSERTION, SAME_INDIVIDUAL,
 					DIFFERENT_INDIVIDUALS, OBJECT_PROPERTY_ASSERTION,
 					NEGATIVE_OBJECT_PROPERTY_ASSERTION,
 					DATA_PROPERTY_ASSERTION, NEGATIVE_DATA_PROPERTY_ASSERTION,
 					DATATYPE_DEFINITION));
+	@SuppressWarnings("unchecked")
 	public static final Set<AxiomType<?>> RBoxAxiomTypes = new HashSet<AxiomType<?>>(
 			Arrays.asList(TRANSITIVE_OBJECT_PROPERTY, DISJOINT_DATA_PROPERTIES,
 					SUB_DATA_PROPERTY, EQUIVALENT_DATA_PROPERTIES,

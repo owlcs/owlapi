@@ -29,7 +29,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  */
-public interface OWLSubPropertyAxiom<P extends OWLPropertyExpression> extends OWLPropertyAxiom {
+public interface OWLSubPropertyAxiom<P extends OWLPropertyExpression<?,?>> extends OWLPropertyAxiom {
 
     public P getSubProperty();
 

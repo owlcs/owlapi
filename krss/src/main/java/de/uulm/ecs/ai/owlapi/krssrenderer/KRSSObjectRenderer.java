@@ -404,7 +404,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         ind.accept(this);
     }
 
-    public final void write(OWLPropertyExpression obj) {
+    public final void write(OWLPropertyExpression<?,?> obj) {
         writeSpace();
         obj.accept(this);
     }

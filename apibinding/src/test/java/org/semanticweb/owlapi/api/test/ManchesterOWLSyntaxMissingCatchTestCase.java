@@ -10,7 +10,6 @@ import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -62,7 +61,8 @@ public class ManchesterOWLSyntaxMissingCatchTestCase extends TestCase {
 			parser.setDefaultOntology(wine);
 			parser.setOWLEntityChecker(new ShortFormEntityChecker(
 					shortFormProvider));
-			OWLClassExpression cls = parser.parseClassExpression();
+			//OWLClassExpression cls = 
+				parser.parseClassExpression();
 		} catch (UnparsableOntologyException e) {
 		} catch (RuntimeException e) {
 			e.printStackTrace();

@@ -31,6 +31,7 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
+@SuppressWarnings("rawtypes")
 public abstract class AbstractOWLRestrictionTestCase<P extends OWLPropertyExpression> extends AbstractOWLDataFactoryTest {
     protected abstract OWLRestriction createRestriction(P prop) throws Exception;
 

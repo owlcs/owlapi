@@ -33,7 +33,8 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
 public class OWLObjectValueRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLObjectProperty, OWLIndividual> {
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
 	protected OWLRestriction createRestriction(OWLObjectProperty prop, OWLIndividual filler) throws Exception {
         return getFactory().getOWLObjectHasValue(prop, filler);
     }

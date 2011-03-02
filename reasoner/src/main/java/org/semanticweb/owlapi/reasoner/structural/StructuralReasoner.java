@@ -89,7 +89,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private boolean interrupted = false;
 
-    private ReasonerProgressMonitor pm;
+    protected ReasonerProgressMonitor pm;
 
     private boolean prepared = false;
 
@@ -294,7 +294,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-        OWLObjectPropertyNode nd = new OWLObjectPropertyNode();
+      //  OWLObjectPropertyNode nd = new OWLObjectPropertyNode();
         ensurePrepared();
         return objectPropertyHierarchyInfo.getEquivalents(pe);
     }
@@ -981,13 +981,13 @@ public class StructuralReasoner extends OWLReasonerBase {
             return result;
         }
 
-        public Set<T> getTopEntities() {
-            return topNode.getEntities();
-        }
-
-        public Set<T> getBottomEntities() {
-            return bottomNode.getEntities();
-        }
+//        public Set<T> getTopEntities() {
+//            return topNode.getEntities();
+//        }
+//
+//        public Set<T> getBottomEntities() {
+//            return bottomNode.getEntities();
+//        }
 
         public Node<T> getNode(T containing) {
             Node<T> parentNode = map.get(containing);
@@ -1011,13 +1011,13 @@ public class StructuralReasoner extends OWLReasonerBase {
             return bottomNode;
         }
 
-        public void setTopNode(Node<T> topNode) {
-            this.topNode = topNode;
-        }
-
-        public void setBottomNode(Node<T> bottomNode) {
-            this.bottomNode = bottomNode;
-        }
+//        public void setTopNode(Node<T> topNode) {
+//            this.topNode = topNode;
+//        }
+//
+//        public void setBottomNode(Node<T> bottomNode) {
+//            this.bottomNode = bottomNode;
+//        }
 
         public void clearTopNode() {
             removeNode(hierarchyInfo.topEntity);

@@ -240,15 +240,15 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     protected class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
 
         public SWRLRule visit(SWRLRule node) {
-            Set<SWRLAtom> body = new HashSet<SWRLAtom>();
+            Set<SWRLAtom> nodebody = new HashSet<SWRLAtom>();
             for (SWRLAtom atom : node.getBody()) {
-                body.add((SWRLAtom) atom.accept(this));
+                nodebody.add((SWRLAtom) atom.accept(this));
             }
-            Set<SWRLAtom> head = new HashSet<SWRLAtom>();
+            Set<SWRLAtom> nodehead = new HashSet<SWRLAtom>();
             for (SWRLAtom atom : node.getHead()) {
-                head.add((SWRLAtom) atom.accept(this));
+                nodehead.add((SWRLAtom) atom.accept(this));
             }
-            return getOWLDataFactory().getSWRLRule(body, head);
+            return getOWLDataFactory().getSWRLRule(nodebody, nodehead);
         }
 
         public SWRLClassAtom visit(SWRLClassAtom node) {

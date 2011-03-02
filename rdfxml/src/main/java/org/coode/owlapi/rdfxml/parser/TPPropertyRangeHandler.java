@@ -23,7 +23,7 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
         super(consumer, OWLRDFVocabulary.RDFS_RANGE.getIRI());
     }
 
-
+    @Override
     public boolean canHandleStreaming(IRI subject,
                                       IRI predicate,
                                       IRI object) {
@@ -31,7 +31,7 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
         return false;
     }
 
-
+    @Override
     public void handleTriple(IRI subject,
                              IRI predicate,
                              IRI object) throws UnloadableImportException {

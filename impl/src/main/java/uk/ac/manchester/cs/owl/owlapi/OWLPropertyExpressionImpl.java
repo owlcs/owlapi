@@ -47,7 +47,7 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
 
     public Set<OWLClassExpression> getDomains(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLPropertyDomainAxiom axiom : getDomainAxioms(ontology)) {
+        for (OWLPropertyDomainAxiom<?> axiom : getDomainAxioms(ontology)) {
             result.add(axiom.getDomain());
         }
         return result;
@@ -130,7 +130,7 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
     }
 
 
-    protected abstract Set<? extends OWLPropertyDomainAxiom> getDomainAxioms(OWLOntology ontology);
+    protected abstract Set<? extends OWLPropertyDomainAxiom<?>> getDomainAxioms(OWLOntology ontology);
 
     protected abstract Set<? extends OWLPropertyRangeAxiom<P, R>> getRangeAxioms(OWLOntology ontology);
 
@@ -140,7 +140,7 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
 
     protected abstract Set<? extends OWLNaryPropertyAxiom<P>> getDisjointPropertiesAxioms(OWLOntology ontology);
 
-    private <P extends OWLPropertyExpression> Set<P> getProperties(Set<? extends OWLNaryPropertyAxiom<P>> axioms) {
+    private <P extends OWLPropertyExpression<?,?>> Set<P> getProperties(Set<? extends OWLNaryPropertyAxiom<P>> axioms) {
         Set<P> result = new TreeSet<P>();
         for (OWLNaryPropertyAxiom<P> axiom : axioms) {
             result.addAll(axiom.getProperties());

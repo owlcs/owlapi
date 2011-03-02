@@ -43,12 +43,12 @@ public abstract class BuiltInTypeHandler extends TriplePredicateHandler {
         this.typeIRI = typeIRI;
     }
 
-
+    @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException{
         return true;
     }
 
-
+    @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         return predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) && object.equals(typeIRI);
     }

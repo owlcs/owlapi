@@ -92,7 +92,12 @@ public class NamedConjunctChecker {
 
     private class NamedConjunctCheckerVisitor extends OWLClassExpressionVisitorAdapter {
 
-        @Override
+        public NamedConjunctCheckerVisitor() {
+			// TODO Auto-generated constructor stub
+		}
+
+
+		@Override
 		public void visit(OWLClass desc) {
             if (conjunct == null) {
                 found = true;

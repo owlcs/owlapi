@@ -1,6 +1,10 @@
 package org.coode.owlapi.obo.parser;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 /**
  * Author: Matthew Horridge<br>
@@ -24,7 +28,7 @@ public class Modifiers {
      */
     public static Modifiers parseModifiers(String modifiersList) {
         Modifiers modifiers = new Modifiers();
-        String stripped = modifiersList.replace("{", "").replace("}", "");
+        //String stripped = modifiersList.replace("{", "").replace("}", "");
         StringTokenizer tokenizer = new StringTokenizer(modifiersList, ",");
         while(tokenizer.hasMoreTokens()) {
             String nameValuePair = tokenizer.nextToken().trim();

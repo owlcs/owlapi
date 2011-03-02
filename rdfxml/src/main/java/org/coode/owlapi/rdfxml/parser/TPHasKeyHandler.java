@@ -14,11 +14,11 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class TPHasKeyHandler extends TriplePredicateHandler {
 
-    private OptimisedListTranslator<OWLPropertyExpression> listTranslator;
+    private OptimisedListTranslator<OWLPropertyExpression<?,?>> listTranslator;
 
     public TPHasKeyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_HAS_KEY.getIRI());
-        this.listTranslator = new OptimisedListTranslator<OWLPropertyExpression>(getConsumer(), new HasKeyListItemTranslator(getConsumer()));
+        this.listTranslator = new OptimisedListTranslator<OWLPropertyExpression<?,?>>(getConsumer(), new HasKeyListItemTranslator(getConsumer()));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class TPHasKeyHandler extends TriplePredicateHandler {
         if (getConsumer().isClassExpression(subject)) {
             consumeTriple(subject, predicate, object);
             OWLClassExpression ce = translateClassExpression(subject);
-            Set<OWLPropertyExpression> props = listTranslator.translateToSet(object);
+            Set<OWLPropertyExpression<?,?>> props = listTranslator.translateToSet(object);
             addAxiom(getDataFactory().getOWLHasKeyAxiom(ce, props, getPendingAnnotations()));
         }
     }

@@ -337,6 +337,9 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
      * XXX this class is stateless, a singleton might be used to access it
      */
     private static final class OWLAxiomTreeComparator implements Comparator<Tree<OWLAxiom>> {
+    	public OWLAxiomTreeComparator() {
+		
+		}
         public int compare(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
 
 
@@ -603,6 +606,9 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
     @SuppressWarnings("unused")
     private class AxiomMapBuilder implements OWLAxiomVisitor {
 
+    	public AxiomMapBuilder() {
+		
+		}
         public void visit(OWLSubClassOfAxiom axiom) {
             if (!axiom.getSubClass().isAnonymous()) {
                 getAxiomsForLHS(axiom.getSubClass().asOWLClass()).add(axiom);

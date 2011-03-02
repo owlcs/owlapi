@@ -39,7 +39,7 @@ public abstract class OWLRestrictionImpl<R extends OWLPropertyRange, P extends O
             if (!(obj instanceof OWLRestriction)) {
                 return false;
             }
-            return ((OWLRestriction) obj).getProperty().equals(property);
+            return ((OWLRestriction<?,?,?>) obj).getProperty().equals(property);
         }
         return false;
     }

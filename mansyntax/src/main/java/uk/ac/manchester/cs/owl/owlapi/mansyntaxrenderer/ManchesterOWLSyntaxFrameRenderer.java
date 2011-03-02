@@ -796,7 +796,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         for (OWLOntology ontology : getOntologies()) {
 
-            List<OWLPropertyAssertionAxiom> assertions = new ArrayList<OWLPropertyAssertionAxiom>();
+            List<OWLPropertyAssertionAxiom<?,?>> assertions = new ArrayList<OWLPropertyAssertionAxiom<?,?>>();
             assertions.addAll(ontology.getObjectPropertyAssertionAxioms(individual));
             assertions.addAll(ontology.getNegativeObjectPropertyAssertionAxioms(individual));
             assertions.addAll(ontology.getDataPropertyAssertionAxioms(individual));
@@ -812,8 +812,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 writeNewLine();
                 fireSectionRenderingStarted(FACTS.toString());
 
-                for (Iterator<OWLPropertyAssertionAxiom> it = assertions.iterator(); it.hasNext();) {
-                    OWLPropertyAssertionAxiom ax = it.next();
+                for (Iterator<OWLPropertyAssertionAxiom<?,?>> it = assertions.iterator(); it.hasNext();) {
+                    OWLPropertyAssertionAxiom<?,?> ax = it.next();
                     fireSectionItemPrepared(FACTS.toString());
                     Set<OWLAnnotation> annos = ax.getAnnotations();
                     if (!annos.isEmpty()) {
@@ -998,7 +998,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.ANNOTATION_ASSERTION)) {
             for (OWLOntology ontology : getOntologies()) {
                 SectionMap sectionMap = new SectionMap();
-                Set<OWLAnnotation> annos = new TreeSet<OWLAnnotation>();
+                //Set<OWLAnnotation> annos = new TreeSet<OWLAnnotation>();
                 for (OWLAnnotationAssertionAxiom ax : ontology.getAnnotationAssertionAxioms(subject)) {
                     if (isDisplayed(ax)) {
                         axioms.add(ax);
@@ -1251,6 +1251,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
 
     private static class DefaultRenderingDirector implements RenderingDirector {
+    	public DefaultRenderingDirector() {
+		
+		}
         @SuppressWarnings("unused")
         public boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword, OWLOntology... ontologies) {
             return false;

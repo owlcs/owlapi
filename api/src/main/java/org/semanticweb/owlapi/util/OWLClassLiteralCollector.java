@@ -51,7 +51,11 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
 
     private class OWLClassLiteralCollectorVisitor extends OWLObjectVisitorExAdapter<Object> {
 
-        @Override
+        public OWLClassLiteralCollectorVisitor() {
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
 		public Object visit(OWLClass desc) {
             List<OWLClassExpression> path = getClassExpressionPath();
             if(path.size() > 1) {

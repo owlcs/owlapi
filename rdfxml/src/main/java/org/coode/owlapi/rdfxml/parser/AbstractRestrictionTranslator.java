@@ -54,7 +54,7 @@ public abstract class AbstractRestrictionTranslator extends AbstractClassExpress
         return true;
     }
 
-    public abstract OWLPropertyExpression translateProperty(IRI mainNode);
+    public abstract OWLPropertyExpression<?,?> translateProperty(IRI mainNode);
 
     public abstract boolean matchesOnPropertyObject(IRI onPropertyObject);
 

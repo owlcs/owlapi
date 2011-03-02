@@ -22,18 +22,18 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
         super(consumer);
     }
 
-
+    @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return !isAnonymous(subject) &&  !isAnonymous(object) && getConsumer().isAnnotationProperty(predicate);
     }
 
-
+    @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         boolean builtInAnnotationProperty = OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS.contains(predicate);
         return !getConsumer().isAxiom(subject) && !getConsumer().isAnnotation(subject) && (builtInAnnotationProperty || !predicate.isReservedVocabulary());
     }
 
-
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         OWLAnnotationValue value;
         if (isAnonymous(object)) {

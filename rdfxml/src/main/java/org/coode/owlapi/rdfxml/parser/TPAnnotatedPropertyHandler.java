@@ -15,13 +15,15 @@ public class TPAnnotatedPropertyHandler extends TriplePredicateHandler {
     public TPAnnotatedPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY.getIRI());
     }
-
+    
+    @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().addAnnotatedSource(object, subject);
         getConsumer().checkForAndProcessAnnotatedDeclaration(subject);
         return false;
     }
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
     }
 }

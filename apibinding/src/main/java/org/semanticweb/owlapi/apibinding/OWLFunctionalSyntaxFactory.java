@@ -390,7 +390,7 @@ public class OWLFunctionalSyntaxFactory {
         return dataFactory.getOWLDatatypeDefinitionAxiom(datatype, dataRange);
     }
 
-    public static OWLHasKeyAxiom HasKey(OWLClassExpression classExpression, OWLPropertyExpression... propertyExpressions) {
+    public static OWLHasKeyAxiom HasKey(OWLClassExpression classExpression, OWLPropertyExpression<?,?>... propertyExpressions) {
         return dataFactory.getOWLHasKeyAxiom(classExpression, propertyExpressions);
     }
 

@@ -20,7 +20,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * Gets the set of property expressions that form the key
      * @return The set of property expression that form the key
      */
-    Set<OWLPropertyExpression> getPropertyExpressions();
+    Set<OWLPropertyExpression<?,?>> getPropertyExpressions();
 
     /**
      * Gets the set of object property expressions that make up the key.  This is simply a convenience method that

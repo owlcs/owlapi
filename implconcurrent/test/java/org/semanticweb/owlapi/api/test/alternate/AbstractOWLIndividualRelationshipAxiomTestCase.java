@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
  */
-public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends OWLPropertyExpression, O extends OWLObject>
+public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends OWLPropertyExpression<?,?>, O extends OWLObject>
 		extends AbstractOWLDataFactoryTest {
 	protected abstract P createProperty() throws Exception;
 

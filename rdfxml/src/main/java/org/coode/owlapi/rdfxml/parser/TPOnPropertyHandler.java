@@ -17,6 +17,7 @@ public class TPOnPropertyHandler extends TriplePredicateHandler {
         super(consumer, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI());
     }
 
+    @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         if (!getConsumer().getConfiguration().isStrict()) {
             getConsumer().addOWLRestriction(subject, false);
@@ -24,7 +25,7 @@ public class TPOnPropertyHandler extends TriplePredicateHandler {
         return false;
     }
 
-
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
     }
 }

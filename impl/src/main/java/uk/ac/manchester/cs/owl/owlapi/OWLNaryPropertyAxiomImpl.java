@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
+public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression<?,?>> extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
 
     private Set<P> properties;
 

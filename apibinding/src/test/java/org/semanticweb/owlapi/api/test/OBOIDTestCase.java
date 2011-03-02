@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
+
 import org.coode.owlapi.obo.parser.OBOVocabulary;
 import org.semanticweb.owlapi.model.IRI;
 

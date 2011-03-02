@@ -128,7 +128,7 @@ public class OWL2RLProfile implements OWLProfile {
 
         private Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 
-        private OWL2RLObjectVisitor(OWLOntologyWalker walker) {
+        OWL2RLObjectVisitor(OWLOntologyWalker walker) {
             super(walker);
         }
 
@@ -285,7 +285,11 @@ public class OWL2RLProfile implements OWLProfile {
     @SuppressWarnings("unused")
     private class OWL2RLSubClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
-        public Boolean visit(OWLClass desc) {
+        public OWL2RLSubClassExpressionChecker() {
+			// TODO Auto-generated constructor stub
+		}
+
+		public Boolean visit(OWLClass desc) {
             return !desc.isOWLThing();
         }
 
@@ -377,7 +381,11 @@ public class OWL2RLProfile implements OWLProfile {
     @SuppressWarnings("unused")
     private class OWL2RLSuperClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
-        public Boolean visit(OWLClass desc) {
+        public OWL2RLSuperClassExpressionChecker() {
+			// TODO Auto-generated constructor stub
+		}
+
+		public Boolean visit(OWLClass desc) {
             return !desc.isOWLThing();
         }
 
@@ -465,6 +473,9 @@ public class OWL2RLProfile implements OWLProfile {
     @SuppressWarnings("unused")
     private static class OWL2RLEquivalentClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
+    	public OWL2RLEquivalentClassExpressionChecker() {
+		
+		}
         public Boolean visit(OWLClass desc) {
             return !desc.isOWLThing();
         }

@@ -128,7 +128,7 @@ public class StructuralTransformation {
 
     private class AxiomFlattener implements OWLClassExpressionVisitorEx<OWLClassExpression> {
 
-        private OWLDataFactory df;
+        private OWLDataFactory ldf;
 
         private Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 
@@ -138,18 +138,18 @@ public class StructuralTransformation {
 
 
         public AxiomFlattener(OWLDataFactory df, OWLClassExpression rhs) {
-            this.df = df;
+            this.ldf = df;
 //            this.lefthandSide = lhs;
             this.rhs = rhs;
         }
 
         private OWLSubClassOfAxiom getSCA(OWLClass lhs, OWLClassExpression rhs) {
-            return df.getOWLSubClassOfAxiom(lhs, rhs);
+            return ldf.getOWLSubClassOfAxiom(lhs, rhs);
         }
 
         public Set<OWLAxiom> getAxioms() {
             axioms.clear();
-            OWLClass lhs = df.getOWLThing();
+            OWLClass lhs = ldf.getOWLThing();
             OWLClassExpression rhs2 = rhs.accept(this);
             axioms.add(getSCA(lhs, rhs2));
             return axioms;
@@ -194,9 +194,8 @@ public class StructuralTransformation {
         public OWLClassExpression visit(OWLObjectAllValuesFrom desc) {
             if (signature.containsAll(desc.getFiller().getSignature())) {
                 OWLClass name = createNewName();
-                OWLClassExpression rhs = desc.getFiller().accept(this);
-                axioms.add(getSCA(name, rhs));
-                return df.getOWLObjectAllValuesFrom(desc.getProperty(), name);
+                axioms.add(getSCA(name, desc.getFiller().accept(this)));
+                return ldf.getOWLObjectAllValuesFrom(desc.getProperty(), name);
             } else {
                 return desc;
             }
@@ -215,9 +214,8 @@ public class StructuralTransformation {
         public OWLClassExpression visit(OWLObjectExactCardinality desc) {
             if (signature.containsAll(desc.getFiller().getSignature())) {
                 OWLClass name = createNewName();
-                OWLClassExpression rhs = desc.getFiller().accept(this);
-                axioms.add(getSCA(name, rhs));
-                return df.getOWLObjectExactCardinality(desc.getCardinality(), desc.getProperty(), name);
+                axioms.add(getSCA(name, desc.getFiller().accept(this)));
+                return ldf.getOWLObjectExactCardinality(desc.getCardinality(), desc.getProperty(), name);
             } else {
                 return desc;
             }
@@ -237,9 +235,8 @@ public class StructuralTransformation {
         public OWLClassExpression visit(OWLObjectMaxCardinality desc) {
             if (signature.containsAll(desc.getFiller().getSignature())) {
                 OWLClass name = createNewName();
-                OWLClassExpression rhs = desc.getFiller().accept(this);
-                axioms.add(getSCA(name, rhs));
-                return df.getOWLObjectMaxCardinality(desc.getCardinality(), desc.getProperty(), name);
+                axioms.add(getSCA(name, desc.getFiller().accept(this)));
+                return ldf.getOWLObjectMaxCardinality(desc.getCardinality(), desc.getProperty(), name);
             } else {
                 return desc;
             }
@@ -249,9 +246,8 @@ public class StructuralTransformation {
         public OWLClassExpression visit(OWLObjectMinCardinality desc) {
             if (signature.containsAll(desc.getFiller().getSignature())) {
                 OWLClass name = createNewName();
-                OWLClassExpression rhs = desc.getFiller().accept(this);
-                axioms.add(getSCA(name, rhs));
-                return df.getOWLObjectMinCardinality(desc.getCardinality(), desc.getProperty(), name);
+                axioms.add(getSCA(name, desc.getFiller().accept(this)));
+                return ldf.getOWLObjectMinCardinality(desc.getCardinality(), desc.getProperty(), name);
             } else {
                 return desc;
             }
@@ -274,9 +270,8 @@ public class StructuralTransformation {
         public OWLClassExpression visit(OWLObjectSomeValuesFrom desc) {
             if (desc.getFiller().isAnonymous()) {
                 OWLClass name = createNewName();
-                OWLClassExpression rhs = desc.getFiller().accept(this);
-                axioms.add(getSCA(name, rhs));
-                return df.getOWLObjectSomeValuesFrom(desc.getProperty(), name);
+                axioms.add(getSCA(name, desc.getFiller().accept(this)));
+                return ldf.getOWLObjectSomeValuesFrom(desc.getProperty(), name);
             } else {
                 return desc;
             }
@@ -291,7 +286,7 @@ public class StructuralTransformation {
                 if (flatOp.isAnonymous() || signature.contains(flatOp.asOWLClass())) {
                     OWLClass name = createNewName();
                     descs.add(name);
-                    axioms.add(df.getOWLSubClassOfAxiom(name, flatOp));
+                    axioms.add(ldf.getOWLSubClassOfAxiom(name, flatOp));
                 } else {
                     descs.add(flatOp);
                 }
@@ -302,7 +297,7 @@ public class StructuralTransformation {
 //                    axioms.add(df.getOWLSubClassOfAxiom(name, op));
 //                }
             }
-            return df.getOWLObjectUnionOf(descs);
+            return ldf.getOWLObjectUnionOf(descs);
         }
 
 

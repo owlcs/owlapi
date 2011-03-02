@@ -21,12 +21,10 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLProperty;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 
@@ -72,18 +70,18 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
 
-    public Map<OWLProperty, Set<OWLObject>> getPropertyValues(OWLOntology ontology) {
-        Map<OWLProperty, Set<OWLObject>> results = new HashMap<OWLProperty, Set<OWLObject>>();
-        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> opMap = getObjectPropertyValues(ontology);
-        for (OWLObjectPropertyExpression prop : opMap.keySet()) {
-            results.put((OWLProperty) prop, new HashSet<OWLObject>(opMap.get(prop)));
-        }
-        Map<OWLDataPropertyExpression, Set<OWLLiteral>> dpMap = getDataPropertyValues(ontology);
-        for (OWLDataPropertyExpression prop : dpMap.keySet()) {
-            results.put((OWLProperty) prop, new HashSet<OWLObject>(dpMap.get(prop)));
-        }
-        return results;
-    }
+//    public Map<OWLProperty, Set<OWLObject>> getPropertyValues(OWLOntology ontology) {
+//        Map<OWLProperty, Set<OWLObject>> results = new HashMap<OWLProperty, Set<OWLObject>>();
+//        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> opMap = getObjectPropertyValues(ontology);
+//        for (OWLObjectPropertyExpression prop : opMap.keySet()) {
+//            results.put((OWLProperty) prop, new HashSet<OWLObject>(opMap.get(prop)));
+//        }
+//        Map<OWLDataPropertyExpression, Set<OWLLiteral>> dpMap = getDataPropertyValues(ontology);
+//        for (OWLDataPropertyExpression prop : dpMap.keySet()) {
+//            results.put((OWLProperty) prop, new HashSet<OWLObject>(dpMap.get(prop)));
+//        }
+//        return results;
+//    }
 
     /**
      * Gets the asserted object property values for this individual and the specified property.
@@ -102,18 +100,18 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
         }
     }
 
-    public Map<OWLProperty, Set<OWLObject>> getNPropertyValues(OWLOntology ontology) {
-        Map<OWLProperty, Set<OWLObject>> results = new HashMap<OWLProperty, Set<OWLObject>>();
-        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> opMap = getObjectPropertyValues(ontology);
-        for (OWLObjectPropertyExpression prop : opMap.keySet()) {
-            results.put((OWLProperty) prop, new HashSet<OWLObject>(opMap.get(prop)));
-        }
-        Map<OWLDataPropertyExpression, Set<OWLLiteral>> dpMap = getDataPropertyValues(ontology);
-        for (OWLDataPropertyExpression prop : dpMap.keySet()) {
-            results.put((OWLProperty) prop, new HashSet<OWLObject>(dpMap.get(prop)));
-        }
-        return results;
-    }
+//    public Map<OWLProperty, Set<OWLObject>> getNPropertyValues(OWLOntology ontology) {
+//        Map<OWLProperty, Set<OWLObject>> results = new HashMap<OWLProperty, Set<OWLObject>>();
+//        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> opMap = getObjectPropertyValues(ontology);
+//        for (OWLObjectPropertyExpression prop : opMap.keySet()) {
+//            results.put((OWLProperty) prop, new HashSet<OWLObject>(opMap.get(prop)));
+//        }
+//        Map<OWLDataPropertyExpression, Set<OWLLiteral>> dpMap = getDataPropertyValues(ontology);
+//        for (OWLDataPropertyExpression prop : dpMap.keySet()) {
+//            results.put((OWLProperty) prop, new HashSet<OWLObject>(dpMap.get(prop)));
+//        }
+//        return results;
+//    }
 
     /**
      * Gets the values that this individual has for a specific data property

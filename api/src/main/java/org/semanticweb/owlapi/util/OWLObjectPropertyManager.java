@@ -249,11 +249,11 @@ public class OWLObjectPropertyManager {
         if (reflexiveTransitiveClosureDirty) {
             // Produce a map of the transitive reflexive closure of this
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> rtcMap = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
-            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy = getPropertyHierarchy();
+            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> propertyHierarchy = getPropertyHierarchy();
             for (OWLObjectPropertyExpression prop : getReferencedProperties()) {
                 Set<OWLObjectPropertyExpression> processed = new HashSet<OWLObjectPropertyExpression>();
                 Set<OWLObjectPropertyExpression> rtc = new HashSet<OWLObjectPropertyExpression>();
-                getReflexiveTransitiveClosure(prop, hierarchy, rtc, processed);
+                getReflexiveTransitiveClosure(prop, propertyHierarchy, rtc, processed);
                 rtcMap.put(prop, rtc);
             }
             reflexiveTransitiveClosure.clear();
@@ -298,11 +298,11 @@ public class OWLObjectPropertyManager {
         if (simpleDirty) {
             nonSimpleProperties.clear();
             Set<OWLObjectPropertyExpression> props = getReferencedProperties();
-            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure = getHierarchyReflexiveTransitiveClosure();
+            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosureMap = getHierarchyReflexiveTransitiveClosure();
             for (OWLObjectPropertyExpression prop : getReferencedProperties()) {
                 if (isComposite(prop)) {
                     // Supers are not simple
-                    Set<OWLObjectPropertyExpression> rtc = reflexiveTransitiveClosure.get(prop);
+                    Set<OWLObjectPropertyExpression> rtc = reflexiveTransitiveClosureMap.get(prop);
                     props.removeAll(rtc);
                     nonSimpleProperties.add(prop);
                     nonSimpleProperties.addAll(rtc);

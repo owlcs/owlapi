@@ -27,12 +27,12 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
 
     private OWLClassExpression expression;
 
-    private Set<OWLPropertyExpression> propertyExpressions;
+    private Set<OWLPropertyExpression<?,?>> propertyExpressions;
 
-    public OWLHasKeyAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression expression, Set<? extends OWLPropertyExpression> propertyExpressions, Collection<? extends OWLAnnotation> annotations) {
+    public OWLHasKeyAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression expression, Set<? extends OWLPropertyExpression<?,?>> propertyExpressions, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.expression = expression;
-        this.propertyExpressions = new TreeSet<OWLPropertyExpression>(propertyExpressions);
+        this.propertyExpressions = new TreeSet<OWLPropertyExpression<?,?>>(propertyExpressions);
     }
 
     public OWLHasKeyAxiom getAxiomWithoutAnnotations() {
@@ -50,7 +50,8 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         return AxiomType.HAS_KEY;
     }
 
-    public boolean isLogicalAxiom() {
+    @Override
+	public boolean isLogicalAxiom() {
         return true;
     }
 
@@ -58,13 +59,13 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         return expression;
     }
 
-    public Set<OWLPropertyExpression> getPropertyExpressions() {
+    public Set<OWLPropertyExpression<?,?>> getPropertyExpressions() {
         return CollectionFactory.getCopyOnRequestSet(propertyExpressions);
     }
 
     public Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
         Set<OWLDataPropertyExpression> props = new TreeSet<OWLDataPropertyExpression>();
-        for (OWLPropertyExpression prop : propertyExpressions) {
+        for (OWLPropertyExpression<?,?> prop : propertyExpressions) {
             if (prop.isDataPropertyExpression()) {
                 props.add((OWLDataPropertyExpression) prop);
             }
@@ -74,7 +75,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
 
     public Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
         Set<OWLObjectPropertyExpression> props = new TreeSet<OWLObjectPropertyExpression>();
-        for (OWLPropertyExpression prop : propertyExpressions) {
+        for (OWLPropertyExpression<?,?> prop : propertyExpressions) {
             if (prop.isObjectPropertyExpression()) {
                 props.add((OWLObjectPropertyExpression) prop);
             }

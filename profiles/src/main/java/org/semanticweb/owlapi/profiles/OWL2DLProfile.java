@@ -83,7 +83,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         private Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 
-        private OWL2DLProfileObjectVisitor(OWLOntologyWalker walker, OWLOntologyManager manager) {
+         OWL2DLProfileObjectVisitor(OWLOntologyWalker walker, OWLOntologyManager manager) {
             super(walker);
             this.manager = manager;
         }

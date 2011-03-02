@@ -319,6 +319,9 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      */
     private static class RDFXMLOntologyRootElementHandler implements OntologyRootElementHandler {
 
+    	public RDFXMLOntologyRootElementHandler() {
+		
+		}
         public IRI handle(Attributes attributes) {
             String baseValue = attributes.getValue(Namespaces.XML.toString(), "base");
             if (baseValue == null) {
@@ -334,6 +337,9 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      */
     private static class OWLXMLOntologyRootElementHandler implements OntologyRootElementHandler {
 
+    	public OWLXMLOntologyRootElementHandler() {
+		
+		}
         public IRI handle(Attributes attributes) {
             String ontURI = attributes.getValue(Namespaces.OWL.toString(), "URI");
             if (ontURI == null) {

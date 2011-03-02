@@ -403,8 +403,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
             }
         }
 
-        final Set<OWLPropertyExpression> sp = property.getSuperProperties(ontology);
-        for (OWLPropertyExpression superProp : sp) {
+        final Set<OWLPropertyExpression<?,?>> sp = property.getSuperProperties(ontology);
+        for (OWLPropertyExpression<?,?> superProp : sp) {
             if (!superProp.isAnonymous()) {
                 tvpList.addPair(OBOVocabulary.IS_A, getID((OWLProperty) superProp));
             }

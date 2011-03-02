@@ -1,9 +1,13 @@
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.*;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /*
  * Copyright (C) 2007, University of Manchester
@@ -49,7 +53,7 @@ public class RelationshipTagValueHandler extends AbstractTagValueHandler {
         if(matcher.matches()) {
             IRI propIRI = getIdIRI(matcher.group(1));
             IRI fillerIRI = getIdIRI(matcher.group(2));
-            String modifier = matcher.group(3);
+          //  String modifier = matcher.group(3);
             OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propIRI);
             OWLClass filler = getDataFactory().getOWLClass(fillerIRI);
             OWLClassExpression restriction = getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);

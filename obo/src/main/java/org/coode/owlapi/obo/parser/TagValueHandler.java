@@ -6,8 +6,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-import java.util.List;
-
 
 /*
  * Copyright (C) 2007, University of Manchester

@@ -1108,13 +1108,13 @@ public interface OWLDataFactory extends SWRLDataFactory {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, Set<? extends OWLPropertyExpression> properties);
+    OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, Set<? extends OWLPropertyExpression<?,?>> properties);
 
 
-    OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, OWLPropertyExpression... properties);
+    OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, OWLPropertyExpression<?,?>... properties);
 
 
-    OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, Set<? extends OWLPropertyExpression> objectProperties, Set<? extends OWLAnnotation> annotations);
+    OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, Set<? extends OWLPropertyExpression<?,?>> objectProperties, Set<? extends OWLAnnotation> annotations);
 
     OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype, OWLDataRange dataRange);
 
