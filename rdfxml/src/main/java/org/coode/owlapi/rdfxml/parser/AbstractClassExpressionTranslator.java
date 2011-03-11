@@ -168,12 +168,12 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
     }
 
     protected boolean isDataRangeLax(IRI node) {
-        return consumer.isParsedAllTriples() && !consumer.isDataRange(node);
+        return consumer.isParsedAllTriples() && consumer.isDataRange(node);
     }
 
     protected boolean isDataRangeLax(IRI mainNode, OWLRDFVocabulary predicate) {
         IRI object = consumer.getResourceObject(mainNode, predicate, false);
-        return object != null && isDataRangeLax(mainNode);
+        return object != null && isDataRangeLax(object);
     }
 
 

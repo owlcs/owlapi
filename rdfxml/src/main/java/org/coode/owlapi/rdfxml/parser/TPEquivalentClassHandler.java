@@ -34,26 +34,41 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
     @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         inferTypes(subject, object);
-        return !isSubjectOrObjectAnonymous(subject, object) && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject, object);
+        return !isStrict() && !isSubjectOrObjectAnonymous(subject, object) && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject, object);
     }
 
 	@Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        if(getConsumer().isDataRange(subject) && getConsumer().isDataRange(object)) {
-            OWLDatatype datatype = getDataFactory().getOWLDatatype(subject);
-            OWLDataRange dataRange = getConsumer().translateDataRange(object);
-            addAxiom(getDataFactory().getOWLDatatypeDefinitionAxiom(datatype, dataRange, getPendingAnnotations()));
-            consumeTriple(subject, predicate, object);
+        if(isStrict()) {
+            if(isClassExpressionStrict(subject) && isClassExpressionStrict(object)) {
+                translateEquivalentClasses(subject, predicate, object);
+            }
+            else if(isDataRangeStrict(subject) && isDataRangeStrict(object)) {
+                translateEquivalentDataRanges(subject, predicate, object);
+            }
         }
-        else if(getConsumer().isClassExpression(subject) && getConsumer().isClassExpression(object)) {
-            Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
-            operands.add(translateClassExpression(subject));
-            operands.add(translateClassExpression(object));
-            addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands, getPendingAnnotations()));
-            consumeTriple(subject, predicate, object);
+        else {
+            if(isClassExpressionLax(subject) && isClassExpressionLax(object)) {
+                translateEquivalentClasses(subject, predicate, object);
+            }
+            else if(isDataRangeLax(subject) || isDataRangeLax(object)) {
+                translateEquivalentDataRanges(subject, predicate, object);
+            }
         }
-        // TODO: LOG ERROR
+    }
 
+    private void translateEquivalentDataRanges(IRI subject, IRI predicate, IRI object) {
+        OWLDatatype datatype = getDataFactory().getOWLDatatype(subject);
+        OWLDataRange dataRange = getConsumer().translateDataRange(object);
+        addAxiom(getDataFactory().getOWLDatatypeDefinitionAxiom(datatype, dataRange, getPendingAnnotations()));
+        consumeTriple(subject, predicate, object);
+    }
 
+    private void translateEquivalentClasses(IRI subject, IRI predicate, IRI object) {
+        Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
+        operands.add(translateClassExpression(subject));
+        operands.add(translateClassExpression(object));
+        addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands, getPendingAnnotations()));
+        consumeTriple(subject, predicate, object);
     }
 }

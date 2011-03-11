@@ -39,20 +39,30 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         getConsumer().addClassExpression(subject, false);
         getConsumer().addClassExpression(object, false);
-        return !isSubjectOrObjectAnonymous(subject, object) && !isStrict();
+        return !isStrict() && !isSubjectOrObjectAnonymous(subject, object);
     }
 
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        boolean typed = isTyped(subject, predicate, object);
-        if (!isStrict() || typed) {
-            OWLClassExpression subClass = translateClassExpression(subject);
-            OWLClassExpression supClass = translateClassExpression(object);
-            Set<OWLAnnotation> pendingAnnotations = getConsumer().getPendingAnnotations();
-            OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(subClass, supClass, pendingAnnotations);
-            addAxiom(ax);
-            consumeTriple(subject, predicate, object);
+        if(isStrict()) {
+            if(isClassExpressionStrict(subject) && isClassExpressionStrict(object)) {
+                translate(subject, predicate, object);
+            }
         }
+        else {
+            if(isClassExpressionLax(subject) && isClassExpressionLax(object)) {
+                translate(subject, predicate, object);
+            }
+        }
+    }
+
+    private void translate(IRI subject, IRI predicate, IRI object) {
+        OWLClassExpression subClass = translateClassExpression(subject);
+        OWLClassExpression supClass = translateClassExpression(object);
+        Set<OWLAnnotation> pendingAnnotations = getConsumer().getPendingAnnotations();
+        OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(subClass, supClass, pendingAnnotations);
+        addAxiom(ax);
+        consumeTriple(subject, predicate, object);
     }
 }

@@ -222,7 +222,7 @@ public class AbstractTripleHandler {
     }
 
     protected boolean isDataRangeLax(IRI node) {
-        return consumer.isParsedAllTriples() && !consumer.isDataRange(node);
+        return consumer.isDataRange(node);
     }
 
     protected boolean isDataRangeLax(IRI mainNode, OWLRDFVocabulary predicate) {
