@@ -1,8 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.*;
+
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -34,13 +34,26 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public class ObjectSomeValuesFromTranslator extends AbstractObjectQuantifiedRestrictionTranslator {
+public class ObjectSomeValuesFromTranslator extends AbstractClassExpressionTranslator {
 
     public ObjectSomeValuesFromTranslator(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getIRI());
+        super(consumer);
+    }
+
+    public boolean matchesStrict(IRI mainNode) {
+        return isRestrictionStrict(mainNode) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY) && isClassExpressionStrict(mainNode, OWL_SOME_VALUES_FROM);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return (isClassExpressionLax(mainNode, OWL_SOME_VALUES_FROM) && isResourcePresent(mainNode, OWL_ON_PROPERTY)) || (isObjectPropertyLax(mainNode) && isResourcePresent(mainNode, OWL_SOME_VALUES_FROM));
     }
 
     public OWLObjectSomeValuesFrom translate(IRI mainNode) {
-        return getDataFactory().getOWLObjectSomeValuesFrom(translateProperty(mainNode), translateFiller(mainNode));
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLObjectPropertyExpression property = getConsumer().translateObjectPropertyExpression(propertyIRI);
+        IRI fillerMainNode = getConsumer().getResourceObject(mainNode, OWL_SOME_VALUES_FROM, true);
+        OWLClassExpression filler = getConsumer().translateClassExpression(fillerMainNode);
+        return getDataFactory().getOWLObjectSomeValuesFrom(property, filler);
     }
 }

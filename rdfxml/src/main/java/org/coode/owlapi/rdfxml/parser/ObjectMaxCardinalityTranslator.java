@@ -1,8 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.*;
+
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -34,13 +34,33 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public class ObjectMaxCardinalityTranslator extends AbstractObjectCardinalityTranslator {
+public class ObjectMaxCardinalityTranslator extends AbstractClassExpressionTranslator {
 
     public ObjectMaxCardinalityTranslator(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_MAX_CARDINALITY.getIRI());
+        super(consumer);
+    }
+
+    public boolean matchesStrict(IRI mainNode) {
+        return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MAX_CARDINALITY) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return isNonNegativeIntegerLax(mainNode, OWL_MAX_CARDINALITY) && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY);
     }
 
     public OWLObjectMaxCardinality translate(IRI mainNode) {
-        return getDataFactory().getOWLObjectMaxCardinality(translateCardinality(mainNode), translateProperty(mainNode));
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        int cardi = translateInteger(mainNode, OWL_MAX_CARDINALITY);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLObjectPropertyExpression property = getConsumer().translateObjectPropertyExpression(propertyIRI);
+        IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_CLASS, true);
+        if (fillerIRI != null && !getConsumer().getConfiguration().isStrict()) {
+            // Be tolerant
+            OWLClassExpression filler = getConsumer().translateClassExpression(fillerIRI);
+            return getDataFactory().getOWLObjectMaxCardinality(cardi, property, filler);
+        }
+        else {
+            return getDataFactory().getOWLObjectMaxCardinality(cardi, property);
+        }
     }
 }

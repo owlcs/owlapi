@@ -8,6 +8,8 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -40,18 +42,21 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class ObjectOneOfTranslator extends AbstractClassExpressionTranslator {
 
-    Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
-
     public ObjectOneOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
-    public boolean matches(IRI mainNode) {
-        return getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getIRI(), false) != null;
+    public boolean matchesStrict(IRI mainNode) {
+        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_ONE_OF, false);
+        return isIndividualListStrict(listNode, 1);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return isResourcePresent(mainNode, OWL_ONE_OF);
     }
 
     public OWLObjectOneOf translate(IRI mainNode) {
-        IRI oneOfObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_ONE_OF.getIRI(), true);
+        IRI oneOfObject = getConsumer().getResourceObject(mainNode, OWL_ONE_OF, true);
         Set<OWLIndividual> individuals = getConsumer().translateToIndividualSet(oneOfObject);
         return getDataFactory().getOWLObjectOneOf(individuals);
     }

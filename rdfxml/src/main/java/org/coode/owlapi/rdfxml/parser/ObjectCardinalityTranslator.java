@@ -1,8 +1,9 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -34,13 +35,33 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public class ObjectCardinalityTranslator extends AbstractObjectCardinalityTranslator {
+public class ObjectCardinalityTranslator extends AbstractClassExpressionTranslator {
 
     public ObjectCardinalityTranslator(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_CARDINALITY.getIRI());
+        super(consumer);
+    }
+
+    public boolean matchesStrict(IRI mainNode) {
+        return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_CARDINALITY) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return isNonNegativeIntegerLax(mainNode, OWL_CARDINALITY) && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY);
     }
 
     public OWLObjectExactCardinality translate(IRI mainNode) {
-        return getDataFactory().getOWLObjectExactCardinality(translateCardinality(mainNode), translateProperty(mainNode));
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        int cardi = translateInteger(mainNode, OWL_CARDINALITY);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLObjectPropertyExpression property = getConsumer().translateObjectPropertyExpression(propertyIRI);
+        IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_CLASS, true);
+        if (fillerIRI != null && !getConsumer().getConfiguration().isStrict()) {
+            // Be tolerant
+            OWLClassExpression filler = getConsumer().translateClassExpression(fillerIRI);
+            return getDataFactory().getOWLObjectExactCardinality(cardi, property, filler);
+        }
+        else {
+            return getDataFactory().getOWLObjectExactCardinality(cardi, property);
+        }
     }
 }

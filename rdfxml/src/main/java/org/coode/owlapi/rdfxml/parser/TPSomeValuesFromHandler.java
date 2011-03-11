@@ -13,21 +13,24 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class TPSomeValuesFromHandler extends TriplePredicateHandler {
 
-    //protected static int count = 0;
-
-
     public TPSomeValuesFromHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getIRI());
-    //    count = 0;
     }
 
     @Override
-    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        getConsumer().addOWLRestriction(subject, false);
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+        handleTriple(subject, predicate, object);
         return false;
     }
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+        getConsumer().addOWLRestriction(subject, false);
+        if(getConsumer().isDataRange(object)) {
+            IRI property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), false);
+            if(property != null) {
+                getConsumer().addDataProperty(property, false);
+            }
+        }
     }
 }

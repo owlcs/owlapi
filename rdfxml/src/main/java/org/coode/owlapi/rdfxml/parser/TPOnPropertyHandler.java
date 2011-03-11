@@ -19,9 +19,7 @@ public class TPOnPropertyHandler extends TriplePredicateHandler {
 
     @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        if (!getConsumer().getConfiguration().isStrict()) {
-            getConsumer().addOWLRestriction(subject, false);
-        }
+        getConsumer().addOWLRestriction(subject, false);
         return false;
     }
 

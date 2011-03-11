@@ -1,8 +1,9 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -34,13 +35,27 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public class DataSomeValuesFromTranslator extends AbstractDataQuantifiedRestrictionTranslator {
+public class DataSomeValuesFromTranslator extends AbstractClassExpressionTranslator {
 
     public DataSomeValuesFromTranslator(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getIRI());
+        super(consumer);
+    }
+
+
+    public boolean matchesStrict(IRI mainNode) {
+        return isRestrictionStrict(mainNode) && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY) && isDataRangeStrict(mainNode, OWL_SOME_VALUES_FROM);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return  (isDataRangeLax(mainNode, OWL_SOME_VALUES_FROM) && isResourcePresent(mainNode, OWL_ON_PROPERTY)) || (isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode, OWL_SOME_VALUES_FROM));
     }
 
     public OWLDataSomeValuesFrom translate(IRI mainNode) {
-        return getDataFactory().getOWLDataSomeValuesFrom(translateProperty(mainNode), translateDataRange(mainNode));
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLDataPropertyExpression property = getConsumer().translateDataPropertyExpression(propertyIRI);
+        IRI fillerMainNode = getConsumer().getResourceObject(mainNode, OWL_SOME_VALUES_FROM, true);
+        OWLDataRange filler = getConsumer().translateDataRange(fillerMainNode);
+        return getDataFactory().getOWLDataSomeValuesFrom(property, filler);
     }
 }

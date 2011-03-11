@@ -3,8 +3,11 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -36,30 +39,31 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public class ObjectHasSelfTranslator extends AbstractObjectRestrictionTranslator {
+public class ObjectHasSelfTranslator extends AbstractClassExpressionTranslator {
 
     public ObjectHasSelfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
-    @Override
-    public boolean matches(IRI mainNode) {
-        OWLLiteral literal = getConsumer().getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_SELF.getIRI(), false);
-        if(literal == null) {
-            return false;
-        }
-        if(getConsumer().getConfiguration().isStrict()) {
-            if(!OWL2Datatype.XSD_BOOLEAN.getIRI().equals(literal.getDatatype().getIRI())) {
-                return false;
-            }
-            return literal.getLiteral().toLowerCase().equals("true");
-        }
-        return true;
+    public boolean matchesStrict(IRI mainNode) {
+        OWLLiteral literal = getConsumer().getLiteralObject(mainNode, OWL_HAS_SELF.getIRI(), false);
+        return literal != null && isStrictBooleanTrueLiteral(literal) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
+    }
 
+    private boolean isStrictBooleanTrueLiteral(OWLLiteral literal) {
+        return OWL2Datatype.XSD_BOOLEAN.getIRI().equals(literal.getDatatype().getIRI()) && literal.getLiteral().toLowerCase().equals("true");
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return isResourcePresent(mainNode, OWL_ON_PROPERTY) && isLiteralPresent(mainNode, OWL_HAS_SELF);
     }
 
     public OWLObjectHasSelf translate(IRI mainNode) {
-        return getDataFactory().getOWLObjectHasSelf(translateProperty(mainNode));
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        getConsumer().getLiteralObject(mainNode, OWL_HAS_SELF, true);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLObjectPropertyExpression property = getConsumer().translateObjectPropertyExpression(propertyIRI);
+        return getDataFactory().getOWLObjectHasSelf(property);
     }
 
 }

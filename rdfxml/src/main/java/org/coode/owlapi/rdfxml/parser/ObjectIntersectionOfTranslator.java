@@ -1,8 +1,15 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import javax.imageio.ImageReader;
+
+import java.util.Set;
+
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INTERSECTION_OF;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -38,13 +45,24 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * This relies on the main node having an intersectionOf
  * triple.
  */
-public class ObjectIntersectionOfTranslator extends AbstractNaryBooleanClassExpressionTranslator {
+public class ObjectIntersectionOfTranslator extends AbstractClassExpressionTranslator {
 
     public ObjectIntersectionOfTranslator(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_INTERSECTION_OF.getIRI());
+        super(consumer);
+    }
+
+    public boolean matchesStrict(IRI mainNode) {
+        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_INTERSECTION_OF, false);
+        return isClassExpressionStrict(mainNode) && isClassExpressionListStrict(listNode, 2);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return isResourcePresent(mainNode, OWL_INTERSECTION_OF);
     }
 
     public OWLObjectIntersectionOf translate(IRI mainNode) {
-        return getDataFactory().getOWLObjectIntersectionOf(translateClassExpressions(mainNode));
+        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_INTERSECTION_OF, true);
+        Set<OWLClassExpression> classExpressions = getConsumer().translateToClassExpressionSet(listNode);
+        return getDataFactory().getOWLObjectIntersectionOf(classExpressions);
     }
 }

@@ -39,8 +39,12 @@ public class NamedClassTranslator extends AbstractClassExpressionTranslator {
         super(consumer);
     }
 
-    public boolean matches(IRI mainNode) {
-        return !getConsumer().isAnonymousNode(mainNode) && getConsumer().isClassExpression(mainNode);
+    public boolean matchesStrict(IRI mainNode) {
+        return !isAnonymous(mainNode) && isClassExpressionStrict(mainNode);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return !isAnonymous(mainNode);
     }
 
     /**

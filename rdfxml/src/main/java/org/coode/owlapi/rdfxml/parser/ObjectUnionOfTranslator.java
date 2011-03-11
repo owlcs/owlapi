@@ -1,8 +1,15 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import java.util.Set;
+
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INTERSECTION_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_UNION_OF;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -36,13 +43,24 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * <p/>
  * Translates a set of triples to an <code>OWLUnionOf</code>.
  */
-public class ObjectUnionOfTranslator extends AbstractNaryBooleanClassExpressionTranslator {
+public class ObjectUnionOfTranslator extends AbstractClassExpressionTranslator {
 
     public ObjectUnionOfTranslator(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_UNION_OF.getIRI());
+        super(consumer);
+    }
+
+    public boolean matchesStrict(IRI mainNode) {
+        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_UNION_OF, false);
+        return isClassExpressionStrict(mainNode) && isClassExpressionListStrict(listNode, 2);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return isResourcePresent(mainNode, OWL_UNION_OF);
     }
 
     public OWLObjectUnionOf translate(IRI mainNode) {
-        return getDataFactory().getOWLObjectUnionOf(translateClassExpressions(mainNode));
+        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_UNION_OF, true);
+        Set<OWLClassExpression> classExpressions = getConsumer().translateToClassExpressionSet(listNode);
+        return getDataFactory().getOWLObjectUnionOf(classExpressions);
     }
 }

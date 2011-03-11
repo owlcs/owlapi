@@ -15,6 +15,9 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
+ * <p>
+ * Handles rdfs:subClassOf triples.  If handling is set to strict then the triple is only consumed if
+ * the subject and object are typed as classes.
  */
 public class TPSubClassOfHandler extends TriplePredicateHandler {
 
@@ -25,24 +28,31 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
 
     @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
-        return super.canHandle(subject, predicate, object) && getConsumer().isClassExpression(subject) && getConsumer().isClassExpression(object);
+        return super.canHandle(subject, predicate, object) && isTyped(subject, predicate, object);
+    }
+
+    private boolean isTyped(IRI subject, IRI predicate, IRI object) {
+        return getConsumer().isClassExpression(subject) && getConsumer().isClassExpression(object);
     }
 
     @Override
-	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         getConsumer().addClassExpression(subject, false);
         getConsumer().addClassExpression(object, false);
-        return !isSubjectOrObjectAnonymous(subject, object);
+        return !isSubjectOrObjectAnonymous(subject, object) && !isStrict();
     }
 
 
     @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        OWLClassExpression subClass = translateClassExpression(subject);
-        OWLClassExpression supClass = translateClassExpression(object);
-        Set<OWLAnnotation> pendingAnnotations = getConsumer().getPendingAnnotations();
-        OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(subClass, supClass, pendingAnnotations);
-        addAxiom(ax);
-        consumeTriple(subject, predicate, object);
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+        boolean typed = isTyped(subject, predicate, object);
+        if (!isStrict() || typed) {
+            OWLClassExpression subClass = translateClassExpression(subject);
+            OWLClassExpression supClass = translateClassExpression(object);
+            Set<OWLAnnotation> pendingAnnotations = getConsumer().getPendingAnnotations();
+            OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(subClass, supClass, pendingAnnotations);
+            addAxiom(ax);
+            consumeTriple(subject, predicate, object);
+        }
     }
 }

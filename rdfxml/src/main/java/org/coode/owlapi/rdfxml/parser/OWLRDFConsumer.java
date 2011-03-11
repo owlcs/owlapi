@@ -15,13 +15,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.semanticweb.owlapi.io.RDFLiteral;
-import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
-import org.semanticweb.owlapi.io.RDFParserMetaData;
-import org.semanticweb.owlapi.io.RDFResource;
-import org.semanticweb.owlapi.io.RDFResourceParseError;
-import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -221,16 +215,16 @@ public class OWLRDFConsumer implements RDFConsumer {
      */
     private OWLOntology ontology;
 
-    private RDFXMLOntologyFormat rdfxmlOntologyFormat;
+    private RDFXMLOntologyFormat ontologyFormat;
 
     private OWLDataFactory dataFactory;
 
 
-    private List<AbstractObjectRestrictionTranslator> objectRestrictionTranslators = new ArrayList<AbstractObjectRestrictionTranslator>();
+//    private List<ClassExpressionTranslator> objectRestrictionTranslators = new ArrayList<ClassExpressionTranslator>();
+//
+//    private List<ClassExpressionTranslator> dataRestrictionTranslators = new ArrayList<ClassExpressionTranslator>();
 
-    private List<AbstractDataRestrictionTranslator> dataRestrictionTranslators = new ArrayList<AbstractDataRestrictionTranslator>();
-
-    private List<ClassExpressionTranslator> nonRestrictionTranslators = new ArrayList<ClassExpressionTranslator>();
+    private List<ClassExpressionTranslator> classExpressionTranslators = new ArrayList<ClassExpressionTranslator>();
 
 
     private OWLAxiom lastAddedAxiom;
@@ -262,12 +256,14 @@ public class OWLRDFConsumer implements RDFConsumer {
     private IRIProvider iriProvider;
 
     private TPInverseOfHandler inverseOfHandler;
+
     private TPTypeHandler nonBuiltInTypeHandler;
 
 //    private GTPObjectPropertyAssertionHandler objectPropertyAssertionHandler;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    private boolean parsedAllTriples = false;
 
     public OWLRDFConsumer(OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
         this.owlOntologyManager = ontology.getOWLOntologyManager();
@@ -276,33 +272,35 @@ public class OWLRDFConsumer implements RDFConsumer {
         this.anonymousNodeChecker = checker;
         this.configuration = configuration;
 
-        objectRestrictionTranslators.add(new ObjectSomeValuesFromTranslator(this));
-        objectRestrictionTranslators.add(new ObjectAllValuesFromTranslator(this));
-        objectRestrictionTranslators.add(new ObjectHasValueTranslator(this));
-        objectRestrictionTranslators.add(new ObjectHasSelfTranslator(this));
-        objectRestrictionTranslators.add(new ObjectMinQualifiedCardinalityTranslator(this));
-        objectRestrictionTranslators.add(new ObjectMaxQualifiedCardinalityTranslator(this));
-        objectRestrictionTranslators.add(new ObjectQualifiedCardinalityTranslator(this));
-        objectRestrictionTranslators.add(new ObjectMinCardinalityTranslator(this));
-        objectRestrictionTranslators.add(new ObjectMaxCardinalityTranslator(this));
-        objectRestrictionTranslators.add(new ObjectCardinalityTranslator(this));
+        classExpressionTranslators.add(new NamedClassTranslator(this));
+        classExpressionTranslators.add(new ObjectIntersectionOfTranslator(this));
+        classExpressionTranslators.add(new ObjectUnionOfTranslator(this));
+        classExpressionTranslators.add(new ObjectComplementOfTranslator(this));
+        classExpressionTranslators.add(new ObjectOneOfTranslator(this));
+
+        classExpressionTranslators.add(new ObjectSomeValuesFromTranslator(this));
+        classExpressionTranslators.add(new ObjectAllValuesFromTranslator(this));
+        classExpressionTranslators.add(new ObjectHasValueTranslator(this));
+        classExpressionTranslators.add(new ObjectHasSelfTranslator(this));
+        classExpressionTranslators.add(new ObjectMinQualifiedCardinalityTranslator(this));
+        classExpressionTranslators.add(new ObjectMaxQualifiedCardinalityTranslator(this));
+        classExpressionTranslators.add(new ObjectQualifiedCardinalityTranslator(this));
+        classExpressionTranslators.add(new ObjectMinCardinalityTranslator(this));
+        classExpressionTranslators.add(new ObjectMaxCardinalityTranslator(this));
+        classExpressionTranslators.add(new ObjectCardinalityTranslator(this));
 
 
-        dataRestrictionTranslators.add(new DataSomeValuesFromTranslator(this));
-        dataRestrictionTranslators.add(new DataAllValuesFromTranslator(this));
-        dataRestrictionTranslators.add(new DataHasValueTranslator(this));
-        dataRestrictionTranslators.add(new DataMinQualifiedCardinalityTranslator(this));
-        dataRestrictionTranslators.add(new DataMaxQualifiedCardinalityTranslator(this));
-        dataRestrictionTranslators.add(new DataQualifiedCardinalityTranslator(this));
-        dataRestrictionTranslators.add(new DataMinCardinalityTranslator(this));
-        dataRestrictionTranslators.add(new DataMaxCardinalityTranslator(this));
-        dataRestrictionTranslators.add(new DataCardinalityTranslator(this));
+        classExpressionTranslators.add(new DataSomeValuesFromTranslator(this));
+        classExpressionTranslators.add(new DataAllValuesFromTranslator(this));
+        classExpressionTranslators.add(new DataHasValueTranslator(this));
+        classExpressionTranslators.add(new DataMinQualifiedCardinalityTranslator(this));
+        classExpressionTranslators.add(new DataMaxQualifiedCardinalityTranslator(this));
+        classExpressionTranslators.add(new DataQualifiedCardinalityTranslator(this));
+        classExpressionTranslators.add(new DataMinCardinalityTranslator(this));
+        classExpressionTranslators.add(new DataMaxCardinalityTranslator(this));
+        classExpressionTranslators.add(new DataCardinalityTranslator(this));
 
-        nonRestrictionTranslators.add(new NamedClassTranslator(this));
-        nonRestrictionTranslators.add(new ObjectIntersectionOfTranslator(this));
-        nonRestrictionTranslators.add(new ObjectUnionOfTranslator(this));
-        nonRestrictionTranslators.add(new ObjectComplementOfTranslator(this));
-        nonRestrictionTranslators.add(new ObjectOneOfTranslator(this));
+
 
 
         classExpressionIRIs = CollectionFactory.createSet();
@@ -545,12 +543,12 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     public RDFXMLOntologyFormat getOntologyFormat() {
-        return rdfxmlOntologyFormat;
+        return ontologyFormat;
     }
 
 
     public void setOntologyFormat(RDFXMLOntologyFormat format) {
-        this.rdfxmlOntologyFormat = format;
+        this.ontologyFormat = format;
     }
 
 
@@ -894,6 +892,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addType(iri, restrictionIRIs, explicitlyTyped);
     }
 
+
     private void addType(IRI iri, Set<IRI> types, boolean explicitlyTyped) {
         if (configuration.isStrict()) {
             if (explicitlyTyped) {
@@ -1205,7 +1204,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    private static void printTriple(Object subject, Object predicate, Object object, PrintWriter w) {
+    private void printTriple(IRI subject, IRI predicate, Object object, PrintWriter w) {
         w.append(subject.toString());
         w.append(" -> ");
         w.append(predicate.toString());
@@ -1260,6 +1259,8 @@ public class OWLRDFConsumer implements RDFConsumer {
         logger.fine(sw.getBuffer().toString());
     }
 
+
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Debug stuff
@@ -1281,11 +1282,15 @@ public class OWLRDFConsumer implements RDFConsumer {
         count = 0;
     }
 
+    public boolean isParsedAllTriples() {
+        return parsedAllTriples;
+    }
 
     /**
      * This is where we do all remaining parsing
      */
     public void endModel() throws SAXException {
+        parsedAllTriples = true;
         try {
 
             // We are now left with triples that could not be consumed during streaming parsing
@@ -1296,7 +1301,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             IRIMap.clear();
 
             tripleProcessor.fine("Total number of triples: " + count);
-            RDFXMLOntologyFormat format = rdfxmlOntologyFormat;
+            RDFXMLOntologyFormat format = ontologyFormat;
 
 
             consumeSWRLRules();
@@ -1814,35 +1819,18 @@ public class OWLRDFConsumer implements RDFConsumer {
     private OWLClassExpression translateClassExpressionInternal(IRI mainNode) {
         // Some optimisations...
         // We either have a class or a restriction
-        if (isRestriction(mainNode)) {
-            // We MUST have an owl:onProperty triple whether strict parsing or not
-            IRI onPropertyObject = getResourceObject(mainNode, OWL_ON_PROPERTY, false);
-            if (onPropertyObject == null) {
-                return generateAndLogParseError(EntityType.CLASS, mainNode);
+        Mode mode = getConfiguration().isStrict() ? Mode.STRICT : Mode.LAX;
+        for(ClassExpressionTranslator translator : classExpressionTranslators) {
+            if(translator.matches(mainNode, mode)) {
+                return translator.translate(mainNode);
             }
-
-            for (ClassExpressionTranslator translator : objectRestrictionTranslators) {
-                if (translator.matches(mainNode)) {
-                    return translator.translate(mainNode);
-                }
-            }
-            for (ClassExpressionTranslator translator : dataRestrictionTranslators) {
-                if (translator.matches(mainNode)) {
-                    return translator.translate(mainNode);
-                }
-            }
-
         }
-        else if (isClassExpression(mainNode)) {
-            for (ClassExpressionTranslator translator : nonRestrictionTranslators) {
-                if (translator.matches(mainNode)) {
-                    return translator.translate(mainNode);
-                }
-            }
-
+        if(!isAnonymousNode(mainNode)) {
+            return dataFactory.getOWLClass(mainNode);
+        }
+        else {
             return generateAndLogParseError(EntityType.CLASS, mainNode);
         }
-        return generateAndLogParseError(EntityType.CLASS, mainNode);
     }
 
 
@@ -1876,7 +1864,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
     private void logError(RDFResourceParseError error) {
-
+        ontologyFormat.addError(error);
     }
 
     private <E extends OWLEntity> E generateAndLogParseError(EntityType<E> entityType, IRI mainNode) {

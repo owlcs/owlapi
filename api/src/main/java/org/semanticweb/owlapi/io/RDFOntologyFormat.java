@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.io;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -15,6 +16,8 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
 
     private boolean addMissingTypes = true;
+
+    private Set<RDFResourceParseError> errors = new HashSet<RDFResourceParseError>();
 
     /**
      * Determines if untyped entities should automatically be typed (declared) during rendering.  (This is a hint to an RDF
@@ -79,5 +82,9 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
 
     public void setOntologyLoaderMetaData(RDFParserMetaData loaderMetaData) {
         super.setOntologyLoaderMetaData(loaderMetaData);
+    }
+
+    public void addError(RDFResourceParseError error) {
+        errors.add(error);
     }
 }

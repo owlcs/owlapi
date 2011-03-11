@@ -68,7 +68,12 @@ public class RDFTriple {
         return subject.equals(other.subject) && predicate.equals(other.predicate) && object.equals(other.object);
     }
 
-
-
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(subject.toString());
+        sb.append(predicate.toString());
+        sb.append(object.toString());
+        return sb.toString();
+    }
 }

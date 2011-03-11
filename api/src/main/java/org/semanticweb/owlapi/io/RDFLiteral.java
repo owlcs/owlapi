@@ -37,4 +37,9 @@ public class RDFLiteral extends RDFNode {
         RDFLiteral other = (RDFLiteral) o;
         return literal.equals(other.literal);
     }
+
+    @Override
+    public String toString() {
+        return literal.toString();
+    }
 }

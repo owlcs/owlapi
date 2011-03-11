@@ -1082,7 +1082,7 @@ public class ManchesterOWLSyntaxEditorParser {
         if (tok.startsWith("\"")) {
             String lit = "";
             if (tok.length() > 2) {
-                lit = tok.substring(1, tok.length() - 1).trim();
+                lit = tok.substring(1, tok.length() - 1);
             }
             if (peekToken().equals("^")) {
                 consumeToken();

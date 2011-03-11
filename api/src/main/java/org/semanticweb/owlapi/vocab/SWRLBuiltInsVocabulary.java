@@ -55,7 +55,7 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
     ENDS_WITH("endsWith", 2),
     SUBSTRING_BEFORE("substringBefore", 3),
     SUBSTRING_AFTER("substringAfter", 3),
-    MATCHES("matches", 2),
+    MATCHES("matchesLax", 2),
     REPLACE("replace", 4),
     TOKENIZE("tokenize", 3),
     YEAR_MONTH_DURATION("yearMonthDuration", 5),

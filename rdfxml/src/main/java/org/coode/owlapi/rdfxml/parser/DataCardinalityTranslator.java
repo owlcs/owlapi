@@ -1,8 +1,9 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -34,13 +35,33 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public class DataCardinalityTranslator extends AbstractDataCardinalityTranslator {
+public class DataCardinalityTranslator extends AbstractClassExpressionTranslator {
 
     public DataCardinalityTranslator(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_CARDINALITY.getIRI());
+        super(consumer);
+    }
+
+    public boolean matchesStrict(IRI mainNode) {
+        return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_CARDINALITY) && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return isNonNegativeIntegerLax(mainNode, OWL_CARDINALITY) && isDataPropertyLax(mainNode, OWL_ON_PROPERTY);
     }
 
     public OWLDataExactCardinality translate(IRI mainNode) {
-        return getDataFactory().getOWLDataExactCardinality(translateCardinality(mainNode), translateProperty(mainNode));
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        int cardi = translateInteger(mainNode, OWL_CARDINALITY);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLDataPropertyExpression property = getConsumer().translateDataPropertyExpression(propertyIRI);
+        IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_DATA_RANGE, true);
+        if (fillerIRI != null && !getConsumer().getConfiguration().isStrict()) {
+            // Be tolerant
+            OWLDataRange filler = getConsumer().translateDataRange(fillerIRI);
+            return getDataFactory().getOWLDataExactCardinality(cardi, property, filler);
+        }
+        else {
+            return getDataFactory().getOWLDataExactCardinality(cardi, property);
+        }
     }
 }

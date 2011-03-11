@@ -24,40 +24,66 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
     }
 
     @Override
-    public boolean canHandleStreaming(IRI subject,
-                                      IRI predicate,
-                                      IRI object) {
-    	inferTypes(subject, object);
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+        inferTypes(subject, object);
         return false;
     }
 
     @Override
-    public void handleTriple(IRI subject,
-                             IRI predicate,
-                             IRI object) throws UnloadableImportException {
-        if (getConsumer().isObjectProperty(subject) && getConsumer().isClassExpression(object)) {
-            OWLObjectPropertyExpression property = translateObjectProperty(subject);
-            OWLClassExpression range = translateClassExpression(object);
-            addAxiom(getDataFactory().getOWLObjectPropertyRangeAxiom(property, range, getPendingAnnotations()));
-            consumeTriple(subject, predicate, object);
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+
+        if (isStrict()) {
+            if (isObjectPropertyStrict(subject) && isClassExpressionStrict(object)) {
+                translateAsObjectPropertyRange(subject, predicate, object);
+            }
+            else if (isDataPropertyStrict(subject) && isDataRangeStrict(object)) {
+                translateAsDataPropertyRange(subject, predicate, object);
+            }
+            else if (getConsumer().isAnnotationProperty(subject) && !getConsumer().isAnonymousNode(object)) {
+                translateAsAnnotationPropertyRange(subject, predicate, object);
+            }
         }
-        else if (getConsumer().isDataProperty(subject) && getConsumer().isDataRange(object)) {
-            OWLDataPropertyExpression property = translateDataProperty(subject);
-            OWLDataRange dataRange = translateDataRange(object);
-            addAxiom(getDataFactory().getOWLDataPropertyRangeAxiom(property, dataRange, getPendingAnnotations()));
-            consumeTriple(subject, predicate, object);
+        else {
+            if (isAnnotationPropertyOnly(subject) && !isAnonymous(object)) {
+                translateAsAnnotationPropertyRange(subject, predicate, object);
+            }
+            else if (isClassExpressionLax(object)) {
+                translateAsObjectPropertyRange(subject, predicate, object);
+            }
+            else if (isDataRangeLax(object)) {
+                translateAsDataPropertyRange(subject, predicate, object);
+            }
+            else if (isObjectPropertyLax(subject)) {
+                translateAsObjectPropertyRange(subject, predicate, object);
+            }
+            else if (isDataPropertyLax(subject)) {
+                translateAsDataPropertyRange(subject, predicate, object);
+            }
+            else {
+                translateAsAnnotationPropertyRange(subject, predicate, object);
+            }
+
         }
-        else if (getConsumer().isAnnotationProperty(subject) && !getConsumer().isAnonymousNode(object)) {
-            OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(subject);
-            addAxiom(getDataFactory().getOWLAnnotationPropertyRangeAxiom(prop, object, getPendingAnnotations()));
-            consumeTriple(subject, predicate, object);
-        }
-        else if(!isStrict()) {
-            // TODO: Handle the case where the object is anonymous
-            OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(subject);
-            addAxiom(getDataFactory().getOWLAnnotationPropertyRangeAxiom(prop, object, getPendingAnnotations()));
-            consumeTriple(subject, predicate, object);
-        }
+    }
+
+    private void translateAsAnnotationPropertyRange(IRI subject, IRI predicate, IRI object) {
+        OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(subject);
+        addAxiom(getDataFactory().getOWLAnnotationPropertyRangeAxiom(prop, object, getPendingAnnotations()));
+        consumeTriple(subject, predicate, object);
+    }
+
+    private void translateAsDataPropertyRange(IRI subject, IRI predicate, IRI object) {
+        OWLDataPropertyExpression property = translateDataProperty(subject);
+        OWLDataRange dataRange = translateDataRange(object);
+        addAxiom(getDataFactory().getOWLDataPropertyRangeAxiom(property, dataRange, getPendingAnnotations()));
+        consumeTriple(subject, predicate, object);
+    }
+
+    private void translateAsObjectPropertyRange(IRI subject, IRI predicate, IRI object) {
+        OWLObjectPropertyExpression property = translateObjectProperty(subject);
+        OWLClassExpression range = translateClassExpression(object);
+        addAxiom(getDataFactory().getOWLObjectPropertyRangeAxiom(property, range, getPendingAnnotations()));
+        consumeTriple(subject, predicate, object);
     }
 
 }

@@ -28,9 +28,35 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
 
     @Override  @SuppressWarnings("unused")
 	public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
+        if(isStrict()) {
+            return isAnnotationPropertyOnly(predicate);
+        }
         boolean axiom = getConsumer().isAxiom(subject);
+        if(axiom) {
+            return false;
+        }
         boolean annotation = getConsumer().isAnnotation(subject);
-        return !axiom && !annotation && getConsumer().isAnnotationProperty(predicate);
+        if(annotation) {
+            return false;
+        }
+        if(isAnnotationPropertyOnly(predicate)) {
+            return true;
+        }
+        if (!isAnonymous(subject)) {
+            if(isClassExpressionLax(subject)) {
+                return true;
+            }
+            if(isDataRangeLax(subject)) {
+                return true;
+            }
+            if(isObjectPropertyLax(subject)) {
+                return true;
+            }
+            if(isDataPropertyLax(subject)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.co-ode.org/ontologies/test.owl#"
+     xml:base="http://www.co-ode.org/ontologies/test.owl"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:test="http://www.co-ode.org/ontologies/test.owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#">
+    <owl:Ontology rdf:about="http://www.co-ode.org/ontologies/test.owl"/>
+
+
+    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/IAO_0000115">
+        <rdfs:label xml:lang="en">definition</rdfs:label>
+    </rdf:Description>
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/test.owl#A">
+        <obo:IAO_0000115 xml:lang="en">A definition here</obo:IAO_0000115>
+    </owl:Class>
+</rdf:RDF>

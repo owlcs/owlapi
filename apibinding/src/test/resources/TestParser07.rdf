@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl 'http://www.w3.org/2002/07/owl#'>
+    <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+]>
+
+<rdf:RDF
+    xmlns:owl="&owl;"
+    xmlns:rdf="&rdf;"
+>
+<owl:Ontology rdf:about="http://example.org#test"/>
+
+<!--
+<owl:ObjectProperty rdf:about="http://example.org#r"/>
+<owl:Class rdf:about="http://example.org#y"/>
+<owl:Class rdf:about="http://example.org#z"/>
+ -->
+
+<owl:Class rdf:about="http://example.org#x">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="http://example.org#y"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://example.org#r"/>
+          <owl:someValuesFrom rdf:resource="http://example.org#z"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+</owl:Class>
+
+
+
+</rdf:RDF>

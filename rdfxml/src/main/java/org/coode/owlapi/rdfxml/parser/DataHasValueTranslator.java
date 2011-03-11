@@ -2,8 +2,11 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -35,23 +38,25 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public class DataHasValueTranslator extends AbstractDataRestrictionTranslator {
+public class DataHasValueTranslator extends AbstractClassExpressionTranslator {
 
     public DataHasValueTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
-    @Override
-    public boolean matches(IRI mainNode) {
-        if(!super.matches(mainNode)) {
-            return false;
-        }
-        OWLLiteral literal = getConsumer().getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getIRI(), false);
-        return literal != null;
+    public boolean matchesStrict(IRI mainNode) {
+        return isRestrictionStrict(mainNode) && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY) && isLiteralPresent(mainNode, OWL_HAS_VALUE);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return isLiteralPresent(mainNode, OWL_HAS_VALUE);
     }
 
     public OWLDataHasValue translate(IRI mainNode) {
-        OWLLiteral con = getConsumer().getLiteralObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE.getIRI(), true);
-        return getDataFactory().getOWLDataHasValue(translateProperty(mainNode), con);
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        OWLLiteral lit = getConsumer().getLiteralObject(mainNode, OWL_HAS_VALUE, true);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLDataPropertyExpression property = getConsumer().translateDataPropertyExpression(propertyIRI);
+        return getDataFactory().getOWLDataHasValue(property, lit);
     }
 }

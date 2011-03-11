@@ -1,8 +1,12 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -34,13 +38,33 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public class ObjectMinCardinalityTranslator extends AbstractObjectCardinalityTranslator {
+public class ObjectMinCardinalityTranslator extends AbstractClassExpressionTranslator {
 
     public ObjectMinCardinalityTranslator(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_MIN_CARDINALITY.getIRI());
+        super(consumer);
+    }
+
+    public boolean matchesStrict(IRI mainNode) {
+        return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MIN_CARDINALITY) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return isNonNegativeIntegerLax(mainNode, OWL_MIN_CARDINALITY) && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY);
     }
 
     public OWLObjectMinCardinality translate(IRI mainNode) {
-        return getDataFactory().getOWLObjectMinCardinality(translateCardinality(mainNode), translateProperty(mainNode));
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        int cardi = translateInteger(mainNode, OWL_MIN_CARDINALITY);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLObjectPropertyExpression property = getConsumer().translateObjectPropertyExpression(propertyIRI);
+        IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_CLASS, true);
+        if (fillerIRI != null && !getConsumer().getConfiguration().isStrict()) {
+            // Be tolerant
+            OWLClassExpression filler = getConsumer().translateClassExpression(fillerIRI);
+            return getDataFactory().getOWLObjectMinCardinality(cardi, property, filler);
+        }
+        else {
+            return getDataFactory().getOWLObjectMinCardinality(cardi, property);
+        }
     }
 }

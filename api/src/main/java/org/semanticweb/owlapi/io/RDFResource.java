@@ -44,4 +44,14 @@ public class RDFResource extends RDFNode {
         RDFResource other = (RDFResource) o;
         return resource.equals(other.resource) && anonymous == other.anonymous;
     }
+
+    @Override
+    public String toString() {
+        if(!anonymous) {
+            return resource.toQuotedString();
+        }
+        else {
+            return "_:" + resource;
+        }
+    }
 }

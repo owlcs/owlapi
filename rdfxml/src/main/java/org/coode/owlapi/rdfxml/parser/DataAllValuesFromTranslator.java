@@ -1,8 +1,8 @@
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.*;
+
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -34,13 +34,26 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public class DataAllValuesFromTranslator extends AbstractDataQuantifiedRestrictionTranslator {
+public class DataAllValuesFromTranslator extends AbstractClassExpressionTranslator {
 
     public DataAllValuesFromTranslator(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_ALL_VALUES_FROM.getIRI());
+        super(consumer);
+    }
+
+    public boolean matchesStrict(IRI mainNode) {
+        return isRestrictionStrict(mainNode) && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY) && isDataRangeStrict(mainNode, OWL_ALL_VALUES_FROM);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return  (isDataRangeLax(mainNode, OWL_ALL_VALUES_FROM) && isResourcePresent(mainNode, OWL_ON_PROPERTY)) || (isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode, OWL_ALL_VALUES_FROM));
     }
 
     public OWLDataAllValuesFrom translate(IRI mainNode) {
-        return getDataFactory().getOWLDataAllValuesFrom(translateProperty(mainNode), translateDataRange(mainNode));
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLDataPropertyExpression property = getConsumer().translateDataPropertyExpression(propertyIRI);
+        IRI fillerMainNode = getConsumer().getResourceObject(mainNode, OWL_ALL_VALUES_FROM, true);
+        OWLDataRange filler = getConsumer().translateDataRange(fillerMainNode);
+        return getDataFactory().getOWLDataAllValuesFrom(property, filler);
     }
 }

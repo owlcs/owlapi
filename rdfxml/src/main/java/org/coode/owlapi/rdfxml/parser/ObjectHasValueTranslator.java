@@ -3,7 +3,9 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -35,23 +37,25 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
-public class ObjectHasValueTranslator extends AbstractObjectRestrictionTranslator {
+public class ObjectHasValueTranslator extends AbstractClassExpressionTranslator {
 
     public ObjectHasValueTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
-    @Override
-    public boolean matches(IRI mainNode) {
-        if(!super.matches(mainNode)) {
-            return false;
-        }
-        return getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE, false) != null;
+    public boolean matchesStrict(IRI mainNode) {
+        return isRestrictionStrict(mainNode) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode, OWL_HAS_VALUE);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return isResourcePresent(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode, OWL_HAS_VALUE);
     }
 
     public OWLObjectHasValue translate(IRI mainNode) {
-        IRI value = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_HAS_VALUE, true);
+        IRI value = getConsumer().getResourceObject(mainNode, OWL_HAS_VALUE, true);
         OWLIndividual individual = getConsumer().translateIndividual(value);
-        return getDataFactory().getOWLObjectHasValue(translateProperty(mainNode), individual);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLObjectPropertyExpression property = getConsumer().translateObjectPropertyExpression(propertyIRI);
+        return getDataFactory().getOWLObjectHasValue(property, individual);
     }
 }

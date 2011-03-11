@@ -5,6 +5,8 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+
 /*
  * Copyright (C) 2006, University of Manchester
  *
@@ -38,22 +40,23 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Translates a set of triples that represent an <code>OWLComplementOf</code>
  * class expression.
  */
-public class ObjectComplementOfTranslator extends AbstractBooleanClassExpressionTranslator {
+public class ObjectComplementOfTranslator extends AbstractClassExpressionTranslator {
 
     public ObjectComplementOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
-    public boolean matches(IRI mainNode) {
-        IRI complementOf = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF, false);
-        if(complementOf == null) {
-            return false;
-        }
-        return !getConsumer().getConfiguration().isStrict() || getConsumer().isClassExpression(complementOf);
+    public boolean matchesStrict(IRI mainNode) {
+        IRI complementOfIRI = getConsumer().getResourceObject(mainNode, OWL_COMPLEMENT_OF, false);
+        return isClassExpressionStrict(mainNode) && isClassExpressionStrict(complementOfIRI);
+    }
+
+    public boolean matchesLax(IRI mainNode) {
+        return isResourcePresent(mainNode, OWL_COMPLEMENT_OF) && isClassExpressionLax(mainNode);
     }
 
     public OWLObjectComplementOf translate(IRI mainNode) {
-        IRI complementOfObject = getConsumer().getResourceObject(mainNode, OWLRDFVocabulary.OWL_COMPLEMENT_OF, true);
+        IRI complementOfObject = getConsumer().getResourceObject(mainNode, OWL_COMPLEMENT_OF, true);
         OWLClassExpression operand = getConsumer().translateClassExpression(complementOfObject);
         return getDataFactory().getOWLObjectComplementOf(operand);
     }

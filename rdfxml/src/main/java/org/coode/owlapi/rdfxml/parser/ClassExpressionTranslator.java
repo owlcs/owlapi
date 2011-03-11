@@ -2,7 +2,6 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLException;
 
 /*
  * Copyright (C) 2006, University of Manchester
@@ -42,7 +41,11 @@ import org.semanticweb.owlapi.model.OWLException;
  */
 public interface ClassExpressionTranslator {
 
-    boolean matches(IRI mainNode);
+    boolean matches(IRI mainNode, Mode mode);
+
+    boolean matchesStrict(IRI mainNode);
+
+    boolean matchesLax(IRI mainNode);
 
     /**
      * Translates the specified main node into an <code>OWLClassExpression</code>.
@@ -50,8 +53,6 @@ public interface ClassExpressionTranslator {
      * @param mainNode The main node of the set of triples that represent the
      * class expression.
      * @return The class expression that represents the translation.
-     * @throws OWLException If the translation could not take place, possibly because the
-     * class expression (set of triples) was malformed.
      */
     OWLClassExpression translate(IRI mainNode);
     
