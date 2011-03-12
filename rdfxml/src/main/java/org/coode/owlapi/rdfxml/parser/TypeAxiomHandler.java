@@ -1,5 +1,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
+import java.util.Collections;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -54,6 +55,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         // We can't handle this is a streaming fashion, because we can't
         // be sure that the subject, predicate, object triples have been parsed.
+        getConsumer().addAxiom(subject);
         return false;
     }
 
@@ -100,7 +102,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         if (annotatedTarget != null) {
             getConsumer().handle(annotatedSource, annotatedProperty, annotatedTarget);
         }
-        else {
+        else if(annotatedTargetLiteral != null) {
             getConsumer().handle(annotatedSource, annotatedProperty, annotatedTargetLiteral);
         }
         if (!annotations.isEmpty()) {

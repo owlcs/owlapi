@@ -522,9 +522,9 @@ public class OWLRDFConsumer implements RDFConsumer {
 
         synonymMap.put(OWL_DATA_RANGE.getIRI(), RDFS_DATATYPE.getIRI());
 
-        synonymMap.put(OWL_SUBJECT.getIRI(), OWL_SOURCE_INDIVIDUAL.getIRI());
-        synonymMap.put(OWL_PREDICATE.getIRI(), OWL_ASSERTION_PROPERTY.getIRI());
-        synonymMap.put(OWL_OBJECT.getIRI(), OWL_TARGET_INDIVIDUAL.getIRI());
+        synonymMap.put(OWL_SUBJECT.getIRI(), OWL_ANNOTATED_SOURCE.getIRI());
+        synonymMap.put(OWL_PREDICATE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI());
+        synonymMap.put(OWL_OBJECT.getIRI(), OWL_ANNOTATED_TARGET.getIRI());
 
     }
 
@@ -704,8 +704,12 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
     public void setPendingAnnotations(Set<OWLAnnotation> annotations) {
-        if (!pendingAnnotations.isEmpty())
+        if (!pendingAnnotations.isEmpty()) {
+            for(OWLAnnotation ann : pendingAnnotations) {
+                System.out.println(ann);
+            }
             throw new OWLRuntimeException(pendingAnnotations.size() + " pending annotations should have been used by now.");
+        }
         pendingAnnotations.addAll(annotations);
     }
 
@@ -1214,7 +1218,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    private void dumpRemainingTriples() {
+    protected void dumpRemainingTriples() {
 //        if (!logger.isLoggable(Level.FINE)) {
 //            return;
 //        }
@@ -2248,6 +2252,10 @@ public class OWLRDFConsumer implements RDFConsumer {
     public OWLOntologyLoaderConfiguration getConfiguration() {
         return configuration;
     }
+
+
+    
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
