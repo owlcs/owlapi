@@ -7,10 +7,7 @@ import java.net.URLConnection;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.Inflater;
-import java.util.zip.InflaterInputStream;
-import java.util.zip.ZipInputStream;
+import java.util.zip.*;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -40,6 +37,9 @@ public abstract class AbstractOWLParser implements OWLParser {
     private static final Pattern CONTENT_DISPOSITION_FILE_NAME_PATTERN = Pattern.compile(".*filename=\"([^\\s;]*)\".*");
 
     private static final int CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP = 1;
+
+    private static final Pattern ZIP_ENTRY_ONTOLOGY_NAME_PATTERN = Pattern.compile(".*owl|rdf|xml|mos");
+
 
     private OWLOntologyManager owlOntologyManager;
 
@@ -87,10 +87,25 @@ public abstract class AbstractOWLParser implements OWLParser {
         InputStream is = getInputStreamFromContentEncoding(conn, contentEncoding);
         if (isZipName(documentIRI, conn)) {
             ZipInputStream zis = new ZipInputStream(is);
-            zis.getNextEntry();
+            ZipEntry entry = zis.getNextEntry();
+            while(!couldBeOntology(entry)) {
+                ZipEntry nextEntry = zis.getNextEntry();
+                if (nextEntry != null) {
+                    entry = nextEntry;
+                }
+                else {
+                    break;
+                }
+            }
             is = new BufferedInputStream(zis);
         }
         return is;
+    }
+
+    private boolean couldBeOntology(ZipEntry zipEntry) {
+        String name = zipEntry.getName();
+        Matcher matcher = ZIP_ENTRY_ONTOLOGY_NAME_PATTERN.matcher(name);
+        return matcher.matches();
     }
 
     private InputStream getInputStreamFromContentEncoding(URLConnection conn, String contentEncoding) throws IOException {

@@ -418,18 +418,17 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 writeSection(DISJOINT_WITH, disjointClasses, ", ", false, ontology);
                 if (renderExtensions) {
                     // Handling of nary in frame style
-                    Set<OWLClassExpression> naryDisjointClasses = new TreeSet<OWLClassExpression>();
                     for (OWLDisjointClassesAxiom ax : ontology.getDisjointClassesAxioms(cls)) {
                         if (isDisplayed(ax)) {
                             if (ax.getClassExpressions().size() > 2) {
                                 Set<OWLClassExpression> allDisjointClasses = new TreeSet<OWLClassExpression>(ax.getClassExpressions());
                                 allDisjointClasses.remove(cls);
-                                naryDisjointClasses.addAll(allDisjointClasses);
                                 axioms.add(ax);
+                                writeSection(DISJOINT_CLASSES, allDisjointClasses, ", ", false, ontology);
                             }
                         }
                     }
-                    writeSection(DISJOINT_CLASSES, naryDisjointClasses, ", ", false, ontology);
+
                 }
             }
         }

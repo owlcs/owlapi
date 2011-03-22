@@ -19,7 +19,13 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
 
     @Override  @SuppressWarnings("unused")
 	public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
-        return getConsumer().isDataProperty(predicate);
+        if (isStrict()) {
+            return isDataPropertyStrict(predicate);
+        }
+        else {
+            // Handle annotation assertions as annotation assertions only!
+            return isDataPropertyLax(predicate) && !getConsumer().isAnnotationProperty(predicate);
+        }
     }
 
 

@@ -19,14 +19,19 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
 
     @Override  @SuppressWarnings("unused")
 	public boolean canHandle(IRI subject, IRI predicate, IRI object) {
-        OWLRDFConsumer consumer = getConsumer();
-        return consumer.isObjectProperty(predicate);
+        if(isStrict()) {
+            return isObjectPropertyStrict(predicate);
+        }
+        else {
+            // Handle annotation assertions as annotation assertions only!
+            return isObjectPropertyLax(predicate) && !isAnnotationPropertyOnly(predicate);
+        }
     }
 
 
     @Override  @SuppressWarnings("unused")
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        return getConsumer().isObjectProperty(predicate);
+        return false;
     }
 
 

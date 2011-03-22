@@ -24,7 +24,12 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
 
     @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        return !isAnonymous(subject) &&  !isAnonymous(object) && getConsumer().isAnnotationProperty(predicate);
+        if(isStrict()) {
+            return false;
+        }
+        else {
+            return !isAnonymous(subject) &&  !isAnonymous(object) && getConsumer().isAnnotationProperty(predicate);
+        }
     }
 
     @Override

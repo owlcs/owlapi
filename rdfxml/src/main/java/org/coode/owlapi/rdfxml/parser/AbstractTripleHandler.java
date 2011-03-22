@@ -69,6 +69,15 @@ public class AbstractTripleHandler {
         return consumer.isAnnotationPropertyOnly(iri);
     }
 
+
+    protected boolean isAnnotationPropertyStrict(IRI iri) {
+        return consumer.isAnnotationPropertyOnly(iri);
+    }
+
+    protected boolean isAnnotationPropertyLax(IRI iri) {
+        return consumer.isAnnotationProperty(iri);
+    }
+
     protected void addAxiom(OWLAxiom axiom) {
         consumer.addAxiom(axiom);
     }

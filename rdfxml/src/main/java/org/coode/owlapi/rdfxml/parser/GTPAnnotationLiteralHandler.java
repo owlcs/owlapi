@@ -39,7 +39,7 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
         if(annotation) {
             return false;
         }
-        if(isAnnotationPropertyOnly(predicate)) {
+        if(getConsumer().isAnnotationProperty(predicate)) {
             return true;
         }
         if (!isAnonymous(subject)) {
