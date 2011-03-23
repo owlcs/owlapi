@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
@@ -538,7 +539,7 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	}
 
 	@Override
-	public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClass type) {
+	public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClassExpression type) {
 		Maps.ClassAssertionAxiomsByClass.initMap(this,
 				lazyIndexLock.writeLock(), classAssertionAxiomsByClass);
 		return super.getClassAssertionAxioms(type);

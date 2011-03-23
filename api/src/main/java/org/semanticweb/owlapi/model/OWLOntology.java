@@ -1328,7 +1328,7 @@ public interface OWLOntology extends OWLObject {
      * returned is a copy - it will not be updated if the ontology changes.  It is therefore safe to
      * apply changes to this ontology while iterating over this set.
      */
-    Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClass ce);
+    Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClassExpression ce);
 
     /**
      * Gets the {@link org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom}s contained in this ontology that

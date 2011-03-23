@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
@@ -1166,7 +1167,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
 
-    public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClass type) {
+    public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClassExpression type) {
         return internals.getClassAssertionAxioms(type);
     }
 

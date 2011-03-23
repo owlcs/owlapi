@@ -40,6 +40,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
@@ -263,7 +264,7 @@ public interface Internals {
 
 	Map<OWLIndividual, Set<OWLClassAssertionAxiom>> getClassAssertionAxiomsByIndividual();
 
-	Map<OWLClass, Set<OWLClassAssertionAxiom>> getClassAssertionAxiomsByClass();
+	Map<OWLClassExpression, Set<OWLClassAssertionAxiom>> getClassAssertionAxiomsByClass();
 
 	Map<OWLIndividual, Set<OWLObjectPropertyAssertionAxiom>> getObjectPropertyAssertionsByIndividual();
 
@@ -428,7 +429,7 @@ public interface Internals {
 
 	Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLIndividual individual);
 
-	Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClass type);
+	Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClassExpression type);
 
 	Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(
 			OWLIndividual individual);

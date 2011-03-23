@@ -39,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
@@ -109,7 +110,7 @@ public abstract class AbstractInternalsImpl implements
 	protected volatile Map<OWLDataPropertyExpression, Set<OWLDataPropertyRangeAxiom>> dataPropertyRangeAxiomsByProperty;
 	protected volatile Map<OWLDataPropertyExpression, Set<OWLFunctionalDataPropertyAxiom>> functionalDataPropertyAxiomsByProperty;
 	protected volatile Map<OWLIndividual, Set<OWLClassAssertionAxiom>> classAssertionAxiomsByIndividual;
-	protected volatile Map<OWLClass, Set<OWLClassAssertionAxiom>> classAssertionAxiomsByClass;
+	protected volatile Map<OWLClassExpression, Set<OWLClassAssertionAxiom>> classAssertionAxiomsByClass;
 	protected volatile Map<OWLIndividual, Set<OWLObjectPropertyAssertionAxiom>> objectPropertyAssertionsByIndividual;
 	protected volatile Map<OWLIndividual, Set<OWLDataPropertyAssertionAxiom>> dataPropertyAssertionsByIndividual;
 	protected volatile Map<OWLIndividual, Set<OWLNegativeObjectPropertyAssertionAxiom>> negativeObjectPropertyAssertionAxiomsByIndividual;
@@ -437,7 +438,7 @@ public abstract class AbstractInternalsImpl implements
 				if (impl.classAssertionAxiomsByClass == null) {
 					impl.classAssertionAxiomsByClass = impl.fill(
 							impl.classAssertionAxiomsByClass, CLASS_ASSERTION,
-							classsubnamed);
+							classexpressions);
 				}
 			}
 		},
@@ -665,6 +666,8 @@ public abstract class AbstractInternalsImpl implements
 		}
 
 		protected static final InitVisitorFactory.InitVisitor<OWLClass> classsubnamed = new InitVisitorFactory.InitVisitor<OWLClass>(
+				true, true);
+		protected static final InitVisitorFactory.InitVisitor<OWLClassExpression> classexpressions = new InitVisitorFactory.InitVisitor<OWLClassExpression>(
 				true, true);
 		protected static final InitVisitorFactory.InitVisitor<OWLClass> classsupernamed = new InitVisitorFactory.InitVisitor<OWLClass>(
 				false, true);
@@ -997,7 +1000,7 @@ public abstract class AbstractInternalsImpl implements
 				getClassAssertionAxiomsByIndividual()));
 	}
 
-	public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClass type) {
+	public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClassExpression type) {
 		Maps.ClassAssertionAxiomsByClass.initMap(this);
 		return getReturnSet(getAxioms(type, getClassAssertionAxiomsByClass()));
 	}
@@ -1173,7 +1176,7 @@ public abstract class AbstractInternalsImpl implements
 		return this.classAssertionAxiomsByIndividual;
 	}
 
-	public Map<OWLClass, Set<OWLClassAssertionAxiom>> getClassAssertionAxiomsByClass() {
+	public Map<OWLClassExpression, Set<OWLClassAssertionAxiom>> getClassAssertionAxiomsByClass() {
 		return this.classAssertionAxiomsByClass;
 	}
 
