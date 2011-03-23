@@ -228,6 +228,11 @@ public class CollectionFactory {
 			return delegate.hashCode();
 		}
 
+		@Override
+		public String toString() {
+			return delegate.toString();
+		}
+
 		public boolean add(T arg0) {
 			if (!copyDone) {
 				copyDone = true;
