@@ -21,6 +21,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public enum OWL2Datatype {
 
     RDF_XML_LITERAL(Namespaces.RDF, "XMLLiteral", Category.STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
+    
+    RDFS_LITERAL(Namespaces.RDFS, "Literal", Category.UNIVERSAL, false, ".*"),
 
     RDF_PLAIN_LITERAL(Namespaces.RDF, "PlainLiteral", Category.STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
 
@@ -246,6 +248,8 @@ public enum OWL2Datatype {
     }
 
     public enum Category {
+    	
+    	UNIVERSAL("Universal literal"),
 
         NUMBER("Number", OWLFacet.MIN_INCLUSIVE, OWLFacet.MAX_INCLUSIVE, OWLFacet.MIN_EXCLUSIVE, OWLFacet.MAX_EXCLUSIVE),
 
