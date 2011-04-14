@@ -42,7 +42,7 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.vocab.OWLDataFactoryVocabulary;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**
  * Author: Matthew Horridge<br>
@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLDataFactoryVocabulary;
  */
 public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
 
-    private static final OWLDatatype TOP_DATATYPE = OWLDataFactoryVocabulary.TopDatatype;
+    private static final OWLDatatype TOP_DATATYPE = OWLDataFactoryImpl.getInstance().getTopDatatype();
 
     //private static final OWLDatatypeNode topNode = new OWLDatatypeNode(TOP_DATATYPE);
 

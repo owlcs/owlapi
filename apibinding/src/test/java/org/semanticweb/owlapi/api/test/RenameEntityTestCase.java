@@ -44,18 +44,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLEntityRenamer;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * Author: Matthew Horridge<br>
@@ -225,7 +216,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         OWLNamedIndividual indA = getOWLIndividual("indA");
         OWLNamedIndividual indB = getOWLIndividual("indA");
         OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
-        
+
         Set<OWLAxiom> axioms1 = new HashSet<OWLAxiom>();
         axioms1.add(getFactory().getOWLClassAssertionAxiom(clsA, indA));
         axioms1.add(getFactory().getOWLDataPropertyAssertionAxiom(propA, indA, getFactory().getOWLLiteral(33)));
@@ -244,7 +235,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA.getIRI(), getFactory().getOWLLiteral("X")));
         axioms2.add(getFactory().getOWLObjectPropertyAssertionAxiom(propB, indB, indB));
         axioms2.add(getFactory().getOWLNegativeObjectPropertyAssertionAxiom(propB, indB, indB));
-                        
+
 
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(), Collections.singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(indA, indB.getIRI());
@@ -258,4 +249,90 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         assertEquals(ont.getAxioms(), axioms1);
 
     }
+
+    public void testRenameDatatype() throws Exception {
+        OWLOntology ont = getOWLOntology("testont");
+
+        OWLDatatype dtA = getOWLDatatype("DtA");
+        OWLDatatype dtB = getOWLDatatype("DtB");
+        OWLDatatype dtC = getOWLDatatype("DtC");
+
+        OWLDataRange rng1 = getFactory().getOWLDataIntersectionOf(dtA, dtB);
+        OWLDataRange rng1R = getFactory().getOWLDataIntersectionOf(dtC, dtB);
+
+        OWLDataRange rng2 = getFactory().getOWLDataUnionOf(dtA, dtB);
+        OWLDataRange rng2R = getFactory().getOWLDataUnionOf(dtC, dtB);
+
+        OWLDataRange rng3 = getFactory().getOWLDataComplementOf(dtA);
+        OWLDataRange rng3R = getFactory().getOWLDataComplementOf(dtC);
+
+
+        OWLDataPropertyExpression propB = getOWLDataProperty("propA");
+
+
+        Set<OWLAxiom> axioms1 = new HashSet<OWLAxiom>();
+        axioms1.add(getFactory().getOWLDataPropertyRangeAxiom(propB, rng1));
+        axioms1.add(getFactory().getOWLDataPropertyRangeAxiom(propB, rng2));
+        axioms1.add(getFactory().getOWLDataPropertyRangeAxiom(propB, rng3));
+        getManager().addAxioms(ont, axioms1);
+
+        Set<OWLAxiom> axioms2 = new HashSet<OWLAxiom>();
+        axioms2.add(getFactory().getOWLDataPropertyRangeAxiom(propB, rng1R));
+        axioms2.add(getFactory().getOWLDataPropertyRangeAxiom(propB, rng2R));
+        axioms2.add(getFactory().getOWLDataPropertyRangeAxiom(propB, rng3R));
+
+
+        OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(), Collections.singleton(ont));
+        List<OWLOntologyChange> changes = entityRenamer.changeIRI(dtA, dtC.getIRI());
+        getManager().applyChanges(changes);
+
+        assertEquals(ont.getAxioms(), axioms2);
+
+        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(dtC.getIRI(), dtA.getIRI());
+        getManager().applyChanges(changes2);
+
+        assertEquals(ont.getAxioms(), axioms1);
+    }
+
+
+    public void testRenameAnnotationProperty() throws Exception {
+
+        OWLOntology ont = getOWLOntology("testont");
+
+        OWLNamedIndividual indA = getOWLIndividual("indA");
+        OWLNamedIndividual indB = getOWLIndividual("indB");
+        OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
+        OWLAnnotationProperty annoPropR = getOWLAnnotationProperty("annoPropR");
+        OWLAnnotationProperty annoProp2 = getOWLAnnotationProperty("annoProp2");
+
+
+        Set<OWLAxiom> axioms1 = new HashSet<OWLAxiom>();
+        axioms1.add(getFactory().getOWLDeclarationAxiom(annoProp));
+        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, indA.getIRI(), indB.getIRI()));
+        axioms1.add(getFactory().getOWLSubAnnotationPropertyOfAxiom(annoProp, annoProp2));
+        axioms1.add(getFactory().getOWLAnnotationPropertyRangeAxiom(annoProp, indA.getIRI()));
+        axioms1.add(getFactory().getOWLAnnotationPropertyDomainAxiom(annoProp, indA.getIRI()));
+        getManager().addAxioms(ont, axioms1);
+
+        Set<OWLAxiom> axioms2 = new HashSet<OWLAxiom>();
+        axioms2.add(getFactory().getOWLDeclarationAxiom(annoPropR));
+        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoPropR, indA.getIRI(), indB.getIRI()));
+        axioms2.add(getFactory().getOWLSubAnnotationPropertyOfAxiom(annoPropR, annoProp2));
+        axioms2.add(getFactory().getOWLAnnotationPropertyRangeAxiom(annoPropR, indA.getIRI()));
+        axioms2.add(getFactory().getOWLAnnotationPropertyDomainAxiom(annoPropR, indA.getIRI()));
+
+
+        OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(), Collections.singleton(ont));
+        List<OWLOntologyChange> changes = entityRenamer.changeIRI(annoProp, annoPropR.getIRI());
+        getManager().applyChanges(changes);
+
+        assertEquals(ont.getAxioms(), axioms2);
+
+        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(annoPropR.getIRI(), annoProp.getIRI());
+        getManager().applyChanges(changes2);
+
+        assertEquals(ont.getAxioms(), axioms1);
+    }
+
+
 }

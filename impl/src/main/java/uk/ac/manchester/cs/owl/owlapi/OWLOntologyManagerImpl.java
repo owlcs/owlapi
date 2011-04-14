@@ -1099,10 +1099,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         return ont;
     }
 
+    @SuppressWarnings("deprecation")
     public void makeLoadImportRequest(OWLImportsDeclaration declaration) throws UnloadableImportException {
         makeLoadImportRequest(declaration, new OWLOntologyLoaderConfiguration());
     }
 
+    @SuppressWarnings("deprecation")
     public void makeLoadImportRequest(OWLImportsDeclaration declaration, OWLOntologyLoaderConfiguration configuration) throws UnloadableImportException {
         if (!configuration.isIgnoredImport(declaration.getIRI())) {
             try {

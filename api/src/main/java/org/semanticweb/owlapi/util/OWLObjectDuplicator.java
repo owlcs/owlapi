@@ -93,6 +93,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
             replacementMap.put(dataFactory.getOWLObjectProperty(iri), repIRI);
             replacementMap.put(dataFactory.getOWLDataProperty(iri), repIRI);
             replacementMap.put(dataFactory.getOWLNamedIndividual(iri), repIRI);
+            replacementMap.put(dataFactory.getOWLDatatype(iri), repIRI);
+            replacementMap.put(dataFactory.getOWLAnnotationProperty(iri), repIRI);
         }
     }
 

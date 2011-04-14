@@ -158,6 +158,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
 //        return annotations;
 //    }
 
+    @SuppressWarnings("deprecation")
     private OWLLiteral getTargetLiteral(IRI subject) {
         OWLLiteral con = getConsumer().getLiteralObject(subject, getTargetTriplePredicate(), true);
         if (con == null) {
@@ -174,6 +175,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
      *         by the {@code TypeAxiomHandler#getSourceTriplePredicate()} method.  For backwards compatibility, a
      *         search will also be performed for triples whos subject is the specified mainNode and predicate rdf:object
      */
+    @SuppressWarnings("deprecation")
     private IRI getObjectOfTargetTriple(IRI mainNode) {
         IRI objectTripleObject = getConsumer().getResourceObject(mainNode, getTargetTriplePredicate(), true);
         if (objectTripleObject == null) {
@@ -185,6 +187,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         return objectTripleObject;
     }
 
+    @SuppressWarnings("deprecation")
     private IRI getObjectOfPropertyTriple(IRI subject) {
         IRI predicateTripleObject = getConsumer().getResourceObject(subject, getPropertyTriplePredicate(), true);
         if (predicateTripleObject == null) {
@@ -201,6 +204,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
      * @throws OWLRDFXMLParserMalformedNodeException
      *
      */
+    @SuppressWarnings("deprecation")
     private IRI getObjectOfSourceTriple(IRI mainNode) {
         IRI subjectTripleObject = getConsumer().getResourceObject(mainNode, getSourceTriplePredicate(), true);
         if (subjectTripleObject == null) {

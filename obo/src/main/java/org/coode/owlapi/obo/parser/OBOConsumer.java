@@ -110,6 +110,7 @@ public class OBOConsumer implements OBOParserHandler {
     private Map<String, IRI> uriCache;
 
 
+    @SuppressWarnings("deprecation")
     public OBOConsumer(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         this.configuration = configuration;
         this.owlOntologyManager = ontology.getOWLOntologyManager();

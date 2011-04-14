@@ -42,7 +42,7 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.vocab.OWLDataFactoryVocabulary;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**
  * Author: Matthew Horridge<br>
@@ -53,11 +53,11 @@ import org.semanticweb.owlapi.vocab.OWLDataFactoryVocabulary;
 public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
     
     
-    private static final OWLDataProperty TOP_DATA_PROPERTY = OWLDataFactoryVocabulary.OWLTopDataProperty;
+    private static final OWLDataProperty TOP_DATA_PROPERTY = OWLDataFactoryImpl.getInstance().getOWLTopDataProperty();
     
     private static final OWLDataPropertyNode TOP_NODE = new OWLDataPropertyNode(TOP_DATA_PROPERTY);
 
-    private static final OWLDataProperty BOTTOM_DATA_PROPERTY = OWLDataFactoryVocabulary.OWLBottomDataProperty;
+    private static final OWLDataProperty BOTTOM_DATA_PROPERTY = OWLDataFactoryImpl.getInstance().getOWLBottomDataProperty();
     
     private static final OWLDataPropertyNode BOTTOM_NODE = new OWLDataPropertyNode(BOTTOM_DATA_PROPERTY);
 
