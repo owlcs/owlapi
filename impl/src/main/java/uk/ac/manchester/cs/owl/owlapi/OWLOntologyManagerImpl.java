@@ -457,9 +457,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>(axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
             changes.add(new RemoveAxiom(ont, ax));
-            applyChanges(changes);
         }
-        return changes;
+        return applyChanges(changes);
     }
 
     public List<OWLOntologyChange> applyChange(OWLOntologyChange change) {
