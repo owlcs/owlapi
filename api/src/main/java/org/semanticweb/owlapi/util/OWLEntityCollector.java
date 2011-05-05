@@ -40,6 +40,7 @@
 package org.semanticweb.owlapi.util;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -175,6 +176,12 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 		objects = toReturn;
 		anonymousIndividuals = fake;
 	}
+	
+	/**Deprecated default constructor: use one of the other constructors to get more efficient set creation*/
+	@Deprecated
+	public OWLEntityCollector() {
+		this(new HashSet<OWLEntity>(), new HashSet<OWLAnonymousIndividual>());
+	}
 
 	/**
 	 * Clears all objects that have accumulated during the course of visiting
@@ -205,23 +212,30 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 		this.collectDatatypes = collectDatatypes;
 	}
 
-	//    /**
-	//     * Gets the objects that are used by all axioms, class expressions etc. that this
-	//     * collector has visited since it was constructed or reset.
-	//     *
-	//     * @return A set of entities.  This will be a copy.
-	//     */
-	//    public Set<OWLEntity> getObjects() {
-	//        return new HashSet<OWLEntity>(objects);
-	//    }
-	//    /**
-	//     * A convenience method.  Although anonymous individuals are not entities they are collected by this
-	//     * collector and stored in a separate set.  This method returns collected individuals.
-	//     * @return The set of anonymous individuals that were collected by the collector
-	//     */
-	//    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-	//        return new HashSet<OWLAnonymousIndividual>(anonymousIndividuals);
-	//    }
+	/**
+     * Gets the objects that are used by all axioms, class expressions etc. that this
+     * collector has visited since it was constructed or reset.
+     *
+     * Deprecated: if the non deprecated constructors are used, this method is useless and inefficient
+     *
+     * @return A set of entities.  This will be a copy.
+     */
+	@Deprecated
+    public Set<OWLEntity> getObjects() {
+        return new HashSet<OWLEntity>(objects);
+    }
+    /**
+     * A convenience method.  Although anonymous individuals are not entities they are collected by this
+     * collector and stored in a separate set.  This method returns collected individuals.
+     *
+     * Deprecated: if the non deprecated constructors are used, this method is useless and inefficient
+     * 
+     * @return The set of anonymous individuals that were collected by the collector
+     */
+	@Deprecated
+    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
+        return new HashSet<OWLAnonymousIndividual>(anonymousIndividuals);
+    }
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	//
 	// Axiom Visitor stuff
