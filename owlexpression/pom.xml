@@ -3,13 +3,13 @@
     <groupId>net.sourceforge.owlapi</groupId>
     <artifactId>owlapi-owlexpression</artifactId>
     <packaging>jar</packaging>
-    <version>3.2.3-SNAPSHOT</version>
+    <version>3.2.3</version>
     <name>OWL Expression Kit</name>
 
     <parent>
         <groupId>net.sourceforge.owlapi</groupId>
         <artifactId>owlapi-parent</artifactId>
-        <version>3.2.3-SNAPSHOT</version>
+        <version>3.2.3</version>
         <relativePath>../</relativePath>
     </parent>
 
