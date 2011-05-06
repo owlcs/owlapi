@@ -1,43 +1,30 @@
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>owlapi</groupId>
-    <artifactId>rdfapi</artifactId>
+    <groupId>net.sourceforge.owlapi</groupId>
+    <artifactId>owlapi-rdfapi</artifactId>
     <packaging>jar</packaging>
-    <version>3.0.0</version>
+    <version>3.2.3-SNAPSHOT</version>
     <name>RDF API</name>
 
     <parent>
-        <groupId>owlapi</groupId>
+        <groupId>net.sourceforge.owlapi</groupId>
         <artifactId>owlapi-parent</artifactId>
-        <version>3.0.0</version>
+        <version>3.2.3-SNAPSHOT</version>
+        <relativePath>../</relativePath>
     </parent>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <outputDirectory>../sources</outputDirectory>
-                    <finalName>owlapi-${artifactId}</finalName>
-                    <attach>false</attach>
-                </configuration>
-            </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <ReleaseVersionNumber>${project.version}</ReleaseVersionNumber>
-                        </manifestEntries>
-                        <addMavenDescriptor>false</addMavenDescriptor>
-                    </archive>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
+    <dependencies>
+    	<dependency>
+    		<groupId>${project.groupId}</groupId>
+    		<artifactId>owlapi-api</artifactId>
+    		<version>${project.version}</version>
+    	</dependency>
+    </dependencies>
 
 
 </project>

@@ -1,156 +1,98 @@
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>owlapi</groupId>
-    <artifactId>apibinding</artifactId>
+    <groupId>net.sourceforge.owlapi</groupId>
+    <artifactId>owlapi-apibinding</artifactId>
     <packaging>jar</packaging>
-    <version>3.0.0</version>
+    <version>3.2.3-SNAPSHOT</version>
     <name>OWLAPI Binding and Config</name>
 
     <parent>
-        <groupId>owlapi</groupId>
+        <groupId>net.sourceforge.owlapi</groupId>
         <artifactId>owlapi-parent</artifactId>
-        <version>3.0.0</version>
+        <version>3.2.3-SNAPSHOT</version>
+        <relativePath>../</relativePath>
     </parent>
 
 
     <dependencies>
 
+
         <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>api</artifactId>
-            <version>3.0.0</version>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>owlapi-impl</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>impl</artifactId>
-            <version>3.0.0</version>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>owlapi-functional</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>owlapi-rdfxml</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
+
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>owlapi-obo</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>functionalparser</artifactId>
-            <version>3.0.0</version>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>owlapi-owlxml</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>owlapi-mansyntax</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>owlapi-turtle</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>functionalrenderer</artifactId>
-            <version>3.0.0</version>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>owlapi-krss</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>rdfxmlparser</artifactId>
-            <version>3.0.0</version>
-        </dependency>
 
         <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>rdfxmlrenderer</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>krssparser</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>oboparser</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>oborenderer</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>owlxmlparser</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>owlxmlrenderer</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>mansyntaxparser</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>mansyntaxrenderer</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>turtlerenderer</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>turtleparser</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>krssparser</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>krssrenderer</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>latexrenderer</artifactId>
-            <version>3.0.0</version>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>owlapi-latex</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         
 
+        <dependency>
+        	<groupId>${project.groupId}</groupId>
+        	<artifactId>owlapi-reasoner</artifactId>
+        	<version>${project.version}</version>
+        	<type>jar</type>
+        	<scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <outputDirectory>../sources</outputDirectory>
-                    <finalName>owlapi-${artifactId}</finalName>
-                    <attach>false</attach>
-                </configuration>
-            </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <ReleaseVersionNumber>${project.version}</ReleaseVersionNumber>
-                        </manifestEntries>
-                        <addMavenDescriptor>false</addMavenDescriptor>
-                    </archive>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 

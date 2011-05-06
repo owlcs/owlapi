@@ -1,123 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>owlapi</groupId>
-    <artifactId>owlapi-parent</artifactId>
-    <packaging>pom</packaging>
-    <version>3.0.0</version>
-    <name>OWLAPI</name>
-    <url>http://sourceforge.net/projects/owlapi</url>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <modules>
-        <module>api</module>
-        <module>apibinding</module>
-        <module>debugging</module>
-        <module>dlsyntax</module>
-        <module>examples</module>
-        <module>functionalparser</module>
-        <module>functionalrenderer</module>
-        <module>impl</module>
-        <module>krssparser</module>
-        <module>krssrenderer</module>
-        <module>latexrenderer</module>
-        <module>mansyntaxrenderer</module>
-        <module>mansyntaxparser</module>
-        <module>oboparser</module>
-        <module>oborenderer</module>
-        <module>owlxmlparser</module>
-        <module>owlxmlrenderer</module>
-        <module>rdfapi</module>
-        <module>rdfxmlparser</module>
-        <module>rdfxmlrenderer</module>
-        <module>reasoner</module>
-        <module>util</module>
-        <module>tutorial</module>
-        <module>turtlerenderer</module>
-        <module>turtleparser</module>
-        <module>metrics</module>
-        <module>change</module>
-        <module>owlexpression</module>
-    </modules>
+    <!--
+       The MAVEN pom file for the OWL API.
+       If you want to generate a single-jar-assembly, then execute
+         mvn package assembly:assembly
+    -->
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>6</version>
+	</parent>
+
+	<groupId>net.sourceforge.owlapi</groupId>
+	<artifactId>owlapi-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>3.2.3-SNAPSHOT</version>
+	<name>OWLAPI</name>
+	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
+	<url>http://owlapi.sourceforge.net/</url>
 
 
-    <licenses>
-        <license>
-            <name>GNU Lesser General Public License</name>
-            <url>http://www.gnu.org/copyleft/lesser.html</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+    <!-- The following folders do not belong to modules:
+         'profiles' is included manually into the 'api' module
+         'distribution' contains files for a aggregated build
+         'antbuild' contains files for a build using ant.
+         -->
+	<modules>
+		<module>api</module>
+		<module>apibinding</module>
+		<module>debugging</module>
+		<module>dlsyntax</module>
+		<module>examples</module>
+		<module>functional</module>
+		<module>impl</module>
+		<module>implconcurrent</module>
+		<module>krss</module>
+		<module>latex</module>
+		<module>mansyntax</module>
+		<module>modularity</module>
+		<module>normalform</module>
+		<module>obo</module>
+		<module>owlxml</module>
+		<module>rdfapi</module>
+		<module>rdfxml</module>
+		<module>reasoner</module>
+		<module>util</module>
+		<module>tutorial</module>
+		<module>turtle</module>
+		<module>metrics</module>
+		<module>change</module>
+		<module>owlexpression</module>
+		<module>distribution</module>
+	</modules>
 
-    <repositories>
-        <repository>
-            <id>owlapirep</id>
-            <name>OWLAPI Maven Repository</name>
-            <url>http://owl.cs.manchester.ac.uk/maven/repos</url>
-        </repository>
-    </repositories>
+
+	<issueManagement>
+		<system>sourceforge</system>
+		<url>http://sourceforge.net/tracker/?group_id=90989</url>
+	</issueManagement>
 
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
+	<licenses>
+		<license>
+			<name>Apache License Version 2.0, January 2004</name>
+			<url>http://www.apache.org/licenses/</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <aggregate>true</aggregate>
-                </configuration>
-            </plugin>
 
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.2-beta-1</version>
-                <configuration>
-                    <descriptors>
-                        <descriptor>owlapi-bin.xml</descriptor>
-                    </descriptors>
-                </configuration>
-            </plugin>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <aggregate>true</aggregate>
-                </configuration>
-            </plugin>
 
-            <finalName>owlapi-${project.version}</finalName>
+	<mailingLists>
+		<mailingList>
+			<name>JWebUnit Development Mailing list</name>
+			<subscribe>https://lists.sourceforge.net/lists/listinfo/owlapi-developert</subscribe>
+			<unsubscribe>https://lists.sourceforge.net/lists/listinfo/owlapi-developer</unsubscribe>
+			<archive>http://sourceforge.net/mailarchive/forum.php?forum_name=owlapi-developer</archive>
+			<post>owlapi-developer@lists.sourceforge.net</post>
+		</mailingList>
+	</mailingLists>
 
-        </plugins>
-    </build>
 
-    <!-- Generate one javadoc for everything -->
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <aggregate>true</aggregate>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
 
-    <scm>
-        <connection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/owl1_1/trunk/</connection>
-        <developerConnection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/owl1_1/trunk/
-        </developerConnection>
-        <url>https://owlapi.svn.sourceforge.net/svnroot/owlapi/owl1_1/trunk/</url>
-    </scm>
+	<organization>
+		<name>The University of Manchester</name>
+		<url>http://www.cs.manchester.ac.uk/</url>
+	</organization>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<descriptors>
+						<!-- <descriptor>owlapi-bin.xml</descriptor> -->
+						<descriptor>distribution/src/assembly/bin.xml</descriptor>
+					</descriptors>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.7.1</version>
+			</plugin>
+		</plugins>
+	</build>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<scm>
+		<connection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/trunk/</connection>
+		<developerConnection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/trunk/</developerConnection>
+		<tag>trunk</tag>
+		<url>https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/trunk/</url>
+	</scm>
 
 </project>

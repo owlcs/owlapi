@@ -1,64 +1,49 @@
-<project>
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>owlapi</groupId>
-    <artifactId>tutorial</artifactId>
-    <packaging>jar</packaging>
-    <version>3.0.0</version>
-    <name>API tutorial code</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sourceforge.owlapi</groupId>
+	<artifactId>owlapi-tutorial</artifactId>
+	<packaging>jar</packaging>
+	<version>3.2.3-SNAPSHOT</version>
+	<name>API tutorial code</name>
 
-    <parent>
-        <groupId>owlapi</groupId>
-        <artifactId>owlapi-parent</artifactId>
-        <version>3.0.0</version>
-    </parent>
+	<parent>
+		<groupId>net.sourceforge.owlapi</groupId>
+		<artifactId>owlapi-parent</artifactId>
+		<version>3.2.3-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
 
 
-    <dependencies>
+	<dependencies>
 
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>api</artifactId>
-            <version>3.0.0</version>
-        </dependency>
 
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>apibinding</artifactId>
-            <version>3.0.0</version>
-        </dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-apibinding</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>debugging</artifactId>
-            <version>3.0.0</version>
-        </dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-debugging</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>owlapi</groupId>
-            <artifactId>dig1_1</artifactId>
-            <version>3.0.0</version>
-        </dependency>
 
-        <dependency>
-            <groupId>getopt</groupId>
-            <artifactId>getopt</artifactId>
-            <version>1.0.9</version>
-        </dependency>
 
-    </dependencies>
+		<dependency>
+			<groupId>urbanophile</groupId>
+			<artifactId>java-getopt</artifactId>
+			<version>1.0.9</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <outputDirectory>../sources</outputDirectory>
-                    <finalName>owlapi-api</finalName>
-                    <attach>false</attach>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+	<build>
+		<plugins>
+		</plugins>
+	</build>
 
 </project>

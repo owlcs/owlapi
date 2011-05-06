@@ -1,42 +1,41 @@
-<project>
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>owlapi</groupId>
-    <artifactId>api</artifactId>
-    <packaging>jar</packaging>
-    <version>3.0.0</version>
-    <name>OWLAPI Model Interfaces and utilities</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sourceforge.owlapi</groupId>
+	<artifactId>owlapi-api</artifactId>
+	<packaging>jar</packaging>
+	<version>3.2.3-SNAPSHOT</version>
+	<name>OWLAPI Model Interfaces and utilities</name>
 
-    <parent>
-        <groupId>owlapi</groupId>
-        <artifactId>owlapi-parent</artifactId>
-        <version>3.0.0</version>
-    </parent>
+	<parent>
+		<groupId>net.sourceforge.owlapi</groupId>
+		<artifactId>owlapi-parent</artifactId>
+		<version>3.2.3-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <outputDirectory>../sources</outputDirectory>
-                    <finalName>owlapi-api</finalName>
-                    <attach>false</attach>
-                </configuration>
-            </plugin>
+	<build>
+		<plugins>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <ReleaseVersionNumber>${project.version}</ReleaseVersionNumber>
-                        </manifestEntries>
-                        <addMavenDescriptor>false</addMavenDescriptor>
-                    </archive>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+			<!-- Include profiles code to avoid cyclic dependencies -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>../profiles/src/main/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

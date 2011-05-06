@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sourceforge.owlapi</groupId>
+	<artifactId>owlapi-distribution</artifactId>
+	<packaging>jar</packaging>
+	<version>3.2.3-SNAPSHOT</version>
+	<name>OWLAPI Distribution</name>
+
+	<parent>
+		<groupId>net.sourceforge.owlapi</groupId>
+		<artifactId>owlapi-parent</artifactId>
+		<version>3.2.3-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
+
+	<!-- NOTE: These dependency declarations are only required to sort this 
+		project to the end of the line in the multimodule build. Since we only include 
+		the child1 module in our assembly, we only need to ensure this distribution 
+		project builds AFTER that one... -->
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-apibinding</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<!-- Creates binary distribution. -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>distro-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>src/assembly/bin.xml</descriptor>
+							</descriptors>
+							<finalName>owlapi-${project.version}</finalName>
+							<archive>
+								<addMavenDescriptor>false</addMavenDescriptor>
+							</archive>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<!-- Javadocs -->
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.7</version>
+				<executions>
+					<execution>
+						<id>javadoc-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<!-- switch on dependency-driven aggregation -->
+							<includeDependencySources>true</includeDependencySources>
+							<dependencySourceExcludes>
+								<!-- include ONLY owlapi artifacts -->
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-*</dependencySourceInclude>
+							</dependencySourceExcludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>
