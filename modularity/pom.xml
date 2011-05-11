@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sourceforge.owlapi</groupId>
+	<artifactId>owlapi-modularity</artifactId>
+	<packaging>jar</packaging>
+	<version>3.2.3</version>
+	<name>Modularity</name>
+
+	<parent>
+		<groupId>net.sourceforge.owlapi</groupId>
+		<artifactId>owlapi-parent</artifactId>
+		<version>3.2.3</version>
+		<relativePath>../</relativePath>
+	</parent>
+
+	<build>
+		<plugins>
+
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-api</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+</project>
