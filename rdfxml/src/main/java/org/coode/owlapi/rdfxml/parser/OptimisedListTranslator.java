@@ -87,7 +87,10 @@ public class OptimisedListTranslator<O extends OWLObject> {
 			} else {
 				OWLLiteral literal = consumer.getFirstLiteral(current);
 				if (literal != null) {
-					list.add(translator.translate(literal));
+					O translate = translator.translate(literal);
+					if(translate!=null) {
+						list.add(translate);
+					}
 				} else {
 					// Empty list?
 					if (logger.isLoggable(Level.FINE)) {
