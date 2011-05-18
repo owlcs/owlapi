@@ -67,4 +67,16 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation implement
     public IRI getIRI() {
         return iri;
     }
+    @Override
+	public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Datatype IRI also used as Class IRI: ");
+        sb.append(iri);
+        sb.append(" [");
+        sb.append(getAxiom());
+        sb.append(" in ");
+        sb.append(getOntologyID());
+        sb.append("]");
+        return sb.toString();
+    }
 }
