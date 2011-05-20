@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -143,7 +144,15 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 }
             }
 
-            writer.write(w.toString());
+            w.write("\\section*{Datatypes}");
+            for(OWLDatatype type:sortEntities(ontology.getDatatypesInSignature())) {
+            	writeEntitySection(type, w);
+            	for(OWLAxiom ax:sortAxioms(ontology.getAxioms(type))) {
+            		ax.accept(renderer);
+            		w.write("\n\n");
+            	}
+            }
+//            writer.write(w.toString());
             writer.write("\\end{document}\n");
             writer.flush();
         }
