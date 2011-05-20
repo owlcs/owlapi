@@ -36,11 +36,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -51,14 +53,37 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 21/12/2010
  */
 public class BuiltInDatatypesTestCase extends TestCase {
+	public void testBuiltInDatatypes() {
+		try {
+			OWL2Datatype dt = OWL2Datatype
+					.getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
+			assertNotNull(dt);
+			dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDFS_LITERAL
+					.getIRI());
+			assertNotNull(dt);
+			OWLDatatype datatype = OWLManager.getOWLDataFactory()
+					.getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
+			assertNotNull(datatype);
+			OWL2Datatype test = datatype.getBuiltInDatatype();
+			assertEquals(test, dt);
+			if (datatype.isBuiltIn()) {
+				System.out.println("[builtin"
+						+ datatype.getBuiltInDatatype().getShortName() + "]");
+			}
+		} catch (RuntimeException e) {
+			fail(e.getMessage());
+		}
+	}
 
-    public void testBuiltInDatatypes() {
-        try {
-            OWL2Datatype dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
-            assertNotNull(dt);
-        }
-        catch (RuntimeException e) {
-            fail(e.getMessage());
-        }
-    }
+	public void testFailure() {
+		for (IRI type : OWL2Datatype.getDatatypeIRIs()) {
+			OWLDatatype datatype = OWLManager.getOWLDataFactory()
+					.getOWLDatatype(type);
+			
+			if (datatype.isBuiltIn()) {
+				OWL2Datatype builtInDatatype = datatype.getBuiltInDatatype();
+				assertNotNull(builtInDatatype);
+			}
+		}
+	}
 }

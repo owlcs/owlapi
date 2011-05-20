@@ -392,7 +392,6 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
         hashCode = 149;
         hashCode = hashCode * MULT + axiom.getProperty().hashCode();
         hashCode = hashCode * MULT + axiom.getAnnotations().hashCode();
-        hashCode = hashCode * MULT + axiom.getAnnotations().hashCode();
     }
 
 
