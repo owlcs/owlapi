@@ -65,6 +65,7 @@ public class TestDisjoints extends TestCase {
         man.applyChange(new AddAxiom(ontA, ax));
         File tempFile = File.createTempFile("Ontology", ".owlapi");
         man.saveOntology(ontA, IRI.create(tempFile.toURI()));
+        man.removeOntology(ontA);
         OWLOntology ontB = man.loadOntologyFromOntologyDocument(tempFile);
         assertTrue(ontB.getAxioms().contains(ax));
     }

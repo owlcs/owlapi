@@ -16,6 +16,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -90,10 +91,10 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
         man.removeOntology(ontA);
         OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI.create(tempFile.toURI()));
         
-        Set<OWLAxiom> AminusB = ontA.getAxioms();
+        Set<OWLLogicalAxiom> AminusB = ontA.getLogicalAxioms();
         AminusB.removeAll(ontB.getAxioms());
        
-        Set<OWLAxiom> BminusA = ontB.getAxioms();
+        Set<OWLLogicalAxiom> BminusA = ontB.getLogicalAxioms();
         BminusA.removeAll(ontA.getAxioms());
         
         StringBuffer msg = new StringBuffer();
