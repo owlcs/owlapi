@@ -141,13 +141,19 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         exceptions.clear();
 
-        final String ontURIStr = ontology.getOntologyID().getOntologyIRI().toString();
-        if (ontURIStr.endsWith("/")) {
-            defaultNamespace = ontURIStr;
-        }
-        else {
-            defaultNamespace = ontURIStr + "#";
-        }
+        IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
+		if (ontologyIRI != null) {
+			final String ontURIStr = ontologyIRI.toString();
+			if (ontURIStr.endsWith("/")) {
+				defaultNamespace = ontURIStr;
+			} else {
+				defaultNamespace = ontURIStr + "#";
+			}
+		} else {
+			defaultNamespace = "urn:defaultOBONamespace:ontology"
+					+ System.currentTimeMillis() + "#";
+			System.err.println("WARNING: anonymous ontology saved in OBO format. Default namespace created for it.");
+		}
 
         nsUtil = new NamespaceUtil();
         defaultPrefix = nsUtil.getPrefix(defaultNamespace);
