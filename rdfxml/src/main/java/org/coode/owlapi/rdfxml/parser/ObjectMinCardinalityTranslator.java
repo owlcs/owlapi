@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 

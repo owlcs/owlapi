@@ -276,6 +276,9 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
     }
 
     private class ClassExpressionMatcher implements TypeMatcher {
+    	public ClassExpressionMatcher() {
+    		
+    	}
 
         public boolean isTypeStrict(IRI node) {
             return isClassExpressionStrict(node);
@@ -283,6 +286,10 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
     }
 
     private class DataRangeMatcher implements TypeMatcher {
+    	
+    	public DataRangeMatcher() {
+		
+		}
 
         public boolean isTypeStrict(IRI node) {
             return isDataRangeStrict(node);
@@ -290,6 +297,9 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
     }
 
     private class IndividualMatcher implements TypeMatcher {
+    	public IndividualMatcher() {
+		
+		}
 
         public boolean isTypeStrict(IRI node) {
             return true;

@@ -39,7 +39,6 @@
 
 package org.coode.owlapi.rdfxml.parser;
 
-import java.util.Collections;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;

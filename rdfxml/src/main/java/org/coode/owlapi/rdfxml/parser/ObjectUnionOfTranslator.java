@@ -41,13 +41,10 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.util.Set;
 
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INTERSECTION_OF;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_UNION_OF;
 
 /**

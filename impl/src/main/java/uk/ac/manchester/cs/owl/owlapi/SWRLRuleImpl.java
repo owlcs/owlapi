@@ -243,6 +243,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
      * @return <code>true</code> if the axiom is a logical axiom, <code>false</code>
      *         if the axiom is not a logical axiom.
      */
+    @Override
     public boolean isLogicalAxiom() {
         return true;
     }

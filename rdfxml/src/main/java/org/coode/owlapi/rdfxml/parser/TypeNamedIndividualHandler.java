@@ -57,6 +57,7 @@ public class TypeNamedIndividualHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI());
     }
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (!isAnonymous(subject)) {
             Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();

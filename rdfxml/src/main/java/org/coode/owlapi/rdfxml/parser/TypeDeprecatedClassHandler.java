@@ -56,7 +56,7 @@ public class TypeDeprecatedClassHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_DEPRECATED_CLASS.getIRI());
     }
 
-
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().addClassExpression(subject, false);
         consumeTriple(subject, predicate, object);

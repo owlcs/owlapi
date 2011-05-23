@@ -62,6 +62,7 @@ public class TPComplementOfHandler extends AbstractNamedEquivalentClassAxiomHand
         return super.canHandleStreaming(subject, predicate, object);
     }
 
+    @Override
     protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
         return getDataFactory().getOWLObjectComplementOf(getConsumer().translateClassExpression(mainNode));
     }

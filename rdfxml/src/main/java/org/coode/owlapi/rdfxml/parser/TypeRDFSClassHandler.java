@@ -56,7 +56,7 @@ public class TypeRDFSClassHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.RDFS_CLASS.getIRI());
     }
 
-
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         // TODO: Change to rdfs:Class? (See table 5 in the spec)
         getConsumer().addClassExpression(subject, false);

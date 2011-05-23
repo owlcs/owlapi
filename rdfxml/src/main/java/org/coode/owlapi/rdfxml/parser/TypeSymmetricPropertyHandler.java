@@ -55,6 +55,7 @@ public class TypeSymmetricPropertyHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY.getIRI());
     }
 
+    @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (!isAnonymous(subject)) {
             getConsumer().handle(subject, predicate, OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
@@ -63,7 +64,7 @@ public class TypeSymmetricPropertyHandler extends BuiltInTypeHandler {
         return !isAnonymous(subject);
     }
 
-
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (getConsumer().isObjectProperty(subject)) {
             addAxiom(getDataFactory().getOWLSymmetricObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));

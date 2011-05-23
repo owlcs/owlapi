@@ -55,7 +55,7 @@ public class AnonymousInversesTestCase extends AbstractFileRoundTrippingTestCase
         once the OWL 2 spec has stabilised.
      */
 
-//    @Override
+    @Override
 	public void testManchesterOWLSyntax() throws Exception {
 //        super.testManchesterOWLSyntax();
     }

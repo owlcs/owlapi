@@ -55,13 +55,14 @@ public class TypeTransitivePropertyHandler extends BuiltInTypeHandler {
     public TypeTransitivePropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_TRANSITIVE_PROPERTY.getIRI());
     }
-
+    
+    @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().handle(subject, predicate, OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
         return !isAnonymous(subject);
     }
 
-
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         addAxiom(getDataFactory().getOWLTransitiveObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

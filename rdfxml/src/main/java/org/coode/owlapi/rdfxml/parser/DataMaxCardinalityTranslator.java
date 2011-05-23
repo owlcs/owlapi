@@ -40,7 +40,6 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 

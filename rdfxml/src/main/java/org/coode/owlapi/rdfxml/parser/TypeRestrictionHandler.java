@@ -56,7 +56,7 @@ public class TypeRestrictionHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_RESTRICTION.getIRI());
     }
 
-
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
         getConsumer().addOWLRestriction(subject, true);

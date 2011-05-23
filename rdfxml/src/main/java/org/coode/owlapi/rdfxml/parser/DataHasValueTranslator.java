@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 

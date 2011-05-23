@@ -517,7 +517,7 @@ public abstract class RDFRendererBase {
         });
 
         if(axioms.isEmpty() && shouldInsertDeclarations()) {
-            if(RDFXMLOntologyFormat.isMissingType(entity, ontology)) {
+            if(RDFOntologyFormat.isMissingType(entity, ontology)) {
                 axioms.add(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(entity));
             }
         }

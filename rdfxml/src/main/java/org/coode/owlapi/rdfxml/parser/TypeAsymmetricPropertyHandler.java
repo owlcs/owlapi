@@ -61,7 +61,8 @@ public class TypeAsymmetricPropertyHandler extends BuiltInTypeHandler {
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    @Override
+	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (getConsumer().isObjectProperty(subject)) {
             addAxiom(getDataFactory().getOWLAsymmetricObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);

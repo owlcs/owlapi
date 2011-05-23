@@ -60,6 +60,7 @@ public class TypeObjectPropertyHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
     }
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (!isAnonymous(subject)) {
             OWLObjectProperty owlObjectProperty = getDataFactory().getOWLObjectProperty(subject);

@@ -57,12 +57,13 @@ public class TypeInverseFunctionalPropertyHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI());
     }
 
+    @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         getConsumer().handle(subject, predicate, OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
         return !isAnonymous(subject);
     }
 
-
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (getConsumer().isObjectProperty(subject)) {
             OWLObjectPropertyExpression property = translateObjectProperty(subject);

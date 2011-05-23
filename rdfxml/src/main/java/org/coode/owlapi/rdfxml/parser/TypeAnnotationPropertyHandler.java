@@ -61,7 +61,8 @@ public class TypeAnnotationPropertyHandler extends BuiltInTypeHandler{
     }
 
 
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    @Override
+	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (!isAnonymous(subject)) {
             Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
             OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(subject);

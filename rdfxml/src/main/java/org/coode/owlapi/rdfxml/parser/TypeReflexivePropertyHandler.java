@@ -55,11 +55,13 @@ public class TypeReflexivePropertyHandler extends BuiltInTypeHandler {
         super(consumer, OWLRDFVocabulary.OWL_REFLEXIVE_PROPERTY.getIRI());
     }
 
-    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    @Override
+	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         getConsumer().addObjectProperty(subject, false);
         return !isAnonymous(subject);
     }
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (getConsumer().isObjectProperty(subject)) {
             addAxiom(getDataFactory().getOWLReflexiveObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
