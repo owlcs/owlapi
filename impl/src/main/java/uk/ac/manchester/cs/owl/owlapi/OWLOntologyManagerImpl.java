@@ -142,6 +142,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     private int importsLoadCount = 0;
 
+    @Deprecated
     private boolean silentMissingImportsHandling;
 
     private OWLDataFactory dataFactory;
@@ -1083,7 +1084,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             ont = loadOntology(declaration.getIRI(), true, configuration);
         }
         catch (OWLOntologyCreationException e) {
-            if (!silentMissingImportsHandling) {
+        	//XXX note: uses both the configuration and this manager silent missing imports handling; should be removed when the managher mechanism is removed
+            if (!configuration.isSilentMissingImportsHandling()||!isSilentMissingImportsHandling()) {
                 throw e;
             }
             else {

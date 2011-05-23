@@ -771,14 +771,18 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * loading process.  If it is desired that loading continues then this option can be set with this method.
      * @param b <code>true</code> if loading should continue when an imported ontology cannot be loaded, other wise
      *          <code>false</code>.  The default value is <code>false</code>.
+     * @deprecated set it on the OWLOntologyLoaderConfiguration object instead 
      */
+    @Deprecated
     void setSilentMissingImportsHandling(boolean b);
 
 
     /**
      * Determines if silent missing imports handling is enabled.
      * @return <code>true</code> if silent missing imports handler is enabled, otherwise <code>false</code>.
+     * @deprecated check it on the OWLOntologyLoaderConfiguration object instead 
      */
+    @Deprecated
     boolean isSilentMissingImportsHandling();
 
 

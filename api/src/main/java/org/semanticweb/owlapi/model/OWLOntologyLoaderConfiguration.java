@@ -74,16 +74,13 @@ public final class OWLOntologyLoaderConfiguration {
 
     public static final MissingOntologyHeaderStrategy DEFAULT_MISSING_ONTOLOGY_HEADER_STRATEGY = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
 
-
-
-
-
     private boolean loadAnnotations = DEFAULT_LOAD_ANNOTATIONS_FLAG_VALUE;
 
     private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = DEFAULT_MISSING_ONTOLOGY_HEADER_STRATEGY;
 
-
     private boolean strict = false;
+    
+    private boolean silentMissingImportsHandling=false;
 
     private Set<IRI> ignoredImports = new HashSet<IRI>();
     
@@ -133,6 +130,14 @@ public final class OWLOntologyLoaderConfiguration {
          return loadAnnotations;
      }
 
+    public void setSilentMissingImportsHandling(boolean b) {
+        silentMissingImportsHandling = b;
+    }
+
+    public boolean isSilentMissingImportsHandling() {
+        return silentMissingImportsHandling;
+    }
+    
     public boolean isStrict() {
         return strict;
     }
