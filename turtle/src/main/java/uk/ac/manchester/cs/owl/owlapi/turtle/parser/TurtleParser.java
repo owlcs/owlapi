@@ -419,7 +419,7 @@ return iri;
     //  _x  rdf:type rdf:List
     //  _x  rdf:first
     //  _x  rdf:next
-    IRI firstSubject = null;
+    IRI firstSubject = OWLRDFVocabulary.RDF_NIL.getIRI();
     IRI subject = null;
     IRI type = OWLRDFVocabulary.RDF_TYPE.getIRI();
     IRI first = OWLRDFVocabulary.RDF_FIRST.getIRI();
@@ -441,11 +441,15 @@ return iri;
         else {
             firstSubject = subject;
         }
+        if(subject!=null) {
         handler.handleTriple(subject, type, list);
+        }
       parseObject(subject, first);
     }
         // Terminate list
+    if(subject!=null) {
         handler.handleTriple(subject, rest, nil);
+    }
         return firstSubject;
     
   }
