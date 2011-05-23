@@ -1084,8 +1084,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             ont = loadOntology(declaration.getIRI(), true, configuration);
         }
         catch (OWLOntologyCreationException e) {
-        	//XXX note: uses both the configuration and this manager silent missing imports handling; should be removed when the managher mechanism is removed
-            if (!configuration.isSilentMissingImportsHandling()||!isSilentMissingImportsHandling()) {
+        	//XXX note: uses both the configuration and this manager silent missing imports handling; should be removed when the manager mechanism is removed
+            if (!configuration.isSilentMissingImportsHandling()&&!isSilentMissingImportsHandling()) {
                 throw e;
             }
             else {

@@ -1195,7 +1195,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 		try {
 			ont = loadOntology(declaration.getIRI(), true, new OWLOntologyLoaderConfiguration());
 		} catch (OWLOntologyCreationException e) {
-			if (!isSilentMissingImportsHandling()) {
+			if (!isSilentMissingImportsHandling()&&!isSilentMissingImportsHandling()) {
 				throw e;
 			} else {
 				// Silent
