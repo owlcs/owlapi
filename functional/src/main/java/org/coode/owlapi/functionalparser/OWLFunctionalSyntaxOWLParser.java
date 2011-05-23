@@ -40,6 +40,8 @@
 package org.coode.owlapi.functionalparser;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -64,22 +66,36 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
     }
 
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
-        try {
+		Reader reader = null;
+		InputStream is = null;
+   	try {
             OWLFunctionalSyntaxParser parser;
             if(documentSource.isReaderAvailable()) {
-                parser = new OWLFunctionalSyntaxParser(documentSource.getReader());
+                //parser = new OWLFunctionalSyntaxParser(documentSource.getReader());
+            	reader = documentSource.getReader();
+            	            	parser = new OWLFunctionalSyntaxParser(reader);
             }
             else if(documentSource.isInputStreamAvailable()) {
-                parser = new OWLFunctionalSyntaxParser(documentSource.getInputStream());
+                //parser = new OWLFunctionalSyntaxParser(documentSource.getInputStream());
+            	is = documentSource.getInputStream();
+            	            	parser = new OWLFunctionalSyntaxParser(is);
             }
             else {
-                parser = new OWLFunctionalSyntaxParser(getInputStream(documentSource.getDocumentIRI()));
+                //parser = new OWLFunctionalSyntaxParser(getInputStream(documentSource.getDocumentIRI()));
+            	is = getInputStream(documentSource.getDocumentIRI());
+            	            	parser = new OWLFunctionalSyntaxParser(is);
             }
             parser.setUp(ontology, configuration);
             return parser.parse();
         }
         catch (ParseException e) {
             throw new OWLParserException(e.getMessage(), e.currentToken.beginLine, e.currentToken.beginColumn);
-        }
+		} finally {
+			if (is != null) {
+				is.close();
+			} else if (reader != null) {
+				reader.close();
+			}
+		}
     }
 }

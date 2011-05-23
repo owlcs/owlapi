@@ -75,7 +75,9 @@ public class RDFXMLParser extends AbstractOWLParser {
     }
 
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
-        try {
+    	InputSource is = null;
+    	try {
+        	
             final RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
             final RDFParser parser = new RDFParser() {
                 @Override
@@ -114,7 +116,7 @@ public class RDFXMLParser extends AbstractOWLParser {
             }, configuration);
             consumer.setIRIProvider(prov);
             consumer.setOntologyFormat(format);
-            InputSource is = getInputSource(documentSource);
+            is = getInputSource(documentSource);
             parser.parse(is, consumer);
             return format;
         }
@@ -126,8 +128,12 @@ public class RDFXMLParser extends AbstractOWLParser {
         }
         catch (SAXException e) {
             throw new OWLRDFXMLParserSAXException(e);
-        }
-    }
-
-
+		} finally {
+			if (is != null && is.getByteStream() != null) {
+				is.getByteStream().close();
+			} else if (is != null && is.getCharacterStream() != null) {
+				is.getCharacterStream().close();
+			}
+		}
+	}
 }

@@ -40,6 +40,8 @@
 package de.uulm.ecs.ai.owlapi.krssparser;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -297,15 +299,23 @@ public class KRSS2OWLParser extends AbstractOWLParser {
     }
 
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
-        try {
+    	 Reader reader = null;
+    		        InputStream is = null;
+    	try {
             KRSS2OntologyFormat format = new KRSS2OntologyFormat();
             KRSS2Parser parser;
             if (documentSource.isReaderAvailable()) {
-                parser = new KRSS2Parser(documentSource.getReader());
+                //parser = new KRSS2Parser(documentSource.getReader());
+            	reader = documentSource.getReader();
+            	                parser = new KRSS2Parser(reader);
             } else if (documentSource.isInputStreamAvailable()) {
-                parser = new KRSS2Parser(documentSource.getInputStream());
+                //parser = new KRSS2Parser(documentSource.getInputStream());
+            	is = documentSource.getInputStream();
+            	                parser = new KRSS2Parser(is);
             } else {
-                parser = new KRSS2Parser(getInputStream(documentSource.getDocumentIRI()));
+                //parser = new KRSS2Parser(getInputStream(documentSource.getDocumentIRI()));
+            	is = getInputStream(documentSource.getDocumentIRI());
+            	                parser = new KRSS2Parser(is);
             }
             parser.setOntology(ontology, ontology.getOWLOntologyManager().getOWLDataFactory());
             parser.parse();
@@ -313,6 +323,12 @@ public class KRSS2OWLParser extends AbstractOWLParser {
         }
         catch (ParseException e) {
             throw new KRSS2OWLParserException(e);
-        }
+        }finally {
+			if (is != null) {
+				is.close();
+			} else if (reader != null) {
+				reader.close();
+			}
+		}
     }
 }

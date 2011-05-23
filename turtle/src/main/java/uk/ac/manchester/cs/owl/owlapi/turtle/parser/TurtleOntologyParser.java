@@ -41,6 +41,8 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -68,16 +70,25 @@ public class TurtleOntologyParser extends AbstractOWLParser {
     }
 
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
-        try {
+    	Reader reader = null;
+    	InputStream is = null;
+    	try {
             TurtleParser parser;
             if(documentSource.isReaderAvailable()) {
-                parser = new TurtleParser(documentSource.getReader(), new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
+                //parser = new TurtleParser(documentSource.getReader(), new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
+            	reader = documentSource.getReader();
+            	parser = new TurtleParser(reader, new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
+            	             
             }
             else if(documentSource.isInputStreamAvailable()) {
-                parser = new TurtleParser(documentSource.getInputStream(), new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
+                //parser = new TurtleParser(documentSource.getInputStream(), new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
+            	is = documentSource.getInputStream();
+            	parser = new TurtleParser(is, new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
             }
             else {
-                parser = new TurtleParser(new BufferedInputStream(documentSource.getDocumentIRI().toURI().toURL().openStream()), new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
+                //parser = new TurtleParser(new BufferedInputStream(documentSource.getDocumentIRI().toURI().toURL().openStream()), new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
+            	is = new BufferedInputStream(documentSource.getDocumentIRI().toURI().toURL().openStream());
+            	parser = new TurtleParser(is, new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
             }
 
             OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(ontology, parser, configuration);
@@ -96,6 +107,12 @@ public class TurtleOntologyParser extends AbstractOWLParser {
         }
         catch (IOException e) {
             throw new OWLParserIOException(e);
-        }
+		} finally {
+			if (is != null) {
+				is.close();
+			} else if (reader != null) {
+				reader.close();
+			}
+		}
     }
 }

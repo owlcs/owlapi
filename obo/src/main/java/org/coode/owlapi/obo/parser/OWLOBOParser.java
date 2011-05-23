@@ -40,6 +40,8 @@
 package org.coode.owlapi.obo.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -66,14 +68,22 @@ public class OWLOBOParser extends AbstractOWLParser {
 
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         OBOParser parser;
+        Reader reader = null;
+    	InputStream is = null;
         if (documentSource.isReaderAvailable()) {
-            parser = new OBOParser(documentSource.getReader());
+           // parser = new OBOParser(documentSource.getReader());
+            reader = documentSource.getReader();
+        	parser = new OBOParser(reader);
         }
         else if (documentSource.isInputStreamAvailable()) {
-            parser = new OBOParser(documentSource.getInputStream());
+            //parser = new OBOParser(documentSource.getInputStream());
+            is = documentSource.getInputStream();
+        	parser = new OBOParser(is);
         }
         else {
-            parser = new OBOParser(getInputStream(documentSource.getDocumentIRI()));
+            //parser = new OBOParser(getInputStream(documentSource.getDocumentIRI()));
+            is = getInputStream(documentSource.getDocumentIRI());
+        	parser = new OBOParser(is);
         }
         parser.setHandler(new OBOConsumer(ontology, configuration));
         try {
@@ -99,7 +109,13 @@ public class OWLOBOParser extends AbstractOWLParser {
         }
         catch(TokenMgrError e) {
             throw new OWLParserException(e);
-        }
-        return new OBOOntologyFormat();
-    }
+		} finally {
+			if (is != null) {
+				is.close();
+			} else if (reader != null) {
+				reader.close();
+			}
+		}
+		return new OBOOntologyFormat();
+	}
 }

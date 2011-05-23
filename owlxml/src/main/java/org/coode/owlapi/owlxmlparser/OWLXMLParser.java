@@ -75,13 +75,14 @@ public class OWLXMLParser extends AbstractOWLParser {
     }
 
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
-        try {
+    	InputSource isrc = null;
+    	try {
             System.setProperty("entityExpansionLimit", "100000000");
             OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
             SAXParserFactory factory = SAXParserFactory.newInstance();
             factory.setNamespaceAware(true);
             SAXParser parser = factory.newSAXParser();
-            InputSource isrc = getInputSource(documentSource);
+            isrc = getInputSource(documentSource);
             OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology, configuration);
             parser.parse(isrc, handler);
             Map<String, String> prefix2NamespaceMap = handler.getPrefixName2PrefixMap();
@@ -103,6 +104,12 @@ public class OWLXMLParser extends AbstractOWLParser {
         catch (SAXException e) {
             // General exception
             throw new OWLParserSAXException(e);
-        }
+		} finally {
+			if (isrc != null && isrc.getByteStream() != null) {
+				isrc.getByteStream().close();
+			} else if (isrc != null && isrc.getCharacterStream() != null) {
+				isrc.getCharacterStream().close();
+			}
+		}
     }
 }
