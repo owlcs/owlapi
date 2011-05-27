@@ -1,8 +1,24 @@
 ----------------------------------------------------------------------
+Release 3.2.3
+----------------------------------------------------------------------
+
+This version of the API is released under both LGPL v3 and Apache license v2; developers are therefore free to choose which one to use.
+
+This version of the API includes various bug fixes:
+
+- MAVEN support has been fixed (3296393).
+- some minor problems with rdfs:Literal have been fixed (3305113).
+- parsers and renderers for various languages have had some corner case errors fixed (3302982, 3300090, 3207844, 3235181, 3277496, 3294069, 3293620, 3235198).  
+- an error in OWLOntologyManager.removeAxioms() which was throwing ConcurrentModificationExceptions when called on a specific axiom type has been fixed (3290632).
+- OWLOntologyLoaderConfiguration has been introduced to provide ontology wise parsing configuration (strict and lax parsing modes now enabled) (3203646) More options coming up.
+- Parsers no longer leave streams open when a parsing error is detected (3189947).
+
+
+----------------------------------------------------------------------
 Release 3.2.2
 ----------------------------------------------------------------------
 
-This version of the API includes various bug fixe:
+This version of the API includes various bug fixes:
 
 - In RDF based serialisations, type triples for entities that don't have "defining axioms" don't get added even if the
 renderer is instructed to type undeclared entities (related to 3184131). Fixed.
