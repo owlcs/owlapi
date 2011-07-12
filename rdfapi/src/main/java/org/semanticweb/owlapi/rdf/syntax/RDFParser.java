@@ -510,8 +510,10 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     /**
      * Generates next anonymous IRI.
      */
+    //XXX according to the specs this is not necessarily an IRI, i.e., it needs o look like _:<characters excluding : and />
     protected String nextAnonymousIRI() throws SAXException {
         return getIRIFromID("genid" + (++m_generatedIRIIndex));
+        // return "_:genid-nodeid-" + (++m_generatedIRIIndex);
     }
 
 
