@@ -42,6 +42,7 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLDataProperty;
+
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**

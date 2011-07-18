@@ -39,12 +39,12 @@
 
 package org.coode.owlapi.rdfxml.parser;
 
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /**
  * Author: Matthew Horridge<br>

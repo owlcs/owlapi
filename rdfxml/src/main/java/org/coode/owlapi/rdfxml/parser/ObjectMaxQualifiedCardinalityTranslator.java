@@ -39,11 +39,12 @@
 
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.*;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_MAX_QUALIFIED_CARDINALITY;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_CLASS;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
  * Author: Matthew Horridge<br>

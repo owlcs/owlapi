@@ -1,5 +1,3 @@
-package uk.ac.manchester.cs.owl.owlapi.alternateimpls;
-
 /*
  * This file is part of the OWL API.
  *
@@ -38,6 +36,9 @@ package uk.ac.manchester.cs.owl.owlapi.alternateimpls;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package uk.ac.manchester.cs.owl.owlapi.alternateimpls;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -127,7 +128,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	private List<OWLOntologyStorer> ontologyStorers;
 	private final Set<Object> broadcastChanges = CollectionFactory
 			.createSyncSet();
-	//TODO doublecheck 
+	//TODO doublecheck
 	private int loadCount = 0;
 	private int importsLoadCount = 0;
 	@Deprecated
@@ -205,7 +206,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	/**
 	 * Gets a previously loaded/created ontology that has the specified ontology
 	 * IRI and no version IRI.
-	 * 
+	 *
 	 * @param ontologyIRI
 	 *            The IRI of the ontology to be retrieved.
 	 * @return The ontology that has the specified IRI and no version IRI, or
@@ -220,7 +221,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	/**
 	 * Gets a previously loaded/created ontology that has the specified ontology
 	 * ID
-	 * 
+	 *
 	 * @param ontologyID
 	 *            The ID of the ontology to retrieve
 	 * @return The ontology that has the specified ID, or <code>null</code> if
@@ -244,7 +245,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	/**
 	 * Given an imports declaration, obtains the ontology that this import has
 	 * been resolved to.
-	 * 
+	 *
 	 * @param declaration
 	 *            The declaration that points to the imported ontology.
 	 * @return The ontology that the imports declaration resolves to, or
@@ -267,7 +268,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	 * Gets the set of <em>loaded</em> ontologies that the specified ontology is
 	 * related to via the directlyImports relation as defined in Section 3.4 of
 	 * the OWL 2 Structural specification
-	 * 
+	 *
 	 * @param ontology
 	 *            The ontology whose direct imports are to be retrieved.
 	 * @return The set of <em>loaded</em> ontologies that the specified ontology
@@ -294,7 +295,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	/**
 	 * Gets the set of ontologies that are in the transitive closure of the
 	 * directly imports relation.
-	 * 
+	 *
 	 * @param ontology
 	 *            The ontology whose imports are to be retrieved.
 	 * @return A set of <code>OWLOntology</code>ies that are in the transitive
@@ -317,7 +318,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 
 	/**
 	 * A method that gets the imports of a given ontology
-	 * 
+	 *
 	 * @param ont
 	 *            The ontology whose (transitive) imports are to be retrieved.
 	 * @param result
@@ -345,7 +346,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	/**
 	 * A recursive method that gets the reflexive transitive closure of the
 	 * ontologies that are imported by this ontology.
-	 * 
+	 *
 	 * @param ontology
 	 *            The ontology whose reflexive transitive closure is to be
 	 *            retrieved
@@ -384,7 +385,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	/**
 	 * Determines if a change is applicable. A change may not be applicable for
 	 * a number of reasons.
-	 * 
+	 *
 	 * @param change
 	 *            The change to be tested.
 	 * @return <code>true</code> if the change is applicable, otherwise,
@@ -403,7 +404,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	/**
 	 * Applies a change to an ontology and performs the necessary housekeeping
 	 * tasks.
-	 * 
+	 *
 	 * @param change
 	 *            The change to be applied.
 	 * @return A list of changes that were actually applied.
@@ -508,7 +509,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 				}
 				//                    // Do we contain the import already?
 				//                    for (OWLOntologyID id : ontologiesByID.keySet()) {
-				//                    	    
+				//
 				//                        if ((id.getDefaultDocumentIRI() != null && id.getDefaultDocumentIRI().equals(iri))||(id.getOntologyIRI() != null && id.getOntologyIRI().equals(iri))) {
 				//                            // Yes we do
 				//                            ontologyIDsByImportsDeclaration.put(addImportDeclaration, id);
@@ -552,7 +553,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 
 	/**
 	 * Sets the format of an ontology
-	 * 
+	 *
 	 * @param ontology
 	 *            The ontology
 	 * @param format
@@ -683,7 +684,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 		return loadOntology(ontologyIRI, new IRIDocumentSource(documentIRI),
 				configuration);
 	}
-	
+
 	private OWLOntology getOntologyByDocumentIRI(IRI documentIRI) {
 		for (OWLOntologyID ontID : documentIRIsByID.keySet()) {
 			IRI docIRI = documentIRIsByID.get(ontID);
@@ -729,7 +730,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 
 	/**
 	 * This is the method that all the other load method delegate to.
-	 * 
+	 *
 	 * @param ontologyIRI
 	 *            The URI of the ontology to be loaded. This is only used to
 	 *            report to listeners and may be <code>null</code>
@@ -840,7 +841,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	/**
 	 * Handles a rename of an ontology. This method should only be called
 	 * *after* the change has been applied
-	 * 
+	 *
 	 * @param oldID
 	 *            The original ID of the ontology
 	 */
@@ -983,7 +984,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 
 	/**
 	 * Gets the ontology factories that are registered with this manager.
-	 * 
+	 *
 	 * @return A collection of ontology factories.
 	 */
 	public Collection<OWLOntologyFactory> getOntologyFactories() {
@@ -993,7 +994,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	/**
 	 * Uses the mapper mechanism to obtain an ontology document IRI from an
 	 * ontology IRI.
-	 * 
+	 *
 	 * @param ontologyID
 	 *            The ontology ID for which a document IRI is to be retrieved
 	 * @param quiet
@@ -1060,7 +1061,7 @@ public class LockingOWLOntologyManagerImpl implements OWLOntologyManager,
 	/**
 	 * Broadcasts to attached listeners, using the various broadcasting
 	 * strategies that were specified for each listener.
-	 * 
+	 *
 	 * @param changes
 	 *            The ontology changes to broadcast
 	 */

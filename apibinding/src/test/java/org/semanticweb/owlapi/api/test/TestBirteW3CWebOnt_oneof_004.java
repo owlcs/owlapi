@@ -1,4 +1,5 @@
 /*
+ /*
  * This file is part of the OWL API.
  *
  * The contents of this file are subject to the LGPL License, Version 3.0.

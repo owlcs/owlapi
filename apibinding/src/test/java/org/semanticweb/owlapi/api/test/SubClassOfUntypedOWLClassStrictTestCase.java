@@ -39,14 +39,14 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import java.util.Set;
+
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-
-import java.util.Set;
 
 /**
  * Author: Matthew Horridge<br>

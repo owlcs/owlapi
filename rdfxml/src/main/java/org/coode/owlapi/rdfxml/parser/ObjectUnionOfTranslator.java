@@ -39,13 +39,13 @@
 
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_UNION_OF;
 
 import java.util.Set;
 
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_UNION_OF;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
 /**
  * Author: Matthew Horridge<br>

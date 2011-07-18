@@ -43,6 +43,7 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**

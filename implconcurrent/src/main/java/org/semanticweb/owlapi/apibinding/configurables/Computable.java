@@ -1,27 +1,43 @@
-package org.semanticweb.owlapi.apibinding.configurables;
-
 /*
- * Copyright (C) 2010, University of Manchester
+ * This file is part of the OWL API.
  *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
+ * The contents of this file are subject to the LGPL License, Version 3.0.
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
-
- * This library is distributed in the hope that it will be useful,
+ * Copyright (C) 2011, The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
+ * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ *
+ * Copyright 2011, University of Manchester
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
+package org.semanticweb.owlapi.apibinding.configurables;
 
 /**
  * This class represents a computable task to be used when filling a
@@ -29,7 +45,7 @@ package org.semanticweb.owlapi.apibinding.configurables;
  * of compute(), are expected to be non null, although it is not forbidden to
  * have a null value; if that case is expected to be frequent, then the use of a
  * cache is not sensible.
- * 
+ *
  * The expected code pattern looks like this:<br/>
  * MemoizingCache&lt;A, B&gt; cache = new MemoizingCache&lt;A, B&gt;();<br/>
  * A key = ...;<br/>
@@ -38,11 +54,11 @@ package org.semanticweb.owlapi.apibinding.configurables;
  * if(c.hasThrownException()){<br/>
  * throw c.thrownException();<br/>
  * }<br/>
- * 
+ *
  * When refactoring code where the computation of the toReturn value was
  * inlined, this reproduces the behaviour of the refactored code; casting of the
  * Throwable returned may be needed.
- * 
+ *
  */
 public interface Computable<V> {
 	/**
@@ -51,7 +67,7 @@ public interface Computable<V> {
 	 * thrownException; failure to capture exceptions will result in it being
 	 * caught and rethrown by the MemoizingCache internals, changing the
 	 * behaviour of the refactored code.
-	 * 
+	 *
 	 * @return the result of the computation, or null if exceptions occur
 	 */
 	public V compute();

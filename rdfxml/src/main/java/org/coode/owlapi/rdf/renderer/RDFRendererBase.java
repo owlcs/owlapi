@@ -54,7 +54,6 @@ import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTranslator;
 import org.coode.owlapi.rdf.model.RDFTriple;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
-import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;

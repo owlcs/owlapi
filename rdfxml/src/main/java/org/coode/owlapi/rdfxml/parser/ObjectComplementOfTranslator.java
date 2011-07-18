@@ -39,11 +39,11 @@
 
 package org.coode.owlapi.rdfxml.parser;
 
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_COMPLEMENT_OF;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /**
  * Author: Matthew Horridge<br>

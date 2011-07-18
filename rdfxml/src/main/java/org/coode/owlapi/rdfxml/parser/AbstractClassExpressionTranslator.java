@@ -39,17 +39,17 @@
 
 package org.coode.owlapi.rdfxml.parser;
 
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 
 /**

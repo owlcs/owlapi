@@ -39,9 +39,14 @@
 
 package org.semanticweb.owlapi.api.test;
 
-import org.semanticweb.owlapi.model.*;
-
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * Author: Matthew Horridge<br>
