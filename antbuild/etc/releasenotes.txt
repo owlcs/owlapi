@@ -1,4 +1,18 @@
 ----------------------------------------------------------------------
+Release 3.2.4 (22 July 2011)
+----------------------------------------------------------------------
+
+This version of the API is released under both LGPL v3 and Apache license v2; developers are therefore free to choose which one to use.
+
+This version of the API includes minor bug fixes and a couple of new features;
+- Tutorial code has been added following the OWLED 2011 tutorial (subpackage tutorialowled2011);
+- A visitor to determine whether a set of axioms is a Horn-SHIQ ontology has been added (HornAxiomVisitorEx.java).
+
+Some test files and extra modules had not had their copyright notices updated to the new license; this has now been fixed.
+
+
+
+----------------------------------------------------------------------
 Release 3.2.3
 ----------------------------------------------------------------------
 
@@ -8,7 +22,7 @@ This version of the API includes various bug fixes:
 
 - MAVEN support has been fixed (3296393).
 - Some minor problems with rdfs:Literal have been fixed (3305113).
-- Parsers and renderers for various languages have had some corner case errors fixed (3302982, 3300090, 3207844, 3235181, 3277496, 3294069, 3293620, 3235198).  
+- Parsers and renderers for various languages have had some corner case errors fixed (3302982, 3300090, 3207844, 3235181, 3277496, 3294069, 3293620, 3235198).
 - An error in OWLOntologyManager.removeAxioms() which was throwing ConcurrentModificationExceptions when called on a specific axiom type has been fixed (3290632).
 - OWLOntologyLoaderConfiguration has been introduced to provide ontology wise parsing configuration (strict and lax parsing modes now enabled) (3203646) More options coming up.
 - Parsers no longer leave streams open when a parsing error is detected (3189947).
@@ -227,7 +241,7 @@ Enhancements:
 
 - Added more documentation for the method which adds ontology URI mappers
 
-- Improved error handling when loading ontologies: For errors that have nothing to do with parse errors e.g. unknown host exceptions, the factory will 
+- Improved error handling when loading ontologies: For errors that have nothing to do with parse errors e.g. unknown host exceptions, the factory will
 rethrow the error at the earliest opportunity rather than trying all parsers.
 
 - Updated parser to throw ManchesterOWLSyntaxOntologyParserException which is a more specific type of OWLParserException
