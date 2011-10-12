@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Information Management Group<br>
  * Date: 03-Jul-2009
  * </p>
- * 
+ *
  * Represents a node (set) of entities.  The entities in a node are equivalent to each other.
  * </p>
  *
@@ -87,6 +87,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  * <div align=center">
  *  <img src="../../../../doc-files/hierarchy.png"/>
  * </div>
+ *
+ * @param <E> the type of elements represented in the Node
  */
 public interface Node<E extends OWLObject> extends Iterable<E> {
 
@@ -150,7 +152,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * @param e The entity that, is contained within this node, but should not be included in the return set.
      * @return The set of entities that are contained in this node minus the specified entity, <code>e</code>. If
      * <code>e</code> is not contained within this node then the full set of entities returned is the same as that
-     * returned by {@link #getEntities()} 
+     * returned by {@link #getEntities()}
      */
     Set<E> getEntitiesMinus(E e);
 
