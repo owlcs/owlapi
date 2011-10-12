@@ -72,6 +72,7 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * Bio-Health Informatics Group<br>
  * Date: 09-May-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractRendererAndParserTestCase extends TestCase {
 
     private OWLOntologyManager man;
