@@ -704,7 +704,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                         for (SWRLAtom atom : rule.getHead()) {
                             if (atom.getPredicate().equals(property)) {
                                 rules.add(rule);
-                                writeSection(RULE, rules, "�", true, ontology);
+                                //XXX attempted patching
+                                writeSection(RULE, rules, ",", true, ontology);
                                 break;
                             }
                         }
@@ -1290,7 +1291,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     private static class DefaultRenderingDirector implements RenderingDirector {
     	public DefaultRenderingDirector() {
-		
+
 		}
         @SuppressWarnings("unused")
         public boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword, OWLOntology... ontologies) {
