@@ -71,6 +71,9 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
 
     public OWLSubPropertyChainAxiomImpl(OWLDataFactory dataFactory, List<? extends OWLObjectPropertyExpression> propertyChain, OWLObjectPropertyExpression superProperty, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
+//        if(propertyChain==null||propertyChain.size()<2) {
+//        	throw new IllegalArgumentException("the propertychain must contain more than one element");
+//        }
         this.propertyChain = new ArrayList<OWLObjectPropertyExpression>(propertyChain);
         this.superProperty = superProperty;
     }
