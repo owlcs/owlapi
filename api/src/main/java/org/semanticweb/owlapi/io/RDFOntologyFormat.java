@@ -114,6 +114,7 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
         this.addMissingTypes = addMissingTypes;
     }
 
+    //XXX the next two methods don't seem to do anything useful
     @Override
     public RDFParserMetaData getOntologyLoaderMetaData() {
         return (RDFParserMetaData) super.getOntologyLoaderMetaData();
@@ -123,6 +124,9 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
         super.setOntologyLoaderMetaData(loaderMetaData);
     }
 
+    /**
+     * @param error error to add to the error set
+     */
     public void addError(RDFResourceParseError error) {
         errors.add(error);
     }

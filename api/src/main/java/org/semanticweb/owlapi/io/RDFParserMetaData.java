@@ -59,6 +59,11 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData {
 
     private final Set<RDFTriple> unparsedTriples = new HashSet<RDFTriple>();
 
+    /**
+     * @param headerStatus the header status
+     * @param tripleCount the triple count
+     * @param unparsedTriples the set of triples not parsed
+     */
     public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount, Set<RDFTriple> unparsedTriples) {
         this.tripleCount = tripleCount;
         this.headerStatus = headerStatus;
@@ -73,10 +78,16 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData {
         return tripleCount;
     }
 
+    /**
+     * @return the header status
+     */
     public RDFOntologyHeaderStatus getHeaderState() {
         return headerStatus;
     }
 
+    /**
+     * @return the set of unparsed triples, as a copy
+     */
     public Set<RDFTriple> getUnparsedTriples() {
         return CollectionFactory.getCopyOnRequestSet(unparsedTriples);
     }

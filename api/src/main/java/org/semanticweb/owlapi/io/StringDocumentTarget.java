@@ -57,8 +57,8 @@ public class StringDocumentTarget implements OWLOntologyDocumentTarget {
 
     private StringWriter writer;
 
-
-    public StringDocumentTarget() {
+    @SuppressWarnings("javadoc")
+	public StringDocumentTarget() {
         this.writer = new StringWriter();
     }
 

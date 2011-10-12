@@ -64,6 +64,10 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
 
     private Map<OWLParser, OWLParserException> exceptions;
 
+    /**
+     * @param documentIRI the document IRI
+     * @param exceptions the map parser-&gt;exceptions
+     */
     public UnparsableOntologyException(IRI documentIRI, Map<OWLParser, OWLParserException> exceptions) {
         super("Could not parse ontology from document IRI: " + documentIRI.toQuotedString());
         this.documentIRI = documentIRI;

@@ -55,6 +55,9 @@ public class OWLOntologyStorageIOException extends OWLOntologyStorageException {
 
     private IOException ioException;
 
+    /**
+     * @param ioException the cause
+     */
     public OWLOntologyStorageIOException(IOException ioException) {
         super(ioException);
         this.ioException = ioException;

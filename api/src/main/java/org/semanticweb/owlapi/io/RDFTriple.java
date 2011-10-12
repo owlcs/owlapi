@@ -58,32 +58,59 @@ public class RDFTriple {
 
     private RDFNode object;
 
+    /**
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param object the object
+     */
     public RDFTriple(RDFResource subject, RDFResource predicate, RDFNode object) {
         this.subject = subject;
         this.predicate = predicate;
         this.object = object;
     }
 
+    /**
+     * @param subject the subject
+     * @param subjectAnon whether the subject is anonymous
+     * @param predicate the predicate
+     * @param predicateAnon whether the predicate is anon
+     * @param object the object
+     * @param objectAnon whether the object is anonymous
+     */
     public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, boolean predicateAnon, IRI object, boolean objectAnon) {
         this.subject = new RDFResource(subject, subjectAnon);
         this.predicate = new RDFResource(predicate, predicateAnon);
         this.object = new RDFResource(object, objectAnon);
     }
 
+    /**
+     * @param subject the subject
+     * @param subjectAnon whether the subject is anonymous
+     * @param predicate the predicate
+     * @param predicateAnon whether the predicate is anon
+     * @param object the object
+     */
     public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, boolean predicateAnon, OWLLiteral object) {
         this.subject = new RDFResource(subject, subjectAnon);
         this.predicate = new RDFResource(predicate, predicateAnon);
         this.object = new RDFLiteral(object);
     }
 
+    /**
+     * @return the subject
+     */
     public RDFResource getSubject() {
         return subject;
     }
-
+    /**
+     * @return the predicate
+     */
     public RDFResource getPredicate() {
         return predicate;
     }
-
+    /**
+     * @return the object
+     */
     public RDFNode getObject() {
         return object;
     }

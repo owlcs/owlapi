@@ -50,6 +50,9 @@ import java.io.IOException;
  */
 public class OWLRendererIOException extends OWLRendererException {
 
+    /**
+     * @param cause the cause
+     */
     public OWLRendererIOException(IOException cause) {
         super(cause);
     }

@@ -66,20 +66,34 @@ public class RDFResourceParseError {
 
     private final Set<RDFTriple> mainNodeTriples = new HashSet<RDFTriple>();
 
+    /**
+     * @param parserGeneratedErrorEntity the error entity
+     * @param mainNode the main node
+     * @param mainNodeTriples the main node triples
+     */
     public RDFResourceParseError(OWLEntity parserGeneratedErrorEntity, RDFNode mainNode, Set<RDFTriple> mainNodeTriples) {
         this.parserGeneratedErrorEntity = parserGeneratedErrorEntity;
         this.mainNode = mainNode;
         this.mainNodeTriples.addAll(mainNodeTriples);
     }
 
+    /**
+     * @return the error entity
+     */
     public OWLEntity getParserGeneratedErrorEntity() {
         return parserGeneratedErrorEntity;
     }
 
+    /**
+     * @return the main node
+     */
     public RDFNode getMainNode() {
         return mainNode;
     }
 
+    /**
+     * @return the main node triples
+     */
     public Set<RDFTriple> getMainNodeTriples() {
         return CollectionFactory.getCopyOnRequestSet(mainNodeTriples);
     }

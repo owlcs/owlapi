@@ -60,8 +60,6 @@ public class ReaderDocumentSource implements OWLOntologyDocumentSource {
 
     private static int counter = 0;
 
-    public static final String DOCUMENT_IRI_SCHEME = "reader";
-
     private IRI documentIRI;
 
     private String buffer;
@@ -76,9 +74,12 @@ public class ReaderDocumentSource implements OWLOntologyDocumentSource {
         this(reader, getNextDocumentIRI());
     }
 
+    /**
+     * @return a fresh IRI
+     */
     public static synchronized IRI getNextDocumentIRI() {
         counter = counter + 1;
-        return IRI.create(DOCUMENT_IRI_SCHEME + ":ontology" + counter);
+        return IRI.create("reader:ontology" + counter);
     }
 
 

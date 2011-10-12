@@ -58,9 +58,9 @@ import java.util.List;
  */
 public class OWLParserFactoryRegistry {
 
-    private static OWLParserFactoryRegistry instance;
+    private static final OWLParserFactoryRegistry instance = new OWLParserFactoryRegistry();
 
-    private List<OWLParserFactory> parserFactories;
+    private List<OWLParserFactory> parserFactories = new ArrayList<OWLParserFactory>(10);
 
 
     private OWLParserFactoryRegistry() {
@@ -68,29 +68,39 @@ public class OWLParserFactoryRegistry {
     }
 
 
-    public static synchronized OWLParserFactoryRegistry getInstance() {
-        if (instance == null) {
-            instance = new OWLParserFactoryRegistry();
-        }
+    /**@return the parser factory registry*/
+    public static OWLParserFactoryRegistry getInstance() {
         return instance;
     }
 
 
+    /**
+     * clear all registered parser factories
+     */
     public void clearParserFactories() {
         parserFactories.clear();
     }
 
 
+    /**
+     * @return the list of parsers - changes will not be backed by the factory
+     */
     public List<OWLParserFactory> getParserFactories() {
         return Collections.unmodifiableList(parserFactories);
     }
 
 
+    /**
+     * @param parserFactory the parser factory to register
+     */
     public void registerParserFactory(OWLParserFactory parserFactory) {
         parserFactories.add(0, parserFactory);
     }
 
 
+    /**
+     * @param parserFactory the parser factory to remove
+     */
     public void unregisterParserFactory(OWLParserFactory parserFactory) {
         parserFactories.remove(parserFactory);
     }

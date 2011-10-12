@@ -55,6 +55,9 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  */
 public class OWLOntologyCreationIOException extends OWLOntologyCreationException {
 
+    /**
+     * @param ioException the cause
+     */
     public OWLOntologyCreationIOException(IOException ioException) {
         super(ioException.getClass().getSimpleName() + ": " + ioException.getMessage(), ioException);
     }
@@ -67,7 +70,7 @@ public class OWLOntologyCreationIOException extends OWLOntologyCreationException
 
     /**
      * Delegates to the getMessage() method of the contained <code>IOException</code>.
-     * @return The message of the IOException 
+     * @return The message of the IOException
      */
     @Override
 	public String getMessage() {

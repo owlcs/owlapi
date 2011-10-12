@@ -51,20 +51,29 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class OWLOntologyInputSourceException extends OWLRuntimeException {
 
 
-    public OWLOntologyInputSourceException() {
+    @SuppressWarnings("javadoc")
+	public OWLOntologyInputSourceException() {
     }
 
 
+    /**
+     * @param cause the cause
+     */
     public OWLOntologyInputSourceException(Throwable cause) {
         super(cause);
     }
 
-
+    /**
+     * @param message the message
+     */
     public OWLOntologyInputSourceException(String message) {
         super(message);
     }
 
-
+    /**
+     * @param message the message
+     * @param cause the cause
+     */
     public OWLOntologyInputSourceException(String message, Throwable cause) {
         super(message, cause);
     }

@@ -54,7 +54,11 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public interface OWLRenderer {
 
-    
+
+    /**
+     * @param owlOntologyManager
+     * @throws OWLException
+     */
     void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) throws OWLException;
 
     /**
@@ -62,6 +66,7 @@ public interface OWLRenderer {
      * be written to the specified output stream
      * @param ontology The ontology
      * @param os The OutputStream
+     * @throws OWLException
      */
     void render(OWLOntology ontology, OutputStream os) throws OWLException;
 }

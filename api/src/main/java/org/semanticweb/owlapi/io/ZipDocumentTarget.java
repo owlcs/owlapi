@@ -62,6 +62,9 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
     private File file;
 
 
+    /**
+     * @param file the file to use
+     */
     public ZipDocumentTarget(File file) {
         this.file = file;
     }
@@ -85,7 +88,7 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
 
     public OutputStream getOutputStream() throws IOException {
         File parentFile = file.getAbsoluteFile().getParentFile();
-        
+
 		if(parentFile.exists() || parentFile.mkdirs()) {
             ZipOutputStream os = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
             os.putNextEntry(new ZipEntry("ontology.txt"));

@@ -57,6 +57,9 @@ public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
     private OutputStream os;
 
 
+    /**
+     * @param os the actual output stream
+     */
     public StreamDocumentTarget(OutputStream os) {
         this.os = os;
     }

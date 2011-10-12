@@ -57,22 +57,25 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class StringDocumentSource implements OWLOntologyDocumentSource {
 
-    public static final String DOCUMENT_IRI_SCHEME = "string";
-
     private static int counter = 0;
 
     private IRI documentIRI;
 
     private String string;
 
+    /**
+     * @param string the source string
+     */
     public StringDocumentSource(String string) {
         this.string = string;
         documentIRI = getNextDocumentIRI();
     }
-
+    /**
+     * @return a fresh IRI
+     */
     public static synchronized IRI getNextDocumentIRI() {
         counter = counter + 1;
-        return IRI.create(DOCUMENT_IRI_SCHEME + ":ontology" + counter);
+        return IRI.create( "string:ontology" + counter);
     }
 
 

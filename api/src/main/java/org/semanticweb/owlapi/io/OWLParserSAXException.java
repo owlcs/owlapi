@@ -53,6 +53,9 @@ import org.xml.sax.SAXException;
  */
 public class OWLParserSAXException extends OWLParserException {
 
+	/**
+     * @param cause the cause
+     */
     public OWLParserSAXException(SAXException cause) {
         super(cause);
     }

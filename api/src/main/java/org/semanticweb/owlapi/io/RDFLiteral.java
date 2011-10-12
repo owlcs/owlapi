@@ -52,10 +52,16 @@ public class RDFLiteral extends RDFNode {
 
     private OWLLiteral literal;
 
+    /**
+     * @param literal the wrapped literal
+     */
     public RDFLiteral(OWLLiteral literal) {
         this.literal = literal;
     }
 
+    /**
+     * @return the OWLLiteral
+     */
     public OWLLiteral getLiteral() {
         return literal;
     }

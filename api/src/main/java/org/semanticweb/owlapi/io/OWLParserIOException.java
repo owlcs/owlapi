@@ -51,6 +51,9 @@ import java.io.IOException;
  */
 public class OWLParserIOException extends OWLParserException {
 
+    /**
+     * @param cause the cause
+     */
     public OWLParserIOException(IOException cause) {
         super(cause);
     }

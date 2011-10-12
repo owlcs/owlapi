@@ -57,6 +57,9 @@ public class IRIDocumentSource implements OWLOntologyDocumentSource {
     private IRI documentIRI;
 
 
+    /**
+     * @param documentIRI the source document IRI
+     */
     public IRIDocumentSource(IRI documentIRI) {
         this.documentIRI = documentIRI;
     }

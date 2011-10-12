@@ -56,39 +56,63 @@ public class OWLParserException extends OWLException {
 
     private int columnNumber;
 
-    public OWLParserException() {
+    @SuppressWarnings("javadoc")
+	public OWLParserException() {
         this.lineNumber = -1;
     }
 
+    /**
+     * @param message the message
+     */
     public OWLParserException(String message) {
         super(message);
         lineNumber = -1;
     }
 
-
+    /**
+     * @param message the message
+     * @param cause the cause
+     */
     public OWLParserException(String message, Throwable cause) {
         super(message, cause);
         lineNumber = -1;
     }
 
-
+    /**
+     * @param cause the cause
+     */
     public OWLParserException(Throwable cause) {
         super(cause);
         lineNumber = -1;
     }
 
+    /**
+     * @param message the message
+     * @param lineNumber the line number
+     * @param columnNumber the column number
+     */
     public OWLParserException(String message, int lineNumber, int columnNumber) {
         super(message);
         this.lineNumber = lineNumber;
         this.columnNumber = columnNumber;
     }
-
+    /**
+     * @param cause the cause
+     * @param lineNumber the line number
+     * @param columnNumber the column number
+     */
     public OWLParserException(Throwable cause, int lineNumber, int columnNumber) {
         super(cause);
         this.lineNumber = lineNumber;
         this.columnNumber = columnNumber;
     }
-    
+
+    /**
+     * @param cause the cause
+     * @param message the message
+     * @param lineNumber the line number
+     * @param columnNumber the column number
+     */
     public OWLParserException(String message, Throwable cause, int lineNumber, int columnNumber) {
         super(message, cause);
         this.lineNumber = lineNumber;
@@ -105,14 +129,10 @@ public class OWLParserException extends OWLException {
         return lineNumber;
     }
 
+    /**@return the column number*/
     public int getColumnNumber() {
         return columnNumber;
     }
-
-//    public void setLineNumber(int lineNumber) {
-//        this.lineNumber = lineNumber;
-//    }
-
 
     @Override
 	public String getMessage() {

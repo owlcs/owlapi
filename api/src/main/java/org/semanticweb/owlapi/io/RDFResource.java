@@ -54,15 +54,25 @@ public class RDFResource extends RDFNode {
 
     private boolean anonymous;
 
+    /**
+     * @param resource the resource
+     * @param anonymous true if the resource is anonymous
+     */
     public RDFResource(IRI resource, boolean anonymous) {
         this.resource = resource;
         this.anonymous = anonymous;
     }
 
+    /**
+     * @return the IRI
+     */
     public IRI getResource() {
         return resource;
     }
 
+    /**
+     * @return true if resource is anonymous
+     */
     public boolean isAnonymous() {
         return anonymous;
     }

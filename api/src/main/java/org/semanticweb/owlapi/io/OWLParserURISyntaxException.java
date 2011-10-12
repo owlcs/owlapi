@@ -49,6 +49,11 @@ import java.net.URISyntaxException;
  */
 public class OWLParserURISyntaxException extends OWLParserException {
 
+	/**
+     * @param cause the cause
+     * @param lineNumber the line number
+     * @param columnNumber the column number
+     */
     public OWLParserURISyntaxException(URISyntaxException cause, int lineNumber, int columnNumber) {
         super(cause, lineNumber, columnNumber);
     }

@@ -59,8 +59,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class StreamDocumentSource implements OWLOntologyDocumentSource {
 
-    public static final String DOCUMENT_IRI_SCHEME = "inputstream";
-
     private static int counter = 0;
 
     private IRI documentIRI;
@@ -77,10 +75,12 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
     public StreamDocumentSource(InputStream is) {
         this(is, getNextDocumentIRI());
     }
-
+    /**
+     * @return a fresh IRI
+     */
     public static synchronized IRI getNextDocumentIRI() {
         counter = counter + 1;
-        return IRI.create(DOCUMENT_IRI_SCHEME + ":ontology" + counter);
+        return IRI.create("inputstream:ontology" + counter);
     }
 
 

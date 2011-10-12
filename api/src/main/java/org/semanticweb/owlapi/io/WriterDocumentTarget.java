@@ -57,6 +57,9 @@ public class WriterDocumentTarget implements OWLOntologyDocumentTarget {
     private Writer writer;
 
 
+    /**
+     * @param writer the writer to use
+     */
     public WriterDocumentTarget(Writer writer) {
         this.writer = writer;
     }

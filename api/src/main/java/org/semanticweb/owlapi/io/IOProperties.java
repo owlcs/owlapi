@@ -46,17 +46,22 @@ package org.semanticweb.owlapi.io;
  */
 public class IOProperties {
 
-    private static IOProperties instance = new IOProperties();
+    private static final IOProperties instance = new IOProperties();
 
+    /**default connection timeout*/
+    //XXX public why?
     public static final int DEFAULT_CONNECTION_TIME_OUT = 20000;
 
+    /**timeout property name*/
+    //XXX never used
     public static final String CONNECTION_TIME_OUT_PROPERTY_NAME = "owlapi.connectionTimeOut";
 
     private int connectionTimeout;
 
-
+    /**accept http compression?*/
     public static final boolean DEFAULT_CONNECTION_ACCEPT_HTTP_COMPRESSION = true;
 
+    /**property name for accept http compression*/
     public static final String CONNECTION_ACCEPT_HTTP_COMPRESSION_PROPERTY_NAME = "owlapi.connectionAcceptHTTPCompression";
 
     private boolean connectionAcceptHTTPCompression = DEFAULT_CONNECTION_ACCEPT_HTTP_COMPRESSION;
@@ -69,6 +74,7 @@ public class IOProperties {
     }
 
 
+    /**@return the instance of IOProperties*/
     public static IOProperties getInstance() {
         return instance;
     }
