@@ -88,6 +88,12 @@ public class OWLParserException extends OWLException {
         this.lineNumber = lineNumber;
         this.columnNumber = columnNumber;
     }
+    
+    public OWLParserException(String message, Throwable cause, int lineNumber, int columnNumber) {
+        super(message, cause);
+        this.lineNumber = lineNumber;
+        this.columnNumber = columnNumber;
+    }
 
     /**
      * Gets the line number of the line that the parser
