@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public enum OWLRDFVocabulary {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -413,5 +414,5 @@ public enum OWLRDFVocabulary {
 	public String toString() {
         return uri.toString();
     }
-    
+
 }

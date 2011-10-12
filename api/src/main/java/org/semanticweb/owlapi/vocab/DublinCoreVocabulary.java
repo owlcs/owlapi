@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group<br>
  * Date: 09-Mar-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public enum DublinCoreVocabulary {
 
     CONTRIBUTOR("contributor"),

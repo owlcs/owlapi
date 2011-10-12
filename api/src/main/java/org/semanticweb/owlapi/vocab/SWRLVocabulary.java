@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.IRI;
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
  */
+@SuppressWarnings("javadoc")
 public enum SWRLVocabulary {
 
     IMP("Imp"),
@@ -97,5 +98,5 @@ public enum SWRLVocabulary {
     public URI getURI() {
         return iri.toURI();
     }
-    
+
 }

@@ -150,7 +150,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * Bio-Health Informatics Group<br>
  * Date: 26-Feb-2007<br><br>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","javadoc"})
 public class DLExpressivityChecker implements OWLObjectVisitor {
 
     private Set<Construct> constructs;
@@ -464,7 +464,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         restriction.getFiller().accept(this);
         restriction.getProperty().accept(this);
     }
-    
+
     public void visit(OWLObjectMinCardinality desc) {
         checkCardinality(desc);
     }

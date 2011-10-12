@@ -55,6 +55,7 @@ import org.semanticweb.owlapi.model.IRI;
  * @see org.semanticweb.owlapi.model.OWLFacetRestriction
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction
  */
+@SuppressWarnings("javadoc")
 public enum OWLFacet {
 
     LENGTH(Namespaces.XSD, "length", "length"),

@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
  */
+@SuppressWarnings("javadoc")
 public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
 
     EQUAL("equal", 2),

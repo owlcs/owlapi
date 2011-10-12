@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.IRI;
  * Date: 25-Oct-2006
  * A vocabulary for XML Schema Data Types (XSD)
  */
+@SuppressWarnings("javadoc")
 public enum XSDVocabulary {
 
     ANY_TYPE("anyType"),

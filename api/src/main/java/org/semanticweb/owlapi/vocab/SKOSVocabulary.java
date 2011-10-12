@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Bio-Health Informatics Group<br>
  * Date: 03-Oct-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public enum SKOSVocabulary {
 
     BROADMATCH("broadMatch", EntityType.OBJECT_PROPERTY),
