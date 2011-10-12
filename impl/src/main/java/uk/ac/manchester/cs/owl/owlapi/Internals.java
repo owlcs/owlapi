@@ -103,6 +103,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
+@SuppressWarnings("javadoc")
 public interface Internals {
 	Set<OWLImportsDeclaration> getImportsDeclarations();
 
@@ -313,7 +314,7 @@ public interface Internals {
 	 * A convenience method that adds an axiom to a set, but checks that the set
 	 * isn't null before the axiom is added. This is needed because many of the
 	 * indexing sets are built lazily.
-	 * 
+	 *
 	 * @param axiom
 	 *            The axiom to be added.
 	 * @param axioms
@@ -327,7 +328,7 @@ public interface Internals {
 	/**
 	 * Adds an axiom to a set contained in a map, which maps some key (e.g. an
 	 * entity such as and individual, class etc.) to the set of axioms.
-	 * 
+	 *
 	 * @param key
 	 *            The key that indexes the set of axioms
 	 * @param map
@@ -342,7 +343,7 @@ public interface Internals {
 	/**
 	 * Removes an axiom from a set of axioms, which is the value for a specified
 	 * key in a specified map.
-	 * 
+	 *
 	 * @param key
 	 *            The key that indexes the set of axioms.
 	 * @param map
@@ -360,11 +361,11 @@ public interface Internals {
 
 	<K extends OWLObject, V extends OWLAxiom> Set<V> getAxioms(K key,
 			Map<K, Set<V>> map);
-	
+
 	Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity entity);
-	
+
 	Set<OWLAxiom> getReferencingAxioms(OWLAnonymousIndividual individual);
-	
+
 	Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity);
 
 	Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(OWLClass cls);
