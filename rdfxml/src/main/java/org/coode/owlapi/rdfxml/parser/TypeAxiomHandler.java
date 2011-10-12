@@ -100,7 +100,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
 
     @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        consumeTriple(subject, predicate, object);
+
 
 
         IRI annotatedSource = getObjectOfSourceTriple(subject);
@@ -111,19 +111,22 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
             annotatedTargetLiteral = getTargetLiteral(subject);
         }
 
-        Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
-        getConsumer().setPendingAnnotations(annotations);
-        if (annotatedTarget != null) {
-            getConsumer().handle(annotatedSource, annotatedProperty, annotatedTarget);
+        // check that other conditions are not invalid
+        if(annotatedSource!=null&&annotatedProperty!=null) {
+        	consumeTriple(subject, predicate, object);
+        	Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
+        	getConsumer().setPendingAnnotations(annotations);
+        	if (annotatedTarget != null) {
+        		getConsumer().handle(annotatedSource, annotatedProperty, annotatedTarget);
+        	}
+        	else if(annotatedTargetLiteral != null) {
+        		getConsumer().handle(annotatedSource, annotatedProperty, annotatedTargetLiteral);
+        	}
+        	if (!annotations.isEmpty()) {
+        		OWLAxiom ax = getConsumer().getLastAddedAxiom();
+        		getConsumer().applyChange(new RemoveAxiom(getConsumer().getOntology(), ax.getAxiomWithoutAnnotations()));
+        	}
         }
-        else if(annotatedTargetLiteral != null) {
-            getConsumer().handle(annotatedSource, annotatedProperty, annotatedTargetLiteral);
-        }
-        if (!annotations.isEmpty()) {
-            OWLAxiom ax = getConsumer().getLastAddedAxiom();
-            getConsumer().applyChange(new RemoveAxiom(getConsumer().getOntology(), ax.getAxiomWithoutAnnotations()));
-        }
-
     }
 
     protected OWLAxiom handleAxiomTriples(IRI subjectTriple, IRI predicateTriple, IRI objectTriple, Set<OWLAnnotation> annotations) {

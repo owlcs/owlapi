@@ -1210,7 +1210,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      * @param subject The subject of the triple
      * @param predicate The predicate of the triple
      * @param object The object of the triple
-     * @throws UnloadableImportException .
+     * @throws UnloadableImportException if such exception is raised by handleTriple()
      */
     public void handle(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         if (predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI())) {
@@ -1600,8 +1600,8 @@ public class OWLRDFConsumer implements RDFConsumer {
      * @param subject The subject of the triple that has been parsed
      * @param predicate The predicate of the triple that has been parsed
      * @param object The object of the triple that has been parsed
-     * @throws org.semanticweb.owlapi.model.UnloadableImportException
-     *          .
+     * @throws UnloadableImportException
+     *
      */
     private void handleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         boolean consumed = false;
@@ -2299,7 +2299,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    
+
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
