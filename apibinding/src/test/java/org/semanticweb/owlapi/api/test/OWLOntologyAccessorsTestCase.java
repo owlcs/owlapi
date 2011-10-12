@@ -85,6 +85,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 18-Jul-2008<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
 
 
@@ -129,7 +130,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         man.addAxiom(ont, ax);
         OWLSubClassOfAxiom ax2 = SubClassOf(clsA, ObjectSomeValuesFrom(prop, clsB));
         man.addAxiom(ont, ax2);
-        
+
         performAxiomTests(ont, ax, ax2);
 
         assertTrue(ont.getSubClassAxiomsForSubClass(clsA).contains(ax));
@@ -513,7 +514,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getObjectPropertyAssertionAxioms(indA).contains(ax));
         assertTrue(ont.getAxioms(indA).contains(ax));
     }
-    
+
     public void testNegativeObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty prop = getOWLObjectProperty("prop");
@@ -528,7 +529,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getNegativeObjectPropertyAssertionAxioms(indA).contains(ax));
         assertTrue(ont.getAxioms(indA).contains(ax));
     }
-    
+
     public void testDataPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty prop = getOWLDataProperty("prop");
@@ -543,7 +544,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getDataPropertyAssertionAxioms(indA).contains(ax));
         assertTrue(ont.getAxioms(indA).contains(ax));
     }
-    
+
     public void testNegativeDataPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty prop = getOWLDataProperty("prop");

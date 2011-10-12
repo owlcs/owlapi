@@ -61,6 +61,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
  * Bio-Health Informatics Group<br>
  * Date: 22/12/2010
  */
+@SuppressWarnings("javadoc")
 public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase {
 
 

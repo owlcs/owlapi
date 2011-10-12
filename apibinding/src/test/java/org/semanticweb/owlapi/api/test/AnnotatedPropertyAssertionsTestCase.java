@@ -54,13 +54,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Bio-Health Informatics Group<br>
  * Date: 30-Jun-2010
  */
+
 public class AnnotatedPropertyAssertionsTestCase extends AbstractFileTestCase {
 
     @Override
     protected String getFileName() {
         return "AnnotatedPropertyAssertions.rdf";
     }
-
+    @SuppressWarnings("javadoc")
     public void testCorrectAxiomAnnotated() {
         OWLOntology ontology = createOntology();
         OWLDataFactory df = getFactory();

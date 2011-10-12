@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * Information Management Group<br>
  * Date: 09-Jun-2009
  */
+@SuppressWarnings("javadoc")
 public class BuiltInPropertyTestCase extends AbstractOWLAPITestCase {
 
     public void testTopObjectPropertyPositive() {

@@ -56,6 +56,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * <p/>
  * The base for test cases that need a data factory.
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractOWLDataFactoryTest extends AbstractOWLAPITestCase {
 
     @Override

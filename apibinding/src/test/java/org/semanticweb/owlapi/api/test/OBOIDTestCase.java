@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group<br>
  * Date: 03/02/2011
  */
+@SuppressWarnings("javadoc")
 public class OBOIDTestCase extends TestCase {
 
 
@@ -70,7 +71,7 @@ public class OBOIDTestCase extends TestCase {
         IRI iri = OBOVocabulary.ID2IRI(id);
         assertEquals(iri, IRI.create(OBOVocabulary.OBO_IRI_BASE + "123"));
     }
-    
+
     public void testIRI() {
         IRI iri = IRI.create(OBOVocabulary.OBO_IRI_BASE + "go_123");
         String id = OBOVocabulary.IRI2ID(iri);
@@ -88,5 +89,5 @@ public class OBOIDTestCase extends TestCase {
         String id = OBOVocabulary.IRI2ID(iri);
         assertEquals(id, "123");
     }
-    
+
 }

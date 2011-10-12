@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Bio-Health Informatics Group<br>
  * Date: 16-Mar-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractOWLOntologyManagerTestCase extends AbstractOWLDataFactoryTest {
 
     public static final String SYSTEM_PARAM_NAME = "OntologyManagerFactory";

@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
  * Information Management Group<br>
  * Date: 21-Sep-2009
  */
+@SuppressWarnings("javadoc")
 public class NNFTestCase extends AbstractOWLAPITestCase {
 
     public void testPosOWLClass() {

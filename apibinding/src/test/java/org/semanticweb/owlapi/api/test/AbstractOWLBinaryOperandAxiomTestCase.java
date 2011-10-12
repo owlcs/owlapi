@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject, R extends OWLObject> extends AbstractOWLDataFactoryTest {
 
     protected abstract L createLeftOperand() throws Exception;

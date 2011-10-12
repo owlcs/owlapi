@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Information Management Group<br>
  * Date: 28-May-2009
  */
+@SuppressWarnings("javadoc")
 public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase {
 
     public void testContainsReferenceForAnnotationAssertion() throws Exception {
@@ -69,7 +70,7 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
         assertTrue(ont.containsAnnotationPropertyInSignature(ap.getIRI()));
         assertTrue(ont.getAnnotationPropertiesInSignature().contains(ap));
     }
-    
+
 
     public void testContainsReferenceForAxiomAnnotation() throws Exception {
         OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");

@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 10-May-2008<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractRoundTrippingTest extends AbstractOWLAPITestCase {
 
     private OWLOntology ont;

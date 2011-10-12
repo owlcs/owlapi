@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public class DataMaxCardinalityTestCase extends AbstractFileRoundTrippingTestCase {
 
-
+	@SuppressWarnings("javadoc")
     public void testCorrectAxioms() {
          Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
          OWLClass clsA = getOWLClass("A");

@@ -75,7 +75,7 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
         super(dataFactory);
         this.dataFactory = dataFactory;
     }
-
+    @SuppressWarnings("javadoc")
     public Set<OWLAxiom> getNormalisedAxioms(Set<OWLAxiom> axioms) {
         List<OWLAxiom> axiomsList = new ArrayList<OWLAxiom>(axioms);
         Collections.sort(axiomsList);

@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.util.OWLOntologyURIChanger;
  * Date: 25-May-2007<br><br>
  */
 public class ChangeOntologyURITestCase extends AbstractOWLAPITestCase {
-
+	@SuppressWarnings("javadoc")
     public void testChangeURI() throws Exception {
         OWLOntologyManager man = getManager();
         IRI oldIRI = IRI.create("http://www.semanticweb.org/ontologies/ontA");

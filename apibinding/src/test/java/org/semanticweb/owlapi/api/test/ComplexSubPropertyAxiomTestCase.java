@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Date: 02-Feb-2009
  */
 public class ComplexSubPropertyAxiomTestCase extends AbstractFileRoundTrippingTestCase {
-
+	@SuppressWarnings("javadoc")
     public void testContains() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLObjectProperty propP = getOWLObjectProperty("p");

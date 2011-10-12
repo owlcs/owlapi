@@ -58,6 +58,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * Tests that the isOWLThing and isOWLNothing methods
  * return correct values.
  */
+@SuppressWarnings("javadoc")
 public class BuiltInClassTestCase extends TestCase {
 
     private OWLDataFactory dataFactory;

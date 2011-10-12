@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 21/12/2010
  */
+@SuppressWarnings("javadoc")
 public class BuiltInDatatypesTestCase extends TestCase {
 	public void testBuiltInDatatypes() {
 		try {
@@ -79,7 +80,7 @@ public class BuiltInDatatypesTestCase extends TestCase {
 		for (IRI type : OWL2Datatype.getDatatypeIRIs()) {
 			OWLDatatype datatype = OWLManager.getOWLDataFactory()
 					.getOWLDatatype(type);
-			
+
 			if (datatype.isBuiltIn()) {
 				OWL2Datatype builtInDatatype = datatype.getBuiltInDatatype();
 				assertNotNull(builtInDatatype);

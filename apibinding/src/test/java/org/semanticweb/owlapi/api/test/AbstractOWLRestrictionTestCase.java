@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"rawtypes","javadoc"})
 public abstract class AbstractOWLRestrictionTestCase<P extends OWLPropertyExpression> extends AbstractOWLDataFactoryTest {
 
 

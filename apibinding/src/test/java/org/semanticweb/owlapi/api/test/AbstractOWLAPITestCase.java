@@ -73,6 +73,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group<br> Date:
  * 10-May-2008<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractOWLAPITestCase extends TestCase {
 
     private OWLOntologyManager manager;
@@ -239,11 +240,13 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
         return ont2;
     }
 
-    protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
+    @SuppressWarnings("unused")
+	protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
         return true;
     }
 
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    @SuppressWarnings("unused")
+	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         System.out.println("Saved: ");
         System.out.println(target.toString());
         System.out.println("------------------------------------------------------------");

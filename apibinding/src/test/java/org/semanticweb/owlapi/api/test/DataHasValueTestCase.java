@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Date: 23-Apr-2009
  */
 public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
-
+	@SuppressWarnings("javadoc")
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLClass clsA = getOWLClass("A");

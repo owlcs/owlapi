@@ -56,6 +56,7 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
  * Information Management Group<br>
  * Date: 22-Dec-2009
  */
+@SuppressWarnings("javadoc")
 public class OWLOntologyManagerTestCase extends TestCase {
 
     public void testCreateAnonymousOntology() throws Exception {

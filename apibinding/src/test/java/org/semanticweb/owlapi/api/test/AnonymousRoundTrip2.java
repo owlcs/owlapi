@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-
+@SuppressWarnings("javadoc")
 public class AnonymousRoundTrip2 extends TestCase{
 	public void testRoundTrip() {
 	        try {
@@ -69,9 +69,9 @@ public class AnonymousRoundTrip2 extends TestCase{
 	            ma.buildOntology();
 	            ma.printAxioms();
 	            ma.write();
-	            
+
 	            System.out.println(" -------------- Take 2");
-	            
+
 	            ma.loadOntology();
 	            ma.printAxioms();
 	        }
@@ -83,14 +83,14 @@ public class AnonymousRoundTrip2 extends TestCase{
 }
 class AnonymousRoundTrip {
     public static final String NS = "http://smi-protege.stanford.edu/ontologies/AnonymousIndividuals.owl";
-    
+
     private OWLOntologyManager manager;
     private OWLOntology ontology;
     private OWLClass a;
     private OWLAnonymousIndividual h, i;
     private OWLAnnotationProperty p;
     private OWLObjectProperty q;
-    
+
     private File savedLocation;
 
     public AnonymousRoundTrip() throws OWLOntologyCreationException {
@@ -101,12 +101,12 @@ class AnonymousRoundTrip {
         h = factory.getOWLAnonymousIndividual();
         i = factory.getOWLAnonymousIndividual();
     }
-    
+
     public void buildOntology() throws OWLOntologyCreationException {
         manager = OWLManager.createOWLOntologyManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
         ontology = manager.createOntology(IRI.create(NS));
-        
+
         OWLAnnotation annotation1 = factory.getOWLAnnotation(p, h);
         manager.addAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1));
         manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(a, h));
@@ -114,13 +114,13 @@ class AnonymousRoundTrip {
         OWLAnnotation annotation2 = factory.getOWLAnnotation(factory.getRDFSLabel(), factory.getOWLLiteral("Second", "en"));
         manager.addAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(h, annotation2));
     }
-    
+
     public void loadOntology() throws OWLOntologyCreationException {
         System.out.println("Reading from location " + savedLocation);
         manager = OWLManager.createOWLOntologyManager();
         ontology = manager.loadOntologyFromOntologyDocument(savedLocation);
-    } 
-    
+    }
+
     public void printAxioms() {
         System.out.println("Printing axioms --- ");
         for (OWLAxiom axiom : ontology.getAxioms()) {
@@ -128,7 +128,7 @@ class AnonymousRoundTrip {
         }
         System.out.println("End of axiom printout");
     }
-    
+
     public void write() throws OWLOntologyStorageException, IOException {
         savedLocation = File.createTempFile("RoundTripTest", ".owl");
         FileOutputStream out = new FileOutputStream(savedLocation);
@@ -138,6 +138,6 @@ class AnonymousRoundTrip {
         out.close();
         System.out.println("Saved to location " + savedLocation);
     }
-    
+
 
 }

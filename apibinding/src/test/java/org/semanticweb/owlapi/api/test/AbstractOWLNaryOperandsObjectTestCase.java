@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject> extends AbstractOWLDataFactoryTest {
 
     protected abstract OWLObject createObject(Set<O> operands) throws Exception;
