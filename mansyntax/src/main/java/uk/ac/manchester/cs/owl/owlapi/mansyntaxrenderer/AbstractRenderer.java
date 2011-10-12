@@ -56,6 +56,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * Bio-Health Informatics Group<br>
  * Date: 25-Apr-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class AbstractRenderer {
 
     private ShortFormProvider shortFormProvider;
@@ -71,7 +72,7 @@ public class AbstractRenderer {
     private boolean useTabbing = true;
 
     private boolean useWrapping = true;
-    
+
     public AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
         this.writer = writer;
         this.shortFormProvider = shortFormProvider;
