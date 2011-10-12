@@ -57,21 +57,34 @@ public class OWLProfileReport {
     private List<OWLProfileViolation> violations;
 
 
+    /**
+     * @param profile the profile used
+     * @param violations the set of violations
+     */
     public OWLProfileReport(OWLProfile profile, Set<OWLProfileViolation> violations) {
         this.profile = profile;
         this.violations = new ArrayList<OWLProfileViolation>(violations);
     }
 
 
+    /**
+     * @return the profile used
+     */
     public OWLProfile getProfile() {
         return profile;
     }
 
+    /**
+     * @return true if there are no violations
+     */
     public boolean isInProfile() {
         return violations.isEmpty();
     }
 
 
+    /**
+     * @return the violations found
+     */
     public List<OWLProfileViolation> getViolations() {
         return violations;
     }

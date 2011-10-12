@@ -44,6 +44,7 @@ package org.semanticweb.owlapi.profiles;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public interface OWL2QLProfileViolationVisitor {
 
     void visit(UseOfAnonymousIndividual individual);
@@ -59,4 +60,9 @@ public interface OWL2QLProfileViolationVisitor {
     void visit(UseOfNonSubClassExpression individual);
 
     void visit(UseOfNonSuperClassExpression individual);
+
+    void visit(InsufficientPropertyExpressions violation);
+    void visit(InsufficientIndividuals violation);
+    void visit(InsufficientOperands violation);
+    void visit(EmptyOneOfAxiom violation);
 }

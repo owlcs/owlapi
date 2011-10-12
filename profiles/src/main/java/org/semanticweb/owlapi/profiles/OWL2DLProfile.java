@@ -49,24 +49,39 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
@@ -136,6 +151,125 @@ public class OWL2DLProfile implements OWLProfile {
                 objectPropertyManager = new OWLObjectPropertyManager(manager, getCurrentOntology());
             }
             return objectPropertyManager;
+        }
+
+        @Override
+        public Object visit(OWLDataOneOf node) {
+        	if(node.getValues().isEmpty()) {
+        		profileViolations.add(new EmptyOneOfAxiom(getCurrentOntology(), getCurrentAxiom()));
+        	}
+
+        	return null;
+        }
+
+        @Override
+        public Object visit(OWLDataUnionOf node) {
+        	if(node.getOperands().size()<2) {
+        		profileViolations.add(new InsufficientOperands(getCurrentOntology(),getCurrentAxiom(), node));
+        	}
+
+        	return null;
+        }
+
+        @Override
+        public Object visit(OWLDataIntersectionOf node) {
+        	if(node.getOperands().size()<2) {
+        		profileViolations.add(new InsufficientOperands(getCurrentOntology(),getCurrentAxiom(), node));
+        	}
+        	return null;
+        }@Override
+        public Object visit(OWLObjectIntersectionOf node) {
+        	if(node.getOperands().size()<2) {
+        		profileViolations.add(new InsufficientOperands(getCurrentOntology(),getCurrentAxiom(), node));
+        	}
+        	return null;
+        }
+        @Override
+        public Object visit(OWLObjectOneOf node) {
+        	if(node.getIndividuals().isEmpty()) {
+        		profileViolations.add(new EmptyOneOfAxiom(getCurrentOntology(), getCurrentAxiom()));
+        	}
+
+        	return null;        }
+        @Override
+        public Object visit(OWLObjectUnionOf node) {
+        	if(node.getOperands().size()<2) {
+        		profileViolations.add(new InsufficientOperands(getCurrentOntology(),getCurrentAxiom(), node));
+        	}
+        	return null;
+        }
+
+        @Override
+        public Object visit(OWLEquivalentClassesAxiom node) {
+        	if(node.getClassExpressions().size()<2) {
+        		profileViolations.add(new InsufficientOperands(getCurrentOntology(),node, node));
+        	}
+        	return null;
+        }
+
+        @Override
+        public Object visit(OWLDisjointClassesAxiom node) {
+        	if(node.getClassExpressions().size()<2) {
+        		profileViolations.add(new InsufficientOperands(getCurrentOntology(),node,node));
+        	}
+        	return null;
+        }
+
+        @Override
+        public Object visit(OWLDisjointUnionAxiom node) {
+        	if(node.getClassExpressions().size()<2) {
+        		profileViolations.add(new InsufficientOperands(getCurrentOntology(),node,node));
+        	}
+        	return null;
+        }
+
+        @Override
+        public Object visit(OWLEquivalentObjectPropertiesAxiom node) {
+        	if(node.getProperties().size()<2) {
+        		profileViolations.add(new InsufficientPropertyExpressions(getCurrentOntology(),node));
+        	}
+        	return null;
+        }
+
+        @Override
+        public Object visit(OWLDisjointDataPropertiesAxiom node) {
+        	if(node.getProperties().size()<2) {
+        		profileViolations.add(new InsufficientPropertyExpressions(getCurrentOntology(),node));
+        	}
+        	return null;
+        }
+
+        @Override
+        public Object visit(OWLEquivalentDataPropertiesAxiom node) {
+        	if(node.getProperties().size()<2) {
+        		profileViolations.add(new InsufficientPropertyExpressions(getCurrentOntology(),node));
+        	}
+        	return null;
+        }
+
+        @Override
+        public Object visit(OWLHasKeyAxiom node) {
+        	if(node.getPropertyExpressions().size()<1) {
+        		profileViolations.add(new InsufficientPropertyExpressions(getCurrentOntology(), node));
+        	}
+
+        	return null;
+        }
+
+        @Override
+        public Object visit(OWLSameIndividualAxiom node) {
+        	if(node.getIndividuals().size()<2) {
+        		profileViolations.add(new InsufficientIndividuals(getCurrentOntology(),node));
+        	}
+        	return null;
+        }
+
+        @Override
+        public Object visit(OWLDifferentIndividualsAxiom node) {
+        	if(node.getIndividuals().size()<2) {
+        		profileViolations.add(new InsufficientIndividuals(getCurrentOntology(),node));
+        	}
+        	return null;
         }
 
         @Override
@@ -376,6 +510,9 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
 		public Object visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        	if(axiom.getProperties().size()<2) {
+        		profileViolations.add(new InsufficientPropertyExpressions(getCurrentOntology(), axiom));
+        	}
             for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                 if (getPropertyManager().isNonSimple(prop)) {
                     profileViolations.add(new UseOfNonSimplePropertyInDisjointPropertiesAxiom(getCurrentOntology(), axiom, prop));
@@ -386,7 +523,8 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
 		public Object visit(OWLSubPropertyChainOfAxiom axiom) {
-            if (axiom.getPropertyChain().size() > 2) {
+
+            if (axiom.getPropertyChain().size() > 1) {
                 OWLObjectPropertyExpression superProp = axiom.getSuperProperty();
                 if (!superProp.isOWLTopObjectProperty()) {
                     if (!axiom.isEncodingOfTransitiveProperty()) {
@@ -413,6 +551,8 @@ public class OWL2DLProfile implements OWLProfile {
 
                     }
                 }
+            }else {
+            	profileViolations.add(new InsufficientPropertyExpressions(getCurrentOntology(), axiom));
             }
             return null;
         }

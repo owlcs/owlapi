@@ -44,6 +44,7 @@ package org.semanticweb.owlapi.profiles;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public interface OWL2DLProfileViolationVisitor {
 
     void visit(CycleInDatatypeDefinition violation);
@@ -93,4 +94,11 @@ public interface OWL2DLProfileViolationVisitor {
     void visit(UseOfUndeclaredDatatype violation);
 
     void visit(UseOfUndeclaredObjectProperty violation);
+
+    void visit(InsufficientPropertyExpressions violation);
+    void visit(InsufficientIndividuals violation);
+    void visit(InsufficientOperands violation);
+    void visit(EmptyOneOfAxiom violation);
+
+
 }

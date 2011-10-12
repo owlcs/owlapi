@@ -40,6 +40,7 @@
 package org.semanticweb.owlapi.profiles;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -54,8 +55,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  *
- * Describes a violation of an OWLProfile by one or more axioms.  Ultimately, there may
- * be part of an axiom(s) that violates the profile rather than the complete axiom.
+ * Describes a violation of an OWLProfile by an axiom.  Ultimately, there may
+ * be part of the axiom that violates the profile rather than the complete axiom.
  */
 public class OWLProfileViolation {
 
@@ -65,6 +66,10 @@ public class OWLProfileViolation {
 
     private OWLAxiom axiom;
 
+    /**
+     * @param ontology the ontology with the violation
+     * @param axiom the axiom with the violation
+     */
     public OWLProfileViolation(OWLOntology ontology, OWLAxiom axiom) {
         this.axiom = axiom;
         this.ontologyID = ontology.getOntologyID();
@@ -73,20 +78,33 @@ public class OWLProfileViolation {
         }
     }
 
+    /**
+     * @return the offending axiom
+     */
     public OWLAxiom getAxiom() {
         return axiom;
     }
 
+    /**
+     * @return the ontology id
+     */
     public OWLOntologyID getOntologyID() {
         return ontologyID;
     }
 
-    public IRI getDocumentIRI(OWLOntologyID ontologyID) {
-        return importsClosureMap.get(ontologyID);
+    /**
+     * @param ontID the id to look for
+     * @return the document IRI for an id
+     */
+    public IRI getDocumentIRI(OWLOntologyID ontID) {
+        return importsClosureMap.get(ontID);
     }
 
+    /**
+     * @return the imports closure set of ids. The set is a copy and the map will not be altered by changes to it.
+     */
     public Set<OWLOntologyID> getImportsClosure() {
-        return importsClosureMap.keySet();
+        return new HashSet<OWLOntologyID>(importsClosureMap.keySet());
     }
 
 }
