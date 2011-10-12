@@ -487,12 +487,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             				// found the ontology id corresponding to the file location
             				ontologyIDsByImportsDeclaration.put(addImportDeclaration, e.getKey());
             			}
-            			
+
             		}
             	}
 //                // Do we contain the import already?
 //                for (OWLOntologyID id : ontologiesByID.keySet()) {
-//                	    
+//
 //                    if ((id.getDefaultDocumentIRI() != null && id.getDefaultDocumentIRI().equals(iri))||(id.getOntologyIRI() != null && id.getOntologyIRI().equals(iri))) {
 //                        // Yes we do
 //                        ontologyIDsByImportsDeclaration.put(addImportDeclaration, id);
@@ -512,6 +512,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             SetOntologyID setID = (SetOntologyID) change;
             OWLOntology existingOntology = ontologiesByID.get(((SetOntologyID) change).getNewOntologyID());
             if (existingOntology != null && !change.getOntology().equals(existingOntology)) {
+            	//XXX bug still not solved: what to do with multiple imports of the same ontology from different locations
+            	//System.out.println("OWLOntologyManagerImpl.checkForOntologyIDChange() existing:\n"+existingOntology);
+            	//System.out.println("OWLOntologyManagerImpl.checkForOntologyIDChange() new:\n"+change.getOntology());
                 throw new OWLOntologyRenameException(change, ((SetOntologyID) change).getNewOntologyID());
             }
             renameOntology(setID.getOriginalOntologyID(), setID.getNewOntologyID());
@@ -732,7 +735,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
                     catch (OWLOntologyRenameException e) {
                         // We loaded an ontology from a document and the ontology turned out to have an IRI the same
                         // as a previously loaded ontology
-                        throw new OWLOntologyAlreadyExistsException(e.getOntologyID());
+                    	throw new OWLOntologyAlreadyExistsException(e.getOntologyID(), e);
                     }
                 }
             }
@@ -796,7 +799,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         ontologiesByID.remove(oldID);
         ontologiesByID.put(newID, ont);
         ontologyFormatsByOntology.put(newID, ontologyFormatsByOntology.remove(oldID));
-        
+
         IRI documentIRI = documentIRIsByID.remove(oldID);
         if (documentIRI != null) {
             documentIRIsByID.put(newID, documentIRI);
