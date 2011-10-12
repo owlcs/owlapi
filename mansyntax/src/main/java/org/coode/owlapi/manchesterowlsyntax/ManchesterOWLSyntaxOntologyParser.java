@@ -131,7 +131,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
             return format;
         }
         catch (ParserException e) {
-            throw new ManchesterOWLSyntaxParserException(e.getMessage(), e.getLineNumber(), e.getColumnNumber());
+            throw new ManchesterOWLSyntaxParserException(e.getMessage(), e,  e.getLineNumber(), e.getColumnNumber());
         }
     }
 
