@@ -77,9 +77,9 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
 
     private IRI iri;
 
-    public OWLAnnotationPropertyImpl(OWLDataFactory dataFactory, IRI iri) {
+    public OWLAnnotationPropertyImpl(OWLDataFactory dataFactory, IRI i) {
         super(dataFactory);
-        this.iri = iri;
+        this.iri = i;
     }
 
     public IRI getIRI() {
@@ -260,8 +260,8 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         }
         return result;
     }
-    
-    
+
+
     public Set<OWLAnnotationProperty> getSuperProperties(OWLOntology ontology) {
         return getSuperProperties(Collections.singleton(ontology));
     }
