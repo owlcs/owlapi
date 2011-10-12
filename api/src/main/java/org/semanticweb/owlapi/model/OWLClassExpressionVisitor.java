@@ -48,9 +48,10 @@ package org.semanticweb.owlapi.model;
  * (See the <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
  *
  */
+@SuppressWarnings("javadoc")
 public interface OWLClassExpressionVisitor {
 
-    void visit(OWLClass ce);
+	void visit(OWLClass ce);
 
     void visit(OWLObjectIntersectionOf ce);
 

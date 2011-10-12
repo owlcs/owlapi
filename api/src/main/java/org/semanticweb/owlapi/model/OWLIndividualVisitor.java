@@ -44,6 +44,7 @@ package org.semanticweb.owlapi.model;
  * Information Management Group<br>
  * Date: 20-Mar-2009
  */
+@SuppressWarnings("javadoc")
 public interface OWLIndividualVisitor {
 
     void visit(OWLNamedIndividual individual);

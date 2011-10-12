@@ -46,6 +46,7 @@ package org.semanticweb.owlapi.model;
  * </p>
  * An interface for objects that can accept visits from axioms.  (See the <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
  */
+@SuppressWarnings("javadoc")
 public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O> {
 
 

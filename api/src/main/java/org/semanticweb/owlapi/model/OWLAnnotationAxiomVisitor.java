@@ -45,6 +45,7 @@ package org.semanticweb.owlapi.model;/*
  * </p>
  * A visitor which visits the different kinds of annotation axioms.
  */
+@SuppressWarnings("javadoc")
 public interface OWLAnnotationAxiomVisitor {
 
     void visit(OWLAnnotationAssertionAxiom axiom);

@@ -46,6 +46,7 @@ package org.semanticweb.owlapi.model;
  * <p/>
  * A visitor which can visit various data ranges and constants.
  */
+@SuppressWarnings("javadoc")
 public interface OWLDataVisitor extends OWLDataRangeVisitor {
 
     void visit(OWLLiteral node);

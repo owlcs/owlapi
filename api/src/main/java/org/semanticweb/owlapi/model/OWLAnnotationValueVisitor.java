@@ -45,6 +45,7 @@ package org.semanticweb.owlapi.model;/*
  * </p>
  * A visitor that visits values of {@link OWLAnnotation}s and {@link org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom}s.
  */
+@SuppressWarnings("javadoc")
 public interface OWLAnnotationValueVisitor {
 
     void visit(IRI iri);

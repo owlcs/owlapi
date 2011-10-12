@@ -44,6 +44,7 @@ package org.semanticweb.owlapi.model;
  * Information Management Group<br>
  * Date: 17-Jan-2010
  */
+@SuppressWarnings("javadoc")
 public interface OWLAnnotationSubjectVisitorEx<E> {
 
     E visit(IRI iri);

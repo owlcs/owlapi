@@ -46,6 +46,7 @@ package org.semanticweb.owlapi.model;/*
  * </p>
  * An interface to an object that can accept visits from {@link org.semanticweb.owlapi.model.OWLDataRange}s.
  */
+@SuppressWarnings("javadoc")
 public interface OWLDataRangeVisitor {
 
     void visit(OWLDatatype node);

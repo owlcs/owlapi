@@ -44,6 +44,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group<br>
  * Date: 16-Nov-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public interface OWLNamedObjectVisitor {
 
     void visit(OWLClass owlClass);

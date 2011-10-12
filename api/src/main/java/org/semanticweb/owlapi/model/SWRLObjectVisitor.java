@@ -48,6 +48,7 @@ package org.semanticweb.owlapi.model;
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
  */
+@SuppressWarnings("javadoc")
 public interface SWRLObjectVisitor {
 
     void visit(SWRLRule node);

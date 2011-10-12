@@ -44,6 +44,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group<br>
  * Date: 12-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public interface OWLOntologyChangeVisitorEx<O>  {
 
     O visit(AddAxiom change);
