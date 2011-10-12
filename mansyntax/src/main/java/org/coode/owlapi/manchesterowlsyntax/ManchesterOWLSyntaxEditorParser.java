@@ -128,10 +128,10 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * expected that hasPart will have been defined at the top of the file before it is used in any class expressions or
  * property assertions (e.g.  ObjectProperty: hasPart)
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","javadoc"})
 public class ManchesterOWLSyntaxEditorParser {
 
-    // This parser was built by hand!  After stuggling with terrible
+    // This parser was built by hand!  After struggling with terrible
     // error messages produced by ANTLR (or JavaCC) I decides to construct
     // this parser by hand.  The error messages that this parser generates
     // are specific to the Manchester OWL Syntax and are such that it should
@@ -199,7 +199,7 @@ public class ManchesterOWLSyntaxEditorParser {
 
     public static final String DATATYPE = ManchesterOWLSyntax.DATATYPE.toString() + ":";
 
-    public static final String SUB_CLASS_OF = ManchesterOWLSyntax.SUBCLASS_OF.toString() + ":";
+	public static final String SUB_CLASS_OF = ManchesterOWLSyntax.SUBCLASS_OF.toString() + ":";
 
     public static final String SUPER_CLASS_OF = ManchesterOWLSyntax.SUPERCLASS_OF.toString() + ":";
 
