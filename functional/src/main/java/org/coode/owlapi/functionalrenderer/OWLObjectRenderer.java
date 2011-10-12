@@ -65,6 +65,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLObjectRenderer implements OWLObjectVisitor {
 
     private DefaultPrefixManager prefixManager;
@@ -702,7 +703,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     private void writeRestriction(OWLXMLVocabulary v, OWLQuantifiedDataRestriction restriction) {
     	writeRestriction(v, restriction.getProperty(), restriction.getFiller());
     }
-    
+
     private void writeRestriction(OWLXMLVocabulary v, OWLQuantifiedObjectRestriction restriction) {
         writeRestriction(v, restriction.getProperty(), restriction.getFiller());
     }
