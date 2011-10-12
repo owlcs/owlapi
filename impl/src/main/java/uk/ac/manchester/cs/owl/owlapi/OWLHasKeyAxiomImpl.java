@@ -71,6 +71,9 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     public OWLHasKeyAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression expression, Set<? extends OWLPropertyExpression<?,?>> propertyExpressions, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.expression = expression;
+//        if(propertyExpressions==null||propertyExpressions.size()<1) {
+//        	throw new IllegalArgumentException("the propertyExpressions must contain at least one element");
+//        }
         this.propertyExpressions = new TreeSet<OWLPropertyExpression<?,?>>(propertyExpressions);
     }
 

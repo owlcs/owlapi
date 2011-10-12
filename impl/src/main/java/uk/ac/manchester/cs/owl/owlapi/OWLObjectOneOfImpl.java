@@ -68,6 +68,9 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
 
     public OWLObjectOneOfImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> values) {
         super(dataFactory);
+//        if(values==null || values.isEmpty()) {
+//        	throw new IllegalArgumentException("the values set must contain at least one value");
+//        }
         this.values = new HashSet<OWLIndividual>(values);
     }
 

@@ -73,6 +73,9 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     public OWLDisjointUnionAxiomImpl(OWLDataFactory dataFactory, OWLClass owlClass, Set<? extends OWLClassExpression> classExpressions, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.owlClass = owlClass;
+//        if(classExpressions==null || classExpressions.isEmpty()) {
+//        	throw new IllegalArgumentException("the classExpressions set must contain at least one value");
+//        }
         this.classExpressions = new TreeSet<OWLClassExpression>(classExpressions);
     }
 

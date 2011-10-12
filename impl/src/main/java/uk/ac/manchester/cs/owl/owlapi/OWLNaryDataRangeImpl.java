@@ -59,6 +59,9 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLN
 
     protected OWLNaryDataRangeImpl(OWLDataFactory dataFactory, Set<? extends OWLDataRange> operands) {
         super(dataFactory);
+//        if(operands==null || operands.size()<2) {
+//        	throw new IllegalArgumentException("the operands set must contain at least two values");
+//        }
         this.operands = new TreeSet<OWLDataRange>(operands);
     }
 

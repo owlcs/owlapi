@@ -64,6 +64,9 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression<?
 
     public OWLNaryPropertyAxiomImpl(OWLDataFactory dataFactory, Set<? extends P> properties, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
+//        if(properties==null||properties.size()<2) {
+//        	throw new IllegalArgumentException("the properties must contain more than one element");
+//        }
         this.properties = new TreeSet<P>(properties);
     }
 
