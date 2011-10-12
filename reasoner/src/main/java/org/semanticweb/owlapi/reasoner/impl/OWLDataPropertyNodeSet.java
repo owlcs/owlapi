@@ -52,17 +52,21 @@ import org.semanticweb.owlapi.reasoner.Node;
  */
 public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
 
-    public OWLDataPropertyNodeSet() {
+    /**empty node*/
+	public OWLDataPropertyNodeSet() {
     }
 
+	/**@param entity the entity to be contained*/
     public OWLDataPropertyNodeSet(OWLDataProperty entity) {
         super(entity);
     }
 
+    /**@param owlDataPropertyNode the node to be contained*/
     public OWLDataPropertyNodeSet(Node<OWLDataProperty> owlDataPropertyNode) {
         super(owlDataPropertyNode);
     }
 
+    /**@param nodes the nodes to be contained*/
     public OWLDataPropertyNodeSet(Set<Node<OWLDataProperty>> nodes) {
         super(nodes);
     }

@@ -51,15 +51,22 @@ import org.semanticweb.owlapi.reasoner.Node;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 05-Dec-2009
+ * @param <E> the type of entities in the node
  */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     private Set<E> entities = new HashSet<E>(4);
 
+    /**
+     * @param entity the entity to add
+     */
     public DefaultNode(E entity) {
         this.entities.add(entity);
     }
 
+    /**
+     * @param entities the set of entities to add
+     */
     public DefaultNode(Set<E> entities) {
         this.entities.addAll(entities);
     }
@@ -71,6 +78,9 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     protected abstract E getBottomEntity();
 
+    /**
+     * @param entity entity to be added
+     */
     public void add(E entity) {
         entities.add(entity);
     }

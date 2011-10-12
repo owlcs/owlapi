@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
@@ -48,34 +47,43 @@ import org.semanticweb.owlapi.reasoner.Node;
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 05-Dec-2009
+ * Date: 05-Dec-2009 A node set of OWL classes
  */
 public class OWLClassNodeSet extends DefaultNodeSet<OWLClass> {
+	/** empty set */
+	public OWLClassNodeSet() {}
 
-    public OWLClassNodeSet() {
-    }
+	/**
+	 * @param entity
+	 *            the entity to be contained
+	 */
+	public OWLClassNodeSet(OWLClass entity) {
+		super(entity);
+	}
 
-    public OWLClassNodeSet(OWLClass entity) {
-        super(entity);
-    }
+	/**
+	 * @param owlClassNode
+	 *            the node to be contained
+	 */
+	public OWLClassNodeSet(Node<OWLClass> owlClassNode) {
+		super(owlClassNode);
+	}
 
-    public OWLClassNodeSet(Node<OWLClass> owlClassNode) {
-        super(owlClassNode);
-    }
+	/**
+	 * @param nodes
+	 *            the set of nodes to be contained
+	 */
+	public OWLClassNodeSet(Set<Node<OWLClass>> nodes) {
+		super(nodes);
+	}
 
-    public OWLClassNodeSet(Set<Node<OWLClass>> nodes) {
-        super(nodes);
-    }
-
-    @Override
+	@Override
 	protected DefaultNode<OWLClass> getNode(OWLClass entity) {
-        return NodeFactory.getOWLClassNode(entity);
-    }
+		return NodeFactory.getOWLClassNode(entity);
+	}
 
-    @Override
+	@Override
 	protected DefaultNode<OWLClass> getNode(Set<OWLClass> entities) {
-        return NodeFactory.getOWLClassNode(entities);
-    }
-
-
+		return NodeFactory.getOWLClassNode(entities);
+	}
 }

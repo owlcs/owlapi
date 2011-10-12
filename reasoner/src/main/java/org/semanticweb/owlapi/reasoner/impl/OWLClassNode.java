@@ -58,17 +58,25 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
     private static final OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
 
     private static final OWLClass BOTTOM_CLASS = OWLDataFactoryImpl.getInstance().getOWLNothing();
-    
+
     private static final OWLClassNode BOTTOM_NODE = new OWLClassNode(BOTTOM_CLASS);
 
+    /**
+     * @param entity the class to be contained
+     */
     public OWLClassNode(OWLClass entity) {
         super(entity);
     }
-
+    /**
+     * @param entities the classes to be contained
+     */
     public OWLClassNode(Set<OWLClass> entities) {
         super(entities);
     }
 
+    /**
+     * empty constructor
+     */
     public OWLClassNode() {
     }
 
@@ -82,10 +90,16 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
         return BOTTOM_CLASS;
     }
 
+    /**
+     * @return singleton top node
+     */
     public static OWLClassNode getTopNode() {
         return TOP_NODE;
     }
 
+    /**
+     * @return singleton bottom node
+     */
     public static OWLClassNode getBottomNode() {
         return BOTTOM_NODE;
     }

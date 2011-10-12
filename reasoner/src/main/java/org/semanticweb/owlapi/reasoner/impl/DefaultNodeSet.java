@@ -54,22 +54,35 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 05-Dec-2009
+ * @param <E> the type of owl objects in the node
  */
 public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> {
 
     private Set<Node<E>> nodes = new HashSet<Node<E>>();
 
+    /**
+     * constructor for an empty node set
+     */
     public DefaultNodeSet() {
     }
 
+    /**
+     * @param entity the entity to be contained
+     */
     public DefaultNodeSet(E entity) {
         nodes.add(getNode(entity));
     }
 
+    /**
+     * @param node the node to be contained
+     */
     public DefaultNodeSet(Node<E> node) {
         nodes.add(node);
     }
 
+    /**
+     * @param nodes a set of nodes to be contained
+     */
     public DefaultNodeSet(Set<Node<E>> nodes) {
         this.nodes.addAll(nodes);
     }
@@ -105,11 +118,11 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
 
     /**
      * Adds a collection of <code>Node</code>s to this set.
-     * @param nodes The <code>Node</code>s to be added.  Note that if the collection is not a set then duplicate
+     * @param nodeset The <code>Node</code>s to be added.  Note that if the collection is not a set then duplicate
      * <code>Node</code>s will be filtered out.
      */
-    public void addAllNodes(Collection<Node<E>> nodes) {
-        for (Node<E> node : nodes) {
+    public void addAllNodes(Collection<Node<E>> nodeset) {
+        for (Node<E> node : nodeset) {
             if (node != null) {
                 this.nodes.add(node);
             }
@@ -176,13 +189,13 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     public Iterator<Node<E>> iterator() {
         return nodes.iterator();
     }
-    
+
     @Override
     public String toString() {
-    	
+
     	return "Nodeset"+this.nodes.toString();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
 		if (obj == null) {

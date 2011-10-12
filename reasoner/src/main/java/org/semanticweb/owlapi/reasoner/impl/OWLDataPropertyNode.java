@@ -52,23 +52,32 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * Date: 05-Dec-2009
  */
 public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
-    
-    
+
+
     private static final OWLDataProperty TOP_DATA_PROPERTY = OWLDataFactoryImpl.getInstance().getOWLTopDataProperty();
-    
+
     private static final OWLDataPropertyNode TOP_NODE = new OWLDataPropertyNode(TOP_DATA_PROPERTY);
 
     private static final OWLDataProperty BOTTOM_DATA_PROPERTY = OWLDataFactoryImpl.getInstance().getOWLBottomDataProperty();
-    
+
     private static final OWLDataPropertyNode BOTTOM_NODE = new OWLDataPropertyNode(BOTTOM_DATA_PROPERTY);
 
+    /**
+     * empty node
+     */
     public OWLDataPropertyNode() {
     }
 
+    /**
+     * @param entity the entity to be contained
+     */
     public OWLDataPropertyNode(OWLDataProperty entity) {
         super(entity);
     }
 
+    /**
+     * @param entities the entities to be contained
+     */
     public OWLDataPropertyNode(Set<OWLDataProperty> entities) {
         super(entities);
     }
@@ -82,11 +91,16 @@ public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
 	protected OWLDataProperty getBottomEntity() {
         return BOTTOM_DATA_PROPERTY;
     }
-    
+
+    /**
+     * @return singleton top node
+     */
     public static OWLDataPropertyNode getTopNode() {
         return TOP_NODE;
     }
-    
+    /**
+     * @return singleton bottom node
+     */
     public static OWLDataPropertyNode getBottomNode() {
         return BOTTOM_NODE;
     }
