@@ -138,6 +138,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * Note that this class is primarily intended for developers who need to write test cases.  Normal client code
  * should probably use an {@link org.semanticweb.owlapi.model.OWLDataFactory} for creating objects.
  */
+@SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxFactory {
 
     private static OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
