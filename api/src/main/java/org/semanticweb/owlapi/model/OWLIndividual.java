@@ -154,12 +154,15 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
 
     /**
      * Gets the data property values for this individual
+     * @param ontology the ontology to check
+     * @return a map property->set of values
      */
     Map<OWLDataPropertyExpression, Set<OWLLiteral>> getDataPropertyValues(OWLOntology ontology);
 
     /**
      * Gets the values that this individual has for a specific data property
      * @param ontology The ontology to examine for property assertions
+     * @param property the property
      * @return The values that this individual has for the specified property in the specified ontology.  This is
      *         the set of values such that each value LV in the set is in an axiom of the form
      *         DataPropertyAssertion(property, thisIndividual, LV) in the ontology specified by the ontology parameter.
@@ -186,7 +189,8 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
     boolean hasNegativeDataPropertyValue(OWLDataPropertyExpression property, OWLLiteral literal, OWLOntology ontology);
 
     /**
-     * A convenience method that examines axioms in the specified ontology
+     * @param ontology the ontology to use
+     * A convenience method that examines axioms in ontology
      * to determine the individuals that are asserted to be the same as
      * this individual.
      * @return Individuals that have been asserted to be the same as this individual.
@@ -199,7 +203,7 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      * to determine the individuals that are asserted to be different
      * to this individual.
      * @param ontology
-     * @return
+     * @return the set of different individuals
      */
     Set<OWLIndividual> getDifferentIndividuals(OWLOntology ontology);
 
@@ -211,7 +215,14 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
     String toStringID();
 
 
+    /**
+     * @param visitor
+     */
     void accept(OWLIndividualVisitor visitor);
 
+    /**
+     * @param visitor
+     * @return visitor ex type
+     */
     <O> O accept(OWLIndividualVisitorEx<O> visitor);
 }

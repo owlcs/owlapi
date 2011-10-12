@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * </p>
  * Represents the different types of OWL 2 Entities.
  */
+@SuppressWarnings("javadoc")
 public final class EntityType<E extends OWLEntity> {
 
     public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>("Class", OWLRDFVocabulary.OWL_CLASS);
@@ -109,5 +110,5 @@ public final class EntityType<E extends OWLEntity> {
     public static List<EntityType<?>> values() {
         return values;
     }
-    
+
 }

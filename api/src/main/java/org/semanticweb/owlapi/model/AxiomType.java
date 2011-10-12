@@ -56,6 +56,7 @@ import java.util.Set;
  * by their <code>AxiomType</code>.  For example, see {@link org.semanticweb.owlapi.model.OWLOntology#getAxioms(AxiomType)} and
  * {@link org.semanticweb.owlapi.model.OWLOntology#getAxiomCount(AxiomType, boolean)}.
  */
+@SuppressWarnings("javadoc")
 public class AxiomType<C extends OWLAxiom> {
 
     private String name;
