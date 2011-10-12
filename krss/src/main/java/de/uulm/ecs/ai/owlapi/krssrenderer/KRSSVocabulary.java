@@ -43,6 +43,7 @@ package de.uulm.ecs.ai.owlapi.krssrenderer;
  * Ulm University<br>
  * Institute of Artificial Intelligence<br>
  */
+@SuppressWarnings("javadoc")
 public enum KRSSVocabulary {
 
     ALL("all"),

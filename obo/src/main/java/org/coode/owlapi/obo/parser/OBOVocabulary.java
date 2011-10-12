@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group<br>
  * Date: 10-Jan-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public enum OBOVocabulary {
 
 
@@ -149,7 +150,7 @@ public enum OBOVocabulary {
 
     public static final Pattern OBO_IRI_PATTERN = Pattern.compile("(" + bases + ")" + "(([^\\_]*)\\_)?([A-Za-z0-9\\_\\-]*)");
 
-    
+
 
 
 

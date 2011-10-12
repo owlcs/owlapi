@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","javadoc"})
 public class KRSSParser implements KRSSParserConstants {
 
     private OWLOntology ontology;
@@ -110,7 +110,7 @@ public class KRSSParser implements KRSSParserConstants {
     label_1:
     while (true) {
       if (jj_2_1(2)) {
-        
+
       } else {
         break label_1;
       }
@@ -122,12 +122,12 @@ public class KRSSParser implements KRSSParserConstants {
     if (jj_2_2(2)) {
       jj_consume_token(ENDTBOX);
     } else {
-      
+
     }
     label_2:
     while (true) {
       if (jj_2_3(2)) {
-        
+
       } else {
         break label_2;
       }
@@ -136,7 +136,7 @@ public class KRSSParser implements KRSSParserConstants {
     if (jj_2_4(2)) {
       jj_consume_token(ENDABOX);
     } else {
-      
+
     }
     jj_consume_token(0);
   }
@@ -158,7 +158,7 @@ public class KRSSParser implements KRSSParserConstants {
       throw new ParseException();
     }
         return ax;
-    
+
   }
 
   final public OWLAxiom DefinePrimitiveConcept() throws ParseException {
@@ -170,7 +170,7 @@ public class KRSSParser implements KRSSParserConstants {
     superClass = ConceptExpression();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLSubClassOfAxiom(subClass, superClass);
-    
+
   }
 
   final public OWLAxiom DefineConcept() throws ParseException {
@@ -185,7 +185,7 @@ public class KRSSParser implements KRSSParserConstants {
         ops.add(clsA);
         ops.add(clsB);
         return dataFactory.getOWLEquivalentClassesAxiom(ops);
-    
+
   }
 
   final public OWLAxiom DefinePrimitiveRole() throws ParseException {
@@ -199,7 +199,7 @@ public class KRSSParser implements KRSSParserConstants {
       jj_consume_token(42);
       RoleName();
     } else {
-      
+
     }
     jj_consume_token(CLOSEPAR);
         if(superProp != null) {
@@ -215,7 +215,7 @@ public class KRSSParser implements KRSSParserConstants {
     prop = RoleName();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLTransitiveObjectPropertyAxiom(prop);
-    
+
   }
 
   final public OWLAxiom Range() throws ParseException {
@@ -227,7 +227,7 @@ public class KRSSParser implements KRSSParserConstants {
     rng = ConceptExpression();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectPropertyRangeAxiom(prop, rng);
-    
+
   }
 
   final public OWLClassExpression ConceptExpression() throws ParseException {
@@ -255,14 +255,14 @@ public class KRSSParser implements KRSSParserConstants {
       throw new ParseException();
     }
         return desc;
-    
+
   }
 
   final public OWLClassExpression ConceptName() throws ParseException {
     IRI iri;
     iri = Name();
         return dataFactory.getOWLClass(iri);
-    
+
   }
 
   final public Set<OWLClassExpression> ConceptSet() throws ParseException {
@@ -273,13 +273,13 @@ public class KRSSParser implements KRSSParserConstants {
       desc = ConceptExpression();
                                 descs.add(desc);
       if (jj_2_20(2)) {
-        
+
       } else {
         break label_3;
       }
     }
         return descs;
-    
+
   }
 
   final public OWLClassExpression And() throws ParseException {
@@ -289,7 +289,7 @@ public class KRSSParser implements KRSSParserConstants {
     operands = ConceptSet();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectIntersectionOf(operands);
-    
+
   }
 
   final public OWLClassExpression Or() throws ParseException {
@@ -299,7 +299,7 @@ public class KRSSParser implements KRSSParserConstants {
     operands = ConceptSet();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectUnionOf(operands);
-    
+
   }
 
   final public OWLClassExpression Not() throws ParseException {
@@ -309,7 +309,7 @@ public class KRSSParser implements KRSSParserConstants {
     operand = ConceptExpression();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectComplementOf(operand);
-    
+
   }
 
   final public OWLClassExpression All() throws ParseException {
@@ -321,7 +321,7 @@ public class KRSSParser implements KRSSParserConstants {
     filler = ConceptExpression();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
-    
+
   }
 
   final public OWLClassExpression Some() throws ParseException {
@@ -333,7 +333,7 @@ public class KRSSParser implements KRSSParserConstants {
     filler = ConceptExpression();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
-    
+
   }
 
   final public OWLClassExpression AtLeast() throws ParseException {
@@ -347,7 +347,7 @@ public class KRSSParser implements KRSSParserConstants {
     filler = ConceptExpression();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectMinCardinality(card, prop, filler);
-    
+
   }
 
   final public OWLClassExpression AtMost() throws ParseException {
@@ -361,7 +361,7 @@ public class KRSSParser implements KRSSParserConstants {
     filler = ConceptExpression();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectMaxCardinality(card, prop, filler);
-    
+
   }
 
   final public OWLClassExpression Exactly() throws ParseException {
@@ -375,14 +375,14 @@ public class KRSSParser implements KRSSParserConstants {
     filler = ConceptExpression();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectExactCardinality(card, prop, filler);
-    
+
   }
 
   final public OWLObjectProperty RoleName() throws ParseException {
     IRI iri;
     iri = Name();
         return dataFactory.getOWLObjectProperty(iri);
-    
+
   }
 
   final public OWLAxiom ABoxStatement() throws ParseException {
@@ -400,7 +400,7 @@ public class KRSSParser implements KRSSParserConstants {
       throw new ParseException();
     }
         return ax;
-    
+
   }
 
   final public OWLAxiom Instance() throws ParseException {
@@ -412,7 +412,7 @@ public class KRSSParser implements KRSSParserConstants {
     type = ConceptExpression();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLClassAssertionAxiom(type, ind);
-    
+
   }
 
   final public OWLAxiom Related() throws ParseException {
@@ -426,7 +426,7 @@ public class KRSSParser implements KRSSParserConstants {
     obj = IndividualName();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj);
-    
+
   }
 
   final public OWLAxiom Equal() throws ParseException {
@@ -440,7 +440,7 @@ public class KRSSParser implements KRSSParserConstants {
         inds.add(indA);
         inds.add(indB);
         return dataFactory.getOWLSameIndividualAxiom(inds);
-    
+
   }
 
   final public OWLAxiom Distinct() throws ParseException {
@@ -454,28 +454,28 @@ public class KRSSParser implements KRSSParserConstants {
         inds.add(indA);
         inds.add(indB);
         return dataFactory.getOWLDifferentIndividualsAxiom(inds);
-    
+
   }
 
   final public OWLIndividual IndividualName() throws ParseException {
     IRI name;
     name = Name();
         return dataFactory.getOWLNamedIndividual(name);
-    
+
   }
 
   final public IRI Name() throws ParseException {
     Token t;
     t = jj_consume_token(NAME);
         return getIRI(t.image);
-    
+
   }
 
   final public int Integer() throws ParseException {
     Token t;
     t = jj_consume_token(INT);
         return Integer.parseInt(t.image);
-    
+
   }
 
   private boolean jj_2_1(int xla) {

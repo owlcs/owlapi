@@ -2,6 +2,7 @@
 package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
 
 /** Token Manager. */
+@SuppressWarnings({"unused","javadoc"})
 public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants
 {
 
@@ -835,8 +836,8 @@ private int jjMoveNfa_0(int startState, int curPos)
    }
 }
 static final int[] jjnextStates = {
-   117, 118, 119, 111, 115, 68, 73, 76, 81, 86, 89, 95, 100, 103, 106, 48, 
-   57, 
+   117, 118, 119, 111, 115, 68, 73, 76, 81, 86, 89, 95, 100, 103, 106, 48,
+   57,
 };
 private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2)
 {
@@ -997,8 +998,8 @@ private static final boolean jjCanMove_14(int hiByte, int i1, int i2, long l1, l
 
 /** Token literal values. */
 public static final String[] jjstrLiteralImages = {
-"", null, null, null, null, null, null, null, "\56", null, "\50", "\51", 
-"\133", "\135", "\173", "\175", "\72", null, null, null, null, null, null, null, null, 
+"", null, null, null, null, null, null, null, "\56", null, "\50", "\51",
+"\133", "\135", "\173", "\175", "\72", null, null, null, null, null, null, null, null,
 null, null, null, null, null, "\12", "\54", };
 
 /** Lexer state names. */
@@ -1006,10 +1007,10 @@ public static final String[] lexStateNames = {
    "DEFAULT",
 };
 static final long[] jjtoToken = {
-   0xfffffff1L, 
+   0xfffffff1L,
 };
 static final long[] jjtoSkip = {
-   0xeL, 
+   0xeL,
 };
 protected JavaCharStream input_stream;
 private final int[] jjrounds = new int[121];
@@ -1092,7 +1093,7 @@ int jjmatchedPos;
 int jjmatchedKind;
 
 /** Get the next Token. */
-public Token getNextToken() 
+public Token getNextToken()
 {
   Token matchedToken;
   int curPos = 0;

@@ -43,6 +43,7 @@ package org.coode.owlapi.obo.parser;
  * An implementation of interface CharStream, where the stream is assumed to
  * contain only ASCII characters (with java-like unicode escape processing).
  */
+@SuppressWarnings("javadoc")
 public class JavaCharStream {
 	/** Whether parser is static. */
 	public static final boolean staticFlag = false;

@@ -53,12 +53,12 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * Medical Informatics Group<br>
  * Date: 15-Jun-2006<br>
  * <br>
- * 
- * NOTE: this class was not designed as a general purpose renderer, i.e., 
- * some ontologies might be misrepresented in the output. Please report 
+ *
+ * NOTE: this class was not designed as a general purpose renderer, i.e.,
+ * some ontologies might be misrepresented in the output. Please report
  * any formatting error you find to the bug tracker or the mailing list.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","javadoc"})
 public class LatexObjectVisitor implements OWLObjectVisitor {
 	public static final String AND = "\\ensuremath{\\sqcap}";
 	public static final String OR = "\\ensuremath{\\sqcup}";
