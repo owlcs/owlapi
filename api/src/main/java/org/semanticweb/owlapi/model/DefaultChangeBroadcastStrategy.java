@@ -53,7 +53,7 @@ import java.util.List;
  */
 public class DefaultChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
 
-    public void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) throws Exception {
+    public void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) throws OWLException {
         // Just broadcast all changes
         listener.ontologiesChanged(changes);
     }
