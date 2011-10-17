@@ -45,7 +45,6 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -60,6 +59,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLAsymmetricObjectPropertyAxiom {
 
     public OWLAsymmetricObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
@@ -79,10 +79,7 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyChara
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLAsymmetricObjectPropertyAxiom && getAnnotations().equals(((OWLAxiom) obj).getAnnotations());
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLAsymmetricObjectPropertyAxiom;
     }
 
     public void accept(OWLAxiomVisitor visitor) {

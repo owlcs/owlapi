@@ -76,10 +76,16 @@ public abstract class OWLObjectImpl implements OWLObject {
 	private int hashCode = 0;
 	private Set<OWLEntity> signature;
 
+	/**
+	 * @param dataFactory the data factory
+	 */
 	public OWLObjectImpl(OWLDataFactory dataFactory) {
 		this.dataFactory = dataFactory;
 	}
 
+	/**
+	 * @return this object's data factory
+	 */
 	public OWLDataFactory getOWLDataFactory() {
 		return dataFactory;
 	}
@@ -138,7 +144,7 @@ public abstract class OWLObjectImpl implements OWLObject {
 	/**
 	 * A convenience method that obtains the datatypes that are in the signature
 	 * of this object
-	 * 
+	 *
 	 * @return A set containing the datatypes that are in the signature of this
 	 *         object.
 	 */

@@ -87,6 +87,7 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
+@SuppressWarnings("javadoc")
 public class InitVisitorFactory {
 
     @SuppressWarnings("unchecked")

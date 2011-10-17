@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 17-Jan-2009
  */
 public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataUnionOf {
-
+	@SuppressWarnings("javadoc")
     public OWLDataUnionOfImpl(OWLDataFactory dataFactory, Set<? extends OWLDataRange> operands) {
         super(dataFactory, operands);
     }

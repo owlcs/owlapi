@@ -44,14 +44,14 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
-
+@SuppressWarnings("javadoc")
 public abstract class OWLQuantifiedObjectRestrictionImpl extends
 		OWLQuantifiedRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> {
 
 	public OWLQuantifiedObjectRestrictionImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLClassExpression filler) {
 		super(dataFactory, property, filler);
 	}
-	
+
 	@Override
 	protected int compareObjectOfSameType(OWLObject object) {
         @SuppressWarnings("unchecked")

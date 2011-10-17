@@ -54,9 +54,10 @@ import org.semanticweb.owlapi.model.SWRLUnaryAtom;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtomImpl implements SWRLUnaryAtom<A> {
 
-    private A arg;
+    private final A arg;
 
     public SWRLUnaryAtomImpl(OWLDataFactory dataFactory, SWRLPredicate predicate, A arg) {
         super(dataFactory, predicate);

@@ -55,16 +55,26 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
+ *
+ * @param <P> the property expression
+ * @param <O> the object
  */
 public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression<?,?>, O extends OWLPropertyAssertionObject> extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
 
-    private OWLIndividual subject;
+    private final OWLIndividual subject;
 
-    private P property;
+    private final P property;
 
-    private O object;
+    private final O object;
 
 
+    /**
+     * @param dataFactory the data factory
+     * @param subject the subject
+     * @param property the property
+     * @param object the object
+     * @param annotations the annotations
+     */
     public OWLIndividualRelationshipAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, P property, O object, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.subject = subject;

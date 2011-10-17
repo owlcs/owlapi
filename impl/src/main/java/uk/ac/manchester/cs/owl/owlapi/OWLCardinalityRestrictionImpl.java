@@ -51,12 +51,15 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
+ * @param <R> the range
+ * @param <P> the property expression
+ * @param <F> the value
  */
 public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLRestrictionImpl<R, P, F> implements OWLCardinalityRestriction<R, P, F> {
 
-    private int cardinality;
+    private final int cardinality;
 
-    private F filler;
+    private final F filler;
 
 
     protected OWLCardinalityRestrictionImpl(OWLDataFactory dataFactory, P property, int cardinality, F filler) {

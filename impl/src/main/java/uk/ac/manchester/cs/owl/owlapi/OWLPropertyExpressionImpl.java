@@ -59,6 +59,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>> extends OWLObjectImpl implements OWLPropertyExpression<R, P> {
 
     public OWLPropertyExpressionImpl(OWLDataFactory dataFactory) {

@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLReflexiveObjectPropertyAxiom {
-
+    @SuppressWarnings("javadoc")
     public OWLReflexiveObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, property, annotations);
     }
@@ -83,10 +83,7 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLReflexiveObjectPropertyAxiom;
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLReflexiveObjectPropertyAxiom;
     }
 
     public void accept(OWLAxiomVisitor visitor) {

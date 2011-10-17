@@ -39,7 +39,6 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.Set;
 
@@ -81,12 +80,12 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
 
-    private IRI iri;
+    private final IRI iri;
 
-    private boolean top;
+    private final boolean top;
 
-    private boolean builtin;
-
+    private final boolean builtin;
+    @SuppressWarnings("javadoc")
     public OWLDatatypeImpl(OWLDataFactory dataFactory, IRI iri) {
         super(dataFactory);
         this.iri = iri;
@@ -197,19 +196,11 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         return top;
     }
 
-
-    public URI getURI() {
-        return iri.toURI();
-    }
-
-
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (obj instanceof OWLDatatype) {
-                return ((OWLDatatype) obj).getIRI().equals(getIRI());
-            }
-        }
+		if (super.equals(obj) && obj instanceof OWLDatatype) {
+			return ((OWLDatatype) obj).getIRI().equals(getIRI());
+		}
         return false;
     }
 

@@ -39,7 +39,6 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -73,9 +72,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 14-Jan-2009
  */
+@SuppressWarnings("javadoc")
 public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnotationProperty {
 
-    private IRI iri;
+    private final IRI iri;
 
     public OWLAnnotationPropertyImpl(OWLDataFactory dataFactory, IRI i) {
         super(dataFactory);
@@ -222,11 +222,6 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
     public void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
-
-    public URI getURI() {
-        return iri.toURI();
-    }
-
 
     public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
         return ontology.getReferencingAxioms(this);

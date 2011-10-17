@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements OWLDisjointDataPropertiesAxiom {
-
+    @SuppressWarnings("javadoc")
     public OWLDisjointDataPropertiesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLDataPropertyExpression> properties, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, properties, annotations);
     }
@@ -78,10 +78,7 @@ public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLDisjointDataPropertiesAxiom;
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLDisjointDataPropertiesAxiom;
     }
 
     public void accept(OWLAxiomVisitor visitor) {

@@ -57,10 +57,11 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
  */
 public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLIndividualArgument {
 
-    private OWLIndividual individual;
+    private final OWLIndividual individual;
 
 
-    public SWRLIndividualArgumentImpl(OWLDataFactory dataFactory, OWLIndividual individual) {
+    @SuppressWarnings("javadoc")
+	public SWRLIndividualArgumentImpl(OWLDataFactory dataFactory, OWLIndividual individual) {
         super(dataFactory);
         this.individual = individual;
     }

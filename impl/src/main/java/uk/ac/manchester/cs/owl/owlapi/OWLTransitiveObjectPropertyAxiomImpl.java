@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLTransitiveObjectPropertyAxiom {
-
+    @SuppressWarnings("javadoc")
     public OWLTransitiveObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, property, annotations);
     }
@@ -79,10 +79,7 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyChara
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLTransitiveObjectPropertyAxiom;
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLTransitiveObjectPropertyAxiom;
     }
 
     public void accept(OWLAxiomVisitor visitor) {

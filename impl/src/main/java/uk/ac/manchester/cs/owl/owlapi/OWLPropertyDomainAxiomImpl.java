@@ -55,9 +55,10 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression<?,?>> extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyDomainAxiom<P> {
 
-    private OWLClassExpression domain;
+    private final OWLClassExpression domain;
 
 
     public OWLPropertyDomainAxiomImpl(OWLDataFactory dataFactory, P property, OWLClassExpression domain, Set<? extends OWLAnnotation> annotations) {

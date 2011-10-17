@@ -137,7 +137,7 @@ public abstract class AbstractInternalsImpl implements
 	protected volatile Map<OWLAnnotationSubject, Set<OWLAnnotationAssertionAxiom>> annotationAssertionAxiomsBySubject;
 
 	protected abstract <T extends OWLAxiom> Set<T> getAxiomsInternal(AxiomType<T> axiomType);
-	
+
 	// NOTE: the parameter is reassigned inside the method, the field that is passed in is not modified in the original object
 	protected <K extends OWLObject, V extends OWLAxiom> Map<K, Set<V>> fill(
 			Map<K, Set<V>> map, AxiomType<V> type,
@@ -662,6 +662,9 @@ public abstract class AbstractInternalsImpl implements
 
 		/**
 		 * locking variant of the init code
+		 * @param impl the implementation
+		 * @param l the lock
+		 * @param field the field
 		 */
 		public void initMap(AbstractInternalsImpl impl, Lock l,
 				Object field) {
@@ -710,21 +713,17 @@ public abstract class AbstractInternalsImpl implements
 				true, true);
 	}
 
-	public AbstractInternalsImpl() {
-		
-	}
-
 	protected <K, V> Map<K, V> createMap() {
 		return CollectionFactory.createMap();
 	}
 
-	
+
 
 	/**
 	 * A convenience method that adds an axiom to a set, but checks that the set
 	 * isn't null before the axiom is added. This is needed because many of the
 	 * indexing sets are built lazily.
-	 * 
+	 *
 	 * @param axiom
 	 *            The axiom to be added.
 	 * @param axioms
@@ -746,7 +745,7 @@ public abstract class AbstractInternalsImpl implements
 	/**
 	 * Adds an axiom to a set contained in a map, which maps some key (e.g. an
 	 * entity such as and individual, class etc.) to the set of axioms.
-	 * 
+	 *
 	 * @param key
 	 *            The key that indexes the set of axioms
 	 * @param map
@@ -771,7 +770,7 @@ public abstract class AbstractInternalsImpl implements
 	/**
 	 * Removes an axiom from a set of axioms, which is the value for a specified
 	 * key in a specified map.
-	 * 
+	 *
 	 * @param key
 	 *            The key that indexes the set of axioms.
 	 * @param map
@@ -790,10 +789,8 @@ public abstract class AbstractInternalsImpl implements
 		Set<V> axioms = map.get(key);
 		if (axioms != null) {
 			axioms.remove(axiom);
-			if (removeSetIfEmpty) {
-				if (axioms.isEmpty()) {
-					map.remove(key);
-				}
+			if (removeSetIfEmpty && axioms.isEmpty()) {
+				map.remove(key);
 			}
 		}
 	}

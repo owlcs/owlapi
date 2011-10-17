@@ -57,7 +57,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class SWRLSameIndividualAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements SWRLSameIndividualAtom {
 
-    public SWRLSameIndividualAtomImpl(OWLDataFactory dataFactory, SWRLIArgument arg0, SWRLIArgument arg1) {
+    @SuppressWarnings("javadoc")
+	public SWRLSameIndividualAtomImpl(OWLDataFactory dataFactory, SWRLIArgument arg0, SWRLIArgument arg1) {
         super(dataFactory, dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS.getIRI()), arg0, arg1);
     }
 

@@ -64,10 +64,10 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKeyAxiom {
 
-    private OWLClassExpression expression;
+    private final OWLClassExpression expression;
 
-    private Set<OWLPropertyExpression<?,?>> propertyExpressions;
-
+    private final Set<OWLPropertyExpression<?,?>> propertyExpressions;
+    @SuppressWarnings("javadoc")
     public OWLHasKeyAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression expression, Set<? extends OWLPropertyExpression<?,?>> propertyExpressions, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.expression = expression;
@@ -154,13 +154,14 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
 
     @Override
 	public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
+    	if(super.equals(obj)) {
+    		// superclass is responsible for null, identity, owlaxiom type and annotations
         if (!(obj instanceof OWLHasKeyAxiom)) {
             return false;
         }
         OWLHasKeyAxiom other = (OWLHasKeyAxiom) obj;
-        return expression.equals(other.getClassExpression()) && propertyExpressions.equals(other.getPropertyExpressions()) && other.getAnnotations().equals(getAnnotations());
+        return expression.equals(other.getClassExpression()) && propertyExpressions.equals(other.getPropertyExpressions());
+    	}
+    	return false;
     }
 }

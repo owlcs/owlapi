@@ -56,9 +56,9 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  */
 public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends OWLPropertyAxiomImpl implements OWLObjectPropertyCharacteristicAxiom {
 
-    private OWLObjectPropertyExpression property;
+    private final OWLObjectPropertyExpression property;
 
-
+    @SuppressWarnings("javadoc")
     public OWLObjectPropertyCharacteristicAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.property = property;

@@ -58,11 +58,12 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 17-Jan-2009
  */
+@SuppressWarnings("javadoc")
 public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyRangeAxiom {
 
-    private OWLAnnotationProperty property;
+    private final OWLAnnotationProperty property;
 
-    protected IRI range;
+    protected final IRI range;
 
     public OWLAnnotationPropertyRangeAxiomImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, IRI range, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
@@ -130,13 +131,14 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
 
     @Override
 	public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
+    	if(super.equals(obj)) {
+    		// superclass is responsible for null, identity, owlaxiom type and annotations
         if (!(obj instanceof OWLAnnotationPropertyRangeAxiom)) {
             return false;
         }
         OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) obj;
-        return property.equals(other.getProperty()) && range.equals(other.getRange()) && getAnnotations().equals(other.getAnnotations());
+        return property.equals(other.getProperty()) && range.equals(other.getRange());
+    	}
+    	return false;
     }
 }

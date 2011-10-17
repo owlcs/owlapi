@@ -61,9 +61,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements OWLNaryIndividualAxiom {
 
-    private Set<OWLIndividual> individuals;
+    private final Set<OWLIndividual> individuals;
 
-
+    @SuppressWarnings("javadoc")
     public OWLNaryIndividualAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> individuals, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
 //        if(individuals==null||individuals.size()<2) {

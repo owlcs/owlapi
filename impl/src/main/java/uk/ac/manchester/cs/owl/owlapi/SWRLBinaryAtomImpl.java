@@ -56,11 +56,12 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jan-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtomImpl implements SWRLBinaryAtom<A, B> {
 
-    private A arg0;
+    private final A arg0;
 
-    private B arg1;
+    private final B arg1;
 
     protected SWRLBinaryAtomImpl(OWLDataFactory dataFactory, SWRLPredicate predicate, A arg0, B arg1) {
         super(dataFactory, predicate);

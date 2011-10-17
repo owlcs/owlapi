@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<OWLObjectPropertyExpression> implements OWLObjectPropertyDomainAxiom {
-
+    @SuppressWarnings("javadoc")
     public OWLObjectPropertyDomainAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLClassExpression domain, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, property, domain, annotations);
     }
@@ -79,10 +79,7 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLObjectPropertyDomainAxiom;
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLObjectPropertyDomainAxiom;
     }
 
     public void accept(OWLAxiomVisitor visitor) {

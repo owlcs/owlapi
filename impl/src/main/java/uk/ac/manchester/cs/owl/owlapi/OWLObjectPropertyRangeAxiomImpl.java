@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLClassExpression> implements OWLObjectPropertyRangeAxiom {
-
+    @SuppressWarnings("javadoc")
     public OWLObjectPropertyRangeAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLClassExpression range, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, property, range, annotations);
     }
@@ -69,10 +69,7 @@ public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<O
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLObjectPropertyRangeAxiom;
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLObjectPropertyRangeAxiom;
     }
 
     public OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations() {

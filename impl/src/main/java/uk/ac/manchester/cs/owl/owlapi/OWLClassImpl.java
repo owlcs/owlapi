@@ -82,13 +82,14 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group<br> Date:
  * 25-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass {
 
-    private IRI iri;
+    private final IRI iri;
 
-    private boolean isThing;
+    private final boolean isThing;
 
-    private boolean isNothing;
+    private final boolean isNothing;
 
 
     public OWLClassImpl(OWLDataFactory dataFactory, IRI iri) {
@@ -190,12 +191,6 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass {
         return this;
     }
 
-
-    public URI getURI() {
-        return iri.toURI();
-    }
-
-
     public boolean isOWLThing() {
         return isThing;
     }
@@ -228,22 +223,22 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass {
         return getOWLDataFactory().getOWLObjectComplementOf(this);
     }
 
-
+    //XXX not in the interface
     public Set<OWLSubClassOfAxiom> getSubClassAxioms(OWLOntology ontology) {
         return ontology.getSubClassAxiomsForSubClass(this);
     }
 
-
+    //XXX not in the interface
     public Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(OWLOntology ontology) {
         return ontology.getEquivalentClassesAxioms(this);
     }
 
-
+    //XXX not in the interface
     public Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(OWLOntology ontology) {
         return ontology.getDisjointClassesAxioms(this);
     }
 
-
+    //XXX not in the interface
     public Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(OWLOntology ontology) {
         return ontology.getDisjointUnionAxioms(this);
     }

@@ -62,14 +62,11 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements OWLNaryClassAxiom {
 
-    private Set<OWLClassExpression> classExpressions;
+    private final Set<OWLClassExpression> classExpressions;
 
-
+    @SuppressWarnings("javadoc")
     public OWLNaryClassAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
-//        if(classExpressions==null||classExpressions.size()<2) {
-//        	throw new IllegalArgumentException("the class expressions set must contain at least two classes");
-//        }
         this.classExpressions = new TreeSet<OWLClassExpression>(classExpressions);
     }
 

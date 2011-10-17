@@ -65,10 +65,10 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
  */
 public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements OWLInverseObjectPropertiesAxiom {
 
-    private OWLObjectPropertyExpression first;
+    private final OWLObjectPropertyExpression first;
 
-    private OWLObjectPropertyExpression second;
-
+    private final OWLObjectPropertyExpression second;
+    @SuppressWarnings("javadoc")
     public OWLInverseObjectPropertiesAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression first, OWLObjectPropertyExpression second, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(first, second)), annotations);
         this.first = first;
@@ -117,10 +117,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLInverseObjectPropertiesAxiom;
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLInverseObjectPropertiesAxiom;
     }
 
 

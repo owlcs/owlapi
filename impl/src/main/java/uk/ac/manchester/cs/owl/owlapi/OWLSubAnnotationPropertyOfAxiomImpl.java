@@ -61,11 +61,11 @@ import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
  */
 public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements OWLSubAnnotationPropertyOfAxiom {
 
-    private OWLAnnotationProperty subProperty;
+    private final OWLAnnotationProperty subProperty;
 
-    private OWLAnnotationProperty superProperty;
+    private final OWLAnnotationProperty superProperty;
 
-
+    @SuppressWarnings("javadoc")
     public OWLSubAnnotationPropertyOfAxiomImpl(OWLDataFactory dataFactory, OWLAnnotationProperty subProperty, OWLAnnotationProperty superProperty, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.subProperty = subProperty;
@@ -139,13 +139,14 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
 
     @Override
 	public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof OWLSubAnnotationPropertyOfAxiom)) {
+    	if(super.equals(obj)) {
+    		// superclass is responsible for null, identity, owlaxiom type and annotations
+    		if (!(obj instanceof OWLSubAnnotationPropertyOfAxiom)) {
             return false;
         }
         OWLSubAnnotationPropertyOfAxiom other = (OWLSubAnnotationPropertyOfAxiom) obj;
         return subProperty.equals(other.getSubProperty()) && superProperty.equals(other.getSuperProperty());
+    	}
+    	return false;
     }
 }

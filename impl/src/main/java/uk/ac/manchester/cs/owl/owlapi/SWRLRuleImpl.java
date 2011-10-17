@@ -82,9 +82,9 @@ import org.semanticweb.owlapi.util.SWRLVariableExtractor;
  */
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
-    private Set<SWRLAtom> head;
+    private final Set<SWRLAtom> head;
 
-    private Set<SWRLAtom> body;
+    private final Set<SWRLAtom> body;
 
     private Set<SWRLVariable> variables;
 
@@ -97,7 +97,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     private Set<OWLClassExpression> classAtomsPredicates;
 
 
-    public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Collection<? extends OWLAnnotation> annotations) {
+    @SuppressWarnings("javadoc")
+	public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.head = new TreeSet<SWRLAtom>(head);
         this.body = new TreeSet<SWRLAtom>(body);
@@ -115,7 +116,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         return getOWLDataFactory().getSWRLRule(getBody(), getHead());
     }
 
-    public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
+    @SuppressWarnings("javadoc")
+	public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
         this(dataFactory, body, head, new ArrayList<OWLAnnotation>(0));
     }
 
@@ -250,11 +252,14 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
 	public boolean equals(Object obj) {
+    	if(super.equals(obj)) {
         if (!(obj instanceof SWRLRule)) {
             return false;
         }
         SWRLRule other = (SWRLRule) obj;
         return other.getBody().equals(body) && other.getHead().equals(head);
+    	}
+    	return false;
     }
 
 
@@ -275,7 +280,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     }
 
-    protected AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
+    protected final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
 
     protected class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
 

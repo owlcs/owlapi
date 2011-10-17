@@ -64,7 +64,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl implements OWLSameIndividualAxiom {
-
+    @SuppressWarnings("javadoc")
     public OWLSameIndividualAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> individuals, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, individuals, annotations);
     }
@@ -119,24 +119,16 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         }
         return result;
     }
-
+    @SuppressWarnings("javadoc")
+    @Deprecated
+    //XXX not in the interface
     public Set<OWLSameIndividualAxiom> asPairwiseSameIndividualAxioms() {
-        List<OWLIndividual> individuals = new ArrayList<OWLIndividual>(getIndividuals());
-        Set<OWLSameIndividualAxiom> result = new HashSet<OWLSameIndividualAxiom>();
-        for (int i = 0; i < individuals.size() - 1; i++) {
-            OWLIndividual indI = individuals.get(i);
-            OWLIndividual indJ = individuals.get(i + 1);
-            result.add(getOWLDataFactory().getOWLSameIndividualAxiom(indI, indJ));
-        }
-        return result;
+        return asPairwiseAxioms();
     }
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLSameIndividualAxiom;
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLSameIndividualAxiom;
     }
 
     public void accept(OWLAxiomVisitor visitor) {

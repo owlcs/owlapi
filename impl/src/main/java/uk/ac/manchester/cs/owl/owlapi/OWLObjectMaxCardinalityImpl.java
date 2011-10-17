@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLObjectMaxCardinalityImpl extends OWLObjectCardinalityRestrictionImpl implements OWLObjectMaxCardinality {
-
+    @SuppressWarnings("javadoc")
     public OWLObjectMaxCardinalityImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, int cardinality, OWLClassExpression filler) {
         super(dataFactory, property, cardinality, filler);
     }

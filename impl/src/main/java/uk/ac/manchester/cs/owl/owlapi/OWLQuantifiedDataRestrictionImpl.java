@@ -44,7 +44,7 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
-
+@SuppressWarnings("javadoc")
 public abstract class OWLQuantifiedDataRestrictionImpl extends OWLQuantifiedRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> {
 
     public OWLQuantifiedDataRestrictionImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLDataRange filler) {

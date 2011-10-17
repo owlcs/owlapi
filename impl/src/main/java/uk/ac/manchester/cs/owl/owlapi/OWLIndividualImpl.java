@@ -55,7 +55,6 @@ import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
@@ -81,7 +80,8 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
         super(dataFactory);
     }
 
-
+    @SuppressWarnings("javadoc")
+    //XXX not in the interface
     public boolean isBuiltIn() {
         return false;
     }
@@ -180,10 +180,8 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
      */
     public boolean hasObjectPropertyValue(OWLObjectPropertyExpression property, OWLIndividual individual, OWLOntology ontology) {
         for (OWLObjectPropertyAssertionAxiom ax : ontology.getObjectPropertyAssertionAxioms(this)) {
-            if (ax.getProperty().equals(property)) {
-                if (ax.getObject().equals(individual)) {
+            if (ax.getProperty().equals(property) && ax.getObject().equals(individual)) {
                     return true;
-                }
             }
         }
         return false;
@@ -227,10 +225,8 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
      */
     public boolean hasNegativeObjectPropertyValue(OWLObjectPropertyExpression property, OWLIndividual individual, OWLOntology ontology) {
         for (OWLNegativeObjectPropertyAssertionAxiom ax : ontology.getNegativeObjectPropertyAssertionAxioms(this)) {
-            if (ax.getProperty().equals(property)) {
-                if (ax.getObject().equals(individual)) {
+            if (ax.getProperty().equals(property) && ax.getObject().equals(individual)) {
                     return true;
-                }
             }
         }
         return false;
@@ -274,29 +270,27 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
      */
     public boolean hasNegativeDataPropertyValue(OWLDataPropertyExpression property, OWLLiteral literal, OWLOntology ontology) {
         for (OWLNegativeDataPropertyAssertionAxiom ax : ontology.getNegativeDataPropertyAssertionAxioms(this)) {
-            if (ax.getProperty().equals(property)) {
-                if (ax.getObject().equals(literal)) {
+            if (ax.getProperty().equals(property) && ax.getObject().equals(literal)) {
                     return true;
-                }
             }
         }
         return false;
     }
 
 
-    public Set<OWLClassAssertionAxiom> getIndividualTypeAxioms(OWLOntology ontology) {
-        return ontology.getClassAssertionAxioms(this);
-    }
+//    public Set<OWLClassAssertionAxiom> getIndividualTypeAxioms(OWLOntology ontology) {
+//        return ontology.getClassAssertionAxioms(this);
+//    }
 
 
-    public Set<OWLObjectPropertyAssertionAxiom> getIndividualObjectRelationshipAxioms(OWLOntology ontology) {
-        return ontology.getObjectPropertyAssertionAxioms(this);
-    }
+//    public Set<OWLObjectPropertyAssertionAxiom> getIndividualObjectRelationshipAxioms(OWLOntology ontology) {
+//        return ontology.getObjectPropertyAssertionAxioms(this);
+//    }
 
 
-    public Set<OWLDataPropertyAssertionAxiom> getIndividualDataRelationshipAxioms(OWLOntology ontology) {
-        return ontology.getDataPropertyAssertionAxioms(this);
-    }
+//    public Set<OWLDataPropertyAssertionAxiom> getIndividualDataRelationshipAxioms(OWLOntology ontology) {
+//        return ontology.getDataPropertyAssertionAxioms(this);
+//    }
 
 
     public Set<OWLIndividual> getSameIndividuals(OWLOntology ontology) {
@@ -319,51 +313,56 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
 
-    public Set<OWLNegativeObjectPropertyAssertionAxiom> getIndividualNotObjectRelationshipAxioms(OWLOntology ontology) throws OWLException {
-        return ontology.getNegativeObjectPropertyAssertionAxioms(this);
-    }
+//    public Set<OWLNegativeObjectPropertyAssertionAxiom> getIndividualNotObjectRelationshipAxioms(OWLOntology ontology) throws OWLException {
+//        return ontology.getNegativeObjectPropertyAssertionAxioms(this);
+//    }
+//
+//
+//    public Set<OWLNegativeDataPropertyAssertionAxiom> getIndividualNotDataRelationshipAxioms(OWLOntology ontology) throws OWLException {
+//        return ontology.getNegativeDataPropertyAssertionAxioms(this);
+//    }
 
 
-    public Set<OWLNegativeDataPropertyAssertionAxiom> getIndividualNotDataRelationshipAxioms(OWLOntology ontology) throws OWLException {
-        return ontology.getNegativeDataPropertyAssertionAxioms(this);
-    }
-
-
-    public OWLClass asOWLClass() {
+    @SuppressWarnings("javadoc")
+    //XXX not in the interface
+	public OWLClass asOWLClass() {
         throw new OWLRuntimeException("Not an OWLClass!");
     }
-
-
+    @SuppressWarnings("javadoc")
+    //XXX not in the interface
     public OWLDataProperty asOWLDataProperty() {
         throw new OWLRuntimeException("Not a data property!");
     }
-
-
+    @SuppressWarnings("javadoc")
+    //XXX not in the interface
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a data type!");
     }
 
-
+    @SuppressWarnings("javadoc")
+    //XXX not in the interface
     public OWLObjectProperty asOWLObjectProperty() {
         throw new OWLRuntimeException("Not an object property");
     }
-
-
+    @SuppressWarnings("javadoc")
+    //XXX not in the interface
     public boolean isOWLClass() {
         return false;
     }
-
-
+    @SuppressWarnings("javadoc")
+    //XXX not in the interface
     public boolean isOWLDataProperty() {
         return false;
     }
 
-
+    @SuppressWarnings("javadoc")
+    //XXX not in the interface
     public boolean isOWLDatatype() {
         return false;
     }
 
-
+    @SuppressWarnings("javadoc")
+    //XXX not in the interface
     public boolean isOWLObjectProperty() {
         return false;
     }

@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLLiteral> implements OWLDataHasValue {
 
     public OWLDataHasValueImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLLiteral value) {

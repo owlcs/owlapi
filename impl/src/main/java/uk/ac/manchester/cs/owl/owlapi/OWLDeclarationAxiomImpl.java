@@ -44,7 +44,6 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -53,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
 
 
 /**
@@ -64,9 +62,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarationAxiom {
 
-    private OWLEntity entity;
+    private final OWLEntity entity;
 
-
+    @SuppressWarnings("javadoc")
     public OWLDeclarationAxiomImpl(OWLDataFactory dataFactory, OWLEntity entity, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.entity = entity;
@@ -96,15 +94,10 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
         return entity;
     }
 
-
-    public Set<OWLAnnotationAssertionAxiom> getEntityAnnotations(OWLOntology ontology) {
-        return ontology.getAnnotationAssertionAxioms(getEntity().getIRI());
-    }
-
-
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
+    	if(super.equals(obj)) {
+    		// superclass is responsible for null, identity, owlaxiom type and annotations
             if (obj instanceof OWLDeclarationAxiom) {
                 return ((OWLDeclarationAxiom) obj).getEntity().equals(entity);
             }

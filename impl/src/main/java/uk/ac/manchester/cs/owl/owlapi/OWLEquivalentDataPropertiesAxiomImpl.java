@@ -64,7 +64,7 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements OWLEquivalentDataPropertiesAxiom {
-
+    @SuppressWarnings("javadoc")
     public OWLEquivalentDataPropertiesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLDataPropertyExpression> properties, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, properties, annotations);
     }
@@ -82,10 +82,7 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLEquivalentDataPropertiesAxiom;
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLEquivalentDataPropertiesAxiom;
     }
 
     public void accept(OWLAxiomVisitor visitor) {
@@ -108,7 +105,7 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
     public AxiomType<?> getAxiomType() {
         return AxiomType.EQUIVALENT_DATA_PROPERTIES;
     }
-    
+
     public Set<OWLSubDataPropertyOfAxiom> asSubDataPropertyOfAxioms() {
         List<OWLDataPropertyExpression> props = new ArrayList<OWLDataPropertyExpression>(getProperties());
         Set<OWLSubDataPropertyOfAxiom> axs = new HashSet<OWLSubDataPropertyOfAxiom>();

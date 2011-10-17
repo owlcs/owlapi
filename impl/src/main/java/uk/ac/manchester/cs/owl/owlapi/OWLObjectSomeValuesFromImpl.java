@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLObjectSomeValuesFromImpl extends OWLQuantifiedObjectRestrictionImpl implements OWLObjectSomeValuesFrom {
-
+    @SuppressWarnings("javadoc")
     public OWLObjectSomeValuesFromImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLClassExpression filler) {
         super(dataFactory, property, filler);
     }

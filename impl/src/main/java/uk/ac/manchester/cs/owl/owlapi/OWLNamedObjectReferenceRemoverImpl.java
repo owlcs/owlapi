@@ -47,11 +47,11 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-
+@SuppressWarnings("javadoc")
 public class OWLNamedObjectReferenceRemoverImpl implements OWLNamedObjectReferenceRemover {
 
     private OWLAxiom axiom;
-    
+
     private final Internals oi;
 
     public OWLNamedObjectReferenceRemoverImpl(Internals oi) {

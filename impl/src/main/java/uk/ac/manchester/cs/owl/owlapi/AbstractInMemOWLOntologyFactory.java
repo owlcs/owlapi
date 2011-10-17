@@ -58,6 +58,9 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
     private OWLOntologyManager ontologyManager;
 
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
+    	if (owlOntologyManager == null) {
+            throw new IllegalArgumentException("ontologyManager cannot be null");
+        }
         this.ontologyManager = owlOntologyManager;
     }
 
@@ -75,12 +78,12 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
      * Creates an empty ontology that a concrete representation can be
      * parsed into.  Subclasses can override this method to change the implementation
      * of the ontology.
-     * @param documentIRI
-     */  @SuppressWarnings("unused")
+     * @param documentIRI the document IRI
+     * @param ontologyID the ontology id
+     * @param handler the creation handler
+     */
+    @SuppressWarnings("unused")
     public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
-        if (ontologyManager == null) {
-            throw new NullPointerException();
-        }
         OWLOntology ont = new OWLOntologyImpl(ontologyManager, ontologyID);
         handler.ontologyCreated(ont);
         return ont;

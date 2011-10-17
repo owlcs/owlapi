@@ -67,7 +67,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl implements OWLEquivalentClassesAxiom {
 
     private Set<OWLClass> namedClasses;
-
+    @SuppressWarnings("javadoc")
     public OWLEquivalentClassesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, classExpressions, annotations);
         namedClasses = null;
@@ -146,10 +146,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLEquivalentClassesAxiom;
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLEquivalentClassesAxiom;
     }
 
 

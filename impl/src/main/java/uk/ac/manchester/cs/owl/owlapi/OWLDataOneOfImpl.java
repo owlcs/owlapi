@@ -66,9 +66,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
-    private Set<OWLLiteral> values;
+    private final Set<OWLLiteral> values;
 
-
+    @SuppressWarnings("javadoc")
     public OWLDataOneOfImpl(OWLDataFactory dataFactory, Set<? extends OWLLiteral> values) {
         super(dataFactory);
         this.values = new TreeSet<OWLLiteral>(values);

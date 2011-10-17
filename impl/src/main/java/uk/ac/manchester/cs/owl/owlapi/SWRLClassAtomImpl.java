@@ -58,7 +58,8 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
  */
 public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument> implements SWRLClassAtom {
 
-    public SWRLClassAtomImpl(OWLDataFactory dataFactory, OWLClassExpression predicate, SWRLIArgument arg) {
+    @SuppressWarnings("javadoc")
+	public SWRLClassAtomImpl(OWLDataFactory dataFactory, OWLClassExpression predicate, SWRLIArgument arg) {
         super(dataFactory, predicate, arg);
     }
 

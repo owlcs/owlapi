@@ -62,15 +62,17 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Bio-Health Informatics Group<br>
  * Date: 25-Nov-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWLAnnotationAssertionAxiom {
 
-    private OWLAnnotationSubject subject;
+    private final OWLAnnotationSubject subject;
 
-    private OWLAnnotationProperty property;
+    private final OWLAnnotationProperty property;
 
-    private OWLAnnotationValue value;
+    private final OWLAnnotationValue value;
 
-    public OWLAnnotationAssertionAxiomImpl(OWLDataFactory dataFactory, OWLAnnotationSubject subject, OWLAnnotationProperty property, OWLAnnotationValue value, Collection<? extends OWLAnnotation> annotations) {
+
+	public OWLAnnotationAssertionAxiomImpl(OWLDataFactory dataFactory, OWLAnnotationSubject subject, OWLAnnotationProperty property, OWLAnnotationValue value, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.subject = subject;
         this.property = property;
@@ -88,7 +90,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
      * Determines if this annotation assertion deprecates the IRI that is the subject of the annotation.
      * @return <code>true</code> if this annotation assertion deprecates the subject IRI of the assertion, otherwise
      *         <code>false</code>.
-     * @see {@link org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()}
+     * @see{@link org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()}
      */
     public boolean isDeprecatedIRIAssertion() {
         return property.isDeprecated() && getAnnotation().isDeprecatedIRIAnnotation();
@@ -162,17 +164,15 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
 
     @Override
 	public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof OWLAnnotationAssertionAxiom)) {
-            return false;
-        }
-        OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) obj;
-        return subject.equals(other.getSubject()) && property.equals(other.getProperty()) && value.equals(other.getValue()) && getAnnotations().equals(other.getAnnotations());
+    	if(super.equals(obj)) {
+    		// superclass is responsible for null, identity, owlaxiom type and annotations
+            if (!(obj instanceof OWLAnnotationAssertionAxiom)) {
+                return false;
+            }
+            OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) obj;
+            return subject.equals(other.getSubject()) && property.equals(other.getProperty()) && value.equals(other.getValue());
+    	}
+    	return false;
     }
 
 

@@ -58,7 +58,8 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
  */
 public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLDArgument> implements SWRLDataPropertyAtom {
 
-    public SWRLDataPropertyAtomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression predicate, SWRLIArgument arg0, SWRLDArgument arg1) {
+    @SuppressWarnings("javadoc")
+	public SWRLDataPropertyAtomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression predicate, SWRLIArgument arg0, SWRLDArgument arg1) {
         super(dataFactory, predicate, arg0, arg1);
     }
 

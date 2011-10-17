@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -47,19 +46,58 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
+/**
+ * @author ignazio
+ *
+ *         Mutable state in an OWLDataFactory is encapsulated by this interface
+ */
 public interface OWLDataFactoryInternals {
+	/**
+	 * @param iri
+	 *            new class IRI
+	 * @return a new OWLClass object, or a cached one depending on policies
+	 */
+	OWLClass getOWLClass(IRI iri);
 
-    OWLClass getOWLClass(IRI iri);
+	/** purge any caches */
+	void purge();
 
-    void purge();
+	/**
+	 * @param iri
+	 *            new object property IRI
+	 * @return a new OWLObjectProperty object, or a cached one depending on
+	 *         policies
+	 */
+	OWLObjectProperty getOWLObjectProperty(IRI iri);
 
-    OWLObjectProperty getOWLObjectProperty(IRI iri);
+	/**
+	 * @param iri
+	 *            new OWLDataProperty IRI
+	 * @return a new OWLDataProperty object, or a cached one depending on
+	 *         policies
+	 */
+	OWLDataProperty getOWLDataProperty(IRI iri);
 
-    OWLDataProperty getOWLDataProperty(IRI iri);
+	/**
+	 * @param iri
+	 *            new OWLNamedIndividual IRI
+	 * @return a new OWLNamedIndividual object, or a cached one depending on
+	 *         policies
+	 */
+	OWLNamedIndividual getOWLNamedIndividual(IRI iri);
 
-    OWLNamedIndividual getOWLNamedIndividual(IRI iri);
+	/**
+	 * @param iri
+	 *            new OWLDatatype IRI
+	 * @return a new OWLDatatype object, or a cached one depending on policies
+	 */
+	OWLDatatype getOWLDatatype(IRI iri);
 
-    OWLDatatype getOWLDatatype(IRI iri);
-
-    OWLAnnotationProperty getOWLAnnotationProperty(IRI iri);
+	/**
+	 * @param iri
+	 *            new OWLAnnotationProperty IRI
+	 * @return a new OWLAnnotationProperty object, or a cached one depending on
+	 *         policies
+	 */
+	OWLAnnotationProperty getOWLAnnotationProperty(IRI iri);
 }

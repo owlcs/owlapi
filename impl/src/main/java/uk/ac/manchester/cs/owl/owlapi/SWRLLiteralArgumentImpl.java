@@ -57,9 +57,10 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
  */
 public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLiteralArgument {
 
-    private OWLLiteral literal;
+    private final OWLLiteral literal;
 
-    public SWRLLiteralArgumentImpl(OWLDataFactory dataFactory, OWLLiteral literal) {
+    @SuppressWarnings("javadoc")
+	public SWRLLiteralArgumentImpl(OWLDataFactory dataFactory, OWLLiteral literal) {
         super(dataFactory);
         this.literal = literal;
     }

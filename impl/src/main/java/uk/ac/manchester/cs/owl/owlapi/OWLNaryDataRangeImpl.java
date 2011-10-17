@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLNaryDataRange {
 
-    private Set<OWLDataRange> operands;
+    private final Set<OWLDataRange> operands;
 
     protected OWLNaryDataRangeImpl(OWLDataFactory dataFactory, Set<? extends OWLDataRange> operands) {
         super(dataFactory);

@@ -53,12 +53,14 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  */
 public class OWLImportsDeclarationImpl implements OWLImportsDeclaration {
 
-    private IRI iri;
-
+    private final IRI iri;
+    @SuppressWarnings("javadoc")
     public OWLImportsDeclarationImpl(IRI iri) {
         this.iri = iri;
     }
 
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
     public boolean isLogicalAxiom() {
         return false;
     }

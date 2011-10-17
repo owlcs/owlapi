@@ -59,14 +59,11 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl implements OWLNaryBooleanClassExpression {
 
-    private Set<OWLClassExpression> operands;
+    private final Set<OWLClassExpression> operands;
 
-
+    @SuppressWarnings("javadoc")
     public OWLNaryBooleanClassExpressionImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> operands) {
         super(dataFactory);
-//        if(operands==null || operands.size()<2) {
-//        	throw new IllegalArgumentException("the operands set must contain at least two values");
-//        }
         this.operands = new TreeSet<OWLClassExpression>(operands);
     }
 

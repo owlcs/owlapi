@@ -67,7 +67,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     private OWLObjectPropertyExpression simplestForm;
 
     private OWLObjectPropertyExpression inverse;
-
+    @SuppressWarnings("javadoc")
     public OWLObjectPropertyExpressionImpl(OWLDataFactory dataFactory) {
         super(dataFactory);
     }

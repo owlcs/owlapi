@@ -58,9 +58,10 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 15-Jan-2009
  */
+@SuppressWarnings("javadoc")
 public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWLAnonymousIndividual {
 
-    private NodeID nodeId;
+    private final NodeID nodeId;
 
     public OWLAnonymousIndividualImpl(OWLDataFactory dataFactory, NodeID nodeID) {
         super(dataFactory);

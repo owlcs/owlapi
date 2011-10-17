@@ -58,19 +58,19 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
-    private String literal;
+    private final String literal;
 
-    private OWLDatatype datatype;
+    private final OWLDatatype datatype;
 
-    private String lang;
-
+    private final String lang;
+    @SuppressWarnings("javadoc")
     public OWLLiteralImpl(OWLDataFactory dataFactory, String literal, OWLDatatype datatype) {
         super(dataFactory);
         this.literal = literal;
         this.datatype = datatype;
         this.lang = "";
     }
-
+    @SuppressWarnings("javadoc")
     public OWLLiteralImpl(OWLDataFactory dataFactory, String literal, String lang) {
         super(dataFactory);
         this.literal = literal;
@@ -81,7 +81,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     public String getLiteral() {
         return literal;
     }
-    
+
     public boolean isRDFPlainLiteral() {
         return datatype.equals(getOWLDataFactory().getRDFPlainLiteral());
     }
@@ -138,8 +138,15 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return lang;
     }
 
-    public boolean hasLang(String lang) {
-        return this.lang != null && this.lang.equalsIgnoreCase(lang.trim());
+    public boolean hasLang(String l) {
+    	//XXX this was missing null checks: a null lang is still valid in the factory, where it becomes a ""
+    	if(l == null && lang == null) {
+    		return true;
+    	}
+    	if(l == null) {
+    		l = "";
+    	}
+        return this.lang != null && this.lang.equalsIgnoreCase(l.trim());
     }
 
     public OWLDatatype getDatatype() {

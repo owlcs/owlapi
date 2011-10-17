@@ -63,11 +63,11 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  */
 public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLDatatypeDefinitionAxiom {
 
-    private OWLDatatype datatype;
+    private final OWLDatatype datatype;
 
-    private OWLDataRange dataRange;
+    private final OWLDataRange dataRange;
 
-
+    @SuppressWarnings("javadoc")
     public OWLDatatypeDefinitionAxiomImpl(OWLDataFactory dataFactory, OWLDatatype datatype, OWLDataRange dataRange, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.datatype = datatype;
@@ -141,13 +141,14 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
 
     @Override
 	public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
+    	if(super.equals(obj)) {
+    		// superclass is responsible for null, identity, owlaxiom type and annotations
         if (!(obj instanceof OWLDatatypeDefinitionAxiom)) {
             return false;
         }
         OWLDatatypeDefinitionAxiom other = (OWLDatatypeDefinitionAxiom) obj;
         return datatype.equals(other.getDatatype()) && dataRange.equals(other.getDataRange());
+    	}
+    	return false;
     }
 }

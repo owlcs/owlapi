@@ -43,7 +43,11 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 
 
+/**
+ * removes named object references
+ *
+ */
 public interface OWLNamedObjectReferenceRemover extends OWLEntityVisitor {
-
+	/**@param axiom the axiom to take into account*/
     public void setAxiom(OWLAxiom axiom);
 }

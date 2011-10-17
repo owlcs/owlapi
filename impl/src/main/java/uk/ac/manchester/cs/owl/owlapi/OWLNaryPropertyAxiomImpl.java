@@ -56,12 +56,13 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
+ * @param <P> the property expression
  */
 public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression<?,?>> extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
 
-    private Set<P> properties;
+    private final Set<P> properties;
 
-
+    @SuppressWarnings("javadoc")
     public OWLNaryPropertyAxiomImpl(OWLDataFactory dataFactory, Set<? extends P> properties, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
 //        if(properties==null||properties.size()<2) {

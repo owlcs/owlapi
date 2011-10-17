@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLIndividual> implements OWLObjectHasValue {
-
+    @SuppressWarnings("javadoc")
     public OWLObjectHasValueImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLIndividual value) {
         super(dataFactory, property, value);
     }

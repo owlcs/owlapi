@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestrictionImpl implements OWLObjectExactCardinality {
-
+    @SuppressWarnings("javadoc")
     public OWLObjectExactCardinalityImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, int cardinality, OWLClassExpression filler) {
         super(dataFactory, property, cardinality, filler);
     }

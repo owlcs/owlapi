@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLDataMinCardinalityImpl extends OWLDataCardinalityRestrictionImpl implements OWLDataMinCardinality {
-
+    @SuppressWarnings("javadoc")
     public OWLDataMinCardinalityImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
         super(dataFactory, property, cardinality, filler);
     }

@@ -62,7 +62,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLDataPropertyAssertionAxiom {
-
+    @SuppressWarnings("javadoc")
     public OWLDataPropertyAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral value, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, subject, property, value, annotations);
     }
@@ -84,10 +84,7 @@ public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationship
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLDataPropertyAssertionAxiom;
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLDataPropertyAssertionAxiom;
     }
 
     public void accept(OWLAxiomVisitor visitor) {

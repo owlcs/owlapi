@@ -55,9 +55,10 @@ import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression<?,?>, R extends OWLPropertyRange> extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyRangeAxiom<P, R> {
 
-    private R range;
+    private final R range;
 
 
     public OWLPropertyRangeAxiomImpl(OWLDataFactory dataFactory, P property, R range, Set<? extends OWLAnnotation> annotations) {

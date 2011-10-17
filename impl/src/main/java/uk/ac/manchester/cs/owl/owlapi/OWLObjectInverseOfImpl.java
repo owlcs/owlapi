@@ -63,9 +63,9 @@ import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
  */
 public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl implements OWLObjectInverseOf {
 
-    private OWLObjectPropertyExpression inverseProperty;
+    private final OWLObjectPropertyExpression inverseProperty;
 
-
+    @SuppressWarnings("javadoc")
     public OWLObjectInverseOfImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression inverseProperty) {
         super(dataFactory);
         this.inverseProperty = inverseProperty;

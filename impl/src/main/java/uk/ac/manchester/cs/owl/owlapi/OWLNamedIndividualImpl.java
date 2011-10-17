@@ -39,7 +39,6 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.Set;
 
@@ -70,8 +69,12 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLNamedIndividual {
 
-    private IRI iri;
+    private final IRI iri;
 
+    /**
+     * @param dataFactory the data factory
+     * @param iri the iri
+     */
     public OWLNamedIndividualImpl(OWLDataFactory dataFactory, IRI iri) {
         super(dataFactory);
         this.iri = iri;
@@ -123,10 +126,6 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
 
     public IRI getIRI() {
         return iri;
-    }
-
-    public URI getURI() {
-        return iri.toURI();
     }
 
     public boolean isAnonymous() {

@@ -58,11 +58,11 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  */
 public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRestriction {
 
-    private OWLFacet facet;
+    private final OWLFacet facet;
 
-    private OWLLiteral facetValue;
+    private final OWLLiteral facetValue;
 
-
+    @SuppressWarnings("javadoc")
     public OWLFacetRestrictionImpl(OWLDataFactory dataFactory, OWLFacet facet, OWLLiteral facetValue) {
         super(dataFactory);
         this.facet = facet;

@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
  */
 public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
 
-    SWRLPredicate predicate;
+	final SWRLPredicate predicate;
 
     protected SWRLAtomImpl(OWLDataFactory dataFactory, SWRLPredicate predicate) {
         super(dataFactory);

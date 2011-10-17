@@ -51,12 +51,14 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Nov-2006<br><br>
+ *
+ * Manual IRI mapper
  */
 public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
 
-    private Map<IRI, IRI> iriMap;
+    private final Map<IRI, IRI> iriMap;
 
-
+    @SuppressWarnings("javadoc")
     public OWLOntologyIRIMapperImpl() {
         iriMap = new TreeMap<IRI, IRI>();
     }
@@ -72,6 +74,10 @@ public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
         }
     }
 
+    /**
+     * @param ontologyIRI new ontology iri
+     * @param documentIRI new document iri
+     */
     public void addMapping(IRI ontologyIRI, IRI documentIRI) {
         iriMap.put(ontologyIRI, documentIRI);
     }

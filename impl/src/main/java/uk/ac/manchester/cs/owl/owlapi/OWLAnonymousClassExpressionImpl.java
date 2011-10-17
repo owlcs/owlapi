@@ -56,6 +56,7 @@ import org.semanticweb.owlapi.util.NNF;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpressionImpl implements OWLAnonymousClassExpression {
 
     public OWLAnonymousClassExpressionImpl(OWLDataFactory dataFactory) {

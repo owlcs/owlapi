@@ -88,12 +88,16 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
+/**
+ * Visitor used to enact changes on an ontology internals
+ */
 public class ChangeAxiomVisitor implements OWLAxiomVisitor {
 
         private final boolean addAxiom;
-        
+
         private final Internals oi;
-        public ChangeAxiomVisitor( Internals oi, boolean add) {
+        @SuppressWarnings("javadoc")
+		public ChangeAxiomVisitor( Internals oi, boolean add) {
 			this.oi=oi;
 			this.addAxiom=add;
 		}
@@ -504,14 +508,14 @@ public class ChangeAxiomVisitor implements OWLAxiomVisitor {
                 oi.addToIndexedSet(axiom.getIndividual(), oi.getClassAssertionAxiomsByIndividual(), axiom);
                 oi.addAxiomsByType(CLASS_ASSERTION, axiom);
                 if (!axiom.getClassExpression().isAnonymous()) {
-                    oi.addToIndexedSet((OWLClass) axiom.getClassExpression(), oi.getClassAssertionAxiomsByClass(), axiom);
+                    oi.addToIndexedSet(axiom.getClassExpression(), oi.getClassAssertionAxiomsByClass(), axiom);
                 }
             }
             else {
                 oi.removeAxiomsByType(CLASS_ASSERTION, axiom);
                 oi.removeAxiomFromSet(axiom.getIndividual(), oi.getClassAssertionAxiomsByIndividual(), axiom, true);
                 if (!axiom.getClassExpression().isAnonymous()) {
-                    oi.removeAxiomFromSet((OWLClass) axiom.getClassExpression(), oi.getClassAssertionAxiomsByClass(), axiom, true);
+                    oi.removeAxiomFromSet(axiom.getClassExpression(), oi.getClassAssertionAxiomsByClass(), axiom, true);
                 }
             }
         }

@@ -60,9 +60,10 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataComplementOf {
 
-    private OWLDataRange dataRange;
+    private final OWLDataRange dataRange;
 
 
     public OWLDataComplementOfImpl(OWLDataFactory dataFactory, OWLDataRange dataRange) {

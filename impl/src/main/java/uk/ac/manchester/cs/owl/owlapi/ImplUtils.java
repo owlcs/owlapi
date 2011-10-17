@@ -57,6 +57,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class ImplUtils {
 
+    /**
+     * @param entity entity to search
+     * @param ontologies ontologis to search
+     * @return annotations about entity
+     */
     public static Set<OWLAnnotationAssertionAxiom> getAnnotationAxioms(OWLEntity entity, Set<OWLOntology> ontologies) {
         Set<OWLAnnotationAssertionAxiom> result = new HashSet<OWLAnnotationAssertionAxiom>();
         for (OWLOntology ont : ontologies) {
@@ -65,6 +70,11 @@ public class ImplUtils {
         return result;
     }
 
+    /**
+     * @param entity entity to search
+     * @param ontologies ontologies to search
+     * @return annotations about entity
+     */
     public static Set<OWLAnnotation> getAnnotations(OWLEntity entity, Set<OWLOntology> ontologies) {
         Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
         for (OWLAnnotationAssertionAxiom ax : getAnnotationAxioms(entity, ontologies)) {
@@ -73,6 +83,12 @@ public class ImplUtils {
         return result;
     }
 
+    /**
+     * @param entity entity to search
+     * @param annotationProperty annotation property to match
+     * @param ontologies ontologies to search
+     * @return annotations about entity whose annotation property is annotationProperty
+     */
     public static Set<OWLAnnotation> getAnnotations(OWLEntity entity, OWLAnnotationProperty annotationProperty, Set<OWLOntology> ontologies) {
         Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
         for (OWLAnnotationAssertionAxiom ax : getAnnotationAxioms(entity, ontologies)) {

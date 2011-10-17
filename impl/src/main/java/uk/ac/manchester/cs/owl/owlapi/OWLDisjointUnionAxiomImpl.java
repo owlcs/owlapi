@@ -66,10 +66,10 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLDisjointUnionAxiom {
 
-    private OWLClass owlClass;
+    private final OWLClass owlClass;
 
-    private Set<OWLClassExpression> classExpressions;
-
+    private final Set<OWLClassExpression> classExpressions;
+    @SuppressWarnings("javadoc")
     public OWLDisjointUnionAxiomImpl(OWLDataFactory dataFactory, OWLClass owlClass, Set<? extends OWLClassExpression> classExpressions, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
         this.owlClass = owlClass;
@@ -101,7 +101,8 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
+    	if(super.equals(obj)) {
+    		// superclass is responsible for null, identity, owlaxiom type and annotations
             if (!(obj instanceof OWLDisjointUnionAxiom)) {
                 return false;
             }

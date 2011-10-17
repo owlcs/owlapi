@@ -58,11 +58,12 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 17-Jan-2009
  */
+@SuppressWarnings("javadoc")
 public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyDomainAxiom {
 
-    private OWLAnnotationProperty property;
+    private final OWLAnnotationProperty property;
 
-    private IRI domain;
+    private final IRI domain;
 
     public OWLAnnotationPropertyDomainAxiomImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, IRI domain, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
@@ -130,13 +131,14 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
 
     @Override
 	public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
+    	if(super.equals(obj)) {
+    		// superclass is responsible for null, identity, owlaxiom type and annotations
         if (!(obj instanceof OWLAnnotationPropertyDomainAxiom)) {
             return false;
         }
         OWLAnnotationPropertyDomainAxiom other = (OWLAnnotationPropertyDomainAxiom) obj;
-        return property.equals(other.getProperty()) && domain.equals(other.getDomain()) && getAnnotations().equals(other.getAnnotations());
+        return property.equals(other.getProperty()) && domain.equals(other.getDomain());
+    	}
+    	return false;
     }
 }

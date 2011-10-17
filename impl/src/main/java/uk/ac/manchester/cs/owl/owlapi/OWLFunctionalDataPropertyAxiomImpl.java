@@ -62,7 +62,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacteristicAxiomImpl implements OWLFunctionalDataPropertyAxiom {
-
+    @SuppressWarnings("javadoc")
     public OWLFunctionalDataPropertyAxiomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, property, annotations);
     }
@@ -80,10 +80,7 @@ public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacter
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLFunctionalDataPropertyAxiom;
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLFunctionalDataPropertyAxiom;
     }
 
     public void accept(OWLAxiomVisitor visitor) {

@@ -66,11 +66,11 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLDatatypeRestriction {
 
-    private OWLDatatype datatype;
+    private final OWLDatatype datatype;
 
-    private Set<OWLFacetRestriction> facetRestrictions;
+    private final Set<OWLFacetRestriction> facetRestrictions;
 
-
+    @SuppressWarnings("javadoc")
     public OWLDatatypeRestrictionImpl(OWLDataFactory dataFactory, OWLDatatype datatype, Set<OWLFacetRestriction> facetRestrictions) {
         super(dataFactory);
         this.datatype = datatype;

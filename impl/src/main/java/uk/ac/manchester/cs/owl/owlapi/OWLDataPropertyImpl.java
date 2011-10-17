@@ -79,12 +79,13 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group<br> Date:
  * 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange, OWLDataPropertyExpression> implements OWLDataProperty {
 
-    private IRI iri;
+    private final IRI iri;
 
 
-    private boolean builtin;
+    private final boolean builtin;
 
 
     public OWLDataPropertyImpl(OWLDataFactory dataFactory, IRI iri) {
@@ -149,11 +150,6 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
     public IRI getIRI() {
         return iri;
     }
-
-    public URI getURI() {
-        return iri.toURI();
-    }
-
 
     public boolean isBuiltIn() {
         return builtin;

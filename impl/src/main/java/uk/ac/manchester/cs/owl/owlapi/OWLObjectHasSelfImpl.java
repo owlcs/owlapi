@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLObjectHasSelfImpl extends OWLRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObjectPropertyExpression> implements OWLObjectHasSelf {
-
+	@SuppressWarnings("javadoc")
     public OWLObjectHasSelfImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property) {
         super(dataFactory, property);
     }

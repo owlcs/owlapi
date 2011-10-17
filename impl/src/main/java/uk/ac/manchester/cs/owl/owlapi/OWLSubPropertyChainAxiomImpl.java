@@ -64,11 +64,11 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
  */
 public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implements OWLSubPropertyChainOfAxiom {
 
-    private List<OWLObjectPropertyExpression> propertyChain;
+    private final List<OWLObjectPropertyExpression> propertyChain;
 
-    private OWLObjectPropertyExpression superProperty;
+    private final OWLObjectPropertyExpression superProperty;
 
-
+    @SuppressWarnings("javadoc")
     public OWLSubPropertyChainAxiomImpl(OWLDataFactory dataFactory, List<? extends OWLObjectPropertyExpression> propertyChain, OWLObjectPropertyExpression superProperty, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, annotations);
 //        if(propertyChain==null||propertyChain.size()<2) {

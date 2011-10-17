@@ -64,10 +64,11 @@ import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
  */
 public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom {
 
-    private List<SWRLDArgument> args;
+    private final List<SWRLDArgument> args;
 
 
-    public SWRLBuiltInAtomImpl(OWLDataFactory dataFactory, IRI predicate, List<SWRLDArgument> args) {
+    @SuppressWarnings("javadoc")
+	public SWRLBuiltInAtomImpl(OWLDataFactory dataFactory, IRI predicate, List<SWRLDArgument> args) {
         super(dataFactory, predicate);
         this.args = new ArrayList<SWRLDArgument>(args);
     }

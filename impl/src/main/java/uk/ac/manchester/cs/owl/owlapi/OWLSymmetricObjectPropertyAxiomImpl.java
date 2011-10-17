@@ -62,7 +62,7 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLSymmetricObjectPropertyAxiom {
-
+    @SuppressWarnings("javadoc")
     public OWLSymmetricObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, property, annotations);
     }
@@ -88,10 +88,7 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLSymmetricObjectPropertyAxiom;
-        }
-        return false;
+        return super.equals(obj) && obj instanceof OWLSymmetricObjectPropertyAxiom;
     }
 
     public void accept(OWLAxiomVisitor visitor) {

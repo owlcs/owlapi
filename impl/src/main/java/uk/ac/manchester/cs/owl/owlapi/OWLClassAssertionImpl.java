@@ -62,11 +62,12 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWLClassAssertionAxiom {
 
-    private OWLIndividual individual;
+    private final OWLIndividual individual;
 
-    private OWLClassExpression classExpression;
+    private final OWLClassExpression classExpression;
 
 
     public OWLClassAssertionImpl(OWLDataFactory dataFactory, OWLIndividual individual, OWLClassExpression classExpression, Collection<? extends OWLAnnotation> annotations) {

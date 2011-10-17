@@ -88,7 +88,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
 
     private static final Logger logger = Logger.getLogger(ParsableOWLOntologyFactory.class.getName());
 
-    private Set<String> parsableSchemes;
+    private final Set<String> parsableSchemes;
 
     /**
      * Creates an ontology factory.
@@ -102,17 +102,18 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     }
 
 
-    @Override
-	public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
-        super.setOWLOntologyManager(owlOntologyManager);
-    }
+//    @Override
+//	public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
+//        super.setOWLOntologyManager(owlOntologyManager);
+//    }
 
 
     /**
-     * Gets a list of parsers that this factory uses when it tries to
+     * @return a list of parsers that this factory uses when it tries to
      * create an ontology from a concrete representation.
      */
     @SuppressWarnings("deprecation")
+    //XXX not in the interface
     public List<OWLParser> getParsers() {
         List<OWLParser> parsers = new ArrayList<OWLParser>();
         List<OWLParserFactory> factories = OWLParserFactoryRegistry.getInstance().getParserFactories();
@@ -127,7 +128,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
 
     /**
      * Overriden - We don't create new empty ontologies - this isn't our responsibility
-     * @param documentIRI
+     * @param documentIRI ignored
+     * @return never returns
      */
     @Override  @SuppressWarnings("unused")
 	public boolean canCreateFromDocumentIRI(IRI documentIRI) {
@@ -137,10 +139,14 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
 
     /**
      * Overriden - This method will throw an OWLException which wraps an UnsupportedOperationException.
+     * @param ontologyURI ignored
+     * @param physicalURI ignored
+     * @return never returns
      */
     @SuppressWarnings("unused")
+    //XXX not in the interface
     public OWLOntology createOWLOntology(URI ontologyURI, URI physicalURI) {
-        throw new OWLRuntimeException(new UnsupportedOperationException("Cannot create new empty ontologes!"));
+        throw new OWLRuntimeException(new UnsupportedOperationException("Cannot create new empty ontologies!"));
     }
 
 

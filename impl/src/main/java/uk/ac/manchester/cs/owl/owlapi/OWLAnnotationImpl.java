@@ -62,13 +62,14 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Bio-Health Informatics Group<br>
  * Date: 19-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
-    private OWLAnnotationProperty property;
+    private final OWLAnnotationProperty property;
 
-    private OWLAnnotationValue value;
+    private final OWLAnnotationValue value;
 
-    private Set<OWLAnnotation> annotations;
+    private final Set<OWLAnnotation> annotations;
 
     public OWLAnnotationImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory);
@@ -98,12 +99,12 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         merged.addAll(annotationsToAdd);
         return new OWLAnnotationImpl(getOWLDataFactory(), property, value, merged);
     }
-
+    //XXX not in the interface
     public boolean isComment() {
         return property.isComment();
     }
 
-
+    //XXX not in the interface
     public boolean isLabel() {
         return property.isLabel();
     }
@@ -120,12 +121,11 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
     @Override
 	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (obj instanceof OWLAnnotation) {
-                OWLAnnotation other = (OWLAnnotation) obj;
-                return other.getProperty().equals(property) && other.getValue().equals(value) && other.getAnnotations().equals(annotations);
-            }
-        }
+		if (super.equals(obj) && obj instanceof OWLAnnotation) {
+			OWLAnnotation other = (OWLAnnotation) obj;
+			return other.getProperty().equals(property) && other.getValue().equals(value)
+					&& other.getAnnotations().equals(annotations);
+		}
         return false;
     }
 

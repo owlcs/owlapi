@@ -52,9 +52,9 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-
+@SuppressWarnings("javadoc")
 public class OWLDataFactoryInternalsImpl implements OWLDataFactoryInternals {
-    private WeakHashMap<IRI, WeakReference<? extends OWLEntity>> classesByURI;
+    private final WeakHashMap<IRI, WeakReference<? extends OWLEntity>> classesByURI;
     private final WeakHashMap<IRI, WeakReference<? extends OWLEntity>> objectPropertiesByURI;
     private final WeakHashMap<IRI, WeakReference<? extends OWLEntity>> dataPropertiesByURI;
     private final WeakHashMap<IRI, WeakReference<? extends OWLEntity>> datatypesByURI;

@@ -59,17 +59,32 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * <br>
  */
 public class OWLDataFactoryImpl implements OWLDataFactory {
-	private static OWLDataFactory instance = new OWLDataFactoryImpl();
-	private static OWLClass OWL_THING = new OWLClassImpl(instance,
+	private static final String ABBREVIATED_IRI = "abbreviatedIRI";
+	private static final String ID2 = "id";
+	private static final String CURI2 = "curi";
+	private static final String PREFIX_MANAGER = "prefixManager";
+	private static final String IRI2 = "iri";
+	private static final String VALUE2 = "value";
+	private static final String DATATYPE2 = "datatype";
+	private static final String LITERAL2 = "literal";
+	private static final String VALUES2 = "values";
+	private static final String DATA_RANGES = "dataRanges";
+	private static final String DATA_RANGE = "dataRange";
+	private static final OWLDataFactory instance = new OWLDataFactoryImpl();
+	private static final OWLClass OWL_THING = new OWLClassImpl(instance,
 			OWLRDFVocabulary.OWL_THING.getIRI());
-	private static OWLClass OWL_NOTHING = new OWLClassImpl(instance,
+	private static final OWLClass OWL_NOTHING = new OWLClassImpl(instance,
 			OWLRDFVocabulary.OWL_NOTHING.getIRI());
 	protected OWLDataFactoryInternals data;
 
+	@SuppressWarnings("javadoc")
 	public OWLDataFactoryImpl() {
 		data = new OWLDataFactoryInternalsImpl(this);
 	}
 
+	/**
+	 * @return singleton instance
+	 */
 	public static OWLDataFactory getInstance() {
 		return instance;
 	}
@@ -97,7 +112,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	@SuppressWarnings("unchecked")
 	public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType, IRI iri) {
 		checkNull(entityType, "entityType");
-		checkNull(iri, "iri");
+		checkNull(iri, IRI2);
 		E ret = null;
 		if (entityType.equals(EntityType.CLASS)) {
 			ret = (E) getOWLClass(iri);
@@ -116,20 +131,20 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	}
 
 	public OWLClass getOWLClass(IRI iri) {
-		checkNull(iri, "iri");
+		checkNull(iri, IRI2);
 		return data.getOWLClass(iri);
 	}
 
 	public OWLClass getOWLClass(String iri, PrefixManager prefixManager) {
-		checkNull(iri, "iri");
-		checkNull(prefixManager, "prefixManager");
+		checkNull(iri, IRI2);
+		checkNull(prefixManager, PREFIX_MANAGER);
 		return getOWLClass(prefixManager.getIRI(iri));
 	}
 
 	public OWLAnnotationProperty getOWLAnnotationProperty(String abbreviatedIRI,
 			PrefixManager prefixManager) {
-		checkNull(abbreviatedIRI, "abbreviatedIRI");
-		checkNull(prefixManager, "prefixManager");
+		checkNull(abbreviatedIRI, ABBREVIATED_IRI);
+		checkNull(prefixManager, PREFIX_MANAGER);
 		return getOWLAnnotationProperty(prefixManager.getIRI(abbreviatedIRI));
 	}
 
@@ -167,8 +182,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	}
 
 	public OWLDatatype getOWLDatatype(String abbreviatedIRI, PrefixManager prefixManager) {
-		checkNull(abbreviatedIRI, "abbreviatedIRI");
-		checkNull(prefixManager, "prefixManager");
+		checkNull(abbreviatedIRI, ABBREVIATED_IRI);
+		checkNull(prefixManager, PREFIX_MANAGER);
 		return getOWLDatatype(prefixManager.getIRI(abbreviatedIRI));
 	}
 
@@ -221,41 +236,41 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	}
 
 	public OWLObjectProperty getOWLObjectProperty(IRI iri) {
-		checkNull(iri, "iri");
+		checkNull(iri, IRI2);
 		return data.getOWLObjectProperty(iri);
 	}
 
 	public OWLDataProperty getOWLDataProperty(IRI iri) {
-		checkNull(iri, "iri");
+		checkNull(iri, IRI2);
 		return data.getOWLDataProperty(iri);
 	}
 
 	public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
-		checkNull(iri, "iri");
+		checkNull(iri, IRI2);
 		return data.getOWLNamedIndividual(iri);
 	}
 
 	public OWLDataProperty getOWLDataProperty(String curi, PrefixManager prefixManager) {
-		checkNull(curi, "curi");
-		checkNull(prefixManager, "prefixManager");
+		checkNull(curi, CURI2);
+		checkNull(prefixManager, PREFIX_MANAGER);
 		return getOWLDataProperty(prefixManager.getIRI(curi));
 	}
 
 	public OWLNamedIndividual getOWLNamedIndividual(String curi,
 			PrefixManager prefixManager) {
-		checkNull(curi, "curi");
-		checkNull(prefixManager, "prefixManager");
+		checkNull(curi, CURI2);
+		checkNull(prefixManager, PREFIX_MANAGER);
 		return getOWLNamedIndividual(prefixManager.getIRI(curi));
 	}
 
 	public OWLObjectProperty getOWLObjectProperty(String curi, PrefixManager prefixManager) {
-		checkNull(curi, "curi");
-		checkNull(prefixManager, "prefixManager");
+		checkNull(curi, CURI2);
+		checkNull(prefixManager, PREFIX_MANAGER);
 		return getOWLObjectProperty(prefixManager.getIRI(curi));
 	}
 
 	public OWLAnonymousIndividual getOWLAnonymousIndividual(String id) {
-		checkNull(id, "id");
+		checkNull(id, ID2);
 		return new OWLAnonymousIndividualImpl(this, NodeID.getNodeID(id));
 	}
 
@@ -264,13 +279,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	}
 
 	public OWLDatatype getOWLDatatype(IRI iri) {
-		checkNull(iri, "iri");
+		checkNull(iri, IRI2);
 		return data.getOWLDatatype(iri);
 	}
 
 	public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
 		checkNull(lexicalValue, "lexicalValue");
-		checkNull(datatype, "datatype");
+		checkNull(datatype, DATATYPE2);
 		OWLLiteral literal;
 		if (datatype.isRDFPlainLiteral()) {
 			int sep = lexicalValue.lastIndexOf('@');
@@ -289,7 +304,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 	public OWLLiteral getOWLLiteral(String lexicalValue, OWL2Datatype datatype) {
 		checkNull(lexicalValue, "lexicalValue");
-		checkNull(datatype, "datatype");
+		checkNull(datatype, DATATYPE2);
 		return getOWLLiteral(lexicalValue, getOWLDatatype(datatype.getIRI()));
 	}
 
@@ -314,13 +329,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	}
 
 	public OWLLiteral getOWLLiteral(String value) {
-		checkNull(value, "value");
+		checkNull(value, VALUE2);
 		return new OWLLiteralImpl(this, value,
 				getOWLDatatype(XSDVocabulary.STRING.getIRI()));
 	}
 
 	public OWLLiteral getOWLLiteral(String literal, String lang) {
-		checkNull(literal, "literal");
+		checkNull(literal, LITERAL2);
 		String normalisedLang;
 		if (lang == null) {
 			normalisedLang = "";
@@ -332,15 +347,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 	@Deprecated
 	public OWLLiteral getOWLTypedLiteral(String literal, OWLDatatype datatype) {
-		checkNull(literal, "literal");
-		checkNull(datatype, "datatype");
+		checkNull(literal, LITERAL2);
+		checkNull(datatype, DATATYPE2);
 		return getOWLLiteral(literal, datatype);
 	}
 
 	@Deprecated
 	public OWLLiteral getOWLTypedLiteral(String literal, OWL2Datatype datatype) {
-		checkNull(literal, "literal");
-		checkNull(datatype, "datatype");
+		checkNull(literal, LITERAL2);
+		checkNull(datatype, DATATYPE2);
 		return getOWLLiteral(literal, datatype);
 	}
 
@@ -380,51 +395,51 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	}
 
 	public OWLDataOneOf getOWLDataOneOf(Set<? extends OWLLiteral> values) {
-		checkNull(values, "values");
+		checkNull(values, VALUES2);
 		return new OWLDataOneOfImpl(this, values);
 	}
 
 	public OWLDataOneOf getOWLDataOneOf(OWLLiteral... values) {
-		checkNull(values, "values");
+		checkNull(values, VALUES2);
 		return getOWLDataOneOf(CollectionFactory.createSet(values));
 	}
 
 	public OWLDataComplementOf getOWLDataComplementOf(OWLDataRange dataRange) {
-		checkNull(dataRange, "dataRange");
+		checkNull(dataRange, DATA_RANGE);
 		return new OWLDataComplementOfImpl(this, dataRange);
 	}
 
 	public OWLDataIntersectionOf getOWLDataIntersectionOf(OWLDataRange... dataRanges) {
-		checkNull(dataRanges, "dataRanges");
+		checkNull(dataRanges, DATA_RANGES);
 		return getOWLDataIntersectionOf(CollectionFactory.createSet(dataRanges));
 	}
 
 	public OWLDataIntersectionOf getOWLDataIntersectionOf(
 			Set<? extends OWLDataRange> dataRanges) {
-		checkNull(dataRanges, "dataRanges");
+		checkNull(dataRanges, DATA_RANGES);
 		return new OWLDataIntersectionOfImpl(this, dataRanges);
 	}
 
 	public OWLDataUnionOf getOWLDataUnionOf(OWLDataRange... dataRanges) {
-		checkNull(dataRanges, "dataRanges");
+		checkNull(dataRanges, DATA_RANGES);
 		return getOWLDataUnionOf(CollectionFactory.createSet(dataRanges));
 	}
 
 	public OWLDataUnionOf getOWLDataUnionOf(Set<? extends OWLDataRange> dataRanges) {
-		checkNull(dataRanges, "dataRanges");
+		checkNull(dataRanges, DATA_RANGES);
 		return new OWLDataUnionOfImpl(this, dataRanges);
 	}
 
 	public OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype datatype,
 			Set<OWLFacetRestriction> facets) {
-		checkNull(datatype, "datatype");
+		checkNull(datatype, DATATYPE2);
 		checkNull(facets, "facets");
 		return new OWLDatatypeRestrictionImpl(this, datatype, facets);
 	}
 
 	public OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype datatype,
 			OWLFacet facet, OWLLiteral typedConstant) {
-		checkNull(datatype, "datatype");
+		checkNull(datatype, DATATYPE2);
 		checkNull(facet, "facet");
 		checkNull(typedConstant, "typedConstant");
 		return new OWLDatatypeRestrictionImpl(this, datatype,
@@ -551,7 +566,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 	public OWLDataAllValuesFrom getOWLDataAllValuesFrom(
 			OWLDataPropertyExpression property, OWLDataRange dataRange) {
-		checkNull(dataRange, "dataRange");
+		checkNull(dataRange, DATA_RANGE);
 		checkNull(property, "property");
 		return new OWLDataAllValuesFromImpl(this, property, dataRange);
 	}
@@ -568,7 +583,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 	public OWLDataExactCardinality getOWLDataExactCardinality(int cardinality,
 			OWLDataPropertyExpression property, OWLDataRange dataRange) {
-		checkNull(dataRange, "dataRange");
+		checkNull(dataRange, DATA_RANGE);
 		checkNull(property, "property");
 		if (cardinality < 0) {
 			throw new IllegalArgumentException("cardinality cannot be negative");
@@ -592,7 +607,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 			throw new IllegalArgumentException("cardinality cannot be negative");
 		}
 		checkNull(property, "property");
-		checkNull(dataRange, "dataRange");
+		checkNull(dataRange, DATA_RANGE);
 		return new OWLDataMaxCardinalityImpl(this, property, cardinality, dataRange);
 	}
 
@@ -608,7 +623,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 	public OWLDataMinCardinality getOWLDataMinCardinality(int cardinality,
 			OWLDataPropertyExpression property, OWLDataRange dataRange) {
-		checkNull(dataRange, "dataRange");
+		checkNull(dataRange, DATA_RANGE);
 		if (cardinality < 0) {
 			throw new IllegalArgumentException("cardinality cannot be negative");
 		}
@@ -618,7 +633,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 	public OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(
 			OWLDataPropertyExpression property, OWLDataRange dataRange) {
-		checkNull(dataRange, "dataRange");
+		checkNull(dataRange, DATA_RANGE);
 		checkNull(property, "property");
 		return new OWLDataSomeValuesFromImpl(this, property, dataRange);
 	}
@@ -626,7 +641,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	public OWLDataHasValue getOWLDataHasValue(OWLDataPropertyExpression property,
 			OWLLiteral value) {
 		checkNull(property, "property");
-		checkNull(value, "value");
+		checkNull(value, VALUE2);
 		return new OWLDataHasValueImpl(this, property, value);
 	}
 
@@ -643,7 +658,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	}
 
 	public OWLObjectOneOf getOWLObjectOneOf(Set<? extends OWLIndividual> values) {
-		checkNull(values, "values");
+		checkNull(values, VALUES2);
 		return new OWLObjectOneOfImpl(this, values);
 	}
 
@@ -1379,7 +1394,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Annotations
 	public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
-		checkNull(iri, "iri");
+		checkNull(iri, IRI2);
 		return data.getOWLAnnotationProperty(iri);
 	}
 
@@ -1391,7 +1406,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property,
 			OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations) {
 		checkNull(property, "property");
-		checkNull(value, "value");
+		checkNull(value, VALUE2);
 		checkNull(annotations, "annotations");
 		return new OWLAnnotationImpl(this, property, value, annotations);
 	}
@@ -1426,7 +1441,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 			OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations) {
 		checkNull(subject, "subject");
 		checkNull(property, "property");
-		checkNull(value, "value");
+		checkNull(value, VALUE2);
 		checkNull(annotations, "annotations");
 		return new OWLAnnotationAssertionAxiomImpl(this, subject, property, value,
 				annotations);
@@ -1665,15 +1680,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 	public OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype,
 			OWLDataRange dataRange) {
-		checkNull(datatype, "datatype");
-		checkNull(dataRange, "dataRange");
+		checkNull(datatype, DATATYPE2);
+		checkNull(dataRange, DATA_RANGE);
 		return getOWLDatatypeDefinitionAxiom(datatype, dataRange, EMPTY_ANNOTATIONS_SET);
 	}
 
 	public OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype,
 			OWLDataRange dataRange, Set<? extends OWLAnnotation> annotations) {
-		checkNull(datatype, "datatype");
-		checkNull(dataRange, "dataRange");
+		checkNull(datatype, DATATYPE2);
+		checkNull(dataRange, DATA_RANGE);
 		checkNull(annotations, "annotations");
 		return new OWLDatatypeDefinitionAxiomImpl(this, datatype, dataRange, annotations);
 	}

@@ -51,9 +51,10 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class OWLRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F> extends OWLAnonymousClassExpressionImpl implements OWLRestriction<R, P, F> {
 
-    private P property;
+    private final P property;
 
 
     public OWLRestrictionImpl(OWLDataFactory dataFactory, P property) {

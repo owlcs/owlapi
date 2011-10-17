@@ -51,9 +51,10 @@ import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class OWLQuantifiedRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLRestrictionImpl<R, P, F> implements OWLQuantifiedRestriction<R, P, F> {
 
-    private F filler;
+    private final F filler;
 
 
     public OWLQuantifiedRestrictionImpl(OWLDataFactory dataFactory, P property, F filler) {

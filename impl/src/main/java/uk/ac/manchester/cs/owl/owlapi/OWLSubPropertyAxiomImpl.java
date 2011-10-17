@@ -54,11 +54,12 @@ import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression<?,?>> extends OWLPropertyAxiomImpl implements OWLSubPropertyAxiom<P> {
 
-    private P subProperty;
+    private final P subProperty;
 
-    private P superProperty;
+    private final P superProperty;
 
 
     public OWLSubPropertyAxiomImpl(OWLDataFactory dataFactory, P subProperty, P superProperty, Collection<? extends OWLAnnotation> annotations) {

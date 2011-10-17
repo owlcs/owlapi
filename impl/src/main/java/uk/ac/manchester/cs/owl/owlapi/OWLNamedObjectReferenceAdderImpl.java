@@ -46,10 +46,10 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-
+@SuppressWarnings("javadoc")
 public class OWLNamedObjectReferenceAdderImpl implements OWLNamedObjectReferenceAdder{
         private OWLAxiom axiom;
-        
+
         private final Internals oi;
         public OWLNamedObjectReferenceAdderImpl(Internals oi) {
 			this.oi=oi;
@@ -67,7 +67,7 @@ oi.addOwlClassReferences(owlClass, axiom);
 
 
         public void visit(OWLObjectProperty property) {
-            oi.addOwlObjectPropertyReferences(property, axiom); 
+            oi.addOwlObjectPropertyReferences(property, axiom);
         }
 
 

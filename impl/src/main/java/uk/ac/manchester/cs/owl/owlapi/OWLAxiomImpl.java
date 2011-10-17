@@ -61,6 +61,7 @@ import org.semanticweb.owlapi.util.NNF;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
     private OWLAxiom nnf;
@@ -160,7 +161,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
         return annotations.equals(other.getAnnotations());
     }
 
-
+    //XXX not in the interface
     public Set<OWLEntity> getReferencedEntities() {
     	return getSignature();
     }

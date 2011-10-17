@@ -155,8 +155,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     protected Internals internals;
 
-    //private OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
-
+    @SuppressWarnings("javadoc")
     public OWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
         super(manager.getOWLDataFactory());
         this.manager = manager;
@@ -229,7 +228,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 	/**
 	 * Gets the axioms which are of the specified type, possibly from the
 	 * imports closure of this ontology
-	 * 
+	 *
 	 * @param axiomType
 	 *            The type of axioms to be retrived.
 	 * @param includeImportsClosure
@@ -297,8 +296,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 		axioms.addAll(internals.getAnnotationAssertionAxiomsBySubject(subject));
 		return axioms;
 	}
-
-    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(IRI subject) {
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
+	public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(IRI subject) {
         return internals.getAnnotationAssertionAxiomsBySubject(subject);
     }
 
@@ -307,7 +307,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return internals.getGeneralClassAxioms();
     }
 
-
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
     public Set<OWLSubPropertyChainOfAxiom> getPropertyChainSubPropertyAxioms() {
         return internals.getPropertyChainSubPropertyAxioms();
     }
@@ -417,6 +418,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsClassInSignature(IRI owlClassIRI, boolean includeImportsClosure) {
+    	if(!includeImportsClosure) {
+    		return containsClassInSignature(owlClassIRI);
+    	}
         for (OWLOntology ont : manager.getImportsClosure(this)) {
             if (ont.containsClassInSignature(owlClassIRI)) {
                 return true;
@@ -430,6 +434,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsObjectPropertyInSignature(IRI propIRI, boolean includeImportsClosure) {
+    	if(!includeImportsClosure) {
+    		return containsObjectPropertyInSignature(propIRI);
+    	}
         for (OWLOntology ont : manager.getImportsClosure(this)) {
             if (ont.containsObjectPropertyInSignature(propIRI)) {
                 return true;
@@ -443,6 +450,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsDataPropertyInSignature(IRI propIRI, boolean includeImportsClosure) {
+    	if(!includeImportsClosure) {
+    		return containsDataPropertyInSignature(propIRI);
+    	}
         for (OWLOntology ont : manager.getImportsClosure(this)) {
             if (ont.containsDataPropertyInSignature(propIRI)) {
                 return true;
@@ -452,13 +462,14 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsAnnotationPropertyInSignature(IRI propIRI) {
-        boolean b = internals.containsOwlAnnotationPropertyReferences(getOWLDataFactory().getOWLAnnotationProperty(propIRI));
+        final OWLAnnotationProperty owlAnnotationProperty = getOWLDataFactory().getOWLAnnotationProperty(propIRI);
+		boolean b = internals.containsOwlAnnotationPropertyReferences(owlAnnotationProperty);
         if (b) {
             return true;
         }
         else {
             for (OWLAnnotation anno : internals.getOntologyAnnotations()) {
-                if (anno.getProperty().getIRI().equals(propIRI)) {
+                if (anno.getProperty().equals(owlAnnotationProperty)) {
                     return true;
                 }
             }
@@ -467,6 +478,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsAnnotationPropertyInSignature(IRI propIRI, boolean includeImportsClosure) {
+    	if(!includeImportsClosure) {
+    		return containsAnnotationPropertyInSignature(propIRI);
+    	}
         for (OWLOntology ont : manager.getImportsClosure(this)) {
             if (ont.containsAnnotationPropertyInSignature(propIRI)) {
                 return true;
@@ -481,7 +495,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 
     public boolean containsIndividualInSignature(IRI individualIRI, boolean includeImportsClosure) {
-    	//XXX imports closure should be taken into account
+    	if(!includeImportsClosure) {
+    		return containsIndividualInSignature(individualIRI);
+    	}
         for (OWLOntology ont : manager.getImportsClosure(this)) {
             if (ont.containsIndividualInSignature(individualIRI)) {
                 return true;
@@ -495,6 +511,9 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     public boolean containsDatatypeInSignature(IRI datatypeIRI, boolean includeImportsClosure) {
+    	if(!includeImportsClosure) {
+    		return containsDatatypeInSignature(datatypeIRI);
+    	}
         for (OWLOntology ont : manager.getImportsClosure(this)) {
             if (ont.containsDatatypeInSignature(datatypeIRI)) {
                 return true;
@@ -552,32 +571,38 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             return result;
         }
     }
-
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
     public boolean containsReference(OWLClass owlClass) {
         return internals.containsOwlClassReferences(owlClass);
     }
 
-
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
     public boolean containsReference(OWLObjectProperty prop) {
         return internals.containsOwlObjectPropertyReferences(prop);
     }
 
-
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
     public boolean containsReference(OWLDataProperty prop) {
         return internals.containsOwlDataPropertyReferences(prop);
     }
 
-
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
     public boolean containsReference(OWLNamedIndividual ind) {
         return internals.containsOwlIndividualReferences(ind);
     }
 
-
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
     public boolean containsReference(OWLDatatype dt) {
         return internals.containsOwlDatatypeReferences(dt);
     }
 
-
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
     public boolean containsReference(OWLAnnotationProperty property) {
         return internals.containsOwlAnnotationPropertyReferences(property);
     }
@@ -586,11 +611,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     public boolean isDeclared(OWLEntity entity) {
         return internals.isDeclared(getOWLDataFactory().getOWLDeclarationAxiom(entity));
     }
-	
+
 	 public Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype datatype) {
 		 return internals.getDatatypeDefinitions(datatype);
     }
-	
+
 	public Set<OWLSubAnnotationPropertyOfAxiom> getSubAnnotationPropertyOfAxioms(OWLAnnotationProperty subProperty) {
         return internals.getSubAnnotationPropertyOfAxioms(subProperty);
     }
@@ -611,10 +636,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
         if(includeImportsClosure) {
 		    for (OWLOntology ont : manager.getImportsClosure(this)) {
-		        if (!ont.equals(this)) {
-		            if (ont.isDeclared(owlEntity)) {
+		        if (!ont.equals(this) && ont.isDeclared(owlEntity)) {
 		                return true;
-		            }
 		        }
 		    }
         }
@@ -787,7 +810,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype) {
         return getDatatypeDefinitions(datatype);
     }
-
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
     public Set<OWLNamedObject> getReferencedObjects() {
         Set<OWLNamedObject> result = createSet();
         result.addAll(internals.getOwlClassReferences().keySet());
@@ -979,7 +1003,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
         return internals.getReturnSet(props);
     }
-
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
     public Set<OWLAnnotationProperty> getReferencedAnnotationProperties(boolean includeImportsClosure) {
         if (!includeImportsClosure) {
             return getAnnotationPropertiesInSignature();
@@ -1037,7 +1062,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return getOWLOntologyManager().getImportsClosure(this);
     }
 
-   
+
 
 
     public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(OWLClass cls) {
@@ -1254,7 +1279,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitor {
 
-        private List<OWLOntologyChange> appliedChanges;
+        private final List<OWLOntologyChange> appliedChanges;
 
 
         public OWLOntologyChangeFilter() {
@@ -1276,7 +1301,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
             OWLAxiom axiom = change.getAxiom();
             if (containsAxiom(axiom)) {
             	OWLAxiomVisitor changeVisitor = getAxiomVisitor(false);
-                
+
                 axiom.accept(changeVisitor);
                 appliedChanges.add(change);
                 handleAxiomRemoved(axiom);
@@ -1314,7 +1339,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         public void visit(RemoveImport change) {
             if (internals.removeImportsDeclaration(change.getImportDeclaration())) {
                 appliedChanges.add(change);
-                
+
             }
         }
 
@@ -1360,11 +1385,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         	internals.addLogicalAxiom2AnnotatedAxiomMap(axiom);
         }
     }
-    
+
     protected OWLNamedObjectReferenceAdder getReferenceAdder() {
     	return new OWLNamedObjectReferenceAdderImpl(internals);
     }
-    
+
     protected OWLNamedObjectReferenceRemover getReferenceRemover() {
     	return new OWLNamedObjectReferenceRemoverImpl(internals);
     }
@@ -1390,7 +1415,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
     }
 
-    
+
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1413,7 +1438,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         visitor.visit(this);
     }
 
-
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
     public void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
@@ -1443,7 +1469,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         OWLOntology other = (OWLOntology) obj;
         return ontologyID.equals(other.getOntologyID());
     }
-    
+
     @Override
     public int hashCode() {
     	return ontologyID.hashCode();
