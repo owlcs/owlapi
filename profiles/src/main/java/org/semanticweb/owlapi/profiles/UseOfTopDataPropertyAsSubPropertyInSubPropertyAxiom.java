@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends OWLProfileViolation implements OWL2DLProfileViolation {
 
     public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(OWLOntology ontology, OWLSubDataPropertyOfAxiom axiom) {

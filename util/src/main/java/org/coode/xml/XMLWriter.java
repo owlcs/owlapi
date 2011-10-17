@@ -53,6 +53,7 @@ import java.io.IOException;
  * Developed as part of the CO-ODE project
  * http://www.co-ode.org
  */
+@SuppressWarnings("javadoc")
 public interface XMLWriter {
 
     /**

@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class OntologyIRINotAbsolute extends OWLProfileViolation implements OWL2ProfileViolation {
 
     public OntologyIRINotAbsolute(OWLOntology ontology) {

@@ -75,8 +75,6 @@ public class OWL2Profile implements OWLProfile {
      * Checks an ontology and its import closure to see if it is within
      * this profile.
      * @param ontology The ontology to be checked.
-     * @param manager  A manager which can be used to obtain the imports closure
-     *                 of the ontology
      * @return An <code>OWLProfileReport</code> that describes whether or not the
      *         ontology is within this profile.
      */
@@ -90,9 +88,9 @@ public class OWL2Profile implements OWLProfile {
 
     private static class OWL2ProfileObjectWalker extends OWLOntologyWalkerVisitor<Object> {
 
-        private OWLOntologyManager man;
+        private final OWLOntologyManager man;
 
-        private Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
+        private final Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 
         public OWL2ProfileObjectWalker(OWLOntologyWalker walker, OWLOntologyManager man) {
             super(walker);

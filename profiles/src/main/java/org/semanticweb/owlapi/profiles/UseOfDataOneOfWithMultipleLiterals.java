@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfDataOneOfWithMultipleLiterals extends UseOfIllegalDataRange {
 
-    private OWLDataOneOf dataOneOf;
+    private final OWLDataOneOf dataOneOf;
 
     public UseOfDataOneOfWithMultipleLiterals(OWLOntology ontology, OWLAxiom axiom, OWLDataOneOf dataOneOf) {
         super(ontology, axiom, dataOneOf);

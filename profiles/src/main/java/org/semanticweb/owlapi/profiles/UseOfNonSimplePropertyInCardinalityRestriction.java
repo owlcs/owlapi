@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfNonSimplePropertyInCardinalityRestriction extends OWLProfileViolation implements OWL2DLProfileViolation {
 
-    private OWLObjectCardinalityRestriction restriction;
+    private final OWLObjectCardinalityRestriction restriction;
 
     public UseOfNonSimplePropertyInCardinalityRestriction(OWLOntology ontology, OWLAxiom axiom, OWLObjectCardinalityRestriction restriction) {
         super(ontology, axiom);

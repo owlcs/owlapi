@@ -55,6 +55,7 @@ import java.util.Set;
  * Developed as part of the CO-ODE project
  * http://www.co-ode.org
  */
+@SuppressWarnings("javadoc")
 public class XMLWriterNamespaceManager {
 
     private Map<String, String> prefixNamespaceMap;

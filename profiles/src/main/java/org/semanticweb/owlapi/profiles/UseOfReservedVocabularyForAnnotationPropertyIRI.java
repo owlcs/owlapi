@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfReservedVocabularyForAnnotationPropertyIRI extends OWLProfileViolation implements OWL2DLProfileViolation {
 
-    private OWLAnnotationProperty property;
+    private final OWLAnnotationProperty property;
 
     public UseOfReservedVocabularyForAnnotationPropertyIRI(OWLOntology ontology, OWLAxiom axiom, OWLAnnotationProperty property) {
         super(ontology, axiom);

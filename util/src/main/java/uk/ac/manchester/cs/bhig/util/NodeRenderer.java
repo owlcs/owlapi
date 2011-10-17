@@ -63,8 +63,13 @@ package uk.ac.manchester.cs.bhig.util;/*
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 27-Nov-2008
+ * @param <N> type of nodes to render
  */
 public interface NodeRenderer<N> {
 
+    /**
+     * @param node the node to render
+     * @return the rendering
+     */
     String render(Tree<N> node);
 }

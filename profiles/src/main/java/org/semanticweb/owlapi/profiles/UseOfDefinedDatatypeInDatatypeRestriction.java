@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfDefinedDatatypeInDatatypeRestriction extends OWLProfileViolation implements OWL2ProfileViolation {
 
-    private OWLDatatypeRestriction restriction;
+    private final OWLDatatypeRestriction restriction;
 
     public UseOfDefinedDatatypeInDatatypeRestriction(OWLOntology ontology, OWLAxiom axiom, OWLDatatypeRestriction restriction) {
         super(ontology, axiom);

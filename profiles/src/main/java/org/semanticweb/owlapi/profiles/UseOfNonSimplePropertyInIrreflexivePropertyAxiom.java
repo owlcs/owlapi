@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends OWLProfileViolation implements OWL2DLProfileViolation {
 
     public UseOfNonSimplePropertyInIrreflexivePropertyAxiom(OWLOntology ontology, OWLIrreflexiveObjectPropertyAxiom axiom) {

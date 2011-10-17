@@ -77,13 +77,17 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 @SuppressWarnings("unused")
 public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor {
 
-    private Set<OWLClassExpression> result;
+    private final Set<OWLClassExpression> result;
 
-
+    @SuppressWarnings("javadoc")
     public OWLObjectComplementOfExtractor() {
         result = new HashSet<OWLClassExpression>();
     }
 
+    /**
+     * @param desc the class to look for
+     * @return the complemented expressions
+     */
     public Set<OWLClassExpression> getComplementedClassExpressions(OWLClassExpression desc) {
     	// XXX a stateless visitor would not need copies
         reset();
@@ -91,6 +95,9 @@ public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor
         return new HashSet<OWLClassExpression>(result);
     }
 
+    /**
+     * clear the visitor
+     */
     public void reset() {
         result.clear();
     }

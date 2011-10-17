@@ -50,7 +50,15 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  */
 public interface NormalFormRewriter {
 
+    /**
+     * @param classExpression expression to check
+     * @return true if classExpression is in normal form
+     */
     boolean isInNormalForm(OWLClassExpression classExpression);
 
+    /**
+     * @param classExpression the expression to convert
+     * @return the converted expression
+     */
     OWLClassExpression convertToNormalForm(OWLClassExpression classExpression);
 }

@@ -50,6 +50,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 22-Jan-2008<br><br>
+ * @param <N> the kind of elements in the tree
  */
 public interface Tree<N> {
 
@@ -77,6 +78,10 @@ public interface Tree<N> {
      */
     List<Tree<N>> getChildren();
 
+    /**
+     * @param child the child to use
+     * @return the object stored as edge
+     */
     Object getEdge(Tree<N> child);
 
 
@@ -117,18 +122,40 @@ public interface Tree<N> {
      */
     Tree<N> getRoot();
 
+    /**
+     * @return the path to the root
+     */
     List<Tree<N>> getPathToRoot();
 
+    /**
+     * @return the elements in the path to root
+     */
     List<N> getUserObjectPathToRoot();
 
+    /**
+     * @param writer the writer to print to
+     */
     void dump(PrintWriter writer);
 
+    /**
+     * @param writer the writer to print to
+     * @param indent how much to indent
+     */
     void dump(PrintWriter writer, int indent);
 
+    /**
+     * @param renderer the renderer to use
+     */
     void setNodeRenderer(NodeRenderer<N> renderer);
 
+    /**
+     * @return the set of user objects
+     */
     Set<N> getUserObjectClosure();
 
+    /**
+     * @return the list of elements
+     */
     List<N> fillDepthFirst();
 
 

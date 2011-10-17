@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfAnonymousIndividual extends OWLProfileViolation implements OWL2ELProfileViolation, OWL2QLProfileViolation {
 
-    private OWLAnonymousIndividual individual;
+    private final OWLAnonymousIndividual individual;
 
     public UseOfAnonymousIndividual(OWLOntology ontology, OWLAxiom axiom, OWLAnonymousIndividual individual) {
         super(ontology, axiom);

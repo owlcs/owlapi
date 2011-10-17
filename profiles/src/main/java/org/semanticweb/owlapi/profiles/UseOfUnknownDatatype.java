@@ -52,9 +52,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * the datatype IRI doesn't begin with the xsd: prefix, the datatype isn't rdfs:Literal, and the
  * datatype isn't defined with a DatatypeDefinition axiom
  */
+@SuppressWarnings("javadoc")
 public class UseOfUnknownDatatype extends OWLProfileViolation implements OWL2ProfileViolation {
 
-    private OWLDatatype datatype;
+    private final OWLDatatype datatype;
 
     public UseOfUnknownDatatype(OWLOntology ontology, OWLAxiom axiom, OWLDatatype datatype) {
         super(ontology, axiom);

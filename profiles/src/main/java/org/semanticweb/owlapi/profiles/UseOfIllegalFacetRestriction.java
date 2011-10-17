@@ -50,11 +50,12 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfIllegalFacetRestriction extends OWLProfileViolation implements OWL2ProfileViolation {
 
-    private OWLDatatypeRestriction datatypeRestriction;
+    private final OWLDatatypeRestriction datatypeRestriction;
 
-    private OWLFacet facet;
+    private final OWLFacet facet;
 
     public UseOfIllegalFacetRestriction(OWLOntology ontology, OWLAxiom axiom, OWLDatatypeRestriction dtr, OWLFacet facet) {
         super(ontology, axiom);

@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfObjectPropertyInverse extends OWLProfileViolation implements  OWL2ELProfileViolation {
 
-    private OWLObjectPropertyExpression propertyExpression;
+    private final OWLObjectPropertyExpression propertyExpression;
 
     public UseOfObjectPropertyInverse(OWLOntology ontology, OWLAxiom axiom, OWLObjectPropertyExpression propertyExpression) {
         super(ontology, axiom);

@@ -52,11 +52,14 @@ import org.semanticweb.owlapi.util.NNF;
  */
 public class NegationalNormalFormConverter implements NormalFormRewriter {
 
-    private NNF nnf;
+    private final NNF nnf;
 
-    private OWLObjectComplementOfExtractor extractor;
+    private final OWLObjectComplementOfExtractor extractor;
 
 
+    /**
+     * @param dataFactory the factory
+     */
     public NegationalNormalFormConverter(OWLDataFactory dataFactory) {
         nnf = new NNF(dataFactory);
         extractor = new OWLObjectComplementOfExtractor();

@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassExpression implements OWL2ELProfileViolation {
 
-    private OWLObjectOneOf oneOf;
+    private final OWLObjectOneOf oneOf;
 
     public UseOfObjectOneOfWithMultipleIndividuals(OWLOntology ontology, OWLAxiom axiom, OWLObjectOneOf oneOf) {
         super(ontology, axiom, oneOf);

@@ -48,6 +48,7 @@ package org.coode.xml;
  * </p>
  * An exception which indicates that a caller tried to write an XML Element with a name that is not a QName.
  */
+@SuppressWarnings("javadoc")
 public class IllegalElementNameException extends RuntimeException {
 
     private String elementName;

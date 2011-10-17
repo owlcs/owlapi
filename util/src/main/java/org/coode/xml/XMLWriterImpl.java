@@ -67,6 +67,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * Developed as part of the CO-ODE project
  * http://www.co-ode.org
  */
+@SuppressWarnings("javadoc")
 public class XMLWriterImpl implements XMLWriter {
 
 
@@ -95,7 +96,7 @@ public class XMLWriterImpl implements XMLWriter {
         this.xmlWriterNamespaceManager = xmlWriterNamespaceManager;
         this.xmlBase = xmlBase;
         this.xmlBaseURI = URI.create(xmlBase);
-        // no need to set it to UTF-8: it's supposed to be the default encoding for XML. 
+        // no need to set it to UTF-8: it's supposed to be the default encoding for XML.
         //Must be set correctly for the Writer anyway, or bugs will ensue.
         //this.encoding = "UTF-8";
         elementStack = new Stack<XMLElement>();

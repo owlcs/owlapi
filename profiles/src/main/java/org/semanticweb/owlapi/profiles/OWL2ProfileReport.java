@@ -51,11 +51,17 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  */
 public class OWL2ProfileReport extends OWLProfileReport {
 
-    private Set<OWLObjectPropertyExpression> nonSimpleRoles;
+    private final Set<OWLObjectPropertyExpression> nonSimpleRoles;
 
-    private Set<OWLObjectPropertyExpression> simpleRoles;
+    private final Set<OWLObjectPropertyExpression> simpleRoles;
 
 
+    /**
+     * @param profile the profile
+     * @param disallowedConstructs the constructs not allowed
+     * @param nonSimpleRoles the collection of non simple roles
+     * @param simpleRoles the collection of simple roles
+     */
     public OWL2ProfileReport(OWLProfile profile, Set<OWLProfileViolation> disallowedConstructs, Set<OWLObjectPropertyExpression> nonSimpleRoles, Set<OWLObjectPropertyExpression> simpleRoles) {
         super(profile, disallowedConstructs);
         this.nonSimpleRoles = new TreeSet<OWLObjectPropertyExpression>(nonSimpleRoles);
@@ -63,11 +69,17 @@ public class OWL2ProfileReport extends OWLProfileReport {
     }
 
 
+    /**
+     * @return the non simple roles
+     */
     public Set<OWLObjectPropertyExpression> getNonSimpleRoles() {
         return nonSimpleRoles;
     }
 
 
+    /**
+     * @return he simple roles
+     */
     public Set<OWLObjectPropertyExpression> getSimpleRoles() {
         return simpleRoles;
     }

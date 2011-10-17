@@ -50,12 +50,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation implements OWL2DLProfileViolation {
 
 
-    private OWLAnnotationProperty property;
+    private final OWLAnnotationProperty property;
 
-    private OWLAnnotation annotation;
+    private final OWLAnnotation annotation;
 
     public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, OWLAxiom axiom, OWLAnnotation annotation, OWLAnnotationProperty prop) {
         super(ontology, axiom);
@@ -71,15 +72,10 @@ public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation imple
         return annotation;
     }
 
-    public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, OWLAxiom axiom, OWLAnnotation annotation) {
-        super(ontology, axiom);
-        this.annotation = annotation;
-    }
-
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
-    
+
     @Override
 	public String toString() {
         StringBuilder sb = new StringBuilder();

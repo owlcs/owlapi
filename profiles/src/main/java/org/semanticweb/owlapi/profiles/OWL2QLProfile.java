@@ -100,9 +100,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 18-Jul-2009
  */
+@SuppressWarnings("javadoc")
 public class OWL2QLProfile implements OWLProfile {
 
-    private Set<IRI> allowedDatatypes = new HashSet<IRI>();
+    private final Set<IRI> allowedDatatypes = new HashSet<IRI>();
 
     public OWL2QLProfile() {
         allowedDatatypes.add(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
@@ -153,10 +154,10 @@ public class OWL2QLProfile implements OWLProfile {
         violations.addAll(visitor.getProfileViolations());
         return new OWLProfileReport(this, violations);
     }
-    
+
     private class OWL2QLObjectVisitor extends OWLOntologyWalkerVisitor<Object> {
 
-        private Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
+        private final Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 
          OWL2QLObjectVisitor(OWLOntologyWalker walker) {
             super(walker);
@@ -344,7 +345,7 @@ public class OWL2QLProfile implements OWLProfile {
     private static class OWL2QLSubClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
     	public OWL2QLSubClassExpressionChecker() {
-		
+
 		}
         public Boolean visit(OWLClass desc) {
             return true;
@@ -420,7 +421,7 @@ public class OWL2QLProfile implements OWLProfile {
     }
 
 
-    private OWL2QLSubClassExpressionChecker subClassExpressionChecker = new OWL2QLSubClassExpressionChecker();
+    private final OWL2QLSubClassExpressionChecker subClassExpressionChecker = new OWL2QLSubClassExpressionChecker();
 
     protected boolean isOWL2QLSubClassExpression(OWLClassExpression ce) {
             return ce.accept(subClassExpressionChecker);
@@ -429,7 +430,7 @@ public class OWL2QLProfile implements OWLProfile {
     private class OWL2QLSuperClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
     	public OWL2QLSuperClassExpressionChecker() {
-		
+
 		}
         public Boolean visit(OWLClass desc) {
             return true;
@@ -509,7 +510,7 @@ public class OWL2QLProfile implements OWLProfile {
         }
     }
 
-    private OWL2QLSuperClassExpressionChecker superClassExpressionChecker = new OWL2QLSuperClassExpressionChecker();
+    private final OWL2QLSuperClassExpressionChecker superClassExpressionChecker = new OWL2QLSuperClassExpressionChecker();
 
     public boolean isOWL2QLSuperClassExpression(OWLClassExpression ce) {
         return ce.accept(superClassExpressionChecker);

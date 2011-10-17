@@ -52,9 +52,9 @@ import java.util.Set;
  */
 public class OWLProfileReport {
 
-    private OWLProfile profile;
+    private final OWLProfile profile;
 
-    private List<OWLProfileViolation> violations;
+    private final List<OWLProfileViolation> violations;
 
 
     /**

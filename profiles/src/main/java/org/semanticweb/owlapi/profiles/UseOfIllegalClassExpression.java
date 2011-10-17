@@ -51,9 +51,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *
  * Indicates that a class expression in an axiom is not in the profile
  */
+@SuppressWarnings("javadoc")
 public class UseOfIllegalClassExpression extends OWLProfileViolation implements OWL2ELProfileViolation {
 
-    private OWLClassExpression classExpression;
+    private final OWLClassExpression classExpression;
 
     public UseOfIllegalClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
         super(ontology, axiom);

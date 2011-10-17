@@ -95,9 +95,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class OWL2RLProfile implements OWLProfile {
 
-    private Set<IRI> allowedDatatypes = new HashSet<IRI>();
+    private final Set<IRI> allowedDatatypes = new HashSet<IRI>();
 
     public OWL2RLProfile() {
         allowedDatatypes.add(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
@@ -165,7 +166,7 @@ public class OWL2RLProfile implements OWLProfile {
 
     private class OWL2RLObjectVisitor extends OWLOntologyWalkerVisitor<Object> {
 
-        private Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
+        private final Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 
         OWL2RLObjectVisitor(OWLOntologyWalker walker) {
             super(walker);
@@ -276,10 +277,10 @@ public class OWL2RLProfile implements OWLProfile {
             return super.visit(rule);
         }
 
-        @Override
-		public Object visit(OWLDataComplementOf node) {
-            return super.visit(node);
-        }
+//        @Override
+//		public Object visit(OWLDataComplementOf node) {
+//            return super.visit(node);
+//        }
 
         @Override
 		public Object visit(OWLDataIntersectionOf node) {
@@ -412,7 +413,7 @@ public class OWL2RLProfile implements OWLProfile {
     }
 
 
-    private OWL2RLSubClassExpressionChecker subClassExpressionChecker = new OWL2RLSubClassExpressionChecker();
+    private final OWL2RLSubClassExpressionChecker subClassExpressionChecker = new OWL2RLSubClassExpressionChecker();
 
     protected boolean isOWL2RLSubClassExpression(OWLClassExpression ce) {
         return ce.accept(subClassExpressionChecker);
@@ -503,7 +504,7 @@ public class OWL2RLProfile implements OWLProfile {
         }
     }
 
-    private OWL2RLSuperClassExpressionChecker superClassExpressionChecker = new OWL2RLSuperClassExpressionChecker();
+    private final OWL2RLSuperClassExpressionChecker superClassExpressionChecker = new OWL2RLSuperClassExpressionChecker();
 
     public boolean isOWL2RLSuperClassExpression(OWLClassExpression ce) {
         return ce.accept(superClassExpressionChecker);
@@ -513,7 +514,7 @@ public class OWL2RLProfile implements OWLProfile {
     private static class OWL2RLEquivalentClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
     	public OWL2RLEquivalentClassExpressionChecker() {
-		
+
 		}
         public Boolean visit(OWLClass desc) {
             return !desc.isOWLThing();
@@ -593,7 +594,7 @@ public class OWL2RLProfile implements OWLProfile {
         }
     }
 
-    private OWL2RLEquivalentClassExpressionChecker equivalentClassExpressionChecker = new OWL2RLEquivalentClassExpressionChecker();
+    private final OWL2RLEquivalentClassExpressionChecker equivalentClassExpressionChecker = new OWL2RLEquivalentClassExpressionChecker();
 
     public boolean isOWL2RLEquivalentClassExpression(OWLClassExpression ce) {
         return ce.accept(equivalentClassExpressionChecker);

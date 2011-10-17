@@ -45,6 +45,6 @@ package org.semanticweb.owlapi.profiles;
  * Date: 03-Aug-2009
  */
 public interface OWL2ProfileViolation {
-
+	@SuppressWarnings("javadoc")
     void accept(OWL2ProfileViolationVisitor visitor);
 }

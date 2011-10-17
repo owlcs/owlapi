@@ -133,9 +133,9 @@ public class OWL2DLProfile implements OWLProfile {
 
         private OWLObjectPropertyManager objectPropertyManager = null;
 
-        private OWLOntologyManager manager;
+        private final OWLOntologyManager manager;
 
-        private Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
+        private final Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 
          OWL2DLProfileObjectVisitor(OWLOntologyWalker walker, OWLOntologyManager manager) {
             super(walker);

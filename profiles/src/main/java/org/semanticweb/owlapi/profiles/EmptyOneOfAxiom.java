@@ -2,7 +2,7 @@ package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-
+@SuppressWarnings("javadoc")
 public class EmptyOneOfAxiom extends OWLProfileViolation implements
 		OWL2DLProfileViolation, OWL2ELProfileViolation, OWL2ProfileViolation,
 		OWL2QLProfileViolation, OWL2RLProfileViolation {

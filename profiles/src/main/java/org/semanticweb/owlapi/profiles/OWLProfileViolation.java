@@ -60,11 +60,11 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
  */
 public class OWLProfileViolation {
 
-    private OWLOntologyID ontologyID;
+    private final OWLOntologyID ontologyID;
 
-    private Map<OWLOntologyID, IRI> importsClosureMap = new HashMap<OWLOntologyID, IRI>();
+    private final Map<OWLOntologyID, IRI> importsClosureMap = new HashMap<OWLOntologyID, IRI>();
 
-    private OWLAxiom axiom;
+    private final OWLAxiom axiom;
 
     /**
      * @param ontology the ontology with the violation

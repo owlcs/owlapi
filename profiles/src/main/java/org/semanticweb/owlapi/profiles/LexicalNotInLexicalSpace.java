@@ -49,11 +49,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class LexicalNotInLexicalSpace extends OWLProfileViolation implements OWL2ProfileViolation {
 
-    private OWLLiteral literal;
+    private final OWLLiteral literal;
 
-    public LexicalNotInLexicalSpace(OWLOntology ontology, OWLAxiom axiom, OWLLiteral literal) {
+	public LexicalNotInLexicalSpace(OWLOntology ontology, OWLAxiom axiom, OWLLiteral literal) {
         super(ontology, axiom);
         this.literal = literal;
     }

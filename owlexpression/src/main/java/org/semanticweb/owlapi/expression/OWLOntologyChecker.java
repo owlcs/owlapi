@@ -47,6 +47,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public interface OWLOntologyChecker {
 
+    /**
+     * @param name the ontology name
+     * @return the ontology
+     */
     OWLOntology getOntology(String name);
 
 }

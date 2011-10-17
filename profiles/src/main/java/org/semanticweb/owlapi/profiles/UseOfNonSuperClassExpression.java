@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfNonSuperClassExpression extends OWLProfileViolation implements OWL2QLProfileViolation, OWL2RLProfileViolation {
 
-    private OWLClassExpression classExpression;
+    private final OWLClassExpression classExpression;
 
     public UseOfNonSuperClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
         super(ontology, axiom);

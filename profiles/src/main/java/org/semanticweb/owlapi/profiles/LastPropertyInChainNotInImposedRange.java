@@ -49,11 +49,12 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation implements OWL2ELProfileViolation {
 
-    private OWLSubPropertyChainOfAxiom axiom;
+    private final OWLSubPropertyChainOfAxiom axiom;
 
-    private OWLObjectPropertyRangeAxiom rangeAxiom;
+    private final OWLObjectPropertyRangeAxiom rangeAxiom;
 
     public LastPropertyInChainNotInImposedRange(OWLOntology ontology, OWLSubPropertyChainOfAxiom axiom, OWLObjectPropertyRangeAxiom rangeAxiom) {
         super(ontology, axiom);

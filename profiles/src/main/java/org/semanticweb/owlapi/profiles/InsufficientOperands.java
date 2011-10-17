@@ -1,14 +1,13 @@
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
-
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntology;
-
+@SuppressWarnings("javadoc")
 public class InsufficientOperands extends OWLProfileViolation implements
 		OWL2DLProfileViolation, OWL2ELProfileViolation, OWL2ProfileViolation,
 		OWL2QLProfileViolation, OWL2RLProfileViolation {
-	private OWLObject expression;
+	private final OWLObject expression;
 
 	public InsufficientOperands(OWLOntology currentOntology, OWLAxiom node,
 			OWLObject c) {

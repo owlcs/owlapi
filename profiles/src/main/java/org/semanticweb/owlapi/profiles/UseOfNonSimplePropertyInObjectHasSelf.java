@@ -50,9 +50,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation implements OWL2DLProfileViolation {
 
-    private OWLObjectHasSelf hasSelf;
+    private final OWLObjectHasSelf hasSelf;
 
     public UseOfNonSimplePropertyInObjectHasSelf(OWLOntology ontology, OWLAxiom axiom, OWLObjectHasSelf hasSelf) {
         super(ontology, axiom);

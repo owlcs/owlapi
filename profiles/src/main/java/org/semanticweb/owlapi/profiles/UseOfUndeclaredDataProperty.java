@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfUndeclaredDataProperty extends OWLProfileViolation implements OWL2DLProfileViolation {
 
-    private OWLDataProperty property;
+    private final OWLDataProperty property;
 
     public UseOfUndeclaredDataProperty(OWLOntology ontology, OWLAxiom axiom, OWLDataProperty prop) {
         super(ontology, axiom);

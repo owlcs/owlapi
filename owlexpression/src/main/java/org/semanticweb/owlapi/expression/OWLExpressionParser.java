@@ -47,10 +47,19 @@ package org.semanticweb.owlapi.expression;
  *
  * A general purpose interface which provides the ability to
  * parse some expression into some kind of object.
+ * @param <O> the kind of parsed expression
  */
 public interface OWLExpressionParser<O extends Object> {
 
+    /**
+     * @param entityChecker the entity checker to use
+     */
     void setOWLEntityChecker(OWLEntityChecker entityChecker);
 
+    /**
+     * @param expression the expression to parse
+     * @return the parsed expression
+     * @throws ParserException
+     */
     O parse(String expression) throws ParserException;
 }

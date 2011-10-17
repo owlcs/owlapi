@@ -55,19 +55,23 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 22-Jan-2008<br><br>
+ * @param <N> type of elements
  */
 public class MutableTree<N> implements Tree<N> {
 
-    private N userObject;
+    private final N userObject;
 
     private MutableTree<N> parent;
 
-    private List<MutableTree<N>> children;
+    private final List<MutableTree<N>> children;
 
-    private Map<Tree<N>, Object> child2EdgeMap;
+    private final Map<Tree<N>, Object> child2EdgeMap;
 
     private NodeRenderer<N> toStringRenderer;
 
+    /**
+     * @param userObject the user object
+     */
     public MutableTree(N userObject) {
         this.userObject = userObject;
         children = new ArrayList<MutableTree<N>>();
@@ -84,6 +88,10 @@ public class MutableTree<N> implements Tree<N> {
     }
 
 
+    /**
+     * @param parent the new parent
+     */
+    //XXX not in the interface
     public void setParent(MutableTree<N> parent) {
         if (this.parent != null) {
             this.parent.children.remove(this);
@@ -93,17 +101,27 @@ public class MutableTree<N> implements Tree<N> {
     }
 
 
+    /**
+     * @param child child to add
+     */
     public void addChild(MutableTree<N> child) {
         children.add(child);
         child.parent = this;
     }
-
+    /**
+     * @param child child to add
+     * @param edge the edge
+     */
+    //XXX not in the interface
     public void addChild(MutableTree<N> child, Object edge) {
         addChild(child);
         child2EdgeMap.put(child, edge);
     }
 
 
+    /**
+     * @param child child to remove
+     */
     public void removeChild(MutableTree<N> child) {
         children.remove(child);
         child.parent = null;
@@ -120,6 +138,10 @@ public class MutableTree<N> implements Tree<N> {
     }
 
 
+    /**
+     * remove all children
+     */
+    //XXX not in the interface
     public void clearChildren() {
         for (MutableTree<N> child : new ArrayList<MutableTree<N>>(children)) {
             removeChild(child);
@@ -245,6 +267,10 @@ public class MutableTree<N> implements Tree<N> {
         }
     }
 
+    /**
+     * @param tree the node to put in place of this one
+     */
+    //XXX not in the interface
     public void replace(MutableTree<N> tree) {
         parent.children.remove(this);
         parent.children.add(tree);
@@ -265,12 +291,20 @@ public class MutableTree<N> implements Tree<N> {
     }
 
 
+    /**
+     * @return the size
+     */
+    //XXX not in the interface
     public int getSize() {
         return getUserObjectClosure().size();
     }
 
 
 
+    /**
+     * @return the max depth
+     */
+    //XXX not in the interface
     public int getMaxDepth() {
         return getMaxDepth(this);
     }

@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfIllegalDataRange extends OWLProfileViolation implements OWL2ELProfileViolation, OWL2QLProfileViolation, OWL2RLProfileViolation {
 
-    private OWLDataRange dataRange;
+    private final OWLDataRange dataRange;
 
     public UseOfIllegalDataRange(OWLOntology ontology, OWLAxiom axiom, OWLDataRange dataRange) {
         super(ontology, axiom);

@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends OWLProfileViolation implements OWL2DLProfileViolation {
 
-    private OWLObjectPropertyExpression prop;
+    private final OWLObjectPropertyExpression prop;
 
     public UseOfNonSimplePropertyInDisjointPropertiesAxiom(OWLOntology ontology, OWLDisjointObjectPropertiesAxiom axiom, OWLObjectPropertyExpression prop) {
         super(ontology, axiom);

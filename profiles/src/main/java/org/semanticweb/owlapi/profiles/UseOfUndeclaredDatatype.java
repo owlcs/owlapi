@@ -52,15 +52,16 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Specifies that a datatype is not declared
  *
  */
+@SuppressWarnings("javadoc")
 public class UseOfUndeclaredDatatype extends OWLProfileViolation implements OWL2ProfileViolation {
 
-    private OWLDatatype datatype;
+    private final OWLDatatype datatype;
 
     public UseOfUndeclaredDatatype(OWLOntology ontology, OWLAxiom axiom, OWLDatatype datatype) {
         super(ontology, axiom);
         this.datatype = datatype;
     }
-    
+
     public void accept(OWL2ProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

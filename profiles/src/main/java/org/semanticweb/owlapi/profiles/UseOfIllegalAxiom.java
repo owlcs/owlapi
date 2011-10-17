@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfIllegalAxiom extends OWLProfileViolation implements OWL2ELProfileViolation, OWL2QLProfileViolation, OWL2RLProfileViolation {
 
     public UseOfIllegalAxiom(OWLOntology ontology, OWLAxiom axiom) {

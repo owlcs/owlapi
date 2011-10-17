@@ -51,6 +51,7 @@ package org.coode.xml;
  * Developed as part of the CO-ODE project
  * http://www.co-ode.org
  */
+@SuppressWarnings("javadoc")
 public class XMLWriterPreferences {
 
     private static XMLWriterPreferences instance = new XMLWriterPreferences();

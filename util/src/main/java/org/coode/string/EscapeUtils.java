@@ -80,6 +80,10 @@ public class EscapeUtils {
     }
 
 
+    /**
+     * @param s string to unescape
+     * @return the unescaped string
+     */
     public static String unescapeString(String s) {
         if (s.indexOf('\\') == -1) {
             return s;
@@ -108,6 +112,10 @@ public class EscapeUtils {
     }
 
 
+    /**
+     * @param s the xml string to escape
+     * @return the escaped string
+     */
     public static String escapeXML(String s) {
         // double quote -- quot
         // ampersand    -- amp

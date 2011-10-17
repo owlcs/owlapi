@@ -95,12 +95,13 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class OWL2ELProfile implements OWLProfile {
 
-    protected Set<IRI> allowedDatatypes;
+    protected final Set<IRI> allowedDatatypes;
 
     //private OWLOntology ont;
 
 
-    public OWL2ELProfile() {
+    @SuppressWarnings("javadoc")
+	public OWL2ELProfile() {
         allowedDatatypes = new HashSet<IRI>();
         allowedDatatypes.add(OWLRDFVocabulary.RDF_XML_LITERAL.getIRI());
         allowedDatatypes.add(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
@@ -144,11 +145,11 @@ public class OWL2ELProfile implements OWLProfile {
 
     protected class OWL2ELProfileObjectVisitor extends OWLOntologyWalkerVisitor<Object> {
 
-        private OWLOntologyManager man;
+        private final OWLOntologyManager man;
 
         private OWLObjectPropertyManager propertyManager;
 
-        private Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
+        private final Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 
         public OWL2ELProfileObjectVisitor(OWLOntologyWalker walker, OWLOntologyManager man) {
             super(walker);
@@ -392,5 +393,5 @@ public class OWL2ELProfile implements OWLProfile {
     }
 
 
-   
+
 }

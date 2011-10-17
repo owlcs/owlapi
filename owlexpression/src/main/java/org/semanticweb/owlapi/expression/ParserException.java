@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Bio-Health Informatics Group<br>
  * Date: 11-Sep-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class ParserException extends Exception {
 
     private String currentToken;
@@ -82,8 +83,7 @@ public class ParserException extends Exception {
 
     private int startPos;
 
-
-    public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber, boolean ontologyNameExpected, String ... keywords) {
+	public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber, boolean ontologyNameExpected, String ... keywords) {
         this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false, false, keywords);
         this.ontologyNameExpected = ontologyNameExpected;
     }
@@ -133,7 +133,7 @@ public class ParserException extends Exception {
     public ParserException(List<String> tokenSequence, int lineNumber, int columnNumber, boolean integerExpected,
                            int startPos) {
         this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false, false, new HashSet<String>());
-        this.integerExpected = true;
+        this.integerExpected = integerExpected;
     }
 
 

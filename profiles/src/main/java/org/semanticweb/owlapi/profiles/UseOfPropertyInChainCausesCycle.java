@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
  * Information Management Group<br>
  * Date: 03-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class UseOfPropertyInChainCausesCycle extends OWLProfileViolation implements OWL2DLProfileViolation {
 
-    private OWLObjectPropertyExpression property;
+    private final OWLObjectPropertyExpression property;
 
     public UseOfPropertyInChainCausesCycle(OWLOntology ontology, OWLSubPropertyChainOfAxiom axiom, OWLObjectPropertyExpression property) {
         super(ontology, axiom);
