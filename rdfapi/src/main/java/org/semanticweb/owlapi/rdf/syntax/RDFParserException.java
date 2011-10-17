@@ -52,6 +52,7 @@ import org.xml.sax.SAXException;
 /**
  * Throws if an RDF error is encountered while parsing RDF.
  */
+@SuppressWarnings("javadoc")
 public class RDFParserException extends SAXException {
 
     protected String m_publicId;

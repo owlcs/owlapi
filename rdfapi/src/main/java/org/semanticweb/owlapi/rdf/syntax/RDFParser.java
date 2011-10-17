@@ -74,7 +74,7 @@ import org.xml.sax.helpers.LocatorImpl;
 /**
  * This class parses the RDF according to the syntax specified in <a href="http://www.w3.org/TR/rdf-syntax-grammar/">http://www.w3.org/TR/rdf-syntax-grammar/</a>.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","javadoc"})
 public class RDFParser extends DefaultHandler implements RDFConstants {
 
     protected static final Locator s_nullDocumentLocator = new LocatorImpl();
@@ -393,7 +393,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     	// resolve against delegate
         return IRI.create(delegateURI.resolve(value));
     }
-    
+
     /**
      * Processes xml:base reference if there is one.
      * @param atts the attributes potentially containing xml:base declaration
@@ -461,7 +461,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
                     String u = theIRI.toString();
                     uriCache.put(u, theIRI);
                     resolvedIRIs.put(uri, u);
-                    return u;  
+                    return u;
                 }
             }
             catch (IllegalArgumentException e) {

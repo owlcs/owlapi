@@ -56,10 +56,12 @@ public interface RDFConsumer {
      * Called when model parsing is started.
      *
      * @param physicalURI           physical URI of the model
+     * @throws SAXException
      */
     void startModel(String physicalURI) throws SAXException;
     /**
      * Called when model parsing is finished.
+     * @throws SAXException
      */
     void endModel() throws SAXException;
     /**
@@ -68,6 +70,7 @@ public interface RDFConsumer {
      * @param subject               URI of the subject resource
      * @param predicate             URI of the predicate resource
      * @param object                URI of the object resource
+     * @throws SAXException
      */
     void statementWithResourceValue(String subject,String predicate,String object) throws SAXException;
     /**
@@ -78,12 +81,14 @@ public interface RDFConsumer {
      * @param object                literal object value
      * @param language              the language
      * @param datatype              the URI of the literal's datatype (may be <code>null</code>)
+     * @throws SAXException
      */
     void statementWithLiteralValue(String subject,String predicate,String object,String language,String datatype) throws SAXException;
     /**
      * Receives the logical URI of the model.
      *
      * @param logicalURI            logical URI of the model
+     * @throws SAXException
      */
     void logicalURI(String logicalURI) throws SAXException;
     /**
@@ -91,6 +96,7 @@ public interface RDFConsumer {
      *
      * @param logicalURI            logical URI of the model
      * @param physicalURI           physical URI of the model
+     * @throws SAXException
      */
     void includeModel(String logicalURI,String physicalURI) throws SAXException;
     /**
@@ -98,6 +104,7 @@ public interface RDFConsumer {
      *
      * @param key                   the key of the attribute
      * @param value                 the value of the attribute
+     * @throws SAXException
      */
     void addModelAttribte(String key,String value) throws SAXException;
 }
