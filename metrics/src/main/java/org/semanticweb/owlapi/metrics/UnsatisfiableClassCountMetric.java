@@ -54,8 +54,11 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  */
 public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
 
-    private OWLReasoner reasoner;
-
+    private final OWLReasoner reasoner;
+    /**
+     * @param owlOntologyManager manager to use
+     * @param reasoner the reasoner
+     */
     public UnsatisfiableClassCountMetric(OWLReasoner reasoner, OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
         this.reasoner = reasoner;

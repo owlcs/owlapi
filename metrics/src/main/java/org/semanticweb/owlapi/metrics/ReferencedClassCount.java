@@ -53,7 +53,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Date: 27-Jul-2007<br><br>
  */
 public class ReferencedClassCount extends ObjectCountMetric<OWLClass> {
-
+    /**
+     * @param owlOntologyManager manager to use
+     */
     public ReferencedClassCount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

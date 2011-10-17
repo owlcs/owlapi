@@ -59,7 +59,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
 
-
+    /**
+     * @param owlOntologyManager manager to use
+     */
     public MaximumNumberOfNamedSuperclasses(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

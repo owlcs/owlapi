@@ -55,9 +55,12 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public class AxiomTypeMetric extends AxiomCountMetric {
 
-    private AxiomType<?> axiomType;
+    private final AxiomType<?> axiomType;
 
-
+    /**
+     * @param owlOntologyManager manager to use
+     * @param axiomType type of axioms
+     */
     public AxiomTypeMetric(OWLOntologyManager owlOntologyManager, AxiomType<?> axiomType) {
         super(owlOntologyManager);
         this.axiomType = axiomType;
@@ -76,6 +79,9 @@ public class AxiomTypeMetric extends AxiomCountMetric {
     }
 
 
+    /**
+     * @return axiom type
+     */
     public AxiomType<?> getAxiomType() {
         return axiomType;
     }

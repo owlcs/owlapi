@@ -49,7 +49,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Date: 27-Jul-2007<br><br>
  */
 public abstract class DoubleValuedMetric extends AbstractOWLMetric<Double> {
-
+    /**
+     * @param owlOntologyManager manager to use
+     */
     public DoubleValuedMetric(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

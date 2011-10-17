@@ -60,7 +60,9 @@ import org.semanticweb.owlapi.util.NamedConjunctChecker;
  */
 public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric {
 
-
+    /**
+     * @param owlOntologyManager manager to use
+     */
     public NumberOfClassesWithMultipleInheritance(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

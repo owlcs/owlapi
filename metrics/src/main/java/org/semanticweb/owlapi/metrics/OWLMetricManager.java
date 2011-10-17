@@ -53,13 +53,17 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OWLMetricManager {
 
-    private List<OWLMetric<?>> metrics;
+    private final List<OWLMetric<?>> metrics;
 
 
+    /**
+     * @param metrics the metrics to use
+     */
     public OWLMetricManager(List<OWLMetric<?>> metrics) {
         this.metrics = new ArrayList<OWLMetric<?>>(metrics);
     }
 
+    /**@param ontology the ontology to measure*/
     public void setOntology(OWLOntology ontology) {
         for (OWLMetric<?> metric : metrics) {
             metric.setOntology(ontology);
@@ -67,6 +71,9 @@ public class OWLMetricManager {
     }
 
 
+    /**
+     * @return the metrics
+     */
     public List<OWLMetric<?>> getMetrics() {
         return new ArrayList<OWLMetric<?>>(metrics);
     }

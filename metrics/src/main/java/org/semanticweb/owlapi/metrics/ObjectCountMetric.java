@@ -53,10 +53,13 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
+ * @param <E> the entity type
  */
 public abstract class ObjectCountMetric<E extends Object> extends IntegerValuedMetric {
 
-
+    /**
+     * @param owlOntologyManager manager to use
+     */
     public ObjectCountMetric(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

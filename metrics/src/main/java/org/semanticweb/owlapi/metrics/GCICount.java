@@ -54,7 +54,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public class GCICount extends AxiomCountMetric {
 
-
+    /**
+     * @param owlOntologyManager manager to use
+     */
     public GCICount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

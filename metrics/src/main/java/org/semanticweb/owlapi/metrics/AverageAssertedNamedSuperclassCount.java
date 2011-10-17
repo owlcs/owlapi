@@ -59,7 +59,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
 
-
+    /**
+     * @param owlOntologyManager manager to use
+     */
     public AverageAssertedNamedSuperclassCount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

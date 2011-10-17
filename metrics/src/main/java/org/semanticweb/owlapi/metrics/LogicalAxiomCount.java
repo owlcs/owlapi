@@ -54,7 +54,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public class LogicalAxiomCount extends AxiomCountMetric {
 
-
+    /**
+     * @param owlOntologyManager manager to use
+     */
     public LogicalAxiomCount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

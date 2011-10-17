@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * <p/>
  * Represents a metric about some aspect of an ontology and possibly its
  * imports closure.
+ * @param <M> the metric type
  */
 public interface OWLMetric<M> {
 

@@ -53,7 +53,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public class ImportClosureSize extends IntegerValuedMetric {
 
-
+    /**
+     * @param owlOntologyManager manager to use
+     */
     public ImportClosureSize(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }
@@ -67,9 +69,11 @@ public class ImportClosureSize extends IntegerValuedMetric {
 
     @Override
 	protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        //for(OWLOntologyChange change : changes) {
-            //XXX is this correct?
-        //}
+        for(OWLOntologyChange change : changes) {
+            if(change.isImportChange()) {
+            	return true;
+            }
+        }
         return false;
     }
 

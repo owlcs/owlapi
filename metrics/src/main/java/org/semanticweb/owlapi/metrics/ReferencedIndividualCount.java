@@ -54,7 +54,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public class ReferencedIndividualCount extends ObjectCountMetric<OWLNamedIndividual> {
 
-
+    /**
+     * @param owlOntologyManager manager to use
+     */
     public ReferencedIndividualCount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

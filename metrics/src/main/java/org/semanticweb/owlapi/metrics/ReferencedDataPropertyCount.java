@@ -54,7 +54,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public class ReferencedDataPropertyCount extends ObjectCountMetric<OWLDataProperty> {
 
-
+    /**
+     * @param owlOntologyManager manager to use
+     */
     public ReferencedDataPropertyCount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

@@ -66,7 +66,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class HiddenGCICount extends IntegerValuedMetric {
 
-
+    /**
+     * @param owlOntologyManager manager to use
+     */
     public HiddenGCICount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

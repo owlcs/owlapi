@@ -54,7 +54,9 @@ import org.semanticweb.owlapi.util.DLExpressivityChecker;
  */
 public class DLExpressivity extends AbstractOWLMetric<String> {
 
-
+    /**
+     * @param owlOntologyManager manager to use
+     */
     public DLExpressivity(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

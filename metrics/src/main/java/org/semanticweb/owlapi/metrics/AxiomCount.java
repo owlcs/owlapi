@@ -54,8 +54,10 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public class AxiomCount extends AxiomCountMetric {
 
-
-    public AxiomCount(OWLOntologyManager owlOntologyManager) {
+    /**
+     * @param owlOntologyManager manager to use
+     */
+	public AxiomCount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }
 

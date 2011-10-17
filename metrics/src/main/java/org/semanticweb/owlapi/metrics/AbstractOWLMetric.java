@@ -55,10 +55,11 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
+ * @param <M> the metric type
  */
 public abstract class AbstractOWLMetric<M> implements OWLMetric<M>, OWLOntologyChangeListener {
 
-    private OWLOntologyManager owlOntologyManager;
+    private final OWLOntologyManager owlOntologyManager;
 
     private OWLOntology ontology;
 
@@ -68,6 +69,9 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>, OWLOntologyC
 
     private M value;
 
+    /**
+     * @param owlOntologyManager the manager to use
+     */
     public AbstractOWLMetric(OWLOntologyManager owlOntologyManager) {
         this.owlOntologyManager = owlOntologyManager;
         owlOntologyManager.addOntologyChangeListener(this);
@@ -98,6 +102,9 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>, OWLOntologyC
     }
 
 
+    /**
+     * @return ontologies as a set
+     */
     public Set<OWLOntology> getOntologies() {
         if (importsClosureUsed) {
             return owlOntologyManager.getImportsClosure(ontology);
