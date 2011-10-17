@@ -50,9 +50,10 @@ import org.semanticweb.owlapi.reasoner.Node;
  * Information Management Group<br>
  * Date: 05-Dec-2009
  */
+@SuppressWarnings("javadoc")
 public class OWLObjectPropertyNodeSet extends DefaultNodeSet<OWLObjectPropertyExpression> {
 
-    public OWLObjectPropertyNodeSet() {
+	public OWLObjectPropertyNodeSet() {
     }
 
     public OWLObjectPropertyNodeSet(OWLObjectPropertyExpression entity) {

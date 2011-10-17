@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.reasoner.Node;
  */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
-    private Set<E> entities = new HashSet<E>(4);
+    private final Set<E> entities = new HashSet<E>(4);
 
     /**
      * @param entity the entity to add
@@ -124,7 +124,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
     }
 
     public E getRepresentativeElement() {
-        if (entities.size() > 0) {
+        if (!entities.isEmpty()) {
             return entities.iterator().next();
         }
         else {

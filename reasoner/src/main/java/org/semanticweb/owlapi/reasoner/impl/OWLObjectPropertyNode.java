@@ -52,6 +52,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * Information Management Group<br>
  * Date: 05-Dec-2009
  */
+@SuppressWarnings("javadoc")
 public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
 
 
@@ -83,11 +84,11 @@ public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpressi
 	protected OWLObjectProperty getBottomEntity() {
         return BOTTOM_OBJECT_PROPERTY;
     }
-    
+
     public static OWLObjectPropertyNode getTopNode() {
         return TOP_NODE;
     }
-    
+
     public static OWLObjectPropertyNode getBottomNode() {
         return BOTTOM_NODE;
     }

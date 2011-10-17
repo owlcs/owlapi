@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
  * Information Management Group<br>
  * Date: 05-Dec-2009
  */
+@SuppressWarnings("javadoc")
 public class OWLNamedIndividualNode extends DefaultNode<OWLNamedIndividual> {
 
     public OWLNamedIndividualNode() {

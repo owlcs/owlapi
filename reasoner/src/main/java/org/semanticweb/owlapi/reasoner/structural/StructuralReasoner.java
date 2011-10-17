@@ -117,27 +117,29 @@ import org.semanticweb.owlapi.util.Version;
  */
 public class StructuralReasoner extends OWLReasonerBase {
 
-    private ClassHierarchyInfo classHierarchyInfo = new ClassHierarchyInfo();
+    private final ClassHierarchyInfo classHierarchyInfo = new ClassHierarchyInfo();
 
-    private ObjectPropertyHierarchyInfo objectPropertyHierarchyInfo = new ObjectPropertyHierarchyInfo();
+    private final ObjectPropertyHierarchyInfo objectPropertyHierarchyInfo = new ObjectPropertyHierarchyInfo();
 
-    private DataPropertyHierarchyInfo dataPropertyHierarchyInfo = new DataPropertyHierarchyInfo();
+    private final DataPropertyHierarchyInfo dataPropertyHierarchyInfo = new DataPropertyHierarchyInfo();
 
 
     private static final Version version = new Version(1, 0, 0, 0);
 
     private boolean interrupted = false;
 
-    protected ReasonerProgressMonitor pm;
+    protected final ReasonerProgressMonitor pm;
 
     private boolean prepared = false;
 
+    /**
+     * @param rootOntology the ontology
+     * @param configuration the reasoner configuration
+     * @param bufferingMode the buffering mode
+     */
     public StructuralReasoner(OWLOntology rootOntology, OWLReasonerConfiguration configuration, BufferingMode bufferingMode) {
         super(rootOntology, configuration, bufferingMode);
-        pm = configuration.getProgressMonitor();
-        if (pm == null) {
-            pm = new NullReasonerProgressMonitor();
-        }
+        pm = configuration.getProgressMonitor()==null?new NullReasonerProgressMonitor():configuration.getProgressMonitor();
         prepareReasoner();
     }
 
@@ -196,18 +198,23 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
     }
 
+    /**
+     * @throws ReasonerInterruptedException on interruption
+     * @throws TimeOutException on timeout
+     */
     public void prepareReasoner() throws ReasonerInterruptedException, TimeOutException {
         classHierarchyInfo.computeHierarchy();
         objectPropertyHierarchyInfo.computeHierarchy();
         dataPropertyHierarchyInfo.computeHierarchy();
         prepared = true;
     }
-
+@SuppressWarnings("unused")
     public void precomputeInferences(InferenceType... inferenceTypes) throws ReasonerInterruptedException, TimeOutException, InconsistentOntologyException {
         prepareReasoner();
     }
 
-    public boolean isPrecomputed(InferenceType inferenceType) {
+    @SuppressWarnings("unused")
+	public boolean isPrecomputed(InferenceType inferenceType) {
         return true;
     }
 
@@ -601,7 +608,9 @@ public class StructuralReasoner extends OWLReasonerBase {
     protected OWLDataFactory getDataFactory() {
         return getRootOntology().getOWLOntologyManager().getOWLDataFactory();
     }
-
+    /**
+     * @param showBottomNode true if bottom node is to be showed
+     */
     public void dumpClassHierarchy(boolean showBottomNode) {
         dumpClassHierarchy(OWLClassNode.getTopNode(), 0, showBottomNode);
     }
@@ -618,6 +627,9 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
     }
 
+    /**
+     * @param showBottomNode true if bottom node is to be showed
+     */
     public void dumpObjectPropertyHierarchy(boolean showBottomNode) {
         dumpObjectPropertyHierarchy(OWLObjectPropertyNode.getTopNode(), 0, showBottomNode);
     }
@@ -634,7 +646,9 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
     }
 
-
+    /**
+     * @param showBottomNode true if bottom node is to be showed
+     */
     public void dumpDataPropertyHierarchy(boolean showBottomNode) {
         dumpDataPropertyHierarchy(OWLDataPropertyNode.getTopNode(), 0, showBottomNode);
     }
@@ -822,7 +836,10 @@ public class StructuralReasoner extends OWLReasonerBase {
         /**
          * Processes the specified signature that represents the signature of potential changes
          * @param signature The signature
+         * @param added added axioms
+         * @param removed removed axioms
          */
+        @SuppressWarnings("unused")
         public void processChanges(Set<T> signature, Set<OWLAxiom> added, Set<OWLAxiom> removed) {
             updateForSignature(signature, null);
         }
@@ -835,6 +852,13 @@ public class StructuralReasoner extends OWLReasonerBase {
          * Applies the tarjan algorithm for a given entity.  This computes the cycle that the entity is involved in (if
          * any).
          * @param entity The entity
+         * @param index index
+         * @param stack stack
+         * @param indexMap index map
+         * @param lowlinkMap low link map
+         * @param result result
+         * @param processed processed
+         * @param stackEntities stack entities
          * @param cache A cache of children to parents - may be <code>null</code> if no caching is to take place.
          * @param childrenOfTop A set of entities that have a raw parent that is the top entity
          * @param parentsOfBottom A set of entities that have a raw parent that is the bottom entity
@@ -965,7 +989,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                 // Special treatment
                 directParents.addAll(directParentsOfBottomNode);
             }
-            
+
             for (Node<T> parentNode : nodeCache.getNodes(directParents)) {
                 ns.addNode(parentNode);
             }
@@ -1094,7 +1118,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private class ClassHierarchyInfo extends HierarchyInfo<OWLClass> {
 
-        private ClassHierarchyInfo() {
+        public ClassHierarchyInfo() {
             super("class", getDataFactory().getOWLThing(), getDataFactory().getOWLNothing(), new RawClassHierarchyProvider());
         }
 
@@ -1122,7 +1146,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private class ObjectPropertyHierarchyInfo extends HierarchyInfo<OWLObjectPropertyExpression> {
 
-        private ObjectPropertyHierarchyInfo() {
+        public ObjectPropertyHierarchyInfo() {
             super("object property", getDataFactory().getOWLTopObjectProperty(), getDataFactory().getOWLBottomObjectProperty(), new RawObjectPropertyHierarchyProvider());
         }
 
@@ -1186,7 +1210,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private class DataPropertyHierarchyInfo extends HierarchyInfo<OWLDataProperty> {
 
-        private DataPropertyHierarchyInfo() {
+        public DataPropertyHierarchyInfo() {
             super("data property", getDataFactory().getOWLTopDataProperty(), getDataFactory().getOWLBottomDataProperty(), new RawDataPropertyHierarchyProvider());
         }
 
@@ -1318,7 +1342,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> super2Sub;
 
-        private RawObjectPropertyHierarchyProvider() {
+        public RawObjectPropertyHierarchyProvider() {
             rebuild();
         }
 

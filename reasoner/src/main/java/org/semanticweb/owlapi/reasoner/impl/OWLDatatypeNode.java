@@ -51,6 +51,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * Information Management Group<br>
  * Date: 05-Dec-2009
  */
+@SuppressWarnings("javadoc")
 public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
 
     private static final OWLDatatype TOP_DATATYPE = OWLDataFactoryImpl.getInstance().getTopDatatype();

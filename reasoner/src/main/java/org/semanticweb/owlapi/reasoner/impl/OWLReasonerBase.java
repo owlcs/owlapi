@@ -67,19 +67,19 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
  */
 public abstract class OWLReasonerBase implements OWLReasoner {
 
-    private OWLOntologyManager manager;
+    private final OWLOntologyManager manager;
 
-    private OWLOntology rootOntology;
+    private final OWLOntology rootOntology;
 
-    private BufferingMode bufferingMode;
+    private final BufferingMode bufferingMode;
 
-    private List<OWLOntologyChange> rawChanges = new ArrayList<OWLOntologyChange>();
+    private final List<OWLOntologyChange> rawChanges = new ArrayList<OWLOntologyChange>();
 
-    private Set<OWLAxiom> reasonerAxioms;
+    private final Set<OWLAxiom> reasonerAxioms;
 
-    private long timeOut;
+    private final long timeOut;
 
-    private OWLReasonerConfiguration configuration;
+    private final OWLReasonerConfiguration configuration;
 
     private OWLOntologyChangeListener ontologyChangeListener = new OWLOntologyChangeListener() {
         public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
@@ -105,6 +105,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         }
     }
 
+    /**
+     * @return the configuration
+     */
     public OWLReasonerConfiguration getReasonerConfiguration() {
         return configuration;
     }
@@ -121,21 +124,29 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         return rootOntology;
     }
 
-    /**
-     * Handles raw ontology changes.  If the reasoner is a buffering reasoner then the changes will be stored
-     * in a buffer.  If the reasoner is a non-buffering reasoner then the changes will be automatically flushed
-     * through to the change filter and passed on to the reasoner.
-     * @param changes The list of raw changes.
-     */
-    private final boolean log=false;
-    private synchronized void handleRawOntologyChanges(List<? extends OWLOntologyChange> changes) {
-    	if(log) {System.out.println(Thread.currentThread().getName()+ " OWLReasonerBase.handleRawOntologyChanges() "+changes);}
-        rawChanges.addAll(changes);
-        // We auto-flush the changes if the reasoner is non-buffering
-        if (bufferingMode.equals(BufferingMode.NON_BUFFERING)) {
-            flush();
-        }
-    }
+	private final boolean log = false;
+
+	/**
+	 * Handles raw ontology changes. If the reasoner is a buffering reasoner
+	 * then the changes will be stored in a buffer. If the reasoner is a
+	 * non-buffering reasoner then the changes will be automatically flushed
+	 * through to the change filter and passed on to the reasoner.
+	 *
+	 * @param changes
+	 *            The list of raw changes.
+	 */
+	private synchronized void handleRawOntologyChanges(
+			List<? extends OWLOntologyChange> changes) {
+		if (log) {
+			System.out.println(Thread.currentThread().getName()
+					+ " OWLReasonerBase.handleRawOntologyChanges() " + changes);
+		}
+		rawChanges.addAll(changes);
+		// We auto-flush the changes if the reasoner is non-buffering
+		if (bufferingMode.equals(BufferingMode.NON_BUFFERING)) {
+			flush();
+		}
+	}
 
     public List<OWLOntologyChange> getPendingChanges() {
         return new ArrayList<OWLOntologyChange>(rawChanges);
@@ -154,9 +165,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     }
 
     /**
-     * Flushes the pending changes from the pending change list.  The changes will be analysed to dermine which
+     * Flushes the pending changes from the pending change list.  The changes will be analysed to determine which
      * axioms have actually been added and removed from the imports closure of the root ontology and then the
-     * reasoner will be asked to handle these changes via the {@link #handleChanges(java.util.Set, java.util.Set)}
+     * reasoner will be asked to handle these changes via the handleChanges(java.util.Set, java.util.Set)
      * method.
      */
     public void flush() {
@@ -234,6 +245,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         return configuration.getIndividualNodeSetPolicy();
     }
 
+    /**
+     * @return the data factory
+     */
     public OWLDataFactory getOWLDataFactory() {
         return rootOntology.getOWLOntologyManager().getOWLDataFactory();
     }

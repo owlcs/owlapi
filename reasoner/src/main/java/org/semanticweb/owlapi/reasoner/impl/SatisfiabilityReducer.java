@@ -88,10 +88,10 @@ import org.semanticweb.owlapi.model.SWRLRule;
  * Information Management Group<br>
  * Date: 01-Aug-2009
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","javadoc"})
 public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpression> {
 
-    private OWLDataFactory df;
+    private final OWLDataFactory df;
 
 
     public SatisfiabilityReducer(OWLDataFactory dataFactory) {

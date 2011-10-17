@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.reasoner.Node;
  * Information Management Group<br>
  * Date: 05-Jan-2010
  */
+@SuppressWarnings("javadoc")
 public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
 
     public OWLDatatypeNodeSet() {
