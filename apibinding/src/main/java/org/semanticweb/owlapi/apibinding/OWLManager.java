@@ -74,7 +74,7 @@ import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
  * Provides a point of convenience for creating an <code>OWLOntologyManager</code>
  * with commonly required features (such as an RDF parser for example).
  */
-public class OWLManager {
+public class OWLManager implements OWLOntologyManagerFactory {
 
     static {
         // Register useful parsers
@@ -89,6 +89,19 @@ public class OWLManager {
 
     }
 
+    public OWLOntologyManager buildOWLOntologyManager() {
+
+    	return createOWLOntologyManager();
+    }
+    public OWLOntologyManager buildOWLOntologyManager(OWLDataFactory f) {
+
+    	return createOWLOntologyManager(f);
+    }
+
+    public OWLDataFactory getFactory() {
+
+    	return getOWLDataFactory();
+    }
 
     /**
      * Creates an OWL ontology manager that is configured with standard parsers,

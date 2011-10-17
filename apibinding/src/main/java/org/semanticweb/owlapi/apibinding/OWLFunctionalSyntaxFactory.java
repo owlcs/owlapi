@@ -141,7 +141,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 @SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxFactory {
 
-    private static OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
+    private static final OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -319,7 +319,7 @@ public class OWLFunctionalSyntaxFactory {
         return dataFactory.getOWLDatatypeRestriction(datatype, facetRestrictions);
     }
 
-    public OWLFacetRestriction FacetRestriction(OWLFacet facet, OWLLiteral facetValue) {
+    public static OWLFacetRestriction FacetRestriction(OWLFacet facet, OWLLiteral facetValue) {
         return dataFactory.getOWLFacetRestriction(facet, facetValue);
     }
 
