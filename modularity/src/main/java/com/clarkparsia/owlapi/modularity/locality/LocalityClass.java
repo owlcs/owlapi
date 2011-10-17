@@ -39,6 +39,7 @@
 
 package com.clarkparsia.owlapi.modularity.locality;
 
+/**Types of locality classes that can be used*/
 public enum LocalityClass {
 
 	/**

@@ -78,21 +78,26 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 
+/**
+ * Semantic locality evaluator
+ */
 public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
 
-    public static final Logger log = Logger.getLogger(SemanticLocalityEvaluator.class.getName());
+    private static final Logger log = Logger.getLogger(SemanticLocalityEvaluator.class.getName());
 
-    protected OWLDataFactory df;
+    protected final OWLDataFactory df;
 
-    private AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
+    private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
 
-    private BottomReplacer bottomReplacer = new BottomReplacer();
+    private final BottomReplacer bottomReplacer = new BottomReplacer();
 
-    private OWLReasoner reasoner;
+    private final OWLReasoner reasoner;
 
 
-    public SemanticLocalityEvaluator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory) {
+    /**@param man ontology manager
+     * @param reasonerFactory reasoner factory*/
+	public SemanticLocalityEvaluator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory) {
         this.df = man.getOWLDataFactory();
         try {
             reasoner = reasonerFactory.createNonBufferingReasoner(man.createOntology());
@@ -221,8 +226,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        public void reset(Set<? extends OWLEntity> signature) {
-            this.signature = signature;
+        public void reset(Set<? extends OWLEntity> s) {
+            this.signature = s;
             this.newAxiom = null;
         }
 

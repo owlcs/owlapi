@@ -39,6 +39,7 @@
 
 package uk.ac.manchester.cs.owlapi.modularity;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -86,7 +87,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         /**
          * Array representing all axioms of the associated ontology.
          */
-        OWLAxiom[] ax;
+    	final OWLAxiom[] ax;
 
 
         /**
@@ -126,7 +127,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
          * @return array containing all axioms in this set
          */
         public OWLAxiom[] getAllAxioms() {
-            return ax;
+            return Arrays.copyOf(ax, ax.length);
         }
 
 
@@ -156,8 +157,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
          */
         public boolean[] getSubset(boolean init) {
             boolean[] subset = new boolean[ax.length];
-            for (int i = 0; i < ax.length; i++)
+            for (int i = 0; i < ax.length; i++) {
                 subset[i] = init;
+            }
             return subset;
         }
 
@@ -211,14 +213,14 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     /**
      * Represents the associated ontology.
      */
-    OntologyAxiomSet ontologyAxiomSet;
+    final OntologyAxiomSet ontologyAxiomSet;
 
-    OWLOntology ontology;
+    final OWLOntology ontology;
 
     /**
      * Represents the manager for the associated ontology.
      */
-    OWLOntologyManager manager;
+    final OWLOntologyManager manager;
 
 
     /**
@@ -465,7 +467,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             for (OWLEntity ent : sig) {
                 System.out.println("  " + minusOntologyURI(ent.toString()));
             }
-            System.out.println();            
+            System.out.println();
         }
     }
 
@@ -580,6 +582,33 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         return extract(sig, superClassLevel, subClassLevel, reasoner, false);
     }
 
+    /**
+     * Extracts a module from the associated ontology for a given signature and the associated module type, and returns the
+     * module as a set of axioms.
+     * The seed signature (set of entities) which determines the module
+     * is the specified signature plus possibly all superclasses and/or subclasses of the classes therein.
+     * Sub-/superclasses are determined using the specified reasoner.
+     * The module will include annotation and declaration axioms for all entities and
+     * axioms in it.
+     *
+     * @param sig the seed signature (set of entities) for the module
+     * @param superClassLevel determines whether superclasses are added to the signature before segment extraction, see below for admissible values
+     * @param subClassLevel determines whether subclasses are added to the signature before segment extraction<br>
+     * Admissible values for superClassLevel (analogously for subClassLevel):
+     * <ul>
+     * <li>If superClassLevel > 0, then all classes C are included for which the class hierarchy computed by the reasoner
+     * contains a path of length at most superClassLevel downwards from C to some class from the signature.
+     * </li>
+     * <li>If superClassLevel = 0, then no super-/subclasses are added.
+     * </li>
+     * <li>If superClassLevel < 0, then all direct and indirect super-/subclasses of any class in the signature
+     * are added.
+     * </li>
+     * </ul>
+     * @param reasoner the reasoner to determine super-/subclasses. This can be an arbitrary reasoner, including a ToldClassHierarchyReasoner. It must have loaded the ontology.
+     * @param verbose true if verbose output is required
+     * @return the module
+     */
     public Set<OWLAxiom> extract(Set<OWLEntity> sig, int superClassLevel, int subClassLevel, OWLReasoner reasoner, boolean verbose) {
         Set<OWLEntity> enrichedSig = enrichSignature(sig, superClassLevel, subClassLevel, reasoner);
         switch (moduleType) {

@@ -113,14 +113,18 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
+/**
+ * Syntactic locality evaluator
+ *
+ */
 @SuppressWarnings("unused")
 public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
-	protected LocalityClass localityCls;
+	protected final LocalityClass localityCls;
 
-    private AxiomLocalityVisitor axiomVisitor;
+    private final AxiomLocalityVisitor axiomVisitor;
 
-    private static EnumSet<LocalityClass> supportedLocalityClasses = EnumSet.of(LocalityClass.TOP_BOTTOM, LocalityClass.BOTTOM_BOTTOM, LocalityClass.TOP_TOP);
+    private static final EnumSet<LocalityClass> supportedLocalityClasses = EnumSet.of(LocalityClass.TOP_BOTTOM, LocalityClass.BOTTOM_BOTTOM, LocalityClass.TOP_TOP);
 
     /**
      * Constructs a new locality evaluator for the given locality class.
@@ -181,13 +185,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
     private class AxiomLocalityVisitor implements OWLAxiomVisitor {
 
-        private BottomEquivalenceEvaluator bottomEvaluator;
+        private final BottomEquivalenceEvaluator bottomEvaluator;
 
         private boolean isLocal;
 
         private Collection<? extends OWLEntity> signature;
 
-        private TopEquivalenceEvaluator topEvaluator;
+        private final TopEquivalenceEvaluator topEvaluator;
 
 
         public AxiomLocalityVisitor() {
@@ -1161,7 +1165,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // BUGFIX: (TS) A data min card restriction is top-equiv iff the cardinality is 0.
         // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
         // BUGFIX: (TS, 2) Left out redundant check cardinality > 0 in TOP_TOP case
-        // BUGFIX: (TS, 3) Extended the cases where the filler is top-equiv in TOP_TOP        
+        // BUGFIX: (TS, 3) Extended the cases where the filler is top-equiv in TOP_TOP
 
         public void visit(OWLDataMinCardinality desc) {
             switch (localityCls) {
@@ -1177,7 +1181,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
-        // BUGFIX: (TS, 3) Extended the cases where the filler is top-equiv        
+        // BUGFIX: (TS, 3) Extended the cases where the filler is top-equiv
 
         public void visit(OWLDataSomeValuesFrom desc) {
             switch (localityCls) {
@@ -1267,7 +1271,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        // BUGFIX: (TS) Added the case n==0; repaired TOP_TOP condition 
+        // BUGFIX: (TS) Added the case n==0; repaired TOP_TOP condition
         // BUGFIX: (TS, 2) Left out redundant check cardinality > 0 in TOP_TOP case
 
         public void visit(OWLObjectMinCardinality desc) {
