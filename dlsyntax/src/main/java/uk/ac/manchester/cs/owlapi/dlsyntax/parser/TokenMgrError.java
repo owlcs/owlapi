@@ -42,7 +42,7 @@
 package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
 
 /** Token Manager Error. */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","javadoc"})
 public class TokenMgrError extends Error
 {
 

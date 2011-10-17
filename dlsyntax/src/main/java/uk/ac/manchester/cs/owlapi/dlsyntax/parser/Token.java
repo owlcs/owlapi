@@ -44,7 +44,7 @@ package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
 /**
  * Describes the input token stream.
  */
-
+@SuppressWarnings("javadoc")
 public class Token implements java.io.Serializable {
 
   /**

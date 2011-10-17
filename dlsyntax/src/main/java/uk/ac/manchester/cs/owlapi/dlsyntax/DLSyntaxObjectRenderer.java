@@ -63,6 +63,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * <p/>
  * Renders objects in unicode DL syntax
  */
+@SuppressWarnings("javadoc")
 public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisitor {
 
     private ShortFormProvider shortFormProvider;
@@ -559,7 +560,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(restriction.getFiller());
 //        }
     }
-    
+
     private void writeCardinalityRestriction(OWLObjectCardinalityRestriction restriction, DLSyntax keyword) {
         write(keyword);
         writeSpace();
@@ -587,7 +588,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeRestrictionSeparator();
         writeNested(restriction.getFiller());
     }
-    
+
     public void visit(OWLObjectSomeValuesFrom desc) {
         writeQuantifiedRestriction(desc, EXISTS);
 
